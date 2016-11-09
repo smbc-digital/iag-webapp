@@ -1,0 +1,7 @@
+﻿@using System.ComponentModel
+@model StockportWebapp.ViewModels.ArticleViewModel
+
+<article>
+    <h2 id="@Model.DisplayedSection.Slug">@Model.DisplayedSection.Title</h2>
+    @Html.Raw(@Model.DisplayedSection.Body)
+</article>

@@ -1,0 +1,37 @@
+﻿.introduction {
+    
+    h1, h3, p {
+        color: #fff;
+        margin:0;
+        text-align:center;
+        @media #{$desktop} {
+           text-align:left;
+        }
+    }
+   
+    p {
+        padding: 30px 0 0 0;
+        @media #{$desktop} {
+           width: 80%;
+           padding: 30px 0;
+        }
+    }
+}
+
+.feature {
+  >h2 { 
+      text-align:center;
+      margin-bottom:5px;
+  }
+
+  >hr {
+      width: 15%;
+      margin: 0px auto 10px auto;
+      border-color: $easternBlue;
+      border-width: 2px;
+  }
+
+  .feature-tagline {
+       text-align:center;
+  }
+}

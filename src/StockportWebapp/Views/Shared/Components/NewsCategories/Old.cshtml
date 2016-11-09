@@ -1,0 +1,37 @@
+﻿@model StockportWebapp.Models.Newsroom
+
+<div class="grid-container grid-parent">
+    @{
+        if (Model.Alerts != null)
+        {
+            foreach (var alert in Model.Alerts)
+            {
+                @Html.Partial("DisplayTemplates/Alert", alert)
+            }
+        }
+    }
+    <ul class="nav-card-news-list">
+        @foreach (var subItem in Model.News)
+            {
+            <li class="nav-card-news mobile-grid-100 tablet-grid-50 grid-33">
+                <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})" class="nav-card-news-item">
+                    @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
+                    {
+                        <div style="background-image: url(@subItem.ThumbnailImage)" class="nav-card-news-thumbnail"></div>
+                    }
+                    <div class="nav-card-news-details">
+                        <h3 class="nav-card-news-title">@subItem.Title</h3>
+                        <p class="news-date">
+                            <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                        </p>
+
+                        @if (string.IsNullOrEmpty(subItem.ThumbnailImage))
+                        {
+                            <p class="nav-card-news-teaser">@subItem.Teaser</p>
+                        }
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+</div>

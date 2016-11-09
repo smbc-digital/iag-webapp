@@ -1,0 +1,20 @@
+{
+  "slug": "healthy-living",
+  "name": "Healthy Living",
+  "summary": "Summary content",
+  "backgroundImage": "image.jpg",
+  "icon": "fa-futbol-o",
+  "subItems": [],
+  "secondaryItems": [],
+  "tertiaryItems": [
+    {
+      "Slug": "slug",
+      "Title": "Titme",
+      "Teaser": "Teaser content",
+      "Icon": null
+    }
+  ],
+  "Breadcrumbs": [],
+  "emailAlerts": true,
+  "emailAlertsTopicId": "test-id"
+}

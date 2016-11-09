@@ -1,0 +1,10 @@
+﻿---
+prod: &default
+  SearchBar: true
+  AToZ: false
+  OverriddenFeature: false
+
+preprod:
+  << : *default
+  OverriddenFeature: true
+  - This is not expected

@@ -1,0 +1,198 @@
+﻿.subitems {
+    margin-top: -15px;
+
+    @media #{$mobile, $tablet} {
+        margin: 45px 0 -30px;
+    }
+}
+
+.subitems-secondary {
+    list-style-type: none;
+    text-align: center;
+
+    @media #{$mobile, $tablet} {
+        margin-top: 18px;
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                color: $greyDarkest;
+            }
+        }
+    }
+
+    @media #{$desktop} {
+        margin-top: 30px;
+    }
+
+    li {
+        margin-left: 0;
+
+        @media #{$desktop} {
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+        }
+
+        @media #{$mobile,$tablet} {
+            padding: 0;
+        }
+    }
+}
+
+.subitem-secondary {
+    @media #{$mobile,$tablet} {
+        display: block;
+        transition: all .5s;
+        transition-property: opacity,box-shadow;
+
+        &:hover {
+            box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+        }
+    }
+
+    @media #{$desktop} {
+        display: table;
+        margin-bottom: 20px;
+        height: 72px;
+        width: 100%;
+    }
+}
+
+
+.subitem-secondary-title {
+    @media #{$mobile,$tablet} {
+        color: $greyDarkest;
+        text-align: left;
+        font-family: 'Source Sans Pro';
+        font-size: 1.125em;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 20px;
+        border-bottom: 1px solid rgba(0,0,0,.1);
+        padding: 15px;
+    }
+
+    @media #{$desktop} {
+        display: table-cell;
+        vertical-align: middle;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 3px;
+        color: $colorPrimaryLight;
+        text-decoration: underline;
+        padding: 15px;
+        line-height: 20px;
+        transition: all 0.5s;
+        transition-property: opacity,box-shadow;       
+
+        &:hover {
+            cursor: pointer;
+            -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
+            box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
+        }
+    }
+
+    &:before {
+        content: "\f105";
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: right;
+        float: right;
+        margin-top: 2px;
+        /*padding-left: 10px;*/
+        color: $greyDarkest;
+        vertical-align:center;
+    }
+}
+
+
+.subitems-tertiary {
+    display: inline-block;
+    list-style-type: none;
+    padding-top: 1.8em;
+    padding-bottom: 1.8em;
+    margin-top:45px;
+    width: 100%;
+    background-color:#fff;
+    border-radius:5px;
+
+    @media #{$desktop} {       
+        margin-top:30px;
+        }
+
+    li {
+        margin-left: 0;
+
+        @media #{$desktop}
+        {
+            &:nth-child(even) > .subitem-tertiary {
+                margin-left: 0%;
+                margin-right: 10%;
+            }
+
+            &:nth-child(odd) > .subitem-tertiary {
+                margin-left: 10%;
+                margin-right: 10%;           
+            }
+
+            &:nth-child(n+3) > .subitem-tertiary {
+            border-top: 1px $greyLight solid;
+            }
+        }
+
+        
+    }
+
+
+}
+
+.subitem-tertiary {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 5px;
+    display: block;
+
+    @media #{$desktop} {
+        
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
+        margin-left: 18%;
+        margin-right: 18%;
+
+        
+    }
+
+       
+
+    &:before {
+        @media #{$desktop} {
+            content: "\f105";
+            text-align: right;
+            float: right;
+            font: bold normal normal 20px/1 FontAwesome;
+            margin-top: 7px;
+        }
+    }
+
+    a {
+        text-decoration: none;
+
+        @media #{$mobile,$tablet} {
+            text-align: left;
+            border: none;
+            text-decoration: underline;
+            line-height: 35px;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+}

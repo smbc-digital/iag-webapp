@@ -1,0 +1,59 @@
+﻿@model StockportWebapp.Models.Topic
+@for (var i = 0; i < Model.SubItems.Count(); i += 3)
+{
+    <ul class="nav-card-list" id="test-topic-page-subitem-list">
+        @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
+        {
+            <li class="nav-card grid-33">
+                <a href="@subItem.NavigationLink" class="nav-card-item">
+                    <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
+                    <p class="hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
+                </a>
+            </li>
+        }
+    </ul>
+}
+
+@if (Model.SecondaryItems.Any())
+{
+    <div class="subitems grid-100" id="test-topic-page-secondary-topics-list">
+        @for (var i = 0; i < Model.SecondaryItems.Count(); i += 4)
+        {
+            <ul class="subitems-secondary">
+                @foreach (var subItem in Model.SecondaryItems.Skip(i).Take(4))
+                {
+                    <li class="grid-25">
+                        <a href="@subItem.NavigationLink">
+                            <div class="subitem-secondary">
+                                <div class="subitem-secondary-title" id="test-secondary-topic-title" >@subItem.Title</div>
+                            </div>
+                        </a>
+                    </li>
+                }
+                @for (var j = 0; j < Model.SecondaryItems.Skip(i).Take(4).Count() % 4; j++)
+                {
+                    <li class="suffix-25">
+                    </li>
+                }
+</ul>
+        }
+    </div>
+}
+
+@if (Model.TertiaryItems.Any())
+{
+    <div id="test-topic-page-tertiary-topics-list" class="subitems grid-100">
+        <ul class="subitems-tertiary">
+            @foreach (var subItem in Model.TertiaryItems)
+            {
+                <li class="grid-50">
+                    <div class="subitem-tertiary">
+                        <a href="@subItem.NavigationLink">
+                            <div id="test-tertiary-topic-title">@subItem.Title</div>
+                        </a>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+}

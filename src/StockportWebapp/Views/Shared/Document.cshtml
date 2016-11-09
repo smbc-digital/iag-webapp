@@ -1,0 +1,29 @@
+﻿@using System.Runtime.InteropServices.ComTypes
+@model StockportWebapp.Models.Document
+<div class="document grid-100 grid-100-mobile test-documents">
+    <div class="document-icon">
+        <a href="@Model.Url" target="_blank">
+            <i class="si-documents si-default"></i>
+        </a>
+    </div>
+    <div class="grid-90 tablet-grid-90 mobile-grid-80 document-detail">
+        <div class="document-detail-title">
+            <a href="@Model.Url" target="_blank" class="test-document-detail"> @Model.Title</a>
+        </div>
+        @{
+            var Megabytes = Model.Size/(1048576.0);
+            var Kilobytes = (Model.Size%1048576)/1024;
+        }
+        <p>
+            @if (Megabytes >= 1.0)
+            {
+                @:PDF, @Megabytes.ToString("#.##") MB
+            }
+            else
+            {
+                @:PDF, @Kilobytes.ToString("#.##") KB
+            }
+        </p>
+        <p class="text-small assistive-disclaimer">This file may not be suitable for users of assistive technology.</p>
+    </div>
+</div>

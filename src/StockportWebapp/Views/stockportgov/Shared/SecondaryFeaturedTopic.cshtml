@@ -1,0 +1,24 @@
+﻿@model IEnumerable<StockportWebapp.Models.Topic>
+@{
+    foreach (var topic in Model)
+    {
+    <div class="grid-20 tablet-grid-20 mobile-grid-25 featured-topic">
+        <div class="featured-topic-content">
+            <a href="@topic.NavigationLink">
+                <div class="featured-topic-icon">
+                    <i class="@topic.Icon si-default"></i>
+                </div>
+                <div class="featured-topic-name">@topic.Name</div>
+            </a>
+            <p class="hide-on-mobile hide-on-tablet featured-topic-description">
+                Including
+                @foreach (var subItem in topic.SubItems.Take(2))
+                {
+                    <br />
+                    <a href="@subItem.NavigationLink">@subItem.Title</a>
+                }
+            </p>
+        </div>
+    </div>
+    }
+}

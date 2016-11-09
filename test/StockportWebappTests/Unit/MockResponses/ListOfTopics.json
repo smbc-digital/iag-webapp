@@ -1,0 +1,34 @@
+﻿[
+    {
+        "slug": "alcohol-and-drug-advice",
+        "name": "Alcohol and Drug Advice",
+        "teaser": "blank teaser",
+        "summary": "First topic summary is here",
+        "icon": "fa-heartbeat",
+        "backgroundImage": "image.jpg"
+    },
+  {
+    "slug": "test-topic",
+    "name": "Test topic",
+    "teaser": "blank teaser",
+    "summary": "Summary",
+    "icon": "fa-heartbeat",
+    "backgroundImage": null
+  },
+    {
+        "slug": "healthy-living",
+        "name": "Healthy Living",
+        "teaser": "blank teaser",
+        "summary": "",
+        "icon": "fa-heartbeat",
+        "backgroundImage": null
+    },
+    {
+        "slug": "30-qa-content-ordering-on-article-page",
+        "name": "30 QA Content Ordering on Article Page",
+        "teaser": "blank teaser",
+        "summary": "This is a test for story 30",
+        "icon": "fa-heartbeat",
+        "backgroundImage": null
+    }
+]

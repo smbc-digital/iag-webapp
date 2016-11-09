@@ -1,0 +1,17 @@
+{
+  "name": "StockportWebapp",
+  "version": "0.0.0",
+  "devDependencies": {
+    "gulp": "3.8.11",
+    "gulp-sass": "*",
+    "gulp-concat": "2.5.2",
+    "gulp-cssmin": "0.1.7",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "1.2.0",
+    "rimraf": "2.2.8",
+    "request": "2.74.0",
+    "vinyl-source-stream": "1.1.0",
+    "colors": "1.1.2",
+    "fs": "0.0.2"
+  }
+}

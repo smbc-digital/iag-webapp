@@ -1,0 +1,48 @@
+﻿@model IEnumerable<StockportWebapp.Models.Topic>
+
+    @{
+        <div class="featured-topic-list">
+            <div class="hide-on-mobile">
+                @Html.Partial("SecondaryFeaturedTopic", Model.Take(5))
+            </div>
+            <div class="hide-on-desktop hide-on-tablet">
+                @Html.Partial("SecondaryFeaturedTopic", Model.Take(4))
+            </div>
+         </div>
+         <div id="more-topics">
+             <div class="hide-on-mobile">
+                 @for (var count = 5; count < Model.Count(); count += 5)
+                 {
+                     <div class="featured-topic-list">
+                         @Html.Partial("SecondaryFeaturedTopic", Model.Skip(count).Take(5))
+                     </div>
+                 }
+              </div>
+             <div class="hide-on-desktop  hide-on-tablet">
+                 @for (var count = 4; count < Model.Count(); count += 4)
+                 {
+                     <div class="featured-topic-list">
+                         @Html.Partial("SecondaryFeaturedTopic", Model.Skip(count).Take(4))
+                     </div>
+                 }
+             </div>
+         </div>
+        <div class="hide-on-mobile">
+            @if (Model.Count() > 5)
+            {
+                <div class="featured-content-button-wrapper">
+                    <a id="see-more-services" class="button button-outline button-partialrounded button-featured-content-more button-see-more-services">See more services</a>
+                </div>
+            }
+        </div>
+        <div class="hide-on-desktop hide-on-tablet">
+            @if (Model.Count() > 4)
+            {
+                <div class="featured-content-button-wrapper">
+                    <a id="see-more-services-mobile" class="button button-outline button-partialrounded button-featured-content-more button-see-more-services">See more services</a>
+                </div>
+            }
+        </div>
+    }
+
+

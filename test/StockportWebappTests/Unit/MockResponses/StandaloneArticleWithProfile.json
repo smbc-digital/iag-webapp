@@ -1,0 +1,32 @@
+{
+  "body": "Being active is great for your body, mind and overall health. {{PROFILE:test-profile}} ",
+  "slug": "about",
+  "title": "About",
+  "icon": "fa-icon",
+  "backgroundimage": "image.jpg",
+  "sections": [],
+  "Breadcrumbs": [
+    {
+      "Title": "Test topic",
+      "Slug": "test-topic",
+      "type": "topic"
+    }
+  ],
+  "alerts": [],
+  "documents": [],
+  "profiles": [
+    {
+      "type": "Success Story",
+      "title": "Test Profile",
+      "slug": "test-profile",
+      "subtitle": "This is a test profile",
+      "teaser": "This is a profile teaser",
+      "image": "image.jpg",
+      "body": null,
+      "icon": null,
+      "backgroundImage": null,
+      "breadcrumbs": null
+    }
+  ],
+  "parentTopic": {}
+}

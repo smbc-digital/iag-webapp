@@ -1,0 +1,49 @@
+{
+  "src_folders" : ["test/StockportWebappTests/UI/specs/"],
+  "output_folder" : "test/StockportWebappTests/UI/reports",
+  "custom_commands_path" : "",
+  "custom_assertions_path" : "",
+  "page_objects_path" : "test/StockportWebappTests/UI/page_objects",
+  "globals_path" : "test/StockportWebappTests/UI/global.js",
+
+  "selenium" : {
+    "start_process" : true,
+    "start_session": true,
+    "server_path" : "test/StockportWebappTests/UI/selenium-server-standalone-2.53.0.jar",
+    "log_path" : false,
+    "host" : "127.0.0.1",
+    "port" : 4448,
+    "cli_args" : {
+      "webdriver.chrome.driver" : "",
+      "webdriver.ie.driver" : ""
+    }
+  },
+
+  "test_settings" : {
+    "default" : {
+      "launch_url" : "http://127.0.0.1",
+      "selenium_port"  : 4448,
+      "selenium_host"  : "localhost",
+      "silent": true,
+      "screenshots" : {
+        "enabled" : true,
+        "on_failure" : true,
+        "on_error" : true,
+        "path" : "test/StockportWebappTests/UI/screenshots"
+      },
+      "desiredCapabilities": {
+        "browserName": "phantomjs",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true,
+        "phantomjs.binary.path" : "test/StockportWebappTests/UI/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs.exe",
+        "phantomjs.cli.args" : ["--webdriver=8081"]
+      }
+    },
+
+    "linux" : {
+      "desiredCapabilities": {
+      	"phantomjs.binary.path": "test/StockportWebappTests/UI/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs"
+      }
+    }
+  }
+}

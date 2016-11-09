@@ -1,0 +1,30 @@
+﻿@model IEnumerable<StockportWebapp.Models.Topic>
+
+<div class="featured-topics featured-topics-primary">
+    <div id="test-featured-topic-list" class="featured-topic-list">
+        @foreach (var topic in Model)
+        {
+            <div class="grid-25 tablet-grid-25 mobile-grid-25 featured-topic">
+                
+                    <div class="featured-topic-content">
+                        <a class="arrow featured-topic-arrow arrow-hidden" data-child="featured-topic-children-@topic.Slug" href="@topic.NavigationLink">
+                            <div class="featured-topic-icon">
+                                <i class="@topic.Icon si-default"></i>
+                            </div>
+                        
+                            <h4 class="featured-topic-name">@topic.Name</h4>
+                        </a>
+                            <p class="hide-on-mobile hide-on-tablet featured-topic-description">
+                                Including
+                                @foreach (var subItem in topic.SubItems.Take(2))
+                                {
+                                    <br /><a href="@subItem.NavigationLink">@subItem.Title</a>
+                                }
+                            </p>
+</div>
+               
+            </div>
+        }
+    </div>
+</div>
+@Html.Partial("FeaturedTopicSubItems", Model)

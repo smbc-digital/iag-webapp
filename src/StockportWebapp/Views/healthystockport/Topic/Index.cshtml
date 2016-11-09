@@ -1,0 +1,36 @@
+@model StockportWebapp.Models.TopicViewModel
+@{
+    var topic = Model.Topic;
+    ViewData["Title"] = topic.Name;
+    Layout = "../Shared/_Layout.cshtml";
+    ViewData["Description"] = topic.Teaser;
+}
+
+@section BackgroundImage {
+    @{ 
+        if (!string.IsNullOrEmpty(topic.BackgroundImage))
+        {
+            @:style = "background-image:url('@topic.BackgroundImage')"
+        }
+    }
+}
+
+@Html.Partial("DisplayTemplates/Gutter", topic.Icon)
+<section class="grid-90 mobile-grid-100">
+    @Html.Partial("DisplayTemplates/Breadcrumb", topic.Breadcrumbs)
+    <div class="grid-70 l-content-container">
+        @{
+            if (topic.Alerts != null)
+            {
+                foreach (var alert in topic.Alerts)
+                {
+                    @Html.Partial("DisplayTemplates/Alert", alert)
+                }
+            }
+        }
+        <h1>@topic.Name</h1>
+        @Html.Raw(topic.Summary)
+        @Html.Partial("DisplayTemplates/SubItem-List", topic)
+    </div>
+    @Html.Partial("DisplayTemplates/Aside")
+</section>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/Favicon.png" />
+    <title>@ViewData["Title"] - Healthy Stockport</title>
+    @if (ViewData["Description"] != null)
+    {
+        <meta name="Description" content="@ViewData["Description"]" />
+    }
+    <!--[if (gt IE 8) | (IEMobile)]><!-->
+    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
+    <!--<![endif]-->
+    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-hs.min.css" />
+    <link rel="stylesheet" href="~/assets/stylesheets/site-hs.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <!--[if (lt IE 9) & (!IEMobile)]>
+        <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
+    <![endif]-->
+    @await Component.InvokeAsync("GoogleAnalytics")
+    @Html.Partial("CookieBanner")
+</head>
+<body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+    @Html.Partial("Header")
+    <div class="l-background-fixed background-image hide-on-mobile" @RenderSection("BackgroundImage", false)></div>
+    <main class="grid-container">
+        <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
+            <div class="l-body-section-filled grid-100">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+    @Html.Partial("Footer")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="/assets/javascript/healthystockport.min.js"></script>
+</body>
+</html>

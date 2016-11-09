@@ -1,0 +1,23 @@
+﻿{
+  "Type": "Success Story",
+  "Title": "Test Profile",
+  "Slug": "test-profile",
+  "Subtitle": "Test sub title",
+  "Teaser": "teaser",
+  "Image": "image",
+  "Body": "Test body",
+  "Icon": "fa-icon",
+  "BackgroundImage": "background-image",
+   "Breadcrumbs": [
+    {
+      "Title": "Test sub topic 1",
+      "Slug": "test-sub-topic-1",
+      "type": "topic" 
+    },
+    {
+      "Title": "Test Video",
+      "Slug": "test-video",
+      "type":  "article" 
+    }
+  ]
+}

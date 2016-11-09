@@ -1,0 +1,79 @@
+﻿{
+  "Alerts": [
+    {
+      "title": "New alert",
+      "subHeading": "alert sub heading updated",
+      "body": "Alert body",
+      "severity": "Error",
+      "sunriseDate": "2016-06-30T23:00:00+00:00",
+      "sunsetDate": "2017-11-22T23:00:00+00:00"
+    },
+    {
+      "title": "This is an Information warning ",
+      "subHeading": "This is the sub heading for this alert",
+      "body": "Don't be alarmed. This is simply for information. ",
+      "severity": "Information",
+      "sunriseDate": "2016-10-17T23:00:00+00:00",
+      "sunsetDate": "2016-10-26T23:00:00+00:00"
+    }
+  ],
+  "EmailAlerts": true,
+  "EmailAlertsTopicId": "test-id",  
+  "News": [
+    {
+      "title": "News 26th Aug",
+      "slug": "news-26th-aug",
+      "teaser": "test",
+      "image": "",
+      "thumbnailImage": "",
+      "body": "test",
+      "sunriseDate": "2016-08-25T23:00:00+00:00",
+      "sunsetDate": "2016-08-30T23:00:00+00:00",
+      "breadcrumbs": [
+        {
+          "title": "News",
+          "slug": "",
+          "type": "news",
+          "link": {
+            "href": "/news/",
+            "rel": ""
+          }
+        }
+      ],
+      "alerts": [
+        {
+          "title": "New alert",
+          "subHeading": "alert sub heading updated",
+          "body": "Alert body",
+          "severity": "Error",
+          "sunriseDate": "2016-06-30T23:00:00+00:00",
+          "sunsetDate": "2017-11-22T23:00:00+00:00"
+        }
+      ],
+      "tags": [ "Tag1", "Tag2" ]
+    },
+    {
+      "title": "Another news article",
+      "slug": "another-news-article",
+      "teaser": "This is another news article",
+      "image": "image.jpg",
+      "thumbnailImage": "thumbnail.jpg",
+      "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
+      "sunriseDate": "2016-07-31T23:00:00+00:00",
+      "sunsetDate": "2017-01-30T23:00:00+00:00",
+      "breadcrumbs": [
+        {
+          "title": "News",
+          "slug": "",
+          "type": "news",
+          "link": {
+            "href": "/news/",
+            "rel": ""
+          }
+        }
+      ],
+      "alerts": [],
+      "tags": [ "Tag1", "Tag2" ]
+    }
+  ]
+}

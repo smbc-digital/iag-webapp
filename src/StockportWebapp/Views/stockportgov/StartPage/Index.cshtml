@@ -1,0 +1,34 @@
+﻿@model StockportWebapp.Models.StartPage
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.Summary;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled grid-100">
+            <section class="grid-100 mobile-grid-100">
+                <div class="l-content-container l-article-container">
+                    @{
+                        if (Model.Alerts != null)
+                        {
+                            foreach (var alert in Model.Alerts)
+                            {
+                                @Html.Partial("DisplayTemplates/Alert", alert)
+                            }
+                        }
+                    }
+                    <h1>@Model.Title</h1>
+                    <p class="subtitle">@Model.Summary</p>
+                    @Html.Raw(Model.UpperBody)
+                    <a class="button button-outline button-partialrounded button-call-to-action" href="@Model.FormLink">@Model.FormLinkLabel</a>
+                    @Html.Raw(Model.LowerBody)
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

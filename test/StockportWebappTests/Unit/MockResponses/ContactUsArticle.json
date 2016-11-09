@@ -1,0 +1,24 @@
+﻿{
+  "body": "Body content.\n\n{{CONTACT-US:fake.email@email.com}}",
+  "slug": "contact-us",
+  "title": "Contact Us",
+  "teaser": "This is a contact us page",
+  "icon": "",
+  "backgroundImage": "",
+  "sections": [],
+  "breadcrumbs": [],
+  "alerts": [],
+  "parentTopic": {
+    "slug": "",
+    "name": "",
+    "teaser": "",
+    "summary": "",
+    "icon": "",
+    "backgroundImage": "",
+    "subItems": [],
+    "secondaryItems": [],
+    "tertiaryItems": [],
+    "breadcrumbs": [],
+    "alerts": []
+  }
+}

@@ -1,0 +1,27 @@
+﻿{
+  "title": "Another news article",
+  "slug": "another-news-article",
+  "teaser": "This is another news article",
+  "image": "image.jpg",
+  "thumbnailImage": "thumbnail.jpg",
+  "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+  "sunriseDate": "2016-07-31T23:00:00+00:00",
+  "sunsetDate": "2017-01-30T23:00:00+00:00",
+  "breadcrumbs": [
+    {
+      "title": "News",
+      "slug": "",
+      "type": "news"
+    }
+  ],
+  "alerts": [
+    {
+      "title": "New alert",
+      "subHeading": "alert sub heading updated",
+      "body": "Alert body",
+      "severity": "Error",
+      "sunriseDate": "2016-06-30T23:00:00+00:00",
+      "sunsetDate": "2017-11-22T23:00:00+00:00"
+    }
+  ]
+}

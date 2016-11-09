@@ -1,0 +1,41 @@
+﻿@using System.Threading.Tasks
+@using StockportWebapp.Models
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/favicon-sg.png" />
+    <title>@ViewData["Title"] - Stockport Council</title>
+
+    <!--[if (gt IE 8) | (IEMobile)]><!-->
+    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
+    <!--<![endif]-->
+    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" />
+    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <!--[if (lt IE 9) & (!IEMobile)]>
+        <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
+    <![endif]-->
+    @await Component.InvokeAsync("GoogleAnalytics")
+    @Html.Partial("CookieBanner")
+</head>
+<body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+    @Html.Partial("Header")
+    @RenderSection("Breadcrumbs", false)
+    <main class="grid-container-full-width">
+        <div class="grid-container grid-parent">
+            <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+    <div class="l-fixed-footer">
+        @Html.Partial("Footer")
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="/assets/javascript/vendor/matchbox.js"></script>
+    <script src="/assets/javascript/stockportgov.min.js"></script>
+</body>
+</html>

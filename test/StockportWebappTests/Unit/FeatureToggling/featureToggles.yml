@@ -1,0 +1,14 @@
+﻿---
+prod: &default
+  SearchBar: true
+  AToZ: false
+  OverriddenFeature: false
+
+someenv: &someenv
+  << : *default
+  OverriddenFeature: true
+  ShouldBeIgnored: true
+
+preprod:
+  << : *default
+  << : *someenv

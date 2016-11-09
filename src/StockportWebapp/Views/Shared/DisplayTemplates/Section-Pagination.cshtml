@@ -1,0 +1,32 @@
+﻿@model StockportWebapp.ViewModels.ArticleViewModel
+
+<div class="article-pagination grid-100">
+    <div class="pagination-previous grid-50 tablet-grid-50">
+        @if (Model.ShouldShowPreviousSectionButton())
+        {
+            <a href="@Model.Article.NavigationLink/@Model.PreviousSection().Slug">
+                <div class="article-chevron l-left-align">
+                    <i class="fa fa-angle-left fa-3x"></i>
+                </div>
+                <div>
+                    <h4>Previous Page</h4>
+                    <p>@Model.PreviousSection().Title</p>
+                </div>
+            </a>
+        }
+    </div>
+    <div @if (Model.ShouldShowPreviousSectionButton()) { <text> class="pagination-next grid-50 tablet-grid-50" </text> } else { <text> class="pagination-next grid-50 tablet-grid-50 push-50 tablet-push-50" </text> }>
+        @if (Model.ShouldShowNextSectionButton())
+        {
+            <a href="@Model.Article.NavigationLink/@Model.NextSection().Slug">
+                <div>
+                    <h4>Next Page</h4>
+                    <p>@Model.NextSection().Title</p>
+                </div>
+                <div class="article-chevron l-right-align">
+                    <i class="fa fa-angle-right fa-3x"></i>
+                </div>
+            </a>
+        }
+    </div>
+</div>

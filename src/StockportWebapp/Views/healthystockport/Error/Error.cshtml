@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "../Shared/_LayoutError.cshtml";
+}
+
+<div class="l-background-fixed background-image hide-on-mobile" style="background-image: url('/assets/images/content/home-painter.jpg')">
+    <div class="l-dark-overlay"></div>
+</div>
+<main class="grid-container" id="error-grid-container">
+    <div class="l-container-square l-body-container l-body-container-pushed l-body-container-mobile">
+        <div class="error-page">
+            <h1>@ViewData["ErrorHeading"]</h1>
+            <p class="error-page-message">@ViewData["ErrorMessage"]</p>
+            <p><a href="/">Go back to the home page.</a></p>
+        </div>
+    </div>
+</main>

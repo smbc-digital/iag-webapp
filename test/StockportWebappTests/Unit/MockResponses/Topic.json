@@ -1,0 +1,24 @@
+{
+  "slug": "healthy-living",
+  "name": "Healthy Living",
+  "summary": "Summary content",
+  "backgroundImage": "image.jpg",
+  "icon": "fa-futbol-o",
+  "subItems": [],
+  "secondaryItems": [],
+  "tertiaryItems": [],
+  "Breadcrumbs": [
+    {
+      "Title": "Healthy Living",
+      "Slug": "healthy-living",
+      "type": "topic"
+    },
+    {
+      "Title": "Healthy Living 2",
+      "Slug": "healthy-living-2",
+      "type": "topic"
+    }
+  ],
+  "emailAlerts": true,
+  "emailAlertsTopicId": "test-id"  
+}

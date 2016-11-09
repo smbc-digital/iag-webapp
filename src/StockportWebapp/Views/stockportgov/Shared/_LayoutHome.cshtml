@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <meta name="description" content="stockport.gov.uk - The place to find services and information provided by Stockport Council and its partners.">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/favicon-sg.png" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
+    <link rel="stylesheet" href="/assets/stylesheets/styleguide-sg.min.css" />
+    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" />
+    <link rel="stylesheet" href="~/assets/stylesheets/vendor/slick.min.css" />       
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <!--[if IE]>
+        <link rel="stylesheet" href="~/assets/stylesheets/ie.min.css" />
+    <![endif]-->
+    <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed" />
+    @RenderSection("BackgroundImage") 
+    @RenderSection("CarouselBackgroundImage")   
+    @await Component.InvokeAsync("GoogleAnalytics")
+    @Html.Partial("CookieBanner")
+    </head>
+<body class="container-layout-free type-home"> 
+    @Html.Partial("Header")
+    <div class="grid-container-full-width">
+            @RenderBody()
+    </div>
+    @Html.Partial("Footer")
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="/assets/javascript/vendor/matchbox.js"></script>
+    <script src="/assets/javascript/vendor/slick.js"></script>
+    <script src="/assets/javascript/stockportgov.min.js"></script>
+    <script src="/assets/javascript/carousel.js"></script>
+</body>
+</html>

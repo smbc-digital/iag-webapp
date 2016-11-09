@@ -1,0 +1,25 @@
+﻿@using System.Threading.Tasks
+@using StockportWebapp.Models
+@model string
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@{
+    ViewData["Title"] = "Thank you";
+    Layout = "../Shared/_LayoutError.cshtml";
+}
+<div class="l-background-fixed l-short-page-background hide-on-mobile"></div>
+<main class="grid-container" id="error-grid-container">
+    <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
+        <div class="l-short-page-content grid-100">
+            @Html.Partial("DisplayTemplates/Gutter", "fa-envelope-o")
+            <section class="grid-90 mobile-grid-100">
+                @Html.Partial("DisplayTemplates/Breadcrumb", new List<Crumb>())
+                <div class="grid-70 mobile-grid-100 l-content-container">
+                    <h1>Thank you for contacting us</h1>
+                    <p>We have received your message and will get back to you.</p>
+                    <a class="button button-outline button-partialrounded button-call-to-action" href="@Model">Return To Contact Us Page</a>
+                </div>
+                @Html.Partial("DisplayTemplates/Aside")
+            </section>
+        </div>
+    </div>
+</main>

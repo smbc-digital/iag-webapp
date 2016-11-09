@@ -1,0 +1,37 @@
+using System.Threading.Tasks;
+using StockportWebapp.ContentFactory;
+using StockportWebapp.Http;
+using StockportWebapp.Utils;
+
+namespace StockportWebapp.Repositories
+{
+    public class ProcessedContentRepository : IProcessedContentRepository
+    {
+        private readonly ContentTypeFactory _contentTypeFactory;
+        private readonly IHttpClient _httpClient;
+        private readonly IStubToUrlConverter _urlGenerator;
+
+        public ProcessedContentRepository(IStubToUrlConverter urlGenerator, IHttpClient httpClient, ContentTypeFactory contentTypeFactory)
+        {
+            _urlGenerator = urlGenerator;
+            _httpClient = httpClient;
+            _contentTypeFactory = contentTypeFactory;
+        }
+
+        public async Task<HttpResponse> Get<T>(string slug = "")
+        {
+            var url = _urlGenerator.UrlFor<T>(slug);
+            var httpResponse = await _httpClient.Get(url);
+
+            if (!httpResponse.IsSuccessful())
+            {
+                return httpResponse;
+            }
+
+            var model = HttpResponse.Build<T>(httpResponse);
+            var processedModel = _contentTypeFactory.Build((T)model.Content);
+
+            return HttpResponse.Successful(200, processedModel);
+        }
+    }
+}

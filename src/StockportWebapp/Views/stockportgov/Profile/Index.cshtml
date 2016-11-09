@@ -1,0 +1,28 @@
+﻿@model StockportWebapp.Models.ProcessedProfile
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.Teaser;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled grid-100">
+            <section class="grid-100 mobile-grid-100">
+                <div class="l-content-container l-article-container">
+                    <h1>@Model.Title</h1>
+                    <p class="subtitle">@Model.Subtitle</p>
+                    <article>
+                        @Html.Raw(Model.Body)
+                    </article>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>

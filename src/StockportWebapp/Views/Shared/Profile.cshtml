@@ -1,0 +1,23 @@
+﻿@model StockportWebapp.Models.Profile
+
+<div class="profile profile-success-story">
+    
+    <h5 class="profile-heading">@Model.Type</h5>
+    @if (!string.IsNullOrEmpty(Model.Image))
+    {
+        <div class="grid-25 tablet-grid-25">
+            <div class="profile-image-mask">
+                <img src="@Model.Image" alt="@Model.Title" />
+            </div>
+        </div>
+    }
+    <div class="grid-75 tablet-grid-75">
+        <h2>@Model.Title</h2>
+        <p class="profile-subtitle">@Model.Subtitle</p>
+        <p>@Model.Teaser</p>
+        <a class="button button-outline button-dark button-chevron button-partialrounded" href="/profile/@Model.Slug">
+            Read More
+            <i aria-hidden="true" class="fa fa-angle-right"></i>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "slug": "healthy-living",
+  "name": "Healthy Living",
+  "summary": "Summary content",
+  "backgroundImage": "image.jpg",
+  "icon": "fa-futbol-o",
+  "SubItems": [],
+  "SecondaryItems": [
+    {
+      "Slug": "getting-support",
+      "Title": "Getting Support",
+      "Teaser": "Teaser content",
+      "Icon": null
+    }
+  ],
+  "tertiaryItems": [],
+  "Breadcrumbs": [
+    {
+      "Title": "Healthy Living",
+      "Slug": "healthy-living"
+    },
+    {
+      "Title": "Healthy Living 2",
+      "Slug": "healthy-living-2"
+    }
+  ],
+  "emailAlerts": true,
+  "emailAlertsTopicId": "test-id"
+}

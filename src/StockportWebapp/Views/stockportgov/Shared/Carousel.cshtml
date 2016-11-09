@@ -1,0 +1,21 @@
+﻿@model List<StockportWebapp.Models.CarouselContent>
+<div class="carousel">
+    @{ int counter = 1; }
+    @foreach (var carouselContent in Model)
+    {
+        <a href="@carouselContent.URL">
+            <div class="webcast webcast-@counter">
+
+                <div class="webcast-text">
+                    <h2>@carouselContent.Title</h2>
+                    <p>
+                        @carouselContent.Teaser
+                    </p>
+                </div>
+
+                <div class="webcast-gradient"></div>
+            </div>
+        </a>
+        counter++;
+    }
+</div>

@@ -1,0 +1,228 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.Controllers;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
+using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using Moq;
+using StockportWebapp.FeatureToggling;
+using StockportWebapp.Parsers;
+using StockportWebapp.ViewModels;
+using StockportWebappTests.Unit.Fake;
+using Xunit;
+using Helper = StockportWebappTests.TestHelper;
+
+namespace StockportWebappTests.Unit.Controllers
+{
+    public class ArticleControllerTest
+    {
+        private readonly ArticleController _controller;
+        private readonly FakeProcessedContentRepository _fakeRepository;
+
+        private readonly FeatureToggles _featureToggles;
+        private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser;
+
+        private const string DefaultMessage = "A default message";
+
+        public ArticleControllerTest()
+        {
+            _fakeRepository = new FakeProcessedContentRepository();
+
+            _featureToggles = new FeatureToggles() { DynamicContactUsForm = true };
+            _contactUsMessageParser = new Mock<IContactUsMessageTagParser>();
+
+            _controller = new ArticleController(_fakeRepository, new Mock<ILogger<ArticleController>>().Object, _contactUsMessageParser.Object, _featureToggles);
+        }
+
+        [Fact]
+        public void GivenNavigateToArticleReturnsArticleView()
+        {
+            const string articleSlug = "physical-activity";
+            var article = new ProcessedArticle("Physical Activity", "physical-activity",
+                "Being active is great for your body", "teaser", new List<ProcessedSection>() {DummySection()},
+                "fa-icon",
+                "af981b9771822643da7a03a9ae95886f/runners.jpg", new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic());
+
+            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+
+            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            var viewModel = articlePage.ViewData.Model as ArticleViewModel;
+
+            viewModel.Article.Title.Should().Contain("Physical Activity");
+            viewModel.Article.NavigationLink.Should().Be("/physical-activity");
+            viewModel.Article.Body.Should().Contain("Being active is great for your body");
+            viewModel.Article.BackgroundImage.Should().Contain("af981b9771822643da7a03a9ae95886f/runners.jpg");
+            viewModel.Article.Icon.Should().Contain("fa-icon");
+            viewModel.Article.Sections.Count().Should().Be(1);
+        }
+
+        [Fact]
+        public void MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
+        {
+            const string articleSlug = "physical-activity";
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
+
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+                new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, new List<Crumb>() {},
+                new List<Alert>(), new NullTopic());
+
+            var response = new HttpResponse(200, article, string.Empty);
+            _fakeRepository.Set(response);
+
+            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            var displayedArticle = view.ViewData.Model as ArticleViewModel;
+
+            displayedArticle.DisplayedSection.Title.Should().Contain("Overview");
+            displayedArticle.DisplayedSection.Slug.Should().Be("physical-activity-overview");
+            displayedArticle.ShouldShowArticleSummary.Should().BeTrue();
+        }
+
+        [Fact]
+        public void MultipleSectionsArticleWithSectionSlugReturnsCorrespondingSection()
+        {
+            const string articleSlug = "physical-activity";
+            const string sectionSlug = "types-of-physical-activity";
+
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, "body", new List<Profile>(), new List<Document>());
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+                new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, new List<Crumb>() {},
+                new List<Alert>(), new NullTopic());
+
+            var response = new HttpResponse(200, article, string.Empty);
+            _fakeRepository.Set(response);
+
+            var view = AsyncTestHelper.Resolve(_controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage)) as ViewResult;
+            var displayedArticle = view.ViewData.Model as ArticleViewModel;
+
+            displayedArticle.DisplayedSection.Title.Should().Contain("Types of Physical Activity");
+            displayedArticle.DisplayedSection.Slug.Should().Be(sectionSlug);
+            displayedArticle.ShouldShowArticleSummary.Should().BeFalse();
+        }
+
+        [Fact]
+        public void ReturnNotFoundWhenSectionDoesNotExist()
+        {
+            const string articleSlug = "physical-activity";
+            const string sectionSlug = "I-do-not-exist";
+
+            _fakeRepository.Set(new HttpResponse(404, "error", string.Empty));
+            var result =
+                AsyncTestHelper.Resolve(_controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage)) as StatusCodeResult;
+
+            result.StatusCode.Should().Be(404);
+        }
+
+        [Fact]
+        public void GetsAlertsForArticle()
+        {
+            var alerts = new List<Alert>
+            {
+                new Alert("title", "subheading", "body", Severity.Warning)
+            };
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+                new List<ProcessedSection>() {}, string.Empty, string.Empty, new List<Crumb>() {}, alerts, new NullTopic());
+
+            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            var result = indexPage.ViewData.Model as ArticleViewModel;
+
+            result.Article.Alerts.Should().HaveCount(1);
+            result.Article.Alerts.First().Title.Should().Be("title");
+            result.Article.Alerts.First().SubHeading.Should().Be("subheading");
+            result.Article.Alerts.First().Body.Should().Be("<p>body</p>\n");
+            result.Article.Alerts.First().Severity.Should().Be(Severity.Warning);
+        }
+
+        [Fact]
+        public void ItInvokesArticleFactoryToBuildArticleForView()
+        {
+            _fakeRepository.Set(new HttpResponse(200, DummyProcessedArticle(), string.Empty));
+
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            var result = indexPage.ViewData.Model as ArticleViewModel;
+
+            result.Article.Should().BeOfType(typeof(ProcessedArticle));
+        }
+
+
+        [Fact]
+        public void ShouldParseForContactUsMessageForArticleIfFeatureToggleOn()
+        {
+            _featureToggles.DynamicContactUsForm = true;
+
+            var processedArticle = DummyProcessedArticle();
+            var slug = "healthy-living";
+
+            _fakeRepository.Set(new HttpResponse(200, processedArticle, string.Empty));
+
+            AsyncTestHelper.Resolve(_controller.Article(slug, DefaultMessage));
+
+            _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, ""), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldNotParseForContactUsMessageForArticleIfFeatureToggleOff()
+        {
+            _featureToggles.DynamicContactUsForm = false;
+
+            var processedArticle = DummyProcessedArticle();
+            var slug = "healthy-living";
+
+            _fakeRepository.Set(new HttpResponse(200, processedArticle, string.Empty));
+
+            AsyncTestHelper.Resolve(_controller.Article(slug, DefaultMessage));
+
+            _contactUsMessageParser.Verify(o => o.Parse(processedArticle, It.IsAny<string>(), ""), Times.Never);
+        }
+
+
+        [Fact]
+        public void ShouldParseForContactUsMessageForArticleWithSectionIfFeatureToggleOn()
+        {
+            _featureToggles.DynamicContactUsForm = true;
+
+            var processedArticle = DummyProcessedArticle();
+            var slug = "healthy-living";
+            var sectionSlug = "test-section";
+
+            _fakeRepository.Set(new HttpResponse(200, processedArticle, string.Empty));
+
+            AsyncTestHelper.Resolve(_controller.ArticleWithSection(slug, sectionSlug, DefaultMessage));
+
+            _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, sectionSlug), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldNotParseForContactUsMessageForArticleWithSectionIfFeatureToggleOff()
+        {
+            _featureToggles.DynamicContactUsForm = false;
+
+            var processedArticle = DummyProcessedArticle();
+            var slug = "healthy-living";
+            var sectionSlug = "test-section";
+
+            _fakeRepository.Set(new HttpResponse(200, processedArticle, string.Empty));
+
+            AsyncTestHelper.Resolve(_controller.ArticleWithSection(slug, sectionSlug, DefaultMessage));
+
+            _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, sectionSlug), Times.Never);
+        }
+
+        private ProcessedArticle DummyProcessedArticle()
+        {
+            return new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                new List<ProcessedSection>(), Helper.AnyString, Helper.AnyString, new List<Crumb>(),
+                new LinkedList<Alert>(), new NullTopic());
+        }
+
+        private ProcessedSection DummySection()
+        {
+            return new ProcessedSection(Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Profile>(), new List<Document>());
+        }
+    }
+}

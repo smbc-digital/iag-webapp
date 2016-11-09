@@ -1,0 +1,20 @@
+﻿@model StockportWebapp.ViewModels.ArticleViewModel
+
+<header class="article-navigation-header">
+    <h6 id="toggable-header">
+        What's in this guide?
+        <i aria-hidden="true" class="fa fa-angle-down"></i>
+    </h6>
+    <nav class="l-vertical-list-no-margin article-navigation">
+        <ul>
+            @{var i = 1;}
+            @foreach (var sec in Model.Article.Sections)
+            {
+                <li class="@(sec.Slug == Model.DisplayedSection.Slug ? "nav-active" : "")">
+                    <a href="@Model.Article.NavigationLink/@sec.Slug#content">@i.ToString(). @sec.Title</a>
+                </li>
+                i++;
+            }
+        </ul>
+    </nav>
+</header>

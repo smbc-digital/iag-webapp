@@ -1,0 +1,20 @@
+﻿@model StockportWebapp.Models.Alert
+<div class="grid-100 tablet-grid-100 mobile-grid-100">
+    <div class="alert alert-@Model.Severity.ToLowerInvariant()">
+        <div class="alert-icon">
+
+            <i class="fa fa-exclamation fa-3x"></i>
+        </div>
+        <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+            <h3>@Model.Title</h3>
+            @if (!string.IsNullOrEmpty(Model.SubHeading))
+            {
+                <p class="alert-subheading">@Model.SubHeading</p>
+            }
+            @Html.Raw(Model.Body)
+        </div>
+        <div class="alert-close">
+            <a href="#"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>

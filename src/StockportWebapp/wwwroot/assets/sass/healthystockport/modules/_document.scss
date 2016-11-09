@@ -1,0 +1,55 @@
+﻿.document {
+     margin-bottom: 20px;
+
+    .document-icon {        
+        vertical-align: top;
+        float:left;
+        opacity: .5;
+        transition: opacity 0.3s;
+        width:10%;
+        @media #{$mobile} {
+            width: 15%;
+        }
+        &:hover {opacity: 1;} 
+
+        a:hover {
+            text-decoration:none;
+        }
+
+        i {
+            font-size: 3em;
+            color: $colorPrimary;
+            padding-left: 00px;
+        }
+    }
+
+    .document-detail {
+        border-left: solid 1px #ccc;
+        vertical-align: top;
+        padding-left: 20px;       
+        padding-bottom:0px;        
+
+        .document-detail-title {
+             line-height: 1.65em;
+             color: $colorPrimary;
+             font-size: 1.65em;
+             font-weight: 400;
+        }
+
+        a {
+            text-decoration: underline;
+        }
+
+        p {
+            margin-bottom:0px;
+        }
+    }
+
+    @media #{$mobile} {        
+        .document-icon {                            
+            i {
+                font-size: 2em;                
+            }
+        }
+    }
+}

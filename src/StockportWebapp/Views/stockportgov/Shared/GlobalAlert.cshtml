@@ -1,0 +1,21 @@
+﻿<div class="global-alert-@Model.Severity.ToLowerInvariant()">
+    <div class="grid-container grid-100">
+        <div class="grid-100 mobile-grid-100 tablet-grid-100 global-alert grid-parent">
+            <div class="hide-on-mobile hide-on-tablet global-alert-icon global-alert-icon-@Model.Severity.ToLowerInvariant()">
+                <i></i>
+            </div>
+            <div class="grid-80 mobile-grid-95 global-alert-text-container">
+                <div class="global-alert-text-@Model.Severity.ToLowerInvariant()">
+                    <h3>@Model.Title</h3> @Html.Raw(Model.Body)
+                </div>
+            </div>
+            <div class="global-alert-close-container">
+                <a href="#">
+                    <div class="global-alert-close-@Model.Severity.ToLowerInvariant()">
+                        <i></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@model StockportWebapp.ViewModels.ArticleViewModel
+@{
+    ViewData["Title"] = Model.Article.Title;
+    Layout = "../Shared/_Layout.cshtml";
+    ViewData["Description"] = Model.Article.Teaser;
+}
+
+@section BackgroundImage {
+    @{
+        if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
+        {
+            @:style = "background-image:url('@Model.Article.BackgroundImage')"
+        }
+    }
+}
+
+@Html.Partial("DisplayTemplates/Gutter", Model.Article.Icon)
+<section class="grid-90 mobile-grid-100">
+    <a name="content" class="anchor anchor-content"></a>
+    @Html.Partial("DisplayTemplates/Breadcrumb", Model.Article.Breadcrumbs)
+    <div class="grid-70 mobile-grid-100 l-content-container">
+        @{
+            if (Model.Article.Alerts != null)
+            {
+                foreach (var alert in Model.Article.Alerts)
+                {
+                    @Html.Partial("DisplayTemplates/Alert", alert)
+                }
+            }
+        }
+        <h1>@Model.Article.Title</h1>
+
+        @if (Model.ShouldShowArticleSummary)
+        {
+            <article>
+                @Html.Raw(Model.Article.Body)
+            </article>
+        }
+
+        @if (Model.DisplayedSection != null)
+        {
+            @Html.Partial("../Shared/Section-Nav")
+            @Html.Partial("../Shared/Article-Single-Section", Model)
+            @Html.Partial("DisplayTemplates/Section-Pagination")
+        }
+
+
+    </div>
+    @Html.Partial("DisplayTemplates/Aside")
+</section>

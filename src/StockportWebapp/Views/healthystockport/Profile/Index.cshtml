@@ -1,0 +1,23 @@
+﻿@model StockportWebapp.Models.ProcessedProfile
+@{
+    ViewData["Title"] = Model.Title;
+    Layout = "../Shared/_Layout.cshtml";
+    ViewData["Description"] = Model.Teaser;
+}
+
+@section BackgroundImage {
+    style="background-image:url('@Model.BackgroundImage')"
+}
+
+@Html.Partial("DisplayTemplates/Gutter", Model.Icon)
+<section class="grid-90 mobile-grid-100">
+    @Html.Partial("DisplayTemplates/Breadcrumb", Model.Breadcrumbs)
+    <div class="grid-70 mobile-grid-100 l-content-container">
+        <h1>@Model.Title</h1>
+        <p class="subtitle">@Model.Subtitle</p>
+        <article>
+            @Html.Raw(Model.Body)
+        </article>
+    </div>
+    @Html.Partial("DisplayTemplates/Aside")
+</section>

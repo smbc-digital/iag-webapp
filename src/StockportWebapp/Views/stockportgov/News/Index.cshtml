@@ -1,0 +1,31 @@
+﻿@using StockportWebapp.Models
+@model NewsroomViewModel
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
+
+<div class="l-page-content">
+    <div class="full-width-title">
+        <div class="grid-container grid-parent grid-100">
+            <div class="grid-70 tablet-grid-70 mobile-grid-100">
+                <h1 class="full-width-title-with-button">@Model.Title</h1>
+            </div>
+            <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
+                @if (Model.EmailAlerts)
+                {
+                    <a class="button-default button-outline-white-transparent" href="@Model.EmailAlertsUrl" target="_blank"><i class="fa fa-envelope-o fa-1x"></i>Email alerts</a>
+                }
+                else
+                {
+                    <a class="button-default button-outline-white-transparent" href="@Url.Action("Rss", "News")"><i class="fa fa-rss fa-1x"></i>News RSS feed</a>
+                }
+            </div>
+        </div>
+    </div>
+    
+   @await Component.InvokeAsync("NewsCategories", new { newsroom = Model.Newsroom })
+</div>

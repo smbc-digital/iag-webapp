@@ -1,0 +1,166 @@
+﻿$fontstack: 'Source Sans Pro', sans-serif; //temporary until fonts are refactored.
+
+﻿.homepage-hero {
+    padding:20px 10px 100px 10px;
+    background: $colorPrimary no-repeat scroll center center;
+    background-size: cover;
+
+    @media #{$desktop}{
+        background-attachment:fixed;
+    }
+
+    @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        /* IE10+ CSS styles go here */
+        background-attachment:scroll;
+    }
+
+    @supports (-ms-accelerator:true) {
+        /* IE Edge 12+ CSS styles go here */ 
+        background-attachment:scroll;
+    }
+}
+
+/* ------- top tasks  ------- */
+.task-block-list {
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 20px;
+    box-shadow: 0 12px 33px rgba(0,0,0,0.25);
+
+    @media #{$tablet, $mobile} {
+        margin-right:4px;
+    }
+
+    @media #{$desktop} {
+        margin-bottom: 80px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-top: 80px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .task-block-container {
+        display: table;
+        width: 100%;
+        background-color: $paleRed;
+        border-radius: 5px;
+
+        @media #{$mobile, $tablet} {
+            border-left: 4px solid #C95D67;
+        }
+
+        @media #{$desktop} {
+            display: table-row;
+            height: 100%;
+            border-top: 4px solid #C95D67;
+        }
+    }
+
+    .task-block {
+        color: $white;
+        font-size: 65%;
+        display: table-row;
+
+        @media #{$desktop} {
+            font-size: 80%;
+            display: table-cell;
+            height: 100%;
+            width: 16.667%;
+        }
+
+        text-align: center;
+
+        .task-title {
+            margin: 0;
+            text-align: left;
+            padding: 15px 5px 15px 15px;
+            font-family: $fontstack;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5em;
+
+            @media #{$desktop} {
+                padding: 5px;
+                text-align: center;
+                min-height: 65px;
+                font-size: 18px;
+                line-height: 1.3em;
+            }
+        }
+
+        .title {
+            display: table-cell;
+            margin-left: 60px;
+            min-height: 40px;
+
+            @media #{$desktop} {
+                line-height: 1.5;
+                margin-left: 0px;
+                display: inline-block;
+                width: 100%;
+            }
+        }
+
+        .icon {
+            display: table-cell;
+            vertical-align: middle;
+
+            @media #{$desktop} {
+                display: inline-block;
+                width: 100%;
+            }
+
+            @media #{$mobile, $tablet} {
+                padding: 0;
+                width: 60px;
+                min-height: 50px;
+            }
+
+            i {
+                padding-top: 5px;
+                padding-bottom: 5px;
+                display: inline-block;
+                font-size: 3em;
+
+                @media #{$mobile, $tablet} {
+                    font-size: 2.5em;
+                }
+
+                @media #{$desktop} {
+                    padding-top: 15px;
+                    padding-bottom: 15px;
+                }
+            }
+        }
+    }
+
+    @for $i from 1 through 6 {
+        #task-block-#{$i} {
+            .icon {
+                background-color: rgba(0,0,0,0.1);
+            }
+
+            background-color: rgba(0,0,0,(($i)-1)/20);
+
+            &:hover {
+                .icon {
+                    background-color: rgba(255, 255, 255, 0.1)
+                }
+
+                background-color: rgba(255, 255, 255, 0.1)
+            }
+        }
+    }
+}
+
+.task-block-container {
+    @media #{$desktop} {
+        width: 16.6999%;
+        float: left;
+    }
+}
+
+

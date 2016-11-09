@@ -1,0 +1,23 @@
+Docker machine targets available:
+  machine-create:      create the docker machine which can host docker containers
+  machine-start:       start docker machine
+  machine-stop:        stop the docker machine
+  machine-rm:          remove the docker machine
+  machine-ip:          print the docker machine ip
+  machine-env:         print the env of the docker machine
+
+Project automation targets: (these run in docker)
+  build:               build the Dockerfile, download all the requirements, compile the code
+  start-proxy:	       start the local proxy to add the correct header (BUSINESS-ID)	
+  run:                 compile the code into a docker layer and run it
+  clean:               remove the docker file system layer with the compiled code
+
+Project UI tests:
+  ui-test:             runs UI tests in nightwatch
+
+Deployment targets: (these push to Amazon ECR and EB, and require AWS creds)
+  tag:                 tag the current image with pipeline number
+  login:               login to AWS
+  push:                push the tagged image,with pipeline number, to the registery. Creates image_version file
+  package:             runs build, tag and push
+  docker-clean:        clean images after push

@@ -1,0 +1,40 @@
+﻿@model StockportWebapp.ViewModels.AtoZViewModel
+@{
+    ViewData["Title"] = Model.CurrentLetter;
+    Layout = "../Shared/_Layout.cshtml";
+    ViewData["Description"] = "Stockport Council A to Z";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="no-bottom-atoz">
+            @Html.Partial("../Shared/AToZStockportGov", Model.CurrentLetter)
+        </div>
+        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
+            <section class="grid-100 mobile-grid-100">
+                <div class="l-content-container l-article-container">
+                    <h1>@Model.CurrentLetter</h1>
+                    @if (ViewBag.Error != null)
+                    {
+                        <p>@ViewBag.Error</p>
+                    }
+                    <div class="atoz-listing">
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="atoz-listing-item">
+                                <a href="@item.NavigationLink">@item.Title</a>
+                                <p>@item.Teaser</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>

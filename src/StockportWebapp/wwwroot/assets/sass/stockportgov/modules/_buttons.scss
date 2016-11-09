@@ -1,0 +1,29 @@
+﻿.button-live-chat-active {
+    background-color: $orange;
+    border: none;
+
+    &:hover {
+        background-color: $orange;
+        opacity: .8;
+    }
+
+    i{
+        color: $brown;
+    }
+}
+
+.button-live-chat-inactive {
+    background-color: $greyLight;
+    border: none;
+
+    &:hover {
+        background-color: $greyLight;
+        opacity: .8;
+    }
+
+    i{
+        color: $greyDark;
+    }
+}
+
+

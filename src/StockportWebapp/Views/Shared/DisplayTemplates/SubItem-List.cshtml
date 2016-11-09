@@ -1,0 +1,23 @@
+﻿@model StockportWebapp.Models.Topic
+@{ var allTopics = Model.SubItems.Concat(Model.SecondaryItems);}
+<ul class="article-list">
+    @foreach (var subItem in allTopics)
+    {
+        <li class="article-list-item">
+            <a href="@subItem.NavigationLink">
+                <div class="article-icon hide-on-mobile hide-on-tablet">
+                    <div class="icon-bordered icon-bordered-fixed">
+                        <i aria-hidden="true" class="fa @subItem.Icon fa-4x default-icon"></i>
+                    </div>
+                </div>
+                <div>
+                    <h2>@subItem.Title</h2>
+                    <p>@subItem.Teaser</p>
+                </div>
+                <div class="article-chevron hide-on-mobile l-right-align">
+                    <i aria-hidden="true" class="fa fa-4x fa-angle-right"></i>
+                </div>
+            </a>
+        </li>
+    }   
+</ul>
