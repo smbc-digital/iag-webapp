@@ -178,6 +178,7 @@ a.nav-card-news-item {
 
 .l-news-filter {
     margin: 15px 0px 0px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.05);
 
     @media #{$mobile, $tablet} {
         background-color: $white;
@@ -307,52 +308,4 @@ a.nav-card-news-item {
             margin-right: 50px;
         }
     }
-
-
-    /*ul {
-
-        .filter-title {
-            font-weight: 600;
-            margin-bottom: 0;
-            @media #{$desktop} {
-                margin-bottom: 10px;
-            }
-            padding: 10px 0 10px 0;
-            position: relative;
-            cursor: pointer;
-
-            &:after {
-                padding-left: 10px;
-                content: "\f107";
-                font: normal normal normal 14px/1 FontAwesome;
-                font-size: 18px;
-                text-decoration: none;
-                display: inline-block;
-                margin-top: 10px;
-                position: absolute;
-                right: 5px;
-            }
-        }
-
-        li.filter {
-            margin: 0;
-            border: none;
-        }
- 
-        li {
-            @media #{$desktop} {
-                margin-right: 50px;
-            }
-            margin-left: 0px;
-        }
-
-        .filter li:not(:first-child) {
-            border-top: 1px solid $greyLight;
-        }
-
-        .filter-title {
-            border-bottom: 1px solid $greyLight;
-        }
-       
-    }*/
 }

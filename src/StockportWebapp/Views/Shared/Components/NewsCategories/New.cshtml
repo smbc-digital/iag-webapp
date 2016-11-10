@@ -14,7 +14,7 @@
                             <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category") ? "active" : "")>
                                 <a href="@Url.RouteUrl(UrlQueryHelper.RemoveQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category"))">All categories</a>
                             </li>
-                            @foreach (var category in Model.Categories)
+                            @foreach (var category in Model.Categories.OrderBy(c=>c))
                             {
                                 <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", category) ? "active" : "")>
                                     <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", @category))">@category</a>
