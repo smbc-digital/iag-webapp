@@ -6,11 +6,11 @@
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-news-filter">
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list">           
-            <li>
-                <ul class="collapsable-list filters-list">                  
-                    <li class="filter">
+            <li class="collapsable">
+                <ul class="filters-list">                  
+                    <li class="filter collapsable">
                         <p class="filter-title">Category</p>
-                        <ul class="collapsable-list filters-list">
+                        <ul class="filters-list">
                             <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category") ? "active" : "")>
                                 <a href="@Url.RouteUrl(UrlQueryHelper.RemoveQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category"))">All categories</a>
                             </li>

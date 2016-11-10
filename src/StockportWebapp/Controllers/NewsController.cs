@@ -50,7 +50,7 @@ namespace StockportWebapp.Controllers
 
             var newsRoom = httpResponse.Content as Newsroom;
 
-            var title = !string.IsNullOrEmpty(tag) ? $"Recent News about {tag}" : "News";
+            var title = !string.IsNullOrEmpty(tag) ? $"{category} News about {tag}".Trim() : $"{category} News".Trim();
 
             var crumbs = new List<Crumb>();
             if (!string.IsNullOrEmpty(tag)) crumbs.Add(new Crumb("News", "news", "news"));

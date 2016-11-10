@@ -1,4 +1,13 @@
-﻿var matchboxNews = new Matchbox({
+﻿$(document)
+    .ready(function() {
+        var tabletWidth = (1024 - 17);
+
+        if ($(window).width() <= tabletWidth) {
+            $(".l-news-filter .collapsable").toggleClass("is-collapsed");
+        }
+    });
+
+var matchboxNews = new Matchbox({
     parentSelector: '.nav-card-news-list',
     childSelector: '.nav-card-news',
     groupsOf: 1,

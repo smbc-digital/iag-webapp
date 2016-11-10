@@ -178,12 +178,12 @@ a.nav-card-news-item {
 
 .l-news-filter {
     margin: 15px 0px 0px;
-    box-shadow: 0 10px 20px rgba(0,0,0,.05);
 
     @media #{$mobile, $tablet} {
         background-color: $white;
         border: 1px solid $greyLight;  
         border-radius: 3px;
+        box-shadow: 0 10px 20px rgba(0,0,0,.05);
     }
 
     .filters-heading {
