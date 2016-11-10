@@ -9,3 +9,9 @@
 });
 
 if ($(".nav-card-news-list").length) { matchboxNews.init(); }
+
+$(".l-news-filter .filter-title").click(function () {
+    $(this).siblings("ul").slideToggle(100, function() {
+        $(this).parent().toggleClass("is-collapsed");
+    });
+});

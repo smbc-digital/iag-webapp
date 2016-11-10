@@ -1,31 +1,31 @@
 ﻿@using System.Threading.Tasks
-@using Microsoft.AspNetCore.Routing
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.Newsroom
 
-@{
-    var currentRouteValues = new RouteValueDictionary(Url.ActionContext.RouteData.Values);
-    var queryString = Context.Request.Query;
-    foreach (var key in queryString.Keys)
-    {
-        currentRouteValues.Add(key, queryString[key]);
-    }
-    currentRouteValues.Add("somethinghere", Context.Request.QueryString);
-    currentRouteValues.Add("lang", "1033");
-}
-
 <div class="grid-container">
-    <div class="l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100">
-        <div class="l-left-side-bar-section">
-            <h2>Refine by</h2>
-            <p>Category</p>
-            <ul>
-                @foreach (var category in Model.Categories)
-                {
-                    <li><a href="@Url.RouteUrl(UrlQueryBuilder.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", @category))">@category</a></li>
-                }
-            </ul>
-        </div>
+    <div class="grid-30 tablet-grid-100 mobile-grid-100 l-news-filter">
+        <p class="filters-heading">Refine by</p>
+        <ul class="filters-list">           
+            <li>
+                <ul class="collapsable-list filters-list">                  
+                    <li class="filter">
+                        <p class="filter-title">Category</p>
+                        <ul class="collapsable-list filters-list">
+                            <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category") ? "active" : "")>
+                                <a href="@Url.RouteUrl(UrlQueryHelper.RemoveQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category"))">All categories</a>
+                            </li>
+                            @foreach (var category in Model.Categories)
+                            {
+                                <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", category) ? "active" : "")>
+                                    <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", @category))">@category</a>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                </ul>
+                <p class="mobile-filter-heading filter-title">Filter news</p>
+            </li>
+        </ul>
     </div>
     <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent">
         @{
