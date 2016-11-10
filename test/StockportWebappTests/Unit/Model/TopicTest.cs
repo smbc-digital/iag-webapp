@@ -67,6 +67,20 @@ namespace StockportWebappTests.Unit.Model
             topic.EmailAlerts.Should().Be(true);
             topic.EmailAlertsTopicId.Should().Be("test-id");
         }
+
+        [Fact]
+        public void ShouldUseSecondaryAndTertiaryItemsAsInTopItems()
+        {
+            var content = File.ReadAllText("Unit/MockResponses/TopicWithAllItems.json");
+            var topic = JsonConvert.DeserializeObject<Topic>(content);
+
+            topic.SubItems.Count().Should().Be(3);
+            topic.SecondaryItems.Count().Should().Be(2);
+            topic.TertiaryItems.Count().Should().Be(2);
+            topic.TopSubItems.Count().Should().Be(6);
+            topic.TopSubItems.ToList()[0].Title.Should().Be("Getting Support");
+            topic.TopSubItems.ToList()[5].Title.Should().Be("Title 5");
+        }
     }
 
 }

@@ -4,7 +4,7 @@
 {
     <div id="featured-topic-children-@topic.Slug" class="featured-topic-children hidden">
         @{var count = 1;}
-        @foreach (var subItem in topic.SubItems.Take(6))
+        @foreach (var subItem in topic.TopSubItems.Take(6))
         {
             <div class="topic-child topic-child-@count">
                 <div class="darken">

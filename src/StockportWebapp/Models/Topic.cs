@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
@@ -9,6 +11,7 @@ namespace StockportWebapp.Models
         public string Slug { get; }
         public string NavigationLink { get; }
         private string _summary;
+        private IEnumerable<SubItem> _topSubItems;
         public string Summary
         {
             get { return _summary; }
@@ -20,6 +23,26 @@ namespace StockportWebapp.Models
         public IEnumerable<SubItem> SubItems { get; }
         public IEnumerable<SubItem> SecondaryItems { get; }
         public IEnumerable<SubItem> TertiaryItems { get; }
+        public IEnumerable<SubItem> TopSubItems
+        {
+            get
+            {
+                const int take = 6;
+                if (_topSubItems.Any()) return _topSubItems;
+
+                _topSubItems = ConcatSubItems(_topSubItems, SubItems, take);
+                _topSubItems = ConcatSubItems(_topSubItems, SecondaryItems, take);
+                _topSubItems = ConcatSubItems(_topSubItems, TertiaryItems, take);
+                return _topSubItems.Take(take);
+            }
+        }
+
+        private static IEnumerable<SubItem> ConcatSubItems(IEnumerable<SubItem> primary, IEnumerable<SubItem> secondary, int take)
+        {
+            return secondary != null ? primary.Concat(secondary.Take(take)) : primary;
+        }
+
+
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public IEnumerable<Alert> Alerts { get; }
         public bool EmailAlerts { get; }
@@ -43,6 +66,7 @@ namespace StockportWebapp.Models
             EmailAlerts = emailAlerts;
             EmailAlertsTopicId = emailAlertsTopicId;
             NavigationLink = TypeRoutes.GetUrlFor("topic", slug);
+            _topSubItems = Enumerable.Empty<SubItem>();
         }
     }
 
