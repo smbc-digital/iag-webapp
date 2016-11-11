@@ -25,7 +25,7 @@
     @{ int counter = 1; }
     @foreach (var carouselContent in Model.CarouselContents)
     {
-        @Html.Partial("ScaleImageByDevice", new Image("webcast-"+@counter, carouselContent.Image))
+        @Html.Partial("ScaleImageByDevice", new Image("webcast-"+counter, carouselContent.Image))
         counter++;
     }
 }
