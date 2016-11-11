@@ -18,7 +18,7 @@ namespace StockportWebapp.Utils
 
         public static bool QueryNameAndValueIsInQueryString(RouteValueDictionary currentRouteData, IQueryCollection queries, string queryName, string queryValue)
         {
-            var inRouteData = currentRouteData.ContainsKey(queryName) && currentRouteData[queryName] == queryValue;
+            var inRouteData = currentRouteData.ContainsKey(queryName) && (string)currentRouteData[queryName] == queryValue;
             var inQueries = queries.ContainsKey(queryName) && queries[queryName] == queryValue;
             return inRouteData || inQueries;
         }
