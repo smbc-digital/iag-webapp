@@ -16,7 +16,7 @@
             @Html.Partial("../Shared/AToZStockportGov", Model.CurrentLetter)
         </div>
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
-            <section class="grid-100 mobile-grid-100">
+            <section aria-label="A to Z Listing" class="grid-100 mobile-grid-100">
                 <div class="l-content-container l-article-container">
                     <h1>@Model.CurrentLetter</h1>
                     @if (ViewBag.Error != null)

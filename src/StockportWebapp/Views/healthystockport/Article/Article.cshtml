@@ -15,8 +15,8 @@
 }
 
 @Html.Partial("DisplayTemplates/Gutter", Model.Article.Icon)
-<section class="grid-90 mobile-grid-100">
-    <a name="content" class="anchor anchor-content"></a>
+<section aria-label="article" class="grid-90 mobile-grid-100">
+    <a name="@Model.Article.Title content" class="anchor anchor-content"></a>
     @Html.Partial("DisplayTemplates/Breadcrumb", Model.Article.Breadcrumbs)
     <div class="grid-70 mobile-grid-100 l-content-container">
         @{

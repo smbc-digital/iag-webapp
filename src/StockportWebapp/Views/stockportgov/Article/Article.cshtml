@@ -14,7 +14,7 @@
         <div id="uitest-page-has-loaded" class="pull-right l-body-section-filled @(Model.HasParentTopicWithSubItems()
                                                                   ? "mobile-grid-100 tablet-grid-100 grid-70"
                                                                   : "mobile-grid-100 tablet-grid-100 grid-100")">
-            <section class="grid-100 mobile-grid-100 ">
+            <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
                 <div class="l-content-container">
                     @{
                         if (Model.Article.Alerts != null)

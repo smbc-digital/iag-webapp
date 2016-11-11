@@ -10,7 +10,7 @@
 }
 
 @Html.Partial("DisplayTemplates/Gutter", Model.Icon)
-<section class="grid-90 mobile-grid-100">
+<section aria-label="@Model.Title content" class="grid-90 mobile-grid-100">
     @Html.Partial("DisplayTemplates/Breadcrumb", Model.Breadcrumbs)
     <div class="grid-70 mobile-grid-100 l-content-container">
         @{
