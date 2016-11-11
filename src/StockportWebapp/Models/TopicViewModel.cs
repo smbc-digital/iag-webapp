@@ -1,19 +1,13 @@
-﻿using StockportWebapp.FeatureToggling;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class TopicViewModel
     {
         public Topic Topic { get; }
-        public FeatureToggles FeatureToggles { get; }
         public string EmailAlertsUrl { get; }
 
-        public bool EmailAlerts => FeatureToggles.NewsAndTopicEmailAlerts && Topic.EmailAlerts;
-
-        public TopicViewModel(Topic topic, string emailAlertsUrl, FeatureToggles featureToggles)
+        public TopicViewModel(Topic topic, string emailAlertsUrl)
         {
             Topic = topic;
-            FeatureToggles = featureToggles;
             EmailAlertsUrl = SetEmailAlertsUrlWithTopicId(topic, emailAlertsUrl);
         }
 

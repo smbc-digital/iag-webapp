@@ -14,14 +14,12 @@ namespace StockportWebapp.Controllers
         private readonly IRepository _repository;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
-        private readonly FeatureToggles _featureToggles;
 
-        public TopicController(IRepository repository, IApplicationConfiguration config, BusinessId businessId, FeatureToggles featureToggles)
+        public TopicController(IRepository repository, IApplicationConfiguration config, BusinessId businessId)
         {
             _repository = repository;
             _config = config;
             _businessId = businessId;
-            _featureToggles = featureToggles;
         }
 
         [Route("/topic/{topicSlug}")]
@@ -36,7 +34,7 @@ namespace StockportWebapp.Controllers
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            return View(new TopicViewModel(topic, urlSetting.ToString(), _featureToggles));
+            return View(new TopicViewModel(topic, urlSetting.ToString()));
         }
     }
 }

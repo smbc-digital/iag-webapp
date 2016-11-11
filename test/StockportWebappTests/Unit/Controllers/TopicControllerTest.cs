@@ -26,7 +26,7 @@ namespace StockportWebappTests.Unit.Controllers
             config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
             _repository = new Mock<IRepository>();
-            _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), new FeatureToggles());
+            _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId));
         }
         
         public SubItem CreateASubItem(int i)

@@ -3,7 +3,6 @@ prod: &prod
   DynamicContactUsForm: true
   ShortUrls: true
   BusinessIdFromRequest: true
-  NewsAndTopicEmailAlerts: true
   LiveChat: false
   NewsCategory: false
 

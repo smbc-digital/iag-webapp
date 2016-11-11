@@ -60,7 +60,7 @@ namespace StockportWebapp.Controllers
             ViewBag.Title = title;
             ViewBag.Tag = tag;
 
-            return View(new NewsroomViewModel(newsRoom, urlSetting.ToString(), title, tag, _featureToggles, crumbs));
+            return View(new NewsroomViewModel(newsRoom, urlSetting.ToString(), title, tag, crumbs));
         }
 
         [Route("/news/{slug}")]

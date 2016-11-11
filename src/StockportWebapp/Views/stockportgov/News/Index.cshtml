@@ -15,7 +15,7 @@
                 <h1 class="full-width-title-with-button">@Model.Title</h1>
             </div>
             <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
-                @if (Model.EmailAlerts)
+                @if (Model.Newsroom.EmailAlerts)
                 {
                     <a class="button-default button-outline-white-transparent" href="@Model.EmailAlertsUrl" target="_blank"><i class="fa fa-envelope-o fa-1x"></i>Email alerts</a>
                 }
