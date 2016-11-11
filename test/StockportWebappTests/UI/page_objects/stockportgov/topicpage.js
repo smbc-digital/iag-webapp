@@ -5,14 +5,14 @@
     },
 
     goToTopicListBlockPage: function (browser, title, link) {
-        this.waitForElementVisible('@topicList', this.api.globals.timeOut);
+        this.waitForElementVisible('@topicBody', this.api.globals.timeOut);
         browser.useXpath().assert.visible("//h2[text()='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
     },
 
     assertSecondaryItemIsVisible: function(browser,title) {
         this.waitForElementVisible('@secondaryTopicList', this.api.globals.timeOut)
-            .expect.element('#test-secondary-topic-title').text.to.equal(title);
+            .expect.element('#test-topic-page-secondary-topics-list .subitem-secondary-title').text.to.equal(title);
     }
 
 };
@@ -25,7 +25,7 @@ module.exports = {
     },
     elements: {
         topicTitle: "h1",
-        topicList: "#test-topic-page-subitem-list",
+        topicBody: "body",
         secondaryTopicList: "#test-topic-page-secondary-topics-list"
     }
 };
