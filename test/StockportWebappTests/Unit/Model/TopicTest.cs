@@ -82,5 +82,4 @@ namespace StockportWebappTests.Unit.Model
             topic.TopSubItems.ToList()[5].Title.Should().Be("Title 5");
         }
     }
-
 }

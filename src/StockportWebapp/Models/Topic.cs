@@ -33,7 +33,9 @@ namespace StockportWebapp.Models
                 _topSubItems = ConcatSubItems(_topSubItems, SubItems, take);
                 _topSubItems = ConcatSubItems(_topSubItems, SecondaryItems, take);
                 _topSubItems = ConcatSubItems(_topSubItems, TertiaryItems, take);
-                return _topSubItems.Take(take);
+                _topSubItems = _topSubItems.Take(take);
+
+                return _topSubItems;
             }
         }
 
