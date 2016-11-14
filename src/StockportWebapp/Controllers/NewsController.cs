@@ -50,10 +50,12 @@ namespace StockportWebapp.Controllers
 
             var newsRoom = httpResponse.Content as Newsroom;
 
-            var title = !string.IsNullOrEmpty(tag) ? $"{category} News about {tag}".Trim() : $"{category} News".Trim();
+            var titleCase = !string.IsNullOrEmpty(category) ? "news" : "News";
+
+            var title = !string.IsNullOrEmpty(tag) ? $"{category} {titleCase} about {tag}".Trim() : $"{category} {titleCase}".Trim();
 
             var crumbs = new List<Crumb>();
-            if (!string.IsNullOrEmpty(tag)) crumbs.Add(new Crumb("News", "news", "news"));
+            if (!string.IsNullOrEmpty(tag) || !string.IsNullOrEmpty(category)) crumbs.Add(new Crumb("News", "news", "news"));
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
