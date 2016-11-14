@@ -8,7 +8,9 @@ prod: &prod
 
 stage: &stage
   << : *prod
-  
+  LiveChat: true
+  NewsCategory: true
+
 qa: &qa
   << : *prod
   << : *stage
@@ -17,5 +19,3 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  LiveChat: true
-  NewsCategory: true
