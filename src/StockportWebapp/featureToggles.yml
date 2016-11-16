@@ -5,6 +5,7 @@ prod: &prod
   BusinessIdFromRequest: true
   LiveChat: false
   NewsCategory: false
+  DynamicFooter: false
 
 stage: &stage
   << : *prod
@@ -19,3 +20,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  DynamicFooter: true

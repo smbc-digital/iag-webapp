@@ -35,6 +35,8 @@ namespace StockportWebappTests.Integration
                     .Return(HttpResponse.Successful(200, ReadFile("HomepageStockportGov")));
                 fakeHttpClient.For("http://content:5001/api/stockportgov/news/latest/2")
                     .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
+                fakeHttpClient.For("http://content:5001/api/stockportgov/footer")
+                    .Return(HttpResponse.Successful(200, ReadFile("Footer")));
             });
 
             FakeResponseHandlerFactory.MakeFakeWithUrlConfiguration(() =>

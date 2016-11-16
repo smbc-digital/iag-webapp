@@ -24,7 +24,7 @@
     <main>
         @RenderBody()
     </main>
-    @Html.Partial("Footer")
+    @await Component.InvokeAsync("Footer")
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="~/assets/javascript/vendor/jquery.validate.min.js"></script>
     <script src="~/assets/javascript/vendor/jquery.validate.unobtrusive.min.js"></script>

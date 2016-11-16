@@ -1,0 +1,78 @@
+﻿{
+  "title": "Footer",
+  "slug": "a-slug",
+  "copyright": "© 2016 A Council Name",
+  "links": [
+    {
+      "slug": "council-tax",
+      "title": "council tax",
+      "teaser": "council tax",
+      "icon": "",
+      "type": "article",
+      "sunriseDate": "0001-01-01T00:00:00+00:00",
+      "sunsetDate": "0001-01-01T00:00:00+00:00"
+    },
+    {
+      "slug": "tell-us-about-a-change",
+      "title": "Tell us about a change",
+      "teaser": "Notify us about your change of address or any other changes in your circumstances.",
+      "icon": "si-tickbox",
+      "type": "article",
+      "sunriseDate": "0001-01-01T00:00:00+00:00",
+      "sunsetDate": "0001-01-01T00:00:00+00:00"
+    },
+    {
+      "slug": "change-of-address-electoral",
+      "title": "change of address",
+      "teaser": "this is change of address on electoral",
+      "icon": "",
+      "type": "article",
+      "sunriseDate": "0001-01-01T00:00:00+00:00",
+      "sunsetDate": "0001-01-01T00:00:00+00:00"
+    },
+    {
+      "slug": "how-to-pay-council-tax",
+      "title": "How to pay council tax",
+      "teaser": "ways to pay council tax",
+      "icon": "",
+      "type": "article",
+      "sunriseDate": "0001-01-01T00:00:00+00:00",
+      "sunsetDate": "0001-01-01T00:00:00+00:00"
+    },
+    {
+      "slug": "testarticle",
+      "title": "Article with profile, video and table",
+      "teaser": "Teaser for a test article",
+      "icon": "",
+      "type": "article",
+      "sunriseDate": "0001-01-01T00:00:00+00:00",
+      "sunsetDate": "0001-01-01T00:00:00+00:00"
+    }
+  ],
+  "socialMediaLinks": [
+    {
+      "title": "Facebook",
+      "slug": "facebook",
+      "url": "https://www.facebook.com/test",
+      "icon": "fa-facebook"
+    },
+    {
+      "title": "Twitter",
+      "slug": "twitter",
+      "url": "https://twitter.com/test",
+      "icon": "fa-twitter"
+    },
+    {
+      "title": "Youtube",
+      "slug": "youtube",
+      "url": "https://www.youtube.com/user/test",
+      "icon": "fa-youtube"
+    },
+    {
+      "title": "RSS",
+      "slug": "rss",
+      "url": "https://www.rssfeeds.com",
+      "icon": "fa-rss"
+    }
+  ]
+}

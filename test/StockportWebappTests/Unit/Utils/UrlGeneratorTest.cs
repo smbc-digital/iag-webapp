@@ -95,6 +95,14 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
+        public void ItReturnsUrlForFooter()
+        {
+            var url = _urlGenerator.UrlFor<Footer>();
+
+            url.Should().Be("http://content.com/api/test-id/footer");
+        }
+
+        [Fact]
         public void ItReturnsUrlForHealthcheckRequest()
         {
             var url = _urlGenerator.HealthcheckUrl();

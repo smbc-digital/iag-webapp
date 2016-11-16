@@ -26,7 +26,7 @@
     <div class="grid-container-full-width">
             @RenderBody()
     </div>
-    @Html.Partial("Footer")
+    @await Component.InvokeAsync("Footer")
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="/assets/javascript/vendor/matchbox.js"></script>
     <script src="/assets/javascript/vendor/slick.js"></script>

@@ -1,0 +1,9 @@
+﻿@model IEnumerable<StockportWebapp.Models.SubItem>
+
+
+@foreach (var link in Model)
+{
+<li class="grid-50 tablet-grid-100 mobile-grid-100">
+    <a href="@link.NavigationLink">@link.Title</a>
+</li>
+}

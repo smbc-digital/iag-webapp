@@ -2,13 +2,13 @@
 @inject IStaticAssets StaticAssets
 
 <footer>
-    @Html.Partial("AToZStockportGov","")
+    @Html.Partial("AToZStockportGov", "")
     @*This script enables the feedback button.*@
     <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
     <div class="l-container-footer">
         <div class="grid-container grid-parent">
             <div class="grid-100 grid-parent">
-                <div class="grid-35 tablet-grid-35 tablet-push-65 push-65 footer-social-container">
+                <div class="grid-30 tablet-grid-30 tablet-push-70 push-70 footer-social-container">
                     <div class="footer-social-links">
                         <a href="https://twitter.com/StockportMBC">
                             <div class="icon-bordered icon-bordered-fixed icon-container icon-twitter">
@@ -32,21 +32,21 @@
                         </a>
                     </div>
                 </div>
-                <div class="grid-25 tablet-grid-25 tablet-pull-35 pull-35 mobile-grid-100">
+                <div class="grid-25 tablet-grid-25 tablet-pull-30 pull-30 mobile-grid-100">
                     <div class="footer-stockport-logo">
                         <a href="http://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer%402x.png")" alt="Stockport Council Logo" /></a>
                     </div>
                 </div>
-                <div class="footer-links tablet-grid-40 pull-35 tablet-pull-35 grid-40 grid-100-mobile">
+                <div class="footer-links tablet-grid-45 pull-30 tablet-pull-30 grid-45 grid-100-mobile">
                     <div class="grid-50 tablet-grid-50 mobile-grid-100">
-                        <ul>
+                        <ul class="footer-nav">
                             <li><a href="http://www.stockport.gov.uk/contacts">Contact Us</a></li>
                             <li><a href="http://www.stockport.gov.uk/services/councildemocracy/yourcouncil/freedomofinformationdataprotection/dataprotection/">Data Protection</a></li>
                             <li><a href="http://www.stockport.gov.uk/services/councildemocracy/yourcouncil/freedomofinformationdataprotection/foipolicy">Freedom of Information</a></li>
                         </ul>
                     </div>
                     <div class="grid-50 tablet-grid-50 mobile-grid-100">
-                        <ul>
+                        <ul class="footer-nav">
                             <li><a href="http://www.stockport.gov.uk/doitonline/websitehelp/privacynotice-cookies">Cookie policy</a></li>
                             <li><a class="typeform-share link" data-mode="1" target="_blank" href="https://stockportcouncil.typeform.com/to/dXTax7">Feedback</a></li>
                         </ul>
