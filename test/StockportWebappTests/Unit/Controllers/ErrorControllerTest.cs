@@ -1,6 +1,9 @@
-﻿using FluentAssertions;
+﻿using System.Net;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
 using StockportWebapp.Controllers;
+using StockportWebapp.Http;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -8,10 +11,14 @@ namespace StockportWebappTests.Unit.Controllers
     public class ErrorControllerTest
     {
         private readonly ErrorController _controller;
+        private Mock<ILegacyRedirects> _legacyRedirects;
 
         public ErrorControllerTest()
         {
-            _controller = new ErrorController();
+            _legacyRedirects = new Mock<ILegacyRedirects>();
+            SetupThatNoLegacyRedirectMatches();
+
+           _controller = new ErrorController(_legacyRedirects.Object);
         }
 
         [Fact]
@@ -29,5 +36,25 @@ namespace StockportWebappTests.Unit.Controllers
 
             result.ViewData[@"ErrorHeading"].Should().Be("Something went wrong");
         }
+
+        [Fact]
+        public void ShouldRedirectIfPageNotFoundButMatchedALegacyRedirect()
+        {
+            var redirectedToLocation = @"/redirected-to-location-from-the-rule";
+
+            _legacyRedirects.Setup(o => o.RedirectUrl()).Returns(redirectedToLocation);
+
+            var result = AsyncTestHelper.Resolve(_controller.Error("404")) as RedirectResult;
+
+            result.Url.Should().Be(redirectedToLocation);
+        }
+
+        // missing test:  don't do legacy redirects if not 404
+
+        private void SetupThatNoLegacyRedirectMatches()
+        {
+            _legacyRedirects.Setup(o => o.RedirectUrl()).Returns(string.Empty);
+        }
+
     }
 }

@@ -11,6 +11,8 @@ namespace StockportWebappTests.Integration
         {
             FakeHttpClientFactory.MakeFakeHttpClientWithConfiguration(fakeHttpClient =>
             {
+                fakeHttpClient.For("http://content:5001/api/healthystockport/article/non-existent-url")
+                    .Return(HttpResponse.Failure(404, "does not exist"));
                 fakeHttpClient.For("http://content:5001/api/healthystockport/start-page/start-page")
                     .Return(HttpResponse.Successful(200, ReadFile("StartPage")));
                 fakeHttpClient.For("http://content:5001/api/healthystockport/topic/test-topic")

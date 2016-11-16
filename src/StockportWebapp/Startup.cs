@@ -17,6 +17,7 @@ using StockportWebapp.AmazonSES;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Services;
 using StockportWebapp.Config;
+using StockportWebapp.Controllers;
 using StockportWebapp.Middleware;
 using StockportWebapp.Parsers;
 using StockportWebapp.RSS;
@@ -115,6 +116,7 @@ namespace StockportWebapp
 
             services.AddMvc();
             services.AddSingleton<IViewRender, ViewRender>();
+            services.AddScoped<ILegacyRedirects, LegacyRedirects>();
 
             services.Configure<RazorViewEngineOptions>(options =>
             {

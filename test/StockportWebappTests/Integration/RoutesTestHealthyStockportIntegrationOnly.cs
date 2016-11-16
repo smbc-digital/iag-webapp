@@ -236,6 +236,25 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("# yes robots");
         }
 
+        [Fact]
+        public void ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
+        {
+            var legacyUrl = "/services/councildemocracy/counciltax/difficultypaying";
+            _testServerFixture.AddLegacyRedirectRule(legacyUrl, "/council-tax");
+
+            var result = AsyncTestHelper.Resolve(Client().GetAsync(legacyUrl));
+
+            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
+        }
+
+        [Fact]
+        public void ItGives404ForANonExistentPageWithoutALegacyRedirectRule()
+        {
+            var result = AsyncTestHelper.Resolve(Client().GetAsync("/non-existent-url"));
+
+            result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
         private void SetBusinessIdRequestHeader(string businessId)
         {
             _testServerFixture.SetBusinessIdRequestHeader(businessId);
