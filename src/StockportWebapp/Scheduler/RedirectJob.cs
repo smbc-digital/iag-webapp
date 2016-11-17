@@ -7,12 +7,14 @@ namespace StockportWebapp.Scheduler
 {
     public class RedirectJob : IJob
     {
-        private readonly UrlRedirect _urlRedirect;
+        private readonly ShortUrlRedirects _shortShortUrlRedirectses;
+        private readonly LegacyUrlRedirects _legacyUrlRedirects;
         private readonly IRepository _repository;
 
-        public RedirectJob(UrlRedirect urlRedirect, IRepository repository)
+        public RedirectJob(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository)
         {
-            _urlRedirect = urlRedirect;
+            _shortShortUrlRedirectses = shortShortUrlRedirectses;
+            _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
         }
 
@@ -20,8 +22,10 @@ namespace StockportWebapp.Scheduler
         {
             var response = await _repository.GetRedirects();
 
-            var redirect = response.Content as BusinessIdRedirectDictionary;
-            _urlRedirect.Redirects = redirect;
+            var redirects = response.Content as Redirects;
+
+            _shortShortUrlRedirectses.Redirects = redirects.ShortUrlRedirects;
+            _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
         }
     }
 }

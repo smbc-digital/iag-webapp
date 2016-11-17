@@ -28,7 +28,7 @@ namespace StockportWebapp.Repositories
         {
             var url = _urlGenerator.RedirectUrl();
             var httpResponse = await _httpClient.Get(url);
-            return HttpResponse.Build<BusinessIdRedirectDictionary>(httpResponse);
+            return HttpResponse.Build<Redirects>(httpResponse);
         }
     }
 }

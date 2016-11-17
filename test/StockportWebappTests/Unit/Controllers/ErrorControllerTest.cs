@@ -11,11 +11,11 @@ namespace StockportWebappTests.Unit.Controllers
     public class ErrorControllerTest
     {
         private readonly ErrorController _controller;
-        private Mock<ILegacyRedirects> _legacyRedirects;
+        private Mock<ILegacyRedirectsManager> _legacyRedirects;
 
         public ErrorControllerTest()
         {
-            _legacyRedirects = new Mock<ILegacyRedirects>();
+            _legacyRedirects = new Mock<ILegacyRedirectsManager>();
             SetupThatNoLegacyRedirectMatches();
 
            _controller = new ErrorController(_legacyRedirects.Object);

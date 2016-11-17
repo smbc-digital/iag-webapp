@@ -7,18 +7,20 @@ namespace StockportWebapp.Scheduler
 {
     public class RedirectJobFactory : IJobFactory
     {
-        private readonly UrlRedirect _redirect;
+        private readonly ShortUrlRedirects _shortShortUrlRedirectses;
+        private readonly LegacyUrlRedirects _legacyUrlRedirects;
         private readonly IRepository _repository;
 
-        public RedirectJobFactory(UrlRedirect redirect, IRepository repository)
+        public RedirectJobFactory(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository)
         {
-            _redirect = redirect;
+            _shortShortUrlRedirectses = shortShortUrlRedirectses;
+            _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return new RedirectJob(_redirect, _repository);
+            return new RedirectJob(_shortShortUrlRedirectses, _legacyUrlRedirects, _repository);
         }
 
         public void ReturnJob(IJob job)

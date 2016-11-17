@@ -331,12 +331,21 @@ namespace StockportWebappTests.Unit.Repositories
                 .ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/Redirects.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.GetRedirects());
-            var redirects = httpResponse.Content as BusinessIdRedirectDictionary;
+            var redirects = httpResponse.Content as Redirects;
 
             const string businessId = "unittest";
-            redirects.Count.Should().Be(1);
-            redirects.Should().ContainKey(businessId);
-            redirects[businessId].Count.Should().Be(2);
+            var shortUrlRedirects = redirects.ShortUrlRedirects;
+            shortUrlRedirects.Count.Should().Be(1);
+            shortUrlRedirects.Should().ContainKey(businessId);
+            shortUrlRedirects[businessId].Count.Should().Be(2);
+            shortUrlRedirects[businessId].ContainsKey("/this-is-another-article").Should().BeTrue();
+            shortUrlRedirects[businessId].ContainsKey("/test").Should().BeTrue();
+
+            var legacyUrlRedirects = redirects.LegacyUrlRedirects;
+            legacyUrlRedirects.Count.Should().Be(1);
+            legacyUrlRedirects.Should().ContainKey(businessId);
+            legacyUrlRedirects[businessId].Count.Should().Be(1);
+            legacyUrlRedirects[businessId].ContainsKey("/this-is-a-redirect-from").Should().BeTrue();
         }
     }
 }

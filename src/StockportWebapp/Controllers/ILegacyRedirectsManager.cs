@@ -1,6 +1,6 @@
 ﻿namespace StockportWebapp.Controllers
 {
-    public interface ILegacyRedirects
+    public interface ILegacyRedirectsManager
     {
         string RedirectUrl();
     }

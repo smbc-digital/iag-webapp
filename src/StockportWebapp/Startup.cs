@@ -56,8 +56,8 @@ namespace StockportWebapp
             });
 
             services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(Configuration));
-            var urlRedirect = new UrlRedirect(new BusinessIdRedirectDictionary());
-            services.AddSingleton(_ => urlRedirect);
+            services.AddSingleton(_ => new ShortUrlRedirects(new BusinessIdRedirectDictionary()));
+            services.AddSingleton(_ => new LegacyUrlRedirects(new BusinessIdRedirectDictionary()));
 
             services.AddSingleton<Func<System.Net.Http.HttpClient>>(p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
@@ -116,7 +116,7 @@ namespace StockportWebapp
 
             services.AddMvc();
             services.AddSingleton<IViewRender, ViewRender>();
-            services.AddScoped<ILegacyRedirects, LegacyRedirects>();
+            services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsManager>();
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
@@ -127,7 +127,7 @@ namespace StockportWebapp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
-            var scheduler = new RedirectScheduler(serviceProvider.GetService<UrlRedirect>(), serviceProvider.GetService<IRepository>());
+            var scheduler = new RedirectScheduler(serviceProvider.GetService<ShortUrlRedirects>(), serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
             await scheduler.Start();
 
             app.UseMiddleware<BusinessIdMiddleware>();

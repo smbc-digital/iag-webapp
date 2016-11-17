@@ -20,7 +20,7 @@ namespace StockportWebappTests.Unit.Middleware
             _logger = new Mock<ILogger<RedirectMiddleware>>();
             var next = new Mock<RequestDelegate>();
             var items = new BusinessIdRedirectDictionary {{"unittest", new RedirectDictionary {{"/test", "redirect-url"}}}};
-            var urlRedirect = new UrlRedirect(items);
+            var urlRedirect = new ShortUrlRedirects(items);
             _middleware = new RedirectMiddleware(next.Object, urlRedirect, _logger.Object);
         }
 
@@ -80,7 +80,7 @@ namespace StockportWebappTests.Unit.Middleware
             var logger = new Mock<ILogger<RedirectMiddleware>>();
             var next = new Mock<RequestDelegate>();
             var items = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/test", "redirect-url" } } } };
-            var urlRedirect = new UrlRedirect(items);
+            var urlRedirect = new ShortUrlRedirects(items);
             var businessId = new BusinessId("not-in-redirects");
             var middleware = new RedirectMiddleware(next.Object, urlRedirect, logger.Object);
             var httpContext = new DefaultHttpContext();

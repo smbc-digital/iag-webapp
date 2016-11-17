@@ -7,11 +7,11 @@ namespace StockportWebapp.Controllers
     [ResponseCache(Location=ResponseCacheLocation.Any,Duration= Cache.DefaultDuration)]
     public class ErrorController : Controller
     {
-        private readonly ILegacyRedirects _legacyRedirects;
+        private readonly ILegacyRedirectsManager _legacyRedirectsManager;
 
-        public ErrorController(ILegacyRedirects legacyRedirects)
+        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager)
         {
-            _legacyRedirects = legacyRedirects;
+            _legacyRedirectsManager = legacyRedirectsManager;
         }
 
         public async Task<IActionResult> Error(string id)
@@ -22,7 +22,7 @@ namespace StockportWebapp.Controllers
 
         private async Task<IActionResult> RedirectIfLegacyUrl()
         {
-            var urlToRedirectLegacyRequestTo = _legacyRedirects.RedirectUrl();
+            var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl();
             if (urlToRedirectLegacyRequestTo != string.Empty)
             {
                 return await Task.FromResult(Redirect(urlToRedirectLegacyRequestTo));

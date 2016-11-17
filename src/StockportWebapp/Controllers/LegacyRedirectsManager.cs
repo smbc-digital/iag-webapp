@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Controllers
 {
-    public class LegacyRedirects : ILegacyRedirects
+    public class LegacyRedirectsManager : ILegacyRedirectsManager
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LegacyRedirects(IHttpContextAccessor httpContextAccessor)
+        public LegacyRedirectsManager(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }

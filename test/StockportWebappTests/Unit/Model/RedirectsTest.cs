@@ -21,12 +21,10 @@ namespace StockportWebappTests.Unit.Model
                 {"unittest", fromJsonRedirects}
             };
 
-            var redirects = new UrlRedirect(businessIdRedirects);
+            var redirects = new ShortUrlRedirects(businessIdRedirects);
 
             redirects.Redirects.Count.Should().Be(1);
             redirects.Redirects["unittest"].Comparer.Should().Be(StringComparer.CurrentCultureIgnoreCase);
         }
-
-
     }
 }

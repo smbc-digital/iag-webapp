@@ -1,22 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
-    public class UrlRedirect
+    public class Redirects
     {
-        public BusinessIdRedirectDictionary Redirects;
+        public readonly BusinessIdRedirectDictionary ShortUrlRedirects;
+        public readonly BusinessIdRedirectDictionary LegacyUrlRedirects;
 
-        public UrlRedirect(BusinessIdRedirectDictionary redirects)
+        public Redirects(BusinessIdRedirectDictionary shortUrlRedirects, BusinessIdRedirectDictionary legacyUrlRedirects)
         {
-            Redirects = redirects;
+            ShortUrlRedirects = shortUrlRedirects;
+            LegacyUrlRedirects = legacyUrlRedirects;
         }
-    }
-
-    public class BusinessIdRedirectDictionary : Dictionary<string, RedirectDictionary>{ }
-
-    public class RedirectDictionary : Dictionary<string, string>
-    {
-        public RedirectDictionary() : base(StringComparer.CurrentCultureIgnoreCase) { }
     }
 }

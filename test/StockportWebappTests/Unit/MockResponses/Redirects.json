@@ -1,6 +1,13 @@
 ﻿{
-  "unittest": {
-    "/this-is-another-article": "another-article",
-    "/test": "an article"
+  "shortUrlRedirects": {
+    "unittest": {
+      "/this-is-another-article": "another-article",
+      "/test": "an article"
+    }
+  },
+  "legacyUrlRedirects": {
+    "unittest": {
+      "/this-is-a-redirect-from": "this-is-a-redirect-to"
+    }
   }
 }
