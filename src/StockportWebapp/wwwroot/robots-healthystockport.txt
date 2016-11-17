@@ -4,3 +4,11 @@ Disallow:
 Crawl-delay: 120
 Disallow: /contact
 Disallow: /search
+Disallow:*.jpg$
+Disallow:*.jpeg$
+Disallow:*.png$
+Disallow:*.gif$
+Disallow:*.tiff$
+Disallow:*.bmp$
+Disallow:*.pdf$
+Disallow:*.svg$
