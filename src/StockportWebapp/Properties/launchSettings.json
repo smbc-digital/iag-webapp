@@ -18,8 +18,7 @@
     "web": {
       "commandName": "Project",
       "environmentVariables": {
-
       }
-      }
+    }
   }
 }

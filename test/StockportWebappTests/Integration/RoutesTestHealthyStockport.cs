@@ -114,6 +114,23 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("# no robots");
         }
 
+        [Theory]
+        [InlineData("/")]
+        [InlineData("/topic/test-topic")]
+        [InlineData("/news")]
+        [InlineData("/physical-activity")]
+        [InlineData("/profile/test-profile")]
+        [InlineData("/start/start-page")]
+        public void ItReturnsAFooterOnThePage(string url)
+        {
+            SwitchEnvironmentIncludingBusinessIdEnvVar(IntEnvironment, "stockportgov");
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(Client().GetStringAsync(url));
+
+            result.Should().Contain("2016 A Council Name");
+        }
+
         private void SwitchEnvironmentIncludingBusinessIdEnvVar(string environment, string businessId)
         {
             _server = TestAppFactory.MakeFakeApp(businessId, environment);

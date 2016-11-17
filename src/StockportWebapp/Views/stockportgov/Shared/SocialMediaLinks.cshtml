@@ -1,0 +1,13 @@
+﻿@model IEnumerable<StockportWebapp.Models.SocialMediaLink>
+
+
+<div class="footer-social-links">
+    @foreach (var socialMediaLink in Model)
+    {
+        <a href="@socialMediaLink.Url">
+            <div class="icon-bordered icon-bordered-fixed icon-container icon-twitter">
+                <i class="fa fa-2x @socialMediaLink.Icon"></i>
+            </div>
+        </a>
+    }
+</div>

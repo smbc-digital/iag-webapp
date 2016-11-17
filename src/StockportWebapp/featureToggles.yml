@@ -4,12 +4,12 @@ prod: &prod
   ShortUrls: true
   BusinessIdFromRequest: true
   LiveChat: false
-  NewsCategory: false
+  NewsCategory: true
+  DynamicFooter: false
 
 stage: &stage
   << : *prod
   LiveChat: true
-  NewsCategory: true
 
 qa: &qa
   << : *prod
@@ -19,3 +19,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  DynamicFooter: true

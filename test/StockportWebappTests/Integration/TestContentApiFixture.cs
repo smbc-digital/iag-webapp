@@ -35,8 +35,20 @@ namespace StockportWebappTests.Integration
                     .Return(HttpResponse.Successful(200, ReadFile("Redirects")));
                 fakeHttpClient.For("http://content:5001/api/stockportgov/homepage")
                     .Return(HttpResponse.Successful(200, ReadFile("HomepageStockportGov")));
+                fakeHttpClient.For("http://content:5001/api/stockportgov/topic/test-topic")
+                    .Return(HttpResponse.Successful(200, ReadFile("TopicWithAlerts")));
+                fakeHttpClient.For("http://content:5001/api/stockportgov/article/physical-activity")
+                    .Return(HttpResponse.Successful(200, ReadFile("Article")));
+                fakeHttpClient.For("http://content:5001/api/stockportgov/start-page/start-page")
+                    .Return(HttpResponse.Successful(200, ReadFile("StartPage")));
+                fakeHttpClient.For("http://content:5001/api/stockportgov/news")
+                    .Return(HttpResponse.Successful(200, ReadFile("Newsroom")));
                 fakeHttpClient.For("http://content:5001/api/stockportgov/news/latest/2")
                     .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
+                fakeHttpClient.For("http://content:5001/api/stockportgov/profile/test-profile")
+                    .Return(HttpResponse.Successful(200, ReadFile("Profile")));
+                fakeHttpClient.For("http://content:5001/api/stockportgov/footer")
+                    .Return(HttpResponse.Successful(200, ReadFile("Footer")));
             });
 
             FakeResponseHandlerFactory.MakeFakeWithUrlConfiguration(() =>

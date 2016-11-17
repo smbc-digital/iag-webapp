@@ -13,7 +13,7 @@ var matchboxNews = new Matchbox({
     groupsOf: 1,
     breakpoints: [
     { bp: 767, groupsOf: 2 },
-    { bp: 1024, groupsOf: 3 }
+    { bp: 1024, groupsOf: 2 }
     ]
 });
 
