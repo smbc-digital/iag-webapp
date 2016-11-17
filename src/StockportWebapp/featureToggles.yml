@@ -6,6 +6,7 @@ prod: &prod
   LiveChat: false
   NewsCategory: true
   DynamicFooter: false
+  LegacyUrlRedirects: false
 
 stage: &stage
   << : *prod
@@ -20,3 +21,4 @@ int:
   << : *stage
   << : *qa
   DynamicFooter: true
+  LegacyUrlRedirects: true

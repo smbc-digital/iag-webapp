@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
 {
@@ -8,24 +9,29 @@ namespace StockportWebapp.Controllers
     public class ErrorController : Controller
     {
         private readonly ILegacyRedirectsManager _legacyRedirectsManager;
+        private readonly FeatureToggles _featureToggles;
 
-        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager)
+        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, FeatureToggles featureToggles)
         {
             _legacyRedirectsManager = legacyRedirectsManager;
+            _featureToggles = featureToggles;
         }
 
         public async Task<IActionResult> Error(string id)
         {
             SetupPageMessage(id);
-            return await RedirectIfLegacyUrl();
+            return await RedirectIfLegacyUrl(id);
         }
 
-        private async Task<IActionResult> RedirectIfLegacyUrl()
+        private async Task<IActionResult> RedirectIfLegacyUrl(string id)
         {
-            var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl();
-            if (urlToRedirectLegacyRequestTo != string.Empty)
+            if (id.Equals("404") && _featureToggles.LegacyUrlRedirects)
             {
-                return await Task.FromResult(Redirect(urlToRedirectLegacyRequestTo));
+                var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl();
+                if (urlToRedirectLegacyRequestTo != string.Empty)
+                {
+                    return await Task.FromResult(Redirect(urlToRedirectLegacyRequestTo));
+                }
             }
             return await Task.FromResult(View());
         }

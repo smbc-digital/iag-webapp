@@ -3,6 +3,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StockportWebapp.Controllers;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using Xunit;
 
@@ -18,7 +19,7 @@ namespace StockportWebappTests.Unit.Controllers
             _legacyRedirects = new Mock<ILegacyRedirectsManager>();
             SetupThatNoLegacyRedirectMatches();
 
-           _controller = new ErrorController(_legacyRedirects.Object);
+           _controller = new ErrorController(_legacyRedirects.Object, new FeatureToggles() { LegacyUrlRedirects = true });
         }
 
         [Fact]
@@ -49,7 +50,23 @@ namespace StockportWebappTests.Unit.Controllers
             result.Url.Should().Be(redirectedToLocation);
         }
 
-        // missing test:  don't do legacy redirects if not 404
+        [Fact]
+        public void ShouldNotSearchForRedirectsIfLegacyUrlRedirectsFeatureTogglesAreOff()
+        {
+            var controller = new ErrorController(_legacyRedirects.Object, new FeatureToggles() { LegacyUrlRedirects = false });
+
+            AsyncTestHelper.Resolve(controller.Error("404"));
+
+            _legacyRedirects.Verify(o => o.RedirectUrl(), Times.Never);
+        }
+        
+        [Fact]
+        public void ShouldNotSearchForLegacyRedirectsIfNot404Error()
+        {
+            AsyncTestHelper.Resolve(_controller.Error("500"));
+
+            _legacyRedirects.Verify(o => o.RedirectUrl(), Times.Never);
+        }
 
         private void SetupThatNoLegacyRedirectMatches()
         {
