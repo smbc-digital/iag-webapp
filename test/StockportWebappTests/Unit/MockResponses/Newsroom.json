@@ -18,7 +18,7 @@
     }
   ],
   "EmailAlerts": true,
-  "EmailAlertsTopicId": "test-id",  
+  "EmailAlertsTopicId": "test-id",
   "News": [
     {
       "title": "News 26th Aug",
@@ -75,5 +75,6 @@
       "alerts": [],
       "tags": [ "Tag1", "Tag2" ]
     }
-  ]
+  ],
+  "categories": []
 }
