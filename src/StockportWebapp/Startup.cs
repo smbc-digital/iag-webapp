@@ -131,7 +131,7 @@ namespace StockportWebapp
             await scheduler.Start();
 
             app.UseMiddleware<BusinessIdMiddleware>();
-            app.UseMiddleware<RedirectMiddleware>();
+            app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
 
             loggerFactory.AddNLog();

@@ -9,19 +9,19 @@ using Xunit;
 
 namespace StockportWebappTests.Unit.Middleware
 {
-    public class RedirectMiddlewareTests
+    public class ShortUrlRedirectsMiddlewareTests
     {
-        private readonly Mock<ILogger<RedirectMiddleware>> _logger;
-        private readonly RedirectMiddleware _middleware;
-        private BusinessId _businessId = new BusinessId("unittest");
+        private readonly Mock<ILogger<ShortUrlRedirectsMiddleware>> _logger;
+        private readonly ShortUrlRedirectsMiddleware _middleware;
+        private readonly BusinessId _businessId = new BusinessId("unittest");
 
-        public RedirectMiddlewareTests()
+        public ShortUrlRedirectsMiddlewareTests()
         {
-            _logger = new Mock<ILogger<RedirectMiddleware>>();
+            _logger = new Mock<ILogger<ShortUrlRedirectsMiddleware>>();
             var next = new Mock<RequestDelegate>();
             var items = new BusinessIdRedirectDictionary {{"unittest", new RedirectDictionary {{"/test", "redirect-url"}}}};
             var urlRedirect = new ShortUrlRedirects(items);
-            _middleware = new RedirectMiddleware(next.Object, urlRedirect, _logger.Object);
+            _middleware = new ShortUrlRedirectsMiddleware(next.Object, urlRedirect, _logger.Object);
         }
 
         [Fact]
@@ -77,12 +77,12 @@ namespace StockportWebappTests.Unit.Middleware
         [Fact]
         public void ItShouldReturn200ForBusinessIdNotInRedirects()
         {
-            var logger = new Mock<ILogger<RedirectMiddleware>>();
+            var logger = new Mock<ILogger<ShortUrlRedirectsMiddleware>>();
             var next = new Mock<RequestDelegate>();
             var items = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/test", "redirect-url" } } } };
             var urlRedirect = new ShortUrlRedirects(items);
             var businessId = new BusinessId("not-in-redirects");
-            var middleware = new RedirectMiddleware(next.Object, urlRedirect, logger.Object);
+            var middleware = new ShortUrlRedirectsMiddleware(next.Object, urlRedirect, logger.Object);
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Path = "/test";
 

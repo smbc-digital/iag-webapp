@@ -6,13 +6,13 @@ using StockportWebapp.Models;
 
 namespace StockportWebapp.Scheduler
 {
-    public class RedirectMiddleware
+    public class ShortUrlRedirectsMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly ShortUrlRedirects _shortUrlRedirects;
-        private readonly ILogger<RedirectMiddleware> _logger;
+        private readonly ILogger<ShortUrlRedirectsMiddleware> _logger;
 
-        public RedirectMiddleware(RequestDelegate next, ShortUrlRedirects shortUrlRedirects, ILogger<RedirectMiddleware> logger)
+        public ShortUrlRedirectsMiddleware(RequestDelegate next, ShortUrlRedirects shortUrlRedirects, ILogger<ShortUrlRedirectsMiddleware> logger)
         {
             _next = next;
             _shortUrlRedirects = shortUrlRedirects;
