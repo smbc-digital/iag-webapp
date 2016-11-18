@@ -295,6 +295,8 @@ namespace StockportWebappTests.Integration
         [Fact]
         public void ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
         {
+            SetBusinessIdRequestHeader("healthystockport");
+
             var legacyUrl = "/services/councildemocracy/counciltax/difficultypaying";
             _testServerFixture.AddLegacyRedirectRule(legacyUrl, "/council-tax");
  
@@ -306,6 +308,8 @@ namespace StockportWebappTests.Integration
         [Fact]
         public void ItGives404ForANonExistentPageWithoutALegacyRedirectRule()
         {
+            SetBusinessIdRequestHeader("healthystockport");
+
             var result = AsyncTestHelper.Resolve(_client.GetAsync("/non-existent-url"));
  
             result.StatusCode.Should().Be(HttpStatusCode.NotFound);
@@ -313,7 +317,7 @@ namespace StockportWebappTests.Integration
 
 #endregion
 
-#region stockportgov
+        #region stockportgov
 [Fact]
         public void ItReturnsPopularSearchTermsOnTheHomepage()
         {
