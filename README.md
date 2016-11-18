@@ -1,5 +1,3 @@
-The contents of this repository are copyright. Please see COPYRIGHT.txt
-
 # StockportWebapp
 
 ## Building the app
