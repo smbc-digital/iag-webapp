@@ -4,7 +4,6 @@ prod: &prod
   ShortUrls: true
   BusinessIdFromRequest: true
   LiveChat: false
-  NewsCategory: true
   DynamicFooter: false
   LegacyUrlRedirects: false
 

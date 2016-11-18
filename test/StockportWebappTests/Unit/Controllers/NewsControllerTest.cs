@@ -11,7 +11,6 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.RSS;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
@@ -23,7 +22,6 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly NewsController _controller;
         private readonly Mock<IRepository> _repository = new Mock<IRepository>();
         private readonly Mock<IProcessedContentRepository> _processedContentRepository = new Mock<IProcessedContentRepository>();
-        private readonly FeatureToggles _featureToggles;
         private readonly Mock<IRssNewsFeedFactory> _mockRssFeedFactory;
         private readonly Mock<ILogger<NewsController>> _logger;
         private readonly Mock<IApplicationConfiguration> _config;
@@ -81,7 +79,6 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(response404);
 
             _logger = new Mock<ILogger<NewsController>>();
-            _featureToggles = new FeatureToggles() { NewsCategory = true };
 
             _mockRssFeedFactory = new Mock<IRssNewsFeedFactory>();
             _mockRssFeedFactory.Setup(o => o.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>())).Returns("rss fun");
@@ -91,7 +88,7 @@ namespace StockportWebappTests.Unit.Controllers
             _config.Setup(o => o.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
             _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-            _controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _featureToggles, _logger.Object, _config.Object, new BusinessId(BusinessId));
+            _controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId));
         }
 
         [Fact]
@@ -139,7 +136,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void ItReturnsANewsPageWithNoLatestNewsItems()
         {
             _repository.Setup(o => o.Get<List<News>>("7", null)).ReturnsAsync(new HttpResponse(404, null, "not found"));
-            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _featureToggles, _logger.Object, _config.Object, new BusinessId(BusinessId));
+            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId));
             var response = AsyncTestHelper.Resolve(controller.Detail("another-news-article")) as ViewResult;
 
             var model = response.Model as NewsViewModel;
@@ -151,8 +148,16 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItReturnsAListOfNewsArticlesForATagAndACategory()
         {
-            _repository.Setup(o => o.Get<Newsroom>("", It.Is<List<Query>>(l => l.Contains(new Query("tag", "Events")) && l.Contains(new Query("category", "A category"))))).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(tag: "Events", category: "A category")) as ViewResult;
+            _repository.Setup(
+                    o =>
+                        o.Get<Newsroom>("",
+                            It.Is<List<Query>>(
+                                l =>
+                                    l.Contains(new Query("tag", "Events")) &&
+                                    l.Contains(new Query("category", "A category")))))
+                .ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, _newsRoom));
+            var actionResponse =
+                AsyncTestHelper.Resolve(_controller.Index(tag: "Events", category: "A category")) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -170,24 +175,10 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItDoesntAddACategoryQueryIfFeatureToggleIsOff()
-        {
-            var featureToggles = new FeatureToggles() { NewsCategory = false };
-;           const string eventsValue = "Events";
-            const string categoryValue = "A category";
-            _repository.Setup(o => o.Get<Newsroom>("", It.Is<List<Query>>(l => l.Contains(new Query("tag", eventsValue))))).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
-            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, featureToggles, _logger.Object, _config.Object, new BusinessId(BusinessId));
-
-            AsyncTestHelper.Resolve(controller.Index(tag: eventsValue, category: categoryValue));
-
-            _repository.Verify(r => r.Get<Newsroom>("", It.Is<List<Query>>(l => l.Contains(new Query("tag", eventsValue)) && !l.Contains(new Query("category", categoryValue)))), Times.Once);
-        }
-
-        [Fact]
         public void ItReturns404ForNoNewsItems()
         {
             _repository.Setup(o => o.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(404, null, "not found"));
-            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _featureToggles, _logger.Object, _config.Object, new BusinessId(BusinessId));
+            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId));
             var response = AsyncTestHelper.Resolve(controller.Index()) as HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
