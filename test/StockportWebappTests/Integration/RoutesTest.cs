@@ -29,6 +29,27 @@ namespace StockportWebappTests.Integration
             result.Headers.CacheControl.MaxAge.Value.Should().Be(TimeSpan.FromSeconds(21600));
         }
 
+        [Fact]
+        public void ItGives404ForANonExistentPageWithoutALegacyRedirectRule()
+        {
+            SetBusinessIdRequestHeader("unittest");
+
+            var result = AsyncTestHelper.Resolve(_client.GetAsync("/non-existent-url"));
+
+            result.StatusCode.Should().Be(HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public void ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
+        {
+            SetBusinessIdRequestHeader("unittest");
+ 
+            var result = AsyncTestHelper.Resolve(_client.GetAsync("/this-is-a-redirect-from"));
+ 
+            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
+            result.Headers.Location.ToString().Should().Be("this-is-a-redirect-to");
+        }
+
         #region mixedbusinessids
         [Fact]
         public void ItReturnsContentFromTheBusinessRequestedInTheBusinessIdHeader()
@@ -290,29 +311,6 @@ namespace StockportWebappTests.Integration
             var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/robots.txt"));
 
             result.Should().Contain("# yes robots");
-        }
-
-        [Fact]
-        public void ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
-        {
-            SetBusinessIdRequestHeader("healthystockport");
-
-            var legacyUrl = "/services/councildemocracy/counciltax/difficultypaying";
-            _testServerFixture.AddLegacyRedirectRule(legacyUrl, "/council-tax");
- 
-            var result = AsyncTestHelper.Resolve(_client.GetAsync(legacyUrl));
- 
-            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
-        }
- 
-        [Fact]
-        public void ItGives404ForANonExistentPageWithoutALegacyRedirectRule()
-        {
-            SetBusinessIdRequestHeader("healthystockport");
-
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/non-existent-url"));
- 
-            result.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
 #endregion

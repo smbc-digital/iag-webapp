@@ -29,10 +29,5 @@ namespace StockportWebappTests.Integration
             _client.Dispose();
             _server.Dispose();
         }
-
-        public void AddLegacyRedirectRule(string legacyUrl, string councilTax)
-        {
-//            throw new NotImplementedException();
-        }
     }
 }
