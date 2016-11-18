@@ -2,7 +2,6 @@
 prod: &prod
   DynamicContactUsForm: true
   ShortUrls: true
-  BusinessIdFromRequest: true
   LiveChat: false
   DynamicFooter: false
   LegacyUrlRedirects: false

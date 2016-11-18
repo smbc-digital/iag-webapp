@@ -18,7 +18,6 @@ namespace StockportWebappTests
     {
         public static TestServer MakeFakeApp(string businessId, string environment)
         {
-            Environment.SetEnvironmentVariable("BUSINESS_ID", businessId);
             Environment.SetEnvironmentVariable("SES_ACCESS_KEY", "access-key");
             Environment.SetEnvironmentVariable("SES_SECRET_KEY", "secret-key");
 
