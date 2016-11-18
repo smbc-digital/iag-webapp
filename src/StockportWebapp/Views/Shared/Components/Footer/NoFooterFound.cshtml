@@ -10,10 +10,6 @@
         <div class="grid-container grid-parent">
             <div class="grid-100 grid-parent">
                 <div class="grid-30 tablet-grid-30 tablet-push-70 push-70 footer-social-container">
-                    @if (Model.SocialMediaLinks != null)
-                    {
-                        @Html.Partial("SocialMediaLinks", Model.SocialMediaLinks)
-                    }
                 </div>
                 <div class="grid-25 tablet-grid-25 tablet-pull-30 pull-30 mobile-grid-100">
                     <div class="footer-stockport-logo">
@@ -23,10 +19,6 @@
                 <div class="footer-links tablet-grid-45 pull-30 tablet-pull-30 grid-45 grid-100-mobile">
                     <div class="grid-100 tablet-grid-100 mobile-grid-100">
                         <ul class="footer-nav">
-                            @if (Model.Links != null)
-                            {
-                                @Html.Partial("FooterLinks", Model.Links)
-                            }    
                         </ul>
                     </div>
                 </div>
@@ -35,10 +27,6 @@
     </div>
     <div class="grid-100 footer-bottom">
         <p>
-            @if (Model.Copyright != null)
-            {
-                @Model.Copyright
-            }
         </p>
     </div>
 </footer>
