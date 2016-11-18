@@ -27,5 +27,5 @@
         </div>
     </div>
     
-   @await Component.InvokeAsync("NewsCategories", new { newsroom = Model.Newsroom })
+    @Html.Partial("NewsCategories", Model.Newsroom)
 </div>

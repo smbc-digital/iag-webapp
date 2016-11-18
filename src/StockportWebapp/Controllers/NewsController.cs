@@ -20,17 +20,15 @@ namespace StockportWebapp.Controllers
         private readonly IRepository _repository;
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRssNewsFeedFactory _rssFeedFactory;
-        private readonly FeatureToggles _featureToggles;
         private readonly ILogger<NewsController> _logger;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
 
-        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssNewsFeedFactory rssfeedFactory, FeatureToggles featureToggles, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId)
+        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssNewsFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
             _rssFeedFactory = rssfeedFactory;
-            _featureToggles = featureToggles;
             _logger = logger;
             _config = config;
             _businessId = businessId;
@@ -41,7 +39,7 @@ namespace StockportWebapp.Controllers
         {
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(tag)) queries.Add(new Query("tag", tag));
-            if (!string.IsNullOrEmpty(category) && _featureToggles.NewsCategory) queries.Add(new Query("category", category));
+            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("category", category));
 
             var httpResponse = await _repository.Get<Newsroom>(queries: queries);
 
@@ -75,7 +73,7 @@ namespace StockportWebapp.Controllers
             var response = httpResponse.Content as ProcessedNews;
             var latestNewsResponse = await _repository.Get<List<News>>("7");
             var latestNews = latestNewsResponse.Content as List<News>;
-            var newsViewModel = new NewsViewModel(response, latestNews, _featureToggles);
+            var newsViewModel = new NewsViewModel(response, latestNews);
 
             ViewBag.CurrentUrl = Request?.GetUri();
 

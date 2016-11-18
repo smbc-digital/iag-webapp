@@ -65,16 +65,7 @@ namespace StockportWebapp
             var featureTogglesReaderTemp = new FeatureTogglesReader(featureToggleYaml, _appEnvironment, null);
             var featureToggles = featureTogglesReaderTemp.Build<FeatureToggles>();
 
-            var businessId = new BusinessId(Environment.GetEnvironmentVariable("BUSINESS_ID"));
-
-            if (featureToggles.BusinessIdFromRequest)
-            {
-                services.AddScoped<BusinessId>();
-            }
-            else
-            {
-                services.AddSingleton(businessId);
-            }
+            services.AddScoped<BusinessId>();
 
             services.AddTransient(p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
 
@@ -120,7 +111,7 @@ namespace StockportWebapp
 
             services.Configure<RazorViewEngineOptions>(options =>
             {
-                options.ViewLocationExpanders.Add(new ViewLocationExpander(businessId.ToString(), featureToggles));
+                options.ViewLocationExpanders.Add(new ViewLocationExpander());
             });
         }
 
