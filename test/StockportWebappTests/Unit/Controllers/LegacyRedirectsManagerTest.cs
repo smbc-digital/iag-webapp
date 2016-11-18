@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Moq;
+using StockportWebapp.Config;
 using StockportWebapp.Controllers;
 using StockportWebapp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentAssertions;
-using StockportWebapp.Config;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -17,7 +13,7 @@ namespace StockportWebappTests.Unit.Controllers
     {
         private readonly LegacyRedirectsManager _legacyRedirectsManager;
         private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
-        private LegacyUrlRedirects _legacyUrlRedirects;     
+        private readonly LegacyUrlRedirects _legacyUrlRedirects;     
 
         public LegacyRedirectsManagerTest()
         {
@@ -27,7 +23,9 @@ namespace StockportWebappTests.Unit.Controllers
                 { "unittest", new RedirectDictionary()
                 {
                     { "/a-url-from/from-this", "/a-url-to" },
-                    { "/another-url-from/another-from-this", "/another-url-to" }
+                    { "/another-url-from/another-from-this", "/another-url-to" },
+                    { "/another-url-from/a-url-with-wildcard/*", "/wildcard-goes-here" },
+                    { "/another-url-with-a-wildcard-from/*", "/another-wildcard-goes-here" }
                 } },
                 { "another-business-id", new RedirectDictionary() }
             });
@@ -41,6 +39,32 @@ namespace StockportWebappTests.Unit.Controllers
 
             var result = legacyRedirectsManager.RedirectUrl();
             result.Should().Be(string.Empty);
+        }
+
+        [Fact]
+        public void ShouldRedirectToMatchedUrlIfWildacrdValueMatchesPartOfRoute()
+        {
+             _httpContextAccessor.Setup(h => h.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath)
+                 .Returns("/another-url-from/a-url-with-wildcard/a-url-in-a-wildcard");
+
+            var firstResult = _legacyRedirectsManager.RedirectUrl();
+            firstResult.Should().Be("/wildcard-goes-here");
+
+            _httpContextAccessor.Setup(h => h.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath)
+                 .Returns("/another-url-with-a-wildcard-from/another-url-from/a-url-with-wildcard");
+
+            var secondResult = _legacyRedirectsManager.RedirectUrl();
+            secondResult.Should().Be("/another-wildcard-goes-here");
+        }
+
+        [Fact]
+        public void ShouldRedirectToMatchedUrlIfRouteIsTheSameAsAWildcardRoute()
+        {
+            _httpContextAccessor.Setup(h => h.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath)
+                .Returns("/another-url-from/a-url-with-wildcard");
+
+            var result = _legacyRedirectsManager.RedirectUrl();
+            result.Should().Be("/wildcard-goes-here");
         }
 
         [Fact]

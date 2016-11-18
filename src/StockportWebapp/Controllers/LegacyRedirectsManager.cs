@@ -1,10 +1,16 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.Controllers
 {
+    public interface ILegacyRedirectsManager
+    {
+        string RedirectUrl();
+    }
+
     public class LegacyRedirectsManager : ILegacyRedirectsManager
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -23,17 +29,32 @@ namespace StockportWebapp.Controllers
             if (_legacyUrlRedirects.Redirects.ContainsKey(_businessId.ToString()))
             {
                 var currentPath = GetCurrentPath(_httpContextAccessor);
-                if (_legacyUrlRedirects.Redirects[_businessId.ToString()].ContainsKey(currentPath))
-                {
-                    return _legacyUrlRedirects.Redirects[_businessId.ToString()][currentPath];
-                }
+                var businessIdLegacyUrlRedirects = _legacyUrlRedirects.Redirects[_businessId.ToString()];
+                return GetShortUrlMatch(businessIdLegacyUrlRedirects, currentPath);
             }
             return string.Empty;
+        }
+
+        private string GetShortUrlMatch(RedirectDictionary businessIdLegacyUrlRedirects, string url)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return string.Empty;
+            if (businessIdLegacyUrlRedirects.ContainsKey(url)) return businessIdLegacyUrlRedirects[url];
+            if (businessIdLegacyUrlRedirects.ContainsKey(string.Concat(url, "/*"))) return businessIdLegacyUrlRedirects[string.Concat(url, "/*")];
+
+            var shortenedUrl = GetShortenedUrl(url);
+            if (businessIdLegacyUrlRedirects.ContainsKey(string.Concat(shortenedUrl, "/*"))) return businessIdLegacyUrlRedirects[string.Concat(shortenedUrl, "/*")];
+
+            return GetShortUrlMatch(businessIdLegacyUrlRedirects, shortenedUrl);
         }
 
         private string GetCurrentPath(IHttpContextAccessor httpContextAccessor)
         {
             return httpContextAccessor.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
+        }
+
+        private static string GetShortenedUrl(string url)
+        {
+            return url.Substring(0, url.LastIndexOf('/'));
         }
     }
 }
