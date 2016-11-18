@@ -1,6 +1,6 @@
 ﻿# no robots
 User-agent: *
-Disallow: 
+Disallow:/ 
 Disallow:/*.jpg$
 Disallow:/*.jpeg$
 Disallow:/*.png$
