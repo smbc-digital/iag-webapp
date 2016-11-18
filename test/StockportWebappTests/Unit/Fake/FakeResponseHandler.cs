@@ -14,7 +14,7 @@ namespace StockportWebappTests.Unit.Fake
 
         public void AddFakeResponse(Uri uri, HttpResponseMessage responseMessage)
         {
-            _fakeResponses.Add(uri, responseMessage);
+            if (!_fakeResponses.ContainsKey(uri)) _fakeResponses.Add(uri, responseMessage);
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, System.Threading.CancellationToken cancellationToken)

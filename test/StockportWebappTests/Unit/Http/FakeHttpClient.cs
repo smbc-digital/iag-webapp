@@ -26,7 +26,7 @@ namespace StockportWebappTests.Unit.Http
 
         public void Return(HttpResponse response)
         {
-            _responses.Add(_url, response);
+           if (!_responses.ContainsKey(_url)) _responses.Add(_url, response);
         }
 
         public void Throw(Exception exception)

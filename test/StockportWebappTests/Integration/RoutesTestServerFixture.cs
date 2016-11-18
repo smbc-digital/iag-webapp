@@ -12,8 +12,6 @@ namespace StockportWebappTests.Integration
 
         public RoutesTestServerFixture()
         {
-            TestContentApiFixture.SetupContentApiResponses();
-
             _server = TestAppFactory.MakeFakeApp("healthystockport", IntEnvironment);
             _client = _server.CreateClient();
         }
