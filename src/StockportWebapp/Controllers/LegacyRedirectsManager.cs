@@ -30,6 +30,9 @@ namespace StockportWebapp.Controllers
             {
                 var currentPath = GetCurrentPath(_httpContextAccessor);
                 var businessIdLegacyUrlRedirects = _legacyUrlRedirects.Redirects[_businessId.ToString()];
+
+                if (businessIdLegacyUrlRedirects.ContainsKey(currentPath)) return businessIdLegacyUrlRedirects[currentPath];
+
                 return GetShortUrlMatch(businessIdLegacyUrlRedirects, currentPath);
             }
             return string.Empty;
@@ -38,13 +41,9 @@ namespace StockportWebapp.Controllers
         private string GetShortUrlMatch(RedirectDictionary businessIdLegacyUrlRedirects, string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return string.Empty;
-            if (businessIdLegacyUrlRedirects.ContainsKey(url)) return businessIdLegacyUrlRedirects[url];
             if (businessIdLegacyUrlRedirects.ContainsKey(string.Concat(url, "/*"))) return businessIdLegacyUrlRedirects[string.Concat(url, "/*")];
 
-            var shortenedUrl = GetShortenedUrl(url);
-            if (businessIdLegacyUrlRedirects.ContainsKey(string.Concat(shortenedUrl, "/*"))) return businessIdLegacyUrlRedirects[string.Concat(shortenedUrl, "/*")];
-
-            return GetShortUrlMatch(businessIdLegacyUrlRedirects, shortenedUrl);
+            return GetShortUrlMatch(businessIdLegacyUrlRedirects, GetShortenedUrl(url));
         }
 
         private string GetCurrentPath(IHttpContextAccessor httpContextAccessor)

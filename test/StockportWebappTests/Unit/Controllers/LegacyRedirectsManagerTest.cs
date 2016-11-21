@@ -68,6 +68,16 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
+        public void ShouldNotRedirectToUrlIfRouteDoesNotMatchTopLevelRoute()
+        {
+            _httpContextAccessor.Setup(h => h.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath)
+                .Returns("/a-url-from/from-this/a-url");
+
+            var result = _legacyRedirectsManager.RedirectUrl();
+            result.Should().Be("");
+        }
+
+        [Fact]
         public void ShouldRedirectToMatchedPageIfValueFound()
         {
             _httpContextAccessor.Setup(h => h.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath)
