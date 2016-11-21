@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
@@ -9,11 +12,15 @@ namespace StockportWebapp.Controllers
     public class ErrorController : Controller
     {
         private readonly ILegacyRedirectsManager _legacyRedirectsManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<ErrorController> _logger;
         private readonly FeatureToggles _featureToggles;
 
-        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, FeatureToggles featureToggles)
+        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, IHttpContextAccessor httpContextAccessor, ILogger<ErrorController> logger, FeatureToggles featureToggles)
         {
             _legacyRedirectsManager = legacyRedirectsManager;
+            _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
             _featureToggles = featureToggles;
         }
 
@@ -27,11 +34,15 @@ namespace StockportWebapp.Controllers
         {
             if (id.Equals("404") && _featureToggles.LegacyUrlRedirects)
             {
-                var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl();
-                if (urlToRedirectLegacyRequestTo != string.Empty)
+                var currentPath = GetCurrentPath(_httpContextAccessor);
+                var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl(currentPath);
+                if (!string.IsNullOrEmpty(urlToRedirectLegacyRequestTo))
                 {
+                    _logger.LogInformation($"A legacy redirect was found - redirecting to {urlToRedirectLegacyRequestTo}");
                     return await Task.FromResult(Redirect(urlToRedirectLegacyRequestTo));
                 }
+
+                _logger.LogInformation($"No legacy url matching current url ({currentPath}) found");
             }
             return await Task.FromResult(View());
         }
@@ -41,14 +52,19 @@ namespace StockportWebapp.Controllers
             if (id.Equals("404"))
             {
                 ViewData["ErrorHeading"] = "Something's missing";
-                ViewData["ErrorMessage"] = "Sorry, the page you are looking for cannot be found. "
-                                           + "It may have been removed, had its name changed, or is temporarily unavailable.";
+                ViewData["ErrorMessage"] = "Sorry, the page you are looking for cannot be found. " +
+                                           "It may have been removed, had its name changed, or is temporarily unavailable.";
             }
             else
             {
                 ViewData["ErrorHeading"] = "Something went wrong";
                 ViewData["ErrorMessage"] = "An unexpected error occurred and the page you are looking for cannot be found.";
             }
+        }
+
+        private static string GetCurrentPath(IHttpContextAccessor httpContextAccessor)
+        {
+            return httpContextAccessor.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
         }
     }
 }
