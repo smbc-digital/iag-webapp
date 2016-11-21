@@ -140,9 +140,8 @@ namespace StockportWebapp
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
             services.AddTransient<AmazonAuthorizationHeader>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
-            services.AddSingleton(new AmazonSESKeys(
-                Environment.GetEnvironmentVariable("SES_ACCESS_KEY"),
-                Environment.GetEnvironmentVariable("SES_SECRET_KEY")));
+
+            services.AddSingleton(GetAmazonSesKeys());
 
             services.AddSingleton<IStaticAssets, StaticAssets>();
 
@@ -154,6 +153,18 @@ namespace StockportWebapp
 
             services.Configure<RazorViewEngineOptions>(
                 options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
+        }
+
+        public AmazonSESKeys GetAmazonSesKeys()
+        {
+            if (UseInjectedConfig())
+                return new AmazonSESKeys(
+                    Configuration["ses:accessKey"], 
+                    Configuration["ses:secretKey"]);
+
+            return new AmazonSESKeys(
+                Environment.GetEnvironmentVariable("SES_ACCESS_KEY"),
+                Environment.GetEnvironmentVariable("SES_SECRET_KEY"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
