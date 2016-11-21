@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Markdig;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,17 +31,45 @@ namespace StockportWebapp
         public IConfigurationRoot Configuration { get; }
         private readonly string _appEnvironment;
         private readonly string _contentRootPath;
-        
+        public readonly string ConfigDir = "app-config";
+
         public Startup(IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json")
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
-            builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
+            if (UseInjectedConfig())
+            {
+                string appConfig = Path.Combine(ConfigDir, "appsettings.json");
+                string envConfig = Path.Combine(ConfigDir, $"appsettings.{env.EnvironmentName}.json");
+                string secretConfig = Path.Combine(ConfigDir, "injected",
+                    $"appsettings.{env.EnvironmentName}.secrets.json");
+
+                Configuration = new ConfigurationBuilder()
+                    .SetBasePath(env.ContentRootPath)
+                    .AddJsonFile(appConfig)
+                    .AddJsonFile(envConfig)
+                    .AddJsonFile(secretConfig)
+                    .AddEnvironmentVariables()
+                    .Build();
+            }
+            else
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(env.ContentRootPath)
+                    .AddJsonFile("appsettings.json")
+                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
+                builder.AddEnvironmentVariables();
+                Configuration = builder.Build();
+            }
+
             _appEnvironment = env.EnvironmentName;
             _contentRootPath = env.ContentRootPath;
+        }
+
+        private static bool UseInjectedConfig()
+        {
+            var value = Environment.GetEnvironmentVariable("USE_INJECTED_CONFIG");
+
+            bool useInjectedConfig;
+            return bool.TryParse(value, out useInjectedConfig) && useInjectedConfig;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -59,7 +88,8 @@ namespace StockportWebapp
             services.AddSingleton(_ => new ShortUrlRedirects(new BusinessIdRedirectDictionary()));
             services.AddSingleton(_ => new LegacyUrlRedirects(new BusinessIdRedirectDictionary()));
 
-            services.AddSingleton<Func<System.Net.Http.HttpClient>>(p => () => p.GetService<System.Net.Http.HttpClient>());
+            services.AddSingleton<Func<System.Net.Http.HttpClient>>(
+                p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
 
             var featureTogglesReaderTemp = new FeatureTogglesReader(featureToggleYaml, _appEnvironment, null);
@@ -67,39 +97,52 @@ namespace StockportWebapp
 
             services.AddScoped<BusinessId>();
 
-            services.AddTransient(p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
+            services.AddTransient(
+                p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
 
-            services.AddSingleton<ISimpleTagParserContainer>(p => new SimpleTagParserContainer(p.GetService<List<ISimpleTagParser>>()));
+            services.AddSingleton<ISimpleTagParserContainer>(
+                p => new SimpleTagParserContainer(p.GetService<List<ISimpleTagParser>>()));
             services.AddSingleton<IContactUsMessageTagParser, ContactUsMessageTagParser>();
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
-            services.AddSingleton(p => new List<ISimpleTagParser>() { new ButtonTagParser(), new ContactUsTagParser(p.GetService<IViewRender>(), p.GetService<ILogger<ContactUsTagParser>>()), new VideoTagParser() });
+            services.AddSingleton(
+                p =>
+                    new List<ISimpleTagParser>()
+                    {
+                        new ButtonTagParser(),
+                        new ContactUsTagParser(p.GetService<IViewRender>(), p.GetService<ILogger<ContactUsTagParser>>()),
+                        new VideoTagParser()
+                    });
             services.AddSingleton(_ => new MarkdownWrapper());
             services.AddTransient(_ => new MarkdownPipelineBuilder().UsePipeTables().Build());
-            services.AddSingleton<IRssNewsFeedFactory,RssNewsFeedFactory>();
+            services.AddSingleton<IRssNewsFeedFactory, RssNewsFeedFactory>();
             services.AddTransient<ArticleFactory>();
             services.AddTransient<SectionFactory>();
 
             services.AddTransient<IHttpClient>(
                 p => new LoggingHttpClient(new HttpClient(new System.Net.Http.HttpClient()),
-                        p.GetService<ILogger<LoggingHttpClient>>()));
-            
+                    p.GetService<ILogger<LoggingHttpClient>>()));
+
             services.AddTransient<IProcessedContentRepository>(
-                p => new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), new ContentTypeFactory(p.GetService<ISimpleTagParserContainer>(), p.GetService<IDynamicTagParser<Profile>>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Document>>())));
+                p =>
+                    new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
+                        new ContentTypeFactory(p.GetService<ISimpleTagParserContainer>(),
+                            p.GetService<IDynamicTagParser<Profile>>(), p.GetService<MarkdownWrapper>(),
+                            p.GetService<IDynamicTagParser<Document>>())));
             services.AddTransient<IRepository>(
                 p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>()));
 
             services.AddTransient<IHealthcheckService>(
                 p => new HealthcheckService($"{_contentRootPath}/version.txt", $"{_contentRootPath}/sha.txt",
-                     new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<Func<System.Net.Http.HttpClient>>(),
-                     p.GetService<UrlGenerator>()));
+                    new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<Func<System.Net.Http.HttpClient>>(),
+                    p.GetService<UrlGenerator>()));
 
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
             services.AddTransient<AmazonAuthorizationHeader>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
             services.AddSingleton(new AmazonSESKeys(
-                        Environment.GetEnvironmentVariable("SES_ACCESS_KEY"),
-                        Environment.GetEnvironmentVariable("SES_SECRET_KEY")));
+                Environment.GetEnvironmentVariable("SES_ACCESS_KEY"),
+                Environment.GetEnvironmentVariable("SES_SECRET_KEY")));
 
             services.AddSingleton<IStaticAssets, StaticAssets>();
 
@@ -109,16 +152,16 @@ namespace StockportWebapp
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsManager>();
 
-            services.Configure<RazorViewEngineOptions>(options =>
-            {
-                options.ViewLocationExpanders.Add(new ViewLocationExpander());
-            });
+            services.Configure<RazorViewEngineOptions>(
+                options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+            IServiceProvider serviceProvider)
         {
-            var scheduler = new RedirectScheduler(serviceProvider.GetService<ShortUrlRedirects>(), serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
+            var scheduler = new RedirectScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
+                serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
             await scheduler.Start();
 
             app.UseMiddleware<BusinessIdMiddleware>();
@@ -131,10 +174,12 @@ namespace StockportWebapp
 
             app.UseStaticFiles(new StaticFileOptions
             {
-                OnPrepareResponse = (context) =>
-                {
-                    context.Context.Response.Headers["Cache-Control"] = "public, max-age="+ Cache.DefaultDuration.ToString();
-                }
+                OnPrepareResponse =
+                    (context) =>
+                    {
+                        context.Context.Response.Headers["Cache-Control"] = "public, max-age=" +
+                                                                            Cache.DefaultDuration.ToString();
+                    }
             });
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
 
