@@ -3,7 +3,7 @@ prod: &prod
   DynamicContactUsForm: true
   ShortUrls: true
   LiveChat: false
-  DynamicFooter: false
+  DynamicFooter: true
   LegacyUrlRedirects: false
 
 stage: &stage
@@ -18,5 +18,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  DynamicFooter: true
   LegacyUrlRedirects: true
