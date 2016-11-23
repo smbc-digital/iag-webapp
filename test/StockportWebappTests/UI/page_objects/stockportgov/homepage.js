@@ -5,11 +5,6 @@ var methods = {
         browser.useXpath()
             .assert.visible("//h4[@class='featured-topic-name' and text()='" + title + "']")
             .click("//a[contains(@href,'/topic/" + link + "')]");
-
-        this.waitForElementVisible('@topicChildLibraries', this.api.globals.timeOut);
-        this.waitForElementVisible('@topicChildLibrariesMore', this.api.globals.timeOut);
-        browser.useXpath()
-            .click("//div[contains(@class,'topic-child-more')]//a[contains(@href,'/topic/" + link + "')]");
     },
 
     goToTopTasksBlockPage: function(browser, title, link) {
@@ -72,8 +67,6 @@ module.exports = {
   },
   elements: {
       topicList: '#test-featured-topic-list',
-      topicChildLibraries: '#featured-topic-children-uitest-hat-works',
-      topicChildLibrariesMore: '#featured-topic-children-uitest-hat-works .topic-child-more a',
       taskList: '.uitest-task-block-list-loaded',
       searchBar: '.search-bar',
       postCodeSearch: 'input[type=text].light-on-dark-field',
