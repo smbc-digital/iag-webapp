@@ -1,10 +1,10 @@
 ﻿var matchboxPrimary = new Matchbox({
     parentSelector: '.featured-topics-primary .featured-topic-list',
     childSelector: '.featured-topic',
-    groupsOf: 4,
+    groupsOf: 3,
     breakpoints: [
-    { bp: 767, groupsOf: 4 },
-    { bp: 1024, groupsOf: 4 }
+    { bp: 767, groupsOf: 3 },
+    { bp: 1024, groupsOf: 3 }
     ]
 });
 var matchboxSecondary = new Matchbox({
@@ -52,27 +52,3 @@ $seeMoreServicesButton.on(
         );
     }
 );
-
-$('.featured-topics-primary .featured-topic .featured-topic-content a.arrow')
-    .on('click', function () {
-        if ($(this).hasClass("arrow-hidden")) {
-            var openTopic = $('.featured-topics-primary  .featured-topic  .featured-topic-content  a.arrow:not(.arrow-hidden)');
-            if (openTopic.length !== 0) {
-                toggleFeaturedTopic(openTopic, this, toggleFeaturedTopic);
-                return false;
-            }
-        }
-        toggleFeaturedTopic(this);
-        return false;
-    });
-
-var toggleFeaturedTopic = function (topic, topicToChangeAfter, changeTopicAfter) {
-    $(topic).toggleClass("arrow-hidden");
-    var child = $(topic).data("child");
-    $("#" + child).slideToggle(200, function () {
-        $("#" + child).toggleClass("hidden");
-        if (changeTopicAfter != null) {
-            changeTopicAfter(topicToChangeAfter);
-        }
-    });
-}
