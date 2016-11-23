@@ -30,7 +30,7 @@ namespace StockportWebapp.ContentFactory
                 processedSections.Add(_sectionFactory.Build(section));
             }
 
-            var body = _tagParserContainer.ParseAll(article.Body);
+            var body = _tagParserContainer.ParseAll(article.Body, article.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");
             body = _profileTagParser.Parse(body, article.Profiles);
             body = _documentTagParser.Parse(body, article.Documents);

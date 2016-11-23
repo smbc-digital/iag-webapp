@@ -32,7 +32,7 @@ namespace StockportWebappTests.Unit.Parsers
             _viewRenderer.Setup(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmail == email)))
                 .Returns(renderResult);
 
-            var parsedHtml = _contactUsTagParser.Parse(content);
+            var parsedHtml = _contactUsTagParser.Parse(content, null);
 
             _viewRenderer.Verify(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmail == email)));
             parsedHtml.Should().Contain(renderResult);
@@ -46,7 +46,7 @@ namespace StockportWebappTests.Unit.Parsers
 
             _viewRenderer.Setup(o => o.Render("ContactUs", It.IsAny<ContactUsDetails>())).Returns(renderResult);
 
-            var parsedHtml = _contactUsTagParser.Parse(content);
+            var parsedHtml = _contactUsTagParser.Parse(content, null);
 
             parsedHtml.Should().Be(ContactUsMessageTag + renderResult);
         }
@@ -55,11 +55,29 @@ namespace StockportWebappTests.Unit.Parsers
         public void ShouldReturnInvalidContentMessageForEmptyServiceEmail()
         {
             var content = $"{{{{CONTACT-US:}}}}";
-            var parsedHtml = _contactUsTagParser.Parse(content);
+            var parsedHtml = _contactUsTagParser.Parse(content, null);
 
             parsedHtml.Should().Be("<p>This contact form is temporarily unavailable. Please check back later.</p>");
             LogTesting.Assert(_mockLogger, LogLevel.Error,
                 $"The service email in this CONTACT-US tag is invalid and this contact form will not render.");
+        }
+
+        [Fact]
+        public void ShouldPassTitleToRenderer()
+        {
+            // Arrange
+            var content = $"{{{{CONTACT-US:test@mail.com}}}}";
+            const string title = "Test Title";
+            _viewRenderer.Setup(renderer =>
+                renderer.Render(
+                    It.Is<string>(s => s == "ContactUs"),
+                    It.Is<ContactUsDetails>(cont => cont.Title == title)));
+
+            // Act
+            _contactUsTagParser.Parse(content, title);
+
+            // Assert
+            _viewRenderer.Verify();
         }
     }
 }

@@ -38,7 +38,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object,_documentTagParser.Object);
             _news = new News(Title, Slug, Teaser, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _alerts,_tags,_documents);
 
-            _tagParserContainer.Setup(o => o.ParseAll(Body)).Returns(Body);
+            _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
         }
 
@@ -72,7 +72,15 @@ namespace StockportWebappTests.Unit.ContentFactory
         {
             _factory.Build(_news);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Body), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>()), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldPassTitleToParserWhenBuilding()
+        {
+            _factory.Build(_news);
+
+            _tagParserContainer.Verify(o => o.ParseAll(Body, _news.Title), Times.Once);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _sectionFactory.Setup(o => o.Build(_sectionTwo)).Returns(_processedSectionTwo);
 
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-            _tagParserContainer.Setup(o => o.ParseAll(Body)).Returns(Body);
+            _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
         }
@@ -100,7 +100,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         {
             _articleFactory.Build(_article);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Body), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>()), Times.Once);
         }
 
         [Fact]
@@ -109,6 +109,14 @@ namespace StockportWebappTests.Unit.ContentFactory
             _articleFactory.Build(_article);
 
             _profileTagParser.Verify(o => o.Parse(Body, _article.Profiles), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldPassTitleToParserWhenBuilding()
+        {
+            _articleFactory.Build(_article);
+
+            _tagParserContainer.Verify(o => o.ParseAll(Body, _article.Title), Times.Once);
         }
     }
 }

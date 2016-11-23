@@ -26,7 +26,7 @@ namespace StockportWebapp.ContentFactory
 
         public ProcessedSection Build(Section section)
         {
-            var parsedBody = _tagParserContainer.ParseAll(section.Body);
+            var parsedBody = _tagParserContainer.ParseAll(section.Body, section.Title);
             var parsedBodyWithProfiles = _profileTagParser.Parse(parsedBody, section.Profiles);
             var parsedBodyWithDocuments = _documentTagParser.Parse(parsedBodyWithProfiles, section.Documents);
             var processedBody = _markdownWrapper.ConvertToHtml(parsedBodyWithDocuments);

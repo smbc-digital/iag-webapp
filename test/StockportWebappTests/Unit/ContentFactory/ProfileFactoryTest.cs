@@ -25,7 +25,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         public void ItBuildsAProfileWithProcessedBody()
         {
             var body = "body";
-            _tagParserContainer.Setup(o => o.ParseAll(body)).Returns(body);
+            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
             _markdownWrapperMock.Setup(o => o.ConvertToHtml(body)).Returns(body);
 
             var crumb = new Crumb("title", "slug", "type");
@@ -54,8 +54,9 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.BackgroundImage.Should().Be(backgroundImage);
             result.Breadcrumbs.Should().HaveCount(2);
 
-            _tagParserContainer.Verify(o => o.ParseAll(body), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(body, title), Times.Once);
             _markdownWrapperMock.Verify(o => o.ConvertToHtml(body), Times.Once);
         }
-    }
+
+       }
 }

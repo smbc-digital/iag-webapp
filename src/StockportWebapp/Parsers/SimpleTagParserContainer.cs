@@ -6,7 +6,7 @@ namespace StockportWebapp.Parsers
 {
     public interface ISimpleTagParserContainer
     {
-        string ParseAll(string content);
+        string ParseAll(string content, string title = null);
     }
 
     public class SimpleTagParserContainer : ISimpleTagParserContainer
@@ -19,9 +19,9 @@ namespace StockportWebapp.Parsers
             _tagParsers = tagParsers;
         }
 
-        public string ParseAll(string content)
+        public string ParseAll(string content, string title = null)
         {
-            return RemoveEmptyTags(_tagParsers.Aggregate(content, (c, tagParser) => tagParser.Parse(c)));
+            return RemoveEmptyTags(_tagParsers.Aggregate(content, (c,tagParser) => tagParser.Parse(c,title)));
         }
 
         private static string RemoveEmptyTags(string body)

@@ -20,7 +20,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             var tagParserContainer = new Mock<ISimpleTagParserContainer>();
             var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
             var documentTagParser = new Mock<IDynamicTagParser<Document>>();
-            tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>())).Returns("");
+            tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns("");
 
             _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object);
         }

@@ -18,7 +18,7 @@ namespace StockportWebapp.ContentFactory
         public virtual ProcessedProfile Build(Profile profile)
         {
             var htmlBody = _markdownWrapper.ConvertToHtml(profile.Body);
-            var processedBody = _parser.ParseAll(htmlBody);
+            var processedBody = _parser.ParseAll(htmlBody, profile.Title);
 
             return new ProcessedProfile(profile.Type, profile.Title, profile.Slug, profile.Subtitle, profile.Teaser,
                 profile.Image, processedBody, profile.BackgroundImage, profile.Icon, profile.Breadcrumbs);

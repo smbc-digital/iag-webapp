@@ -5,8 +5,9 @@
     <div class="form">
         <div class="form-section">
             <fieldset>
+                <input type="hidden" asp-for="Title" />
                 <label asp-for="Name"></label>
-                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Name" />
+                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Name"/>
                 <span asp-validation-for="Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 <label asp-for="Email"></label>
                 <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Email"/>
@@ -19,11 +20,11 @@
                     <small>The enquiry message must be no more than 500 characters long.</small>
                 </span>
                 <div class="enquiry-message">
-                    <textarea asp-for="Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Message" ></textarea>
+                    <textarea asp-for="Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Message"></textarea>
                     <span asp-validation-for="Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                     <span class="text-control chars-remaining">
                         <small></small>
-                    </span><br />
+                    </span><br/>
                 </div>
                 <input type="hidden" asp-for="ServiceEmail" value="@Model.ServiceEmail"/>
                 <button type="submit" id="uitest-contact-form-submit" class="button button-outline button-partialrounded button-bold button-call-to-action button-contact-us">Send your enquiry</button>

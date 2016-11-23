@@ -29,7 +29,7 @@ namespace StockportWebapp.Parsers
             _tagReplacer = new TagReplacer(GenerateHtml,TagRegex);
         }
 
-        public string Parse(string body)
+        public string Parse(string body, string title = null)
         {
             return _tagReplacer.ReplaceAllTags(body);
         }

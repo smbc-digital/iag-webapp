@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.ViewDetails
@@ -24,6 +25,9 @@ namespace StockportWebapp.ViewDetails
         [MaxLength(254, ErrorMessage = "The email address must be no more than 254 characters long")]
         public string Email { get; set; }
 
+        [HiddenInput]
+        public string Title { get; set; }
+
         [Required(ErrorMessage = "A subject is required")]
         [Display(Name = "Subject")]
         [MaxLength(80, ErrorMessage = "The subject must be no more than 80 characters long")]
@@ -42,9 +46,10 @@ namespace StockportWebapp.ViewDetails
         {         
         }
 
-        public ContactUsDetails(string serviceEmail)
+        public ContactUsDetails(string serviceEmail, string title)
         {
             ServiceEmail = serviceEmail;
+            Title = title;
         }
 
         public ContactUsDetails(string name, string email, string message, string subject, string serviceEmail)

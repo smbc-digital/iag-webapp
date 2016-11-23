@@ -53,7 +53,7 @@ namespace StockportWebappTests.Unit.Repositories
             _mockHttpClient.Setup(o => o.Get(url))
                 .ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/Article.json"), string.Empty));
 
-            _tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>())).Returns(body);
+            _tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns(body);
             _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>())).Returns(body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(It.IsAny<string>())).Returns(body);
             _documentTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>())).Returns(body);
@@ -181,7 +181,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/News.json"), string.Empty));
 
-            _tagParserContainer.Setup(o => o.ParseAll(body)).Returns(body);
+            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
             _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
 

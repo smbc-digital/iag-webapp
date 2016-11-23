@@ -79,7 +79,11 @@ namespace StockportWebapp.Controllers
             var messageSubject = $"Contact Us - {contactUsDetails.Subject}";
             _logger.LogDebug("Sending contact us form email");
 
-            return _emailClient.SendEmailToService(messageSubject, CreateMessageBody(contactUsDetails), contactUsDetails.ServiceEmail, contactUsDetails.Email);
+            return _emailClient.SendEmailToService
+                (messageSubject,
+                CreateMessageBody(contactUsDetails),
+                contactUsDetails.ServiceEmail,
+                contactUsDetails.Email);
         }
 
         private string CreateMessageBody(ContactUsDetails contactUsDetails)

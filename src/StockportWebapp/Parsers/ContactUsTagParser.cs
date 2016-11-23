@@ -10,6 +10,7 @@ namespace StockportWebapp.Parsers
         private readonly IViewRender _viewRenderer;
         private readonly ILogger<ContactUsTagParser> _logger;
         private readonly TagReplacer _tagReplacer;
+        private string _articleTitle;
 
         private const string UnableToRenderFormError =
             "<p>This contact form is temporarily unavailable. Please check back later.</p>";
@@ -34,12 +35,13 @@ namespace StockportWebapp.Parsers
                     $"The service email in this CONTACT-US tag is invalid and this contact form will not render.");
                 return UnableToRenderFormError;
             }
-            var renderResult = _viewRenderer.Render("ContactUs", new ContactUsDetails(serviceEmail));
+            var renderResult = _viewRenderer.Render("ContactUs", new ContactUsDetails(serviceEmail, _articleTitle));
             return string.Concat(ContactUsMessageTagRegex.ToString(), renderResult);
         }
 
-        public string Parse(string body)
+        public string Parse(string body, string title)
         {
+            _articleTitle = title;
             return _tagReplacer.ReplaceAllTags(body);
         }
     }
