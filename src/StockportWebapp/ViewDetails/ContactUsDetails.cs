@@ -52,13 +52,14 @@ namespace StockportWebapp.ViewDetails
             Title = title;
         }
 
-        public ContactUsDetails(string name, string email, string message, string subject, string serviceEmail)
+        public ContactUsDetails(string name, string email, string message, string subject, string serviceEmail, string title)
         {
             Name = name;
             Email = email;
             Message = message;
             Subject = subject;
             ServiceEmail = serviceEmail;
+            Title = title;
         }
     }
 }

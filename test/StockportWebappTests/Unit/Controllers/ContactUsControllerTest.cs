@@ -30,6 +30,7 @@ namespace StockportWebappTests.Unit.Controllers
 
         private const string Path = "/page-with-contact-us-form";
         private readonly string _url = $"http://page.com{Path}";
+        private readonly string _title = "Title";
 
         public ContactUsControllerTest()
         {
@@ -40,7 +41,7 @@ namespace StockportWebappTests.Unit.Controllers
             _controller = new ContactUsController(_mockEmailClient.Object, _featureToggles, _mockLogger.Object);
             
             _validContactDetails = new ContactUsDetails(_userName, _userEmail, _emailSubject,
-                _emailBody, _serviceEmails);
+                _emailBody, _serviceEmails,_title);
 
             var request = new Mock<HttpRequest>();
             var context = new Mock<HttpContext>();
@@ -156,6 +157,16 @@ namespace StockportWebappTests.Unit.Controllers
             var pageResult = AsyncTestHelper.Resolve(_controller.ThankYouMessage(referer));
 
             pageResult.Should().BeOfType<NotFoundResult>();
+        }
+
+        [Fact]
+        public void ShouldAddPageTitleToSubject()
+        {
+            AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
+
+            _mockEmailClient.Verify(client => client.SendEmailToService(
+                It.Is<string>(subject => subject.Contains(_title) ),
+                It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
         }
     }
 }

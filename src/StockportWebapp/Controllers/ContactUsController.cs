@@ -76,7 +76,7 @@ namespace StockportWebapp.Controllers
 
         private Task<HttpStatusCode> SendEmailMessage(ContactUsDetails contactUsDetails)
         {
-            var messageSubject = $"Contact Us - {contactUsDetails.Subject}";
+            var messageSubject = $"{contactUsDetails.Title} - {contactUsDetails.Subject}";
             _logger.LogDebug("Sending contact us form email");
 
             return _emailClient.SendEmailToService
@@ -94,7 +94,9 @@ namespace StockportWebapp.Controllers
                    $"SENDER : {contactUsDetails.Name}\n" +
                    $"EMAIL: {contactUsDetails.Email}\n" +
                    $"SUBJECT: {contactUsDetails.Subject}\n" +
-                   $"MESSAGE: {contactUsDetails.Message}\n";
+                   $"MESSAGE: {contactUsDetails.Message}\n" +
+                   $"\n" +
+                   $"From page: {Request.Headers["referer"]}\n";
         }
 
         [Route("/thank-you")]
