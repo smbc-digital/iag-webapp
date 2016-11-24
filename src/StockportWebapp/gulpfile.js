@@ -1,4 +1,4 @@
-/// <binding BeforeBuild='css, min:js' Clean='clean' ProjectOpened='watch' />
+/// <binding BeforeBuild='css, js' ProjectOpened='watch' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -11,76 +11,64 @@ var gulp = require("gulp"),
     request = require('request'),
     source = require('vinyl-source-stream'),
     fs = require('fs'),
-    colors = require('colors');
+    colors = require('colors'),
+    plumber = require('gulp-plumber'),
+    print = require('gulp-print');
 
-var businessId = process.env.BUSINESS_ID;
 var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
 
 // paths
 var paths = {
-     webroot: "./wwwroot/",
      sass: "./wwwroot/assets/sass/**/*.scss",
-     js: "./wwwroot/assets/javascript/**/*.js",
      cssDest: "./wwwroot/assets/stylesheets",
-     cleanArtifacts: "./wwwroot/assets/stylesheets/*.min.css",
      jsSite: "./wwwroot/assets/javascript/site.js",
      jsProject: "./wwwroot/assets/javascript/stockportgov/*.js",
-     minJs: "./wwwroot/assets/javascript/*.min.js",
      concatJsDest: "./wwwroot/assets/javascript/stockportgov.min.js",
      jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
-     concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js"
+     concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
+     minJs: "./wwwroot/assets/javascript/*.min.js"
 };
 
-//clean 
-gulp.task("clean:js", function (cb) {
-    rimraf(paths.concatJsDest, cb);
-});
-
-gulp.task("clean:css", function (cb) {
-    // TODO: Clean only styleguide css
-    rimraf(paths.cleanArtifacts, cb);
-});
-
-gulp.task("clean", ["clean:js", "clean:css"]);
+gulp.task("js", ['min:js:sg', 'min:js:hs']);
 
 //js sg
 gulp.task("min:js:sg", function () {
     return gulp.src([paths.jsSite, paths.jsProject, "!" + paths.minJs], { base: "." })
+        .pipe(plumber())
         .pipe(concat(paths.concatJsDest))
         .pipe(uglify())
         .pipe(gulp.dest("."))
-        .on('end', function() {
-            console.log('Successfully minified js files to: '.yellow);
-            console.log(paths.concatJsDest.cyan);
-        });
+        .pipe(plumber.stop())
+        .pipe(print(function(filepath) {
+            console.log('Processed: '.yellow + filepath.cyan);
+        }));
 });
 
 //js hs
 gulp.task("min:js:hs", function () {
     return gulp.src([paths.jsSite, paths.jsProjectHS, "!" + paths.minJs], { base: "." })
+        .pipe(plumber())
         .pipe(concat(paths.concatJsDestHS))
         .pipe(uglify())
         .pipe(gulp.dest("."))
-        .on('end', function () {
-            console.log('Successfully minified js files to: '.yellow);
-            console.log(paths.concatJsDestHS.cyan);
-        });
+        .pipe(plumber.stop())
+        .pipe(print(function (filepath) {
+            console.log('Processed: '.yellow + filepath.cyan);
+        }));
 });
 
 //css
 gulp.task('css', function () {
     return gulp.src(paths.sass)
+        .pipe(plumber())
         .pipe(sass())
-        .on('error', function(err) {
-            console.log('There was an error processing the sass files'.underline.red);
-            console.log(colors.cyan(err.toString()));
-        })
         .pipe(cssmin())
-        .pipe(rename({
-            suffix: '.min'
-        }))
+        .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(paths.cssDest))
-        .on('end', function() { console.log('Successfully processed the sass files to css'.bold.yellow); });
+        .pipe(plumber.stop())
+        .pipe(print(function(filepath) {
+            console.log('Processed: '.yellow + filepath.cyan);
+        }));
 });
 
 gulp.task('pull-styleguide', function () {
@@ -139,8 +127,16 @@ var pullArtifacts = function (version) {
     }
 };
 
+function swallowError(error) {
+    console.log('There was an error'.underline.red);
+    console.log(colors.cyan(error.toString()));
+    this.emit('end');
+}
+
 //watch
 gulp.task('watch', function () {
-    gulp.watch("wwwroot/assets/javascript/**/*.js", ['min:js:hs', 'min:js:sg']);
+    gulp.watch("wwwroot/assets/javascript/stockportgov/*.js", ['min:js:sg']);
+    gulp.watch("wwwroot/assets/javascript/healthystockport/*.js", ['min:js:hs']);
+    gulp.watch("wwwroot/assets/javascript/site.js", ['min:js:hs', 'min:js:sg']);
     gulp.watch("wwwroot/assets/sass/**/*.scss", ['css']);
 });

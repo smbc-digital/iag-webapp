@@ -12,6 +12,8 @@
     "request": "2.74.0",
     "vinyl-source-stream": "1.1.0",
     "colors": "1.1.2",
-    "fs": "0.0.2"
+    "fs": "0.0.2",
+    "gulp-plumber": "1.1.0",
+    "gulp-print":  "2.0.1" 
   }
 }
