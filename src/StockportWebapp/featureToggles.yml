@@ -4,10 +4,12 @@ prod: &prod
   ShortUrls: true
   LiveChat: false
   LegacyUrlRedirects: false
+  Search: false
 
 stage: &stage
   << : *prod
   LiveChat: true
+  LegacyUrlRedirects: true
 
 qa: &qa
   << : *prod
@@ -17,4 +19,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  LegacyUrlRedirects: true
+  Search: true
