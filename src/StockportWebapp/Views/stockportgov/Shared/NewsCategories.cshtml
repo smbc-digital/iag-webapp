@@ -5,29 +5,55 @@
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-news-filter">
         <p class="filters-heading">Refine by</p>
-        <ul class="filters-list">
-            <li class="collapsable">
-                <ul class="filters-list">
-                    <li class="filter collapsable">
-                        <p class="filter-title">Category</p>
-                        <ul class="filters-list">
-                            <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category") ? "active" : "")>
-                                <a href="@Url.RouteUrl(UrlQueryHelper.RemoveQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category"))">All categories</a>
+        <ul class="filters-list" id="category-list">           
+        <li class="collapsable">
+            <ul class="filters-list">
+                <li class="filter collapsable">
+                    <p class="filter-title">Category</p>
+                    <ul class="filters-list">
+                        <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category") ? "active" : "")>
+                            <a href="@Url.RouteUrl(UrlQueryHelper.RemoveQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category"))">All categories</a>
+                        </li>
+                        @foreach (var category in Model.Categories.OrderBy(c => c))
+                        {
+                            <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", category) ? "active" : "")>
+                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", @category))">@category</a>
                             </li>
-                            @foreach (var category in Model.Categories.OrderBy(c => c))
-                            {
-                                <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", category) ? "active" : "")>
-                                    <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "category", @category))">@category</a>
+                        }
+                    </ul>
+                </li>
+            </ul>
+            <ul class="filters-list" id="dates-list">
+                <li class="collapsable">
+                <p class="filter-title">News Archive</p>
+                    <ul class="filters-list">
+                        @foreach (var year in Model.Dates.Select(s => s.Year).Distinct())
+                        {
+                                <li class="filter collapsable">
+                                    <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "year", @year.ToString()))">@year.ToString()</a>
+                                    <ul class="filters-list" id="news-archive">
+                                        @foreach (var date in Model.Dates.Where(d=>d.Year == year).OrderBy(a => a).Reverse())
+                                        {
+                                            <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "date", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
+
+                                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "datefrom", @date.ToString("yyyy-MM-dd")))&@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "datefrom", @date.ToString("yyyy-MM-dd")))">@date.ToString("MMMM yyyy")</a>
+                                            </li>
+                                        }
+                                    </ul>
                                 </li>
-                            }
-                        </ul>
-                    </li>
-                </ul>
-                <p class="mobile-filter-heading filter-title">Filter news</p>
-            </li>
-        </ul>
-    </div>
-    <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent news-article-grid">
+
+                        }
+                    </ul>
+
+
+                    <p class="mobile-filter-heading filter-title">Filter news</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+    <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent">
+>>>>>>> clare simonE tony Date filter on news articles
         @{
             if (Model.Alerts != null)
             {

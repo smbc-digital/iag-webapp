@@ -17,6 +17,7 @@ using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests.Unit.Controllers
 {
+#pragma warning disable CS1701 // Assuming assembly reference matches identity
     public class NewsControllerTest
     {
         private readonly NewsController _controller;
@@ -43,7 +44,7 @@ namespace StockportWebappTests.Unit.Controllers
             "",
             "",
             "test",
-            new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),new List<string>(), new List<Document>());
+            new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(), new List<string>(), new List<Document>());
 
         private readonly ProcessedNews _processedNewsArticle = new ProcessedNews("Another news article",
             "another-news-article",
@@ -59,7 +60,7 @@ namespace StockportWebappTests.Unit.Controllers
 
         public NewsControllerTest()
         {
-            _newsRoom = new Newsroom(_listOfNewsItems, new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId, new List<string>());
+            _newsRoom = new Newsroom(_listOfNewsItems, new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
 
             // setup responses (with mock data)
             var responseListing = new HttpResponse(200, _newsRoom, "");
@@ -129,7 +130,7 @@ namespace StockportWebappTests.Unit.Controllers
             news.NewsItem.Tags.Should().HaveCount(2);
             news.NewsItem.Tags.First().Should().Be("Events");
 
-            news.GetLatestNews().Should().HaveCount(2);            
+            news.GetLatestNews().Should().HaveCount(2);
         }
 
         [Fact]
@@ -175,6 +176,23 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
+<<<<<<< HEAD
+=======
+        public void ItDoesntAddACategoryQueryIfFeatureToggleIsOff()
+        {
+            var featureToggles = new FeatureToggles() { NewsCategory = false };
+            const string eventsValue = "Events";
+            const string categoryValue = "A category";
+            _repository.Setup(o => o.Get<Newsroom>("", It.Is<List<Query>>(l => l.Contains(new Query("tag", eventsValue))))).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, featureToggles, _logger.Object, _config.Object, new BusinessId(BusinessId));
+
+            AsyncTestHelper.Resolve(controller.Index(tag: eventsValue, category: categoryValue));
+
+            _repository.Verify(r => r.Get<Newsroom>("", It.Is<List<Query>>(l => l.Contains(new Query("tag", eventsValue)) && !l.Contains(new Query("category", categoryValue)))), Times.Once);
+        }
+
+        [Fact]
+>>>>>>> clare simonE tony Date filter on news articles
         public void ItReturns404ForNoNewsItems()
         {
             _repository.Setup(o => o.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(404, null, "not found"));
@@ -217,5 +235,27 @@ namespace StockportWebappTests.Unit.Controllers
             viewModel.Breadcrumbs[0].Title.Should().Be("News");
             viewModel.Breadcrumbs[0].NavigationLink.Should().Be("/news");
         }
+
+        [Fact]
+        public void ShouldReturnNewsItemsForADateFilter()
+        {
+            _repository.Setup(o =>
+                o.Get<Newsroom>(
+                    "",
+                    It.Is<List<Query>>(l =>
+                        l.Contains(new Query("datefrom", "2016-10-01"))
+                        && l.Contains(new Query("dateto", "2016-11-01"))
+                    )
+                )
+            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(datefrom: "2016-10-01", dateto: "2016-11-01")) as ViewResult;
+
+            var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+            var news = viewModel.Newsroom;
+
+            _repository.Verify();
+        }
     }
+#pragma warning restore CS1701 // Assuming assembly reference matches identity
 }

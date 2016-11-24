@@ -10,7 +10,8 @@ namespace StockportWebapp.Utils
             var currentRouteValues = new RouteValueDictionary(currentRouteData);
             foreach (var key in queries.Keys)
             {
-                currentRouteValues.Add(key, queries[key]);
+                if(!currentRouteValues.ContainsKey(key))
+                    currentRouteValues.Add(key, queries[key]);
             }
             currentRouteValues[queryName] = queryValue;
             return currentRouteValues;

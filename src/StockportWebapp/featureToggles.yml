@@ -5,6 +5,7 @@ prod: &prod
   LegacyUrlRedirects: true
   Search: true
   BetaToWwwRedirect: false
+  NewsDateFilter: false
 
 stage: &stage
   << : *prod
@@ -19,3 +20,4 @@ int:
   << : *stage
   << : *qa
   BetaToWwwRedirect: true
+  NewsDateFilter: true

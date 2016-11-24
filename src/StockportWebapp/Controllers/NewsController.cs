@@ -22,9 +22,10 @@ namespace StockportWebapp.Controllers
         private readonly IRssNewsFeedFactory _rssFeedFactory;
         private readonly ILogger<NewsController> _logger;
         private readonly IApplicationConfiguration _config;
+        private readonly FeatureToggles _featureToggles;
         private readonly BusinessId _businessId;
 
-        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssNewsFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId)
+        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssNewsFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId, FeatureToggles featureToggles)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -32,14 +33,18 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _config = config;
             _businessId = businessId;
+            _featureToggles = featureToggles;
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index([FromQuery] string tag = "", [FromQuery] string category = "")
+        public async Task<IActionResult> Index([FromQuery] string tag = "", [FromQuery] string category = "", [FromQuery] string datefrom="", [FromQuery] string dateto = "")
         {
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(tag)) queries.Add(new Query("tag", tag));
             if (!string.IsNullOrEmpty(category)) queries.Add(new Query("category", category));
+            if (!string.IsNullOrEmpty(category) && _featureToggles.NewsDateFilter) queries.Add(new Query("datefrom", datefrom));
+            if (!string.IsNullOrEmpty(category) && _featureToggles.NewsDateFilter) queries.Add(new Query("dateto", dateto));
+
 
             var httpResponse = await _repository.Get<Newsroom>(queries: queries);
 

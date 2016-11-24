@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using StockportWebapp.Models;
 using Xunit;
@@ -15,7 +16,7 @@ namespace StockportWebappTests.Unit.ViewModels
 
         public NewsroomViewModelTest()
         {
-            _newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, "tag-id", new List<string>());
+            _newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, "tag-id", new List<string>(), new List<DateTime>());
             _newsroomViewModel = new NewsroomViewModel(_newsroom, EmailAlertsUrl, "title", Tag, _breadcrumbs);
         }
 
@@ -28,7 +29,7 @@ namespace StockportWebappTests.Unit.ViewModels
         [Fact]
         public void ShouldSetEmailAlertsUrlWithoutTopicId()
         {
-            var newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, string.Empty, new List<string>());
+            var newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, string.Empty, new List<string>(), new List<DateTime>());
             var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl, "title", Tag, _breadcrumbs);
 
             newsroomViewModel.EmailAlertsUrl.Should().Be(EmailAlertsUrl);
