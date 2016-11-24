@@ -34,9 +34,9 @@
 <div class="homepage-hero">
     <div class="grid-container l-max-width-950">
         <div class="search-bar">
-            @Html.Partial("SearchBar", "Hi there! What are you looking for?")
+            @await Component.InvokeAsync("Search", new { id = "cludo-search-hero-form", placeholder= "Hi there! What are you looking for?" })
         </div>
-        @Html.Partial("DynamicPopularSearch", Model.PopularSearchTerms)
+        @*@Html.Partial("DynamicPopularSearch", Model.PopularSearchTerms)*@
         @Html.Partial("FeaturedTasks", Model.FeaturedTasks)
     </div>
 </div>

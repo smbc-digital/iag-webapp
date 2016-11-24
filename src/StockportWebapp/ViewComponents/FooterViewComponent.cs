@@ -24,7 +24,6 @@ namespace StockportWebapp.ViewComponents
 
             var footerHttpResponse = await _repository.Get<Footer>();
             if (!footerHttpResponse.IsSuccessful())
-            //    return await Task.FromResult(View());
                 return await Task.FromResult(View("NoFooterFound"));
 
             var model = footerHttpResponse.Content as Footer;

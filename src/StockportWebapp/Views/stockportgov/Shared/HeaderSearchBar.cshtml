@@ -1,6 +1,6 @@
 ﻿<div class="search-bar-header-container hide-on-mobile hide-on-tablet">
     <div class="search-bar-header">
-        @Html.Partial("SearchBar", "Search")
+        @await Component.InvokeAsync("Search", new { id = "cludo-search-form", placeholder = "Search" })
     </div>
 </div>
 
