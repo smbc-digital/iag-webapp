@@ -52,8 +52,8 @@ namespace StockportWebappTests.Unit.ContentFactory
             
              _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, _breadcrumbs, _emptyProfiles, _emptyDocuments);
 
-            _sectionFactory.Setup(o => o.Build(_sectionOne)).Returns(_processedSectionOne);
-            _sectionFactory.Setup(o => o.Build(_sectionTwo)).Returns(_processedSectionTwo);
+            _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
+            _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
 
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
@@ -83,8 +83,8 @@ namespace StockportWebappTests.Unit.ContentFactory
         {
             _articleFactory.Build(_article);
 
-            _sectionFactory.Verify(o => o.Build(_sectionOne), Times.Once);
-            _sectionFactory.Verify(o => o.Build(_sectionTwo), Times.Once);
+            _sectionFactory.Verify(o => o.Build(_sectionOne,_article.Title), Times.Once);
+            _sectionFactory.Verify(o => o.Build(_sectionTwo,_article.Title), Times.Once);
         }
 
         [Fact]

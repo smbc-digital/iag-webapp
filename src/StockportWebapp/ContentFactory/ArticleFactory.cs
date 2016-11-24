@@ -27,7 +27,7 @@ namespace StockportWebapp.ContentFactory
             var processedSections = new List<ProcessedSection>();
             foreach (var section in article.Sections)
             {
-                processedSections.Add(_sectionFactory.Build(section));
+                processedSections.Add(_sectionFactory.Build(section, article.Title));
             }
 
             var body = _tagParserContainer.ParseAll(article.Body, article.Title);

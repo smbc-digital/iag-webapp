@@ -55,6 +55,15 @@ var methods = {
         this.assert.hidden('#Title');
     },
 
+    assertTitleOfArticleIsInTitleFieldOfContactFormForSection: function () {
+        this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
+        //this.waitForElementVisible("#Title", this.api.globals.timeOut).getAttribute("value")
+        //    .assert.isEqual("UITEST: Article with Section for Contact Us form");
+
+        var titleValue = this.waitForElementPresent("#Title", this.api.globals.timeOut)
+            .verify.attributeEquals('#Title', 'value', 'UITEST: Article with Section for Contact Us form');
+    },
+
     enterTextIntoFormField: function (browser, field, fieldInput) {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
         browser.waitForElementPresent("#" + field, this.api.globals.timeOut)

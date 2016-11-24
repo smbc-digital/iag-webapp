@@ -6,7 +6,7 @@ namespace StockportWebapp.ContentFactory
 {
     public interface ISectionFactory
     {
-        ProcessedSection Build(Section section);
+        ProcessedSection Build(Section section, string articleTitle);
     }
 
     public class SectionFactory : ISectionFactory
@@ -24,9 +24,9 @@ namespace StockportWebapp.ContentFactory
             _documentTagParser = documentTagParser;
         }
 
-        public ProcessedSection Build(Section section)
+        public ProcessedSection Build(Section section, string articleTitle = null)
         {
-            var parsedBody = _tagParserContainer.ParseAll(section.Body, section.Title);
+            var parsedBody = _tagParserContainer.ParseAll(section.Body, articleTitle);
             var parsedBodyWithProfiles = _profileTagParser.Parse(parsedBody, section.Profiles);
             var parsedBodyWithDocuments = _documentTagParser.Parse(parsedBodyWithProfiles, section.Documents);
             var processedBody = _markdownWrapper.ConvertToHtml(parsedBodyWithDocuments);

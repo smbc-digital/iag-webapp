@@ -22,6 +22,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly List<Profile> _profiles = new List<Profile>();
         private readonly List<Document> _documents = new List<Document>();
         private readonly Section _section;
+        private readonly string _articleTitle = "Article Title";
 
         public SectionFactoryTest()
         {
@@ -44,7 +45,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         [Fact]
         public void ShouldSetTheCorrespondingFieldsForAProcessedSection()
         {
-            var result = _factory.Build(_section);
+            var result = _factory.Build(_section,_articleTitle);
 
             result.Body.Should().Be(Body);
             result.Title.Should().Be(Title);
@@ -55,7 +56,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         [Fact]
         public void ShouldProcessBodyWithMarkdown()
         {
-            _factory.Build(_section);
+            _factory.Build(_section,_articleTitle);
 
             _markdownWrapper.Verify(o => o.ConvertToHtml(Body), Times.Once);
         }
@@ -63,7 +64,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         [Fact]
         public void ShouldProcessBodyWithTagParsing()
         {
-            _factory.Build(_section);
+            _factory.Build(_section,_articleTitle);
 
             _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>()), Times.Once);
         }
@@ -71,7 +72,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         [Fact]
         public void ShouldProcessBodyWithProfileTagParsing()
         {
-            _factory.Build(_section);
+            _factory.Build(_section, _articleTitle);
 
             _profileTagParser.Verify(o => o.Parse(Body, _section.Profiles), Times.Once);
         }
@@ -79,9 +80,9 @@ namespace StockportWebappTests.Unit.ContentFactory
         [Fact]
         public void ShouldPassTitleToParserWhenBuilding()
         {
-            _factory.Build(_section);
+            _factory.Build(_section, _articleTitle);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Body, _section.Title), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Body, _articleTitle), Times.Once);
         }
     }
 }
