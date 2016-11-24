@@ -136,6 +136,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             startPage.Title.Should().Be("Start Page");
             startPage.Slug.Should().Be("start-page");
+            startPage.Teaser.Should().Be("this is a teaser");
             startPage.Summary.Should().Be("This is a summary ");
             startPage.UpperBody.Should().Be(MarkdownWrapper.ToHtml("An upper body"));
             startPage.FormLinkLabel.Should().Be("Start now");

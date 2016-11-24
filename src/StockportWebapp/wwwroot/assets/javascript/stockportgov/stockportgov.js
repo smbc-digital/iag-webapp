@@ -2,7 +2,7 @@
 var tabletWidth = (1024 - 17);
 
 var matchboxPrimary = new Matchbox({
-    parentSelector: ".l-content-container .nav-card-list",
+    parentSelector: ".l-page-content .nav-card-list",
     childSelector: ".nav-card .nav-card-item",
     groupsOf: 3,
     breakpoints: [
@@ -19,7 +19,7 @@ $(document).ready(function () {
             }
     );
 
-    if ($(".l-content-container .nav-card-list").length) {
+    if ($(".l-page-content .nav-card-list").length) {
         matchboxPrimary.init();
     }
 });

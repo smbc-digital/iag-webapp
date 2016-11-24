@@ -5,7 +5,6 @@ using FluentAssertions;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
-using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -29,7 +28,8 @@ namespace StockportWebappTests.Unit.Controllers
             var startPage = new StartPage(
                 "start-page",
                 "Start Page",
-                "This is a summary ",
+                "this is a teaser",
+                "This is a summary",
                 "An upper body",
                 "Start now",
                 "http://start.com",
@@ -59,7 +59,8 @@ namespace StockportWebappTests.Unit.Controllers
 
             result.Title.Should().Be("Start Page");
             result.Slug.Should().Be("start-page");
-            result.Summary.Should().Be("This is a summary ");
+            result.Teaser.Should().Be("this is a teaser");
+            result.Summary.Should().Be("This is a summary");
             result.UpperBody.Should().Be(MarkdownWrapper.ToHtml("An upper body"));
             result.FormLinkLabel.Should().Be("Start now");
             result.FormLink.Should().Be("http://start.com");

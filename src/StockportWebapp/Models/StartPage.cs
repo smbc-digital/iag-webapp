@@ -7,6 +7,7 @@ namespace StockportWebapp.Models
     {
         public string Slug { get; }
         public string Title { get; }
+        public string Teaser { get; }
         public string Summary { get; }
         public string UpperBody { get; }
         public string FormLinkLabel { get; }
@@ -17,12 +18,13 @@ namespace StockportWebapp.Models
         public string Icon { get; }
         public List<Alert> Alerts { get; private set; }
 
-        public StartPage(string slug, string title, string summary, string upperBody, string formLinkLabel,
+        public StartPage(string slug, string title, string teaser, string summary, string upperBody, string formLinkLabel,
             string formLink, string lowerBody, IEnumerable<Crumb> breadcrumbs, string backgroundImage,
             string icon, List<Alert> alerts)
         {
             Slug = slug;
             Title = title;
+            Teaser = teaser;
             Summary = summary;
             UpperBody = MarkdownWrapper.ToHtml(upperBody);
             FormLinkLabel = formLinkLabel;
