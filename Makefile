@@ -84,11 +84,11 @@ ui-test:
 	@if [[ -z "$$BUSINESS_ID" ]]; then echo "[FAIL] BUSINESS_ID not set" && exit 1; fi
 	test/StockportWebappTests/UI/node_modules/nightwatch/bin/nightwatch --env $(TEST_OS) --group $(BUSINESS_ID)
 
-.PHONY: ui-test-clare
-ui-test-clare:
+.PHONY: ui-test-specific
+ui-test-specific:
 	node test/StockportWebappTests/UI/configureGlobals.js host=$(UI_TEST_HOST)
 	@if [[ -z "$$BUSINESS_ID" ]]; then echo "[FAIL] BUSINESS_ID not set" && exit 1; fi
-	test/StockportWebappTests/UI/node_modules/nightwatch/bin/nightwatch --env $(TEST_OS) --group $(BUSINESS_ID)	--test test/StockportWebappTests/UI/specs/stockportgov/userjourney.tests.js --testcase "Navigate to a Contact Us form and enter invalid data into the form"
+	test/StockportWebappTests/UI/node_modules/nightwatch/bin/nightwatch --env $(TEST_OS) --group $(BUSINESS_ID)	--test test/StockportWebappTests/UI/specs/stockportgov/userjourney.tests.js --testcase "$(testname)"
 
 # Deployment targets: (these push to Amazon ECR and EB, and require AWS creds)
 # ---------------------------------------------------------------------------------------
