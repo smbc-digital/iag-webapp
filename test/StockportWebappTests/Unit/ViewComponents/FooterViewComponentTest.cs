@@ -13,13 +13,13 @@ namespace StockportWebappTests.Unit.ViewComponents
 {
     public class FooterViewComponentTest
     {
-        private Mock<IRepository> _repository;
-        private FooterViewComponent _footerViewComponent;
+        private readonly Mock<IRepository> _repository;
+        private readonly FooterViewComponent _footerViewComponent;
 
         public FooterViewComponentTest()
         {
             _repository = new Mock<IRepository>();
-            _footerViewComponent = new FooterViewComponent(_repository.Object, new FeatureToggles() { DynamicFooter = true });
+            _footerViewComponent = new FooterViewComponent(_repository.Object);
         }
 
         [Fact]
@@ -43,17 +43,6 @@ namespace StockportWebappTests.Unit.ViewComponents
             var result = AsyncTestHelper.Resolve(_footerViewComponent.InvokeAsync()) as ViewViewComponentResult;
 
             result.ViewData.Model.Should().BeNull();
-        }
-
-        [Fact]
-        public void ShouldShowOldFooterIfDynamicFooterFeatureToggleIsOff()
-        {
-            var repository = new Mock<IRepository>();
-            var footerViewComponent = new FooterViewComponent(repository.Object, new FeatureToggles() { DynamicFooter = false });
-
-            var result = AsyncTestHelper.Resolve(footerViewComponent.InvokeAsync()) as ViewViewComponentResult;
-
-            result.ViewName.Should().Be("Old");
         }
     }
 }
