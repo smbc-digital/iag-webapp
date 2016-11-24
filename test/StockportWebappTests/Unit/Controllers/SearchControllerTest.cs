@@ -5,14 +5,14 @@ using Xunit;
 using FluentAssertions;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.Models;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Controllers
 {
     public class SearchControllerTest
     {
         private readonly SearchController _searchController;
-        private Mock<IApplicationConfiguration> _config;
+        private readonly Mock<IApplicationConfiguration> _config;
         private string _businessId = "businessId";
         private const string SearchUrl = "search-url=";
         private const string PostcodeUrl = "postcode_url";
@@ -21,7 +21,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _config = new Mock<IApplicationConfiguration>();
 
-            _searchController = new SearchController(_config.Object, new BusinessId(_businessId));
+            _searchController = new SearchController(_config.Object, new BusinessId(_businessId), new FeatureToggles() { Search = false });
         }
 
         [Fact]
@@ -50,6 +50,16 @@ namespace StockportWebappTests.Unit.Controllers
             var response = AsyncTestHelper.Resolve(_searchController.Index(searchTerm)) as StatusCodeResult;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public void ShouldReturn404IfSearchFeatureToggleIsOn()
+        {
+            var searchController = new SearchController(_config.Object, new BusinessId(_businessId), new FeatureToggles() { Search = true });
+
+            var response = AsyncTestHelper.Resolve(searchController.Index("")) as NotFoundResult;
+
+            response.StatusCode.Should().Be(404);
         }
 
         [Fact]

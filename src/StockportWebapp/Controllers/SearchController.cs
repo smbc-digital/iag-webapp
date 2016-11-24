@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
 {
@@ -8,16 +9,20 @@ namespace StockportWebapp.Controllers
     {
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
+        private readonly FeatureToggles _featureToggles;
 
-        public SearchController(IApplicationConfiguration config, BusinessId businessId)
+        public SearchController(IApplicationConfiguration config, BusinessId businessId, FeatureToggles featureToggles)
         {
             _businessId = businessId;
+            _featureToggles = featureToggles;
             _config = config;
         }
 
         [Route("/search")]
         public async Task<IActionResult> Index(string query)
         {
+            if (_featureToggles.Search) return NotFound();
+
             var urlSetting = _config.GetSearchUrl(_businessId.ToString());
             if (urlSetting.IsValid())
             {

@@ -316,26 +316,6 @@ namespace StockportWebappTests.Integration
 #endregion
 
         #region stockportgov
-[Fact]
-        public void ItReturnsPopularSearchTermsOnTheHomepage()
-        {
-            SetBusinessIdRequestHeader("stockportgov");
-
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/"));
-
-            result.Should().Contain("/search?query=popular search term");
-        }
-
-        [Fact]
-        public void ItReturnsRedirectResponseOnSearch()
-        {
-            SetBusinessIdRequestHeader("stockportgov");
-
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/search?something=something"));
-
-            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
-        }
-
         [Fact]
         public void ItReturnsRedirectResponseOnPostcodeSearch()
         {
@@ -343,17 +323,6 @@ namespace StockportWebappTests.Integration
 
             var result = AsyncTestHelper.Resolve(_client.GetAsync("/postcode?postcode=this"));
 
-            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
-        }
-
-        [Fact]
-        public void ItRedirectsToExistingStockportGovSearch()
-        {
-            SetBusinessIdRequestHeader("stockportgov");
-
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/search?query=hello"));
-
-            result.Headers.Location.Should().Be("http://stockport.searchimprove.com/search.aspx?pc=&pckid=816028173&aid=448530&pt=6018936&addid=&sw=hello");
             result.StatusCode.Should().Be(HttpStatusCode.Redirect);
         }
 
