@@ -105,6 +105,7 @@ module.exports = {
         homepage.goToTopTasksBlockPage(browser, "UITEST: Article with Section for Contact Us form", "uitest-article-with-section-for-contact-us-form");
         var articlepage = browser.page.stockportgov.articlepage();
         articlepage.assertContactFormIsVisible(browser);
+        articlepage.assertTitleIsHiddenFieldOnContactForm(browser);
         articlepage.submitContactUsForm();
         articlepage.assertValidationMessageIsVisible(browser, "Email", "An email address is required");
         articlepage.assertValidationMessageIsVisible(browser, "Name", "Your name is required");

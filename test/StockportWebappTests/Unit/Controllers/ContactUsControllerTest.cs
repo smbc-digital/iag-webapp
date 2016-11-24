@@ -99,7 +99,9 @@ namespace StockportWebappTests.Unit.Controllers
                 It.Is<string>(body => body.Contains(_userName) &&
                                       body.Contains(_userEmail) &&
                                       body.Contains(_emailSubject) &&
-                                      body.Contains(_emailBody)), It.IsAny<string>(), It.IsAny<string>()));
+                                      body.Contains(_emailBody) &&
+                                      body.Contains(_url)
+                                      ), It.IsAny<string>(), It.IsAny<string>()));
         }
 
         [Fact]

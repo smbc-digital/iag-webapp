@@ -50,6 +50,11 @@ var methods = {
         this.assert.visible('#Message');
     },
 
+    assertTitleIsHiddenFieldOnContactForm: function () {
+        this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
+        this.assert.hidden('#Title');
+    },
+
     enterTextIntoFormField: function (browser, field, fieldInput) {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
         browser.waitForElementPresent("#" + field, this.api.globals.timeOut)
