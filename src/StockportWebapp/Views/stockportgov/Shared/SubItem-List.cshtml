@@ -14,46 +14,73 @@
     </ul>
 }
 
+
 @if (Model.SecondaryItems.Any())
 {
+    <div id="test-topic-page-secondary-topics-list" class="subitems grid-100">
+       
+
+        @{
+            var firstHalfOfItems = (int)Math.Ceiling((decimal)Model.SecondaryItems.Count() / 2);
+        }
+
+        <div class="subitems-secondary-two-column">
+            <ul class="grid-50 mobile-grid-100 tablet-grid-100">
+                @foreach (var subItem in Model.SecondaryItems.Take(firstHalfOfItems))
+                {
+                    <li>
+                        <div class="subitem-secondary">
+                            <a href="@subItem.NavigationLink">
+                                @subItem.Title
+                            </a>
+                        </div>
+                    </li>
+                }
+            </ul>
+
+            <ul class="grid-50 mobile-grid-100 tablet-grid-100">
+                @foreach (var subItem in Model.SecondaryItems.Skip(firstHalfOfItems))
+                {
+                    <li>
+                        <div class="subitem-secondary">
+                            <a href="@subItem.NavigationLink">
+                                @subItem.Title
+                            </a>
+                        </div>
+                    </li>
+                }
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    
+            }
+
+@if (Model.TertiaryItems.Any())
+{
     <div class="subitems grid-100" id="test-topic-page-secondary-topics-list">
-        @for (var i = 0; i < Model.SecondaryItems.Count(); i += 4)
+        @for (var i = 0; i < Model.TertiaryItems.Count(); i += 4)
         {
-            <ul class="subitems-secondary">
-                @foreach (var subItem in Model.SecondaryItems.Skip(i).Take(4))
+            <ul class="subitems-tertiary">
+                @foreach (var subItem in Model.TertiaryItems.Skip(i).Take(4))
                 {
                     <li class="grid-25">
                         <a href="@subItem.NavigationLink">
-                            <div class="subitem-secondary">
-                                <div class="subitem-secondary-title">@subItem.Title</div>
+                            <div class="subitem-tertiary">
+                                <div class="subitem-tertiary-title">@subItem.Title</div>
                             </div>
                         </a>
                     </li>
                 }
-                @for (var j = 0; j < Model.SecondaryItems.Skip(i).Take(4).Count() % 4; j++)
+                @for (var j = 0; j < Model.TertiaryItems.Skip(i).Take(4).Count() % 4; j++)
                 {
                     <li class="suffix-25">
                     </li>
                 }
-</ul>
+            </ul>
         }
     </div>
 }
 
-@if (Model.TertiaryItems.Any())
-{
-    <div id="test-topic-page-tertiary-topics-list" class="subitems grid-100">
-        <ul class="subitems-tertiary">
-            @foreach (var subItem in Model.TertiaryItems)
-            {
-                <li class="grid-50">
-                    <div class="subitem-tertiary">
-                        <a href="@subItem.NavigationLink">
-                            @subItem.Title
-                        </a>
-                    </div>
-                </li>
-            }
-        </ul>
-    </div>
-}
+

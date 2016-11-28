@@ -2,11 +2,141 @@
     margin-top: -15px;
 
     @media #{$mobile, $tablet} {
-        margin: 45px 0 -30px;
+        margin: 25px 0 -20px 0;
     }
 }
 
 .subitems-secondary {
+    display: inline-block;
+    list-style-type: none;
+    padding-top: 1.8em;
+    padding-bottom: 1.8em;
+    margin-top: 45px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+
+    @media #{$desktop} {
+        margin-top: 30px;
+    }
+
+    li {
+        margin-left: 0;
+
+        @media #{$desktop} {
+            &:nth-child(even) > .subitem-secondary {
+                margin-left: 0%;
+                margin-right: 10%;
+            }
+
+            &:nth-child(odd) > .subitem-secondary {
+                margin-left: 10%;
+                margin-right: 10%;
+            }
+
+            &:nth-child(n+3) > .subitem-secondary {
+                border-top: 1px $greyLight solid;
+            }
+        }
+    }
+}
+
+.subitem-secondary {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 5px;
+    display: block;
+
+    @media #{$desktop} {
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
+        margin-left: 18%;
+        margin-right: 18%;
+    }
+
+    &:before {
+        @media #{$desktop} {
+            content: "\f105";
+            text-align: right;
+            float: right;
+            font: bold normal normal 20px/1 FontAwesome;
+            margin-top: 7px;
+        }
+    }
+
+    a {
+        text-decoration: none;
+
+        @media #{$mobile,$tablet} {
+            text-align: left;
+            border: none;
+            text-decoration: underline;
+            line-height: 35px;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+.subitems-secondary-two-column {
+    margin-top: 30px;
+}
+
+.subitems-secondary-two-column {
+   
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: 45px;
+    padding-bottom: 1.8em;
+    padding-top: 1.8em;
+    width: 100%;
+    
+    @media #{$mobile,$tablet} {
+        margin-top: 0px;
+    }
+}
+
+.subitems-secondary-two-column ul {
+    list-style-type: none;
+    margin-bottom: 0px;
+}
+
+.subitems-secondary-two-column ul li {
+    margin-left: 0px;
+}
+
+.subitems-secondary-two-column li:nth-child(n+2) > .subitem-secondary {
+    border-top: 1px solid #bcbcbc;
+
+    @media #{$mobile,$tablet} {
+        border-top: none;
+    }
+}
+
+.subitems-secondary-two-column .subitem-secondary {
+    margin-left: 10%;
+    margin-right: 10%;
+
+    @media #{$mobile,$tablet} {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+}
+
+.subitems-secondary-two-column ul:nth-child(even) .subitem-secondary {
+    margin-left: 0;
+    margin-right: 10%;
+
+    @media #{$mobile,$tablet} {
+        margin-left: 0%;
+        margin-right: 0%;
+        //border-top: 1px solid #bcbcbc;
+    }
+}
+///Tertiary
+.subitems-tertiary {
     list-style-type: none;
     text-align: center;
 
@@ -45,7 +175,7 @@
     }
 }
 
-.subitem-secondary {
+.subitem-tertiary {
     @media #{$mobile,$tablet} {
         display: block;
         transition: all .5s;
@@ -65,7 +195,7 @@
 }
 
 
-.subitem-secondary-title {
+.subitem-tertiary-title {
     @media #{$mobile,$tablet} {
         color: $greyDarkest;
         text-align: left;
@@ -88,7 +218,7 @@
         padding: 15px;
         line-height: 20px;
         transition: all 0.5s;
-        transition-property: opacity,box-shadow;       
+        transition-property: opacity,box-shadow;
 
         &:hover {
             cursor: pointer;
@@ -108,91 +238,6 @@
         margin-top: 2px;
         /*padding-left: 10px;*/
         color: $greyDarkest;
-        vertical-align:center;
-    }
-}
-
-
-.subitems-tertiary {
-    display: inline-block;
-    list-style-type: none;
-    padding-top: 1.8em;
-    padding-bottom: 1.8em;
-    margin-top:45px;
-    width: 100%;
-    background-color:#fff;
-    border-radius:5px;
-
-    @media #{$desktop} {       
-        margin-top:30px;
-        }
-
-    li {
-        margin-left: 0;
-
-        @media #{$desktop}
-        {
-            &:nth-child(even) > .subitem-tertiary {
-                margin-left: 0%;
-                margin-right: 10%;
-            }
-
-            &:nth-child(odd) > .subitem-tertiary {
-                margin-left: 10%;
-                margin-right: 10%;           
-            }
-
-            &:nth-child(n+3) > .subitem-tertiary {
-            border-top: 1px $greyLight solid;
-            }
-        }
-
-        
-    }
-
-
-}
-
-.subitem-tertiary {
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 5px;
-    display: block;
-
-    @media #{$desktop} {
-        
-        padding-top: 0.4em;
-        padding-bottom: 0.4em;
-        margin-left: 18%;
-        margin-right: 18%;
-
-        
-    }
-
-       
-
-    &:before {
-        @media #{$desktop} {
-            content: "\f105";
-            text-align: right;
-            float: right;
-            font: bold normal normal 20px/1 FontAwesome;
-            margin-top: 7px;
-        }
-    }
-
-    a {
-        text-decoration: none;
-
-        @media #{$mobile,$tablet} {
-            text-align: left;
-            border: none;
-            text-decoration: underline;
-            line-height: 35px;
-
-            &:hover {
-                opacity: 0.5;
-            }
-        }
+        vertical-align: center;
     }
 }
