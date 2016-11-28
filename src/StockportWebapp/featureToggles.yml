@@ -10,7 +10,8 @@ stage: &stage
   << : *prod
   LiveChat: true
   LegacyUrlRedirects: true
-
+  Search: true
+  
 qa: &qa
   << : *prod
   << : *stage
@@ -19,4 +20,3 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  Search: true
