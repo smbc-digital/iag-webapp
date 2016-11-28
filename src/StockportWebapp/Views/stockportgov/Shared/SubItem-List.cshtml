@@ -49,6 +49,14 @@
                         </div>
                     </li>
                 }
+                @if (Model.SecondaryItems.Skip(firstHalfOfItems).Count() > 1 && (Model.SecondaryItems.Count() % 2 > 0))
+                {
+                    <li>
+                        <div class="subitem-secondary no-chevron">  
+                                                                         
+                        </div>
+                    </li>
+                }
             </ul>
             <div class="clearfix"></div>
         </div>
