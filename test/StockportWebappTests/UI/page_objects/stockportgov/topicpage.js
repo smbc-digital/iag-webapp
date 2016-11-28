@@ -12,7 +12,7 @@
 
     assertSecondaryItemIsVisible: function(browser,title) {
         this.waitForElementVisible('@secondaryTopicList', this.api.globals.timeOut)
-            .expect.element('#test-topic-page-secondary-topics-list .subitem-secondary-title').text.to.equal(title);
+            .expect.element('#test-topic-page-secondary-topics-list .subitem-secondary').text.to.equal(title);
     }
 
 };
