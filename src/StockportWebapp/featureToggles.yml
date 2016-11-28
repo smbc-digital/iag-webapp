@@ -2,16 +2,13 @@
 prod: &prod
   DynamicContactUsForm: true
   ShortUrls: true
-  LiveChat: false
-  LegacyUrlRedirects: false
-  Search: false
-
-stage: &stage
-  << : *prod
   LiveChat: true
   LegacyUrlRedirects: true
   Search: true
-  
+
+stage: &stage
+  << : *prod
+
 qa: &qa
   << : *prod
   << : *stage
