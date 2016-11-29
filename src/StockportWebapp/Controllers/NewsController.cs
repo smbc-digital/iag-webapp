@@ -37,13 +37,16 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index([FromQuery] string tag = "", [FromQuery] string category = "", [FromQuery] string datefrom="", [FromQuery] string dateto = "")
+        public async Task<IActionResult> Index([FromQuery] string tag = "", [FromQuery] string category = "",
+            [FromQuery] string datefrom = "", [FromQuery] string dateto = "")
         {
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(tag)) queries.Add(new Query("tag", tag));
             if (!string.IsNullOrEmpty(category)) queries.Add(new Query("category", category));
-            if (!string.IsNullOrEmpty(category) && _featureToggles.NewsDateFilter) queries.Add(new Query("datefrom", datefrom));
-            if (!string.IsNullOrEmpty(category) && _featureToggles.NewsDateFilter) queries.Add(new Query("dateto", dateto));
+            if (!string.IsNullOrEmpty(datefrom) && _featureToggles.NewsDateFilter)
+                queries.Add(new Query("datefrom", datefrom));
+            if (!string.IsNullOrEmpty(dateto) && _featureToggles.NewsDateFilter)
+                queries.Add(new Query("dateto", dateto));
 
 
             var httpResponse = await _repository.Get<Newsroom>(queries: queries);
@@ -55,10 +58,13 @@ namespace StockportWebapp.Controllers
 
             var titleCase = !string.IsNullOrEmpty(category) ? "news" : "News";
 
-            var title = !string.IsNullOrEmpty(tag) ? $"{category} {titleCase} about {tag}".Trim() : $"{category} {titleCase}".Trim();
+            var title = !string.IsNullOrEmpty(tag)
+                ? $"{category} {titleCase} about {tag}".Trim()
+                : $"{category} {titleCase}".Trim();
 
             var crumbs = new List<Crumb>();
-            if (!string.IsNullOrEmpty(tag) || !string.IsNullOrEmpty(category)) crumbs.Add(new Crumb("News", "news", "news"));
+            if (!string.IsNullOrEmpty(tag) || !string.IsNullOrEmpty(category))
+                crumbs.Add(new Crumb("News", "news", "news"));
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
@@ -67,6 +73,7 @@ namespace StockportWebapp.Controllers
 
             return View(new NewsroomViewModel(newsRoom, urlSetting.ToString(), title, tag, crumbs));
         }
+
 
         [Route("/news/{slug}")]
         public async Task<IActionResult> Detail(string slug)

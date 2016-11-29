@@ -4,7 +4,7 @@
 
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-news-filter">
-        <p class="filters-heading">Refine by</p>
+        <p class="filters-heading">Refine by</p>     
         <ul class="filters-list" id="category-list">           
         <li class="collapsable">
             <ul class="filters-list">
@@ -30,13 +30,13 @@
                         @foreach (var year in Model.Dates.Select(s => s.Year).Distinct())
                         {
                                 <li class="filter collapsable">
-                                    <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "year", @year.ToString()))">@year.ToString()</a>
+                                    @year.ToString()
                                     <ul class="filters-list" id="news-archive">
                                         @foreach (var date in Model.Dates.Where(d=>d.Year == year).OrderBy(a => a).Reverse())
                                         {
                                             <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "date", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
 
-                                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "datefrom", @date.ToString("yyyy-MM-dd")))&@Url.RouteUrl(UrlQueryHelper.AddQueryToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, "datefrom", @date.ToString("yyyy-MM-dd")))">@date.ToString("MMMM yyyy")</a>
+                                            <a href="/news?datefrom=@date.ToString("yyyy-MM-dd")&dateto=@date.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")">@date.ToString("MMM yyyy")</a>                                            
                                             </li>
                                         }
                                     </ul>
@@ -44,16 +44,13 @@
 
                         }
                     </ul>
-
-
-                    <p class="mobile-filter-heading filter-title">Filter news</p>
+                   <p class="mobile-filter-heading filter-title">Filter news</p>
                 </li>
             </ul>
         </li>
     </ul>
 </div>
     <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent">
->>>>>>> clare simonE tony Date filter on news articles
         @{
             if (Model.Alerts != null)
             {
