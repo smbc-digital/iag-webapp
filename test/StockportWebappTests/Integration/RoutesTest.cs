@@ -310,10 +310,10 @@ namespace StockportWebappTests.Integration
 
             var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/robots.txt"));
 
-            result.Should().Contain("# yes robots");
+            result.Should().Contain("# no robots");
         }
 
-#endregion
+        #endregion
 
         #region stockportgov
         [Fact]

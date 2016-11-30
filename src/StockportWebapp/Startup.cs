@@ -92,9 +92,6 @@ namespace StockportWebapp
                 p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
 
-            var featureTogglesReaderTemp = new FeatureTogglesReader(featureToggleYaml, _appEnvironment, null);
-            var featureToggles = featureTogglesReaderTemp.Build<FeatureToggles>();
-
             services.AddScoped<BusinessId>();
 
             services.AddTransient(
@@ -168,8 +165,7 @@ namespace StockportWebapp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
-            IServiceProvider serviceProvider)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             var scheduler = new RedirectScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
