@@ -38,11 +38,12 @@ PROJECT_NAME = StockportWebapp
 CONTAINER_NAME = web
 IMAGE = webapp
 TAG = latest
+APP_VERSION ?= $(GO_PIPELINE_LABEL)
 
 .PHONY: build run clean
 build:
 	git rev-parse HEAD > src/$(PROJECT_NAME)/sha.txt
-	echo $(GO_PIPELINE_LABEL) > src/$(PROJECT_NAME)/version.txt
+	echo $(APP_VERSION) > src/$(PROJECT_NAME)/version.txt
 	eval "$(in_docker_machine)" ; \
 	docker build \
 		--build-arg HTTP_PROXY=$(HTTP_PROXY) \
@@ -96,17 +97,17 @@ AWS_REGION = eu-west-1
 
 .PHONY: tag login push package docker-clean
 tag:
-	docker tag $(IMAGE) $(DOCKER_REPOSITORY)/$(IMAGE):$(GO_PIPELINE_LABEL)
+	docker tag $(IMAGE) $(DOCKER_REPOSITORY)/$(IMAGE):$(APP_VERSION)
 
 login:
 	eval $$(aws --region $(AWS_REGION) ecr get-login)
 
 push: login
-	docker push $(DOCKER_REPOSITORY)/$(IMAGE):$(GO_PIPELINE_LABEL)
+	docker push $(DOCKER_REPOSITORY)/$(IMAGE):$(APP_VERSION)
 
 package: build tag push
 
 docker-clean:
 	@rm -rf ~/.docker/config.json
 	docker rmi $(IMAGE):latest
-	docker rmi $(DOCKER_REPOSITORY)/$(IMAGE):$(GO_PIPELINE_LABEL)
+	docker rmi $(DOCKER_REPOSITORY)/$(IMAGE):$(APP_VERSION)
