@@ -364,6 +364,18 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("Find a planning application");
             result.Should().Contain("Tell us about a change");
         }
+
+        [Fact]
+        public void RobotosTxtShouldHaveZeroCacheHeader()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetAsync("/robots.txt"));
+
+            result.Headers.CacheControl.MaxAge.Value.Seconds.Should().Be(0);
+            result.Headers.CacheControl.MaxAge.Value.Minutes.Should().Be(0);
+            result.Headers.CacheControl.MaxAge.Value.Hours.Should().Be(0);
+        }
         #endregion
 
         private void SetBusinessIdRequestHeader(string businessId)

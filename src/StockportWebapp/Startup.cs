@@ -184,8 +184,18 @@ namespace StockportWebapp
                 OnPrepareResponse =
                     (context) =>
                     {
-                        context.Context.Response.Headers["Cache-Control"] = "public, max-age=" +
+                        var isLive = context.Context.Request.Host.Value.StartsWith("www.");
+                        var businessId = context.Context.Request.Headers["BUSINESS-ID"];
+                        var url = string.Concat("robots-", businessId, isLive ? "-live" : "", ".txt");
+                        if (context.File.Name == url)
+                        {
+                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=0";
+                        }
+                        else
+                        {
+                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=" +
                                                                             Cache.DefaultDuration.ToString();
+                        }                     
                     }
             });
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
