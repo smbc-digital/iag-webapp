@@ -27,22 +27,20 @@
                 <li class="collapsable">
                 <p class="filter-title">News Archive</p>
                     <ul class="filters-list">
-                        @foreach (var year in Model.Dates.Select(s => s.Year).Distinct())
-                        {
-                                <li class="filter collapsable">
-                                    @year.ToString()
-                                    <ul class="filters-list" id="news-archive">
+                        @foreach (var year in Model.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
+                            {
+                                <li class="collapsable filter is-collapsed">
+                                     <p class="filter-title">@year.ToString()</p>
+                                     <ul class="filters-list" id="news-archive">
                                         @foreach (var date in Model.Dates.Where(d=>d.Year == year).OrderBy(a => a).Reverse())
                                         {
                                             <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "date", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
-
-                                            <a href="/news?datefrom=@date.ToString("yyyy-MM-dd")&dateto=@date.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")">@date.ToString("MMM yyyy")</a>                                            
+                                                <a href="/news?datefrom=@date.ToString("yyyy-MM-dd")&dateto=@date.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")">@date.ToString("MMM yyyy")</a>                                            
                                             </li>
                                         }
                                     </ul>
                                 </li>
-
-                        }
+                            }
                     </ul>
                    <p class="mobile-filter-heading filter-title">Filter news</p>
                 </li>
