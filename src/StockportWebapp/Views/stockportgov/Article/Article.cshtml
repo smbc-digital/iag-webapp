@@ -11,7 +11,7 @@
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
-        <div id="uitest-page-has-loaded" class="pull-right l-body-section-filled @(Model.HasParentTopicWithSubItems()
+        <div id="uitest-page-has-loaded" class="push-30 l-body-section-filled @(Model.HasParentTopicWithSubItems()
                                                                   ? "mobile-grid-100 tablet-grid-100 grid-70"
                                                                   : "mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
@@ -48,7 +48,7 @@
         @{
             if (Model.HasParentTopicWithSubItems())
             {
-                <div class="l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
+                <div class="pull-70 l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
                     <div class="l-left-side-bar-section">
                         <h3>@Model.Article.ParentTopic.Name</h3>
                         <ul>

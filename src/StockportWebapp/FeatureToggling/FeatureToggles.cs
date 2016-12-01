@@ -6,5 +6,6 @@ namespace StockportWebapp.FeatureToggling
         public bool LiveChat { get; set; } = false;
         public bool LegacyUrlRedirects { get; set; } = false;
         public bool Search { get; set; } = false;
+        public bool BetaToWwwRedirect { get; set; } = false;
     }
 }

@@ -1,10 +1,10 @@
 ﻿---
 prod: &prod
   DynamicContactUsForm: true
-  ShortUrls: true
   LiveChat: true
   LegacyUrlRedirects: true
   Search: true
+  BetaToWwwRedirect: false
 
 stage: &stage
   << : *prod
@@ -17,3 +17,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  BetaToWwwRedirect: true
