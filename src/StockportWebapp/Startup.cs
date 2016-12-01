@@ -174,6 +174,7 @@ namespace StockportWebapp
             app.UseMiddleware<BusinessIdMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
+            app.UseMiddleware<BetaToWwwMiddleware>();
 
             loggerFactory.AddNLog();
             app.UseApplicationInsightsRequestTelemetry();
