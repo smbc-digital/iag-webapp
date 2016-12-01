@@ -6,7 +6,7 @@ var methods = {
 
     goToNewsWithTitle: function (browser, title, link) {
         this.waitForElementVisible('@newsList', this.api.globals.timeOut);
-        browser.useXpath().assert.visible("//h3[@class='nav-card-news-title' and text()='" + title + "']")
+        browser.useXpath().assert.visible("//h2[@class='nav-card-news-title' and text()='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
     }
 };

@@ -2,7 +2,7 @@
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.Newsroom
 
-<div class="grid-container">
+<div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-news-filter">
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list">
@@ -27,7 +27,7 @@
             </li>
         </ul>
     </div>
-    <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent">
+    <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent news-article-grid">
         @{
             if (Model.Alerts != null)
             {
@@ -40,24 +40,63 @@
         <ul class="nav-card-news-list">
             @foreach (var subItem in Model.News)
             {
-                <li class="nav-card-news mobile-grid-100 tablet-grid-50 grid-50">
-                    <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})" class="nav-card-news-item">
-                        @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
-                        {
-                            <div style="background-image: url(@subItem.ThumbnailImage)" class="nav-card-news-thumbnail"></div>
-                        }
-                        <div class="nav-card-news-details">
-                            <h3 class="nav-card-news-title">@subItem.Title</h3>
-                            <p class="news-date">
+                //desktop tablet
+                <li class="nav-card-news grid-100 tablet-grid-100 hide-on-mobile nav-card-news-item">
+                    <div class="news-bottom-border">
+                        <div class="grid-70 tablet-grid-70 nav-no-left-padding">
+                            <div class="news-date">
                                 <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
-                            </p>
-
-                            @if (string.IsNullOrEmpty(subItem.ThumbnailImage))
-                            {
+                            </div>
+                            <div>
+                                <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
+                                    <h2 class="nav-card-news-title">@subItem.Title</h2>
+                                </a>
                                 <p class="nav-card-news-teaser">@subItem.Teaser</p>
-                            }
+                            </div>
                         </div>
-                    </a>
+                        <div class="grid-30 tablet-grid-30 nav-no-right-padding nav-card-news-thumbnail  nav-card-news-thumbnail-background-image" style="background-image: url(@subItem.ThumbnailImage); ">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </li>
+
+                //mobile
+                <li class="nav-card-news hide-on-desktop mobile-grid-100 hide-on-tablet nav-card-news-item">
+
+                    @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
+                    {
+                        <div class="news-bottom-border">
+                            <div class="grid-40 nav-no-right-padding nav-card-news-thumbnail nav-card-news-thumbnail-background-image" style="background-image: url(@subItem.ThumbnailImage); ">
+                            </div>
+                            <div class="grid-60 nav-left-padding">
+                                <div>
+                                    <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
+                                        <h2 class="nav-card-news-title">@subItem.Title</h2>
+                                    </a>
+                                </div>
+                                <div class="news-date">
+                                    <i class="fa fa-clock-o li-left-padding"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="news-bottom-border">
+                            <div class="grid-100 nav-no-left-padding">
+                                <div>
+                                    <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
+                                        <h2 class="nav-card-news-title" style="margin-left: 0px;">@subItem.Title</h2>
+                                    </a>
+                                </div>
+                                <div class="news-date">
+                                    <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    }
                 </li>
             }
         </ul>
