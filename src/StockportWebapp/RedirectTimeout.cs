@@ -2,6 +2,6 @@
 {
     public static class RedirectTimeout
     {
-        public const int RedirectsTimeout = 21600;
+        public const int RedirectsTimeout = 900;
     }
 }
