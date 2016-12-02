@@ -27,7 +27,8 @@
 }
 
 @media #{$desktop} {
-    .search-bar-header-container #cludo-search-form {     
+    .search-bar-header-container #cludo-search-form {   
+        z-index: 99;  
         .search-input {
             border: none;
             background-color: #fff;
