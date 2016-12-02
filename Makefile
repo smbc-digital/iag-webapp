@@ -43,21 +43,16 @@ AWS_DEFAULT_REGION ?= eu-west-1
 AWS_ACCOUNT ?= 390744977344
 DOCKER_REPOSITORY = $(AWS_ACCOUNT).dkr.ecr.$(AWS_DEFAULT_REGION).amazonaws.com
 
-ifndef SNAP_PIPELINE_COUNTER
-ISLOCAL=true
-else
-ISLOCAL = false
-endif
-
-.PHONY: build
+.PHONY: build run clean
 build:
 	git rev-parse HEAD > src/$(PROJECT_NAME)/sha.txt
 	echo $(APP_VERSION) > src/$(PROJECT_NAME)/version.txt
-	./docker.sh build \
-			$(IMAGE) \
-			$(TAG) \
-			Dockerfile \
-			$(ISLOCAL)
+	eval "$(in_docker_machine)" ; \
+	docker build \
+		--build-arg HTTP_PROXY=$(HTTP_PROXY) \
+		--build-arg HTTPS_PROXY=$(HTTPS_PROXY) \
+		--build-arg NO_PROXY=$(NO_PROXY) \
+		-t $(IMAGE):$(TAG) .
 
 start-proxy:
 	cd proxy ; npm install ; node index.js
