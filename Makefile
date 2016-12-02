@@ -43,16 +43,14 @@ AWS_DEFAULT_REGION ?= eu-west-1
 AWS_ACCOUNT ?= 390744977344
 DOCKER_REPOSITORY = $(AWS_ACCOUNT).dkr.ecr.$(AWS_DEFAULT_REGION).amazonaws.com
 
-.PHONY: build run clean
+.PHONY: build
 build:
 	git rev-parse HEAD > src/$(PROJECT_NAME)/sha.txt
 	echo $(APP_VERSION) > src/$(PROJECT_NAME)/version.txt
-	eval "$(in_docker_machine)" ; \
-	docker build \
-		--build-arg HTTP_PROXY=$(HTTP_PROXY) \
-		--build-arg HTTPS_PROXY=$(HTTPS_PROXY) \
-		--build-arg NO_PROXY=$(NO_PROXY) \
-		-t $(IMAGE):$(TAG) .
+	./docker.sh build \
+			$(IMAGE) \
+			$(TAG) \
+			Dockerfile
 
 start-proxy:
 	cd proxy ; npm install ; node index.js
