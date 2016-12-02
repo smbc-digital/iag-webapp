@@ -1,13 +1,14 @@
 ﻿---
 prod: &prod
   DynamicContactUsForm: true
-  LiveChat: true
+  LiveChat: false
   LegacyUrlRedirects: true
   Search: true
   BetaToWwwRedirect: false
 
 stage: &stage
   << : *prod
+  LiveChat: true
 
 qa: &qa
   << : *prod
