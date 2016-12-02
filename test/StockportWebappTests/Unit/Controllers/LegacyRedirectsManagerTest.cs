@@ -92,5 +92,21 @@ namespace StockportWebappTests.Unit.Controllers
             var result = _legacyRedirectsManager.RedirectUrl("/no-Url-Matching");
             result.Should().Be(string.Empty);
         }
+
+        [Fact]
+        public void ShouldRedirectToSpecificallyMatchedUrlEvenIfRequestHasASlashOnTheEnd()
+        {
+            var result = _legacyRedirectsManager.RedirectUrl("/a-url-from/from-this/");
+
+            result.Should().Be("/a-url-to");
+        }
+
+        [Fact]
+        public void ShouldRedirectToUrlMatchedByWildcardEvenIfRequestHasASlashOnTheEnd()
+        {
+            var result = _legacyRedirectsManager.RedirectUrl("/another-url-from/a-url-with-wildcard/some-label/");
+
+            result.Should().Be("/another-redirected-to-url");
+        }
     }
 }

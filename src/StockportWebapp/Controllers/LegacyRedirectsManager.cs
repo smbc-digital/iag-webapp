@@ -25,6 +25,11 @@ namespace StockportWebapp.Controllers
 
             var businessIdLegacyUrlRedirects = _legacyUrlRedirects.Redirects[_businessId.ToString()];
 
+            if (url.EndsWith("/"))
+            {
+                url = url.Substring(0, url.Length - 1);
+            }
+
             return businessIdLegacyUrlRedirects.ContainsKey(url) 
                 ? businessIdLegacyUrlRedirects[url] 
                 : GetWildcardShortUrlMatch(businessIdLegacyUrlRedirects, url);
@@ -35,7 +40,7 @@ namespace StockportWebapp.Controllers
             return redirects.ContainsKey(businessId);
         }
 
-        private string GetWildcardShortUrlMatch(RedirectDictionary businessIdLegacyUrlRedirects, string url)
+        private static string GetWildcardShortUrlMatch(RedirectDictionary businessIdLegacyUrlRedirects, string url)
         {
             if (string.IsNullOrWhiteSpace(url)) return string.Empty;
 
