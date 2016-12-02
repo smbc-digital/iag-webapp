@@ -1,5 +1,5 @@
 #!/bin/bash
-source ./build.sh
+source ./env.sh
 
 build() {
   image=$1; tag=$2; dockerfile=$3;
