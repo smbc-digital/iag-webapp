@@ -18,7 +18,6 @@ using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Controllers
 {
-#pragma warning disable CS1701 // Assuming assembly reference matches identity
     public class NewsControllerTest
     {
         private readonly NewsController _controller;
@@ -249,13 +248,12 @@ namespace StockportWebappTests.Unit.Controllers
                 )
             ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
 
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(datefrom: "2016-10-01", dateto: "2016-11-01")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(datefrom: new DateTime(2016, 10, 01), dateto: new DateTime(2016, 11, 01))) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
 
-            _repository.Verify();
+            news.Should().Be(_newsRoom);
         }
     }
-#pragma warning restore CS1701 // Assuming assembly reference matches identity
 }
