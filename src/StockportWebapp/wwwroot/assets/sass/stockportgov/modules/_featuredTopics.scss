@@ -75,10 +75,15 @@
         color: $greyDarkest;
         font-size: 18px;
         font-weight: 600;
+        line-height: 1.5em; 
+
+        @media #{$mobile} {
+            margin-bottom: 10px;
+        }
+
         @media #{$mobile} {
             font-size: 14px;
             font-weight: 400;
-            line-height: 1.5em; 
         }
     }
 
@@ -195,6 +200,10 @@
     position: relative;
     height: 130px;
 
+    @media #{$mobile} {
+        height: 100px;
+    }
+
     &:after {
         content: "";
         position: absolute;
@@ -209,13 +218,14 @@
         height: inherit;
         bottom: -10px;
 
-       @media #{$desktop} {
-        margin-bottom: -77px;
-    }
-       margin-bottom:-15px;
+        @media #{$desktop} {
+            margin-bottom: -77px;
+        }
+
+        margin-bottom:-15px;
 
     }
-
+        
     &.arrow-hidden:after {
         display: none;
     }
