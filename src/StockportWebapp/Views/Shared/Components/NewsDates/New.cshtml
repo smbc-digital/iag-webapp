@@ -1,0 +1,26 @@
+﻿@model IEnumerable<DateTime>
+@using System.Threading.Tasks
+@using StockportWebapp.Utils
+
+<li class="filter collapsable">
+    <p class="filter-title">News Archive</p>
+    <ul class="filters-list filters-outer-list">
+        <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "datefrom") ? "active" : "")>
+            <a href="@Url.RouteUrl(UrlQueryHelper.RemoveQueriesFromUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new List<string>() { "datefrom", "dateto" }))">All recent news</a>
+        </li>
+        @foreach (var year in Model.Select(s => s.Year).Distinct().OrderByDescending(y => y))
+        {
+            <li>
+                <p class="filter-inner-title">@year.ToString()</p>
+                <ul class="filters-list filters-inner-list" id="news-archive">
+                    @foreach (var date in Model.Where(d => d.Year == year).OrderBy(a => a).Reverse())
+                    {
+                        <li class=@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "datefrom", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
+                            <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", date.ToString("yyyy-MM-dd") }, {"dateto", date.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd") } }))">@date.ToString("MMMM yyyy")</a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</li>

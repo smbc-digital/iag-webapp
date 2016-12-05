@@ -1,19 +1,22 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
 namespace StockportWebapp.Utils
 {
     public class UrlQueryHelper
     {
-        public static RouteValueDictionary AddQueryToUrl(RouteValueDictionary currentRouteData, IQueryCollection queries, string queryName, string queryValue)
+        public static RouteValueDictionary AddQueriesToUrl(RouteValueDictionary currentRouteData, IQueryCollection queries, Dictionary<string, string> querysToAdd)
         {
             var currentRouteValues = new RouteValueDictionary(currentRouteData);
             foreach (var key in queries.Keys)
             {
-                if(!currentRouteValues.ContainsKey(key))
-                    currentRouteValues.Add(key, queries[key]);
+                if(!currentRouteValues.ContainsKey(key)) currentRouteValues.Add(key, queries[key]);
             }
-            currentRouteValues[queryName] = queryValue;
+            foreach (var query in querysToAdd)
+            {
+                currentRouteValues[query.Key] = query.Value;
+            }
             return currentRouteValues;
         }
 
@@ -24,14 +27,17 @@ namespace StockportWebapp.Utils
             return inRouteData || inQueries;
         }
 
-        public static RouteValueDictionary RemoveQueryToUrl(RouteValueDictionary currentRouteData, IQueryCollection queries, string queryName)
+        public static RouteValueDictionary RemoveQueriesFromUrl(RouteValueDictionary currentRouteData, IQueryCollection queries, List<string> queryNames)
         {
             var currentRouteValues = new RouteValueDictionary(currentRouteData);
             foreach (var key in queries.Keys)
             {
                 currentRouteValues.Add(key, queries[key]);
             }
-            currentRouteValues.Remove(queryName);
+            foreach (var queryName in queryNames)
+            {
+                currentRouteValues.Remove(queryName);
+            }
             return currentRouteValues;
         }
 

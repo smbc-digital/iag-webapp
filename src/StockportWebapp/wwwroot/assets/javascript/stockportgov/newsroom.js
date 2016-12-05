@@ -19,7 +19,7 @@ var matchboxNews = new Matchbox({
 
 if ($(".nav-card-news-list").length) { matchboxNews.init(); }
 
-$(".l-news-filter .filter-title").click(function () {
+$(".l-news-filter .filter-title, .l-news-filter .filter-inner-title").click(function () {
     $(this).siblings("ul").slideToggle(100, function() {
         $(this).parent().toggleClass("is-collapsed");
     });

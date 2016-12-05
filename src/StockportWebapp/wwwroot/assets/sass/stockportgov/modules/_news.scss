@@ -281,8 +281,7 @@ ul.nav-card-news-list {
         margin-bottom: 0;
     }
 
-    .filter-title {
-        font-weight: 600;
+    .filter-title, .filter-inner-title {
         margin-bottom: 0;
 
         @media #{$desktop} {
@@ -308,6 +307,22 @@ ul.nav-card-news-list {
         }
     }
 
+    .filter-title {
+        font-weight: 600;
+        padding: 10px 0;
+        @media #{$desktop} {
+            margin-bottom: 10px;
+        }
+    }
+
+    .filter-inner-title {
+        color: $colorPrimary;
+        @media #{$mobile, $tablet} {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }  
+    }
+
     .mobile-filter-heading {
         border-top: 1px solid $greyLight;
         border-bottom: none;
@@ -327,10 +342,16 @@ ul.nav-card-news-list {
             @media #{$mobile, $tablet} {
                 border-top: none;
             }
+        }
 
+        .filter-title, .filter-inner-title {
             &:after {
                 content: "\f105";
             }
+        }
+
+        .filter-inner-title {
+            border-bottom: none;
         }
 
         ul {
@@ -390,5 +411,15 @@ ul.nav-card-news-list {
         @media #{$desktop} {
             margin-right: 50px;
         }
+    }
+
+    .filters-inner-list {
+        margin-left:40px;
+
+        @media #{$desktop} {
+            li {
+                margin-right: 0;
+            }
+        }  
     }
 }

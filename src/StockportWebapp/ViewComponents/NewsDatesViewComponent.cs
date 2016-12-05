@@ -1,7 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.FeatureToggling;
-using StockportWebapp.Models;
 
 namespace StockportWebapp.ViewComponents
 {
@@ -14,13 +15,13 @@ namespace StockportWebapp.ViewComponents
             _featureToggles = featureToggles;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(Newsroom newsroom)
+        public async Task<IViewComponentResult> InvokeAsync(IEnumerable<DateTime> dates)
         {
             if (_featureToggles.NewsDateFilter)
             {
-                return await Task.FromResult(View("New", newsroom));
+                return await Task.FromResult(View("New", dates));
             }
-            return await Task.FromResult(View("Old", newsroom));
+            return await Task.FromResult(View("Old"));
         }
     }
 }

@@ -10,34 +10,33 @@ namespace StockportWebappTests.Unit.Utils
 {
     public class UrlQueryHelperTest
     {
-
         [Fact]
-        public void ShouldAddNewQueryToQueryParamaters()
+        public void ShouldAddNewQueriesToQueryParamaters()
         {
-            var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" } };
+            var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" }, { "a-key", "a-value" } };
             var mockQueryCollection = new Mock<IQueryCollection>();
             mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName"});
             mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
 
-            var routesDictionary = UrlQueryHelper.AddQueryToUrl(startingRoutesDictionary, mockQueryCollection.Object,
-                "newQueryName", "newQueryValue");
+            var routesDictionary = UrlQueryHelper.AddQueriesToUrl(startingRoutesDictionary, mockQueryCollection.Object,
+                new Dictionary<string, string> { { "newQueryName", "newQueryValue"} });
 
-            routesDictionary.Count.Should().Be(3);
+            routesDictionary.Count.Should().Be(4);
             routesDictionary["name"].Should().Be("value");
             routesDictionary["queryName"].Should().Be("queryValue");
             routesDictionary["newQueryName"].Should().Be("newQueryValue");
+            routesDictionary["a-key"].Should().Be("a-value");
         }
 
         [Fact]
-        public void ShouldRemoveQueryFromQueryParamaters()
+        public void ShouldRemoveQueriesFromQueryParamaters()
         {
             var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" } };
             var mockQueryCollection = new Mock<IQueryCollection>();
-            mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName" });
-            mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
+            mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName", "anotherQueryName" });
 
-            var routesDictionary = UrlQueryHelper.RemoveQueryToUrl(startingRoutesDictionary, mockQueryCollection.Object,
-                "queryName");
+            var routesDictionary = UrlQueryHelper.RemoveQueriesFromUrl(startingRoutesDictionary, mockQueryCollection.Object,
+                new List<string>() { "queryName" , "anotherQueryName" });
 
             routesDictionary.Count.Should().Be(1);
             routesDictionary["name"].Should().Be("value");
