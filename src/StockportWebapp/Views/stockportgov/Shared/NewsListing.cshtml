@@ -8,7 +8,7 @@
         <ul class="filters-list" id="category-list">           
             <li class="collapsable">
                 <ul class="filters-list">
-                    <li class="filter collapsable">
+                    <li class="filter collapsable" id="category-filter">
                         <p class="filter-title">Category</p>
                         <ul class="filters-list">
                             <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "category") ? "active" : "")>
@@ -28,7 +28,7 @@
             </li>
         </ul>
     </div>
-    <div class="grid-70 tablet-grid-100 mobile-grid-100 grid-parent news-article-grid">
+    <div class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
         @{
             if (Model.Alerts != null)
             {
@@ -38,30 +38,39 @@
                 }
             }
         }
-        <ul class="nav-card-news-list">
-            @foreach (var subItem in Model.News)
-            {
-                <li class="grid-100 grid-parent nav-card-news nav-card-news-item">
-                    <div class="news-bottom-border grid-100 grid-parent">
-                        @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
-                        {
-                            <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
-                        }
-                        <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "grid-100") grid-parent">
-                            <div class="news-date hide-on-mobile">
-                                <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
-                            </div>
-                            <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
-                                <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
-                            </a>
-                            <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
-                            <div class="news-date hide-on-desktop hide-on-tablet">
-                                <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+        @if (!Model.News.Any())
+        {
+            <div class="grid-100 news-article-not-found">
+                <h2>No news articles found.</h2>
+            </div>
+        }
+        else
+        {
+            <ul class="nav-card-news-list grid-100">
+                @foreach (var subItem in Model.News)
+                {
+                    <li class="grid-100 grid-parent nav-card-news nav-card-news-item">
+                        <div class="news-bottom-border grid-100 grid-parent">
+                            @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
+                            {
+                                <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
+                            }
+                            <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
+                                <div class="news-date hide-on-mobile">
+                                    <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                                </div>
+                                <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
+                                    <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
+                                </a>
+                                <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
+                                <div class="news-date hide-on-desktop hide-on-tablet">
+                                    <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            }
-        </ul>
+                    </li>
+                }
+            </ul>
+        }
     </div>
 </div>
