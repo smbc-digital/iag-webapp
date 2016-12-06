@@ -4,6 +4,9 @@
 
         if ($(window).width() <= tabletWidth) {
             $(".l-news-filter .collapsable").toggleClass("is-collapsed");
+        } else {
+            $(".l-news-filter .filter:not(.category-filter).collapsable").toggleClass("is-collapsed");
+            $(".l-news-filter .filter:not(.category-filter) .collapsable").toggleClass("is-collapsed");
         }
     });
 

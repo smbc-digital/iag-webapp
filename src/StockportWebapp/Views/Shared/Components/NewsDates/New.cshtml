@@ -10,7 +10,7 @@
         </li>
         @foreach (var year in Model.Select(s => s.Year).Distinct().OrderByDescending(y => y))
         {
-            <li>
+            <li class="collapsable">
                 <p class="filter-inner-title">@year.ToString()</p>
                 <ul class="filters-list filters-inner-list" id="news-archive">
                     @foreach (var date in Model.Where(d => d.Year == year).OrderBy(a => a).Reverse())
