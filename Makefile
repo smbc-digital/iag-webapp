@@ -95,7 +95,7 @@ ui-test-specific:
 # Deployment targets: (these push to Amazon ECR and EB, and require AWS creds)
 # ---------------------------------------------------------------------------------------
 
-.PHONY: tag login push package docker-clean
+.PHONY: tag login push publish docker-clean
 tag:
 	docker tag $(IMAGE) $(DOCKER_REPOSITORY)/$(IMAGE):$(APP_VERSION)
 
@@ -105,7 +105,7 @@ login:
 push: login
 	docker push $(DOCKER_REPOSITORY)/$(IMAGE):$(APP_VERSION)
 
-package: build tag push
+publish: build tag push
 
 docker-clean:
 	@rm -rf ~/.docker/config.json
