@@ -3,7 +3,7 @@
 @using StockportWebapp.Utils
 
 <li class="filter collapsable">
-    <p class="filter-title">News Archive</p>
+    <p class="filter-title">News archive</p>
     <ul class="filters-list filters-outer-list">
         <li class=@(!UrlQueryHelper.QueryNameIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "datefrom") ? "active" : "")>
             <a href="@Url.RouteUrl(UrlQueryHelper.RemoveQueriesFromUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new List<string>() { "datefrom", "dateto" }))">All recent news</a>
