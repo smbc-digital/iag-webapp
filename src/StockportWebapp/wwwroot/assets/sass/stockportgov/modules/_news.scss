@@ -26,11 +26,6 @@
             max-width: 400px;
         }
 
-        .news-date {
-            padding-bottom: 0;
-            margin-bottom: 0;
-        }
-
         .button {
             color: $greyDarkest;
             min-width: 200px;
@@ -51,6 +46,15 @@
     .nav-card-news-teaser {
         padding-top: 10px;
         color: $greyDarkest;
+    }
+
+    .nav-card-news-detail {
+        padding-left: 10px;
+
+        @media #{$tablet, $desktop} {
+            padding-right: 10px;
+            padding-left: 0;
+        }     
     }
 }
 
@@ -92,24 +96,21 @@ ul.nav-card-news-list {
 
     .news-bottom-border {
         border-bottom: 1px solid $greyLightest;
-        padding: 0px 0px 10px 0px;
-
+        padding-bottom: 10px; 
     }
 
     li {
-        padding: 15px 40px 0px 40px;
+        padding: 15px 20px 0px 20px;
         margin-bottom: 0px;
         margin-left: 0px;
 
-         @media #{$mobile} {        
-        padding: 15px 15px 0px 15px;
-    }
+        @media #{$mobile} {        
+            padding: 15px 15px 0px 15px;
+        }
     }
 
-    li:nth-last-child(2) {
-        .news-bottom-border:last-child {
-            border-bottom: none;
-        }
+    li:last-child .news-bottom-border {
+        border-bottom: none;
     }
 }
 
@@ -128,18 +129,10 @@ ul.nav-card-news-list {
 }
 
 .nav-card-news-thumbnail {
-    float: right;
     height: 150px;
     max-width: 100%;
     @media #{$mobile} {
-        float: left;
         height: 100px;
-        width: 35%;
-    }
-
-    @media #{$tablet} {
-        float: right;
-        width: 30%;
     }
 }
 
@@ -221,13 +214,12 @@ ul.nav-card-news-list {
     }
 
     p {
-        margin-bottom: 0px;
-        
+        margin-bottom: 0px;        
     }
 
      @media #{$tablet, $desktop} {
-            margin-top:-10px;
-        }
+        margin-bottom: -5px;
+     }
 
 }
 
