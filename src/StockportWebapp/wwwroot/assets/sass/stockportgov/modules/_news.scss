@@ -39,6 +39,10 @@
     @media #{$mobile, $tablet} {
         margin-top: 15px;
     }
+
+    .news-article-not-found {
+        min-height: 50vh;
+    }
 }
 
 .nav-card-news {

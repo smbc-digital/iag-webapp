@@ -2,6 +2,9 @@
 
 ﻿.homepage-hero {
     padding:0px 10px 0px 10px;
+    @media #{$mobile, $tablet} {
+        padding-top: 20px;
+    }
     background: $colorPrimary no-repeat scroll center center;
     background-size: cover;
 
