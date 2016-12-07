@@ -4,7 +4,7 @@ prod: &prod
   LiveChat: false
   LegacyUrlRedirects: true
   Search: true
-  BetaToWwwRedirect: false
+  BetaToWwwRedirect: true
   NewsDateFilter: false
 
 stage: &stage
@@ -19,5 +19,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  BetaToWwwRedirect: true
   NewsDateFilter: true
