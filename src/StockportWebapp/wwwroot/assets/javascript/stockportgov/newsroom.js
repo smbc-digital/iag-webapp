@@ -3,10 +3,10 @@
         var tabletWidth = (1024 - 17);
 
         if ($(window).width() <= tabletWidth) {
-            $(".l-news-filter .collapsable").toggleClass("is-collapsed");
+            $(".l-news-filter .collapsible").toggleClass("is-collapsed");
         } else {
-            $(".l-news-filter .filter:not(#category-filter).collapsable").toggleClass("is-collapsed");
-            $(".l-news-filter .filter:not(#category-filter) .collapsable").toggleClass("is-collapsed");
+            $(".l-news-filter .filter:not(#category-filter).collapsible").toggleClass("is-collapsed");
+            $(".l-news-filter .filter:not(#category-filter) .collapsible").toggleClass("is-collapsed");
         }
     });
 
