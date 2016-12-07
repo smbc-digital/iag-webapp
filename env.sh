@@ -1,6 +1,6 @@
 #!/bin/bash
 running_locally() {
-  if [[ -n "$SNAP_PIPELINE_COUNTER"  ]] || [[ -n "$GO_PIPELINE_LABEL" ]] ; then
+  if [[ -z "$MACHINE_NAME" ]] || [[ -n "$SNAP_PIPELINE_COUNTER"  ]] || [[ -n "$GO_PIPELINE_LABEL" ]] ; then
     echo false
   else
     echo true
@@ -8,7 +8,7 @@ running_locally() {
 }
 
 use_proxy() {
-  if [[ -n "$SNAP_PIPELINE_COUNTER"  ]] ; then
+  if [[ -z "$HTTP_PROXY" ]] || [[ -n "$SNAP_PIPELINE_COUNTER"  ]] ; then
     echo false
   else
     echo true
