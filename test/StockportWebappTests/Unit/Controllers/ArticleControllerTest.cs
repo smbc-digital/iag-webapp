@@ -4,7 +4,9 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.FeatureToggling;
@@ -81,6 +83,53 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
+        public void MultipleSectionsArticleWithNoSectionSlugViewDataCanonicalUrlShouldBeNull()
+        {
+            const string articleSlug = "physical-activity";
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
+
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+                new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, new List<Crumb>() { },
+                new List<Alert>(), new NullTopic());
+
+            var response = new HttpResponse(200, article, string.Empty);
+
+            _fakeRepository.Set(response);
+
+            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+
+            view.ViewData["CanonicalUrl"].Should().BeNull();
+        }
+
+        [Fact]
+        public void MultipleSectionsArticleWithSectionSlugViewDataCanonicalUrlShouldNotBeNull()
+        {
+            const string articleSlug = "physical-activity";
+            const string sectionSlug = "physical-activity-overview";
+
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
+
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+                new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, new List<Crumb>() { },
+                new List<Alert>(), new NullTopic());
+
+            var response = new HttpResponse(200, article, string.Empty);
+
+            _fakeRepository.Set(response);
+
+            var view = AsyncTestHelper.Resolve(_controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage)) as ViewResult;
+
+            view.ViewData["CanonicalUrl"].Should().NotBeNull();
+
+            string canonicalUrl = (string)view.ViewData["CanonicalUrl"];
+
+            canonicalUrl.Should().Contain("physical-activity");
+            canonicalUrl.Should().NotContain("physical-activity-overview");
+        }
+
+        [Fact]
         public void MultipleSectionsArticleWithSectionSlugReturnsCorrespondingSection()
         {
             const string articleSlug = "physical-activity";
@@ -96,6 +145,7 @@ namespace StockportWebappTests.Unit.Controllers
             _fakeRepository.Set(response);
 
             var view = AsyncTestHelper.Resolve(_controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage)) as ViewResult;
+
             var displayedArticle = view.ViewData.Model as ArticleViewModel;
 
             displayedArticle.DisplayedSection.Title.Should().Contain("Types of Physical Activity");

@@ -15,11 +15,14 @@ namespace StockportWebapp.ViewModels
 
         public readonly bool ShouldShowArticleSummary;
 
+        public readonly bool ShouldShowCanonicalLink;
+
         public ArticleViewModel(ProcessedArticle article)
         {
             Article = article;
             DisplayedSection = FirstOrNull(article.Sections);
             ShouldShowArticleSummary = true;
+            ShouldShowCanonicalLink = false;
         }
 
         public ArticleViewModel(ProcessedArticle article, string sectionSlug)

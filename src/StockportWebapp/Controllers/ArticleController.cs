@@ -8,6 +8,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Http;
+using System.Linq;
 
 namespace StockportWebapp.Controllers
 {
@@ -40,6 +41,7 @@ namespace StockportWebapp.Controllers
             if (_featureToggles.DynamicContactUsForm) _contactUsMessageParser.Parse(article, message, "");
 
             var viewModel = new ArticleViewModel(article);
+
             return View(viewModel);
         }
 
@@ -55,6 +57,8 @@ namespace StockportWebapp.Controllers
 
             if (_featureToggles.DynamicContactUsForm) _contactUsMessageParser.Parse(article, message, sectionSlug);
 
+            SetArticlesCanonicalUrl(articleSlug, sectionSlug, article);
+
             try
             {
                 var viewModel = new ArticleViewModel(article, sectionSlug);
@@ -64,6 +68,14 @@ namespace StockportWebapp.Controllers
             {
                 _logger.LogWarning("Section does not exist, returning 404.");
                 return NotFound();
+            }
+        }
+
+        private void SetArticlesCanonicalUrl(string articleSlug, string sectionSlug, ProcessedArticle article)
+        {
+            if (article.Sections.Any() && article.Sections.First().Slug == sectionSlug)
+            {
+                ViewData["CanonicalUrl"] = "/" + articleSlug;
             }
         }
     }

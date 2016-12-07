@@ -11,7 +11,11 @@
     <title>@ViewData["Title"] - Stockport Council</title>
     @if (ViewData["Description"] != null)
     {
-    <meta name="Description" content="@ViewData["Description"]" />
+        <meta name="Description" content="@ViewData["Description"]" />
+    }
+    @if (ViewData["CanonicalUrl"] != null)
+    {
+        @Html.Partial("Canonical-Link")
     }
     <link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
