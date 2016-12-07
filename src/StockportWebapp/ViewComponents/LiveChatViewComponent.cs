@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.FeatureToggling;
-
+using StockportWebapp.Models;
 namespace StockportWebapp.ViewComponents
 {
     public class LiveChatViewComponent : ViewComponent
@@ -13,13 +13,14 @@ namespace StockportWebapp.ViewComponents
             _featureToggles = featureToggles;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(string title, string text)
         {
             if (_featureToggles.LiveChat)
             {
-                return await Task.FromResult(View("LiveChat"));
+                return await Task.FromResult(View("LiveChat", new LiveChat(title, text)));
             }
             return await Task.FromResult(View());
         }
     }
 }
+

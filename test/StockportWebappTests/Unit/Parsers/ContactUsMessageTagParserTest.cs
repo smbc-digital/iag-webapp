@@ -5,6 +5,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using Xunit;
+using static StockportWebapp.Models.LiveChat;
 
 namespace StockportWebappTests.Unit.Parsers
 {
@@ -33,7 +34,7 @@ namespace StockportWebappTests.Unit.Parsers
             var slug = "this-is-a-slug";
             var section = ProcessedSectionWithDefaultSlugAndBody();
             var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic());
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic(), false, new NullLiveChat());
 
             _tagParser.Parse(processedArticle, message, slug);
 
@@ -47,7 +48,7 @@ namespace StockportWebappTests.Unit.Parsers
         [Fact]
         public void ShouldAddErrorMessageToArticleBodyWithFormTagInsideIfEmptySlugGiven()
         {
-            var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", new List<ProcessedSection>(), "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic());
+            var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", new List<ProcessedSection>(), "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic(), false, new NullLiveChat());
 
             _tagParser.Parse(processedArticle, Message, "");
 
@@ -58,7 +59,7 @@ namespace StockportWebappTests.Unit.Parsers
         public void ShouldAddErrorMessageToFirstSectionBodyWithFormTagInsideIfArticleDoesntHaveFormIfEmptySlugGiven()
         {
             var section = ProcessedSectionWithDefaultSlugAndBody(body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { section }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic());
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { section }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic(), false, new NullLiveChat());
 
             _tagParser.Parse(processedArticle, Message, "");
 
@@ -72,7 +73,7 @@ namespace StockportWebappTests.Unit.Parsers
             var slug = "this-is-a-slug";
             var section = ProcessedSectionWithDefaultSlugAndBody();
             var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic());
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic(), false, new NullLiveChat());
 
             _tagParser.Parse(processedArticle, Message, slug);
 
@@ -85,7 +86,7 @@ namespace StockportWebappTests.Unit.Parsers
         public void ShouldDoNothingIfSlugProvidedButNoSectionsAreProvided()
         {
             var slug = "this-is-a-slug";
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic());
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic(), false, new NullLiveChat());
 
             _tagParser.Parse(processedArticle, Message, slug);
 
@@ -96,7 +97,7 @@ namespace StockportWebappTests.Unit.Parsers
         public void ShouldRenderMessage()
         {
             var slug = "this-is-a-slug";
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic());
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", new List<ProcessedSection>() { }, "icon", "backgroundImage", new List<Crumb>(), new List<Alert>(), DefaultTopic(), false, new NullLiveChat());
 
             _tagParser.Parse(processedArticle, Message, slug);
             

@@ -18,6 +18,8 @@ module.exports = {
   
        var articlepage = browser.page.stockportgov.articlepage();
        articlepage.assertTitleIsVisible('UITEST: About the Hat Works');
+       articlepage.assertLiveChatIsVisible();
+
        articlepage.goToNextSection(browser);
        articlepage.goToStartPage(browser, 'uitest-council-tax-reduction-form');
   

@@ -21,10 +21,13 @@ namespace StockportWebapp.Models
         public readonly IEnumerable<Crumb> Breadcrumbs;
         public readonly IEnumerable<Alert> Alerts;
         public readonly Topic ParentTopic;
-        public readonly string NavigationLink;        
+        public readonly string NavigationLink;
+        public bool LiveChatVisible { get; set; }
+        public LiveChat LiveChat { get; set; }
 
         public ProcessedArticle(string title, string slug, string body, string teaser,
-            IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, Topic topic)
+            IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, IEnumerable<Crumb> breadcrumbs, 
+            IEnumerable<Alert> alerts, Topic topic, bool liveChatVisible, LiveChat liveChat)
         {
             Title = title;
             NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -36,6 +39,8 @@ namespace StockportWebapp.Models
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
             ParentTopic = topic;
+            LiveChatVisible = liveChatVisible;
+            LiveChat = liveChat;
         }
 
         public void AddContactUsMessage(string message, string slug = "")

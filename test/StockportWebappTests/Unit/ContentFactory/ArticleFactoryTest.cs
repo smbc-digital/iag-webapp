@@ -33,6 +33,8 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly List<Crumb> _breadcrumbs;
         private readonly Article _article;
         private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
+        private const bool _liveChatVisible = true;
+        private readonly LiveChat _liveChat = new LiveChat("Title","text");
         
         public ArticleFactoryTest()
         {
@@ -50,7 +52,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
             
-             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, _breadcrumbs, _emptyProfiles, _emptyDocuments);
+             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, _breadcrumbs, _emptyProfiles, _emptyDocuments, _liveChatVisible, _liveChat);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
@@ -76,6 +78,9 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.Icon.Should().Be(Icon);
             result.BackgroundImage.Should().Be(BackgroundImage);
             result.Breadcrumbs.ToList().Should().BeEquivalentTo(_breadcrumbs);
+            result.LiveChatVisible.Should().Be(true);
+            result.LiveChat.Title.Should().Be("Title");
+            result.LiveChat.Text.Should().Be("text");
         }
 
         [Fact]

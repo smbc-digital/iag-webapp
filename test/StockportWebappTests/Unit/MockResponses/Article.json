@@ -81,5 +81,10 @@
       "lastUpdated": "2016-10-11T14:56:11",
       "fileName": "Stockport-Metroshuttle.pdf"
     }
-  ]
+  ],
+  "liveChatVisible": true,
+  "liveChat": {
+    "title": "Title",
+    "text": "Text"
+  }
 }

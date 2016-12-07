@@ -11,7 +11,7 @@
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
-        <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems()
+        <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible
                                                                   ? "mobile-grid-100 tablet-grid-100 push-30 grid-70"
                                                                   : "mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
@@ -46,9 +46,11 @@
             </section>
         </div>
         @{
-            if (Model.HasParentTopicWithSubItems())
+            if (Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible)
             {
                 <div class="pull-70 l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
+                    @if(Model.HasParentTopicWithSubItems())
+                    { 
                     <div class="l-left-side-bar-section">
                         <h3>@Model.Article.ParentTopic.Name</h3>
                         <ul>
@@ -66,12 +68,16 @@
                                     </a>
                                 </li>
                             }
-                            
+
                         </ul>
                     </div>
-                    @await Component.InvokeAsync("LiveChat")
+                    }
+                    @if (Model.Article.LiveChatVisible)
+                    {
+                        @await Component.InvokeAsync("LiveChat", new { title = Model.Article.LiveChat.Title, text = Model.Article.LiveChat.Text })
+                    }                                
                 </div>
             }
-        }
+        }     
     </div>
 </div>

@@ -50,10 +50,17 @@ var methods = {
         this.assert.visible('#Message');
     },
 
-    assertTitleIsHiddenFieldOnContactForm: function () {
+    assertTitleIsHiddenFieldOnContactForm: function() {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
         this.assert.hidden('#Title');
     },
+
+
+    assertLiveChatIsVisible: function() {
+        this.assert.visible(".side-bar-section-live-chat");
+        this.assert.visible(".online-chat");
+    },
+
 
     assertTitleOfArticleIsInTitleFieldOfContactFormForSection: function () {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
