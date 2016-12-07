@@ -8,20 +8,21 @@ namespace StockportWebappTests.Unit.Controllers
 {
     public class LegacyRedirectsManagerTest
     {
-        private LegacyRedirectsManager _mapper;
-        private LegacyUrlRedirects _legacyUrlRedirects;     
+        private readonly LegacyRedirectsMapper _mapper;
+        private LegacyUrlRedirects _legacyUrlRedirects;
+        private const string BusinessId = "businessId";
 
         public LegacyRedirectsManagerTest()
         {
-            _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary() { { "unittest", new RedirectDictionary() }});
-            _mapper = new LegacyRedirectsManager(new BusinessId("unittest"), _legacyUrlRedirects);
+            _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary { { BusinessId, new RedirectDictionary() }});
+            _mapper = new LegacyRedirectsMapper(new BusinessId(BusinessId), _legacyUrlRedirects);
         }
 
         [Fact]
         public void ShouldNotRedirectUrlIfBusinessIdIsNotInLegacyRedirects()
         {
-            _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary() { { "unittest", new RedirectDictionary() } });
-            var legacyRedirectsManager = new LegacyRedirectsManager(new BusinessId("businessId-does-not-exist"), _legacyUrlRedirects);
+            _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary { { BusinessId, new RedirectDictionary() } });
+            var legacyRedirectsManager = new LegacyRedirectsMapper(new BusinessId("businessId-does-not-exist"), _legacyUrlRedirects);
 
             var result = legacyRedirectsManager.RedirectUrl(string.Empty);
             result.Should().Be(string.Empty);
@@ -30,32 +31,31 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldIgnoreWildCardIfMoreSpecificUrlExists()
         {
-            SetupRedirectRule("/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url");
-
-            var result = _mapper.RedirectUrl("/another-url-from/a-url-with-wildcard/a-different-url");
-            result.Should().Be("/another-redirected-to-url");
-        }
-
-        [Fact]
-        public void ShouldUseMostSpecificWildCardWhenTwoWildCardsExist()
-        {
-            SetupRedirectRule("/another-url-from/a-url-with-wildcard/a-url", "/a-redirected-to-url",
-                "/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url",
-                "/another-url-from/*", "/yet-another-redirected-url");
+            AddRedirectRule("/another-url-from/a-url-with-wildcard/a-url", "/a-redirected-to-url");
+            AddRedirectRule("/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url");
 
             var result = _mapper.RedirectUrl("/another-url-from/a-url-with-wildcard/a-url");
             result.Should().Be("/a-redirected-to-url");
         }
 
         [Fact]
+        public void ShouldUseMostSpecificWildCardWhenTwoWildCardsExist()
+        {
+            AddRedirectRule("/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url");
+            AddRedirectRule("/another-url-from/*", "/yet-another-redirected-url");
+
+            var result = _mapper.RedirectUrl("/another-url-from/a-url-with-wildcard/a-url");
+            result.Should().Be("/another-redirected-to-url");
+        }
+
+        [Fact]
         public void ShouldRedirectToMatchedUrlIfWildcardValueMatchesPartOfRoute()
         {
-            SetupRedirectRule("/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url", 
-                              "/another-url-with-a-wildcard-from/*", "/another-wildcard-goes-here");
-   
+            AddRedirectRule("/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url");
             var firstResult = _mapper.RedirectUrl("/another-url-from/a-url-with-wildcard/a-url-in-a-wildcard");
             firstResult.Should().Be("/another-redirected-to-url");
 
+            AddRedirectRule("/another-url-with-a-wildcard-from/*", "/another-wildcard-goes-here");
             var secondResult = _mapper.RedirectUrl("/another-url-with-a-wildcard-from/another-url-from/a-url-with-wildcard");
             secondResult.Should().Be("/another-wildcard-goes-here");
         }
@@ -63,7 +63,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldRedirectToMatchedUrlIfRouteIsTheSameAsAWildcardRoute()
         {
-            SetupRedirectRule("/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url");
+            AddRedirectRule("/another-url-from/a-url-with-wildcard/*", "/another-redirected-to-url");
 
             var result = _mapper.RedirectUrl("/another-url-from/a-url-with-wildcard");
             result.Should().Be("/another-redirected-to-url");
@@ -72,7 +72,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldNotRedirectToUrlIfRouteDoesNotMatchTopLevelRoute()
         {
-            SetupRedirectRule("/a-url-from/from-this", "/a-url-to");
+            AddRedirectRule("/a-url-from/from-this", "/a-url-to");
 
             var result = _mapper.RedirectUrl("/a-url-from/from-this/a-url");
             result.Should().Be("");
@@ -81,12 +81,11 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldRedirectToMatchedPageIfValueFound()
         {
-            SetupRedirectRule("/a-url-from/from-this", "/a-url-to", 
-                              "/another-url-from/another-from-this", "/another-url-to");
-
+            AddRedirectRule("/a-url-from/from-this", "/a-url-to");
             var firstResult = _mapper.RedirectUrl("/a-url-from/from-this");
             firstResult.Should().Be("/a-url-to");
 
+            AddRedirectRule("/another-url-from/another-from-this", "/another-url-to");
             var secondResult = _mapper.RedirectUrl("/another-url-from/another-from-this");
             secondResult.Should().Be("/another-url-to");
         }
@@ -94,44 +93,29 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldNotRedirectUrlIfLegacyUrlDoesNotMatch()
         {
-            var result = _mapper.RedirectUrl("/no-Url-Matching");
+            var result = _mapper.RedirectUrl("/no-url-Matching");
             result.Should().Be(string.Empty);
         }
 
         [Fact]
         public void ShouldRedirectToSpecificallyMatchedUrlEvenIfRequestHasASlashOnTheEnd()
         {
-            SetupRedirectRule("/a-url-from/from-this", "/a-url-to");
+            AddRedirectRule("/a-url-from/from-this", "/a-url-to");
             var result = _mapper.RedirectUrl("/a-url-from/from-this/");
-
             result.Should().Be("/a-url-to");
         }
 
         [Fact]
         public void ShouldRedirectToUrlMatchedByWildcardEvenIfRequestHasASlashOnTheEnd()
         {
-            SetupRedirectRule("/path/*", "/redirected-url");
-
+            AddRedirectRule("/path/*", "/redirected-url");
             var result = _mapper.RedirectUrl("/path/some-label/");
-
             result.Should().Be("/redirected-url");
         }
 
-        private void SetupRedirectRule(string rule, string toUrl, string rule2 = "defaultrule2", string toUrl2 = "defaultToUrl", string rule3 = "defaultrule3", string toUrl3 = "defaultToUrl")
+        private void AddRedirectRule(string rule, string toUrl)
         {
-            _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary()
-            {
-                {
-                    "unittest", new RedirectDictionary()
-                    {
-                        {rule, toUrl},
-                        {rule2, toUrl2},
-                        {rule3, toUrl3}
-                    }
-                },
-                {"another-business-id", new RedirectDictionary()}
-            });
-            _mapper = new LegacyRedirectsManager(new BusinessId("unittest"), _legacyUrlRedirects);
+            _legacyUrlRedirects.Redirects[BusinessId].Add(rule, toUrl);
         }
     }
 }

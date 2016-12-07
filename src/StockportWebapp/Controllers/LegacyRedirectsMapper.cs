@@ -8,12 +8,12 @@ namespace StockportWebapp.Controllers
         string RedirectUrl(string url);
     }
 
-    public class LegacyRedirectsManager : ILegacyRedirectsManager
+    public class LegacyRedirectsMapper : ILegacyRedirectsManager
     {
         private readonly BusinessId _businessId;
         private readonly LegacyUrlRedirects _legacyUrlRedirects;
 
-        public LegacyRedirectsManager(BusinessId businessId, LegacyUrlRedirects legacyUrlRedirects)
+        public LegacyRedirectsMapper(BusinessId businessId, LegacyUrlRedirects legacyUrlRedirects)
         {
             _businessId = businessId;
             _legacyUrlRedirects = legacyUrlRedirects;
