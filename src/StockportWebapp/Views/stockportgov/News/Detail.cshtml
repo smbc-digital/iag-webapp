@@ -58,7 +58,7 @@
                     <div class="l-left-side-bar-section">
                         <h3>Latest News</h3>
                         <ul>
-                            @foreach (var item in latestNews)
+                            @foreach (var item in latestNews.Take(6))
                             {
                                 <li class="@(item.Slug == Model.NewsItem.Slug ? "active" : "")">
                                     <a href="@Url.Action("Detail", "News", new {Slug = item.Slug})">@item.Title</a>
