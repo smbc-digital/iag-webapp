@@ -92,7 +92,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, new List<Crumb>() { },
-                new List<Alert>(), new NullTopic());
+                new List<Alert>(), new NullTopic(), false, new NullLiveChat());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -114,7 +114,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, new List<Crumb>() { },
-                new List<Alert>(), new NullTopic());
+                new List<Alert>(), new NullTopic(), false, new NullLiveChat());
 
             var response = new HttpResponse(200, article, string.Empty);
 
