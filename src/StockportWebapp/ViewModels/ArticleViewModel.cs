@@ -98,12 +98,14 @@ namespace StockportWebapp.ViewModels
             return firstIndex;
         }
 
-        public IEnumerable<SubItem> SidebarSubItems()
+        public IEnumerable<SubItem> SidebarSubItems(out bool hasMoreButton)
         {
             var parentTopic = Article.ParentTopic;
             var sidebarSubItems = new List<SubItem>();
             sidebarSubItems.AddRange(parentTopic.SubItems);
             sidebarSubItems.AddRange(parentTopic.SecondaryItems);
+            sidebarSubItems.AddRange(parentTopic.TertiaryItems);
+            hasMoreButton = sidebarSubItems.Count > 6;
             return sidebarSubItems.Take(6);
         }
     }

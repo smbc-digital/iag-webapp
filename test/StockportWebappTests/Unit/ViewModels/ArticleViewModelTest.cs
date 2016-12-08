@@ -181,11 +181,13 @@ namespace StockportWebappTests.Unit.ViewModels
 
             var articleViewModel = new ArticleViewModel(article);
 
-            var sidebarSubItems = articleViewModel.SidebarSubItems();
+            bool showMoreButton;
+            var sidebarSubItems = articleViewModel.SidebarSubItems(out showMoreButton);
 
             sidebarSubItems.Count().Should().Be(2);
             sidebarSubItems.ToList()[0].Should().Be(firstSubitem);
             sidebarSubItems.ToList()[1].Should().Be(firstSecondaryitem);
+            showMoreButton.Should().Be(false);
         }
 
         [Fact]
@@ -209,7 +211,8 @@ namespace StockportWebappTests.Unit.ViewModels
 
             var articleViewModel = new ArticleViewModel(article);
 
-            var sidebarSubItems = articleViewModel.SidebarSubItems();
+            bool showMoreButton;
+            var sidebarSubItems = articleViewModel.SidebarSubItems(out showMoreButton);
 
             sidebarSubItems.Count().Should().Be(6);
             sidebarSubItems.ToList()[0].Should().Be(firstSubItem);
@@ -218,6 +221,7 @@ namespace StockportWebappTests.Unit.ViewModels
             sidebarSubItems.ToList()[3].Should().Be(fourthSubItem);
             sidebarSubItems.ToList()[4].Should().Be(fifthSubItem);
             sidebarSubItems.ToList()[5].Should().Be(sixthSubItem);
+            showMoreButton.Should().Be(true);
         }
 
         private ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
