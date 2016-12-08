@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
@@ -34,8 +33,6 @@ namespace StockportWebapp.Middleware
 
                 context.Response.Redirect(request.GetDisplayUrl());
             }
-
-            _logger.LogInformation("Host: " + context.Request.Host);
                 
             return _next(context);
         }
