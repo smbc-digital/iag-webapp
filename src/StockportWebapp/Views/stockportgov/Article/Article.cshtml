@@ -1,4 +1,7 @@
 ﻿@model StockportWebapp.ViewModels.ArticleViewModel
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles featureToggles
+
 @{
     ViewData["Title"] = Model.Article.Title;
     ViewData["Description"] = Model.Article.Teaser;
@@ -11,7 +14,7 @@
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
-        <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible
+        <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems() || (Model.Article.LiveChatVisible && featureToggles.LiveChat)
                                                                   ? "mobile-grid-100 tablet-grid-100 push-30 grid-70"
                                                                   : "mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
