@@ -59,13 +59,18 @@
 
 .side-bar-section-live-chat {
     margin-right:10px;
+    p{
+        padding-left: 10px;
+        padding-right: 10px;       
+        font-size: 14px;
+    }
 
     .button-default {
         margin-top:20px;
         min-width:unset;
         width: 100%;
         box-sizing: border-box;
-        font-size:16px;
+        font-size: 1.125em;
     }
     
     .online-chat {
