@@ -24,14 +24,16 @@ run() {
   rm $container
   if [[ $(use_proxy) = true ]]; then
     echo Running with proxy...
-  	docker run -d --name $container -p 5000:5000 \
+  	docker run --name $container -p 5000:5000 --link content \
   		-e HTTP_PROXY=$HTTP_PROXY \
   		-e HTTPS_PROXY=$HTTPS_PROXY \
   		-e NO_PROXY=$NO_PROXY \
-  		-e ASPNETCORE_ENVIRONMENT=$aspnetcore_env $image:$tag
+  		-e ASPNETCORE_ENVIRONMENT=$aspnetcore_env \
+		-e USE_INJECTED_CONFIG=true $image:$tag
   else
     echo Running without proxy...
-    docker run -d --name $container -p 5000:5000 $image:$tag
+    docker run -d --name $container -p 5000:5000 \ 
+    	-e ASPNETCORE_ENVIRONMENT=$aspnetcore_env -e USE_INJECTED_CONFIG=true $image:$tag
   fi
 }
 

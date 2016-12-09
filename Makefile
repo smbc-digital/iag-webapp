@@ -4,6 +4,12 @@ in_docker_machine = $(shell docker-machine env $(MACHINE_NAME))
 help:
 		@cat ./MakefileHelp
 
+require-envs-%:
+	@for i in $$(echo $* | sed "s/,/ /g"); do \
+          if [[ -z $${!i} ]]; then echo "[FAIL] Environment variable $$i is not set." && FAIL=yes; fi \
+        done; \
+        if [[ -n $$FAIL ]]; then echo "Aborting..." && exit 1; fi
+
 # Docker machine targets: (manage the environment to run docker locally)
 # ---------------------------------------------------------------------------------------
 MACHINE_NAME = smbc
@@ -52,25 +58,22 @@ build:
 			$(TAG) \
 			Dockerfile
 
+.PHONY: start-proxy
 start-proxy:
 	cd proxy ; npm install ; node index.js
 
-run: clean
-	eval "$(in_docker_machine)" ; \
-	docker run --name $(CONTAINER_NAME) \
-		-p 5000:5000 --link content \
-		-e HTTP_PROXY=$(HTTP_PROXY) \
-		-e HTTPS_PROXY=$(HTTPS_PROXY) \
-		-e NO_PROXY=$(NO_PROXY) \
-		-e ASPNETCORE_ENVIRONMENT="$(ASPNETCORE_ENVIRONMENT)" \
-		-e BUSINESS_ID="$(BUSINESS_ID)" \
-		-e SES_ACCESS_KEY="$(SES_ACCESS_KEY)" \
-		-e SES_SECRET_KEY="$(SES_SECRET_KEY)" \
-		$(IMAGE):$(TAG)
+.PHONY:run
+run: copy-secrets
+	./docker.sh run \
+		$(CONTAINER_NAME) \
+		$(IMAGE) \
+		$(TAG) \
+		$(ASPNETCORE_ENVIRONMENT)
 
-clean:
-	eval "$(in_docker_machine)" ; \
-	docker rm -f $(CONTAINER_NAME) ; exit 0
+.PHONY: copy-secrets
+copy-secrets: require-envs-ASPNETCORE_ENVIRONMENT
+	cp ../iag-secrets/webapp/appsettings.$(ASPNETCORE_ENVIRONMENT).secrets.json \
+	src/StockportWebapp/app-config/injected/
 
 # UI tests
 # ---------------------------------------------------------------------------------------
