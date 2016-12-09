@@ -10,6 +10,7 @@ prod: &prod
 stage: &stage
   << : *prod
   LiveChat: true
+  NewsDateFilter: true
 
 qa: &qa
   << : *prod
@@ -19,4 +20,3 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  NewsDateFilter: true
