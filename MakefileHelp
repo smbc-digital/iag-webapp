@@ -10,7 +10,7 @@ Project automation targets: (these run in docker)
   build:               build the Dockerfile, download all the requirements, compile the code
   start-proxy:	       start the local proxy to add the correct header (BUSINESS-ID)	
   run:                 compile the code into a docker layer and run it
-  clean:               remove the docker file system layer with the compiled code
+  copy-secrets:        copy secrets into application
 
 Project UI tests:
   ui-test:             runs UI tests in nightwatch
