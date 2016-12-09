@@ -14,6 +14,14 @@ The hosts file may also need to be amended with the following lines.
 `127.0.0.1		[business_id]`
 `127.0.0.1		[business_id].local`
 
+### Configuration
+The app has three config files which are kept in `src/StockportWebapp/app-config/`
+
+1. `appsettings.json` - this is for generic application config.
+2. `appsettings.{ASPNETCORE_ENVIRONMENT}.json` - this is for environment specific config, i.e. external service settings.
+3. `injected/appsettings.{ASPNETCORE_ENVIRONMENT}.secrets.json` - this is for secret config, i.e. the SES email credentials ([template found here](src/StockportWebapp/app-config/injected/readme.md)).
+
+### How to run
 To start the proxy:
 ```
 make start-proxy
@@ -23,11 +31,6 @@ To start the application:
 ```
 make run
 ```
-
-
-To provide email functionality, the following environment variables are required:
-  - `SES_ACCESS_KEY` (AWS key id for SES service account)
-  - `SES_SECRET_KEY` (AWS secret key for SES service account)
 
 ## Business IDs:
 The Business Id corresponds to a specific business area for which you are requesting content. The business ids currently supported are:
