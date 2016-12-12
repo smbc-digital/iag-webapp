@@ -1,18 +1,16 @@
 ﻿---
 prod: &prod
   DynamicContactUsForm: true
-  LiveChat: false
+  LiveChat: true
   LegacyUrlRedirects: true
   Search: true
   BetaToWwwRedirect: true
-  NewsDateFilter: false
+  NewsDateFilter: true
   EventCalendar: false
 
 stage: &stage
   << : *prod
-  LiveChat: true
-  NewsDateFilter: true
-
+  
 qa: &qa
   << : *prod
   << : *stage

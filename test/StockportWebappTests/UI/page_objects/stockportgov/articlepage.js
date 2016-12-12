@@ -85,7 +85,16 @@ var methods = {
         this.waitForElementVisible("#" + field, this.api.globals.timeOut);
         browser.useXpath()
             .assert.visible("//span[@class='' and text()='" + expectedtext + "']");
+    },
+
+    assertCarouselIsVisible: function() {
+        this.assert.visible('.carousel');
+    },
+    
+    assertCarouselImagesAreVisible: function() {
+        this.assert.visible('.carousel-image');
     }
+
 };
 
 module.exports = {

@@ -1,4 +1,5 @@
 ﻿$(".carousel a").css("display", "block");
+$(".carousel div").css("display", "block");
 $(document).ready(
         function() {
           $(".carousel").slick(
