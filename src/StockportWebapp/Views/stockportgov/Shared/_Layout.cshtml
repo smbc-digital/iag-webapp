@@ -4,11 +4,17 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
-    
-    @Html.Partial("OwnershipVerificationCodes")
 
+    @Html.Partial("OwnershipVerificationCodes")
     @Html.Partial("Favicon")
-    
+    <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/sg/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/ui-images/sg/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="/assets/images/ui-images/sg/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/assets/images/ui-images/sg/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/assets/images/ui-images/sg/manifest.json">
+    <link rel="mask-icon" href="/assets/images/ui-images/sg/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+
     <title>@ViewData["Title"] - Stockport Council</title>
     @if (ViewData["Description"] != null)
     {
@@ -23,6 +29,7 @@
     <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" />
     <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/assets/stylesheets/vendor/slick.min.css" />
     <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed" />
 
     @await Component.InvokeAsync("GoogleAnalytics")
@@ -39,8 +46,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="~/assets/javascript/vendor/jquery.validate.min.js"></script>
     <script src="~/assets/javascript/vendor/jquery.validate.unobtrusive.min.js"></script>
+    <script src="/assets/javascript/vendor/slick.js"></script>
     @*<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-      <script src="http://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>*@
+        <script src="http://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>*@
 
     <!--[if lte IE 9]>
     <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
@@ -48,6 +56,7 @@
     <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
     <script src="/assets/javascript/vendor/matchbox.js"></script>
     <script src="/assets/javascript/stockportgov.min.js"></script>
+    <script src="/assets/javascript/carousel.js"></script>
     @await Component.InvokeAsync("AddThis")
 </body>
 </html>

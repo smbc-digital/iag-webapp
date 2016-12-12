@@ -228,3 +228,17 @@
 .carousel {
     overflow: hidden  !important;
 }
+
+.carousel-image {
+    min-height:500px !important;
+    background-size:cover;
+
+    @media #{$mobile} {
+       min-height: 200px !important;
+       max-height: 250px !important;
+    }
+}
+
+.carousel-text {
+    visibility:hidden;
+}

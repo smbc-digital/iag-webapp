@@ -108,7 +108,8 @@ namespace StockportWebapp
                     {
                         new ButtonTagParser(),
                         new ContactUsTagParser(p.GetService<IViewRender>(), p.GetService<ILogger<ContactUsTagParser>>()),
-                        new VideoTagParser()
+                        new VideoTagParser(),
+                        new CarouselTagParser()
                     });
             services.AddSingleton(_ => new MarkdownWrapper());
             services.AddTransient(_ => new MarkdownPipelineBuilder().UsePipeTables().Build());
