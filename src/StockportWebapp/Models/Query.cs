@@ -4,13 +4,25 @@ namespace StockportWebapp.Models
 {
     public class Query : IEquatable<Query>
     {
+        private string _value;
+
+        public string Value {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = System.Text.Encodings.Web.UrlEncoder.Default.Encode(value);
+            }
+        }
+
         public string Name { get; set; }
-        public string Value { get; set; }
 
         public Query(string name, string value)
         {
-            Name = name;
             Value = value;
+            Name = name;            
         }
 
         public bool Equals(Query other)
