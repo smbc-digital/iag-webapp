@@ -1,0 +1,32 @@
+﻿@using StockportWebapp.Models
+@model ProcessedEvents
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Description"] = Model.Teaser;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb>())
+}
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
+                <div class="l-content-container grid-100">
+                    <h1 class="news-article-title">@Model.Title</h1>
+                    <h3 class="news-teaser">@Model.Teaser</h3>
+                    @if (!string.IsNullOrEmpty(Model.Image))
+                    {
+                        <img src="@Model.Image" class="news-title-image" alt="@Model.Title" />
+                    }
+                    <article>
+                        @Html.Raw(Model.Description)
+                    </article>                                   
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

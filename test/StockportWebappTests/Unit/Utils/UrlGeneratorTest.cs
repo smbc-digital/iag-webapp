@@ -103,6 +103,22 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
+        public void ItReturnsUrlForEventCalendar()
+        {
+            var url = _urlGenerator.UrlFor<EventCalendar>();
+
+            url.Should().Be("http://content.com/api/test-id/events");
+        }
+
+        [Fact]
+        public void ItReturnsUrlForEvent()
+        {
+            var url = _urlGenerator.UrlFor<Event>("slug");
+
+            url.Should().Be("http://content.com/api/test-id/events/slug");
+        }
+
+        [Fact]
         public void ItReturnsUrlForHealthcheckRequest()
         {
             var url = _urlGenerator.HealthcheckUrl();

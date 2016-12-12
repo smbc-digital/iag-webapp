@@ -197,5 +197,32 @@ namespace StockportWebappTests.Unit.Repositories
             news.ThumbnailImage.Should().Be("thumbnail.jpg");
             news.Body.Should().Be(body);
         }
+
+        [Fact]
+        public void GetsEvent()
+        {
+            const string slug = "event";
+            const string url = "get-event-with-slug-url";
+
+            _mockUrlGenerator.Setup(o => o.UrlFor<Event>(slug, null)).Returns(url);
+
+            var body = "The event description";
+
+            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/Event.json"), string.Empty));
+
+            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
+            _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
+            _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>(slug));
+            var news = httpResponse.Content as ProcessedEvents;
+
+            news.Title.Should().Be("This is the event");
+            news.Slug.Should().Be("event-of-the-century");
+            news.Teaser.Should().Be("Read more for the event");
+
+            news.Description.Should().Be(body);
+        }
     }
 }
+

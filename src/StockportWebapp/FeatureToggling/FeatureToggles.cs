@@ -8,5 +8,6 @@ namespace StockportWebapp.FeatureToggling
         public bool Search { get; set; } = false;
         public bool BetaToWwwRedirect { get; set; } = false;
         public bool NewsDateFilter { get; set; } = false;
+        public bool EventCalendar { get; set; } = false;
     }
 }

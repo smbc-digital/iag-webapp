@@ -376,6 +376,29 @@ namespace StockportWebappTests.Integration
             result.Headers.CacheControl.MaxAge.Value.Minutes.Should().Be(0);
             result.Headers.CacheControl.MaxAge.Value.Hours.Should().Be(0);
         }
+
+        [Fact]
+        public void ItShouldReturnsEventsCalendar()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+            
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events"));
+
+            result.Should().Contain("This is the event");
+            result.Should().Contain("This is the second event");
+            result.Should().Contain("This is the third event");
+        }
+
+        [Fact]
+        public void ItShouldReturnsEventsCalendarBySlug()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events/event-of-the-century"));
+
+            result.Should().Contain("This is the event");
+        }
+
         #endregion
 
         private void SetBusinessIdRequestHeader(string businessId)

@@ -28,7 +28,9 @@ namespace StockportWebapp.Utils
             {typeof(Newsroom), "news"},
             {typeof(List<News>), "news/latest/"},
             {typeof(List<AtoZ>), "atoz/"},
-            {typeof(Footer), "footer"}
+            {typeof(Footer), "footer"},
+            {typeof(Event), "events/"},
+            {typeof(EventCalendar), "events"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)

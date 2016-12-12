@@ -18,7 +18,8 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(Section), sectionFactory);
             _factories.Add(typeof(Profile), new ProfileFactory(tagParserContainer, markdownWrapper));
             _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, profileTagParser, sectionFactory, markdownWrapper, documentTagParser));
-            _factories.Add(typeof(News), new NewsFactory(tagParserContainer, markdownWrapper,documentTagParser));
+            _factories.Add(typeof(News), new NewsFactory(tagParserContainer, markdownWrapper, documentTagParser));
+            _factories.Add(typeof(Event), new EventFactory(tagParserContainer, markdownWrapper, documentTagParser));
             _factories.Add(typeof(Homepage), new HomepageFactory(markdownWrapper));
         }
 

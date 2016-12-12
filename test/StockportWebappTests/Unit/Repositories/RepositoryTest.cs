@@ -348,5 +348,39 @@ namespace StockportWebappTests.Unit.Repositories
             legacyUrlRedirects[businessId].Count.Should().Be(1);
             legacyUrlRedirects[businessId].ContainsKey("/this-is-a-redirect-from").Should().BeTrue();
         }
+
+        [Fact]
+        public void GetsEventCalendar()
+        {
+            var url = _urlGenerator.UrlFor<EventCalendar>();
+
+            _httpClientMock.Setup(o => o.Get(url))
+                .ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/EventsCalendar.json"), string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<EventCalendar>());
+            var events = httpResponse.Content as EventCalendar;
+
+            events.Events.Count.Should().Be(3);
+            events.Events.First().Title.Should().Be("This is the event");
+            events.Events.First().Slug.Should().Be("event-of-the-century");
+            events.Events.First().Teaser.Should().Be("Read more for the event");
+        }
+
+        [Fact]
+        public void GetsEventCalendarBySlug()
+        {
+            var url = _urlGenerator.UrlFor<Event>("event-of-the-century");
+
+            _httpClientMock.Setup(o => o.Get(url))
+                .ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/Event.json"), string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>("event-of-the-century"));
+            var eventList = httpResponse.Content as Event;
+
+            eventList.Title.Should().Be("This is the event");
+            eventList.Slug.Should().Be("event-of-the-century");
+            eventList.Teaser.Should().Be("Read more for the event");
+        }
+
     }
 }

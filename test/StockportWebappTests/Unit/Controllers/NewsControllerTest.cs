@@ -190,7 +190,6 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-
         public void ItReturns404ForNoNewsItems()
         {
             var featureToggles = new FeatureToggles() {NewsDateFilter = false };

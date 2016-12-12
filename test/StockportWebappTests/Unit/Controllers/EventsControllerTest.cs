@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using StockportWebapp.Controllers;
+using StockportWebapp.Models;
+using StockportWebapp.Repositories;
+using Moq;
+using StockportWebapp.Config;
+using Xunit;
+using HttpResponse = StockportWebapp.Http.HttpResponse;
+using StockportWebapp.FeatureToggling;
+using StockportWebapp.ViewModels;
+
+namespace StockportWebappTests.Unit.Controllers
+{
+    public class EventsControllerTest
+    {
+        private readonly EventsController _controller;
+        private readonly Mock<IRepository> _repository = new Mock<IRepository>();
+        private readonly Mock<IProcessedContentRepository> _processedContentRepository = new Mock<IProcessedContentRepository>();
+        private readonly Mock<ILogger<EventsController>> _logger;
+        private const string BusinessId = "businessId";
+        private readonly Event _eventsItem;
+
+        public EventsControllerTest()
+        {
+            _eventsItem = new Event("title", "slug", "teaser", "image.png", "image.png", "description");
+            var eventsCalendar = new EventCalendar(new List<Event> { _eventsItem });
+            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description");
+
+            // setup responses (with mock data)
+            var responseListing = new HttpResponse(200, eventsCalendar, "");
+            var responseDetail = new HttpResponse(200, eventItem, "");
+            var response404 = new HttpResponse(404, null, "not found");
+
+            // setup mocks
+            _repository.Setup(o => o.Get<EventCalendar>(It.IsAny<string>(), null))
+                .ReturnsAsync(responseListing);
+
+            _processedContentRepository.Setup(o => o.Get<Event>("event-of-the-century"))
+                .ReturnsAsync(responseDetail);
+
+            _processedContentRepository.Setup(o => o.Get<Event>("404-event"))
+                .ReturnsAsync(response404);
+
+            _logger = new Mock<ILogger<EventsController>>();
+
+            _controller = new EventsController(
+                _repository.Object,
+                _processedContentRepository.Object,
+                _logger.Object,
+                new BusinessId(BusinessId),
+                new FeatureToggles());
+        }
+
+        [Fact]
+        public void ShouldReturnEventscalendar()
+        {
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
+
+            var viewModel = actionResponse.ViewData.Model as EventsCalendarViewModel;
+            var events = viewModel.EventCalendar;
+
+            events.Events.Count.Should().Be(1);
+
+            events.Events[0].Should().Be(_eventsItem);
+        }
+
+        [Fact]
+        public void ShouldReturnEvent()
+        {
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("event-of-the-century")) as ViewResult;
+
+            var model = actionResponse.ViewData.Model as ProcessedEvents;
+
+            model.Title.Should().Be("title");
+            model.Slug.Should().Be("slug");
+            model.Teaser.Should().Be("teaser");
+        }
+
+        [Fact]
+        public void ItReturns404NotFoundForEvent()
+        {
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("404-event")) as HttpResponse;
+
+            actionResponse.StatusCode.Should().Be(404);
+        }
+    }
+}

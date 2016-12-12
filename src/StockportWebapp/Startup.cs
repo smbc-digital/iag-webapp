@@ -172,9 +172,10 @@ namespace StockportWebapp
             await scheduler.Start();
 
             app.UseMiddleware<BusinessIdMiddleware>();
+            app.UseMiddleware<OldEventsMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
-            app.UseMiddleware<BetaToWwwMiddleware>();
+            app.UseMiddleware<BetaToWwwMiddleware>();   
 
             loggerFactory.AddNLog();
             app.UseApplicationInsightsRequestTelemetry();

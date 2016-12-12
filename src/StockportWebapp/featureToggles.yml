@@ -6,6 +6,7 @@ prod: &prod
   Search: true
   BetaToWwwRedirect: true
   NewsDateFilter: false
+  EventCalendar: false
 
 stage: &stage
   << : *prod
@@ -20,3 +21,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  EventCalendar: true
