@@ -1,5 +1,6 @@
 ﻿@model StockportWebapp.ViewDetails.ContactUsDetails
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@addTagHelper "*, StockportWebApp"
 <div id="contactForm" />
 <form method="post" role="form" action="/contact-us" novalidate>
     <div class="form">
@@ -27,7 +28,8 @@
                     </span><br/>
                 </div>
                 <input type="hidden" asp-for="ServiceEmail" value="@Model.ServiceEmail"/>
-                <button type="submit" id="uitest-contact-form-submit" class="button button-outline button-partialrounded button-bold button-call-to-action button-contact-us">Send your enquiry</button>
+                <stock-button-submit id="uitest-contact-form-submit"
+                                     class="button-contact-us">Send your enquiry</stock-button-submit>
             </fieldset>
         </div>
     </div>

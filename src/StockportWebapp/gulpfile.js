@@ -106,8 +106,18 @@ gulp.task('pull-styleguide-from-tag',
     }
 );
 
-var pullFile = function (file, outputDir, outputFile, version) {
-    var url = styleguideGitUrl + version + "/src/StockportStyleGuide/wwwroot/styleguide-artifacts/" + file;
+var pullAssetFile = function (file, outputDir, outputFile, version) {
+    var styleguideFolder = "/src/StockportStyleGuide/wwwroot/styleguide-artifacts/";
+    pullFile(file, outputDir, outputFile, version, styleguideFolder);
+};
+
+var pullCodeFile = function (file, outputDir, outputFile, version) {
+    var codeFolder = "/src/StockportTagHelpers/";
+    pullFile(file, outputDir, outputFile, version, codeFolder);
+};
+
+var pullFile = function (file, outputDir, outputFile, version, fromFolder) {
+    var url = styleguideGitUrl + version + fromFolder + file;
 
     var options = {
         url: url,
@@ -119,7 +129,7 @@ var pullFile = function (file, outputDir, outputFile, version) {
 
     request
         .get(options,
-            function(error, response, body) {
+            function (error, response, body) {
                 if (error || body.startsWith("<!DOCTYPE html>") || response.statusCode !== 200) {
                     console.log("There was an error requesting: ".red);
                     if (error) console.log(colors.white(error));
@@ -135,10 +145,12 @@ var pullArtifacts = function (version) {
     if (styleguideGitUrl === undefined || styleguideGitUrl === "") {
         console.log("STYLEGUIDE_GIT_URL environment variable is not set, this needs to be set to be able to pull artifacts from the styleguide git repository".red);
     } else {
-        pullFile("styleguide-hs.min.css", "wwwroot/assets/stylesheets", "styleguide-hs.min.css", version);
-        pullFile("styleguide-sg.min.css", "wwwroot/assets/stylesheets", "styleguide-sg.min.css", version);
-        pullFile("_color-palette-sg.scss", "wwwroot/assets/sass/styleguide", "_colors-sg.scss", version);
-        pullFile("_devices.scss", "wwwroot/assets/sass/styleguide", "_devices.scss", version);
+        pullAssetFile("styleguide-hs.min.css", "wwwroot/assets/stylesheets", "styleguide-hs.min.css", version);
+        pullAssetFile("styleguide-sg.min.css", "wwwroot/assets/stylesheets", "styleguide-sg.min.css", version);
+        pullAssetFile("_color-palette-sg.scss", "wwwroot/assets/sass/styleguide", "_colors-sg.scss", version);
+        pullAssetFile("_devices.scss", "wwwroot/assets/sass/styleguide", "_devices.scss", version);
+        pullCodeFile("ButtonTagHelpers.cs", "StockportTagHelpers", "ButtonTagHelpers.cs", version);
+        pullCodeFile("HtmlAttributes.cs", "StockportTagHelpers", "HtmlAttributes.cs", version);
     }
 };
 
