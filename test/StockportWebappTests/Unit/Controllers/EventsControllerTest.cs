@@ -28,9 +28,9 @@ namespace StockportWebappTests.Unit.Controllers
 
         public EventsControllerTest()
         {
-            _eventsItem = new Event("title", "slug", "teaser", "image.png", "image.png", "description");
+            _eventsItem = new Event("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", "longitude", "latitude", false, new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime");
             var eventsCalendar = new EventCalendar(new List<Event> { _eventsItem });
-            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description");
+            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", "longitude", "latitude", false, new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime");
 
             // setup responses (with mock data)
             var responseListing = new HttpResponse(200, eventsCalendar, "");
@@ -80,6 +80,15 @@ namespace StockportWebappTests.Unit.Controllers
             model.Title.Should().Be("title");
             model.Slug.Should().Be("slug");
             model.Teaser.Should().Be("teaser");
+            model.Fee.Should().Be("fee");
+            model.Location.Should().Be("location");
+            model.SubmittedBy.Should().Be("submittedBy");
+            model.Longitude.Should().Be("longitude");
+            model.Latitude.Should().Be("latitude");
+            model.Featured.Should().Be(false);
+            model.EventDate.Should().Be(new DateTime(2016, 12, 30, 00, 00, 00));
+            model.StartTime.Should().Be("startTime");
+            model.EndTime.Should().Be("endTime");
         }
 
         [Fact]

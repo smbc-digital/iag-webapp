@@ -10,6 +10,15 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", new List<Crumb>())
 }
+
+<style>
+    .Events-Details {
+       background: #e1e1e1;
+             border-bottom: 1px solid black;
+             margin-left: 0px
+    }
+</style>
+
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
@@ -17,12 +26,133 @@
             <section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
                 <div class="l-content-container grid-100">
                     <h1 class="news-article-title">@Model.Title</h1>
-                    <h3 class="news-teaser">@Model.Teaser</h3>
-                    @if (!string.IsNullOrEmpty(Model.Image))
+                    @*@if (!string.IsNullOrEmpty(Model.Image))
                     {
                         <img src="@Model.Image" class="news-title-image" alt="@Model.Title" />
-                    }
+                    }*@
+                    
+                    <div>
+                        <div class="grid-50" style="border: 1px solid black; padding:0px"> 
+                            <ul style="list-style: outside none none; margin-bottom: 0px;">
+                                <li class="Events-Details" >
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Date and Time <br />
+                                        @Model.EventDate @Model.StartTime - @Model.EndTime
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                
+                                <li class="Events-Details">
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Price <br />
+                                        @Model.Fee
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="Events-Details">
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-balance-scale"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Location <br />
+                                        @Model.Location
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="Events-Details">
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-balance-scale"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Submitted by <br />
+                                        @Model.SubmittedBy
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+
+                        </div>
+                        <div class="grid-50" style="background-size: cover; background-image: url(@Model.Image); min-height: 266px">
+                            <p>werer</p>
+                         
+                        </div>
+
+                    </div>
+                    
+                    <br/>
+                    sdsd
+                    <br/>
+                    
+                    <div class="grid-100">
+                        <div class="grid-50 push-50" style="background-size: cover; background-image: url(@Model.Image); height:300px"></div>
+                        <div class="grid-50 pull-50" style="border: 1px solid black; padding: 0px;">
+                            <ul style="list-style: outside none none; margin-bottom: 0px;">
+                                <li class="Events-Details">
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Date and Time <br/>
+                                        @Model.EventDate @Model.StartTime - @Model.EndTime
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+
+                                <li class="Events-Details">
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-times"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Price <br/>
+                                        @Model.Fee
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="Events-Details">
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-balance-scale"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Location <br/>
+                                        @Model.Location
+                                        <br/>
+                                        asdfasdf<
+                                        <br/>
+                                        asdfasdfasdf
+                                        <br/>
+                                        asdfasdf
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="Events-Details">
+                                    <div class="grid-10" style="min-height: 65px;">
+                                        <i class="fa fa-balance-scale"></i>
+                                    </div>
+                                    <div class="grid-90" style="background: #ebebeb">
+                                        Submitted by <br/>
+                                        @Model.SubmittedBy
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+
+                        </div>
+
+
+                    </div>
+                    
+                    
+
+                    
+                    <div class="clearfix"></div>
                     <article>
+                        <h4>Description</h4>
                         @Html.Raw(Model.Description)
                     </article>                                   
                 </div>
