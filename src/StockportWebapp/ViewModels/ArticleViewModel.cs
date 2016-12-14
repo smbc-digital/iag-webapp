@@ -17,12 +17,15 @@ namespace StockportWebapp.ViewModels
 
         public readonly bool ShouldShowCanonicalLink;
 
+        public readonly string OgTitleMetaData;
+
         public ArticleViewModel(ProcessedArticle article)
         {
             Article = article;
             DisplayedSection = FirstOrNull(article.Sections);
             ShouldShowArticleSummary = true;
             ShouldShowCanonicalLink = false;
+            OgTitleMetaData = Article.Title;
         }
 
         public ArticleViewModel(ProcessedArticle article, string sectionSlug)
@@ -30,6 +33,7 @@ namespace StockportWebapp.ViewModels
             Article = article;
             DisplayedSection = GetSectionOrThrowSectionNotFound(sectionSlug);
             ShouldShowArticleSummary = (Article.Sections.First().Slug == DisplayedSection.Slug);
+            OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title) ? " - " : "", DisplayedSection.Title);
         }
 
         private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug)

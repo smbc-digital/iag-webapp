@@ -145,6 +145,16 @@ namespace StockportWebappTests.Unit.ViewModels
         }
 
         [Fact]
+        public void OgTitleShouldBeTitleAndDisplayedSection()
+        {
+            var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
+
+            var viewModel = new ArticleViewModel(article, _sectionOne.Slug);
+
+            viewModel.OgTitleMetaData.Should().Be(viewModel.Article.Title + " - " + viewModel.DisplayedSection.Title);
+        }
+
+        [Fact]
         public void ShowsArticleWhenThereAreNoSections()
         {
             var article = BuildArticle("article-slug", new List<ProcessedSection> { });
@@ -153,6 +163,7 @@ namespace StockportWebappTests.Unit.ViewModels
             viewModel.Article.Sections.Should().BeNullOrEmpty();
             viewModel.DisplayedSection.Should().BeNull();
             viewModel.ShouldShowArticleSummary.Should().BeTrue();
+            viewModel.OgTitleMetaData.Should().Be(viewModel.Article.Title);
         }
 
         [Fact]
