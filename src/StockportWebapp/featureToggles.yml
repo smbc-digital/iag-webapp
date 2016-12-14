@@ -3,7 +3,6 @@ prod: &prod
   DynamicContactUsForm: true
   LiveChat: true
   Search: true
-  NewsDateFilter: true
   EventCalendar: false
 
 stage: &stage

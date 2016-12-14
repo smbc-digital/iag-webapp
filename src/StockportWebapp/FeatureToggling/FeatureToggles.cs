@@ -5,7 +5,6 @@ namespace StockportWebapp.FeatureToggling
         public bool DynamicContactUsForm { get; set; } = false;
         public bool LiveChat { get; set; } = false;
         public bool Search { get; set; } = false;
-        public bool NewsDateFilter { get; set; } = false;
         public bool EventCalendar { get; set; } = false;
     }
 }

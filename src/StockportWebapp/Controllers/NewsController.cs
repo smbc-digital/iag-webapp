@@ -21,10 +21,9 @@ namespace StockportWebapp.Controllers
         private readonly IRssNewsFeedFactory _rssFeedFactory;
         private readonly ILogger<NewsController> _logger;
         private readonly IApplicationConfiguration _config;
-        private readonly FeatureToggles _featureToggles;
         private readonly BusinessId _businessId;
 
-        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssNewsFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId, FeatureToggles featureToggles)
+        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssNewsFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -32,7 +31,6 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _config = config;
             _businessId = businessId;
-            _featureToggles = featureToggles;
         }
 
         [Route("/news")]
@@ -42,10 +40,8 @@ namespace StockportWebapp.Controllers
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(tag)) queries.Add(new Query("tag", tag));
             if (!string.IsNullOrEmpty(category)) queries.Add(new Query("category", category));
-            if (datefrom.HasValue && _featureToggles.NewsDateFilter)
-                queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
-            if (dateto.HasValue && _featureToggles.NewsDateFilter)
-                queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
+            if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
+            if (dateto.HasValue)  queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
 
             var httpResponse = await _repository.Get<Newsroom>(queries: queries);
 
@@ -60,7 +56,7 @@ namespace StockportWebapp.Controllers
                 ? $"{category} {titleCase} about {tag}".Trim()
                 : $"{category} {titleCase}".Trim();
 
-            title = datefrom.HasValue && _featureToggles.NewsDateFilter ? $"{title} from {datefrom.Value:MMMM yyyy}" : title;
+            title = datefrom.HasValue ? $"{title} from {datefrom.Value:MMMM yyyy}" : title;
 
             var crumbs = new List<Crumb>();
             if (!string.IsNullOrEmpty(tag) || !string.IsNullOrEmpty(category))
