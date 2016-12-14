@@ -3,6 +3,7 @@ using FluentAssertions;
 using Xunit;
 
 using StockportWebapp.Models;
+using System.IO;
 
 namespace StockportWebappTests.Unit.Views
 {
@@ -23,6 +24,23 @@ namespace StockportWebappTests.Unit.Views
             html.Should().Contain("the button");
             html.Should().Contain("<button");
             html.Should().NotContain("stock-button-submit");
+        }
+
+        [Fact]
+        public void RendersARazorTemplateFromString()
+        { 
+            var html = Render("<stock-button-submit>another button</stock-button-submit>");
+
+            html.Should().Be("<button class=\"button-default\">another button</button>");
+        }
+
+        private string Render(string template)
+        {
+            var fullTemplate = "\n@addTagHelper \"*, Microsoft.AspNetCore.Mvc.TagHelpers\"" +
+                               "\n@addTagHelper \"*, StockportWebApp\"\n" + template;
+            File.WriteAllText("Views/TestTemplates/Generated/TestTemplate.cshtml", fullTemplate);
+            var html = renderer.RenderView("TestTemplates/Generated/TestTemplate", "");
+            return html;
         }
     }
 
