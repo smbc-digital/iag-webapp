@@ -42,7 +42,7 @@ namespace StockportWebapp.Controllers
 
             var eventsCalendar = httpResponse.Content as EventCalendar;
 
-            var crumbs = new List<Crumb> {new Crumb("Events", "events", "events")};
+            var crumbs = new List<Crumb>();
 
             return View(new EventsCalendarViewModel(crumbs, eventsCalendar));
         }

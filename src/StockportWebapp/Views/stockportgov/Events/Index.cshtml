@@ -1,9 +1,13 @@
 ﻿@using StockportWebapp.ViewModels
 @model EventsCalendarViewModel
 @{
+    ViewData["Title"] = "Events";
     Layout = "../Shared/_Layout.cshtml";
 }
 
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
 
 <div class="l-page-content">
     <div class="full-width-title">
