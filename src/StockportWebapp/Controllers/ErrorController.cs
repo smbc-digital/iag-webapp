@@ -39,7 +39,7 @@ namespace StockportWebapp.Controllers
                 if (!string.IsNullOrEmpty(urlToRedirectLegacyRequestTo))
                 {
                     _logger.LogInformation($"A legacy redirect was found - redirecting to {urlToRedirectLegacyRequestTo}");
-                    return await Task.FromResult(Redirect(urlToRedirectLegacyRequestTo));
+                    return await Task.FromResult(RedirectPermanent(urlToRedirectLegacyRequestTo));
                 }
 
                 _logger.LogInformation($"No legacy url matching current url ({currentPath}) found");

@@ -46,7 +46,7 @@ namespace StockportWebappTests.Integration
  
             var result = AsyncTestHelper.Resolve(_client.GetAsync("/this-is-a-redirect-from"));
  
-            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
+            result.StatusCode.Should().Be(HttpStatusCode.MovedPermanently);
             result.Headers.Location.ToString().Should().Be("this-is-a-redirect-to");
         }
 

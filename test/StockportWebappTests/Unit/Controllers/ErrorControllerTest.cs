@@ -55,6 +55,7 @@ namespace StockportWebappTests.Unit.Controllers
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(redirectedToLocation);
             var result = AsyncTestHelper.Resolve(_controller.Error("404")) as RedirectResult;
             result.Url.Should().Be(redirectedToLocation);
+            result.Permanent.Should().BeTrue();
         }
 
         [Fact]
