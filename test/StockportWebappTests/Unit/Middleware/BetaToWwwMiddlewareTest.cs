@@ -1,9 +1,7 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Middleware;
 using Xunit;
 
@@ -13,15 +11,13 @@ namespace StockportWebappTests.Unit.Middleware
     {
         private readonly BetaToWwwMiddleware _middleware;
         private readonly Mock<ILogger<BetaToWwwMiddleware>> _logger;
-        private readonly FeatureToggles _featureToggles;
         private readonly Mock<RequestDelegate> _requestDelegate;
 
         public BetaToWwwMiddlewareTest()
         {
             _requestDelegate = new Mock<RequestDelegate>();
             _logger = new Mock<ILogger<BetaToWwwMiddleware>>();
-            _featureToggles = new FeatureToggles { BetaToWwwRedirect = true };
-            _middleware = new BetaToWwwMiddleware(_requestDelegate.Object, _logger.Object, _featureToggles);
+            _middleware = new BetaToWwwMiddleware(_requestDelegate.Object, _logger.Object);
         }
 
         [Fact]
@@ -78,19 +74,6 @@ namespace StockportWebappTests.Unit.Middleware
             context.Request.Path = "/test";
             _middleware.Invoke(context);
             LogTesting.Assert(_logger, LogLevel.Information, "beta.domain.com redirected to www.domain.com for path: /test");
-        }
-
-        [Fact]
-        public void ShouldNotRedirectFromBetaToWwwWhenFeatureToggleIsOff()
-        {
-            var featureToggles = new FeatureToggles { BetaToWwwRedirect = false };
-            var middleware = new BetaToWwwMiddleware(_requestDelegate.Object, _logger.Object, featureToggles);
-            var context = new DefaultHttpContext();
-            context.Request.Host = new HostString("beta.domain.com");
-            context.Request.Path = "/test";
-            middleware.Invoke(context);
-
-            context.Response.StatusCode.Should().Be(200);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace StockportWebappTests.Unit.Controllers
             _logger = new Mock<ILogger<ErrorController>>();
             _httpContextAccessor = new Mock<IHttpContextAccessor>();
             _legacyRedirects = new Mock<ILegacyRedirectsManager>();
-           _controller = new ErrorController(_legacyRedirects.Object, _httpContextAccessor.Object, _logger.Object, new FeatureToggles() { LegacyUrlRedirects = true });
+           _controller = new ErrorController(_legacyRedirects.Object, _httpContextAccessor.Object, _logger.Object);
         }
 
         [Fact]
@@ -56,14 +56,6 @@ namespace StockportWebappTests.Unit.Controllers
             var result = AsyncTestHelper.Resolve(_controller.Error("404")) as RedirectResult;
             result.Url.Should().Be(redirectedToLocation);
             result.Permanent.Should().BeTrue();
-        }
-
-        [Fact]
-        public void ShouldNotSearchForRedirectsIfLegacyUrlRedirectsFeatureTogglesAreOff()
-        {
-            var controller = new ErrorController(_legacyRedirects.Object, _httpContextAccessor.Object, _logger.Object, new FeatureToggles() { LegacyUrlRedirects = false });
-            AsyncTestHelper.Resolve(controller.Error("404"));
-            _legacyRedirects.Verify(o => o.RedirectUrl(It.IsAny<string>()), Times.Never);
         }
 
         [Fact]

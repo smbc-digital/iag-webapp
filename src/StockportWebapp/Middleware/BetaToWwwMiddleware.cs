@@ -10,20 +10,18 @@ namespace StockportWebapp.Middleware
     {
         private readonly RequestDelegate _next;
         private readonly ILogger<BetaToWwwMiddleware> _logger;
-        private readonly FeatureToggles _featureToggles;
 
-        public BetaToWwwMiddleware(RequestDelegate next, ILogger<BetaToWwwMiddleware> logger, FeatureToggles featureToggles)
+        public BetaToWwwMiddleware(RequestDelegate next, ILogger<BetaToWwwMiddleware> logger)
         {
             _next = next;
             _logger = logger;
-            _featureToggles = featureToggles;
         }
 
         public Task Invoke(HttpContext context)
         {
             var host = context.Request.Host.Value.ToLower();
 
-            if (_featureToggles.BetaToWwwRedirect && host.StartsWith("beta."))
+            if (host.StartsWith("beta."))
             {
                 host = host.Replace("beta.", "www.");
                 _logger.LogInformation(string.Concat(context.Request.Host.Value.ToLower(), " redirected to ", host, " for path: ", context.Request.Path.Value));

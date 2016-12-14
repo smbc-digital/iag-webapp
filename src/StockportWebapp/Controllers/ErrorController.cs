@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
 {
@@ -14,14 +12,12 @@ namespace StockportWebapp.Controllers
         private readonly ILegacyRedirectsManager _legacyRedirectsManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<ErrorController> _logger;
-        private readonly FeatureToggles _featureToggles;
 
-        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, IHttpContextAccessor httpContextAccessor, ILogger<ErrorController> logger, FeatureToggles featureToggles)
+        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, IHttpContextAccessor httpContextAccessor, ILogger<ErrorController> logger)
         {
             _legacyRedirectsManager = legacyRedirectsManager;
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;
-            _featureToggles = featureToggles;
         }
 
         public async Task<IActionResult> Error(string id)
@@ -32,7 +28,7 @@ namespace StockportWebapp.Controllers
 
         private async Task<IActionResult> RedirectIfLegacyUrl(string id)
         {
-            if (id.Equals("404") && _featureToggles.LegacyUrlRedirects)
+            if (id.Equals("404"))
             {
                 var currentPath = GetCurrentPath(_httpContextAccessor);
                 var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl(currentPath);
