@@ -34,8 +34,6 @@ namespace StockportWebappTests.Unit.Views
             var renderer = provider.GetRequiredService<RazorViewToStringRenderer>();
 
             var content = renderer.RenderViewToString(templateName, model);
-
-            Console.WriteLine(content);
             return content;
         }
 
@@ -45,8 +43,6 @@ namespace StockportWebappTests.Unit.Views
             services.AddSingleton(applicationEnvironment);
 
             var appDirectory = Directory.GetCurrentDirectory() + "../../../" + appPath + "/" + appName;
-
-            Console.WriteLine(appDirectory);
 
             var environment = new HostingEnvironment
             {
