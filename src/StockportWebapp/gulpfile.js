@@ -26,7 +26,9 @@ var paths = {
      concatJsDest: "./wwwroot/assets/javascript/stockportgov.min.js",
      jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
      concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
-     minJs: "./wwwroot/assets/javascript/*.min.js"
+     minJs: "./wwwroot/assets/javascript/*.min.js",
+     jsVendor: "./wwwroot/assets/javascript/vendor/*.js",
+     jsVendorMin: "./wwwroot/assets/javascript/vendor/*.min.js"
 };
 
 gulp.task("js", ['min:js:sg', 'min:js:hs']);
@@ -54,6 +56,19 @@ gulp.task("min:js:hs", function () {
         .pipe(plumber.stop())
         .pipe(print(function (filepath) {
             console.log('Processed: '.yellow + filepath.cyan);
+        }));
+});
+
+//js vendor
+gulp.task("min:js:vendor", function () {
+    return gulp.src([paths.jsVendor, "!" + paths.jsVendorMin], { base: "." })
+        .pipe(plumber())
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest("."))
+        .pipe(plumber.stop())
+        .pipe(print(function (filepath) {
+            console.log('Processed vendor js: '.yellow + filepath.cyan);
         }));
 });
 
@@ -138,5 +153,6 @@ gulp.task('watch', function () {
     gulp.watch("wwwroot/assets/javascript/stockportgov/*.js", ['min:js:sg']);
     gulp.watch("wwwroot/assets/javascript/healthystockport/*.js", ['min:js:hs']);
     gulp.watch("wwwroot/assets/javascript/site.js", ['min:js:hs', 'min:js:sg']);
+    gulp.watch("wwwroot/assets/javascript/stockportgov/vendor/*.js", ['min:js:vendor']);
     gulp.watch("wwwroot/assets/sass/**/*.scss", ['css']);
 });
