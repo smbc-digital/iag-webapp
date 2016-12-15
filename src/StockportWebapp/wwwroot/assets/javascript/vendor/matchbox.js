@@ -135,8 +135,23 @@
    * @returns {Array} - Array of DOM elements
    */
   function getBoxes(instance) {
-    var parent = document.querySelector(instance.settings.parentSelector);
-    return arrayFromList(parent.querySelectorAll(instance.settings.childSelector));
+      // gets a list of the parent items
+      var parent = arrayFromList(document.querySelectorAll(instance.settings.parentSelector));
+      var arrayOfBoxes;
+
+      parent.forEach(function (item, index, array) {
+          // get a list of the child items within each parent item
+          var arr = arrayFromList(item.querySelectorAll(instance.settings.childSelector));
+
+          // dealing with empty array
+          if (arrayOfBoxes == undefined) {
+              arrayOfBoxes = arr;
+          } else {
+              // add to existing array
+              arrayOfBoxes.push.apply(arrayOfBoxes, arr);
+          }
+      });
+      return arrayOfBoxes;
   }
 
   /**
@@ -147,8 +162,8 @@
   function resetBoxHeights(instance) {
     var boxes = getBoxes(instance);
 
-    boxes.forEach(function(item, index, array) {
-      item.style.height = '';
+    boxes.forEach(function (item, index, array) {
+        item.style.height = '';
     });
   }
 
