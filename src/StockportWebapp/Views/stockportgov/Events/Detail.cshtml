@@ -50,7 +50,7 @@
                                     <div class="grid-10 events-details-symbol-containter">
                                         <i class="fa fa-map-marker fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90 events-details-content" id="test-events-location">
+                                    <div class="grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             Location
                                         </div>
@@ -72,11 +72,11 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="grid-40 events-calender-container-image" style="background-size: cover; background-image: url(@Model.Image);">
+                        <div class="grid-40 events-calender-container-image" style="background-size: cover; background-position:center; background-image: url(@Model.Image);">
                         </div>
                     </div>
 
-                    <article id="test-events-desktop-description">
+                    <article>
                         <h3 class="events-details-heading">Description</h3>
                         <article>
                             @Html.Raw(Model.Description)
@@ -92,7 +92,7 @@
                     <h1 class="events-article-title">@Model.Title</h1>
 
                     <div class="grid-100 events-calender-container">
-                        <div class="events-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.Image);">
+                        <div class="events-calender-container-image" style="background-size:cover; background-position:center; background-image: url(@Model.Image);">
                         </div>
 
                         <div class="events-calender-container-description">
@@ -148,7 +148,7 @@
                         </div>                
                     </div>
 
-                    <article id="test-events-mobile-description">
+                    <article>
                         <h3 class="events-details-heading">Description</h3>
                         <article>
                             @Html.Raw(Model.Description)
