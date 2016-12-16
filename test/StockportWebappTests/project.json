@@ -13,7 +13,8 @@
     "Microsoft.AspNetCore.TestHost": "1.0.0-*",
     "Moq": "4.6.25-alpha",
     "System.Diagnostics.TraceSource": "4.0.0",
-    "WilderMinds.RssSyndication": "1.0.4"
+    "WilderMinds.RssSyndication": "1.0.4",
+    "AngleSharp": "0.9.9"
   },
 
   "frameworks": {

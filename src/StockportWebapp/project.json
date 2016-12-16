@@ -42,7 +42,8 @@
     "Microsoft.Extensions.Configuration.Binder": "1.0.0",
     "Humanizer.Core": "2.1.0",
     "Quartz": "3.0.0-alpha2",
-    "WilderMinds.RssSyndication": "1.0.4"
+    "WilderMinds.RssSyndication": "1.0.4",
+    "AngleSharp": "0.9.9"
   },
 
   "tools": {

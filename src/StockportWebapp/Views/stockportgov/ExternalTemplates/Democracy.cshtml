@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "{pagetitle}";
+    Layout = "/Views/stockportgov/Shared/_LayoutExternal.cshtml";
+}
+<div class="breadcrumb-container">
+    <div class="grid-container grid-100">
+        <ul class="breadcrumb">{breadcrumb}</ul>
+    </div>
+</div>
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div id="uitest-page-has-loaded" class="l-body-section-filled mobile-grid-100 tablet-grid-100  push-30 grid-70">
+            <section class="grid-100 mobile-grid-100">
+                <div class="l-content-container">
+                    <div class="grid-100">
+                        <h1>@ViewData["Title"]</h1>
+                        {content}
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="pull-70 l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
+            <div class="l-left-side-bar-section">
+                <h3>Democracy</h3>
+                <ul>
+                    {sidenav}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

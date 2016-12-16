@@ -138,6 +138,7 @@ namespace StockportWebapp
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
             services.AddTransient<AmazonAuthorizationHeader>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
+            services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
 
             services.AddSingleton(GetAmazonSesKeys());
 

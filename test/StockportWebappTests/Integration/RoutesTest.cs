@@ -399,6 +399,20 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("This is the event");
         }
 
+        public void ReverseCmsTemplateShouldBeServedForDemocracyWebsiteWithAbsoluteLinks()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/ExternalTemplates/Democracy"));
+
+            result.Should().Contain("{pagetitle}");
+            result.Should().Contain("{breadcrumb}");
+            result.Should().Contain("{content}");
+            result.Should().Contain("{sidenav}");
+            result.Should().Contain("href=\"https://www.stockport.gov.uk/\"");
+            result.Should().Contain("href=\"https://www.stockport.gov.uk/topic/contact-us\"");
+        }
+
         #endregion
 
         private void SetBusinessIdRequestHeader(string businessId)
