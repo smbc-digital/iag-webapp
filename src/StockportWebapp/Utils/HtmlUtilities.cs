@@ -11,10 +11,16 @@ namespace StockportWebapp.Utils
 
     public class HtmlUtilities : IHtmlUtilities
     {
+        private readonly HtmlParser _htmlParser;
+
+        public HtmlUtilities(HtmlParser htmlParser)
+        {
+            _htmlParser = htmlParser;
+        }
+
         public string ConvertRelativeUrltoAbsolute(string htmlText, string site)
         {
-            var parser = new HtmlParser();
-            var document = parser.Parse(htmlText);
+            var document = _htmlParser.Parse(htmlText);
 
             var relativeHyperlinks = document.All.Where(l => l.HasAttribute("href"));
             var relativeSrcs = document.All.Where(l => l.HasAttribute("src"));

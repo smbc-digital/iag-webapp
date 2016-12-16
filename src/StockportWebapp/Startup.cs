@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using AngleSharp.Parser.Html;
 using Markdig;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -139,6 +140,7 @@ namespace StockportWebapp
             services.AddTransient<AmazonAuthorizationHeader>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
+            services.AddTransient<HtmlParser>();
 
             services.AddSingleton(GetAmazonSesKeys());
 
