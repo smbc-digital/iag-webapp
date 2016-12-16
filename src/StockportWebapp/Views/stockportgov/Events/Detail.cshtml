@@ -8,153 +8,148 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>())
+    
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
-
-<style>
-    .Events-Details {
-       background: #e1e1e1;
-             border-bottom: 1px solid black;
-             margin-left: 0px
-    }
-</style>
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
-        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
+        <div class="l-body-section-filled l-article-content hide-on-mobile hide-on-tablet grid-100">
+            <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100">
-                    <h1 class="news-article-title">@Model.Title</h1>
-                    @*@if (!string.IsNullOrEmpty(Model.Image))
-                    {
-                        <img src="@Model.Image" class="news-title-image" alt="@Model.Title" />
-                    }*@
-                    
-                    <div>
-                        <div class="grid-50" style="border: 1px solid black; padding:0px"> 
-                            <ul style="list-style: outside none none; margin-bottom: 0px;">
-                                <li class="Events-Details" >
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-clock-o"></i>
+                    <h1 class="events-article-title">@Model.Title</h1>
+
+                    <div class="grid-100 events-calender-container">
+                        <div class="grid-60 events-calender-container-description">
+                            <ul>
+                                <li class="events-details">
+                                    <div class="grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Date and Time <br />
-                                        @Model.EventDate @Model.StartTime - @Model.EndTime
+                                    <div class="grid-90 events-details-content">
+                                        <div class="events-details-heading">Date and Time</div>
+                                        @Model.EventDate.ToString("dddd dd MMMM") @Model.StartTime - @Model.EndTime
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
-                                
-                                <li class="Events-Details">
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-times"></i>
+
+                                <li class="events-details">
+                                    <div class="grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-gbp fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Price <br />
+                                    <div class="grid-90 events-details-content">
+                                        <div class="events-details-heading">
+                                            Price
+                                        </div>
                                         @Model.Fee
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
-                                <li class="Events-Details">
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-balance-scale"></i>
+                                <li class="events-details">
+                                    <div class="grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-map-marker fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Location <br />
-                                        @Model.Location
+                                    <div class="grid-90 events-details-content">
+                                        <div class="events-details-heading">
+                                            Location
+                                        </div>
+                                        @Html.Raw(Model.Location)
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
-                                <li class="Events-Details">
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-balance-scale"></i>
+                                <li class="events-details">
+                                    <div class="grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-user fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Submitted by <br />
+                                    <div class="grid-90 events-details-content">
+                                        <div class="events-details-heading">
+                                            Submitted by
+                                        </div>
                                         @Model.SubmittedBy
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
                             </ul>
-
                         </div>
-                        <div class="grid-50" style="background-size: cover; background-image: url(@Model.Image); min-height: 266px">
-                            <p>werer</p>
-                         
+                        <div class="grid-40 events-calender-container-image" style="background-size: cover; background-image: url(@Model.Image);">
                         </div>
-
                     </div>
-                    
-                    <br/>
-                    sdsd
-                    <br/>
-                    
-                    <div class="grid-100">
-                        <div class="grid-50 push-50" style="background-size: cover; background-image: url(@Model.Image); height:300px"></div>
-                        <div class="grid-50 pull-50" style="border: 1px solid black; padding: 0px;">
-                            <ul style="list-style: outside none none; margin-bottom: 0px;">
-                                <li class="Events-Details">
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-clock-o"></i>
-                                    </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Date and Time <br/>
-                                        @Model.EventDate @Model.StartTime - @Model.EndTime
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
 
-                                <li class="Events-Details">
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-times"></i>
-                                    </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Price <br/>
-                                        @Model.Fee
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                <li class="Events-Details">
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-balance-scale"></i>
-                                    </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Location <br/>
-                                        @Model.Location
-                                        <br/>
-                                        asdfasdf<
-                                        <br/>
-                                        asdfasdfasdf
-                                        <br/>
-                                        asdfasdf
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                <li class="Events-Details">
-                                    <div class="grid-10" style="min-height: 65px;">
-                                        <i class="fa fa-balance-scale"></i>
-                                    </div>
-                                    <div class="grid-90" style="background: #ebebeb">
-                                        Submitted by <br/>
-                                        @Model.SubmittedBy
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                            </ul>
-
-                        </div>
-
-
-                    </div>
-                    
-                    
-
-                    
-                    <div class="clearfix"></div>
                     <article>
-                        <h4>Description</h4>
+                        <h3 class="events-details-heading">Description</h3>
                         @Html.Raw(Model.Description)
-                    </article>                                   
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <div class="l-body-section-filled l-article-content hide-on-desktop tablet-grid-100 mobile-grid-100-100">
+            <section aria-label="@Model.Title content">
+                <div class="l-content-container grid-100">
+                    <h1 class="events-article-title">@Model.Title</h1>
+
+                    <div class="grid-100 events-calender-container">
+                        <div class="events-calender-container-image" style="background-size: cover; background-image: url(@Model.Image);">
+                        </div>
+
+                        <div class="events-calender-container-description">
+                            <ul>
+                                <li class="events-details">
+                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
+                                    </div>
+                                    <div class="mobile-grid-85 tablet-grid-90 events-details-content">
+                                        <div class="events-details-heading">Date and Time</div>
+                                        @Model.EventDate.ToString("dddd dd MMMM") @Model.StartTime - @Model.EndTime
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+
+                                <li class="events-details">
+                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-gbp fa-2x events-details-symbol"></i>
+                                    </div>
+                                    <div class="mobile-grid-85 tablet-grid-90 events-details-content">
+                                        <div class="events-details-heading">
+                                            Price
+                                        </div>
+                                        @Model.Fee
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="events-details">
+                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-map-marker fa-2x events-details-symbol"></i>
+                                    </div>
+                                    <div class="mobile-grid-85  tablet-grid-90 events-details-content">
+                                        <div class="events-details-heading">
+                                            Location
+                                        </div>
+                                        @Html.Raw(Model.Location)
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="events-details">
+                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
+                                        <i class="fa fa-user fa-2x events-details-symbol"></i>
+                                    </div>
+                                    <div class="mobile-grid-85 tablet-grid-90 events-details-content">
+                                        <div class="events-details-heading">
+                                            Submitted by
+                                        </div>
+                                        @Model.SubmittedBy
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+                        </div>                
+                    </div>
+
+                    <article>
+                        <h3 class="events-details-heading">Description</h3>
+                        @Html.Raw(Model.Description)
+                    </article>
                 </div>
             </section>
         </div>

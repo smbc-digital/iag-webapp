@@ -57,6 +57,8 @@ namespace StockportWebapp.Controllers
 
             var response = httpResponse.Content as ProcessedEvents;
 
+            ViewBag.CurrentUrl = Request?.GetUri();
+
             return View(response);
         }
     }

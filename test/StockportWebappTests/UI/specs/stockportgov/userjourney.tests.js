@@ -91,6 +91,23 @@ module.exports = {
   
        news.assertDocumentIsVisible();
    },
+
+   'Searches for Event story and Find All EventsPage Elements': function (browser) {     
+
+       var eventcalendar = browser.page.stockportgov.eventscalendar();
+       eventcalendar.assertTitleIsVisible("Events");
+       eventcalendar.goToEventsWithTitle(browser, "UITEST: Hats Amazing", "/events/hats-amazing");
+
+       var events = browser.page.stockportgov.events();
+       events.assertEventTitleIsVisible("UITEST: Hats Amazing");
+
+       //events.assertEventsSideBarVisible(browser, "Latest Events");
+       //events.assertTimestampPresent(browser);
+       //events.assertEventsSharePresent(browser);
+       //events.assertEventsTagIsVisible("UITEST");
+
+       //events.assertDocumentIsVisible();
+   },
   
    'Navigate through AtoZ list to check Article listed under Both Title starting letter, & synonym letter': function (browser) {
        var homepage = browser.page.stockportgov.homepage();

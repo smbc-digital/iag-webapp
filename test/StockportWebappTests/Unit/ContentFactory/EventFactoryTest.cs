@@ -33,6 +33,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private const string StartTime = "10:00";
         private const string EndTime = "17:00";
         private readonly DateTime _eventDate = new DateTime(2016, 12, 30);
+        private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
 
         public EventFactoryTest()
         {
@@ -41,7 +42,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
             _event = new Event( Title,  Slug,  Teaser,  Image,  ThumbnailImage,  Description,  Fee,  Location,
-             SubmittedBy,  string.Empty,  string.Empty, false, _eventDate,  StartTime,  EndTime);
+             SubmittedBy,  string.Empty,  string.Empty, false, _eventDate,  StartTime,  EndTime, _breadcrumbs);
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);

@@ -52,6 +52,12 @@ var methods = {
         browser.click("#test-newsroom-link");
     },
 
+    goToEventsCalendar: function (browser) {
+        this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut)
+            .expect.element('@eventscalendarLink').text.to.equal("More Events");
+        browser.click("#test-eventscalendar-link");
+    },
+
     goToAtoZList: function(browser, letter) {
         this.waitForElementVisible('@atozList', this.api.globals.timeOut);
         browser.useXpath()

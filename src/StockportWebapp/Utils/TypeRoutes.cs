@@ -14,6 +14,8 @@
                     return $"/start/{slug}";
                 case "news":
                     return "/news";
+                case "events":
+                    return "/events";
                 default:
                     return $"/{slug}";
             }

@@ -1,29 +1,29 @@
 ﻿@model StockportWebapp.Models.EventCalendar
 
-<div class="grid-container news-grid-container-margins">
-    <div class="grid-100 tablet-grid-100 mobile-grid-100 news-article-grid">
+<div class="grid-container events-grid-container-margins">
+    <div class="grid-100 tablet-grid-100 mobile-grid-100 events-article-grid">
         @if (!Model.Events.Any())
         {
-            <div class="grid-100 news-article-not-found">
+            <div class="grid-100 events-article-not-found">
                 <h2>No Events found.</h2>
             </div>
         }
         else
         {
-            <ul class="nav-card-news-list grid-100">
+            <ul class="nav-card-events-list grid-100">
                 @foreach (var subItem in Model.Events)
                 {
-                    <li class="grid-100 grid-parent nav-card-news nav-card-news-item">
-                        <div class="news-bottom-border grid-100 grid-parent">
+                    <li class="grid-100 grid-parent nav-card-events nav-card-events-item">
+                        <div class="events-bottom-border grid-100 grid-parent">
                             @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
                             {
-                                <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
+                                <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-events-thumbnail nav-card-events-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
                             }
-                            <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
+                            <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-events-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
                                 <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug})">
-                                    <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
+                                    <h2 class="nav-card-events-title" style="margin: 0">@subItem.Title</h2>
                                 </a>
-                                <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
+                                <p class="nav-card-events-teaser hide-on-mobile">@subItem.Teaser</p>
                             </div>
                         </div>
                     </li>
