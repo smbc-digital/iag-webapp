@@ -67,6 +67,7 @@ module.exports = {
        homepage.navigate();
        homepage.checkForWebCastImage(browser);
        homepage.assertNewsBannerIsVisible(browser);
+       homepage.assertEventsBannerIsVisible(browser);
        homepage.assertEmailAlertsIsVisible(browser, "Subscribe");
        homepage.assertAtoZListIsVisible(browser);
        homepage.searchForPostCode(browser);
@@ -94,6 +95,10 @@ module.exports = {
 
    'Searches for Event story and Find All EventsPage Elements': function (browser) {     
 
+       var homepage = browser.page.stockportgov.homepage();
+           homepage.navigate();
+           homepage.goToEventsCalendar(browser);
+
        var eventcalendar = browser.page.stockportgov.eventscalendar();
        eventcalendar.assertTitleIsVisible("Events");
        eventcalendar.goToEventsWithTitle(browser, "UITEST: Hats Amazing", "/events/hats-amazing");
@@ -101,12 +106,9 @@ module.exports = {
        var events = browser.page.stockportgov.events();
        events.assertEventTitleIsVisible("UITEST: Hats Amazing");
 
-       //events.assertEventsSideBarVisible(browser, "Latest Events");
-       //events.assertTimestampPresent(browser);
-       //events.assertEventsSharePresent(browser);
-       //events.assertEventsTagIsVisible("UITEST");
-
-       //events.assertDocumentIsVisible();
+       events.assertHeadingStampPresent();
+       events.assertLocationPresent();
+       events.assertDescriptionPresent();
    },
   
    'Navigate through AtoZ list to check Article listed under Both Title starting letter, & synonym letter': function (browser) {

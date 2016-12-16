@@ -35,6 +35,11 @@ var methods = {
             .expect.element("#test-newsroom-calltoaction>h2").text.to.equal("Latest News");
     },
 
+    assertEventsBannerIsVisible: function (browser) {
+        this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut)
+        .expect.element("#test-eventscalendar-calltoaction>h2").text.to.equal("Events");
+    },
+
     assertEmailAlertsIsVisible: function (browser, buttonText) {
         this.waitForElementVisible('@emailAlerts', this.api.globals.timeOut)
             .expect.element('@subscribeButton').text.to.equal(buttonText);
@@ -54,7 +59,7 @@ var methods = {
 
     goToEventsCalendar: function (browser) {
         this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut)
-            .expect.element('@eventscalendarLink').text.to.equal("More Events");
+            .expect.element('@eventcalendarLink').text.to.equal("View Events");
         browser.click("#test-eventscalendar-link");
     },
 
@@ -81,6 +86,8 @@ module.exports = {
       subscribeButton: "#test-subscribe",
       newsroomLink: "#test-newsroom-link",
       newsroomCallToAction: "#test-newsroom-calltoaction",
+      eventcalendarLink: "#test-eventscalendar-link",
+      eventscalendarCallToAction: "#test-eventscalendar-calltoaction",
       atozList: '.atoz'
   }
 };

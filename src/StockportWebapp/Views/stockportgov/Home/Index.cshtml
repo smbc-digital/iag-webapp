@@ -56,7 +56,7 @@
                 @Html.Partial("HomePageNews", Model.GetLatestNews())
             </div>
         }
-        <div class="news-events @(!Model.GetLatestNews().Any() ? "grid-100" : "grid-50")">
+        <div id="test-eventscalendar-calltoaction" class="news-events @(!Model.GetLatestNews().Any() ? "grid-100" : "grid-50")">
             @Html.Partial("Events")
         </div>
     </div>

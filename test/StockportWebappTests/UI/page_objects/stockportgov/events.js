@@ -2,33 +2,22 @@ var methods = {
     assertEventTitleIsVisible: function (title) {
         this.waitForElementVisible('@pageTitle', this.api.globals.timeOut)
             .expect.element('@pageTitle').text.to.equal(title);
+    },
+
+    assertHeadingStampPresent: function (browser) {
+        this.waitForElementVisible('@headingStamp', this.api.globals.timeOut)
+            .expect.element('@headingStamp').text.to.contain("Date and Time");
+    },
+
+    assertLocationPresent: function (browser) {
+        this.waitForElementVisible('@location', this.api.globals.timeOut)
+            .expect.element('@location').text.to.contain("Hat Museum");
+    },
+
+    assertDescriptionPresent: function (browser) {
+        this.waitForElementVisible('@description', this.api.globals.timeOut)
+            .expect.element('@description').text.to.contain("Wellington Mill");
     }
-    //assertNewsSideBarVisible: function (browser,title) {
-    //    this.waitForElementVisible('@sideBar', this.api.globals.timeOut)
-    //        .expect.element('@sideBarTitle').text.to.equal(title);
-    //},
-
-    //assertTimestampPresent: function (browser) {
-    //    this.waitForElementVisible('@timeStamp', this.api.globals.timeOut)
-    //        .expect.element('@timeStamp').text.to.contain("Last updated");
-    //},
-
-    //assertNewsSharePresent: function(browser) {
-    //    this.waitForElementVisible('@shareIT', this.api.globals.timeOut)
-    //        .expect.element('@shareThis')
-    //        .text.to.equals("Share this");
-    //    this.waitForElementVisible('@addThisIcons', this.api.globals.timeOut);
-    //},
-    //assertNewsTagIsVisible: function(tag) {
-    //    this.waitForElementVisible('@newsTag', this.api.globals.timeOut)
-    //        .expect.element('@newsTag').text.to.equal(tag);
-    //},
-    //assertDocumentIsVisible:function() {
-    //    this.waitForElementVisible('@documentTag', this.api.globals.timeOut)
-    //        .expect.element('@documentHeading')
-    //        .text.to.equal("UITEST: Document");
-    //},
-
 };
 
 module.exports = {
@@ -39,12 +28,8 @@ module.exports = {
   },
   elements: {
       pageTitle: "h1",
-      sideBar: ".l-left-side-bar.grid-30.tablet-grid-100.mobile-grid-100.grid-parent",
-      sideBarTitle:".l-left-side-bar-section>h3",
-      timeStamp: ".news-date.news-article-date",
-      shareIT:".share",
-      shareThis:".share>h6",
-      addThisIcons: ".addthis_toolbox",
-      newsTag: "li.news-tag a",    
+      headingStamp: ".events-details-heading",
+      location: "#test-events-location",
+      description: "#test-events-desktop-description"
   }
 };

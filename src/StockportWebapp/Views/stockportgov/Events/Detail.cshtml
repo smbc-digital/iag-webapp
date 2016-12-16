@@ -50,7 +50,7 @@
                                     <div class="grid-10 events-details-symbol-containter">
                                         <i class="fa fa-map-marker fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90 events-details-content">
+                                    <div class="grid-90 events-details-content" id="test-events-location">
                                         <div class="events-details-heading">
                                             Location
                                         </div>
@@ -76,7 +76,7 @@
                         </div>
                     </div>
 
-                    <article>
+                    <article id="test-events-desktop-description">
                         <h3 class="events-details-heading">Description</h3>
                         @Html.Raw(Model.Description)
                     </article>
@@ -146,7 +146,7 @@
                         </div>                
                     </div>
 
-                    <article>
+                    <article id="test-events-mobile-description">
                         <h3 class="events-details-heading">Description</h3>
                         @Html.Raw(Model.Description)
                     </article>

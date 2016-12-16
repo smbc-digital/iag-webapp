@@ -5,7 +5,7 @@ var methods = {
     },
 
     goToEventsWithTitle: function (browser, title, link) {
-        this.waitForElementVisible('@newsList', this.api.globals.timeOut);
+        this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
         browser.useXpath().assert.visible("//h2[@class='nav-card-events-title' and text()='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
     }
@@ -19,6 +19,6 @@ module.exports = {
   },
   elements: {
       pageTitle: "h1",
-      newsList: ".nav-card-events-list"
+      eventsList: ".nav-card-events-list"
   }
 };
