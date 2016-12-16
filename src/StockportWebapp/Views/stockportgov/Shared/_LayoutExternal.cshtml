@@ -1,21 +1,36 @@
 ﻿<!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <!--
+    {settings
+    (breadcrumb-before-item:<li>)
+    (breadcrumb-after-item:</li>)
+    (breadcrumb-divider:<li class="chevron">›</li>)
+    (nav-parent-start:>)
+    (nav-parent-end:)
+    (nav-before-item:<li> )
+    (nav-after-item:</li> )
+    (nav-normal-class:)
+    (nav-active-class:active)
+
+    }
+
+    -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
     @Html.Partial("Favicon")
-    
+
     <title>@ViewData["Title"] - Stockport Council</title>
     @if (ViewData["Description"] != null)
     {
-        <meta name="Description" content="@ViewData["Description"]" />
+        <meta name="Description" content="@ViewData["Description"]"/>
     }
 
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
 </head>
 <body class="container-layout-free">
     @Html.Partial("Header")
