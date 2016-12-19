@@ -6,7 +6,7 @@ var methods = {
 
     assertHeadingStampPresent: function (browser) {
         this.waitForElementVisible('@headingStamp', this.api.globals.timeOut)
-            .expect.element('@headingStamp').text.to.contain("Date and Time");
+            .expect.element('@headingStamp').text.to.contain("Date and time");
     },
 
     assertLocationPresent: function (browser) {
