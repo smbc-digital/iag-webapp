@@ -17,7 +17,7 @@
 
         <div class="l-body-section-filled l-article-content hide-on-mobile hide-on-tablet grid-100">
             <section aria-label="@Model.Title content">
-                <div class="l-content-container grid-100">
+                <div class="l-content-container grid-100" style="margin-top:20px">
                     <h1 class="events-article-title">@Model.Title</h1>
 
                     <div class="grid-100 events-calender-container">
@@ -28,7 +28,7 @@
                                         <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
                                     </div>
                                     <div class="grid-90 events-details-content">
-                                        <div class="events-details-heading">Date and Time</div>
+                                        <div class="events-details-heading">Date and time</div>
                                         @Model.EventDate.ToString("dddd dd MMMM") @Model.StartTime - @Model.EndTime
                                     </div>
                                     <div class="clearfix"></div>
@@ -86,11 +86,11 @@
 
         <div class="l-body-section-filled l-article-content hide-on-desktop tablet-grid-100 mobile-grid-100-100">
             <section aria-label="@Model.Title content">
-                <div class="l-content-container grid-100">
+                <div class="l-content-container grid-100" style="margin-top: 20px">
                     <h1 class="events-article-title">@Model.Title</h1>
 
                     <div class="grid-100 events-calender-container">
-                        <div class="events-calender-container-image" style="background-size: cover; background-image: url(@Model.Image);">
+                        <div class="events-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.Image);">
                         </div>
 
                         <div class="events-calender-container-description">
@@ -100,7 +100,7 @@
                                         <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
                                     </div>
                                     <div class="mobile-grid-85 tablet-grid-90 events-details-content">
-                                        <div class="events-details-heading">Date and Time</div>
+                                        <div class="events-details-heading">Date and time</div>
                                         @Model.EventDate.ToString("dddd dd MMMM") @Model.StartTime - @Model.EndTime
                                     </div>
                                     <div class="clearfix"></div>
