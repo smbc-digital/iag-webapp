@@ -33,14 +33,24 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index()
-        {       
+        public async Task<IActionResult> Index([FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null)
+        {
+            var queries = new List<Query>();           
+            if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
+            if (dateto.HasValue) queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
+
             var httpResponse = await _repository.Get<EventCalendar>();
+
+            if (queries.Count != 0)
+            {
+                httpResponse = await _repository.Get<EventCalendar>(queries: queries);
+            }           
 
             if (!httpResponse.IsSuccessful())
                 return httpResponse;
 
             var eventsCalendar = httpResponse.Content as EventCalendar;
+
 
             var crumbs = new List<Crumb>();
 
