@@ -17,7 +17,7 @@
 
         <div class="l-body-section-filled l-article-content hide-on-mobile hide-on-tablet grid-100">
             <section aria-label="@Model.Title content">
-                <div class="l-content-container grid-100" style="margin-top:20px">
+                <div class="l-content-container grid-100 events-Margin">
                     <h1 class="events-article-title">@Model.Title</h1>
 
                     <div class="grid-100 events-calender-container">
@@ -78,7 +78,9 @@
 
                     <article id="test-events-desktop-description">
                         <h3 class="events-details-heading">Description</h3>
-                        @Html.Raw(Model.Description)
+                        <article>
+                            @Html.Raw(Model.Description)
+                        </article>
                     </article>
                 </div>
             </section>
@@ -86,7 +88,7 @@
 
         <div class="l-body-section-filled l-article-content hide-on-desktop tablet-grid-100 mobile-grid-100-100">
             <section aria-label="@Model.Title content">
-                <div class="l-content-container grid-100" style="margin-top: 20px">
+                <div class="l-content-container grid-100 events-Margin">
                     <h1 class="events-article-title">@Model.Title</h1>
 
                     <div class="grid-100 events-calender-container">
@@ -148,7 +150,9 @@
 
                     <article id="test-events-mobile-description">
                         <h3 class="events-details-heading">Description</h3>
-                        @Html.Raw(Model.Description)
+                        <article>
+                            @Html.Raw(Model.Description)
+                        </article>
                     </article>
                 </div>
             </section>

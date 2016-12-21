@@ -3,33 +3,26 @@
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
 
+
 <div class="grid-container events-grid-container-margins">
-    <div class="grid-30 tablet-grid-100 mobile-grid-100 l-news-filter">
+    <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter">
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list" id="category-list">
             <li class="collapsible">
                 <ul class="filters-list">                  
-                    <li class="filter collapsible">
+                    <li class="@ViewBag.VisibleFilterDrowdownClass">
                         <p class="filter-title">Date</p>
                         <ul class="filters-list filters-outer-list">
-                            <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", "today") ? "active" : "")">
-                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", DateTime.Now.ToString("yyyy-MM-dd") }, {"dateto", DateTime.Now.ToString("yyyy-MM-dd")},{"daterange","today" } }))">Today</a>
-                            </li>   
-                            <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", "tomorrow") ? "active" : "")">
-                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", DateTime.Now.AddDays(1).ToString("yyyy-MM-dd") }, {"dateto", DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")},{"daterange", "tomorrow" } }))">Tomorrow</a>
-                            </li>                                      
-                            <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", "thisweek") ? "active" : "")">
-                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", DateTime.Now.ToString("yyyy-MM-dd") }, {"dateto", DateTime.Today.AddDays(7 - (int)DateTime.Today.DayOfWeek).ToString("yyyy-MM-dd") },{"daterange", "thisweek" } }))">This week</a>
-                            </li> 
-                            <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", "thisweekend") ? "active" : "")">
-                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", DateTime.Today.AddDays(6 - (int)DateTime.Today.DayOfWeek).ToString("yyyy-MM-dd") }, {"dateto", DateTime.Today.AddDays(7 - (int)DateTime.Today.DayOfWeek).ToString("yyyy-MM-dd") },{"daterange", "thisweekend" } }))">This weekend</a>
-                            </li>
-                            <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", "nextweek") ? "active" : "")">
-                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", DateTime.Today.AddDays(8 - (int)DateTime.Today.DayOfWeek).ToString("yyyy-MM-dd") }, {"dateto", DateTime.Today.AddDays(14 - (int)DateTime.Today.DayOfWeek).ToString("yyyy-MM-dd") },{"daterange", "nextweek" } }))">Next week</a>
-                            </li>
-                            <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", "thismonth") ? "active" : "")">
-                                <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", DateTime.Now.ToString("yyyy-MM-dd") }, {"dateto", DateTime.Now.AddMonths(1).AddDays(1-DateTime.Now.Day -1).ToString("yyyy-MM-dd") },{"daterange", "thismonth" } }))">This month</a>
-                            </li>
+                            @{
+                                var timeProvider  = new TimeProvider();
+                                var dateCalculator = new DateCalculator(timeProvider);
+                            }
+                            @foreach (var eventFilter in dateCalculator.GetEventFilters())
+                            {
+                                <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", eventFilter.Key) ? "active" : "")">
+                                    <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", eventFilter.Value.DateFrom }, {"dateto", eventFilter.Value.DateTo},{"daterange",eventFilter.Key } }))"> @eventFilter.Value.DateRange </a>
+                                </li>
+                            }
                         </ul>
                     </li>
                 </ul>
@@ -56,19 +49,19 @@
                         @if (subItem.EventDate.Date == DateTime.Now.Date && subItem.EventDate.Date != previousEventDate)
                         {
                             <div>
-                                <h2  style="margin: 0px;">Today</h2>
+                                <h2  style="margin-bottom: 25px; border-bottom: 1px solid #ccc">Today</h2>
                             </div>
                         }
                         else if (subItem.EventDate.Date == DateTime.Now.AddDays(1).Date && subItem.EventDate.Date != previousEventDate)
                         {
                             <div >
-                                <h2 style="margin: 0px;">Tomorrow</h2>
+                                <h2 style="margin-bottom: 25px; border-bottom: 1px solid #ccc">Tomorrow</h2>
                             </div>
                         }
                         else if (subItem.EventDate.Date != previousEventDate)
                         {
                             <div>
-                                <h2 style="margin: 0px;">@subItem.EventDate.ToString("dddd dd MMMM")</h2>
+                                <h2 style="margin-bottom: 25px; border-bottom: 1px solid #ccc">@subItem.EventDate.ToString("dddd dd MMMM")</h2>
                             </div>
                         }
                         @{
@@ -80,14 +73,15 @@
                                 <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-events-thumbnail nav-card-events-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
                             }
                             <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-events-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
-                                <div class="news-date hide-on-mobile">
+                               
+                                <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug})">
+                                    <h2 class="nav-card-events-title">@subItem.Title</h2>
+                                </a>
+                                <div class="events-date hide-on-mobile">
                                     <i class="fa fa-clock-o"></i>@subItem.EventDate.ToString("dddd dd MMMM") @subItem.StartTime
                                 </div>
-                                <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug})">
-                                    <h2 class="nav-card-events-title" style="margin: 0 0 20px 0">@subItem.Title</h2>
-                                </a>
-                                <p class="hide-on-mobile" style="line-height: 1.2em; margin-bottom: 5px;">@Html.Raw(subItem.Location)</p>
-                                <p style="font-weight: bold">@subItem.Fee</p>
+                                <p class="hide-on-mobile nav-card-events-location">@Html.Raw(subItem.Location)</p>
+                                <p class="nav-card-events-fee">@subItem.Fee</p>
                             </div>
                         </div>
                     </li>

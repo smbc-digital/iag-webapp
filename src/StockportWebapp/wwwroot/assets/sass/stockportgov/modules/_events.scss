@@ -65,6 +65,7 @@
 h2.nav-card-events-title {
     margin: 0;
     margin-top: -7px;
+    margin-bottom: 10px;
     line-height: 1.2;
     font-size: 1.6em;
 
@@ -84,6 +85,15 @@ h2.nav-card-events-title {
         font-size: 1.6em;
     }
 }
+
+.nav-card-events-fee {
+    font-weight: bold; 
+
+    @media #{$mobile} {
+        margin-left: 8px;
+    }
+}
+
 
 ul.nav-card-events-list {
     border: none;
@@ -186,6 +196,15 @@ ul.nav-card-events-list {
       margin-bottom: 0px;
 }
  
+.events-Margin{
+    margin-top:20px;
+}
+
+.nav-card-events-location{
+    line-height: 1.2em; 
+    margin-bottom: 5px;
+}
+
 .events-calender-container{
     padding: 0px; 
          overflow: hidden; 
@@ -248,6 +267,187 @@ ul.nav-card-events-list {
 
 .events-details-content {
     background: #f5f5f5;
+}
+
+.events-date {
+    color: $colorPrimary;
+
+    i {
+        padding-right: 5px;
+        padding-bottom:15px;
+    }
+
+    p {
+        margin-bottom: 0px;        
+    }
+
+     @media #{$tablet, $desktop} {
+        margin-bottom: -5px;
+     }
+
+}
+
+.l-events-filter {
+    margin: 15px 0px 15px 0px;
+
+    @media #{$mobile, $tablet} {
+        background-color: $white;
+        border: 1px solid $greyLight;
+        border-radius: 3px;
+        box-shadow: 0 10px 20px rgba(0,0,0,.05);
+    }
+
+    .filters-heading {
+        font-weight: 600;
+        margin: 0;
+        font-size: 1.1em;
+
+        @media #{$mobile, $tablet} {
+            display: none;
+        }
+    }
+
+    .filters-list {
+        list-style: outside none none;
+        padding: 0px;
+        margin-bottom: 0;
+    }
+
+    .filter-title, .filter-inner-title {
+        margin-bottom: 0;
+        position: relative;
+        cursor: pointer;
+        border-bottom: 1px solid $greyLight;
+
+        &:after {
+            padding-left: 10px;
+            content: "\f107";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: -10px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+        }
+    }
+
+    .filter-title {
+        font-weight: 600;
+        padding: 10px 0;
+        @media #{$desktop} {
+            margin-bottom: 10px;
+        }
+    }
+
+    .filter-inner-title {
+        color: $colorPrimary;
+        @media #{$mobile, $tablet} {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }  
+    }
+
+    .mobile-filter-heading {
+        border-top: 1px solid $greyLight;
+        border-bottom: none;
+        text-align: center;
+
+        @media #{$desktop} {
+            display: none;
+        }
+    }
+
+    .filter-title.mobile-filter-heading:after {
+        content: "\f106";
+    }
+
+    .is-collapsed {
+        .filter-title {
+            @media #{$mobile, $tablet} {
+                border-top: none;
+            }
+        }
+
+        .filter-title, .filter-inner-title {
+            &:after {
+                content: "\f105";
+            }
+        }
+
+        .filter-inner-title {
+            border-bottom: none;
+        }
+
+        ul {
+            display: none;
+        }
+    }
+
+    .filter:last-child.is-collapsed .filter-title {
+        @media #{$mobile, $tablet} {
+            border-bottom: none;
+        }
+    }
+
+    .is-collapsed {
+        .mobile-filter-heading:after {
+            content: "\f107";
+        }
+    }
+
+    li {
+        margin: 0;
+
+        a {
+            display: block;
+            text-decoration: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            @media #{$desktop} {
+                padding-top: 1px;
+                padding-bottom: 1px;
+            }
+        }
+    }
+
+    li.active {
+        a {
+            color: $paleRed;
+
+            &:after {
+                padding-left: 10px;
+                color: $paleRed;
+                content: "\f105";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 18px;
+                text-decoration: none;
+                display: inline-block;
+            }
+        }
+    }
+
+    .filter li:not(:first-child) {
+        border-top: 1px solid $greyLight;
+    }
+
+    .filter li {
+        @media #{$desktop} {
+            margin-right: 50px;
+        }
+    }
+
+    .filters-inner-list {
+        margin-left:40px;
+
+        @media #{$desktop} {
+            li {
+                margin-right: 0;
+            }
+        }  
+    }
 }
 
 

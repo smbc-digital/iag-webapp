@@ -40,10 +40,11 @@ namespace StockportWebapp.Controllers
             if (dateto.HasValue) queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
 
             var httpResponse = await _repository.Get<EventCalendar>();
-
+            ViewBag.VisibleFilterDrowdownClass = "filter collapsible";
             if (queries.Count != 0)
             {
                 httpResponse = await _repository.Get<EventCalendar>(queries: queries);
+                ViewBag.VisibleFilterDrowdownClass = "filter";
             }           
 
             if (!httpResponse.IsSuccessful())

@@ -103,6 +103,7 @@ namespace StockportWebapp
             services.AddSingleton<IContactUsMessageTagParser, ContactUsMessageTagParser>();
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
+            services.AddSingleton<ITimeProvider>(new TimeProvider());
             services.AddSingleton(
                 p =>
                     new List<ISimpleTagParser>()
