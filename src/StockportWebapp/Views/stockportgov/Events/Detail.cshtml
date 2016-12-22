@@ -8,19 +8,19 @@
 }
 
 @section Breadcrumbs {
-    
+
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
-        <div class="l-body-section-filled l-article-content hide-on-mobile hide-on-tablet grid-100">
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
                     <h1 class="events-article-title">@Model.Title</h1>
 
-                    <div class="grid-100 events-calender-container">
+                    <div class="grid-100 events-calender-container hide-on-mobile hide-on-tablet grid-100">
                         <div class="grid-60 events-calender-container-description">
                             <ul class="events-ul">
                                 <li class="events-details">
@@ -76,22 +76,7 @@
                         </div>
                     </div>
 
-                    <article>
-                        <h3 class="events-details-heading">Description</h3>
-                        <article>
-                            @Html.Raw(Model.Description)
-                        </article>
-                    </article>
-                </div>
-            </section>
-        </div>
-
-        <div class="l-body-section-filled l-article-content hide-on-desktop tablet-grid-100 mobile-grid-100-100">
-            <section aria-label="@Model.Title content">
-                <div class="l-content-container grid-100 events-margin">
-                    <h1 class="events-article-title">@Model.Title</h1>
-
-                    <div class="grid-100 events-calender-container">
+                    <div class="grid-100 events-calender-container hide-on-desktop tablet-grid-100 mobile-grid-100">
                         <div class="events-calender-container-image" style="background-size:cover; background-position:center; background-image: url(@Model.Image);">
                         </div>
 
@@ -145,15 +130,15 @@
                                     <div class="clearfix"></div>
                                 </li>
                             </ul>
-                        </div>                
+                        </div>
                     </div>
 
-                    <article>
+                    <div class="grid-100">
                         <h3 class="events-details-heading">Description</h3>
                         <article>
                             @Html.Raw(Model.Description)
                         </article>
-                    </article>
+                    </div>
                 </div>
             </section>
         </div>
