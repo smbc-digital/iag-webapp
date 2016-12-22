@@ -49,19 +49,19 @@
                         @if (subItem.EventDate.Date == DateTime.Now.Date && subItem.EventDate.Date != previousEventDate)
                         {
                             <div>
-                                <h2  style="margin-bottom: 25px; border-bottom: 1px solid #ccc">Today</h2>
+                                <h2 class="event-by-date-header">Today</h2>
                             </div>
                         }
                         else if (subItem.EventDate.Date == DateTime.Now.AddDays(1).Date && subItem.EventDate.Date != previousEventDate)
                         {
                             <div >
-                                <h2 style="margin-bottom: 25px; border-bottom: 1px solid #ccc">Tomorrow</h2>
+                                <h2 class="event-by-date-header">Tomorrow</h2>
                             </div>
                         }
                         else if (subItem.EventDate.Date != previousEventDate)
                         {
                             <div>
-                                <h2 style="margin-bottom: 25px; border-bottom: 1px solid #ccc">@subItem.EventDate.ToString("dddd dd MMMM")</h2>
+                                <h2 class="event-by-date-header">@subItem.EventDate.ToString("dddd dd MMMM")</h2>
                             </div>
                         }
                         @{

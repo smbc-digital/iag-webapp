@@ -33,19 +33,35 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
-        public void ShouldGetNearestSaturday()
+        public void ShouldGetNearestFriday()
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestSaturday().Should().Be("2016-08-06");
+            dateCalculator.NearestFriday().Should().Be("2016-08-05");
         }
 
         [Fact]
-        public void ShouldGetTodayAsNearestSaturdayIfTodayIsSaturday()
+        public void ShouldGetTodayAsNearestFridayIfTodayIsFriday()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 05));
+            DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+            dateCalculator.NearestFriday().Should().Be("2016-08-05");
+        }
+
+        [Fact]
+        public void ShouldGetTodayAsNearestFridayIfTodayIsSaturday()
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 06));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestSaturday().Should().Be("2016-08-06");
+            dateCalculator.NearestFriday().Should().Be("2016-08-06");
+        }
+
+        [Fact]
+        public void ShouldGetTodayAsNearestFridayIfTodayIsSunday()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 07));
+            DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+            dateCalculator.NearestFriday().Should().Be("2016-08-07");
         }
 
         [Fact]

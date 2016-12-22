@@ -31,7 +31,7 @@ namespace StockportWebapp.Utils
             var thisWeekEventFilter = new EventFilter(Today(), NearestSunday(), "This week");
             EventFilters.Add("thisweek", thisWeekEventFilter);
 
-            var thisWeekendEventFilter = new EventFilter(NearestSaturday(), NearestSunday(), "This weekend");
+            var thisWeekendEventFilter = new EventFilter(NearestFriday(), NearestSunday(), "This weekend");
             EventFilters.Add("thisweekend", thisWeekendEventFilter);
 
             var nextWeekEventFilter = new EventFilter(NearestMonday(), NextSunday(), "Next week");
@@ -54,9 +54,9 @@ namespace StockportWebapp.Utils
             return _today.AddDays(1).ToString("yyyy-MM-dd");
         }
 
-        public string NearestSaturday()
+        public string NearestFriday()
         {
-            return _today.AddDays(6 - (int)_today.DayOfWeek).ToString("yyyy-MM-dd");            
+            return _today.AddDays(5 - (_today.DayOfWeek == DayOfWeek.Saturday || _today.DayOfWeek == DayOfWeek.Sunday ? 5 : (int)_today.DayOfWeek)).ToString("yyyy-MM-dd");
         }
 
         public string NearestSunday()
