@@ -34,9 +34,9 @@
 
                         @if (Model.ShouldShowArticleSummary)
                         {
-                            <article>
+                            <div>
                                @Html.Raw(Model.Article.Body)
-                            </article>
+                            </div>
                         }
 
                         @if (Model.DisplayedSection != null)
