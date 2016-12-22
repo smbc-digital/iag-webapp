@@ -107,7 +107,6 @@ module.exports = {
        events.assertEventTitleIsVisible("UITEST: Hats Amazing");
 
        events.assertHeadingStampPresent();
-       events.assertLocationPresent();
        events.assertDescriptionPresent();
    },
   

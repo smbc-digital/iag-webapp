@@ -9,11 +9,6 @@ var methods = {
             .expect.element('@headingStamp').text.to.contain("Date and time");
     },
 
-    assertLocationPresent: function (browser) {
-        this.waitForElementVisible('@location', this.api.globals.timeOut)
-            .expect.element('@location').text.to.contain("Hat Museum");
-    },
-
     assertDescriptionPresent: function (browser) {
         this.waitForElementVisible('@description', this.api.globals.timeOut)
             .expect.element('@description').text.to.contain("Wellington Mill");
@@ -29,7 +24,6 @@ module.exports = {
   elements: {
       pageTitle: "h1",
       headingStamp: ".events-details-heading",
-      location: "#test-events-location",
-      description: "#test-events-desktop-description"
+      description: "article"
   }
 };
