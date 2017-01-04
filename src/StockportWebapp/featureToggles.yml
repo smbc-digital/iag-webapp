@@ -4,7 +4,6 @@ prod: &prod
   LiveChat: true
   Search: true
   EventCalendar: false
-  SecurityHeaders: false
 
 stage: &stage
   << : *prod
@@ -18,4 +17,3 @@ int:
   << : *stage
   << : *qa
   EventCalendar: true
-  SecurityHeaders: true

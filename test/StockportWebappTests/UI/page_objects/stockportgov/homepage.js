@@ -15,8 +15,8 @@ var methods = {
 
     searchForBins: function(browser) {
         this.waitForElementVisible('@searchBar', this.api.globals.timeOut);
-        browser.setValue('div.search-bar-header > form > input[name="query"]', 'bins')
-            .click("div.search-bar-header > form > button.search-button");
+        browser.setValue('div.search-bar > form > input[name="query"]', 'bins')
+            .click("div.search-bar > form > button.search-button");
     },
 
     searchForPostCode: function (browser) {
@@ -79,7 +79,7 @@ module.exports = {
   elements: {
       topicList: '#test-featured-topic-list',
       taskList: '.uitest-task-block-list-loaded',
-      searchBar: '.search-bar-header',
+      searchBar: '.search-bar',
       postCodeSearch: 'input[type=text].light-on-dark-field',
       webCast: '.webcast',
       emailAlerts: '#test-email-alerts',

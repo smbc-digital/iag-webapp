@@ -180,13 +180,11 @@ namespace StockportWebapp
             app.UseMiddleware<OldEventsMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
-            app.UseMiddleware<BetaToWwwMiddleware>();
-            app.UseMiddleware<SecurityHeaderMiddleware>();
+            app.UseMiddleware<BetaToWwwMiddleware>();   
 
             loggerFactory.AddNLog();
             app.UseApplicationInsightsRequestTelemetry();
             app.UseApplicationInsightsExceptionTelemetry();
-            
 
             app.UseStaticFiles(new StaticFileOptions
             {
