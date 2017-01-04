@@ -42,13 +42,14 @@ namespace StockportWebapp.Middleware
         {
             var cspHeaders = new Dictionary<string, string>()
             {
-                {"default-src", "https:"},
-                {"font-src", "'self' https://font.googleapis.com"},
-                {"img-src", "'self' https://images.contentful.com https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/"},
-                {"style-src", "'self' 'unsafe-inline' https://customer.cludo.com/css/112/1144/ https://maxcdn.bootstrapcdn.com/font-awesome/"},
-                {"script-src", "'self' 'unsafe-inline' https://ajax.googleapis.com/ajax/libs/jquery/ https://api.cludo.com/scripts/ https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/ https://s3-eu-west-1.amazonaws.com/share.typeform.com/ https://js.buto.tv/video/ https://s7.addthis.com/js/300/addthis_widget.js"},
-                {"form-action", "'self'" },
-                {"media-src", "'self' https://www.youtube.com/ *.cloudfront.net/butotv/live/videos/" }
+                {"default-src", "'self'"},
+                {"font-src", "'self' font.googleapis.com maxcdn.bootstrapcdn.com/font-awesome/ fonts.gstatic.com/"},
+                {"img-src", "'self' images.contentful.com/ s3-eu-west-1.amazonaws.com/live-iag-static-assets/ uk1.siteimprove.com/ stockportb.logo-net.co.uk/ .cloudfront.net/butotv/"},
+                {"style-src", "'self' 'unsafe-inline' *.cludo.com/css/ maxcdn.bootstrapcdn.com/font-awesome/ fonts.googleapis.com/ cloudfront.net/butotv/"},
+                {"script-src", "'self' 'unsafe-inline' ajax.googleapis.com/ajax/libs/jquery/  *.cludo.com/ cdnjs.cloudflare.com/ajax/libs/cookieconsent2/ s3-eu-west-1.amazonaws.com/share.typeform.com/ js.buto.tv/video/ s7.addthis.com/js/300/addthis_widget.js siteimproveanalytics.com/js/ *.logo-net.co.uk/Delivery/"},
+                {"connect-src", "'self' https://api.cludo.com/ buto-ping-middleman.buto.tv/" },
+                {"media-src", "'self' https://www.youtube.com/ *.cloudfront.net/butotv/live/videos/" },
+                {"object-src", "'self'  https://www.youtube.com http://www.youtube.com" }
             };
 
             var headerValue = string.Join("; ", cspHeaders.Select(x => $"{x.Key} {x.Value}"));
