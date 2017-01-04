@@ -79,7 +79,7 @@ module.exports = {
   elements: {
       topicList: '#test-featured-topic-list',
       taskList: '.uitest-task-block-list-loaded',
-      searchBar: '.search-bar',
+      searchBar: '.search-bar-header',
       postCodeSearch: 'input[type=text].light-on-dark-field',
       webCast: '.webcast',
       emailAlerts: '#test-email-alerts',
