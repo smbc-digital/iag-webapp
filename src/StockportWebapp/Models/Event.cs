@@ -8,8 +8,8 @@ namespace StockportWebapp.Models
         public string Title { get; }
         public string Slug { get; }
         public string Teaser { get; }
-        public string Image { get; }
-        public string ThumbnailImage { get; }
+        public string ImageUrl { get; }
+        public string ThumbnailImageUrl { get; }
         public string Description { get; set; }
         public string Fee { get; }
         public string Location { get; }
@@ -22,15 +22,15 @@ namespace StockportWebapp.Models
         public string EndTime { get; }
         public List<Crumb> Breadcrumbs { get; }
 
-        public Event(string title, string slug, string teaser, string image, string thumbnailImage, string description, string fee, string location, 
+        public Event(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description, string fee, string location, 
             string submittedBy, string longitude, string latitude, bool featured, DateTime eventDate, string startTime, string endTime, List<Crumb> breadcrumbs)
         {
             Title = title;
             Slug = slug;
             Teaser = teaser;
-            Image = image;
+            ImageUrl = imageUrl;
             Description = description;
-            ThumbnailImage = thumbnailImage;
+            ThumbnailImageUrl = thumbnailImageUrl;
             Fee = fee;
             Location = location;
             SubmittedBy = submittedBy;

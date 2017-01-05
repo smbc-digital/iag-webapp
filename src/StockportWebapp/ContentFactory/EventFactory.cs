@@ -22,7 +22,7 @@ namespace StockportWebapp.ContentFactory
             var body = _simpleTagParserContainer.ParseAll(eventItem.Description, eventItem.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");
 
-            return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.Image, eventItem.ThumbnailImage, body, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy, eventItem.Longitude, eventItem.Latitude, eventItem.Featured, eventItem.EventDate, eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs);
+            return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl, eventItem.ThumbnailImageUrl, body, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy, eventItem.Longitude, eventItem.Latitude, eventItem.Featured, eventItem.EventDate, eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs);
         }
     }
 }
