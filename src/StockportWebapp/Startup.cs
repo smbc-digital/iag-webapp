@@ -180,7 +180,8 @@ namespace StockportWebapp
             app.UseMiddleware<OldEventsMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
-            app.UseMiddleware<BetaToWwwMiddleware>();   
+            app.UseMiddleware<BetaToWwwMiddleware>();
+            app.UseMiddleware<SecurityHeaderMiddleware>();
 
             loggerFactory.AddNLog();
             app.UseApplicationInsightsRequestTelemetry();
