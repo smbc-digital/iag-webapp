@@ -25,7 +25,7 @@
                     <h1>@Model.Title</h1>
                     <p class="subtitle">@Model.Summary</p>
                     @Html.Raw(Model.UpperBody)
-                    <a class="button button-outline button-partialrounded button-call-to-action" href="@Model.FormLink">@Model.FormLinkLabel</a>
+                    <stock-button-submit href="@Model.FormLink">@Model.FormLinkLabel</stock-button-submit>
                     @Html.Raw(Model.LowerBody)
                 </div>
             </section>

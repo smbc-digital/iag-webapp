@@ -150,6 +150,7 @@ var pullArtifacts = function (version) {
         pullAssetFile("_color-palette-sg.scss", "wwwroot/assets/sass/styleguide", "_colors-sg.scss", version);
         pullAssetFile("_devices.scss", "wwwroot/assets/sass/styleguide", "_devices.scss", version);
         pullCodeFile("ButtonTagHelpers.cs", "StockportTagHelpers", "ButtonTagHelpers.cs", version);
+        pullCodeFile("ProfileTagHelpers.cs", "StockportTagHelpers", "ProfileTagHelpers.cs", version);
         pullCodeFile("HtmlAttributes.cs", "StockportTagHelpers", "HtmlAttributes.cs", version);
     }
 };
