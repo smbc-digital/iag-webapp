@@ -8,14 +8,14 @@ prod: &prod
 
 stage: &stage
   << : *prod
-  
+  EventCalendar: true
+
 qa: &qa
   << : *prod
   << : *stage
+  SecurityHeaders: true
 
 int:
   << : *prod
   << : *stage
   << : *qa
-  EventCalendar: true
-  SecurityHeaders: true
