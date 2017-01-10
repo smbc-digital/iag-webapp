@@ -12,6 +12,6 @@ module.exports = {
         return this.api.globals.testUri + 'start';
     },
     elements: {
-        startButton: 'a.button-call-to-action'
+        startButton: 'a.button-default'
     }
 };
