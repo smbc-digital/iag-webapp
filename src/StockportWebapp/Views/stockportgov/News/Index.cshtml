@@ -17,11 +17,12 @@
             <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
                 @if (Model.Newsroom.EmailAlerts)
                 {
-                    <a class="button-default button-outline-white-transparent" href="@Model.EmailAlertsUrl" target="_blank"><i class="fa fa-envelope-o fa-1x"></i>Email alerts</a>
+
+                    <stock-button as-link="true" class="button-outline-white-transparent" href="@Model.EmailAlertsUrl" target="_blank"><i class="fa fa-envelope-o fa-1x"></i>Email alerts</stock-button>
                 }
                 else
                 {
-                    <a class="button-default button-outline-white-transparent" href="@Url.Action("Rss", "News")"><i class="fa fa-rss fa-1x"></i>News RSS feed</a>
+                    <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("Rss", "News")"><i class="fa fa-rss fa-1x"></i>News RSS feed</stock-button>
                 }
             </div>
         </div>

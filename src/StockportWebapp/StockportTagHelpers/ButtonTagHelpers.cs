@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace StockportTagHelpers
 {
-    [HtmlTargetElement("stock-button-submit", ParentTag = null)]
+    [HtmlTargetElement("stock-button", ParentTag = null)]
     public class DefaultButtonTagHelper : TagHelper
     {
         private const string CLASSES = "button-default";

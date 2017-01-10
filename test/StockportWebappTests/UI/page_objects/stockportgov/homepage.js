@@ -21,7 +21,7 @@ var methods = {
 
     searchForPostCode: function (browser) {
         this.waitForElementVisible('@postCodeSearch', this.api.globals.timeOut);
-        browser.setValue('input[type=text].light-on-dark-field', 'SK7 3EU').click("button[type=submit].button-call-to-action");
+        browser.setValue('input[type=text].light-on-dark-field', 'SK7 3EU').click("button[type=submit].button-default");
     },
 
     checkForWebCastImage: function (browser) {
