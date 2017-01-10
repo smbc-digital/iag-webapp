@@ -22,7 +22,7 @@ COPY test/StockportWebappTests /opt/app/test/StockportWebappTests
 
 # Test
 WORKDIR /opt/app/test/StockportWebappTests
-RUN dotnet test
+RUN dotnet test -parallel none
 
 # Expose port 5000
 EXPOSE 5000

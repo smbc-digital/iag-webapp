@@ -35,7 +35,7 @@ namespace StockportWebappTests.Integration
             SetBusinessIdRequestHeader("unittest");
 
             var result = AsyncTestHelper.Resolve(_client.GetAsync("/non-existent-url"));
-
+             
             result.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
