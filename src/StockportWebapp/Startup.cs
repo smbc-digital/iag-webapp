@@ -45,7 +45,7 @@ namespace StockportWebapp
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile(appConfig)
                 .AddJsonFile(envConfig)
-                .AddJsonFile(secretConfig)
+                .AddJsonFile(secretConfig, true)
                 .AddEnvironmentVariables()
                 .Build();
 
