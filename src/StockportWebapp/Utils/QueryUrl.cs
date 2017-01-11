@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Routing;
 
 namespace StockportWebapp.Utils
 {
-    public class CurrentUrl
+    public class QueryUrl
     {
         private RouteValueDictionary currentRouteData;
         IQueryCollection queries;
 
-        public CurrentUrl(RouteValueDictionary currentRouteData, IQueryCollection queries)
+        public QueryUrl(RouteValueDictionary currentRouteData, IQueryCollection queries)
         {
             this.currentRouteData = currentRouteData;
             this.queries = queries;

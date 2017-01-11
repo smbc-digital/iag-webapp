@@ -2,7 +2,7 @@
 @using Quartz
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
-@{ var currentUrl = new CurrentUrl(Url.ActionContext.RouteData.Values, Context.Request.Query); }
+@{ var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query); }
 
 <div class="grid-container events-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter">
