@@ -18,8 +18,7 @@ namespace StockportWebappTests.Unit.Utils
             mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName"});
             mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
 
-            var routesDictionary = UrlQueryHelper.AddQueriesToUrl(startingRoutesDictionary, mockQueryCollection.Object,
-                new Dictionary<string, string> { { "newQueryName", "newQueryValue"} });
+            var routesDictionary = new UrlQueryHelper(startingRoutesDictionary, mockQueryCollection.Object).AddQueriesToUrl(new Dictionary<string, string> { { "newQueryName", "newQueryValue"} });
 
             routesDictionary.Count.Should().Be(4);
             routesDictionary["name"].Should().Be("value");
@@ -35,8 +34,7 @@ namespace StockportWebappTests.Unit.Utils
             var mockQueryCollection = new Mock<IQueryCollection>();
             mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName", "anotherQueryName" });
 
-            var routesDictionary = UrlQueryHelper.RemoveQueriesFromUrl(startingRoutesDictionary, mockQueryCollection.Object,
-                new List<string>() { "queryName" , "anotherQueryName" });
+            var routesDictionary = new  UrlQueryHelper(startingRoutesDictionary, mockQueryCollection.Object).RemoveQueriesFromUrl(new List<string>() { "queryName" , "anotherQueryName" });
 
             routesDictionary.Count.Should().Be(1);
             routesDictionary["name"].Should().Be("value");
@@ -50,8 +48,7 @@ namespace StockportWebappTests.Unit.Utils
             mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName" });
             mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
 
-            var isInQueryParameters = UrlQueryHelper.QueryNameAndValueIsInQueryString(startingRoutesDictionary, mockQueryCollection.Object,
-                "currentQueryName", "currentQueryValue");
+            var isInQueryParameters = new UrlQueryHelper(startingRoutesDictionary, mockQueryCollection.Object).QueryNameAndValueIsInQueryString("currentQueryName", "currentQueryValue");
 
             isInQueryParameters.Should().BeFalse();
         }
@@ -66,8 +63,8 @@ namespace StockportWebappTests.Unit.Utils
             mockQueryCollection.Setup(o => o.ContainsKey(existingQueryName)).Returns(true);
             mockQueryCollection.Setup(o => o[existingQueryName]).Returns(existingQueryValue);
 
-            var isInQueryParameters = UrlQueryHelper.QueryNameAndValueIsInQueryString(startingRoutesDictionary, mockQueryCollection.Object,
-                existingQueryName, existingQueryValue);
+            var isInQueryParameters = new UrlQueryHelper(startingRoutesDictionary, mockQueryCollection.Object)
+                .QueryNameAndValueIsInQueryString(existingQueryName, existingQueryValue);
 
             isInQueryParameters.Should().BeTrue();
         }
@@ -82,8 +79,8 @@ namespace StockportWebappTests.Unit.Utils
             mockQueryCollection.Setup(o => o.ContainsKey(existingQueryName)).Returns(true);
             mockQueryCollection.Setup(o => o[existingQueryName]).Returns(existingQueryValue);
 
-            var isInQueryParameters = UrlQueryHelper.QueryNameIsInQueryString(startingRoutesDictionary, mockQueryCollection.Object,
-                existingQueryName);
+            var isInQueryParameters = new UrlQueryHelper(startingRoutesDictionary, mockQueryCollection.Object).
+                QueryNameIsInQueryString(existingQueryName);
 
             isInQueryParameters.Should().BeTrue();
         }
@@ -96,8 +93,7 @@ namespace StockportWebappTests.Unit.Utils
             mockQueryCollection.Setup(o => o.ContainsKey("queryName")).Returns(true);
             mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
 
-            var isInQueryParameters = UrlQueryHelper.QueryNameIsInQueryString(startingRoutesDictionary, mockQueryCollection.Object,
-                "notInQueryString");
+            var isInQueryParameters = new UrlQueryHelper(startingRoutesDictionary, mockQueryCollection.Object).QueryNameIsInQueryString("notInQueryString");
 
             isInQueryParameters.Should().BeFalse();
         }

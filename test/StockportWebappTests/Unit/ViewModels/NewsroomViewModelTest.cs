@@ -56,5 +56,17 @@ namespace StockportWebappTests.Unit.ViewModels
             newsroomViewModel.Breadcrumbs.Should().HaveCount(1);
             newsroomViewModel.Breadcrumbs[0].Title.Should().Be("title");
         }
+
+        [Fact]
+        public void ShouldGiveCategoriesInAlphabeticalOrder()
+        {
+            var unorderedCategories = new List<string>() { "Zebras", "Asses", "Oxen" };
+            var newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, "tag-id", unorderedCategories, new List<DateTime>());
+            var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl, "title", Tag, _breadcrumbs);
+
+            var categories = newsroomViewModel.Categories;
+
+            categories.Should().ContainInOrder("Asses", "Oxen", "Zebras");
+        }
     }
 }

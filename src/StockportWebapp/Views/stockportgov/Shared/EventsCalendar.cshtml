@@ -2,7 +2,7 @@
 @using Quartz
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
-
+@{ var queryHelper = new UrlQueryHelper(Url.ActionContext.RouteData.Values, Context.Request.Query); }
 
 <div class="grid-container events-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter">
@@ -19,8 +19,8 @@
                             }
                             @foreach (var eventFilter in dateCalculator.GetEventFilters())
                             {
-                                <li class="@(UrlQueryHelper.QueryNameAndValueIsInQueryString(Url.ActionContext.RouteData.Values, Context.Request.Query, "daterange", eventFilter.Key) ? "active" : "")">
-                                    <a href="@Url.RouteUrl(UrlQueryHelper.AddQueriesToUrl(Url.ActionContext.RouteData.Values, Context.Request.Query, new Dictionary<string, string>() { { "datefrom", eventFilter.Value.DateFrom }, {"dateto", eventFilter.Value.DateTo},{"daterange",eventFilter.Key } }))"> @eventFilter.Value.DateRange </a>
+                                <li class="@(queryHelper.QueryNameAndValueIsInQueryString("daterange", eventFilter.Key) ? "active" : "")">
+                                    <a href="@Url.RouteUrl(queryHelper.AddQueriesToUrl(new Dictionary<string, string>() { { "datefrom", eventFilter.Value.DateFrom }, {"dateto", eventFilter.Value.DateTo},{"daterange",eventFilter.Key } }))"> @eventFilter.Value.DateRange </a>
                                 </li>
                             }
                         </ul>
