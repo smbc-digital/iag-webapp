@@ -57,7 +57,7 @@ namespace StockportWebappTests.Unit.Controllers
                 new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(),new List<Document>())
             };
 
-            _processedContentRepository.Setup(o => o.Get<Homepage>(It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, homePageContent, string.Empty));
+            _processedContentRepository.Setup(o => o.Get<Homepage>(It.IsAny<string>(), null)).ReturnsAsync(new HttpResponse(200, homePageContent, string.Empty));
             _repository.Setup(o => o.Get<List<News>>("2", null))
                 .ReturnsAsync(new HttpResponse(200, newsContent, string.Empty));
 
@@ -109,7 +109,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void GetsA404NotFoundOnTheHomepage()
         {
-            _processedContentRepository.Setup(o => o.Get<Homepage>(It.IsAny<string>())).ReturnsAsync(new HttpResponse(404, null, "Not Found"));
+            _processedContentRepository.Setup(o => o.Get<Homepage>(It.IsAny<string>(), null)).ReturnsAsync(new HttpResponse(404, null, "Not Found"));
 
             var response = AsyncTestHelper.Resolve(_controller.Index()) as HttpResponse;
 

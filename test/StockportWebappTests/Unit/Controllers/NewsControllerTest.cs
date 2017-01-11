@@ -74,9 +74,9 @@ namespace StockportWebappTests.Unit.Controllers
             _repository.Setup(o => o.Get<List<News>>("7", null))
                 .ReturnsAsync(HttpResponse.Successful(200, _listOfNewsItems));
 
-            _processedContentRepository.Setup(o => o.Get<News>("another-news-article"))
+            _processedContentRepository.Setup(o => o.Get<News>("another-news-article", null))
                 .ReturnsAsync(responseDetail);
-            _processedContentRepository.Setup(o => o.Get<News>("404-news"))
+            _processedContentRepository.Setup(o => o.Get<News>("404-news", null))
                 .ReturnsAsync(response404);
 
             _logger = new Mock<ILogger<NewsController>>();

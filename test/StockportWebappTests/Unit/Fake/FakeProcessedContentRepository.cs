@@ -1,5 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using StockportWebapp.Http;
+using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
 namespace StockportWebappTests.Unit.Fake
@@ -8,7 +10,7 @@ namespace StockportWebappTests.Unit.Fake
     {
         private HttpResponse _response;
 
-        public Task<HttpResponse> Get<T>(string slug)
+        public Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
         {
             return Task.FromResult(_response);
         }

@@ -74,7 +74,7 @@
                             }
                             <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImageUrl) ? "mobile-grid-65 tablet-grid-70 nav-card-events-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
                                
-                                <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug})">
+                                <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug, date = subItem.EventDate.ToString("yyyy-MM-dd")})">
                                     <h2 class="nav-card-events-title">@subItem.Title</h2>
                                 </a>
                                 <div class="events-date hide-on-mobile">

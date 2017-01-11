@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using FluentAssertions;
 using StockportWebapp.ContentFactory;
@@ -215,6 +216,32 @@ namespace StockportWebappTests.Unit.Repositories
             _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>(slug));
+            var news = httpResponse.Content as ProcessedEvents;
+
+            news.Title.Should().Be("This is the event");
+            news.Slug.Should().Be("event-of-the-century");
+            news.Teaser.Should().Be("Read more for the event");
+
+            news.Description.Should().Be(body);
+        }
+
+        [Fact]
+        public void GetsEventWithSpecificDate()
+        {
+            const string slug = "event";
+            const string url = "get-event-with-slug-url";
+            var date = new DateTime();
+            _mockUrlGenerator.Setup(o => o.UrlFor<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd")))))).Returns(url);
+
+            var body = "The event description";
+
+            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/Event.json"), string.Empty));
+
+            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
+            _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
+            _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>(slug, new List<Query> { new Query("date", date.ToString("yyyy-MM-dd")) }));
             var news = httpResponse.Content as ProcessedEvents;
 
             news.Title.Should().Be("This is the event");

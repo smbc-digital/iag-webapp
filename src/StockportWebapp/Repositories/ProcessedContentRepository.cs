@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Http;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Repositories
@@ -18,9 +20,9 @@ namespace StockportWebapp.Repositories
             _contentTypeFactory = contentTypeFactory;
         }
 
-        public async Task<HttpResponse> Get<T>(string slug = "")
+        public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
         {
-            var url = _urlGenerator.UrlFor<T>(slug);
+            var url = _urlGenerator.UrlFor<T>(slug, queries);
             var httpResponse = await _httpClient.Get(url);
 
             if (!httpResponse.IsSuccessful())

@@ -25,6 +25,8 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<ILogger<EventsController>> _logger;
         private const string BusinessId = "businessId";
         private readonly Event _eventsItem;
+        private readonly HttpResponse responseListing;
+        private readonly HttpResponse _responseDetail;
 
         public EventsControllerTest()
         {
@@ -33,18 +35,18 @@ namespace StockportWebappTests.Unit.Controllers
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", "longitude", "latitude", false, new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>());
 
             // setup responses (with mock data)
-            var responseListing = new HttpResponse(200, eventsCalendar, "");
-            var responseDetail = new HttpResponse(200, eventItem, "");
+            responseListing = new HttpResponse(200, eventsCalendar, "");
+            _responseDetail = new HttpResponse(200, eventItem, "");
             var response404 = new HttpResponse(404, null, "not found");
 
             // setup mocks
-            _repository.Setup(o => o.Get<EventCalendar>(It.IsAny<string>(), null))
+            _repository.Setup(o => o.Get<EventCalendar>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(responseListing);
 
-            _processedContentRepository.Setup(o => o.Get<Event>("event-of-the-century"))
-                .ReturnsAsync(responseDetail);
+            _processedContentRepository.Setup(o => o.Get<Event>("event-of-the-century", It.Is<List<Query>>(l => l.Count == 0)))
+                .ReturnsAsync(_responseDetail);
 
-            _processedContentRepository.Setup(o => o.Get<Event>("404-event"))
+            _processedContentRepository.Setup(o => o.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count == 0)))
                 .ReturnsAsync(response404);
 
             _logger = new Mock<ILogger<EventsController>>();
@@ -58,7 +60,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnEventscalendar()
+        public void ShouldReturnEventsCalendar()
         {
             var actionResponse = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
 
@@ -89,6 +91,18 @@ namespace StockportWebappTests.Unit.Controllers
             model.EventDate.Should().Be(new DateTime(2016, 12, 30, 00, 00, 00));
             model.StartTime.Should().Be("startTime");
             model.EndTime.Should().Be("endTime");
+        }
+
+        [Fact]
+        public void ShouldReturnEventWhenDateQueryPassedIn()
+        {
+            var date = new DateTime();
+            const string slug = "event-of-the-century";
+            _processedContentRepository.Setup(o => o.Get<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd")))))).ReturnsAsync(_responseDetail);
+
+            AsyncTestHelper.Resolve(_controller.Detail(slug, date));
+
+            _processedContentRepository.Verify(o => o.Get<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd"))))));
         }
 
         [Fact]
