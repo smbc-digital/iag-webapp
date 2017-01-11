@@ -10,12 +10,10 @@ namespace StockportWebapp.Models
         public string EmailAlertsUrl { get; }
         public List<Crumb> Breadcrumbs { get; }
         public Newsroom Newsroom { get; }
+
         public List<string> Categories
         {
-            get
-            {
-                return Newsroom.Categories.OrderBy(c => c).ToList();
-            }
+            get { return Newsroom.Categories.OrderBy(c => c).ToList(); }
         }
 
         public NewsroomViewModel(Newsroom newsroom, string emailAlertsUrl, string title, string tag, List<Crumb> breadcrumbs)

@@ -3,7 +3,8 @@
 @model StockportWebapp.Models.NewsroomViewModel
 @{ 
     var newsroom = Model.Newsroom;
-    var queryHelper = new UrlQueryHelper(Url.ActionContext.RouteData.Values, Context.Request.Query);
+    var currentUrl = new CurrentUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
+    var newsFilter = new NewsFilter(currentUrl);
 }
 
 <div class="grid-container news-grid-container-margins">
@@ -15,13 +16,13 @@
                     <li class="filter collapsible" id="category-filter">
                         <p class="filter-title">Category</p>
                         <ul class="filters-list">
-                            <li class=@(!queryHelper.QueryNameIsInQueryString("category") ? "active" : "")>
-                                <a href="@Url.RouteUrl(queryHelper.RemoveQueriesFromUrl(new List<string>() { "category" }))">All categories</a>
+                            <li class=@(!currentUrl.HasQueryParam("category") ? "active" : "")>
+                                <a href="@Url.RouteUrl(currentUrl.WithoutQueryParam(new List<string>() { "category" }))">All categories</a>
                             </li>
                             @foreach (var category in Model.Categories)
                             {
-                                <li class=@(queryHelper.QueryNameAndValueIsInQueryString("category", category) ? "active" : "")>
-                                    <a href="@Url.RouteUrl(queryHelper.AddQueriesToUrl(new Dictionary<string, string>() { { "category", @category } }))">@category</a>
+                                <li class=@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")>
+                                    <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string>() { { "category", @category } }))">@category</a>
                                 </li>
                             }
                         </ul>
@@ -29,8 +30,8 @@
                     <li class="filter collapsible">
                         <p class="filter-title">News archive</p>
                         <ul class="filters-list filters-outer-list">
-                            <li class=@(!queryHelper.QueryNameIsInQueryString("datefrom") ? "active" : "")>
-                                <a href="@Url.RouteUrl(queryHelper.RemoveQueriesFromUrl(new List<string>() { "datefrom", "dateto" }))">All recent news</a>
+                            <li class=@(!currentUrl.HasQueryParam("datefrom") ? "active" : "")>
+                                <a href="@Url.RouteUrl(currentUrl.WithoutQueryParam(new List<string>() { "datefrom", "dateto" }))">All recent news</a>
                             </li>
                             @foreach (var year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
                             {
@@ -39,8 +40,8 @@
                                     <ul class="filters-list filters-inner-list" id="news-archive">
                                         @foreach (var date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
                                         {
-                                            <li class=@(queryHelper.QueryNameAndValueIsInQueryString("datefrom", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
-                                                <a href="@Url.RouteUrl(queryHelper.AddQueriesToUrl(new Dictionary<string, string>() { { "datefrom", date.ToString("yyyy-MM-dd") }, {"dateto", date.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd") } }))">@date.ToString("MMMM yyyy")</a>
+                                            <li class=@(currentUrl.MatchesQueryParam("datefrom", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
+                                                <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string>() { { "datefrom", date.ToString("yyyy-MM-dd") }, {"dateto", date.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd") } }))">@date.ToString("MMMM yyyy")</a>
                                             </li>
                                         }
                                     </ul>

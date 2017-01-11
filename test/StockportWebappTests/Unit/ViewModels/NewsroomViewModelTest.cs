@@ -8,6 +8,8 @@ namespace StockportWebappTests.Unit.ViewModels
 {
     public class NewsroomViewModelTest
     {
+        private static readonly List<string> emptyList = new List<string>();
+
         private const string EmailAlertsUrl = "url";
         private const string Tag = "tag";
         private readonly Newsroom _newsroom;
@@ -23,14 +25,15 @@ namespace StockportWebappTests.Unit.ViewModels
         [Fact]
         public void ShouldSetEmailAlertsUrlWithTopicId()
         {
-            _newsroomViewModel.EmailAlertsUrl.Should().Be(string.Concat(EmailAlertsUrl, "?topic_id=", _newsroom.EmailAlertsTopicId));
+            var newsroomViewModel = new NewsroomViewModel(ANewsRoom(emailAlertsTopicId: "tag-id"), EmailAlertsUrl, "title", Tag, _breadcrumbs);
+
+            newsroomViewModel.EmailAlertsUrl.Should().Be(string.Concat(EmailAlertsUrl, "?topic_id=", _newsroom.EmailAlertsTopicId));
         }
 
         [Fact]
         public void ShouldSetEmailAlertsUrlWithoutTopicId()
         {
-            var newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, string.Empty, new List<string>(), new List<DateTime>());
-            var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl, "title", Tag, _breadcrumbs);
+            var newsroomViewModel = new NewsroomViewModel(ANewsRoom(emailAlertsTopicId: string.Empty), EmailAlertsUrl, "title", Tag, _breadcrumbs);
 
             newsroomViewModel.EmailAlertsUrl.Should().Be(EmailAlertsUrl);
         }
@@ -51,7 +54,7 @@ namespace StockportWebappTests.Unit.ViewModels
         public void ShouldSetBreadcrumbs()
         {
             var breadcrumbs = new List<Crumb> { new Crumb("title", "slug", "type")};
-            var newsroomViewModel = new NewsroomViewModel(_newsroom, EmailAlertsUrl, "title", Tag, breadcrumbs);
+            var newsroomViewModel = new NewsroomViewModel(ANewsRoom(), EmailAlertsUrl, "title", Tag, breadcrumbs);
 
             newsroomViewModel.Breadcrumbs.Should().HaveCount(1);
             newsroomViewModel.Breadcrumbs[0].Title.Should().Be("title");
@@ -60,13 +63,18 @@ namespace StockportWebappTests.Unit.ViewModels
         [Fact]
         public void ShouldGiveCategoriesInAlphabeticalOrder()
         {
-            var unorderedCategories = new List<string>() { "Zebras", "Asses", "Oxen" };
-            var newsroom = new Newsroom(new List<News>(), new List<Alert>(), true, "tag-id", unorderedCategories, new List<DateTime>());
+            var newsroom = ANewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+
             var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl, "title", Tag, _breadcrumbs);
 
             var categories = newsroomViewModel.Categories;
 
             categories.Should().ContainInOrder("Asses", "Oxen", "Zebras");
+        }
+
+        private static Newsroom ANewsRoom(List<string> categories = null, string emailAlertsTopicId = "")
+        {
+            return new Newsroom(new List<News>(), new List<Alert>(), true, emailAlertsTopicId, categories ?? emptyList, new List<DateTime>());
         }
     }
 }

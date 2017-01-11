@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Routing;
 
 namespace StockportWebapp.Utils
 {
-    public class UrlQueryHelper
+    public class CurrentUrl
     {
         private RouteValueDictionary currentRouteData;
         IQueryCollection queries;
 
-        public UrlQueryHelper(RouteValueDictionary currentRouteData, IQueryCollection queries)
+        public CurrentUrl(RouteValueDictionary currentRouteData, IQueryCollection queries)
         {
             this.currentRouteData = currentRouteData;
             this.queries = queries;
@@ -29,14 +29,14 @@ namespace StockportWebapp.Utils
             return currentRouteValues;
         }
 
-        public bool QueryNameAndValueIsInQueryString(string queryName, string queryValue)
+        public bool MatchesQueryParam(string queryName, string queryValue)
         {
             var inRouteData = currentRouteData.ContainsKey(queryName) && (string)currentRouteData[queryName] == queryValue;
             var inQueries = queries.ContainsKey(queryName) && queries[queryName] == queryValue;
             return inRouteData || inQueries;
         }
 
-        public RouteValueDictionary RemoveQueriesFromUrl(List<string> queryNames)
+        public RouteValueDictionary WithoutQueryParam(List<string> queryNames)
         {
             var currentRouteValues = new RouteValueDictionary(currentRouteData);
             foreach (var key in queries.Keys)
@@ -50,7 +50,7 @@ namespace StockportWebapp.Utils
             return currentRouteValues;
         }
 
-        public bool QueryNameIsInQueryString(string queryName)
+        public bool HasQueryParam(string queryName)
         {
             return currentRouteData.ContainsKey(queryName) || queries.ContainsKey(queryName);
         }
