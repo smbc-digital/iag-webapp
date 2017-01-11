@@ -39,30 +39,25 @@ namespace StockportWebapp.Controllers
             if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
             if (dateto.HasValue) queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
 
-            var httpResponse = await _repository.Get<EventCalendar>();
+            var httpResponse = await _repository.Get<EventCalendar>(queries: queries);
             ViewBag.VisibleFilterDrowdownClass = "filter collapsible";
-            if (queries.Count != 0)
-            {
-                httpResponse = await _repository.Get<EventCalendar>(queries: queries);
-                ViewBag.VisibleFilterDrowdownClass = "filter";
-            }           
+            if (queries.Count != 0) ViewBag.VisibleFilterDrowdownClass = "filter";
 
             if (!httpResponse.IsSuccessful())
                 return httpResponse;
 
             var eventsCalendar = httpResponse.Content as EventCalendar;
-
-
-            var crumbs = new List<Crumb>();
-
-            return View(new EventsCalendarViewModel(crumbs, eventsCalendar));
+            return View(new EventsCalendarViewModel(new List<Crumb>(), eventsCalendar));
         }
 
 
         [Route("/events/{slug}")]
-        public async Task<IActionResult> Detail(string slug)
+        public async Task<IActionResult> Detail(string slug, [FromQuery] DateTime? date = null)
         {
-            var httpResponse = await _processedContentRepository.Get<Event>(slug);
+            var queries = new List<Query>();
+            if (date.HasValue) queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
+
+            var httpResponse = await _processedContentRepository.Get<Event>(slug, queries);
 
             if (!httpResponse.IsSuccessful()) return httpResponse;
 
