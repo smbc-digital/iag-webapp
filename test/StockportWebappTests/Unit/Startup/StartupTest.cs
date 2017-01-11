@@ -8,9 +8,8 @@ namespace StockportWebappTests.Unit.Startup
     public class StartupTest
     {
         [Theory]
-        [InlineData("Default")]
-        [InlineData("DEV")]
-        [InlineData("STAGING")]
+        [InlineData("test")]
+        [InlineData("test2")]
         public void CheckAppSettingsForEnvironments(string environment)
         {
             var env = new HostingEnvironment {EnvironmentName = environment, ContentRootPath = Directory.GetCurrentDirectory() };

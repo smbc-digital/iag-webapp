@@ -15,7 +15,7 @@ namespace StockportWebappTests.Unit.Config
 
         public ApplicationConfigurationTest()
         {
-            var startup = new StockportWebapp.Startup(new HostingEnvironment() { EnvironmentName = "int", ContentRootPath = Directory.GetCurrentDirectory() });
+            var startup = new StockportWebapp.Startup(new HostingEnvironment() { EnvironmentName = "test", ContentRootPath = Directory.GetCurrentDirectory() });
 
             var appSettings = startup.Configuration;
             _config = new ApplicationConfiguration(appSettings);

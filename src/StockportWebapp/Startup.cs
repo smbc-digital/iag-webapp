@@ -36,41 +36,21 @@ namespace StockportWebapp
 
         public Startup(IHostingEnvironment env)
         {
-            if (UseInjectedConfig())
-            {
-                string appConfig = Path.Combine(ConfigDir, "appsettings.json");
-                string envConfig = Path.Combine(ConfigDir, $"appsettings.{env.EnvironmentName}.json");
-                string secretConfig = Path.Combine(ConfigDir, "injected",
-                    $"appsettings.{env.EnvironmentName}.secrets.json");
+            var appConfig = Path.Combine(ConfigDir, "appsettings.json");
+            var envConfig = Path.Combine(ConfigDir, $"appsettings.{env.EnvironmentName}.json");
+            var secretConfig = Path.Combine(ConfigDir, "injected",
+                $"appsettings.{env.EnvironmentName}.secrets.json");
 
-                Configuration = new ConfigurationBuilder()
-                    .SetBasePath(env.ContentRootPath)
-                    .AddJsonFile(appConfig)
-                    .AddJsonFile(envConfig)
-                    .AddJsonFile(secretConfig)
-                    .AddEnvironmentVariables()
-                    .Build();
-            }
-            else
-            {
-                var builder = new ConfigurationBuilder()
-                    .SetBasePath(env.ContentRootPath)
-                    .AddJsonFile("appsettings.json")
-                    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true);
-                builder.AddEnvironmentVariables();
-                Configuration = builder.Build();
-            }
+            Configuration = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile(appConfig)
+                .AddJsonFile(envConfig)
+                .AddJsonFile(secretConfig)
+                .AddEnvironmentVariables()
+                .Build();
 
             _appEnvironment = env.EnvironmentName;
             _contentRootPath = env.ContentRootPath;
-        }
-
-        private static bool UseInjectedConfig()
-        {
-            var value = Environment.GetEnvironmentVariable("USE_INJECTED_CONFIG");
-
-            bool useInjectedConfig;
-            return bool.TryParse(value, out useInjectedConfig) && useInjectedConfig;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -143,7 +123,9 @@ namespace StockportWebapp
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
             services.AddTransient<HtmlParser>();
 
-            services.AddSingleton(GetAmazonSesKeys());
+            services.AddSingleton(new AmazonSESKeys(
+                                    Configuration["ses:accessKey"],
+                                    Configuration["ses:secretKey"]));
 
             services.AddSingleton<IStaticAssets, StaticAssets>();
 
@@ -155,18 +137,6 @@ namespace StockportWebapp
 
             services.Configure<RazorViewEngineOptions>(
                 options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
-        }
-
-        public AmazonSESKeys GetAmazonSesKeys()
-        {
-            if (UseInjectedConfig())
-                return new AmazonSESKeys(
-                    Configuration["ses:accessKey"], 
-                    Configuration["ses:secretKey"]);
-
-            return new AmazonSESKeys(
-                Environment.GetEnvironmentVariable("SES_ACCESS_KEY"),
-                Environment.GetEnvironmentVariable("SES_SECRET_KEY"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
