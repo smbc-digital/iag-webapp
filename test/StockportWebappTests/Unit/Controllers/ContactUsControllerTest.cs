@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -26,7 +25,6 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly string _emailSubject = "Drugs and Alcohol";
         private readonly string _emailBody = "A body";
         private string _serviceEmails = "service@email.com, another@email.com";
-        private readonly FeatureToggles _featureToggles;
 
         private const string Path = "/page-with-contact-us-form";
         private readonly string _url = $"http://page.com{Path}";
@@ -34,12 +32,9 @@ namespace StockportWebappTests.Unit.Controllers
 
         public ContactUsControllerTest()
         {
-            _featureToggles = new FeatureToggles() { DynamicContactUsForm = true };
-
             _mockEmailClient = new Mock<IHttpEmailClient>();
             _mockLogger = new Mock<ILogger<ContactUsController>>();
-            _controller = new ContactUsController(_mockEmailClient.Object, _featureToggles, _mockLogger.Object);
-            
+            _controller = new ContactUsController(_mockEmailClient.Object, _mockLogger.Object);
             _validContactDetails = new ContactUsDetails(_userName, _userEmail, _emailSubject,
                 _emailBody, _serviceEmails,_title);
 
@@ -57,17 +52,6 @@ namespace StockportWebappTests.Unit.Controllers
             AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
 
             _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<string>(), It.IsAny<string>(), _serviceEmails, It.IsAny<string>()));
-        }
-
-
-        [Fact]
-        public void DynamicContactUsPostShouldReturnNotFoundResultIfFeatureToggleOff()
-        {
-            _featureToggles.DynamicContactUsForm = false;
-
-            var pageResult = AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails)) as NotFoundResult;
-
-            pageResult.StatusCode.Should().Be(404);
         }
 
         [Fact]
@@ -149,16 +133,6 @@ namespace StockportWebappTests.Unit.Controllers
 
             pageResult.Model.Should().Be(referer);
             pageResult.ViewName.Should().Be("ThankYouMessage");
-        }
-
-        [Fact]
-        public void ShouldShowA404OnTheThankYouMessageRouteWhenTheFeatureToggleIsOff()
-        {
-            var referer = "this-is-a-referer";
-            _featureToggles.DynamicContactUsForm = false;
-            var pageResult = AsyncTestHelper.Resolve(_controller.ThankYouMessage(referer));
-
-            pageResult.Should().BeOfType<NotFoundResult>();
         }
 
         [Fact]

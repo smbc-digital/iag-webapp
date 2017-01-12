@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -8,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.ViewDetails;
 
 namespace StockportWebapp.Controllers
@@ -16,15 +14,13 @@ namespace StockportWebapp.Controllers
     public class ContactUsController : Controller
     {
         private readonly IHttpEmailClient _emailClient;
-        private readonly FeatureToggles _featureToggles;
         private readonly ILogger<ContactUsController> _logger;
 
         private const string FailureMessage = "We have been unable to process the request. Please try again later.";
 
-        public ContactUsController(IHttpEmailClient emailClient, FeatureToggles featureToggles, ILogger<ContactUsController> logger)
+        public ContactUsController(IHttpEmailClient emailClient, ILogger<ContactUsController> logger)
         {
             _emailClient = emailClient;
-            _featureToggles = featureToggles;
             _logger = logger;
         }
 
@@ -33,7 +29,7 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
             var referer = Request.Headers["referer"];
-            if (!_featureToggles.DynamicContactUsForm || string.IsNullOrEmpty(referer)) return NotFound();
+            if (string.IsNullOrEmpty(referer)) return NotFound();
 
             var redirectUrl = new UriBuilder(referer).Path;
             var message = FailureMessage;
@@ -103,8 +99,6 @@ namespace StockportWebapp.Controllers
         [HttpGet]
         public async Task<IActionResult> ThankYouMessage(string referer)
         {
-            if (!_featureToggles.DynamicContactUsForm) return NotFound();
-
             return await Task.FromResult(View("ThankYouMessage", referer));
         }
     }

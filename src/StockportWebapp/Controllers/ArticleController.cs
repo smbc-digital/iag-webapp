@@ -2,7 +2,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Exceptions;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
@@ -18,14 +17,12 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _repository;
         private readonly ILogger<ArticleController> _logger;
         private readonly IContactUsMessageTagParser _contactUsMessageParser;
-        private readonly FeatureToggles _featureToggles;
 
-        public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser, FeatureToggles featureToggles)
+        public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser)
         {
             _repository = repository;
             _logger = logger;
             _contactUsMessageParser = contactUsMessageParser;
-            _featureToggles = featureToggles;
         }
 
         [Route("/{articleSlug}")]
@@ -38,7 +35,7 @@ namespace StockportWebapp.Controllers
 
             var article = articleHttpResponse.Content as ProcessedArticle;
 
-            if (_featureToggles.DynamicContactUsForm) _contactUsMessageParser.Parse(article, message, "");
+            _contactUsMessageParser.Parse(article, message, "");
 
             var viewModel = new ArticleViewModel(article);
 
@@ -55,7 +52,7 @@ namespace StockportWebapp.Controllers
 
             var article = articleHttpResponse.Content as ProcessedArticle;
 
-            if (_featureToggles.DynamicContactUsForm) _contactUsMessageParser.Parse(article, message, sectionSlug);
+            _contactUsMessageParser.Parse(article, message, sectionSlug);
 
             SetArticlesCanonicalUrl(articleSlug, sectionSlug, article);
 

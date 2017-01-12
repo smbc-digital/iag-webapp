@@ -4,12 +4,9 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Parsers;
 using StockportWebapp.ViewModels;
 using StockportWebappTests.Unit.Fake;
@@ -23,8 +20,6 @@ namespace StockportWebappTests.Unit.Controllers
     {
         private readonly ArticleController _controller;
         private readonly FakeProcessedContentRepository _fakeRepository;
-
-        private readonly FeatureToggles _featureToggles;
         private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser;
 
         private const string DefaultMessage = "A default message";
@@ -33,10 +28,9 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _fakeRepository = new FakeProcessedContentRepository();
 
-            _featureToggles = new FeatureToggles() { DynamicContactUsForm = true };
             _contactUsMessageParser = new Mock<IContactUsMessageTagParser>();
 
-            _controller = new ArticleController(_fakeRepository, new Mock<ILogger<ArticleController>>().Object, _contactUsMessageParser.Object, _featureToggles);
+            _controller = new ArticleController(_fakeRepository, new Mock<ILogger<ArticleController>>().Object, _contactUsMessageParser.Object);
         }
 
         [Fact]
@@ -202,10 +196,8 @@ namespace StockportWebappTests.Unit.Controllers
 
 
         [Fact]
-        public void ShouldParseForContactUsMessageForArticleIfFeatureToggleOn()
+        public void ShouldParseForContactUsMessageForArticle()
         {
-            _featureToggles.DynamicContactUsForm = true;
-
             var processedArticle = DummyProcessedArticle();
             var slug = "healthy-living";
 
@@ -217,26 +209,8 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldNotParseForContactUsMessageForArticleIfFeatureToggleOff()
+        public void ShouldParseForContactUsMessageForArticleWithSection()
         {
-            _featureToggles.DynamicContactUsForm = false;
-
-            var processedArticle = DummyProcessedArticle();
-            var slug = "healthy-living";
-
-            _fakeRepository.Set(new HttpResponse(200, processedArticle, string.Empty));
-
-            AsyncTestHelper.Resolve(_controller.Article(slug, DefaultMessage));
-
-            _contactUsMessageParser.Verify(o => o.Parse(processedArticle, It.IsAny<string>(), ""), Times.Never);
-        }
-
-
-        [Fact]
-        public void ShouldParseForContactUsMessageForArticleWithSectionIfFeatureToggleOn()
-        {
-            _featureToggles.DynamicContactUsForm = true;
-
             var processedArticle = DummyProcessedArticle();
             var slug = "healthy-living";
             var sectionSlug = "test-section";
@@ -247,23 +221,6 @@ namespace StockportWebappTests.Unit.Controllers
 
             _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, sectionSlug), Times.Once);
         }
-
-        [Fact]
-        public void ShouldNotParseForContactUsMessageForArticleWithSectionIfFeatureToggleOff()
-        {
-            _featureToggles.DynamicContactUsForm = false;
-
-            var processedArticle = DummyProcessedArticle();
-            var slug = "healthy-living";
-            var sectionSlug = "test-section";
-
-            _fakeRepository.Set(new HttpResponse(200, processedArticle, string.Empty));
-
-            AsyncTestHelper.Resolve(_controller.ArticleWithSection(slug, sectionSlug, DefaultMessage));
-
-            _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, sectionSlug), Times.Never);
-        }
-
 
         private ProcessedArticle DummyProcessedArticle()
         {
