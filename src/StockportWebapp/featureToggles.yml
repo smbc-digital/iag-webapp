@@ -1,7 +1,6 @@
 ﻿---
 prod: &prod
   DynamicContactUsForm: true
-  Search: true
   EventCalendar: false
   SecurityHeaders: true
 

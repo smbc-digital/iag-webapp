@@ -21,45 +21,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _config = new Mock<IApplicationConfiguration>();
 
-            _searchController = new SearchController(_config.Object, new BusinessId(_businessId), new FeatureToggles() { Search = false });
-        }
-
-        [Fact]
-        public void ItRedirectsToSearchUrl()
-        {
-            var searchUrlSetting = AppSetting.GetAppSetting(SearchUrl);
-            _config.Setup(o => o.GetSearchUrl(_businessId)).Returns(searchUrlSetting);
-
-            var searchTerm = "Cars";
-            var result = AsyncTestHelper.Resolve(_searchController.Index(searchTerm));
-
-            result.Should().BeOfType<RedirectResult>();
-
-            _config.Verify(o => o.GetSearchUrl(_businessId), Times.Once);
-            var redirect = result as RedirectResult;
-            redirect.Url.Should().Be(SearchUrl + searchTerm);
-        }
-
-        [Fact]
-        public void ShouldRedirectToApplicationErrorIfSearchConfigurationIsMissing()
-        {
-            const string searchTerm = "term";
-            var appSetting = AppSetting.GetAppSetting(null);
-            _config.Setup(o => o.GetSearchUrl(_businessId)).Returns(appSetting);
-
-            var response = AsyncTestHelper.Resolve(_searchController.Index(searchTerm)) as StatusCodeResult;
-
-            response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
-        }
-
-        [Fact]
-        public void ShouldReturn404IfSearchFeatureToggleIsOn()
-        {
-            var searchController = new SearchController(_config.Object, new BusinessId(_businessId), new FeatureToggles() { Search = true });
-
-            var response = AsyncTestHelper.Resolve(searchController.Index("")) as NotFoundResult;
-
-            response.StatusCode.Should().Be(404);
+            _searchController = new SearchController(_config.Object, new BusinessId(_businessId));
         }
 
         [Fact]
