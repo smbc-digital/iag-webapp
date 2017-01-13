@@ -27,6 +27,8 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Event _eventsItem;
         private readonly HttpResponse responseListing;
         private readonly HttpResponse _responseDetail;
+        private readonly Mock<IEventsRepository> _eventRepository;
+        private readonly FeatureToggles _featureToggles;
 
         public EventsControllerTest()
         {
@@ -50,13 +52,16 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(response404);
 
             _logger = new Mock<ILogger<EventsController>>();
+            _eventRepository = new Mock<IEventsRepository>();
+            _featureToggles = new FeatureToggles {EventSubmission = true};
 
             _controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
+                _eventRepository.Object,
                 _logger.Object,
                 new BusinessId(BusinessId),
-                new FeatureToggles());
+                _featureToggles);
         }
 
         [Fact]
@@ -111,6 +116,71 @@ namespace StockportWebappTests.Unit.Controllers
             var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("404-event")) as HttpResponse;
 
             actionResponse.StatusCode.Should().Be(404);
+        }
+
+        [Fact]
+        public void ItShouldGetARedirectResultForAValidEventSubmission()
+        {
+            var eventSubmission =  new EventSubmission()
+                {
+                    Title = "Title",
+                    Teaser = "Teaser",
+                    Description = "Description",
+                    EventDate = new DateTime(2017,12,01),
+                    StartTime = "10:00",
+                    EndTime ="12:00",
+                    Fee = "£5.00",
+                    Frequency = "Frequency",
+                    Image = null,
+                    Attachment = null
+            };
+
+            _eventRepository.Setup(o => o.SendEmailMessage(It.IsAny<EventSubmission>())).ReturnsAsync(HttpStatusCode.OK);
+
+            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission)) as RedirectToActionResult;
+            actionResponse.ActionName.Should().Be("ThankYouMessage");
+        }
+
+        [Fact]
+        public void ItShouldReturnBackToTheViewForAnInvalidEmailSubmission()
+        {
+            var eventSubmission = new EventSubmission();
+
+            _eventRepository.Setup(o => o.SendEmailMessage(It.IsAny<EventSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
+
+            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission));
+
+            actionResponse.Should().BeOfType<ViewResult>();
+            _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Once);
+        }
+
+        [Fact]
+        public void ItShouldNotSendAnEmailForAnInvalidFormSumbission()
+        {
+            var eventSubmission = new EventSubmission();
+
+            _controller.ModelState.AddModelError("Title", "an invalid title was provided");
+
+            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission));
+
+            actionResponse.Should().BeOfType<ViewResult>();
+            _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
+        }
+
+        [Fact]
+        public void ItShouldReturnToEventsIndexIfTheFeatureToggleIsOff()
+        {
+            _featureToggles.EventSubmission = false;
+            var eventSubmission = new EventSubmission();
+
+            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission));
+
+            actionResponse.Should().BeOfType<RedirectToActionResult>();
+
+            var view = actionResponse as RedirectToActionResult;
+            view.ActionName.Should().Be("Index");
+
+            _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
         }
     }
 }

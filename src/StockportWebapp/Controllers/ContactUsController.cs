@@ -16,8 +16,6 @@ namespace StockportWebapp.Controllers
         private readonly IHttpEmailClient _emailClient;
         private readonly ILogger<ContactUsController> _logger;
 
-        private const string FailureMessage = "We have been unable to process the request. Please try again later.";
-
         public ContactUsController(IHttpEmailClient emailClient, ILogger<ContactUsController> logger)
         {
             _emailClient = emailClient;
@@ -32,7 +30,7 @@ namespace StockportWebapp.Controllers
             if (string.IsNullOrEmpty(referer)) return NotFound();
 
             var redirectUrl = new UriBuilder(referer).Path;
-            var message = FailureMessage;
+            var message = "We have been unable to process the request. Please try again later.";
 
             if (ModelState.IsValid)
             {

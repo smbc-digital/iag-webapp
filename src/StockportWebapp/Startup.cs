@@ -134,6 +134,7 @@ namespace StockportWebapp
             services.AddMvc();
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
+            services.AddTransient<IEventsRepository, EventsRepository>();
 
             services.Configure<RazorViewEngineOptions>(
                 options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });

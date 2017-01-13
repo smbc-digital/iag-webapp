@@ -4,5 +4,6 @@ namespace StockportWebapp.FeatureToggling
     {
         public bool EventCalendar { get; set; } = false;
         public bool SecurityHeaders { get; set; } = false;
+        public bool EventSubmission { get; set; } = false;
     }
 }

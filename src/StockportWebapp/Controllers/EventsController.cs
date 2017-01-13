@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,6 @@ using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.RSS;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -22,11 +22,18 @@ namespace StockportWebapp.Controllers
         private readonly ILogger<EventsController> _logger;
         private readonly FeatureToggles _featureToggles;
         private readonly BusinessId _businessId;
+        private readonly IEventsRepository _eventsRepository;
 
-        public EventsController(IRepository repository, IProcessedContentRepository processedContentRepository, ILogger<EventsController> logger, BusinessId businessId, FeatureToggles featureToggles)
+        public EventsController(IRepository repository,
+                                IProcessedContentRepository processedContentRepository,
+                                IEventsRepository eventsRepository,
+                                ILogger<EventsController> logger,
+                                BusinessId businessId, 
+                                FeatureToggles featureToggles)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
+            _eventsRepository = eventsRepository;
             _logger = logger;
             _businessId = businessId;
             _featureToggles = featureToggles;
@@ -66,6 +73,37 @@ namespace StockportWebapp.Controllers
             ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(response);
+        }
+
+        [Route("/events/submitevent")]
+        public IActionResult SubmitEvent()
+        {
+            if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
+            return View();
+        }
+
+        [HttpPost]
+        [Route("/events/submitevent")]
+        public async Task<IActionResult> SubmitEvent(EventSubmission eventSubmission)
+        {
+            if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                var successCode = await _eventsRepository.SendEmailMessage(eventSubmission);
+                if (successCode == HttpStatusCode.OK)
+                {
+                    return RedirectToAction("ThankYouMessage");
+                }
+            }
+
+            return View(eventSubmission);
+        }
+
+        [Route("/events/thankyoumessage")]
+        public IActionResult ThankYouMessage()
+        {
+            if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
+            return View();
         }
     }
 }

@@ -2,6 +2,7 @@
 prod: &prod
   EventCalendar: false
   SecurityHeaders: true
+  EventSubmission: false
 
 stage: &stage
   << : *prod
@@ -15,3 +16,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  EventSubmission: true

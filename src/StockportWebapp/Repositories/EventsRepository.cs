@@ -55,7 +55,7 @@ namespace StockportWebapp.Repositories
 
         public Task<HttpStatusCode> SendEmailMessage(EventSubmission eventSubmission)
         {
-            var messageSubject = $"{eventSubmission.Title} - {eventSubmission.Teaser}";
+            var messageSubject = $"[Event] - {eventSubmission.Title}";
 
             _logger.LogInformation("Sending event submission form email");
 
