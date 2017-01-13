@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Routing;
 
 namespace StockportWebapp.Utils
 {
-    public class NewsFilter
+    public class NewsUrl
     {
         private readonly QueryUrl queryUrl;
 
-        public NewsFilter(QueryUrl queryUrl)
+        public NewsUrl(QueryUrl queryUrl)
         {
             this.queryUrl = queryUrl;
         }

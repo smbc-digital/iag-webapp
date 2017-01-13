@@ -6,21 +6,21 @@ namespace StockportWebapp.Utils
 {
     public class QueryUrl
     {
-        private RouteValueDictionary currentRouteData;
-        IQueryCollection queries;
+        private readonly RouteValueDictionary _currentRouteData;
+        readonly IQueryCollection _queries;
 
         public QueryUrl(RouteValueDictionary currentRouteData, IQueryCollection queries)
         {
-            this.currentRouteData = currentRouteData;
-            this.queries = queries;
+            _currentRouteData = currentRouteData;
+            _queries = queries;
         }
 
         public RouteValueDictionary AddQueriesToUrl(Dictionary<string, string> querysToAdd)
         {
-            var currentRouteValues = new RouteValueDictionary(currentRouteData);
-            foreach (var key in queries.Keys)
+            var currentRouteValues = new RouteValueDictionary(_currentRouteData);
+            foreach (var key in _queries.Keys)
             {
-                if(!currentRouteValues.ContainsKey(key)) currentRouteValues.Add(key, queries[key]);
+                if(!currentRouteValues.ContainsKey(key)) currentRouteValues.Add(key, _queries[key]);
             }
             foreach (var query in querysToAdd)
             {
@@ -31,17 +31,17 @@ namespace StockportWebapp.Utils
 
         public bool MatchesQueryParam(string queryName, string queryValue)
         {
-            var inRouteData = currentRouteData.ContainsKey(queryName) && (string)currentRouteData[queryName] == queryValue;
-            var inQueries = queries.ContainsKey(queryName) && queries[queryName] == queryValue;
+            var inRouteData = _currentRouteData.ContainsKey(queryName) && (string)_currentRouteData[queryName] == queryValue;
+            var inQueries = _queries.ContainsKey(queryName) && _queries[queryName] == queryValue;
             return inRouteData || inQueries;
         }
 
         public RouteValueDictionary WithoutQueryParam(List<string> queryNames)
         {
-            var currentRouteValues = new RouteValueDictionary(currentRouteData);
-            foreach (var key in queries.Keys)
+            var currentRouteValues = new RouteValueDictionary(_currentRouteData);
+            foreach (var key in _queries.Keys)
             {
-                currentRouteValues.Add(key, queries[key]);
+                currentRouteValues.Add(key, _queries[key]);
             }
             foreach (var queryName in queryNames)
             {
@@ -52,7 +52,7 @@ namespace StockportWebapp.Utils
 
         public bool HasQueryParam(string queryName)
         {
-            return currentRouteData.ContainsKey(queryName) || queries.ContainsKey(queryName);
+            return _currentRouteData.ContainsKey(queryName) || _queries.ContainsKey(queryName);
         }
     }
 }
