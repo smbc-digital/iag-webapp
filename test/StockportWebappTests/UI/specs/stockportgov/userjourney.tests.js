@@ -61,7 +61,6 @@ module.exports = {
        articlepage.assertDocumentIsVisible();
    },
   
-  
    'Find all homepage elements': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        homepage.navigate();
@@ -93,8 +92,26 @@ module.exports = {
        news.assertDocumentIsVisible();
    },
 
-   'Searches for Event story and Find All EventsPage Elements': function (browser) {     
+   'Category and date links are active when relevant and contain correct filters': function (browser) {
+       var homepage = browser.page.stockportgov.homepage();
+       homepage.navigate();
+       homepage.goToNewsroom(browser);
 
+       var newsroom = browser.page.stockportgov.newsroom();
+       newsroom.assertTitleIsVisible("News");
+       newsroom.goToCategory("Children%20and%20families");
+
+       var news = browser.page.stockportgov.news();
+       news.assertAllCategoriesAreVisible();
+       news.assertCategoryIsActive("Children%20and%20families");
+       news.assertCategoryHasCorrectUrl("Children%20and%20families");
+       news.assertCategoryIsNotActive("All%20Categories");
+       news.assertCategoryHasCorrectUrl("All%20Categories");
+       news.assertAllRecentNewsIsActive();
+       news.assertNewsHasCorrectUrl("All%20Recent%20News");
+   },
+
+   'Searches for Event story and Find All EventsPage Elements': function (browser) {     
        var homepage = browser.page.stockportgov.homepage();
            homepage.navigate();
            homepage.goToEventsCalendar(browser);

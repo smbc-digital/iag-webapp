@@ -8,6 +8,12 @@ var methods = {
         this.waitForElementVisible('@newsList', this.api.globals.timeOut);
         browser.useXpath().assert.visible("//h2[@class='nav-card-news-title' and text()='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
+    },
+
+    goToCategory: function (category) {
+        this.waitForElementVisible('@categoryList', this.api.globals.timeOut);
+        browser.useXpath().assert.visible("//a[contains(@href,'/news?category=" + category + "')]")
+            .click("//a[contains(@href,'/news?category=" + category + "')]"); 
     }
 };
 
@@ -19,6 +25,7 @@ module.exports = {
   },
   elements: {
       pageTitle: "h1",
-      newsList: ".nav-card-news-list"
+      newsList: ".nav-card-news-list",
+      categoryList: ".nav-card-news-list"
   }
 };
