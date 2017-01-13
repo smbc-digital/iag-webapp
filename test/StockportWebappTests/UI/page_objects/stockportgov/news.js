@@ -3,6 +3,7 @@ var methods = {
         this.waitForElementVisible('@pageTitle', this.api.globals.timeOut)
             .expect.element('@pageTitle').text.to.equal(title);
     },
+
     assertNewsSideBarVisible: function (browser,title) {
         this.waitForElementVisible('@sideBar', this.api.globals.timeOut)
             .expect.element('@sideBarTitle').text.to.equal(title);
@@ -19,16 +20,17 @@ var methods = {
             .text.to.equals("Share this");
         this.waitForElementVisible('@addThisIcons', this.api.globals.timeOut);
     },
+
     assertNewsTagIsVisible: function(tag) {
         this.waitForElementVisible('@newsTag', this.api.globals.timeOut)
             .expect.element('@newsTag').text.to.equal(tag);
     },
+
     assertDocumentIsVisible:function() {
         this.waitForElementVisible('@documentTag', this.api.globals.timeOut)
             .expect.element('@documentHeading')
             .text.to.equal("UITEST: Document");
-    },
-
+    }
 };
 
 module.exports = {
