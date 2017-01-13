@@ -18,7 +18,7 @@
                     <li class="filter collapsible" id="category-filter">
                         <p class="filter-title">Category</p>
                         <ul class="filters-list">
-                            <li class=@(!currentUrl.HasQueryParam("category") ? "active" : "")>
+                            <li class=@(newsFilter.HasNoCategoryFilter() ? "active" : "")>
                                 <a href="@Url.RouteUrl(newsFilter.WithoutCategory())">All categories</a>
                             </li>
                             @foreach (var category in Model.Categories)

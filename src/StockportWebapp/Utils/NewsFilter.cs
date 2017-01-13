@@ -37,5 +37,10 @@ namespace StockportWebapp.Utils
         {
             return queryUrl.WithoutQueryParam(new List<string>() {"datefrom", "dateto"});
         }
+
+        public bool HasNoCategoryFilter()
+        {
+            return !queryUrl.HasQueryParam("category");
+        }
     }
 }
