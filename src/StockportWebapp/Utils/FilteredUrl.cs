@@ -24,6 +24,11 @@ namespace StockportWebapp.Utils
             return queryUrl.AddQueriesToUrl(new Dictionary<string, string>() { { "category", category } });
         }
 
+        public bool HasNoCategoryFilter()
+        {
+            return !queryUrl.HasQueryParam("category");
+        }
+
         public RouteValueDictionary AddMonthFilter(DateTime startDate)
         {
             return queryUrl.AddQueriesToUrl(new Dictionary<string, string>()
@@ -38,9 +43,9 @@ namespace StockportWebapp.Utils
             return queryUrl.WithoutQueryParam(new List<string>() {"datefrom", "dateto"});
         }
 
-        public bool HasNoCategoryFilter()
+        public bool HasNoDateFilter()
         {
-            return !queryUrl.HasQueryParam("category");
+            return !queryUrl.HasQueryParam("datefrom");
         }
     }
 }

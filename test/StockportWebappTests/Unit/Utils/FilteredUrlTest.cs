@@ -67,6 +67,48 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
+        public void WillIdentifyWhenCategoryFilterIsPresent()
+        {
+            // Arrange
+            var queryUrl = new QueryUrl(
+                new RouteValueDictionary(),
+                new QueryCollection(
+                    new Dictionary<string, StringValues>
+                    {
+                        {
+                            "category",
+                            new StringValues(new[] {"business"})
+                        }
+                    }
+                )
+                );
+            var filteredUrl = new FilteredUrl(queryUrl);
+
+            // Act
+            bool hasNoCategoryfilter = filteredUrl.HasNoCategoryFilter();
+
+            // Assert
+            Assert.Equal(false, hasNoCategoryfilter);
+        }
+
+        [Fact]
+        public void WillIdentifyWhenCategoryFilterIsNotPresent()
+        {
+            // Arrange
+            var queryUrl = new QueryUrl(
+                new RouteValueDictionary(),
+                new QueryCollection(new Dictionary<string, StringValues>()
+                ));
+            var filteredUrl = new FilteredUrl(queryUrl);
+
+            // Act
+            bool hasNoCategoryfilter = filteredUrl.HasNoCategoryFilter();
+
+            // Assert
+            Assert.Equal(true, hasNoCategoryfilter);
+        }
+
+        [Fact]
         public void WillAddDateFromFilterToUrl()
         {
             // Arrange
@@ -201,7 +243,7 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
-        public void WillIdentifyWhenCategoryFilterIsPresent()
+        public void WillIdentifyWhenDateFilterIsPresent()
         {
             // Arrange
             var queryUrl = new QueryUrl(
@@ -210,8 +252,8 @@ namespace StockportWebappTests.Unit.Utils
                     new Dictionary<string, StringValues>
                     {
                         {
-                            "category",
-                            new StringValues(new[] {"business"})
+                            "datefrom",
+                            new StringValues(new[] {"irrelevant"})
                         }
                     }
                 )
@@ -219,14 +261,14 @@ namespace StockportWebappTests.Unit.Utils
             var filteredUrl = new FilteredUrl(queryUrl);
 
             // Act
-            bool hasNoCategoryfilter = filteredUrl.HasNoCategoryFilter();
+            bool hasNoDatefilter = filteredUrl.HasNoDateFilter();
 
             // Assert
-            Assert.Equal(false, hasNoCategoryfilter);
+            Assert.Equal(false, hasNoDatefilter);
         }
 
         [Fact]
-        public void WillIdentifyWhenCategoryFilterIsNotPresent()
+        public void WillIdentifyWhenDateFilterIsNotPresent()
         {
             // Arrange
             var queryUrl = new QueryUrl(
@@ -236,10 +278,10 @@ namespace StockportWebappTests.Unit.Utils
             var filteredUrl = new FilteredUrl(queryUrl);
 
             // Act
-            bool hasNoCategoryfilter = filteredUrl.HasNoCategoryFilter();
+            bool hasNoDatefilter = filteredUrl.HasNoDateFilter();
 
             // Assert
-            Assert.Equal(true, hasNoCategoryfilter);
+            Assert.Equal(true, hasNoDatefilter);
         }
     }
 }

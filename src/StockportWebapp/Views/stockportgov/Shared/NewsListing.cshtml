@@ -32,7 +32,7 @@
                     <li class="filter collapsible">
                         <p class="filter-title">News archive</p>
                         <ul class="filters-list filters-outer-list">
-                            <li class=@(!currentUrl.HasQueryParam("datefrom") ? "active" : "")>
+                            <li class=@(filteredUrl.HasNoDateFilter() ? "active" : "")>
                                 <a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())">All recent news</a>
                             </li>
                             @foreach (var year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
