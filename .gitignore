@@ -25,3 +25,4 @@ test/StockportWebappTests/UI/global.js
 node_modules
 performanceTest/ab-reports/*
 src/StockportWebapp/app-config/injected/*.secrets.json
+src/StockportWebapp/app-config/appsettings.dev-local.json

@@ -6,7 +6,7 @@
 @{ 
     var newsroom = Model.Newsroom;
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
-    var newsUrl = new NewsUrl(currentUrl);
+    var filteredUrl = new FilteredUrl(currentUrl);
 }
 
 <div class="grid-container news-grid-container-margins">
@@ -18,13 +18,13 @@
                     <li class="filter collapsible" id="category-filter">
                         <p class="filter-title">Category</p>
                         <ul class="filters-list">
-                            <li class=@(newsUrl.HasNoCategoryFilter() ? "active" : "")>
-                                <a href="@Url.RouteUrl(newsUrl.WithoutCategory())">All categories</a>
+                            <li class=@(filteredUrl.HasNoCategoryFilter() ? "active" : "")>
+                                <a href="@Url.RouteUrl(filteredUrl.WithoutCategory())">All categories</a>
                             </li>
                             @foreach (var category in Model.Categories)
                             {
                                 <li class=@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")>
-                                    <a href="@Url.RouteUrl(newsUrl.AddCategoryFilter(category))">@category</a>
+                                    <a href="@Url.RouteUrl(filteredUrl.AddCategoryFilter(category))">@category</a>
                                 </li>
                             }
                         </ul>
@@ -33,7 +33,7 @@
                         <p class="filter-title">News archive</p>
                         <ul class="filters-list filters-outer-list">
                             <li class=@(!currentUrl.HasQueryParam("datefrom") ? "active" : "")>
-                                <a href="@Url.RouteUrl(newsUrl.WithoutDateFilter())">All recent news</a>
+                                <a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())">All recent news</a>
                             </li>
                             @foreach (var year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
                             {
@@ -43,7 +43,7 @@
                                         @foreach (var date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
                                         {
                                             <li class=@(currentUrl.MatchesQueryParam("datefrom", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
-                                                <a href="@Url.RouteUrl(newsUrl.AddMonthFilter(date))">@date.ToString("MMMM yyyy")</a>
+                                                <a href="@Url.RouteUrl(filteredUrl.AddMonthFilter(date))">@date.ToString("MMMM yyyy")</a>
                                             </li>
                                         }
                                     </ul>
