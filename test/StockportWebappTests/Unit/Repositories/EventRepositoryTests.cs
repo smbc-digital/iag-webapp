@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+
 
 namespace StockportWebappTests.Unit.Repositories
 {
@@ -16,12 +18,16 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly EventsRepository _eventsRepository;
         private readonly Mock<ILogger<EventsRepository>> _logger;
         private readonly Mock<IHttpEmailClient> _emailClient;
+        private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
 
         public EventRepositoryTests()
         {
             _logger = new Mock<ILogger<EventsRepository>>();
             _emailClient = new Mock<IHttpEmailClient>();
-            _eventsRepository = new EventsRepository(_logger.Object, _emailClient.Object);
+            _applicationConfiguration = new Mock<IApplicationConfiguration>();
+            _applicationConfiguration.Setup(a => a.GetEventSubmissionEmail(It.IsAny<string>()))
+                .Returns(AppSetting.GetAppSetting("EventSubmissionEmail"));
+            _eventsRepository = new EventsRepository(_logger.Object, _emailClient.Object,_applicationConfiguration.Object, new BusinessId("businessId"));
         }
 
         [Fact]

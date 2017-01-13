@@ -3,7 +3,9 @@ using StockportWebapp.Models;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using NuGet.Protocol.Core.v3;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
 
 namespace StockportWebapp.Repositories
 {
@@ -17,11 +19,18 @@ namespace StockportWebapp.Repositories
     {
         private readonly ILogger<EventsRepository> _logger;
         private readonly IHttpEmailClient _emailClient;
+        private readonly IApplicationConfiguration _configuration;
+        private readonly BusinessId _businessId;
 
-        public EventsRepository(ILogger<EventsRepository> logger, IHttpEmailClient emailClient )
+        public EventsRepository(ILogger<EventsRepository> logger, 
+                                IHttpEmailClient emailClient,
+                                IApplicationConfiguration configuration,
+                                BusinessId businessId )
         {
             _logger = logger;
             _emailClient = emailClient;
+            _configuration = configuration;
+            _businessId = businessId;
 
         }
 
@@ -50,10 +59,11 @@ namespace StockportWebapp.Repositories
 
             _logger.LogInformation("Sending event submission form email");
 
+           
             return _emailClient.SendEmailToService
                 (messageSubject,
                 GenerateEmailBody(eventSubmission),
-               string.Empty,
+               _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
                eventSubmission.SubmitterEmail);
         }
     }

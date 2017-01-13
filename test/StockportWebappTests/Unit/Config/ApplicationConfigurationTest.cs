@@ -129,6 +129,15 @@ namespace StockportWebappTests.Unit.Config
             uri.Should().Be(url);
         }
 
+        [Fact]
+        public void ShouldReturnGetEventSubmissionEmail()
+        {
+            var email = _config.GetEventSubmissionEmail("businessId");
+
+            email.IsValid().Should().BeTrue();
+            email.ToString().Should().Be("email@email.com");
+        }
+
         [Theory]
         [InlineData("")]
         [InlineData(null)]

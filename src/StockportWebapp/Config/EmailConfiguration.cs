@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using StockportWebapp.AmazonSES;
-using System;
+﻿using StockportWebapp.AmazonSES;
 
 namespace StockportWebapp.Config
 {

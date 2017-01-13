@@ -16,6 +16,8 @@ namespace StockportWebapp.Config
         AppSetting GetEmailRegion(string businessId);
         AppSetting GetEmailEmailFrom(string businessId);
         AppSetting GetEmailAlertsNewSubscriberUrl(string businessId);
+        AppSetting GetEventSubmissionEmail(string businessId);
+        
         string GetStaticAssetsRootUrl();
     }
 
@@ -88,6 +90,11 @@ namespace StockportWebapp.Config
         public AppSetting GetEmailEmailFrom(string businessId)
         {
             return AppSetting.GetAppSetting(_appsettings[$"{businessId}:Email:EmailFrom"]);
+        }
+
+        public AppSetting GetEventSubmissionEmail(string businessId)
+        {
+            return AppSetting.GetAppSetting(_appsettings[$"{businessId}:EventSubmissionEmail"]);
         }
     }
 }
