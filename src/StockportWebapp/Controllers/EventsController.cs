@@ -75,15 +75,17 @@ namespace StockportWebapp.Controllers
             return View(response);
         }
 
-        [Route("/events/submitevent")]
+        [Route("/events/submit-event")]
         public IActionResult SubmitEvent()
         {
             if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
-            return View();
+            var eventSubmission = new EventSubmission();
+            eventSubmission.EventDate = DateTime.Now.Date;
+            return View(eventSubmission);
         }
 
         [HttpPost]
-        [Route("/events/submitevent")]
+        [Route("/events/submit-event")]
         public async Task<IActionResult> SubmitEvent(EventSubmission eventSubmission)
         {
             if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
@@ -99,7 +101,7 @@ namespace StockportWebapp.Controllers
             return View(eventSubmission);
         }
 
-        [Route("/events/thankyoumessage")]
+        [Route("/events/thank-you-message")]
         public IActionResult ThankYouMessage()
         {
             if (!_featureToggles.EventSubmission) return RedirectToAction("Index");

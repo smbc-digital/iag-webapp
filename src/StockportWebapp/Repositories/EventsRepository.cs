@@ -42,7 +42,8 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append($"Event Date: {eventSubmission.EventDate:dddd dd MMMM yyyy}\n");
             stringBuilder.Append($"Start Time: {eventSubmission.StartTime}\n");
             stringBuilder.Append($"End Time: {eventSubmission.EndTime}\n");
-            stringBuilder.Append($"Occurrences: {eventSubmission.Occurrences}\n");
+            stringBuilder.Append($"End Date: {eventSubmission.EndDate}\n");
+            stringBuilder.Append($"Frequency: {eventSubmission.Frequency}\n");
             stringBuilder.Append($"Fee: {eventSubmission.Fee}\n");
             stringBuilder.Append($"Location: {eventSubmission.Location}\n");            
             stringBuilder.Append($"Submitted By: {eventSubmission.SubmittedBy}\n");

@@ -413,6 +413,35 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("href=\"https://www.stockport.gov.uk/topic/contact-us\"");
         }
 
+        [Fact]
+        public void ItReturnsAEventSubmissionPage()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var formHtmlTag = "<form";
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events/submit-event"));
+
+            result.Should().Contain(formHtmlTag);
+        }
+
+        [Fact]
+        public void ItReturnsThankYouMessageOnSuccessEventSubmission()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var formContents = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Title", "title")
+            });
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/events/submit-event") { Content = formContents };
+
+            var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
+
+            result.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
         #endregion
 
         private void SetBusinessIdRequestHeader(string businessId)

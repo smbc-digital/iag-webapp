@@ -1,21 +1,105 @@
-﻿@using StockportWebapp.ViewModels
-
+﻿@using StockportWebapp.Models
+@model EventSubmission
 @{
-    ViewData["Title"] = "Events";
+    ViewData["Title"] = "Submit Event";
     Layout = "../Shared/_Layout.cshtml";
 }
 
+<link src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
+<script type="text/javascript" src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $("#EventDate, #EndDate").datepicker({
+        inline: true
+    });
+</script>
+
 @section Breadcrumbs {
-  
+
 }
 
-<div class="l-page-content">
-    <div class="full-width-title">
-        <div class="grid-container grid-parent grid-100">
-            <div class="grid-70 tablet-grid-70 mobile-grid-100">
-                <h1 class="full-width-title-with-button">Events</h1>
-            </div>
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="" class="grid-100 mobile-grid-100">
+                <div class="l-content-container">
+                    <div class="grid-100">
+                        <h1 class="full-width-title-with-button">Submit Event</h1>
+                        <form method="post" role="form" action="@Url.Action("SubmitEvent")" novalidate>
+                            <div class="form">
+                                <div class="form-section">
+                                    <fieldset>
+                                        <label asp-for="@Model.Title"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Title" />
+                                        <span asp-validation-for="@Model.Title" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Teaser"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Teaser" />
+                                        <span asp-validation-for="@Model.Teaser" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Description"></label>
+                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
+                                        <label asp-for="@Model.Location"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Location" />
+                                        <span asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.EventDate"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EventDate" />
+                                        <span asp-validation-for="@Model.EventDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.StartTime"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.StartTime" />
+                                        <span asp-validation-for="@Model.StartTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.EndTime"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndTime" />
+                                        <span asp-validation-for="@Model.EndTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Frequency"></label>
+                                        <ul class="radio-list">
+                                            @foreach (var item in Model.Frequencylist)
+                                            {
+                                                <li>
+                                                    <label><input type="radio" value="@item" name="Frequency"> @item</label>
+                                                </li>
+                                            }
+                                        </ul>
+                                        <span asp-validation-for="@Model.Frequency" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.EndDate"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndDate" />
+                                        <span asp-validation-for="@Model.EndDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Fee"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
+                                        <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Image"></label>
+                                        <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
+                                        <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Attachment"></label>
+                                        <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Attachment" />
+                                        <span asp-validation-for="@Model.Attachment" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.SubmittedBy"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.SubmittedBy" />
+                                        <span asp-validation-for="@Model.SubmittedBy" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.SubmitterEmail"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.SubmitterEmail" />
+                                        <span asp-validation-for="@Model.SubmitterEmail" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <stock-button id="uitest-contact-form-submit"
+                                                      class="button-contact-us">Submit Your Event</stock-button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </div>
-    </div>  
+    </div>
 </div>
