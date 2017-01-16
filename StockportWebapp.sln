@@ -7,7 +7,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{834F9BD9-CB1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F15F6E8-5F44-4EA0-BA58-9B9C0AB52F29}"
 	ProjectSection(SolutionItems) = preProject
+		docker.sh = docker.sh
+		Dockerfile = Dockerfile
+		env.sh = env.sh
 		global.json = global.json
+		Makefile = Makefile
+		nightwatch.json = nightwatch.json
+		README.md = README.md
+		trigger.sh = trigger.sh
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "StockportWebapp", "src\StockportWebapp\StockportWebapp.xproj", "{3E4F66AD-1EE4-46C1-A8B3-804BF0A07907}"
