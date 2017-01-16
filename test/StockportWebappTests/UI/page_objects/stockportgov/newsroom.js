@@ -10,10 +10,17 @@ var methods = {
             .click("//a[contains(@href,'" + link + "')]");
     },
 
-    goToCategory: function (category) {
+    goToCategory: function (browser, category) {
         this.waitForElementVisible('@categoryList', this.api.globals.timeOut);
-        browser.useXpath().assert.visible("//a[contains(@href,'/news?category=" + category + "')]")
-            .click("//a[contains(@href,'/news?category=" + category + "')]"); 
+        this.expandCategories(browser);
+        browser.useXpath().click("//a[contains(@href,'/news?category=" + category + "')]");
+        this.expandCategories(browser);
+    },
+
+    expandCategories: function (browser) {
+        browser.useXpath().click("//p[contains(@class, 'mobile-filter-heading') and text()='Filter news']");
+        browser.useXpath().click("//p[@class='filter-title' and text()='Category']");
+        this.waitForElementVisible('@newsList', this.api.globals.timeOut);
     }
 };
 
@@ -26,6 +33,6 @@ module.exports = {
   elements: {
       pageTitle: "h1",
       newsList: ".nav-card-news-list",
-      categoryList: ".nav-card-news-list"
+      categoryList: "#category-list"
   }
 };
