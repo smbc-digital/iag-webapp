@@ -99,16 +99,19 @@ module.exports = {
 
        var newsroom = browser.page.stockportgov.newsroom();
        newsroom.assertTitleIsVisible("News");
-       newsroom.goToCategory(browser, "Elections");
 
-       var news = browser.page.stockportgov.news();
-       news.assertAllCategoriesAreVisible(browser);
-       //news.assertCategoryIsActive("Children%20and%20families");
-       //news.assertCategoryHasCorrectUrl("Children%20and%20families");
-       //news.assertCategoryIsNotActive("All%20Categories");
-       //news.assertCategoryHasCorrectUrl("All%20Categories");
-       //news.assertAllRecentNewsIsActive();
-       //news.assertNewsHasCorrectUrl("All%20Recent%20News");
+       var activeCategory = "Elections";
+       var allCategories = "All%20Categories";
+       var allNews = "All%20Recent%20News";
+       newsroom.goToCategory(browser, activeCategory);
+
+       newsroom.assertAllCategoriesAreVisible(browser);
+       newsroom.assertCategoryIsActive(browser, activeCategory);
+       //newsroom.assertCategoryHasCorrectUrl(browser, activeCategory, '/news?category=" + activeCategory + "');
+       //newsroom.assertCategoryIsNotActive(browser, allCategories);
+       //newsroom.assertCategoryHasCorrectUrl(browser, allCategories, '/news');
+       //newsroom.assertNewsIsActive(browser, allNews);
+       //newsroom.assertNewsHasCorrectUrl(browser, allNews, "");
    },
 
    'Search for Event story and Find All EventsPage Elements': function (browser) {     
