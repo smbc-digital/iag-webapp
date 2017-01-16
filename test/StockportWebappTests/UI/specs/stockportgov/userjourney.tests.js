@@ -92,7 +92,7 @@ module.exports = {
        news.assertDocumentIsVisible();
    },
 
-   'Visit a news article via category, then see correct category and date links active, and containing correct filters': function (browser) {
+   'Visit a news article via category, then check category and date links': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        homepage.navigate();
        homepage.goToNewsroom(browser);
