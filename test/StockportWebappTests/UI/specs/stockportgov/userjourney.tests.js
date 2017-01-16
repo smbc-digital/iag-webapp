@@ -101,17 +101,19 @@ module.exports = {
        newsroom.assertTitleIsVisible("News");
 
        var activeCategory = "Elections";
-       var allCategories = "All%20Categories";
-       var allNews = "All%20Recent%20News";
        newsroom.goToCategory(browser, activeCategory);
-
        newsroom.assertAllCategoriesAreVisible(browser);
-       newsroom.assertCategoryIsActive(browser, activeCategory);
-       //newsroom.assertCategoryHasCorrectUrl(browser, activeCategory, '/news?category=" + activeCategory + "');
-       //newsroom.assertCategoryIsNotActive(browser, allCategories);
-       //newsroom.assertCategoryHasCorrectUrl(browser, allCategories, '/news');
-       //newsroom.assertNewsIsActive(browser, allNews);
-       //newsroom.assertNewsHasCorrectUrl(browser, allNews, "");
+       newsroom.assertLinkIsActive(browser, activeCategory);
+       newsroom.assertLinkHasCorrectUrl(browser, activeCategory, '/news?category=' + activeCategory);
+
+       var allCategories = "All categories";
+       newsroom.assertLinkIsNotActive(browser, allCategories);
+       newsroom.assertLinkHasCorrectUrl(browser, allCategories, '/news');
+
+       var allNews = "All recent news";
+       newsroom.expandNews(browser);
+       newsroom.assertLinkIsActive(browser, allNews);
+       newsroom.assertLinkHasCorrectUrl(browser, allNews, '/news?category=' + activeCategory);
    },
 
    'Search for Event story and Find All EventsPage Elements': function (browser) {     

@@ -12,14 +12,27 @@ var methods = {
 
     goToCategory: function (browser, category) {
         this.waitForElementVisible('@categoryList', this.api.globals.timeOut);
-        this.expandCategories(browser);
+        this.expandCategoriesFromScratch(browser);
         browser.useXpath().click("//a[contains(@href,'/news?category=" + category + "')]");
+        this.expandCategoriesFromScratch(browser);
+    },
+
+    expandCategoriesFromScratch: function (browser) {
+        this.expandNewsFilter(browser);
         this.expandCategories(browser);
     },
 
-    expandCategories: function (browser) {
+    expandNewsFilter: function (browser) {
         browser.useXpath().click("//p[contains(@class, 'mobile-filter-heading') and text()='Filter news']");
+    },
+
+    expandCategories: function (browser) {
         browser.useXpath().click("//p[@class='filter-title' and text()='Category']");
+        this.waitForElementVisible('@newsList', this.api.globals.timeOut);
+    },
+
+    expandNews: function (browser) {
+        browser.useXpath().click("//p[@class='filter-title' and text()='News archive']");
         this.waitForElementVisible('@newsList', this.api.globals.timeOut);
     },
 
@@ -49,8 +62,23 @@ var methods = {
         browser.useXpath().assert.visible("//a[contains(@href,'/news?category=" + category + "')]");
     },
 
-    assertCategoryIsActive: function (browser, category) {
-        browser.useXpath().assert.visible("//a[contains(@href,'/news?category=" + category + "')]/ancestor::li[contains(@class, 'active')]");
+    assertLinkIsActive: function (browser, category) {
+        var textIsCategory = "//a[text()='" + category + "']";
+        var containsActiveClass = "contains(@class, 'active')";
+
+        browser.useXpath().assert.visible(textIsCategory + "/parent::li[" + containsActiveClass + "]");
+    },
+
+    assertLinkIsNotActive: function (browser, category) {
+        var hrefContainsUrl = "//a[contains(@href,'/news?category=" + category + "')]";
+        var textIsCategory = "//a[text()='" + category + "']";
+        var doesNotcontainActiveClass = "not(contains(@class, 'active'))";
+
+        browser.useXpath().assert.visible(textIsCategory + "/parent::li[" + doesNotcontainActiveClass + "]");
+    },
+
+    assertLinkHasCorrectUrl: function (browser, category, url) {
+        browser.useXpath().assert.visible("//a[@href='" + url + "' and text()='" + category + "']");
     }
 };
 
