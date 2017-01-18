@@ -1,0 +1,54 @@
+﻿@using StockportWebapp.Models
+@model ProcessedEvents
+
+<div class="events-calender-container-description">
+    <ul class="events-ul">
+        <li class="events-details">
+            <div class="events-details-symbol-containter">
+                <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
+            </div>
+            <div class="events-details-content">
+                <div class="events-details-heading">Date and time</div>
+                @Model.EventDate.ToString("dddd dd MMMM yyyy") @Model.StartTime - @Model.EndTime
+            </div>
+            <div class="clearfix"></div>
+        </li>
+
+        <li class="events-details">
+            <div class="events-details-symbol-containter">
+                <i class="fa fa-gbp fa-2x events-details-symbol"></i>
+            </div>
+            <div class="events-details-content">
+                <div class="events-details-heading">
+                    Price
+                </div>
+                @Model.Fee
+            </div>
+            <div class="clearfix"></div>
+        </li>
+        <li class="events-details">
+            <div class="events-details-symbol-containter">
+                <i class="fa fa-map-marker fa-2x events-details-symbol"></i>
+            </div>
+            <div class="events-details-content">
+                <div class="events-details-heading">
+                    Location
+                </div>
+                @Html.Raw(Model.Location)
+            </div>
+            <div class="clearfix"></div>
+        </li>
+        <li class="events-details">
+            <div class="events-details-symbol-containter">
+                <i class="fa fa-user fa-2x events-details-symbol"></i>
+            </div>
+            <div class="events-details-content">
+                <div class="events-details-heading">
+                    Submitted by
+                </div>
+                @Model.SubmittedBy
+            </div>
+            <div class="clearfix"></div>
+        </li>
+    </ul>
+</div>
