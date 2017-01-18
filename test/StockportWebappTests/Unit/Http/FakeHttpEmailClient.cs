@@ -1,12 +1,13 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.Http
 {
     public class FakeHttpEmailClient : IHttpEmailClient
     {
-        public Task<HttpStatusCode> SendEmailToService(string subject, string body, string serviceEmail, string userEmail = "")
+        public Task<HttpStatusCode> SendEmailToService(EmailMessage emailMessage)
         {
             return Task.FromResult(HttpStatusCode.OK);
         }

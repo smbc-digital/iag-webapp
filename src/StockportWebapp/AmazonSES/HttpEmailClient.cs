@@ -1,148 +1,74 @@
 using System;
 using System.Net;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Amazon.SimpleEmail;
+using Amazon.SimpleEmail.Model;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.Config;
-using HttpClient = System.Net.Http.HttpClient;
+using StockportWebapp.Builders;
+using StockportWebapp.Models;
 
 namespace StockportWebapp.AmazonSES
 {
     public interface IHttpEmailClient
     {        
-        Task<HttpStatusCode> SendEmailToService(string subject, string body, string serviceEmail, string userEmail = "");
+        Task<HttpStatusCode> SendEmailToService(EmailMessage emailMessage);
     }
 
     public class HttpEmailClient : IHttpEmailClient
     {
-        private readonly AmazonAuthorizationHeader _authorizationHeader;
+        private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
         private readonly ILogger<HttpEmailClient> _logger;
-        private readonly IEmailConfigurationBuilder _emailConfigBuilder;
-        private readonly BusinessId _businessId;
-        private readonly Func<HttpClient> _httpClientMaker;
-        private readonly string _contentType = "application/x-www-form-urlencoded";
+        private readonly IEmailBuilder _emailBuilder;
 
-        private readonly Regex _successfulResponseRegex =
-            new Regex(@"<MessageId>([\w|-]*)</MessageId>[\s \S]*<RequestId>([\w|-]*)</RequestId>", RegexOptions.Compiled);
-
-        public HttpEmailClient(AmazonAuthorizationHeader authorizationHeader, Func<HttpClient> httpClientMaker, 
-            ILogger<HttpEmailClient> logger, IEmailConfigurationBuilder emailConfigBuilder, BusinessId businessId)
+        public HttpEmailClient(ILogger<HttpEmailClient> logger,IEmailBuilder emailBuilder, IAmazonSimpleEmailService amazonSimpleEmailService)
         {
-            _authorizationHeader = authorizationHeader;
-            _httpClientMaker = httpClientMaker;
             _logger = logger;
-            _emailConfigBuilder = emailConfigBuilder;
-            _businessId = businessId;
+            _emailBuilder = emailBuilder;
+            _amazonSimpleEmailService = amazonSimpleEmailService;
         }
 
-        public async Task<HttpStatusCode> SendEmailToService(string emailsubject, string emailbody, string serviceEmail,
-            string userEmail = "")
+        public async Task<HttpStatusCode> SendEmailToService(EmailMessage emailMessage)
         {
-            var config = _emailConfigBuilder.Build(_businessId.ToString());
-
-            if (!config.IsValid())
-            {
-                _logger.LogError($"The Amazon SES client configuration is not valid. {config.ValidityToString()}");
-                return HttpStatusCode.InternalServerError;
-            }
-
-            if (string.IsNullOrEmpty(serviceEmail))
+            if (string.IsNullOrEmpty(emailMessage.ServiceEmail))
             {
                 _logger.LogError("ServiceEmail can not be null or empty. No email has been sent.");
                 return HttpStatusCode.InternalServerError;
             }
-            return await SendEmail(config, emailsubject, emailbody, serviceEmail, userEmail);
-            
+
+            var result =  await SendEmail(emailMessage);
+
+            return result.HttpStatusCode;
         }
 
-        private async Task<HttpStatusCode> SendEmail(AmazonSesClientConfiguration config, string subject, string body, string serviceEmail,
-            string userEmail = "")
+        private async Task<SendRawEmailResponse> SendEmail(EmailMessage emailMessage)
         {
-            var now = DateTime.UtcNow;
-            var dateStamp = now.ToString("yyyyMMdd");
-            var amzDate = now.ToString("yyyyMMddTHHmmssZ");
+            var sendRequest = new SendRawEmailRequest { RawMessage = new RawMessage(_emailBuilder.BuildMessageToStream(emailMessage)) };
 
-            using (var request = HttpRequest(config))
+            try
             {
-                var httpClient = _httpClientMaker();
-                var payload = BuildRequestPayload(config, subject, body, serviceEmail, userEmail);
-                var authHeaders = _authorizationHeader.Create(config, payload, dateStamp, amzDate);
+                var response = await _amazonSimpleEmailService.SendRawEmailAsync(sendRequest);
 
-                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Authorization", authHeaders);
-                request.Headers.Add("X-Amz-Date", amzDate);
-                request.Content = new StringContent(payload, Encoding.UTF8, _contentType);
+                LogResponse(response);
 
-                var responseMessage = await httpClient.SendAsync(request);
-                var response = await responseMessage.Content.ReadAsStringAsync();
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    LogSuccessfulResponse(response);
-                }
-                else
-                {
-                    LogErrorResponse(response);
-                }
-
-                return responseMessage.StatusCode;
+                return response;
+            }
+            catch (Exception exception)
+            {
+                _logger.LogError($"An error occurred trying to send an email to Amazon SES. \n{exception.Message}");
+                return new SendRawEmailResponse {HttpStatusCode = HttpStatusCode.BadRequest};
             }
         }
 
-        private void LogErrorResponse(string response)
+        private void LogResponse(SendRawEmailResponse response)
         {
-            _logger.LogError($"An error occurred trying to send an email to Amazon SES. \n{response}");
-        }
-
-        private void LogSuccessfulResponse(string response)
-        {
-            Match match = _successfulResponseRegex.Match(response);
-            if (match.Success)
+            if (response.HttpStatusCode == HttpStatusCode.OK)
             {
-                _logger.LogInformation(
-                    $"An email was sent to Amazon SES with message id: {match.Groups[1]} and request id {match.Groups[2]}");
+                _logger.LogInformation($"An email was sent to Amazon SES with message id: {response.MessageId} and request id {response.ResponseMetadata.RequestId}");
             }
             else
             {
-                _logger.LogWarning("Could not extract message id or request id from Amazon SES response.");
+                _logger.LogWarning($"There was a problem sending an email, message id: {response.MessageId} and request id: {response.ResponseMetadata.RequestId} and status code {response.HttpStatusCode}");
             }
-        }
-
-        private HttpRequestMessage HttpRequest(AmazonSesClientConfiguration config)
-        {
-            return new HttpRequestMessage
-            {
-                RequestUri = new Uri(config.Endpoint),
-                Method = HttpMethod.Post
-            };
-        }
-
-        private string BuildRequestPayload(AmazonSesClientConfiguration config, string subject, string body, string serviceEmail, string userEmail)
-        {
-
-            var serviceEmails = serviceEmail.Split(new string[] {","}, StringSplitOptions.RemoveEmptyEntries);
-            return "Action=SendEmail" +
-                   GenerateToAddresses(serviceEmails) +
-                   (string.IsNullOrWhiteSpace(userEmail)
-                       ? ""
-                       : "&Destination.CcAddresses.member.1=" + Uri.EscapeDataString(userEmail)) +
-                   "&Message.Subject.Data=" + Uri.EscapeDataString(subject) +
-                   "&Message.Body.Text.Data=" + Uri.EscapeDataString(body) +
-                   "&Source=" + Uri.EscapeDataString(config.EmailFrom);
-        }
-
-        private string GenerateToAddresses(string[] serviceEmails)
-        {
-            int counter = 1;
-            StringBuilder sb = new StringBuilder("");
-            foreach (var serviceEmail in serviceEmails)
-            {
-                sb.Append("&Destination.ToAddresses.member." + counter.ToString() + "=" +
-                          Uri.EscapeDataString(serviceEmail.Trim()));
-                counter++;
-            }
-            return sb.ToString();
         }
     }
 }

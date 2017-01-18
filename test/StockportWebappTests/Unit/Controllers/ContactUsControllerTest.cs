@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Controllers;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -51,7 +53,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
 
-            _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<string>(), It.IsAny<string>(), _serviceEmails, It.IsAny<string>()));
+            _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<EmailMessage>()));
         }
 
         [Fact]
@@ -70,8 +72,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             AsyncTestHelper.Resolve(_controller.Contact(invalidDetails));
 
-            _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<string>(),
-                It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+            _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<EmailMessage>()), Times.Never);
         }
 
         [Fact]
@@ -79,19 +80,16 @@ namespace StockportWebappTests.Unit.Controllers
         {
             AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
 
-            _mockEmailClient.Verify(client => client.SendEmailToService(It.IsNotNull<string>(),
-                It.Is<string>(body => body.Contains(_userName) &&
-                                      body.Contains(_userEmail) &&
-                                      body.Contains(_emailSubject) &&
-                                      body.Contains(_emailBody) &&
-                                      body.Contains(_url)
-                                      ), It.IsAny<string>(), It.IsAny<string>()));
+            _mockEmailClient.Verify(client => client.SendEmailToService(It.Is<EmailMessage>(
+                message => !string.IsNullOrEmpty(message.Subject) &&
+                message.Body.Contains(_userName) && message.Body.Contains(_userEmail) && message.Body.Contains(_emailSubject) && message.Body.Contains(_emailBody) && message.Body.Contains(_url)
+            )));
         }
 
         [Fact]
         public void ShouldSendSentStatusBackInTheRedirectAsTrueIfMessageValidAndIsSentSuccessfully()
         {
-            _mockEmailClient.Setup(o => o.SendEmailToService(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(HttpStatusCode.OK));
+            _mockEmailClient.Setup(o => o.SendEmailToService(It.IsAny<EmailMessage>())).ReturnsAsync(HttpStatusCode.OK);
 
             var pageResult = AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
 
@@ -105,7 +103,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldSendSentStatusBackInTheRedirectAsFalseIfMessageValidButIsNotSentSuccessfully()
         {
-            _mockEmailClient.Setup(o => o.SendEmailToService(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns(Task.FromResult(HttpStatusCode.BadRequest));
+            _mockEmailClient.Setup(o => o.SendEmailToService(It.IsAny<EmailMessage>())).Returns(Task.FromResult(HttpStatusCode.BadRequest));
 
             var pageResult = AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails)) as RedirectResult;
 
@@ -140,9 +138,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
 
-            _mockEmailClient.Verify(client => client.SendEmailToService(
-                It.Is<string>(subject => subject.Contains(_title) ),
-                It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
+            _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<EmailMessage>()));
         }
     }
 }

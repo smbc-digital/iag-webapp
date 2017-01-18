@@ -1,9 +1,10 @@
-﻿using System.Net;
+﻿using System.Collections.Generic;
+using System.Net;
 using StockportWebapp.Models;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using NuGet.Protocol.Core.v3;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 
@@ -60,12 +61,14 @@ namespace StockportWebapp.Repositories
 
             _logger.LogInformation("Sending event submission form email");
 
-           
-            return _emailClient.SendEmailToService
-                (messageSubject,
-                GenerateEmailBody(eventSubmission),
+            var attachments = new List<IFormFile>();
+            if (eventSubmission.Image != null) attachments.Add(eventSubmission.Image);
+            if (eventSubmission.Attachment != null) attachments.Add(eventSubmission.Attachment);
+
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBody(eventSubmission),
+               _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString(),
                _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
-               eventSubmission.SubmitterEmail);
+               attachments));
         }
     }
 }

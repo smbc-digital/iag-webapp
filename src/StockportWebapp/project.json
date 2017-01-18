@@ -43,7 +43,10 @@
     "Humanizer.Core": "2.1.0",
     "Quartz": "3.0.0-alpha2",
     "WilderMinds.RssSyndication": "1.0.4",
-    "AngleSharp": "0.9.9"
+    "AngleSharp": "0.9.9",
+    "AWSSDK.Core": "3.3.7.1",
+    "AWSSDK.SimpleEmail": "3.3.1.4",
+    "MimeKit": "1.10.0"
   },
 
   "tools": {

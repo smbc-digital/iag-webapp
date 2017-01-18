@@ -47,8 +47,8 @@ namespace StockportWebappTests
         {
             base.ConfigureServices(services);
             services.AddSingleton<IHttpClient>(p => GetHttpClient(p.GetService<ILoggerFactory>()));
-            services.AddSingleton<IHttpEmailClient, FakeHttpEmailClient>();
             services.AddSingleton<Func<System.Net.Http.HttpClient>>(p => () => new System.Net.Http.HttpClient(new FakeResponseHandlerFactory().ResponseHandler));
+            services.AddSingleton<IHttpEmailClient, FakeHttpEmailClient>();
         }
     }
 

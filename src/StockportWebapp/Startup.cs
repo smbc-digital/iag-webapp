@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Amazon;
+using Amazon.Runtime;
+using Amazon.SimpleEmail;
 using AngleSharp.Parser.Html;
 using Markdig;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using NLog.Extensions.Logging;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Builders;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Services;
 using StockportWebapp.Config;
@@ -118,14 +122,17 @@ namespace StockportWebapp
                     p.GetService<UrlGenerator>()));
 
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
-            services.AddTransient<AmazonAuthorizationHeader>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
+            services.AddTransient<IEmailBuilder, EmailBuilder>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
             services.AddTransient<HtmlParser>();
 
-            services.AddSingleton(new AmazonSESKeys(
-                                    Configuration["ses:accessKey"],
-                                    Configuration["ses:secretKey"]));
+            var amazonSesKeys = new AmazonSESKeys(Configuration["ses:accessKey"], Configuration["ses:secretKey"]);
+            services.AddSingleton(amazonSesKeys);
+
+            var credentals = new BasicAWSCredentials(amazonSesKeys.Accesskey, amazonSesKeys.SecretKey);
+
+            services.AddTransient<IAmazonSimpleEmailService>(o => new AmazonSimpleEmailServiceClient(credentals, RegionEndpoint.EUWest1));
 
             services.AddSingleton<IStaticAssets, StaticAssets>();
 
@@ -135,9 +142,9 @@ namespace StockportWebapp
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
             services.AddTransient<IEventsRepository, EventsRepository>();
-
+            
             services.Configure<RazorViewEngineOptions>(
-                options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
+            options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

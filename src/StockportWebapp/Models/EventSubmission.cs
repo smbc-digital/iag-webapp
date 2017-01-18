@@ -46,13 +46,13 @@ namespace StockportWebapp.Models
         [Display(Name = "Submitted By")]
         public string SubmittedBy { get; set; }
 
-        [FileExtensions(Extensions = "jpg,png",ErrorMessage = "Should be an png or jpg file")]
+        //[FileExtensions(Extensions = "jpg, png",ErrorMessage = "Should be an png or jpg file")]
         public IFormFile Image { get; set; }
 
         [Required]
         public string Description { get; set; }
 
-        [FileExtensions(Extensions = "docx,doc,pdf,odt", ErrorMessage = "Should be a docx, doc, pdf or odt file")]
+        //[FileExtensions(Extensions = "docx, doc, pdf, odt", ErrorMessage = "Should be a docx, doc, pdf or odt file")]
         public IFormFile Attachment { get; set; }
 
         [Required]

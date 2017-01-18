@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using Xunit;
 using FluentAssertions;
@@ -18,16 +19,19 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly EventsRepository _eventsRepository;
         private readonly Mock<ILogger<EventsRepository>> _logger;
         private readonly Mock<IHttpEmailClient> _emailClient;
-        private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
 
         public EventRepositoryTests()
         {
             _logger = new Mock<ILogger<EventsRepository>>();
             _emailClient = new Mock<IHttpEmailClient>();
-            _applicationConfiguration = new Mock<IApplicationConfiguration>();
-            _applicationConfiguration.Setup(a => a.GetEventSubmissionEmail(It.IsAny<string>()))
+            var applicationConfiguration = new Mock<IApplicationConfiguration>();
+
+            applicationConfiguration.Setup(a => a.GetEventSubmissionEmail(It.IsAny<string>()))
                 .Returns(AppSetting.GetAppSetting("EventSubmissionEmail"));
-            _eventsRepository = new EventsRepository(_logger.Object, _emailClient.Object,_applicationConfiguration.Object, new BusinessId("businessId"));
+            applicationConfiguration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
+                .Returns(AppSetting.GetAppSetting("EventSubmissionEmail"));
+
+            _eventsRepository = new EventsRepository(_logger.Object, _emailClient.Object, applicationConfiguration.Object, new BusinessId("businessId"));
         }
 
         [Fact]
@@ -73,14 +77,9 @@ namespace StockportWebappTests.Unit.Repositories
         [Fact]
         public async void ItShouldSendAnEmailAndReturnAStatusCodeOf200()
         {
-            var eventSubmission = new EventSubmission {SubmitterEmail = "test@testing.xyz"};
+            _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ServiceEmail == AppSetting.GetAppSetting("EventSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
 
-            _emailClient.Setup(
-                e =>
-                    e.SendEmailToService(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(),
-                        "test@testing.xyz")).ReturnsAsync(HttpStatusCode.OK);
-
-            var response = await _eventsRepository.SendEmailMessage(eventSubmission);
+            var response = await _eventsRepository.SendEmailMessage(new EventSubmission());
 
             response.Should().Be(HttpStatusCode.OK);
         }

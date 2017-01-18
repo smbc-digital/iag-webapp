@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Models;
 using StockportWebapp.ViewDetails;
 
 namespace StockportWebapp.Controllers
@@ -74,10 +77,11 @@ namespace StockportWebapp.Controllers
             _logger.LogDebug("Sending contact us form email");
 
             return _emailClient.SendEmailToService
-                (messageSubject,
+                (new EmailMessage(messageSubject,
                 CreateMessageBody(contactUsDetails),
                 contactUsDetails.ServiceEmail,
-                contactUsDetails.Email);
+                contactUsDetails.Email,
+                new List<IFormFile>()));
         }
 
         private string CreateMessageBody(ContactUsDetails contactUsDetails)
