@@ -1,7 +1,8 @@
 ﻿@model StockportWebapp.Models.ProcessedProfile
 @{
     ViewData["Title"] = Model.Title;
-    ViewData["og:title"] = Model.Title;
+    var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
+    ViewData["og:title"] = articleTitle + Model.Title;
     ViewData["Description"] = Model.Teaser;
     Layout = "../Shared/_Layout.cshtml";
 }
