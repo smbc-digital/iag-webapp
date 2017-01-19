@@ -60,7 +60,7 @@ var methods = {
     goToEventsCalendar: function (browser) {
         this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut)
             .expect.element('@eventcalendarLink').text.to.equal("View Events");
-        browser.click("#test-eventscalendar-link");
+        browser.useCss().click("#test-eventscalendar-link");
     },
 
     goToAtoZList: function(browser, letter) {
