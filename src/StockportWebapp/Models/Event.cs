@@ -14,9 +14,6 @@ namespace StockportWebapp.Models
         public string Fee { get; set; }
         public string Location { get; set; }
         public string SubmittedBy { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
-        public bool Featured { get; set; }
         public DateTime EventDate { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }

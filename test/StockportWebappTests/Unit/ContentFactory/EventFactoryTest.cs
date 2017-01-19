@@ -38,7 +38,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
             _event = new Event { Title = Title,  Slug = Slug,  Teaser = Teaser,  ImageUrl = Image,  ThumbnailImageUrl = ThumbnailImage, Description = Description, Fee = Fee, Location = Location,
-                                 SubmittedBy = SubmittedBy,  Longitude = string.Empty, Latitude = string.Empty, Featured = false, EventDate = _eventDate, StartTime = StartTime,
+                                 SubmittedBy = SubmittedBy, EventDate = _eventDate, StartTime = StartTime,
                                  EndTime = EndTime, Breadcrumbs = _breadcrumbs };
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
@@ -57,7 +57,6 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.Fee.Should().Be("Free");
             result.Location.Should().Be("Bramall Hall, Carpark, SK7 6HG");
             result.SubmittedBy.Should().Be("Friends of Stockport");
-            result.Featured.Should().Be(false);
             result.EventDate.Should().Be(new DateTime(2016, 12, 30));
             result.StartTime.Should().Be("10:00");
             result.EndTime.Should().Be("17:00");

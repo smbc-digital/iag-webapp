@@ -33,10 +33,9 @@ namespace StockportWebappTests.Unit.Controllers
         public EventsControllerTest()
         {
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
-                                      Location = "location", SubmittedBy = "submittedBy", Longitude = "longitude", Latitude = "latitude", Featured = false,
-                                      EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>() };
+                                      Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>() };
             var eventsCalendar = new EventCalendar(new List<Event> { _eventsItem });
-            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", "longitude", "latitude", false, new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>());
+            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>());
 
             // setup responses (with mock data)
             responseListing = new HttpResponse(200, eventsCalendar, "");
@@ -92,9 +91,6 @@ namespace StockportWebappTests.Unit.Controllers
             model.Fee.Should().Be("fee");
             model.Location.Should().Be("location");
             model.SubmittedBy.Should().Be("submittedBy");
-            model.Longitude.Should().Be("longitude");
-            model.Latitude.Should().Be("latitude");
-            model.Featured.Should().Be(false);
             model.EventDate.Should().Be(new DateTime(2016, 12, 30, 00, 00, 00));
             model.StartTime.Should().Be("startTime");
             model.EndTime.Should().Be("endTime");
