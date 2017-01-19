@@ -3,6 +3,7 @@
 @{
     var topic = Model.Topic;
     ViewData["Title"] = topic.Name;
+    ViewData["og:title"] = topic.Name;
     ViewData["Description"] = topic.Teaser;
     Layout = "../Shared/_Layout.cshtml";
 }

@@ -1,6 +1,7 @@
 ﻿@model StockportWebapp.ViewModels.AtoZViewModel
 @{
     ViewData["Title"] = Model.CurrentLetter;
+    ViewData["og:title"] = Model.CurrentLetter;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = "Stockport Council A to Z";
 }

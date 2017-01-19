@@ -5,6 +5,7 @@
     ViewData["Description"] = Model.NewsItem.Teaser;
     Layout = "../Shared/_Layout.cshtml";
     var latestNews = Model.GetLatestNews();
+    ViewData["og:title"] = Model.NewsItem.Title;
 }
 
 @section Breadcrumbs {
