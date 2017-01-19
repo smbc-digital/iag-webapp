@@ -6,16 +6,8 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-<link src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" />
-<script type="text/javascript" src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script type="text/javascript">
-    $("#EventDate, #EndDate").datepicker({
-        inline: true
-    });
-</script>
-
 @section Breadcrumbs {
-
+    @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Events", "events", "events")})
 }
 
 <div class="grid-container-full-width">
@@ -61,7 +53,7 @@
                                         <span asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.EventDate"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EventDate" />
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control datepicker" type="text" asp-for="@Model.EventDate" />
                                         <span asp-validation-for="@Model.EventDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.StartTime"></label>
@@ -84,7 +76,7 @@
                                         <span asp-validation-for="@Model.Frequency" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.EndDate"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndDate" />
+                                        <input type="text" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control datepicker" asp-for="@Model.EndDate" />
                                         <span asp-validation-for="@Model.EndDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Fee"></label>

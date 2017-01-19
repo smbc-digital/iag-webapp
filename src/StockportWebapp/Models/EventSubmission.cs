@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
+using StockportWebapp.Validation;
 
 namespace StockportWebapp.Models
 {
@@ -46,13 +47,13 @@ namespace StockportWebapp.Models
         [Display(Name = "Submitted By")]
         public string SubmittedBy { get; set; }
 
-        //[FileExtensions(Extensions = "jpg, png",ErrorMessage = "Should be an png or jpg file")]
+        [ImageFileExtensionValidation]
         public IFormFile Image { get; set; }
 
         [Required]
         public string Description { get; set; }
 
-        //[FileExtensions(Extensions = "docx, doc, pdf, odt", ErrorMessage = "Should be a docx, doc, pdf or odt file")]
+        [DocumentFileExtensionValidation]
         public IFormFile Attachment { get; set; }
 
         [Required]

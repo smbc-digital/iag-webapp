@@ -1,0 +1,20 @@
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+
+namespace StockportWebapp.Validation
+{
+    public class DocumentFileExtensionValidation : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            var file = value as IFormFile;
+
+            if (file == null) return ValidationResult.Success;
+
+            if (file.FileName.EndsWith(".docx") || file.FileName.EndsWith(".doc") || file.FileName.EndsWith(".pdf") || file.FileName.EndsWith(".odt"))
+                return ValidationResult.Success;
+
+            return new ValidationResult("Should be a docx, doc, pdf or odt file");
+        }
+    }
+}
