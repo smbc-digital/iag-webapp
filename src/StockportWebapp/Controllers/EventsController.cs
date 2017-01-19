@@ -79,8 +79,7 @@ namespace StockportWebapp.Controllers
         public IActionResult SubmitEvent()
         {
             if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
-            var eventSubmission = new EventSubmission();
-            eventSubmission.EventDate = DateTime.Now.Date;
+            var eventSubmission = new EventSubmission {EventDate = DateTime.Now.Date};
             return View(eventSubmission);
         }
 
@@ -95,6 +94,10 @@ namespace StockportWebapp.Controllers
                 if (successCode == HttpStatusCode.OK)
                 {
                     return RedirectToAction("ThankYouMessage");
+                }
+                else
+                {
+                    ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
                 }
             }
 

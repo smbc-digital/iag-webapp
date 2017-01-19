@@ -60,15 +60,12 @@ namespace StockportWebapp.Models
         [Display(Name = "Submitter Email")]
         public string SubmitterEmail { get; set; }
 
-        public EventSubmission()
-        {
-            
-        }
+        public EventSubmission() { }
 
         public EventSubmission(string title,  
             string teaser, DateTime eventDate, string startTime, string endTime, DateTime endDate,
             string frequency, string fee, string location, string submittedBy, IFormFile image, 
-            string description, IFormFile attachment)
+            string description, IFormFile attachment, string submitterEmail)
         {
             Title = title;
             Teaser = teaser;
@@ -83,6 +80,7 @@ namespace StockportWebapp.Models
             Image = image;
             Description = description;
             Attachment = attachment;
+            SubmitterEmail = submitterEmail;
         }
     }
 }

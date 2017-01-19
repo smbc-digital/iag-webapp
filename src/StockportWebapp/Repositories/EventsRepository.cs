@@ -37,20 +37,22 @@ namespace StockportWebapp.Repositories
 
         public string GenerateEmailBody(EventSubmission eventSubmission)
         {
-            var stringBuilder = new StringBuilder("Event Submssion\n\n");
-            stringBuilder.Append($"Title: {eventSubmission.Title}\n");
-            stringBuilder.Append($"Teaser: {eventSubmission.Teaser}\n");
-            stringBuilder.Append($"Event Date: {eventSubmission.EventDate:dddd dd MMMM yyyy}\n");
-            stringBuilder.Append($"Start Time: {eventSubmission.StartTime}\n");
-            stringBuilder.Append($"End Time: {eventSubmission.EndTime}\n");
-            stringBuilder.Append($"End Date: {eventSubmission.EndDate}\n");
-            stringBuilder.Append($"Frequency: {eventSubmission.Frequency}\n");
-            stringBuilder.Append($"Fee: {eventSubmission.Fee}\n");
-            stringBuilder.Append($"Location: {eventSubmission.Location}\n");            
-            stringBuilder.Append($"Submitted By: {eventSubmission.SubmittedBy}\n");
-            stringBuilder.Append($"Description: {eventSubmission.Description}\n");
-            if (eventSubmission.Image != null) stringBuilder.Append($"Image: {eventSubmission.Image.FileName}\n");
-            if (eventSubmission.Attachment != null) stringBuilder.Append($"Attachment: {eventSubmission.Attachment.FileName}\n");
+            var stringBuilder = new StringBuilder("<h1>Event Submssion</h1>");
+            stringBuilder.Append($"<p>Title: {eventSubmission.Title}<br />");
+            stringBuilder.Append($"Teaser: {eventSubmission.Teaser}<br />");
+            stringBuilder.Append($"Event Date: {eventSubmission.EventDate:dddd dd MMMM yyyy}<br />");
+            stringBuilder.Append($"Start Time: {eventSubmission.StartTime}<br />");
+            stringBuilder.Append($"End Time: {eventSubmission.EndTime}<br />");
+            stringBuilder.Append($"End Date: {eventSubmission.EndDate}<br />");
+            stringBuilder.Append($"Frequency: {eventSubmission.Frequency}<br />");
+            stringBuilder.Append($"Fee: {eventSubmission.Fee}<br />");
+            stringBuilder.Append($"Location: {eventSubmission.Location}<br />");            
+            stringBuilder.Append($"Submitted By: {eventSubmission.SubmittedBy}<br />");
+            stringBuilder.Append($"Description: {eventSubmission.Description}<br />");
+            if (eventSubmission.Image != null) stringBuilder.Append($"Image: {eventSubmission.Image.FileName}<br />");
+            if (eventSubmission.Attachment != null) stringBuilder.Append($"Attachment: {eventSubmission.Attachment.FileName}<br />");
+            stringBuilder.Append($"<br />Submitter Email: {eventSubmission.SubmitterEmail}");
+            stringBuilder.Append("</p>");
 
             return stringBuilder.ToString();
         }
