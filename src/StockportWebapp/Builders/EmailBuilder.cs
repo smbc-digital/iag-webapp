@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using MimeKit;
@@ -23,8 +24,21 @@ namespace StockportWebapp.Builders
         private MimeMessage BuildMessage(EmailMessage emailMessage)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress(string.Empty, emailMessage.ServiceEmail));
-            message.To.Add(new MailboxAddress(string.Empty, emailMessage.UserEmail));
+
+            var toEmails = emailMessage.ToEmail.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var email in toEmails)
+            {
+                message.To.Add(new MailboxAddress(string.Empty, email));
+            }
+
+            message.From.Add(new MailboxAddress(string.Empty, emailMessage.FromEmail));
+
+            if (!string.IsNullOrEmpty(emailMessage.UserEmail))
+            {
+                message.Cc.Add(new MailboxAddress(string.Empty, emailMessage.UserEmail));
+            }
+
             message.Subject = emailMessage.Subject;
             message.Body = BuildMessageBody(emailMessage.Body, emailMessage.Attachments).ToMessageBody();
             return message;

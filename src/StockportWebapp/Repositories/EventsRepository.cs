@@ -43,7 +43,7 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append($"Event Date: {eventSubmission.EventDate:dddd dd MMMM yyyy}<br />");
             stringBuilder.Append($"Start Time: {eventSubmission.StartTime}<br />");
             stringBuilder.Append($"End Time: {eventSubmission.EndTime}<br />");
-            stringBuilder.Append($"End Date: {eventSubmission.EndDate}<br />");
+            if (eventSubmission.EndDate != null) stringBuilder.Append($"End Date: {eventSubmission.EndDate:dddd dd MMMM yyyy}<br />");
             stringBuilder.Append($"Frequency: {eventSubmission.Frequency}<br />");
             stringBuilder.Append($"Fee: {eventSubmission.Fee}<br />");
             stringBuilder.Append($"Location: {eventSubmission.Location}<br />");            
@@ -67,9 +67,14 @@ namespace StockportWebapp.Repositories
             if (eventSubmission.Image != null) attachments.Add(eventSubmission.Image);
             if (eventSubmission.Attachment != null) attachments.Add(eventSubmission.Attachment);
 
+            var fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
+                ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
+                : string.Empty;
+
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBody(eventSubmission),
-               _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString(),
+                fromEmail,
                _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
+               string.Empty,
                attachments));
         }
     }

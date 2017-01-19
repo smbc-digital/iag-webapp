@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.ViewDetails;
 
@@ -18,11 +19,15 @@ namespace StockportWebapp.Controllers
     {
         private readonly IHttpEmailClient _emailClient;
         private readonly ILogger<ContactUsController> _logger;
+        private readonly IApplicationConfiguration _applicationConfiguration;
+        private readonly BusinessId _businessId;
 
-        public ContactUsController(IHttpEmailClient emailClient, ILogger<ContactUsController> logger)
+        public ContactUsController(IHttpEmailClient emailClient, ILogger<ContactUsController> logger, IApplicationConfiguration applicationConfiguration, BusinessId businessId)
         {
             _emailClient = emailClient;
             _logger = logger;
+            _applicationConfiguration = applicationConfiguration;
+            _businessId = businessId;
         }
 
         [Route("/contact-us")]
@@ -76,9 +81,14 @@ namespace StockportWebapp.Controllers
             var messageSubject = $"{contactUsDetails.Title} - {contactUsDetails.Subject}";
             _logger.LogDebug("Sending contact us form email");
 
+            var fromEmail = _applicationConfiguration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
+                ? _applicationConfiguration.GetEmailEmailFrom(_businessId.ToString()).ToString()
+                : string.Empty;
+
             return _emailClient.SendEmailToService
                 (new EmailMessage(messageSubject,
                 CreateMessageBody(contactUsDetails),
+                fromEmail,
                 contactUsDetails.ServiceEmail,
                 contactUsDetails.Email,
                 new List<IFormFile>()));
@@ -86,15 +96,14 @@ namespace StockportWebapp.Controllers
 
         private string CreateMessageBody(ContactUsDetails contactUsDetails)
         {
-            return "Thank you for contacting us\n\n"+
+            return "Thank you for contacting us<br /><br />" +
                    "We have received your message and will get back to you." +
-                   "This confirms that we have received your enquiry and a copy of the information received is detailed below:\n\n" +
-                   $"SENDER : {contactUsDetails.Name}\n" +
-                   $"EMAIL: {contactUsDetails.Email}\n" +
-                   $"SUBJECT: {contactUsDetails.Subject}\n" +
-                   $"MESSAGE: {contactUsDetails.Message}\n" +
-                   $"\n" +
-                   $"From page: {Request.Headers["referer"]}\n";
+                   "This confirms that we have received your enquiry and a copy of the information received is detailed below:<br /><br />" +
+                   $"SENDER : {contactUsDetails.Name}<br />" +
+                   $"EMAIL: {contactUsDetails.Email}<br />" +
+                   $"SUBJECT: {contactUsDetails.Subject}<br />" +
+                   $"MESSAGE: {contactUsDetails.Message}<br /><br />" +
+                   $"From page: {Request.Headers["referer"]}<br />";
         }
 
         [Route("/thank-you")]

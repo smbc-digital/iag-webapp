@@ -29,9 +29,9 @@ namespace StockportWebapp.AmazonSES
 
         public async Task<HttpStatusCode> SendEmailToService(EmailMessage emailMessage)
         {
-            if (string.IsNullOrEmpty(emailMessage.ServiceEmail))
+            if (string.IsNullOrEmpty(emailMessage.ToEmail))
             {
-                _logger.LogError("ServiceEmail can not be null or empty. No email has been sent.");
+                _logger.LogError("ToEmail can not be null or empty. No email has been sent.");
                 return HttpStatusCode.InternalServerError;
             }
 

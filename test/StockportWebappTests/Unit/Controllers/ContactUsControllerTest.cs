@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using StockportWebapp.Config;
 using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -21,6 +22,8 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly ContactUsController _controller;
         private readonly Mock<IHttpEmailClient> _mockEmailClient;
         private readonly Mock<ILogger<ContactUsController>> _mockLogger;
+        private readonly Mock<IApplicationConfiguration> _configuration;
+        private readonly BusinessId _businessId;
         private readonly string _userEmail = "contactme@email.com";
         private readonly ContactUsDetails _validContactDetails;
         private readonly string _userName = "name";
@@ -36,7 +39,13 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _mockEmailClient = new Mock<IHttpEmailClient>();
             _mockLogger = new Mock<ILogger<ContactUsController>>();
-            _controller = new ContactUsController(_mockEmailClient.Object, _mockLogger.Object);
+            _configuration = new Mock<IApplicationConfiguration>();
+
+            _configuration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
+                .Returns(AppSetting.GetAppSetting("businessid:Email:EmailFrom"));
+
+            _businessId = new BusinessId("businessid");
+            _controller = new ContactUsController(_mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId);
             _validContactDetails = new ContactUsDetails(_userName, _userEmail, _emailSubject,
                 _emailBody, _serviceEmails,_title);
 

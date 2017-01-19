@@ -22,7 +22,7 @@ namespace StockportWebappTests.Unit.Builders
         [Fact]
         public void ShouldReturnMemoryStreamForEmailWithoutAttachments()
         {
-            var emailMessage = new EmailMessage("subject", "body", "serviceEmail@mail.com", "userEmail@mail.com",
+            var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "serviceEmail@mail.com", "userEmail@mail.com",
                 new List<IFormFile>());
 
             var stream = _emailBuilder.BuildMessageToStream(emailMessage);
@@ -44,7 +44,7 @@ namespace StockportWebappTests.Unit.Builders
             var attachment = File.OpenRead("TestFiles/test_attachment.txt");
             attachments.Add(new FormFile(attachment, 0, attachment.Length, "test_attachment.txt", "test_attachment.txt"));
             
-            var emailMessage = new EmailMessage("subject", "body", "serviceEmail@mail.com", "userEmail@mail.com", attachments);
+            var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "serviceEmail@mail.com", "userEmail@mail.com", attachments);
 
             var stream = _emailBuilder.BuildMessageToStream(emailMessage);
 
@@ -69,7 +69,7 @@ namespace StockportWebappTests.Unit.Builders
             attachments.Add(new FormFile(attachment, 0, attachment.Length, "test_attachment.txt", "test_attachment.txt"));
             attachments.Add(new FormFile(docxAttachment, 0, docxAttachment.Length, "test_document.docx", "test_document.docx"));
 
-            var emailMessage = new EmailMessage("subject", "body", "serviceEmail@mail.com", "userEmail@mail.com", attachments);
+            var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "serviceEmail@mail.com", "userEmail@mail.com", attachments);
 
             var stream = _emailBuilder.BuildMessageToStream(emailMessage);
 
@@ -84,6 +84,26 @@ namespace StockportWebappTests.Unit.Builders
 
             attachment.Dispose();
             docxAttachment.Dispose();
+        }
+
+        [Fact]
+        public void ShouldReturnMemoryStreamWithMultipleSenderEmails()
+        {
+            var attachments = new List<IFormFile>();
+
+            var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "serviceEmail@mail.com, serviceEmail2@mail.com, serviceEmail3@mail.com", "userEmail@mail.com", attachments);
+
+            var stream = _emailBuilder.BuildMessageToStream(emailMessage);
+
+            var emailAsString = Encoding.UTF8.GetString(stream.ToArray());
+
+            emailAsString.Should().Contain("subject");
+            emailAsString.Should().Contain("body");
+            emailAsString.Should().Contain("from@mail.com");
+            emailAsString.Should().Contain("serviceEmail@mail.com");
+            emailAsString.Should().Contain("serviceEmail2@mail.com");
+            emailAsString.Should().Contain("serviceEmail3@mail.com");
+            emailAsString.Should().Contain("userEmail@mail.com");
         }
     }
 }

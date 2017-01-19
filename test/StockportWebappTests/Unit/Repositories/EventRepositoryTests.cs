@@ -78,7 +78,7 @@ namespace StockportWebappTests.Unit.Repositories
         [Fact]
         public async void ItShouldSendAnEmailAndReturnAStatusCodeOf200()
         {
-            _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ServiceEmail == AppSetting.GetAppSetting("EventSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
+            _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ToEmail == AppSetting.GetAppSetting("EventSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
 
             var response = await _eventsRepository.SendEmailMessage(new EventSubmission());
 
