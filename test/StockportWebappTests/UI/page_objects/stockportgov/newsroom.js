@@ -12,9 +12,8 @@ var methods = {
 
     goToCategory: function (browser, category) {
         this.waitForElementVisible('@categoryList', this.api.globals.timeOut);
-        this.expandCategoriesFromScratch(browser);
         browser.useXpath().click("//a[contains(@href,'/news?category=" + category + "')]");
-        this.expandCategoriesFromScratch(browser);
+        this.waitForElementVisible('@newsList', this.api.globals.timeOut);
     },
 
     expandCategoriesFromScratch: function (browser) {

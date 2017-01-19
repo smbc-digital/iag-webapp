@@ -283,5 +283,34 @@ namespace StockportWebappTests.Unit.Utils
             // Assert
             Assert.Equal(true, hasNoDatefilter);
         }
+
+        [Fact]
+        public void WillRemoveTagQueryParamFromUrl()
+        {
+            // Arrange
+            var queryUrl = new QueryUrl(
+                new RouteValueDictionary(),
+                new QueryCollection(
+                    new Dictionary<string, StringValues>
+                    {
+                        {
+                            "category",
+                            new StringValues(new[] {"business"})
+                        },
+                        {
+                            "tag",
+                            new StringValues(new[] {"healthy"})
+                        }
+                    }
+                )
+                );
+            var filteredUrl = new FilteredUrl(queryUrl);
+
+            // Act
+            var newQueryUrl = filteredUrl.WithoutTagFilter();
+
+            // Assert
+            Assert.Equal(false, newQueryUrl.ContainsKey("tag"));
+        }
     }
 }

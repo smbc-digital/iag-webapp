@@ -94,6 +94,7 @@ module.exports = {
 
    'Visit a news article via category, then check category and date links': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
+       browser.maximizeWindow();
        homepage.navigate();
        homepage.goToNewsroom(browser);
 

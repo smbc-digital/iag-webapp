@@ -38,8 +38,8 @@ namespace StockportWebapp.Controllers
             [FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null)
         {
             var queries = new List<Query>();
-            if (!string.IsNullOrEmpty(tag)) queries.Add(new Query("tag", tag));
-            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("category", category));
+            if (!string.IsNullOrEmpty(tag)) queries.Add(new Query("tag", tag)); 
+            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("category", category)); 
             if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
             if (dateto.HasValue)  queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
 
@@ -50,13 +50,7 @@ namespace StockportWebapp.Controllers
 
             var newsRoom = httpResponse.Content as Newsroom;
 
-            var titleCase = !string.IsNullOrEmpty(category) ? "news" : "News";
-
-            var title = !string.IsNullOrEmpty(tag)
-                ? $"{category} {titleCase} about {tag}".Trim()
-                : $"{category} {titleCase}".Trim();
-
-            title = datefrom.HasValue ? $"{title} from {datefrom.Value:MMMM yyyy}" : title;
+            var title = "News";           
 
             var crumbs = new List<Crumb>();
             if (!string.IsNullOrEmpty(tag) || !string.IsNullOrEmpty(category))

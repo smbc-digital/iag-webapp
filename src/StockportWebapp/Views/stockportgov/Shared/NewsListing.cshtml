@@ -7,14 +7,29 @@
     var newsroom = Model.Newsroom;
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
+    var selectedTag = Context.Request.Query["tag"];
+    var selectedCatogory = Context.Request.Query["category"];
+    var selectedDate = Context.Request.Query["datefrom"];
 }
 
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-news-filter">
-        <p class="filters-heading">Refine by</p>     
+        <p class="filters-heading">Refine by</p>         
         <ul class="filters-list" id="category-list">           
-            <li class="collapsible">
+            <li class="collapsible">                
                 <ul class="filters-list">
+                    @if (!string.IsNullOrEmpty(selectedCatogory))
+                    {
+                        <li class="filter collapsible"><a style="padding-bottom: 0px; padding-top: 0px;" href="@Url.RouteUrl(filteredUrl.WithoutCategory())">&#10008; @selectedCatogory</a></li>
+                    }
+                    @if (!string.IsNullOrEmpty(selectedDate))
+                    {
+                        <li class="filter collapsible"><a style="padding-bottom: 0px; padding-top: 0px;" href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())">&#10008; @Convert.ToDateTime(selectedDate).ToString("MMMM yyyy")</a></li>
+                    }
+                    @if (!string.IsNullOrEmpty(selectedTag))
+                    {
+                        <li class="filter collapsible"><a style="padding-bottom: 0px; padding-top: 0px;" href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())">&#10008; @selectedTag</a></li>
+                    }
                     <li class="filter collapsible" id="category-filter">
                         <p class="filter-title">Category</p>
                         <ul class="filters-list">
@@ -28,7 +43,7 @@
                                 </li>
                             }
                         </ul>
-                    </li> 
+                    </li>
                     <li class="filter collapsible">
                         <p class="filter-title">News archive</p>
                         <ul class="filters-list filters-outer-list">
@@ -50,9 +65,9 @@
                                 </li>
                             }
                         </ul>
-                    </li>                  
+                    </li>
                 </ul>
-                <p class="mobile-filter-heading filter-title">Filter news</p>         
+                <p class="mobile-filter-heading filter-title">Filter news</p>
             </li>
         </ul>
     </div>

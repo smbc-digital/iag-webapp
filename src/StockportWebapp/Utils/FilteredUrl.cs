@@ -47,5 +47,10 @@ namespace StockportWebapp.Utils
         {
             return !queryUrl.HasQueryParam("datefrom");
         }
+
+        public RouteValueDictionary WithoutTagFilter()
+        {
+            return queryUrl.WithoutQueryParam(new List<string>() { "tag" });
+        }
     }
 }
