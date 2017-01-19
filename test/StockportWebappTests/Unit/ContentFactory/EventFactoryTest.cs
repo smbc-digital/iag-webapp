@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
@@ -23,8 +21,6 @@ namespace StockportWebappTests.Unit.ContentFactory
         private const string Description = "The event";
         private const string Slug = "event-of-the-century";
         private const string Teaser = "Read more for the event";
-        private readonly DateTime _sunriseDate = new DateTime(2016, 08, 01);
-        private readonly DateTime _sunsetDate = new DateTime(2016, 08, 10);
         private const string Image = "image.jpg";
         private const string ThumbnailImage = "thumbnail.jpg";
         private const string Fee = "Free";
@@ -41,11 +37,13 @@ namespace StockportWebappTests.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
-            _event = new Event( Title,  Slug,  Teaser,  Image,  ThumbnailImage,  Description,  Fee,  Location,
-             SubmittedBy,  string.Empty,  string.Empty, false, _eventDate,  StartTime,  EndTime, _breadcrumbs);
+            _event = new Event { Title = Title,  Slug = Slug,  Teaser = Teaser,  ImageUrl = Image,  ThumbnailImageUrl = ThumbnailImage, Description = Description, Fee = Fee, Location = Location,
+                                 SubmittedBy = SubmittedBy,  Longitude = string.Empty, Latitude = string.Empty, Featured = false, EventDate = _eventDate, StartTime = StartTime,
+                                 EndTime = EndTime, Breadcrumbs = _breadcrumbs };
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
+            _documentTagParser.Setup(o => o.Parse(Description, _event.Documents)).Returns(Description);
         }
 
         [Fact]
@@ -74,11 +72,19 @@ namespace StockportWebappTests.Unit.ContentFactory
         }   
 
         [Fact]
-        public void ShouldPassTitleToParserWhenBuilding()
+        public void ShouldPassTitleToAllSimpleParsersWhenBuilding()
         {
             _factory.Build(_event);
 
             _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title), Times.Once);
+        }
+
+        [Fact]
+        public void ShouldProcessDescriptionWithDocumentParser()
+        {
+            _factory.Build(_event);
+
+            _documentTagParser.Verify(o => o.Parse(Description, _event.Documents), Times.Once);
         }
     }
 }

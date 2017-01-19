@@ -20,7 +20,7 @@ namespace StockportWebapp.Models
         public DateTime EventDate { get; }
         public string StartTime { get; }
         public string EndTime { get; }
-        public readonly List<Crumb> Breadcrumbs;
+        public List<Crumb> Breadcrumbs { get; }
 
         public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description, string fee, string location,
             string submittedBy, string longitude, string latitude, bool featured, DateTime eventDate, string startTime, string endTime, List<Crumb> breadcrumbs)

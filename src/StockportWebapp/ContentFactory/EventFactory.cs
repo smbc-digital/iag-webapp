@@ -19,10 +19,14 @@ namespace StockportWebapp.ContentFactory
 
         public virtual ProcessedEvents Build(Event eventItem)
         {
-            var body = _simpleTagParserContainer.ParseAll(eventItem.Description, eventItem.Title);
-            body = _markdownWrapper.ConvertToHtml(body ?? "");
+            var description = _simpleTagParserContainer.ParseAll(eventItem.Description, eventItem.Title);
+            description = _documentTagParser.Parse(description, eventItem.Documents);
+            description = _markdownWrapper.ConvertToHtml(description ?? "");
 
-            return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl, eventItem.ThumbnailImageUrl, body, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy, eventItem.Longitude, eventItem.Latitude, eventItem.Featured, eventItem.EventDate, eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs);
+            return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl, 
+                                       eventItem.ThumbnailImageUrl, description, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy, 
+                                       eventItem.Longitude, eventItem.Latitude, eventItem.Featured, eventItem.EventDate, 
+                                       eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs);
         }
     }
 }

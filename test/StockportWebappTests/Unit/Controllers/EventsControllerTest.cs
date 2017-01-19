@@ -32,7 +32,9 @@ namespace StockportWebappTests.Unit.Controllers
 
         public EventsControllerTest()
         {
-            _eventsItem = new Event("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", "longitude", "latitude", false, new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>());
+            _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
+                                      Location = "location", SubmittedBy = "submittedBy", Longitude = "longitude", Latitude = "latitude", Featured = false,
+                                      EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>() };
             var eventsCalendar = new EventCalendar(new List<Event> { _eventsItem });
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", "longitude", "latitude", false, new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>());
 
