@@ -23,10 +23,12 @@ $(document).ready(function () {
         matchboxPrimary.init();
     }
 
-    $(".datepicker").datepicker({
-        inline: true,
-        dateFormat: 'dd/mm/yy'
-    });
+    if (!Modernizr.inputtypes.date) {
+        $(".datepicker").datepicker({
+            inline: true,
+            dateFormat: 'dd/mm/yy'
+        });
+    }
 });
 
 $(window).resize(function () {
