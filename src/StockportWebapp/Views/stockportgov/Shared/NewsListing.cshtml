@@ -46,7 +46,7 @@
                     </li>
                     <li class="filter collapsible">
                         <p class="filter-title">News archive</p>
-                        <ul class="filters-list filters-outer-list">
+                        <ul class="filters-list filters-outer-list" id="uitest-news-archive">
                             <li class=@(filteredUrl.HasNoDateFilter() ? "active" : "")>
                                 <a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())">All recent news</a>
                             </li>

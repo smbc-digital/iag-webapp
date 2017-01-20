@@ -32,7 +32,7 @@ var methods = {
 
     expandNews: function (browser) {
         browser.useXpath().click("//p[@class='filter-title' and text()='News archive']");
-        this.waitForElementVisible('@newsList', this.api.globals.timeOut);
+        this.waitForElementVisible('@newsArchive', this.api.globals.timeOut);
     },
 
     assertAllCategoriesAreVisible: function (browser) {
@@ -90,6 +90,7 @@ module.exports = {
   elements: {
       pageTitle: "h1",
       newsList: ".nav-card-news-list",
+      newsArchive: "#uitest-news-archive",
       categoryList: "#category-list"
   }
 };
