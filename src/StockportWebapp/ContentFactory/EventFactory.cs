@@ -20,8 +20,8 @@ namespace StockportWebapp.ContentFactory
         public virtual ProcessedEvents Build(Event eventItem)
         {
             var description = _simpleTagParserContainer.ParseAll(eventItem.Description, eventItem.Title);
-            description = _documentTagParser.Parse(description, eventItem.Documents);
             description = _markdownWrapper.ConvertToHtml(description ?? "");
+            description = _documentTagParser.Parse(description, eventItem.Documents);
 
             return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl, 
                                        eventItem.ThumbnailImageUrl, description, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy, 
