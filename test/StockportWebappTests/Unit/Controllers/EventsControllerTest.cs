@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -122,7 +121,6 @@ namespace StockportWebappTests.Unit.Controllers
             var eventSubmission =  new EventSubmission()
                 {
                     Title = "Title",
-                    Teaser = "Teaser",
                     Description = "Description",
                     EventDate = new DateTime(2017,12,01),
                     StartTime = "10:00",

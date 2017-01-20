@@ -39,7 +39,6 @@ namespace StockportWebapp.Repositories
         {
             var stringBuilder = new StringBuilder("<h1>Event Submssion</h1>");
             stringBuilder.Append($"<p>Title: {eventSubmission.Title}<br />");
-            stringBuilder.Append($"Teaser: {eventSubmission.Teaser}<br />");
             stringBuilder.Append($"Event Date: {eventSubmission.EventDate:dddd dd MMMM yyyy}<br />");
             stringBuilder.Append($"Start Time: {eventSubmission.StartTime}<br />");
             stringBuilder.Append($"End Time: {eventSubmission.EndTime}<br />");

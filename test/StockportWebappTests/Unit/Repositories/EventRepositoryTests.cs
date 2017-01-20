@@ -37,13 +37,12 @@ namespace StockportWebappTests.Unit.Repositories
         [Fact]
         public void ItShouldBuildAEmailBodyFromFormContent()
         {
-            var eventSubmission = new EventSubmission("title", "teaser", new DateTime(2016, 01, 01), "start time", "end time", new DateTime(2016, 01, 01), "frequency",
+            var eventSubmission = new EventSubmission("title", new DateTime(2016, 01, 01), "start time", "end time", new DateTime(2016, 01, 01), "frequency",
                 "fee", "location", "submitted by", null, "description", null, "email");
 
             var response = _eventsRepository.GenerateEmailBody(eventSubmission);
 
             response.Should().Contain("Title: title");
-            response.Should().Contain("Teaser: teaser");
             response.Should().Contain(string.Concat("Event Date: ", new DateTime(2016, 01, 01).ToString("dddd dd MMMM yyyy")));
             response.Should().Contain("Start Time: start time");
             response.Should().Contain("End Time: end time");

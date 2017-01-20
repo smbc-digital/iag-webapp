@@ -454,5 +454,10 @@ ul.nav-card-events-list {
     }
 }
 
+.schedule_multiple_events_inputs {
+    display: none;
+}
 
-
+.schedule_multiple_events, .schedule_multiple_events:hover {
+    text-decoration: none;
+}
