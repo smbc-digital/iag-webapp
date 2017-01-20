@@ -20,15 +20,15 @@
                 <ul class="filters-list">
                     @if (!string.IsNullOrEmpty(selectedCatogory))
                     {
-                        <li class="filter collapsible"><a style="padding-bottom: 0px; padding-top: 0px;" href="@Url.RouteUrl(filteredUrl.WithoutCategory())">&#10008; @selectedCatogory</a></li>
+                        <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCatogory</a></li>
                     }
                     @if (!string.IsNullOrEmpty(selectedDate))
                     {
-                        <li class="filter collapsible"><a style="padding-bottom: 0px; padding-top: 0px;" href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())">&#10008; @Convert.ToDateTime(selectedDate).ToString("MMMM yyyy")</a></li>
+                        <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Convert.ToDateTime(selectedDate).ToString("MMMM yyyy")</a></li>
                     }
                     @if (!string.IsNullOrEmpty(selectedTag))
                     {
-                        <li class="filter collapsible"><a style="padding-bottom: 0px; padding-top: 0px;" href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())">&#10008; @selectedTag</a></li>
+                        <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @selectedTag</a></li>
                     }
                     <li class="filter collapsible" id="category-filter">
                         <p class="filter-title">Category</p>

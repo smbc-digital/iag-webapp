@@ -4,14 +4,13 @@ var methods = {
             .expect.element('@lettervisited').text.to.equal(title);
     },
 assertArticlelistedVisible: function (browser, articlename){
-        this.waitForElementVisible('.atoz-listing-item', this.api.globals.timeOut)
-        .expect.element('.atoz-listing-item').text.to.contain(articlename);
+    this.waitForElementVisible('@atozListingItem', this.api.globals.timeOut)
+        .expect.element('@atozListingItem').text.to.contain(articlename);
 },
     goToLetter: function(browser, letter) {
         this.waitForElementVisible('@atozList', this.api.globals.timeOut);
         browser.useXpath()
             .click("(//a[contains(@href,'/atoz/" + letter + "')])[2]");
-
     }
 
 };
@@ -23,6 +22,6 @@ module.exports = {
     },
     elements: {
         lettervisited: 'h1',
-        atozList: '.atoz'
-
+        atozList: '.atoz',
+        atozListingItem: '.atoz-listing-item'
     }};

@@ -44,14 +44,15 @@ var methods = {
 
     assertContactFormIsVisible: function() {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
-        this.assert.visible('#Name');
+        this.assert.visible('@Name');
         this.assert.visible('@emailField');
-        this.assert.visible('#Subject');
-        this.assert.visible('#Message');
+        this.assert.visible('@Subject');
+        this.assert.visible('@Message');
     },
 
-    assertTitleIsHiddenFieldOnContactForm: function() {
+    assertTitleIsHiddenFieldOnContactForm: function(browser) {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
+        browser.useCss();
         this.assert.hidden('#Title');
     },
 
@@ -62,26 +63,29 @@ var methods = {
     },
 
 
-    assertTitleOfArticleIsInTitleFieldOfContactFormForSection: function () {
+    assertTitleOfArticleIsInTitleFieldOfContactFormForSection: function (browser) {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
+        browser.useCss();
         var titleValue = this.waitForElementPresent("#Title", this.api.globals.timeOut)
             .verify.attributeEquals('#Title', 'value', 'UITEST: Article with Section for Contact Us form');
     },
 
     enterTextIntoFormField: function (browser, field, fieldInput) {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
+        browser.useCss();
         browser.waitForElementPresent("#" + field, this.api.globals.timeOut)
             .setValue("#" + field, fieldInput)
             .click('#uitest-contact-form-submit');
     },
     
-    submitContactUsForm: function() {
-        this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut)
-            .click('#uitest-contact-form-submit');
+    submitContactUsForm: function (browser) {
+        this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
+        browser.useCss().click('#uitest-contact-form-submit');
     },
 
     assertValidationMessageIsVisible: function (browser, field, expectedtext) {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
+        browser.useCss();
         this.waitForElementVisible("#" + field, this.api.globals.timeOut);
         browser.useXpath()
             .assert.visible("//span[@class='' and text()='" + expectedtext + "']");
@@ -117,6 +121,9 @@ module.exports = {
         documentTag: '.test-documents',
         documentHeading: '.test-document-detail',
         contactUsForm: '#contactForm',
-        emailField: '#Email'
+        Name : '#Name',
+        emailField: '#Email',
+        Subject: '#Subject',
+        Message: '#Message'
   }
 };
