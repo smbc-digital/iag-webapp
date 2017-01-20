@@ -110,11 +110,6 @@ module.exports = {
        var allCategories = "All categories";
        newsroom.assertLinkIsNotActive(browser, allCategories);
        newsroom.assertLinkHasCorrectUrl(browser, allCategories, '/news');
-
-       var allNews = "All recent news";
-       newsroom.expandNews(browser);
-       newsroom.assertLinkIsActive(browser, allNews);
-       newsroom.assertLinkHasCorrectUrl(browser, allNews, '/news?category=' + activeCategory);
    },
 
    'Search for Event story and Find All EventsPage Elements': function (browser) {     
