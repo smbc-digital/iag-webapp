@@ -5,10 +5,12 @@ namespace StockportWebapp.Models
     public class EventCalendar
     {
         public List<Event> Events { get; }
+        public List<string> Categories { get; }
 
-        public EventCalendar(List<Event> events)
+        public EventCalendar(List<Event> events, List<string> categories)
         {
             Events = events;
+            Categories = categories;
         }
     }
 }

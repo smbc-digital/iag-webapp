@@ -25,10 +25,25 @@
                             }
                         </ul>
                     </li>
+                    <li class="@ViewBag.VisibleFilterDrowdownClass">
+                        <p class="filter-title">Category</p>
+                        <ul class="filters-list filters-outer-list">
+
+                            @foreach (var category in Model.Categories)
+                            {
+                                <li>
+                                    <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string>() {{"category", category}}))"> @category</a>
+                                </li>
+                            }
+
+                        </ul>
+                    </li>
                 </ul>
+                
                 <p class="mobile-filter-heading filter-title">Filter Events</p>
             </li>
         </ul>
+
     </div>
     <div class="grid-70 tablet-grid-100 mobile-grid-100 events-article-grid">
         @if (!Model.Events.Any())

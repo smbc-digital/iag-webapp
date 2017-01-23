@@ -24,8 +24,10 @@
           "slug": "",
           "type": "events"
         }
-      ]
+      ],
+      "categories": [ "Category 1", "Category 2" ]
     },
+
     {
       "title": "This is the second event",
       "slug": "second-event",
@@ -50,7 +52,8 @@
           "slug": "",
           "type": "events"
         }
-      ]
+      ],
+      "categories": [ "Category 1", "Category 2" ]
     },
     {
       "title": "This is the third event",
@@ -76,7 +79,9 @@
           "slug": "",
           "type": "events"
         }
-      ]
+      ],
+      "categories": [ "Category 1", "Category 2" ]
     }
-  ]
+  ],
+  "categories": [ "Category 1", "Category 2" ]
 }

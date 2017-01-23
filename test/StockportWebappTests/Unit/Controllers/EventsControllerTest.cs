@@ -24,6 +24,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<ILogger<EventsController>> _logger;
         private const string BusinessId = "businessId";
         private readonly Event _eventsItem;
+        private readonly List<string> _categories;
         private readonly HttpResponse responseListing;
         private readonly HttpResponse _responseDetail;
         private readonly Mock<IEventsRepository> _eventRepository;
@@ -33,7 +34,9 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
                                       Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>() };
-            var eventsCalendar = new EventCalendar(new List<Event> { _eventsItem });
+            _categories = new List<string> {"Category 1", "Category 2"};
+
+            var eventsCalendar = new EventCalendar(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>());
 
             // setup responses (with mock data)
