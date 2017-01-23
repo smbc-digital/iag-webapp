@@ -53,11 +53,11 @@
                                         <span asp-validation-for="@Model.EventDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.StartTime"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.StartTime" />
+                                        <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.StartTime" />
                                         <span asp-validation-for="@Model.StartTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.EndTime"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndTime" />
+                                        <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndTime" />
                                         <span asp-validation-for="@Model.EndTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <p><a href="javascript:;" class="schedule_multiple_events"><i class="fa fa-calendar" aria-hidden="true"></i> Schedule multiple events</a></p>
