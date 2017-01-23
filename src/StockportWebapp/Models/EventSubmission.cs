@@ -57,7 +57,7 @@ namespace StockportWebapp.Models
 
         [DocumentFileExtensionValidation]
         [FileSizeValidation]
-        [Display(Name = "Additional event documents")]
+        [Display(Name = "Additional event document")]
         public IFormFile Attachment { get; set; }
 
         [Required]
