@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Quartz.Util;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
@@ -40,11 +41,12 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index([FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null)
+        public async Task<IActionResult> Index([FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null,[FromQuery] string category = null)
         {
             var queries = new List<Query>();           
             if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
             if (dateto.HasValue) queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
+            if (!category.IsNullOrWhiteSpace()) queries.Add(new Query("category",category));
 
             var httpResponse = await _repository.Get<EventCalendar>(queries: queries);
             ViewBag.VisibleFilterDrowdownClass = "filter collapsible";
