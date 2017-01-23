@@ -7,10 +7,14 @@
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="" class="grid-100 mobile-grid-100">
-                <div class="l-content-container">
+                <div class="l-content-container event-thank-you">
                     <div class="grid-100">
-                        <h1>Submit Event</h1>
-                        <p>Thank you for submitting your event</p>
+                        <h1>Thank you for submitting an event</h1>
+                        <div class="icon-bordered icon-bordered-fixed">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                        </div>
+                        <p>Before your event is added to the calendar, it will be reviewed and if it is successful then it will be published on the website.</p>
+                        <stock-button href="@Url.Action("Index", "Events")" as-link="true">Go back to Events</stock-button>
                     </div>
                 </div>
             </section>

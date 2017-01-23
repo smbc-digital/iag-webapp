@@ -454,10 +454,19 @@ ul.nav-card-events-list {
     }
 }
 
-.schedule_multiple_events_inputs {
+.schedule_multiple_events {
+    text-decoration: none;
     display: none;
+    &:hover {
+        text-decoration: none;
+    }
 }
 
-.schedule_multiple_events, .schedule_multiple_events:hover {
-    text-decoration: none;
+.event-thank-you {
+    text-align: center;
+
+    .icon-bordered {
+        color: $richGreen;
+        margin-bottom: 15px;
+    }
 }
