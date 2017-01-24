@@ -37,7 +37,11 @@ namespace StockportWebapp.Repositories
 
         public string GenerateEmailBody(EventSubmission eventSubmission)
         {
-            var stringBuilder = new StringBuilder("<h1>Event Submssion</h1>");
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append("<p>Thank you for submitting an event</p>");
+            stringBuilder.Append("<p>Before your event is added to the calendar, it will be reviewed and if it is successful then it will be published on the website.</p>");
+            stringBuilder.Append("<h1>Event submission</h1>");
+
             stringBuilder.Append($"<p>Event name: {eventSubmission.Title}<br />");
             stringBuilder.Append($"Event date: {eventSubmission.EventDate:dddd dd MMMM yyyy}<br />");
             stringBuilder.Append($"Start time: {eventSubmission.StartTime}<br />");

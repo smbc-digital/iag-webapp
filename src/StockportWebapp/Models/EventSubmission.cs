@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
-using Quartz.Impl.Matchers;
 using StockportWebapp.Validation;
 
 namespace StockportWebapp.Models
@@ -19,19 +18,19 @@ namespace StockportWebapp.Models
         [Display(Name="Event date")]        
         public DateTime? EventDate { get; set; }
 
-        [Display(Name = "Start time")]        
+        [Display(Name = "Start time (optional)")]        
         public string StartTime { get; set; }
 
-        [Display(Name = "End time")]
+        [Display(Name = "End time (optional)")]
         public string EndTime { get; set; }
 
         [DataType(DataType.Date)]
-        [Display(Name = "End date")]
+        [Display(Name = "End date (optional)")]
         public DateTime? EndDate { get; set; }
 
         public List<string> Frequencylist = new List<string> {"Daily", "Weekly", "Fortnightly", "Monthly", "Yearly"};
 
-        [Display(Name = "How often does your event occur?")]
+        [Display(Name = "How often does your event occur? (optional)")]
         public string Frequency { get; set; }
 
         [Required]
@@ -49,7 +48,7 @@ namespace StockportWebapp.Models
 
         [ImageFileExtensionValidation]
         [FileSizeValidation]
-        [Display(Name = "Event image")]
+        [Display(Name = "Event image (optional)")]
         public IFormFile Image { get; set; }
 
         [Required]
@@ -57,7 +56,7 @@ namespace StockportWebapp.Models
 
         [DocumentFileExtensionValidation]
         [FileSizeValidation]
-        [Display(Name = "Additional event document")]
+        [Display(Name = "Additional event document (optional)")]
         public IFormFile Attachment { get; set; }
 
         [Required]
