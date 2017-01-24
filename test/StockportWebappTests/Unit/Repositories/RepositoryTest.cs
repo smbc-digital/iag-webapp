@@ -382,5 +382,23 @@ namespace StockportWebappTests.Unit.Repositories
             eventList.Teaser.Should().Be("Read more for the event");
         }
 
+        [Fact]
+        public void GetsLatestEventsByLimit()
+        {
+            var url = _urlGenerator.UrlForLimit<EventCalendar>(2);
+
+            _httpClientMock.Setup(o => o.Get(url))
+                .ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/EventListing.json"),
+                    string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.GetLatest<EventCalendar>(2));
+            var eventList = httpResponse.Content as EventCalendar;
+
+            eventList.Events.Should().HaveCount(2);
+            eventList.Events.First().Title.Should().Be("This is the event");
+            eventList.Events.First().Slug.Should().Be("event-of-the-century");
+            eventList.Events.First().Teaser.Should().Be("Read more for the event");
+        }
+
     }
 }

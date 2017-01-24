@@ -119,19 +119,19 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
+        public void ItReturnsUrlForLatestEventRequest()
+        {
+            var url = _urlGenerator.UrlForLimit<EventCalendar>(2);
+
+            url.Should().Be("http://content.com/api/test-id/events/latest/2");
+        }
+
+        [Fact]
         public void ItReturnsUrlForHealthcheckRequest()
         {
             var url = _urlGenerator.HealthcheckUrl();
 
             url.Should().Be("http://content.com/_healthcheck");
-        }
-
-        [Fact]
-        public void ItReturnsUrlForRedirectsRequest()
-        {
-            var url = _urlGenerator.RedirectUrl();
-
-            url.Should().Be("http://content.com/api/redirects");
         }
     }
 }

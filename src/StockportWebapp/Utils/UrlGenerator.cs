@@ -44,6 +44,11 @@ namespace StockportWebapp.Utils
             return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], slug, CreateQueryString(queries));
         }
 
+        public string UrlForLimit<T>(int limit)
+        {
+            return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/", limit.ToString());
+        }
+
         private static string CreateQueryString(List<Query> queries)
         {
             if (queries == null || queries.Count < 1) return "";

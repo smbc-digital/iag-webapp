@@ -24,6 +24,13 @@ namespace StockportWebapp.Repositories
             return HttpResponse.Build<T>(httpResponse);
         }
 
+        public async Task<HttpResponse> GetLatest<T>(int limit)
+        {
+            var url = _urlGenerator.UrlForLimit<T>(limit);
+            var httpResponse = await _httpClient.Get(url);
+            return HttpResponse.Build<T>(httpResponse);
+        }
+
         public async Task<HttpResponse> GetRedirects()
         {
             var url = _urlGenerator.RedirectUrl();
