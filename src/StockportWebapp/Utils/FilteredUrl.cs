@@ -40,7 +40,7 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutDateFilter()
         {
-            return queryUrl.WithoutQueryParam(new List<string>() {"datefrom", "dateto"});
+            return queryUrl.WithoutQueryParam(new List<string>() {"datefrom", "dateto","daterange"});
         }
 
         public bool HasNoDateFilter()

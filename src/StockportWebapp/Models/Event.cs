@@ -19,5 +19,6 @@ namespace StockportWebapp.Models
         public string EndTime { get; set; }
         public List<Crumb> Breadcrumbs { get; set; }
         public List<Document> Documents { get; set; }
+        public List<string> Categories { get; set; }
     }
 }

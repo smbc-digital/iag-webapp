@@ -1,26 +1,29 @@
 ﻿@using System.Threading.Tasks
-@using Quartz
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
-@{ var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query); }
-
+@{
+    var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
+    var filteredUrl = new FilteredUrl(currentUrl);   
+    var selectedCategory = Context.Request.Query["category"];
+    var selectedDate = Context.Request.Query["datefrom"];
+}
 <div class="grid-container events-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter">
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list" id="category-list">
             <li class="collapsible">
-                <ul class="filters-list">                  
+                <ul class="filters-list">
                     <li class="@ViewBag.VisibleFilterDrowdownClass">
                         <p class="filter-title">Date</p>
                         <ul class="filters-list filters-outer-list">
                             @{
-                                var timeProvider  = new TimeProvider();
+                                var timeProvider = new TimeProvider();
                                 var dateCalculator = new DateCalculator(timeProvider);
                             }
                             @foreach (var eventFilter in dateCalculator.GetEventFilters())
                             {
                                 <li class="@(currentUrl.MatchesQueryParam("daterange", eventFilter.Key) ? "active" : "")">
-                                    <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string>() { { "datefrom", eventFilter.Value.DateFrom }, {"dateto", eventFilter.Value.DateTo}, {"daterange",eventFilter.Key } }))"> @eventFilter.Value.DateRange </a>
+                                    <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string>() {{"datefrom", eventFilter.Value.DateFrom}, {"dateto", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
                                 </li>
                             }
                         </ul>
@@ -39,7 +42,7 @@
                         </ul>
                     </li>
                 </ul>
-                
+
                 <p class="mobile-filter-heading filter-title">Filter Events</p>
             </li>
         </ul>

@@ -54,9 +54,18 @@ namespace StockportWebapp.Controllers
 
             if (!httpResponse.IsSuccessful())
                 return httpResponse;
-
             var eventsCalendar = httpResponse.Content as EventCalendar;
-            return View(new EventsCalendarViewModel(new List<Crumb>(), eventsCalendar));
+
+            var titleCase = !string.IsNullOrEmpty(category) ? "events" : "Events";
+
+            var title =  $"{category} {titleCase}".Trim();
+            ViewBag.Title = title;
+
+            var crumbs = new List<Crumb>();
+            if (!string.IsNullOrEmpty(category))
+                crumbs.Add(new Crumb("Events", "events", "events"));
+
+            return View(new EventsCalendarViewModel(crumbs, eventsCalendar));
         }
 
 

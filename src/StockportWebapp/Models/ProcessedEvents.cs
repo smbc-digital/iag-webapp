@@ -18,10 +18,11 @@ namespace StockportWebapp.Models
         public string StartTime { get; }
         public string EndTime { get; }
         public List<Crumb> Breadcrumbs { get; }
+        public List<string> Categories { get; }
 
         public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description, 
                                string fee, string location,string submittedBy, DateTime eventDate, string startTime, string endTime, 
-                               List<Crumb> breadcrumbs)
+                               List<Crumb> breadcrumbs, List<string> categories )
         {
             Title = title;
             Slug = slug;
@@ -36,6 +37,7 @@ namespace StockportWebapp.Models
             StartTime = startTime;
             EndTime = endTime;
             Breadcrumbs = breadcrumbs;
+            Categories = categories;
         }
     }
 }
