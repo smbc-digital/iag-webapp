@@ -38,19 +38,19 @@ namespace StockportWebapp.Repositories
         public string GenerateEmailBody(EventSubmission eventSubmission)
         {
             var stringBuilder = new StringBuilder("<h1>Event Submssion</h1>");
-            stringBuilder.Append($"<p>Title: {eventSubmission.Title}<br />");
-            stringBuilder.Append($"Event Date: {eventSubmission.EventDate:dddd dd MMMM yyyy}<br />");
-            stringBuilder.Append($"Start Time: {eventSubmission.StartTime}<br />");
-            stringBuilder.Append($"End Time: {eventSubmission.EndTime}<br />");
-            if (eventSubmission.EndDate != null) stringBuilder.Append($"End Date: {eventSubmission.EndDate:dddd dd MMMM yyyy}<br />");
-            stringBuilder.Append($"Frequency: {eventSubmission.Frequency}<br />");
-            stringBuilder.Append($"Fee: {eventSubmission.Fee}<br />");
+            stringBuilder.Append($"<p>Event name: {eventSubmission.Title}<br />");
+            stringBuilder.Append($"Event date: {eventSubmission.EventDate:dddd dd MMMM yyyy}<br />");
+            stringBuilder.Append($"Start time: {eventSubmission.StartTime}<br />");
+            stringBuilder.Append($"End time: {eventSubmission.EndTime}<br />");
+            stringBuilder.Append($"How often does your event occur?: {eventSubmission.Frequency}<br />");
+            if (eventSubmission.EndDate.HasValue) stringBuilder.Append($"End date: {eventSubmission.EndDate:dddd dd MMMM yyyy}<br />");
+            stringBuilder.Append($"Price: {eventSubmission.Fee}<br />");
             stringBuilder.Append($"Location: {eventSubmission.Location}<br />");            
-            stringBuilder.Append($"Submitted By: {eventSubmission.SubmittedBy}<br />");
+            stringBuilder.Append($"Organiser name: {eventSubmission.SubmittedBy}<br />");
             stringBuilder.Append($"Description: {eventSubmission.Description}<br />");
-            if (eventSubmission.Image != null) stringBuilder.Append($"Image: {eventSubmission.Image.FileName}<br />");
-            if (eventSubmission.Attachment != null) stringBuilder.Append($"Attachment: {eventSubmission.Attachment.FileName}<br />");
-            stringBuilder.Append($"<br />Submitter Email: {eventSubmission.SubmitterEmail}");
+            if (eventSubmission.Image != null) stringBuilder.Append($"Event image: {eventSubmission.Image.FileName}<br />");
+            if (eventSubmission.Attachment != null) stringBuilder.Append($"Additional event document: {eventSubmission.Attachment.FileName}<br />");
+            stringBuilder.Append($"<br />Organiser email address: {eventSubmission.SubmitterEmail}");
             stringBuilder.Append("</p>");
 
             return stringBuilder.ToString();
@@ -73,7 +73,7 @@ namespace StockportWebapp.Repositories
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBody(eventSubmission),
                 fromEmail,
                _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
-               string.Empty,
+               eventSubmission.SubmitterEmail,
                attachments));
         }
     }

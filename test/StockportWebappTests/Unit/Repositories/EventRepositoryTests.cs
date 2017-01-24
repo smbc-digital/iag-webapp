@@ -42,16 +42,16 @@ namespace StockportWebappTests.Unit.Repositories
 
             var response = _eventsRepository.GenerateEmailBody(eventSubmission);
 
-            response.Should().Contain("Title: title");
-            response.Should().Contain(string.Concat("Event Date: ", new DateTime(2016, 01, 01).ToString("dddd dd MMMM yyyy")));
-            response.Should().Contain("Start Time: start time");
-            response.Should().Contain("End Time: end time");
-            response.Should().Contain("Frequency: frequency");
-            response.Should().Contain("Fee: fee");
+            response.Should().Contain("Event name: title");
+            response.Should().Contain(string.Concat("Event date: ", new DateTime(2016, 01, 01).ToString("dddd dd MMMM yyyy")));
+            response.Should().Contain("Start time: start time");
+            response.Should().Contain("End time: end time");
+            response.Should().Contain("How often does your event occur?: frequency");
+            response.Should().Contain("Price: fee");
             response.Should().Contain("Location: location");
-            response.Should().Contain("Submitted By: submitted by");
+            response.Should().Contain("Organiser name: submitted by");
             response.Should().Contain("Description: description");
-            response.Should().Contain("Submitter Email: email");
+            response.Should().Contain("Organiser email address: email");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             var response = _eventsRepository.GenerateEmailBody(eventSubmission);
 
-            response.Should().Contain("Image: " + eventSubmission.Image.FileName);
+            response.Should().Contain("Event image: " + eventSubmission.Image.FileName);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             var response = _eventsRepository.GenerateEmailBody(eventSubmission);
 
-            response.Should().Contain("Attachment: " + eventSubmission.Attachment.FileName);
+            response.Should().Contain("Additional event document: " + eventSubmission.Attachment.FileName);
         }
 
         [Fact]
