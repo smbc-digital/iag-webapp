@@ -1,16 +1,33 @@
 ﻿@using System.Threading.Tasks
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
+@using System.Text.RegularExpressions;
 @{
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
-    var filteredUrl = new FilteredUrl(currentUrl);   
+    var filteredUrl = new FilteredUrl(currentUrl);
     var selectedCategory = Context.Request.Query["category"];
-    var selectedDate = Context.Request.Query["datefrom"];
+    var dateRange = Context.Request.Query["daterange"].ToString();
+    var dateRangeDisplay = Regex.Replace(dateRange, @"^[a-z]", delegate(Match m)
+    {
+        return m.Value.ToUpper();
+    });
+    dateRangeDisplay = Regex.Replace(dateRangeDisplay, @"^(This|Next)", delegate (Match m)
+    {
+        return m+" ";
+    });
 }
 <div class="grid-container events-grid-container-margins">
-    <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter">
+    <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter"> 
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list" id="category-list">
+            @if (!string.IsNullOrEmpty(selectedCategory))
+            {
+                <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCategory</a></li>
+            }
+            @if (!string.IsNullOrEmpty(dateRange))
+            {
+                <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateRangeDisplay</a></li>
+            }
             <li class="collapsible">
                 <ul class="filters-list">
                     <li class="@ViewBag.VisibleFilterDrowdownClass">

@@ -8,7 +8,7 @@
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
     var selectedTag = Context.Request.Query["tag"];
-    var selectedCatogory = Context.Request.Query["category"];
+    var selectedCategory = Context.Request.Query["category"];
     var selectedDate = Context.Request.Query["datefrom"];
 }
 
@@ -18,9 +18,9 @@
         <ul class="filters-list" id="category-list">           
             <li>                
                 <ul class="filters-list">
-                    @if (!string.IsNullOrEmpty(selectedCatogory))
+                    @if (!string.IsNullOrEmpty(selectedCategory))
                     {
-                        <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCatogory</a></li>
+                        <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCategory</a></li>
                     }
                     @if (!string.IsNullOrEmpty(selectedDate))
                     {
