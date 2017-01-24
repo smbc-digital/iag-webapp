@@ -216,20 +216,7 @@ namespace StockportWebappTests.Unit.Controllers
             response.Content.Should().Be("rss fun");
 
             _mockRssFeedFactory.Verify(o => o.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-        }
-
-        [Fact]
-        public void ShouldReturnBreadcrumbsIfAskingForNewsFromTags()
-        {
-            _repository.Setup(o => o.Get<Newsroom>("", It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index("Events")) as ViewResult;
-
-            var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
-
-            viewModel.Breadcrumbs.Should().HaveCount(1);
-            viewModel.Breadcrumbs[0].Title.Should().Be("News");
-            viewModel.Breadcrumbs[0].NavigationLink.Should().Be("/news");
-        }
+        }      
 
         [Fact]
         public void ShouldReturnNewsItemsForADateFilter()

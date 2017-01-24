@@ -48,17 +48,11 @@ namespace StockportWebapp.Controllers
             if (!httpResponse.IsSuccessful())
                 return httpResponse;
 
-            var newsRoom = httpResponse.Content as Newsroom;
+            var newsRoom = httpResponse.Content as Newsroom;                          
 
-            var titleCase = !string.IsNullOrEmpty(category) ? "news" : "News";
-            
-            var title = !string.IsNullOrEmpty(tag)
-                ? $"{category} {titleCase} about {tag}".Trim()
-                : $"{category} {titleCase}".Trim();                   
+            var title = "News";
 
-            var crumbs = new List<Crumb>();
-            if (!string.IsNullOrEmpty(tag) || !string.IsNullOrEmpty(category))
-                crumbs.Add(new Crumb("News", "news", "news"));
+            var crumbs = new List<Crumb>();          
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
