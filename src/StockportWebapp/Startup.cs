@@ -60,11 +60,9 @@ namespace StockportWebapp
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            var featureToggleYaml = $"{_contentRootPath}/featureToggles.yml";
-
             services.AddSingleton(p =>
             {
-                var featureTogglesReader = new FeatureTogglesReader(featureToggleYaml, _appEnvironment,
+                var featureTogglesReader = new FeatureTogglesReader($"{_contentRootPath}/featureToggles.yml", _appEnvironment,
                     p.GetService<ILogger<FeatureTogglesReader>>());
                 return featureTogglesReader.Build<FeatureToggles>();
             });

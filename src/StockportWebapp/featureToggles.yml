@@ -3,6 +3,7 @@ prod: &prod
   EventCalendar: false
   SecurityHeaders: true
   EventSubmission: false
+  LatestEventsHomepage: false
 
 stage: &stage
   << : *prod
@@ -17,3 +18,4 @@ int:
   << : *stage
   << : *qa
   EventSubmission: true
+  LatestEventsHomepage: true
