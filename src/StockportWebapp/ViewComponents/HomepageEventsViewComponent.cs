@@ -17,7 +17,7 @@ namespace StockportWebapp.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(List<Event> events)
         {
-            if (_featureToggles.LatestEventsHomepage) return await Task.FromResult(View("HomepageEventsWithListing", events));
+            if (_featureToggles.LatestEventsHomepage) return await Task.FromResult(View("HomepageEventsWithListing", events ?? new List<Event>()));
             return await Task.FromResult(View("HomepageEventsWithoutListing"));
 
         }

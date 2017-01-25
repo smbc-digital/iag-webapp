@@ -166,4 +166,27 @@
     }
 }
 
+.homepage-latest-items {
+    margin-bottom: 20px;
 
+    a {
+        color: $greyDarkest;
+        text-decoration: none;
+
+        &:hover {
+            h3 {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    a:nth-child(2) .homepage-latest-item {
+        @media #{$mobile, $tablet} {
+            display: none;
+        }
+
+        @media #{$desktop} {
+            border-left: solid 1px $greyLight;
+        }
+    }
+}

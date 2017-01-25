@@ -30,14 +30,14 @@ var methods = {
 
     assertNewsBannerIsVisible: function (browser) {
             this.waitForElementVisible('@newsroomCallToAction', this.api.globals.timeOut);
-            this.waitForElementVisible(".grid-parent.grid-100.homepage-news-items", this.api.globals.timeOut);
-            this.waitForElementVisible(".grid-50.mobile-grid-100.homepage-news-item", this.api.globals.timeOut)
+            this.waitForElementVisible(".grid-parent.grid-100.homepage-latest-items", this.api.globals.timeOut);
+            this.waitForElementVisible(".grid-50.mobile-grid-100.homepage-latest-item", this.api.globals.timeOut)
             .expect.element("#test-newsroom-calltoaction>h2").text.to.equal("Latest News");
     },
 
     assertEventsBannerIsVisible: function (browser) {
         this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut)
-        .expect.element("#test-eventscalendar-calltoaction>h2").text.to.equal("Events");
+        .expect.element("#test-eventscalendar-calltoaction>h2").text.to.equal("Upcoming Events");
     },
 
     assertEmailAlertsIsVisible: function (browser, buttonText) {

@@ -180,31 +180,6 @@ ul.nav-card-news-list {
     padding-top: 15px;
 }
 
-.homepage-news-items {
-    margin-bottom: 20px;
-
-    a {
-        color: $greyDarkest;
-        text-decoration: none;
-
-        &:hover {
-            h3 {
-                text-decoration: underline;
-            }
-        }
-    }
-
-    a:nth-child(2) .homepage-news-item {
-        @media #{$mobile, $tablet} {
-            display: none;
-        }
-
-        @media #{$desktop} {
-            border-left: solid 1px $greyLight;
-        }
-    }
-}
-
 .news-date {
     color: $colorPrimary;
 

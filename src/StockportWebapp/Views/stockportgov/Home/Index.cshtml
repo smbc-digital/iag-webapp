@@ -58,7 +58,7 @@
             </div>
         }
         <div id="test-eventscalendar-calltoaction" class="news-events @(!Model.GetLatestNews().Any() ? "grid-100" : "grid-50")">
-            @await Component.InvokeAsync("HomepageEvents")
+            @await Component.InvokeAsync("HomepageEvents", new { events = Model.GetLatestEvents() })
         </div>
     </div>
 </div>
