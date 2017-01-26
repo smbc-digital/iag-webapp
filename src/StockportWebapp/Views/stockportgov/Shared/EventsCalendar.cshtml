@@ -4,7 +4,7 @@
 @{
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
-    var selectedCategory = Context.Request.Query["category"];
+    var categoryFilter = Context.Request.Query["category"];
     var dateRange = Context.Request.Query["daterange"].ToString();
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
@@ -15,9 +15,9 @@
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter"> 
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list" id="category-list">
-            @if (!string.IsNullOrEmpty(selectedCategory))
+            @if (!string.IsNullOrEmpty(categoryFilter) && Model.DoesCategoryExist(categoryFilter))
             {
-                <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCategory</a></li>
+                <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
             }
             @if (!string.IsNullOrEmpty(dateFilter))
             {

@@ -12,5 +12,10 @@ namespace StockportWebapp.Models
             Events = events;
             Categories = categories;
         }
+
+        public bool DoesCategoryExist(string category)
+        {
+            return Categories.Contains(category);
+        }
     }
 }
