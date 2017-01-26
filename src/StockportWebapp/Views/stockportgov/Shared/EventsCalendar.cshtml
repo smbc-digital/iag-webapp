@@ -1,20 +1,15 @@
 ﻿@using System.Threading.Tasks
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
-@using System.Text.RegularExpressions;
 @{
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
     var selectedCategory = Context.Request.Query["category"];
     var dateRange = Context.Request.Query["daterange"].ToString();
-    var dateRangeDisplay = Regex.Replace(dateRange, @"^[a-z]", delegate(Match m)
-    {
-        return m.Value.ToUpper();
-    });
-    dateRangeDisplay = Regex.Replace(dateRangeDisplay, @"^(This|Next)", delegate (Match m)
-    {
-        return m+" ";
-    });
+    var timeProvider = new TimeProvider();
+    var dateCalculator = new DateCalculator(timeProvider);
+
+    var dateFilter = dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 <div class="grid-container events-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-events-filter"> 
@@ -24,20 +19,17 @@
             {
                 <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCategory</a></li>
             }
-            @if (!string.IsNullOrEmpty(dateRange))
+            @if (!string.IsNullOrEmpty(dateFilter))
             {
-                <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateRangeDisplay</a></li>
+                <li class="filter collapsible"><a class="removePadding" href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
             }
             <li class="collapsible">
                 <ul class="filters-list">
                     <li class="@ViewBag.VisibleFilterDrowdownClass">
                         <p class="filter-title">Date</p>
                         <ul class="filters-list filters-outer-list">
-                            @{
-                                var timeProvider = new TimeProvider();
-                                var dateCalculator = new DateCalculator(timeProvider);
-                            }
-                            @foreach (var eventFilter in dateCalculator.GetEventFilters())
+                            
+                            @foreach (var eventFilter in dateCalculator.EventFilters)
                             {
                                 <li class="@(currentUrl.MatchesQueryParam("daterange", eventFilter.Key) ? "active" : "")">
                                     <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string>() {{"datefrom", eventFilter.Value.DateFrom}, {"dateto", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
@@ -51,7 +43,7 @@
 
                             @foreach (var category in Model.Categories)
                             {
-                                <li>
+                                <li class="@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")">
                                     <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string>() {{"category", category}}))"> @category</a>
                                 </li>
                             }

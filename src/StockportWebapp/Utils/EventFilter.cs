@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StockportWebapp.Utils
 {
@@ -11,7 +8,7 @@ namespace StockportWebapp.Utils
         public string DateTo { get; set; }
         public string DateRange { get; set; }
 
-        public EventFilter(string dateFrom, String dateTo, string dateRange)
+        public EventFilter(string dateFrom, string dateTo, string dateRange)
         {
             DateFrom = dateFrom;
             DateTo = dateTo;

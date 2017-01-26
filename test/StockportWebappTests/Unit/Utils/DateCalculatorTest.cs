@@ -127,5 +127,70 @@ namespace StockportWebappTests.Unit.Utils
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
             dateCalculator.LastDayOfMonth().Should().Be("2016-08-31");
         }
+
+        [Fact]
+        public void ShouldGetFistDayOfTheNextMonth()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 01, 25));
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+            dateCalculator.FirstDayOfNextMonth().Should().Be("2017-02-01");
+        }
+
+        [Fact]
+        public void ShouldGetLastDayOfTheNextMonth()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 01, 25));
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+            dateCalculator.LastDayOfNextMonth().Should().Be("2017-02-28");
+        }
+
+        [Fact]
+        public void ShouldGetFirstDayOfTheNextMonthInNewYear()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+            dateCalculator.FirstDayOfNextMonth().Should().Be("2018-01-01");
+        }
+
+        [Fact]
+        public void ShouldGetLastDayOfTheNextMonthInNewYear()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+            dateCalculator.LastDayOfNextMonth().Should().Be("2018-01-31");
+        }
+
+        [Fact]
+        public void ShouldGetValueForKeyForFilterIfKeyExists()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+
+            var value = dateCalculator.ReturnDisplayNameForFilter("today");
+
+            value.Should().Be("Today");
+        }
+
+        [Fact]
+        public void ShouldGetValueForKeyForFilterIfKeyExistsForAnotherKey()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+
+            var value = dateCalculator.ReturnDisplayNameForFilter("thisweekend");
+
+            value.Should().Be("This weekend");
+        }
+
+        [Fact]
+        public void ShoulNotGiveAValueForNoExistantKey()
+        {
+            _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+
+            var value = dateCalculator.ReturnDisplayNameForFilter("none");
+
+            value.Should().Be(string.Empty);
+        }
     }
 }

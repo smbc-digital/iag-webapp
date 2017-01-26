@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading.Tasks;
-using StockportWebapp.Utils;
 
 namespace StockportWebapp.Utils
 {
     public class DateCalculator
     {
-        private readonly ITimeProvider _timeProvider;
         private readonly DateTime _today;
         public Dictionary<string,EventFilter> EventFilters;
 
         public DateCalculator(ITimeProvider timeProvider)
         {
-            _timeProvider = timeProvider;
-            _today = _timeProvider.Today();
-            EventFilters = new Dictionary<string,EventFilter>();
+            _today = timeProvider.Today();
+            EventFilters = GetEventFilters();
         }
 
         public Dictionary<string,EventFilter> GetEventFilters()
         {
+            EventFilters = new Dictionary<string, EventFilter>();
+
             var todayEventFilter = new EventFilter(Today(), Today(), "Today");
             EventFilters.Add("today", todayEventFilter);
 
@@ -40,9 +36,16 @@ namespace StockportWebapp.Utils
             var thismonthEventFilter = new EventFilter(Today(), LastDayOfMonth(), "This month");
             EventFilters.Add("thismonth", thismonthEventFilter);
 
+            var nextmonthEventFilter = new EventFilter(FirstDayOfNextMonth(), LastDayOfNextMonth(), "Next month");
+            EventFilters.Add("nextmonth", nextmonthEventFilter);
+
             return EventFilters;
         }
-        
+
+        public string ReturnDisplayNameForFilter(string key)
+        {
+            return EventFilters.ContainsKey(key) ? EventFilters[key].DateRange : string.Empty;
+        }
 
         public string Today()
         {
@@ -79,6 +82,18 @@ namespace StockportWebapp.Utils
         {
             var daysInMonth = DateTime.DaysInMonth(_today.Year, _today.Month);
             return _today.AddDays(daysInMonth - _today.Day).ToString("yyyy-MM-dd");
+        }
+
+        public string FirstDayOfNextMonth()
+        {
+            return new DateTime(_today.AddMonths(1).Year, _today.AddMonths(1).Month, 1).ToString("yyyy-MM-dd");
+        }
+
+        public string LastDayOfNextMonth()
+        {
+            var daysInMonth = DateTime.DaysInMonth(_today.AddMonths(1).Year, _today.AddMonths(1).Month);
+            var date = new DateTime(_today.AddMonths(1).Year, _today.AddMonths(1).Month, 1);
+            return date.AddDays(daysInMonth - 1).ToString("yyyy-MM-dd");
         }
     }
 }
