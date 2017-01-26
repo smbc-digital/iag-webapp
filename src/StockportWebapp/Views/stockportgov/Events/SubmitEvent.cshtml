@@ -53,10 +53,12 @@
                                         <span asp-validation-for="@Model.EventDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.StartTime"></label>
+                                        <i>Format: hh:mm (24 hour clock)</i>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.StartTime" />
                                         <span asp-validation-for="@Model.StartTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.EndTime"></label>
+                                        <i>Format: hh:mm (24 hour clock)</i>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndTime" />
                                         <span asp-validation-for="@Model.EndTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
@@ -84,12 +86,19 @@
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.Image"></label>
-                                        <i>Choose an image that captures your event<br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb</i>
+                                        <i>
+                                            Choose an image that captures your event
+                                            <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
+                                            <br />Accepted file types: jpg, jpeg, gif and png
+                                        </i>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
                                         <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.Attachment"></label>
-                                        <i>Add a document that will help to promote your events; such as brochures or booklets</i>
+                                        <i>
+                                            Add a document that will help to promote your events; such as brochures or booklets
+                                            <br />Accepted file types: doc, docx, pdf and odt
+                                        </i>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Attachment" />
                                         <span asp-validation-for="@Model.Attachment" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 

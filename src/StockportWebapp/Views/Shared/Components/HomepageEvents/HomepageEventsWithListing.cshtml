@@ -4,7 +4,7 @@
 <div class="grid-parent grid-100 homepage-latest-items">
     @foreach (var item in Model)
     {
-        <a href="@Url.Action("Detail", "Events", new {slug = item.Slug})">
+        <a href="@Url.Action("Detail", "Events", new {slug = item.Slug, date = item.EventDate.ToString("yyyy-MM-dd")})">
             <div class="@(Model.Count() > 1 ? "grid-50" : "grid-100") mobile-grid-100 homepage-latest-item">
                 <h3>@item.Title</h3>
                 <p class="news-date">
