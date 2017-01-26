@@ -15,14 +15,21 @@ namespace StockportWebapp.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{dd/MM/yyyy}")]
         [Display(Name="Event date")]        
         public DateTime? EventDate { get; set; }
 
-        [Display(Name = "Start time (optional)")]        
-        public string StartTime { get; set; }
+        [Required]
+        [Display(Name = "Start time")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
+        public DateTime? StartTime { get; set; }
 
-        [Display(Name = "End time (optional)")]
-        public string EndTime { get; set; }
+        [Required]
+        [Display(Name = "End time")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
+        public DateTime? EndTime { get; set; }
 
         [DataType(DataType.Date)]
         [Display(Name = "End date (optional)")]
@@ -66,7 +73,7 @@ namespace StockportWebapp.Models
 
         public EventSubmission() { }
 
-        public EventSubmission(string title, DateTime eventDate, string startTime, string endTime, 
+        public EventSubmission(string title, DateTime eventDate, DateTime startTime, DateTime endTime, 
             DateTime endDate, string frequency, string fee, string location, string submittedBy, 
             IFormFile image, string description, IFormFile attachment, string submitterEmail)
         {
