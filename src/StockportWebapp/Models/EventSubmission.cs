@@ -15,7 +15,7 @@ namespace StockportWebapp.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name="Event date")]        
         public DateTime? EventDate { get; set; }
 
@@ -32,6 +32,7 @@ namespace StockportWebapp.Models
         public DateTime? EndTime { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "End date (optional)")]
         public DateTime? EndDate { get; set; }
 
