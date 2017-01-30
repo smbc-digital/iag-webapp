@@ -3,15 +3,9 @@
         var tabletWidth = (1024 - 17);
 
         if ($(window).width() <= tabletWidth) {
-            $(".l-news-filter .collapsible").toggleClass("is-collapsed");
+            $(".l-filters#news-filters .collapsible").toggleClass("is-collapsed");
         } else {
-            $(".l-news-filter .filter:not(#category-filter).collapsible").toggleClass("is-collapsed");
-            $(".l-news-filter .filter:not(#category-filter) .collapsible").toggleClass("is-collapsed");
+            $(".l-filters#news-filters .filter:not(#category-filter).collapsible").toggleClass("is-collapsed");
+            $(".l-filters#news-filters .filter:not(#category-filter) .collapsible").toggleClass("is-collapsed");
         }
     });
-
-$(".l-news-filter .filter-title, .l-news-filter .filter-inner-title").click(function () {
-    $(this).siblings("ul").slideToggle(100, function() {
-        $(this).parent().toggleClass("is-collapsed");
-    });
-});

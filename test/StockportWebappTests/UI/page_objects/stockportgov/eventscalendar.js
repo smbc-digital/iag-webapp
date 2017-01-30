@@ -12,7 +12,7 @@ var methods = {
 
     removeFirstFilter: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
-        browser.useCss().click("ul.filters-list li:first-child a");
+        browser.useCss().click("li.filters-active li:first-child a");
     }
 };
 

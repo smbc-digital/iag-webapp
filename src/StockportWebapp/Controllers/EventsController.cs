@@ -40,11 +40,9 @@ namespace StockportWebapp.Controllers
             if (!category.IsNullOrWhiteSpace()) queries.Add(new Query("category",category));
 
             var httpResponse = await _repository.Get<EventCalendar>(queries: queries);
-            ViewBag.VisibleFilterDrowdownClass = "filter collapsible";
-            if (queries.Count != 0) ViewBag.VisibleFilterDrowdownClass = "filter";
 
-            if (!httpResponse.IsSuccessful())
-                return httpResponse;
+            if (!httpResponse.IsSuccessful()) return httpResponse;
+
             var eventsCalendar = httpResponse.Content as EventCalendar;
 
             return View(eventsCalendar);
