@@ -91,6 +91,6 @@ module.exports = {
       pageTitle: "h1",
       newsList: ".nav-card-news-list",
       newsArchive: "#uitest-news-archive",
-      categoryList: "#category-list"
+      categoryList: "#category-filter"
   }
 };
