@@ -4,14 +4,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Quartz.Util;
-using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
@@ -20,28 +17,22 @@ namespace StockportWebapp.Controllers
     {
         private readonly IRepository _repository;
         private readonly IProcessedContentRepository _processedContentRepository;
-        private readonly ILogger<EventsController> _logger;
         private readonly FeatureToggles _featureToggles;
-        private readonly BusinessId _businessId;
         private readonly IEventsRepository _eventsRepository;
 
         public EventsController(IRepository repository,
                                 IProcessedContentRepository processedContentRepository,
                                 IEventsRepository eventsRepository,
-                                ILogger<EventsController> logger,
-                                BusinessId businessId, 
                                 FeatureToggles featureToggles)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
             _eventsRepository = eventsRepository;
-            _logger = logger;
-            _businessId = businessId;
             _featureToggles = featureToggles;
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index([FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null,[FromQuery] string category = null)
+        public async Task<IActionResult> Index([FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null, [FromQuery] string category = null)
         {
             var queries = new List<Query>();           
             if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
@@ -56,18 +47,8 @@ namespace StockportWebapp.Controllers
                 return httpResponse;
             var eventsCalendar = httpResponse.Content as EventCalendar;
 
-            var titleCase = !string.IsNullOrEmpty(category) ? "events" : "Events";
-
-            var title =  $"{category} {titleCase}".Trim();
-            ViewBag.Title = title;
-
-            var crumbs = new List<Crumb>();
-            if (!string.IsNullOrEmpty(category))
-                crumbs.Add(new Crumb("Events", "events", "events"));
-
-            return View(new EventsCalendarViewModel(crumbs, eventsCalendar));
+            return View(eventsCalendar);
         }
-
 
         [Route("/events/{slug}")]
         public async Task<IActionResult> Detail(string slug, [FromQuery] DateTime? date = null)
@@ -99,18 +80,12 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> SubmitEvent(EventSubmission eventSubmission)
         {
             if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
-            if (ModelState.IsValid)
-            {
-                var successCode = await _eventsRepository.SendEmailMessage(eventSubmission);
-                if (successCode == HttpStatusCode.OK)
-                {
-                    return RedirectToAction("ThankYouMessage");
-                }
-                else
-                {
-                    ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
-                }
-            }
+            if (!ModelState.IsValid) return View(eventSubmission);
+
+            var successCode = await _eventsRepository.SendEmailMessage(eventSubmission);
+            if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
+               
+            ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
             return View(eventSubmission);
         }

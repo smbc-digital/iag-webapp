@@ -119,6 +119,7 @@ module.exports = {
 
        var eventcalendar = browser.page.stockportgov.eventscalendar();
        eventcalendar.assertTitleIsVisible("Events");
+       eventcalendar.removeFirstFilter(browser);
        eventcalendar.goToEventsWithTitle(browser, "UITEST: Hats Amazing", "/events/hats-amazing");
 
        var events = browser.page.stockportgov.events();

@@ -8,6 +8,11 @@ var methods = {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
         browser.useXpath().assert.visible("//h2[@class='nav-card-events-title' and text()='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
+    },
+
+    removeFirstFilter: function (browser) {
+        this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
+        browser.useCss().click("ul.filters-list li:first-child a");
     }
 };
 

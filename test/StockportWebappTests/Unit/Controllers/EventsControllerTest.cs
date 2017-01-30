@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.Controllers;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using Moq;
-using StockportWebapp.Config;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.FeatureToggling;
-using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -21,8 +18,6 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly EventsController _controller;
         private readonly Mock<IRepository> _repository = new Mock<IRepository>();
         private readonly Mock<IProcessedContentRepository> _processedContentRepository = new Mock<IProcessedContentRepository>();
-        private readonly Mock<ILogger<EventsController>> _logger;
-        private const string BusinessId = "businessId";
         private readonly Event _eventsItem;
         private readonly List<string> _categories;
         private readonly HttpResponse responseListing;
@@ -54,7 +49,6 @@ namespace StockportWebappTests.Unit.Controllers
             _processedContentRepository.Setup(o => o.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count == 0)))
                 .ReturnsAsync(response404);
 
-            _logger = new Mock<ILogger<EventsController>>();
             _eventRepository = new Mock<IEventsRepository>();
             _featureToggles = new FeatureToggles {EventSubmission = true};
 
@@ -62,8 +56,6 @@ namespace StockportWebappTests.Unit.Controllers
                 _repository.Object,
                 _processedContentRepository.Object,
                 _eventRepository.Object,
-                _logger.Object,
-                new BusinessId(BusinessId),
                 _featureToggles);
         }
 
@@ -72,9 +64,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var actionResponse = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
 
-            var viewModel = actionResponse.ViewData.Model as EventsCalendarViewModel;
-            var events = viewModel.EventCalendar;
-
+            var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
 
             events.Events[0].Should().Be(_eventsItem);

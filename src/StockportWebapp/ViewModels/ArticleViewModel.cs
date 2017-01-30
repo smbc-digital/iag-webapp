@@ -8,15 +8,10 @@ namespace StockportWebapp.ViewModels
     public class ArticleViewModel
     {
         public readonly ProcessedArticle Article;
-
         public readonly ProcessedSection DisplayedSection;
-
         public int DisplayedSectionIndex => IndexForDisplayedSection() + 1;
-
         public readonly bool ShouldShowArticleSummary;
-
         public readonly bool ShouldShowCanonicalLink;
-
         public readonly string OgTitleMetaData;
 
         public ArticleViewModel(ProcessedArticle article)

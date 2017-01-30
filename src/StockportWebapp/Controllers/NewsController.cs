@@ -49,17 +49,9 @@ namespace StockportWebapp.Controllers
                 return httpResponse;
 
             var newsRoom = httpResponse.Content as Newsroom;                          
-
-            var title = "News";
-
-            var crumbs = new List<Crumb>();          
-
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            ViewBag.Title = title;
-            ViewBag.Tag = tag;
-
-            return View(new NewsroomViewModel(newsRoom, urlSetting.ToString(), title, tag, crumbs));
+            return View(new NewsroomViewModel(newsRoom, urlSetting.ToString()));
         }
 
 
