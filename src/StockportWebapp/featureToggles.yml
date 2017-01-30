@@ -8,6 +8,8 @@ prod: &prod
 stage: &stage
   << : *prod
   EventCalendar: true
+  EventSubmission: true
+  LatestEventsHomepage: true
 
 qa: &qa
   << : *prod
@@ -17,5 +19,3 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  EventSubmission: true
-  LatestEventsHomepage: true
