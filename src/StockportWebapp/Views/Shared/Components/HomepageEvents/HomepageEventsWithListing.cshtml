@@ -1,4 +1,14 @@
-﻿@model List<StockportWebapp.Models.Event>
+﻿@using StockportWebapp.Utils
+@inject ITimeProvider timeProvider;
+
+@model List<StockportWebapp.Models.Event>
+
+@{
+    var dateCalculator = new DateCalculator(timeProvider);
+    const string filterKey = "thismonth";
+    var monthlyFilter = dateCalculator.EventFilters[filterKey];
+}
+
 <h2>Upcoming Events</h2>
 
 <div class="grid-parent grid-100 homepage-latest-items">
@@ -16,6 +26,6 @@
     }
 </div>
 
-<a href="@Url.Action("Index", "Events")">
-    <div id="test-eventscalendar-link" class=" button button-outline button-featured-content-more button-partialrounded">View Events</div>
+<a href="@Url.Action("Index", "Events", new { datefrom = monthlyFilter.DateFrom, dateto = monthlyFilter.DateTo, daterange = filterKey })">
+    <div id="test-eventscalendar-link" class="button button-outline button-featured-content-more button-partialrounded">View Events</div>
 </a>
