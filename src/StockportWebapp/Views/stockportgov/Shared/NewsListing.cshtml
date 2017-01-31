@@ -33,20 +33,22 @@
                         }
                         </ul>
                     </li>
-                    <li class="filter collapsible" id="category-filter">
-                        <p class="filter-title">Category</p>
-                        <ul class="filters-list">
-                            <li class=@(filteredUrl.HasNoCategoryFilter() ? "active" : "")>
-                                <a href="@Url.RouteUrl(filteredUrl.WithoutCategory())">All categories</a>
-                            </li>
-                            @foreach (var category in Model.Categories)
-                            {
-                                <li class=@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")>
-                                    <a href="@Url.RouteUrl(filteredUrl.AddCategoryFilter(category))">@category</a>
+                    @if (Model.Categories.Any()) {
+                        <li class="filter collapsible" id="category-filter">
+                            <p class="filter-title">Category</p>
+                            <ul class="filters-list">
+                                <li class=@(filteredUrl.HasNoCategoryFilter() ? "active" : "")>
+                                    <a href="@Url.RouteUrl(filteredUrl.WithoutCategory())">All categories</a>
                                 </li>
-                            }
-                        </ul>
-                    </li>
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <li class=@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")>
+                                        <a href="@Url.RouteUrl(filteredUrl.AddCategoryFilter(category))">@category</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
                     <li class="filter collapsible">
                         <p class="filter-title">News archive</p>
                         <ul class="filters-list filters-outer-list" id="uitest-news-archive">

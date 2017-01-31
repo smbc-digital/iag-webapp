@@ -40,17 +40,19 @@
                             }
                         </ul>
                     </li>
-                    <li class="filter collapsible">
-                        <p class="filter-title">Category</p>
-                        <ul class="filters-list">
-                            @foreach (var category in Model.Categories)
-                            {
-                                <li class="@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")">
-                                    <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"category", category}}))"> @category</a>
-                                </li>
-                            }
-                        </ul>
-                    </li>                
+                    @if (Model.Categories.Any()) {
+                        <li class="filter collapsible">
+                            <p class="filter-title">Category</p>
+                            <ul class="filters-list">
+                                @foreach (var category in Model.Categories)
+                                {
+                                    <li class="@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")">
+                                        <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"category", category}}))"> @category</a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }              
                 </ul>
                 <p class="mobile-filter-heading filter-title">Filter Events</p>
             </li>
