@@ -55,6 +55,7 @@ $(window).resize(function () {
     if ($(window).width() > tabletWidth) {
         $("#mobileSearchInput").hide();
         $(".show-search-button").removeClass("arrow");
+        $('#DisplayRefineBy').css('display', 'block');
     }
 });
 
