@@ -44,8 +44,8 @@ namespace StockportWebapp.Repositories
 
             stringBuilder.Append($"<p>Event name: {eventSubmission.Title}<br />");
             if (!string.IsNullOrEmpty(eventSubmission.EventDate)) stringBuilder.Append($"Event date: {eventSubmission.EventDate:dddd dd MMMM yyyy}<br />");
-            if (eventSubmission.StartTime.HasValue) stringBuilder.Append($"Start time: {eventSubmission.StartTime.Value:hh:mm}<br />");
-            if (eventSubmission.EndTime.HasValue) stringBuilder.Append($"End time: {eventSubmission.EndTime.Value:hh:mm}<br />");
+            if (eventSubmission.StartTime.HasValue) stringBuilder.Append($"Start time: {eventSubmission.StartTime.Value:HH:mm}<br />");
+            if (eventSubmission.EndTime.HasValue) stringBuilder.Append($"End time: {eventSubmission.EndTime.Value:HH:mm}<br />");
             stringBuilder.Append($"How often does your event occur?: {eventSubmission.Frequency}<br />");
             if (!string.IsNullOrEmpty(eventSubmission.EndDate)) stringBuilder.Append($"End date: {eventSubmission.EndDate:dddd dd MMMM yyyy}<br />");
             stringBuilder.Append($"Price: {eventSubmission.Fee}<br />");
