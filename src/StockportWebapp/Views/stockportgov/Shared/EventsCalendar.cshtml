@@ -19,14 +19,14 @@
                 <ul class="filters-list">
                     <li class="filters-active">
                         <ul>
-                            @if (!string.IsNullOrEmpty(categoryFilter) && Model.DoesCategoryExist(categoryFilter))
-                            {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
-                            }
-                            @if (!string.IsNullOrEmpty(dateFilter))
-                            {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
-                            }
+                        @if (!string.IsNullOrEmpty(categoryFilter) && Model.DoesCategoryExist(categoryFilter))
+                        {
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
+                        }
+                        @if (!string.IsNullOrEmpty(dateFilter))
+                        {
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
+                        }
                         </ul>
                     </li>
                     <li class="filter collapsible" id="date-filter">
