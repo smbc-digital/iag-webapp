@@ -18,9 +18,15 @@
 @Html.Partial("MobileSearchBar")
 <div class="banner-header-container">
     <div class="grid-container grid-100">
-        <div class="banner-header grid-100 mobile-grid-100 tablet-grid-100">
-            <p><span class="banner-title">You're using our new and improved website.</span><span class="banner-body">Let us know <a class="typeform-share link" data-mode="1" target="_blank" href="https://stockportcouncil.typeform.com/to/dXTax7">what you think</a>.</span></p>
-        </div>
+        @if (ViewData["Beta"] != null && (bool)ViewData["Beta"]) {
+            <div class="banner-header grid-100 mobile-grid-100 tablet-grid-100">
+                <p>
+                    <span class="banner-title">This part of Stockport.gov.uk is brand new—</span><span class="banner-body">your <a class="typeform-share link" data-mode="1" target="_blank" href="https://stockportcouncil.typeform.com/to/dXTax7">feedback</a> will help us improve it.</span>
+                </p>
+            </div>
+
+            }
+        
     </div>
 </div>
 @Html.Partial("BrowserCheck")
