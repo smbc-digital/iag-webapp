@@ -7,9 +7,9 @@ prod: &prod
 
 stage: &stage
   << : *prod
-  EventCalendar: false
-  LatestEventsHomepage: false
-  EventSubmission: false  
+  EventCalendar: true
+  LatestEventsHomepage: true
+  EventSubmission: true
 
 qa: &qa
   << : *prod
