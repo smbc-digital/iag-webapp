@@ -1,15 +1,12 @@
 ﻿---
 prod: &prod
-  EventCalendar: false
+  EventCalendar: true
   SecurityHeaders: true
-  EventSubmission: false
-  LatestEventsHomepage: false
+  EventSubmission: true
+  LatestEventsHomepage: true
 
 stage: &stage
   << : *prod
-  EventCalendar: true
-  LatestEventsHomepage: true
-  EventSubmission: true
 
 qa: &qa
   << : *prod
