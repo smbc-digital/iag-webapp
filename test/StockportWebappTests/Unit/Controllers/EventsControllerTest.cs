@@ -116,7 +116,7 @@ namespace StockportWebappTests.Unit.Controllers
                 {
                     Title = "Title",
                     Description = "Description",
-                    EventDate = new DateTime(2017, 12, 01).ToString(),
+                    EventDate = new DateTime(2017, 12, 01),
                     StartTime = new DateTime(2017, 01, 01, 10, 00, 00),
                     EndTime = new DateTime(2017, 01, 01, 12, 00, 00),
                     Fee = "£5.00",

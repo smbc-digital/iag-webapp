@@ -16,7 +16,7 @@ namespace StockportWebapp.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name="Event date")]        
-        public string EventDate { get; set; }
+        public DateTime? EventDate { get; set; }
 
         [Required]
         [Display(Name = "Start time")]
@@ -32,7 +32,7 @@ namespace StockportWebapp.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "End date (optional)")]
-        public string EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public List<string> Frequencylist = new List<string> {"Daily", "Weekly", "Fortnightly", "Monthly", "Yearly"};
 
@@ -72,8 +72,8 @@ namespace StockportWebapp.Models
 
         public EventSubmission() { }
 
-        public EventSubmission(string title, string eventDate, DateTime startTime, DateTime endTime, 
-            string endDate, string frequency, string fee, string location, string submittedBy, 
+        public EventSubmission(string title, DateTime eventDate, DateTime startTime, DateTime endTime,
+            DateTime endDate, string frequency, string fee, string location, string submittedBy, 
             IFormFile image, string description, IFormFile attachment, string submitterEmail)
         {
             Title = title;

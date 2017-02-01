@@ -2,6 +2,10 @@ FROM microsoft/dotnet:1.0.0-preview2-sdk
 
 MAINTAINER Stockport Digital By Design
 
+ENV LANG en_GB.UTF-8
+ENV LANGUAGE en_GB:en
+ENV LC_ALL en_GB.UTF-8
+
 # Add application user
 RUN useradd -r -m -s /sbin/nologin -c "IAG application user" iaguser
 
