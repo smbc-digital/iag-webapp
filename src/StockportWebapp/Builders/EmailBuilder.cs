@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using MimeKit;
 using StockportWebapp.Models;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Builders
 {
@@ -21,7 +22,7 @@ namespace StockportWebapp.Builders
             return stream;
         }
 
-        private MimeMessage BuildMessage(EmailMessage emailMessage)
+        private static MimeMessage BuildMessage(EmailMessage emailMessage)
         {
             var message = new MimeMessage();
 
@@ -44,7 +45,7 @@ namespace StockportWebapp.Builders
             return message;
         }
 
-        private BodyBuilder BuildMessageBody(string bodyContent, List<IFormFile> attachments)
+        private static BodyBuilder BuildMessageBody(string bodyContent, List<IFormFile> attachments)
         {
             var body = new BodyBuilder
             {
@@ -54,7 +55,7 @@ namespace StockportWebapp.Builders
 
             foreach (var file in attachments)
             {
-                body.Attachments.Add(file.FileName, file.OpenReadStream());
+                body.Attachments.Add(FileHelper.GetFileNameFromPath(file), file.OpenReadStream());
             }
 
             return body;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using StockportWebapp.Models;
 using System.Text;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Repositories
 {
@@ -52,8 +54,8 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append($"Location: {eventSubmission.Location}<br />");            
             stringBuilder.Append($"Organiser name: {eventSubmission.SubmittedBy}<br />");
             stringBuilder.Append($"Description: {eventSubmission.Description}<br />");
-            if (eventSubmission.Image != null) stringBuilder.Append($"Event image: {eventSubmission.Image.FileName}<br />");
-            if (eventSubmission.Attachment != null) stringBuilder.Append($"Additional event document: {eventSubmission.Attachment.FileName}<br />");
+            if (eventSubmission.Image != null) stringBuilder.Append($"Event image: {FileHelper.GetFileNameFromPath(eventSubmission.Image)}<br />");
+            if (eventSubmission.Attachment != null) stringBuilder.Append($"Additional event document: {FileHelper.GetFileNameFromPath(eventSubmission.Attachment)}<br />");
             stringBuilder.Append($"<br />Organiser email address: {eventSubmission.SubmitterEmail}");
             stringBuilder.Append("</p>");
 

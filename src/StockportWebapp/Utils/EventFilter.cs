@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StockportWebapp.Utils
+﻿namespace StockportWebapp.Utils
 {
     public class EventFilter
     {
