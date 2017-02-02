@@ -96,21 +96,23 @@
                             previousEventDate = subItem.EventDate.Date;
                         }
                         <div class="events-bottom-border grid-100 grid-parent">
-                            @if (!string.IsNullOrEmpty(subItem.ThumbnailImageUrl))
-                            {
-                                <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-events-thumbnail nav-card-events-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImageUrl);"></div>
-                            }
-                            <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImageUrl) ? "mobile-grid-65 tablet-grid-70 nav-card-events-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
-                               
-                                <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug, date = subItem.EventDate.ToString("yyyy-MM-dd")})">
+                            <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug, date = subItem.EventDate.ToString("yyyy-MM-dd")})">
+                                @if (!string.IsNullOrEmpty(subItem.ThumbnailImageUrl))
+                                {
+                                    <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-events-thumbnail nav-card-events-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImageUrl);"></div>
+                                }
+                                <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImageUrl) ? "mobile-grid-65 tablet-grid-70 nav-card-events-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
+
+
                                     <h2 class="nav-card-events-title">@subItem.Title</h2>
-                                </a>
-                                <div class="events-date hide-on-mobile">
-                                    <i class="fa fa-clock-o"></i>@subItem.EventDate.ToString("dddd dd MMMM") @subItem.StartTime
+
+                                    <div class="events-date hide-on-mobile">
+                                        <i class="fa fa-clock-o"></i>@subItem.EventDate.ToString("dddd dd MMMM") @subItem.StartTime
+                                    </div>
+                                    <p class="hide-on-mobile nav-card-events-location">@Html.Raw(subItem.Location)</p>
+                                    <p class="nav-card-events-fee">@subItem.Fee</p>
                                 </div>
-                                <p class="hide-on-mobile nav-card-events-location">@Html.Raw(subItem.Location)</p>
-                                <p class="nav-card-events-fee">@subItem.Fee</p>
-                            </div>
+                            </a>
                         </div>
                     </li>
                 }

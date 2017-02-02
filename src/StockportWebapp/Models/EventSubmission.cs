@@ -15,8 +15,10 @@ namespace StockportWebapp.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name="Event date")]        
+        [Display(Name="Event date")]
+        [FutureDateValidation] 
         public DateTime? EventDate { get; set; }
+
 
         [Required]
         [Display(Name = "Start time")]
@@ -28,13 +30,17 @@ namespace StockportWebapp.Models
         [Display(Name = "End time")]
         [DataType(DataType.Time)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
+        [EndTimeLaterThanStartTimeValidation(otherPropertyName:"StartTime", erroMessgae:"End Time should be after Start Time")]
         public DateTime? EndTime { get; set; }
 
+        [FutureDateValidation]
         [DataType(DataType.Date)]
         [Display(Name = "End date (optional)")]
+        [EndDateLaterThanStartDateValidation(otherPropertyName:"EventDate",erroMessgae:"End Date should be after Start Date")]
         public DateTime? EndDate { get; set; }
 
-        public List<string> Frequencylist = new List<string> {"Daily", "Weekly", "Fortnightly", "Monthly", "Yearly"};
+
+        public List<string> Frequencylist = new List<string> {"Daily", "Weekly", "Fortnightly", "Monthly Date","Monthly Day","Yearly"};
 
         [Display(Name = "How often does your event occur? (optional)")]
         public string Frequency { get; set; }

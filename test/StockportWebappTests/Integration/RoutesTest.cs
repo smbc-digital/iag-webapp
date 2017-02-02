@@ -432,7 +432,11 @@ namespace StockportWebappTests.Integration
 
             var formContents = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("Title", "title")
+                new KeyValuePair<string, string>("Title", "title"),
+                new KeyValuePair<string, string>("EventDate", "11/12/2020"),
+                new KeyValuePair<string, string>("EndDate", "12/12/2020"),
+                new KeyValuePair<string, string>("StartTime", "09:30"),
+                new KeyValuePair<string, string>("EndTime", "17:30"),
             });
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/events/submit-event") { Content = formContents };
