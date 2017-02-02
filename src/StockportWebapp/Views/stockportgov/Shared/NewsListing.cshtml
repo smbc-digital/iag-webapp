@@ -15,25 +15,26 @@
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="news-filters">
         <p class="filters-heading">Refine by</p>         
         <ul class="filters-list">           
-            <li>                
-                <ul class="filters-list" id="DisplayRefineBy">
+            <li id="removeClass">
+                <ul class="filters-list" id="displayRefineBy">
                     <li class="filters-active">
                         <ul>
-                        @if (!string.IsNullOrEmpty(selectedCategory))
-                        {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCategory</a></li>
-                        }
-                        @if (!string.IsNullOrEmpty(selectedDate))
-                        {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Convert.ToDateTime(selectedDate).ToString("MMMM yyyy")</a></li>
-                        }
-                        @if (!string.IsNullOrEmpty(selectedTag))
-                        {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @selectedTag</a></li>
-                        }
+                            @if (!string.IsNullOrEmpty(selectedCategory))
+                            {
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCategory</a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(selectedDate))
+                            {
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Convert.ToDateTime(selectedDate).ToString("MMMM yyyy")</a></li>
+                            }
+                            @if (!string.IsNullOrEmpty(selectedTag))
+                            {
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @selectedTag</a></li>
+                            }
                         </ul>
                     </li>
-                    @if (Model.Categories.Any()) {
+                    @if (Model.Categories.Any())
+                    {
                         <li class="filter collapsible" id="category-filter">
                             <p class="filter-title">Category</p>
                             <ul class="filters-list">
