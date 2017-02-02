@@ -46,9 +46,6 @@
 <div class="l-body-section-filled grid-100 grid-parent">
     @Html.Partial("FeaturedTopics", Model.FeaturedTopics)
 </div>
-<div class="grid-100 grid-parent">
-    @Html.Partial("Carousel", Model.CarouselContents)
-</div>
 <div class="grid-100 grid-parent white-background">
     <div class="news-events-container grid-container tablet-grid-100">
         @if (Model.GetLatestNews().Any())
@@ -62,6 +59,10 @@
         </div>
     </div>
 </div>
+<div class="grid-100 grid-parent">
+    @Html.Partial("Carousel", Model.CarouselContents)
+</div>
+
 
 <div class="personalised-services">
     <div class="grid-container">
