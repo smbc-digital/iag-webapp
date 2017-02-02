@@ -42,9 +42,15 @@
                                         <span asp-validation-for="@Model.Title" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.Description"></label>
+                                        <i class="small">
+                                            <ul>
+                                                <li>Let people know why they should visit your event</li>
+                                                <li>Let people know how to how to get in touch</li>
+                                            </ul>
+                                        </i>
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
+                                        
                                         <label asp-for="@Model.Location"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Location" />
                                         <span asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -68,10 +74,10 @@
                                         <div class="schedule_multiple_events_inputs">
                                             <label asp-for="@Model.Frequency"></label>
                                             <ul class="radio-list">
-                                                @foreach (var item in Model.Frequencylist)
+                                                @foreach (var item in Model.Frequencylist.Keys)
                                                 {
                                                     <li>
-                                                        <label><input type="radio" value="@item" asp-for="Frequency"> @item</label>
+                                                        <label><input type="radio" value="@item" asp-for="Frequency"> @item <i>@Model.Frequencylist[item]</i></label>
                                                     </li>
                                                 }
                                             </ul>

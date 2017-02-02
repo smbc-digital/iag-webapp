@@ -41,7 +41,15 @@ namespace StockportWebapp.Models
         public DateTime? EndDate { get; set; }
 
 
-        public List<string> Frequencylist = new List<string> {"Daily", "Weekly", "Fortnightly", "Monthly Date","Monthly Day","Yearly"};
+        public Dictionary<string,string> Frequencylist = new Dictionary<string, string>()
+        {
+            { "Daily",""},
+            { "Weekly",""},
+            { "Fortnightly",""},
+            { "Monthly Date","For example, 15th of every month"},
+            { "Monthly Day","For example, on the first Friday of every month"},
+            { "Yearly",""}
+        };
 
         [Display(Name = "How often does your event occur? (optional)")]
         public string Frequency { get; set; }
