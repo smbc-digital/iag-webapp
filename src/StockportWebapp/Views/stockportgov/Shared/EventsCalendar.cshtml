@@ -15,8 +15,8 @@
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="event-filters">
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list">
-            <li>
-                <ul class="filters-list" id="DisplayRefineBy">
+            <li id="removeClass">
+                <ul class="filters-list" id="displayRefineBy">
                     <li class="filters-active">
                         <ul>
                         @if (!string.IsNullOrEmpty(categoryFilter) && Model.DoesCategoryExist(categoryFilter))
