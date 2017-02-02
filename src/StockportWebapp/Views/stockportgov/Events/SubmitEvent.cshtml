@@ -45,7 +45,7 @@
                                         <i class="small">
                                             <ul>
                                                 <li>Let people know why they should visit your event</li>
-                                                <li>Let people know how to how to get in touch</li>
+                                                <li>Let people know how to get in touch</li>
                                             </ul>
                                         </i>
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
@@ -77,7 +77,11 @@
                                                 @foreach (var item in Model.Frequencylist.Keys)
                                                 {
                                                     <li>
-                                                        <label><input type="radio" value="@item" asp-for="Frequency"> @item <i>@Model.Frequencylist[item]</i></label>
+                                                        <label><input type="radio" value="@item" asp-for="Frequency"> @item</label>
+                                                        @if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
+                                                        {
+                                                            <br /><i>@Model.Frequencylist[item]</i>
+                                                        }
                                                     </li>
                                                 }
                                             </ul>
