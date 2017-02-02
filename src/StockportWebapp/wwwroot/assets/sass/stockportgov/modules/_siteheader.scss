@@ -1,4 +1,12 @@
-﻿.menu {
+﻿.type-home .header-myaccount {
+    width: 100%;
+}
+
+.type-home .header-search-bar {
+    width: 0;
+}
+
+.menu {
     color: $colorPrimaryPale;
     text-align: right;
 
@@ -44,5 +52,11 @@
                 }
             }
         }
+    }
+}
+
+.type-home {
+    .menu .menu-logged-out {
+        padding-right: 0;
     }
 }

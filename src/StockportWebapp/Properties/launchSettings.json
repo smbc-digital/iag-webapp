@@ -18,7 +18,6 @@
     "web": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "int" 
       }
     }
   }
