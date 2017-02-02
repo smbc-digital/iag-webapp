@@ -78,11 +78,12 @@
                                                 {
                                                     <li>
                                                         <label><input type="radio" value="@item" asp-for="Frequency"> @item</label>
-                                                        @if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
-                                                        {
-                                                            <br /><i>@Model.Frequencylist[item]</i>
-                                                        }
+                                                       
                                                     </li>
+                                                    if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
+                                                    {
+                                                        <p><i>@Model.Frequencylist[item]</i></p>
+                                                    }
                                                 }
                                             </ul>
                                             <span asp-validation-for="@Model.Frequency" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
