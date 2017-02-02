@@ -71,7 +71,7 @@
                                                 @foreach (var item in Model.Frequencylist)
                                                 {
                                                     <li>
-                                                        <label><input type="radio" value="@item" name="Frequency"> @item</label>
+                                                        <label><input type="radio" value="@item" asp-for="Frequency"> @item</label>
                                                     </li>
                                                 }
                                             </ul>

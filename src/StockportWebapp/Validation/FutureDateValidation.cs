@@ -10,9 +10,10 @@ namespace StockportWebapp.Validation
         {
            
             if (value == null) return ValidationResult.Success;
-            var date = DateTime.Parse(value.ToString());
+            var date = value as DateTime?;
+            if (!date.HasValue) return ValidationResult.Success;
             var today = DateTime.Today;
-            if (date.Date > today)
+            if (date.Value.Date > today)
                 return ValidationResult.Success;
             return new  ValidationResult("Should be a future date");
         }

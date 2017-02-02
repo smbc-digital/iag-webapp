@@ -21,15 +21,17 @@ namespace StockportWebapp.Validation
             var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance) ;
             
             var extensionValue = field.GetValue(validationContext.ObjectInstance);
-            var startTime = DateTime.Parse(extensionValue.ToString());  
+            var startTime = extensionValue as DateTime?;  
 
-            if(startTime == DateTime.MinValue)
-                return new ValidationResult("Should enter valid Time");
+            if(!startTime.HasValue)
+                return new ValidationResult("Should enter valid Start Time");
 
             if (value == null) return ValidationResult.Success;
-            var endTime = DateTime.Parse(value.ToString());
-           
-            if (endTime > startTime)
+            var endTime = value as DateTime?;
+            if(!endTime.HasValue)
+                return new ValidationResult("Should enter valid End Time");
+
+            if (endTime.Value > startTime.Value)
                 return ValidationResult.Success;
             return new ValidationResult("End Time should be after Start Time");
         }

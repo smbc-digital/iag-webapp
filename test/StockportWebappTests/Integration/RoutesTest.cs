@@ -437,6 +437,7 @@ namespace StockportWebappTests.Integration
                 new KeyValuePair<string, string>("EndDate", "12/12/2020"),
                 new KeyValuePair<string, string>("StartTime", "09:30"),
                 new KeyValuePair<string, string>("EndTime", "17:30"),
+                new KeyValuePair<string, string>("Frequency","Daily")
             });
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/events/submit-event") { Content = formContents };

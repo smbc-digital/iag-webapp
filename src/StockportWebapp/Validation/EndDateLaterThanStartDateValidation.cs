@@ -20,15 +20,16 @@ namespace StockportWebapp.Validation
             var containerType = validationContext.ObjectInstance.GetType();
             var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance) ;
             var extensionValue = field.GetValue(validationContext.ObjectInstance);
-            var startDate = DateTime.Parse(extensionValue.ToString());  
+            var startDate = extensionValue as DateTime?; 
 
-            if(startDate == DateTime.MinValue)
+            if(!startDate.HasValue)
                 return new ValidationResult("Should enter valid Start Date");
 
-            if (value == null) return ValidationResult.Success;
-            var date = DateTime.Parse(value.ToString());
            
-            if (date.Date >= startDate.Date)
+            var date = value as DateTime?;
+            if (!date.HasValue)
+                  return ValidationResult.Success;
+            if (date.Value.Date >= startDate.Value.Date)
                 return ValidationResult.Success;
             return new ValidationResult("End date should be after Start Date");
         }

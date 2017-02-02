@@ -36,7 +36,8 @@ namespace StockportWebapp.Models
         [FutureDateValidation]
         [DataType(DataType.Date)]
         [Display(Name = "End date (optional)")]
-        [EndDateLaterThanStartDateValidation(otherPropertyName:"EventDate",erroMessgae:"End Date should be after Start Date")]
+        [EndDateLaterThanStartDateValidation(otherPropertyName:"EventDate", erroMessgae: "End Date should be after Start Date")]
+        [EndDateGreaterThanStartDateFrequencyPeriodValidation(otherPropertyName:"EventDate",frequencyPropertyName:"Frequency",erroMessgae:"End Date should be after Start Date")]
         public DateTime? EndDate { get; set; }
 
 
