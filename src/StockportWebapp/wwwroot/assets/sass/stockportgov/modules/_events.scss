@@ -33,6 +33,14 @@
     }
 }
 
+.custom-date-title {
+        border-bottom-width: 0px; 
+        margin-bottom: 0px; 
+        font-weight: normal; 
+        padding-top: 0px; 
+        padding-bottom: 0px;
+    }
+
 .events-article-grid {
     background-color: white;
 
@@ -232,6 +240,17 @@ ul.nav-card-events-list {
         margin-bottom: 20px;
     }  
 } 
+
+.button-customdate {
+    width: 100%;
+    padding-top: 5px; 
+    padding-bottom: 5px;
+
+    @media #{$desktop, $tablet} {
+        width: auto;
+        min-width: 290px;
+    }
+}
 
 .events-calender-container-image{ 
      flex: 1; 

@@ -38,6 +38,28 @@
                                     <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"datefrom", eventFilter.Value.DateFrom}, {"dateto", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
                                 </li>
                             }
+                            <li class="@(currentUrl.MatchesQueryParam("daterange", "customDate") ? "active" : "") filter collapsible">                              
+                                
+                                    <p class="filter-title custom-date-title"><a>Custom Date</a></p>
+                                    <ul class="filters-list custom-date">
+                                        <li>
+                                            <form action="/events" method="get">
+                                                <div class="date-from">
+                                                    <label>Start Date</label> <br />
+                                                    <input type="date" class="datepicker" name="datefrom" />
+                                                </div>
+                                                <div class="date-to">
+                                                    <label>End Date</label> <br />
+                                                    <input type="date" class="datepicker" name="dateto" />
+                                                </div>
+                                                <div class="update-button">
+                                                    <stock-button class="button-customdate">Update</stock-button>
+                                                </div>
+                                            </form>
+                                          </li>
+                                    </ul>                                                              
+                               
+                            </li>                         
                         </ul>
                     </li>
                     @if (Model.Categories.Any()) {

@@ -31,12 +31,39 @@
         a {
             padding: 0;
         }
-    }
+    }   
 
     .filters-list {
         list-style: outside none none;
         padding: 0px;
         margin-bottom: 0;
+
+      &.custom-date {
+          li {
+              margin-right: 0px; 
+              border-bottom: solid 1px #ccc; 
+              padding-bottom: 10px;
+
+              input{
+                  width: 98%; 
+                  padding-top: 5px; 
+                  padding-bottom: 5px;
+              }
+
+              .date-from{
+                  line-height: 1.2;                  
+              }
+
+              .date-to{
+                  line-height: 1.2; 
+                  margin-top: 5px;
+              }
+
+              .update-button{
+                  padding-top: 10px;
+              }
+          }
+      }
     }
 
     .filter-title, .filter-inner-title {
@@ -44,6 +71,14 @@
         position: relative;
         cursor: pointer;
         border-bottom: 1px solid $greyLight;
+
+        &.custom-date-title {
+        border-bottom-width: 0px; 
+        margin-bottom: 0px; 
+        font-weight: normal; 
+        padding-top: 0px; 
+        padding-bottom: 10px;
+       }
 
         &:after {
             padding-left: 10px;
