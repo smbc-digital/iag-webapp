@@ -4,7 +4,7 @@ prod: &prod
   SecurityHeaders: true
   EventSubmission: true
   LatestEventsHomepage: true
-  MyAccountHeaderButton: false
+  MyAccountHeaderButton: true
 
 stage: &stage
   << : *prod
@@ -17,4 +17,3 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  MyAccountHeaderButton: true
