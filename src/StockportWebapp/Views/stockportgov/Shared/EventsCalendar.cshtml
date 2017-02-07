@@ -6,6 +6,8 @@
     var filteredUrl = new FilteredUrl(currentUrl);
     var categoryFilter = Context.Request.Query["category"];
     var dateRange = Context.Request.Query["daterange"].ToString();
+    var dateFrom = dateRange == "customdate" ? Context.Request.Query["datefrom"].ToString() : "";
+    var dateTo = dateRange == "customdate" ? Context.Request.Query["dateto"].ToString() : "";
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
 
@@ -38,27 +40,26 @@
                                     <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"datefrom", eventFilter.Value.DateFrom}, {"dateto", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
                                 </li>
                             }
-                            <li class="@(currentUrl.MatchesQueryParam("daterange", "customDate") ? "active" : "") filter collapsible">                              
-                                
-                                    <p class="filter-title custom-date-title"><a>Custom Date</a></p>
-                                    <ul class="filters-list custom-date">
-                                        <li>
-                                            <form action="/events" method="get">
-                                                <div class="date-from">
-                                                    <label>Start Date</label> <br />
-                                                    <input type="date" class="datepicker" name="datefrom" />
-                                                </div>
-                                                <div class="date-to">
-                                                    <label>End Date</label> <br />
-                                                    <input type="date" class="datepicker" name="dateto" />
-                                                </div>
-                                                <div class="update-button">
-                                                    <stock-button class="button-customdate">Update</stock-button>
-                                                </div>
-                                            </form>
-                                          </li>
-                                    </ul>                                                              
-                               
+                            <li id="custom-filter-li" class="@(currentUrl.MatchesQueryParam("daterange", "customdate") ? "customdateactive" : "") filter collapsible">                                                       
+                                <a class="filter-title custom-date-title">Custom Date</a>
+                                <ul class="filters-list custom-date">
+                                    <li>
+                                        <form action="/events" method="get">
+                                            <input type="hidden" name="daterange" value="customdate" />
+                                            <div class="date-from">
+                                                <label>Start date</label> <br />
+                                                <input id="datepickerfrom" type="date" class="datepicker date-from-picker" name="datefrom" value= "@dateFrom" />                        
+                                            </div>
+                                            <div class="date-to">
+                                                <label>End date</label> <br />
+                                                <input id="datepickerto" type="date" class="datepicker" name="dateto" value="@dateTo" />
+                                            </div>
+                                            <div class="update-button">
+                                                <stock-button class="button-customdate">Update</stock-button>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>                                                                                                  
                             </li>                         
                         </ul>
                     </li>
