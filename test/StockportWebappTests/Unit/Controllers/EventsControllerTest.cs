@@ -9,7 +9,7 @@ using StockportWebapp.Repositories;
 using Moq;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
-using StockportWebapp.FeatureToggling;
+
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -23,7 +23,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly HttpResponse responseListing;
         private readonly HttpResponse _responseDetail;
         private readonly Mock<IEventsRepository> _eventRepository;
-        private readonly FeatureToggles _featureToggles;
+    
 
         public EventsControllerTest()
         {
@@ -50,13 +50,11 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(response404);
 
             _eventRepository = new Mock<IEventsRepository>();
-            _featureToggles = new FeatureToggles {EventSubmission = true};
 
             _controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
-                _eventRepository.Object,
-                _featureToggles);
+                _eventRepository.Object);
         }
 
         [Fact]
@@ -154,22 +152,6 @@ namespace StockportWebappTests.Unit.Controllers
             var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission));
 
             actionResponse.Should().BeOfType<ViewResult>();
-            _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
-        }
-
-        [Fact]
-        public void ItShouldReturnToEventsIndexIfTheFeatureToggleIsOff()
-        {
-            _featureToggles.EventSubmission = false;
-            var eventSubmission = new EventSubmission();
-
-            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission));
-
-            actionResponse.Should().BeOfType<RedirectToActionResult>();
-
-            var view = actionResponse as RedirectToActionResult;
-            view.ActionName.Should().Be("Index");
-
             _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
         }
     }

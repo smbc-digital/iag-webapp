@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Quartz.Util;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -17,18 +16,15 @@ namespace StockportWebapp.Controllers
     {
         private readonly IRepository _repository;
         private readonly IProcessedContentRepository _processedContentRepository;
-        private readonly FeatureToggles _featureToggles;
         private readonly IEventsRepository _eventsRepository;
 
         public EventsController(IRepository repository,
                                 IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository,
-                                FeatureToggles featureToggles)
+                                IEventsRepository eventsRepository)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
             _eventsRepository = eventsRepository;
-            _featureToggles = featureToggles;
         }
 
         [Route("/events")]
@@ -68,7 +64,6 @@ namespace StockportWebapp.Controllers
         [Route("/events/submit-event")]
         public IActionResult SubmitEvent()
         {
-            if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
             var eventSubmission = new EventSubmission();
             return View(eventSubmission);
         }
@@ -77,7 +72,6 @@ namespace StockportWebapp.Controllers
         [Route("/events/submit-event")]
         public async Task<IActionResult> SubmitEvent(EventSubmission eventSubmission)
         {
-            if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
             if (!ModelState.IsValid) return View(eventSubmission);
 
             var successCode = await _eventsRepository.SendEmailMessage(eventSubmission);
@@ -91,7 +85,6 @@ namespace StockportWebapp.Controllers
         [Route("/events/thank-you-message")]
         public IActionResult ThankYouMessage()
         {
-            if (!_featureToggles.EventSubmission) return RedirectToAction("Index");
             return View();
         }
     }

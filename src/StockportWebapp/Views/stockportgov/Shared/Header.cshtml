@@ -1,8 +1,6 @@
 ﻿@using System.Threading.Tasks
-@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @inject IStaticAssets StaticAssets
-@inject FeatureToggles FeatureToggles
 
 @*This script enables the feedback button.*@
 <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
@@ -14,15 +12,12 @@
         </div>
         <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
             <div class="header-container grid-100 grid-parent">
-                <div class="grid-50 grid-parent header-myaccount">
-                    @if (FeatureToggles.MyAccountHeaderButton)
-                    {
-                        <div class="menu">
-                            <div class="menu-logged-out pull-right">
-                                <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><i class="fa fa-user hide-on-mobile" aria-hidden="true"></i>My Account</a>
-                            </div>
+                <div class="grid-50 grid-parent header-myaccount">                   
+                    <div class="menu">
+                        <div class="menu-logged-out pull-right">
+                            <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><i class="fa fa-user hide-on-mobile" aria-hidden="true"></i>My Account</a>
                         </div>
-                    }
+                    </div>                  
                 </div>
                 <div class="grid-50 grid-parent pull-right header-search-bar">
                     @Html.Partial("HeaderSearchBar")

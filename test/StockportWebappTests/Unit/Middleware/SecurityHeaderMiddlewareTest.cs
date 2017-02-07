@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Middleware;
 using Xunit;
 
@@ -11,15 +10,12 @@ namespace StockportWebappTests.Unit.Middleware
     {
 
         private readonly SecurityHeaderMiddleware _middleware;
-        private readonly FeatureToggles _featureToggles;
-        private readonly Mock<RequestDelegate> _requestDelegate;
 
         public SecurityHeaderMiddlewareTest()
         {
-            _requestDelegate = new Mock<RequestDelegate>();
-            _featureToggles = new FeatureToggles { SecurityHeaders = true };
+            var requestDelegate = new Mock<RequestDelegate>();
 
-            _middleware = new SecurityHeaderMiddleware(_requestDelegate.Object, _featureToggles);
+            _middleware = new SecurityHeaderMiddleware(requestDelegate.Object);
         }
 
         [Fact]
