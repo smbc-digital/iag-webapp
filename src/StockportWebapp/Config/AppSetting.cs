@@ -16,8 +16,7 @@
 
         public static AppSetting GetAppSetting(string setting)
         {
-            if (setting == null) return new AppSetting();
-            return new AppSetting(setting);
+            return setting == null ? new AppSetting() : new AppSetting(setting);
         }
 
         public override string ToString()

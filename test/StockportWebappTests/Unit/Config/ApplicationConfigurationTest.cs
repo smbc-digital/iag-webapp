@@ -151,5 +151,21 @@ namespace StockportWebappTests.Unit.Config
             act.ShouldThrow<ArgumentException>()
                 .WithMessage("Configuration of ContentApiUrl must exist and be a valid uri!");
         }
+
+        [Fact]
+        public void ShouldReturnGetFooterCache()
+        {
+            var setting = _config.GetFooterCache("businessId");
+
+            setting.Should().Be(5);
+        }
+
+        [Fact]
+        public void ShouldReturnGetFooterCacheForNonExistantSetting()
+        {
+            var setting = _config.GetFooterCache("businessId_doesnotexist");
+
+            setting.Should().Be(0);
+        }
     }
 }

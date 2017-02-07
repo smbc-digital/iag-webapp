@@ -3,7 +3,7 @@ using StockportWebapp.Utils;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.ArticleStartPageNewsDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration=Cache.Short)]
     public class ExternalTemplateController : Controller
     {
         private readonly IViewRender _viewRender;

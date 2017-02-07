@@ -241,17 +241,6 @@ ul.nav-card-events-list {
     }  
 } 
 
-.button-customdate {
-    width: 100%;
-    padding-top: 5px; 
-    padding-bottom: 5px;
-
-    @media #{$desktop, $tablet} {
-        width: auto;
-        min-width: 290px;
-    }
-}
-
 .events-calender-container-image{ 
      flex: 1; 
      padding-left: 0px;    

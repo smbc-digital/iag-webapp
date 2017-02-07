@@ -178,8 +178,7 @@ namespace StockportWebapp
                         }
                         else
                         {
-                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=" +
-                                                                            Cache.DefaultDuration.ToString();
+                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.Medium.ToString();
                         }                     
                     }
             });

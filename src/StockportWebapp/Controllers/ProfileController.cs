@@ -6,7 +6,7 @@ using StockportWebapp.Http;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.DefaultDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Long)]
     public class ProfileController : Controller
     {
         private readonly IProcessedContentRepository _repository;

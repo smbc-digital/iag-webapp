@@ -1,5 +1,5 @@
 ﻿@using StockportWebapp.Models
-@model StockportWebapp.Models.Footer
+@model Footer
 @inject IStaticAssets StaticAssets
 
 <footer>
@@ -24,7 +24,7 @@
                             @if (Model.Links != null)
                             {
                                 @Html.Partial("FooterLinks", Model.Links)
-                            }    
+                            }
                         </ul>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
     <div class="grid-100 footer-bottom">
         <p>
             @if (Model.Copyright != null)
-            {
+        {
                 @Model.Copyright
             }
         </p>

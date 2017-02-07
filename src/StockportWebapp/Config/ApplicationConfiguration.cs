@@ -17,7 +17,9 @@ namespace StockportWebapp.Config
         AppSetting GetEmailEmailFrom(string businessId);
         AppSetting GetEmailAlertsNewSubscriberUrl(string businessId);
         AppSetting GetEventSubmissionEmail(string businessId);
-        
+        int GetFooterCache(string businessId);
+
+
         string GetStaticAssetsRootUrl();
     }
 
@@ -95,6 +97,13 @@ namespace StockportWebapp.Config
         public AppSetting GetEventSubmissionEmail(string businessId)
         {
             return AppSetting.GetAppSetting(_appsettings[$"{businessId}:EventSubmissionEmail"]);
+        }
+
+        public int GetFooterCache(string businessId)
+        {
+            int output;
+            int.TryParse(_appsettings[$"{businessId}:FooterCache"], out output);
+            return output;
         }
     }
 }

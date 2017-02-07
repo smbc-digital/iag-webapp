@@ -12,7 +12,7 @@ using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.ArticleStartPageNewsDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class EventsController : Controller
     {
         private readonly IRepository _repository;

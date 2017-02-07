@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.ArticleStartPageNewsDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class ArticleController : Controller
     {
         private readonly IProcessedContentRepository _repository;

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -13,7 +12,7 @@ using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.ArticleStartPageNewsDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class NewsController : Controller
     {
         private readonly IRepository _repository;
