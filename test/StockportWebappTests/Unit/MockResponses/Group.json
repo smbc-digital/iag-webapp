@@ -1,0 +1,14 @@
+﻿{
+  "name": "This is the group",
+  "slug": "group",
+  "phoneNumber": "zumba",
+  "email": "hello@stockportzumba.whatever",
+  "website": "stockportzumba.io",
+  "twitter": "twitter.com/stockportzumba",
+  "facebook": "facebook.com/stockportzumba",
+  "address": "zumba house,\nzumba road,\nzumba zumba zumba",
+  "description": "The group description",
+  "categories": [
+    "Dancing"
+  ]
+}

@@ -34,7 +34,6 @@ namespace StockportWebapp.Repositories
             _emailClient = emailClient;
             _configuration = configuration;
             _businessId = businessId;
-
         }
 
         public string GenerateEmailBody(EventSubmission eventSubmission)

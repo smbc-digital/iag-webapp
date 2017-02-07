@@ -1,0 +1,92 @@
+﻿@using StockportWebapp.Models
+@model ProcessedGroup
+
+@{
+    ViewData["Title"] = Model.Name;
+    ViewData["og:title"] = Model.Name;
+    ViewData["Description"] = Model.Description;
+    ViewData["Beta"] = true;
+    ViewData["Type"] = "Group";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@Model.Name content">
+                <div class="l-content-container grid-100 group-margin">
+                    <h1 class="group-article-title">@Model.Name</h1>
+
+                    <div class="grid-100 tablet-grid-100 mobile-grid-100 group-calender-container">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
+                        }
+                        <div class="grid-60 tablet-grid-100 mobile-grid-100 group-calender-container-description">
+
+                            <ul class="group-ul">
+                                <li class="group-details">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                        <i class="fa fa-map-marker fa-2x group-details-symbol"></i>
+                                    </div>
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                        <div class="group-details-heading">Location</div>
+                                        @Html.Raw(Model.Address)
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+
+                                <li class="group-details">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                        <i class="fa fa-envelope fa-2x group-details-symbol"></i>
+                                    </div>
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                        <div class="group-details-heading">
+                                            Email
+                                        </div>
+                                        <a href="mailto:@Model.Email">@Model.Email</a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="group-details">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                        <i class="fa fa-phone fa-2x group-details-symbol"></i>
+                                    </div>
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                        <div class="group-details-heading">
+                                            Telephone
+                                        </div>
+                                        @Model.PhoneNumber
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <li class="group-details">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                        <i class="fa fa-laptop fa-2x group-details-symbol"></i>
+                                    </div>
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                        <div class="group-details-heading">
+                                            Website
+                                        </div>
+                                        <a href="http://@Model.Website">@Model.Website</a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
+                        </div>
+                    </div>
+
+                    <div class="grid-100">
+                        <h3 class="group-details-heading">Description</h3>
+                        <article>
+                            @Html.Raw(Model.Description)
+                        </article>
+                    </div>
+                    </div>
+            </section>
+        </div>
+    </div>
+</div>

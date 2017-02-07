@@ -14,6 +14,5 @@ namespace StockportWebappTests
                 hex.AppendFormat("{0:x2}", b);
             return hex.ToString().ToLowerInvariant();
         }
-
     }
 }
