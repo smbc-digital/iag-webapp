@@ -11,7 +11,7 @@
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
 
-    var dateFilter = dateCalculator.ReturnDisplayNameForFilter(dateRange);
+    var dateFilter = dateRange == "customdate" ? "Custom Date" : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 <div class="grid-container events-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="event-filters">
@@ -46,6 +46,7 @@
                                     <li>
                                         <form action="/events" method="get">
                                             <input type="hidden" name="daterange" value="customdate" />
+                                            <input type="hidden" name="category" value="@categoryFilter" />
                                             <div class="date-from">
                                                 <label>Start date</label> <br />
                                                 <input id="datepickerfrom" type="date" class="datepicker date-from-picker" name="datefrom" value= "@dateFrom" />                        

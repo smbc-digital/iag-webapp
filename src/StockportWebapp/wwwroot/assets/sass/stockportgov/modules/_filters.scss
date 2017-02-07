@@ -37,54 +37,6 @@
         list-style: outside none none;
         padding: 0px;
         margin-bottom: 0;
-
-      &.custom-date {
-          li {
-              margin-right: 0px; 
-              border-bottom: solid 1px #ccc; 
-              padding-bottom: 10px;
-
-              input{
-                  padding-left: 10px;
-                  padding-top: 5px; 
-                  padding-bottom: 5px;     
-                  height: 45px;
-                  font-size: initial;
-                  width:auto;
-                  min-width: 100%;
-                  max-width: 100%;  
-                  box-sizing: border-box;
-                  position: relative;
-                  z-index: 1000;
-              }
-
-              .date-from{
-                  line-height: 1.5;    
-                  min-height: 25px;                
-              }
-
-              .date-to{
-                  line-height: 1.5; 
-                  margin-top: 5px;         
-              }
-
-              .update-button{
-                  padding-top: 10px;     
-                  
-                  .button-customdate {
-                      width: 100%;
-                      padding-top: 5px; 
-                      padding-bottom: 5px;
-                      height: 45px;
-    
-                     @media #{$desktop} {
-                       width:auto;
-                       min-width: 100%;                      
-                     }
-                  }                           
-              }
-          }
-      }
     }
 
     .filter-title, .filter-inner-title {
@@ -246,3 +198,54 @@
         }  
     }
 }
+
+.custom-date {
+    li {
+        margin-right: 0px !important; 
+        border-bottom: solid 1px #ccc; 
+        padding-bottom: 10px;
+
+        input{
+            padding-left: 10px;
+            padding-top: 5px; 
+            padding-bottom: 5px;     
+            height: 45px;
+            font-size: initial;
+            width:auto;
+            min-width: 100%;
+            max-width: 100%;  
+            box-sizing: border-box;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .date-from{
+            line-height: 1.5;    
+            min-height: 25px;                
+        }
+
+        .date-to{
+            line-height: 1.5; 
+            margin-top: 5px;         
+        }
+
+        .update-button{
+            padding-top: 10px;     
+                  
+            .button-customdate {
+                width: 100%;
+                padding-top: 5px; 
+                padding-bottom: 5px;
+                height: 45px;
+    
+                @media #{$desktop} {
+                width:auto;
+                min-width: 100%;                      
+                }
+            }                           
+        }
+    }
+}
+
+
+     
