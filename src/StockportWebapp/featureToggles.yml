@@ -5,6 +5,7 @@ prod: &prod
   EventSubmission: true
   LatestEventsHomepage: true
   MyAccountHeaderButton: true
+  FooterCache: false
 
 stage: &stage
   << : *prod
@@ -17,3 +18,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  FooterCache: true

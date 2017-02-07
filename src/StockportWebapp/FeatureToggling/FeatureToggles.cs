@@ -7,5 +7,6 @@ namespace StockportWebapp.FeatureToggling
         public bool EventSubmission { get; set; } = false;
         public bool LatestEventsHomepage { get; set; } = false;
         public bool MyAccountHeaderButton { get; set; } = false;
+        public bool FooterCache { get; set; } = false;
     }
 }
