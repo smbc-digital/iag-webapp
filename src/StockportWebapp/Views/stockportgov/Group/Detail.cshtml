@@ -32,7 +32,14 @@
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
                                         <div class="group-details-heading">Location</div>
-                                        @Html.Raw(Model.Address)
+                                       @if (!string.IsNullOrEmpty(Model.Address))
+                                        {
+                                            @Html.Raw(Model.Address)
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
@@ -45,7 +52,14 @@
                                         <div class="group-details-heading">
                                             Email
                                         </div>
-                                        <a href="mailto:@Model.Email">@Model.Email</a>
+                                        @if (!string.IsNullOrEmpty(Model.Email))
+                                        {
+                                            <a href="mailto:@Model.Email">@Model.Email</a>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
@@ -57,7 +71,14 @@
                                         <div class="group-details-heading">
                                             Telephone
                                         </div>
-                                        @Model.PhoneNumber
+                                        @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                                        {
+                                            @Model.PhoneNumber
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
@@ -69,24 +90,33 @@
                                         <div class="group-details-heading">
                                             Website
                                         </div>
-                                        <a href="http://@Model.Website">@Model.Website</a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                            </ul>
+                                        <div class="group-details-heading">
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(Model.Website))
+                                        {
+                                            <a href="http://@Model.Website">@Model.Website</a>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
+                            </div>
                         </div>
-                        <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
-                        </div>
-                    </div>
 
-                    <div class="grid-100">
-                        <h3 class="group-details-heading">Description</h3>
-                        <article>
-                            @Html.Raw(Model.Description)
-                        </article>
+                        <div class="grid-100">
+                            <h3 class="group-details-heading">Description</h3>
+                            <article>
+                                @Html.Raw(Model.Description)
+                            </article>
+                        </div>
                     </div>
-                    </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
-</div>
