@@ -6,7 +6,7 @@ using StockportWebapp.Http;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.ArticleStartPageNewsDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class StartPageController : Controller
     {
         private readonly IRepository _repository;

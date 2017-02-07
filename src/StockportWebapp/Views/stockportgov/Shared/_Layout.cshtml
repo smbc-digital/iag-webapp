@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using StockportWebapp.Config
+@inject IApplicationConfiguration ApplicationConfiguration
+@inject BusinessId BusinessId
+
+<!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
     @Html.Partial("SecurityHeaders")
@@ -38,25 +42,27 @@
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
     @RenderSection("Breadcrumbs", false)
-    <main>
-        @RenderBody()
-    </main>
-    @await Component.InvokeAsync("Footer")
+<main>
+    @RenderBody()
+</main>
+    <cache expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))">
+        @await Component.InvokeAsync("Footer")
+    </cache>
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI= sha384-mXQoED/lFIuocc//nss8aJOIrz7X7XruhR6bO+sGceiSyMELoVdZkN7F0oYwcFH+ sha512-QAV866KcCo2YSgj8D7BW+Zn3Fe5wVKTWwzKtWy8mkW+tePcJL7JYilvdfrBFQcdz4ODD48GpIPnhTp9UDI37uw==" crossorigin="anonymous"></script>
-    <script src="~/assets/javascript/vendor/jquery.validate.min.js"></script>
-    <script src="~/assets/javascript/vendor/jquery.validate.unobtrusive.min.js"></script>
-    <script type="text/javascript" src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>   
-    <script src="/assets/javascript/vendor/slick.min.js"></script>
-    @*<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
-        <script src="http://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>*@
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI= sha384-mXQoED/lFIuocc//nss8aJOIrz7X7XruhR6bO+sGceiSyMELoVdZkN7F0oYwcFH+ sha512-QAV866KcCo2YSgj8D7BW+Zn3Fe5wVKTWwzKtWy8mkW+tePcJL7JYilvdfrBFQcdz4ODD48GpIPnhTp9UDI37uw==" crossorigin="anonymous"></script>
+        <script src="~/assets/javascript/vendor/jquery.validate.min.js"></script>
+        <script src="~/assets/javascript/vendor/jquery.validate.unobtrusive.min.js"></script>
+        <script type="text/javascript" src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+        <script src="/assets/javascript/vendor/slick.min.js"></script>
+        @*<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.min.js"></script>
+            <script src="http://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.min.js"></script>*@
 
-    <!--[if lte IE 9]>
-    <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
-    <![endif]-->
-    <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script src="/assets/javascript/vendor/matchbox.min.js"></script>
-    <script src="/assets/javascript/stockportgov.min.js"></script>
-    @await Component.InvokeAsync("AddThis")
+        <!--[if lte IE 9]>
+        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
+        <![endif]-->
+        <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+        <script src="/assets/javascript/vendor/matchbox.min.js"></script>
+        <script src="/assets/javascript/stockportgov.min.js"></script>
+        @await Component.InvokeAsync("AddThis")
 </body>
 </html>

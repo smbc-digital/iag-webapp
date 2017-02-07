@@ -8,7 +8,7 @@ using StockportWebapp.Http;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.DefaultDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class HomeController : Controller
     {
         private readonly IRepository _repository;
