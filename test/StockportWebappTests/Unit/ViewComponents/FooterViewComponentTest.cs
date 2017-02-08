@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -15,11 +15,13 @@ namespace StockportWebappTests.Unit.ViewComponents
     {
         private readonly Mock<IRepository> _repository;
         private readonly FooterViewComponent _footerViewComponent;
+        private readonly Mock<ILogger<FooterViewComponent>> _logger;
 
         public FooterViewComponentTest()
         {
             _repository = new Mock<IRepository>();
-            _footerViewComponent = new FooterViewComponent(_repository.Object);
+            _logger = new Mock<ILogger<FooterViewComponent>>();
+            _footerViewComponent = new FooterViewComponent(_repository.Object, _logger.Object);
         }
 
         [Fact]
@@ -33,6 +35,8 @@ namespace StockportWebappTests.Unit.ViewComponents
             result.ViewData.Model.Should().BeOfType<Footer>();
             var footerModel = result.ViewData.Model as Footer;
             footerModel.Should().Be(footer);
+
+            LogTesting.Assert(_logger, LogLevel.Information, "Call to retrieve the footer");
         }
 
         [Fact]
@@ -43,6 +47,8 @@ namespace StockportWebappTests.Unit.ViewComponents
             var result = AsyncTestHelper.Resolve(_footerViewComponent.InvokeAsync()) as ViewViewComponentResult;
 
             result.ViewData.Model.Should().BeNull();
+
+            LogTesting.Assert(_logger, LogLevel.Information, "Call to retrieve the footer");
         }
     }
 }
