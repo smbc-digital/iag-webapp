@@ -32,11 +32,17 @@ namespace StockportWebapp.Controllers
         {
             if (!ModelState.IsValid && !string.IsNullOrEmpty(eventsCalendar.DateRange)) return View(eventsCalendar);
 
+            if (string.IsNullOrEmpty(eventsCalendar.category) && eventsCalendar.datefrom == null && eventsCalendar.dateto == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
+            {
+                ModelState["dateto"].Errors.Clear();
+                ModelState["datefrom"].Errors.Clear();
+            }
+
             var queries = new List<Query>();           
             if (eventsCalendar.datefrom.HasValue) queries.Add(new Query("datefrom", eventsCalendar.datefrom.Value.ToString("yyyy-MM-dd")));
             if (eventsCalendar.dateto.HasValue) queries.Add(new Query("dateto", eventsCalendar.dateto.Value.ToString("yyyy-MM-dd")));
             if (!eventsCalendar.category.IsNullOrWhiteSpace()) queries.Add(new Query("category", eventsCalendar.category));
-
+             
             var httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
             if (!httpResponse.IsSuccessful()) return httpResponse;

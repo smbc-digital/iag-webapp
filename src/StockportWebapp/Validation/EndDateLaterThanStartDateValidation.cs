@@ -31,7 +31,7 @@ namespace StockportWebapp.Validation
                   return ValidationResult.Success;
             if (date.Value.Date >= startDate.Value.Date)
                 return ValidationResult.Success;
-            return new ValidationResult("End date should be after Start Date");
+            return new ValidationResult("End date should be after Start date");
         }
     }
 }
