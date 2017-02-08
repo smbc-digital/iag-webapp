@@ -1,6 +1,7 @@
 ﻿---
 prod: &prod
   FooterCache: false
+  EventCustomDateSearch: false
 
 stage: &stage
   << : *prod
@@ -14,3 +15,4 @@ int:
   << : *stage
   << : *qa
   FooterCache: true
+  EventCustomDateSearch: true

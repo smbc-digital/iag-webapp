@@ -1,4 +1,5 @@
 ﻿@using System.Threading.Tasks
+@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
 @{
@@ -11,6 +12,7 @@
 
     var dateFilter = dateRange == "customdate" ? "Custom Date" : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
+@inject FeatureToggles FeatureToggles
 <div class="grid-container events-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="event-filters">
         <p class="filters-heading">Refine by</p>
@@ -38,30 +40,35 @@
                                     <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"datefrom", eventFilter.Value.DateFrom}, {"dateto", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
                                 </li>
                             }
-                            <li id="custom-filter-li" class="@(currentUrl.MatchesQueryParam("daterange", "customdate") ? "customdateactive" : "") filter collapsible">                                                       
-                                <a class="filter-title custom-date-title">Custom Date</a>
-                                <ul class="filters-list custom-date">
-                                    <li>
-                                        <form action="/events" method="get">
-                                            <input type="hidden" name="DateRange" value="customdate" />
-                                            <input type="hidden" name="category" value="@categoryFilter" />
-                                            <div class="date-from">
-                                                <label asp-for="@Model.datefrom"></label>                                                                                
-                                                <input id="datepickerfrom" type="date" class="date-from-picker" asp-for="@Model.datefrom" novalidate />
-                                                <span asp-validation-for="@Model.datefrom" class="form-field-validation-error"></span>
-                                            </div>
-                                            <div class="date-to">
-                                                <label asp-for="@Model.dateto"></label>
-                                                <input id="datepickerto" type="date" asp-for="@Model.dateto" novalidate />
-                                                <span asp-validation-for="@Model.dateto" class="form-field-validation-error"></span>
-                                            </div>
-                                            <div class="update-button">
-                                                <stock-button class="button-customdate">Update</stock-button>
-                                            </div>
-                                        </form>
+                            @{
+                                if (FeatureToggles.EventCustomDateSearch)
+                                {
+                                    <li id="custom-filter-li" class="@(currentUrl.MatchesQueryParam("daterange", "customdate") ? "customdateactive" : "") filter collapsible">
+                                        <a class="filter-title custom-date-title">Custom date</a>
+                                        <ul class="filters-list custom-date">
+                                            <li>
+                                                <form action="/events" method="get">
+                                                    <input type="hidden" name="DateRange" value="customdate" />
+                                                    <input type="hidden" name="category" value="@categoryFilter" />
+                                                    <div class="date-from">
+                                                        <label asp-for="@Model.datefrom"></label>
+                                                        <input id="datepickerfrom" type="date" class="date-from-picker" asp-for="@Model.datefrom" novalidate />
+                                                        <span asp-validation-for="@Model.datefrom" class="form-field-validation-error"></span>
+                                                    </div>
+                                                    <div class="date-to">
+                                                        <label asp-for="@Model.dateto"></label>
+                                                        <input id="datepickerto" type="date" asp-for="@Model.dateto" novalidate />
+                                                        <span asp-validation-for="@Model.dateto" class="form-field-validation-error"></span>
+                                                    </div>
+                                                    <div class="update-button">
+                                                        <stock-button class="button-customdate">Update</stock-button>
+                                                    </div>
+                                                </form>
+                                            </li>
+                                        </ul>
                                     </li>
-                                </ul>                                                                                                  
-                            </li>                         
+                                }
+                            }         
                         </ul>
                     </li>
                     @if (Model.Categories.Any()) {
