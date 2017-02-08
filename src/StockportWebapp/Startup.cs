@@ -140,7 +140,8 @@ namespace StockportWebapp
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
             services.AddTransient<IEventsRepository, EventsRepository>();
-            
+            services.AddTransient<IGroupRepository, GroupRepository>();
+
             services.Configure<RazorViewEngineOptions>(
             options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
         }
@@ -153,7 +154,6 @@ namespace StockportWebapp
             await scheduler.Start();
 
             app.UseMiddleware<BusinessIdMiddleware>();
-            app.UseMiddleware<OldEventsMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
             app.UseMiddleware<BetaToWwwMiddleware>();
@@ -177,8 +177,7 @@ namespace StockportWebapp
                         }
                         else
                         {
-                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=" +
-                                                                            Cache.DefaultDuration.ToString();
+                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.Medium.ToString();
                         }                     
                     }
             });

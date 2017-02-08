@@ -4,7 +4,7 @@
     @foreach (var socialMediaLink in Model)
     {
         string socialMediaCSS = socialMediaLink.Icon.Replace("fa-", "icon-");
-        
+
         <a href="@socialMediaLink.Url">
             <div class="icon-bordered icon-bordered-fixed icon-container icon-twitter @socialMediaCSS">
                 <i class="fa fa-2x @socialMediaLink.Icon"></i>

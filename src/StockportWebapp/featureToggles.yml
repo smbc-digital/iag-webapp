@@ -1,10 +1,6 @@
 ﻿---
 prod: &prod
-  EventCalendar: true
-  SecurityHeaders: true
-  EventSubmission: true
-  LatestEventsHomepage: true
-  MyAccountHeaderButton: true
+  FooterCache: false
 
 stage: &stage
   << : *prod
@@ -17,3 +13,4 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  FooterCache: true

@@ -3,12 +3,11 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Models;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.DefaultDuration)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class TopicController : Controller
     {
         private readonly IRepository _repository;
