@@ -61,14 +61,16 @@
                                         
 
                                         <label asp-for="@Model.StartTime"></label>
+                                        
                                         <i>Format: hh:mm (24 hour clock)</i>
                                         <div class="clearfix"></div>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.StartTime" />
                                         <span asp-validation-for="@Model.StartTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.EndTime"></label>
-                                        <div class="clearfix"></div>
+                                        
                                         <i>Format: hh:mm (24 hour clock)</i>
+                                        <div class="clearfix"></div>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndTime" />
                                         <span asp-validation-for="@Model.EndTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div class="clearfix"></div>
