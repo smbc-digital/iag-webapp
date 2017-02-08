@@ -26,7 +26,7 @@ $(document).ready(function () {
     if (!Modernizr.inputtypes.date) {
         $(".datepicker").datepicker({
             inline: true,
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'dd/mm/yy'
         });
 
         if ($.validator) {
@@ -38,7 +38,7 @@ $(document).ready(function () {
 
                 var ok = true;
                 try {
-                    $.datepicker.parseDate('yy-mm-dd', value);
+                    $.datepicker.parseDate('dd/mm/yy', value);
                 }
                 catch (err) {
                     ok = false;
