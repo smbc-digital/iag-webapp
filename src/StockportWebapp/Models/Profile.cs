@@ -17,7 +17,8 @@ namespace StockportWebapp.Models
         public string Icon { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
 
-        public Profile(string type, string title, string slug, string subtitle, string teaser, string image, string body, string backgroundImage, string icon, IEnumerable<Crumb> breadcrumbs)
+        public Profile(string type, string title, string slug, string subtitle, string teaser, string image, 
+            string body, string backgroundImage, string icon, IEnumerable<Crumb> breadcrumbs)
         {
             Type = type;
             Title = title;

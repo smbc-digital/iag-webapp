@@ -30,6 +30,7 @@ namespace StockportWebapp.Utils
             {typeof(List<AtoZ>), "atoz/"},
             {typeof(Footer), "footer"},
             {typeof(Event), "events/"},
+            {typeof(Group), "group/"},
             {typeof(EventCalendar), "events"}
         };
 

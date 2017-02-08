@@ -1,0 +1,135 @@
+﻿.group-grid-container-margins{
+    margin-top: -20px; 
+    margin-bottom: -30px;
+}
+
+.group-group-container {
+    .group-group {
+        padding-bottom: 15px;
+        text-align: center;
+
+        @media #{$mobile, $tablet} {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-top: 10px;
+            padding-bottom: 35px;
+        }
+
+        h2 {
+            margin-top: 0px;
+            padding-top: 0px;
+        }
+
+        p {
+            text-align: center;
+            margin: auto;
+            margin-bottom: 20px;
+            max-width: 400px;
+        }
+
+        .button {
+            color: $greyDarkest;
+            min-width: 200px;
+        }
+    }
+}
+
+.group-article-grid {
+    background-color: white;
+
+    @media #{$mobile, $tablet} {
+        margin-top: 15px;
+    }
+
+    .group-article-not-found {
+        min-height: 50vh;
+    }
+}
+
+.group-title-image {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.grid-container-full-width .l-content-container .group-article-title {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.group-article-date {
+    margin-bottom: 0;
+    padding-top: 15px;
+}
+ 
+.group-ul{
+      list-style: outside none none; 
+      margin-bottom: 0px;
+}
+ 
+.group-margin{
+    margin-top:20px;
+}
+
+.group-calender-container{
+    padding: 0px; 
+         overflow: hidden; 
+         display: flex;
+         margin-bottom: 20px;
+
+          @media #{$mobile, $tablet} {  
+            display: inline;                            
+    }        
+}
+
+.group-calender-container-description{
+     padding: 0px; 
+     flex: 1;  
+     margin-right: 30px;
+
+     @media #{$mobile, $tablet} {                         
+        margin-top: 30px;
+        margin-right: 0px;
+        flex: none;
+        margin-bottom: 20px;
+    }  
+} 
+
+.group-calender-container-image{ 
+     flex: 1; 
+     padding-left: 0px;    
+
+     @media #{$mobile} {
+        flex: none;  
+        min-height: 300px;
+     }
+
+     @media #{$tablet} {
+        flex: none;  
+        min-height: 400px;     
+     }
+}   
+
+.group-details {
+    background: #e1e1e1;
+    border: 1px solid #ebebeb;
+    margin-left: 0px;
+}
+
+.group-details-symbol-containter {
+        min-height: 65px; 
+        text-align: center;
+        padding-top: 10px
+    }
+
+.group-details-symbol {
+    color: #666666;
+}
+
+.group-details-heading {
+    color: #666666;
+    margin-bottom: 0px;               
+}
+
+.group-details-content {
+    background: #f5f5f5;
+}
+

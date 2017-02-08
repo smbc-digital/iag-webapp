@@ -48,7 +48,7 @@ namespace StockportWebappTests.Unit.Repositories
             var articleSlug = "physical-activity";
             const string url = "article-with-slug-url";
             _mockUrlGenerator.Setup(o => o.UrlFor<Article>(articleSlug, It.IsAny<List<Query>>())).Returns(url);
-                
+
             var body = "Staying active and exercising is essential to reach and maintain a healthy lifestyle.";
 
             _mockHttpClient.Setup(o => o.Get(url))
@@ -242,13 +242,40 @@ namespace StockportWebappTests.Unit.Repositories
             _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>(slug, new List<Query> { new Query("date", date.ToString("yyyy-MM-dd")) }));
-            var news = httpResponse.Content as ProcessedEvents;
+            var eventItem = httpResponse.Content as ProcessedEvents;
 
-            news.Title.Should().Be("This is the event");
-            news.Slug.Should().Be("event-of-the-century");
-            news.Teaser.Should().Be("Read more for the event");
+            eventItem.Title.Should().Be("This is the event");
+            eventItem.Slug.Should().Be("event-of-the-century");
+            eventItem.Teaser.Should().Be("Read more for the event");
+            eventItem.Description.Should().Be(body);
+        }
 
-            news.Description.Should().Be(body);
+        [Fact]
+        public void GetsGroup()
+        {
+            const string slug = "group";
+            const string url = "get-group-with-slug-url";
+
+            _mockUrlGenerator.Setup(o => o.UrlFor<Group>(slug, null)).Returns(url);
+
+            var body = "The group description";
+
+            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/Group.json"), string.Empty));
+
+            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
+            _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Group>(slug));
+            var group = httpResponse.Content as ProcessedGroup;
+
+            group.Name.Should().Be("This is the group");
+            group.Slug.Should().Be("group");
+            group.PhoneNumber.Should().Be("zumba");
+            group.Email.Should().Be("hello@stockportzumba.whatever");
+            group.Website.Should().Be("stockportzumba.io");
+            group.Facebook.Should().Be("facebook.com/stockportzumba");
+            group.Address.Should().Be("zumba house,\nzumba road,\nzumba zumba zumba");
+            group.Description.Should().Be("The group description");
         }
     }
 }
