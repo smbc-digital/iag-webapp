@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using StockportWebapp.Config
+@using StockportWebapp.FeatureToggling
+@inject IApplicationConfiguration ApplicationConfiguration
+@inject BusinessId BusinessId
+@inject FeatureToggles FeatureToggles
+
+<!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
     @Html.Partial("SecurityHeaders")
@@ -24,7 +30,9 @@
     <div class="background-image" style="background-image: url('/assets/images/content/bg-sg-home.jpg')">
         @RenderBody()
     </div>
-    @await Component.InvokeAsync("Footer")
+    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="@FeatureToggles.FooterCache">
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI= sha384-mXQoED/lFIuocc//nss8aJOIrz7X7XruhR6bO+sGceiSyMELoVdZkN7F0oYwcFH+ sha512-QAV866KcCo2YSgj8D7BW+Zn3Fe5wVKTWwzKtWy8mkW+tePcJL7JYilvdfrBFQcdz4ODD48GpIPnhTp9UDI37uw==" crossorigin="anonymous"></script>
     <!--[if lte IE 9]>
