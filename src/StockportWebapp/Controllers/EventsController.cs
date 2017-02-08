@@ -34,8 +34,10 @@ namespace StockportWebapp.Controllers
 
             if (eventsCalendar.datefrom == null && eventsCalendar.dateto == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
-                ModelState["dateto"].Errors.Clear();
-                ModelState["datefrom"].Errors.Clear();
+                if(ModelState["dateto"] != null && ModelState["dateto"].Errors.Count > 0)
+                    ModelState["dateto"].Errors.Clear();
+                if (ModelState["datefrom"] != null && ModelState["datefrom"].Errors.Count > 0)
+                    ModelState["datefrom"].Errors.Clear();
             }
 
             var queries = new List<Query>();           
