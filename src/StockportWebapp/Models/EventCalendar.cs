@@ -1,11 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using StockportWebapp.Validation;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
 
 namespace StockportWebapp.Models
 {
     public class EventCalendar
     {
-        public List<Event> Events { get; }
-        public List<string> Categories { get; }
+        [Required]
+        [Display(Name = "Start date")]
+        [DataType(DataType.Date)]
+        public DateTime? datefrom { get; set; }
+
+        [Required]
+        [Display(Name = "End date")]
+        [DataType(DataType.Date)]
+        [EndDateLaterThanStartDateValidation(otherPropertyName: "datefrom", erroMessgae: "End Date should be after Start Date")]
+        public DateTime? dateto { get; set; }
+
+        public string category { get; set; }
+
+        public string DateRange { get; set; }
+
+        public List<Event> Events { get; private set; } = new List<Event>();
+        public List<string> Categories { get; private set; } = new List<string>();
+
+        public EventCalendar() { }
 
         public EventCalendar(List<Event> events, List<string> categories)
         {
@@ -13,9 +34,19 @@ namespace StockportWebapp.Models
             Categories = categories;
         }
 
-        public bool DoesCategoryExist(string category)
+        public bool DoesCategoryExist(string categoryItem)
         {
-            return Categories.Contains(category);
+            return Categories.Contains(categoryItem);
+        }
+
+        public void AddEvents(List<Event> events)
+        {
+            Events = events;
+        }
+
+        public void AddCategories(List<string> categories)
+        {
+            Categories = categories;
         }
     }
 }

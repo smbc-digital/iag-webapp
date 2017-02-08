@@ -32,18 +32,26 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index([FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null, [FromQuery] string category = null)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar)
         {
-            var queries = new List<Query>();           
-            if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
-            if (dateto.HasValue) queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
-            if (!category.IsNullOrWhiteSpace()) queries.Add(new Query("category",category));
+            if (!ModelState.IsValid && !string.IsNullOrEmpty(eventsCalendar.DateRange)) return View(eventsCalendar);
 
-            var httpResponse = await _repository.Get<EventCalendar>(queries: queries);
+            var queries = new List<Query>();           
+            if (eventsCalendar.datefrom.HasValue) queries.Add(new Query("datefrom", eventsCalendar.datefrom.Value.ToString("yyyy-MM-dd")));
+            if (eventsCalendar.dateto.HasValue) queries.Add(new Query("dateto", eventsCalendar.dateto.Value.ToString("yyyy-MM-dd")));
+            if (!eventsCalendar.category.IsNullOrWhiteSpace()) queries.Add(new Query("category", eventsCalendar.category));
+
+            var httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
             if (!httpResponse.IsSuccessful()) return httpResponse;
 
-            var eventsCalendar = httpResponse.Content as EventCalendar;
+            var eventResponse = httpResponse.Content as EventResponse;
+
+            if (eventResponse != null)
+            {
+                eventsCalendar.AddEvents(eventResponse.Events);
+                eventsCalendar.AddCategories(eventResponse.Categories);
+            }
 
             return View(eventsCalendar);
         }

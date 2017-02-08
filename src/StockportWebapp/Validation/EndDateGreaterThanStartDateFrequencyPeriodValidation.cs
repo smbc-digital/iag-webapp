@@ -19,7 +19,6 @@ namespace StockportWebapp.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-
             var containerType = validationContext.ObjectInstance.GetType();
             var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance) ;
             var extensionValue = field.GetValue(validationContext.ObjectInstance);
@@ -33,10 +32,6 @@ namespace StockportWebapp.Validation
             if (!startDate.HasValue)
                 return new ValidationResult("Should enter valid Start Date");
             //"Daily", "Weekly", "Fortnightly", "Monthly Date","Monthly Day","Yearly"
-
-
-            
-
            
             var endDate = value as DateTime?;
             if (!endDate.HasValue)

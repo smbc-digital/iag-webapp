@@ -5,9 +5,7 @@
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
     var categoryFilter = Context.Request.Query["category"];
-    var dateRange = Context.Request.Query["daterange"].ToString();
-    var dateFrom = dateRange == "customdate" ? Context.Request.Query["datefrom"].ToString() : "";
-    var dateTo = dateRange == "customdate" ? Context.Request.Query["dateto"].ToString() : "";
+    var dateRange = Context.Request.Query["daterange"].ToString();   
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
 
@@ -45,15 +43,17 @@
                                 <ul class="filters-list custom-date">
                                     <li>
                                         <form action="/events" method="get">
-                                            <input type="hidden" name="daterange" value="customdate" />
+                                            <input type="hidden" name="DateRange" value="customdate" />
                                             <input type="hidden" name="category" value="@categoryFilter" />
                                             <div class="date-from">
-                                                <label>Start date</label> <br />
-                                                <input id="datepickerfrom" type="date" class="datepicker date-from-picker" name="datefrom" value= "@dateFrom" />                        
+                                                <label asp-for="@Model.datefrom"></label>                                                                                
+                                                <input id="datepickerfrom" type="date" class="date-from-picker" asp-for="@Model.datefrom" novalidate />
+                                                <span asp-validation-for="@Model.datefrom" class="form-field-validation-error"></span>
                                             </div>
                                             <div class="date-to">
-                                                <label>End date</label> <br />
-                                                <input id="datepickerto" type="date" class="datepicker" name="dateto" value="@dateTo" />
+                                                <label asp-for="@Model.dateto"></label>
+                                                <input id="datepickerto" type="date" asp-for="@Model.dateto" novalidate />
+                                                <span asp-validation-for="@Model.dateto" class="form-field-validation-error"></span>
                                             </div>
                                             <div class="update-button">
                                                 <stock-button class="button-customdate">Update</stock-button>

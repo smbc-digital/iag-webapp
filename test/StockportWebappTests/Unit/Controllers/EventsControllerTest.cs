@@ -31,7 +31,7 @@ namespace StockportWebappTests.Unit.Controllers
                                       Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>() };
             _categories = new List<string> {"Category 1", "Category 2"};
 
-            var eventsCalendar = new EventCalendar(new List<Event> { _eventsItem }, _categories);
+            var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>(), _categories);
 
             // setup responses (with mock data)
@@ -40,7 +40,7 @@ namespace StockportWebappTests.Unit.Controllers
             var response404 = new HttpResponse(404, null, "not found");
 
             // setup mocks
-            _repository.Setup(o => o.Get<EventCalendar>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+            _repository.Setup(o => o.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(responseListing);
 
             _processedContentRepository.Setup(o => o.Get<Event>("event-of-the-century", It.Is<List<Query>>(l => l.Count == 0)))
@@ -62,12 +62,28 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendar()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar())) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
 
             events.Events[0].Should().Be(_eventsItem);
+        }
+
+        [Fact]
+        public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
+        {
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {category = "test", datefrom = new DateTime(2017, 01, 20), dateto = new DateTime(2017, 01, 25), DateRange = "customdate"})) as ViewResult;
+
+            var events = actionResponse.ViewData.Model as EventCalendar;
+            events.Events.Count.Should().Be(1);
+
+            events.Events[0].Should().Be(_eventsItem);
+
+            events.category.Should().Be("test");
+            events.datefrom.Should().Be(new DateTime(2017, 01, 20));
+            events.dateto.Should().Be(new DateTime(2017, 01, 25));
+            events.DateRange.Should().Be("customdate");
         }
 
         [Fact]
