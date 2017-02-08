@@ -14,13 +14,13 @@ namespace StockportWebappTests.Unit.Controllers
     public class GroupControllerTest
     {
         private readonly FakeProcessedContentRepository _fakeRepository;
-        private readonly GroupController _groupController;
+        private readonly GroupsController _groupController;
 
 
         public GroupControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _groupController = new GroupController(_fakeRepository);
+            _groupController = new GroupsController(_fakeRepository);
         }
 
         [Fact]

@@ -7,16 +7,16 @@ using StockportWebapp.Http;
 namespace StockportWebapp.Controllers
 {
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-    public class GroupController : Controller
+    public class GroupsController : Controller
     {
         private readonly IProcessedContentRepository _repository;
 
-        public GroupController(IProcessedContentRepository repository)
+        public GroupsController(IProcessedContentRepository repository)
         {
             _repository = repository;
         }
 
-        [Route("/group/{slug}")]
+        [Route("/groups/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
             var response = await _repository.Get<Group>(slug);
