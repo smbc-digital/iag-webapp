@@ -32,7 +32,7 @@ namespace StockportWebapp.Controllers
         {
             if (!ModelState.IsValid && !string.IsNullOrEmpty(eventsCalendar.DateRange)) return View(eventsCalendar);
 
-            if (string.IsNullOrEmpty(eventsCalendar.category) && eventsCalendar.datefrom == null && eventsCalendar.dateto == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
+            if (eventsCalendar.datefrom == null && eventsCalendar.dateto == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
                 ModelState["dateto"].Errors.Clear();
                 ModelState["datefrom"].Errors.Clear();

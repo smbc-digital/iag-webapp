@@ -6,11 +6,13 @@
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
     var categoryFilter = Context.Request.Query["category"];
-    var dateRange = Context.Request.Query["daterange"].ToString();   
+    var dateRange = Context.Request.Query["daterange"].ToString();
+    var dateFrom = Context.Request.Query["datefrom"].ToString();
+    var dateTo = Context.Request.Query["dateto"].ToString();
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
 
-    var dateFilter = dateRange == "customdate" ? "Custom Date" : dateCalculator.ReturnDisplayNameForFilter(dateRange);
+    var dateFilter = dateRange == "customdate" ? dateFrom + " to " + dateTo : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 @inject FeatureToggles FeatureToggles
 <div class="grid-container events-grid-container-margins">
