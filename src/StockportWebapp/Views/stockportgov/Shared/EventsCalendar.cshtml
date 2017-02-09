@@ -51,7 +51,10 @@
                                             <li>
                                                 <form action="/events" method="get">
                                                     <input type="hidden" name="DateRange" value="customdate" />
-                                                    <input type="hidden" name="category" value="@categoryFilter" />
+                                                    @if (!string.IsNullOrEmpty(@categoryFilter))
+                                                    {
+                                                        <input type="hidden" name="category" value="@categoryFilter" />
+                                                    }                                                   
                                                     <div class="date-from">
                                                         <label asp-for="@Model.datefrom"></label>
                                                         <input id="datepickerfrom" type="date" class="date-from-picker" asp-for="@Model.datefrom" novalidate />
