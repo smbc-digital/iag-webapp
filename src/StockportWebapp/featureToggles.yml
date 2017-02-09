@@ -5,6 +5,7 @@ prod: &prod
 
 stage: &stage
   << : *prod
+  EventCustomDateSearch: true
 
 qa: &qa
   << : *prod
@@ -15,4 +16,3 @@ int:
   << : *stage
   << : *qa
   FooterCache: true
-  EventCustomDateSearch: true
