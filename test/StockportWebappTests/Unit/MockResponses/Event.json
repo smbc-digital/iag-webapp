@@ -22,5 +22,9 @@
       "slug": "",
       "type": "events"
     }
-  ]
+  ],
+  "mapPosition": {
+    "Lon": 0,
+    "Lat": 0
+  } 
 }
