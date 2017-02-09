@@ -20,5 +20,12 @@ namespace StockportWebapp.Models
         public List<Crumb> Breadcrumbs { get; set; }
         public List<Document> Documents { get; set; }
         public List<string> Categories { get; set; }
+        public MapPosition MapPosition { get; set; }
+    }
+
+    public class MapPosition
+    {
+        public double Lon { get; set; }
+        public double Lat { get; set; }
     }
 }

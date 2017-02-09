@@ -19,10 +19,11 @@ namespace StockportWebapp.Models
         public string EndTime { get; }
         public List<Crumb> Breadcrumbs { get; }
         public List<string> Categories { get; }
+        public MapPosition MapPosition { get; }
 
         public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description, 
                                string fee, string location,string submittedBy, DateTime eventDate, string startTime, string endTime, 
-                               List<Crumb> breadcrumbs, List<string> categories )
+                               List<Crumb> breadcrumbs, List<string> categories, MapPosition mapPosition )
         {
             Title = title;
             Slug = slug;
@@ -38,6 +39,7 @@ namespace StockportWebapp.Models
             EndTime = endTime;
             Breadcrumbs = breadcrumbs;
             Categories = categories;
+            MapPosition = mapPosition;
         }
     }
 }

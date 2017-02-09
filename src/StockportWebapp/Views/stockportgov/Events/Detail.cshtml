@@ -13,7 +13,6 @@
 
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
-
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
@@ -141,8 +140,31 @@
                             @Html.Raw(Model.Description)
                         </article>
                     </div>
+                    @if (Model.MapPosition.Lat != 0.0 && Model.MapPosition.Lon != 0.0)
+                    {
+                        <div id="map" class="grid-100" style="height: 500px;"></div>
+                        <script>
+      function initMap() {
+          var eventLocation = {lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: eventLocation
+        });
+        var marker = new google.maps.Marker({
+          position: eventLocation,
+          map: map,
+          title: "@Model.Location"
+        });
+      }
+                        </script>
+                        <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzF_EyEjDiXQCStxM9PCLc_mZJzIm6MxI&callback=initMap">
+                        </script>
+                    }
+                    
                 </div>
-            </section>
+                
+                </section>
         </div>
     </div>
 </div>

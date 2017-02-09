@@ -32,7 +32,9 @@ namespace StockportWebappTests.Unit.Controllers
             _categories = new List<string> {"Category 1", "Category 2"};
 
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
-            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", new List<Crumb>(), _categories);
+            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
+                "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
+                new List<Crumb>(), _categories, new MapPosition());
 
             // setup responses (with mock data)
             responseListing = new HttpResponse(200, eventsCalendar, "");
