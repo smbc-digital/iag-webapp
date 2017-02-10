@@ -4,10 +4,13 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Quartz.Util;
+using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.RSS;
 
 namespace StockportWebapp.Controllers
 {
@@ -16,15 +19,23 @@ namespace StockportWebapp.Controllers
     {
         private readonly IRepository _repository;
         private readonly IProcessedContentRepository _processedContentRepository;
+        private readonly IRssFeedFactory _rssFeedFactory;
+        private readonly ILogger<EventsController> _logger;
         private readonly IEventsRepository _eventsRepository;
+        private readonly IApplicationConfiguration _config;
+        private readonly BusinessId _businessId;
 
         public EventsController(IRepository repository,
                                 IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository)
+                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
             _eventsRepository = eventsRepository;
+            _rssFeedFactory = rssFeedFactory;
+            _logger = logger;
+            _config = config;
+            _businessId = businessId;
         }
 
         [Route("/events")]
@@ -100,6 +111,28 @@ namespace StockportWebapp.Controllers
         public IActionResult ThankYouMessage()
         {
             return View();
+        }
+
+
+        [Route("events/rss")]
+        public async Task<IActionResult> Rss()
+        {
+            var httpResponse = await _repository.Get<EventResponse>();
+
+            var host = Request != null && Request.Host.HasValue ? string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/news/") : string.Empty;
+
+            if (!httpResponse.IsSuccessful())
+            {
+                _logger.LogDebug("Rss: Http Response not sucessful");
+                return httpResponse;
+            }
+
+            var response = httpResponse.Content as EventResponse;
+            var emailFromAppSetting = _config.GetRssEmail(_businessId.ToString());
+            var email = emailFromAppSetting.IsValid() ? emailFromAppSetting.ToString() : string.Empty;
+
+            _logger.LogDebug("Rss: Creating News Feed");
+            return await Task.FromResult(Content(_rssFeedFactory.BuildRssFeed(response.Events, host, email), "application/rss+xml"));
         }
     }
 }

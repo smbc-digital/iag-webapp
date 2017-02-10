@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using StockportWebapp.Controllers;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using Moq;
+using StockportWebapp.Config;
+using StockportWebapp.RSS;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 
@@ -23,7 +26,11 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly HttpResponse responseListing;
         private readonly HttpResponse _responseDetail;
         private readonly Mock<IEventsRepository> _eventRepository;
-    
+        private readonly Mock<IRssFeedFactory> _mockRssFeedFactory;
+        private readonly Mock<ILogger<EventsController>> _logger;
+        private readonly Mock<IApplicationConfiguration> _config;
+        private const string BusinessId = "businessId";
+
 
         public EventsControllerTest()
         {
@@ -53,10 +60,23 @@ namespace StockportWebappTests.Unit.Controllers
 
             _eventRepository = new Mock<IEventsRepository>();
 
+            _mockRssFeedFactory = new Mock<IRssFeedFactory>();
+            _logger = new Mock<ILogger<EventsController>>();
+            _config = new Mock<IApplicationConfiguration>();
+            _config = new Mock<IApplicationConfiguration>();
+
+            _config.Setup(o => o.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
+            _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
+
             _controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
-                _eventRepository.Object);
+                _eventRepository.Object, 
+                _mockRssFeedFactory.Object,
+                _logger.Object,
+                _config.Object,
+                new BusinessId(BusinessId)
+                );
         }
 
         [Fact]

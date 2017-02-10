@@ -17,12 +17,12 @@ namespace StockportWebapp.Controllers
     {
         private readonly IRepository _repository;
         private readonly IProcessedContentRepository _processedContentRepository;
-        private readonly IRssNewsFeedFactory _rssFeedFactory;
+        private readonly IRssFeedFactory _rssFeedFactory;
         private readonly ILogger<NewsController> _logger;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
 
-        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssNewsFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId)
+        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;

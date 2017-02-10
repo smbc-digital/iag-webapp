@@ -97,7 +97,7 @@ namespace StockportWebapp
                     });
             services.AddSingleton(_ => new MarkdownWrapper());
             services.AddTransient(_ => new MarkdownPipelineBuilder().UsePipeTables().Build());
-            services.AddSingleton<IRssNewsFeedFactory, RssNewsFeedFactory>();
+            services.AddSingleton<IRssFeedFactory, RssFeedFactory>();
             services.AddTransient<ArticleFactory>();
             services.AddTransient<SectionFactory>();
 

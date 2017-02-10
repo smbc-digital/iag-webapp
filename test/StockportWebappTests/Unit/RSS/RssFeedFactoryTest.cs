@@ -5,17 +5,18 @@ using StockportWebapp.Models;
 using StockportWebapp.RSS;
 using Xunit;
 using System.Xml.Linq;
+using Castle.Components.DictionaryAdapter;
 using FluentAssertions;
 
 namespace StockportWebappTests.Unit.RSS
 {
     public class RssFeedFactoryTest
     {
-        private readonly RssNewsFeedFactory _rssFeedFactory;
+        private readonly RssFeedFactory _rssFeedFactory;
 
         public RssFeedFactoryTest()
         {
-            _rssFeedFactory = new RssNewsFeedFactory();
+            _rssFeedFactory = new RssFeedFactory();
         }
 
         [Fact]
@@ -56,6 +57,70 @@ namespace StockportWebappTests.Unit.RSS
             var itemNodes = channelNode.Elements("item");
 
             itemNodes.ToList()[0].Element("title").Value.Should().Be("news item  1");
+            itemNodes.Count().Should().Be(4);
+        }
+
+        [Fact]
+        public void CreateEventItemsForRssFeed()
+        {
+            var events = new List<Event>();
+            events.Add(new Event()
+            {
+                Title = "Event Title 1", Description = "Event Description 1", Categories = new List<string>(),
+                Breadcrumbs = new EditableList<Crumb>(), EventDate = new DateTime(2017,08,01),StartTime = "10:00",
+                EndTime="17:00",Fee="Free",Documents = new List<Document>(),Location = "Stoppford House"
+            });
+            events.Add(new Event()
+            {
+                Title = "Event Title 2",
+                Description = "Event Description 3",
+                Categories = new List<string>(),
+                Breadcrumbs = new EditableList<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House"
+            });
+
+            events.Add(new Event()
+            {
+                Title = "Event Title 3",
+                Description = "Event Description 3",
+                Categories = new List<string>(),
+                Breadcrumbs = new EditableList<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House"
+            });
+
+            events.Add(new Event()
+            {
+                Title = "Event Title 4",
+                Description = "Event Description 4",
+                Categories = new List<string>(),
+                Breadcrumbs = new EditableList<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House"
+            });
+
+            var rss = _rssFeedFactory.BuildRssFeed(events, "http://localhost", "email@test.email");
+
+            var xmlDoc = XDocument.Parse(rss);
+
+            var rootNode = xmlDoc.Root;
+            var channelNode = rootNode.Element("channel");
+            var itemNodes = channelNode.Elements("item");
+
+            itemNodes.ToList()[0].Element("title").Value.Should().Be("Event Title 1");
             itemNodes.Count().Should().Be(4);
         }
     }

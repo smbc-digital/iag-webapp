@@ -23,7 +23,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly NewsController _controller;
         private readonly Mock<IRepository> _repository = new Mock<IRepository>();
         private readonly Mock<IProcessedContentRepository> _processedContentRepository = new Mock<IProcessedContentRepository>();
-        private readonly Mock<IRssNewsFeedFactory> _mockRssFeedFactory;
+        private readonly Mock<IRssFeedFactory> _mockRssFeedFactory;
         private readonly Mock<ILogger<NewsController>> _logger;
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
@@ -81,7 +81,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _logger = new Mock<ILogger<NewsController>>();
 
-            _mockRssFeedFactory = new Mock<IRssNewsFeedFactory>();
+            _mockRssFeedFactory = new Mock<IRssFeedFactory>();
             _mockRssFeedFactory.Setup(o => o.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>())).Returns("rss fun");
 
             _config = new Mock<IApplicationConfiguration>();
