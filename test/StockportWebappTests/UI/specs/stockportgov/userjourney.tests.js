@@ -156,7 +156,6 @@ module.exports = {
         articlepage.assertValidationMessageIsVisible(browser, "Message", "An enquiry message is required");
 
         articlepage.enterTextIntoFormField(browser, "Email", "invalid");
-        articlepage.submitContactUsForm(browser);
         articlepage.assertValidationMessageIsVisible(browser, "Email", "This is not a valid email address");
 
         articlepage.enterTextIntoFormField(browser, "Message", "This is a lot of text. Too much for this box. This is a lot of text." +
@@ -164,7 +163,6 @@ module.exports = {
             "This is a lot of text. Too much for this box. This is a lot of text. Too much for this box. This is a lot of text. " +
             "Too much for this box. This is a lot of text. Too much for this box. This is a lot of text. Too much for this box. " +
             "This is a lot of text. Too much for this box. This is a lot of text. This is the end of the test.");
-       // articlepage.assertCharacterLimitHasBeenReached(browser);
     },
 
     after: function (browser, done) {
