@@ -18,15 +18,15 @@ namespace StockportWebapp.RSS
             {
                
                 Link = new Uri(host),
-                Copyright = string.Concat("Copyright " , DateTime.Today.ToString("yyyy"),", Stockport Council")
-            };            
+                Copyright = string.Concat("Copyright " , DateTime.Today.ToString("yyyy"),", Stockport Council"),
+                Title = "Stockport Council News Feed",
+                Description = "Stockport Council News Feed"
+        };            
 
             foreach (var rssItem in rssItemsList)
             {
                 if (typeof(T) == typeof(News))
                 {
-                    feed.Title = "Stockport Council News Feed";
-                    feed.Description = "Stockport Council News Feed";
                     var newsItem = rssItem as News;
                     var item = new Item
                     {
