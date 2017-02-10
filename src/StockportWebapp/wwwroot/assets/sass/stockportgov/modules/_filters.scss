@@ -211,12 +211,10 @@
             padding-bottom: 5px;     
             height: 45px;
             font-size: initial;
-            width:auto;
-            min-width: 100%;
-            max-width: 100%;  
+            width:100%;
             box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
+           -webkit-appearance: textfield;
+           -moz-appearance: textfield;
             position: relative;
             z-index: 1000;
         }

@@ -56,7 +56,7 @@
                                                     }                                                   
                                                     <div class="date-from">
                                                         <label asp-for="@Model.datefrom"></label>
-                                                        <input id="datepickerfrom" type="date" class="date-from-picker" asp-for="@Model.datefrom" novalidate />
+                                                        <input id="datepickerfrom" type="date" asp-for="@Model.datefrom" novalidate />
                                                         <span asp-validation-for="@Model.datefrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                                     </div>
                                                     <div class="date-to">
