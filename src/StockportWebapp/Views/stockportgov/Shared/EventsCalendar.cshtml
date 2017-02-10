@@ -11,7 +11,6 @@
     var dateTo = Context.Request.Query["dateto"].ToString();
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
-
     var dateFilter = dateRange == "customdate" ? dateFrom + " to " + dateTo : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 @inject FeatureToggles FeatureToggles
@@ -27,7 +26,7 @@
                         {
                             <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
                         }
-                        @if (!string.IsNullOrEmpty(dateFilter))
+                        @if (!string.IsNullOrEmpty(dateFilter) && (@Model.datefrom <= @Model.dateto))
                         {
                             <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
                         }
