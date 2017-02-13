@@ -33,8 +33,8 @@
     <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
     @RenderSection("BackgroundImage")
     @RenderSection("CarouselBackgroundImage")
-    @await Component.InvokeAsync("GoogleAnalytics")
     @Html.Partial("CookieBanner")
+    @await Component.InvokeAsync("GoogleAnalytics")
 </head>
 <body class="container-layout-free type-home"> 
     @Html.Partial("Header")
