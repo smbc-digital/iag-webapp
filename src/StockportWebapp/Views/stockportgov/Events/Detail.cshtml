@@ -21,14 +21,18 @@
                 <div class="l-content-container grid-100 events-margin">
                     <h1 class="events-article-title">@Model.Title</h1>
 
-                    <div class="grid-100 events-calender-container hide-on-mobile hide-on-tablet grid-100">
+                    <div class="grid-100 events-calender-container grid-100">
+                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        {
+                            <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
+                        }
                         <div class="grid-60 events-calender-container-description">
                             <ul class="events-ul">
                                 <li class="events-details">
-                                    <div class="grid-10 events-details-symbol-containter">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90 events-details-content">
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">Date and time</div>
                                         @Model.EventDate.ToString("dddd dd MMMM yyyy") @Model.StartTime - @Model.EndTime
                                     </div>
@@ -36,10 +40,10 @@
                                 </li>
 
                                 <li class="events-details">
-                                    <div class="grid-10 events-details-symbol-containter">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <i class="fa fa-gbp fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90 events-details-content">
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             Price
                                         </div>
@@ -48,10 +52,10 @@
                                     <div class="clearfix"></div>
                                 </li>
                                 <li class="events-details">
-                                    <div class="grid-10 events-details-symbol-containter">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <i class="fa fa-map-marker fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90 events-details-content">
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             Location
                                         </div>
@@ -60,10 +64,10 @@
                                     <div class="clearfix"></div>
                                 </li>
                                 <li class="events-details">
-                                    <div class="grid-10 events-details-symbol-containter">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
                                         <i class="fa fa-user fa-2x events-details-symbol"></i>
                                     </div>
-                                    <div class="grid-90 events-details-content">
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             Submitted by
                                         </div>
@@ -73,69 +77,12 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="grid-40 events-calender-container-image" style="background-size: cover; background-position:center; background-image: url(@Model.ImageUrl);">
+
+                        <div class="grid-40 events-calender-container-image hide-on-mobile hide-on-tablet" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
                         </div>
                     </div>
-
-                    <div class="grid-100 events-calender-container hide-on-desktop tablet-grid-100 mobile-grid-100">
-                        <div class="events-calender-container-image" style="background-size:cover; background-position:center; background-image: url(@Model.ImageUrl);">
-                        </div>
-
-                        <div class="events-calender-container-description">
-                            <ul class="events-ul">
-                                <li class="events-details">
-                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
-                                        <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
-                                    </div>
-                                    <div class="mobile-grid-85 tablet-grid-90 events-details-content">
-                                        <div class="events-details-heading">Date and time</div>
-                                        @Model.EventDate.ToString("dddd dd MMMM yyyy") @Model.StartTime - @Model.EndTime
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-
-                                <li class="events-details">
-                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
-                                        <i class="fa fa-gbp fa-2x events-details-symbol"></i>
-                                    </div>
-                                    <div class="mobile-grid-85 tablet-grid-90 events-details-content">
-                                        <div class="events-details-heading">
-                                            Price
-                                        </div>
-                                        @Model.Fee
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                <li class="events-details">
-                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
-                                        <i class="fa fa-map-marker fa-2x events-details-symbol"></i>
-                                    </div>
-                                    <div class="mobile-grid-85  tablet-grid-90 events-details-content">
-                                        <div class="events-details-heading">
-                                            Location
-                                        </div>
-                                        @Html.Raw(Model.Location)
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                <li class="events-details">
-                                    <div class="mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
-                                        <i class="fa fa-user fa-2x events-details-symbol"></i>
-                                    </div>
-                                    <div class="mobile-grid-85 tablet-grid-90 events-details-content">
-                                        <div class="events-details-heading">
-                                            Submitted by
-                                        </div>
-                                        @Model.SubmittedBy
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
                     <div class="grid-100">
-                        <h3 class="events-details-heading">Description</h3>
+                        <h3 class="group-details-heading">Description</h3>
                         <article>
                             @Html.Raw(Model.Description)
                         </article>
