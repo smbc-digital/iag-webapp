@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
@@ -15,6 +16,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
 using NLog.Extensions.Logging;
 using StockportWebapp.ContentFactory;
@@ -28,6 +30,7 @@ using StockportWebapp.Middleware;
 using StockportWebapp.Parsers;
 using StockportWebapp.RSS;
 using StockportWebapp.Scheduler;
+using StockportWebapp.ModelBinders;
 
 namespace StockportWebapp
 {
@@ -136,7 +139,11 @@ namespace StockportWebapp
 
             services.AddApplicationInsightsTelemetry(Configuration);
 
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
+            });
+
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
             services.AddTransient<IEventsRepository, EventsRepository>();
@@ -190,4 +197,6 @@ namespace StockportWebapp
             app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
         }
     }
+
+    
 }

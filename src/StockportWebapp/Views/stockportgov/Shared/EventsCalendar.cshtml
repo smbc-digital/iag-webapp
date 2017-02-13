@@ -7,11 +7,16 @@
     var filteredUrl = new FilteredUrl(currentUrl);
     var categoryFilter = Context.Request.Query["category"];
     var dateRange = Context.Request.Query["daterange"].ToString();
-    var dateFrom = Context.Request.Query["datefrom"].ToString();
-    var dateTo = Context.Request.Query["dateto"].ToString();
+
+    DateTime dateFrom;
+    DateTime.TryParse(Context.Request.Query["datefrom"].ToString(), out dateFrom);
+
+    DateTime dateTo;
+    DateTime.TryParse(Context.Request.Query["dateto"].ToString(), out dateTo);
+
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
-    var dateFilter = dateRange == "customdate" ? dateFrom + " to " + dateTo : dateCalculator.ReturnDisplayNameForFilter(dateRange);
+    var dateFilter = dateRange == "customdate" ? dateFrom.ToString("dd/MM/yyyy") + " to " + dateTo.ToString("dd/MM/yyyy") : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 @inject FeatureToggles FeatureToggles
 <div class="grid-container events-grid-container-margins">

@@ -16,18 +16,31 @@ $(function () {
     if (!Modernizr.inputtypes.date) {
         $("#datepickerfrom").datepicker({
             minDate: new Date(),
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd/mm/yy',
             onClose: function (selectedDate) {
                 $("#datepickerto").datepicker("option", "minDate", selectedDate);
             }
         });
 
         $("#datepickerto").datepicker({
-            dateFormat: 'yy-mm-dd',
+            dateFormat: 'dd/mm/yy',
             onClose: function (selectedDate) {
                 $("#datepickerfrom").datepicker("option", "maxDate", selectedDate);
             }
         });
+
+        if ($("#datepickerfrom").val() !== null && $("#datepickerfrom").val() !== "") {
+            var startDate = new Date($("#datepickerfrom").val());
+            $("#datepickerfrom").val($.datepicker.formatDate('dd/mm/yy', startDate));
+        }
+
+        if ($("#datepickerto").val() !== null && $("#datepickerto").val() !== "") {
+            var endDate = new Date($("#datepickerto").val());
+            $("#datepickerto").val($.datepicker.formatDate('dd/mm/yy', endDate));
+        }
+
+
+        
     }
 });
 
