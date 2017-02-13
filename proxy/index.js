@@ -21,7 +21,7 @@ var server = http.createServer(function(req, res) {
 
 proxy.on('error', function (err, req, res) {
   console.log("Something went wrong - " + err);
-  res.end('Something went wrong.');
+  res.end('Something went wrong - check that the website is running.');
 });
 
 console.log("listening on port 5555");
