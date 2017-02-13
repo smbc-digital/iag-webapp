@@ -33,8 +33,8 @@ namespace StockportWebapp.Utils
         {
             return queryUrl.AddQueriesToUrl(new Dictionary<string, string>()
             {
-                {"datefrom", startDate.ToString("yyyy-MM-dd")},
-                {"dateto", startDate.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")}
+                {"datefrom", startDate.ToString("dd/MM/yyyy")},
+                {"dateto", startDate.AddMonths(1).AddDays(-1).ToString("dd/MM/yyyy")}
             });
         }
 

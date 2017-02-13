@@ -37,10 +37,7 @@ $(function () {
         if ($("#datepickerto").val() !== null && $("#datepickerto").val() !== "") {
             var endDate = new Date($("#datepickerto").val());
             $("#datepickerto").val($.datepicker.formatDate('dd/mm/yy', endDate));
-        }
-
-
-        
+        }       
     }
 });
 

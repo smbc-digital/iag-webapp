@@ -21,7 +21,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.Today().Should().Be("2016-08-02");
+            dateCalculator.Today().Should().Be("02/08/2016");
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.Tomorrow().Should().Be("2016-08-03");
+            dateCalculator.Tomorrow().Should().Be("03/08/2016");
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestFriday().Should().Be("2016-08-05");
+            dateCalculator.NearestFriday().Should().Be("05/08/2016");
         }
 
         [Fact]
@@ -45,7 +45,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 05));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestFriday().Should().Be("2016-08-05");
+            dateCalculator.NearestFriday().Should().Be("05/08/2016");
         }
 
         [Fact]
@@ -53,7 +53,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 06));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestFriday().Should().Be("2016-08-06");
+            dateCalculator.NearestFriday().Should().Be("06/08/2016");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 07));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestFriday().Should().Be("2016-08-07");
+            dateCalculator.NearestFriday().Should().Be("07/08/2016");
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestSunday().Should().Be("2016-08-07");
+            dateCalculator.NearestSunday().Should().Be("07/08/2016");
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 07));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestSunday().Should().Be("2016-08-07");
+            dateCalculator.NearestSunday().Should().Be("07/08/2016");
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestMonday().Should().Be("2016-08-08");
+            dateCalculator.NearestMonday().Should().Be("08/08/2016");
         }
 
         [Fact]
@@ -93,7 +93,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 01));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NearestMonday().Should().Be("2016-08-08");
+            dateCalculator.NearestMonday().Should().Be("08/08/2016");
         }
 
         [Fact]
@@ -101,7 +101,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NextSunday().Should().Be("2016-08-14");
+            dateCalculator.NextSunday().Should().Be("14/08/2016");
         }
 
         [Fact]
@@ -109,7 +109,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 07));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.NextSunday().Should().Be("2016-08-14");
+            dateCalculator.NextSunday().Should().Be("14/08/2016");
         }
 
         [Fact]
@@ -117,7 +117,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 02));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.LastDayOfMonth().Should().Be("2016-08-31");
+            dateCalculator.LastDayOfMonth().Should().Be("31/08/2016");
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2016, 08, 31));
             DateCalculator dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.LastDayOfMonth().Should().Be("2016-08-31");
+            dateCalculator.LastDayOfMonth().Should().Be("31/08/2016");
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 01, 25));
             var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.FirstDayOfNextMonth().Should().Be("2017-02-01");
+            dateCalculator.FirstDayOfNextMonth().Should().Be("01/02/2017");
         }
 
         [Fact]
@@ -141,7 +141,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 01, 25));
             var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.LastDayOfNextMonth().Should().Be("2017-02-28");
+            dateCalculator.LastDayOfNextMonth().Should().Be("28/02/2017");
         }
 
         [Fact]
@@ -149,7 +149,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
             var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.FirstDayOfNextMonth().Should().Be("2018-01-01");
+            dateCalculator.FirstDayOfNextMonth().Should().Be("01/01/2018");
         }
 
         [Fact]
@@ -157,7 +157,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             _mockTimeProvider.Setup(o => o.Today()).Returns(new DateTime(2017, 12, 25));
             var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
-            dateCalculator.LastDayOfNextMonth().Should().Be("2018-01-31");
+            dateCalculator.LastDayOfNextMonth().Should().Be("31/01/2018");
         }
 
         [Fact]

@@ -49,51 +49,51 @@ namespace StockportWebapp.Utils
 
         public string Today()
         {
-            return _today.ToString("yyyy-MM-dd");
+            return _today.ToString("dd/MM/yyyy");
         }
 
         public string Tomorrow()
         {
-            return _today.AddDays(1).ToString("yyyy-MM-dd");
+            return _today.AddDays(1).ToString("dd/MM/yyyy");
         }
 
         public string NearestFriday()
         {
-            return _today.AddDays(5 - (_today.DayOfWeek == DayOfWeek.Saturday || _today.DayOfWeek == DayOfWeek.Sunday ? 5 : (int)_today.DayOfWeek)).ToString("yyyy-MM-dd");
+            return _today.AddDays(5 - (_today.DayOfWeek == DayOfWeek.Saturday || _today.DayOfWeek == DayOfWeek.Sunday ? 5 : (int)_today.DayOfWeek)).ToString("dd/MM/yyyy");
         }
 
         public string NearestSunday()
         {
-            return _today.AddDays(7 - (_today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)_today.DayOfWeek)).ToString("yyyy-MM-dd");
+            return _today.AddDays(7 - (_today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)_today.DayOfWeek)).ToString("dd/MM/yyyy");
         }
 
         public string NearestMonday()
         {
             var x = _today.DayOfWeek == DayOfWeek.Monday ? 0 : (int)_today.DayOfWeek;
-            return _today.AddDays(8 - (_today.DayOfWeek == DayOfWeek.Monday ? 1 : (int)_today.DayOfWeek)).ToString("yyyy-MM-dd");
+            return _today.AddDays(8 - (_today.DayOfWeek == DayOfWeek.Monday ? 1 : (int)_today.DayOfWeek)).ToString("dd/MM/yyyy");
         }
 
         public string NextSunday()
         {
-            return _today.AddDays(14 - (_today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)_today.DayOfWeek)).ToString("yyyy-MM-dd");
+            return _today.AddDays(14 - (_today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)_today.DayOfWeek)).ToString("dd/MM/yyyy");
         }
 
         public string LastDayOfMonth()
         {
             var daysInMonth = DateTime.DaysInMonth(_today.Year, _today.Month);
-            return _today.AddDays(daysInMonth - _today.Day).ToString("yyyy-MM-dd");
+            return _today.AddDays(daysInMonth - _today.Day).ToString("dd/MM/yyyy");
         }
 
         public string FirstDayOfNextMonth()
         {
-            return new DateTime(_today.AddMonths(1).Year, _today.AddMonths(1).Month, 1).ToString("yyyy-MM-dd");
+            return new DateTime(_today.AddMonths(1).Year, _today.AddMonths(1).Month, 1).ToString("dd/MM/yyyy");
         }
 
         public string LastDayOfNextMonth()
         {
             var daysInMonth = DateTime.DaysInMonth(_today.AddMonths(1).Year, _today.AddMonths(1).Month);
             var date = new DateTime(_today.AddMonths(1).Year, _today.AddMonths(1).Month, 1);
-            return date.AddDays(daysInMonth - 1).ToString("yyyy-MM-dd");
+            return date.AddDays(daysInMonth - 1).ToString("dd/MM/yyyy");
         }
     }
 }
