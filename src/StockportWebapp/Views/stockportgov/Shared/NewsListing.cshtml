@@ -63,7 +63,7 @@
                                     <ul class="filters-list filters-inner-list" id="news-archive">
                                         @foreach (var date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
                                         {
-                                            <li class=@(currentUrl.MatchesQueryParam("datefrom", @date.ToString("yyyy-MM-dd")) ? "active" : "")>
+                                            <li class=@(currentUrl.MatchesQueryParam("datefrom", @date.ToString("dd/MM/yyyy")) ? "active" : "")>
                                                 <a href="@Url.RouteUrl(filteredUrl.AddMonthFilter(date))">@date.ToString("MMMM yyyy")</a>
                                             </li>
                                         }
