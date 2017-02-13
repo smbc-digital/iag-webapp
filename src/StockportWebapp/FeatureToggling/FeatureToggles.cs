@@ -4,5 +4,6 @@ namespace StockportWebapp.FeatureToggling
     {      
         public bool FooterCache { get; set; } = false;
         public bool EventCustomDateSearch { get; set; } = false;
+        public bool NewsCustomDateSearch { get; set; } = false;
     }
 }

@@ -33,14 +33,21 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index([FromQuery] string tag = "", [FromQuery] string category = "",
-            [FromQuery] DateTime? datefrom = null, [FromQuery] DateTime? dateto = null)
+        public async Task<IActionResult> Index(NewsroomViewModel model)
         {
+            if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
+            {
+                if (ModelState["dateto"] != null && ModelState["dateto"].Errors.Count > 0) ModelState["dateto"].Errors.Clear();
+                if (ModelState["datefrom"] != null && ModelState["datefrom"].Errors.Count > 0) ModelState["datefrom"].Errors.Clear();
+            }
+
+            var ms = ModelState;
+
             var queries = new List<Query>();
-            if (!string.IsNullOrEmpty(tag)) queries.Add(new Query("tag", tag)); 
-            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("category", category)); 
-            if (datefrom.HasValue) queries.Add(new Query("datefrom", datefrom.Value.ToString("yyyy-MM-dd")));
-            if (dateto.HasValue)  queries.Add(new Query("dateto", dateto.Value.ToString("yyyy-MM-dd")));
+            if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag)); 
+            if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("category", model.Category)); 
+            if (model.DateFrom.HasValue) queries.Add(new Query("datefrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
+            if (model.DateTo.HasValue)  queries.Add(new Query("dateto", model.DateTo.Value.ToString("yyyy-MM-dd")));
 
             var httpResponse = await _repository.Get<Newsroom>(queries: queries);
 
@@ -50,7 +57,10 @@ namespace StockportWebapp.Controllers
             var newsRoom = httpResponse.Content as Newsroom;                          
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            return View(new NewsroomViewModel(newsRoom, urlSetting.ToString()));
+            model.AddNews(newsRoom);
+            model.AddUrlSetting(urlSetting);
+
+            return View(model);
         }
 
 

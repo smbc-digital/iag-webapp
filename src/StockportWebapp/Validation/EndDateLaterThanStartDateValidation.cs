@@ -19,11 +19,11 @@ namespace StockportWebapp.Validation
 
             var containerType = validationContext.ObjectInstance.GetType();
             var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance) ;
-            var extensionValue = field.GetValue(validationContext.ObjectInstance);
+            var extensionValue = field?.GetValue(validationContext.ObjectInstance);
             var startDate = extensionValue as DateTime?; 
 
             if(!startDate.HasValue)
-                return new ValidationResult("Should enter valid Start Date");
+                return new ValidationResult("Please enter a valid Start Date");
 
            
             var date = value as DateTime?;
@@ -31,7 +31,7 @@ namespace StockportWebapp.Validation
                   return ValidationResult.Success;
             if (date.Value.Date >= startDate.Value.Date)
                 return ValidationResult.Success;
-            return new ValidationResult("End date should be after Start date");
+            return new ValidationResult("End date should be after the Start date");
         }
     }
 }

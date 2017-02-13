@@ -55,7 +55,7 @@
                                             <li>
                                                 <form action="/events" method="get">
                                                     <input type="hidden" name="DateRange" value="customdate" />
-                                                    @if (!string.IsNullOrEmpty(@categoryFilter))
+                                                    @if (!string.IsNullOrEmpty(categoryFilter))
                                                     {
                                                         <input type="hidden" name="category" value="@categoryFilter" />
                                                     }                                                   
