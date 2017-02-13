@@ -40,7 +40,7 @@ namespace StockportWebapp.Controllers
 
         [Route("/events")]
         public async Task<IActionResult> Index(EventCalendar eventsCalendar)
-        {            
+        {           
             if (eventsCalendar.datefrom == null && eventsCalendar.dateto == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
                 if(ModelState["dateto"] != null && ModelState["dateto"].Errors.Count > 0)
