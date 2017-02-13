@@ -15,8 +15,9 @@
     <!--[if (lt IE 9) & (!IEMobile)]>
         <link rel="stylesheet" href="/assets/stylesheets/ie.css" />
     <![endif]-->
-    @await Component.InvokeAsync("GoogleAnalytics")
+    
     @Html.Partial("CookieBanner")
+    @await Component.InvokeAsync("GoogleAnalytics")
 </head>
 <body class="@(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
