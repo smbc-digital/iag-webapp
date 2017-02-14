@@ -1,13 +1,11 @@
 ﻿---
 prod: &prod
-  FooterCache: false
-  EventCustomDateSearch: false
   NewsCustomDateSearch: false
   FooterCache: true
+  EventCustomDateSearch: true
 
 stage: &stage
   << : *prod
-  EventCustomDateSearch: true
 
 qa: &qa
   << : *prod
