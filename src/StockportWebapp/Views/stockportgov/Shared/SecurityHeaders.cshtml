@@ -6,7 +6,7 @@
 @{
     var host = Context.Request.Host.Host;
     var cspBuilder = new ContentSecurityPolicyBuilder();
-    var allowedContent = cspBuilder.GetPolicy();
+    var allowedContent = cspBuilder.BuildPolicy();
 }
 
 <meta http-equiv="Content-Security-Policy" content="@allowedContent" />

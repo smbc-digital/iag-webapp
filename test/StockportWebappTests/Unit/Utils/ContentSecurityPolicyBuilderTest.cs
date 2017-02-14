@@ -31,26 +31,130 @@ namespace StockportWebappTests.Unit.Utils
                                  "siteimproveanalytics.com/js/ *.logo-net.co.uk/Delivery/; " +
                 "connect-src 'self' https://api.cludo.com/ buto-ping-middleman.buto.tv/ m.addthis.com/live/; " +
                 "media-src 'self' https://www.youtube.com/ *.cloudfront.net/butotv/live/videos/; " +
-                "object-src 'self'  https://www.youtube.com http://www.youtube.com"; 
+                "object-src 'self' https://www.youtube.com http://www.youtube.com; "; 
 
 			// Act
-            var contentSecurityPolicy = cspBuilder.GetPolicy();
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
 			// Assert
             Assert.Equal(expectedCSP, contentSecurityPolicy);
         }
 
         [Fact]
-        public void CSPWillContainChildSrcElement()
+        public void CSPWillContainDefaultSrcElement()
         {
 			// Arrange
             var cspBuilder = new ContentSecurityPolicyBuilder();
 
 			// Act
-            var contentSecurityPolicy = cspBuilder.GetPolicy();
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
 			// Assert
             Assert.Equal(true, contentSecurityPolicy.Contains("child-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainChildSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("child-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainFontSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("font-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainImageSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("img-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainStyleSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("style-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainScriptSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("script-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainConnectSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("connect-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainMediaSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("media-src"));
+        }
+
+        [Fact]
+        public void CSPWillContainObjectSrcElement()
+        {
+            // Arrange
+            var cspBuilder = new ContentSecurityPolicyBuilder();
+
+            // Act
+            var contentSecurityPolicy = cspBuilder.BuildPolicy();
+
+            // Assert
+            Assert.Equal(true, contentSecurityPolicy.Contains("object-src"));
         }
     }
 }
