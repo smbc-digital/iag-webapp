@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
+using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 
 namespace StockportWebapp.Models
@@ -20,11 +22,13 @@ namespace StockportWebapp.Models
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
+        [PastDateValidation]
         public DateTime? DateFrom { get; set; }
 
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
+        [PastDateValidation]
         [EndDateLaterThanStartDateValidation(otherPropertyName: "DateFrom", erroMessgae: "End date should be after the start date")]
         public DateTime? DateTo { get; set; }
 

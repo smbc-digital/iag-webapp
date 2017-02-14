@@ -9,6 +9,7 @@ namespace StockportWebapp.Validation
         {
             var file = value as IFormFile;
 
+            // the field is optional, so this can be null
             if (file == null) return ValidationResult.Success;
 
             if (file.FileName.EndsWith(".docx") || file.FileName.EndsWith(".doc") || file.FileName.EndsWith(".pdf") || file.FileName.EndsWith(".odt"))
