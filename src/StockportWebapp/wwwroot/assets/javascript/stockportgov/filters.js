@@ -29,15 +29,6 @@ $(function () {
             }
         });
 
-        if ($("#datepickerfrom").val() !== null && $("#datepickerfrom").val() !== "") {
-            var startDate = new Date($("#datepickerfrom").val());
-            $("#datepickerfrom").val($.datepicker.formatDate('dd/mm/yy', startDate));
-        }
-
-        if ($("#datepickerto").val() !== null && $("#datepickerto").val() !== "") {
-            var endDate = new Date($("#datepickerto").val());
-            $("#datepickerto").val($.datepicker.formatDate('dd/mm/yy', endDate));
-        }       
     }
 });
 

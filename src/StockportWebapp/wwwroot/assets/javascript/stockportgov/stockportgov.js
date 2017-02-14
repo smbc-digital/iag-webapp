@@ -29,6 +29,14 @@ $(document).ready(function () {
             dateFormat: 'dd/mm/yy'
         });
 
+        $(".hasDatepicker").each(function () {
+            var selectedDate = $(this).val();
+            if (selectedDate !== null && selectedDate !== "") {
+                var eventdate = new Date(selectedDate);
+                $(this).val($.datepicker.formatDate('dd/mm/yy', eventdate));
+            }
+        });
+
         if ($.validator) {
             $.validator.addMethod('date',
             function (value, element) {
@@ -78,3 +86,6 @@ function SwapLogo() {
         image.attr("src", logoDesktop);
     }
 }
+
+
+

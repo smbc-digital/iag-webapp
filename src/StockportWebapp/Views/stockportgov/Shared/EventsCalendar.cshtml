@@ -61,12 +61,12 @@
                                                     }                                                   
                                                     <div class="date-from">
                                                         <label asp-for="@Model.datefrom"></label>
-                                                        <input id="datepickerfrom" type="date" asp-for="@Model.datefrom" novalidate />
+                                                        <input id="datepickerfrom" type="date" class="datepicker" asp-for="@Model.datefrom" novalidate />
                                                         <span asp-validation-for="@Model.datefrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                                     </div>
                                                     <div class="date-to">
                                                         <label asp-for="@Model.dateto"></label>
-                                                        <input id="datepickerto" type="date" asp-for="@Model.dateto" novalidate />
+                                                        <input id="datepickerto" type="date" class="datepicker" asp-for="@Model.dateto" novalidate />
                                                         <span id="inputvalidation" asp-validation-for="@Model.dateto" class="form-customdate-validation-error form-field-validation-error"></span>
                                                     </div>
                                                     <div class="update-button">
