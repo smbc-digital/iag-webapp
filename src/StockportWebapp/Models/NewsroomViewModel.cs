@@ -59,5 +59,17 @@ namespace StockportWebapp.Models
         {
             EmailAlertsUrl = urlSetting.ToString();
         }
+
+        public string GetActiveDateFilter()
+        {
+            if (DateRange == "customdate" && DateFrom.HasValue && DateTo.HasValue)
+            {
+                // if Model.DateFrom && Model.DateTo have a value, dateFilter = its value as a string
+                return DateFrom.Value.ToString("dd/MM/yyyy") + " to " + DateTo.Value.ToString("dd/MM/yyyy");
+            }
+            
+            // if Model.DateFrom has a value, dateFilter = the month and year as a string ("MMMM yyyy")
+            return DateFrom.HasValue ? DateFrom.Value.ToString("MMMM yyyy") : string.Empty;
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
 
 namespace StockportWebapp.Utils
@@ -33,8 +32,10 @@ namespace StockportWebapp.Utils
         {
             return queryUrl.AddQueriesToUrl(new Dictionary<string, string>()
             {
-                {"datefrom", startDate.ToString("dd/MM/yyyy")},
-                {"dateto", startDate.AddMonths(1).AddDays(-1).ToString("dd/MM/yyyy")}
+                {"datefrom", startDate.ToString("yyyy-MM-dd")},
+                {"dateto", startDate.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")},
+                {"daterange", "month"},
+
             });
         }
 
