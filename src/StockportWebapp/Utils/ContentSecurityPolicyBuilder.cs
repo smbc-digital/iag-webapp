@@ -9,7 +9,7 @@ namespace StockportWebapp.Utils
         public string BuildPolicy()
         {
             BuildDefaultSource();
-            BuildChildSource();
+            BuildChildSourceAkaFrameSource();
             BuildFontSource();
             BuildImageSource();
             BuildStyleSource();
@@ -30,12 +30,13 @@ namespace StockportWebapp.Utils
                 .Finish());
         }
 
-        private void BuildChildSource()
+        private void BuildChildSourceAkaFrameSource()
         {
             _stringBuilder.Append(
                 new ContentSecurityPolicyElement
                     ("child-src")
                 .AddSource("http://s7.addthis.com")
+                .AddSource("https://www.youtube.com")
                 .Finish());
         }
 

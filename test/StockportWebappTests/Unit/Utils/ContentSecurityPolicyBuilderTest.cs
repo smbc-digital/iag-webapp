@@ -16,7 +16,7 @@ namespace StockportWebappTests.Unit.Utils
 			// Arrange
             var cspBuilder = new ContentSecurityPolicyBuilder();
             var expectedCSP = "default-src https:; " +
-                "child-src 'self' http://s7.addthis.com; " +
+                "child-src 'self' http://s7.addthis.com https://www.youtube.com; " +
                 "font-src 'self' font.googleapis.com maxcdn.bootstrapcdn.com/font-awesome/ fonts.gstatic.com/; " +
                 "img-src 'self' khms0.googleapis.com khms1.googleapis.com geo0.ggpht.com geo1.ggpht.com geo2.ggpht.com geo3.ggpht.com cbks0.googleapis.com csi.gstatic.com " +
                                  "maps.gstatic.com maps.googleapis.com images.contentful.com/ www.google-analytics.com/r/collect www.google-analytics.com/collect stats.g.doubleclick.net/r/collect " +
