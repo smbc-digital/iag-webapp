@@ -6,10 +6,14 @@ namespace StockportWebapp.Utils
     {
         private StringBuilder _stringBuilder;
 
-        public ContentSecurityPolicyElement(string sourcetype)
+        public ContentSecurityPolicyElement(string sourcetype, bool containsSelf = true)
         {
             _stringBuilder = new StringBuilder(sourcetype);
-            _stringBuilder.Append(" 'self'");
+
+            if (containsSelf)
+            {
+                _stringBuilder.Append(" 'self'");
+            }
         }
 
         public ContentSecurityPolicyElement AddSource(string source)

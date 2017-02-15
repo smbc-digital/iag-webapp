@@ -18,9 +18,9 @@ namespace StockportWebappTests.Unit.Utils
             var expectedCSP = "default-src https:; " +
                 "child-src 'self' http://s7.addthis.com; " +
                 "font-src 'self' font.googleapis.com maxcdn.bootstrapcdn.com/font-awesome/ fonts.gstatic.com/; " +
-                "img-src 'self'  khms0.googleapis.com khms1.googleapis.com geo0.ggpht.com geo1.ggpht.com geo2.ggpht.com geo3.ggpht.com  cbks0.googleapis.com csi.gstatic.com " +
+                "img-src 'self' khms0.googleapis.com khms1.googleapis.com geo0.ggpht.com geo1.ggpht.com geo2.ggpht.com geo3.ggpht.com cbks0.googleapis.com csi.gstatic.com " +
                                  "maps.gstatic.com maps.googleapis.com images.contentful.com/ www.google-analytics.com/r/collect www.google-analytics.com/collect stats.g.doubleclick.net/r/collect " +
-                                 "https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/" +
+                                 "https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/ " +
                                  "s3-eu-west-1.amazonaws.com/share.typeform.com/ cdnjs.cloudflare.com/ajax/libs/cookieconsent2/ " +
                                  "customer.cludo.com/img/ uk1.siteimprove.com/ stockportb.logo-net.co.uk/ *.cloudfront.net/butotv/; " +
                 "style-src 'self' 'unsafe-inline' *.cludo.com/css/ s3-eu-west-1.amazonaws.com/share.typeform.com/ maxcdn.bootstrapcdn.com/font-awesome/ fonts.googleapis.com/ " +

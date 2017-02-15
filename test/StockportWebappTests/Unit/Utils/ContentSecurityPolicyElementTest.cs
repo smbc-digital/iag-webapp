@@ -20,7 +20,7 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
-        public void CspElementContainsSelf()
+        public void CspElementContainsSelfByDefault()
         {
             // Arrange
             var cspElement = new ContentSecurityPolicyElement("source");
@@ -30,6 +30,19 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             Assert.Equal(true, elementString.Contains(" 'self'"));
+        }
+
+        [Fact]
+        public void CspElementDoesNotContainSelfIfRequestedNotTo()
+        {
+            // Arrange
+            var cspElement = new ContentSecurityPolicyElement("source", containsSelf: false);
+
+            // Act
+            var elementString = cspElement.Finish();
+
+            // Assert
+            Assert.Equal(false, elementString.Contains(" 'self'"));
         }
 
         [Fact]
