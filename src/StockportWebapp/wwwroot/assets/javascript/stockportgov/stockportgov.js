@@ -64,7 +64,6 @@ $(window).resize(function () {
         $("#mobileSearchInput").hide();
         $(".show-search-button").removeClass("arrow");
         $('#displayRefineBy').css('display', 'block');
-        $("#removeClass").removeClass("is-collapsed");
     }
 });
 

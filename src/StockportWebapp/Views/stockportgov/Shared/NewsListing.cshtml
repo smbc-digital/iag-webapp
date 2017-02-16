@@ -3,34 +3,36 @@
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.NewsroomViewModel
 
-@{ 
+@{
     var newsroom = Model.Newsroom;
+
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
-    var selectedTag = Context.Request.Query["tag"];
-    var selectedCategory = Context.Request.Query["category"];
-    var selectedDate = Context.Request.Query["datefrom"];
+    var dateRange = Context.Request.Query["daterange"].ToString();
+
+    var timeProvider = new TimeProvider();
+    var dateCalculator = new DateCalculator(timeProvider);
+    var dateFilter = dateRange == "customdate" ? Model.DateFrom.Value.ToString("dd/MM/yyyy") + " to " + Model.DateTo.Value.ToString("dd/MM/yyyy") : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 @inject FeatureToggles FeatureToggles
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="news-filters">
-        <p class="filters-heading">Refine by</p>         
-        <ul class="filters-list">           
-            <li id="removeClass">
+        <p class="filters-heading">Refine by</p>
+      
                 <ul class="filters-list" id="displayRefineBy">
                     <li class="filters-active">
                         <ul>
-                            @if (!string.IsNullOrEmpty(selectedCategory))
+                            @if (!string.IsNullOrEmpty(Model.Category))
                             {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @selectedCategory</a></li>
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Category</a></li>
                             }
-                            @if (!string.IsNullOrEmpty(selectedDate))
+                            @if (Model.DateFrom.HasValue && Model.DateTo.HasValue)
                             {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Convert.ToDateTime(selectedDate).ToString("MMMM yyyy")</a></li>
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
                             }
-                            @if (!string.IsNullOrEmpty(selectedTag))
+                            @if (!string.IsNullOrEmpty(Model.Tag))
                             {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @selectedTag</a></li>
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Tag</a></li>
                             }
                         </ul>
                     </li>
@@ -51,7 +53,7 @@
                             </ul>
                         </li>
                     }
-                    <li class="filter collapsible">
+                    <li class="filter collapsible" id="news-archive">
                         <p class="filter-title">News archive</p>
                         <ul class="filters-list filters-outer-list" id="uitest-news-archive">
                             <li class=@(filteredUrl.HasNoDateFilter() ? "active" : "")>
@@ -64,7 +66,7 @@
                                     <ul class="filters-list filters-inner-list" id="news-archive">
                                         @foreach (var date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
                                         {
-                                            <li class=@(currentUrl.MatchesQueryParam("datefrom", @date.ToString("dd/MM/yyyy")) ? "active" : "")>
+                                            <li class=@(currentUrl.MatchesQueryParam("datefrom", date.ToString("dd/MM/yyyy")) ? "active" : "")>
                                                 <a href="@Url.RouteUrl(filteredUrl.AddMonthFilter(date))">@date.ToString("MMMM yyyy")</a>
                                             </li>
                                         }
@@ -74,24 +76,24 @@
                             @{
                                 if (FeatureToggles.NewsCustomDateSearch)
                                 {
-                                    <li id="custom-filter-li" class="@(currentUrl.MatchesQueryParam("daterange", "customdate") ? "customdateactive" : "") filter collapsible">
+                                    <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
                                         <a class="filter-title custom-date-title">Custom date</a>
                                         <ul class="filters-list custom-date">
                                             <li>
                                                 <form action="@Url.Action("Index", "News")" method="get">
-                                                    <input type="hidden" name="DateRange" value="customdate"/>
-                                                    @if (!string.IsNullOrEmpty(selectedCategory))
+                                                    <input type="hidden" name="DateRange" value="customdate" />
+                                                    @if (!string.IsNullOrEmpty(Model.Category))
                                                     {
-                                                        <input type="hidden" name="category" value="@selectedCategory"/>
+                                                        <input type="hidden" name="category" value="@Model.Category" />
                                                     }
                                                     <div class="date-from">
                                                         <label asp-for="@Model.DateFrom"></label>
-                                                        <input id="datepickerfrom" type="date" asp-for="@Model.DateFrom"/>
+                                                        <input class="datepicker" type="date" asp-for="@Model.DateFrom" />
                                                         <span asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                                     </div>
                                                     <div class="date-to">
                                                         <label asp-for="@Model.DateTo"></label>
-                                                        <input id="datepickerto" type="date" asp-for="@Model.DateTo"/>
+                                                        <input class="datepicker" type="date" asp-for="@Model.DateTo" />
                                                         <span id="inputvalidation" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
                                                     </div>
                                                     <div class="update-button">
@@ -102,13 +104,12 @@
                                         </ul>
                                     </li>
                                 }
-                            }         
+                            }
                         </ul>
                     </li>
                 </ul>
                 <p class="mobile-filter-heading filter-title">Filter news</p>
-            </li>
-        </ul>
+  
     </div>
     <div class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
         @{
@@ -134,25 +135,25 @@
                     <li class="grid-100 grid-parent nav-card-news nav-card-news-item">
                         <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
                             <div class="news-bottom-border grid-100 grid-parent">
-                                    @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
-                                    {
-                                        <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
-                                    }
-                                    <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
-                                        <div class="news-date hide-on-mobile">
-                                            <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
-                                        </div>
-
-                                        <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
-
-                                        <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
-                                        <div class="news-date hide-on-desktop hide-on-tablet">
-                                            <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
-                                        </div>
+                                @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))
+                                {
+                                    <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImage);"></div>
+                                }
+                                <div class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
+                                    <div class="news-date hide-on-mobile">
+                                        <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
                                     </div>
+
+                                    <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
+
+                                    <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
+                                    <div class="news-date hide-on-desktop hide-on-tablet">
+                                        <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                                    </div>
+                                </div>
                             </div>
                         </a>
-                   </li>
+                    </li>
                 }
             </ul>
         }
