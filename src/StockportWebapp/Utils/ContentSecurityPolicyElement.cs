@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using StockportWebapp.Extensions;
 
 namespace StockportWebapp.Utils
 {
@@ -19,9 +20,32 @@ namespace StockportWebapp.Utils
         public ContentSecurityPolicyElement AddSource(string source)
         {
             _stringBuilder.Append(" ");
-            _stringBuilder.Append(source);
+            AddSourceForSafari9(source);
 
             return this;
+        }
+
+        private void AddSourceForSafari9(string source)
+        {
+            if (source == "'unsafe-inline'"
+                || source == "'unsafe-eval'"
+                || source == "https:")
+            {
+                _stringBuilder.Append(source);
+            }
+            else
+            {
+                AddSourceWithBothHttpAndHttpsForSafari9(source);
+            }
+        }
+
+        private void AddSourceWithBothHttpAndHttpsForSafari9(string source)
+        {
+            source = source.StripHttpAndHttps();
+
+            _stringBuilder.Append("http://" + source);
+            _stringBuilder.Append(" ");
+            _stringBuilder.Append("https://" + source);
         }
 
         public string Finish()

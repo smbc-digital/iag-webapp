@@ -15,25 +15,72 @@ namespace StockportWebappTests.Unit.Utils
         {
 			// Arrange
             var cspBuilder = new ContentSecurityPolicyBuilder();
-            var expectedCSP = "default-src https:; " +
-                "child-src 'self' http://s7.addthis.com https://www.youtube.com; " +
-                "font-src 'self' font.googleapis.com maxcdn.bootstrapcdn.com/font-awesome/ fonts.gstatic.com/; " +
-                "img-src 'self' khms0.googleapis.com khms1.googleapis.com geo0.ggpht.com geo1.ggpht.com geo2.ggpht.com geo3.ggpht.com cbks0.googleapis.com csi.gstatic.com " +
-                                 "maps.gstatic.com maps.googleapis.com images.contentful.com/ www.google-analytics.com/r/collect www.google-analytics.com/collect stats.g.doubleclick.net/r/collect " +
-                                 "https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/ " +
-                                 "s3-eu-west-1.amazonaws.com/ share.typeform.com/ cdnjs.cloudflare.com/ajax/libs/cookieconsent2/ " +
-                                 "customer.cludo.com/img/ uk1.siteimprove.com/ stockportb.logo-net.co.uk/ *.cloudfront.net/butotv/; " +
-                "style-src 'self' 'unsafe-inline' *.cludo.com/css/ s3-eu-west-1.amazonaws.com/ share.typeform.com/ maxcdn.bootstrapcdn.com/font-awesome/ fonts.googleapis.com/ " +
-                                 "cdnjs.cloudflare.com/ajax/libs/cookieconsent2/ *.cloudfront.net/butotv/; " +
-                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://ajax.googleapis.com/ajax/libs/jquery/ maps.googleapis.com m.addthisedge.com/live/boost/ " +
-                                 "www.google-analytics.com/analytics.js api.cludo.com/scripts/ customer.cludo.com/scripts/ cdnjs.cloudflare.com/ajax/libs/cookieconsent2/ " +
-                                 "s3-eu-west-1.amazonaws.com/ share.typeform.com/ js.buto.tv/video/ s7.addthis.com/js/300/addthis_widget.js m.addthis.com/live/ " +
-                                 "siteimproveanalytics.com/js/ *.logo-net.co.uk/Delivery/; " +
-                "connect-src 'self' https://api.cludo.com/ buto-ping-middleman.buto.tv/ m.addthis.com/live/; " +
-                "media-src 'self' https://www.youtube.com/ *.cloudfront.net/butotv/live/videos/; " +
-                "object-src 'self' https://www.youtube.com http://www.youtube.com; "; 
+            var expectedCSP =
+                "default-src https:; "
+                + "child-src 'self'"
+                    + " http://s7.addthis.com" + " https://s7.addthis.com"
+                    + " http://www.youtube.com" + " https://www.youtube.com; "
+                + "font-src 'self'"
+                    + " http://font.googleapis.com" + " https://font.googleapis.com"
+                    + " http://maxcdn.bootstrapcdn.com/font-awesome/" + " https://maxcdn.bootstrapcdn.com/font-awesome/"
+                    + " http://fonts.gstatic.com/" + " https://fonts.gstatic.com/; "
+                + "img-src 'self'"
+                    + " http://khms0.googleapis.com" + " https://khms0.googleapis.com"
+                    + " http://khms1.googleapis.com" + " https://khms1.googleapis.com"
+                    + " http://geo0.ggpht.com" + " https://geo0.ggpht.com"
+                    + " http://geo1.ggpht.com" + " https://geo1.ggpht.com"
+                    + " http://geo2.ggpht.com" + " https://geo2.ggpht.com"
+                    + " http://geo3.ggpht.com" + " https://geo3.ggpht.com"
+                    + " http://cbks0.googleapis.com" + " https://cbks0.googleapis.com"
+                    + " http://csi.gstatic.com" + " https://csi.gstatic.com"
+                    + " http://maps.gstatic.com" + " https://maps.gstatic.com"
+                    + " http://maps.googleapis.com" + " https://maps.googleapis.com"
+                    + " http://images.contentful.com/" + " https://images.contentful.com/"
+                    + " http://www.google-analytics.com/r/collect" + " https://www.google-analytics.com/r/collect"
+                    + " http://www.google-analytics.com/collect" + " https://www.google-analytics.com/collect"
+                    + " http://stats.g.doubleclick.net/r/collect" + " https://stats.g.doubleclick.net/r/collect"
+                    + " http://s3-eu-west-1.amazonaws.com/live-iag-static-assets/" + " https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/"
+                    + " http://s3-eu-west-1.amazonaws.com/" + " https://s3-eu-west-1.amazonaws.com/"
+                    + " http://share.typeform.com/" + " https://share.typeform.com/"
+                    + " http://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/" + " https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/"
+                    + " http://customer.cludo.com/img/" + " https://customer.cludo.com/img/"
+                    + " http://uk1.siteimprove.com/" + " https://uk1.siteimprove.com/"
+                    + " http://stockportb.logo-net.co.uk/" + " https://stockportb.logo-net.co.uk/"
+                    + " http://*.cloudfront.net/butotv/" + " https://*.cloudfront.net/butotv/; "
+               + "style-src 'self' 'unsafe-inline'"
+                    + " http://*.cludo.com/css/" + " https://*.cludo.com/css/"
+                    + " http://s3-eu-west-1.amazonaws.com/" + " https://s3-eu-west-1.amazonaws.com/"
+                    + " http://share.typeform.com/" + " https://share.typeform.com/"
+                    + " http://maxcdn.bootstrapcdn.com/font-awesome/" + " https://maxcdn.bootstrapcdn.com/font-awesome/"
+                    + " http://fonts.googleapis.com/" + " https://fonts.googleapis.com/"
+                    + " http://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/" + " https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/"
+                    + " http://*.cloudfront.net/butotv/" + " https://*.cloudfront.net/butotv/; "
+                + "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
+                    + " http://ajax.googleapis.com/ajax/libs/jquery/" + " https://ajax.googleapis.com/ajax/libs/jquery/"
+                    + " http://maps.googleapis.com m.addthisedge.com/live/boost/" + " https://maps.googleapis.com m.addthisedge.com/live/boost/"
+                    + " http://www.google-analytics.com/analytics.js" + " https://www.google-analytics.com/analytics.js"
+                    + " http://api.cludo.com/scripts/" + " https://api.cludo.com/scripts/"
+                    + " http://customer.cludo.com/scripts/" + " https://customer.cludo.com/scripts/"
+                    + " http://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/" + " https://cdnjs.cloudflare.com/ajax/libs/cookieconsent2/"
+                    + " http://s3-eu-west-1.amazonaws.com/" + " https://s3-eu-west-1.amazonaws.com/"
+                    + " http://share.typeform.com/" + " https://share.typeform.com/"
+                    + " http://js.buto.tv/video/" + " https://js.buto.tv/video/"
+                    + " http://s7.addthis.com/js/300/addthis_widget.js" + " https://s7.addthis.com/js/300/addthis_widget.js"
+                    + " http://m.addthis.com/live/" + " https://m.addthis.com/live/"
+                    + " http://siteimproveanalytics.com/js/" + " https://siteimproveanalytics.com/js/"
+                    + " http://*.logo-net.co.uk/Delivery/" + " https://*.logo-net.co.uk/Delivery/; "
+                + "connect-src 'self'"
+                    + " http://api.cludo.com/" + " https://api.cludo.com/"
+                    + " http://buto-ping-middleman.buto.tv/" + " https://buto-ping-middleman.buto.tv/"
+                    + " http://m.addthis.com/live/" + " https://m.addthis.com/live/; "
+                + "media-src 'self'"
+                    + " http://www.youtube.com/" + " https://www.youtube.com/"
+                    + " http://*.cloudfront.net/butotv/live/videos/" + " https://*.cloudfront.net/butotv/live/videos/; "
+                + "object-src 'self'"
+                    + " http://www.youtube.com" + " https://www.youtube.com"
+                    + " http://www.youtube.com" + " https://www.youtube.com; ";
 
-			// Act
+            // Act
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
 			// Assert

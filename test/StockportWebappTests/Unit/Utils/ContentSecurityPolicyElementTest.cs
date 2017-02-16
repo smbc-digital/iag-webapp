@@ -62,6 +62,167 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
+        public void CspElementAddsHttpAndHttpsToSource()
+        {
+            // Arrange
+            string specifiedSource = "specified-source";
+            string specifiedSourceWithHttp = "http://" + specifiedSource;
+            string specifiedSourceWithHttps = "https://" + specifiedSource;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(specifiedSource)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true, 
+                elementString.Contains(specifiedSourceWithHttp)
+                && elementString.Contains(specifiedSourceWithHttps));
+        }
+
+        [Fact]
+        public void CspElementDoesNotAddHttpAndHttpsToUnsafeInline()
+        {
+            // Arrange
+            string unsafeInline = "'unsafe-inline'";
+            string unsafeInlineWithHttp = "http://" + unsafeInline;
+            string unsafeInlineWithHttps = "https://" + unsafeInline;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(unsafeInline)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(unsafeInline)
+                && !elementString.Contains(unsafeInlineWithHttp)
+                && !elementString.Contains(unsafeInlineWithHttps));
+        }
+
+        [Fact]
+        public void CspElementDoesNotAddHttpAndHttpsToUnsafeEval()
+        {
+            // Arrange
+            string unsafeEval = "'unsafe-eval'";
+            string unsafeEvalWithHttp = "http://" + unsafeEval;
+            string unsafeEvalWithHttps = "https://" + unsafeEval;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(unsafeEval)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(unsafeEval)
+                && !elementString.Contains(unsafeEvalWithHttp)
+                && !elementString.Contains(unsafeEvalWithHttps));
+        }
+
+        [Fact]
+        public void CspElementDoesNotAddHttpAndHttpsToHttps()
+        {
+            // Arrange
+            string https = "https:";
+            string httpsWithHttp = "http://" + https;
+            string httpsWithHttps = "https://" + https;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(https)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(https)
+                && !elementString.Contains(httpsWithHttp)
+                && !elementString.Contains(httpsWithHttps));
+        }
+
+        [Fact]
+        public void CspElementDoesNotDuplicateHttpIfSourceAlreadyHasIt()
+        {
+            // Arrange
+            string specifiedSource = "http://specified-source";
+            string specifiedSourceWithExtraHttp = "http://" + specifiedSource;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(specifiedSource)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(specifiedSource)
+                && !elementString.Contains(specifiedSourceWithExtraHttp));
+        }
+
+        [Fact]
+        public void CspElementDoesNotDuplicateHttpsIfSourceAlreadyHasIt()
+        {
+            // Arrange
+            string specifiedSource = "https://specified-source";
+            string specifiedSourceWithExtraHttps = "https://" + specifiedSource;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(specifiedSource)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(specifiedSource)
+                && !elementString.Contains(specifiedSourceWithExtraHttps));
+        }
+
+        [Fact]
+        public void CspElementAddsHttpsIfSourceAlreadyHasHttp()
+        {
+            // Arrange
+            string rawSource = "raw-source";
+            string specifiedSource = "http://" + rawSource;
+            string specifiedSourceWithHttpsInsteadOfHttp = "https://" + rawSource;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(specifiedSource)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(specifiedSource)
+                && elementString.Contains(specifiedSourceWithHttpsInsteadOfHttp));
+        }
+
+        [Fact]
+        public void CspElementAddsHttpIfSourceAlreadyHasHttps()
+        {
+            // Arrange
+            string rawSource = "raw-source";
+            string specifiedSource = "https://" + rawSource;
+            string specifiedSourceWithHttpInsteadOfHttps = "http://" + rawSource;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(specifiedSource)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(specifiedSource)
+                && elementString.Contains(specifiedSourceWithHttpInsteadOfHttps));
+        }
+
+        [Fact]
         public void CspElementEndsWithSemiColonAndSpace()
         {
             // Arrange
@@ -79,17 +240,34 @@ namespace StockportWebappTests.Unit.Utils
         {
             // Arrange
             string sourceType = "source-type";
-            var source1 = "http://source1.com";
-            var source2 = "http://source2.com";
+            string sourcewithHttp = "http://source1.com";
+            string sourcewithHttps = "https://source2.com";
+            string plainSource = "source3.com";
+            string https = "https:";
+            string unsafeEval = "'unsafe-eval'";
+            string unsafeInline = "'unsafe-inline'";
 
             // Act
             var elementString = new ContentSecurityPolicyElement(sourceType)
-                .AddSource(source1)
-                .AddSource(source2)
+                .AddSource(sourcewithHttp)
+                .AddSource(sourcewithHttps)
+                .AddSource(plainSource)
+                .AddSource(https)
+                .AddSource(unsafeEval)
+                .AddSource(unsafeInline)
                 .Finish();
 
             // Assert
-            Assert.Equal("source-type 'self' http://source1.com http://source2.com; ", elementString);
+            string expectedElement =
+                "source-type 'self'" +
+                " http://source1.com https://source1.com" +
+                " http://source2.com https://source2.com" +
+                " http://source3.com https://source3.com" +
+                " https:" +
+                " 'unsafe-eval'" +
+                " 'unsafe-inline'" +
+                "; ";
+            Assert.Equal(expectedElement, elementString);
         }
     }
 }
