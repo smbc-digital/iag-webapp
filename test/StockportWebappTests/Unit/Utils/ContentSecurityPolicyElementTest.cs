@@ -285,6 +285,8 @@ namespace StockportWebappTests.Unit.Utils
             string sourcewithHttp = "http://source1.com";
             string sourcewithHttps = "https://source2.com";
             string plainSource = "source3.com";
+            string sourceWithwildcard = "*.source4.com";
+            string data = "data:";
             string https = "https:";
             string unsafeEval = "'unsafe-eval'";
             string unsafeInline = "'unsafe-inline'";
@@ -294,6 +296,8 @@ namespace StockportWebappTests.Unit.Utils
                 .AddSource(sourcewithHttp)
                 .AddSource(sourcewithHttps)
                 .AddSource(plainSource)
+                .AddSource(sourceWithwildcard)
+                .AddSource(data)
                 .AddSource(https)
                 .AddSource(unsafeEval)
                 .AddSource(unsafeInline)
@@ -305,6 +309,8 @@ namespace StockportWebappTests.Unit.Utils
                 " http://source1.com https://source1.com" +
                 " http://source2.com https://source2.com" +
                 " http://source3.com https://source3.com" +
+                " *.source4.com" +
+                " data:" +
                 " https:" +
                 " 'unsafe-eval'" +
                 " 'unsafe-inline'" +
