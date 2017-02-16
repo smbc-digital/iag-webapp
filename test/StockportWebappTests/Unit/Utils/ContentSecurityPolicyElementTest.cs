@@ -124,6 +124,48 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
+        public void CspElementDoesNotAddHttpAndHttpsToData()
+        {
+            // Arrange
+            string data = "data:";
+            string dataWithHttp = "http://" + data;
+            string dataWithHttps = "https://" + data;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(data)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(data)
+                && !elementString.Contains(dataWithHttp)
+                && !elementString.Contains(dataWithHttps));
+        }
+
+        [Fact]
+        public void CspElementDoesNotAddHttpAndHttpsToSourceStartingWithWildcard()
+        {
+            // Arrange
+            string wildcardSource = "*.source.com";
+            string wildcardSourceWithHttp = "http://" + wildcardSource;
+            string wildcardSourceWithHttps = "https://" + wildcardSource;
+            var cspElement = new ContentSecurityPolicyElement("sourceType");
+
+            // Act
+            var elementString = cspElement
+                .AddSource(wildcardSource)
+                .Finish();
+
+            // Assert
+            Assert.Equal(true,
+                elementString.Contains(wildcardSource)
+                && !elementString.Contains(wildcardSourceWithHttp)
+                && !elementString.Contains(wildcardSourceWithHttps));
+        }
+
+        [Fact]
         public void CspElementDoesNotAddHttpAndHttpsToHttps()
         {
             // Arrange

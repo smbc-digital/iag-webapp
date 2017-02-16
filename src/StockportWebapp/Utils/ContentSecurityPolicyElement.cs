@@ -27,9 +27,7 @@ namespace StockportWebapp.Utils
 
         private void AddSourceForSafari9(string source)
         {
-            if (source == "'unsafe-inline'"
-                || source == "'unsafe-eval'"
-                || source == "https:")
+            if (IsSafari9Exception(source))
             {
                 _stringBuilder.Append(source);
             }
@@ -37,6 +35,15 @@ namespace StockportWebapp.Utils
             {
                 AddSourceWithBothHttpAndHttpsForSafari9(source);
             }
+        }
+
+        private bool IsSafari9Exception(string source)
+        {
+            return source == "'unsafe-inline'"
+                   || source == "'unsafe-eval'"
+                   || source == "https:"
+                   || source == "data:"
+                   || source.StartsWith("*.");
         }
 
         private void AddSourceWithBothHttpAndHttpsForSafari9(string source)
