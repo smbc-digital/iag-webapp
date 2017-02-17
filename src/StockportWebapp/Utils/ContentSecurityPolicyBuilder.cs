@@ -37,6 +37,7 @@ namespace StockportWebapp.Utils
                     ("child-src")
                 .AddSource("http://s7.addthis.com")
                 .AddSource("https://www.youtube.com")
+                .AddSource("https://stockportcouncil.typeform.com")
                 .Finish());
         }
 
@@ -78,6 +79,7 @@ namespace StockportWebapp.Utils
                 .AddSource("uk1.siteimprove.com/")
                 .AddSource("stockportb.logo-net.co.uk/")
                 .AddSource("*.cloudfront.net/butotv/")
+                .AddSource("data:")
                 .Finish());
         }
 
