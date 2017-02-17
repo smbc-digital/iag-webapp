@@ -16,7 +16,7 @@ namespace StockportWebapp.Models
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
-        [EndDateLaterThanStartDateValidation(otherPropertyName: "datefrom", erroMessgae: "End Date should be after the Start date")]
+        [EndDateLaterThanStartDateValidation(otherPropertyName: "datefrom", erroMessgae: "End date should be on or after the start date")]
         public DateTime? dateto { get; set; }
 
         public string category { get; set; }
