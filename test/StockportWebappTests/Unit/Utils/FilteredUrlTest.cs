@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Primitives;
@@ -187,7 +188,6 @@ namespace StockportWebappTests.Unit.Utils
         [Fact]
         public void WillPopulateDateToFilterInUrl()
         {
-            // Arrange
             var queryUrl = new QueryUrl(
                 new RouteValueDictionary(),
                 new QueryCollection(
@@ -200,13 +200,12 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
-            DateTime startDate = DateTime.Today;
 
-            // Act
+            var filteredUrl = new FilteredUrl(queryUrl);
+            // TODO: Refactor to use timeprovider
+            var startDate = DateTime.Today.AddMonths(-10);
             var newQueryUrl = filteredUrl.AddMonthFilter(startDate);
 
-            // Assert
             Assert.Equal(startDate.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd"), newQueryUrl["dateTo"]);
         }
 
@@ -309,6 +308,18 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             Assert.Equal(false, newQueryUrl.ContainsKey("tag"));
+        }
+
+        // TODO: Refactor to inject time using timepovider
+        [Fact]
+        public void ShouldReturnTodaysDateIfDateToIsWithinTheCurrentMonth()
+        {
+            var queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
+            var filteredUrl = new FilteredUrl(queryUrl);
+
+            var url = filteredUrl.AddMonthFilter(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 01));
+
+            url["dateto"].Should().Be(DateTime.Now.Date.ToString("yyyy-MM-dd"));
         }
     }
 }

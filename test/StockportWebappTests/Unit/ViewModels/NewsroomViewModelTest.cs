@@ -63,7 +63,18 @@ namespace StockportWebappTests.Unit.ViewModels
             var result = newsroomViewModel.GetActiveDateFilter();
 
             result.Should().Be("January 2016");
-        }   
+        }
+
+        [Fact]
+        public void ShouldDisplaySingleDateIfToDateAndFromDateAreTheSame()
+        {
+            var newsroomViewModel = new NewsroomViewModel { DateRange = "customdate", DateFrom = new DateTime(2016, 01, 01), DateTo = new DateTime(2016, 01, 01) };
+
+            var result = newsroomViewModel.GetActiveDateFilter();
+
+            result.Should().Be("01/01/2016");
+        }
+
         private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "")
         {
             return new Newsroom(new List<News>(), new List<Alert>(), true, emailAlertsTopicId, categories ?? emptyList, new List<DateTime>());

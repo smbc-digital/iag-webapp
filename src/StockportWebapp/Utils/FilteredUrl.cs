@@ -6,52 +6,54 @@ namespace StockportWebapp.Utils
 {
     public class FilteredUrl
     {
-        private readonly QueryUrl queryUrl;
+        private readonly QueryUrl _queryUrl;
 
         public FilteredUrl(QueryUrl queryUrl)
         {
-            this.queryUrl = queryUrl;
+            this._queryUrl = queryUrl;
         }
 
         public RouteValueDictionary WithoutCategory()
         {
-            return queryUrl.WithoutQueryParam(new List<string>() {"category"});
+            return _queryUrl.WithoutQueryParam(new List<string>() {"category"});
         }
 
         public RouteValueDictionary AddCategoryFilter(string category)
         {
-            return queryUrl.AddQueriesToUrl(new Dictionary<string, string>() { { "category", category } });
+            return _queryUrl.AddQueriesToUrl(new Dictionary<string, string>() { { "category", category } });
         }
 
         public bool HasNoCategoryFilter()
         {
-            return !queryUrl.HasQueryParam("category");
+            return !_queryUrl.HasQueryParam("category");
         }
 
         public RouteValueDictionary AddMonthFilter(DateTime startDate)
         {
-            return queryUrl.AddQueriesToUrl(new Dictionary<string, string>()
+            var dateto = startDate.Month == DateTime.Now.Month ? DateTime.Now : startDate.AddMonths(1).AddDays(-1);
+
+            return _queryUrl.AddQueriesToUrl(new Dictionary<string, string>()
             {
                 {"datefrom", startDate.ToString("yyyy-MM-dd")},
-                {"dateto", startDate.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd")},
-                {"daterange", "month"},
+                {"dateto", dateto.ToString("yyyy-MM-dd")},
+                {"daterange", "month"}
 
             });
         }
 
         public RouteValueDictionary WithoutDateFilter()
         {
-            return queryUrl.WithoutQueryParam(new List<string>() {"datefrom", "dateto","daterange"});
+            return _queryUrl.WithoutQueryParam(new List<string>() {"datefrom", "dateto","daterange"});
         }
 
         public bool HasNoDateFilter()
         {
-            return !queryUrl.HasQueryParam("datefrom");
+            return !_queryUrl.HasQueryParam("datefrom");
         }
 
         public RouteValueDictionary WithoutTagFilter()
         {
-            return queryUrl.WithoutQueryParam(new List<string>() { "tag" });
+            return _queryUrl.WithoutQueryParam(new List<string>() { "tag" });
         }
     }
 }

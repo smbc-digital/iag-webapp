@@ -19,8 +19,9 @@
             $("#custom-filter-li").removeClass("is-collapsed");
         }
 
-        $(".filters-list li.active").each(function (item) {
-            console.log($(this).parents("li"));
-            $(this).parents("li").removeClass("is-collapsed");
-        });
+        if ($(window).width() > tabletWidth) {
+            $(".filters-list li.active").each(function() {
+                $(this).parents("li").removeClass("is-collapsed");
+            });
+        }
     });
