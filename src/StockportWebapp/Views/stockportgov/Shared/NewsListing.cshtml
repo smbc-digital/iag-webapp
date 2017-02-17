@@ -8,11 +8,6 @@
 
     var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
     var filteredUrl = new FilteredUrl(currentUrl);
-    var dateRange = Context.Request.Query["daterange"].ToString();
-
-    var timeProvider = new TimeProvider();
-    var dateCalculator = new DateCalculator(timeProvider);
-    var dateFilter = dateRange == "customdate" ? Model.DateFrom.Value.ToString("dd/MM/yyyy") + " to " + Model.DateTo.Value.ToString("dd/MM/yyyy") : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 @inject FeatureToggles FeatureToggles
 <div class="grid-container news-grid-container-margins">
@@ -28,7 +23,7 @@
                             }
                             @if (Model.DateFrom.HasValue && Model.DateTo.HasValue)
                             {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.GetActiveDateFilter()</a></li>
                             }
                             @if (!string.IsNullOrEmpty(Model.Tag))
                             {
@@ -66,7 +61,7 @@
                                     <ul class="filters-list filters-inner-list" id="news-archive">
                                         @foreach (var date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
                                         {
-                                            <li class=@(currentUrl.MatchesQueryParam("datefrom", date.ToString("dd/MM/yyyy")) ? "active" : "")>
+                                            <li class=@(Model.DateRange != "customdate" && Model.DateFrom == date ? "active" : "")>
                                                 <a href="@Url.RouteUrl(filteredUrl.AddMonthFilter(date))">@date.ToString("MMMM yyyy")</a>
                                             </li>
                                         }
@@ -79,7 +74,7 @@
                                     <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
                                         <a class="filter-title custom-date-title">Custom date</a>
                                         <ul class="filters-list custom-date">
-                                            <li>
+                                            <li class="@(Model.DateRange == "customdate" ? "active" : "")">
                                                 <form action="@Url.Action("Index", "News")" method="get">
                                                     <input type="hidden" name="DateRange" value="customdate" />
                                                     @if (!string.IsNullOrEmpty(Model.Category))

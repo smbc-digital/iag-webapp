@@ -23,7 +23,6 @@
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="event-filters">
         <p class="filters-heading">Refine by</p>
         <ul class="filters-list">
-            <li id="removeClass">
                 <ul class="filters-list" id="displayRefineBy">
                     <li class="filters-active">
                         <ul>
@@ -31,7 +30,7 @@
                         {
                             <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
                         }
-                        @if (!string.IsNullOrEmpty(dateFilter) && (@Model.datefrom <= @Model.dateto))
+                        @if (!string.IsNullOrEmpty(dateFilter) && (Model.datefrom <= Model.dateto))
                         {
                             <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
                         }
@@ -95,7 +94,6 @@
                     }              
                 </ul>
                 <p class="mobile-filter-heading filter-title">Filter Events</p>
-            </li>
         </ul>
     </div>
     <div class="grid-70 tablet-grid-100 mobile-grid-100 events-article-grid">

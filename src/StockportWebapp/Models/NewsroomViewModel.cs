@@ -37,7 +37,7 @@ namespace StockportWebapp.Models
             get { return Newsroom?.Categories?.OrderBy(c => c).ToList(); }
         }
 
-        public NewsroomViewModel() {}
+        public NewsroomViewModel() { }
 
         public NewsroomViewModel(Newsroom newsroom, string emailAlertsUrl)
         {
@@ -58,6 +58,17 @@ namespace StockportWebapp.Models
         internal void AddUrlSetting(AppSetting urlSetting)
         {
             EmailAlertsUrl = urlSetting.ToString();
+        }
+
+        public string GetActiveDateFilter()
+        {
+            if (!DateFrom.HasValue || !DateTo.HasValue) return string.Empty;
+
+            if (DateRange == "customdate" && DateFrom.Value == DateTo.Value) return DateFrom.Value.ToString("dd/MM/yyyy");
+
+            if (DateRange == "customdate") return DateFrom.Value.ToString("dd/MM/yyyy") + " to " + DateTo.Value.ToString("dd/MM/yyyy");
+
+            return DateFrom.Value.ToString("MMMM yyyy");
         }
     }
 }

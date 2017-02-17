@@ -2,7 +2,7 @@
     .ready(function () {
         $(".l-filters .filter-title, .l-filters .filter-inner-title").click(function () {
             $(this).siblings("ul").slideToggle(100, function () {
-                $(this).parent("li").addClass("is-collapsed");
+                $(this).parent("li").toggleClass("is-collapsed");
             });
         });
 
@@ -17,6 +17,11 @@
 
         if ($("#custom-filter-li").hasClass("customdateactive")) {
             $("#custom-filter-li").removeClass("is-collapsed");
-            $("#news-archive").removeClass("is-collapsed");
         }
-});
+
+        if ($(window).width() > tabletWidth) {
+            $(".filters-list li.active").each(function() {
+                $(this).parents("li").removeClass("is-collapsed");
+            });
+        }
+    });
