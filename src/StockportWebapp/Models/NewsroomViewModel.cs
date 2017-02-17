@@ -29,7 +29,7 @@ namespace StockportWebapp.Models
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
         [PastDateValidation]
-        [EndDateLaterThanStartDateValidation(otherPropertyName: "DateFrom", erroMessgae: "End date should be after the start date")]
+        [EndDateLaterThanStartDateValidation(otherPropertyName: "DateFrom", erroMessgae: "End date should be on or after the start date")]
         public DateTime? DateTo { get; set; }
 
         public List<string> Categories

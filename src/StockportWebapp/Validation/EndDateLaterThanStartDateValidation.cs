@@ -7,10 +7,12 @@ namespace StockportWebapp.Validation
     public class EndDateLaterThanStartDateValidation : ValidationAttribute
     {
         private readonly string _otherPropertyName;
+        private readonly string _erroMessgae;
 
         public EndDateLaterThanStartDateValidation(string otherPropertyName, string erroMessgae) : base(erroMessgae)
         {
             _otherPropertyName = otherPropertyName;
+            _erroMessgae = erroMessgae;
 
         }
 
@@ -31,7 +33,7 @@ namespace StockportWebapp.Validation
                   return ValidationResult.Success;
             if (date.Value.Date >= startDate.Value.Date)
                 return ValidationResult.Success;
-            return new ValidationResult("End date should be after the Start date");
+            return new ValidationResult(_erroMessgae);
         }
     }
 }
