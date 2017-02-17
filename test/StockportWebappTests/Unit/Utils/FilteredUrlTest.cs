@@ -181,7 +181,7 @@ namespace StockportWebappTests.Unit.Utils
             var newQueryUrl = filteredUrl.AddMonthFilter(startDate);
 
             // Assert
-            Assert.Equal(startDate.ToString("dd/MM/yyyy"), newQueryUrl["dateFrom"]);
+            Assert.Equal(startDate.ToString("yyyy-MM-dd"), newQueryUrl["dateFrom"]);
         }
 
         [Fact]
@@ -207,7 +207,7 @@ namespace StockportWebappTests.Unit.Utils
             var newQueryUrl = filteredUrl.AddMonthFilter(startDate);
 
             // Assert
-            Assert.Equal(startDate.AddMonths(1).AddDays(-1).ToString("dd/MM/yyyy"), newQueryUrl["dateTo"]);
+            Assert.Equal(startDate.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd"), newQueryUrl["dateTo"]);
         }
 
         [Fact]

@@ -30,7 +30,7 @@
                         {
                             <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
                         }
-                        @if (!string.IsNullOrEmpty(dateFilter) && (@Model.datefrom <= @Model.dateto))
+                        @if (!string.IsNullOrEmpty(dateFilter) && (Model.datefrom <= Model.dateto))
                         {
                             <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
                         }
