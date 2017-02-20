@@ -147,6 +147,8 @@
 
     #see-more-services, #see-more-services-mobile  {
         display:none;
+        min-width: 0;
+        padding-right:15px;
     }
 }
 
