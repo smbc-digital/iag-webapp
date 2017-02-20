@@ -40,7 +40,7 @@ namespace StockportWebapp.Controllers
 
             if (homepage != null && latestNews != null) homepage.SetLatestNews(latestNews);
 
-            var latestEventsResponse = await _repository.GetLatest<EventCalendar>(2);
+            var latestEventsResponse = await _repository.GetLatestOrderByFeatured<EventCalendar>(2);
             var latestEvents = latestEventsResponse.Content as EventCalendar;
 
             if (homepage != null && latestEvents != null) homepage.SetLatestEvents(latestEvents.Events);

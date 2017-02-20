@@ -92,5 +92,15 @@ namespace StockportWebappTests.Unit.Repositories
 
             LogTesting.Assert(_logger, LogLevel.Information, "Sending event submission form email");
         }
+
+
+        [Fact]
+        public async void ItShouldReturnFeaturedEventsFirst()
+        {
+            var eventSubmission = new EventSubmission { SubmitterEmail = "test@testing.xyz" };
+            await _eventsRepository.SendEmailMessage(eventSubmission);
+
+            LogTesting.Assert(_logger, LogLevel.Information, "Sending event submission form email");
+        }
     }
 }

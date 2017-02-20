@@ -64,7 +64,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var eventsContent = new List<Event>
             {
-                new Event { Title = "title", EventDate = new DateTime(2017, 01, 01)}
+                new Event { Title = "title", EventDate = new DateTime(2017, 01, 01), Featured = true}
             };
 
             var eventCalendar = new EventCalendar(eventsContent, null);

@@ -21,6 +21,8 @@ namespace StockportWebapp.Models
         public List<Document> Documents { get; set; }
         public List<string> Categories { get; set; }
         public MapPosition MapPosition { get; set; }
+
+        public bool Featured { get; set; }
     }
 
     public class MapPosition
