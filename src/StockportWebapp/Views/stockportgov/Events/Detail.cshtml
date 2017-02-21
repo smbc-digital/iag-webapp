@@ -75,6 +75,32 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
+                                @if (!string.IsNullOrEmpty(Model.BookingInformation))
+                                {
+                                    <li class="events-details">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 events-details-symbol-containter">
+                                            <i class="fa fa-ticket fa-2x events-details-symbol"></i>
+                                        </div>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
+                                            <div class="events-details-heading">
+                                                Booking information
+                                            </div>
+                                            @if (Model.BookingInformation.Contains("http") || Model.BookingInformation.Contains("www"))
+                                            {
+                                                <a href="@Model.BookingInformation">Book your place</a>
+                                            }
+                                            else if (Model.BookingInformation.Contains("@"))
+                                            {
+                                                <a href="mailto:@Model.BookingInformation">@Model.BookingInformation</a>
+                                            }
+                                            else
+                                            {
+                                                @Model.BookingInformation
+                                            }
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                }
                             </ul>
                         </div>
 
