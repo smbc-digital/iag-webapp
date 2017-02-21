@@ -10,6 +10,8 @@
 
         if ($(window).width() <= tabletWidth) {
             $(".l-filters .collapsible").addClass("is-collapsed");
+
+            $(".filters-list li.active .field-validation-error").parents("li").removeClass("is-collapsed");
         } else {
             $(".l-filters .filter:not(#date-filter):not(#category-filter).collapsible").addClass("is-collapsed");
             $(".l-filters .filter:not(#date-filter):not(#category-filter) .collapsible").addClass("is-collapsed");
@@ -20,7 +22,7 @@
         }
 
         if ($(window).width() > tabletWidth) {
-            $(".filters-list li.active").each(function() {
+            $(".filters-list li.active").each(function () {
                 $(this).parents("li").removeClass("is-collapsed");
             });
         }
