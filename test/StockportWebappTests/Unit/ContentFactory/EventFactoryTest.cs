@@ -30,6 +30,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private const string EndTime = "17:00";
         private readonly DateTime _eventDate = new DateTime(2016, 12, 30);
         private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
+        private readonly string _bookingInformation = "Booking information";
 
         public EventFactoryTest()
         {
@@ -39,7 +40,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
             _event = new Event { Title = Title,  Slug = Slug,  Teaser = Teaser,  ImageUrl = Image,  ThumbnailImageUrl = ThumbnailImage, Description = Description, Fee = Fee, Location = Location,
                                  SubmittedBy = SubmittedBy, EventDate = _eventDate, StartTime = StartTime,
-                                 EndTime = EndTime, Breadcrumbs = _breadcrumbs };
+                                 EndTime = EndTime, Breadcrumbs = _breadcrumbs, BookingInformation = _bookingInformation};
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
@@ -60,6 +61,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.EventDate.Should().Be(new DateTime(2016, 12, 30));
             result.StartTime.Should().Be("10:00");
             result.EndTime.Should().Be("17:00");
+            result.BookingInformation.Should().Be("Booking information");
         }
 
         [Fact]

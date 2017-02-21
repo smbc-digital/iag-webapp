@@ -41,7 +41,7 @@ namespace StockportWebappTests.Unit.Controllers
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
                 "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
-                new List<Crumb>(), _categories, new MapPosition());
+                new List<Crumb>(), _categories, new MapPosition(), "booking information");
 
             // setup responses (with mock data)
             responseListing = new HttpResponse(200, eventsCalendar, "");
@@ -122,7 +122,7 @@ namespace StockportWebappTests.Unit.Controllers
             model.EventDate.Should().Be(new DateTime(2016, 12, 30, 00, 00, 00));
             model.StartTime.Should().Be("startTime");
             model.EndTime.Should().Be("endTime");
-           
+            model.BookingInformation.Should().Be("booking information");
         }
 
         [Fact]

@@ -25,7 +25,8 @@ namespace StockportWebapp.ContentFactory
 
             return new ProcessedEvents(eventItem.Title, eventItem.Slug, eventItem.Teaser, eventItem.ImageUrl, 
                                        eventItem.ThumbnailImageUrl, description, eventItem.Fee, eventItem.Location, eventItem.SubmittedBy, 
-                                       eventItem.EventDate, eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs, eventItem.Categories, eventItem.MapPosition);
+                                       eventItem.EventDate, eventItem.StartTime, eventItem.EndTime, eventItem.Breadcrumbs, eventItem.Categories,
+                                       eventItem.MapPosition, eventItem.BookingInformation);
         }
     }
 }
