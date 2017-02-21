@@ -119,7 +119,7 @@ namespace StockportWebapp.Controllers
         {
             var httpResponse = await _repository.Get<EventResponse>();
 
-            var host = Request != null && Request.Host.HasValue ? string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/news/") : string.Empty;
+            var host = Request != null && Request.Host.HasValue ? string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/events/") : string.Empty;
 
             if (!httpResponse.IsSuccessful())
             {

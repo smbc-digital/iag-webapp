@@ -48,11 +48,11 @@ namespace StockportWebapp.RSS
                     var item = new Item
                     {
                         Title = eventItem.Title,
-                        Body = eventItem.Teaser,
+                        Body = eventItem.Teaser + "<br /> Location: " + eventItem.Location + "<br /> Fee: " + eventItem.Fee + "<br /> Event Date and Time: " + eventItem.EventDate.ToString("dd/MM/yyyy") + " " + eventItem.StartTime + " - " + eventItem.EndTime,
                         Link = new Uri(host + eventItem.Slug),
                         Permalink = new Uri(host + eventItem.Slug).AbsoluteUri,
-                        PublishDate = eventItem.EventDate,                        
-                        Author = new Author { Name = "Stockport Council", Email = email }
+                        PublishDate = eventItem.UpdatedAt,                
+                        Author = new Author { Name = "Stockport Council", Email = email }                        
                     };
                     feed.Items.Add(item);
                 }

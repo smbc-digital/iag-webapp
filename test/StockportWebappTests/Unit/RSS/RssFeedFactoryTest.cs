@@ -68,7 +68,7 @@ namespace StockportWebappTests.Unit.RSS
             {
                 Title = "Event Title 1", Description = "Event Description 1", Categories = new List<string>(),
                 Breadcrumbs = new EditableList<Crumb>(), EventDate = new DateTime(2017,08,01),StartTime = "10:00",
-                EndTime="17:00",Fee="Free",Documents = new List<Document>(),Location = "Stoppford House"
+                EndTime="17:00",Fee="Free",Documents = new List<Document>(),Location = "Stoppford House", UpdatedAt = new DateTime(2017,12,25)
             });
             events.Add(new Event()
             {
@@ -81,7 +81,8 @@ namespace StockportWebappTests.Unit.RSS
                 EndTime = "17:00",
                 Fee = "Free",
                 Documents = new List<Document>(),
-                Location = "Stoppford House"
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
             });
 
             events.Add(new Event()
@@ -95,7 +96,8 @@ namespace StockportWebappTests.Unit.RSS
                 EndTime = "17:00",
                 Fee = "Free",
                 Documents = new List<Document>(),
-                Location = "Stoppford House"
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
             });
 
             events.Add(new Event()
@@ -109,7 +111,8 @@ namespace StockportWebappTests.Unit.RSS
                 EndTime = "17:00",
                 Fee = "Free",
                 Documents = new List<Document>(),
-                Location = "Stoppford House"
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
             });
 
             var rss = _rssFeedFactory.BuildRssFeed(events, "http://localhost", "email@test.email");
@@ -121,7 +124,9 @@ namespace StockportWebappTests.Unit.RSS
             var itemNodes = channelNode.Elements("item");
 
             itemNodes.ToList()[0].Element("title").Value.Should().Be("Event Title 1");
+            itemNodes.ToList()[0].Element("pubDate").Value.Should().Contain("25 Dec 2017");
             itemNodes.Count().Should().Be(4);
+            
         }
     }
 }
