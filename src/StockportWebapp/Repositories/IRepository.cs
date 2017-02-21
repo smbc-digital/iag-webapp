@@ -10,7 +10,7 @@ namespace StockportWebapp.Repositories
     {
         Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null);
         Task<HttpResponse> GetLatest<T>(int limit);
-        Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit, bool featured = false);
+        Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit);
         Task<HttpResponse> GetRedirects();
     }
 

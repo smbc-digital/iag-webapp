@@ -100,6 +100,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
             Client.For("http://content:5001/api/healthystockport/events/latest/2")
                 .Return(HttpResponse.Successful(200, ReadFile("EventListing")));
+            Client.For("http://content:5001/api/healthystockport/events/latest/2?featured=true")
+                .Return(HttpResponse.Successful(200, ReadFile("EventListingFeatured")));
             Client.For("http://content:5001/api/healthystockport/news")
                 .Return(HttpResponse.Successful(200, ReadFile("Newsroom")));
             Client.For("http://content:5001/api/healthystockport/profile/test-profile")
@@ -128,6 +130,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, ReadFile("News")));
             Client.For("http://content:5001/api/stockportgov/events/latest/2")
                 .Return(HttpResponse.Successful(200, ReadFile("EventListing")));
+            Client.For("http://content:5001/api/stockportgov/events/latest/2?featured=true")
+                .Return(HttpResponse.Successful(200, ReadFile("EventListingFeatured")));
             Client.For("http://content:5001/api/stockportgov/profile/test-profile")
                 .Return(HttpResponse.Successful(200, ReadFile("Profile")));
             Client.For("http://content:5001/api/stockportgov/footer")
@@ -137,7 +141,7 @@ namespace StockportWebappTests
             Client.For("http://content:5001/api/stockportgov/events/event-of-the-century")
                 .Return(HttpResponse.Successful(200, ReadFile("Event")));
             Client.For("http://content:5001/api/stockportgov/atoz/a")
-                .Return(HttpResponse.Successful(200, ReadFile("AtoZ")));
+                .Return(HttpResponse.Successful(200, ReadFile("AtoZ")));   
         }
 
         private static string ReadFile(string fileName)

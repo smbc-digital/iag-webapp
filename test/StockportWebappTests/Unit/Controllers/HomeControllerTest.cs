@@ -69,7 +69,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var eventCalendar = new EventCalendar(eventsContent, null);
 
-            _repository.Setup(o => o.GetLatest<EventCalendar>(2)).ReturnsAsync(new HttpResponse(200, eventCalendar, string.Empty));
+            _repository.Setup(o => o.GetLatestOrderByFeatured<EventCalendar>(2)).ReturnsAsync(new HttpResponse(200, eventCalendar, string.Empty));
 
             var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
             var page = indexPage.ViewData.Model as ProcessedHomepage;
@@ -151,7 +151,7 @@ namespace StockportWebappTests.Unit.Controllers
             _repository.Setup(o => o.Get<List<News>>("2", null))
                 .ReturnsAsync(new HttpResponse(200, newsContent, string.Empty));
 
-            _repository.Setup(o => o.GetLatest<EventCalendar>(2)).ReturnsAsync(new HttpResponse(404, null, "no events found"));
+            _repository.Setup(o => o.GetLatestOrderByFeatured<EventCalendar>(2)).ReturnsAsync(new HttpResponse(404, null, "no events found"));
 
             var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
             var page = indexPage.ViewData.Model as ProcessedHomepage;

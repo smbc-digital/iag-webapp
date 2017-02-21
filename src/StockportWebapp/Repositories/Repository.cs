@@ -31,10 +31,10 @@ namespace StockportWebapp.Repositories
             return HttpResponse.Build<T>(httpResponse);
         }
 
-        public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit, bool featured = false)
+        public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit)
         {
-            var url = _urlGenerator.UrlForLimitAndFeatured<T>(limit, featured);
-            var httpResponse = await _httpClient.Get(url);
+            var url = _urlGenerator.UrlForLimitAndFeatured<T>(limit, true);
+              var httpResponse = await _httpClient.Get(url);
             return HttpResponse.Build<T>(httpResponse);
         }
 
