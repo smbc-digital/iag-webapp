@@ -40,17 +40,17 @@ namespace StockportWebapp.Controllers
         {
             if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
             {
-                if (ModelState["dateto"] != null && ModelState["dateto"].Errors.Count > 0) ModelState["dateto"].Errors.Clear();
-                if (ModelState["datefrom"] != null && ModelState["datefrom"].Errors.Count > 0) ModelState["datefrom"].Errors.Clear();
+                if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0) ModelState["DateTo"].Errors.Clear();
+                if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0) ModelState["DateFrom"].Errors.Clear();
             }
 
             var ms = ModelState;
 
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag)); 
-            if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("category", model.Category)); 
-            if (model.DateFrom.HasValue) queries.Add(new Query("datefrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-            if (model.DateTo.HasValue)  queries.Add(new Query("dateto", model.DateTo.Value.ToString("yyyy-MM-dd")));
+            if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("Category", model.Category)); 
+            if (model.DateFrom.HasValue) queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
+            if (model.DateTo.HasValue)  queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
 
             var httpResponse = await _repository.Get<Newsroom>(queries: queries);
 

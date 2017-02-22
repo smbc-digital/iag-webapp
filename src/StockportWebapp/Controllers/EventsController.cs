@@ -45,18 +45,19 @@ namespace StockportWebapp.Controllers
         [Route("/events")]
         public async Task<IActionResult> Index(EventCalendar eventsCalendar)
         {           
-            if (eventsCalendar.datefrom == null && eventsCalendar.dateto == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
+            if (eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
-                if(ModelState["dateto"] != null && ModelState["dateto"].Errors.Count > 0)
-                    ModelState["dateto"].Errors.Clear();
-                if (ModelState["datefrom"] != null && ModelState["datefrom"].Errors.Count > 0)
-                    ModelState["datefrom"].Errors.Clear();
+                if(ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
+                    ModelState["DateTo"].Errors.Clear();
+                if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0)
+                    ModelState["DateFrom"].Errors.Clear();
             }
 
             var queries = new List<Query>();           
-            if (eventsCalendar.datefrom.HasValue) queries.Add(new Query("datefrom", eventsCalendar.datefrom.Value.ToString("yyyy-MM-dd")));
-            if (eventsCalendar.dateto.HasValue) queries.Add(new Query("dateto", eventsCalendar.dateto.Value.ToString("yyyy-MM-dd")));
-            if (!eventsCalendar.category.IsNullOrWhiteSpace()) queries.Add(new Query("category", eventsCalendar.category));
+
+            if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
+            if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
+            if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));
             if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tag", eventsCalendar.Tag));
              
             var httpResponse = await _repository.Get<EventResponse>(queries: queries);

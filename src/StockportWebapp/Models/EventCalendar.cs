@@ -11,15 +11,15 @@ namespace StockportWebapp.Models
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
-        public DateTime? datefrom { get; set; }
+        public DateTime? DateFrom { get; set; }
 
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
-        [EndDateLaterThanStartDateValidation(otherPropertyName: "datefrom", erroMessgae: "End date should be on or after the start date")]
-        public DateTime? dateto { get; set; }
+        [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]
+        public DateTime? DateTo { get; set; }
 
-        public string category { get; set; }
+        public string Category { get; set; }
 
         public string DateRange { get; set; }
 
@@ -60,6 +60,13 @@ namespace StockportWebapp.Models
         public void AddQueryUrl(QueryUrl queryUrl)
         {
             CurrentUrl = queryUrl;
+        }
+
+        public string GetCustomEventFilterName()
+        {
+            return DateFrom.HasValue && DateTo.HasValue
+                ? DateFrom.Value.ToString("dd/MM/yyyy") + " to " + DateTo.Value.ToString("dd/MM/yyyy")
+                : string.Empty;
         }
     }
 }

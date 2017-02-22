@@ -171,9 +171,9 @@ namespace StockportWebappTests.Unit.Controllers
                             It.Is<List<Query>>(
                                 l =>
                                     l.Contains(new Query("tag", "Events")) &&
-                                    l.Contains(new Query("category", "A category")))))
+                                    l.Contains(new Query("Category", "A Category")))))
                 .ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, _newsRoom));
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel {Tag = "Events", Category = "A category" })) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel {Tag = "Events", Category = "A Category" })) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -228,8 +228,8 @@ namespace StockportWebappTests.Unit.Controllers
                 o.Get<Newsroom>(
                     "",
                     It.Is<List<Query>>(l =>
-                        l.Contains(new Query("datefrom", "2016-10-01"))
-                        && l.Contains(new Query("dateto", "2016-11-01"))
+                        l.Contains(new Query("DateFrom", "2016-10-01"))
+                        && l.Contains(new Query("DateTo", "2016-11-01"))
                     )
                 )
             ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));

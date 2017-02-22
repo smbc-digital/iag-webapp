@@ -33,17 +33,17 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutCategory()
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"category"});
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"Category"});
         }
 
         public RouteValueDictionary AddCategoryFilter(string category)
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "category", category } });
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Category", category } });
         }
 
         public bool HasNoCategoryFilter()
         {
-            return !_queryUrl?.HasQueryParam("category") ?? false;
+            return !_queryUrl?.HasQueryParam("Category") ?? false;
         }
 
         public RouteValueDictionary AddMonthFilter(DateTime startDate)
@@ -52,8 +52,8 @@ namespace StockportWebapp.Utils
 
             return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string>
             {
-                {"datefrom", startDate.ToString("yyyy-MM-dd")},
-                {"dateto", dateto.ToString("yyyy-MM-dd")},
+                {"DateFrom", startDate.ToString("yyyy-MM-dd")},
+                {"DateTo", dateto.ToString("yyyy-MM-dd")},
                 {"daterange", "month"}
 
             });
@@ -61,12 +61,12 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutDateFilter()
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"datefrom", "dateto","daterange"});
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"DateFrom", "DateTo","daterange"});
         }
 
         public bool HasNoDateFilter()
         {
-            return !_queryUrl?.HasQueryParam("datefrom") ?? false;
+            return !_queryUrl?.HasQueryParam("DateFrom") ?? false;
         }
 
         public RouteValueDictionary WithoutTagFilter()
