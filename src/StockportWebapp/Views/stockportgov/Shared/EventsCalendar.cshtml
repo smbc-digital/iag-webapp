@@ -26,6 +26,10 @@
                         {
                             <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
                         }
+                        @if (!string.IsNullOrEmpty(Model.Tag))
+                        {
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Tag</a></li>
+                        }
                         </ul>
                     </li>
                     <li class="filter collapsible" id="date-filter">
