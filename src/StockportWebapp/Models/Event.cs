@@ -23,7 +23,8 @@ namespace StockportWebapp.Models
         public MapPosition MapPosition { get; set; }
         public bool Featured { get; set; }
         public string BookingInformation { get; set; }
-         public DateTime UpdatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public List<string> Tags { get; set; }
     }
 
     public class MapPosition
