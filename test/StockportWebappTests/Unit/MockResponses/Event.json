@@ -26,5 +26,6 @@
   "mapPosition": {
     "Lon": 0,
     "Lat": 0
-  }  
+  },
+  "tags":[]
 }
