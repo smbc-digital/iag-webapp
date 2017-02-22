@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Newtonsoft.Json;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {
@@ -26,6 +26,9 @@ namespace StockportWebapp.Models
         public List<Event> Events { get; private set; } = new List<Event>();
         public List<string> Categories { get; private set; } = new List<string>();
 
+        public IFilteredUrl FilteredUrl { get; private set; }
+        public QueryUrl CurrentUrl { get; private set; }
+
         public EventCalendar() { }
 
         public EventCalendar(List<Event> events, List<string> categories)
@@ -47,6 +50,16 @@ namespace StockportWebapp.Models
         public void AddCategories(List<string> categories)
         {
             Categories = categories;
+        }
+
+        public void AddFilteredUrl(IFilteredUrl filteredUrl)
+        {
+            FilteredUrl = filteredUrl;
+        }
+
+        public void AddQueryUrl(QueryUrl queryUrl)
+        {
+            CurrentUrl = queryUrl;
         }
     }
 }

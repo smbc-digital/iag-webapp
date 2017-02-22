@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
@@ -11,6 +12,7 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Controllers
 {
@@ -24,10 +26,11 @@ namespace StockportWebapp.Controllers
         private readonly IEventsRepository _eventsRepository;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
+        private readonly IFilteredUrl _filteredUrl;
 
         public EventsController(IRepository repository,
                                 IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId)
+                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -36,6 +39,7 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _config = config;
             _businessId = businessId;
+            _filteredUrl = filteredUrl;
         }
 
         [Route("/events")]
@@ -65,6 +69,10 @@ namespace StockportWebapp.Controllers
                 eventsCalendar.AddEvents(eventResponse.Events);
                 eventsCalendar.AddCategories(eventResponse.Categories);
             }
+
+            eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
+            eventsCalendar.AddFilteredUrl(_filteredUrl);
 
             return View(eventsCalendar);
         }

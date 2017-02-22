@@ -4,6 +4,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Primitives;
+using Moq;
 using StockportWebapp.Utils;
 using Xunit;
 
@@ -11,6 +12,17 @@ namespace StockportWebappTests.Unit.Utils
 {
     public class FilteredUrlTest
     {
+        private readonly Mock<ITimeProvider> _timeProvider;
+        private readonly FilteredUrl _filteredUrl;
+
+        public FilteredUrlTest()
+        {
+            _timeProvider = new Mock<ITimeProvider>();
+            _timeProvider.Setup(o => o.Now()).Returns(new DateTime(2017, 02, 21));
+
+           _filteredUrl = new FilteredUrl(_timeProvider.Object);
+        }
+
         [Fact]
         public void WillRemoveCategoryQueryParamFromUrl()
         {
@@ -31,13 +43,13 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
+
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            var newQueryUrl = filteredUrl.WithoutCategory();
+            var newQueryUrl = _filteredUrl.WithoutCategory();
 
-            // Assert
-            Assert.Equal(false, newQueryUrl.ContainsKey("category"));
+            newQueryUrl.ContainsKey("category").Should().BeFalse();
         }
 
         [Fact]
@@ -56,13 +68,13 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
+            
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            var newQueryUrl = filteredUrl.AddCategoryFilter("business");
+            var newQueryUrl = _filteredUrl.AddCategoryFilter("business");
 
-            // Assert
-            Assert.Equal(true, newQueryUrl.ContainsKey("category"));
+            newQueryUrl.ContainsKey("category").Should().BeTrue();
         }
 
         [Fact]
@@ -81,13 +93,13 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
+
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            bool hasNoCategoryfilter = filteredUrl.HasNoCategoryFilter();
+            var hasNoCategoryfilter = _filteredUrl.HasNoCategoryFilter();
 
-            // Assert
-            Assert.Equal(false, hasNoCategoryfilter);
+            hasNoCategoryfilter.Should().BeFalse();
         }
 
         [Fact]
@@ -98,13 +110,13 @@ namespace StockportWebappTests.Unit.Utils
                 new RouteValueDictionary(),
                 new QueryCollection(new Dictionary<string, StringValues>()
                 ));
-            var filteredUrl = new FilteredUrl(queryUrl);
+
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            bool hasNoCategoryfilter = filteredUrl.HasNoCategoryFilter();
+            var hasNoCategoryfilter = _filteredUrl.HasNoCategoryFilter();
 
-            // Assert
-            Assert.Equal(true, hasNoCategoryfilter);
+            hasNoCategoryfilter.Should().BeTrue();
         }
 
         [Fact]
@@ -123,14 +135,14 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
-            DateTime startDate = DateTime.Today;
+
+            _filteredUrl.SetQueryUrl(queryUrl);
+            var startDate = new DateTime(2017, 01, 01);
 
             // Act
-            var newQueryUrl = filteredUrl.AddMonthFilter(startDate);
+            var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
 
-            // Assert
-            Assert.Equal(true, newQueryUrl.ContainsKey("dateFrom"));
+            newQueryUrl.ContainsKey("dateFrom").Should().BeTrue();
         }
 
         [Fact]
@@ -149,14 +161,15 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
-            DateTime startDate = DateTime.Today;
+
+            _filteredUrl.SetQueryUrl(queryUrl);
+
+            var startDate = new DateTime(2017, 01, 01);
 
             // Act
-            var newQueryUrl = filteredUrl.AddMonthFilter(startDate);
+            var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
 
-            // Assert
-            Assert.Equal(true, newQueryUrl.ContainsKey("dateTo"));
+            newQueryUrl.ContainsKey("dateTo").Should().BeTrue();
         }
 
         [Fact]
@@ -175,14 +188,14 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
-            DateTime startDate = DateTime.Today;
+
+            _filteredUrl.SetQueryUrl(queryUrl);
+            var startDate = new DateTime(2017, 01, 01);
 
             // Act
-            var newQueryUrl = filteredUrl.AddMonthFilter(startDate);
+            var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
 
-            // Assert
-            Assert.Equal(startDate.ToString("yyyy-MM-dd"), newQueryUrl["dateFrom"]);
+            newQueryUrl["dateFrom"].Should().Be(startDate.ToString("yyyy-MM-dd"));
         }
 
         [Fact]
@@ -201,12 +214,12 @@ namespace StockportWebappTests.Unit.Utils
                 )
                 );
 
-            var filteredUrl = new FilteredUrl(queryUrl);
-            // TODO: Refactor to use timeprovider
-            var startDate = DateTime.Today.AddMonths(-10);
-            var newQueryUrl = filteredUrl.AddMonthFilter(startDate);
+            _filteredUrl.SetQueryUrl(queryUrl);
 
-            Assert.Equal(startDate.AddMonths(1).AddDays(-1).ToString("yyyy-MM-dd"), newQueryUrl["dateTo"]);
+            var startDate = new DateTime(2017, 01, 01);
+            var newQueryUrl = _filteredUrl.AddMonthFilter(startDate);
+
+            newQueryUrl["dateTo"].Should().Be(new DateTime(2017, 01, 31).ToString("yyyy-MM-dd"));
         }
 
         [Fact]
@@ -229,14 +242,14 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            var newQueryUrl = filteredUrl.WithoutDateFilter();
+            var newQueryUrl = _filteredUrl.WithoutDateFilter();
 
             // Assert
-            Assert.Equal(false, newQueryUrl.ContainsKey("datefrom"));
-            Assert.Equal(false, newQueryUrl.ContainsKey("dateto"));
+            newQueryUrl.ContainsKey("datefrom").Should().BeFalse();
+            newQueryUrl.ContainsKey("dateto").Should().BeFalse();
         }
 
         [Fact]
@@ -255,13 +268,12 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            bool hasNoDatefilter = filteredUrl.HasNoDateFilter();
+            var hasNoDatefilter = _filteredUrl.HasNoDateFilter();
 
-            // Assert
-            Assert.Equal(false, hasNoDatefilter);
+            hasNoDatefilter.Should().BeFalse();
         }
 
         [Fact]
@@ -272,13 +284,12 @@ namespace StockportWebappTests.Unit.Utils
                 new RouteValueDictionary(),
                 new QueryCollection(new Dictionary<string, StringValues>()
                 ));
-            var filteredUrl = new FilteredUrl(queryUrl);
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            bool hasNoDatefilter = filteredUrl.HasNoDateFilter();
+            var hasNoDatefilter = _filteredUrl.HasNoDateFilter();
 
-            // Assert
-            Assert.Equal(true, hasNoDatefilter);
+            hasNoDatefilter.Should().BeTrue();
         }
 
         [Fact]
@@ -301,25 +312,93 @@ namespace StockportWebappTests.Unit.Utils
                     }
                 )
                 );
-            var filteredUrl = new FilteredUrl(queryUrl);
+            _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act
-            var newQueryUrl = filteredUrl.WithoutTagFilter();
+            var newQueryUrl = _filteredUrl.WithoutTagFilter();
 
-            // Assert
-            Assert.Equal(false, newQueryUrl.ContainsKey("tag"));
+            newQueryUrl.ContainsKey("tag").Should().BeFalse();
         }
 
-        // TODO: Refactor to inject time using timepovider
         [Fact]
         public void ShouldReturnTodaysDateIfDateToIsWithinTheCurrentMonth()
         {
             var queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
-            var filteredUrl = new FilteredUrl(queryUrl);
+            _filteredUrl.SetQueryUrl(queryUrl);
 
-            var url = filteredUrl.AddMonthFilter(new DateTime(DateTime.Now.Year, DateTime.Now.Month, 01));
+            var url = _filteredUrl.AddMonthFilter(new DateTime(2017, 02, 01));
 
-            url["dateto"].Should().Be(DateTime.Now.Date.ToString("yyyy-MM-dd"));
+            url["dateto"].Should().Be(new DateTime(2017, 02, 21).ToString("yyyy-MM-dd"));
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyIfHasNullQueryUrlForAddMonthFilter()
+        {
+            var filteredUrl = new FilteredUrl(_timeProvider.Object);
+
+            var result = filteredUrl.AddMonthFilter(new DateTime(2017, 01, 01));
+
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyIfHasNullQueryUrlForAddCategoryFilter()
+        {
+            var filteredUrl = new FilteredUrl(_timeProvider.Object);
+
+            var result = filteredUrl.AddCategoryFilter("test");
+
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void ShouldReturnFalseIfHasNullQueryUrlForHasNoCategoryFilter()
+        {
+            var filteredUrl = new FilteredUrl(_timeProvider.Object);
+
+            var result = filteredUrl.HasNoCategoryFilter();
+
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyIfHasNullQueryUrlForHasNoDateFilter()
+        {
+            var filteredUrl = new FilteredUrl(_timeProvider.Object);
+
+            var result = filteredUrl.HasNoDateFilter();
+
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyIfHasNullQueryUrlForWithoutCategory()
+        {
+            var filteredUrl = new FilteredUrl(_timeProvider.Object);
+
+            var result = filteredUrl.WithoutCategory();
+
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyIfHasNullQueryUrlForWithoutDateFilter()
+        {
+            var filteredUrl = new FilteredUrl(_timeProvider.Object);
+
+            var result = filteredUrl.WithoutDateFilter();
+
+            result.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyIfHasNullQueryUrlForWithoutTagFilter()
+        {
+            var filteredUrl = new FilteredUrl(_timeProvider.Object);
+
+            var result = filteredUrl.WithoutTagFilter();
+
+            result.Should().BeEmpty();
         }
     }
 }

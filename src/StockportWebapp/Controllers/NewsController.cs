@@ -9,6 +9,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Controllers
 {
@@ -21,8 +22,9 @@ namespace StockportWebapp.Controllers
         private readonly ILogger<NewsController> _logger;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
+        private readonly IFilteredUrl _filteredUrl;
 
-        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId)
+        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -30,6 +32,7 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _config = config;
             _businessId = businessId;
+            _filteredUrl = filteredUrl;
         }
 
         [Route("/news")]
@@ -59,6 +62,10 @@ namespace StockportWebapp.Controllers
 
             model.AddNews(newsRoom);
             model.AddUrlSetting(urlSetting);
+
+            model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(model.CurrentUrl);
+            model.AddFilteredUrl(_filteredUrl);
 
             return View(model);
         }
