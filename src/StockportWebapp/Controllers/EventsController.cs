@@ -57,7 +57,7 @@ namespace StockportWebapp.Controllers
             if (eventsCalendar.datefrom.HasValue) queries.Add(new Query("datefrom", eventsCalendar.datefrom.Value.ToString("yyyy-MM-dd")));
             if (eventsCalendar.dateto.HasValue) queries.Add(new Query("dateto", eventsCalendar.dateto.Value.ToString("yyyy-MM-dd")));
             if (!eventsCalendar.category.IsNullOrWhiteSpace()) queries.Add(new Query("category", eventsCalendar.category));
-            if(!String.IsNullOrEmpty(eventsCalendar.Tag)) queries.Add(new Query("Tag", eventsCalendar.Tag));
+            if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tags", eventsCalendar.Tag));
              
             var httpResponse = await _repository.Get<EventResponse>(queries: queries);
 

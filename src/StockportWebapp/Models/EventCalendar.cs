@@ -26,7 +26,6 @@ namespace StockportWebapp.Models
         public List<Event> Events { get; private set; } = new List<Event>();
         public List<string> Categories { get; private set; } = new List<string>();
         public string Tag { get; set; }
-
         public IFilteredUrl FilteredUrl { get; private set; }
         public QueryUrl CurrentUrl { get; private set; }
 
