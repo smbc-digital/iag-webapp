@@ -97,16 +97,16 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {category = "test", datefrom = new DateTime(2017, 01, 20), dateto = new DateTime(2017, 01, 25), DateRange = "customdate"})) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"})) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
 
             events.Events[0].Should().Be(_eventsItem);
 
-            events.category.Should().Be("test");
-            events.datefrom.Should().Be(new DateTime(2017, 01, 20));
-            events.dateto.Should().Be(new DateTime(2017, 01, 25));
+            events.Category.Should().Be("test");
+            events.DateFrom.Should().Be(new DateTime(2017, 01, 20));
+            events.DateTo.Should().Be(new DateTime(2017, 01, 25));
             events.DateRange.Should().Be("customdate");
         }
 

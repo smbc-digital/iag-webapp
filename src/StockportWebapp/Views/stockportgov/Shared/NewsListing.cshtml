@@ -38,7 +38,7 @@
                                 </li>
                                 @foreach (var category in Model.Categories)
                                 {
-                                    <li class=@(Model.CurrentUrl.MatchesQueryParam("category", category) ? "active" : "")>
+                                    <li class=@(Model.CurrentUrl.MatchesQueryParam("Category", category) ? "active" : "")>
                                         <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))">@category</a>
                                     </li>
                                 }
@@ -76,7 +76,7 @@
                                                     <input type="hidden" name="DateRange" value="customdate" />
                                                     @if (!string.IsNullOrEmpty(Model.Category))
                                                     {
-                                                        <input type="hidden" name="category" value="@Model.Category" />
+                                                        <input type="hidden" name="Category" value="@Model.Category" />
                                                     }
                                                     <div class="date-from">
                                                         <label asp-for="@Model.DateFrom"></label>

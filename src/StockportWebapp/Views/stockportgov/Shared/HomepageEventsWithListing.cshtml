@@ -1,12 +1,10 @@
 ﻿@using StockportWebapp.Utils
-@inject ITimeProvider timeProvider;
-
 @model List<StockportWebapp.Models.Event>
+@inject IDateCalculator DateCalculator;
 
 @{
-    var dateCalculator = new DateCalculator(timeProvider);
     const string filterKey = "thismonth";
-    var monthlyFilter = dateCalculator.EventFilters[filterKey];
+    var filter = DateCalculator.ReturnFilterForKey(filterKey);
 }
 
 <h2>Upcoming Events</h2>
@@ -14,7 +12,7 @@
 <div class="grid-parent grid-100 homepage-latest-items">
     @foreach (var item in Model)
     {
-        <a href="@Url.Action("Detail", "Events", new {slug = item.Slug, date = item.EventDate.ToString("dd/MM/yyyy")})">
+        <a href="@Url.Action("Detail", "Events", new {slug = item.Slug, date = item.EventDate.ToString("yyyy-MM-dd")})">
             <div class="@(Model.Count() > 1 ? "grid-50" : "grid-100") mobile-grid-100 homepage-latest-item">
                 <h3>@item.Title</h3>
                 <p class="news-date">
@@ -26,6 +24,6 @@
     }
 </div>
 
-<a href="@Url.Action("Index", "Events", new { datefrom = monthlyFilter.DateFrom, dateto = monthlyFilter.DateTo, daterange = filterKey })">
+<a href="@Url.Action("Index", "Events", new { datefrom = filter.DateFrom, dateto = filter.DateTo, daterange = filterKey })">
     <div id="test-eventscalendar-link" class="button button-outline button-featured-content-more button-partialrounded">View Events</div>
 </a>

@@ -33,7 +33,7 @@ namespace StockportWebappTests.Unit.Utils
                     new Dictionary<string, StringValues>
                     {
                         {
-                            "category",
+                            "Category",
                             new StringValues(new[] {"business"})
                         },
                         {
@@ -49,7 +49,7 @@ namespace StockportWebappTests.Unit.Utils
             // Act
             var newQueryUrl = _filteredUrl.WithoutCategory();
 
-            newQueryUrl.ContainsKey("category").Should().BeFalse();
+            newQueryUrl.ContainsKey("Category").Should().BeFalse();
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace StockportWebappTests.Unit.Utils
             // Act
             var newQueryUrl = _filteredUrl.AddCategoryFilter("business");
 
-            newQueryUrl.ContainsKey("category").Should().BeTrue();
+            newQueryUrl.ContainsKey("Category").Should().BeTrue();
         }
 
         [Fact]
@@ -87,7 +87,7 @@ namespace StockportWebappTests.Unit.Utils
                     new Dictionary<string, StringValues>
                     {
                         {
-                            "category",
+                            "Category",
                             new StringValues(new[] {"business"})
                         }
                     }
@@ -232,11 +232,11 @@ namespace StockportWebappTests.Unit.Utils
                     new Dictionary<string, StringValues>
                     {
                         {
-                            "datefrom",
+                            "DateFrom",
                             new StringValues(new[] {"irrelevant"})
                         },
                         {
-                            "dateto",
+                            "DateTo",
                             new StringValues(new[] {"irrelevant"})
                         }
                     }
@@ -248,8 +248,8 @@ namespace StockportWebappTests.Unit.Utils
             var newQueryUrl = _filteredUrl.WithoutDateFilter();
 
             // Assert
-            newQueryUrl.ContainsKey("datefrom").Should().BeFalse();
-            newQueryUrl.ContainsKey("dateto").Should().BeFalse();
+            newQueryUrl.ContainsKey("DateFrom").Should().BeFalse();
+            newQueryUrl.ContainsKey("DateTo").Should().BeFalse();
         }
 
         [Fact]
@@ -262,7 +262,7 @@ namespace StockportWebappTests.Unit.Utils
                     new Dictionary<string, StringValues>
                     {
                         {
-                            "datefrom",
+                            "DateFrom",
                             new StringValues(new[] {"irrelevant"})
                         }
                     }
@@ -302,7 +302,7 @@ namespace StockportWebappTests.Unit.Utils
                     new Dictionary<string, StringValues>
                     {
                         {
-                            "category",
+                            "Category",
                             new StringValues(new[] {"business"})
                         },
                         {
@@ -328,7 +328,7 @@ namespace StockportWebappTests.Unit.Utils
 
             var url = _filteredUrl.AddMonthFilter(new DateTime(2017, 02, 01));
 
-            url["dateto"].Should().Be(new DateTime(2017, 02, 21).ToString("yyyy-MM-dd"));
+            url["DateTo"].Should().Be(new DateTime(2017, 02, 21).ToString("yyyy-MM-dd"));
         }
 
         [Fact]
