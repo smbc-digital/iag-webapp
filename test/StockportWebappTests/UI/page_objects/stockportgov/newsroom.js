@@ -12,7 +12,7 @@ var methods = {
 
     goToCategory: function (browser, category) {
         this.waitForElementVisible('@categoryList', this.api.globals.timeOut);
-        browser.useXpath().click("//a[contains(@href,'/news?category=" + category + "')]");
+        browser.useXpath().click("//a[contains(@href,'/news?Category=" + category + "')]");
         this.waitForElementVisible('@newsList', this.api.globals.timeOut);
     },
 
@@ -58,7 +58,7 @@ var methods = {
     },
 
     assertCategoryIsVisible: function (browser, category) {
-        browser.useXpath().assert.visible("//a[contains(@href,'/news?category=" + category + "')]");
+        browser.useXpath().assert.visible("//a[contains(@href,'/news?Category=" + category + "')]");
     },
 
     assertLinkIsActive: function (browser, category) {
@@ -69,7 +69,7 @@ var methods = {
     },
 
     assertLinkIsNotActive: function (browser, category) {
-        var hrefContainsUrl = "//a[contains(@href,'/news?category=" + category + "')]";
+        var hrefContainsUrl = "//a[contains(@href,'/news?Category=" + category + "')]";
         var textIsCategory = "//a[text()='" + category + "']";
         var doesNotcontainActiveClass = "not(contains(@class, 'active'))";
 
