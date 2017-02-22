@@ -4,35 +4,53 @@ using Microsoft.AspNetCore.Routing;
 
 namespace StockportWebapp.Utils
 {
-    public class FilteredUrl
+    public interface IFilteredUrl
     {
-        private readonly QueryUrl _queryUrl;
+        void SetQueryUrl(QueryUrl queryUrl);
+        RouteValueDictionary WithoutCategory();
+        RouteValueDictionary AddCategoryFilter(string category);
+        bool HasNoCategoryFilter();
+        RouteValueDictionary AddMonthFilter(DateTime startDate);
+        RouteValueDictionary WithoutDateFilter();
+        bool HasNoDateFilter();
+        RouteValueDictionary WithoutTagFilter();
+    }
 
-        public FilteredUrl(QueryUrl queryUrl)
+    public class FilteredUrl : IFilteredUrl
+    {
+        private readonly ITimeProvider _timeProvider;
+        private QueryUrl _queryUrl;
+
+        public FilteredUrl(ITimeProvider timeProvider)
         {
-            this._queryUrl = queryUrl;
+            _timeProvider = timeProvider;
+        }
+
+        public void SetQueryUrl(QueryUrl queryUrl)
+        {
+            _queryUrl = queryUrl;
         }
 
         public RouteValueDictionary WithoutCategory()
         {
-            return _queryUrl.WithoutQueryParam(new List<string>() {"category"});
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"category"});
         }
 
         public RouteValueDictionary AddCategoryFilter(string category)
         {
-            return _queryUrl.AddQueriesToUrl(new Dictionary<string, string>() { { "category", category } });
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "category", category } });
         }
 
         public bool HasNoCategoryFilter()
         {
-            return !_queryUrl.HasQueryParam("category");
+            return !_queryUrl?.HasQueryParam("category") ?? false;
         }
 
         public RouteValueDictionary AddMonthFilter(DateTime startDate)
         {
-            var dateto = startDate.Month == DateTime.Now.Month ? DateTime.Now : startDate.AddMonths(1).AddDays(-1);
+            var dateto = startDate.Month == _timeProvider.Now().Month ? _timeProvider.Now() : startDate.AddMonths(1).AddDays(-1);
 
-            return _queryUrl.AddQueriesToUrl(new Dictionary<string, string>()
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string>
             {
                 {"datefrom", startDate.ToString("yyyy-MM-dd")},
                 {"dateto", dateto.ToString("yyyy-MM-dd")},
@@ -43,17 +61,17 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutDateFilter()
         {
-            return _queryUrl.WithoutQueryParam(new List<string>() {"datefrom", "dateto","daterange"});
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"datefrom", "dateto","daterange"});
         }
 
         public bool HasNoDateFilter()
         {
-            return !_queryUrl.HasQueryParam("datefrom");
+            return !_queryUrl?.HasQueryParam("datefrom") ?? false;
         }
 
         public RouteValueDictionary WithoutTagFilter()
         {
-            return _queryUrl.WithoutQueryParam(new List<string>() { "tag" });
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> { "tag" });
         }
     }
 }

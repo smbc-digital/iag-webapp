@@ -1,14 +1,11 @@
 ﻿@using System.Threading.Tasks
 @using StockportWebapp.FeatureToggling
-@using StockportWebapp.Utils
 @model StockportWebapp.Models.NewsroomViewModel
 
 @{
     var newsroom = Model.Newsroom;
-
-    var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
-    var filteredUrl = new FilteredUrl(currentUrl);
 }
+
 @inject FeatureToggles FeatureToggles
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="news-filters">
@@ -19,15 +16,15 @@
                         <ul>
                             @if (!string.IsNullOrEmpty(Model.Category))
                             {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Category</a></li>
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Category</a></li>
                             }
                             @if (Model.DateFrom.HasValue && Model.DateTo.HasValue)
                             {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.GetActiveDateFilter()</a></li>
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.GetActiveDateFilter()</a></li>
                             }
                             @if (!string.IsNullOrEmpty(Model.Tag))
                             {
-                                <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Tag</a></li>
+                                <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Tag</a></li>
                             }
                         </ul>
                     </li>
@@ -36,13 +33,13 @@
                         <li class="filter collapsible" id="category-filter">
                             <p class="filter-title">Category</p>
                             <ul class="filters-list">
-                                <li class=@(filteredUrl.HasNoCategoryFilter() ? "active" : "")>
-                                    <a href="@Url.RouteUrl(filteredUrl.WithoutCategory())">All categories</a>
+                                <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : "")>
+                                    <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
                                 </li>
                                 @foreach (var category in Model.Categories)
                                 {
-                                    <li class=@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")>
-                                        <a href="@Url.RouteUrl(filteredUrl.AddCategoryFilter(category))">@category</a>
+                                    <li class=@(Model.CurrentUrl.MatchesQueryParam("category", category) ? "active" : "")>
+                                        <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))">@category</a>
                                     </li>
                                 }
                             </ul>
@@ -51,8 +48,8 @@
                     <li class="filter collapsible" id="news-archive">
                         <p class="filter-title">News archive</p>
                         <ul class="filters-list filters-outer-list" id="uitest-news-archive">
-                            <li class=@(filteredUrl.HasNoDateFilter() ? "active" : "")>
-                                <a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())">All recent news</a>
+                            <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : "")>
+                                <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())">All recent news</a>
                             </li>
                             @foreach (var year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
                             {
@@ -62,7 +59,7 @@
                                         @foreach (var date in newsroom.Dates.Where(d => d.Year == year).OrderBy(a => a).Reverse())
                                         {
                                             <li class=@(Model.DateRange != "customdate" && Model.DateFrom == date ? "active" : "")>
-                                                <a href="@Url.RouteUrl(filteredUrl.AddMonthFilter(date))">@date.ToString("MMMM yyyy")</a>
+                                                <a href="@Url.RouteUrl(Model.FilteredUrl.AddMonthFilter(date))">@date.ToString("MMMM yyyy")</a>
                                             </li>
                                         }
                                     </ul>

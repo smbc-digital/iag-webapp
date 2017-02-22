@@ -134,8 +134,8 @@ namespace StockportWebapp
             var credentals = new BasicAWSCredentials(amazonSesKeys.Accesskey, amazonSesKeys.SecretKey);
 
             services.AddTransient<IAmazonSimpleEmailService>(o => new AmazonSimpleEmailServiceClient(credentals, RegionEndpoint.EUWest1));
-
             services.AddSingleton<IStaticAssets, StaticAssets>();
+            services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
 
             services.AddApplicationInsightsTelemetry(Configuration);
 

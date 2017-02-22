@@ -3,20 +3,12 @@
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
 @{
-    var currentUrl = new QueryUrl(Url.ActionContext.RouteData.Values, Context.Request.Query);
-    var filteredUrl = new FilteredUrl(currentUrl);
     var categoryFilter = Context.Request.Query["category"];
     var dateRange = Context.Request.Query["daterange"].ToString();
 
-    DateTime dateFrom;
-    DateTime.TryParse(Context.Request.Query["datefrom"].ToString(), out dateFrom);
-
-    DateTime dateTo;
-    DateTime.TryParse(Context.Request.Query["dateto"].ToString(), out dateTo);
-
     var timeProvider = new TimeProvider();
     var dateCalculator = new DateCalculator(timeProvider);
-    var dateFilter = dateRange == "customdate" ? dateFrom.ToString("dd/MM/yyyy") + " to " + dateTo.ToString("dd/MM/yyyy") : dateCalculator.ReturnDisplayNameForFilter(dateRange);
+    var dateFilter = dateRange == "customdate" && Model.datefrom.HasValue && Model.dateto.HasValue ? Model.datefrom.Value.ToString("dd/MM/yyyy") + " to " + Model.dateto.Value.ToString("dd/MM/yyyy") : dateCalculator.ReturnDisplayNameForFilter(dateRange);
 }
 @inject FeatureToggles FeatureToggles
 <div class="grid-container events-grid-container-margins">
@@ -28,11 +20,11 @@
                         <ul>
                         @if (!string.IsNullOrEmpty(categoryFilter) && Model.DoesCategoryExist(categoryFilter))
                         {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @categoryFilter</a></li>
                         }
                         @if (!string.IsNullOrEmpty(dateFilter) && (Model.datefrom <= Model.dateto))
                         {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(filteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
                         }
                         </ul>
                     </li>
@@ -41,17 +33,17 @@
                         <ul class="filters-list">
                             @foreach (var eventFilter in dateCalculator.EventFilters)
                             {
-                                <li class="@(currentUrl.MatchesQueryParam("daterange", eventFilter.Key) ? "active" : "")">
-                                    <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"datefrom", eventFilter.Value.DateFrom}, {"dateto", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
+                                <li class="@(Model.CurrentUrl.MatchesQueryParam("daterange", eventFilter.Key) ? "active" : "")">
+                                    <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"datefrom", eventFilter.Value.DateFrom}, {"dateto", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
                                 </li>
                             }
                             @{
                                 if (FeatureToggles.EventCustomDateSearch)
                                 {
-                                    <li id="custom-filter-li" class="@(currentUrl.MatchesQueryParam("daterange", "customdate") ? "customdateactive" : "") filter collapsible">
+                                    <li id="custom-filter-li" class="@(Model.CurrentUrl.MatchesQueryParam("daterange", "customdate") ? "customdateactive" : "") filter collapsible">
                                         <a class="filter-title custom-date-title">Custom date</a>
                                         <ul class="filters-list custom-date">
-                                            <li>
+                                            <li class="@(Model.DateRange == "customdate" ? "active" : "")">
                                                 <form action="/events" method="get">
                                                     <input type="hidden" name="DateRange" value="customdate" />
                                                     @if (!string.IsNullOrEmpty(categoryFilter))
@@ -85,8 +77,8 @@
                             <ul class="filters-list">
                                 @foreach (var category in Model.Categories)
                                 {
-                                    <li class="@(currentUrl.MatchesQueryParam("category", category) ? "active" : "")">
-                                        <a href="@Url.RouteUrl(currentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"category", category}}))"> @category</a>
+                                    <li class="@(Model.CurrentUrl.MatchesQueryParam("category", category) ? "active" : "")">
+                                        <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"category", category}}))"> @category</a>
                                     </li>
                                 }
                             </ul>

@@ -14,7 +14,7 @@ using StockportWebapp.Config;
 using StockportWebapp.RSS;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
-using StockportWebapp.FeatureToggling;
+using StockportWebapp.Utils;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -29,6 +29,7 @@ namespace StockportWebappTests.Unit.Controllers
         private const string BusinessId = "businessId";
         private const string EmailAlertsTopicId = "test-id";
         private const bool EmailAlertsOn = true;
+        private readonly Mock<IFilteredUrl> _filteredUrl;
 
         private static readonly News NewsItemWithImages = new News("Another news article",
             "another-news-article",
@@ -85,6 +86,7 @@ namespace StockportWebappTests.Unit.Controllers
             _mockRssFeedFactory.Setup(o => o.BuildRssFeed(It.IsAny<List<News>>(), It.IsAny<string>(), It.IsAny<string>())).Returns("rss fun");
 
             _config = new Mock<IApplicationConfiguration>();
+            _filteredUrl = new Mock<IFilteredUrl>();
 
             _config.Setup(o => o.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
             _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
@@ -95,7 +97,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
-                new BusinessId(BusinessId)
+                new BusinessId(BusinessId),
+                _filteredUrl.Object
                 );
         }
 
@@ -149,7 +152,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _processedContentRepository.Object,
                 _mockRssFeedFactory.Object,
                 _logger.Object, _config.Object,
-                 new BusinessId(BusinessId));
+                 new BusinessId(BusinessId),
+                 _filteredUrl.Object);
             var response = AsyncTestHelper.Resolve(controller.Detail("another-news-article")) as ViewResult;
 
             var model = response.Model as NewsViewModel;
@@ -190,7 +194,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void ItReturns404ForNoNewsItems()
         {
             _repository.Setup(o => o.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(404, null, "not found"));
-            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId));
+            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId), _filteredUrl.Object);
             var response = AsyncTestHelper.Resolve(controller.Index(new NewsroomViewModel())) as HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);

@@ -10,6 +10,7 @@ using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.RSS;
+using StockportWebapp.Utils;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 
@@ -30,6 +31,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<ILogger<EventsController>> _logger;
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
+        private readonly Mock<IFilteredUrl> _filteredUrl;
 
 
         public EventsControllerTest()
@@ -64,6 +66,7 @@ namespace StockportWebappTests.Unit.Controllers
             _logger = new Mock<ILogger<EventsController>>();
             _config = new Mock<IApplicationConfiguration>();
             _config = new Mock<IApplicationConfiguration>();
+            _filteredUrl = new Mock<IFilteredUrl>();
 
             _config.Setup(o => o.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
             _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
@@ -75,7 +78,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
-                new BusinessId(BusinessId)
+                new BusinessId(BusinessId),
+                _filteredUrl.Object
                 );
         }
 

@@ -7,7 +7,7 @@ namespace StockportWebapp.Utils
     public class QueryUrl
     {
         private readonly RouteValueDictionary _currentRouteData;
-        readonly IQueryCollection _queries;
+        private readonly IQueryCollection _queries;
 
         public QueryUrl(RouteValueDictionary currentRouteData, IQueryCollection queries)
         {
