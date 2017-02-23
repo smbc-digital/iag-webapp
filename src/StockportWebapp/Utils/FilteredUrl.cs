@@ -38,7 +38,9 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary AddCategoryFilter(string category)
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Category", category }, {"Page", "1"} });
+            _queryUrl.WithoutQueryParam(new List<string> {"Page"});
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Category", category } });
+            
         }
 
         public bool HasNoCategoryFilter()
