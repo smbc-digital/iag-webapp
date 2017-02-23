@@ -46,6 +46,10 @@
                                                 {
                                                     <input type="hidden" name="Category" value="@Model.Category" />
                                                 }                                                   
+                                                @if (!string.IsNullOrEmpty(Model.Tag))
+                                                {
+                                                    <input type="hidden" name="Tag" value="@Model.Tag" />
+                                                }                                                   
                                                 <div class="date-from">
                                                     <label asp-for="@Model.DateFrom"></label>
                                                     <input id="datepickerfrom" type="date" class="datepicker" asp-for="@Model.DateFrom" novalidate />
