@@ -56,7 +56,7 @@ namespace StockportWebappTests.Unit.RSS
             var channelNode = rootNode.Element("channel");
             var itemNodes = channelNode.Elements("item");
 
-            itemNodes.ToList()[0].Element("title").Value.Should().Be("news item  1");
+            itemNodes.ToList()[0].Element("title").Value.Should().Be("news item  4");
             itemNodes.Count().Should().Be(4);
         }
 
@@ -123,7 +123,7 @@ namespace StockportWebappTests.Unit.RSS
             var channelNode = rootNode.Element("channel");
             var itemNodes = channelNode.Elements("item");
 
-            itemNodes.ToList()[0].Element("title").Value.Should().Be("Event Title 1");
+            itemNodes.ToList()[0].Element("title").Value.Should().Be("Event Title 4");
             itemNodes.ToList()[0].Element("pubDate").Value.Should().Contain("25 Dec 2017");
             itemNodes.Count().Should().Be(4);
             

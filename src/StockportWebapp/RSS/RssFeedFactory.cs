@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using StockportWebapp.Models;
 using WilderMinds.RssSyndication;
 
@@ -57,6 +58,7 @@ namespace StockportWebapp.RSS
                     feed.Items.Add(item);
                 }
             }
+            feed.Items = feed.Items.OrderBy(p => p.PublishDate).Reverse().ToList();
             return feed.Serialize();
         }
     }
