@@ -31,14 +31,14 @@ namespace StockportWebappTests.Unit.Controllers
         
         public SubItem CreateASubItem(int i)
         {
-            return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic");
+            return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image");
         }
     
         [Fact]
         public void GivenNavigateToTopicReturnsTopicWithExpectedProperties()
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", subItems, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
               new List<Crumb>(), new List<Alert>(), true, "test-id");
 
             const string slug = "healthy-living";
@@ -54,6 +54,7 @@ namespace StockportWebappTests.Unit.Controllers
             Assert.Equal("Teaser", result.Teaser);
             Assert.Equal("Icon", result.Icon);
             Assert.Equal("Image", result.BackgroundImage);
+            Assert.Equal("Image", result.Image);
             result.EmailAlerts.Should().Be(true);
             result.EmailAlertsTopicId.Should().Be("test-id");
         }
@@ -62,7 +63,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void GivenNavigateToTopicReturnsListOfSubItemsByTopic()
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", subItems, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
               new List<Crumb>(), new List<Alert>(), true, "test-id");
 
             const string slug = "healthy-living";
@@ -79,7 +80,7 @@ namespace StockportWebappTests.Unit.Controllers
             subItem.Teaser.Should().Be("Teaser");
             subItem.Icon.Should().Be("Icon");
             result.EmailAlerts.Should().Be(true);
-            result.EmailAlertsTopicId.Should().Be("test-id");
+            result.EmailAlertsTopicId.Should().Be("test-id");          
         }
 
         [Fact]
@@ -101,7 +102,7 @@ namespace StockportWebappTests.Unit.Controllers
             {
                 new Alert("title", "subheading", "body", Severity.Warning)
             };
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", null, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
                new List<Crumb>(), alerts, true, "test-id");
 
             const string slug = "healthy-living";

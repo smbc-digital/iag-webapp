@@ -30,6 +30,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly ProcessedSection _processedSectionTwo;
         private const string Icon = "icon";
         private const string BackgroundImage = "backgroundImage";
+        private const string Image = "image";
         private readonly List<Crumb> _breadcrumbs;
         private readonly Article _article;
         private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
@@ -52,7 +53,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
             
-             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, _breadcrumbs, _emptyProfiles, _emptyDocuments, _liveChatVisible, _liveChat);
+             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _liveChatVisible, _liveChat);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
@@ -77,6 +78,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.Sections.ToList()[1].Should().Be(_processedSectionTwo);
             result.Icon.Should().Be(Icon);
             result.BackgroundImage.Should().Be(BackgroundImage);
+            result.Image.Should().Be(Image);
             result.Breadcrumbs.ToList().Should().BeEquivalentTo(_breadcrumbs);
             result.LiveChatVisible.Should().Be(true);
             result.LiveChat.Title.Should().Be("Title");

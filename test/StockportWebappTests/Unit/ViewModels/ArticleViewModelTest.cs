@@ -181,14 +181,14 @@ namespace StockportWebappTests.Unit.ViewModels
         private void ShouldReturnTopicSubItemsListForSideBar()
         {
             var firstSubitem = new SubItem(Helper.AnyString, "first-subitem", Helper.AnyString, Helper.AnyString,
-                Helper.AnyString);
+                Helper.AnyString, Helper.AnyString);
             var subItems = new List<SubItem> { firstSubitem };
-            var firstSecondaryitem = new SubItem(Helper.AnyString, "first-secondaryitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var firstSecondaryitem = new SubItem(Helper.AnyString, "first-secondaryitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
             var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
-            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString);
+            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString);
             var article = new ProcessedArticle(Helper.AnyString,Helper.AnyString, Helper.AnyString, Helper.AnyString,new List<ProcessedSection>(),
-                Helper.AnyString, Helper.AnyString,new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat());
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -204,21 +204,22 @@ namespace StockportWebappTests.Unit.ViewModels
         [Fact]
         private void ShouldReturnSixTopicsSubItemsForSideBar()
         {
-            var firstSubItem = new SubItem(Helper.AnyString, "first-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
-            var secondSubItem = new SubItem(Helper.AnyString, "second-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
-            var thirdSubItem = new SubItem(Helper.AnyString, "third-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
-            var fourthSubItem = new SubItem(Helper.AnyString, "fourth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
-            var fifthSubItem = new SubItem(Helper.AnyString, "fifth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
-            var sixthSubItem = new SubItem(Helper.AnyString, "sixth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
-            var seventhSubItem = new SubItem(Helper.AnyString, "seventh-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
-            var eightSubItem = new SubItem(Helper.AnyString, "eigth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var firstSubItem = new SubItem(Helper.AnyString, "first-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var secondSubItem = new SubItem(Helper.AnyString, "second-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var thirdSubItem = new SubItem(Helper.AnyString, "third-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var fourthSubItem = new SubItem(Helper.AnyString, "fourth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var fifthSubItem = new SubItem(Helper.AnyString, "fifth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var sixthSubItem = new SubItem(Helper.AnyString, "sixth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var seventhSubItem = new SubItem(Helper.AnyString, "seventh-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
+            var eightSubItem = new SubItem(Helper.AnyString, "eigth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString);
 
             var subItems = new List<SubItem> { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
             var secondaryItems = new List<SubItem> { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
 
-            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString);
+            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString);
             var article = new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<ProcessedSection>(), Helper.AnyString,
-                Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat());
+                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat());
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -237,10 +238,10 @@ namespace StockportWebappTests.Unit.ViewModels
 
         private ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
         {
-            var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", null, null, null,
+            var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
                 new List<Crumb>(), null, true, "test-id");
             return new ProcessedArticle(Helper.AnyString, slug, Helper.AnyString, Helper.AnyString, sections,
-                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat());
         }
 
 

@@ -39,8 +39,8 @@ namespace StockportWebappTests.Unit.Controllers
             const string articleSlug = "physical-activity";
             var article = new ProcessedArticle("Physical Activity", "physical-activity",
                 "Being active is great for your body", "teaser", new List<ProcessedSection>() {DummySection()},
-                "fa-icon",
-                "af981b9771822643da7a03a9ae95886f/runners.jpg", new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+                "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg", 
+                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat());
 
             _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
 
@@ -51,6 +51,7 @@ namespace StockportWebappTests.Unit.Controllers
             viewModel.Article.NavigationLink.Should().Be("/physical-activity");
             viewModel.Article.Body.Should().Contain("Being active is great for your body");
             viewModel.Article.BackgroundImage.Should().Contain("af981b9771822643da7a03a9ae95886f/runners.jpg");
+            viewModel.Article.Image.Should().Contain("af981b9771822643da7a03a9ae95886f/runners.jpg");
             viewModel.Article.Icon.Should().Contain("fa-icon");
             viewModel.Article.Sections.Count().Should().Be(1);
         }
@@ -63,7 +64,7 @@ namespace StockportWebappTests.Unit.Controllers
             var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, new List<Crumb>() {},
+                new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {},
                 new List<Alert>(), new NullTopic(), false, new NullLiveChat());
 
             var response = new HttpResponse(200, article, string.Empty);
@@ -84,9 +85,8 @@ namespace StockportWebappTests.Unit.Controllers
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
             var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
 
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, new List<Crumb>() { },
-                new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo }, 
+                string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -107,8 +107,8 @@ namespace StockportWebappTests.Unit.Controllers
             var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, new List<Crumb>() { },
-                new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+                new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, 
+                new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -133,7 +133,7 @@ namespace StockportWebappTests.Unit.Controllers
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
             var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, "body", new List<Profile>(), new List<Document>());
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, new List<Crumb>() {},
+                new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {},
                 new List<Alert>(), new NullTopic(), false, new NullLiveChat());
 
             var response = new HttpResponse(200, article, string.Empty);
@@ -169,7 +169,7 @@ namespace StockportWebappTests.Unit.Controllers
                 new Alert("title", "subheading", "body", Severity.Warning)
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() {}, string.Empty, string.Empty, new List<Crumb>() {}, alerts, new NullTopic(), false, new NullLiveChat());
+                new List<ProcessedSection>() {}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {}, alerts, new NullTopic(), false, new NullLiveChat());
 
             _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
 
@@ -225,7 +225,7 @@ namespace StockportWebappTests.Unit.Controllers
         private ProcessedArticle DummyProcessedArticle()
         {
             return new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                new List<ProcessedSection>(), Helper.AnyString, Helper.AnyString, new List<Crumb>(),
+                new List<ProcessedSection>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(),
                 new LinkedList<Alert>(), new NullTopic(), false, new NullLiveChat());
         }
 

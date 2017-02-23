@@ -15,7 +15,7 @@ namespace StockportWebappTests.Unit.Model
         public void ConvertsMarkdownToHtml()
         {
             const string summary = "# This is a heading for a topic";
-            var topic = new Topic("Name", "slug", summary, "Teaser", "Icon", "Image", null, null, null,
+            var topic = new Topic("Name", "slug", summary, "Teaser", "Icon", "Image", "Image", null, null, null,
               new List<Crumb>(), null, true, "test-id");
 
             Assert.Equal("<h1>This is a heading for a topic</h1>\n", topic.Summary);

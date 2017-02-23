@@ -11,6 +11,7 @@ namespace StockportWebapp.Models
         public IEnumerable<Section> Sections { get; set; }
         public string Icon { get; set; }
         public string BackgroundImage { get; set; }
+        public string Image { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public IEnumerable<Alert> Alerts { get; set; }
         public IEnumerable<Profile> Profiles { get; set; }
@@ -19,7 +20,7 @@ namespace StockportWebapp.Models
         public bool LiveChatVisible { get; set; }
         public LiveChat LiveChat { get; set; }
 
-        public Article(string title, string slug, string body, string teaser, IEnumerable<Section> sections, string icon, string backgroundImage, 
+        public Article(string title, string slug, string body, string teaser, IEnumerable<Section> sections, string icon, string backgroundImage, string image,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, bool liveChatVisible, LiveChat liveChat)
         {
             Title = title;
@@ -29,6 +30,7 @@ namespace StockportWebapp.Models
             Sections = sections;
             Icon = icon;
             BackgroundImage = backgroundImage;
+            Image = image;
             Breadcrumbs = breadcrumbs;
             Profiles = profiles;
             Documents = documents;

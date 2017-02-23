@@ -19,7 +19,8 @@ namespace StockportWebapp.Models
         }
         public string Teaser { get; }
         public string Icon { get; }
-        public string BackgroundImage { get; }      
+        public string BackgroundImage { get; }
+        public string Image { get; }
         public IEnumerable<SubItem> SubItems { get; }
         public IEnumerable<SubItem> SecondaryItems { get; }
         public IEnumerable<SubItem> TertiaryItems { get; }
@@ -51,7 +52,7 @@ namespace StockportWebapp.Models
         public string EmailAlertsTopicId { get; }
 
         public Topic(string name, string slug, string summary, string teaser, string icon,
-            string backgroundImage, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, IEnumerable<Crumb> breadcrumbs,
+            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, IEnumerable<Crumb> breadcrumbs,
             IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId)
         {
             Name = name;
@@ -60,6 +61,7 @@ namespace StockportWebapp.Models
             Teaser = teaser;
             Icon = icon;
             BackgroundImage = backgroundImage;
+            Image = image;
             SubItems = subItems;
             SecondaryItems = secondaryItems;
             TertiaryItems = tertiaryItems;
@@ -74,6 +76,6 @@ namespace StockportWebapp.Models
 
     public class NullTopic : Topic
     {
-        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty) { }
+        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty) { }
     }
 }

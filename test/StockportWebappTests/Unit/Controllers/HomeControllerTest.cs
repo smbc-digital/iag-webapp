@@ -38,7 +38,7 @@ namespace StockportWebappTests.Unit.Controllers
             var popularSearchTerms = new List<string> {"popular", "search", "terms"};
             var featuredTasks = new List<SubItem>
             {
-                new SubItem("slug featuredTasks", "featured Tasks","teaser Fetured Tasks", "fa fa-home", "")
+                new SubItem("slug featuredTasks", "featured Tasks","teaser Fetured Tasks", "fa fa-home", "", "image")
             };
             var alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information)};
             var carouselContents = new List<CarouselContent>
@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.Controllers
             };
             var featuredTopics = new List<Topic>
             {
-                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id")
+                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id")
             };
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text");
             var sunrise = new DateTime(2015, 9, 10);
@@ -86,6 +86,7 @@ namespace StockportWebappTests.Unit.Controllers
             page.FeaturedTasks.First().NavigationLink.Should().Contain("slug featuredTasks");
             page.FeaturedTasks.First().Teaser.Should().Be("teaser Fetured Tasks");
             page.FeaturedTasks.First().Icon.Should().Be("fa fa-home");
+            page.FeaturedTasks.First().Image.Should().Be("image");
 
             page.FeaturedTopics.First().Slug.Should().Be("council-tax");
             page.FeaturedTopics.First().Name.Should().Be("Council Tax");
@@ -127,7 +128,7 @@ namespace StockportWebappTests.Unit.Controllers
             var popularSearchTerms = new List<string> { "popular", "search", "terms" };
             var featuredTasks = new List<SubItem>
             {
-                new SubItem("slug featuredTasks", "featured Tasks","teaser Fetured Tasks", "fa fa-home", "")
+                new SubItem("slug featuredTasks", "featured Tasks","teaser Fetured Tasks", "fa fa-home", "", "image")
             };
             var alerts = new List<Alert> { new Alert("title", "subHeading", "body", Severity.Information) };
             var carouselContents = new List<CarouselContent>
@@ -136,7 +137,7 @@ namespace StockportWebappTests.Unit.Controllers
             };
             var featuredTopics = new List<Topic>
             {
-                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id")
+                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id")
             };
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text");
             var sunrise = new DateTime(2015, 9, 10);
@@ -168,6 +169,7 @@ namespace StockportWebappTests.Unit.Controllers
             page.FeaturedTasks.First().NavigationLink.Should().Contain("slug featuredTasks");
             page.FeaturedTasks.First().Teaser.Should().Be("teaser Fetured Tasks");
             page.FeaturedTasks.First().Icon.Should().Be("fa fa-home");
+            page.FeaturedTasks.First().Image.Should().Be("image");
 
             page.FeaturedTopics.First().Slug.Should().Be("council-tax");
             page.FeaturedTopics.First().Name.Should().Be("Council Tax");

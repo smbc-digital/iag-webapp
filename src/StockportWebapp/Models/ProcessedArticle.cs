@@ -18,6 +18,7 @@ namespace StockportWebapp.Models
         public readonly IEnumerable<ProcessedSection> Sections;
         public readonly string Icon;
         public readonly string BackgroundImage;
+        public readonly string Image;
         public readonly IEnumerable<Crumb> Breadcrumbs;
         public readonly IEnumerable<Alert> Alerts;
         public readonly Topic ParentTopic;
@@ -26,7 +27,7 @@ namespace StockportWebapp.Models
         public LiveChat LiveChat { get; set; }
 
         public ProcessedArticle(string title, string slug, string body, string teaser,
-            IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, IEnumerable<Crumb> breadcrumbs, 
+            IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, IEnumerable<Crumb> breadcrumbs, 
             IEnumerable<Alert> alerts, Topic topic, bool liveChatVisible, LiveChat liveChat)
         {
             Title = title;
@@ -36,6 +37,7 @@ namespace StockportWebapp.Models
             Sections = sections;
             Icon = icon;
             BackgroundImage = backgroundImage;
+            Image = image;
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
             ParentTopic = topic;

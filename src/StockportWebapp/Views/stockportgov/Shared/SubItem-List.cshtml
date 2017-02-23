@@ -4,22 +4,33 @@
     <ul class="nav-card-list">
         @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
         {
-            <li class="nav-card grid-33">
-                <a href="@subItem.NavigationLink" class="nav-card-item">
-                    <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
-                    <p class="hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
-                </a>
+            <li class="nav-card grid-33" style="">
+                <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
+                    
+                    @{
+                        if (!string.IsNullOrEmpty(subItem.Image))
+                        {
+                            <div class="nav-card-background-image" style="background-image: url(@subItem.Image);">
+                                <h2 class="hide-on-desktop">@subItem.Title</h2>
+                            </div>
+                            <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
+                        }
+                        else
+                        {
+                            <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
+                            <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
+                        }
+                    }                   
+                </a>         
             </li>
         }
     </ul>
 }
 
-
 @if (Model.SecondaryItems.Any())
 {
     <div id="test-topic-page-secondary-topics-list" class="subitems grid-100">
-       
-
+      
         @{
             var firstHalfOfItems = (int)Math.Ceiling((decimal)Model.SecondaryItems.Count() / 2);
         }
