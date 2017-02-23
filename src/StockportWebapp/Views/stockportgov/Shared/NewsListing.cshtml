@@ -150,7 +150,10 @@
                     </li>
                 }
             </ul>
-            @Html.Partial("Pagination", Model.Pagination)
+            if (FeatureToggles.NewsroomPagination)
+            {
+                @Html.Partial("Pagination", Model.Pagination)
+            }
         }
     </div>
     
