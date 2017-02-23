@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -36,7 +37,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index(NewsroomViewModel model)
+        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int Page)
         {
             if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
             {
@@ -57,8 +58,31 @@ namespace StockportWebapp.Controllers
             if (!httpResponse.IsSuccessful())
                 return httpResponse;
 
-            var newsRoom = httpResponse.Content as Newsroom;                          
+            var newsRoom = httpResponse.Content as Newsroom;    
+            
+            model.Pagination = new Pagination();
+            model.Pagination.Page = Page == 0 ? 1 : Page;
+
+
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
+
+            if (newsRoom.News.Any())
+            {
+                var pageCount = newsRoom.News.Count / model.Pagination.PageSize;
+                if (newsRoom.News.Count % model.Pagination.PageSize > 0)
+                    pageCount += 1;
+
+                model.Pagination.TotalPages = pageCount;
+                model.Pagination.TotalItems = newsRoom.News.Count;
+                
+
+                List<News> PagedNews = newsRoom.News
+                        .Skip(model.Pagination.PageSize * (model.Pagination.Page - 1))
+                        .Take(model.Pagination.PageSize).ToList();
+
+                model.Pagination.TotalItemsOnPage = PagedNews.Count;
+                newsRoom.News = PagedNews;
+            }
 
             model.AddNews(newsRoom);
             model.AddUrlSetting(urlSetting);
@@ -66,6 +90,8 @@ namespace StockportWebapp.Controllers
             model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
+
+            model.Pagination.CurrentUrl = model.CurrentUrl;
 
             return View(model);
         }

@@ -39,6 +39,7 @@ namespace StockportWebapp.Models
 
         public IFilteredUrl FilteredUrl { get; private set; }
         public QueryUrl CurrentUrl { get; private set; }
+        public Pagination Pagination { get; set; }
 
         public NewsroomViewModel() { }
 

@@ -1,9 +1,11 @@
 ﻿@using System.Threading.Tasks
 @using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
 @model StockportWebapp.Models.NewsroomViewModel
 
 @{
     var newsroom = Model.Newsroom;
+
 }
 
 @inject FeatureToggles FeatureToggles
@@ -148,6 +150,8 @@
                     </li>
                 }
             </ul>
+            @Html.Partial("Pagination", Model.Pagination)
         }
     </div>
+    
 </div>

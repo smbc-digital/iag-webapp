@@ -1,0 +1,59 @@
+﻿@model StockportWebapp.Models.Pagination
+
+
+<div class="pagination-section grid-parent">
+    @{
+        var start = (Model.Page- 1) * Model.PageSize + 1;
+        var end = start + Model.TotalItemsOnPage - 1;
+    }
+    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @start - @end of @Model.TotalItems</div>
+    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
+        @{
+            if (Model.Page > 1)
+            {
+                <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page - 1).ToString()}}))">Previous</a>
+            }
+
+            if (Model.Page >= 1 && Model.Page <= Model.TotalPages)
+            {
+
+                var startIndex = Model.Page - 2;
+                var endIndex =  Model.Page + 2;
+                if (Model.Page - 2 <= 0)
+                {
+                    startIndex = 1;
+                    endIndex = 5;
+                }
+
+                if (Model.Page + 2 > Model.TotalPages)
+                {
+                    startIndex = Model.Page - 5;
+                    endIndex = Model.TotalPages;
+                }
+
+                for (int i = startIndex; i <= endIndex; i++)
+                {
+
+                    if (i > 0 && i <= Model.TotalPages)
+                    {
+                        if (i == Model.Page)
+                        {
+                            <span>@i.ToString()</span>
+                        }
+                        else
+                        {
+                            <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", i.ToString()}}))">@i.ToString()</a>
+                        }
+                    }
+                }
+            }
+
+            if (Model.Page < Model.TotalPages)
+            {
+                <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page + 1).ToString()}}))">Next</a>
+            }
+        }
+    </div>
+
+</div>
+

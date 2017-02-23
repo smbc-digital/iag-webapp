@@ -105,7 +105,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItReturnsANewsListingPageWithTwoItems()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel())) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel(), 1)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -173,7 +173,7 @@ namespace StockportWebappTests.Unit.Controllers
                                     l.Contains(new Query("tag", "Events")) &&
                                     l.Contains(new Query("Category", "A Category")))))
                 .ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, _newsRoom));
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel {Tag = "Events", Category = "A Category" })) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel {Tag = "Events", Category = "A Category" }, 1)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -195,7 +195,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _repository.Setup(o => o.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(404, null, "not found"));
             var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId), _filteredUrl.Object);
-            var response = AsyncTestHelper.Resolve(controller.Index(new NewsroomViewModel())) as HttpResponse;
+            var response = AsyncTestHelper.Resolve(controller.Index(new NewsroomViewModel(), 1)) as HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
@@ -234,12 +234,51 @@ namespace StockportWebappTests.Unit.Controllers
                 )
             ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
 
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel { DateFrom = new DateTime(2016, 10, 01), DateTo = new DateTime(2016, 11, 01) })) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel { DateFrom = new DateTime(2016, 10, 01), DateTo = new DateTime(2016, 11, 01) }, 1)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
 
             news.Should().Be(_newsRoom);
         }
+
+        [Fact]
+        public void Page2ShouldReturn5ItemsWhen15TotalItems()
+        {
+            List<News> longListofNewsItems = new List<News>();
+            for (int i = 0; i < 15; i++)
+            {
+               var NewsItem = new News("News Article " + i.ToString(),
+                "another-news-article",
+                "This is another news article",
+                "image.jpg",
+                "thumbnail.jpg",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
+                new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(), new List<string>(), new List<Document>());
+
+                longListofNewsItems.Add(NewsItem);
+            }
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+
+
+            _repository.Setup(o =>
+                o.Get<Newsroom>(
+                    "",
+                    It.Is<List<Query>>(l =>
+                        l.Contains(new Query("DateFrom", "2016-10-01"))
+                        && l.Contains(new Query("DateTo", "2016-11-01"
+                        ))
+                    )
+                )
+            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
+
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel { DateFrom = new DateTime(2016, 10, 01), DateTo = new DateTime(2016, 11, 01) }, 2)) as ViewResult;
+
+            var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+            var news = viewModel.Newsroom;
+
+            news.News.Count.Should().Be(5);
+        }
+
     }
 }
