@@ -14,7 +14,7 @@
                 <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page - 1).ToString()}}))">Previous</a>
             }
 
-            if (Model.Page >= 1 && Model.Page <= Model.TotalPages)
+            if (Model.Page >= 1 && Model.Page <= Model.TotalPages && Model.TotalPages > 1)
             {
 
                 var startIndex = Model.Page - 2;

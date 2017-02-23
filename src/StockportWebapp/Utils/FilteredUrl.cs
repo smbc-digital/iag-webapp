@@ -33,12 +33,12 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutCategory()
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"Category"});
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"Category","Page"});         
         }
 
         public RouteValueDictionary AddCategoryFilter(string category)
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Category", category } });
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Category", category }, {"Page", "1"} });
         }
 
         public bool HasNoCategoryFilter()
@@ -54,14 +54,15 @@ namespace StockportWebapp.Utils
             {
                 {"DateFrom", startDate.ToString("yyyy-MM-dd")},
                 {"DateTo", dateto.ToString("yyyy-MM-dd")},
-                {"daterange", "month"}
+                {"daterange", "month"},
+                {"Page", "1"}
 
             });
         }
 
         public RouteValueDictionary WithoutDateFilter()
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"DateFrom", "DateTo","daterange"});
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"DateFrom", "DateTo","daterange", "Page" });
         }
 
         public bool HasNoDateFilter()
@@ -71,7 +72,7 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutTagFilter()
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> { "tag" });
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> { "tag", "Page" });
         }
     }
 }
