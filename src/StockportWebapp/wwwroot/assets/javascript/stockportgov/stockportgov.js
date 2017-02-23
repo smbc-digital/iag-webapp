@@ -4,7 +4,7 @@ var tabletWidth = (1024 - 17);
 var matchboxPrimary = new Matchbox({
     parentSelector: ".l-page-content .nav-card-list",
     childSelector: ".nav-card .nav-card-item",
-    groupsOf: 3,
+    groupsOf: 1,
     breakpoints: [
     { bp: 1024, groupsOf: 3 }
     ]
