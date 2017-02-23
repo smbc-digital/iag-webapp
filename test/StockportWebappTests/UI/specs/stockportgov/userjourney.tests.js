@@ -105,7 +105,7 @@ module.exports = {
        newsroom.goToCategory(browser, activeCategory);
        newsroom.assertAllCategoriesAreVisible(browser);
        newsroom.assertLinkIsActive(browser, activeCategory);
-       newsroom.assertLinkHasCorrectUrl(browser, activeCategory, '/news?Category=' + activeCategory);
+       newsroom.assertLinkHasCorrectUrl(browser, activeCategory, '/news?Category=' + activeCategory +"&Page=1");
 
        var allCategories = "All categories";
        newsroom.assertLinkIsNotActive(browser, allCategories);
