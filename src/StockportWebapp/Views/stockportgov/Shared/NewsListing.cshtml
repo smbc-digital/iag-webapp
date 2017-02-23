@@ -20,7 +20,7 @@
                             {
                                 <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Category</a></li>
                             }
-                            @if (Model.DateFrom.HasValue && Model.DateTo.HasValue)
+                            @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && (Model.DateFrom <= Model.DateTo))
                             {
                                 <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.GetActiveDateFilter()</a></li>
                             }

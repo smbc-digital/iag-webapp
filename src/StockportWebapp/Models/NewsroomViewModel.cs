@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
@@ -11,32 +10,29 @@ namespace StockportWebapp.Models
 {
     public class NewsroomViewModel
     {
+        // data
         public string EmailAlertsUrl { get; private set; }
         public Newsroom Newsroom { get; private set; }
+        public List<string> Categories { get { return Newsroom?.Categories?.OrderBy(c => c).ToList(); } }
 
         // filters
         public string Tag { get; set; }
         public string Category { get; set; }
         public string DateRange { get; set; }
 
+        // form elements
         [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]
-        [PastDateValidation]
         public DateTime? DateFrom { get; set; }
 
         [Required]
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
-        [PastDateValidation]
-        [EndDateLaterThanStartDateValidation(otherPropertyName: "DateFrom", erroMessgae: "End date should be on or after the start date")]
+        [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]
         public DateTime? DateTo { get; set; }
 
-        public List<string> Categories
-        {
-            get { return Newsroom?.Categories?.OrderBy(c => c).ToList(); }
-        }
-
+        // urls
         public IFilteredUrl FilteredUrl { get; private set; }
         public QueryUrl CurrentUrl { get; private set; }
         public Pagination Pagination { get; set; }
