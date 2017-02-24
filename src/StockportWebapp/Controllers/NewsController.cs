@@ -10,6 +10,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Controllers
@@ -24,8 +25,9 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
+        private readonly FeatureToggles _featureToggles;
 
-        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl)
+        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl, FeatureToggles featureToggles)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -34,6 +36,7 @@ namespace StockportWebapp.Controllers
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
+            _featureToggles = featureToggles;
         }
 
         [Route("/news")]
@@ -68,20 +71,22 @@ namespace StockportWebapp.Controllers
 
             if (newsRoom.News.Any())
             {
-                var pageCount = newsRoom.News.Count / model.Pagination.PageSize;
-                if (newsRoom.News.Count % model.Pagination.PageSize > 0)
-                    pageCount += 1;
+                if (_featureToggles.NewsroomPagination)
+                {
+                    var pageCount = newsRoom.News.Count / model.Pagination.PageSize;
+                    if (newsRoom.News.Count % model.Pagination.PageSize > 0)
+                        pageCount += 1;
 
-                model.Pagination.TotalPages = pageCount;
-                model.Pagination.TotalItems = newsRoom.News.Count;
-                
+                    model.Pagination.TotalPages = pageCount;
+                    model.Pagination.TotalItems = newsRoom.News.Count;
 
-                List<News> PagedNews = newsRoom.News
-                        .Skip(model.Pagination.PageSize * (model.Pagination.Page - 1))
-                        .Take(model.Pagination.PageSize).ToList();
+                    List<News> PagedNews = newsRoom.News
+                            .Skip(model.Pagination.PageSize * (model.Pagination.Page - 1))
+                            .Take(model.Pagination.PageSize).ToList();
 
-                model.Pagination.TotalItemsOnPage = PagedNews.Count;
-                newsRoom.News = PagedNews;
+                    model.Pagination.TotalItemsOnPage = PagedNews.Count;
+                    newsRoom.News = PagedNews;
+                }
             }
 
             model.AddNews(newsRoom);

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using StockportWebapp.Config;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -28,10 +29,11 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
+        private readonly FeatureToggles _featureToggles;
 
         public EventsController(IRepository repository,
                                 IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl)
+                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl, FeatureToggles featureToggles)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -41,6 +43,7 @@ namespace StockportWebapp.Controllers
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
+            _featureToggles = featureToggles;
         }
 
         [Route("/events")]
@@ -72,21 +75,23 @@ namespace StockportWebapp.Controllers
 
             if (eventResponse.Events.Any())
             {
-                var pageCount = eventResponse.Events.Count / eventsCalendar.Pagination.PageSize;
-                if (eventResponse.Events.Count % eventsCalendar.Pagination.PageSize > 0)
-                    pageCount += 1;
+                if (_featureToggles.EventsPagination)
+                {
+                    var pageCount = eventResponse.Events.Count / eventsCalendar.Pagination.PageSize;
+                    if (eventResponse.Events.Count % eventsCalendar.Pagination.PageSize > 0)
+                        pageCount += 1;
 
-                eventsCalendar.Pagination.TotalPages = pageCount;
-                eventsCalendar.Pagination.TotalItems = eventResponse.Events.Count;
-                eventsCalendar.Pagination.DisplayName = "Events";
+                    eventsCalendar.Pagination.TotalPages = pageCount;
+                    eventsCalendar.Pagination.TotalItems = eventResponse.Events.Count;
+                    eventsCalendar.Pagination.DisplayName = "Events";
 
+                    List<Event> PagedEvents = eventResponse.Events
+                            .Skip(eventsCalendar.Pagination.PageSize * (eventsCalendar.Pagination.Page - 1))
+                            .Take(eventsCalendar.Pagination.PageSize).ToList();
 
-                List<Event> PagedEvents = eventResponse.Events
-                        .Skip(eventsCalendar.Pagination.PageSize * (eventsCalendar.Pagination.Page - 1))
-                        .Take(eventsCalendar.Pagination.PageSize).ToList();
-
-                eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
-                eventResponse.Events = PagedEvents;
+                    eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
+                    eventResponse.Events = PagedEvents;
+                
             }
 
 
