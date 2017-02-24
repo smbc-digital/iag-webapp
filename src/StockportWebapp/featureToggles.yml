@@ -3,6 +3,7 @@ prod: &prod
   FooterCache: true
   NewsCustomDateSearch: true
   NewsroomPagination: false
+  EventsPagination: false
 
 stage: &stage
   << : *prod
@@ -16,3 +17,4 @@ int:
   << : *stage
   << : *qa
   NewsroomPagination: true
+  EventsPagination: true

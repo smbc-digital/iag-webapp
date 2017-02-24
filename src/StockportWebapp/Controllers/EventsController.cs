@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -43,7 +44,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index(EventCalendar eventsCalendar)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page)
         {           
             if (eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
@@ -66,6 +67,29 @@ namespace StockportWebapp.Controllers
 
             var eventResponse = httpResponse.Content as EventResponse;
 
+            eventsCalendar.Pagination = new Pagination();
+            eventsCalendar.Pagination.Page = Page == 0 ? 1 : Page;
+
+            if (eventResponse.Events.Any())
+            {
+                var pageCount = eventResponse.Events.Count / eventsCalendar.Pagination.PageSize;
+                if (eventResponse.Events.Count % eventsCalendar.Pagination.PageSize > 0)
+                    pageCount += 1;
+
+                eventsCalendar.Pagination.TotalPages = pageCount;
+                eventsCalendar.Pagination.TotalItems = eventResponse.Events.Count;
+                eventsCalendar.Pagination.DisplayName = "Events";
+
+
+                List<Event> PagedEvents = eventResponse.Events
+                        .Skip(eventsCalendar.Pagination.PageSize * (eventsCalendar.Pagination.Page - 1))
+                        .Take(eventsCalendar.Pagination.PageSize).ToList();
+
+                eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
+                eventResponse.Events = PagedEvents;
+            }
+
+
             if (eventResponse != null)
             {
                 eventsCalendar.AddEvents(eventResponse.Events);
@@ -75,6 +99,8 @@ namespace StockportWebapp.Controllers
             eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
             eventsCalendar.AddFilteredUrl(_filteredUrl);
+
+            eventsCalendar.Pagination.CurrentUrl = eventsCalendar.CurrentUrl;
 
             return View(eventsCalendar);
         }

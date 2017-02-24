@@ -28,6 +28,7 @@ namespace StockportWebapp.Models
         public string Tag { get; set; }
         public IFilteredUrl FilteredUrl { get; private set; }
         public QueryUrl CurrentUrl { get; private set; }
+        public Pagination Pagination { get; set; }
 
         public EventCalendar() { }
 

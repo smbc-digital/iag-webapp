@@ -10,5 +10,6 @@ namespace StockportWebapp.Models
         public QueryUrl CurrentUrl { get; set; }
         public int PageSize { get; set; } = 15;
         public int TotalItemsOnPage { get; set; }
+        public string DisplayName { get; set; }
     }
 }

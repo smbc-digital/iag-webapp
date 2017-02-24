@@ -62,7 +62,7 @@ namespace StockportWebapp.Controllers
             
             model.Pagination = new Pagination();
             model.Pagination.Page = Page == 0 ? 1 : Page;
-
+            model.Pagination.DisplayName = "News articles";
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 

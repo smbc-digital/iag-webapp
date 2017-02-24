@@ -86,7 +86,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendar()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar())) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar(), 1)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -97,7 +97,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"})) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
