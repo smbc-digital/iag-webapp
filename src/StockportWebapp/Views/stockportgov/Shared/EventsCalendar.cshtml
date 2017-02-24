@@ -97,26 +97,32 @@
         else
         {                   
             <ul class="nav-card-events-list grid-100">
+                @{
+                    var previousEnteredDate = DateTime.MinValue;
+                }
                 @foreach (var subItem in Model.Events)
                 {
                     <li class="grid-100 grid-parent nav-card-events nav-card-events-item">
-                        @if (subItem.EventDate.Date == DateTime.Now.Date)
+                        @if (subItem.EventDate.Date == DateTime.Now.Date && subItem.EventDate.Date != previousEnteredDate)
                         {
                             <div>
                                 <h2 class="event-by-date-header">Today</h2>
                             </div>
                         }
-                        else if (subItem.EventDate.Date == DateTime.Now.AddDays(1).Date)
+                        else if (subItem.EventDate.Date == DateTime.Now.AddDays(1).Date && subItem.EventDate.Date != previousEnteredDate)
                         {
                             <div >
                                 <h2 class="event-by-date-header">Tomorrow</h2>
                             </div>
                         }
-                        else if (subItem.EventDate.Date != DateTime.MinValue)
+                        else if (subItem.EventDate.Date != previousEnteredDate)
                         {
                             <div>
                                 <h2 class="event-by-date-header">@subItem.EventDate.ToString("dddd dd MMMM yyyy")</h2>
                             </div>
+                        }
+                        @{
+                            previousEnteredDate = subItem.EventDate.Date;
                         }
                         <div class="events-bottom-border grid-100 grid-parent">
                             <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug, date = subItem.EventDate.ToString("yyyy-MM-dd")})">
