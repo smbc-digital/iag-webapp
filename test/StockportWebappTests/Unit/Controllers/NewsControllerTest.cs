@@ -243,10 +243,10 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void Page2ShouldReturn5ItemsWhen15TotalItems()
+        public void Page2ShouldReturn5ItemsWhen20TotalItems()
         {
             List<News> longListofNewsItems = new List<News>();
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 20; i++)
             {
                var NewsItem = new News("News Article " + i.ToString(),
                 "another-news-article",
