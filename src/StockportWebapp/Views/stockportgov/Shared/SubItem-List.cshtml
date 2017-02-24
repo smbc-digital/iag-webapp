@@ -1,17 +1,19 @@
-﻿@model StockportWebapp.Models.Topic
+﻿@using StockportWebapp.FeatureToggling
+@model StockportWebapp.Models.Topic
+@inject FeatureToggles FeatureToggles
 @for (var i = 0; i < Model.SubItems.Count(); i += 3)
 {
     <ul class="nav-card-list">
         @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
         {
             <li class="nav-card grid-33" style="">
-                <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
+                <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) && FeatureToggles.TopicPageImages ? "with-background-image" : "")">
                     
                     @{
-                        if (!string.IsNullOrEmpty(subItem.Image))
+                        if (!string.IsNullOrEmpty(subItem.Image) && FeatureToggles.TopicPageImages)
                         {
                             <div class="nav-card-background-image" style="background-image: url(@subItem.Image);">
-                                <h2 class="hide-on-desktop">@subItem.Title</h2>
+                                <h2 class="hide-on-desktop"><span>@subItem.Title</span></h2>
                             </div>
                             <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
                         }

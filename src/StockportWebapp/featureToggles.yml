@@ -4,6 +4,8 @@ prod: &prod
   NewsCustomDateSearch: true
   NewsroomPagination: false
   EventsPagination: false
+  EventCustomDateSearch: true
+  TopicPageImages: false
 
 stage: &stage
   << : *prod
@@ -16,5 +18,8 @@ int:
   << : *prod
   << : *stage
   << : *qa
+
   NewsroomPagination: true
   EventsPagination: true
+  TopicPageImages: true
+  NewsCustomDateSearch: true
