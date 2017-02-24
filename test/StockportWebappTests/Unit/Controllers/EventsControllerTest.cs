@@ -9,6 +9,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
 using Xunit;
@@ -32,6 +33,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
         private readonly Mock<IFilteredUrl> _filteredUrl;
+        private readonly FeatureToggles _featureToggling = new FeatureToggles();
 
 
         public EventsControllerTest()
@@ -79,7 +81,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object
+                _filteredUrl.Object,
+                _featureToggling
                 );
         }
 

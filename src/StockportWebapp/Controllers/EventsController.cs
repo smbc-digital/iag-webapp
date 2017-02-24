@@ -73,25 +73,22 @@ namespace StockportWebapp.Controllers
             eventsCalendar.Pagination = new Pagination();
             eventsCalendar.Pagination.Page = Page == 0 ? 1 : Page;
 
-            if (eventResponse.Events.Any())
+            if (eventResponse.Events.Any() && _featureToggles.EventsPagination)
             {
-                if (_featureToggles.EventsPagination)
-                {
-                    var pageCount = eventResponse.Events.Count / eventsCalendar.Pagination.PageSize;
-                    if (eventResponse.Events.Count % eventsCalendar.Pagination.PageSize > 0)
-                        pageCount += 1;
+                var pageCount = eventResponse.Events.Count/eventsCalendar.Pagination.PageSize;
+                if (eventResponse.Events.Count%eventsCalendar.Pagination.PageSize > 0)
+                    pageCount += 1;
 
-                    eventsCalendar.Pagination.TotalPages = pageCount;
-                    eventsCalendar.Pagination.TotalItems = eventResponse.Events.Count;
-                    eventsCalendar.Pagination.DisplayName = "Events";
+                eventsCalendar.Pagination.TotalPages = pageCount;
+                eventsCalendar.Pagination.TotalItems = eventResponse.Events.Count;
+                eventsCalendar.Pagination.DisplayName = "Events";
 
-                    List<Event> PagedEvents = eventResponse.Events
-                            .Skip(eventsCalendar.Pagination.PageSize * (eventsCalendar.Pagination.Page - 1))
-                            .Take(eventsCalendar.Pagination.PageSize).ToList();
+                List<Event> PagedEvents = eventResponse.Events
+                    .Skip(eventsCalendar.Pagination.PageSize*(eventsCalendar.Pagination.Page - 1))
+                    .Take(eventsCalendar.Pagination.PageSize).ToList();
 
-                    eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
-                    eventResponse.Events = PagedEvents;
-                
+                eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
+                eventResponse.Events = PagedEvents;
             }
 
 
