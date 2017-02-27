@@ -1,4 +1,6 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
+@inject FeatureToggles FeatureToggles
 @model ProcessedEvents
 
 @{
@@ -97,17 +99,20 @@
                                             <div class="events-details-heading">
                                                 Booking information
                                             </div>
-                                            @if (Model.BookingInformation.Contains("http") || Model.BookingInformation.Contains("www"))
+                                            @if (FeatureToggles.GroupLinkOnEvent)
                                             {
-                                                <a href="@Model.BookingInformation">Book your place</a>
-                                            }
-                                            else if (Model.BookingInformation.Contains("@"))
-                                            {
-                                                <a href="mailto:@Model.BookingInformation">@Model.BookingInformation</a>
-                                            }
-                                            else
-                                            {
-                                                @Model.BookingInformation
+                                                if (Model.BookingInformation.Contains("http") || Model.BookingInformation.Contains("www"))
+                                                {
+                                                    <a href="@Model.BookingInformation">Book your place</a>
+                                                }
+                                                else if (Model.BookingInformation.Contains("@"))
+                                                {
+                                                    <a href="mailto:@Model.BookingInformation">@Model.BookingInformation</a>
+                                                }
+                                                else
+                                                {
+                                                    @Model.BookingInformation
+                                                }
                                             }
                                         </div>
                                         <div class="clearfix"></div>

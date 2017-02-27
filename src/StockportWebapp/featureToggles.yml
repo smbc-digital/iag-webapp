@@ -6,6 +6,7 @@ prod: &prod
   EventsPagination: false
   EventCustomDateSearch: true
   TopicPageImages: false
+  GroupLinkOnEvent: false
 
 stage: &stage
   << : *prod
@@ -23,3 +24,4 @@ int:
   EventsPagination: true
   TopicPageImages: true
   NewsCustomDateSearch: true
+  GroupLinkOnEvent: true
