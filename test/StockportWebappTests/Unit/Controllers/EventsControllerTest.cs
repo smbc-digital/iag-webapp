@@ -35,7 +35,6 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private readonly FeatureToggles _featureToggling = new FeatureToggles();
 
-
         public EventsControllerTest()
         {
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
