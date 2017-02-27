@@ -22,9 +22,11 @@ namespace StockportWebapp.Models
         public MapPosition MapPosition { get; }
         public string BookingInformation { get; set; }
 
+        public Group Group { get; set; }
+
         public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description, 
                                string fee, string location,string submittedBy, DateTime eventDate, string startTime, string endTime, 
-                               List<Crumb> breadcrumbs, List<string> categories, MapPosition mapPosition, string bookingInformation )
+                               List<Crumb> breadcrumbs, List<string> categories, MapPosition mapPosition, string bookingInformation, Group group )
         {
             Title = title;
             Slug = slug;
@@ -42,6 +44,7 @@ namespace StockportWebapp.Models
             Categories = categories;
             MapPosition = mapPosition;
             BookingInformation = bookingInformation;
+            Group = group;
         }
     }
 }

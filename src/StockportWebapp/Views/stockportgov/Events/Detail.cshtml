@@ -71,7 +71,19 @@
                                         <div class="events-details-heading">
                                             Submitted by
                                         </div>
-                                        @Model.SubmittedBy
+                                        @if (Model.Group.Name != string.Empty)
+                                        {
+                                            <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
+                                        }
+                                        else if (Model.SubmittedBy != string.Empty)
+                                        {
+                                            @Model.SubmittedBy
+                                        }
+                                        else
+                                        {
+                                            <br/>
+                                        }
+
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>

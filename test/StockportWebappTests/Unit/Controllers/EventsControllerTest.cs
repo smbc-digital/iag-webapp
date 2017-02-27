@@ -35,16 +35,24 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private readonly FeatureToggles _featureToggling = new FeatureToggles();
 
+
+        private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
+            twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
+            address: "");
+
+
         public EventsControllerTest()
         {
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
-                                      Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>() };
+                                      Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group};
             _categories = new List<string> {"Category 1", "Category 2"};
+
+
 
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
                 "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
-                new List<Crumb>(), _categories, new MapPosition(), "booking information");
+                new List<Crumb>(), _categories, new MapPosition(), "booking information",_group);
 
             // setup responses (with mock data)
             responseListing = new HttpResponse(200, eventsCalendar, "");
@@ -129,6 +137,7 @@ namespace StockportWebappTests.Unit.Controllers
             model.StartTime.Should().Be("startTime");
             model.EndTime.Should().Be("endTime");
             model.BookingInformation.Should().Be("booking information");
+            model.Group.Name.Should().Be("Test Group");
         }
 
         [Fact]

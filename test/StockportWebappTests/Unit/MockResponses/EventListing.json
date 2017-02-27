@@ -25,7 +25,20 @@
           "type": "events"
         }
       ],
-      "categories": [ "Category 1", "Category 2" ]
+      "categories": [ "Category 1", "Category 2" ],
+      "group": {
+        "name": "Zumba Fitness",
+        "slug": "zumba-fitness",
+        "phoneNumber": "phone",
+        "email": "email",
+        "website": "",
+        "twitter": null,
+        "facebook": null,
+        "address": "Test street",
+        "description": "",
+        "imageUrl": "",
+        "thumbnailImageUrl": ""
+      }
     },
 
     {
@@ -53,7 +66,20 @@
           "type": "events"
         }
       ],
-      "categories": [ "Category 1", "Category 2" ]
+      "categories": [ "Category 1", "Category 2" ],
+      "group": {
+        "name": "Zumba Fitness",
+        "slug": "zumba-fitness",
+        "phoneNumber": "phone",
+        "email": "email",
+        "website": "",
+        "twitter": null,
+        "facebook": null,
+        "address": "Test street",
+        "description": "",
+        "imageUrl": "",
+        "thumbnailImageUrl": ""
+      }
     }
   ],
   "categories": [ "Category 1", "Category 2" ]

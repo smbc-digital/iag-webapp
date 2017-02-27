@@ -27,5 +27,18 @@
     "Lon": 0,
     "Lat": 0
   },
-  "tags":[]
+  "group": {
+    "name": "Zumba Fitness",
+    "slug": "zumba-fitness",
+    "phoneNumber": "phone",
+    "email": "email",
+    "website": "",
+    "twitter": null,
+    "facebook": null,
+    "address": "Test street",
+    "description": "",
+    "imageUrl": "",
+    "thumbnailImageUrl": ""
+  },
+  "tags": []
 }

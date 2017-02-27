@@ -25,6 +25,7 @@ namespace StockportWebapp.Models
         public string BookingInformation { get; set; }
         public DateTime UpdatedAt { get; set; }
         public List<string> Tags { get; set; }
+        public Group Group { get; set; }
     }
 
     public class MapPosition
