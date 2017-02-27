@@ -41,6 +41,8 @@ namespace StockportWebapp.Models
         public DateTime? EndDate { get; set; }
 
 
+        public string RecurringEventYn { get; set; }
+
         public Dictionary<string,string> Frequencylist = new Dictionary<string, string>()
         {
             { "Daily",""},
