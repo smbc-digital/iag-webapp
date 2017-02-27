@@ -94,7 +94,15 @@
                                         </div>
                                         @if (!string.IsNullOrEmpty(Model.Website))
                                         {
-                                            <a href="http://@Model.Website">@Model.Website</a>
+                                            if (Model.Website.StartsWith("http://") || Model.Website.StartsWith("https://"))
+                                            {
+                                                <a href="@Model.Website">@Model.Website</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="http://@Model.Website">@Model.Website</a>
+                                            }
+
                                         }
                                         else
                                         {
