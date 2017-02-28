@@ -2,16 +2,14 @@
 prod: &prod
   FooterCache: true
   NewsCustomDateSearch: true
-  NewsroomPagination: false
-  EventsPagination: false
+  NewsroomPagination: true
+  EventsPagination: true
   EventCustomDateSearch: true
   TopicPageImages: false
+  GroupLinkOnEvent: true
 
 stage: &stage
   << : *prod
-  NewsroomPagination: true
-  EventsPagination: true
-  GroupLinkOnEvent: true
   TopicPageImages: true
 
 qa: &qa
