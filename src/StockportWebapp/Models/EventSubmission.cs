@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
@@ -61,13 +62,10 @@ namespace StockportWebapp.Models
         [Display(Name = "Price")]
         public string Fee { get; set; }
 
-        [Required]
+        
+        [MaxNumberOfCategoriesValidation]
         [Display(Name = "Categories")]
-        public List<string> Categories{get; set;}
-
-        [Required]
-        [Display(Name = "Categories")]
-        public List<string> SelectedCategories { get; set; }
+        public List<CategoryListItem> SelectedCategories { get; set; }
 
         [Required]
         public string Location { get; set; }
@@ -96,13 +94,13 @@ namespace StockportWebapp.Models
         public string SubmitterEmail { get; set; }
 
         public EventSubmission()
-        {
-            Categories = AddCategories();
+        {           
+            SelectedCategories = BuildCategoryList();
         }
 
         public EventSubmission(string title, DateTime eventDate, DateTime startTime, DateTime endTime,
             DateTime endDate, string frequency, string fee, string location, string submittedBy,
-            IFormFile image, string description, IFormFile attachment, string submitterEmail, List<string> selectedCategories)
+            IFormFile image, string description, IFormFile attachment, string submitterEmail, List<CategoryListItem> selectedCategories)
         {
             Title = title;
             EventDate = eventDate;
@@ -117,15 +115,34 @@ namespace StockportWebapp.Models
             Description = description;
             Attachment = attachment; 
             SubmitterEmail = submitterEmail;
-            Categories = AddCategories();
             SelectedCategories = selectedCategories;
         }
 
-        public List<string> AddCategories()
+       
+
+
+
+        public List<CategoryListItem> BuildCategoryList()
         {
-            return new List<string> {"Air Raid Shelters", "Arts and crafts", "Bramall Hall", "Business", "Community and charity", "Children and families", "Dancing", "Digital skills", "Education and learning", "Fairs",
+           var categories = new  List <string> {
+                "Air Raid Shelters", "Arts and crafts", "Bramall Hall", "Business", "Community and charity", "Children and families", "Dancing", "Digital skills", "Education and learning", "Fairs",
                 "Food and drink", "Hat Works", "Health and wellbeing", "Libraries", "Markets", "Museums", "Music and concerts", "Open days and drop-ins", "Parks and outdoors", "Seasonal", "Sports and fitness",
                 "Staircase House", "Stockport War Memorial Art Gallery", "Talks and lectures", "Town Hall", "Theatre, performance and comedy", "Other"};
+
+            var listCategoryItems = new List<CategoryListItem>();
+
+            foreach (var item in categories)
+            {
+                listCategoryItems.Add(new CategoryListItem() {Name = item ,Selected = false});
+            }
+
+            return listCategoryItems;
         }
+    }
+
+    public class CategoryListItem
+    {
+        public string Name { get; set; }
+        public bool Selected { get; set; } = false;      
     }
 }

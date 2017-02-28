@@ -8,7 +8,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Events", "events", "events")})
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Events", "events", "events") })
 }
 
 <div class="grid-container-full-width">
@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                         }
-                        
+
                         <form method="post" role="form" action="@Url.Action("SubmitEvent")" enctype="multipart/form-data" novalidate>
                             @Html.AntiForgeryToken()
                             <div class="form">
@@ -41,7 +41,7 @@
                                         <label asp-for="@Model.Title"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Title" />
                                         <span asp-validation-for="@Model.Title" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
+
                                         <label asp-for="@Model.Description"></label>
                                         <i class="small">
                                             <ul>
@@ -51,25 +51,25 @@
                                         </i>
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
-                                        
+
+
                                         <label asp-for="@Model.Location"></label>
                                         <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Location" />
                                         <span asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
+
 
                                         <label asp-for="@Model.EventDate"></label>
                                         <input type="date" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control datepicker" asp-for="@Model.EventDate" />
                                         <span asp-validation-for="@Model.EventDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
+
                                         <label asp-for="@Model.StartTime"></label>
                                         <i>Format: hh:mm (24 hour clock)</i>
                                         <div class="clearfix"></div>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.StartTime" />
                                         <span asp-validation-for="@Model.StartTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label asp-for="@Model.EndTime"></label>
-                                        
+
                                         <i>Format: hh:mm (24 hour clock)</i>
                                         <div class="clearfix"></div>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndTime" />
@@ -79,15 +79,14 @@
                                         <div class="recurring-event-yn">
                                             <label>Is this a recurring event?</label>
                                             <ul class="radio-list">
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnNo" value="No" checked="checked" class="schedule_multiple_events"/>No</label></li>
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnYes" value="Yes" class="schedule_multiple_events"/>Yes</label></li>
+                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnNo" value="No" checked="checked" class="schedule_multiple_events" />No</label></li>
+                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnYes" value="Yes" class="schedule_multiple_events" />Yes</label></li>
                                             </ul>
                                         </div>
 
                                         <div class="schedule_multiple_events_inputs">
                                             <label asp-for="@Model.Frequency"></label>
                                             <ul class="radio-list">
-                                                <
                                                 @foreach (var item in Model.Frequencylist.Keys)
                                                 {
                                                     <li>
@@ -96,7 +95,8 @@
                                                     </li>
                                                     if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
                                                     {
-                                                        <p><i>@Model.Frequencylist[item]</i>
+                                                        <p>
+                                                            <i>@Model.Frequencylist[item]</i>
                                                         </p>
                                                     }
                                                 }
@@ -111,15 +111,29 @@
                                         <label asp-for="@Model.Fee"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                      
-                                        @foreach (var item in Model.Categories)
-                                        {
-                                            <label><input type="checkbox" value="@item" asp-for="SelectedCategories">@item</label>
-                                        }
+                                        <label>Select Categories</label>
 
+                                        <div class="grid-50">
+                                            @for (int i = 0; i < Model.SelectedCategories.Count / 2 + 1;i++)
+                                            {
+                                                <label class=""><input type="checkbox"  asp-for="@Model.SelectedCategories[i].Selected">@Model.SelectedCategories[i].Name</label>
+                                                <input type="hidden" value="@Model.SelectedCategories[i].Name"  asp-for="SelectedCategories[i].Name"/>
+                                            }
+                                        </div>
+                                        <div class="grid-50">
+                                           @for (int i = Model.SelectedCategories.Count / 2 + 1; i < Model.SelectedCategories.Count; i++)
+                                           {
+                                                <label class=""><input type="checkbox" asp-for="@Model.SelectedCategories[i].Selected">@Model.SelectedCategories[i].Name</label>
+                                                <input type="hidden" value="@Model.SelectedCategories[i].Name" asp-for="SelectedCategories[i].Name" />
+                                           }
+                                        </div>
 
                                        
-                                        
+
+
+
+
+
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Image"></label>
@@ -130,7 +144,7 @@
                                         </i>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
                                         <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
+
                                         <label asp-for="@Model.Attachment"></label>
                                         <i>
                                             Add a document that will help to promote your events; such as brochures or booklets
