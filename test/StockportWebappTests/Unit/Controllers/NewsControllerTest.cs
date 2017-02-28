@@ -205,9 +205,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturns404NotFoundForNews()
+        public void ItReturns404NotFoundForNewsArticleThatdoesNotExist()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("404-news")) as HttpResponse;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("this-news-article-does-not-exist")) as HttpResponse;
 
             actionResponse.StatusCode.Should().Be(404);
         }
@@ -294,6 +294,5 @@ namespace StockportWebappTests.Unit.Controllers
 
             news.News.Count.Should().Be(5);
         }
-
     }
 }

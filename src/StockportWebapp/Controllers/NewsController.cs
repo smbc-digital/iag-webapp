@@ -27,7 +27,15 @@ namespace StockportWebapp.Controllers
         private readonly IFilteredUrl _filteredUrl;
         private readonly FeatureToggles _featureToggles;
 
-        public NewsController(IRepository repository, IProcessedContentRepository processedContentRepository, IRssFeedFactory rssfeedFactory, ILogger<NewsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl, FeatureToggles featureToggles)
+        public NewsController(
+            IRepository repository, 
+            IProcessedContentRepository processedContentRepository, 
+            IRssFeedFactory rssfeedFactory, 
+            ILogger<NewsController> logger, 
+            IApplicationConfiguration config, 
+            BusinessId businessId, 
+            IFilteredUrl filteredUrl, 
+            FeatureToggles featureToggles)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
