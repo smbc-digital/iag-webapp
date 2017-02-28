@@ -112,7 +112,7 @@
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label>Select Categories</label>
-
+                                        <span asp-validation-for="@Model.SelectedCategories" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div class="grid-50">
                                             @for (int i = 0; i < Model.SelectedCategories.Count / 2 + 1;i++)
                                             {
@@ -127,14 +127,14 @@
                                                 <input type="hidden" value="@Model.SelectedCategories[i].Name" asp-for="SelectedCategories[i].Name" />
                                            }
                                         </div>
-
+                                        
                                        
 
 
 
 
 
-                                        <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                       
 
                                         <label asp-for="@Model.Image"></label>
                                         <i>
