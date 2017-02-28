@@ -14,6 +14,7 @@ namespace StockportWebapp.Utils
         RouteValueDictionary WithoutDateFilter();
         bool HasNoDateFilter();
         RouteValueDictionary WithoutTagFilter();
+        RouteValueDictionary AddDateFilter(string DateFrom, string DateTo, string DateRange);
     }
 
     public class FilteredUrl : IFilteredUrl
@@ -63,6 +64,18 @@ namespace StockportWebapp.Utils
         public RouteValueDictionary WithoutDateFilter()
         {
             return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"DateFrom", "DateTo","daterange", "Page" });
+        }
+
+        public RouteValueDictionary AddDateFilter(string DateFrom, string DateTo, string DateRange)
+        {
+            return
+                _queryUrl.AddQueriesToUrl(new Dictionary<string, string>
+                {
+                    {"DateFrom", DateFrom},
+                    {"DateTo", DateTo},
+                    {"daterange", DateRange},
+                    {"Page", "1" }
+                });
         }
 
         public bool HasNoDateFilter()

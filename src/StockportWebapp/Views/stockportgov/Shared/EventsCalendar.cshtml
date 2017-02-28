@@ -34,7 +34,7 @@
                             @foreach (var eventFilter in DateCalculator.EventFilters)
                             {
                                 <li class="@(Model.DateRange == eventFilter.Key ? "active" : "")">
-                                    <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"DateFrom", eventFilter.Value.DateFrom}, {"DateTo", eventFilter.Value.DateTo}, {"daterange", eventFilter.Key}}))"> @eventFilter.Value.DateRange </a>
+                                    <a href="@Url.RouteUrl(Model.FilteredUrl.AddDateFilter(eventFilter.Value.DateFrom, eventFilter.Value.DateTo, eventFilter.Value.DateRange ))"> @eventFilter.Value.DateRange </a>
                                 </li>
                             }
                             @{
