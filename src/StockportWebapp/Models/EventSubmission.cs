@@ -15,8 +15,8 @@ namespace StockportWebapp.Models
 
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name="Event date")]
-        [FutureDateValidation] 
+        [Display(Name = "Event date")]
+        [FutureDateValidation]
         public DateTime? EventDate { get; set; }
 
 
@@ -30,20 +30,20 @@ namespace StockportWebapp.Models
         [Display(Name = "End time")]
         [DataType(DataType.Time)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
-        [EndTimeLaterThanStartTimeValidation(otherPropertyName:"StartTime", erroMessgae:"End Time should be after Start Time")]
+        [EndTimeLaterThanStartTimeValidation(otherPropertyName: "StartTime", erroMessgae: "End Time should be after Start Time")]
         public DateTime? EndTime { get; set; }
 
         [FutureDateValidation]
         [DataType(DataType.Date)]
-        [Display(Name = "End date (optional)")]
-        [EndDateLaterThanStartDateValidation(otherPropertyName:"EventDate", erroMessgae: "End Date should be after Start Date")]
-        [EndDateGreaterThanStartDateFrequencyPeriodValidation(otherPropertyName:"EventDate",frequencyPropertyName:"Frequency",erroMessgae:"End Date should be after Start Date")]
+        [Display(Name = "End date")]
+        [EndDateLaterThanStartDateValidation(otherPropertyName: "EventDate", erroMessgae: "End Date should be after Start Date")]
+        [EndDateGreaterThanStartDateFrequencyPeriodValidation(otherPropertyName: "EventDate", frequencyPropertyName: "Frequency", erroMessgae: "End Date should be after Start Date")]
         public DateTime? EndDate { get; set; }
 
 
         public string RecurringEventYn { get; set; }
 
-        public Dictionary<string,string> Frequencylist = new Dictionary<string, string>()
+        public Dictionary<string, string> Frequencylist = new Dictionary<string, string>()
         {
             { "Daily",""},
             { "Weekly",""},
@@ -53,13 +53,21 @@ namespace StockportWebapp.Models
             { "Yearly",""}
         };
 
-        [Display(Name = "How often does your event occur? (optional)")]
+        [Display(Name = "How often does your event occur?")]
         public string Frequency { get; set; }
 
         [Required]
         [MaxLength(255)]
         [Display(Name = "Price")]
         public string Fee { get; set; }
+
+        [Required]
+        [Display(Name = "Categories")]
+        public List<string> Categories{get; set;}
+
+        [Required]
+        [Display(Name = "Categories")]
+        public List<string> SelectedCategories { get; set; }
 
         [Required]
         public string Location { get; set; }
@@ -87,25 +95,37 @@ namespace StockportWebapp.Models
         [Display(Name = "Organiser email address")]
         public string SubmitterEmail { get; set; }
 
-        public EventSubmission() { }
+        public EventSubmission()
+        {
+            Categories = AddCategories();
+        }
 
         public EventSubmission(string title, DateTime eventDate, DateTime startTime, DateTime endTime,
-            DateTime endDate, string frequency, string fee, string location, string submittedBy, 
-            IFormFile image, string description, IFormFile attachment, string submitterEmail)
+            DateTime endDate, string frequency, string fee, string location, string submittedBy,
+            IFormFile image, string description, IFormFile attachment, string submitterEmail, List<string> selectedCategories)
         {
             Title = title;
             EventDate = eventDate;
             StartTime = startTime;
             EndTime = endTime;
-            EndDate = endDate;     
+            EndDate = endDate;
             Frequency = frequency;
             Fee = fee;
             Location = location;
             SubmittedBy = submittedBy;
             Image = image;
             Description = description;
-            Attachment = attachment;
+            Attachment = attachment; 
             SubmitterEmail = submitterEmail;
+            Categories = AddCategories();
+            SelectedCategories = selectedCategories;
+        }
+
+        public List<string> AddCategories()
+        {
+            return new List<string> {"Air Raid Shelters", "Arts and crafts", "Bramall Hall", "Business", "Community and charity", "Children and families", "Dancing", "Digital skills", "Education and learning", "Fairs",
+                "Food and drink", "Hat Works", "Health and wellbeing", "Libraries", "Markets", "Museums", "Music and concerts", "Open days and drop-ins", "Parks and outdoors", "Seasonal", "Sports and fitness",
+                "Staircase House", "Stockport War Memorial Art Gallery", "Talks and lectures", "Town Hall", "Theatre, performance and comedy", "Other"};
         }
     }
 }

@@ -87,15 +87,17 @@
                                         <div class="schedule_multiple_events_inputs">
                                             <label asp-for="@Model.Frequency"></label>
                                             <ul class="radio-list">
+                                                <
                                                 @foreach (var item in Model.Frequencylist.Keys)
                                                 {
                                                     <li>
                                                         <label><input type="radio" value="@item" asp-for="Frequency"> @item</label>
-                                                       
+
                                                     </li>
                                                     if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
                                                     {
-                                                        <p><i>@Model.Frequencylist[item]</i></p>
+                                                        <p><i>@Model.Frequencylist[item]</i>
+                                                        </p>
                                                     }
                                                 }
                                             </ul>
@@ -109,7 +111,17 @@
                                         <label asp-for="@Model.Fee"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                      
+                                        @foreach (var item in Model.Categories)
+                                        {
+                                            <label><input type="checkbox" value="@item" asp-for="SelectedCategories">@item</label>
+                                        }
+
+
+                                       
                                         
+                                        <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
                                         <label asp-for="@Model.Image"></label>
                                         <i>
                                             Choose an image that captures your event

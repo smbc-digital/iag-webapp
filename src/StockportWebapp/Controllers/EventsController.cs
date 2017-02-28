@@ -125,8 +125,8 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events/submit-event")]
-        public IActionResult SubmitEvent()
-        {
+        public async Task<IActionResult> SubmitEvent()
+        {         
             var eventSubmission = new EventSubmission();
             return View(eventSubmission);
         }
