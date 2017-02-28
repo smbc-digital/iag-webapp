@@ -112,31 +112,25 @@
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label>Select Categories</label>
+                                        <i>Select at least one and no more than three</i>
                                         <span asp-validation-for="@Model.SelectedCategories" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        <div class="grid-50">
-                                            @for (int i = 0; i < Model.SelectedCategories.Count / 2 + 1;i++)
-                                            {
-                                                <label class=""><input type="checkbox"  asp-for="@Model.SelectedCategories[i].Selected">@Model.SelectedCategories[i].Name</label>
-                                                <input type="hidden" value="@Model.SelectedCategories[i].Name"  asp-for="SelectedCategories[i].Name"/>
-                                            }
+                                        <div class="grid-100">
+                                            <div class="grid-50">
+                                                @for (int i = 0; i < Model.SelectedCategories.Count / 2 + 1; i++)
+                                                {
+                                                    <label class=""><input type="checkbox" asp-for="SelectedCategories[i].Selected">@Model.SelectedCategories[i].Name</label>
+                                                    <input type="hidden" value="@Model.SelectedCategories[i].Name" asp-for="SelectedCategories[i].Name" />
+                                                }
+                                            </div>
+                                            <div class="grid-50">
+                                                @for (int i = Model.SelectedCategories.Count / 2 + 1; i < Model.SelectedCategories.Count; i++)
+                                                {
+                                                    <label class=""><input type="checkbox" asp-for="SelectedCategories[i].Selected">@Model.SelectedCategories[i].Name</label>
+                                                    <input type="hidden" value="@Model.SelectedCategories[i].Name" asp-for="SelectedCategories[i].Name" />
+                                                }
+                                            </div>
                                         </div>
-                                        <div class="grid-50">
-                                           @for (int i = Model.SelectedCategories.Count / 2 + 1; i < Model.SelectedCategories.Count; i++)
-                                           {
-                                                <label class=""><input type="checkbox" asp-for="@Model.SelectedCategories[i].Selected">@Model.SelectedCategories[i].Name</label>
-                                                <input type="hidden" value="@Model.SelectedCategories[i].Name" asp-for="SelectedCategories[i].Name" />
-                                           }
-                                        </div>
-                                        
-                                       
-
-
-
-
-
-                                       
-
-                                        <label asp-for="@Model.Image"></label>
+                                       <label asp-for="@Model.Image"></label>
                                         <i>
                                             Choose an image that captures your event
                                             <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
