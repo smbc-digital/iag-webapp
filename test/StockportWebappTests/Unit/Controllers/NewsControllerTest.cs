@@ -79,8 +79,6 @@ namespace StockportWebappTests.Unit.Controllers
 
             _processedContentRepository.Setup(o => o.Get<News>("another-news-article", null))
                 .ReturnsAsync(responseDetail);
-            _processedContentRepository.Setup(o => o.Get<News>("404-news", null))
-                .ReturnsAsync(response404);
 
             _logger = new Mock<ILogger<NewsController>>();
 
@@ -207,8 +205,15 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItReturns404NotFoundForNewsArticleThatdoesNotExist()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("this-news-article-does-not-exist")) as HttpResponse;
+            // Arrange
+            string nonexistentArticleTitle = "this-news-article-does-not-exist";
+            _processedContentRepository.Setup(o => o.Get<News>(nonexistentArticleTitle, null))
+                .ReturnsAsync(new HttpResponse(404, null, "not found"));
 
+            // Act
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail(nonexistentArticleTitle)) as HttpResponse;
+
+            // Assert
             actionResponse.StatusCode.Should().Be(404);
         }
 
@@ -296,19 +301,19 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsa404WhenNotReachedSunriseDate()
+        public void ItReturnsa404WhenNewsArticleHasSunriseDateAfterToday()
         {
-            DateTime FutureDate = DateTime.Now.AddDays(10);
+            DateTime FutureDate = DateTime.Now.AddDays(10); 
 
             ProcessedNews FutureNews = new ProcessedNews("Another news article",
             "another-news-article",
-            "This is another news article",
+            "This is another news article", 
             "image.jpg",
             "thumbnail.jpg",
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
             new List<Crumb>(), FutureDate, FutureDate.AddDays(20), new List<Alert>(), new List<string> { "Events", "Bramall Hall" });
 
-            _processedContentRepository.Setup(o => o.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, FutureNews, ""));
+            _processedContentRepository.Setup(o => o.Get<News>(string.Empty, It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, FutureNews, ""));
             var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId), _filteredUrl.Object, _featureToggles);
             var response = AsyncTestHelper.Resolve(controller.Detail("")) as HttpResponse;
 

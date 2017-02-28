@@ -113,18 +113,30 @@ namespace StockportWebapp.Controllers
         [Route("/news/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
-            var httpResponse = await _processedContentRepository.Get<News>(slug);
+            HttpResponse initialResponse = await _processedContentRepository.Get<News>(slug);
+            IActionResult finalResult = (IActionResult)initialResponse;
 
-            if (!httpResponse.IsSuccessful()) return httpResponse;
+            if (initialResponse.IsSuccessful())
+            {
+                var response = initialResponse.Content as ProcessedNews;
 
-            var response = httpResponse.Content as ProcessedNews;
-            var latestNewsResponse = await _repository.Get<List<News>>("7");
-            var latestNews = latestNewsResponse.Content as List<News>;
-            var newsViewModel = new NewsViewModel(response, latestNews);
+                if (response.SunriseDate > DateTime.Now)
+                {
+                    finalResult = new HttpResponse(404, "", "");
+                }
+                else
+                {
+                    var latestNewsResponse = await _repository.Get<List<News>>("7");
+                    var latestNews = latestNewsResponse.Content as List<News>;
+                    var newsViewModel = new NewsViewModel(response, latestNews);
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+                    ViewBag.CurrentUrl = Request?.GetUri();
 
-            return View(newsViewModel);
+                    finalResult = View(newsViewModel);
+                }
+            }
+
+            return finalResult;
         }
 
         [Route("news/rss")]
