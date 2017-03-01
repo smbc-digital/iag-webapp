@@ -20,3 +20,10 @@ int:
   << : *prod
   << : *stage
   << : *qa
+
+local:
+  << : *prod
+  << : *prod
+  << : *stage
+  << : *qa
+  << : *int

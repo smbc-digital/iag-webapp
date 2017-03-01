@@ -46,7 +46,8 @@
     "AngleSharp": "0.9.9",
     "AWSSDK.Core": "3.3.7.1",
     "AWSSDK.SimpleEmail": "3.3.1.4",
-    "MimeKit": "1.10.0"
+    "MimeKit": "1.10.0",
+    "StackExchange.Redis": "1.1.608"
   },
 
   "tools": {

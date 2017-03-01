@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
@@ -16,8 +15,8 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
+using NLog;
 using NLog.Extensions.Logging;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.AmazonSES;
@@ -31,6 +30,9 @@ using StockportWebapp.Parsers;
 using StockportWebapp.RSS;
 using StockportWebapp.Scheduler;
 using StockportWebapp.ModelBinders;
+using StockportWebapp.DataProtection;
+using System.Linq;
+using System.Net;
 
 namespace StockportWebapp
 {
@@ -138,6 +140,8 @@ namespace StockportWebapp
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
             services.AddTransient<IDateCalculator>(p => new DateCalculator(p.GetService<ITimeProvider>()));
 
+            ConfigureDataProtection(services);
+
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc(options =>
@@ -197,7 +201,31 @@ namespace StockportWebapp
             app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
             app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
         }
-    }
 
-    
+        private void ConfigureDataProtection(IServiceCollection services)
+        {
+            var logger = LogManager.GetCurrentClassLogger();
+            var redisUrl = Configuration["TokenStoreUrl"];
+            var useRedisSession = Configuration["UseRedisSessions"];
+
+            if (useRedisSession == "true")
+            {
+                var redisIp = GetHostEntryForUrl(redisUrl);
+                logger.Info($"Using redis for session management - url {redisUrl}, ip {redisIp}");
+                services.AddDataProtection().PersistKeysToRedis(redisIp);
+            }
+            else
+            {
+                logger.Info("Not using redis for session management!");
+            }
+        }
+
+        private static string GetHostEntryForUrl(string host)
+        {
+            var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
+
+            // TODO : What happens if we get multiple IP's?
+            return addresses.FirstOrDefault().ToString();
+        }
+    }
 }
