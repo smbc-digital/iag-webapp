@@ -120,12 +120,6 @@ namespace StockportWebapp.Controllers
             {
                 var response = initialResponse.Content as ProcessedNews;
 
-                if (response.SunriseDate > DateTime.Now)
-                {
-                    finalResult = new HttpResponse(404, "", "");
-                }
-                else
-                {
                     var latestNewsResponse = await _repository.Get<List<News>>("7");
                     var latestNews = latestNewsResponse.Content as List<News>;
                     var newsViewModel = new NewsViewModel(response, latestNews);
@@ -133,7 +127,6 @@ namespace StockportWebapp.Controllers
                     ViewBag.CurrentUrl = Request?.GetUri();
 
                     finalResult = View(newsViewModel);
-                }
             }
 
             return finalResult;

@@ -299,25 +299,5 @@ namespace StockportWebappTests.Unit.Controllers
 
             news.News.Count.Should().Be(5);
         }
-
-        [Fact]
-        public void ItReturnsa404WhenNewsArticleHasSunriseDateAfterToday()
-        {
-            DateTime FutureDate = DateTime.Now.AddDays(10); 
-
-            ProcessedNews FutureNews = new ProcessedNews("Another news article",
-            "another-news-article",
-            "This is another news article", 
-            "image.jpg",
-            "thumbnail.jpg",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-            new List<Crumb>(), FutureDate, FutureDate.AddDays(20), new List<Alert>(), new List<string> { "Events", "Bramall Hall" });
-
-            _processedContentRepository.Setup(o => o.Get<News>(string.Empty, It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, FutureNews, ""));
-            var controller = new NewsController(_repository.Object, _processedContentRepository.Object, _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId), _filteredUrl.Object, _featureToggles);
-            var response = AsyncTestHelper.Resolve(controller.Detail("")) as HttpResponse;
-
-            response.StatusCode.Should().Be(404);
-        }
     }
 }
