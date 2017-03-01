@@ -19,7 +19,7 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly EventsRepository _eventsRepository;
         private readonly Mock<ILogger<EventsRepository>> _logger;
         private readonly Mock<IHttpEmailClient> _emailClient;
-        private readonly List<CategoryListItem> _categoryListItems;
+       
 
         public EventRepositoryTests()
         {
@@ -33,15 +33,14 @@ namespace StockportWebappTests.Unit.Repositories
                 .Returns(AppSetting.GetAppSetting("EventSubmissionEmail"));
 
             _eventsRepository = new EventsRepository(_logger.Object, _emailClient.Object, applicationConfiguration.Object, new BusinessId("businessId"));
-            _categoryListItems = new List<CategoryListItem>() {new CategoryListItem() {Name = "category", Selected = true},
-                new CategoryListItem() {Name = "category 2", Selected = false} };
+          
         }
 
         [Fact]
         public void ItShouldBuildAEmailBodyFromFormContent()
         {
             var eventSubmission = new EventSubmission("title", new DateTime(2016, 01, 01), new DateTime(2017, 01, 01, 15, 00, 00), new DateTime(2017, 01, 01, 18, 00, 00), new DateTime(2016, 01, 01), "frequency",
-                "fee", "location", "submitted by", null, "description", null, "email", _categoryListItems);
+                "fee", "location", "submitted by", null, "description", null, "email", "category 1","","");
 
             var response = _eventsRepository.GenerateEmailBody(eventSubmission);
 
@@ -55,8 +54,7 @@ namespace StockportWebappTests.Unit.Repositories
             response.Should().Contain("Organiser name: submitted by");
             response.Should().Contain("Description: description");
             response.Should().Contain("Organiser email address: email");
-            response.Should().Contain("Categories: category");
-            response.Should().NotContain("category 2");
+            response.Should().Contain("Categories: category 1");          
         }
 
         [Fact]

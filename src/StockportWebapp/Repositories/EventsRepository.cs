@@ -54,12 +54,11 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append($"Organiser name: {eventSubmission.SubmittedBy}<br />");
             stringBuilder.Append($"Description: {eventSubmission.Description}<br />");
             if (eventSubmission.Image != null) stringBuilder.Append($"Event image: {FileHelper.GetFileNameFromPath(eventSubmission.Image)}<br />");
-            stringBuilder.Append($"Categories:");
-            foreach (var category in eventSubmission.SelectedCategories)
-            {
-                if (category.Selected)
-                    stringBuilder.Append($" {category.Name},");
-            }
+            stringBuilder.Append($"Categories: {eventSubmission.Category1}");
+            if (!string.IsNullOrEmpty(eventSubmission.Category2))
+                stringBuilder.Append($", {eventSubmission.Category2}");
+            if (!string.IsNullOrEmpty(eventSubmission.Category3))
+                stringBuilder.Append($", {eventSubmission.Category3}");
             stringBuilder.Append($"<br />");
             if (eventSubmission.Attachment != null) stringBuilder.Append($"Additional event document: {FileHelper.GetFileNameFromPath(eventSubmission.Attachment)}<br />");
             stringBuilder.Append($"<br />Organiser email address: {eventSubmission.SubmitterEmail}");

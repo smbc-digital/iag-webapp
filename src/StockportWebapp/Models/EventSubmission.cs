@@ -62,10 +62,18 @@ namespace StockportWebapp.Models
         [Display(Name = "Price")]
         public string Fee { get; set; }
 
+        public List<string> Categories;
         
-        [MaxNumberOfCategoriesValidation]
-        [Display(Name = "Categories")]
-        public List<CategoryListItem> SelectedCategories { get; set; }
+        [Required]
+        [MaxLength(255)]
+        public string Category1 { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        public string Category2 { get; set; }
+
+        [MaxLength(255)]
+        public string Category3{ get; set; }
 
         [Required]
         public string Location { get; set; }
@@ -95,12 +103,12 @@ namespace StockportWebapp.Models
 
         public EventSubmission()
         {           
-            SelectedCategories = BuildCategoryList();
+           Categories = BuildCategoryList();
         }
 
         public EventSubmission(string title, DateTime eventDate, DateTime startTime, DateTime endTime,
             DateTime endDate, string frequency, string fee, string location, string submittedBy,
-            IFormFile image, string description, IFormFile attachment, string submitterEmail, List<CategoryListItem> selectedCategories)
+            IFormFile image, string description, IFormFile attachment, string submitterEmail, string category1, string category2, string category3 )
         {
             Title = title;
             EventDate = eventDate;
@@ -115,34 +123,25 @@ namespace StockportWebapp.Models
             Description = description;
             Attachment = attachment; 
             SubmitterEmail = submitterEmail;
-            SelectedCategories = selectedCategories;
+            Category1 = category1;
+            Category2 = category2;
+            Category3 = category3;
         }
 
        
 
 
 
-        public List<CategoryListItem> BuildCategoryList()
+        public List<string> BuildCategoryList()
         {
-           var categories = new  List <string> {
+           return new List<string> {
                 "Air Raid Shelters", "Arts and crafts", "Bramall Hall", "Business", "Community and charity", "Children and families", "Dancing", "Digital skills", "Education and learning", "Fairs",
                 "Food and drink", "Hat Works", "Health and wellbeing", "Libraries", "Markets", "Museums", "Music and concerts", "Open days and drop-ins", "Parks and outdoors", "Seasonal", "Sports and fitness",
-                "Staircase House", "Stockport War Memorial Art Gallery", "Talks and lectures", "Town Hall", "Theatre, performance and comedy", "Other"};
+                "Staircase House", "Stockport War Memorial Art Gallery", "Talks and lectures", "Town Hall", "Theatre, performance and comedy"};
 
-            var listCategoryItems = new List<CategoryListItem>();
-
-            foreach (var item in categories)
-            {
-                listCategoryItems.Add(new CategoryListItem() {Name = item ,Selected = false});
-            }
-
-            return listCategoryItems;
+          
         }
     }
 
-    public class CategoryListItem
-    {
-        public string Name { get; set; }
-        public bool Selected { get; set; } = false;      
-    }
+   
 }
