@@ -127,7 +127,7 @@
                             previousEnteredDate = subItem.EventDate.Date;
                         }
                         <div class="events-bottom-border grid-100 grid-parent">
-                            <a href="@Url.Action("Detail", "Events", new {slug = subItem.Slug, date = subItem.EventDate.ToString("yyyy-MM-dd")})">
+                            <a class="uitest-eventlink" href="@Url.Action("Detail", "Events", new {slug = subItem.Slug, date = subItem.EventDate.ToString("yyyy-MM-dd")})">
                                 @if (!string.IsNullOrEmpty(subItem.ThumbnailImageUrl))
                                 {
                                     <div class="mobile-grid-35 tablet-grid-30 grid-30 grid-parent nav-card-events-thumbnail nav-card-events-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@subItem.ThumbnailImageUrl);"></div>

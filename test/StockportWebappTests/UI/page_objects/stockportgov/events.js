@@ -1,17 +1,12 @@
 var methods = {
-    assertEventTitleIsVisible: function (title) {
-        this.waitForElementVisible('@pageTitle', this.api.globals.timeOut)
-            .expect.element('@pageTitle').text.to.equal(title);
+    assertEventHasTitle: function (browser) {
+        this.waitForElementVisible('@pageTitle', this.api.globals.timeOut);
+        browser.useCss().assert.visible("h1.events-article-title");
     },
 
     assertHeadingStampPresent: function (browser) {
         this.waitForElementVisible('@headingStamp', this.api.globals.timeOut)
             .expect.element('@headingStamp').text.to.contain("Date and time");
-    },
-
-    assertDescriptionPresent: function (browser) {
-        this.waitForElementVisible('@description', this.api.globals.timeOut)
-            .expect.element('@description').text.to.contain("Wellington Mill");
     }
 };
 

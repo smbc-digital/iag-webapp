@@ -10,6 +10,12 @@ var methods = {
             .click("//a[contains(@href,'" + link + "')]");
     },
 
+    goToFirstEvent: function (browser) {
+        this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
+        browser.useCss().assert.visible("h2.nav-card-events-title")
+            .click("a.uitest-eventlink");
+    },
+
     removeFirstFilter: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
         browser.useCss().click("li.filters-active li:first-child a");

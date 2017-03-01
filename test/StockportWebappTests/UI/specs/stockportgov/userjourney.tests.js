@@ -120,13 +120,12 @@ module.exports = {
        var eventcalendar = browser.page.stockportgov.eventscalendar();
        eventcalendar.assertTitleIsVisible("Events");
        eventcalendar.removeFirstFilter(browser);
-       eventcalendar.goToEventsWithTitle(browser, "UITEST: Hats Amazing", "/events/hats-amazing");
+       eventcalendar.goToFirstEvent(browser);
 
        var events = browser.page.stockportgov.events();
-       events.assertEventTitleIsVisible("UITEST: Hats Amazing");
+       events.assertEventHasTitle(browser);
 
        events.assertHeadingStampPresent();
-       events.assertDescriptionPresent();
    },
   
    'Navigate through AtoZ list to check Article listed under Both Title starting letter, & synonym letter': function (browser) {
