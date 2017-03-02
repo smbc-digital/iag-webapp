@@ -133,6 +133,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/events/submit-event")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitEvent(EventSubmission eventSubmission)
         {
             if (!ModelState.IsValid) return View(eventSubmission);

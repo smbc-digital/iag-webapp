@@ -34,6 +34,7 @@
                         }
                         
                         <form method="post" role="form" action="@Url.Action("SubmitEvent")" enctype="multipart/form-data" novalidate>
+                            @Html.AntiForgeryToken()
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
