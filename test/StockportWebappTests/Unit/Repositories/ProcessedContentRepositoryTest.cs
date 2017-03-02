@@ -216,13 +216,13 @@ namespace StockportWebappTests.Unit.Repositories
             _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>(slug));
-            var news = httpResponse.Content as ProcessedEvents;
+            var events = httpResponse.Content as ProcessedEvents;
 
-            news.Title.Should().Be("This is the event");
-            news.Slug.Should().Be("event-of-the-century");
-            news.Teaser.Should().Be("Read more for the event");
+            events.Title.Should().Be("This is the event");
+            events.Slug.Should().Be("event-of-the-century");
+            events.Teaser.Should().Be("Read more for the event");
 
-            news.Description.Should().Be(body);
+            events.Description.Should().Be(body);
         }
 
         [Fact]
@@ -276,7 +276,7 @@ namespace StockportWebappTests.Unit.Repositories
             group.Facebook.Should().Be("facebook.com/stockportzumba");
             group.Address.Should().Be("zumba house,\nzumba road,\nzumba zumba zumba");
             group.Description.Should().Be("The group description");
-        }
+        }      
     }
 }
 

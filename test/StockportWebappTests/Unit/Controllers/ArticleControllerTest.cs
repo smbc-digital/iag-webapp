@@ -13,6 +13,7 @@ using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Helper = StockportWebappTests.TestHelper;
 using static StockportWebapp.Models.LiveChat;
+using System;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -166,7 +167,8 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var alerts = new List<Alert>
             {
-                new Alert("title", "subheading", "body", Severity.Warning)
+                new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() {}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {}, alerts, new NullTopic(), false, new NullLiveChat());

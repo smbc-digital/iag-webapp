@@ -31,6 +31,8 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly DateTime _eventDate = new DateTime(2016, 12, 30);
         private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
         private readonly string _bookingInformation = "Booking information";
+        private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc)) };
 
         public EventFactoryTest()
         {
@@ -40,7 +42,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
             _event = new Event { Title = Title,  Slug = Slug,  Teaser = Teaser,  ImageUrl = Image,  ThumbnailImageUrl = ThumbnailImage, Description = Description, Fee = Fee, Location = Location,
                                  SubmittedBy = SubmittedBy, EventDate = _eventDate, StartTime = StartTime,
-                                 EndTime = EndTime, Breadcrumbs = _breadcrumbs, BookingInformation = _bookingInformation};
+                                 EndTime = EndTime, Breadcrumbs = _breadcrumbs, BookingInformation = _bookingInformation, Alerts = _alerts};
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
@@ -62,6 +64,12 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.StartTime.Should().Be("10:00");
             result.EndTime.Should().Be("17:00");
             result.BookingInformation.Should().Be("Booking information");
+            result.Alerts[0].Title.Should().Be(_alerts[0].Title);
+            result.Alerts[0].Body.Should().Be(_alerts[0].Body);
+            result.Alerts[0].Severity.Should().Be(_alerts[0].Severity);
+            result.Alerts[0].SubHeading.Should().Be(_alerts[0].SubHeading); 
+            result.Alerts[0].SunriseDate.Should().Be(_alerts[0].SunriseDate);
+            result.Alerts[0].SunsetDate.Should().Be(_alerts[0].SunsetDate);
         }
 
         [Fact]

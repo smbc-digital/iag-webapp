@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
+using System;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -24,7 +25,8 @@ namespace StockportWebappTests.Unit.Controllers
             _repository = new Mock<IRepository>();
 
             // data
-            var alerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity") };
+            var alerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc)) };
             var startPage = new StartPage(
                 "start-page",
                 "Start Page",

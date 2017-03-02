@@ -10,6 +10,7 @@ using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Repositories;
+using System;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -100,7 +101,8 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var alerts = new List<Alert>
             {
-                new Alert("title", "subheading", "body", Severity.Warning)
+                new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
             };
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
                new List<Crumb>(), alerts, true, "test-id");

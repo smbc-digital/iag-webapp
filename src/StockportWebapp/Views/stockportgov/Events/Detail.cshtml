@@ -21,6 +21,18 @@
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
+                    @{
+                        if (Model.Alerts != null)
+                        {
+                            foreach (var alert in Model.Alerts)
+                            {
+                                if(Model.IsAlertDisplayed(alert))
+                                {
+                                    @Html.Partial("DisplayTemplates/Alert", alert)
+                                }                               
+                            }
+                        }
+                    }
                     <h1 class="events-article-title">@Model.Title</h1>
 
                     <div class="grid-100 events-calender-container grid-100">
@@ -135,8 +147,9 @@
                         <div id="map" class="grid-100" style="height: 500px;"></div>
                         <script>
                             function initMap() {
-                                var eventLocation = {lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon};
-                                var map = new google.maps.Map(document.getElementById('map'), {
+                                var eventLocation = { lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon };
+                                var map = new google.maps.Map(document.getElementById('map'),
+                                {
                                     zoom: 18,
                                     center: eventLocation
                                 });
@@ -149,6 +162,7 @@
                         </script>
                         <script async defer
                                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap">
+                        
                         </script>
                     }
                 </div>

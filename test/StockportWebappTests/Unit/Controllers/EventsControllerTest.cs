@@ -40,19 +40,21 @@ namespace StockportWebappTests.Unit.Controllers
             twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
             address: "");
 
+        private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
+                                                                 "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc)) };
+
 
         public EventsControllerTest()
         {
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
-                                      Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group};
+                                      Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group, Alerts = _alerts};
             _categories = new List<string> {"Category 1", "Category 2"};
-
-
 
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
                 "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
-                new List<Crumb>(), _categories, new MapPosition(), "booking information",_group);
+                new List<Crumb>(), _categories, new MapPosition(), "booking information",_group, _alerts);
 
             // setup responses (with mock data)
             responseListing = new HttpResponse(200, eventsCalendar, "");
@@ -117,7 +119,7 @@ namespace StockportWebappTests.Unit.Controllers
             events.Category.Should().Be("test");
             events.DateFrom.Should().Be(new DateTime(2017, 01, 20));
             events.DateTo.Should().Be(new DateTime(2017, 01, 25));
-            events.DateRange.Should().Be("customdate");
+            events.DateRange.Should().Be("customdate");            
         }
 
         [Fact]
@@ -138,6 +140,12 @@ namespace StockportWebappTests.Unit.Controllers
             model.EndTime.Should().Be("endTime");
             model.BookingInformation.Should().Be("booking information");
             model.Group.Name.Should().Be("Test Group");
+            model.Alerts[0].Title.Should().Be(_alerts[0].Title);
+            model.Alerts[0].Body.Should().Be(_alerts[0].Body);
+            model.Alerts[0].Severity.Should().Be(_alerts[0].Severity);
+            model.Alerts[0].SubHeading.Should().Be(_alerts[0].SubHeading);
+            model.Alerts[0].SunriseDate.Should().Be(_alerts[0].SunriseDate);
+            model.Alerts[0].SunsetDate.Should().Be(_alerts[0].SunsetDate);
         }
 
         [Fact]

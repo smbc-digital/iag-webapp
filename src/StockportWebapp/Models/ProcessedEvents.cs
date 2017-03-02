@@ -21,12 +21,13 @@ namespace StockportWebapp.Models
         public List<string> Categories { get; }
         public MapPosition MapPosition { get; }
         public string BookingInformation { get; set; }
+        public readonly List<Alert> Alerts;
 
         public Group Group { get; set; }
 
         public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description, 
                                string fee, string location,string submittedBy, DateTime eventDate, string startTime, string endTime, 
-                               List<Crumb> breadcrumbs, List<string> categories, MapPosition mapPosition, string bookingInformation, Group group )
+                               List<Crumb> breadcrumbs, List<string> categories, MapPosition mapPosition, string bookingInformation, Group group, List<Alert> alerts)
         {
             Title = title;
             Slug = slug;
@@ -45,6 +46,13 @@ namespace StockportWebapp.Models
             MapPosition = mapPosition;
             BookingInformation = bookingInformation;
             Group = group;
+            Alerts = alerts;
+        }
+
+        public bool IsAlertDisplayed(Alert alert)
+        {
+            return alert.SunriseDate <= DateTime.Today && alert.SunsetDate >= DateTime.Today &&
+                   alert.SunriseDate <= EventDate && alert.SunsetDate >= EventDate;
         }
     }
 }
