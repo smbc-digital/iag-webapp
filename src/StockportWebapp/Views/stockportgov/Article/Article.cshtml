@@ -16,10 +16,28 @@
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems() || (Model.Article.LiveChatVisible)
-                                                                  ? "mobile-grid-100 tablet-grid-100 push-30 grid-70"
-                                                                  : "mobile-grid-100 tablet-grid-100 grid-100")">
+                                                                  ? "grid-parent mobile-grid-100 tablet-grid-100 push-30 grid-70"
+                                                                  : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
                 <div class="l-content-container">
+                        @if (!string.IsNullOrEmpty(Model.Article.Image))
+                        {
+                            <div class="title-card-background-image" style="background-image: url(@Model.Article.Image)">
+                                <div class="title-card">
+                                    <h2>
+                                        <span>@Model.Article.Title</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="grid-100">
+                                <h1>@Model.Article.Title</h1>
+                            </div>
+                            
+                        }
+                    <br />
                     @{
                         if (Model.Article.Alerts != null)
                         {
@@ -29,20 +47,9 @@
                             }
                         }
                     }
+                    
                     <div class="grid-100">
-                        @if (!string.IsNullOrEmpty(Model.Article.Image))
-                        {
-                            <div class="title-card-background-image" style="background-image: url(@Model.Article.Image)">
-                                <div class="title-card">
-                                    <h2><span>@Model.Article.Title</span>
-                                    </h2>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            <h1>@Model.Article.Title</h1>
-                        }
+
 
                         @if (Model.ShouldShowArticleSummary)
                         {
