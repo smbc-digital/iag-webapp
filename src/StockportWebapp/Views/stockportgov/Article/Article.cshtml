@@ -15,7 +15,7 @@
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
-        <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems() || (Model.Article.LiveChatVisible)
+        <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible
                                                                   ? "grid-parent mobile-grid-100 tablet-grid-100 push-30 grid-70"
                                                                   : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
@@ -29,41 +29,42 @@
                                     </h2>
                                 </div>
                             </div>
+                            <br />
                         }
-                        else
+                    <div class="grid-100">
+                        @if (string.IsNullOrEmpty(Model.Article.Image))
                         {
                             <div class="grid-100">
                                 <h1>@Model.Article.Title</h1>
                             </div>
-                            
                         }
-                    <br />
-                    @{
-                        if (Model.Article.Alerts != null)
-                        {
-                            foreach (var alert in Model.Article.Alerts)
+                        @{
+                            if (Model.Article.Alerts != null)
                             {
-                                @Html.Partial("DisplayTemplates/Alert", alert)
+                                foreach (var alert in Model.Article.Alerts)
+                                {
+                                    @Html.Partial("DisplayTemplates/Alert", alert)
+                                }
                             }
                         }
-                    }
-                    
-                    <div class="grid-100">
+
+                        <div class="grid-100">
 
 
-                        @if (Model.ShouldShowArticleSummary)
-                        {
-                            <div>
-                                @Html.Raw(Model.Article.Body)
-                            </div>
-                        }
+                            @if (Model.ShouldShowArticleSummary)
+                            {
+                                <div>
+                                    @Html.Raw(Model.Article.Body)
+                                </div>
+                            }
 
-                        @if (Model.DisplayedSection != null)
-                        {
-                            @Html.Partial("../Shared/Section-Nav")
-                            @Html.Partial("../Shared/Article-Single-Section", Model)
-                            @Html.Partial("DisplayTemplates/Section-Pagination")
-                        }
+                            @if (Model.DisplayedSection != null)
+                            {
+                                @Html.Partial("../Shared/Section-Nav")
+                                @Html.Partial("../Shared/Article-Single-Section", Model)
+                                @Html.Partial("DisplayTemplates/Section-Pagination")
+                            }
+                        </div>
                     </div>
                 </div>
             </section>
