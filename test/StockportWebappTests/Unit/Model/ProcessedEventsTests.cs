@@ -19,7 +19,6 @@ namespace StockportWebappTests.Unit.Model
         {                      
             var isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title", "subHeading", "body",
                                                                  "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)));
-
             isAlertDisplayed.Should().Be(true);
         }
 
@@ -28,7 +27,6 @@ namespace StockportWebappTests.Unit.Model
         {
             var isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title", "subHeading", "body",
                                                                  "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-1)));
-
             isAlertDisplayed.Should().Be(false);
         }
     }

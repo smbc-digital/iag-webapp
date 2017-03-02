@@ -51,8 +51,7 @@ namespace StockportWebapp.Models
 
         public bool IsAlertDisplayed(Alert alert)
         {
-            return alert.SunriseDate <= DateTime.Today && alert.SunsetDate >= DateTime.Today &&
-                   alert.SunriseDate <= EventDate && alert.SunsetDate >= EventDate;
+            return alert.SunriseDate <= EventDate && alert.SunsetDate >= EventDate;
         }
     }
 }
