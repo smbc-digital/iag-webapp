@@ -64,11 +64,10 @@ namespace StockportWebapp.Models
 
         public List<string> Categories;
         
-        [Required]
+        [Required(ErrorMessage = "Select at least one category")]
         [MaxLength(255)]
         public string Category1 { get; set; }
-
-        [Required]
+      
         [MaxLength(255)]
         public string Category2 { get; set; }
 
