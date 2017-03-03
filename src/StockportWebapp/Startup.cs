@@ -63,7 +63,7 @@ namespace StockportWebapp
             _appEnvironment = env.EnvironmentName;
             _contentRootPath = env.ContentRootPath;
 
-            _useRedisSession = Convert.ToBoolean(Configuration["UseRedisSessions"]);
+            _useRedisSession = Configuration["UseRedisSessions"] == "true";
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -226,10 +226,21 @@ namespace StockportWebapp
 
         private static string GetHostEntryForUrl(string host)
         {
+            var logger = LogManager.GetCurrentClassLogger();
             var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
 
-            // TODO : What happens if we get multiple IP's?
-            return addresses.FirstOrDefault().ToString();
+            if (!addresses.Any())
+            {
+                logger.Error($"Could not resolve IP address for redis instance : {host}");
+                throw new Exception($"No Redis instance could be found for host {host}");
+            }
+
+            if (addresses.Length > 1)
+            {
+                logger.Warn($"Multple IP address for redis instance : {host} attempting to use first");
+            }
+
+            return addresses.First().ToString();
         }
     }
 }

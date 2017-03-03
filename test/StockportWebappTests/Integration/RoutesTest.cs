@@ -241,7 +241,7 @@ namespace StockportWebappTests.Integration
             result.Should().Contain(formHtmlTag);
         }
 
-        [Fact(Skip = "Skipped - Need more research on how we test this with ValidateAntiForgeryEnabled")]
+        [Fact]
         public void ItReturnsThankYouMessageOnSuccessEmail()
         {
             SetBusinessIdRequestHeader("healthystockport");
@@ -433,7 +433,7 @@ namespace StockportWebappTests.Integration
             result.Should().Contain(formHtmlTag);
         }
 
-        [Fact (Skip = "Skipped - Need more research on how we test this with ValidateAntiForgeryEnabled")]
+        [Fact]
         public void ItReturnsThankYouMessageOnSuccessEventSubmission()
         {
             SetBusinessIdRequestHeader("stockportgov");
