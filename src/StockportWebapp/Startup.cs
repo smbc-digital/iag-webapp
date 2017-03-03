@@ -33,6 +33,7 @@ using StockportWebapp.ModelBinders;
 using StockportWebapp.DataProtection;
 using System.Linq;
 using System.Net;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StockportWebapp
 {
@@ -42,6 +43,7 @@ namespace StockportWebapp
         private readonly string _appEnvironment;
         private readonly string _contentRootPath;
         public readonly string ConfigDir = "app-config";
+        private readonly bool _useRedisSession;
 
         public Startup(IHostingEnvironment env)
         {
@@ -60,6 +62,8 @@ namespace StockportWebapp
 
             _appEnvironment = env.EnvironmentName;
             _contentRootPath = env.ContentRootPath;
+
+            _useRedisSession = Convert.ToBoolean(Configuration["UseRedisSessions"]);
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -147,6 +151,7 @@ namespace StockportWebapp
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
+                if(_useRedisSession) options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddSingleton<IViewRender, ViewRender>();
@@ -205,11 +210,10 @@ namespace StockportWebapp
         private void ConfigureDataProtection(IServiceCollection services)
         {
             var logger = LogManager.GetCurrentClassLogger();
-            var redisUrl = Configuration["TokenStoreUrl"];
-            var useRedisSession = Configuration["UseRedisSessions"];
-
-            if (useRedisSession == "true")
+            
+            if (_useRedisSession)
             {
+                var redisUrl = Configuration["TokenStoreUrl"];
                 var redisIp = GetHostEntryForUrl(redisUrl);
                 logger.Info($"Using redis for session management - url {redisUrl}, ip {redisIp}");
                 services.AddDataProtection().PersistKeysToRedis(redisIp);

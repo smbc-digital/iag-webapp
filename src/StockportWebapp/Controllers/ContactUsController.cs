@@ -32,7 +32,6 @@ namespace StockportWebapp.Controllers
 
         [Route("/contact-us")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
             var referer = Request.Headers["referer"];
