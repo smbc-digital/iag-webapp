@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;

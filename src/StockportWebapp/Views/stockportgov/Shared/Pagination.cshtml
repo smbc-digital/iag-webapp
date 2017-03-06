@@ -3,7 +3,7 @@
 
 <div class="pagination-section grid-parent">
     @{
-        var start = (Model.Page- 1) * Model.PageSize + 1;
+        var start = ((Model.Page- 1) * Model.PageSize) + 1;
         var end = start + Model.TotalItemsOnPage - 1;
     }
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @start - @end of @Model.TotalItems @Model.DisplayName</div>
