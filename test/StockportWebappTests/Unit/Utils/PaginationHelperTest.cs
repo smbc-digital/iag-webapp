@@ -9,7 +9,7 @@ namespace StockportWebappTests.Unit.Utils
         [Theory]
         [InlineData(1, 1)]
         [InlineData(2, 16)]
-        [InlineData(3, 46)]
+        [InlineData(3, 31)]
         [InlineData(13, 181)]
         public void IndexOfFirstItemOnAnyPageShouldBeNumberOfItemsOnPreviousPagesPlusOne(int currentPageNumber, int expectedResult)
         {
