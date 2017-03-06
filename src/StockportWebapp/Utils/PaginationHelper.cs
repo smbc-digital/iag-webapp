@@ -12,7 +12,8 @@ namespace StockportWebapp.Utils
     {
         public int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int numItemsOnPage)
         {
-            var numberOfItemsBeforeThisPage = ((currentPageNumber - 1) * numItemsOnPage);
+            var numberOfPreviousPages = currentPageNumber - 1;
+            var numberOfItemsBeforeThisPage = numberOfPreviousPages * numItemsOnPage;
             var indexOfFirstItemOnThisPage = numberOfItemsBeforeThisPage + 1;
 
             return indexOfFirstItemOnThisPage;
