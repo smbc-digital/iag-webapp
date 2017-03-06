@@ -29,7 +29,38 @@ namespace StockportWebapp.Utils
 
         public List<VisiblePageNumber> GenerateVisiblePageNumbers(int currentPageNumber, int totalPages)
         {
-            throw new NotImplementedException();
+            bool currentPageIsNearStartOfVisiblePages = CurrentPageIsNearStartOfVisiblePages(currentPageNumber);
+            bool currentPageIsPenultimateVisiblePage = CurrentPageIsPenultimateVisiblePage(currentPageNumber, totalPages);
+            bool currentPageIsLastVisiblePage = CurrentPageIsLastVisiblePage(currentPageNumber, totalPages);
+
+            var result = new List<VisiblePageNumber>
+            {
+                new VisiblePageNumber() {PageNumber = 1, HtmlFragment = "href"},
+                new VisiblePageNumber() {PageNumber = 2, HtmlFragment = "href"},
+                new VisiblePageNumber() {PageNumber = 3, HtmlFragment = "href"},
+                new VisiblePageNumber() {PageNumber = 4, HtmlFragment = "href"},
+                new VisiblePageNumber() {PageNumber = 5, HtmlFragment = "href"}
+            };
+
+            result[currentPageNumber - 1].HtmlFragment = "";
+
+            return result;
+        }
+
+        private bool CurrentPageIsNearStartOfVisiblePages(int currentPageNumber)
+        {
+            return currentPageNumber == 1 
+                || currentPageNumber == 2;
+        }
+
+        private bool CurrentPageIsLastVisiblePage(int currentPageNumber, int totalPages)
+        {
+            return currentPageNumber == totalPages;
+        }
+
+        private bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
+        {
+            return currentPageNumber == (totalPages - 1);
         }
     }
 }
