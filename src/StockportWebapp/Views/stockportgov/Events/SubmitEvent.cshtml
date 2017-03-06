@@ -33,8 +33,7 @@
                             </div>
                         }
 
-                        <form method="post" role="form" action="@Url.Action("SubmitEvent")" enctype="multipart/form-data" novalidate>
-                            @Html.AntiForgeryToken()
+                        <form asp-controller="Events" asp-action="SubmitEvent" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
