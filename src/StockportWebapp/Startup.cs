@@ -33,7 +33,10 @@ using StockportWebapp.ModelBinders;
 using StockportWebapp.DataProtection;
 using System.Linq;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Antiforgery;
 
 namespace StockportWebapp
 {
@@ -153,7 +156,7 @@ namespace StockportWebapp
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
-                if(_useRedisSession) options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                if (_useRedisSession) options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddSingleton<IViewRender, ViewRender>();

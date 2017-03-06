@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -31,7 +32,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/contact-us")]
-        [HttpPost]
+        [HttpPost, IgnoreAntiforgeryToken]
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
             var referer = Request.Headers["referer"];
@@ -45,7 +46,7 @@ namespace StockportWebapp.Controllers
                 var successCode = await SendEmailMessage(contactUsDetails);
                 if (IsSuccess(successCode))
                 {
-                    return RedirectToAction("ThankYouMessage", routeValues: new { referer = redirectUrl} );
+                    return RedirectToAction("ThankYouMessage", routeValues: new {referer = redirectUrl});
                 }
             }
             else
