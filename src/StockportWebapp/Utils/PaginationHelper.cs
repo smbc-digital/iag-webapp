@@ -10,22 +10,26 @@ namespace StockportWebapp.Utils
 
     public class PaginationHelper : IPaginationHelper
     {
-        public int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int numItemsOnPage)
+        public int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int maxItemsPerPage)
         {
             var numberOfPreviousPages = currentPageNumber - 1;
-            var numberOfItemsBeforeThisPage = numberOfPreviousPages * numItemsOnPage;
+            var numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
             var indexOfFirstItemOnThisPage = numberOfItemsBeforeThisPage + 1;
 
             return indexOfFirstItemOnThisPage;
         }
 
-        public int CalculateIndexOfLastItemOnPage(int indexOfFirstItemOnThisPage, int numItemsOnThisPage)
+        public int CalculateIndexOfLastItemOnPage(int currentPageNumber, int numItemsOnThisPage, int maxItemsPerPage)
         {
-            var indexOfLastItemOnPage = indexOfFirstItemOnThisPage == 1
-                ? numItemsOnThisPage
-                : indexOfFirstItemOnThisPage + numItemsOnThisPage;
-            
-            return indexOfLastItemOnPage;
+            var numberOfPreviousPages = currentPageNumber - 1;
+            var numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
+
+            return numberOfItemsBeforeThisPage + numItemsOnThisPage;
+        }
+
+        public int CalculateFirstLinkedPageNumber()
+        {
+            return 1;
         }
     }
 }
