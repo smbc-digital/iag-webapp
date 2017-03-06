@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using StockportWebapp.Utils;
 using Xunit;
 
@@ -47,36 +48,24 @@ namespace StockportWebappTests.Unit.Utils
             indexOfLastItemOnPage.Should().Be(expectedResult);
         }
 
-        [Fact]
-        public void IfThereIsMoreThanOnePageTheFirstVisiblePageNumberShouldBeHigherThanZero()
-        {
-            // Arrange
-            int firstLinkedPageNumber;
-            const int thisNumberIsIrrelevant = 0;
-            var paginationHelper = new PaginationHelper();
-
-            // Act
-            firstLinkedPageNumber = paginationHelper.CalculateFirstVisiblePageNumber(thisNumberIsIrrelevant, thisNumberIsIrrelevant);
-
-            // Assert
-            firstLinkedPageNumber.Should().BeGreaterThan(0);
-        }
-
         [Theory]
-        [InlineData(1)]
-        [InlineData(2)]
-        public void IfTheCurrentPageNumberIsOneOrTwoTheFirstVisiblePageNumberShouldBeOne(int currentPageNumber)
+        [InlineData(3, 5)]
+        public void WhenThereAreFivePagesAndWeAreOnPage3ThenTheVisiblePageNumbersShouldBeNumberedOneToFive(
+            int currentPageNumber,
+            int totalPages)
         {
             // Arrange
-            int firstLinkedPageNumber;
-            const int thisNumberIsIrrelevant = 0;
             var paginationHelper = new PaginationHelper();
 
-            // Act
-            firstLinkedPageNumber = paginationHelper.CalculateFirstVisiblePageNumber(currentPageNumber, thisNumberIsIrrelevant);
+            // Act 
+            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
-            firstLinkedPageNumber.Should().Be(1);
+            results[0].PageNumber.Should().Be(1);
+            results[0].PageNumber.Should().Be(2);
+            results[0].PageNumber.Should().Be(3);
+            results[0].PageNumber.Should().Be(4);
+            results[0].PageNumber.Should().Be(5);
         }
     }
 }
