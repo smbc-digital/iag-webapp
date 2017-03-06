@@ -16,16 +16,32 @@ namespace StockportWebappTests.Unit.Utils
         public void IndexOfFirstItemOnPageOneShouldBeOne()
         {
             // Arrange
-            int firstPageItem;
+            int indexOfFirstItemOnPage;
             const int currentPageNumber = 1;
             const int numItemsOnPage = 15;
             var paginationHelper = new PaginationHelper();
 
             // Act
-            firstPageItem = paginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, numItemsOnPage);
+            indexOfFirstItemOnPage = paginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, numItemsOnPage);
 
             // Assert
-            firstPageItem.Should().Be(1);
+            indexOfFirstItemOnPage.Should().Be(1);
+        }
+
+        [Fact]
+        public void IndexOfFirstItemOnPageTwoShouldBeNumberOfPageItemsPlusOne()
+        {
+            // Arrange
+            int indexOfFirstItemOnPage;
+            const int currentPageNumber = 2;
+            const int numItemsOnPage = 15;
+            var paginationHelper = new PaginationHelper();
+
+            // Act
+            indexOfFirstItemOnPage = paginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, numItemsOnPage);
+
+            // Assert
+            indexOfFirstItemOnPage.Should().Be(16);
         }
     }
 }

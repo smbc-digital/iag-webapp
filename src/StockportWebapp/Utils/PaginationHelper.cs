@@ -12,7 +12,10 @@ namespace StockportWebapp.Utils
     {
         public int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int numItemsOnPage)
         {
-            return 890;
+            var numberOfItemsBeforeThisPage = ((currentPageNumber - 1) * numItemsOnPage);
+            var indexOfFirstItemOnThisPage = numberOfItemsBeforeThisPage + 1;
+
+            return indexOfFirstItemOnThisPage;
         }
     }
 }
