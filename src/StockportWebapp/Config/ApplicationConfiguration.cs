@@ -18,7 +18,7 @@ namespace StockportWebapp.Config
         AppSetting GetEmailAlertsNewSubscriberUrl(string businessId);
         AppSetting GetEventSubmissionEmail(string businessId);
         int GetFooterCache(string businessId);
-
+        bool GetUseRedisSessions();
 
         string GetStaticAssetsRootUrl();
     }
@@ -103,6 +103,13 @@ namespace StockportWebapp.Config
         {
             int output;
             int.TryParse(_appsettings[$"{businessId}:FooterCache"], out output);
+            return output;
+        }
+
+        public bool GetUseRedisSessions()
+        {
+            bool output;
+            bool.TryParse(_appsettings["UseRedisSessions"], out output);
             return output;
         }
     }

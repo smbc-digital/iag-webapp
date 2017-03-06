@@ -151,7 +151,6 @@ namespace StockportWebapp
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
-                if(_useRedisSession) options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddSingleton<IViewRender, ViewRender>();

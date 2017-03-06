@@ -1,4 +1,6 @@
-﻿@using StockportWebapp.Models
+﻿@using Microsoft.Extensions.Configuration
+@using StockportWebapp.Config
+@using StockportWebapp.Models
 @model EventSubmission
 @{
     ViewData["Title"] = "Submit Event";
@@ -6,6 +8,7 @@
     ViewData["Beta"] = true;
     Layout = "../Shared/_Layout.cshtml";
 }
+@inject IApplicationConfiguration Config
 
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Events", "events", "events") })
@@ -33,7 +36,7 @@
                             </div>
                         }
 
-                        <form asp-controller="Events" asp-action="SubmitEvent" method="post" role="form" enctype="multipart/form-data">
+                        <form asp-controller="Events" asp-action="SubmitEvent" asp-antiforgery="@Config.GetUseRedisSessions()" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
