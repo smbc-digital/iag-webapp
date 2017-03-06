@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
 
@@ -7,60 +6,6 @@ namespace StockportWebappTests.Unit.Utils
 {
     public class PaginationHelperTest
     {
-        [Theory]
-        [InlineData(1)]
-        [InlineData(2)]
-        [InlineData(10)]
-        public void NewViewLogicShouldGiveSameResultsAsOldViewLogicForStartIndex(int currentPageNumber)
-        {
-            // Arrange
-            Pagination paginationModel = new Pagination
-            {
-                TotalItemsOnPage = 15,
-                Page = currentPageNumber,
-                TotalItems = 150,
-                TotalPages = 10,
-                PageSize = 15
-            };
-            var paginationHelper = new PaginationHelper();
-            int oldStart = ((paginationModel.Page - 1) * paginationModel.PageSize) + 1;
-
-            // Act
-            int newStart = paginationHelper.CalculateIndexOfFirstItemOnPage(paginationModel.Page, paginationModel.PageSize);
-
-            // Assert
-            newStart.Should().Be(oldStart);
-        }
-
-        [Theory]
-        [InlineData(1, 10)]
-        [InlineData(2, 15)]
-        [InlineData(3, 2)]
-        [InlineData(11, 9)]
-        public void NewViewLogicShouldGiveSameResultsAsOldViewLogicForEndIndex(
-            int currentPageNumber,
-            int totalItemsOnPage)
-        {
-            // Arrange
-            Pagination paginationModel = new Pagination
-            {
-                TotalItemsOnPage = totalItemsOnPage,
-                Page = currentPageNumber,
-                TotalItems = 150,
-                TotalPages = 10,
-                PageSize = 15
-            };
-            var paginationHelper = new PaginationHelper();
-            int oldStart = ((paginationModel.Page - 1) * paginationModel.PageSize) + 1;
-            int oldEnd = oldStart + paginationModel.TotalItemsOnPage - 1;
-
-            // Act
-            int newEnd = paginationHelper.CalculateIndexOfLastItemOnPage(paginationModel.Page, paginationModel.TotalItemsOnPage, paginationModel.PageSize);
-
-            // Assert
-            newEnd.Should().Be(oldEnd);
-        }
-
         [Theory]
         [InlineData(1, 1)]
         [InlineData(2, 16)]
@@ -103,47 +48,35 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
-        public void IfThereIsMoreThanOnePageTheFirstLinkedPageNumberShouldBeHigherThanZero()
+        public void IfThereIsMoreThanOnePageTheFirstVisiblePageNumberShouldBeHigherThanZero()
         {
             // Arrange
             int firstLinkedPageNumber;
+            const int thisNumberIsIrrelevant = 0;
             var paginationHelper = new PaginationHelper();
 
             // Act
-            firstLinkedPageNumber = paginationHelper.CalculateFirstLinkedPageNumber();
+            firstLinkedPageNumber = paginationHelper.CalculateFirstVisiblePageNumber(thisNumberIsIrrelevant, thisNumberIsIrrelevant);
 
             // Assert
-            firstLinkedPageNumber.Should().BeGreaterOrEqualTo(1);
+            firstLinkedPageNumber.Should().BeGreaterThan(0);
         }
 
-        [Fact]
-        public void IfTheCurrentPageNumberIsOneOrTwoTheFirstLinkedPageNumberShouldBeOne()
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void IfTheCurrentPageNumberIsOneOrTwoTheFirstVisiblePageNumberShouldBeOne(int currentPageNumber)
         {
             // Arrange
             int firstLinkedPageNumber;
+            const int thisNumberIsIrrelevant = 0;
             var paginationHelper = new PaginationHelper();
 
             // Act
-            firstLinkedPageNumber = paginationHelper.CalculateFirstLinkedPageNumber();
+            firstLinkedPageNumber = paginationHelper.CalculateFirstVisiblePageNumber(currentPageNumber, thisNumberIsIrrelevant);
 
             // Assert
             firstLinkedPageNumber.Should().Be(1);
-        }
-
-        [Fact]
-        public void IfTheCurrentPageIsThePenultimateOrLastPageTheFirstLinkedPageNumberShouldBeTheCurrentPageNumberMinusFive()
-        {
-            // Arrange
-            int firstLinkedPageNumber;
-            int currentPageNumber = 3;
-            int totalNumberOfPages = 4;
-            var paginationHelper = new PaginationHelper();
-
-            // Act
-            firstLinkedPageNumber = paginationHelper.CalculateFirstLinkedPageNumber();
-
-            // Assert
-            firstLinkedPageNumber.Should().Be(currentPageNumber - 5);
         }
     }
 }

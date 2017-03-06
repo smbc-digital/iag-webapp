@@ -27,7 +27,7 @@ namespace StockportWebapp.Utils
             return numberOfItemsBeforeThisPage + numItemsOnThisPage;
         }
 
-        public int CalculateFirstLinkedPageNumber()
+        public int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)
         {
             return 1;
         }
