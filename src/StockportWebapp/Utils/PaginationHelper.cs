@@ -18,5 +18,14 @@ namespace StockportWebapp.Utils
 
             return indexOfFirstItemOnThisPage;
         }
+
+        public int CalculateIndexOfLastItemOnPage(int indexOfFirstItemOnThisPage, int numItemsOnThisPage)
+        {
+            var indexOfLastItemOnPage = indexOfFirstItemOnThisPage == 1
+                ? numItemsOnThisPage
+                : indexOfFirstItemOnThisPage + numItemsOnThisPage;
+            
+            return indexOfLastItemOnPage;
+        }
     }
 }
