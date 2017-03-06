@@ -1,7 +1,6 @@
 ﻿@model StockportWebapp.ViewDetails.ContactUsDetails
 <div id="contactForm" />
-<form method="post" role="form" action="/contact-us" novalidate>
-    @Html.AntiForgeryToken()
+<form asp-controller="ContactUs" asp-action="Contact" method="post" role="form">
     <div class="form">
         <div class="form-section">
             <fieldset>
