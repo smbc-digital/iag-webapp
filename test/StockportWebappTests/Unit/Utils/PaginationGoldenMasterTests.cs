@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
@@ -72,6 +74,11 @@ namespace StockportWebappTests.Unit.Utils
         [InlineData(3, 5)]
         [InlineData(4, 5)]
         [InlineData(5, 5)]
+        [InlineData(1, 10)]
+        [InlineData(2, 10)]
+        [InlineData(3, 10)]
+        [InlineData(4, 10)]
+        [InlineData(5, 10)]
         [InlineData(6, 10)]
         [InlineData(7, 10)]
         [InlineData(8, 10)]
@@ -150,11 +157,19 @@ namespace StockportWebappTests.Unit.Utils
                         }
                         else
                         {
+                            IUrlHelper urlHelper = new UrlHelper(new ActionContext());
+                            var url =
+                                urlHelper.RouteUrl(
+                                    paginationModel.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string>
+                                    {
+                                        {"Page", i.ToString()}
+                                    }));
+
                             results.Add(
                                 new VisiblePageNumber
                                 {
                                     PageNumber = i,
-                                    //HtmlFragment = "<a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", i.ToString() } }))">@i.ToString()</a>"
+                                    HtmlFragment = $"<a href=\"{url}\">@i.ToString()</a>"
                                 });
                         }
                     }
