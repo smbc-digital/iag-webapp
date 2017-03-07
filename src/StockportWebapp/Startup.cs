@@ -37,6 +37,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Antiforgery;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace StockportWebapp
 {
@@ -147,7 +148,10 @@ namespace StockportWebapp
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
             services.AddTransient<IDateCalculator>(p => new DateCalculator(p.GetService<ITimeProvider>()));
 
-            ConfigureDataProtection(services);
+            var loggerFactory = new LoggerFactory().AddNLog();
+            Microsoft.Extensions.Logging.ILogger logger = loggerFactory.CreateLogger<Startup>();
+
+            ConfigureDataProtection(services, logger);
 
             services.AddApplicationInsightsTelemetry(Configuration);
 
@@ -210,38 +214,36 @@ namespace StockportWebapp
             app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
         }
 
-        private void ConfigureDataProtection(IServiceCollection services)
-        {
-            var logger = LogManager.GetCurrentClassLogger();
-            
+        private void ConfigureDataProtection(IServiceCollection services, ILogger logger)
+        {   
             if (_useRedisSession)
             {
                 var redisUrl = Configuration["TokenStoreUrl"];
-                var redisIp = GetHostEntryForUrl(redisUrl);
-                logger.Info($"Using redis for session management - url {redisUrl}, ip {redisIp}");
+                var redisIp = GetHostEntryForUrl(redisUrl, logger);
+                logger.LogInformation($"Using redis for session management - url {redisUrl}, ip {redisIp}");
                 services.AddDataProtection().PersistKeysToRedis(redisIp);
             }
             else
             {
                 services.AddAntiforgery();
-                logger.Info("Not using redis for session management!");
+                logger.LogInformation("Not using redis for session management!");
             }
         }
 
-        private static string GetHostEntryForUrl(string host)
+        private static string GetHostEntryForUrl(string host, ILogger logger)
         {
-            var logger = LogManager.GetCurrentClassLogger();
+            
             var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
 
             if (!addresses.Any())
             {
-                logger.Error($"Could not resolve IP address for redis instance : {host}");
-                throw new Exception($"No Redis instance could be found for host {host}");
+                logger.LogError($"Could not resolve IP address for redis instance : {host}");
+                throw new Exception($"No redis instance could be found for host {host}");
             }
 
             if (addresses.Length > 1)
             {
-                logger.Warn($"Multple IP address for redis instance : {host} attempting to use first");
+                logger.LogWarning($"Multple IP address for redis instance : {host} attempting to use first");
             }
 
             return addresses.First().ToString();
