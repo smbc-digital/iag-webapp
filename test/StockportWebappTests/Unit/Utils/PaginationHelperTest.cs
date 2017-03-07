@@ -76,10 +76,10 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
-            results[2].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
-            results[3].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
-            results[4].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(5, currentPageNumber, totalPages, page5IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
+            results[2].IsCurrentPage.Should().Be(page3IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
+            results[3].IsCurrentPage.Should().Be(page4IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
+            results[4].IsCurrentPage.Should().Be(page5IsCurrentPage, Error(5, currentPageNumber, totalPages, page5IsCurrentPage));
         }
 
         [Theory]
@@ -103,9 +103,9 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
-            results[2].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
-            results[3].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
+            results[2].IsCurrentPage.Should().Be(page3IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
+            results[3].IsCurrentPage.Should().Be(page4IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
         }
 
         [Theory]
@@ -127,8 +127,8 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
-            results[2].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
+            results[2].IsCurrentPage.Should().Be(page3IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
         }
 
         [Theory]
@@ -148,16 +148,16 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
-            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page2IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
         }
 
-        private string Error(int visiblePageIndex, int currentPageNumber, int totalPages, bool containsHref)
+        private string Error(int visiblePageIndex, int currentPageNumber, int totalPages, bool isCurrentPage)
         {
-            return string.Format("When current page is {0} out of {1}, visible page with index {2} should {3}contain href",
+            return string.Format("When current page is {0} out of {1}, visible page with index {2} should {3}be current page",
                 currentPageNumber,
                 totalPages,
                 visiblePageIndex,
-                containsHref ? "" : "NOT ");
+                isCurrentPage ? "" : "NOT ");
         }
 
         [Theory]
