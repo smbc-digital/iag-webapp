@@ -29,6 +29,10 @@ namespace StockportWebapp.Utils
 
         public List<VisiblePageNumber> GenerateVisiblePageNumbers(int currentPageNumber, int totalPages)
         {
+            const int maxVisiblePages = 5;
+            int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
+
+            //for (int count = 1; count <= numVisiblePages; count++)
             var result = new List<VisiblePageNumber>
             {
                 new VisiblePageNumber {PageNumber = 1, HtmlFragment = "href"},
@@ -46,7 +50,8 @@ namespace StockportWebapp.Utils
 
         private int CalculateCurrentPageIndex(int currentPageNumber, int totalPages)
         {
-            const int numVisiblePages = 5;
+            const int maxVisiblePages = 5;
+            int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
             const int middleIndexOutOfFive = 2;
             int currentPageIndex = middleIndexOutOfFive;
             bool currentPageIsNearStartOfVisiblePages = CurrentPageIsNearStartOfVisiblePages(currentPageNumber);
