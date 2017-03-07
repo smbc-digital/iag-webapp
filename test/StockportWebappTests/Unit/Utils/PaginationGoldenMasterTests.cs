@@ -99,10 +99,10 @@ namespace StockportWebappTests.Unit.Utils
                 PageSize = 15
             };
             var paginationHelper = new PaginationHelper();
-            var oldVisiblePageNumbers = OldLogicForFirstVisiblePageNumber(paginationModel);
 
             // Act
             var newVisiblePageNumbers = paginationHelper.GenerateVisiblePageNumbers(paginationModel.Page, paginationModel.TotalPages);
+            var oldVisiblePageNumbers = OldLogicForFirstVisiblePageNumber(paginationModel);
 
             // Assert
             newVisiblePageNumbers[0].PageNumber.Should().Be(oldVisiblePageNumbers[0].PageNumber);
@@ -152,24 +152,16 @@ namespace StockportWebappTests.Unit.Utils
                                 new VisiblePageNumber
                                 {
                                     PageNumber = i,
-                                    HtmlFragment = $"<span>{i}</span>"
+                                    IsCurrentPage = true
                                 });
                         }
                         else
                         {
-                            IUrlHelper urlHelper = new UrlHelper(new ActionContext());
-                            var url =
-                                urlHelper.RouteUrl(
-                                    paginationModel.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string>
-                                    {
-                                        {"Page", i.ToString()}
-                                    }));
-
                             results.Add(
                                 new VisiblePageNumber
                                 {
                                     PageNumber = i,
-                                    HtmlFragment = $"<a href=\"{url}\">@i.ToString()</a>"
+                                    IsCurrentPage = false
                                 });
                         }
                     }

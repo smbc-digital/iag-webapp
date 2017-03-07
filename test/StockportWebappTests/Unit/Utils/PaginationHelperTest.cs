@@ -50,23 +50,23 @@ namespace StockportWebappTests.Unit.Utils
         }
         
         [Theory]
-        [InlineData(1, 5, false, true, true, true, true)]
-        [InlineData(2, 5, true, false, true, true, true)]
-        [InlineData(3, 5, true, true, false, true, true)]
-        [InlineData(4, 5, true, true, true, false, true)]
-        [InlineData(5, 5, true, true, true, true, false)]
-        [InlineData(7, 10, true, true, false, true, true)]
-        [InlineData(9, 10, true, true, true, false, true)]
-        [InlineData(10, 10, true, true, true, true, false)]
-        [InlineData(13, 20, true, true, false, true, true)]
+        [InlineData(1, 5, true, false, false, false, false)]
+        [InlineData(2, 5, false, true, false, false, false)]
+        [InlineData(3, 5, false, false, true, false, false)]
+        [InlineData(4, 5, false, false, false, true, false)]
+        [InlineData(5, 5, false, false, false, false, true)]
+        [InlineData(7, 10, false, false, true, false, false)]
+        [InlineData(9, 10, false, false, false, true, false)]
+        [InlineData(10, 10, false, false, false, false, true)]
+        [InlineData(13, 20, false, false, true, false, false)]
         public void ForFiveVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
             int currentPageNumber, 
             int totalPages,
-            bool page1ContainsHref,
-            bool page2ContainsHref,
-            bool page3ContainsHref,
-            bool page4ContainsHref,
-            bool page5ContainsHref)
+            bool page1IsCurrentPage,
+            bool page2IsCurrentPage,
+            bool page3IsCurrentPage,
+            bool page4IsCurrentPage,
+            bool page5IsCurrentPage)
         {
             // Arrange
             var paginationHelper = new PaginationHelper();
@@ -75,24 +75,24 @@ namespace StockportWebappTests.Unit.Utils
             List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
-            results[0].HtmlFragment.Contains("href").Should().Be(page1ContainsHref, Error(1, currentPageNumber, totalPages, page1ContainsHref));
-            results[1].HtmlFragment.Contains("href").Should().Be(page2ContainsHref, Error(2, currentPageNumber, totalPages, page2ContainsHref));
-            results[2].HtmlFragment.Contains("href").Should().Be(page3ContainsHref, Error(3, currentPageNumber, totalPages, page3ContainsHref));
-            results[3].HtmlFragment.Contains("href").Should().Be(page4ContainsHref, Error(4, currentPageNumber, totalPages, page4ContainsHref));
-            results[4].HtmlFragment.Contains("href").Should().Be(page5ContainsHref, Error(5, currentPageNumber, totalPages, page5ContainsHref));
+            results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
+            results[2].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
+            results[3].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
+            results[4].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(5, currentPageNumber, totalPages, page5IsCurrentPage));
         }
 
         [Theory]
-        [InlineData(1, false, true, true, true)]
-        [InlineData(2, true, false, true, true)]
-        [InlineData(3, true, true, false, true)]
-        [InlineData(4, true, true, true, false)]
+        [InlineData(1, true, false, false, false)]
+        [InlineData(2, false, true, false, false)]
+        [InlineData(3, false, false, true, false)]
+        [InlineData(4, false, false, false, true)]
         public void ForFourVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
             int currentPageNumber,
-            bool page1ContainsHref,
-            bool page2ContainsHref,
-            bool page3ContainsHref,
-            bool page4ContainsHref)
+            bool page1IsCurrentPage,
+            bool page2IsCurrentPage,
+            bool page3IsCurrentPage,
+            bool page4IsCurrentPage)
         {
             // Arrange
             var paginationHelper = new PaginationHelper();
@@ -102,21 +102,21 @@ namespace StockportWebappTests.Unit.Utils
             List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
-            results[0].HtmlFragment.Contains("href").Should().Be(page1ContainsHref, Error(1, currentPageNumber, totalPages, page1ContainsHref));
-            results[1].HtmlFragment.Contains("href").Should().Be(page2ContainsHref, Error(2, currentPageNumber, totalPages, page2ContainsHref));
-            results[2].HtmlFragment.Contains("href").Should().Be(page3ContainsHref, Error(3, currentPageNumber, totalPages, page3ContainsHref));
-            results[3].HtmlFragment.Contains("href").Should().Be(page4ContainsHref, Error(4, currentPageNumber, totalPages, page4ContainsHref));
+            results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
+            results[2].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
+            results[3].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(4, currentPageNumber, totalPages, page4IsCurrentPage));
         }
 
         [Theory]
-        [InlineData(1, false, true, true)]
-        [InlineData(2, true, false, true)]
-        [InlineData(3, true, true, false)]
+        [InlineData(1, true, false, false)]
+        [InlineData(2, false, true, false)]
+        [InlineData(3, false, false, true)]
         public void ForThreeVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
             int currentPageNumber,
-            bool page1ContainsHref,
-            bool page2ContainsHref,
-            bool page3ContainsHref)
+            bool page1IsCurrentPage,
+            bool page2IsCurrentPage,
+            bool page3IsCurrentPage)
         {
             // Arrange
             var paginationHelper = new PaginationHelper();
@@ -126,18 +126,18 @@ namespace StockportWebappTests.Unit.Utils
             List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
-            results[0].HtmlFragment.Contains("href").Should().Be(page1ContainsHref, Error(1, currentPageNumber, totalPages, page1ContainsHref));
-            results[1].HtmlFragment.Contains("href").Should().Be(page2ContainsHref, Error(2, currentPageNumber, totalPages, page2ContainsHref));
-            results[2].HtmlFragment.Contains("href").Should().Be(page3ContainsHref, Error(3, currentPageNumber, totalPages, page3ContainsHref));
+            results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
+            results[2].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(3, currentPageNumber, totalPages, page3IsCurrentPage));
         }
 
         [Theory]
-        [InlineData(1, false, true)]
-        [InlineData(2, true, false)]
+        [InlineData(1, true, false)]
+        [InlineData(2, false, true)]
         public void ForTwoVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
             int currentPageNumber,
-            bool page1ContainsHref,
-            bool page2ContainsHref)
+            bool page1IsCurrentPage,
+            bool page2IsCurrentPage)
         {
             // Arrange
             var paginationHelper = new PaginationHelper();
@@ -147,8 +147,8 @@ namespace StockportWebappTests.Unit.Utils
             List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
-            results[0].HtmlFragment.Contains("href").Should().Be(page1ContainsHref, Error(1, currentPageNumber, totalPages, page1ContainsHref));
-            results[1].HtmlFragment.Contains("href").Should().Be(page2ContainsHref, Error(2, currentPageNumber, totalPages, page2ContainsHref));
+            results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
+            results[1].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(2, currentPageNumber, totalPages, page2IsCurrentPage));
         }
 
         private string Error(int visiblePageIndex, int currentPageNumber, int totalPages, bool containsHref)

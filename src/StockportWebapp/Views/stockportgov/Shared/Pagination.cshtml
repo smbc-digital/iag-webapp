@@ -21,15 +21,14 @@
 
             for (int i = 0; i <= visiblePageNumbers.Count; i++)
             {
-                if (visiblePageNumbers[i].HtmlFragment.Contains("href"))
+                @*if (visiblePageNumbers[i].HtmlFragment.Contains("href"))
                 {
                     @visiblePageNumbers[i].HtmlFragment.ToString()
                 }
                 else
                 {
                     <span>@visiblePageNumbers[i].PageNumber</span>
-                }
-
+                }*@
             }
 
             // current page is 1+, current page num is less than or equal to last page, there's more than one page

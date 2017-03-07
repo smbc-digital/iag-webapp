@@ -31,15 +31,15 @@ namespace StockportWebapp.Utils
         {
             const int maxVisiblePages = 5;
             int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
-            int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
             var result = new List<VisiblePageNumber>();
 
             for (int count = 1; count <= numVisiblePages; count++)
             {
-                result.Add(new VisiblePageNumber { PageNumber = count, HtmlFragment = "href" });
+                result.Add(new VisiblePageNumber { PageNumber = count, IsCurrentPage = false });
             }
-            
-            result[currentPageIndex].HtmlFragment = "";
+
+            int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
+            result[currentPageIndex].IsCurrentPage = true;
 
             return result;
         }
