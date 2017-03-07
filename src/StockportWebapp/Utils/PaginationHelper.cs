@@ -29,22 +29,44 @@ namespace StockportWebapp.Utils
 
         public List<VisiblePageNumber> GenerateVisiblePageNumbers(int currentPageNumber, int totalPages)
         {
+            var result = new List<VisiblePageNumber>
+            {
+                new VisiblePageNumber {PageNumber = 1, HtmlFragment = "href"},
+                new VisiblePageNumber {PageNumber = 2, HtmlFragment = "href"},
+                new VisiblePageNumber {PageNumber = 3, HtmlFragment = "href"},
+                new VisiblePageNumber {PageNumber = 4, HtmlFragment = "href"},
+                new VisiblePageNumber {PageNumber = 5, HtmlFragment = "href"}
+            };
+
+            int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
+            result[currentPageIndex].HtmlFragment = "";
+
+            return result;
+        }
+
+        private int CalculateCurrentPageIndex(int currentPageNumber, int totalPages)
+        {
+            const int numVisiblePages = 5;
+            const int middleIndexOutOfFive = 2;
+            int currentPageIndex = middleIndexOutOfFive;
             bool currentPageIsNearStartOfVisiblePages = CurrentPageIsNearStartOfVisiblePages(currentPageNumber);
             bool currentPageIsPenultimateVisiblePage = CurrentPageIsPenultimateVisiblePage(currentPageNumber, totalPages);
             bool currentPageIsLastVisiblePage = CurrentPageIsLastVisiblePage(currentPageNumber, totalPages);
 
-            var result = new List<VisiblePageNumber>
+            if (currentPageIsNearStartOfVisiblePages)
             {
-                new VisiblePageNumber() {PageNumber = 1, HtmlFragment = "href"},
-                new VisiblePageNumber() {PageNumber = 2, HtmlFragment = "href"},
-                new VisiblePageNumber() {PageNumber = 3, HtmlFragment = "href"},
-                new VisiblePageNumber() {PageNumber = 4, HtmlFragment = "href"},
-                new VisiblePageNumber() {PageNumber = 5, HtmlFragment = "href"}
-            };
+                currentPageIndex = currentPageNumber - 1;
+            }
+            else if (currentPageIsPenultimateVisiblePage)
+            {
+                currentPageIndex = numVisiblePages - 2;
+            }
+            else if (currentPageIsLastVisiblePage)
+            {
+                currentPageIndex = numVisiblePages - 1;
+            }
 
-            result[currentPageNumber - 1].HtmlFragment = "";
-
-            return result;
+            return currentPageIndex;
         }
 
         private bool CurrentPageIsNearStartOfVisiblePages(int currentPageNumber)
@@ -62,5 +84,7 @@ namespace StockportWebapp.Utils
         {
             return currentPageNumber == (totalPages - 1);
         }
+
+
     }
 }

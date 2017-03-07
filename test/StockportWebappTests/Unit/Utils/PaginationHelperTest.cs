@@ -49,13 +49,15 @@ namespace StockportWebappTests.Unit.Utils
             indexOfLastItemOnPage.Should().Be(expectedResult);
         }
         
-        [Theory(Skip = "Still working on this area of the code")]
+        [Theory]
         [InlineData(1, 5, false, true, true, true, true)]
         [InlineData(2, 5, true, false, true, true, true)]
         [InlineData(3, 5, true, true, false, true, true)]
         [InlineData(4, 5, true, true, true, false, true)]
         [InlineData(5, 5, true, true, true, true, false)]
         [InlineData(7, 10, true, true, false, true, true)]
+        [InlineData(9, 10, true, true, true, false, true)]
+        [InlineData(10, 10, true, true, true, true, false)]
         [InlineData(13, 20, true, true, false, true, true)]
         public void ForFiveVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
             int currentPageNumber, 
@@ -73,14 +75,24 @@ namespace StockportWebappTests.Unit.Utils
             List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
-            Assert.Equal(page1ContainsHref, results[0].HtmlFragment.Contains("href"));
-            Assert.Equal(page2ContainsHref, results[1].HtmlFragment.Contains("href"));
-            Assert.Equal(page3ContainsHref, results[2].HtmlFragment.Contains("href"));
-            Assert.Equal(page4ContainsHref, results[3].HtmlFragment.Contains("href"));
-            Assert.Equal(page5ContainsHref, results[4].HtmlFragment.Contains("href"));
+            results[0].HtmlFragment.Contains("href").Should().Be(page1ContainsHref, Error(1, currentPageNumber, totalPages, page1ContainsHref));
+            results[1].HtmlFragment.Contains("href").Should().Be(page2ContainsHref, Error(2, currentPageNumber, totalPages, page2ContainsHref));
+            results[2].HtmlFragment.Contains("href").Should().Be(page3ContainsHref, Error(3, currentPageNumber, totalPages, page3ContainsHref));
+            results[3].HtmlFragment.Contains("href").Should().Be(page4ContainsHref, Error(4, currentPageNumber, totalPages, page4ContainsHref));
+            results[4].HtmlFragment.Contains("href").Should().Be(page5ContainsHref, Error(5, currentPageNumber, totalPages, page5ContainsHref));
+        }
+
+        private string Error(int visiblePageIndex, int currentPageNumber, int totalPages, bool containsHref)
+        {
+            return string.Format("When current page is {0} out of {1}, visible page with index {2} should {3}contain href",
+                currentPageNumber,
+                totalPages,
+                visiblePageIndex,
+                containsHref ? "" : "NOT ");
         }
 
         [Theory]
+        // is this three (current page number) relevant in current test??
         [InlineData(3, 5)]
         public void WhenThereAreFivePagesThenTheVisiblePageNumbersShouldBeNumberedOneToFive(
             int currentPageNumber,
