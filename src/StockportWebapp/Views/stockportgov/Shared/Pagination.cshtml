@@ -16,11 +16,27 @@
                 <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page - 1).ToString()}}))">Previous</a>
             }
 
+
+            var visiblePageNumbers = paginationHelper.GenerateVisiblePageNumbers(Model.Page, Model.TotalPages);
+
+            for (int i = 0; i <= visiblePageNumbers.Count; i++)
+            {
+                if (visiblePageNumbers[i].HtmlFragment.Contains("href"))
+                {
+                    @visiblePageNumbers[i].HtmlFragment.ToString()
+                }
+                else
+                {
+                    <span>@visiblePageNumbers[i].PageNumber</span>
+                }
+
+            }
+
             // current page is 1+, current page num is less than or equal to last page, there's more than one page
             if (Model.Page >= 1 && Model.Page <= Model.TotalPages && Model.TotalPages > 1)
             {
                 var firstVisiblePageNumber = Model.Page - 2;
-                var lastVisiblePageNumber =  Model.Page + 2;
+                var lastVisiblePageNumber = Model.Page + 2;
 
                 // current page is 1 or 2
                 if (Model.Page - 2 <= 0)

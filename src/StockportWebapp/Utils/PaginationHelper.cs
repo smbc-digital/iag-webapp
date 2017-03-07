@@ -31,18 +31,14 @@ namespace StockportWebapp.Utils
         {
             const int maxVisiblePages = 5;
             int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
-
-            //for (int count = 1; count <= numVisiblePages; count++)
-            var result = new List<VisiblePageNumber>
-            {
-                new VisiblePageNumber {PageNumber = 1, HtmlFragment = "href"},
-                new VisiblePageNumber {PageNumber = 2, HtmlFragment = "href"},
-                new VisiblePageNumber {PageNumber = 3, HtmlFragment = "href"},
-                new VisiblePageNumber {PageNumber = 4, HtmlFragment = "href"},
-                new VisiblePageNumber {PageNumber = 5, HtmlFragment = "href"}
-            };
-
             int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
+            var result = new List<VisiblePageNumber>();
+
+            for (int count = 1; count <= numVisiblePages; count++)
+            {
+                result.Add(new VisiblePageNumber { PageNumber = count, HtmlFragment = "href" });
+            }
+            
             result[currentPageIndex].HtmlFragment = "";
 
             return result;
@@ -50,10 +46,10 @@ namespace StockportWebapp.Utils
 
         private int CalculateCurrentPageIndex(int currentPageNumber, int totalPages)
         {
+            int currentPageIndex;
             const int maxVisiblePages = 5;
             int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
-            const int middleIndexOutOfFive = 2;
-            int currentPageIndex = middleIndexOutOfFive;
+            
             bool currentPageIsNearStartOfVisiblePages = CurrentPageIsNearStartOfVisiblePages(currentPageNumber);
             bool currentPageIsPenultimateVisiblePage = CurrentPageIsPenultimateVisiblePage(currentPageNumber, totalPages);
             bool currentPageIsLastVisiblePage = CurrentPageIsLastVisiblePage(currentPageNumber, totalPages);
@@ -69,6 +65,11 @@ namespace StockportWebapp.Utils
             else if (currentPageIsLastVisiblePage)
             {
                 currentPageIndex = numVisiblePages - 1;
+            }
+            else
+            {
+                const int middleIndexOutOfFive = 2;
+                currentPageIndex = middleIndexOutOfFive;
             }
 
             return currentPageIndex;

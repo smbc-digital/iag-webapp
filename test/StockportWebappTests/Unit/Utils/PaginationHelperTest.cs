@@ -161,7 +161,6 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Theory]
-        // is this three (current page number) relevant in current test??
         [InlineData(3, 5)]
         public void WhenThereAreFivePagesThenTheVisiblePageNumbersShouldBeNumberedOneToFive(
             int currentPageNumber,
@@ -197,14 +196,22 @@ namespace StockportWebappTests.Unit.Utils
             numVisiblePages.Should().Be(5);
         }
 
-        [Fact]
-        public void IfTotalPagesIsFewerThanFiveThenNumVisiblePagesShouldBeEqualToTotalPages()
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(1, 2)]
+        [InlineData(1, 3)]
+        [InlineData(1, 4)]
+        public void IfTotalPagesIsFewerThanFiveThenNumVisiblePagesShouldBeEqualToTotalPages(int currentPage, int totalPages)
         {
+            // Arrange
+            PaginationHelper paginationHelper = new PaginationHelper();
 
             // Act
+            var numVisiblePages = paginationHelper.GenerateVisiblePageNumbers(currentPage, totalPages);
 
             // Assert
-            //numVisiblePages.Should().Be(totalPages);
+            numVisiblePages.Count.Should().Be(totalPages);
         }
+      
     }
 }
