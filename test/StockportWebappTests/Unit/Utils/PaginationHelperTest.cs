@@ -108,6 +108,49 @@ namespace StockportWebappTests.Unit.Utils
             results[3].HtmlFragment.Contains("href").Should().Be(page4ContainsHref, Error(4, currentPageNumber, totalPages, page4ContainsHref));
         }
 
+        [Theory]
+        [InlineData(1, false, true, true)]
+        [InlineData(2, true, false, true)]
+        [InlineData(3, true, true, false)]
+        public void ForThreeVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
+            int currentPageNumber,
+            bool page1ContainsHref,
+            bool page2ContainsHref,
+            bool page3ContainsHref)
+        {
+            // Arrange
+            var paginationHelper = new PaginationHelper();
+            const int totalPages = 3;
+
+            // Act 
+            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+
+            // Assert
+            results[0].HtmlFragment.Contains("href").Should().Be(page1ContainsHref, Error(1, currentPageNumber, totalPages, page1ContainsHref));
+            results[1].HtmlFragment.Contains("href").Should().Be(page2ContainsHref, Error(2, currentPageNumber, totalPages, page2ContainsHref));
+            results[2].HtmlFragment.Contains("href").Should().Be(page3ContainsHref, Error(3, currentPageNumber, totalPages, page3ContainsHref));
+        }
+
+        [Theory]
+        [InlineData(1, false, true)]
+        [InlineData(2, true, false)]
+        public void ForTwoVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
+            int currentPageNumber,
+            bool page1ContainsHref,
+            bool page2ContainsHref)
+        {
+            // Arrange
+            var paginationHelper = new PaginationHelper();
+            const int totalPages = 2;
+
+            // Act 
+            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+
+            // Assert
+            results[0].HtmlFragment.Contains("href").Should().Be(page1ContainsHref, Error(1, currentPageNumber, totalPages, page1ContainsHref));
+            results[1].HtmlFragment.Contains("href").Should().Be(page2ContainsHref, Error(2, currentPageNumber, totalPages, page2ContainsHref));
+        }
+
         private string Error(int visiblePageIndex, int currentPageNumber, int totalPages, bool containsHref)
         {
             return string.Format("When current page is {0} out of {1}, visible page with index {2} should {3}contain href",
@@ -152,6 +195,16 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             numVisiblePages.Should().Be(5);
+        }
+
+        [Fact]
+        public void IfTotalPagesIsFewerThanFiveThenNumVisiblePagesShouldBeEqualToTotalPages()
+        {
+
+            // Act
+
+            // Assert
+            //numVisiblePages.Should().Be(totalPages);
         }
     }
 }
