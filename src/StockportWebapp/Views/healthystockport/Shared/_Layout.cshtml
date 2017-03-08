@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-GB" class="no-js">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -10,6 +10,7 @@
     {
         <meta name="Description" content="@ViewData["Description"]" />
     }
+    <link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">
     <!--[if (gt IE 8) | (IEMobile)]><!-->
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
     <!--<![endif]-->
@@ -34,6 +35,10 @@
         </div>
     </main>
     @Html.Partial("Footer")
+    <!--[if lte IE 9]>
+        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
+        <![endif]-->
+    <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="/assets/javascript/healthystockport.min.js"></script>
 </body>
