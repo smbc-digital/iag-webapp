@@ -9,6 +9,13 @@ $(document).ready(function () {
             function () {
                 $("#mobileSearchInput").slideToggle(220);
                 $(".show-search-button").toggleClass("arrow");
+               
+                if ($(".l-body-container-mobile").css("margin-top") != "0px") {
+                    $(".l-body-container-mobile").css("cssText", "margin-top: 0 !important;");
+                } else {
+                    
+                    $(".l-body-container-mobile").css("cssText", "margin-top: 60px !important;");
+                }
             }
     );
 
