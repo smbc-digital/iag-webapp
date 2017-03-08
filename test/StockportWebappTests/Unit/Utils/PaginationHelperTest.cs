@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
+using Microsoft.AspNetCore.Razor.CodeGenerators;
 using StockportWebapp.Utils;
 using Xunit;
 using Xunit.Sdk;
@@ -213,6 +215,103 @@ namespace StockportWebappTests.Unit.Utils
             numVisiblePages.Count.Should().Be(totalPages);
         }
 
-       
+        [Theory]
+        [InlineData(1, 1)]
+        [InlineData(2, 1)]
+        [InlineData(1, 2)]
+        [InlineData(2, 2)]
+        [InlineData(1, 3)]
+        [InlineData(2, 3)]
+        [InlineData(1, 4)]
+        [InlineData(2, 4)]
+        [InlineData(1, 5)]
+        [InlineData(2, 5)]
+        [InlineData(1, 10)]
+        [InlineData(2, 10)]
+        public void IfCurrentPageNumberIsOneOrTwoThenFirstVisiblePageNumberShouldBeOne(int currentPageNumber, int totalPages)
+        {
+            // Arrange
+            var paginationHelper = new PaginationHelper();
+
+            // Act
+            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages); 
+
+            // Assert
+            results[0].PageNumber.Should().Be(1);
+        }
+
+        [Theory]
+        [InlineData(4, 5)]
+        [InlineData(5, 5)]
+        [InlineData(9, 10)]
+        [InlineData(10, 10)]
+        public void IfCurrentPageIsPenultimateOrLastAndTotalPagesGreaterThanFourThenFirstVisiblePageNumShouldBeTotalPagesMinusFour
+            (int currentPageNumber, int totalPages)
+        {
+            // Arrange
+            var paginationHelper = new PaginationHelper();
+
+            // Act
+            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+
+            // Assert
+            results[0].PageNumber.Should().Be(totalPages - 4);
+        }
+
+        [Theory]
+        [InlineData(3, 5)]
+        [InlineData(5, 10)]
+        [InlineData(8, 10)]
+        public void
+            IfTotalPagesIsGreaterThanOrEqualToFiveAndCurrentPageIsCentralVisiblePageThenFirstVisiblePageNumShouldBeCurrentPageMinusTwo
+            (int currentPageNumber, int totalPages)
+        {
+            // Arrange
+            var paginationHelper = new PaginationHelper();
+
+            // Act
+            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+
+            // Assert
+            results[0].PageNumber.Should().Be(currentPageNumber - 2);
+        }
+
+        [Theory]
+        [InlineData(1, 1, 5)]
+        [InlineData(1, 2, 5)]
+        [InlineData(1, 3, 5)]
+        [InlineData(1, 4, 5)]
+        [InlineData(1, 5, 5)]
+        [InlineData(1, 1, 4)]
+        [InlineData(1, 2, 4)]
+        [InlineData(1, 3, 4)]
+        [InlineData(1, 4, 4)]
+        [InlineData(1, 1, 3)]
+        [InlineData(1, 2, 3)]
+        [InlineData(1, 3, 3)]
+        [InlineData(1, 1, 2)]
+        [InlineData(1, 2, 2)]
+        [InlineData(3, 5, 10)]
+        [InlineData(6, 8, 10)]
+        [InlineData(6, 9, 10)]
+        [InlineData(6, 10, 10)]
+        public void LastVisiblePageNumberShouldBeFirstVisiblePageNumberPlusNumVisiblePagesMinusOne(
+            int firstVisiblePageNumber,
+            int currentPageNumber, 
+            int totalPages)
+        {
+            // Arrange
+            const int maxVisiblePages = 5;
+            int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
+            int indexOfLastVisiblePage = numVisiblePages - 1;
+            var paginationHelper = new PaginationHelper();
+
+            // Act
+            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+
+            // Assert
+            int expectedResult = firstVisiblePageNumber + numVisiblePages - 1;
+            results[indexOfLastVisiblePage].PageNumber.Should().Be(expectedResult);
+        }
     }
 }

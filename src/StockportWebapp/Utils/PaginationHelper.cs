@@ -30,12 +30,14 @@ namespace StockportWebapp.Utils
         public List<VisiblePageNumber> GenerateVisiblePageNumbers(int currentPageNumber, int totalPages)
         {
             const int maxVisiblePages = 5;
-            int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
             var result = new List<VisiblePageNumber>();
 
-            for (int count = 1; count <= numVisiblePages; count++)
+            int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
+            int firstVisiblePage = CalculateFirstVisiblePageNumber(currentPageNumber, totalPages);
+            int lastVisiblePage = firstVisiblePage + numVisiblePages - 1;
+            for (int count = firstVisiblePage; count <= lastVisiblePage; count++)
             {
-                result.Add(new VisiblePageNumber { PageNumber = count, IsCurrentPage = false });
+                result.Add(new VisiblePageNumber { PageNumber = count });
             }
 
             int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
@@ -44,12 +46,36 @@ namespace StockportWebapp.Utils
             return result;
         }
 
+        private int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)
+        {
+            int firstVisiblePage;
+
+            bool currentPageIsNearStartOfVisiblePages = CurrentPageIsNearStartOfVisiblePages(currentPageNumber);
+            bool currentPageIsPenultimateVisiblePage = CurrentPageIsPenultimateVisiblePage(currentPageNumber, totalPages);
+            bool currentPageIsLastVisiblePage = CurrentPageIsLastVisiblePage(currentPageNumber, totalPages);
+
+            if (totalPages < 5 || currentPageIsNearStartOfVisiblePages)
+            {
+                firstVisiblePage = 1;
+            }
+            else if (currentPageIsLastVisiblePage || currentPageIsPenultimateVisiblePage)
+            {
+                firstVisiblePage = totalPages - 4;
+            }
+            else
+            {
+                firstVisiblePage = currentPageNumber - 2;
+            }
+
+            return firstVisiblePage;
+        }
+
         private int CalculateCurrentPageIndex(int currentPageNumber, int totalPages)
         {
             int currentPageIndex;
             const int maxVisiblePages = 5;
             int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
-            
+
             bool currentPageIsNearStartOfVisiblePages = CurrentPageIsNearStartOfVisiblePages(currentPageNumber);
             bool currentPageIsPenultimateVisiblePage = CurrentPageIsPenultimateVisiblePage(currentPageNumber, totalPages);
             bool currentPageIsLastVisiblePage = CurrentPageIsLastVisiblePage(currentPageNumber, totalPages);
@@ -77,7 +103,7 @@ namespace StockportWebapp.Utils
 
         private bool CurrentPageIsNearStartOfVisiblePages(int currentPageNumber)
         {
-            return currentPageNumber == 1 
+            return currentPageNumber == 1
                 || currentPageNumber == 2;
         }
 
