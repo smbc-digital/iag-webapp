@@ -1,0 +1,82 @@
+﻿@model StockportWebapp.Models.NewsViewModel
+
+@{
+    ViewData["Title"] = Model.NewsItem.Title;
+    ViewData["Description"] = Model.NewsItem.Teaser;
+    Layout = "../Shared/_Layout.cshtml";
+    var latestNews = Model.GetLatestNews();
+    ViewData["og:title"] = Model.NewsItem.Title;
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.NewsItem.Breadcrumbs)
+}
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-article-content @(latestNews.Any()
+                                                                  ? "mobile-grid-100 tablet-grid-100 grid-70"
+                                                                  : "mobile-grid-100 tablet-grid-100 grid-100")">
+            <section aria-label="@Model.NewsItem.Title content" class="grid-100 mobile-grid-100">
+                <div class="l-content-container grid-100">
+                    @{
+                        if (Model.NewsItem.Alerts != null)
+                        {
+                            foreach (var alert in Model.NewsItem.Alerts)
+                            {
+                                @Html.Partial("DisplayTemplates/Alert", alert)
+                            }
+                        }
+                    }
+                    <p class="news-date news-article-date">
+                        <i class="fa fa-clock-o"></i>Last updated @Html.Partial("FormattedDate", Model.NewsItem.SunriseDate)
+                    </p>
+                    <h1 class="news-article-title">@Model.NewsItem.Title</h1>
+                    <h3 class="news-teaser">@Model.NewsItem.Teaser</h3>
+                    @if (!string.IsNullOrEmpty(Model.NewsItem.Image))
+                    {
+                        <img src="@Model.NewsItem.Image" class="news-title-image" alt="@Model.NewsItem.Title"/>
+                    }
+                    <article>
+                        @Html.Raw(Model.NewsItem.Body)
+                    </article>
+                        <ul class="news-tags">
+                            @foreach (var newsTag in Model.NewsItem.Tags)
+                            {
+                                <li class="news-tag">
+                                    <a href="@Url.Action("Index", "News", new {tag = newsTag})">@newsTag</a>
+                                </li>
+                            }
+                        </ul>
+                    @Html.Partial("Share")
+                </div>
+            </section>
+        </div>
+        @{
+            if (latestNews.Any())
+            {
+                <div class="l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
+                    <div class="l-left-side-bar-section">
+                        <h3>Latest News</h3>
+                        <ul>
+                            @foreach (var item in latestNews.Take(6))
+                            {
+                                <li class="@(item.Slug == Model.NewsItem.Slug ? "active" : "")">
+                                    <a href="@Url.Action("Detail", "News", new {Slug = item.Slug})">@item.Title</a>
+                                </li>
+                            }
+                            @if (latestNews.Count() > 6)
+                            {
+                                <li>
+                                    <a href="@Url.Action("Index", "News")">
+                                        <strong>More</strong>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
