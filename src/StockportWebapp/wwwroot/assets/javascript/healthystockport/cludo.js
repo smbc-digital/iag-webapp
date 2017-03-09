@@ -3,7 +3,7 @@
     (function () {
         var cludoSettings = {
             customerId: 112,
-            engineId: 1144,
+            engineId: 1757,
             type: 'standardOverlay',
             hideSearchFilters: true,
             initSearchBoxText: '',
