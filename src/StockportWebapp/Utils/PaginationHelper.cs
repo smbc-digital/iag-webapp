@@ -6,6 +6,12 @@ using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
 {
+    public class PaginatedNews
+    {
+        public List<News> NewsItems { get; set; }
+        public Pagination Pagination { get; set; }
+    }
+
     public static class PaginationHelper
     {
         public static int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int maxItemsPerPage)
@@ -118,25 +124,32 @@ namespace StockportWebapp.Utils
             return currentPageNumber == (totalPages - 1);
         }
 
-        public static List<News> GetPaginatedNewsForSpecifiedPage(List<News> newsRoomNews, Pagination modelPagination, int currentPageNumber)
+        public static PaginatedNews GetPaginatedNewsForSpecifiedPage(List<News> newsRoomNews, int currentPageNumber)
         {
-            modelPagination.Page = currentPageNumber == 0 ? 1 : currentPageNumber;
-            modelPagination.DisplayName = "News articles";
-            modelPagination.TotalItems = newsRoomNews.Count;
+            Pagination pagination = new Pagination
+            {
+                Page = currentPageNumber == 0 ? 1 : currentPageNumber,
+                DisplayName = "News articles",
+                TotalItems = newsRoomNews.Count
+            };
 
-            bool numItemsIsDivisibleByPageSize = (newsRoomNews.Count % modelPagination.PageSize == 0);
+            bool numItemsIsDivisibleByPageSize = (newsRoomNews.Count % pagination.PageSize == 0);
             int pageCount = numItemsIsDivisibleByPageSize
-                ? (newsRoomNews.Count / modelPagination.PageSize)
-                : newsRoomNews.Count / modelPagination.PageSize + 1;
+                ? (newsRoomNews.Count / pagination.PageSize)
+                : newsRoomNews.Count / pagination.PageSize + 1;
 
-            modelPagination.TotalPages = pageCount;
+            pagination.TotalPages = pageCount;
 
             List<News> newsOnCurrentPage = newsRoomNews
-                    .Skip(modelPagination.PageSize * (modelPagination.Page - 1))
-                    .Take(modelPagination.PageSize).ToList();
-            modelPagination.TotalItemsOnPage = newsOnCurrentPage.Count;
+                    .Skip(pagination.PageSize * (pagination.Page - 1))
+                    .Take(pagination.PageSize).ToList();
+            pagination.TotalItemsOnPage = newsOnCurrentPage.Count;
 
-            return newsOnCurrentPage;
+            return new PaginatedNews
+            {
+                NewsItems = newsOnCurrentPage,
+                Pagination = pagination
+            };
         }
     }
 }
