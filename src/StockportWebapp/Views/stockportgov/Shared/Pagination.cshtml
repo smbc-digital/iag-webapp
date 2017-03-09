@@ -12,18 +12,8 @@
         @{
             if (Model.Page > 1)
             {
-                var queryParams = new Dictionary<string, string>
-                        {
-                            {"Page", (Model.Page - 1).ToString()}
-                        };
-                var urlWithQueryParams = Model.CurrentUrl.AddQueriesToUrl(queryParams);
-                //var url = Url.RouteUrl(urlWithQueryParams);
-
-                var url = PaginationHelper.BuildUrl(Model.Page - 1, Model.CurrentUrl, Url);
-
-                < a href="@url">Previous</a>
-
-                <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page - 1).ToString()}}))">Previous</a>
+                var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.Page - 1).ToString() } }));
+                <a href="@url">Previous</a>
             }
 
             var visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.Page, Model.TotalPages);
@@ -36,20 +26,15 @@
                 }
                 else
                 {
-                    var queryParams = new Dictionary<string, string>
-                        {
-                            {"Page", visiblePageNumber.PageNumber.ToString()}
-                        };
-                    var urlWithQueryParams = Model.CurrentUrl.AddQueriesToUrl(queryParams);
-                    var url = Url.RouteUrl(urlWithQueryParams);
-
+                    var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", visiblePageNumber.PageNumber.ToString() } }));
                     <a href="@url">@visiblePageNumber.PageNumber.ToString()</a>
                 }
             }
 
             if (Model.Page < Model.TotalPages)
             {
-                <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page + 1).ToString()}}))">Next</a>
+                var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.Page + 1).ToString() } }));
+                <a href="@url">Next</a>
             }
         }
     </div>

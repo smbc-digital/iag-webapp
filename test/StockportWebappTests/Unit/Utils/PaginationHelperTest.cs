@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.CodeGenerators;
 using Microsoft.AspNetCore.Routing;
 using Moq;
+using StockportWebapp.Extensions;
 using StockportWebapp.Utils;
 using Xunit;
 using Xunit.Sdk;
@@ -315,20 +316,22 @@ namespace StockportWebappTests.Unit.Utils
 
         }
 
-        [Fact (Skip = "still working on this area of code")]
-        public void UrlShouldBeOriginalUrlPlusPageQueryParamContainingSpecifiedPageNumber()
-        {
-            // Arrange
-            int pageNumber = 5;
-            QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
-            var urlHelper = new Mock<IUrlHelper>();
-            //urlHelper.Setup(urlHelper => urlHelper.RouteUrl())
+        //[Fact]
+        //public void BuildUrlShouldUseUrlHelperToCreateUrlWithPageQueryParamWithCorrectPageNumber()
+        //{
+        //    // Arrange
+        //    int pageNumber = 5;
+        //    QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
+        //    var urlHelper = new Mock<IUrlHelper>();
+        //    urlHelper
+        //        .Setup(u => u.RouteUrl(It.IsAny<QueryUrl>()))
+        //        .Returns("this string is not relevant");
 
-            // Act
-            string url = PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
+        //    // Act
+        //    PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
 
-            // Assert 
-            url.Should().Be("http://stockport.gov.uk/events?Page=5");
-        }
+        //    // Assert 
+        //    urlHelper.Verify();
+        //}
     }
 }

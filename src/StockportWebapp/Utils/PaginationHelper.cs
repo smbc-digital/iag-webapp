@@ -115,10 +115,5 @@ namespace StockportWebapp.Utils
         {
             return currentPageNumber == (totalPages - 1);
         }
-
-        public static string BuildUrl(int pageNumber, QueryUrl queryUrl, IUrlHelper urlHelper)
-        {
-            return "?Page=";
-        }
     }
 }
