@@ -57,19 +57,19 @@ namespace StockportWebapp.Utils
             return currentPageNumber < totalPages;
         }
 
-        public static PaginatedNews GetPaginatedNewsForSpecifiedPage(List<News> newsRoomNews, int currentPageNumber)
+        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber)
         {
-            Pagination pagination = new Pagination(newsRoomNews.Count, currentPageNumber, "News articles");
+            Pagination pagination = new Pagination(items.Count, currentPageNumber, "News articles");
 
             int itemsOnPreviousPages = pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
-            List<News> newsOnCurrentPage = newsRoomNews
+            List<T> itemsOnCurrentPage = items
                     .Skip(itemsOnPreviousPages)
                     .Take(pagination.MaxItemsPerPage).ToList();
-            pagination.TotalItemsOnPage = newsOnCurrentPage.Count;
+            pagination.TotalItemsOnPage = itemsOnCurrentPage.Count;
 
-            return new PaginatedNews
+            return new PaginatedItems<T>
             {
-                NewsItems = newsOnCurrentPage,
+                Items = itemsOnCurrentPage,
                 Pagination = pagination
             };
         }

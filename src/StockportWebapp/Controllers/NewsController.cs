@@ -92,8 +92,8 @@ namespace StockportWebapp.Controllers
         {
             if (newsRoom != null && newsRoom.News.Any() && _featureToggles.NewsroomPagination)
             {
-                var paginatedNews = PaginationHelper.GetPaginatedNewsForSpecifiedPage(newsRoom.News, currentPageNumber);
-                newsRoom.News = paginatedNews.NewsItems;
+                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(newsRoom.News, currentPageNumber);
+                newsRoom.News = paginatedNews.Items;
                 model.Pagination = paginatedNews.Pagination;
             }
         }

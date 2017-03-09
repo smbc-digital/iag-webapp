@@ -315,7 +315,7 @@ namespace StockportWebappTests.Unit.Utils
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
             
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 1).NewsItems;
+            bigNewsRoom.News = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 1).Items;
 
             // Assert
             bigNewsRoom.News.Count.Should().Be(numItems);
@@ -333,7 +333,7 @@ namespace StockportWebappTests.Unit.Utils
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
             
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 1).NewsItems;
+            bigNewsRoom.News = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 1).Items;
 
             // Assert
             bigNewsRoom.News.Count.Should().Be(15);
@@ -352,7 +352,7 @@ namespace StockportWebappTests.Unit.Utils
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
             
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, lastPageNum).NewsItems;
+            bigNewsRoom.News = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, lastPageNum).Items;
 
             // Assert
             bigNewsRoom.News.Count.Should().Be(numItems % 15);
@@ -370,7 +370,7 @@ namespace StockportWebappTests.Unit.Utils
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
             
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 1).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 1).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be(1);
@@ -389,7 +389,7 @@ namespace StockportWebappTests.Unit.Utils
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be(numItems / 15);
@@ -408,7 +408,7 @@ namespace StockportWebappTests.Unit.Utils
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be((numItems / 15) + 1);
@@ -424,7 +424,7 @@ namespace StockportWebappTests.Unit.Utils
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 0).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 0).Pagination;
 
             // Assert
             pagination.CurrentPageNumber.Should().Be(1);
