@@ -3,6 +3,7 @@
     ViewData["Title"] = Model.Article.Title;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = Model.Article.Teaser;
+    ViewData["og:title"] = Model.OgTitleMetaData;
 }
 
 @section BackgroundImage {

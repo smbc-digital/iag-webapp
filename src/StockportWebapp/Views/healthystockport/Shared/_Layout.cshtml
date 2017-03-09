@@ -10,6 +10,10 @@
     {
         <meta name="Description" content="@ViewData["Description"]" />
     }
+    @if (ViewData["og:title"] != null)
+    {
+        <meta property="og:title" content="@ViewData["og:title"]" />
+    }
     <link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">
     <!--[if (gt IE 8) | (IEMobile)]><!-->
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />

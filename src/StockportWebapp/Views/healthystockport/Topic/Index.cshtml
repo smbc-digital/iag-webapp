@@ -4,6 +4,7 @@
     ViewData["Title"] = topic.Name;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = topic.Teaser;
+    ViewData["og:title"] = topic.Name;
 }
 
 @section BackgroundImage {
