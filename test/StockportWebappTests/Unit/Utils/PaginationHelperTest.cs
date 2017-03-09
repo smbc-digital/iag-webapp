@@ -427,7 +427,7 @@ namespace StockportWebappTests.Unit.Utils
             var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 0).Pagination;
 
             // Assert
-            pagination.Page.Should().Be(1);
+            pagination.CurrentPageNumber.Should().Be(1);
         }
 
         [Fact]
