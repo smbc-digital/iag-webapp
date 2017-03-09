@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Mvc;
 
 namespace StockportWebapp.Utils
 {
@@ -32,17 +32,20 @@ namespace StockportWebapp.Utils
             const int maxVisiblePages = 5;
             var result = new List<VisiblePageNumber>();
 
-            int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
-            int firstVisiblePage = CalculateFirstVisiblePageNumber(currentPageNumber, totalPages);
-            int lastVisiblePage = firstVisiblePage + numVisiblePages - 1;
-            for (int count = firstVisiblePage; count <= lastVisiblePage; count++)
+            if (totalPages > 1)
             {
-                result.Add(new VisiblePageNumber { PageNumber = count });
+                int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
+                int firstVisiblePage = CalculateFirstVisiblePageNumber(currentPageNumber, totalPages);
+                int lastVisiblePage = firstVisiblePage + numVisiblePages - 1;
+                for (int count = firstVisiblePage; count <= lastVisiblePage; count++)
+                {
+                    result.Add(new VisiblePageNumber { PageNumber = count });
+                }
+
+                int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
+                result[currentPageIndex].IsCurrentPage = true;
             }
-
-            int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
-            result[currentPageIndex].IsCurrentPage = true;
-
+            
             return result;
         }
 
@@ -115,6 +118,11 @@ namespace StockportWebapp.Utils
         private bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
         {
             return currentPageNumber == (totalPages - 1);
+        }
+
+        public static string BuildUrl(int pageNumber, QueryUrl queryUrl, IUrlHelper urlHelper)
+        {
+            return "?Page=";
         }
 
 

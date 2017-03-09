@@ -28,13 +28,13 @@ namespace StockportWebapp.Controllers
         private readonly FeatureToggles _featureToggles;
 
         public NewsController(
-            IRepository repository, 
-            IProcessedContentRepository processedContentRepository, 
-            IRssFeedFactory rssfeedFactory, 
-            ILogger<NewsController> logger, 
-            IApplicationConfiguration config, 
-            BusinessId businessId, 
-            IFilteredUrl filteredUrl, 
+            IRepository repository,
+            IProcessedContentRepository processedContentRepository,
+            IRssFeedFactory rssfeedFactory,
+            ILogger<NewsController> logger,
+            IApplicationConfiguration config,
+            BusinessId businessId,
+            IFilteredUrl filteredUrl,
             FeatureToggles featureToggles)
         {
             _repository = repository;
@@ -59,42 +59,41 @@ namespace StockportWebapp.Controllers
             var ms = ModelState;
 
             var queries = new List<Query>();
-            if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag)); 
-            if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("Category", model.Category)); 
+            if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag));
+            if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("Category", model.Category));
             if (model.DateFrom.HasValue) queries.Add(new Query("DateFrom", model.DateFrom.Value.ToString("yyyy-MM-dd")));
-            if (model.DateTo.HasValue)  queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
+            if (model.DateTo.HasValue) queries.Add(new Query("DateTo", model.DateTo.Value.ToString("yyyy-MM-dd")));
 
             var httpResponse = await _repository.Get<Newsroom>(queries: queries);
 
             if (!httpResponse.IsSuccessful())
                 return httpResponse;
 
-            var newsRoom = httpResponse.Content as Newsroom;    
-            
+            var newsRoom = httpResponse.Content as Newsroom;
+
+            var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
+
             model.Pagination = new Pagination();
             model.Pagination.Page = Page == 0 ? 1 : Page;
             model.Pagination.DisplayName = "News articles";
 
-            var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
-            if (newsRoom.News.Any())
+            if (newsRoom.News.Any() && _featureToggles.NewsroomPagination)
             {
-                if (_featureToggles.NewsroomPagination)
-                {
-                    var pageCount = newsRoom.News.Count / model.Pagination.PageSize;
-                    if (newsRoom.News.Count % model.Pagination.PageSize > 0)
-                        pageCount += 1;
+                int pageCount = newsRoom.News.Count % model.Pagination.PageSize > 0
+                    ? (newsRoom.News.Count / model.Pagination.PageSize) + 1
+                    : newsRoom.News.Count / model.Pagination.PageSize;
 
-                    model.Pagination.TotalPages = pageCount;
-                    model.Pagination.TotalItems = newsRoom.News.Count;
 
-                    List<News> PagedNews = newsRoom.News
-                            .Skip(model.Pagination.PageSize * (model.Pagination.Page - 1))
-                            .Take(model.Pagination.PageSize).ToList();
+                model.Pagination.TotalPages = pageCount;
+                model.Pagination.TotalItems = newsRoom.News.Count;
 
-                    model.Pagination.TotalItemsOnPage = PagedNews.Count;
-                    newsRoom.News = PagedNews;
-                }
+                List<News> PagedNews = newsRoom.News
+                        .Skip(model.Pagination.PageSize * (model.Pagination.Page - 1))
+                        .Take(model.Pagination.PageSize).ToList();
+
+                model.Pagination.TotalItemsOnPage = PagedNews.Count;
+                newsRoom.News = PagedNews;
+
             }
 
             model.AddNews(newsRoom);
@@ -120,13 +119,13 @@ namespace StockportWebapp.Controllers
             {
                 var response = initialResponse.Content as ProcessedNews;
 
-                    var latestNewsResponse = await _repository.Get<List<News>>("7");
-                    var latestNews = latestNewsResponse.Content as List<News>;
-                    var newsViewModel = new NewsViewModel(response, latestNews);
+                var latestNewsResponse = await _repository.Get<List<News>>("7");
+                var latestNews = latestNewsResponse.Content as List<News>;
+                var newsViewModel = new NewsViewModel(response, latestNews);
 
-                    ViewBag.CurrentUrl = Request?.GetUri();
+                ViewBag.CurrentUrl = Request?.GetUri();
 
-                    finalResult = View(newsViewModel);
+                finalResult = View(newsViewModel);
             }
 
             return finalResult;

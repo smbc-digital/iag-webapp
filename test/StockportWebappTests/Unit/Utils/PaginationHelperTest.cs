@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.CodeGenerators;
+using Microsoft.AspNetCore.Routing;
+using Moq;
 using StockportWebapp.Utils;
 using Xunit;
 using Xunit.Sdk;
@@ -199,7 +203,6 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Theory]
-        [InlineData(1, 1)]
         [InlineData(1, 2)]
         [InlineData(1, 3)]
         [InlineData(1, 4)]
@@ -216,8 +219,6 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Theory]
-        [InlineData(1, 1)]
-        [InlineData(2, 1)]
         [InlineData(1, 2)]
         [InlineData(2, 2)]
         [InlineData(1, 3)]
@@ -312,6 +313,37 @@ namespace StockportWebappTests.Unit.Utils
             // Assert
             int expectedResult = firstVisiblePageNumber + numVisiblePages - 1;
             results[indexOfLastVisiblePage].PageNumber.Should().Be(expectedResult);
+        }
+
+        [Fact]
+        public void IfThereIsOnlyOnePageThereShouldBeNoVisiblePageNumbers()
+        {
+            // Arrange
+            const int currentPageNumber = 1;
+            const int totalPages = 1;
+            var paginationHelper = new PaginationHelper();
+
+            // Act
+            var result = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+
+            // Assert
+            result.Count.Should().Be(0);
+        }
+
+        [Fact (Skip = "still working on this area of code")]
+        public void UrlShouldBeOriginalUrlPlusPageQueryParamContainingSpecifiedPageNumber()
+        {
+            // Arrange
+            int pageNumber = 5;
+            QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
+            var urlHelper = new Mock<IUrlHelper>();
+            //urlHelper.Setup(urlHelper => urlHelper.RouteUrl())
+
+            // Act
+            string url = PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
+
+            // Assert 
+            url.Should().Be("http://stockport.gov.uk/events?Page=5");
         }
     }
 }

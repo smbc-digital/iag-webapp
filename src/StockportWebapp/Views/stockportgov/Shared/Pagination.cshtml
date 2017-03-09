@@ -13,42 +13,36 @@
         @{
             if (Model.Page > 1)
             {
+                var queryParams = new Dictionary<string, string>
+                        {
+                            {"Page", (Model.Page - 1).ToString()}
+                        };
+                var urlWithQueryParams = Model.CurrentUrl.AddQueriesToUrl(queryParams);
+                var url = Url.RouteUrl(urlWithQueryParams);
+
+                <a href="@url">Previous</a>
+
                 <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page - 1).ToString()}}))">Previous</a>
             }
 
-            // current page is 1+, current page num is less than or equal to last page, there's more than one page
-            if (Model.Page >= 1 && Model.Page <= Model.TotalPages && Model.TotalPages > 1)
+            var visiblePageNumbers = paginationHelper.GenerateVisiblePageNumbers(Model.Page, Model.TotalPages);
+
+            foreach (var visiblePageNumber in visiblePageNumbers)
             {
-                var firstVisiblePageNumber = Model.Page - 2;
-                var lastVisiblePageNumber = Model.Page + 2;
-
-                // current page is 1 or 2
-                if (Model.Page - 2 <= 0)
+                if (visiblePageNumber.IsCurrentPage)
                 {
-                    firstVisiblePageNumber = 1;
-                    lastVisiblePageNumber = 5;
+                    <span>@visiblePageNumber.PageNumber.ToString()</span>
                 }
-
-                // current page is penultimate or last page
-                if (Model.Page + 2 > Model.TotalPages)
+                else
                 {
-                    firstVisiblePageNumber = Model.Page - 5;
-                    lastVisiblePageNumber = Model.TotalPages;
-                }
+                    var queryParams = new Dictionary<string, string>
+                        {
+                            {"Page", visiblePageNumber.PageNumber.ToString()}
+                        };
+                    var urlWithQueryParams = Model.CurrentUrl.AddQueriesToUrl(queryParams);
+                    var url = Url.RouteUrl(urlWithQueryParams);
 
-                for (int i = firstVisiblePageNumber; i <= lastVisiblePageNumber; i++)
-                {
-                    if (i > 0 && i <= Model.TotalPages)
-                    {
-                        if (i == Model.Page)
-                        {
-                            <span>@i.ToString()</span>
-                        }
-                        else
-                        {
-                            <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", i.ToString()}}))">@i.ToString()</a>
-                        }
-                    }
+                    <a href="@url">@visiblePageNumber.PageNumber.ToString()</a>
                 }
             }
 
