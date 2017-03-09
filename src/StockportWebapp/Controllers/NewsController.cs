@@ -72,28 +72,29 @@ namespace StockportWebapp.Controllers
             var newsRoom = httpResponse.Content as Newsroom;
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
-            model.Pagination = new Pagination();
-            model.Pagination.Page = Page == 0 ? 1 : Page;
-            model.Pagination.DisplayName = "News articles";
-
-            if (newsRoom.News.Any() && _featureToggles.NewsroomPagination)
+            
+            if (newsRoom != null && newsRoom.News.Any() && _featureToggles.NewsroomPagination)
             {
-                int pageCount = newsRoom.News.Count % model.Pagination.PageSize > 0
-                    ? (newsRoom.News.Count / model.Pagination.PageSize) + 1
-                    : newsRoom.News.Count / model.Pagination.PageSize;
+                model.Pagination = new Pagination
+                {
+                    Page = Page == 0 ? 1 : Page,
+                    DisplayName = "News articles",
+                    TotalItems = newsRoom.News.Count
+                };
 
+                bool numItemsIsDivisibleByPageSize = (newsRoom.News.Count % model.Pagination.PageSize == 0);
+                int pageCount = numItemsIsDivisibleByPageSize
+                    ? (newsRoom.News.Count / model.Pagination.PageSize) 
+                    : newsRoom.News.Count / model.Pagination.PageSize + 1;
 
                 model.Pagination.TotalPages = pageCount;
-                model.Pagination.TotalItems = newsRoom.News.Count;
 
-                List<News> PagedNews = newsRoom.News
+                List<News> newsOnCurrentPage = newsRoom.News
                         .Skip(model.Pagination.PageSize * (model.Pagination.Page - 1))
                         .Take(model.Pagination.PageSize).ToList();
 
-                model.Pagination.TotalItemsOnPage = PagedNews.Count;
-                newsRoom.News = PagedNews;
-
+                model.Pagination.TotalItemsOnPage = newsOnCurrentPage.Count;
+                newsRoom.News = newsOnCurrentPage;
             }
 
             model.AddNews(newsRoom);

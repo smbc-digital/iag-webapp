@@ -100,6 +100,8 @@ namespace StockportWebappTests.Unit.Controllers
             _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId))
                 .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
+            _featureToggles.NewsroomPagination = true;
+
             _controller = new NewsController(
                 _repository.Object,
                 _processedContentRepository.Object,
@@ -328,37 +330,10 @@ namespace StockportWebappTests.Unit.Controllers
         [InlineData(1)]
         [InlineData(10)]
         [InlineData(15)]
-        public void IfNumItemsIsFifteenOrFewerThenItemsOnPageOneShouldBeEqualToNumItems(int numItems)
+        public void IfNumItemsIsFifteenOrFewerThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-
-
-            _repository.Setup(o =>
-                o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
-
-            var controller = new NewsController(
-                _repository.Object,
-                _processedContentRepository.Object,
-                _mockRssFeedFactory.Object,
-                _logger.Object,
-                _config.Object,
-                new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles { NewsroomPagination = true }
-            );
-
+            var controller = SetUpController(numItems);
             var model = new NewsroomViewModel
             {
                 DateFrom = new DateTime(2016, 10, 01),
@@ -376,40 +351,13 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Theory]
-        [InlineData(30, 2)]
-        [InlineData(45, 3)]
-        [InlineData(60, 4)]
-        public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnLastPageShouldBeFifteen(int numItems, int lastPageNum)
+        [InlineData(30)]
+        [InlineData(45)]
+        [InlineData(60)]
+        public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnPageShouldBeFifteen(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-
-
-            _repository.Setup(o =>
-                o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
-
-            var controller = new NewsController(
-                _repository.Object,
-                _processedContentRepository.Object,
-                _mockRssFeedFactory.Object,
-                _logger.Object,
-                _config.Object,
-                new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles { NewsroomPagination = true }
-            );
-
+            var controller = SetUpController(numItems);
             var model = new NewsroomViewModel
             {
                 DateFrom = new DateTime(2016, 10, 01),
@@ -417,7 +365,7 @@ namespace StockportWebappTests.Unit.Controllers
             };
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, lastPageNum)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, 1)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var newsroom = viewModel.Newsroom;
@@ -434,34 +382,7 @@ namespace StockportWebappTests.Unit.Controllers
             IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByFifteenThenLastPageShouldReturnNumItemsModFifteen(int numItems, int lastPageNum)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-
-
-            _repository.Setup(o =>
-                o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
-
-            var controller = new NewsController(
-                _repository.Object,
-                _processedContentRepository.Object,
-                _mockRssFeedFactory.Object,
-                _logger.Object,
-                _config.Object,
-                new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles { NewsroomPagination = true }
-            );
-
+            var controller = SetUpController(numItems);
             var model = new NewsroomViewModel
             {
                 DateFrom = new DateTime(2016, 10, 01),
@@ -485,33 +406,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void IfNumItemsIsFifteenOrLessShouldReturnOnePage(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-
-
-            _repository.Setup(o =>
-                o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
-
-            var controller = new NewsController(
-                _repository.Object,
-                _processedContentRepository.Object,
-                _mockRssFeedFactory.Object,
-                _logger.Object,
-                _config.Object,
-                new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles { NewsroomPagination = true }
-            );
+            var controller = SetUpController(numItems);
             var model = new NewsroomViewModel
             {
                 DateFrom = new DateTime(2016, 10, 01),
@@ -536,33 +431,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void IfNumItemsIsEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteen(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-
-
-            _repository.Setup(o =>
-                o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
-
-            var controller = new NewsController(
-                _repository.Object,
-                _processedContentRepository.Object,
-                _mockRssFeedFactory.Object,
-                _logger.Object,
-                _config.Object,
-                new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles { NewsroomPagination = true }
-            );
+            var controller = SetUpController(numItems);
             var model = new NewsroomViewModel
             {
                 DateFrom = new DateTime(2016, 10, 01),
@@ -587,34 +456,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteenPlusOne(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-
-
-            _repository.Setup(o =>
-                o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
-
-            var controller = new NewsController(
-                _repository.Object,
-                _processedContentRepository.Object,
-                _mockRssFeedFactory.Object,
-                _logger.Object,
-                _config.Object,
-                new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles { NewsroomPagination = true }
-            );
-
+            var controller = SetUpController(numItems);
             var model = new NewsroomViewModel
             {
                 DateFrom = new DateTime(2016, 10, 01),
@@ -633,15 +475,39 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void IfPageNumIsZeroItShouldBeSetToOne()
+        public void IfSpecifiedPageNumIsZeroThenActualPageNumIsOne()
         {
             // Arrange
             int thisNumberIsIrrelevant = 10;
-            List<News> longListofNewsItems = BuildNewsList(thisNumberIsIrrelevant);
+            var controller = SetUpController(thisNumberIsIrrelevant);
+            var model = new NewsroomViewModel
+            {
+                DateFrom = new DateTime(2016, 10, 01),
+                DateTo = new DateTime(2016, 11, 01),
+                Pagination = new Pagination
+                {
+                    Page = 0
+                }
+            };
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.Page.Should().Be(1);
+        }
+
+        [Fact]
+        public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum()
+        {
+        }
+
+        private NewsController SetUpController(int numNewsItems)
+        {
+            List<News> longListofNewsItems = BuildNewsList(numNewsItems);
 
             var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
                 EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-
 
             _repository.Setup(o =>
                 o.Get<Newsroom>(
@@ -652,7 +518,7 @@ namespace StockportWebappTests.Unit.Controllers
                         ))
                     )
                 )
-            ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
+            ).ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, bigNewsRoom));
 
             var controller = new NewsController(
                 _repository.Object,
@@ -662,23 +528,10 @@ namespace StockportWebappTests.Unit.Controllers
                 _config.Object,
                 new BusinessId(BusinessId),
                 _filteredUrl.Object,
-                new FeatureToggles { NewsroomPagination = true }
+                new FeatureToggles {NewsroomPagination = true}
             );
 
-            var model = new NewsroomViewModel
-            {
-                DateFrom = new DateTime(2016, 10, 01),
-                DateTo = new DateTime(2016, 11, 01)
-            };
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, 0)) as ViewResult;
-
-            var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
-            var newsroom = viewModel.Newsroom;
-
-            // Assert
-            model.Pagination.Page.Should().Be(1);
+            return controller;
         }
 
         private List<News> BuildNewsList(int numberOfItems)
