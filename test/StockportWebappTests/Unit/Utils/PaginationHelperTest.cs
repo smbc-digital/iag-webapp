@@ -24,10 +24,9 @@ namespace StockportWebappTests.Unit.Utils
             // Arrange
             int indexOfFirstItemOnPage;
             const int numItemsOnPage = 15;
-            var paginationHelper = new PaginationHelper();
-
+            
             // Act
-            indexOfFirstItemOnPage = paginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, numItemsOnPage);
+            indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, numItemsOnPage);
             
             // Assert
             indexOfFirstItemOnPage.Should().Be(expectedResult);
@@ -46,10 +45,9 @@ namespace StockportWebappTests.Unit.Utils
             // Arrange
             int indexOfLastItemOnPage;
             const int maxItemsPerPage = 15;
-            var paginationHelper = new PaginationHelper();
-
+            
             // Act
-            indexOfLastItemOnPage = paginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, maxItemsPerPage);
+            indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, maxItemsPerPage);
 
             // Assert
             indexOfLastItemOnPage.Should().Be(expectedResult);
@@ -74,11 +72,8 @@ namespace StockportWebappTests.Unit.Utils
             bool page4IsCurrentPage,
             bool page5IsCurrentPage)
         {
-            // Arrange
-            var paginationHelper = new PaginationHelper();
-
             // Act 
-            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
@@ -101,11 +96,10 @@ namespace StockportWebappTests.Unit.Utils
             bool page4IsCurrentPage)
         {
             // Arrange
-            var paginationHelper = new PaginationHelper();
             const int totalPages = 4;
 
             // Act 
-            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
@@ -125,11 +119,10 @@ namespace StockportWebappTests.Unit.Utils
             bool page3IsCurrentPage)
         {
             // Arrange
-            var paginationHelper = new PaginationHelper();
             const int totalPages = 3;
 
             // Act 
-            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
@@ -146,11 +139,10 @@ namespace StockportWebappTests.Unit.Utils
             bool page2IsCurrentPage)
         {
             // Arrange
-            var paginationHelper = new PaginationHelper();
             const int totalPages = 2;
 
             // Act 
-            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].IsCurrentPage.Should().Be(page1IsCurrentPage, Error(1, currentPageNumber, totalPages, page1IsCurrentPage));
@@ -172,11 +164,8 @@ namespace StockportWebappTests.Unit.Utils
             int currentPageNumber,
             int totalPages)
         {
-            // Arrange
-            var paginationHelper = new PaginationHelper();
-
             // Act 
-            List<VisiblePageNumber> results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            List<VisiblePageNumber> results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].PageNumber.Should().Be(1);
@@ -192,11 +181,10 @@ namespace StockportWebappTests.Unit.Utils
         public void IfNumTotalPagesIsFiveOrMoreThenNumVisiblePagesShouldBeFive(int totalPages)
         {
             // Arrange
-            var paginationHelper = new PaginationHelper();
             int thisNumberIsIrrelevant = 0;
 
             // Act
-            int numVisiblePages = paginationHelper.GenerateVisiblePageNumbers(thisNumberIsIrrelevant, totalPages).Count;
+            int numVisiblePages = PaginationHelper.GenerateVisiblePageNumbers(thisNumberIsIrrelevant, totalPages).Count;
 
             // Assert
             numVisiblePages.Should().Be(5);
@@ -208,11 +196,8 @@ namespace StockportWebappTests.Unit.Utils
         [InlineData(1, 4)]
         public void IfTotalPagesIsFewerThanFiveThenNumVisiblePagesShouldBeEqualToTotalPages(int currentPage, int totalPages)
         {
-            // Arrange
-            PaginationHelper paginationHelper = new PaginationHelper();
-
             // Act
-            var numVisiblePages = paginationHelper.GenerateVisiblePageNumbers(currentPage, totalPages);
+            var numVisiblePages = PaginationHelper.GenerateVisiblePageNumbers(currentPage, totalPages);
 
             // Assert
             numVisiblePages.Count.Should().Be(totalPages);
@@ -231,11 +216,8 @@ namespace StockportWebappTests.Unit.Utils
         [InlineData(2, 10)]
         public void IfCurrentPageNumberIsOneOrTwoThenFirstVisiblePageNumberShouldBeOne(int currentPageNumber, int totalPages)
         {
-            // Arrange
-            var paginationHelper = new PaginationHelper();
-
             // Act
-            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages); 
+            var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages); 
 
             // Assert
             results[0].PageNumber.Should().Be(1);
@@ -249,11 +231,8 @@ namespace StockportWebappTests.Unit.Utils
         public void IfCurrentPageIsPenultimateOrLastAndTotalPagesGreaterThanFourThenFirstVisiblePageNumShouldBeTotalPagesMinusFour
             (int currentPageNumber, int totalPages)
         {
-            // Arrange
-            var paginationHelper = new PaginationHelper();
-
             // Act
-            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].PageNumber.Should().Be(totalPages - 4);
@@ -267,11 +246,8 @@ namespace StockportWebappTests.Unit.Utils
             IfTotalPagesIsGreaterThanOrEqualToFiveAndCurrentPageIsCentralVisiblePageThenFirstVisiblePageNumShouldBeCurrentPageMinusTwo
             (int currentPageNumber, int totalPages)
         {
-            // Arrange
-            var paginationHelper = new PaginationHelper();
-
             // Act
-            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].PageNumber.Should().Be(currentPageNumber - 2);
@@ -305,10 +281,9 @@ namespace StockportWebappTests.Unit.Utils
             const int maxVisiblePages = 5;
             int numVisiblePages = Math.Min(totalPages, maxVisiblePages);
             int indexOfLastVisiblePage = numVisiblePages - 1;
-            var paginationHelper = new PaginationHelper();
 
             // Act
-            var results = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             int expectedResult = firstVisiblePageNumber + numVisiblePages - 1;
@@ -321,13 +296,23 @@ namespace StockportWebappTests.Unit.Utils
             // Arrange
             const int currentPageNumber = 1;
             const int totalPages = 1;
-            var paginationHelper = new PaginationHelper();
-
+            
             // Act
-            var result = paginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
+            var result = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             result.Count.Should().Be(0);
+        }
+
+        [Fact]
+        public void IfNumItemsDividesEvenlyByFifteenShouldSetTotalPagesToNumItemsDividedByFifteen()
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+
         }
 
         [Fact (Skip = "still working on this area of code")]

@@ -4,9 +4,8 @@
 
 <div class="pagination-section grid-parent">
     @{
-        var paginationHelper = new PaginationHelper();
-        var indexOfFirstItemOnPage = paginationHelper.CalculateIndexOfFirstItemOnPage(Model.Page, Model.PageSize);
-        var indexOfLastItemOnPage = paginationHelper.CalculateIndexOfLastItemOnPage(Model.Page, Model.TotalItemsOnPage, Model.PageSize);
+        var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.Page, Model.PageSize);
+        var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.Page, Model.TotalItemsOnPage, Model.PageSize);
     }
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.DisplayName</div>
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
@@ -18,14 +17,16 @@
                             {"Page", (Model.Page - 1).ToString()}
                         };
                 var urlWithQueryParams = Model.CurrentUrl.AddQueriesToUrl(queryParams);
-                var url = Url.RouteUrl(urlWithQueryParams);
+                //var url = Url.RouteUrl(urlWithQueryParams);
 
-                <a href="@url">Previous</a>
+                var url = PaginationHelper.BuildUrl(Model.Page - 1, Model.CurrentUrl, Url);
+
+                < a href="@url">Previous</a>
 
                 <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Page", (Model.Page - 1).ToString()}}))">Previous</a>
             }
 
-            var visiblePageNumbers = paginationHelper.GenerateVisiblePageNumbers(Model.Page, Model.TotalPages);
+            var visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.Page, Model.TotalPages);
 
             foreach (var visiblePageNumber in visiblePageNumbers)
             {

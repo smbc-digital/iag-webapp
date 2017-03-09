@@ -4,13 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StockportWebapp.Utils
 {
-    public interface IPaginationHelper
+    public static class PaginationHelper
     {
-    }
-
-    public class PaginationHelper : IPaginationHelper
-    {
-        public int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int maxItemsPerPage)
+        public static int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int maxItemsPerPage)
         {
             var numberOfPreviousPages = currentPageNumber - 1;
             var numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
@@ -19,7 +15,7 @@ namespace StockportWebapp.Utils
             return indexOfFirstItemOnThisPage;
         }
 
-        public int CalculateIndexOfLastItemOnPage(int currentPageNumber, int numItemsOnThisPage, int maxItemsPerPage)
+        public static int CalculateIndexOfLastItemOnPage(int currentPageNumber, int numItemsOnThisPage, int maxItemsPerPage)
         {
             var numberOfPreviousPages = currentPageNumber - 1;
             var numberOfItemsBeforeThisPage = numberOfPreviousPages * maxItemsPerPage;
@@ -27,7 +23,7 @@ namespace StockportWebapp.Utils
             return numberOfItemsBeforeThisPage + numItemsOnThisPage;
         }
 
-        public List<VisiblePageNumber> GenerateVisiblePageNumbers(int currentPageNumber, int totalPages)
+        public static List<VisiblePageNumber> GenerateVisiblePageNumbers(int currentPageNumber, int totalPages)
         {
             const int maxVisiblePages = 5;
             var result = new List<VisiblePageNumber>();
@@ -49,7 +45,7 @@ namespace StockportWebapp.Utils
             return result;
         }
 
-        private int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)
+        private static int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)
         {
             int firstVisiblePage;
 
@@ -73,7 +69,7 @@ namespace StockportWebapp.Utils
             return firstVisiblePage;
         }
 
-        private int CalculateCurrentPageIndex(int currentPageNumber, int totalPages)
+        private static int CalculateCurrentPageIndex(int currentPageNumber, int totalPages)
         {
             int currentPageIndex;
             const int maxVisiblePages = 5;
@@ -104,18 +100,18 @@ namespace StockportWebapp.Utils
             return currentPageIndex;
         }
 
-        private bool CurrentPageIsNearStartOfVisiblePages(int currentPageNumber)
+        private static bool CurrentPageIsNearStartOfVisiblePages(int currentPageNumber)
         {
             return currentPageNumber == 1
                 || currentPageNumber == 2;
         }
 
-        private bool CurrentPageIsLastVisiblePage(int currentPageNumber, int totalPages)
+        private static bool CurrentPageIsLastVisiblePage(int currentPageNumber, int totalPages)
         {
             return currentPageNumber == totalPages;
         }
 
-        private bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
+        private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
         {
             return currentPageNumber == (totalPages - 1);
         }
@@ -124,7 +120,5 @@ namespace StockportWebapp.Utils
         {
             return "?Page=";
         }
-
-
     }
 }
