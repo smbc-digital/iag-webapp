@@ -2,16 +2,9 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Markdig.Helpers;
-using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.CodeGenerators;
-using Microsoft.AspNetCore.Routing;
-using Moq;
-using StockportWebapp.Extensions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
-using Xunit.Sdk;
 
 namespace StockportWebappTests.Unit.Utils
 {
@@ -459,6 +452,60 @@ namespace StockportWebappTests.Unit.Utils
                 longListofNewsItems.Add(NewsItem);
             }
             return longListofNewsItems;
+        }
+
+        [Fact]
+        public void PreviousLinkIsShownWhenPageNumberIsGreaterThanOne()
+        {
+            // Arrange
+            const int currentPageNumber = 5;
+
+            // Act
+            var result = PaginationHelper.ShowPreviousLink(currentPageNumber);
+
+            // Assert
+            result.Should().Be(true);
+        }
+
+        [Fact]
+        public void PreviousLinkIsNotShownWhenPageNumberIsEqualToOne()
+        {
+            // Arrange
+            const int currentPageNumber = 1;
+
+            // Act
+            var result = PaginationHelper.ShowPreviousLink(currentPageNumber);
+
+            // Assert
+            result.Should().Be(false);
+        }
+
+        [Fact]
+        public void NextLinkIsNotShownWhenPageNumberIsEqualToTotalPages()
+        {
+            // Arrange
+            const int totalPages = 10;
+            const int currentPageNumber = totalPages;
+
+            // Act
+            var result = PaginationHelper.ShowNextLink(currentPageNumber, totalPages);
+
+            // Assert
+            result.Should().Be(false);
+        }
+
+        [Fact]
+        public void NextLinkIsShownWhenPageNumberIsLessThanTotalPages()
+        {
+            // Arrange
+            const int totalPages = 10;
+            const int currentPageNumber = totalPages - 1;
+
+            // Act
+            var result = PaginationHelper.ShowNextLink(currentPageNumber, totalPages);
+
+            // Assert
+            result.Should().Be(true);
         }
 
         //[Fact]

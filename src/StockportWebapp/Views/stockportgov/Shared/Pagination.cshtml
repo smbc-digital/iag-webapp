@@ -10,7 +10,7 @@
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.DisplayName</div>
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
         @{
-            if (Model.Page > 1)
+            if (PaginationHelper.ShowPreviousLink(Model.Page))
             {
                 var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.Page - 1).ToString() } }));
                 <a href="@url">Previous</a>
@@ -31,7 +31,7 @@
                 }
             }
 
-            if (Model.Page < Model.TotalPages)
+            if (PaginationHelper.ShowNextLink(Model.Page, Model.TotalPages))
             {
                 var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.Page + 1).ToString() } }));
                 <a href="@url">Next</a>

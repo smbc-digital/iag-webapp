@@ -53,6 +53,16 @@ namespace StockportWebapp.Utils
             return result;
         }
 
+        public static bool ShowPreviousLink(int currentPageNumber)
+        {
+            return currentPageNumber > 1;
+        }
+
+        public static bool ShowNextLink(int currentPageNumber, int totalPages)
+        {
+            return currentPageNumber < totalPages;
+        }
+
         private static int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)
         {
             int firstVisiblePage;
