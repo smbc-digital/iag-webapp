@@ -128,8 +128,9 @@ namespace StockportWebapp.Utils
         {
             Pagination pagination = new Pagination(newsRoomNews.Count, currentPageNumber, "News articles");
 
+            int itemsOnPreviousPages = pagination.PageSize * (pagination.Page - 1);
             List<News> newsOnCurrentPage = newsRoomNews
-                    .Skip(pagination.PageSize * (pagination.Page - 1))
+                    .Skip(itemsOnPreviousPages)
                     .Take(pagination.PageSize).ToList();
             pagination.TotalItemsOnPage = newsOnCurrentPage.Count;
 
