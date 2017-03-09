@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using FluentAssertions;
+using Markdig.Helpers;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.CodeGenerators;
 using Microsoft.AspNetCore.Routing;
 using Moq;
 using StockportWebapp.Extensions;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
 using Xunit.Sdk;
@@ -15,6 +17,9 @@ namespace StockportWebappTests.Unit.Utils
 {
     public class PaginationHelperTest
     {
+        private const string EmailAlertsTopicId = "test-id";
+        private const bool EmailAlertsOn = true;
+
         [Theory]
         [InlineData(1, 1)]
         [InlineData(2, 16)]
@@ -305,15 +310,162 @@ namespace StockportWebappTests.Unit.Utils
             result.Count.Should().Be(0);
         }
 
-        [Fact]
-        public void IfNumItemsDividesEvenlyByFifteenShouldSetTotalPagesToNumItemsDividedByFifteen()
+        [Theory]
+        [InlineData(1)]
+        [InlineData(10)]
+        [InlineData(15)]
+        public void IfNumItemsIsFifteenOrFewerThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
         {
             // Arrange
+            List<News> longListofNewsItems = BuildNewsList(numItems);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            Pagination pagination = new Pagination();
 
             // Act
+            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, pagination, 1);
 
             // Assert
+            bigNewsRoom.News.Count.Should().Be(numItems);
+        }
 
+        [Theory]
+        [InlineData(30)]
+        [InlineData(45)]
+        [InlineData(60)]
+        public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnPageShouldBeFifteen(int numItems)
+        {
+            // Arrange
+            List<News> longListofNewsItems = BuildNewsList(numItems);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            Pagination pagination = new Pagination();
+
+            // Act
+            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, pagination, 1);
+
+            // Assert
+            bigNewsRoom.News.Count.Should().Be(15);
+        }
+
+        [Theory]
+        [InlineData(16, 2)]
+        [InlineData(37, 3)]
+        [InlineData(50, 4)]
+        public void
+            IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByFifteenThenLastPageShouldReturnNumItemsModFifteen(int numItems, int lastPageNum)
+        {
+            // Arrange
+            List<News> longListofNewsItems = BuildNewsList(numItems);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            Pagination pagination = new Pagination();
+
+            // Act
+            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, pagination, lastPageNum);
+
+            // Assert
+            bigNewsRoom.News.Count.Should().Be(numItems % 15);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(15)]
+        [InlineData(7)]
+        public void IfNumItemsIsFifteenOrLessShouldReturnOnePage(int numItems)
+        {
+            // Arrange
+            List<News> longListofNewsItems = BuildNewsList(numItems);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            Pagination pagination = new Pagination();
+
+            // Act
+            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, pagination, 1);
+
+            // Assert
+            pagination.TotalPages.Should().Be(1);
+        }
+
+        [Theory]
+        [InlineData(15)]
+        [InlineData(30)]
+        [InlineData(150)]
+        public void IfNumItemsIsEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteen(int numItems)
+        {
+            // Arrange
+            int thisNumberIsIrrelevant = 1;
+            List<News> longListofNewsItems = BuildNewsList(numItems);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            Pagination pagination = new Pagination();
+
+            // Act
+            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, pagination, thisNumberIsIrrelevant);
+
+            // Assert
+            pagination.TotalPages.Should().Be(numItems / 15);
+        }
+
+        [Theory]
+        [InlineData(53)]
+        [InlineData(16)]
+        [InlineData(29)]
+        public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteenPlusOne(int numItems)
+        {
+            // Arrange
+            int thisNumberIsIrrelevant = 1;
+            List<News> longListofNewsItems = BuildNewsList(numItems);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            Pagination pagination = new Pagination();
+
+            // Act
+            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, pagination, thisNumberIsIrrelevant);
+
+            // Assert
+            pagination.TotalPages.Should().Be((numItems / 15) + 1);
+        }
+
+        [Fact]
+        public void IfSpecifiedPageNumIsZeroThenActualPageNumIsOne()
+        {
+            // Arrange
+            int thisNumberIsIrrelevant = 3;
+            List<News> longListofNewsItems = BuildNewsList(thisNumberIsIrrelevant);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            Pagination pagination = new Pagination();
+
+            // Act
+            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, pagination, 0);
+
+            // Assert
+            pagination.Page.Should().Be(1);
+        }
+
+        [Fact]
+        public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum()
+        {
+        }
+
+        private List<News> BuildNewsList(int numberOfItems)
+        {
+            List<News> longListofNewsItems = new List<News>();
+            for (int i = 0; i < numberOfItems; i++)
+            {
+                var NewsItem = new News("News Article " + i.ToString(),
+                    "another-news-article",
+                    "This is another news article",
+                    "image.jpg",
+                    "thumbnail.jpg",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
+                    new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
+                    new List<string>(), new List<Document>());
+
+                longListofNewsItems.Add(NewsItem);
+            }
+            return longListofNewsItems;
         }
 
         //[Fact]
