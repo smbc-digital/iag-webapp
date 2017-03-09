@@ -126,19 +126,7 @@ namespace StockportWebapp.Utils
 
         public static PaginatedNews GetPaginatedNewsForSpecifiedPage(List<News> newsRoomNews, int currentPageNumber)
         {
-            Pagination pagination = new Pagination
-            {
-                Page = currentPageNumber == 0 ? 1 : currentPageNumber,
-                DisplayName = "News articles",
-                TotalItems = newsRoomNews.Count
-            };
-
-            bool numItemsIsDivisibleByPageSize = (newsRoomNews.Count % pagination.PageSize == 0);
-            int pageCount = numItemsIsDivisibleByPageSize
-                ? (newsRoomNews.Count / pagination.PageSize)
-                : newsRoomNews.Count / pagination.PageSize + 1;
-
-            pagination.TotalPages = pageCount;
+            Pagination pagination = new Pagination(newsRoomNews.Count, currentPageNumber, "News articles");
 
             List<News> newsOnCurrentPage = newsRoomNews
                     .Skip(pagination.PageSize * (pagination.Page - 1))
