@@ -278,6 +278,57 @@ namespace StockportWebappTests.Unit.Controllers
             news.Should().Be(_newsRoom);
         }
 
+        [Theory]
+        [InlineData(1, 1, 1, 1)]
+        [InlineData(10, 1, 10, 1)]
+        [InlineData(15, 1, 15, 1)]
+        [InlineData(45, 1, 15, 3)]
+        [InlineData(16, 2, 1, 2)]
+        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+            int totalNumItems,
+            int requestedPageNumber,
+            int expectedNumItemsOnPage,
+            int expectedNumPages)
+        {
+            // Arrange
+            var controller = SetUpController(totalNumItems);
+            var model = new NewsroomViewModel
+            {
+                Pagination = new Pagination { TotalPages = 0 }
+            };
+
+            // Act
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
+            
+            // Assert
+            var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+            var newsroom = viewModel.Newsroom;
+            newsroom.News.Count.Should().Be(expectedNumItemsOnPage);
+            model.Pagination.TotalPages.Should().Be(expectedNumPages);
+        }
+
+        [Theory]
+        [InlineData(0, 45, 1)]
+        [InlineData(5, 45, 3)]
+        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+            int specifiedPageNumber,
+            int numItems,
+            int expectedPageNumber)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new NewsroomViewModel
+            {
+                Pagination = new Pagination { CurrentPageNumber = 0 }
+            };
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
+
+            // Assert
+            model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
+        }
+
         private NewsController SetUpController(int numNewsItems)
         {
             List<News> listofNewsItems = BuildNewsList(numNewsItems);
@@ -292,14 +343,9 @@ namespace StockportWebappTests.Unit.Controllers
 
             _repository.Setup(o =>
                 o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, bigNewsRoom));
+                    It.IsAny<string>(),
+                    It.IsAny<List<Query>>()))
+                .ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, bigNewsRoom));
 
             var controller = new NewsController(
                 _repository.Object,

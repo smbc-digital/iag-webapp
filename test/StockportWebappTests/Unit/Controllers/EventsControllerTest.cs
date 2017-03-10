@@ -218,151 +218,44 @@ namespace StockportWebappTests.Unit.Controllers
             actionResponse.Should().BeOfType<ViewResult>();
             _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
         }
-
-
+        
         [Theory]
-        [InlineData(1)]
-        [InlineData(10)]
-        [InlineData(15)]
-        public void IfNumItemsIsFifteenOrFewerThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
+        [InlineData(1, 1, 1, 1)]
+        [InlineData(10, 1, 10, 1)]
+        [InlineData(15, 1, 15, 1)]
+        [InlineData(45, 1, 15, 3)]
+        [InlineData(16, 2, 1, 2)]
+        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+            int totalNumItems,
+            int requestedPageNumber,
+            int expectedNumItemsOnPage,
+            int expectedNumPages)
         {
             // Arrange
-            var controller = SetUpController(numItems);
-            var model = new EventCalendar();
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, 1)) as ViewResult;
-
-            // Assert
-            var viewModel = actionResponse.ViewData.Model as EventCalendar;
-            viewModel.Events.Count.Should().Be(numItems);
-        }
-
-        [Theory]
-        [InlineData(30)]
-        [InlineData(45)]
-        [InlineData(60)]
-        public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnPageShouldBeFifteen(int numItems)
-        {
-            // Arrange
-            var controller = SetUpController(numItems);
-            var model = new EventCalendar();
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, 1)) as ViewResult;
-
-            // Assert
-            var viewModel = actionResponse.ViewData.Model as EventCalendar;
-            viewModel.Events.Count.Should().Be(15);
-        }
-
-        [Theory]
-        [InlineData(16, 2)]
-        [InlineData(37, 3)]
-        [InlineData(50, 4)]
-        public void
-            IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByFifteenThenLastPageShouldReturnNumItemsModFifteen(int numItems, int lastPageNum)
-        {
-            // Arrange
-            var controller = SetUpController(numItems);
-            var model = new EventCalendar();
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, lastPageNum)) as ViewResult;
-
-            // Assert
-            var viewModel = actionResponse.ViewData.Model as EventCalendar;
-            viewModel.Events.Count.Should().Be(numItems % 15);
-        }
-
-        [Theory]
-        [InlineData(1)]
-        [InlineData(15)]
-        [InlineData(7)]
-        public void IfNumItemsIsFifteenOrLessShouldReturnOnePage(int numItems)
-        {
-            // Arrange
-            var controller = SetUpController(numItems);
+            var controller = SetUpController(totalNumItems);
             var model = new EventCalendar
             {
                 Pagination = new Pagination { TotalPages = 0 }
             };
-            const int thisNumberIsIrrelevant = 1;
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, thisNumberIsIrrelevant));
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
 
             // Assert
-            model.Pagination.TotalPages.Should().Be(1);
+            var viewModel = actionResponse.ViewData.Model as EventCalendar;
+            viewModel.Events.Count.Should().Be(expectedNumItemsOnPage);
+            model.Pagination.TotalPages.Should().Be(expectedNumPages);
         }
 
         [Theory]
-        [InlineData(15)]
-        [InlineData(30)]
-        [InlineData(150)]
-        public void IfNumItemsIsEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteen(int numItems)
+        [InlineData(0, 45, 1)]
+        [InlineData(5, 45, 3)]
+        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+            int specifiedPageNumber,
+            int numItems,
+            int expectedPageNumber)
         {
             // Arrange
-            var controller = SetUpController(numItems);
-            var model = new EventCalendar
-            {
-                Pagination = new Pagination { TotalPages = 0 }
-            };
-            const int thisNumberIsIrrelevant = 1;
-
-            // Act
-            AsyncTestHelper.Resolve(controller.Index(model, thisNumberIsIrrelevant));
-
-            // Assert
-            model.Pagination.TotalPages.Should().Be(numItems / 15);
-        }
-
-        [Theory]
-        [InlineData(53)]
-        [InlineData(16)]
-        [InlineData(29)]
-        public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteenPlusOne(int numItems)
-        {
-            // Arrange
-            var controller = SetUpController(numItems);
-            var model = new EventCalendar
-            {
-                Pagination = new Pagination { TotalPages = 0 }
-            };
-            const int thisNumberIsIrrelevant = 1;
-
-            // Act
-            AsyncTestHelper.Resolve(controller.Index(model, thisNumberIsIrrelevant));
-
-            // Assert
-            model.Pagination.TotalPages.Should().Be((numItems / 15) + 1);
-        }
-
-        [Fact]
-        public void IfSpecifiedPageNumIsZeroThenActualPageNumIsOne()
-        {
-            // Arrange
-            int thisNumberIsIrrelevant = 10;
-            var controller = SetUpController(thisNumberIsIrrelevant);
-            var model = new EventCalendar
-            {
-                Pagination = new Pagination { CurrentPageNumber = 0 }
-            };
-
-            // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0));
-
-            // Assert
-            model.Pagination.CurrentPageNumber.Should().Be(1);
-        }
-
-        [Fact]
-        public void IfSpecifiedPageNumIsTooHighThenActualPageNumWillBeLastPageNum()
-        {
-            // Arrange
-            const int numItems = 30;
-            const int lastPageNumber = numItems / 15;
-            const int tooHigh = lastPageNumber + 10;
             var controller = SetUpController(numItems);
             var model = new EventCalendar
             {
@@ -370,10 +263,10 @@ namespace StockportWebappTests.Unit.Controllers
             };
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, tooHigh));
+            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
 
             // Assert
-            model.Pagination.CurrentPageNumber.Should().Be(lastPageNumber);
+            model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
         }
 
         private EventsController SetUpController(int numItems)
