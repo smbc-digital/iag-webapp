@@ -9,15 +9,22 @@
     </h6>
     <nav class="l-vertical-list-no-margin article-navigation">       
         <ul class="grid-100">
-            @{var i = 1;}
-            @foreach (var sec in Model.Article.Sections)
-            {
-                <li class="@(sec.Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-50">
+            @for(int i = 1; i <= Math.Round((double)sections.Count); i++)          
+            {      
+                <li class="@(sections[i-1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-50">
                     <div class="article-section-nav-numbered-list">@i.ToString().</div>
-                    <a href="@Model.Article.NavigationLink/@sec.Slug">@sec.Title</a>                                            
+                    <a href="@Model.Article.NavigationLink/@sections[i-1].Slug">@sections[i-1].Title</a>                                            
                 </li>
-                i++;
             }
-        </ul>      
+        </ul>   
+        <ul class="grid-100">
+            @for (int i = 1; i <= sections.Count; i++)
+            {
+                <li class="@(sections[i-1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-50">
+                    <div class="article-section-nav-numbered-list">@i.ToString().</div>
+                    <a href="@Model.Article.NavigationLink/@sections[i-1].Slug">@sections[i - 1].Title</a>
+                </li>
+            }
+        </ul>          
     </nav> 
 </header>
