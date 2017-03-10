@@ -10,32 +10,28 @@ namespace StockportWebappTests.Unit.Utils
 {
     public class PaginationHelperTest
     {
-        private const string EmailAlertsTopicId = "test-id";
-        private const bool EmailAlertsOn = true;
-
         [Theory]
         [InlineData(1, 1)]
-        [InlineData(2, 16)]
-        [InlineData(3, 31)]
-        [InlineData(13, 181)]
+        [InlineData(2, Pagination.MaxItemsPerPage + 1)]
+        [InlineData(3, (Pagination.MaxItemsPerPage * 2) + 1)]
+        [InlineData(13, (Pagination.MaxItemsPerPage * 12) + 1)]
         public void IndexOfFirstItemOnAnyPageShouldBeNumberOfItemsOnPreviousPagesPlusOne(int currentPageNumber, int expectedResult)
         {
             // Arrange
             int indexOfFirstItemOnPage;
-            const int numItemsOnPage = 15;
             
             // Act
-            indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, numItemsOnPage);
+            indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, Pagination.MaxItemsPerPage);
             
             // Assert
             indexOfFirstItemOnPage.Should().Be(expectedResult);
         }
         
         [Theory]
-        [InlineData(1, 10, 10)]
-        [InlineData(2, 15, 30)]
-        [InlineData(3, 2, 32)]
-        [InlineData(11, 9, 159)]
+        [InlineData(1, 4, 4)]
+        [InlineData(2, Pagination.MaxItemsPerPage, Pagination.MaxItemsPerPage * 2)]
+        [InlineData(3, 2, (Pagination.MaxItemsPerPage * 2) + 2)]
+        [InlineData(11, 3, (Pagination.MaxItemsPerPage * 10) + 3)]
         public void IndexOfLastItemOnPageShouldBeNumberOfItemsBeforeThisPagePlusNumberOfItemsOnThisPage(
             int currentPageNumber, 
             int numItemsOnThisPage, 
@@ -43,10 +39,9 @@ namespace StockportWebappTests.Unit.Utils
         {
             // Arrange
             int indexOfLastItemOnPage;
-            const int maxItemsPerPage = 15;
             
             // Act
-            indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, maxItemsPerPage);
+            indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, Pagination.MaxItemsPerPage);
 
             // Assert
             indexOfLastItemOnPage.Should().Be(expectedResult);
@@ -305,9 +300,9 @@ namespace StockportWebappTests.Unit.Utils
 
         [Theory]
         [InlineData(1)]
-        [InlineData(10)]
-        [InlineData(15)]
-        public void IfNumItemsIsFifteenOrFewerThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
+        [InlineData(4)]
+        [InlineData(Pagination.MaxItemsPerPage)]
+        public void IfNumItemsIsMaxPageSizeOrLessThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
         {
             // Arrange
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
@@ -320,10 +315,10 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Theory]
-        [InlineData(30)]
-        [InlineData(45)]
-        [InlineData(60)]
-        public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnPageShouldBeFifteen(int numItems)
+        [InlineData(Pagination.MaxItemsPerPage * 2)]
+        [InlineData(Pagination.MaxItemsPerPage * 3)]
+        [InlineData(Pagination.MaxItemsPerPage * 10)]
+        public void IfNumItemsIsEvenlyDivisibleByMaxPageSizeThenNumItemsOnPageShouldBeFifteen(int numItems)
         {
             // Arrange
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
@@ -332,15 +327,16 @@ namespace StockportWebappTests.Unit.Utils
             var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1).Items;
 
             // Assert
-            newListofNewsItems.Count.Should().Be(15);
+            newListofNewsItems.Count.Should().Be(Pagination.MaxItemsPerPage);
         }
 
         [Theory]
-        [InlineData(16, 2)]
-        [InlineData(37, 3)]
-        [InlineData(50, 4)]
+        [InlineData(Pagination.MaxItemsPerPage + 1, 2)]
+        [InlineData((Pagination.MaxItemsPerPage * 2) + 4, 3)]
+        [InlineData((Pagination.MaxItemsPerPage * 3) + 2, 4)]
         public void
-            IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByFifteenThenLastPageShouldReturnNumItemsModFifteen(int numItems, int lastPageNum)
+            IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByMaxPageSizeThenThenLastPageShouldReturnNumItemsModMaxPageSize(
+            int numItems, int lastPageNum)
         {
             // Arrange
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
@@ -349,14 +345,14 @@ namespace StockportWebappTests.Unit.Utils
             var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, lastPageNum).Items;
 
             // Assert
-            newListofNewsItems.Count.Should().Be(numItems % 15);
+            newListofNewsItems.Count.Should().Be(numItems % Pagination.MaxItemsPerPage);
         }
 
         [Theory]
         [InlineData(1)]
-        [InlineData(15)]
-        [InlineData(7)]
-        public void IfNumItemsIsFifteenOrLessShouldReturnOnePage(int numItems)
+        [InlineData(Pagination.MaxItemsPerPage)]
+        [InlineData(4)]
+        public void IfNumItemsIsMaxPageSizeOrLessShouldReturnOnePage(int numItems)
         {
             // Arrange
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
@@ -369,10 +365,10 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Theory]
-        [InlineData(15)]
-        [InlineData(30)]
-        [InlineData(150)]
-        public void IfNumItemsIsEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteen(int numItems)
+        [InlineData(Pagination.MaxItemsPerPage)]
+        [InlineData(Pagination.MaxItemsPerPage * 2)]
+        [InlineData(Pagination.MaxItemsPerPage * 10)]
+        public void IfNumItemsIsEvenlyDivisibleByMaxPageSizeNumPagesReturnedShouldBeNumItemsDividedByMaxPageSize(int numItems)
         {
             // Arrange
             int thisNumberIsIrrelevant = 1;
@@ -382,14 +378,14 @@ namespace StockportWebappTests.Unit.Utils
             var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant).Pagination;
 
             // Assert
-            pagination.TotalPages.Should().Be(numItems / 15);
+            pagination.TotalPages.Should().Be(numItems / Pagination.MaxItemsPerPage);
         }
 
         [Theory]
-        [InlineData(53)]
-        [InlineData(16)]
-        [InlineData(29)]
-        public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteenPlusOne(int numItems)
+        [InlineData((Pagination.MaxItemsPerPage * 3) + 2]
+        [InlineData(Pagination.MaxItemsPerPage + 1)]
+        [InlineData(Pagination.MaxItemsPerPage + 4)]
+        public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByMaxPageSizeNumPagesReturnedShouldBeNumItemsDividedByMaxPageSizePlusOne(int numItems)
         {
             // Arrange
             int thisNumberIsIrrelevant = 1;
@@ -399,7 +395,7 @@ namespace StockportWebappTests.Unit.Utils
             var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant).Pagination;
 
             // Assert
-            pagination.TotalPages.Should().Be((numItems / 15) + 1);
+            pagination.TotalPages.Should().Be((numItems / Pagination.MaxItemsPerPage) + 1);
         }
 
         [Fact]
@@ -420,8 +416,8 @@ namespace StockportWebappTests.Unit.Utils
         public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum()
         {
             // Arrange
-            const int numItems = 30;
-            const int lastPageNumber = numItems / 15;
+            const int numItems = Pagination.MaxItemsPerPage * 2;
+            const int lastPageNumber = numItems / Pagination.MaxItemsPerPage;
             const int tooHigh = lastPageNumber + 10;
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
 

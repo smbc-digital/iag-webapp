@@ -221,10 +221,10 @@ namespace StockportWebappTests.Unit.Controllers
         
         [Theory]
         [InlineData(1, 1, 1, 1)]
-        [InlineData(10, 1, 10, 1)]
-        [InlineData(15, 1, 15, 1)]
-        [InlineData(45, 1, 15, 3)]
-        [InlineData(16, 2, 1, 2)]
+        [InlineData(2, 1, 2, 1)]
+        [InlineData(Pagination.MaxItemsPerPage, 1, Pagination.MaxItemsPerPage, 1)]
+        [InlineData(Pagination.MaxItemsPerPage * 3, 1, Pagination.MaxItemsPerPage, 3)]
+        [InlineData(Pagination.MaxItemsPerPage + 1, 2, 1, 2)]
         public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
             int totalNumItems,
             int requestedPageNumber,
@@ -248,8 +248,8 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Theory]
-        [InlineData(0, 45, 1)]
-        [InlineData(5, 45, 3)]
+        [InlineData(0, 50, 1)]
+        [InlineData(5, Pagination.MaxItemsPerPage * 3, 3)]
         public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
             int specifiedPageNumber,
             int numItems,
