@@ -5,6 +5,7 @@
 
 <div class="pagination-section grid-parent">
     @{
+        IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
         var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Pagination.MaxItemsPerPage);
         var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Pagination.MaxItemsPerPage);
     }
@@ -13,7 +14,7 @@
         @{
             if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
             {
-                var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.CurrentPageNumber - 1).ToString() } }));
+                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber - 1, Model.CurrentUrl, urlHelper);
                 <a href="@url">Previous</a>
             }
 
@@ -27,14 +28,14 @@
                 }
                 else
                 {
-                    var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", visiblePageNumber.PageNumber.ToString() } }));
+                    var url = PaginationHelper.BuildUrl(visiblePageNumber.PageNumber, Model.CurrentUrl, urlHelper);
                     <a href="@url">@visiblePageNumber.PageNumber.ToString()</a>
                 }
             }
 
             if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
             {
-                var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.CurrentPageNumber + 1).ToString() } }));
+                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber + 1, Model.CurrentUrl, urlHelper);
                 <a href="@url">Next</a>
             }
         }

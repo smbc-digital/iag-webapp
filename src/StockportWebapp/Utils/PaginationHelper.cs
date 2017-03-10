@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
@@ -79,6 +80,19 @@ namespace StockportWebapp.Utils
                 Items = itemsOnCurrentPage,
                 Pagination = pagination
             };
+        }
+
+        public static string BuildUrl(int pageNumber, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
+        {
+            RouteValueDictionary routeValueDictionary = queryUrl.AddQueriesToUrl(
+                new Dictionary<string, string>
+                {
+                    {
+                        "Page", pageNumber.ToString()
+                    }
+                });
+
+            return urlHelper.RouteUrl(routeValueDictionary);
         }
 
         private static int MakeSurePageNumberExists(int suggestedPageNumber, int totalItems)

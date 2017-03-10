@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Markdig.Helpers;
+using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
@@ -507,22 +511,24 @@ namespace StockportWebappTests.Unit.Utils
             return listofNewsItems;
         }
 
-        //[Fact]
-        //public void BuildUrlShouldUseUrlHelperToCreateUrlWithPageQueryParamWithCorrectPageNumber()
-        //{
-        //    // Arrange
-        //    int pageNumber = 5;
-        //    QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
-        //    var urlHelper = new Mock<IUrlHelper>();
-        //    urlHelper
-        //        .Setup(u => u.RouteUrl(It.IsAny<QueryUrl>()))
-        //        .Returns("this string is not relevant");
+        [Fact]
+        public void BuildUrlShouldUseUrlHelperToCreateUrlWithPageQueryParamWithCorrectPageNumber()
+        {
+            // Arrange
+            int pageNumber = 5;
+            QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
+            var urlHelper = new Mock<IUrlHelperWrapper>();
+            urlHelper
+                .Setup(u => u.RouteUrl(It.Is<RouteValueDictionary>(x => 
+                    x.ContainsKey("Page")
+                    && x.Values.Contains(pageNumber.ToString()))))
+                .Returns("this string is not relevant");
 
-        //    // Act
-        //    PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
+            // Act
+            PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
 
-        //    // Assert 
-        //    urlHelper.Verify();
-        //}
+            // Assert 
+            urlHelper.Verify();
+        }
     }
 }
