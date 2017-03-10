@@ -280,10 +280,15 @@ namespace StockportWebappTests.Unit.Controllers
 
         private NewsController SetUpController(int numNewsItems)
         {
-            List<News> longListofNewsItems = BuildNewsList(numNewsItems);
+            List<News> listofNewsItems = BuildNewsList(numNewsItems);
 
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            var bigNewsRoom = new Newsroom(
+                listofNewsItems, 
+                new OrderedList<Alert>(),
+                EmailAlertsOn, 
+                EmailAlertsTopicId, 
+                new List<string>(), 
+                new List<DateTime>());
 
             _repository.Setup(o =>
                 o.Get<Newsroom>(
@@ -312,7 +317,8 @@ namespace StockportWebappTests.Unit.Controllers
 
         private List<News> BuildNewsList(int numberOfItems)
         {
-            List<News> longListofNewsItems = new List<News>();
+            List<News> listofNewsItems = new List<News>();
+
             for (int i = 0; i < numberOfItems; i++)
             {
                 var NewsItem = new News("News Article " + i.ToString(),
@@ -321,12 +327,17 @@ namespace StockportWebappTests.Unit.Controllers
                     "image.jpg",
                     "thumbnail.jpg",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                    new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
-                    new List<string>(), new List<Document>());
+                    new List<Crumb>(), 
+                    new DateTime(2015, 9, 10), 
+                    new DateTime(2015, 9, 20), 
+                    new List<Alert>(),
+                    new List<string>(), 
+                    new List<Document>());
 
-                longListofNewsItems.Add(NewsItem);
+                listofNewsItems.Add(NewsItem);
             }
-            return longListofNewsItems;
+
+            return listofNewsItems;
         }
     }
 }

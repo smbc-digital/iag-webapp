@@ -30,9 +30,16 @@ namespace StockportWebapp.Controllers
         private readonly IFilteredUrl _filteredUrl;
         private readonly FeatureToggles _featureToggles;
 
-        public EventsController(IRepository repository,
-                                IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl, FeatureToggles featureToggles)
+        public EventsController(
+            IRepository repository,
+            IProcessedContentRepository processedContentRepository,
+            IEventsRepository eventsRepository, 
+            IRssFeedFactory rssFeedFactory,
+            ILogger<EventsController> logger, 
+            IApplicationConfiguration config, 
+            BusinessId businessId, 
+            IFilteredUrl filteredUrl, 
+            FeatureToggles featureToggles)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;

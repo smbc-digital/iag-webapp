@@ -498,8 +498,12 @@ namespace StockportWebappTests.Unit.Utils
                     "image.jpg",
                     "thumbnail.jpg",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                    new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
-                    new List<string>(), new List<Document>());
+                    new List<Crumb>(), 
+                    new DateTime(2015, 9, 10), 
+                    new DateTime(2015, 9, 20), 
+                    new List<Alert>(),
+                    new List<string>(), 
+                    new List<Document>());
 
                 listofNewsItems.Add(NewsItem);
             }
