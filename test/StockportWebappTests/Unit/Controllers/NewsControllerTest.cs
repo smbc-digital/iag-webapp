@@ -75,7 +75,6 @@ namespace StockportWebappTests.Unit.Controllers
             // setup responses (with mock data)
             var responseListing = new HttpResponse(200, _newsRoom, "");
             var responseDetail = new HttpResponse(200, _processedNewsArticle, "");
-            var response404 = new HttpResponse(404, null, "not found");
 
             // setup mocks
             _repository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), It.Is<List<Query>>(l => l.Count == 0)))
