@@ -310,15 +310,13 @@ namespace StockportWebappTests.Unit.Utils
         public void IfNumItemsIsFifteenOrFewerThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 1).Items;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1).Items;
 
             // Assert
-            bigNewsRoom.News.Count.Should().Be(numItems);
+            newListofNewsItems.Count.Should().Be(numItems);
         }
 
         [Theory]
@@ -328,15 +326,13 @@ namespace StockportWebappTests.Unit.Utils
         public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnPageShouldBeFifteen(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 1).Items;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1).Items;
 
             // Assert
-            bigNewsRoom.News.Count.Should().Be(15);
+            newListofNewsItems.Count.Should().Be(15);
         }
 
         [Theory]
@@ -347,15 +343,13 @@ namespace StockportWebappTests.Unit.Utils
             IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByFifteenThenLastPageShouldReturnNumItemsModFifteen(int numItems, int lastPageNum)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, lastPageNum).Items;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, lastPageNum).Items;
 
             // Assert
-            bigNewsRoom.News.Count.Should().Be(numItems % 15);
+            newListofNewsItems.Count.Should().Be(numItems % 15);
         }
 
         [Theory]
@@ -365,12 +359,10 @@ namespace StockportWebappTests.Unit.Utils
         public void IfNumItemsIsFifteenOrLessShouldReturnOnePage(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 1).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be(1);
@@ -384,12 +376,10 @@ namespace StockportWebappTests.Unit.Utils
         {
             // Arrange
             int thisNumberIsIrrelevant = 1;
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be(numItems / 15);
@@ -403,12 +393,10 @@ namespace StockportWebappTests.Unit.Utils
         {
             // Arrange
             int thisNumberIsIrrelevant = 1;
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be((numItems / 15) + 1);
@@ -419,12 +407,10 @@ namespace StockportWebappTests.Unit.Utils
         {
             // Arrange
             int thisNumberIsIrrelevant = 3;
-            List<News> longListofNewsItems = BuildNewsList(thisNumberIsIrrelevant);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            List<News> listofNewsItems = BuildListofNewsItems(thisNumberIsIrrelevant);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, 0).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 0).Pagination;
 
             // Assert
             pagination.CurrentPageNumber.Should().Be(1);
@@ -437,34 +423,13 @@ namespace StockportWebappTests.Unit.Utils
             const int numItems = 30;
             const int lastPageNumber = numItems / 15;
             const int tooHigh = lastPageNumber + 10;
-            List<News> longListofNewsItems = BuildNewsList(30);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, tooHigh).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, tooHigh).Pagination;
 
             // Assert
             pagination.CurrentPageNumber.Should().Be(lastPageNumber);
-        }
-
-        private List<News> BuildNewsList(int numberOfItems)
-        {
-            List<News> longListofNewsItems = new List<News>();
-            for (int i = 0; i < numberOfItems; i++)
-            {
-                var NewsItem = new News("News Article " + i.ToString(),
-                    "another-news-article",
-                    "This is another news article",
-                    "image.jpg",
-                    "thumbnail.jpg",
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                    new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
-                    new List<string>(), new List<Document>());
-
-                longListofNewsItems.Add(NewsItem);
-            }
-            return longListofNewsItems;
         }
 
         [Fact]
@@ -519,6 +484,27 @@ namespace StockportWebappTests.Unit.Utils
 
             // Assert
             result.Should().Be(true);
+        }
+
+        private List<News> BuildListofNewsItems(int numberOfItems)
+        {
+            List<News> listofNewsItems = new List<News>();
+
+            for (int i = 0; i < numberOfItems; i++)
+            {
+                var NewsItem = new News("News Article " + i.ToString(),
+                    "another-news-article",
+                    "This is another news article",
+                    "image.jpg",
+                    "thumbnail.jpg",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
+                    new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
+                    new List<string>(), new List<Document>());
+
+                listofNewsItems.Add(NewsItem);
+            }
+
+            return listofNewsItems;
         }
 
         //[Fact]
