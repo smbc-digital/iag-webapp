@@ -59,12 +59,19 @@ namespace StockportWebapp.Utils
 
         public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber)
         {
-            Pagination pagination = new Pagination(items.Count, currentPageNumber, "News articles");
+            currentPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count);
 
-            int itemsOnPreviousPages = pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
+            Pagination pagination = new Pagination(
+                items.Count,
+                currentPageNumber == 0 ? 1 : currentPageNumber, 
+                "News articles");
+
+            int itemsOnPreviousPages = Pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
+
             List<T> itemsOnCurrentPage = items
                     .Skip(itemsOnPreviousPages)
-                    .Take(pagination.MaxItemsPerPage).ToList();
+                    .Take(Pagination.MaxItemsPerPage).ToList();
+
             pagination.TotalItemsOnPage = itemsOnCurrentPage.Count;
 
             return new PaginatedItems<T>
@@ -72,6 +79,29 @@ namespace StockportWebapp.Utils
                 Items = itemsOnCurrentPage,
                 Pagination = pagination
             };
+        }
+
+        private static int MakeSurePageNumberExists(int suggestedPageNumber, int totalItems)
+        {
+            int actualPageNumber = suggestedPageNumber;
+            int highestPageNumber = CalculateHighestPageNumber(totalItems);
+
+            if (suggestedPageNumber == 0)
+            {
+                actualPageNumber = 1;
+            }
+            else if (suggestedPageNumber > highestPageNumber)
+            {
+                actualPageNumber = highestPageNumber;
+            }
+
+            return actualPageNumber;
+        }
+
+        private static int CalculateHighestPageNumber(int totalItems)
+        {
+            return totalItems / Pagination.MaxItemsPerPage 
+                + totalItems % Pagination.MaxItemsPerPage;
         }
 
         private static int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)

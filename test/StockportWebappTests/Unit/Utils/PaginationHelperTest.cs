@@ -433,6 +433,19 @@ namespace StockportWebappTests.Unit.Utils
         [Fact]
         public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum()
         {
+            // Arrange
+            const int numItems = 30;
+            const int lastPageNumber = numItems / 15;
+            const int tooHigh = lastPageNumber + 10;
+            List<News> longListofNewsItems = BuildNewsList(30);
+            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
+                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+
+            // Act
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(bigNewsRoom.News, tooHigh).Pagination;
+
+            // Assert
+            pagination.CurrentPageNumber.Should().Be(lastPageNumber);
         }
 
         private List<News> BuildNewsList(int numberOfItems)

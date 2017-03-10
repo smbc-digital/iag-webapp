@@ -74,8 +74,8 @@ namespace StockportWebapp.Controllers
 
             if (eventResponse.Events.Any() && _featureToggles.EventsPagination)
             {
-                var pageCount = eventResponse.Events.Count/eventsCalendar.Pagination.MaxItemsPerPage;
-                if (eventResponse.Events.Count%eventsCalendar.Pagination.MaxItemsPerPage > 0)
+                var pageCount = eventResponse.Events.Count/Pagination.MaxItemsPerPage;
+                if (eventResponse.Events.Count%Pagination.MaxItemsPerPage > 0)
                     pageCount += 1;
 
                 eventsCalendar.Pagination.TotalPages = pageCount;
@@ -83,8 +83,8 @@ namespace StockportWebapp.Controllers
                 eventsCalendar.Pagination.DisplayName = "Events";
 
                 List<Event> PagedEvents = eventResponse.Events
-                    .Skip(eventsCalendar.Pagination.MaxItemsPerPage*(eventsCalendar.Pagination.CurrentPageNumber - 1))
-                    .Take(eventsCalendar.Pagination.MaxItemsPerPage).ToList();
+                    .Skip(Pagination.MaxItemsPerPage*(eventsCalendar.Pagination.CurrentPageNumber - 1))
+                    .Take(Pagination.MaxItemsPerPage).ToList();
 
                 eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
                 eventResponse.Events = PagedEvents;
