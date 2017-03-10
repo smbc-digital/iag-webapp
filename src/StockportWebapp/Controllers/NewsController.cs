@@ -48,16 +48,14 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int Page)
+        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int page)
         {
             if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
             {
                 if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0) ModelState["DateTo"].Errors.Clear();
                 if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0) ModelState["DateFrom"].Errors.Clear();
             }
-
-            var ms = ModelState;
-
+            
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag));
             if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("Category", model.Category));
@@ -73,7 +71,7 @@ namespace StockportWebapp.Controllers
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            int currentPageNumber = Page;
+            int currentPageNumber = page;
             DoPagination(newsRoom, model, currentPageNumber);
 
             model.AddNews(newsRoom);
@@ -117,7 +115,7 @@ namespace StockportWebapp.Controllers
 
                 finalResult = View(newsViewModel);
             }
-
+            
             return finalResult;
         }
 
