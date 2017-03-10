@@ -382,7 +382,7 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Theory]
-        [InlineData((Pagination.MaxItemsPerPage * 3) + 2]
+        [InlineData((Pagination.MaxItemsPerPage * 3) + 2)]
         [InlineData(Pagination.MaxItemsPerPage + 1)]
         [InlineData(Pagination.MaxItemsPerPage + 4)]
         public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByMaxPageSizeNumPagesReturnedShouldBeNumItemsDividedByMaxPageSizePlusOne(int numItems)
