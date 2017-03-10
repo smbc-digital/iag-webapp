@@ -76,27 +76,7 @@ namespace StockportWebapp.Controllers
 
             var eventResponse = httpResponse.Content as EventResponse;
 
-            eventsCalendar.Pagination = new Pagination();
-            eventsCalendar.Pagination.CurrentPageNumber = Page == 0 ? 1 : Page;
-
-            if (eventResponse.Events.Any() && _featureToggles.EventsPagination)
-            {
-                var pageCount = eventResponse.Events.Count/Pagination.MaxItemsPerPage;
-                if (eventResponse.Events.Count%Pagination.MaxItemsPerPage > 0)
-                    pageCount += 1;
-
-                eventsCalendar.Pagination.TotalPages = pageCount;
-                eventsCalendar.Pagination.TotalItems = eventResponse.Events.Count;
-                eventsCalendar.Pagination.DisplayName = "Events";
-
-                List<Event> PagedEvents = eventResponse.Events
-                    .Skip(Pagination.MaxItemsPerPage*(eventsCalendar.Pagination.CurrentPageNumber - 1))
-                    .Take(Pagination.MaxItemsPerPage).ToList();
-
-                eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
-                eventResponse.Events = PagedEvents;
-            }
-
+            DoPagination(eventsCalendar, Page, eventResponse);
 
             if (eventResponse != null)
             {
@@ -108,9 +88,22 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
             eventsCalendar.AddFilteredUrl(_filteredUrl);
 
-            eventsCalendar.Pagination.CurrentUrl = eventsCalendar.CurrentUrl;
-
             return View(eventsCalendar);
+        }
+
+        private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse)
+        {
+            if (eventResponse != null 
+                && eventResponse.Events.Any() 
+                && _featureToggles.EventsPagination)
+            {
+                var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    eventResponse.Events, currentPageNumber);
+
+                eventResponse.Events = paginatedEvents.Items;
+                model.Pagination = paginatedEvents.Pagination;
+                model.Pagination.CurrentUrl = model.CurrentUrl;
+            }
         }
 
         [Route("/events/{slug}")]

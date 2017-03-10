@@ -1,11 +1,12 @@
-﻿@using StockportWebapp.Utils
+﻿@using StockportWebapp.Models
+@using StockportWebapp.Utils
 @model StockportWebapp.Models.Pagination
 
 
 <div class="pagination-section grid-parent">
     @{
-        var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
-        var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
+        var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Pagination.MaxItemsPerPage);
+        var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Pagination.MaxItemsPerPage);
     }
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.DisplayName</div>
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-page-numbers">

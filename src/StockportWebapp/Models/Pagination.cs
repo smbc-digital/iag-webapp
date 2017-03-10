@@ -30,7 +30,7 @@ namespace StockportWebapp.Models
             bool numItemsIsDivisibleByPageSize = (totalNumItems % MaxItemsPerPage == 0);
             int pageCount = numItemsIsDivisibleByPageSize
                 ? (totalNumItems / MaxItemsPerPage)
-                : totalNumItems / MaxItemsPerPage + 1;
+                : (totalNumItems / MaxItemsPerPage) + 1;
 
             return pageCount;
         }

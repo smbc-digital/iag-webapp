@@ -63,7 +63,7 @@ namespace StockportWebapp.Utils
 
             Pagination pagination = new Pagination(
                 items.Count,
-                currentPageNumber == 0 ? 1 : currentPageNumber, 
+                currentPageNumber, 
                 "News articles");
 
             int itemsOnPreviousPages = Pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);

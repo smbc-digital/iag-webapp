@@ -72,9 +72,8 @@ namespace StockportWebapp.Controllers
             var newsRoom = httpResponse.Content as Newsroom;
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
-
-            int currentPageNumber = Page;
-            DoPagination(newsRoom, model, currentPageNumber);
+            
+            DoPagination(newsRoom, model, Page);
 
             model.AddNews(newsRoom);
             model.AddUrlSetting(urlSetting);
@@ -83,18 +82,21 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            model.Pagination.CurrentUrl = model.CurrentUrl;
-
             return View(model);
         }
 
         private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber)
         {
-            if (newsRoom != null && newsRoom.News.Any() && _featureToggles.NewsroomPagination)
+            if (newsRoom != null 
+                && newsRoom.News.Any()
+                && _featureToggles.NewsroomPagination)
             {
-                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(newsRoom.News, currentPageNumber);
+                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    newsRoom.News, currentPageNumber);
+
                 newsRoom.News = paginatedNews.Items;
                 model.Pagination = paginatedNews.Pagination;
+                model.Pagination.CurrentUrl = model.CurrentUrl;
             }
         }
 
