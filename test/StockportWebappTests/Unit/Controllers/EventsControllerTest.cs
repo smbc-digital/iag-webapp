@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using FluentAssertions;
+using Markdig.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Controllers;
@@ -214,6 +215,223 @@ namespace StockportWebappTests.Unit.Controllers
 
             actionResponse.Should().BeOfType<ViewResult>();
             _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
+        }
+
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(10)]
+        [InlineData(15)]
+        public void IfNumItemsIsFifteenOrFewerThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar();
+
+            // Act
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, 1)) as ViewResult;
+
+            // Assert
+            var viewModel = actionResponse.ViewData.Model as EventCalendar;
+            viewModel.Events.Count.Should().Be(numItems);
+        }
+
+        [Theory]
+        [InlineData(30)]
+        [InlineData(45)]
+        [InlineData(60)]
+        public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnPageShouldBeFifteen(int numItems)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar();
+
+            // Act
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, 1)) as ViewResult;
+
+            // Assert
+            var viewModel = actionResponse.ViewData.Model as EventCalendar;
+            viewModel.Events.Count.Should().Be(15);
+        }
+
+        [Theory]
+        [InlineData(16, 2)]
+        [InlineData(37, 3)]
+        [InlineData(50, 4)]
+        public void
+            IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByFifteenThenLastPageShouldReturnNumItemsModFifteen(int numItems, int lastPageNum)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar();
+
+            // Act
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, lastPageNum)) as ViewResult;
+
+            // Assert
+            var viewModel = actionResponse.ViewData.Model as EventCalendar;
+            viewModel.Events.Count.Should().Be(numItems % 15);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(15)]
+        [InlineData(7)]
+        public void IfNumItemsIsFifteenOrLessShouldReturnOnePage(int numItems)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar
+            {
+                Pagination = new Pagination { TotalPages = 0 }
+            };
+            const int thisNumberIsIrrelevant = 1;
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, thisNumberIsIrrelevant));
+
+            // Assert
+            model.Pagination.TotalPages.Should().Be(1);
+        }
+
+        [Theory]
+        [InlineData(15)]
+        [InlineData(30)]
+        [InlineData(150)]
+        public void IfNumItemsIsEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteen(int numItems)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar
+            {
+                Pagination = new Pagination { TotalPages = 0 }
+            };
+            const int thisNumberIsIrrelevant = 1;
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, thisNumberIsIrrelevant));
+
+            // Assert
+            model.Pagination.TotalPages.Should().Be(numItems / 15);
+        }
+
+        [Theory]
+        [InlineData(53)]
+        [InlineData(16)]
+        [InlineData(29)]
+        public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteenPlusOne(int numItems)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar
+            {
+                Pagination = new Pagination { TotalPages = 0 }
+            };
+            const int thisNumberIsIrrelevant = 1;
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, thisNumberIsIrrelevant));
+
+            // Assert
+            model.Pagination.TotalPages.Should().Be((numItems / 15) + 1);
+        }
+
+        [Fact]
+        public void IfSpecifiedPageNumIsZeroThenActualPageNumIsOne()
+        {
+            // Arrange
+            int thisNumberIsIrrelevant = 10;
+            var controller = SetUpController(thisNumberIsIrrelevant);
+            var model = new EventCalendar
+            {
+                Pagination = new Pagination { CurrentPageNumber = 0 }
+            };
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.CurrentPageNumber.Should().Be(1);
+        }
+
+        [Fact]
+        public void IfSpecifiedPageNumIsTooHighThenActualPageNumWillBeLastPageNum()
+        {
+            // Arrange
+            const int numItems = 30;
+            const int lastPageNumber = numItems / 15;
+            const int tooHigh = lastPageNumber + 10;
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar
+            {
+                Pagination = new Pagination { CurrentPageNumber = 0 }
+            };
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, tooHigh));
+
+            // Assert
+            model.Pagination.CurrentPageNumber.Should().Be(lastPageNumber);
+        }
+
+        private EventsController SetUpController(int numItems)
+        {
+            List<Event> listOfEvents = BuildEventList(numItems);
+
+            var categories = new List<string> { "Category 1", "Category 2" };
+            var eventsCalendar = new EventResponse(listOfEvents, categories);
+            var eventListResponse = new HttpResponse(200, eventsCalendar, "");
+
+            _repository.Setup(o => 
+                o.Get<EventResponse>(
+                    It.IsAny<string>(), 
+                    It.IsAny<List<Query>>()))
+                .ReturnsAsync(eventListResponse);
+
+            var controller = new EventsController(
+                _repository.Object,
+                _processedContentRepository.Object,
+                _eventRepository.Object,
+                _mockRssFeedFactory.Object,
+                _logger.Object,
+                _config.Object,
+                new BusinessId(BusinessId),
+                _filteredUrl.Object,
+                new FeatureToggles { EventsPagination = true }
+            );
+
+            return controller;
+        }
+
+        private List<Event> BuildEventList(int numberOfItems)
+        {
+            List<Event> listOfEvents = new List<Event>();
+
+            for (int i = 0; i < numberOfItems; i++)
+            {
+                var eventItem = new Event
+                {
+                    Title = "title",
+                    Slug = "slug",
+                    Teaser = "teaser",
+                    ImageUrl = "image.png",
+                    ThumbnailImageUrl = "image.png",
+                    Description = "description",
+                    Fee = "fee",
+                    Location = "location",
+                    SubmittedBy = "submittedBy",
+                    EventDate = new DateTime(2016, 12, 30, 00, 00, 00),
+                    StartTime = "startTime",
+                    EndTime = "endTime",
+                    Breadcrumbs = new List<Crumb>(),
+                    Group = _group,
+                    Alerts = _alerts
+                };
+
+                listOfEvents.Add(eventItem);
+            }
+
+            return listOfEvents;
         }
     }
 }
