@@ -1,30 +1,37 @@
-﻿@model StockportWebapp.ViewModels.ArticleViewModel
+﻿@using System.Runtime.InteropServices.ComTypes
+@model StockportWebapp.ViewModels.ArticleViewModel
 
-@{var sections = Model.Article.Sections.ToList();} 
+@{
+    var sections = Model.Article.Sections.ToList();
+    var actualCount = sections.Count;
+    var modifiedCount = (actualCount / 2) % 2 != 0 ? actualCount/2 + 1 : actualCount / 2;
+} 
 
 <header class="article-navigation-header">
     <h6 id="toggable-header">
-        What's in this guide?
+        What's in this guide? 
         <i aria-hidden="true" class="fa fa-angle-down"></i>
     </h6>
-    <nav class="l-vertical-list-no-margin article-navigation">       
-        <ul class="grid-100">
-            @for(int i = 1; i <= Math.Round((double)sections.Count); i++)          
-            {      
-                <li class="@(sections[i-1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-50">
-                    <div class="article-section-nav-numbered-list">@i.ToString().</div>
-                    <a href="@Model.Article.NavigationLink/@sections[i-1].Slug">@sections[i-1].Title</a>                                            
-                </li>
-            }
-        </ul>   
-        <ul class="grid-100">
-            @for (int i = 1; i <= sections.Count; i++)
+    <nav class="l-vertical-list-no-margin article-navigation">
+       
+        <ul class="grid-100 tablet-grid-100 mobile-grid-100">
+            @for (int i = 1; i <= actualCount; i++)
             {
-                <li class="@(sections[i-1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-50">
+                <li class="@(sections[i - 1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") @(i > modifiedCount ? "hide-on-desktop hide-on-tablet" : "grid-50 tablet-grid-50")">
                     <div class="article-section-nav-numbered-list">@i.ToString().</div>
-                    <a href="@Model.Article.NavigationLink/@sections[i-1].Slug">@sections[i - 1].Title</a>
+                    <a href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
                 </li>
-            }
-        </ul>          
+
+                var iPlusCountOfsections = i + modifiedCount;
+
+                if (iPlusCountOfsections <= actualCount)
+                {
+                    <li class="@(sections[iPlusCountOfsections - 1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-50 tablet-grid-50 hide-on-mobile">
+                        <div class="article-section-nav-numbered-list">@(iPlusCountOfsections).</div>
+                        <a href="@Model.Article.NavigationLink/@sections[iPlusCountOfsections - 1].Slug">@sections[iPlusCountOfsections - 1].Title</a>
+                    </li>
+                }
+            }                      
+        </ul>        
     </nav> 
 </header>
