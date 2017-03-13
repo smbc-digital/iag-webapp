@@ -7,12 +7,8 @@
     var modifiedCount = (actualCount / 2) % 2 != 0 ? actualCount/2 + 1 : actualCount / 2;
 } 
 
-<header class="article-navigation-header">
-    <h6 id="toggable-header">
-        What's in this guide? 
-        <i aria-hidden="true" class="fa fa-angle-down"></i>
-    </h6>
-    <nav class="l-vertical-list-no-margin article-navigation">
+<header class="article-navigation-header">    
+    <nav class="l-vertical-list-no-margin article-navigation article-display" >
        
         <ul class="grid-100 tablet-grid-100 mobile-grid-100">
             @for (int i = 1; i <= actualCount; i++)
