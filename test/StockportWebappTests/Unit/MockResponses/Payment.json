@@ -1,0 +1,17 @@
+﻿{
+  "title": "title",
+  "slug": "payment_slug",
+  "description": "description",
+  "paymentDetailsText": "paymentDetailsText",
+  "referenceLabel": "referenceLabel",
+  "parisReference": "parisReference",
+  "fund": "fund",
+  "glCodeCostCentreNumber": "glCodeCostCentreNumber",
+  "breadcrumbs": [
+    {
+      "title": "title",
+      "slug": "slug",
+      "type": "id"
+    }
+  ] 
+}
