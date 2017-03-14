@@ -4,7 +4,7 @@
 @{
     var sections = Model.Article.Sections.ToList();
     var actualCount = sections.Count;
-    var modifiedCount = actualCount % 2 != 0 ? actualCount/2 + 1 : actualCount / 2;
+    var modifiedCount = actualCount % 2 == 0 ? (actualCount/2) : (actualCount/ 2)+1;
 } 
 
 <header class="article-navigation-header">    
@@ -15,14 +15,14 @@
             {
                 <li class="@(sections[i - 1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") 
                     @(actualCount <= 3 ? "grid-100 tablet-grid-100" : "") 
-                    @(i > modifiedCount ? "hide-on-desktop hide-on-tablet" : "grid-50 tablet-grid-50")">
+                    @(i > modifiedCount && actualCount > 3 ? "hide-on-desktop hide-on-tablet" : "grid-50 tablet-grid-50")">
                     <div class="article-section-nav-numbered-list">@i.ToString().</div>
                     <a href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
                 </li>
 
                 var iPlusCountOfsections = i + modifiedCount;
               
-                if (iPlusCountOfsections <= actualCount)
+                if (iPlusCountOfsections <= actualCount && actualCount > 3)
                 {
                     <li class="@(sections[iPlusCountOfsections - 1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-50 tablet-grid-50 hide-on-mobile">
                         <div class="article-section-nav-numbered-list">@(iPlusCountOfsections).</div>
