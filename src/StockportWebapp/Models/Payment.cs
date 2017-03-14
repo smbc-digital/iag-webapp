@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models
+﻿using System.Collections.Generic;
+
+namespace StockportWebapp.Models
 {
     public class Payment
     {
@@ -9,6 +11,7 @@
         public string ReferenceLabel { get; set; }
         public string ParisReference { get; set; }
         public string Fund { get; set; }
-        public string GlCodeCostCentreNumber { get; set; }       
+        public string GlCodeCostCentreNumber { get; set; } 
+        public List<Crumb> BreadCrumbs { get; set; }
     }
 }

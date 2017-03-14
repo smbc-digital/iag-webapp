@@ -13,18 +13,26 @@ namespace StockportWebapp.ContentFactory
         public PaymentFactory(ISimpleTagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser)
         {
             _simpleTagParserContainer = simpleTagParserContainer;
-            _markdownWrapper = markdownWrapper;
-            _documentTagParser = documentTagParser;
+            _markdownWrapper = markdownWrapper;            
         }
 
 
-        public virtual ProcessedPayment Build(Payment group)
+        public virtual ProcessedPayment Build(Payment payment)
         {
-            var htmlBody = _markdownWrapper.ConvertToHtml(group.Description);
-            var processedBody = _parser.ParseAll(htmlBody, group.Name);
+            var description = _simpleTagParserContainer.ParseAll(payment.Description, payment.Title);
+            description = _markdownWrapper.ConvertToHtml(description ?? "");
+            
 
-            return new ProcessedPayment(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter,
-                group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl);
+            return new ProcessedPayment(
+                payment.Title,
+                payment.Slug,
+                description,
+                payment.PaymentDetailsText,
+                payment.ReferenceLabel,
+                payment.ParisReference,
+                payment.Fund,
+                payment.GlCodeCostCentreNumber,
+                payment.BreadCrumbs);
         }
     }
 }
