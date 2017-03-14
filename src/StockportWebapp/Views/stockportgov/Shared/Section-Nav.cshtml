@@ -4,7 +4,7 @@
 @{
     var sections = Model.Article.Sections.ToList();
     var actualCount = sections.Count;
-    var modifiedCount = (actualCount / 2) % 2 != 0 ? actualCount/2 + 1 : actualCount / 2;
+    var modifiedCount = actualCount % 2 != 0 ? actualCount/2 + 1 : actualCount / 2;
 } 
 
 <header class="article-navigation-header">    
@@ -28,8 +28,7 @@
                         <div class="article-section-nav-numbered-list">@(iPlusCountOfsections).</div>
                         <a href="@Model.Article.NavigationLink/@sections[iPlusCountOfsections - 1].Slug">@sections[iPlusCountOfsections - 1].Title</a>
                     </li>
-                }
-                
+                }               
             }                      
         </ul>        
     </nav> 
