@@ -106,7 +106,7 @@ namespace StockportWebappTests.Unit.Parsers
 
         private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = DefaultBody)
         {
-            return new ProcessedSection("title", slug, body, new List<Profile>(), new List<Document>());
+            return new ProcessedSection("title", slug, body, new List<Profile>(), new List<Document>(), new List<Alert>());
         }
 
         private static Topic DefaultTopic()

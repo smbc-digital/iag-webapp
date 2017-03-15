@@ -9,17 +9,19 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly ISimpleTagParserContainer _tagParserContainer;
         private readonly IDynamicTagParser<Profile> _profileTagParser;
+        private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
         private readonly ISectionFactory _sectionFactory;
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly IDynamicTagParser<Document> _documentTagParser;
 
-        public ArticleFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser)
+        public ArticleFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser)
         {
             _tagParserContainer = tagParserContainer;
             _sectionFactory = sectionFactory;
             _markdownWrapper = markdownWrapper;
             _profileTagParser = profileTagParser;
             _documentTagParser = documentTagParser;
+            _alertsInlineTagParser = alertsInlineTagParser;
         }
 
         public virtual ProcessedArticle Build(Article article)
@@ -34,6 +36,7 @@ namespace StockportWebapp.ContentFactory
             body = _markdownWrapper.ConvertToHtml(body ?? "");
             body = _profileTagParser.Parse(body, article.Profiles);
             body = _documentTagParser.Parse(body, article.Documents);
+            body = _alertsInlineTagParser.Parse(body, article.AlertsInline);
 
             return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, 
                 processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline);

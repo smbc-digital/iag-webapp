@@ -249,8 +249,9 @@ namespace StockportWebappTests.Unit.ViewModels
         {
             var profiles = new List<Profile>();
             var documents = new List<Document>();
+            var alertsInline = new List<Alert>();
 
-            return new ProcessedSection(Helper.AnyString, slug, Helper.AnyString, profiles, documents);
+            return new ProcessedSection(Helper.AnyString, slug, Helper.AnyString, profiles, documents, alertsInline);
         }
     }
 }

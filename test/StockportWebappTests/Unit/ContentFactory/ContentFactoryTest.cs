@@ -20,15 +20,16 @@ namespace StockportWebappTests.Unit.ContentFactory
             var tagParserContainer = new Mock<ISimpleTagParserContainer>();
             var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
             var documentTagParser = new Mock<IDynamicTagParser<Document>>();
+            var alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns("");
 
-            _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object);
+            _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object);
         }
 
         [Fact]
         public void ItUsesSectionFactoryToBuildProcessedSectionFromSection()
         {
-            var section = new Section(Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Profile>(), new List<Document>());
+            var section = new Section(Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var processedSection = _factory.Build<Section>(section);
 
@@ -51,7 +52,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
         {
             var article = new Article(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                new List<Section>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), false, new LiveChat(Helper.AnyString, Helper.AnyString));
+                new List<Section>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), false, new LiveChat(Helper.AnyString, Helper.AnyString), new List<Alert>());
 
             var processedArticle = _factory.Build<Article>(article);
 

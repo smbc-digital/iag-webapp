@@ -16,6 +16,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
         private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
+        private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
         private const string Title = "title";
         private const string Slug = "slug";
         private const string Body = "The new content of the body";
@@ -23,6 +24,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly List<Document> _documents = new List<Document>();
         private readonly Section _section;
         private readonly string _articleTitle = "Article Title";
+        private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
 
         public SectionFactoryTest()
         {
@@ -30,15 +32,17 @@ namespace StockportWebappTests.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _profileTagParser = new Mock<IDynamicTagParser<Profile>> ();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
+            _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
 
-            _factory = new SectionFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object);
+            _factory = new SectionFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object);
 
-            _section = new Section(Title, Slug, Body, _profiles, _documents);
+            _section = new Section(Title, Slug, Body, _profiles, _documents, _emptyAlertsInline);
 
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _section.Profiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _section.Documents)).Returns(Body);
+            _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
 
         }
 

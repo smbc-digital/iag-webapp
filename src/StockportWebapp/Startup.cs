@@ -98,6 +98,7 @@ namespace StockportWebapp
             services.AddSingleton<IContactUsMessageTagParser, ContactUsMessageTagParser>();
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
+            services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
             services.AddSingleton<ITimeProvider>(new TimeProvider());
             services.AddSingleton(
                 p =>
@@ -123,7 +124,7 @@ namespace StockportWebapp
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(p.GetService<ISimpleTagParserContainer>(),
                             p.GetService<IDynamicTagParser<Profile>>(), p.GetService<MarkdownWrapper>(),
-                            p.GetService<IDynamicTagParser<Document>>())));
+                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>())));
             services.AddTransient<IRepository>(
                 p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>()));
 
