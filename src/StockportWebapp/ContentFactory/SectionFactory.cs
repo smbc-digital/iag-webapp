@@ -28,16 +28,18 @@ namespace StockportWebapp.ContentFactory
 
         public ProcessedSection Build(Section section, string articleTitle = null)
         {
-            var body = _tagParserContainer.ParseAll(section.Body, section.Title);
-            body = _markdownWrapper.ConvertToHtml(body ?? "");
-            body = _profileTagParser.Parse(body, section.Profiles);
-            body = _documentTagParser.Parse(body, section.Documents);
-            body = _alertsInlineTagParser.Parse(body, section.AlertsInline);
+            
+            var parsedBody = _tagParserContainer.ParseAll(section.Body, articleTitle);
+            var processedBody = _markdownWrapper.ConvertToHtml(parsedBody);
+            var parsedBodyWithProfiles = _profileTagParser.Parse(processedBody, section.Profiles);
+            var parsedBodyWithDocuments = _documentTagParser.Parse(parsedBodyWithProfiles, section.Documents);
+            var parsedBodyWithAlertsInline = _alertsInlineTagParser.Parse(parsedBodyWithDocuments, section.AlertsInline);
+            
 
             return new ProcessedSection(
                 section.Title,
                 section.Slug,
-                body,
+                parsedBodyWithAlertsInline,
                 section.Profiles,
                 section.Documents,
                 section.AlertsInline
