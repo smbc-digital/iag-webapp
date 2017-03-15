@@ -22,6 +22,7 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(Event), new EventFactory(tagParserContainer, markdownWrapper, documentTagParser));
             _factories.Add(typeof(Homepage), new HomepageFactory(markdownWrapper));
             _factories.Add(typeof(Group), new GroupFactory(tagParserContainer, markdownWrapper));
+            _factories.Add(typeof(Payment), new PaymentFactory(tagParserContainer, markdownWrapper));
         }
 
         public IProcessedContentType Build<T>(T content)

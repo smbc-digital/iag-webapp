@@ -25,6 +25,7 @@ namespace StockportWebapp.ContentFactory
             return new ProcessedPayment(
                 payment.Title,
                 payment.Slug,
+                payment.Teaser,
                 description,
                 payment.PaymentDetailsText,
                 payment.ReferenceLabel,

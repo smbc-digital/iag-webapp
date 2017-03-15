@@ -6,6 +6,7 @@ namespace StockportWebapp.Models
     {
         public string Title { get; set; }
         public string Slug { get; set; }
+        public string Teaser { get; set; }
         public string Description { get; set; }
         public string PaymentDetailsText { get; set; }
         public string ReferenceLabel { get; set; }

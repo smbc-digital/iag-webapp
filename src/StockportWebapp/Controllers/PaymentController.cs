@@ -21,43 +21,22 @@ namespace StockportWebapp.Controllers
     public class PaymentController : Controller
     {
 
-        private readonly IRepository _repository;
-        private readonly IProcessedContentRepository _processedContentRepository;       
-        private readonly ILogger<PaymentController> _logger;
-        private readonly IEventsRepository _eventsRepository;
-        private readonly IApplicationConfiguration _config;
-        private readonly BusinessId _businessId;
-        private readonly IFilteredUrl _filteredUrl;
-        private readonly FeatureToggles _featureToggles;
+        private readonly IProcessedContentRepository _repository;
 
-        public PaymentController(IRepository repository,
-                                IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory,
-                                ILogger<PaymentController> logger, 
-                                IApplicationConfiguration config, 
-                                BusinessId businessId,
-                                IFilteredUrl filteredUrl, 
-                                FeatureToggles featureToggles)
+        public PaymentController(IProcessedContentRepository repository)
         {
             _repository = repository;
-            _processedContentRepository = processedContentRepository;
-            _eventsRepository = eventsRepository;          
-            _logger = logger;
-            _config = config;
-            _businessId = businessId;
-            _filteredUrl = filteredUrl;
-            _featureToggles = featureToggles;
         }
 
-        [Route("/payments/{slug}")]
-        public async Task<IActionResult> Article(string slug)
+        [Route("/payment/{slug}")]
+        public async Task<IActionResult> Detail(string slug)
         {
-            var paymentHttpResponse = await _repository.Get<Payment>(slug);
+            var response = await _repository.Get<Payment>(slug);
 
-            if (!paymentHttpResponse.IsSuccessful())
-                return paymentHttpResponse;
+            if (!response.IsSuccessful())
+                return response;
 
-            var payment = paymentHttpResponse.Content as ProcessedPayment;
+            var payment = response.Content as ProcessedPayment;
             return View(payment);
         }
     }

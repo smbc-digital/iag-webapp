@@ -7,6 +7,7 @@ namespace StockportWebapp.Models
        
         public readonly string Title;
         public readonly string Slug;
+        public readonly string Teaser;
         public readonly string Description;
         public readonly string PaymentDetailsText;
         public readonly string ReferenceLabel;
@@ -18,11 +19,12 @@ namespace StockportWebapp.Models
         public ProcessedPayment()
         { }
 
-        public ProcessedPayment(string title, string slug, string description, string paymentDetailsText,
+        public ProcessedPayment(string title, string slug, string teaser, string description, string paymentDetailsText,
             string referenceLabel, string parisReference, string fund, string glCodeCostCentreNumber, List<Crumb> breadcrumbs)
         {
             Title = title;
             Slug = slug;
+            Teaser = teaser;
             Description = description;
             PaymentDetailsText = paymentDetailsText;
             ReferenceLabel = referenceLabel;
