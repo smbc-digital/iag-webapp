@@ -20,7 +20,6 @@ namespace StockportWebapp.Controllers
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class PaymentController : Controller
     {
-
         private readonly IProcessedContentRepository _repository;
 
         public PaymentController(IProcessedContentRepository repository)

@@ -7,19 +7,23 @@ prod: &prod
   EventCustomDateSearch: true
   TopicPageImages: false
   GroupLinkOnEvent: true
+  SinglePayment: false
 
 stage: &stage
   << : *prod
   TopicPageImages: true
+  SinglePayment: false
 
 qa: &qa
   << : *prod
   << : *stage
+  SinglePayment: false
 
 int:
   << : *prod
   << : *stage
   << : *qa
+  SinglePayment: true
 
 local:
   << : *prod
@@ -27,3 +31,4 @@ local:
   << : *stage
   << : *qa
   << : *int
+  SinglePayment: true

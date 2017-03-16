@@ -1,5 +1,7 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
 @model ProcessedPayment
+@inject FeatureToggles FeatureToggles
 
 @{
     ViewData["Title"] = Model.Title;
@@ -12,41 +14,45 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
-<div class="grid-container-full-width">
-    <div class="grid-container grid-100">
-        <div class="l-body-section-filled grid-100">
-            <section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
-                <div class="l-content-container l-article-container">   
-                    <form action="" method="post">
-                        <h1>@Model.Title</h1>
-                        @Html.Raw(Model.Description)
-                        <hr />
-                        <h2 style="margin-bottom: 0px">Payment Details</h2>
-                        @Html.Raw(Model.PaymentDetailsText)                                             
-                        
-                        <div class="form">                          
-                            <div class="form-section">
-                                <fieldset>  
-                                    @*<input id="" type="hidden" asp-for="@Model.ParisReference"/>
-                                    <input type="hidden" value="@Model.ParisReference"/>*@
-                                    <h3>Account reference number</h3>
-                                    <div class="input-group">
-                                        <input type="text" value="" name="reference" id="reference" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
-                                    </div>    
-                                    
-                                    <h3>Payment amount</h3>
-                                    <label for="AmountPaid" class="visually-hidden">Enter a sterling value below</label>
-                                    <div class="input-group">
-                                        <span class="input-addon">£</span><input type="number" value="" step="any" name="AmountPaid" id="AmountPaid" data-val-required="The Amount Paid field is required." data-val-number="The field Amount Paid must be a number." data-val="true" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
-                                    </div>                                
-                                                               
-                                    <stock-button style="margin-top: 10px" id="uitest-payment-form-submit" class="button-contact-us">Start your payment</stock-button>                                                                     
-                                </fieldset>
+
+@if (FeatureToggles.SinglePayment)
+{
+    <div class="grid-container-full-width">
+        <div class="grid-container grid-100">
+            <div class="l-body-section-filled grid-100">
+                <section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
+                    <div class="l-content-container l-article-container">
+                        <form action="" method="post">
+                            <h1>@Model.Title</h1>
+                            @Html.Raw(Model.Description)
+                            <hr />
+                            <h2 style="margin-bottom: 0px">Payment Details</h2>
+                            @Html.Raw(Model.PaymentDetailsText)
+
+                            <div class="form">
+                                <div class="form-section">
+                                    <fieldset>
+                                        @*<input id="" type="hidden" asp-for="@Model.ParisReference"/>
+                                            <input type="hidden" value="@Model.ParisReference"/>*@
+                                        <h3>Account reference number</h3>
+                                        <div class="input-group">
+                                            <input type="text" value="" name="reference" id="reference" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
+                                        </div>
+
+                                        <h3>Payment amount</h3>
+                                        <label for="AmountPaid" class="visually-hidden">Enter a sterling value below</label>
+                                        <div class="input-group">
+                                            <span class="input-addon">£</span><input type="number" value="" step="any" name="AmountPaid" id="AmountPaid" data-val-required="The Amount Paid field is required." data-val-number="The field Amount Paid must be a number." data-val="true" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
+                                        </div>
+
+                                        <stock-button style="margin-top: 10px" id="uitest-payment-form-submit" class="button-contact-us">Start your payment</stock-button>
+                                    </fieldset>
+                                </div>
                             </div>
-                        </div>                        
-                    </form>                 
-                </div>
-            </section>
+                        </form>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
-</div>
+}
