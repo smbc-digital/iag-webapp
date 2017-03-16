@@ -26,7 +26,7 @@
                             <h1>@Model.Title</h1>
                             @Html.Raw(Model.Description)
                             <hr />
-                            <h2 style="margin-bottom: 0px">Payment Details</h2>
+                            <h2>Payment details</h2>
                             @Html.Raw(Model.PaymentDetailsText)
 
                             <div class="form">
@@ -45,7 +45,7 @@
                                             <span class="input-addon">£</span><input type="number" value="" step="any" name="AmountPaid" id="AmountPaid" data-val-required="The Amount Paid field is required." data-val-number="The field Amount Paid must be a number." data-val="true" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
                                         </div>
 
-                                        <stock-button style="margin-top: 10px" id="uitest-payment-form-submit" class="button-contact-us">Start your payment</stock-button>
+                                        <stock-button id="uitest-payment-form-submit" class="button-submit-payment">Start your payment</stock-button>
                                     </fieldset>
                                 </div>
                             </div>
