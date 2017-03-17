@@ -4,19 +4,22 @@ prod: &prod
   EventsPagination: true
   TopicPageImages: false
   GroupLinkOnEvent: true
+  SinglePayment: false
 
 stage: &stage
   << : *prod
   TopicPageImages: true
+  SinglePayment: false
 
 qa: &qa
   << : *prod
   << : *stage
+  SinglePayment: true
 
 int:
   << : *prod
   << : *stage
-  << : *qa
+  << : *qa  
 
 local:
   << : *prod

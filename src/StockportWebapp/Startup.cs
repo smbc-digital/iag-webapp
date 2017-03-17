@@ -166,6 +166,7 @@ namespace StockportWebapp
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
             services.AddTransient<IEventsRepository, EventsRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
+            services.AddTransient<IPaymentRepository, PaymentRepository>();
 
             services.Configure<RazorViewEngineOptions>(
             options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });

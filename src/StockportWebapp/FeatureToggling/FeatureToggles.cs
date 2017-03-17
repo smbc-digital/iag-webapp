@@ -6,5 +6,6 @@ namespace StockportWebapp.FeatureToggling
         public bool EventsPagination { get; set; } = false;
         public bool TopicPageImages { get; set; } = false;
         public bool GroupLinkOnEvent { get; set; } = false;
+        public bool SinglePayment { get; set; } = false;
     }
 }

@@ -32,7 +32,8 @@ namespace StockportWebapp.Utils
             {typeof(Event), "events/"},
             {typeof(EventCalendar), "events"},
             {typeof(EventResponse), "events"},
-            {typeof(Group), "group/"}
+            {typeof(Group), "group/"},
+            {typeof(Payment), "payment/"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)
