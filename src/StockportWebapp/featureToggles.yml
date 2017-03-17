@@ -1,10 +1,7 @@
 ﻿---
 prod: &prod
-  FooterCache: true
-  NewsCustomDateSearch: true
   NewsroomPagination: true
   EventsPagination: true
-  EventCustomDateSearch: true
   TopicPageImages: false
   GroupLinkOnEvent: true
 

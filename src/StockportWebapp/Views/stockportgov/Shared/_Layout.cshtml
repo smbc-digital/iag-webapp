@@ -2,7 +2,6 @@
 @using StockportWebapp.FeatureToggling
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject BusinessId BusinessId
-@inject FeatureToggles FeatureToggles
 
 <!DOCTYPE html>
 <html lang="en-GB" class="no-js">
@@ -50,7 +49,7 @@
     <main>
         @RenderBody()
     </main>
-    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="@FeatureToggles.FooterCache">
+    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>

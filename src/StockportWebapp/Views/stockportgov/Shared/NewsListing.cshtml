@@ -68,36 +68,33 @@
                                 </li>
                             }
                             @{
-                                if (FeatureToggles.NewsCustomDateSearch)
-                                {
-                                    <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
-                                        <a class="filter-title custom-date-title">Custom date</a>
-                                        <ul class="filters-list custom-date">
-                                            <li class="@(Model.DateRange == "customdate" ? "active" : "")">
-                                                <form action="@Url.Action("Index", "News")" method="get">
-                                                    <input type="hidden" name="DateRange" value="customdate" />
-                                                    @if (!string.IsNullOrEmpty(Model.Category))
-                                                    {
-                                                        <input type="hidden" name="Category" value="@Model.Category" />
-                                                    }
-                                                    <div class="date-from">
-                                                        <label asp-for="@Model.DateFrom"></label>
-                                                        <input class="datepicker" type="date" asp-for="@Model.DateFrom" />
-                                                        <span asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
-                                                    </div>
-                                                    <div class="date-to">
-                                                        <label asp-for="@Model.DateTo"></label>
-                                                        <input class="datepicker" type="date" asp-for="@Model.DateTo" />
-                                                        <span id="inputvalidation" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
-                                                    </div>
-                                                    <div class="update-button">
-                                                        <stock-button class="button-customdate">Update</stock-button>
-                                                    </div>
-                                                </form>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                }
+                                <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
+                                    <a class="filter-title custom-date-title">Custom date</a>
+                                    <ul class="filters-list custom-date">
+                                        <li class="@(Model.DateRange == "customdate" ? "active" : "")">
+                                            <form action="@Url.Action("Index", "News")" method="get">
+                                                <input type="hidden" name="DateRange" value="customdate" />
+                                                @if (!string.IsNullOrEmpty(Model.Category))
+                                                {
+                                                    <input type="hidden" name="Category" value="@Model.Category" />
+                                                }
+                                                <div class="date-from">
+                                                    <label asp-for="@Model.DateFrom"></label>
+                                                    <input class="datepicker" type="date" asp-for="@Model.DateFrom" />
+                                                    <span asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
+                                                </div>
+                                                <div class="date-to">
+                                                    <label asp-for="@Model.DateTo"></label>
+                                                    <input class="datepicker" type="date" asp-for="@Model.DateTo" />
+                                                    <span id="inputvalidation" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
+                                                </div>
+                                                <div class="update-button">
+                                                    <stock-button class="button-customdate">Update</stock-button>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
                             }
                         </ul>
                     </li>
