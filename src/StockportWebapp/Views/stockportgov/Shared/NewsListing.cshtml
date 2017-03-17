@@ -1,14 +1,13 @@
 ﻿@using System.Threading.Tasks
 @using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
-@model StockportWebapp.Models.NewsroomViewModel
+@model NewsroomViewModel
 
 @{
     var newsroom = Model.Newsroom;
 
 }
 
-@inject FeatureToggles FeatureToggles
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="news-filters">
         <p class="filters-heading">Refine by</p>
@@ -147,10 +146,9 @@
                     </li>
                 }
             </ul>
-            if (FeatureToggles.NewsroomPagination)
-            {
-                @Html.Partial("Pagination", Model.Pagination)
-            }
+
+            @Html.Partial("Pagination", Model.Pagination)
+            
         }
     </div>
     

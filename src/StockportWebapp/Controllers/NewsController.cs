@@ -25,7 +25,6 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
-        private readonly FeatureToggles _featureToggles;
 
         public NewsController(
             IRepository repository,
@@ -34,8 +33,7 @@ namespace StockportWebapp.Controllers
             ILogger<NewsController> logger,
             IApplicationConfiguration config,
             BusinessId businessId,
-            IFilteredUrl filteredUrl,
-            FeatureToggles featureToggles)
+            IFilteredUrl filteredUrl)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -44,7 +42,6 @@ namespace StockportWebapp.Controllers
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
-            _featureToggles = featureToggles;
         }
 
         [Route("/news")]
@@ -88,7 +85,7 @@ namespace StockportWebapp.Controllers
 
         private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber)
         {
-            if (newsRoom != null && newsRoom.News.Any() && _featureToggles.NewsroomPagination)
+            if (newsRoom != null && newsRoom.News.Any())
             {
                 var paginatedNews = PaginationHelper.GetPaginatedNewsForSpecifiedPage(newsRoom.News, currentPageNumber);
                 newsRoom.News = paginatedNews.NewsItems;

@@ -1,15 +1,12 @@
 ﻿---
 prod: &prod
-  NewsroomPagination: true
   EventsPagination: true
   TopicPageImages: false
-  GroupLinkOnEvent: true
   SinglePayment: false
 
 stage: &stage
   << : *prod
   TopicPageImages: true
-  SinglePayment: false
 
 qa: &qa
   << : *prod
