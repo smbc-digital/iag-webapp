@@ -17,13 +17,12 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
-  SinglePayment: false
+  SinglePayment: true
 
 int:
   << : *prod
   << : *stage
-  << : *qa
-  SinglePayment: true
+  << : *qa  
 
 local:
   << : *prod
@@ -31,4 +30,3 @@ local:
   << : *stage
   << : *qa
   << : *int
-  SinglePayment: true
