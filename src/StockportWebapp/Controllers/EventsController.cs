@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -28,11 +27,10 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
-        private readonly FeatureToggles _featureToggles;
 
         public EventsController(IRepository repository,
                                 IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl, FeatureToggles featureToggles)
+                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -42,7 +40,6 @@ namespace StockportWebapp.Controllers
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
-            _featureToggles = featureToggles;
         }
 
         [Route("/events")]
@@ -72,7 +69,7 @@ namespace StockportWebapp.Controllers
             eventsCalendar.Pagination = new Pagination();
             eventsCalendar.Pagination.Page = Page == 0 ? 1 : Page;
 
-            if (eventResponse.Events.Any() && _featureToggles.EventsPagination)
+            if (eventResponse.Events.Any())
             {
                 var pageCount = eventResponse.Events.Count/eventsCalendar.Pagination.PageSize;
                 if (eventResponse.Events.Count%eventsCalendar.Pagination.PageSize > 0)

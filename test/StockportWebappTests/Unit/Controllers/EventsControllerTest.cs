@@ -90,8 +90,7 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                _featureToggling
+                _filteredUrl.Object
                 );
         }
 

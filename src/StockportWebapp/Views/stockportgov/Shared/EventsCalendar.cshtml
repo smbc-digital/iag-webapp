@@ -1,9 +1,7 @@
 ﻿@using System.Threading.Tasks
-@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.EventCalendar
 @inject IDateCalculator DateCalculator
-@inject FeatureToggles FeatureToggles
 @{
     var dateFilter = Model.DateRange == "customdate" ? Model.GetCustomEventFilterName() : DateCalculator.ReturnDisplayNameForFilter(Model.DateRange);
 }
@@ -145,10 +143,8 @@
                         </div>
                     </li>
                 }
-                @if (FeatureToggles.EventsPagination)
-                {
-                    @Html.Partial("Pagination", Model.Pagination)
-                }
+
+                @Html.Partial("Pagination", Model.Pagination)
             </ul>
         }
     </div>
