@@ -21,7 +21,7 @@
                     var cat3Value = $("#Category3 :selected").val();
 
                     $("#Category3 option").show();
-                    $("#Category2 option").show()
+                    $("#Category2 option").show();
                     if (cat2Value) {
                         $("#Category1 option[value='" + cat1Value + "']").hide();
                         $("#Category2 option[value='" + cat1Value + "']").hide();

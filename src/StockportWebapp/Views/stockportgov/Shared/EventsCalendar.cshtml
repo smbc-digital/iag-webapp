@@ -28,16 +28,10 @@
                     </li>
                     <li class="filter collapsible" id="date-filter">
                         <p class="filter-title">Date</p>
-                        <ul class="filters-list">
-                            @foreach (var eventFilter in DateCalculator.EventFilters)
-                            {
-                                <li class="@(Model.DateRange == eventFilter.Key ? "active" : "")">
-                                    <a href="@Url.RouteUrl(Model.FilteredUrl.AddDateFilter(eventFilter.Value.DateFrom, eventFilter.Value.DateTo, eventFilter.Key ))"> @eventFilter.Value.DateRange </a>
-                                </li>
-                            }
+                        <ul class="filters-list">                           
                             @{
                                 <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
-                                    <a class="filter-title custom-date-title">Custom date</a>
+                                    <a class="filter-title custom-date-title">Choose a date range</a>
                                     <ul class="filters-list custom-date">
                                         <li class="@(Model.DateRange == "customdate" ? "active" : "")">
                                             <form action="/events" method="get">
@@ -52,7 +46,7 @@
                                                 }                                                   
                                                 <div class="date-from">
                                                     <label asp-for="@Model.DateFrom"></label>
-                                                    <input id="datepickerfrom" type="date" class="datepicker" asp-for="@Model.DateFrom" novalidate />
+                                                    <input id="datepickerfrom" type="date" onchange="setEndDateToStartDate('datepickerto', 'datepickerfrom')" class="datepicker" asp-for="@Model.DateFrom" novalidate />
                                                     <span asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                                 </div>
                                                 <div class="date-to">
@@ -67,7 +61,13 @@
                                         </li>
                                     </ul>
                                 </li>    
-                            }         
+                            }  
+                            @foreach (var eventFilter in DateCalculator.EventFilters)
+                            {
+                                <li class="@(Model.DateRange == eventFilter.Key ? "active" : "")">
+                                    <a href="@Url.RouteUrl(Model.FilteredUrl.AddDateFilter(eventFilter.Value.DateFrom, eventFilter.Value.DateTo, eventFilter.Key ))"> @eventFilter.Value.DateRange </a>
+                                </li>
+                            }       
                         </ul>
                     </li>
                     @if (Model.Categories.Any()) {
