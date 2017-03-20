@@ -65,12 +65,14 @@ namespace StockportWebapp.Controllers
                 return httpResponse;
 
             var newsRoom = httpResponse.Content as Newsroom;
-
+            
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
             int currentPageNumber = page;
+            model.Pagination = new Pagination();
             DoPagination(newsRoom, model, currentPageNumber);
 
+          
             model.AddNews(newsRoom);
             model.AddUrlSetting(urlSetting);
 
