@@ -1,58 +1,58 @@
 ﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
-@model ProcessedPayment
+@model PaymentSubmission
 @inject FeatureToggles FeatureToggles
 
 @{
-    ViewData["Title"] = Model.Title;
-    ViewData["og:title"] = Model.Title;
-    ViewData["Description"] = Model.Description;
+    ViewData["Title"] = Model.Payment.Title;
+    ViewData["og:title"] = Model.Payment.Title;
+    ViewData["Description"] = Model.Payment.Description;
     ViewData["Beta"] = true;
     ViewData["Type"] = "Payment";
     Layout = "../Shared/_Layout.cshtml";
 }
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+    @Html.Partial("Breadcrumb", Model.Payment.Breadcrumbs)
 }
 
 @if (FeatureToggles.SinglePayment)
 {
-    <div class="grid-container-full-width">
-        <div class="grid-container grid-100">
-            <div class="l-body-section-filled grid-100">
-                <section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
-                    <div class="l-content-container l-article-container">
-                        <form action="" method="post">
-                            <h1>@Model.Title</h1>
-                            @Html.Raw(Model.Description)
+    <form asp-controller="Payment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data">
+        <div class="grid-container-full-width">
+            <div class="grid-container grid-100">
+                <div class="l-body-section-filled grid-100">
+                    <section aria-label="@Model.Payment.Title content" class="grid-100 mobile-grid-100">
+                        <div class="l-content-container l-article-container">
+                            <h1>@Model.Payment.Title</h1>
+                            @Html.Raw(Model.Payment.Description)
                             <hr />
                             <h2>Payment details</h2>
-                            @Html.Raw(Model.PaymentDetailsText)
+                            @Html.Raw(Model.Payment.PaymentDetailsText)
 
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
                                         @*<input id="" type="hidden" asp-for="@Model.ParisReference"/>
                                             <input type="hidden" value="@Model.ParisReference"/>*@
-                                        <h3>Account reference number</h3>
-                                        <div class="input-group">
-                                            <input type="text" value="" name="reference" id="reference" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
-                                        </div>
+                                        <label asp-for="@Model.Reference">Account reference number</label>
 
-                                        <h3>Payment amount</h3>
+                                        <input asp-for="@Model.Reference" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
+                                        <span asp-validation-for="@Model.Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
+
+                                        <label asp-for="@Model.Amount">Payment amount</label>
                                         <label for="AmountPaid" class="visually-hidden">Enter a sterling value below</label>
                                         <div class="input-group">
-                                            <span class="input-addon">£</span><input type="number" value="" step="any" name="AmountPaid" id="AmountPaid" data-val-required="The Amount Paid field is required." data-val-number="The field Amount Paid must be a number." data-val="true" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
+                                            <span asp-for="@Model.Amount" class="input-addon">£</span><input asp-for="@Model.Amount" type="text" value="" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
+                                            <span asp-validation-for="@Model.Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
                                         </div>
-
                                         <stock-button id="uitest-payment-form-submit" class="button-submit-payment">Start your payment</stock-button>
                                     </fieldset>
                                 </div>
                             </div>
-                        </form>
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 }
