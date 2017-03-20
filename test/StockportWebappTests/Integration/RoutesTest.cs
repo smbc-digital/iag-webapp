@@ -428,7 +428,7 @@ namespace StockportWebappTests.Integration
 
             var formHtmlTag = "<form";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events/submit-event"));
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events/add-your-event"));
 
             result.Should().Contain(formHtmlTag);
         }
@@ -448,7 +448,7 @@ namespace StockportWebappTests.Integration
                 new KeyValuePair<string, string>("Frequency","Daily"),
             });
 
-            var request = new HttpRequestMessage(HttpMethod.Post, "/events/submit-event") { Content = formContents };
+            var request = new HttpRequestMessage(HttpMethod.Post, "/events/add-your-event") { Content = formContents };
 
             var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
 

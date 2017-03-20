@@ -120,16 +120,16 @@ namespace StockportWebapp.Controllers
             return View(response);
         }
 
-        [Route("/events/submit-event")]
-        public async Task<IActionResult> SubmitEvent()
+        [Route("/events/add-your-event")]
+        public async Task<IActionResult> AddYourEvent()
         {         
             var eventSubmission = new EventSubmission();
             return View(eventSubmission);
         }
 
         [HttpPost]
-        [Route("/events/submit-event")]
-        public async Task<IActionResult> SubmitEvent(EventSubmission eventSubmission)
+        [Route("/events/add-your-event")]
+        public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
         {
             if (!ModelState.IsValid) return View(eventSubmission);
 
