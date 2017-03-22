@@ -31,8 +31,8 @@ namespace StockportWebappTests.Unit.Controllers
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedPayment, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_paymentController.Detail("slug")) as ViewResult;
-            var model = view.ViewData.Model as ProcessedPayment;
-            model.Should().Be(processedPayment);
+            var model = view.ViewData.Model as PaymentSubmission;
+            model.Payment.Should().Be(processedPayment);
         }
 
         [Fact]

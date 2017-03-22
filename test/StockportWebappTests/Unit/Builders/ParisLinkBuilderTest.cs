@@ -28,9 +28,7 @@ namespace StockportWebappTests.Unit.Builders
 
             parisLink.Should().NotBeNull();
 
-            parisLink.Should().Contain("<records><record><reference>reference</reference><fund>fund</fund><amount>amount</amount><text6>text6</text6></records></record>");
+            parisLink.Should().Contain("<records><record><reference>reference</reference><fund>fund</fund><amount>amount</amount><text6>text6</text6></record></records>");
         }
-
-        
     }
 }

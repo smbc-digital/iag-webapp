@@ -21,6 +21,7 @@ namespace StockportWebappTests.Unit.Builders
         ParisLinkBuilder ReturnUrl(string returnUrl);
     }
 
+    [XmlRoot("record")]
     public class ParisRecordXML
     {
         public string reference;
@@ -89,12 +90,18 @@ namespace StockportWebappTests.Unit.Builders
 
         public ParisLinkBuilder ParisRecordXML(ParisRecordXML parisRecordXML)
         {
+            //Create our own namespaces for the output
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+
+            //Add an empty namespace and empty value
+            ns.Add("", "");
+
             var xmlserializer = new XmlSerializer(typeof(ParisRecordXML));
             var stringWriter = new StringWriter();
             using (var writer = XmlWriter.Create(stringWriter, new XmlWriterSettings() { OmitXmlDeclaration = true }))
             {
-                xmlserializer.Serialize(writer, parisRecordXML, null);
-                _parisRecordXML = _parisRecordXML + "<records><record>" + stringWriter.ToString() + "</records></record>";
+                xmlserializer.Serialize(writer, parisRecordXML, ns);
+                _parisRecordXML = _parisRecordXML + "<records>" + stringWriter.ToString() + "</records>";
             }
 
             return this;

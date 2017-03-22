@@ -10,7 +10,7 @@ namespace StockportWebapp.Models
     {
         [Required]
         [Display(Name = "Start date")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Date)]       
         public DateTime? DateFrom { get; set; }
 
         [Required]
