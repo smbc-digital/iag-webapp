@@ -175,6 +175,11 @@ namespace StockportWebapp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
+            if (env.IsEnvironment("int") || env.IsEnvironment("local"))
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             var scheduler = new RedirectScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
             await scheduler.Start();
