@@ -32,7 +32,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/payment/{slug}")]
-        public async Task<IActionResult> Detail(string slug)
+        public async Task<IActionResult> Detail(string slug, string error, string serviceprocessed)
         {
             var response = await _repository.Get<Payment>(slug);
 
@@ -43,6 +43,9 @@ namespace StockportWebapp.Controllers
 
             var paymentSubmission = new PaymentSubmission();
             paymentSubmission.Payment = payment;
+
+            if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceprocessed) && serviceprocessed.ToUpper().Equals("FALSE"))
+                ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
 
             return View(paymentSubmission);
         }
@@ -77,11 +80,12 @@ namespace StockportWebapp.Controllers
                 memo = paymentSubmission.Reference
             };
 
-            return _parisLinkBuilder.ReturnText("Return")
+            return _parisLinkBuilder.ReturnText("Return To Main Menu")
                              .IgnoreConfirmation("false")
                              .PayForBasketMode("true")
                              .Data(paymentSubmission.Payment.ParisReference)
                              .ParisRecordXML(xml)
+                             //.ReturnUrl(Request.GetUri().AbsoluteUri)
                              .ReturnUrl("https://www.stockport.gov.uk")
                              .Build();
         }
