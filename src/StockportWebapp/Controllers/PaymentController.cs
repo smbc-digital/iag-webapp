@@ -15,6 +15,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
 using System.Text;
+using StockportWebappTests.Unit.Builders;
 
 namespace StockportWebapp.Controllers
 {
@@ -22,10 +23,12 @@ namespace StockportWebapp.Controllers
     public class PaymentController : Controller
     {
         private readonly IProcessedContentRepository _repository;
+        private readonly IParisLinkBuilder _parisLinkBuilder;
 
         public PaymentController(IProcessedContentRepository repository)
         {
             _repository = repository;
+            _parisLinkBuilder = new ParisLinkBuilder();
         }
 
         [Route("/payment/{slug}")]
@@ -43,14 +46,6 @@ namespace StockportWebapp.Controllers
 
             return View(paymentSubmission);
         }
-
-        //[Route("/payment/submit-payment")]
-        //public async Task<IActionResult> Detail()
-        //{
-        //    var paymentSubmission = new PaymentSubmission();
-        //    paymentSubmission.Payment = new ProcessedPayment();
-        //    return View(paymentSubmission);
-        //}
 
         [HttpPost]
         [Route("/payment/{slug}")]
@@ -74,39 +69,21 @@ namespace StockportWebapp.Controllers
 
         public string CreateParisLink(PaymentSubmission paymentSubmission)
         {
-            StringBuilder sb = new StringBuilder();
+            ParisRecordXML xml = new ParisRecordXML() {
+                amount = paymentSubmission.Amount.ToString(),
+                fund = paymentSubmission.Payment.Fund,
+                reference = paymentSubmission.Payment.ParisReference,
+                text6 = paymentSubmission.Reference,
+                memo = paymentSubmission.Reference
+            };
 
-            sb.Append("https://3dsecure.stockport.gov.uk/3dsecureTest/Sales/LaunchInternet.aspx");
-
-            sb.Append("?returntext=Return to main menu");
-
-            //sb.Append(defaultPaymentsPage);
-
-            sb.Append("&ignoreconfirmation=false");
-
-            sb.Append("&payforbasketmode=true");
-
-            sb.Append("&data=BikeabilityContribution");
-
-            sb.Append("&recordxml=<records>");
-
-            sb.Append("<record>");
-
-            sb.Append("<reference>11970700609</reference>");
-
-            sb.Append("<fund>05</fund>");
-
-            sb.Append("<amount>" + paymentSubmission.Amount.ToString() + "</amount>");
-
-            sb.Append("<text6>Council Tax</text6>");
-
-            sb.Append("</record>");
-
-            sb.Append("</records>");
-
-            sb.Append("&returnurl=http://old.stockport.gov.uk/payit/bikeabilitycontribution");
-
-            return sb.ToString();
+            return _parisLinkBuilder.ReturnText("Return")
+                             .IgnoreConfirmation("false")
+                             .PayForBasketMode("true")
+                             .Data(paymentSubmission.Payment.ParisReference)
+                             .ParisRecordXML(xml)
+                             .ReturnUrl("https://www.stockport.gov.uk")
+                             .Build();
         }
     }
 }

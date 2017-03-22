@@ -28,13 +28,14 @@ namespace StockportWebappTests.Unit.Builders
         public string fund;
         public string amount;
         public string text6;
+        public string memo;
     }
 
     public class ParisLinkBuilder : IParisLinkBuilder
     {
         public string _returnText = "?returntext=";
         public string _ignoreConfirmation = "&ignoreconfirmation=";
-        public string _payForBasketMode = "&payforbasketmode";
+        public string _payForBasketMode = "&payforbasketmode=";
         public string _data = "&data=";
         public string _parisRecordXML = "&recordxml=";
         public string _returnUrl = "&returnurl=";
@@ -46,8 +47,6 @@ namespace StockportWebappTests.Unit.Builders
             parisLinkQueryString.Append("https://3dsecure.stockport.gov.uk/3dsecureTest/Sales/LaunchInternet.aspx"); //MOVE TO APPSETTINGS?
 
             parisLinkQueryString.Append(_returnText);
-
-            //sb.Append(defaultPaymentsPage);
 
             parisLinkQueryString.Append(_ignoreConfirmation);
 
