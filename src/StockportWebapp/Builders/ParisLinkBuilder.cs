@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using StockportWebapp.Config;
 
 namespace StockportWebappTests.Unit.Builders
 {
     public interface IParisLinkBuilder
     {
-        string Build();
+        string Build(IApplicationConfiguration config);
         ParisLinkBuilder ReturnText(string returnText);
         ParisLinkBuilder IgnoreConfirmation(string ignoreConfirmation);
         ParisLinkBuilder PayForBasketMode(string payForbasketMode);
@@ -40,11 +41,11 @@ namespace StockportWebappTests.Unit.Builders
         public string _parisRecordXML = "&recordxml=";
         public string _returnUrl = "&returnurl=";
 
-        public string Build()
+        public string Build(IApplicationConfiguration config)
         {
             StringBuilder parisLinkQueryString = new StringBuilder();
 
-            parisLinkQueryString.Append("https://3dsecure.stockport.gov.uk/3dsecureTest/Sales/LaunchInternet.aspx"); //MOVE TO APPSETTINGS?
+            parisLinkQueryString.Append(config.GetParisPamentLink("Stockportgov"));
 
             parisLinkQueryString.Append(_returnText);
 

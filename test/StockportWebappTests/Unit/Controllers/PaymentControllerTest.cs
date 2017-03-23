@@ -8,6 +8,7 @@ using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebappTests.Unit.Fake;
 using Helper = StockportWebappTests.TestHelper;
+using StockportWebapp.Config;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -15,11 +16,12 @@ namespace StockportWebappTests.Unit.Controllers
     {
         private readonly FakeProcessedContentRepository _fakeRepository;
         private readonly PaymentController _paymentController;
+        private readonly IApplicationConfiguration _applicationConfiguration;
 
         public PaymentControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _paymentController = new PaymentController(_fakeRepository);
+            _paymentController = new PaymentController(_fakeRepository, _applicationConfiguration);
         }
 
         [Fact]
@@ -30,7 +32,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedPayment, string.Empty));
 
-            var view = AsyncTestHelper.Resolve(_paymentController.Detail("slug")) as ViewResult;
+            var view = AsyncTestHelper.Resolve(_paymentController.Detail("slug", null, null)) as ViewResult;
             var model = view.ViewData.Model as PaymentSubmission;
             model.Payment.Should().Be(processedPayment);
         }
@@ -40,7 +42,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_paymentController.Detail("not-found-slug")) as HttpResponse;
+            var response = AsyncTestHelper.Resolve(_paymentController.Detail("not-found-slug", null, null)) as HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }

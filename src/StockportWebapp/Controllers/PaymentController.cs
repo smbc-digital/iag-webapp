@@ -16,6 +16,7 @@ using StockportWebapp.RSS;
 using StockportWebapp.Utils;
 using System.Text;
 using StockportWebappTests.Unit.Builders;
+using StockportWebapp.Helpers;
 
 namespace StockportWebapp.Controllers
 {
@@ -23,12 +24,12 @@ namespace StockportWebapp.Controllers
     public class PaymentController : Controller
     {
         private readonly IProcessedContentRepository _repository;
-        private readonly IParisLinkBuilder _parisLinkBuilder;
+        private readonly IApplicationConfiguration _applicationConfiguration;
 
-        public PaymentController(IProcessedContentRepository repository)
+        public PaymentController(IProcessedContentRepository repository, IApplicationConfiguration applicationConfiguration)
         {
             _repository = repository;
-            _parisLinkBuilder = new ParisLinkBuilder();
+            _applicationConfiguration = applicationConfiguration;
         }
 
         [Route("/payment/{slug}")]
@@ -66,28 +67,7 @@ namespace StockportWebapp.Controllers
             if (!ModelState.IsValid)
                 return View(paymentSubmission);
             else
-                return Redirect(CreateParisLink(paymentSubmission));
-
-        }
-
-        public string CreateParisLink(PaymentSubmission paymentSubmission)
-        {
-            ParisRecordXML xml = new ParisRecordXML() {
-                amount = paymentSubmission.Amount.ToString(),
-                fund = paymentSubmission.Payment.Fund,
-                reference = paymentSubmission.Payment.ParisReference,
-                text6 = paymentSubmission.Reference,
-                memo = paymentSubmission.Reference
-            };
-
-            return _parisLinkBuilder.ReturnText("Return To Main Menu")
-                             .IgnoreConfirmation("false")
-                             .PayForBasketMode("true")
-                             .Data(paymentSubmission.Payment.ParisReference)
-                             .ParisRecordXML(xml)
-                             //.ReturnUrl(Request.GetUri().AbsoluteUri)
-                             .ReturnUrl("https://www.stockport.gov.uk")
-                             .Build();
+                return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration));
         }
     }
 }

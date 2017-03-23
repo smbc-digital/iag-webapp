@@ -34,16 +34,16 @@
                                     <fieldset>
                                         @*<input id="" type="hidden" asp-for="@Model.ParisReference"/>
                                             <input type="hidden" value="@Model.ParisReference"/>*@
-                                        <label asp-for="@Model.Reference">Account reference number</label>
+                                        <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
 
-                                        <input asp-for="@Model.Reference" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
-                                        <span asp-validation-for="@Model.Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
+                                        <input asp-for="Reference" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
+                                        <span asp-validation-for="Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
 
-                                        <label asp-for="@Model.Amount">Payment amount</label>
+                                        <label asp-for="Amount">Payment amount</label>
                                         <label for="AmountPaid" class="visually-hidden">Enter a sterling value below</label>
                                         <div class="input-group">
-                                            <span asp-for="@Model.Amount" class="input-addon">£</span><input asp-for="@Model.Amount" type="text" value="" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
-                                            <span asp-validation-for="@Model.Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
+                                            <span class="input-addon">£</span><input asp-for="Amount" type="text" value="" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
+                                            <span asp-validation-for="Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
                                         </div>
                                         <stock-button id="uitest-payment-form-submit" class="button-submit-payment">Start your payment</stock-button>
                                     </fieldset>

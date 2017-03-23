@@ -1,12 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using Xunit;
+﻿using Xunit;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
-using StockportWebapp.Builders;
-using StockportWebapp.Models;
+using StockportWebapp.Config;
 
 namespace StockportWebappTests.Unit.Builders
 {
@@ -15,6 +9,7 @@ namespace StockportWebappTests.Unit.Builders
         private readonly IParisLinkBuilder _parisLinkBuilder;
         ParisRecordXML parisRecordXML;
         string parisRecordXMLStringOutput;
+        IApplicationConfiguration _applicationConfiguration;
 
         public ParisLinkBuilderTest()
         {
@@ -26,9 +21,7 @@ namespace StockportWebappTests.Unit.Builders
         [Fact]
         public void ShouldReturnXMLWhenReferencesObjectProvided()
         {
-            
-
-            var parisLink = _parisLinkBuilder.ParisRecordXML(parisRecordXML).Build();
+            var parisLink = _parisLinkBuilder.ParisRecordXML(parisRecordXML).Build(_applicationConfiguration);
 
             parisLink.Should().NotBeNull();
 
@@ -38,7 +31,7 @@ namespace StockportWebappTests.Unit.Builders
         [Fact]
         public void ShouldReturnEmptyValuesWhenNoneAreProvided()
         {
-            var parisLink = _parisLinkBuilder.Build();
+            var parisLink = _parisLinkBuilder.Build(_applicationConfiguration);
 
             parisLink.Should().EndWith("?returntext=&ignoreconfirmation=&payforbasketmode=&data=&recordxml=&returnurl=");
         }
@@ -52,7 +45,7 @@ namespace StockportWebappTests.Unit.Builders
                                              .ParisRecordXML(parisRecordXML)
                                              .ReturnText("Test")
                                              .ReturnUrl("Test")
-                                             .Build();
+                                             .Build(_applicationConfiguration);
 
             parisLink.Should().EndWith("?returntext=Test&ignoreconfirmation=True&payforbasketmode=True&data=Data&recordxml=" + parisRecordXMLStringOutput + "&returnurl=Test");
         }
