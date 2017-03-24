@@ -7,7 +7,7 @@ namespace StockportWebapp.Helpers
     public static class ParisLinkHelper
     {
         private static IParisLinkBuilder _parisLinkBuilder;
-        public static string CreateParisLink(PaymentSubmission paymentSubmission, IApplicationConfiguration _applicationConfiguration)
+        public static string CreateParisLink(PaymentSubmission paymentSubmission, IApplicationConfiguration _applicationConfiguration, string returnUrl)
         {
             _parisLinkBuilder = new ParisLinkBuilder();
 
@@ -37,7 +37,7 @@ namespace StockportWebapp.Helpers
                              .PayForBasketMode("true")
                              .Data(paymentSubmission.Payment.ParisReference)
                              .ParisRecordXML(xml)
-                             //.ReturnUrl(Request.GetUri().AbsoluteUri)
+                             //.ReturnUrl(returnUrl)
                              .ReturnUrl("https://www.stockport.gov.uk")
                              .Build(_applicationConfiguration);
         }

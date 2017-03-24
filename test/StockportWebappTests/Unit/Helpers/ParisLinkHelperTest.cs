@@ -25,6 +25,9 @@ namespace StockportWebappTests.Unit.Helpers
                                                                      "07",
                                                                      "glCodeCostCentreNumber",
                                                                      new List<Crumb>());
+
+        string returnUrl = "https://www.stockport.gov.uk";
+
         public ParisLinkHelperTest()
         {
             _config = new Mock<IApplicationConfiguration>();
@@ -36,7 +39,7 @@ namespace StockportWebappTests.Unit.Helpers
         {
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "1234567890", Payment = testProcessedPayment };
 
-            string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object);
+            string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object, returnUrl);
 
             parisLink.Should().Contain("<fund>15</fund>");
         }
@@ -46,7 +49,7 @@ namespace StockportWebappTests.Unit.Helpers
         {
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "test", Payment = testProcessedPayment };
 
-            string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object);
+            string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object, returnUrl);
 
             parisLink.Should().Contain("<reference>glCodeCostCentreNumber</reference>");
             parisLink.Should().Contain("<text6>test</text6>");
@@ -67,7 +70,7 @@ namespace StockportWebappTests.Unit.Helpers
                                                                                                       new List<Crumb>());
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "test", Payment = testProcessedPaymentWithoutglCodeCostCentreNumber };
 
-            string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object);
+            string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object, returnUrl);
 
             parisLink.Should().Contain("<reference>test</reference>");
             parisLink.Should().Contain("<text6>title</text6>");

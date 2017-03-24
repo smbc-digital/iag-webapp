@@ -13,7 +13,7 @@ namespace StockportWebapp.Models
         [Required]
         public string Reference { get; set; } = "";
         [Required]
-        [Range(0.01, int.MaxValue, ErrorMessage = "Please enter a valid value.")]
+        [Range(0.01, int.MaxValue, ErrorMessage = "Please enter a valid amount (e.g. 25.00)")]
         public decimal Amount { get; set; } = 0;
     }
 }

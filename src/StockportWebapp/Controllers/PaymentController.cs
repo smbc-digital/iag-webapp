@@ -17,6 +17,7 @@ using StockportWebapp.Utils;
 using System.Text;
 using StockportWebappTests.Unit.Builders;
 using StockportWebapp.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Controllers
 {
@@ -64,10 +65,12 @@ namespace StockportWebapp.Controllers
 
             paymentSubmission.Payment = payment;
 
+             var currentPath = Request.GetUri().AbsoluteUri;
+
             if (!ModelState.IsValid)
                 return View(paymentSubmission);
             else
-                return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration));
+                return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration, currentPath));
         }
     }
 }
