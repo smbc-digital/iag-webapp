@@ -37,8 +37,8 @@ namespace StockportWebapp.Helpers
                              .PayForBasketMode("true")
                              .Data(paymentSubmission.Payment.ParisReference)
                              .ParisRecordXML(xml)
-                             //.ReturnUrl(returnUrl)
-                             .ReturnUrl("https://www.stockport.gov.uk")
+                             .ReturnUrl(returnUrl)
+                             //.ReturnUrl("https://www.stockport.gov.uk")
                              .Build(_applicationConfiguration);
         }
     }
