@@ -54,11 +54,13 @@ function OnlySubmitFormIfValid() {
         .submit(function (e) {
             console.log("form submission triggered");
             var chars = $(".chars-remaining");
-            $input = chars.siblings(".form-control-deep");
-            var limit = $input.data("val-length-max");
-    
-            if (NumberOfRemainingCharacters($input, limit) < 0) {
-                e.preventDefault();
-         }
-    });
+            if (chars.length > 0) {
+                $input = chars.siblings(".form-control-deep");
+                var limit = $input.data("val-length-max");
+
+                if (NumberOfRemainingCharacters($input, limit) < 0) {
+                    e.preventDefault();
+                }
+            }
+        });
 }
