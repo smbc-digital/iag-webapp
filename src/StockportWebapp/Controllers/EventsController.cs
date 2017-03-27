@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -28,7 +27,6 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
-        private readonly FeatureToggles _featureToggles;
 
         public EventsController(
             IRepository repository,
@@ -38,8 +36,7 @@ namespace StockportWebapp.Controllers
             ILogger<EventsController> logger, 
             IApplicationConfiguration config, 
             BusinessId businessId, 
-            IFilteredUrl filteredUrl, 
-            FeatureToggles featureToggles)
+            IFilteredUrl filteredUrl)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -49,7 +46,6 @@ namespace StockportWebapp.Controllers
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
-            _featureToggles = featureToggles;
         }
 
         [Route("/events")]
@@ -93,12 +89,14 @@ namespace StockportWebapp.Controllers
 
         private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse)
         {
-            if (eventResponse != null 
-                && eventResponse.Events.Any() 
-                && _featureToggles.EventsPagination)
+            model.Pagination = new Pagination();
+
+            if (eventResponse != null && eventResponse.Events.Any())
             {
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                    eventResponse.Events, currentPageNumber);
+                    eventResponse.Events, 
+                    currentPageNumber, 
+                    "Events");
 
                 eventResponse.Events = paginatedEvents.Items;
                 model.Pagination = paginatedEvents.Pagination;
@@ -123,16 +121,16 @@ namespace StockportWebapp.Controllers
             return View(response);
         }
 
-        [Route("/events/submit-event")]
-        public async Task<IActionResult> SubmitEvent()
+        [Route("/events/add-your-event")]
+        public async Task<IActionResult> AddYourEvent()
         {         
             var eventSubmission = new EventSubmission();
             return View(eventSubmission);
         }
 
         [HttpPost]
-        [Route("/events/submit-event")]
-        public async Task<IActionResult> SubmitEvent(EventSubmission eventSubmission)
+        [Route("/events/add-your-event")]
+        public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
         {
             if (!ModelState.IsValid) return View(eventSubmission);
 

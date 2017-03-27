@@ -8,24 +8,24 @@
         {
             <li class="nav-card grid-33" style="">
                 <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) && FeatureToggles.TopicPageImages ? "with-background-image" : "")">
-                    
+
                     @{
                         if (!string.IsNullOrEmpty(subItem.Image) && FeatureToggles.TopicPageImages)
-                        {                                                       
+                        {
                             <div class="nav-card-background-image" style="background-image:url(@subItem.Image)">
                                 <div class="nav-card-background-image-dark">
                                     <h2 class="hide-on-desktop"><span>@subItem.Title</span></h2>
                                 </div>
                             </div>
-                            <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
+                                <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
                         }
                         else
                         {
                             <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
-                            <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
+                                <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
                         }
-                    }                   
-                </a>         
+                    }
+                </a>
             </li>
         }
     </ul>

@@ -9,16 +9,18 @@ namespace StockportWebapp.Models
         public string Body { get; set; }
         public List<Profile> Profiles { get; set; }
         public List<Document> Documents { get; set; }
+        public IEnumerable<Alert> AlertsInline { get; set; }
 
         public Section() { }
 
-        public Section(string title, string slug, string body, List<Profile> profiles, List<Document> documents)
+        public Section(string title, string slug, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline)
         {
             Title = title;
             Slug = slug;
             Body = body;
             Profiles = profiles;
             Documents = documents;
+            AlertsInline = alertsInline;
         }
     }
 }

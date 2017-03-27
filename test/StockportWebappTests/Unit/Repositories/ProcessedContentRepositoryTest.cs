@@ -22,6 +22,7 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
         private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
+        private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
 
         public ProcessedContentRepositoryTest()
@@ -30,12 +31,12 @@ namespace StockportWebappTests.Unit.Repositories
             _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-
+            _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _mockUrlGenerator = new Mock<IStubToUrlConverter>();
 
             _mockHttpClient = new Mock<IHttpClient>();
 
-            var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object);
+            var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object);
             _repository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, contentFactory);
         }
 
@@ -58,6 +59,7 @@ namespace StockportWebappTests.Unit.Repositories
             _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>())).Returns(body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(It.IsAny<string>())).Returns(body);
             _documentTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>())).Returns(body);
+            _alertsInlineTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>())).Returns(body);
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Article>(articleSlug));
             var article = httpResponse.Content as ProcessedArticle;

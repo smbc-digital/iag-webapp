@@ -58,14 +58,14 @@ namespace StockportWebapp.Utils
             return currentPageNumber < totalPages;
         }
 
-        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber)
+        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string displayName)
         {
             currentPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count);
 
             Pagination pagination = new Pagination(
                 items.Count,
-                currentPageNumber, 
-                "News articles");
+                currentPageNumber,
+                displayName);
 
             int itemsOnPreviousPages = Pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
 

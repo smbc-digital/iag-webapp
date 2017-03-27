@@ -25,7 +25,6 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
-        private readonly FeatureToggles _featureToggles;
 
         public NewsController(
             IRepository repository,
@@ -34,8 +33,7 @@ namespace StockportWebapp.Controllers
             ILogger<NewsController> logger,
             IApplicationConfiguration config,
             BusinessId businessId,
-            IFilteredUrl filteredUrl,
-            FeatureToggles featureToggles)
+            IFilteredUrl filteredUrl)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -44,20 +42,17 @@ namespace StockportWebapp.Controllers
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
-            _featureToggles = featureToggles;
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int Page)
+        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int page)
         {
             if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
             {
                 if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0) ModelState["DateTo"].Errors.Clear();
                 if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0) ModelState["DateFrom"].Errors.Clear();
             }
-
-            var ms = ModelState;
-
+            
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag));
             if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("Category", model.Category));
@@ -70,11 +65,11 @@ namespace StockportWebapp.Controllers
                 return httpResponse;
 
             var newsRoom = httpResponse.Content as Newsroom;
-
+            
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
             
-            DoPagination(newsRoom, model, Page);
-
+            DoPagination(newsRoom, model, page);
+          
             model.AddNews(newsRoom);
             model.AddUrlSetting(urlSetting);
 
@@ -87,12 +82,11 @@ namespace StockportWebapp.Controllers
 
         private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber)
         {
-            if (newsRoom != null 
-                && newsRoom.News.Any()
-                && _featureToggles.NewsroomPagination)
+            model.Pagination = new Pagination();
+        
+            if (newsRoom != null && newsRoom.News.Any())
             {
-                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                    newsRoom.News, currentPageNumber);
+                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(newsRoom.News, currentPageNumber, "News articles");
 
                 newsRoom.News = paginatedNews.Items;
                 model.Pagination = paginatedNews.Pagination;
@@ -119,7 +113,7 @@ namespace StockportWebapp.Controllers
 
                 finalResult = View(newsViewModel);
             }
-
+            
             return finalResult;
         }
 

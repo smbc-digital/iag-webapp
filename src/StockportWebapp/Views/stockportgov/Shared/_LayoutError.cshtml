@@ -30,7 +30,7 @@
     <div class="background-image" style="background-image: url('/assets/images/content/bg-sg-home.jpg')">
         @RenderBody()
     </div>
-    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="@FeatureToggles.FooterCache">
+    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
 

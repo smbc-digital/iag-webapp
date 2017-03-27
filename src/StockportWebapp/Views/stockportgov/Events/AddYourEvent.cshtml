@@ -2,8 +2,8 @@
 @using StockportWebapp.Models
 @model EventSubmission
 @{
-    ViewData["Title"] = "Submit Event";
-    ViewData["og:title"] = "Submit Event";
+    ViewData["Title"] = "Add your event";
+    ViewData["og:title"] = "Add your event";
     ViewData["Beta"] = true;
     Layout = "../Shared/_Layout.cshtml";
 }
@@ -18,7 +18,7 @@
             <section aria-label="" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
-                        <h1>Submit event</h1>
+                        <h1>Add your event</h1>
 
                         @if (ViewBag.SubmissionError != null)
                         {
@@ -34,7 +34,7 @@
                             </div>
                         }
 
-                        <form asp-controller="Events" asp-action="SubmitEvent" method="post" role="form" enctype="multipart/form-data">
+                        <form asp-controller="Events" asp-action="AddYourEvent" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
@@ -196,7 +196,7 @@
                                         <span asp-validation-for="@Model.SubmitterEmail" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <stock-button id="uitest-contact-form-submit"
-                                                      class="button-contact-us">Submit event</stock-button>
+                                                      class="button-contact-us">Add your event</stock-button>
                                     </fieldset>
                                 </div>
                             </div>

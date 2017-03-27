@@ -98,6 +98,7 @@ namespace StockportWebapp
             services.AddSingleton<IContactUsMessageTagParser, ContactUsMessageTagParser>();
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
+            services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
             services.AddSingleton<ITimeProvider>(new TimeProvider());
             services.AddSingleton(
                 p =>
@@ -123,7 +124,7 @@ namespace StockportWebapp
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(p.GetService<ISimpleTagParserContainer>(),
                             p.GetService<IDynamicTagParser<Profile>>(), p.GetService<MarkdownWrapper>(),
-                            p.GetService<IDynamicTagParser<Document>>())));
+                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>())));
             services.AddTransient<IRepository>(
                 p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>()));
 
@@ -165,6 +166,7 @@ namespace StockportWebapp
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
             services.AddTransient<IEventsRepository, EventsRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
+            services.AddTransient<IPaymentRepository, PaymentRepository>();
 
             services.Configure<RazorViewEngineOptions>(
             options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
@@ -173,6 +175,11 @@ namespace StockportWebapp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
+            if (env.IsEnvironment("int") || env.IsEnvironment("local"))
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
             var scheduler = new RedirectScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
             await scheduler.Start();

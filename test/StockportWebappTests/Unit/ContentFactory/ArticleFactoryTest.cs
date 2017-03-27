@@ -18,6 +18,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly ArticleFactory _articleFactory;
         private readonly Mock<ISectionFactory> _sectionFactory;
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
+        private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
         private readonly List<Profile> _emptyProfiles = new List<Profile>();
         private readonly List<Document> _emptyDocuments = new List<Document>();
         private const string Title = "title";
@@ -36,7 +37,8 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
         private const bool _liveChatVisible = true;
         private readonly LiveChat _liveChat = new LiveChat("Title","text");
-        
+        private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
+
         public ArticleFactoryTest()
         {
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
@@ -44,16 +46,17 @@ namespace StockportWebappTests.Unit.ContentFactory
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _sectionFactory = new Mock<ISectionFactory>();
             _documentTagParser= new Mock<IDynamicTagParser<Document>>();
-            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object);
+            _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
+            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object);
 
-            _sectionOne = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments);
-            _processedSectionOne = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments);
-            _sectionTwo = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments);
-            _processedSectionTwo = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments);
+            _sectionOne = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _processedSectionOne = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _sectionTwo = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _processedSectionTwo = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
             
-             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _liveChatVisible, _liveChat);
+             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _liveChatVisible, _liveChat, _emptyAlertsInline);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
@@ -62,6 +65,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
+            _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
         }
 
         [Fact]

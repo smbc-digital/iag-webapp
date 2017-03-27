@@ -41,7 +41,7 @@ namespace StockportWebappTests.Unit.Controllers
             var article = new ProcessedArticle("Physical Activity", "physical-activity",
                 "Being active is great for your body", "teaser", new List<ProcessedSection>() {DummySection()},
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg", 
-                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>());
 
             _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
 
@@ -61,12 +61,12 @@ namespace StockportWebappTests.Unit.Controllers
         public void MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
         {
             const string articleSlug = "physical-activity";
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {},
-                new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+                new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>());
 
             var response = new HttpResponse(200, article, string.Empty);
             _fakeRepository.Set(response);
@@ -83,11 +83,11 @@ namespace StockportWebappTests.Unit.Controllers
         public void MultipleSectionsArticleWithNoSectionSlugViewDataCanonicalUrlShouldBeNull()
         {
             const string articleSlug = "physical-activity";
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo }, 
-                string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+                string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -104,12 +104,12 @@ namespace StockportWebappTests.Unit.Controllers
             const string articleSlug = "physical-activity";
             const string sectionSlug = "physical-activity-overview";
 
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, 
-                new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+                new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -131,11 +131,11 @@ namespace StockportWebappTests.Unit.Controllers
             const string articleSlug = "physical-activity";
             const string sectionSlug = "types-of-physical-activity";
 
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, "body", new List<Profile>(), new List<Document>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() {sectionOne, sectionTwo}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {},
-                new List<Alert>(), new NullTopic(), false, new NullLiveChat());
+                new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>());
 
             var response = new HttpResponse(200, article, string.Empty);
             _fakeRepository.Set(response);
@@ -171,7 +171,7 @@ namespace StockportWebappTests.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() {}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {}, alerts, new NullTopic(), false, new NullLiveChat());
+                new List<ProcessedSection>() {}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {}, alerts, new NullTopic(), false, new NullLiveChat(), new List<Alert>());
 
             _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
 
@@ -224,16 +224,65 @@ namespace StockportWebappTests.Unit.Controllers
             _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, sectionSlug), Times.Once);
         }
 
+        [Fact]
+        public void GetsAlertsInlineForArticle()
+        {
+            var alertsInline = new List<Alert>
+            {
+                new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
+            };
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+                new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), alertsInline);
+
+            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            var result = indexPage.ViewData.Model as ArticleViewModel;
+
+            result.Article.AlertsInline.Should().HaveCount(1);
+            result.Article.AlertsInline.First().Title.Should().Be("title");
+            result.Article.AlertsInline.First().SubHeading.Should().Be("subheading");
+            result.Article.AlertsInline.First().Body.Should().Be("<p>body</p>\n");
+            result.Article.AlertsInline.First().Severity.Should().Be(Severity.Warning);
+        }
+
+        [Fact]
+        public void GetsAlertsInlineForASectionInAnArticle()
+        {
+            var alertsInline = new List<Alert>
+            {
+                new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
+            };
+
+            var processedSection = new ProcessedSection("title", "slug", "body", new List<Profile>(), new List<Document>(), alertsInline);
+
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+                new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), alertsInline);
+
+            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            var result = indexPage.ViewData.Model as ArticleViewModel;
+
+            result.Article.Sections.FirstOrDefault().AlertsInline.Should().HaveCount(1);
+            result.Article.Sections.FirstOrDefault().AlertsInline.First().Title.Should().Be("title");
+            result.Article.Sections.FirstOrDefault().AlertsInline.First().SubHeading.Should().Be("subheading");
+            result.Article.Sections.FirstOrDefault().AlertsInline.First().Body.Should().Be("<p>body</p>\n");
+            result.Article.Sections.FirstOrDefault().AlertsInline.First().Severity.Should().Be(Severity.Warning);
+        }
+
         private ProcessedArticle DummyProcessedArticle()
         {
             return new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 new List<ProcessedSection>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(),
-                new LinkedList<Alert>(), new NullTopic(), false, new NullLiveChat());
+                new LinkedList<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>());
         }
 
         private ProcessedSection DummySection()
         {
-            return new ProcessedSection(Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Profile>(), new List<Document>());
+            return new ProcessedSection(Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
         }
     }
 }

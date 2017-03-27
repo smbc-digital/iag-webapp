@@ -93,8 +93,7 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                _featureToggling
+                _filteredUrl.Object
                 );
         }
 
@@ -189,7 +188,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _eventRepository.Setup(o => o.SendEmailMessage(It.IsAny<EventSubmission>())).ReturnsAsync(HttpStatusCode.OK);
 
-            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission)) as RedirectToActionResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.AddYourEvent(eventSubmission)) as RedirectToActionResult;
             actionResponse.ActionName.Should().Be("ThankYouMessage");
         }
 
@@ -200,7 +199,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _eventRepository.Setup(o => o.SendEmailMessage(It.IsAny<EventSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
 
-            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission));
+            var actionResponse = AsyncTestHelper.Resolve(_controller.AddYourEvent(eventSubmission));
 
             actionResponse.Should().BeOfType<ViewResult>();
             _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Once);
@@ -213,7 +212,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _controller.ModelState.AddModelError("Title", "an invalid title was provided");
 
-            var actionResponse = AsyncTestHelper.Resolve(_controller.SubmitEvent(eventSubmission));
+            var actionResponse = AsyncTestHelper.Resolve(_controller.AddYourEvent(eventSubmission));
 
             actionResponse.Should().BeOfType<ViewResult>();
             _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);

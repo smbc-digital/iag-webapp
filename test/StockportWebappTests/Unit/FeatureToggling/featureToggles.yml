@@ -3,11 +3,13 @@ prod: &default
   SearchBar: true
   AToZ: false
   OverriddenFeature: false
+  SinglePayment: false
 
 someenv: &someenv
   << : *default
   OverriddenFeature: true
   ShouldBeIgnored: true
+  SinglePayment: true
 
 preprod:
   << : *default

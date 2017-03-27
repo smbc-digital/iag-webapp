@@ -86,5 +86,16 @@ function SwapLogo() {
     }
 }
 
+function setEndDateToStartDate(endDateId, startDateId) {
+    if (!Modernizr.inputtypes.date) {
+        var startDate = $("#" + startDateId).val();
 
+        if (startDate != null) {
+            var endDate = $("#" + endDateId).val();
+            if (endDate === "") {
+                $("#" + endDateId).val(startDate);
+            }
+        }
+    }
+}
 

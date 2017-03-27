@@ -1,6 +1,5 @@
 ﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
-@inject FeatureToggles FeatureToggles
 @model ProcessedEvents
 
 @{
@@ -111,8 +110,7 @@
                                             <div class="events-details-heading">
                                                 Booking information
                                             </div>
-                                            @if (FeatureToggles.GroupLinkOnEvent)
-                                            {
+                                            @{
                                                 if (Model.BookingInformation.Contains("http") || Model.BookingInformation.Contains("www"))
                                                 {
                                                     <a href="@Model.BookingInformation">Book your place</a>
@@ -166,6 +164,10 @@
                         </script>
                     }
                 </div>
+                <div class="l-content-container grid-100">
+                    @Html.Partial("Share")
+                </div>
+                
             </section>
         </div>
     </div>

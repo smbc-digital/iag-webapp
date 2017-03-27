@@ -188,7 +188,7 @@ namespace StockportWebappTests.Unit.ViewModels
 
             var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString);
             var article = new ProcessedArticle(Helper.AnyString,Helper.AnyString, Helper.AnyString, Helper.AnyString,new List<ProcessedSection>(),
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>());
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -219,7 +219,7 @@ namespace StockportWebappTests.Unit.ViewModels
             var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString);
             var article = new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<ProcessedSection>(), Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat());
+                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>());
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -241,7 +241,7 @@ namespace StockportWebappTests.Unit.ViewModels
             var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
                 new List<Crumb>(), null, true, "test-id");
             return new ProcessedArticle(Helper.AnyString, slug, Helper.AnyString, Helper.AnyString, sections,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>());
         }
 
 
@@ -249,8 +249,9 @@ namespace StockportWebappTests.Unit.ViewModels
         {
             var profiles = new List<Profile>();
             var documents = new List<Document>();
+            var alertsInline = new List<Alert>();
 
-            return new ProcessedSection(Helper.AnyString, slug, Helper.AnyString, profiles, documents);
+            return new ProcessedSection(Helper.AnyString, slug, Helper.AnyString, profiles, documents, alertsInline);
         }
     }
 }

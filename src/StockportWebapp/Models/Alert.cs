@@ -17,6 +17,7 @@ namespace StockportWebapp.Models
             Title = title;
             SubHeading = subHeading;
             Body = MarkdownWrapper.ToHtml(body);
+            //Body = body;
             Severity = severity;
             SunriseDate = sunriseDate;
             SunsetDate = sunsetDate;

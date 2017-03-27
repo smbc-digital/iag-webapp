@@ -21,8 +21,8 @@ namespace StockportWebappTests.Unit.Controllers
 {
     public class NewsControllerTest
     {
-        private readonly NewsController _controller;
-        private readonly Mock<IRepository> _repository = new Mock<IRepository>();
+        private  NewsController _controller;
+        private  Mock<IRepository> _repository = new Mock<IRepository>();
 
         private readonly Mock<IProcessedContentRepository> _processedContentRepository =
             new Mock<IProcessedContentRepository>();
@@ -34,7 +34,6 @@ namespace StockportWebappTests.Unit.Controllers
         private const string EmailAlertsTopicId = "test-id";
         private const bool EmailAlertsOn = true;
         private readonly Mock<IFilteredUrl> _filteredUrl;
-        private readonly FeatureToggles _featureToggles = new FeatureToggles();
 
         private static readonly News NewsItemWithImages = new News("Another news article",
             "another-news-article",
@@ -66,15 +65,19 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly List<News> _listOfNewsItems = new List<News> { NewsItemWithoutImages, NewsItemWithImages };
 
         private readonly Newsroom _newsRoom;
+        private readonly Newsroom _emptyNewsRoom;
 
         public NewsControllerTest()
         {
             _newsRoom = new Newsroom(_listOfNewsItems, new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
                 new List<string>(), new List<DateTime>());
+            _emptyNewsRoom = new Newsroom(new List<News>(),  new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
+              new List<string>(), new List<DateTime>());
 
             // setup responses (with mock data)
             var responseListing = new HttpResponse(200, _newsRoom, "");
             var responseDetail = new HttpResponse(200, _processedNewsArticle, "");
+            var emptyResponsListing = new HttpResponse(200, _emptyNewsRoom, "");
 
             // setup mocks
             _repository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), It.Is<List<Query>>(l => l.Count == 0)))
@@ -99,8 +102,6 @@ namespace StockportWebappTests.Unit.Controllers
             _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId))
                 .Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-            _featureToggles.NewsroomPagination = true;
-
             _controller = new NewsController(
                 _repository.Object,
                 _processedContentRepository.Object,
@@ -108,8 +109,7 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                _featureToggles
+                _filteredUrl.Object
             );
         }
 
@@ -166,8 +166,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _mockRssFeedFactory.Object,
                 _logger.Object, _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                _featureToggles);
+                _filteredUrl.Object
+                );
             var response = AsyncTestHelper.Resolve(controller.Detail("another-news-article")) as ViewResult;
 
             var model = response.Model as NewsViewModel;
@@ -213,7 +213,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(new HttpResponse(404, null, "not found"));
             var controller = new NewsController(_repository.Object, _processedContentRepository.Object,
                 _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId),
-                _filteredUrl.Object, _featureToggles);
+                _filteredUrl.Object);
             var response = AsyncTestHelper.Resolve(controller.Index(new NewsroomViewModel(), 1)) as HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
@@ -253,11 +253,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void ShouldReturnNewsItemsForADateFilter()
         {
             _repository.Setup(o =>
-                o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"))
+                    o.Get<Newsroom>("",It.Is<List<Query>>(l =>l.Contains(new Query("DateFrom", "2016-10-01")) && l.Contains(new Query("DateTo", "2016-11-01"))
                     )
                 )
             ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
@@ -277,6 +273,39 @@ namespace StockportWebappTests.Unit.Controllers
             news.Should().Be(_newsRoom);
         }
 
+        [Fact]
+        public void ShouldReturnEmptyPaginationForNoNewsItems()
+        {
+             var emptyRepository = new Mock<IRepository>();
+
+              emptyRepository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyNewsRoom));
+
+            var controller = new NewsController(
+               emptyRepository.Object,
+               _processedContentRepository.Object,
+               _mockRssFeedFactory.Object,
+               _logger.Object,
+               _config.Object,
+               new BusinessId(BusinessId),
+               _filteredUrl.Object
+           );
+
+            var actionResponse =
+               AsyncTestHelper.Resolve(
+                   controller.Index(
+                       new NewsroomViewModel
+                       {
+                           DateFrom = null,
+                           DateTo = null
+                       }, 1)) as ViewResult;
+
+            var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+            
+                        viewModel.Newsroom.News.Count.Should().Be(0);
+//            viewModel.Pagination.TotalItems.Should().Be(0);
+        }
+        
         [Theory]
         [InlineData(1, 1, 1, 1)]
         [InlineData(2, 1, 2, 1)]
@@ -353,8 +382,7 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles {NewsroomPagination = true}
+                _filteredUrl.Object
             );
 
             return controller;
