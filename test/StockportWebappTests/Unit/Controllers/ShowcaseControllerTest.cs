@@ -7,13 +7,8 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebapp.Parsers;
-using StockportWebapp.ViewModels;
 using StockportWebappTests.Unit.Fake;
 using Xunit;
-using Helper = StockportWebappTests.TestHelper;
-using static StockportWebapp.Models.LiveChat;
-using System;
 using System.Net;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -22,38 +17,32 @@ namespace StockportWebappTests.Unit.Controllers
     {
         private readonly ShowcaseController _controller;
         private readonly FakeProcessedContentRepository _fakeRepository;
-        private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser;
-
-        private const string DefaultMessage = "A default message";
 
         public ShowcaseControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-
-            _contactUsMessageParser = new Mock<IContactUsMessageTagParser>();
-
-            _controller = new ShowcaseController(_fakeRepository, new Mock<ILogger<ShowcaseController>>().Object, _contactUsMessageParser.Object);
+            _controller = new ShowcaseController(_fakeRepository, new Mock<ILogger<ShowcaseController>>().Object);
         }
 
         [Fact]
         public void ItReturnsShowcaseWithProcessedBody()
         {
-            const string ShowcaseSlug = "showcase-slug";
-            var Showcase = new ProcessedShowcase("Test showcase", ShowcaseSlug, "showcase teaser",
+            const string showcaseSlug = "showcase-slug";
+            var showcase = new ProcessedShowcase("Test showcase", showcaseSlug, "showcase teaser",
                                                  "showcase subheading", "af981b9771822643da7a03a9ae95886f/picture.jpg",
-                                                 null, new List<Crumb>() { new Crumb("title", "slug", "type") });
+                                                 new List<Topic> {new NullTopic()}, new List<Crumb> { new Crumb("title", "slug", "type") });
 
-            _fakeRepository.Set(new HttpResponse(200, Showcase, string.Empty));
+            _fakeRepository.Set(new HttpResponse(200, showcase, string.Empty));
 
-            var ShowcasePage = AsyncTestHelper.Resolve(_controller.Showcase(ShowcaseSlug)) as ViewResult;
-            var processedShowcase = ShowcasePage.Model as ProcessedShowcase;
+            var showcasePage = AsyncTestHelper.Resolve(_controller.Showcase(showcaseSlug)) as ViewResult;
+            var processedShowcase = showcasePage.Model as ProcessedShowcase;
 
             processedShowcase.Title.Should().Be("Test showcase");
-            processedShowcase.Slug.Should().Be("Test showcase");
-            processedShowcase.Teaser.Should().Be("Test showcase");
-            processedShowcase.Subheading.Should().Be("Test showcase");
+            processedShowcase.Slug.Should().Be("showcase-slug");
+            processedShowcase.Teaser.Should().Be("showcase teaser");
+            processedShowcase.Subheading.Should().Be("showcase subheading");
             processedShowcase.Breadcrumbs.Count().Should().Be(1);
-            processedShowcase.FeaturedItems.Count().Should().Be(0);
+            processedShowcase.FeaturedItems.Count().Should().Be(1);
         }
 
         [Fact]

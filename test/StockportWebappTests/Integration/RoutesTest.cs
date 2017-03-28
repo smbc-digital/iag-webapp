@@ -5,9 +5,6 @@ using Xunit;
 using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
-using Microsoft.AspNetCore.Antiforgery;
-using Microsoft.AspNetCore.Antiforgery.Internal;
-using Microsoft.AspNetCore.Http;
 
 namespace StockportWebappTests.Integration
 {
@@ -314,6 +311,7 @@ namespace StockportWebappTests.Integration
         [InlineData("/events", 30)]
         [InlineData("/events/event-of-the-century", 30)]
         [InlineData("/atoz/a", 60)]
+        [InlineData("/showcase/a-showcase", 30)]
         public async void ItReturnsTheCorrectHeaders(string path, int time)
         {
             SetBusinessIdRequestHeader("stockportgov");
@@ -453,6 +451,16 @@ namespace StockportWebappTests.Integration
             var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
 
             result.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public void ItReturnsAShowcasePage()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/showcase/a-showcase"));
+
+            result.Should().Contain("test showcase");
         }
 
         #endregion

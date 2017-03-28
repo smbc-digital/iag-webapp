@@ -1,41 +1,35 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
-using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
-using StockportWebapp.ViewModels;
 using StockportWebapp.Http;
-using System.Linq;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class ShowcaseController : Controller
     {
         private readonly IProcessedContentRepository _repository;
         private readonly ILogger<ShowcaseController> _logger;
-        private readonly IContactUsMessageTagParser _contactUsMessageParser;
 
-        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger, IContactUsMessageTagParser contactUsMessageParser)
+        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger)
         {
             _repository = repository;
             _logger = logger;
-            _contactUsMessageParser = contactUsMessageParser;
         }
 
-        [Route("/showcase/{ShowcaseSlug}")]
-        public async Task<IActionResult> Showcase(string ShowcaseSlug)
+        [Route("/showcase/{slug}")]
+        public async Task<IActionResult> Showcase(string slug)
         { 
-            var ShowcaseHttpResponse = await _repository.Get<Showcase>(ShowcaseSlug);
+            var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
 
-            if (!ShowcaseHttpResponse.IsSuccessful())
-                return ShowcaseHttpResponse;
+            if (!showcaseHttpResponse.IsSuccessful())
+                return showcaseHttpResponse;
 
-            var Showcase = ShowcaseHttpResponse.Content as ProcessedShowcase;
+            var showcase = showcaseHttpResponse.Content as ProcessedShowcase;
 
-            return View(Showcase);
+            return View(showcase);
         }
     }
 }

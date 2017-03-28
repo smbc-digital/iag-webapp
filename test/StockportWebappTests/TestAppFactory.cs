@@ -141,7 +141,9 @@ namespace StockportWebappTests
             Client.For("http://content:5001/api/stockportgov/events/event-of-the-century")
                 .Return(HttpResponse.Successful(200, ReadFile("Event")));
             Client.For("http://content:5001/api/stockportgov/atoz/a")
-                .Return(HttpResponse.Successful(200, ReadFile("AtoZ")));   
+                .Return(HttpResponse.Successful(200, ReadFile("AtoZ")));
+            Client.For("http://content:5001/api/stockportgov/showcase/a-showcase")
+                .Return(HttpResponse.Successful(200, ReadFile("Showcase")));
         }
 
         private static string ReadFile(string fileName)
