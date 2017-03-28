@@ -86,7 +86,10 @@ namespace StockportWebapp.Controllers
         
             if (newsRoom != null && newsRoom.News.Any())
             {
-                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(newsRoom.News, currentPageNumber, "News articles");
+                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    newsRoom.News, 
+                    currentPageNumber, 
+                    "News articles");
 
                 newsRoom.News = paginatedNews.Items;
                 model.Pagination = paginatedNews.Pagination;

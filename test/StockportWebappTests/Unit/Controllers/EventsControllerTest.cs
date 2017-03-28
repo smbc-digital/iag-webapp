@@ -83,8 +83,6 @@ namespace StockportWebappTests.Unit.Controllers
             _config.Setup(o => o.GetRssEmail(BusinessId)).Returns(AppSetting.GetAppSetting("rss-email"));
             _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-            _featureToggling.EventsPagination = true;
-
             _controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
@@ -290,8 +288,7 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object,
-                new FeatureToggles { EventsPagination = true }
+                _filteredUrl.Object
             );
 
             return controller;

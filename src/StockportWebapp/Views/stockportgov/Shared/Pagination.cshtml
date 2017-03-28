@@ -9,7 +9,7 @@
         var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Pagination.MaxItemsPerPage);
         var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Pagination.MaxItemsPerPage);
     }
-    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.DisplayName</div>
+    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.ItemDescription</div>
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
         @{
             if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
