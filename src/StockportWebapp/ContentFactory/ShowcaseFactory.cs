@@ -10,16 +10,16 @@ namespace StockportWebapp.ContentFactory
         {        
         }
 
-        public virtual ProcessedShowcase Build(Showcase Showcase)
+        public virtual ProcessedShowcase Build(Showcase showcase)
         {
             return new ProcessedShowcase(
-                Showcase.Title,
-                Showcase.Slug,
-                Showcase.Teaser,
-                Showcase.Subheading,
-                Showcase.HeroImageUrl,
-                Showcase.FeaturedItems,
-                Showcase.Breadcrumbs
+                showcase.Title,
+                showcase.Slug,
+                showcase.Teaser,
+                showcase.Subheading,
+                showcase.HeroImageUrl,
+                showcase.FeaturedItems,
+                showcase.Breadcrumbs
                 );
         }
     }

@@ -127,6 +127,14 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
+        public void ItReturnsUrlShowcaseRequestWithSlug()
+        {
+            var url = _urlGenerator.UrlFor<Showcase>("slug");
+
+            url.Should().Be("http://content.com/api/test-id/showcase/slug");
+        }
+
+        [Fact]
         public void ItReturnsUrlForHealthcheckRequest()
         {
             var url = _urlGenerator.HealthcheckUrl();

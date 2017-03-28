@@ -278,7 +278,31 @@ namespace StockportWebappTests.Unit.Repositories
             group.Facebook.Should().Be("facebook.com/stockportzumba");
             group.Address.Should().Be("zumba house,\nzumba road,\nzumba zumba zumba");
             group.Description.Should().Be("The group description");
-        }      
+        }
+
+        [Fact]
+        public void GetsShowcase()
+        {
+            //Arrange
+            const string slug = "showcase";
+            const string url = "url";
+
+            _mockUrlGenerator.Setup(o => o.UrlFor<Showcase>(slug, null)).Returns(url);
+            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, File.ReadAllText("Unit/MockResponses/Showcase.json"), string.Empty));
+
+            //Act
+            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Showcase>(slug));
+            var showcase = httpResponse.Content as ProcessedShowcase;
+
+            //Assert
+            showcase.Title.Should().Be("test showcase");
+            showcase.Slug.Should().Be("test-showcase");
+            showcase.Teaser.Should().Be("Just a test");
+            showcase.Subheading.Should().Be("test subheading");
+            showcase.HeroImageUrl.Should().Be("heroImageUrl.jpg");
+            showcase.FeaturedItems.First().Name.Should().Be("test name");
+            showcase.Breadcrumbs.First().Title.Should().Be("test-title");
+        }  
     }
 }
 
