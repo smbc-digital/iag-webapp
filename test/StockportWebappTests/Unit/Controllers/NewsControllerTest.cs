@@ -320,10 +320,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(totalNumItems);
-            var model = new NewsroomViewModel
-            {
-                Pagination = new Pagination { TotalPages = 0 }
-            };
+            var model = new NewsroomViewModel();
 
             // Act
             var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
@@ -345,16 +342,43 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(numItems);
-            var model = new NewsroomViewModel
-            {
-                Pagination = new Pagination { CurrentPageNumber = 0 }
-            };
+            var model = new NewsroomViewModel();
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
 
             // Assert
             model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyPaginationObjectIfNoNewsArticlesExist()
+        {
+            // Arrange
+            const int zeroItems = 0;
+            var controller = SetUpController(zeroItems);
+            var model = new NewsroomViewModel();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ShouldReturnCurrentURLForPagination()
+        {
+            // Arrange
+            int numItems = 10;
+            var controller = SetUpController(numItems);
+            var model = new NewsroomViewModel();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.CurrentUrl.Should().NotBeNull();
         }
 
         private NewsController SetUpController(int numNewsItems)

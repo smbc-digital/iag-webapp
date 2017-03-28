@@ -230,10 +230,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(totalNumItems);
-            var model = new EventCalendar
-            {
-                Pagination = new Pagination { TotalPages = 0 }
-            };
+            var model = new EventCalendar();
 
             // Act
             var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
@@ -254,16 +251,43 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(numItems);
-            var model = new EventCalendar
-            {
-                Pagination = new Pagination { CurrentPageNumber = 0 }
-            };
+            var model = new EventCalendar();
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
 
             // Assert
             model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyPaginationObjectIfNoEventsExist()
+        {
+            // Arrange
+            const int zeroItems = 0;
+            var controller = SetUpController(zeroItems);
+            var model = new EventCalendar();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ShouldReturnCurrentURLForPagination()
+        {
+            // Arrange
+            int numItems = 10;
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.CurrentUrl.Should().NotBeNull();
         }
 
         private EventsController SetUpController(int numItems)

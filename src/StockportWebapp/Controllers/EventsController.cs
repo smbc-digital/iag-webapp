@@ -72,6 +72,10 @@ namespace StockportWebapp.Controllers
 
             var eventResponse = httpResponse.Content as EventResponse;
 
+            eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
+            eventsCalendar.AddFilteredUrl(_filteredUrl);
+
             DoPagination(eventsCalendar, Page, eventResponse);
 
             if (eventResponse != null)
@@ -79,10 +83,6 @@ namespace StockportWebapp.Controllers
                 eventsCalendar.AddEvents(eventResponse.Events);
                 eventsCalendar.AddCategories(eventResponse.Categories);
             }
-
-            eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-            _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
-            eventsCalendar.AddFilteredUrl(_filteredUrl);
 
             return View(eventsCalendar);
         }
