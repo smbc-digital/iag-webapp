@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StockportWebapp.Models
 {
@@ -6,7 +7,7 @@ namespace StockportWebapp.Models
     {
        
         public readonly string Title;
-        public readonly string Slug;
+        public string Slug;
         public readonly string Teaser;
         public readonly string Description;
         public readonly string PaymentDetailsText;

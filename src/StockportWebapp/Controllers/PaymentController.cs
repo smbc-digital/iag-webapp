@@ -14,6 +14,10 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
+using System.Text;
+using StockportWebappTests.Unit.Builders;
+using StockportWebapp.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Controllers
 {
@@ -21,14 +25,16 @@ namespace StockportWebapp.Controllers
     public class PaymentController : Controller
     {
         private readonly IProcessedContentRepository _repository;
+        private readonly IApplicationConfiguration _applicationConfiguration;
 
-        public PaymentController(IProcessedContentRepository repository)
+        public PaymentController(IProcessedContentRepository repository, IApplicationConfiguration applicationConfiguration)
         {
             _repository = repository;
+            _applicationConfiguration = applicationConfiguration;
         }
 
         [Route("/payment/{slug}")]
-        public async Task<IActionResult> Detail(string slug)
+        public async Task<IActionResult> Detail(string slug, string error, string serviceprocessed)
         {
             var response = await _repository.Get<Payment>(slug);
 
@@ -36,7 +42,35 @@ namespace StockportWebapp.Controllers
                 return response;
 
             var payment = response.Content as ProcessedPayment;
-            return View(payment);
+
+            var paymentSubmission = new PaymentSubmission();
+            paymentSubmission.Payment = payment;
+
+            if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceprocessed) && serviceprocessed.ToUpper().Equals("FALSE"))
+                ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
+
+            return View(paymentSubmission);
+        }
+
+        [HttpPost]
+        [Route("/payment/{slug}")]
+        public async Task<IActionResult> Detail(string slug, PaymentSubmission paymentSubmission)
+        {
+            var response = await _repository.Get<Payment>(slug);
+
+            if (!response.IsSuccessful())
+                return response;
+
+            var payment = response.Content as ProcessedPayment;
+
+            paymentSubmission.Payment = payment;
+
+             var currentPath = Request.GetUri().AbsoluteUri;
+
+            if (!ModelState.IsValid)
+                return View(paymentSubmission);
+            else
+                return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration, currentPath));
         }
     }
 }
