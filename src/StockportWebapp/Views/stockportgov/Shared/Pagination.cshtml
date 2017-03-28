@@ -1,22 +1,24 @@
-﻿@using StockportWebapp.Utils
+﻿@using StockportWebapp.Models
+@using StockportWebapp.Utils
 @model StockportWebapp.Models.Pagination
 
 
 <div class="pagination-section grid-parent">
     @{
-        var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.Page, Model.PageSize);
-        var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.Page, Model.TotalItemsOnPage, Model.PageSize);
+        IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
+        var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Pagination.MaxItemsPerPage);
+        var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Pagination.MaxItemsPerPage);
     }
-    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.DisplayName</div>
+    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.ItemDescription</div>
     <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
         @{
-            if (Model.Page > 1)
+            if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
             {
-                var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.Page - 1).ToString() } }));
+                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber - 1, Model.CurrentUrl, urlHelper);
                 <a href="@url">Previous</a>
             }
 
-            var visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.Page, Model.TotalPages);
+            var visiblePageNumbers = PaginationHelper.GenerateVisiblePageNumbers(Model.CurrentPageNumber, Model.TotalPages);
 
             foreach (var visiblePageNumber in visiblePageNumbers)
             {
@@ -26,16 +28,16 @@
                 }
                 else
                 {
-                    var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", visiblePageNumber.PageNumber.ToString() } }));
+                    var url = PaginationHelper.BuildUrl(visiblePageNumber.PageNumber, Model.CurrentUrl, urlHelper);
                     <a href="@url">@visiblePageNumber.PageNumber.ToString()</a>
                 }
             }
 
-            if (Model.Page < Model.TotalPages)
+            if (PaginationHelper.ShowNextLink(Model.CurrentPageNumber, Model.TotalPages))
             {
-                var url = Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Page", (Model.Page + 1).ToString() } }));
+                var url = PaginationHelper.BuildUrl(Model.CurrentPageNumber + 1, Model.CurrentUrl, urlHelper);
                 <a href="@url">Next</a>
-            }
+            }            
         }
     </div>
 

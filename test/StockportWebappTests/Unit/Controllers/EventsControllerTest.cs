@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using FluentAssertions;
+using Markdig.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Controllers;
@@ -171,16 +172,16 @@ namespace StockportWebappTests.Unit.Controllers
         public void ItShouldGetARedirectResultForAValidEventSubmission()
         {
             var eventSubmission =  new EventSubmission()
-                {
-                    Title = "Title",
-                    Description = "Description",
-                    EventDate = new DateTime(2017, 12, 01),
-                    StartTime = new DateTime(2017, 01, 01, 10, 00, 00),
-                    EndTime = new DateTime(2017, 01, 01, 12, 00, 00),
-                    Fee = "£5.00",
-                    Frequency = "Frequency",
-                    Image = null,
-                    Attachment = null
+            {
+                Title = "Title",
+                Description = "Description",
+                EventDate = new DateTime(2017, 12, 01),
+                StartTime = new DateTime(2017, 01, 01, 10, 00, 00),
+                EndTime = new DateTime(2017, 01, 01, 12, 00, 00),
+                Fee = "£5.00",
+                Frequency = "Frequency",
+                Image = null,
+                Attachment = null
             };
 
             _eventRepository.Setup(o => o.SendEmailMessage(It.IsAny<EventSubmission>())).ReturnsAsync(HttpStatusCode.OK);
@@ -213,6 +214,139 @@ namespace StockportWebappTests.Unit.Controllers
 
             actionResponse.Should().BeOfType<ViewResult>();
             _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
+        }
+        
+        [Theory]
+        [InlineData(1, 1, 1, 1)]
+        [InlineData(2, 1, 2, 1)]
+        [InlineData(Pagination.MaxItemsPerPage, 1, Pagination.MaxItemsPerPage, 1)]
+        [InlineData(Pagination.MaxItemsPerPage * 3, 1, Pagination.MaxItemsPerPage, 3)]
+        [InlineData(Pagination.MaxItemsPerPage + 1, 2, 1, 2)]
+        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+            int totalNumItems,
+            int requestedPageNumber,
+            int expectedNumItemsOnPage,
+            int expectedNumPages)
+        {
+            // Arrange
+            var controller = SetUpController(totalNumItems);
+            var model = new EventCalendar();
+
+            // Act
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
+
+            // Assert
+            var viewModel = actionResponse.ViewData.Model as EventCalendar;
+            viewModel.Events.Count.Should().Be(expectedNumItemsOnPage);
+            model.Pagination.TotalPages.Should().Be(expectedNumPages);
+        }
+
+        [Theory]
+        [InlineData(0, 50, 1)]
+        [InlineData(5, Pagination.MaxItemsPerPage * 3, 3)]
+        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+            int specifiedPageNumber,
+            int numItems,
+            int expectedPageNumber)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
+
+            // Assert
+            model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyPaginationObjectIfNoEventsExist()
+        {
+            // Arrange
+            const int zeroItems = 0;
+            var controller = SetUpController(zeroItems);
+            var model = new EventCalendar();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ShouldReturnCurrentURLForPagination()
+        {
+            // Arrange
+            int numItems = 10;
+            var controller = SetUpController(numItems);
+            var model = new EventCalendar();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.CurrentUrl.Should().NotBeNull();
+        }
+
+        private EventsController SetUpController(int numItems)
+        {
+            List<Event> listOfEvents = BuildEventList(numItems);
+
+            var categories = new List<string> { "Category 1", "Category 2" };
+            var eventsCalendar = new EventResponse(listOfEvents, categories);
+            var eventListResponse = new HttpResponse(200, eventsCalendar, "");
+
+            _repository.Setup(o => 
+                o.Get<EventResponse>(
+                    It.IsAny<string>(), 
+                    It.IsAny<List<Query>>()))
+                .ReturnsAsync(eventListResponse);
+
+            var controller = new EventsController(
+                _repository.Object,
+                _processedContentRepository.Object,
+                _eventRepository.Object,
+                _mockRssFeedFactory.Object,
+                _logger.Object,
+                _config.Object,
+                new BusinessId(BusinessId),
+                _filteredUrl.Object
+            );
+
+            return controller;
+        }
+
+        private List<Event> BuildEventList(int numberOfItems)
+        {
+            List<Event> listOfEvents = new List<Event>();
+
+            for (int i = 0; i < numberOfItems; i++)
+            {
+                var eventItem = new Event
+                {
+                    Title = "title",
+                    Slug = "slug",
+                    Teaser = "teaser",
+                    ImageUrl = "image.png",
+                    ThumbnailImageUrl = "image.png",
+                    Description = "description",
+                    Fee = "fee",
+                    Location = "location",
+                    SubmittedBy = "submittedBy",
+                    EventDate = new DateTime(2016, 12, 30, 00, 00, 00),
+                    StartTime = "startTime",
+                    EndTime = "endTime",
+                    Breadcrumbs = new List<Crumb>(),
+                    Group = _group,
+                    Alerts = _alerts
+                };
+
+                listOfEvents.Add(eventItem);
+            }
+
+            return listOfEvents;
         }
     }
 }

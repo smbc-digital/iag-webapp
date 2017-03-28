@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
 {
-    public class PaginatedNews
-    {
-        public List<News> NewsItems { get; set; }
-        public Pagination Pagination { get; set; }
-    }
-
     public static class PaginationHelper
     {
         public static int CalculateIndexOfFirstItemOnPage(int currentPageNumber, int maxItemsPerPage)
@@ -51,6 +46,76 @@ namespace StockportWebapp.Utils
             }
             
             return result;
+        }
+
+        public static bool ShowPreviousLink(int currentPageNumber)
+        {
+            return currentPageNumber > 1;
+        }
+
+        public static bool ShowNextLink(int currentPageNumber, int totalPages)
+        {
+            return currentPageNumber < totalPages;
+        }
+
+        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription)
+        {
+            currentPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count);
+
+            Pagination pagination = new Pagination(
+                items.Count,
+                currentPageNumber,
+                itemDescription);
+
+            int itemsOnPreviousPages = Pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
+
+            List<T> itemsOnCurrentPage = items
+                    .Skip(itemsOnPreviousPages)
+                    .Take(Pagination.MaxItemsPerPage).ToList();
+
+            pagination.TotalItemsOnPage = itemsOnCurrentPage.Count;
+
+            return new PaginatedItems<T>
+            {
+                Items = itemsOnCurrentPage,
+                Pagination = pagination
+            };
+        }
+
+        public static string BuildUrl(int pageNumber, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
+        {
+            RouteValueDictionary routeValueDictionary = queryUrl.AddQueriesToUrl(
+                new Dictionary<string, string>
+                {
+                    {
+                        "Page", pageNumber.ToString()
+                    }
+                });
+
+            return urlHelper.RouteUrl(routeValueDictionary);
+        }
+
+        private static int MakeSurePageNumberExists(int suggestedPageNumber, int totalItems)
+        {
+            int actualPageNumber = suggestedPageNumber;
+            int highestPageNumber = CalculateHighestPageNumber(totalItems);
+
+            if (suggestedPageNumber == 0)
+            {
+                actualPageNumber = 1;
+            }
+            else if (suggestedPageNumber > highestPageNumber)
+            {
+                actualPageNumber = highestPageNumber;
+            }
+
+            return actualPageNumber;
+        }
+
+        private static int CalculateHighestPageNumber(int totalItems)
+        {
+            return totalItems / Pagination.MaxItemsPerPage 
+                + totalItems % Pagination.MaxItemsPerPage;
         }
 
         private static int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)
@@ -122,23 +187,6 @@ namespace StockportWebapp.Utils
         private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
         {
             return currentPageNumber == (totalPages - 1);
-        }
-
-        public static PaginatedNews GetPaginatedNewsForSpecifiedPage(List<News> newsRoomNews, int currentPageNumber)
-        {
-            Pagination pagination = new Pagination(newsRoomNews.Count, currentPageNumber, "News articles");
-
-            int itemsOnPreviousPages = pagination.PageSize * (pagination.Page - 1);
-            List<News> newsOnCurrentPage = newsRoomNews
-                    .Skip(itemsOnPreviousPages)
-                    .Take(pagination.PageSize).ToList();
-            pagination.TotalItemsOnPage = newsOnCurrentPage.Count;
-
-            return new PaginatedNews
-            {
-                NewsItems = newsOnCurrentPage,
-                Pagination = pagination
-            };
         }
     }
 }
