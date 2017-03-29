@@ -11,7 +11,6 @@ namespace StockportWebapp.Models
         public string EmailAlertsTopicId { get; }
         public List<string> Categories { get; }
         public List<DateTime> Dates { get; }
-        
 
         public Newsroom(List<News> news, List<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, List<string> categories, List<DateTime> dates )
         {

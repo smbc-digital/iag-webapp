@@ -28,9 +28,15 @@ namespace StockportWebapp.Controllers
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
 
-        public EventsController(IRepository repository,
-                                IProcessedContentRepository processedContentRepository,
-                                IEventsRepository eventsRepository, IRssFeedFactory rssFeedFactory, ILogger<EventsController> logger, IApplicationConfiguration config, BusinessId businessId, IFilteredUrl filteredUrl)
+        public EventsController(
+            IRepository repository,
+            IProcessedContentRepository processedContentRepository,
+            IEventsRepository eventsRepository, 
+            IRssFeedFactory rssFeedFactory,
+            ILogger<EventsController> logger, 
+            IApplicationConfiguration config, 
+            BusinessId businessId, 
+            IFilteredUrl filteredUrl)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -66,27 +72,11 @@ namespace StockportWebapp.Controllers
 
             var eventResponse = httpResponse.Content as EventResponse;
 
-            eventsCalendar.Pagination = new Pagination();
-            eventsCalendar.Pagination.Page = Page == 0 ? 1 : Page;
+            eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
+            eventsCalendar.AddFilteredUrl(_filteredUrl);
 
-            if (eventResponse.Events.Any())
-            {
-                var pageCount = eventResponse.Events.Count/eventsCalendar.Pagination.PageSize;
-                if (eventResponse.Events.Count%eventsCalendar.Pagination.PageSize > 0)
-                    pageCount += 1;
-
-                eventsCalendar.Pagination.TotalPages = pageCount;
-                eventsCalendar.Pagination.TotalItems = eventResponse.Events.Count;
-                eventsCalendar.Pagination.DisplayName = "Events";
-
-                List<Event> PagedEvents = eventResponse.Events
-                    .Skip(eventsCalendar.Pagination.PageSize*(eventsCalendar.Pagination.Page - 1))
-                    .Take(eventsCalendar.Pagination.PageSize).ToList();
-
-                eventsCalendar.Pagination.TotalItemsOnPage = PagedEvents.Count;
-                eventResponse.Events = PagedEvents;
-            }
-
+            DoPagination(eventsCalendar, Page, eventResponse);
 
             if (eventResponse != null)
             {
@@ -94,13 +84,24 @@ namespace StockportWebapp.Controllers
                 eventsCalendar.AddCategories(eventResponse.Categories);
             }
 
-            eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-            _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
-            eventsCalendar.AddFilteredUrl(_filteredUrl);
-
-            eventsCalendar.Pagination.CurrentUrl = eventsCalendar.CurrentUrl;
-
             return View(eventsCalendar);
+        }
+
+        private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse)
+        {
+            model.Pagination = new Pagination();
+
+            if (eventResponse != null && eventResponse.Events.Any())
+            {
+                var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    eventResponse.Events, 
+                    currentPageNumber, 
+                    "Events");
+
+                eventResponse.Events = paginatedEvents.Items;
+                model.Pagination = paginatedEvents.Pagination;
+                model.Pagination.CurrentUrl = model.CurrentUrl;
+            }
         }
 
         [Route("/events/{slug}")]

@@ -4,45 +4,38 @@ using FluentAssertions;
 using Markdig.Helpers;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.CodeGenerators;
 using Microsoft.AspNetCore.Routing;
 using Moq;
-using StockportWebapp.Extensions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
-using Xunit.Sdk;
 
 namespace StockportWebappTests.Unit.Utils
 {
     public class PaginationHelperTest
     {
-        private const string EmailAlertsTopicId = "test-id";
-        private const bool EmailAlertsOn = true;
-
         [Theory]
         [InlineData(1, 1)]
-        [InlineData(2, 16)]
-        [InlineData(3, 31)]
-        [InlineData(13, 181)]
+        [InlineData(2, Pagination.MaxItemsPerPage + 1)]
+        [InlineData(3, (Pagination.MaxItemsPerPage * 2) + 1)]
+        [InlineData(13, (Pagination.MaxItemsPerPage * 12) + 1)]
         public void IndexOfFirstItemOnAnyPageShouldBeNumberOfItemsOnPreviousPagesPlusOne(int currentPageNumber, int expectedResult)
         {
             // Arrange
             int indexOfFirstItemOnPage;
-            const int numItemsOnPage = 15;
             
             // Act
-            indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, numItemsOnPage);
+            indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, Pagination.MaxItemsPerPage);
             
             // Assert
             indexOfFirstItemOnPage.Should().Be(expectedResult);
         }
         
         [Theory]
-        [InlineData(1, 10, 10)]
-        [InlineData(2, 15, 30)]
-        [InlineData(3, 2, 32)]
-        [InlineData(11, 9, 159)]
+        [InlineData(1, 4, 4)]
+        [InlineData(2, Pagination.MaxItemsPerPage, Pagination.MaxItemsPerPage * 2)]
+        [InlineData(3, 2, (Pagination.MaxItemsPerPage * 2) + 2)]
+        [InlineData(11, 3, (Pagination.MaxItemsPerPage * 10) + 3)]
         public void IndexOfLastItemOnPageShouldBeNumberOfItemsBeforeThisPagePlusNumberOfItemsOnThisPage(
             int currentPageNumber, 
             int numItemsOnThisPage, 
@@ -50,10 +43,9 @@ namespace StockportWebappTests.Unit.Utils
         {
             // Arrange
             int indexOfLastItemOnPage;
-            const int maxItemsPerPage = 15;
             
             // Act
-            indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, maxItemsPerPage);
+            indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, Pagination.MaxItemsPerPage);
 
             // Assert
             indexOfLastItemOnPage.Should().Be(expectedResult);
@@ -312,113 +304,102 @@ namespace StockportWebappTests.Unit.Utils
 
         [Theory]
         [InlineData(1)]
-        [InlineData(10)]
-        [InlineData(15)]
-        public void IfNumItemsIsFifteenOrFewerThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
+        [InlineData(4)]
+        [InlineData(Pagination.MaxItemsPerPage)]
+        public void IfNumItemsIsMaxPageSizeOrLessThenNumItemsOnPageShouldBeNumItemsReturnedByContentful(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 1).NewsItems;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "Display Name").Items;
 
             // Assert
-            bigNewsRoom.News.Count.Should().Be(numItems);
+            newListofNewsItems.Count.Should().Be(numItems);
         }
 
         [Theory]
-        [InlineData(30)]
-        [InlineData(45)]
-        [InlineData(60)]
-        public void IfNumItemsIsEvenlyDivisibleByFifteenNumItemsOnPageShouldBeFifteen(int numItems)
+        [InlineData(Pagination.MaxItemsPerPage * 2)]
+        [InlineData(Pagination.MaxItemsPerPage * 3)]
+        [InlineData(Pagination.MaxItemsPerPage * 10)]
+        public void IfNumItemsIsEvenlyDivisibleByMaxPageSizeThenNumItemsOnPageShouldBeFifteen(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 1).NewsItems;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "").Items;
 
             // Assert
-            bigNewsRoom.News.Count.Should().Be(15);
+            newListofNewsItems.Count.Should().Be(Pagination.MaxItemsPerPage);
         }
 
         [Theory]
-        [InlineData(16, 2)]
-        [InlineData(37, 3)]
-        [InlineData(50, 4)]
+        [InlineData(Pagination.MaxItemsPerPage + 1, 2)]
+        [InlineData((Pagination.MaxItemsPerPage * 2) + 4, 3)]
+        [InlineData((Pagination.MaxItemsPerPage * 3) + 2, 4)]
         public void
-            IfNumItemsIsGreaterThanFifteenAndNotEvenlyDivisibleByFifteenThenLastPageShouldReturnNumItemsModFifteen(int numItems, int lastPageNum)
+            IfNumItemsIsGreaterThanMaxPageSizeAndNotEvenlyDivisibleByMaxPageSizeThenThenLastPageShouldReturnNumItemsModMaxPageSize(
+            int numItems, int lastPageNum)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            bigNewsRoom.News = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, lastPageNum).NewsItems;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, lastPageNum, "item description").Items;
 
             // Assert
-            bigNewsRoom.News.Count.Should().Be(numItems % 15);
+            newListofNewsItems.Count.Should().Be(numItems % Pagination.MaxItemsPerPage);
         }
 
         [Theory]
         [InlineData(1)]
-        [InlineData(15)]
-        [InlineData(7)]
-        public void IfNumItemsIsFifteenOrLessShouldReturnOnePage(int numItems)
+        [InlineData(Pagination.MaxItemsPerPage)]
+        [InlineData(4)]
+        public void IfNumItemsIsMaxPageSizeOrLessShouldReturnOnePage(int numItems)
         {
             // Arrange
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
-            
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 1).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "item description").Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be(1);
         }
 
         [Theory]
-        [InlineData(15)]
-        [InlineData(30)]
-        [InlineData(150)]
-        public void IfNumItemsIsEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteen(int numItems)
+        [InlineData(Pagination.MaxItemsPerPage)]
+        [InlineData(Pagination.MaxItemsPerPage * 2)]
+        [InlineData(Pagination.MaxItemsPerPage * 10)]
+        public void IfNumItemsIsEvenlyDivisibleByMaxPageSizeNumPagesReturnedShouldBeNumItemsDividedByMaxPageSize(int numItems)
         {
             // Arrange
             int thisNumberIsIrrelevant = 1;
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description").Pagination;
 
             // Assert
-            pagination.TotalPages.Should().Be(numItems / 15);
+            pagination.TotalPages.Should().Be(numItems / Pagination.MaxItemsPerPage);
         }
 
         [Theory]
-        [InlineData(53)]
-        [InlineData(16)]
-        [InlineData(29)]
-        public void IfNumItemsAboveFifteenAndNotEvenlyDivisibleByFifteenNumPagesReturnedShouldBeNumItemsDividedByFifteenPlusOne(int numItems)
+        [InlineData((Pagination.MaxItemsPerPage * 3) + 2)]
+        [InlineData(Pagination.MaxItemsPerPage + 1)]
+        [InlineData(Pagination.MaxItemsPerPage + 4)]
+        public void IfNumItemsAboveMaxPageSizeAndNotEvenlyDivisibleByMaxPageSizeNumPagesReturnedShouldBeNumItemsDividedByMaxPageSizePlusOne(int numItems)
         {
             // Arrange
             int thisNumberIsIrrelevant = 1;
-            List<News> longListofNewsItems = BuildNewsList(numItems);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, thisNumberIsIrrelevant).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description").Pagination;
 
             // Assert
-            pagination.TotalPages.Should().Be((numItems / 15) + 1);
+            pagination.TotalPages.Should().Be((numItems / Pagination.MaxItemsPerPage) + 1);
         }
 
         [Fact]
@@ -426,25 +407,89 @@ namespace StockportWebappTests.Unit.Utils
         {
             // Arrange
             int thisNumberIsIrrelevant = 3;
-            List<News> longListofNewsItems = BuildNewsList(thisNumberIsIrrelevant);
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            List<News> listofNewsItems = BuildListofNewsItems(thisNumberIsIrrelevant);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedNewsForSpecifiedPage(bigNewsRoom.News, 0).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 0, "item description").Pagination;
 
             // Assert
-            pagination.Page.Should().Be(1);
+            pagination.CurrentPageNumber.Should().Be(1);
         }
 
         [Fact]
         public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum()
         {
+            // Arrange
+            const int numItems = Pagination.MaxItemsPerPage * 2;
+            const int lastPageNumber = numItems / Pagination.MaxItemsPerPage;
+            const int tooHigh = lastPageNumber + 10;
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+
+            // Act
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, tooHigh, "item description").Pagination;
+
+            // Assert
+            pagination.CurrentPageNumber.Should().Be(lastPageNumber);
         }
 
-        private List<News> BuildNewsList(int numberOfItems)
+        [Fact]
+        public void PreviousLinkIsShownWhenPageNumberIsGreaterThanOne()
         {
-            List<News> longListofNewsItems = new List<News>();
+            // Arrange
+            const int currentPageNumber = 5;
+
+            // Act
+            var result = PaginationHelper.ShowPreviousLink(currentPageNumber);
+
+            // Assert
+            result.Should().Be(true);
+        }
+
+        [Fact]
+        public void PreviousLinkIsNotShownWhenPageNumberIsEqualToOne()
+        {
+            // Arrange
+            const int currentPageNumber = 1;
+
+            // Act
+            var result = PaginationHelper.ShowPreviousLink(currentPageNumber);
+
+            // Assert
+            result.Should().Be(false);
+        }
+
+        [Fact]
+        public void NextLinkIsNotShownWhenPageNumberIsEqualToTotalPages()
+        {
+            // Arrange
+            const int totalPages = 10;
+            const int currentPageNumber = totalPages;
+
+            // Act
+            var result = PaginationHelper.ShowNextLink(currentPageNumber, totalPages);
+
+            // Assert
+            result.Should().Be(false);
+        }
+
+        [Fact]
+        public void NextLinkIsShownWhenPageNumberIsLessThanTotalPages()
+        {
+            // Arrange
+            const int totalPages = 10;
+            const int currentPageNumber = totalPages - 1;
+
+            // Act
+            var result = PaginationHelper.ShowNextLink(currentPageNumber, totalPages);
+
+            // Assert
+            result.Should().Be(true);
+        }
+
+        private List<News> BuildListofNewsItems(int numberOfItems)
+        {
+            List<News> listofNewsItems = new List<News>();
+
             for (int i = 0; i < numberOfItems; i++)
             {
                 var NewsItem = new News("News Article " + i.ToString(),
@@ -453,30 +498,37 @@ namespace StockportWebappTests.Unit.Utils
                     "image.jpg",
                     "thumbnail.jpg",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                    new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
-                    new List<string>(), new List<Document>());
+                    new List<Crumb>(), 
+                    new DateTime(2015, 9, 10), 
+                    new DateTime(2015, 9, 20), 
+                    new List<Alert>(),
+                    new List<string>(), 
+                    new List<Document>());
 
-                longListofNewsItems.Add(NewsItem);
+                listofNewsItems.Add(NewsItem);
             }
-            return longListofNewsItems;
+
+            return listofNewsItems;
         }
 
-        //[Fact]
-        //public void BuildUrlShouldUseUrlHelperToCreateUrlWithPageQueryParamWithCorrectPageNumber()
-        //{
-        //    // Arrange
-        //    int pageNumber = 5;
-        //    QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
-        //    var urlHelper = new Mock<IUrlHelper>();
-        //    urlHelper
-        //        .Setup(u => u.RouteUrl(It.IsAny<QueryUrl>()))
-        //        .Returns("this string is not relevant");
+        [Fact]
+        public void BuildUrlShouldUseUrlHelperToCreateUrlWithPageQueryParamWithCorrectPageNumber()
+        {
+            // Arrange
+            int pageNumber = 5;
+            QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
+            var urlHelper = new Mock<IUrlHelperWrapper>();
+            urlHelper
+                .Setup(u => u.RouteUrl(It.Is<RouteValueDictionary>(x => 
+                    x.ContainsKey("Page")
+                    && x.Values.Contains(pageNumber.ToString()))))
+                .Returns("this string is not relevant");
 
-        //    // Act
-        //    PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
+            // Act
+            PaginationHelper.BuildUrl(pageNumber, queryUrl, urlHelper.Object);
 
-        //    // Assert 
-        //    urlHelper.Verify();
-        //}
+            // Assert 
+            urlHelper.Verify();
+        }
     }
 }

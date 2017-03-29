@@ -77,7 +77,6 @@ namespace StockportWebappTests.Unit.Controllers
             // setup responses (with mock data)
             var responseListing = new HttpResponse(200, _newsRoom, "");
             var responseDetail = new HttpResponse(200, _processedNewsArticle, "");
-            var response404 = new HttpResponse(404, null, "not found");
             var emptyResponsListing = new HttpResponse(200, _emptyNewsRoom, "");
 
             // setup mocks
@@ -302,29 +301,103 @@ namespace StockportWebappTests.Unit.Controllers
                        }, 1)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
-
-            viewModel.Newsroom.News.Count.Should().Be(0);
+            
+                        viewModel.Newsroom.News.Count.Should().Be(0);
 //            viewModel.Pagination.TotalItems.Should().Be(0);
         }
+        
+        [Theory]
+        [InlineData(1, 1, 1, 1)]
+        [InlineData(2, 1, 2, 1)]
+        [InlineData(Pagination.MaxItemsPerPage, 1, Pagination.MaxItemsPerPage, 1)]
+        [InlineData(Pagination.MaxItemsPerPage * 3, 1, Pagination.MaxItemsPerPage, 3)]
+        [InlineData(Pagination.MaxItemsPerPage + 1, 2, 1, 2)]
+        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+            int totalNumItems,
+            int requestedPageNumber,
+            int expectedNumItemsOnPage,
+            int expectedNumPages)
+        {
+            // Arrange
+            var controller = SetUpController(totalNumItems);
+            var model = new NewsroomViewModel();
 
+            // Act
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
+            
+            // Assert
+            var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
+            var newsroom = viewModel.Newsroom;
+            newsroom.News.Count.Should().Be(expectedNumItemsOnPage);
+            model.Pagination.TotalPages.Should().Be(expectedNumPages);
+        }
+
+        [Theory]
+        [InlineData(0, 50, 1)]
+        [InlineData(5, Pagination.MaxItemsPerPage * 3, 3)]
+        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+            int specifiedPageNumber,
+            int numItems,
+            int expectedPageNumber)
+        {
+            // Arrange
+            var controller = SetUpController(numItems);
+            var model = new NewsroomViewModel();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
+
+            // Assert
+            model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyPaginationObjectIfNoNewsArticlesExist()
+        {
+            // Arrange
+            const int zeroItems = 0;
+            var controller = SetUpController(zeroItems);
+            var model = new NewsroomViewModel();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void ShouldReturnCurrentURLForPagination()
+        {
+            // Arrange
+            int numItems = 10;
+            var controller = SetUpController(numItems);
+            var model = new NewsroomViewModel();
+
+            // Act
+            AsyncTestHelper.Resolve(controller.Index(model, 0));
+
+            // Assert
+            model.Pagination.CurrentUrl.Should().NotBeNull();
+        }
 
         private NewsController SetUpController(int numNewsItems)
         {
-            List<News> longListofNewsItems = BuildNewsList(numNewsItems);
+            List<News> listofNewsItems = BuildNewsList(numNewsItems);
 
-            var bigNewsRoom = new Newsroom(longListofNewsItems, new OrderedList<Alert>(),
-                EmailAlertsOn, EmailAlertsTopicId, new List<string>(), new List<DateTime>());
+            var bigNewsRoom = new Newsroom(
+                listofNewsItems, 
+                new OrderedList<Alert>(),
+                EmailAlertsOn, 
+                EmailAlertsTopicId, 
+                new List<string>(), 
+                new List<DateTime>());
 
             _repository.Setup(o =>
                 o.Get<Newsroom>(
-                    "",
-                    It.Is<List<Query>>(l =>
-                        l.Contains(new Query("DateFrom", "2016-10-01"))
-                        && l.Contains(new Query("DateTo", "2016-11-01"
-                        ))
-                    )
-                )
-            ).ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, bigNewsRoom));
+                    It.IsAny<string>(),
+                    It.IsAny<List<Query>>()))
+                .ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, bigNewsRoom));
 
             var controller = new NewsController(
                 _repository.Object,
@@ -341,7 +414,8 @@ namespace StockportWebappTests.Unit.Controllers
 
         private List<News> BuildNewsList(int numberOfItems)
         {
-            List<News> longListofNewsItems = new List<News>();
+            List<News> listofNewsItems = new List<News>();
+
             for (int i = 0; i < numberOfItems; i++)
             {
                 var NewsItem = new News("News Article " + i.ToString(),
@@ -350,12 +424,17 @@ namespace StockportWebappTests.Unit.Controllers
                     "image.jpg",
                     "thumbnail.jpg",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                    new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
-                    new List<string>(), new List<Document>());
+                    new List<Crumb>(), 
+                    new DateTime(2015, 9, 10), 
+                    new DateTime(2015, 9, 20), 
+                    new List<Alert>(),
+                    new List<string>(), 
+                    new List<Document>());
 
-                longListofNewsItems.Add(NewsItem);
+                listofNewsItems.Add(NewsItem);
             }
-            return longListofNewsItems;
+
+            return listofNewsItems;
         }
     }
 }
