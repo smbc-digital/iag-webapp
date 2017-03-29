@@ -10,9 +10,9 @@ namespace StockportWebapp.Models
         public string Subheading { get; set; }
         public string HeroImageUrl { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
-        public IEnumerable<Topic> FeaturedItems { get; set; }
+        public IEnumerable<SubItem> FeaturedItems { get; set; }
 
-        public Showcase(string title, string slug, string teaser, string subheading, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<Topic> featuredItems )
+        public Showcase(string title, string slug, string teaser, string subheading, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems )
         {
             Title = title;
             Slug = slug;

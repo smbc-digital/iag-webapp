@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
@@ -9,14 +10,16 @@ namespace StockportWebapp.Models
         public readonly string Teaser;
         public readonly string NavigationLink;
         public readonly string Image;
+        public readonly List<SubItem> SubItems;
 
-        public SubItem(string slug, string title, string teaser, string icon, string type, string image)
+        public SubItem(string slug, string title, string teaser, string icon, string type, string image, List<SubItem> subItems)
         {
             Title = title;
             Icon = icon;
             Teaser = teaser;
             NavigationLink = TypeRoutes.GetUrlFor(type, slug);
             Image = image;
+            SubItems = subItems;
         }
     }
 }

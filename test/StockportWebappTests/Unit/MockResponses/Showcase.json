@@ -6,64 +6,19 @@
   "heroImageUrl": "heroImageUrl.jpg",
   "featuredItems": [
     {
-      "slug": "new-article",
-      "name": "test name",
-      "teaser": "required",
-      "summary": "",
-      "icon": "si-house",
-      "backgroundImage": "",
-      "image": "",
-      "subItems": [],
-      "secondaryItems": [],
-      "tertiaryItems": [],
-      "breadcrumbs": [
-        {
-          "title": "Council Tax",
-          "slug": "council-tax",
-          "type": "topic"
-        }
-      ],
-      "alerts": [],
-      "sunriseDate": "2017-02-13T00:00:00+00:00",
-      "sunsetDate": "9999-12-31T23:59:59.9999999Z",
-      "emailAlerts": false,
-      "emailAlertsTopicId": ""
-    },
-    {
-      "slug": "test-article",
-      "name": "",
-      "teaser": "test article ",
-      "summary": "",
-      "icon": "",
-      "backgroundImage": "",
-      "image": "image.jpg",
-      "subItems": [],
-      "secondaryItems": [],
-      "tertiaryItems": [],
-      "breadcrumbs": [
-        {
-          "title": "Test topic",
-          "slug": "test-topic",
-          "type": "topic"
-        }
-      ],
-      "alerts": [],
-      "sunriseDate": "0001-01-01T00:00:00Z",
-      "sunsetDate": "9999-12-31T23:59:59.9999999Z",
-      "emailAlerts": false,
-      "emailAlertsTopicId": ""
+      "title": "test title",
+      "icon": "si-tickbox",
+      "teaser": "Notify us about your change of address or any other changes in your circumstances.",
+      "navigationLink": "test link",
+      "image": "image",
+      "subItems": []
     }
   ],
   "breadcrumbs": [
     {
       "title": "test-title",
-      "slug": "test-article",
-      "type": "article"
-    },
-    {
-      "title": "Council Tax",
-      "slug": "council-tax",
-      "type": "topic"
+      "slug": "slug",
+      "type": "showcase"
     }
   ]
 }

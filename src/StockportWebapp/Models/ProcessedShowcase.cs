@@ -11,12 +11,12 @@ namespace StockportWebapp.Models
         public readonly string Subheading;
         public readonly string HeroImageUrl;
         public readonly IEnumerable<Crumb> Breadcrumbs;
-        public readonly IEnumerable<Topic> FeaturedItems;
+        public readonly IEnumerable<SubItem> FeaturedItems;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string heroImageUrl, IEnumerable<Topic> featuredItems, IEnumerable<Crumb> breadcrumbs)
+        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs)
         {
             Title = title;
             Slug = slug;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Amazon.Runtime.Internal;
 using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.TestBuilders
@@ -14,14 +15,9 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _subheading = "subheading";
         private string _heroImageUrl = "image-url.jpg";
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() {new Crumb("link", "title", "type")};
-        private IEnumerable<Topic> _featuredItems = new List<Topic>()
+        private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
         {
-            new Topic("name", "slug", "summary", "teaser", "icon.jpg", "backgroundImage-url.jpg", "image-url.jpg",
-                new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon.jpg", "type", "image-url.jpg")},
-                new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon.jpg", "type", "image-url.jpg")},
-                new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon.jpg", "type", "image-url.jpg")},
-                new List<Crumb>() { new Crumb("title", "slug", "type")}, new List<Alert>(), true, "emailAlertsTopicId")
-        };
+            new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })};
 
         public Showcase Build()
         {
@@ -64,7 +60,7 @@ namespace StockportWebappTests.Unit.TestBuilders
             return this;
         }
 
-        public ShowcaseBuilder FeaturedItems(IEnumerable<Topic> featuredItems)
+        public ShowcaseBuilder FeaturedItems(IEnumerable<SubItem> featuredItems)
         {
             _featuredItems = featuredItems;
             return this;

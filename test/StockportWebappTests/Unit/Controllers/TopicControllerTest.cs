@@ -32,7 +32,7 @@ namespace StockportWebappTests.Unit.Controllers
         
         public SubItem CreateASubItem(int i)
         {
-            return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image");
+            return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image", new List<SubItem>());
         }
     
         [Fact]

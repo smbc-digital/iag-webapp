@@ -1,4 +1,5 @@
-﻿using StockportWebapp.Models;
+﻿using System.Collections.Generic;
+using StockportWebapp.Models;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Model
@@ -8,7 +9,7 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void SetsNavigationLinkForATopic()
         {
-            var subItem = new SubItem("slug", "title", "Teaser", "Icon", "topic", "image");
+            var subItem = new SubItem("slug", "title", "Teaser", "Icon", "topic", "image", new List<SubItem>());
 
             Assert.Equal("/topic/slug", subItem.NavigationLink);
         }
@@ -16,7 +17,7 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void SetsNavigationLinkForAnArticle()
         {
-            var subItem = new SubItem("slug", "title", "Teaser", "Icon", "article", "image");
+            var subItem = new SubItem("slug", "title", "Teaser", "Icon", "article", "image", new List<SubItem>());
 
             Assert.Equal("/slug", subItem.NavigationLink);
         }
@@ -24,9 +25,10 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void SetsNavigationLinkForAStartPage()
         {
-            var subItem = new SubItem("slug", "title", "Teaser", "Icon", "start-page", "image");
+            var subItem = new SubItem("slug", "title", "Teaser", "Icon", "start-page", "image", new List<SubItem>());
 
             Assert.Equal("/start/slug", subItem.NavigationLink);
         }
+        
     }
 }

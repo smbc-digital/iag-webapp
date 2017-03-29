@@ -32,13 +32,9 @@ namespace StockportWebappTests.Unit.ContentFactory
                 .Subheading("test subheading")
                 .HeroImageUrl("test-image-url.jpg")
                 .Breadcrumbs(new List<Crumb> { new Crumb("test link", "test title", "test type") })
-                .FeaturedItems(new List<Topic>
+                .FeaturedItems(new List<SubItem>
         {
-            new Topic("name", "slug", "summary", "teaser", "icon.jpg", "backgroundImage-url.jpg", "image-url.jpg",
-                new List<SubItem>{new SubItem("slug", "title", "teaser", "icon.jpg", "type", "image-url.jpg")},
-                new List<SubItem>{new SubItem("slug", "title", "teaser", "icon.jpg", "type", "image-url.jpg")},
-                new List<SubItem>{new SubItem("slug", "title", "teaser", "icon.jpg", "type", "image-url.jpg")},
-                new List<Crumb>{ new Crumb("title", "slug", "type")}, new List<Alert>(), true, "emailAlertsTopicId")
+            new SubItem("slug","title", "icon", "teaser", "link", "image-url.jpg", new List<SubItem>())
         })
                 .Build();
 

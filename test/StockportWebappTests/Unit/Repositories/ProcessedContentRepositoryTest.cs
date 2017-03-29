@@ -300,7 +300,7 @@ namespace StockportWebappTests.Unit.Repositories
             showcase.Teaser.Should().Be("Just a test");
             showcase.Subheading.Should().Be("test subheading");
             showcase.HeroImageUrl.Should().Be("heroImageUrl.jpg");
-            showcase.FeaturedItems.First().Name.Should().Be("test name");
+            showcase.FeaturedItems.First().Title.Should().Be("test title");
             showcase.Breadcrumbs.First().Title.Should().Be("test-title");
         }  
     }
