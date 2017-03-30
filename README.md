@@ -185,3 +185,8 @@ define the tests within the `specs` folder, and set the page specific interactio
 
 ### Prerequisites:
 This app runs using at least .Net Core SDK version 1.0.0-preview2-003121.
+
+## BrowserStack Selenium cloud testing:
+<a href='https://www.browserstack.com/'><img src='https://www.browserstack.com/images/layout/browserstack-logo-600x315.png'/></a>
+<br/>
+Having used Browserstack for the trial period, we are satisfied that Browserstack has provided us with a quick solution to achieve the coverage of cross browser compatibility testing which was previously limited to browser capabilities available on our personal computers, tablets and mobile phones within the development team. We have quickly seen the benefits in quality assurance for our web applications as it provides us with a simple tool to test usability across all the major browsers we support like Safari, Opera, Firefox, IE, and Chrome all can be tested seamlessly using one tool. It has also helped with the challenge of testing of the web applications on latest browser version during development and maintaining compatibility across previous versions of the browser as well. Browserstack experience has been seamless as if the user is in a native environment with native browser behavior and development tools available to assist in troubleshooting any cross compatibility issues.
