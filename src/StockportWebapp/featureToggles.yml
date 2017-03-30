@@ -1,7 +1,7 @@
 ﻿---
 prod: &prod
   TopicPageImages: false
-  SinglePayment: false
+  SinglePayment: true
 
 stage: &stage
   << : *prod
@@ -10,7 +10,6 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
-  SinglePayment: true
 
 int:
   << : *prod
