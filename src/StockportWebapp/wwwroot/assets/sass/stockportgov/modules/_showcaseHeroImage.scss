@@ -1,10 +1,11 @@
 ﻿.showcase-hero-image
 {
-    background-size: cover;
     background-position: center;
+    background-repeat:no-repeat;
+    background-size: cover;
     display: table;
     width: 100%;
-    background-repeat:no-repeat;
+    height: 555px;
 
     .title-card 
     {
@@ -12,46 +13,84 @@
        display: table-cell;
        background-color: rgba(20, 20, 20, 0.5);
        width: 100%;
-       height:100%;
-       padding-top: 24.62%; 
+       height: 555px;
+       text-align: center;
        
-       @media #{$desktop}
-       {
-           padding-bottom: 24.62%; 
-       }
        @media #{$tablet, $mobile}
        {
            padding-bottom: 5%; 
        }
 
-
        h2 
         {   
             color: $white;
             text-align:center;
+            font-weight:300;
+            display: inline-block;
+
+            @media #{$tablet, $desktop}
+            {
+                word-wrap: break-word;
+                width: 50%;
+                font-size: 20px;
+            }
+
+            @media #{$mobile}
+            {
+                font-size: 18px;
+                padding-left:10%;
+                padding-right:10%;
+            }
         }
 
        h1 
         {   
             color: $white;
-            font-size: 30px;
             text-align:center;
+            display: inline-block;
+            margin-bottom: 10px;
+
+            @media #{$tablet, $desktop}
+            {
+                word-wrap: break-word;
+                width: 50%;
+                font-size:50px;
+            }
+
+            @media #{$mobile}
+            {
+                font-size: 40px;
+                padding-left:10%;
+                padding-right:10%;
+            }
         }
 
-       .showcase-hero-image-anchor{
+       .showcase-hero-image-anchor
+       {
            text-align:center;
 
-           .chevron-bordered {
-            display: inline-block;
-            border: 3px solid $white;
-            border-radius:100%;
-            padding: 10px;
-            display:inline-block;
-            color: $white;
-            text-decoration:none;
-            font-size: 23px;
-            line-height: 1em;
-        }
+           .chevron-bordered 
+           {
+                display: inline-block;
+                border: 3px solid $white;
+                border-radius:100%;
+                padding: 10px;
+                display:inline-block;
+                color: $white;
+                text-decoration:none;
+                font-size: 23px;
+                line-height: 1em;
+            }
+       }
+
+       .hero-image-divider
+       {
+           border-width: 2px;
+           border-color: $white;
+           border-style: solid;
+           width: 60px;  
+           display: inline-block;
+           margin-bottom: 0px;      
        }
     }   
 }
