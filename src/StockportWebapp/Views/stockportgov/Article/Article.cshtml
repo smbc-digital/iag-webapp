@@ -82,7 +82,7 @@
                             @foreach (var item in Model.SidebarSubItems(out showMoreButton))
                             {
                                 <li class="@(item.NavigationLink == Model.Article.NavigationLink ? "active" : "")">
-                                    <a href="@item.NavigationLink">@item.Title</a>
+                                    <a href="@item.NavigationLink"><span>@item.Title</span></a>
                                 </li>
                             }
                             
