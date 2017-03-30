@@ -5,5 +5,7 @@
     ViewData["Description"] = Model.Teaser;
     Layout = "../Shared/_Layout.cshtml";
 }
-
-<h1>@Model.Title</h1>
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
+@Html.Partial("../Shared/ShowcaseHeroImage", Model)
