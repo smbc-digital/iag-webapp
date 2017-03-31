@@ -1,23 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Quartz.Util;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.RSS;
-using StockportWebapp.Utils;
-using System.Text;
-using StockportWebappTests.Unit.Builders;
 using StockportWebapp.Helpers;
-using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Controllers
 {

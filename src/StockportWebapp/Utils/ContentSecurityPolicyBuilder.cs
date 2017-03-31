@@ -38,6 +38,7 @@ namespace StockportWebapp.Utils
                 .AddSource("http://s7.addthis.com")
                 .AddSource("https://www.youtube.com")
                 .AddSource("https://stockportcouncil.typeform.com")
+                .AddSource("https://www.google.com/maps/")
                 .Finish());
         }
 
