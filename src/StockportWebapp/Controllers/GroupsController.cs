@@ -20,7 +20,10 @@ namespace StockportWebapp.Controllers
         [Route("/groups")]
         public async Task<IActionResult> Index()
         {            
+
             GroupStartPage model = new GroupStartPage();
+
+            var response = _repository.Get<List<GroupCategory>>();
 
             model.Categories = GetTemporaryHardCodedListOfCategories();
 
@@ -29,6 +32,8 @@ namespace StockportWebapp.Controllers
 
         public List<GroupCategory> GetTemporaryHardCodedListOfCategories()
         {
+            
+
             var categories = new List<GroupCategory>();
             categories.Add(new GroupCategory() { Icon = "si-house", Name = "Sports and fitness"});
             categories.Add(new GroupCategory() { Icon = "si-house", Name = "Outdoors and Adventure" });
