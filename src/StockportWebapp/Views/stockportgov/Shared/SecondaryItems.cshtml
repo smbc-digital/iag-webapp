@@ -1,0 +1,23 @@
+﻿@using StockportWebapp.FeatureToggling
+@model StockportWebapp.Models.Topic
+@inject FeatureToggles FeatureToggles
+
+<div class="subitem-outer-container">
+    <div class="subitems-secondary-two-column">
+        <div id="test-topic-page-secondary-topics-list" class="subitems grid-100">
+            <ul class="grid-100 mobile-grid-100 tablet-grid-100">
+                @foreach (var subItem in Model.SecondaryItems)
+                {
+                    <li>
+                        <div class="subitem-secondary">
+                            <a href="@subItem.NavigationLink">
+                                @subItem.Title
+                            </a> <br />
+                            <span>@subItem.Teaser</span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

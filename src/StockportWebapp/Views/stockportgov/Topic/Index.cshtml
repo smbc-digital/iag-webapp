@@ -43,6 +43,18 @@
                 }
             }
         }
-        @Html.Partial("SubItem-List", topic)
+        
+        @Html.Partial("PrimarySubitems", topic)
+
+        @if (topic.SecondaryItems.Any())
+        {
+            @Html.Partial("SecondaryItems", topic)
+        }
+        @if (topic.TertiaryItems.Any())
+        {
+          @Html.Partial("TertiaryItems", topic)
+        }
+        
+
     </div>
 </div>
