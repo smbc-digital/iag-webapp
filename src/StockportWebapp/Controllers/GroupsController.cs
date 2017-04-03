@@ -39,6 +39,7 @@ namespace StockportWebapp.Controllers
             categories.Add(new GroupCategory() { Icon = "si-house", Name = "Badminton" });
             categories.Add(new GroupCategory() { Icon = "si-house", Name = "Computing" });
             categories.Add(new GroupCategory() { Icon = "si-house", Name = "Group Planning" });
+            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Group Planning" });
 
             return categories;
         }
