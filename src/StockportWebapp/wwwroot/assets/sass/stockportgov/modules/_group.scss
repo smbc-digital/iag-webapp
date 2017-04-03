@@ -134,3 +134,32 @@
     background: #f5f5f5;
 }
 
+.group-startpage-image
+    {
+        background-position: bottom;
+        background-repeat:no-repeat;
+        background-size: cover;
+        display: table;
+        width: 100%;
+        margin-top: -20px;
+
+           @media #{$desktop}
+           {                
+              height: 420px;
+           }
+       
+           @media #{$tablet}
+           {
+               height: 450px;
+           }
+    }
+
+    .group-category-list-title {
+        margin-top: 0px;
+
+        @media #{$desktop}
+        { 
+            text-align: left;
+        }
+    }
+
