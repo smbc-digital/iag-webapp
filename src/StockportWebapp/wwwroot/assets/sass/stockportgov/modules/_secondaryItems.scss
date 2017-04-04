@@ -82,9 +82,13 @@
 
     .subitem-teaser
         {
-            word-wrap: break-word; 
-            padding-left: 15px; 
-            padding-right: 15px;
+            word-wrap: break-word;
+            
+            @media #($mobile)
+            {
+                padding-left: 15px; 
+                padding-right: 15px;
+            } 
         }
 
     a {
