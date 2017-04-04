@@ -1,11 +1,10 @@
 ﻿---
 prod: &prod
-  TopicPageImages: false
+  TopicPageImages: true
   SinglePayment: true
 
 stage: &stage
   << : *prod
-  TopicPageImages: true
 
 qa: &qa
   << : *prod
@@ -14,7 +13,7 @@ qa: &qa
 int:
   << : *prod
   << : *stage
-  << : *qa  
+  << : *qa
 
 local:
   << : *prod
