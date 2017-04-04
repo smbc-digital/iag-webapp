@@ -13,6 +13,7 @@ using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
+using StockportWebapp.ViewModels;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 

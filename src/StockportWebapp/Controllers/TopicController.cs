@@ -4,6 +4,7 @@ using StockportWebapp.Models;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {

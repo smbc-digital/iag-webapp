@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using FluentAssertions;
 using StockportWebapp.Models;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.Model
 {

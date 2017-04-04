@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Models
+﻿using StockportWebapp.Models;
+
+namespace StockportWebapp.ViewModels
 {
     public class TopicViewModel
     {

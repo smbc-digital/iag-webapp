@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using StockportWebapp.Models;
+using StockportWebapp.ViewModels;
 using Xunit;
 
 namespace StockportWebappTests.Unit.ViewModels

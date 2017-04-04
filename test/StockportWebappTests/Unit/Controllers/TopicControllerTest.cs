@@ -11,6 +11,7 @@ using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Repositories;
 using System;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {

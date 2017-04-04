@@ -2,9 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ViewModels
 {
     public class EventCalendar
     {

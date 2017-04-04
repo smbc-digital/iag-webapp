@@ -13,6 +13,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {

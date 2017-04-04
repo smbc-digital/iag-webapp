@@ -16,6 +16,7 @@ using StockportWebapp.RSS;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.Utils;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {

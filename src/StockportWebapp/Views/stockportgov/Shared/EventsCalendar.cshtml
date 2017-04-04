@@ -1,6 +1,7 @@
 ﻿@using System.Threading.Tasks
 @using StockportWebapp.Utils
-@model StockportWebapp.Models.EventCalendar
+@using StockportWebapp.ViewModels;
+@model EventCalendar
 @inject IDateCalculator DateCalculator
 @{
     var dateFilter = Model.DateRange == "customdate" ? Model.GetCustomEventFilterName() : DateCalculator.ReturnDisplayNameForFilter(Model.DateRange);

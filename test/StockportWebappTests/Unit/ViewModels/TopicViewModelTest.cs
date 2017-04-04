@@ -2,6 +2,7 @@
 using StockportWebapp.Models;
 using Xunit;
 using FluentAssertions;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.ViewModels
 {

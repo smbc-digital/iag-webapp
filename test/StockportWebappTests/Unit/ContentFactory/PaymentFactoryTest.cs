@@ -14,7 +14,6 @@ namespace StockportWebappTests.Unit.ContentFactory
 {
     public class PaymentFactoryTest
     {
-        private readonly PaymentFactory _paymentFactory;
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
         private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
         private readonly Payment _payment;

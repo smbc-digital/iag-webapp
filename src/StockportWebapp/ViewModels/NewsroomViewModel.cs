@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using StockportWebapp.Config;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ViewModels
 {
     public class NewsroomViewModel
     {

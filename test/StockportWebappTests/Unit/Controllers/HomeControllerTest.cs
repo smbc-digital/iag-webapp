@@ -11,6 +11,7 @@ using Moq;
 using StockportWebapp.Repositories;
 using System;
 using StockportWebapp.Config;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {

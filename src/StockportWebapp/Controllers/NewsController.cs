@@ -12,6 +12,7 @@ using StockportWebapp.RSS;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Utils;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {

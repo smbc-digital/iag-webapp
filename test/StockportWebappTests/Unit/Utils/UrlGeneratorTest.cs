@@ -5,6 +5,7 @@ using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
+using StockportWebapp.ViewModels;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Utils

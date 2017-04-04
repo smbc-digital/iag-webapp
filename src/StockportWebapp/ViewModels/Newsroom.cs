@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using StockportWebapp.Models;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ViewModels
 {
     public class Newsroom
     {
