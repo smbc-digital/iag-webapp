@@ -8,6 +8,8 @@ using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Helper = StockportWebappTests.TestHelper;
+using StockportWebapp.Repositories;
+using Moq;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -15,12 +17,23 @@ namespace StockportWebappTests.Unit.Controllers
     {
         private readonly FakeProcessedContentRepository _fakeRepository;
         private readonly GroupsController _groupController;
+        private Mock<IRepository> _repository = new Mock<IRepository>();
 
+        private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
+        {
+            new GroupCategory() {Name = "name 1", Slug = "name1", Icon = "icon1", ImageUrl = "imageUrl1"},
+            new GroupCategory() {Name = "name 2", Slug = "name2", Icon = "icon2", ImageUrl = "imageUrl2"},
+            new GroupCategory() {Name = "name 3", Slug = "name3", Icon = "icon3", ImageUrl = "imageUrl3"},
+        };
 
         public GroupControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _groupController = new GroupsController(_fakeRepository);
+            _groupController = new GroupsController(_fakeRepository, _repository.Object);
+
+            // setup mocks
+            _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
+                .ReturnsAsync(HttpResponse.Successful(200, groupCategories));
         }
 
         [Fact]
@@ -46,6 +59,14 @@ namespace StockportWebappTests.Unit.Controllers
             var response = AsyncTestHelper.Resolve(_groupController.Detail("not-found-slug")) as HttpResponse;
 
             response.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public void ShouldGetListOfGroupCategories()
+        {         
+            var view = AsyncTestHelper.Resolve(_groupController.Index()) as ViewResult;
+            var model = view.ViewData.Model as GroupStartPage;
+            model.Categories.Count.Should().Be(groupCategories.Count);
         }
     }
 

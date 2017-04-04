@@ -11,10 +11,12 @@ namespace StockportWebapp.Controllers
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class GroupsController : Controller
     {
-        private readonly IProcessedContentRepository _repository;
+        private readonly IProcessedContentRepository _processedContentRepository;
+        private readonly IRepository _repository;
 
-        public GroupsController(IProcessedContentRepository repository)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository)
         {
+            _processedContentRepository = processedContentRepository;
             _repository = repository;
         }
 
@@ -22,33 +24,21 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> Index()
         {            
             GroupStartPage model = new GroupStartPage();
+            var response = await _repository.Get<List<GroupCategory>>();
+            var listOfGroupCategories = response.Content as List<GroupCategory>;
 
-            model.Categories = GetTemporaryHardCodedListOfCategories();
+            if (listOfGroupCategories != null)
+            {
+                model.Categories = listOfGroupCategories;
+            }          
 
             return View(model);
-        }
-
-        public List<GroupCategory> GetTemporaryHardCodedListOfCategories()
-        {
-            var categories = new List<GroupCategory>();
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Sports and fitness"});
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Outdoors and Adventure" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Arts and Crafts" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Dancing" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Education and learning" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Breakfast Appreciation" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Badminton" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Computing" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Group Planning" });
-            categories.Add(new GroupCategory() { Icon = "si-house", Name = "Group Planning" });
-
-            return categories;
         }
 
         [Route("/groups/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
-            var response = await _repository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug);
 
             if (!response.IsSuccessful()) return response;
 
