@@ -1,0 +1,10 @@
+﻿.subitems {
+    margin-top: -15px;
+
+    @media #{$mobile, $tablet} {
+        margin: 0 0 -20px 0;
+        margin-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
