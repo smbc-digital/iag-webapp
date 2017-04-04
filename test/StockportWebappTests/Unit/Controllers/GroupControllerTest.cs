@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Helper = StockportWebappTests.TestHelper;
 using StockportWebapp.Repositories;
 using Moq;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {
