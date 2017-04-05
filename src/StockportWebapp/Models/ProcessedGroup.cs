@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace StockportWebapp.Models
 {
     public class ProcessedGroup : IProcessedContentType
@@ -7,7 +9,7 @@ namespace StockportWebapp.Models
         }
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
-            string facebook, string address, string description, string imageUrl, string thumbnailImageUrl)
+            string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference)
         {
             Name = name;
             Slug = slug;
@@ -20,6 +22,7 @@ namespace StockportWebapp.Models
             Description = description;
             ImageUrl = imageUrl;
             ThumbnailImageUrl = thumbnailImageUrl;
+            CategoriesReference = categoriesReference;
         }
 
         public readonly string Name;
@@ -33,5 +36,6 @@ namespace StockportWebapp.Models
         public readonly string Description;
         public readonly string ImageUrl;
         public readonly string ThumbnailImageUrl;
+        public readonly List<GroupCategory> CategoriesReference;
     }
 }
