@@ -42,7 +42,7 @@ namespace StockportWebappTests.Unit.Controllers
         { 
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null);
 
             _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
 
