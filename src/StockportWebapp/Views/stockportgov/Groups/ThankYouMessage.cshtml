@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Add A Group - Thank You";
+    ViewData["Beta"] = true;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="" class="grid-100 mobile-grid-100">
+                <div class="l-content-container thank-you">
+                    <div class="grid-100">
+                        <h1>Thank you for submitting a group</h1>
+                        <div class="icon-bordered icon-bordered-fixed">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                        </div>
+                        <p>Before your group is added to the local groups directory, it will be reviewed and if it is successful then it will be published on the website.</p>
+                        <stock-button href="@Url.Action("Index", "Groups")" as-link="true">Go back to Groups</stock-button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@model GroupSubmission
+@{
+    ViewData["Title"] = "Add a group";
+    ViewData["og:title"] = "Add a group";
+    ViewData["Beta"] = true;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="" class="grid-100 mobile-grid-100">
+                <div class="l-content-container">
+                    <div class="grid-100">
+                        <h1>Add a group</h1>
+
+                        @if (ViewBag.SubmissionError != null)
+                        {
+                            <div id="error-message-anchor"></div>
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                <div class="alert-icon">
+                                    <i class="fa fa-exclamation fa-3x"></i>
+                                </div>
+                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                    <h3>There has been a problem: </h3>
+                                    <p>@ViewBag.SubmissionError</p>
+                                </div>
+                            </div>
+                        }
+
+                        <form asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
+                            <div class="form">
+                                <div class="form-section">
+                                    <fieldset>
+                                        <label asp-for="@Model.Name"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name" />
+                                        <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Address"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Address" />
+                                        <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <div class="grid-100">
+
+                                        </div>
+                                        <label asp-for="@Model.Image"></label>
+                                        <i>
+                                            Choose an image that captures your group
+                                            <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
+                                            <br />Accepted file types: jpg, jpeg, gif and png
+                                        </i>
+                                        <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
+                                        <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Description"></label>
+                                        <i class="small">
+                                            <ul>
+                                                <li>Let people know why they should visit your group</li>
+                                                <li>Let people know how to get in touch</li>
+                                            </ul>
+                                        </i>
+                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Category1"></label>
+                                        <div class="grid-100 grid-parent category-div" id="category-div1">
+                                            <span asp-validation-for="@Model.Category1" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <div class="grid-50 tablet-grid-80 mobile-grid-90 grid-parent">
+                                                <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="Category1">
+                                                    <option disabled selected hidden value="">
+                                                        Select category
+                                                    </option>
+                                                    @foreach (var category in Model.Categories)
+                                                    {
+                                                      <option value="@category">@category</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <label asp-for="@Model.Email"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
+                                        <span asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Website"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Website" />
+                                        <span asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.PhoneNumber"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
+                                        <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <stock-button id="uitest-contact-form-submit"
+                                                      class="button-contact-us">Add a group</stock-button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

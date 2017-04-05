@@ -85,7 +85,8 @@ namespace StockportWebapp.Repositories
                 fromEmail,
                _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
                eventSubmission.SubmitterEmail,
-               attachments));
+               attachments)
+               );
         }
     }
 }

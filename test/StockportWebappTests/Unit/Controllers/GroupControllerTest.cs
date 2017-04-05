@@ -19,6 +19,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly FakeProcessedContentRepository _fakeRepository;
         private readonly GroupsController _groupController;
         private Mock<IRepository> _repository = new Mock<IRepository>();
+        private Mock<IGroupRepository> _groupRepository;
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
         {
@@ -30,7 +31,8 @@ namespace StockportWebappTests.Unit.Controllers
         public GroupControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object);
+            _groupRepository = new Mock<IGroupRepository>();
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
