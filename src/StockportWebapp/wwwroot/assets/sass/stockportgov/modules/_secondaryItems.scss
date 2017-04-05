@@ -9,8 +9,6 @@
                              
 }
 
-
-
 .subitems-secondary {
     display: inline-block;
     list-style-type: none;
@@ -72,6 +70,7 @@
     display: block;
     padding-top: 0.4em;
     padding-bottom: 0.4em;
+    word-wrap: break-word;
 
     @media #{$desktop} {
         padding-top: 0.4em;
@@ -81,17 +80,16 @@
     }
 
     .subitem-teaser
-        {
-            word-wrap: break-word;
-            
-            @media #{$mobile,$tablet} {
-                padding-left: 15px; 
-                padding-right: 15px;
-            } 
-        }
+    { 
+        @media #{$mobile,$tablet} {
+            padding-left: 15px; 
+            padding-right: 15px;
+        } 
+    }
 
     a {
         text-decoration: underline;
+        display: inline-block;
 
         @media #{$mobile,$tablet} {
             text-align: left;
