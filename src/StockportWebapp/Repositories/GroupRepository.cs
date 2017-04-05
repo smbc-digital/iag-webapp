@@ -56,6 +56,7 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append($"Group email address: {groupSubmission.Email}<br />");
             stringBuilder.Append($"Group website: {groupSubmission.Website}<br />");
             stringBuilder.Append($"Group phone number: {groupSubmission.PhoneNumber}<br />");
+            if (groupSubmission.Image != null) stringBuilder.Append($"Event image: {FileHelper.GetFileNameFromPath(groupSubmission.Image)}<br />");
             stringBuilder.Append("</p>");
 
             return stringBuilder.ToString();

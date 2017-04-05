@@ -71,6 +71,53 @@ namespace StockportWebappTests.Unit.Controllers
             var model = view.ViewData.Model as GroupStartPage;
             model.Categories.Count.Should().Be(groupCategories.Count);
         }
+
+        [Fact]
+        public void ItShouldGetARedirectResultForAValidGroupSubmission()
+        {
+            var groupSubmission = new GroupSubmission()
+            {
+                Name = "Group",
+                Description = "Description",
+                Website  = "http://www.group.com",
+                Email = "info@group.com",
+                Address = "Address",
+                PhoneNumber = "phone",
+                Category1 = "Category",
+                Image = null                                
+            };
+
+            _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.OK);
+
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission)) as RedirectToActionResult;
+            actionResponse.ActionName.Should().Be("ThankYouMessage");
+        }
+
+        [Fact]
+        public void ItShouldReturnBackToTheViewForAnInvalidEmailSubmission()
+        {
+            var groupSubmission = new GroupSubmission();
+
+            _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
+
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
+
+            actionResponse.Should().BeOfType<ViewResult>();
+            _groupRepository.Verify(o => o.SendEmailMessage(groupSubmission), Times.Once);
+        }
+
+        [Fact]
+        public void ItShouldNotSendAnEmailForAnInvalidFormSumbission()
+        {
+            var groupSubmission = new GroupSubmission();
+
+            _groupController.ModelState.AddModelError("Name", "an invalid name was provided");
+
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
+
+            actionResponse.Should().BeOfType<ViewResult>();
+            _groupRepository.Verify(o => o.SendEmailMessage(groupSubmission), Times.Never);
+        }
     }
 
 }
