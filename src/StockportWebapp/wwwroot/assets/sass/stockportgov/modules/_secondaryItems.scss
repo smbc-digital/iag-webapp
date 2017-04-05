@@ -84,8 +84,7 @@
         {
             word-wrap: break-word;
             
-            @media #($mobile)
-            {
+            @media #{$mobile,$tablet} {
                 padding-left: 15px; 
                 padding-right: 15px;
             } 
