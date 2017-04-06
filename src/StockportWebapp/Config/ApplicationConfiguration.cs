@@ -17,6 +17,7 @@ namespace StockportWebapp.Config
         AppSetting GetEmailEmailFrom(string businessId);
         AppSetting GetEmailAlertsNewSubscriberUrl(string businessId);
         AppSetting GetEventSubmissionEmail(string businessId);
+        AppSetting GetGroupSubmissionEmail(string businessId);
         AppSetting GetParisPamentLink(string businessId);
         int GetFooterCache(string businessId);
         bool GetUseRedisSessions();
@@ -98,6 +99,11 @@ namespace StockportWebapp.Config
         public AppSetting GetEventSubmissionEmail(string businessId)
         {
             return AppSetting.GetAppSetting(_appsettings[$"{businessId}:EventSubmissionEmail"]);
+        }
+
+        public AppSetting GetGroupSubmissionEmail(string businessId)
+        {
+            return AppSetting.GetAppSetting(_appsettings[$"{businessId}:GroupSubmissionEmail"]);
         }
 
         public AppSetting GetParisPamentLink(string businessId)

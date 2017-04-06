@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.FeatureToggling;
@@ -14,14 +16,17 @@ namespace StockportWebapp.Controllers
     {
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRepository _repository;
+        private readonly IGroupRepository _groupRepository;
+
         FeatureToggles _featuretoggles;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository,
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository,
             FeatureToggles featureToggles)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
             _featuretoggles = featureToggles;
+            _groupRepository = groupRepository;
         }
 
         [Route("/groups")]
@@ -76,6 +81,48 @@ namespace StockportWebapp.Controllers
             }
 
             return NotFound();
+        }
+      
+
+        [Route("/groups/add-a-group")]
+        public async Task<IActionResult> AddAGroup()
+        {
+            var groupSubmission = new GroupSubmission();
+            var response = await _repository.Get<List<GroupCategory>>();
+            var listOfGroupCategories = response.Content as List<GroupCategory>;
+            if (listOfGroupCategories != null)
+            {
+                groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+            }
+
+            return View(groupSubmission);
+        }
+
+        [HttpPost]
+        [Route("/groups/add-a-group")]
+        public async Task<IActionResult> AddAGroup(GroupSubmission groupSubmission)
+        {
+            var response = await _repository.Get<List<GroupCategory>>();
+            var listOfGroupCategories = response.Content as List<GroupCategory>;
+            if (listOfGroupCategories != null)
+            {
+                groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+            }
+
+            if (!ModelState.IsValid) return View(groupSubmission);
+
+            var successCode = await _groupRepository.SendEmailMessage(groupSubmission);
+            if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
+
+            ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
+
+            return View(groupSubmission);
+        }
+
+        [Route("/groups/thank-you-message")]
+        public IActionResult ThankYouMessage()
+        {
+            return View();
         }
     }
 }

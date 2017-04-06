@@ -20,6 +20,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly FakeProcessedContentRepository _fakeRepository;
         private readonly GroupsController _groupController;
         private Mock<IRepository> _repository = new Mock<IRepository>();
+        private Mock<IGroupRepository> _groupRepository;
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
         {
@@ -31,7 +32,8 @@ namespace StockportWebappTests.Unit.Controllers
         public GroupControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, new FeatureToggles() {GroupResultsPage = true, GroupStartPage = true});
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, new FeatureToggles() {GroupResultsPage = true, GroupStartPage = true});
+            _groupRepository = new Mock<IGroupRepository>();
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -69,6 +71,53 @@ namespace StockportWebappTests.Unit.Controllers
             var view = AsyncTestHelper.Resolve(_groupController.Index()) as ViewResult;
             var model = view.ViewData.Model as GroupStartPage;
             model.Categories.Count.Should().Be(groupCategories.Count);
+        }
+
+        [Fact]
+        public void ItShouldGetARedirectResultForAValidGroupSubmission()
+        {
+            var groupSubmission = new GroupSubmission()
+            {
+                Name = "Group",
+                Description = "Description",
+                Website  = "http://www.group.com",
+                Email = "info@group.com",
+                Address = "Address",
+                PhoneNumber = "phone",
+                Category1 = "Category",
+                Image = null                                
+            };
+
+            _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.OK);
+
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission)) as RedirectToActionResult;
+            actionResponse.ActionName.Should().Be("ThankYouMessage");
+        }
+
+        [Fact]
+        public void ItShouldReturnBackToTheViewForAnInvalidEmailSubmission()
+        {
+            var groupSubmission = new GroupSubmission();
+
+            _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
+
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
+
+            actionResponse.Should().BeOfType<ViewResult>();
+            _groupRepository.Verify(o => o.SendEmailMessage(groupSubmission), Times.Once);
+        }
+
+        [Fact]
+        public void ItShouldNotSendAnEmailForAnInvalidFormSumbission()
+        {
+            var groupSubmission = new GroupSubmission();
+
+            _groupController.ModelState.AddModelError("Name", "an invalid name was provided");
+
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
+
+            actionResponse.Should().BeOfType<ViewResult>();
+            _groupRepository.Verify(o => o.SendEmailMessage(groupSubmission), Times.Never);
         }
     }
 
