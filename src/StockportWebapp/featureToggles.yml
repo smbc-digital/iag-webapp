@@ -2,6 +2,8 @@
 prod: &prod
   TopicPageImages: true
   SinglePayment: true
+  GroupStartPage: false
+  GroupResultsPage: false
 
 stage: &stage
   << : *prod
@@ -14,9 +16,13 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  GroupStartPage: true
+  GroupResultsPage: true
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
+  GroupStartPage: true
+  GroupResultsPage: true

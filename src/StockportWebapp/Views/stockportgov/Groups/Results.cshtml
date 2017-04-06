@@ -1,0 +1,62 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.Utils
+@using StockportWebapp.ViewModels
+@model GroupResults
+@{
+    ViewData["Title"] = "Find a local Group";
+    ViewData["og:title"] = "Groups";
+    ViewData["Description"] = "Groups Results Page";
+    ViewData["Beta"] = true;
+    ViewData["Type"] = "Group";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb>())
+}
+
+<div class="l-page-content" id="content-no-margin-bottom">
+    <div class="full-width-title">
+        <div class="grid-container grid-parent grid-100">
+            <div class="grid-70 tablet-grid-70 mobile-grid-100">
+                <h1 class="full-width-title-with-button">Find a local group</h1>
+            </div>
+        </div>
+    </div>
+    @if (Model.Groups.Any())
+    {
+        <ul class="group-listing-container grid-container">
+            @foreach (var group in Model.Groups.Take(9))
+            {
+                <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
+                    <a class="group-card" href="../groups/@group.Slug">
+                        <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(group))"></div>
+                        <div class="group-card-information">
+                            <div class="grid-100">
+                                <h3>@group.Name</h3>
+                            </div>
+                            <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </div>
+                            <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">
+                                @(group.Address.Length > 70 ? group.Address.Substring(0, 70) + "..." : group.Address)
+                            </div>
+                        </div>
+                    </a>
+
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="grid-container grid-100">
+            <h1 class="">No groups found</h1>
+            <p><a href="/groups">Return to previous page.</a> </p>
+        </div>
+
+    }
+
+</div>
+
+

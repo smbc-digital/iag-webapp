@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Helper = StockportWebappTests.TestHelper;
 using StockportWebapp.Repositories;
 using Moq;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -30,7 +31,7 @@ namespace StockportWebappTests.Unit.Controllers
         public GroupControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object);
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, new FeatureToggles() {GroupResultsPage = true, GroupStartPage = true});
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))

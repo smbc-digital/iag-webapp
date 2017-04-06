@@ -35,7 +35,8 @@ namespace StockportWebapp.Utils
             {typeof(Group), "group/"},
             {typeof(Payment), "payment/"},
             {typeof(Showcase), "showcase/"},
-            {typeof(List<GroupCategory>), "groupCategory/"}
+            {typeof(List<GroupCategory>), "groupCategory/"},
+            {typeof(GroupResults), "groupResults/"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)

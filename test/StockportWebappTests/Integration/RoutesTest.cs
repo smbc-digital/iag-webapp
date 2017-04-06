@@ -312,6 +312,7 @@ namespace StockportWebappTests.Integration
         [InlineData("/events/event-of-the-century", 30)]
         [InlineData("/atoz/a", 60)]
         [InlineData("/showcase/a-showcase", 30)]
+        [InlineData("/groups/test-zumba-slug", 15)]
         public async void ItReturnsTheCorrectHeaders(string path, int time)
         {
             SetBusinessIdRequestHeader("stockportgov");
@@ -461,6 +462,36 @@ namespace StockportWebappTests.Integration
             var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/showcase/a-showcase"));
 
             result.Should().Contain("test showcase");
+        }
+
+        [Fact]
+        public void ItReturnsAGroupPage()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/test-zumba-slug"));
+
+            result.Should().Contain("zumba");
+        }
+
+        [Fact]
+        public void ItReturnsAGroupResultsPage()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/results"));
+
+            result.Should().Contain("brinnington");
+        }
+
+        [Fact]
+        public void ItReturnsAGroupStartPage()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups"));
+
+            result.Should().Contain("Dancing");
         }
 
         #endregion

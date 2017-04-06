@@ -1,14 +1,27 @@
 ﻿{
-  "name": "This is the group",
-  "slug": "group",
-  "phoneNumber": "zumba",
+  "name": "Zumba",
+  "slug": "test-zumba-slug",
+  "phoneNumber": "00000000000",
   "email": "hello@stockportzumba.whatever",
   "website": "stockportzumba.io",
   "twitter": "twitter.com/stockportzumba",
   "facebook": "facebook.com/stockportzumba",
   "address": "zumba house,\nzumba road,\nzumba zumba zumba",
   "description": "The group description",
-  "categories": [
-    "Dancing"
+  "imageUrl": "image-url.jpg",
+  "thumbnailImageUrl": "image-url.jpg",
+  "categoriesReference": [
+    {
+      "name": "Culture",
+      "slug": "culture",
+      "icon": "si-house",
+      "imageUrl": "image-url.jpg"
+    },
+    {
+      "name": "Children and family",
+      "slug": "children-and-family",
+      "icon": "si-house",
+      "imageUrl": ""
+    }
   ]
 }

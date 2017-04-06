@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.FeatureToggling;
+using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.Http;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -13,26 +14,35 @@ namespace StockportWebapp.Controllers
     {
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRepository _repository;
+        FeatureToggles _featuretoggles;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository,
+            FeatureToggles featureToggles)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
+            _featuretoggles = featureToggles;
         }
 
         [Route("/groups")]
         public async Task<IActionResult> Index()
-        {            
-            GroupStartPage model = new GroupStartPage();
-            var response = await _repository.Get<List<GroupCategory>>();
-            var listOfGroupCategories = response.Content as List<GroupCategory>;
-
-            if (listOfGroupCategories != null)
+        {
+            if (_featuretoggles.GroupStartPage)
             {
-                model.Categories = listOfGroupCategories;
-            }          
+                GroupStartPage model = new GroupStartPage();
+                var response = await _repository.Get<List<GroupCategory>>();
+                var listOfGroupCategories = response.Content as List<GroupCategory>;
 
-            return View(model);
+                if (listOfGroupCategories != null)
+                {
+                    model.Categories = listOfGroupCategories;
+                }
+
+                return View(model);
+            }
+
+            return NotFound();
+
         }
 
         [Route("/groups/{slug}")]
@@ -45,6 +55,27 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             return View(group);
+        }
+
+        [Route("groups/results")]
+        public async Task<IActionResult> Results([FromQuery] string category)
+        {
+            if (_featuretoggles.GroupResultsPage)
+            {
+                GroupResults model = new GroupResults();
+                var queries = new List<Query>();
+                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category));
+                var response = await _repository.Get<GroupResults>(queries: queries);
+
+                if (response.IsNotFound())
+                    return NotFound();
+
+                model = response.Content as GroupResults;
+
+                return View(model);
+            }
+
+            return NotFound();
         }
     }
 }

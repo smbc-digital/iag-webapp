@@ -270,9 +270,9 @@ namespace StockportWebappTests.Unit.Repositories
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Group>(slug));
             var group = httpResponse.Content as ProcessedGroup;
 
-            group.Name.Should().Be("This is the group");
-            group.Slug.Should().Be("group");
-            group.PhoneNumber.Should().Be("zumba");
+            group.Name.Should().Be("Zumba");
+            group.Slug.Should().Be("test-zumba-slug");
+            group.PhoneNumber.Should().Be("00000000000");
             group.Email.Should().Be("hello@stockportzumba.whatever");
             group.Website.Should().Be("stockportzumba.io");
             group.Facebook.Should().Be("facebook.com/stockportzumba");

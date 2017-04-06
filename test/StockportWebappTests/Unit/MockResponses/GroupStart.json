@@ -1,0 +1,80 @@
+﻿[
+  {
+    "name": "Dancing",
+    "slug": "dancing",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Music",
+    "slug": "music",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Culture",
+    "slug": "culture",
+    "icon": "si-house",
+    "imageUrl": "image-url.jpg"
+  },
+  {
+    "name": "Help and support",
+    "slug": "help-and-support",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Outdoors and adventure",
+    "slug": "outdoors-and-adventure",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Young people",
+    "slug": "young-people",
+    "icon": "si-house",
+    "imageUrl": "image-url.jpg"
+  },
+  {
+    "name": "Children and family",
+    "slug": "children-and-family",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Religion",
+    "slug": "religion",
+    "icon": "si-file",
+    "imageUrl": ""
+  },
+  {
+    "name": "Sports and fitness",
+    "slug": "sports-and-fitness",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Arts and crafts",
+    "slug": "arts-and-crafts",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Armed forces",
+    "slug": "armed-forces",
+    "icon": "si-house",
+    "imageUrl": "image-url.jpg"
+  },
+  {
+    "name": "Health and wellbeing",
+    "slug": "health-and-wellbeing",
+    "icon": "si-house",
+    "imageUrl": ""
+  },
+  {
+    "name": "Education and learning",
+    "slug": "education-and-learning",
+    "icon": "si-house",
+    "imageUrl": ""
+  }
+]
