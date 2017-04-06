@@ -32,8 +32,9 @@ namespace StockportWebappTests.Unit.Controllers
         public GroupControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, new FeatureToggles() {GroupResultsPage = true, GroupStartPage = true});
             _groupRepository = new Mock<IGroupRepository>();
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, new FeatureToggles() {GroupResultsPage = true, GroupStartPage = true});
+            
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
