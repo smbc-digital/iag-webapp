@@ -1,4 +1,5 @@
-﻿@using StockportWebapp.Models
+﻿@using Microsoft.AspNetCore.Http
+@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
 @model GroupResults
@@ -51,8 +52,8 @@
     else
     {
         <div class="grid-container grid-100">
-            <h1 class="">No groups found</h1>
-            <p><a href="/groups">Return to previous page.</a> </p>
+            <h1 class="">There are currently no groups in "@ViewBag.Category"</h1>
+            <p>Please <a href="/groups">go back</a> and select another category.</p>
         </div>
 
     }

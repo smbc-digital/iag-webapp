@@ -72,6 +72,8 @@ namespace StockportWebapp.Controllers
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category));
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
+                ViewBag.Category = category;
+
                 if (response.IsNotFound())
                     return NotFound();
 
