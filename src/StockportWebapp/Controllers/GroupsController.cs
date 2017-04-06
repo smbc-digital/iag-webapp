@@ -110,7 +110,7 @@ namespace StockportWebapp.Controllers
             {
                 groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
             }
-
+            
             if (!ModelState.IsValid) return View(groupSubmission);
 
             var successCode = await _groupRepository.SendEmailMessage(groupSubmission);

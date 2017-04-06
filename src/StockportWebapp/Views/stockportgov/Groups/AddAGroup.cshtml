@@ -68,20 +68,20 @@
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <label asp-for="@Model.Category1"></label>
+                                        <label asp-for="@Model.Category1">Group category</label>
                                         <div class="grid-100 grid-parent category-div" id="category-div1">
-                                            <span asp-validation-for="@Model.Category1" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                            <div class="grid-50 tablet-grid-80 mobile-grid-90 grid-parent">
+                                            <div class="grid-50 tablet-grid-50 mobile-grid-50 grid-parent">
                                                 <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="Category1">
                                                     <option disabled selected hidden value="">
                                                         Select category
                                                     </option>
                                                     @foreach (var category in Model.Categories)
                                                     {
-                                                      <option value="@category">@category</option>
+                                                        <option value="@category">@category</option>
                                                     }
                                                 </select>
                                             </div>
+                                            <span asp-validation-for="@Model.Category1" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
                                         <label asp-for="@Model.Email"></label>

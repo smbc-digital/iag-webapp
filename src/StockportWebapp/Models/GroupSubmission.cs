@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
@@ -11,11 +9,12 @@ namespace StockportWebapp.Models
     {
         [Display(Name = "Group name")]
         [Required]
-        [MaxLength(255)]
+        [StringLength(255, ErrorMessage = "Group name must be 250 characters or less in length.")]
         public string Name { get; set; }
 
         [Display(Name = "Location")]
         [Required]
+        [StringLength(500, ErrorMessage = "Location must be 500 characters or less in length.")]
         public string Address { get; set; }
 
         [ImageFileExtensionValidation]
@@ -43,9 +42,7 @@ namespace StockportWebapp.Models
         [Phone]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        [Display(Name="Group website")]
-        [Url(ErrorMessage = "Should be validate Web Address")]
+        [Display(Name="Group website")]       
         public string Website { get; set; }
 
         public string Twitter { get; set; }

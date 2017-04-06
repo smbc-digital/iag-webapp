@@ -5,6 +5,10 @@ using Xunit;
 using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
+using  StockportWebapp.Models;
+using Moq;
+using StockportWebapp.Http;
+using StockportWebapp.Repositories;
 
 namespace StockportWebappTests.Integration
 {
@@ -12,11 +16,11 @@ namespace StockportWebappTests.Integration
     {
         private readonly HttpClient _client;
         private readonly RoutesTestServerFixture _testServerFixture;
-
+       
         public RoutesTest(RoutesTestServerFixture testServerFixture)
         {
             _testServerFixture = testServerFixture;
-            _client = _testServerFixture.Client;
+            _client = _testServerFixture.Client;          
         }
 
         [Fact]
@@ -448,6 +452,61 @@ namespace StockportWebappTests.Integration
             });
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/events/add-your-event") { Content = formContents };
+
+            var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
+
+            result.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
+        public void ItReturnsAGroupSubmissionPage()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var formHtmlTag = "<form";
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/add-a-group"));
+
+            result.Should().Contain(formHtmlTag);
+        }
+
+        [Fact]
+        public void ShouldRedirectToThankYouMessageOnSuccessGroupSubmission()
+        {
+            SetBusinessIdRequestHeader("stockportgov");         
+
+            var formContents = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Name", "name"),                
+                new KeyValuePair<string, string>("Description", "description"),
+                new KeyValuePair<string, string>("Category1", "category"),
+                new KeyValuePair<string, string>("Address", "address"),
+                new KeyValuePair<string, string>("Email", "email@gmail.com"),
+                new KeyValuePair<string, string>("PhoneNumber", "1234"),
+                new KeyValuePair<string, string>("Website","http://www.group.org.uk"),
+            });
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/groups/add-a-group") { Content = formContents };
+
+            var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
+
+            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
+        }
+
+        [Fact]
+        public void ShouldReturnToSamePageWhenGroupSubmissionDoneWithoutRequiredFields()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var formContents = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
+            {
+                new KeyValuePair<string, string>("Name", "name"),
+                new KeyValuePair<string, string>("Description", "description"),
+                new KeyValuePair<string, string>("Category1", "category"),
+                new KeyValuePair<string, string>("Address", "address"),
+                new KeyValuePair<string, string>("Email", "email@gmail.com"),            
+            });
+
+            var request = new HttpRequestMessage(HttpMethod.Post, "/groups/add-a-group") { Content = formContents };
 
             var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
 

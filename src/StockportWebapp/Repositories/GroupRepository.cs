@@ -2,18 +2,11 @@
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
-using System;
 using System.Collections.Generic;
-using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using StockportWebapp.Models;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
-using StockportWebapp.Config;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Repositories

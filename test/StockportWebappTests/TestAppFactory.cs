@@ -149,7 +149,7 @@ namespace StockportWebappTests
             Client.For("http://content:5001/api/stockportgov/groupResults/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
             Client.For("http://content:5001/api/stockportgov/groupCategory/")
-                .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));
+                .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));        
         }
 
         private static string ReadFile(string fileName)

@@ -87,8 +87,7 @@ namespace StockportWebappTests.Unit.Controllers
                 PhoneNumber = "phone",
                 Category1 = "Category",
                 Image = null                                
-            };
-
+            };           
             _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.OK);
 
             var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission)) as RedirectToActionResult;
