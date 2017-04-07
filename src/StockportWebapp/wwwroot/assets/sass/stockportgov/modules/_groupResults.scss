@@ -41,7 +41,12 @@
                 padding-left: 15px;
                 padding-right: 15px;
                 word-wrap:break-word;
-                
+               
+                .group-title {
+                    h3 {
+                        margin-top: 0;
+                    }
+                 }
                 .group-card-icon {
                     font-size: 0.9em;
                 }
@@ -62,6 +67,14 @@
                 border-top-right-radius: 4px;
             }
         }
+    }
+}
+
+.group-pagination {
+
+    .pagination-section {
+        border-top-width: 2px;
+        border-top-color: rgba(0,0,0, 0.2) ;
     }
 }
 

@@ -418,14 +418,19 @@ namespace StockportWebappTests.Unit.Utils
             pagination.CurrentPageNumber.Should().Be(1);
         }
 
-        [Fact]
-        public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum()
+        [Theory]
+        [InlineData((MaxNumberOfItemsPerPage * 3) + 2)]
+        [InlineData((MaxNumberOfItemsPerPage * 2))]
+        [InlineData(MaxNumberOfItemsPerPage + 12)]
+        public void IfSpecifiedPageNumIsTooHighThenActualPageNumIsLastPageNum(int numItems)
         {
             // Arrange
-            const int numItems = MaxNumberOfItemsPerPage * 2;
-            const int lastPageNumber = numItems / MaxNumberOfItemsPerPage;
-            const int tooHigh = lastPageNumber + 10;
-            List<News> listofNewsItems = BuildListofNewsItems(numItems);
+            var lastPageNumber = numItems / MaxNumberOfItemsPerPage;
+            if (numItems % MaxNumberOfItemsPerPage > 0)
+                lastPageNumber++;
+
+            int tooHigh = lastPageNumber + 10;
+            List<News> listofNewsItems = BuildListofNewsItems(numItems); 
 
             // Act
             var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, tooHigh, "item description", MaxNumberOfItemsPerPage).Pagination;

@@ -33,7 +33,7 @@
                     <a class="group-card" href="../groups/@group.Slug">
                         <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(group))"></div>
                         <div class="group-card-information">
-                            <div class="grid-100">
+                            <div class="grid-100 group-title">
                                 <h3>@group.Name</h3>
                             </div>
                             <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
@@ -47,7 +47,9 @@
                 </li>
             }
         </ul>
-        <div class="grid-container grid-100">@Html.Partial("Pagination", Model.Pagination)</div>
+        <div class="grid-container grid-100 group-pagination">
+            @Html.Partial("Pagination", Model.Pagination)
+        </div>
     }
     else
     {

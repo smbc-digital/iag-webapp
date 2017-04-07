@@ -3,7 +3,7 @@
 @model StockportWebapp.Models.Pagination
 
 
-<div class="pagination-section grid-parent">
+<div class="pagination-section grid-parent pagination-margin-bottom">
     @{
         IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
         var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);

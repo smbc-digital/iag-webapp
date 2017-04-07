@@ -116,8 +116,11 @@ namespace StockportWebapp.Utils
 
         private static int CalculateHighestPageNumber(int totalItems, int numberOfItemsPerPage)
         {
-            return totalItems / numberOfItemsPerPage
-                + totalItems % numberOfItemsPerPage;
+            var highestPageNumber = totalItems / numberOfItemsPerPage;
+            if (totalItems % numberOfItemsPerPage > 0)
+                highestPageNumber++;
+
+            return highestPageNumber;
         }
 
         private static int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)
