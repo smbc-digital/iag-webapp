@@ -1,5 +1,7 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
 @model ProcessedGroup
+@inject FeatureToggles FeatureToggles
 
 @{
     ViewData["Title"] = Model.Name;
@@ -10,6 +12,12 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
+@if (FeatureToggles.GroupBreadCrumb)
+{
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
+}
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 

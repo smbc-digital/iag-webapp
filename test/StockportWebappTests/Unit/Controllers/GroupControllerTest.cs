@@ -42,7 +42,6 @@ namespace StockportWebappTests.Unit.Controllers
             _filteredUrl = new Mock<IFilteredUrl>();
             _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, new FeatureToggles() { GroupResultsPage = true, GroupStartPage = true },_filteredUrl.Object);
 
-
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
                 .ReturnsAsync(HttpResponse.Successful(200, groupCategories));
@@ -53,8 +52,9 @@ namespace StockportWebappTests.Unit.Controllers
         public void ItReturnsAGroupWithProcessedBody()
         {
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null);
+
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
@@ -254,7 +254,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    });
+                    },new List<Crumb>());
 
                 listOfGroups.Add(group);
             }

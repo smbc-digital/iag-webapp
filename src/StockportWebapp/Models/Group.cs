@@ -16,10 +16,11 @@ namespace StockportWebapp.Models
         public string ImageUrl { get; set; }
         public string ThumbnailImageUrl { get; set; }
         public List<GroupCategory> CategoriesReference { get; }
+        public List<Crumb> Breadcrumbs { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl, 
-            string thumbnailImageUrl, List<GroupCategory> categoriesReference)
+            string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs)
         {
             Name = name;
             Slug = slug;
@@ -33,6 +34,7 @@ namespace StockportWebapp.Models
             ImageUrl = imageUrl;
             ThumbnailImageUrl = thumbnailImageUrl;
             CategoriesReference = categoriesReference;
+            Breadcrumbs = breadcrumbs;
         }
     }
 }

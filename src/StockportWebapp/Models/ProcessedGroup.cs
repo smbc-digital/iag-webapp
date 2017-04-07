@@ -9,7 +9,8 @@ namespace StockportWebapp.Models
         }
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
-            string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference)
+                      string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, 
+                      List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs)
         {
             Name = name;
             Slug = slug;
@@ -23,6 +24,7 @@ namespace StockportWebapp.Models
             ImageUrl = imageUrl;
             ThumbnailImageUrl = thumbnailImageUrl;
             CategoriesReference = categoriesReference;
+            Breadcrumbs = breadcrumbs;
         }
 
         public readonly string Name;
@@ -37,5 +39,6 @@ namespace StockportWebapp.Models
         public readonly string ImageUrl;
         public readonly string ThumbnailImageUrl;
         public readonly List<GroupCategory> CategoriesReference;
+        public List<Crumb> Breadcrumbs { get; }
     }
 }
