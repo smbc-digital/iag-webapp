@@ -72,12 +72,13 @@ namespace StockportWebapp.Controllers
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category));
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
-                ViewBag.Category = category;
-
                 if (response.IsNotFound())
                     return NotFound();
 
                 model = response.Content as GroupResults;
+
+                if (model.Categories != null && model.Categories.Any())
+                    ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
 
                 return View(model);
             }

@@ -4,7 +4,7 @@
 @using StockportWebapp.ViewModels
 @model GroupResults
 @{
-    ViewData["Title"] = "Find a local Group";
+    ViewData["Title"] = (ViewBag.Category != null ? ViewBag.Category.Name : "All Categories");
     ViewData["og:title"] = "Groups";
     ViewData["Description"] = "Groups Results Page";
     ViewData["Beta"] = true;
@@ -13,7 +13,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>())
+    @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Find your local Group", "groups", "type")})
 }
 
 <div class="l-page-content" id="content-no-margin-bottom">
@@ -44,7 +44,6 @@
                             </div>
                         </div>
                     </a>
-
                 </li>
             }
         </ul>
@@ -52,7 +51,7 @@
     else
     {
         <div class="grid-container grid-100">
-            <h1 class="">There are currently no groups in "@ViewBag.Category"</h1>
+            <h1 class="">There are currently no groups in "@(ViewBag.Category != null ? ViewBag.Category.Name : "" )"</h1>
             <p>Please <a href="/groups">go back</a> and select another category.</p>
         </div>
 

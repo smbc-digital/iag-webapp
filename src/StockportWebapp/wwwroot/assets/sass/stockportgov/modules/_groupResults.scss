@@ -1,5 +1,4 @@
 ﻿
-
 .group-listing-container {
 
     margin-top: 40px;
@@ -21,8 +20,9 @@
         a {
             text-decoration: none;
         }
-
-        .group-card {
+         
+        .group-card 
+        {
             background-color: #ffffff;
             padding: 0 0 10px 0;
             border-radius: 4px;
@@ -62,4 +62,18 @@
             }
         }
     }
+}
+
+.no-js{
+    .group-listing-container 
+    {
+        .group-li 
+        {
+            .group-card  
+            {
+                height: 370px;
+            }
+
+        }
+    }    
 }
