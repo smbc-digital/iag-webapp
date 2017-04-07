@@ -6,6 +6,7 @@
     .group-li {
         margin-left: 0;
         margin-bottom: 40px;
+        list-style-type: none;
 
         @media #{$desktop} {
             padding-left: 15px;

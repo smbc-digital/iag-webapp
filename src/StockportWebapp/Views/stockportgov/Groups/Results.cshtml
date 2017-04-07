@@ -4,7 +4,7 @@
 @using StockportWebapp.ViewModels
 @model GroupResults
 @{
-    ViewData["Title"] = (ViewBag.Category != null ? ViewBag.Category.Name : "All Categories");
+    ViewData["Title"] = "Find a local group";
     ViewData["og:title"] = "Groups";
     ViewData["Description"] = "Groups Results Page";
     ViewData["Beta"] = true;
@@ -13,7 +13,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Find your local Group", "groups", "type")})
+    @Html.Partial("Breadcrumb", new List<Crumb>())
 }
 
 <div class="l-page-content" id="content-no-margin-bottom">
