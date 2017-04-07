@@ -46,7 +46,7 @@ namespace StockportWebappTests.Unit.Controllers
                                                                  "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc)) };
 
-
+        public const int MaxNumberOfItemsPerPage = 15;
         public EventsControllerTest()
         {
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
@@ -220,9 +220,9 @@ namespace StockportWebappTests.Unit.Controllers
         [Theory]
         [InlineData(1, 1, 1, 1)]
         [InlineData(2, 1, 2, 1)]
-        [InlineData(Pagination.MaxItemsPerPage, 1, Pagination.MaxItemsPerPage, 1)]
-        [InlineData(Pagination.MaxItemsPerPage * 3, 1, Pagination.MaxItemsPerPage, 3)]
-        [InlineData(Pagination.MaxItemsPerPage + 1, 2, 1, 2)]
+        [InlineData(MaxNumberOfItemsPerPage, 1, MaxNumberOfItemsPerPage, 1)]
+        [InlineData(MaxNumberOfItemsPerPage * 3, 1, MaxNumberOfItemsPerPage, 3)]
+        [InlineData(MaxNumberOfItemsPerPage + 1, 2, 1, 2)]
         public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
             int totalNumItems,
             int requestedPageNumber,
@@ -244,7 +244,7 @@ namespace StockportWebappTests.Unit.Controllers
 
         [Theory]
         [InlineData(0, 50, 1)]
-        [InlineData(5, Pagination.MaxItemsPerPage * 3, 3)]
+        [InlineData(5, MaxNumberOfItemsPerPage * 3, 3)]
         public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
             int specifiedPageNumber,
             int numItems,

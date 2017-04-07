@@ -7,6 +7,7 @@ using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -17,16 +18,18 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRepository _repository;
         private readonly IGroupRepository _groupRepository;
+        private readonly IFilteredUrl _filteredUrl;
 
         FeatureToggles _featuretoggles;
 
         public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository,
-            FeatureToggles featureToggles)
+            FeatureToggles featureToggles, IFilteredUrl filteredUrl)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
             _featuretoggles = featureToggles;
             _groupRepository = groupRepository;
+            _filteredUrl = filteredUrl;
         }
 
         [Route("/groups")]
@@ -63,7 +66,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category)
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page)
         {
             if (_featuretoggles.GroupResultsPage)
             {
@@ -76,6 +79,12 @@ namespace StockportWebapp.Controllers
                     return NotFound();
 
                 model = response.Content as GroupResults;
+
+                model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+                _filteredUrl.SetQueryUrl(model.CurrentUrl);
+                model.AddFilteredUrl(_filteredUrl);
+
+                DoPagination(model, page);
 
                 if (model.Categories != null && model.Categories.Any())
                     ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
@@ -126,6 +135,26 @@ namespace StockportWebapp.Controllers
         public IActionResult ThankYouMessage()
         {
             return View();
+        }
+
+        private void DoPagination(GroupResults groupResults, int currentPageNumber)
+        {
+            if (groupResults != null && groupResults.Groups.Any())
+            {
+                var paginatedGroups = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    groupResults.Groups,
+                    currentPageNumber,
+                    "groups",
+                    9);
+
+                groupResults.Groups = paginatedGroups.Items;
+                groupResults.Pagination = paginatedGroups.Pagination;
+                groupResults.Pagination.CurrentUrl = groupResults.CurrentUrl;
+            }
+            else
+            {
+                groupResults.Pagination = new Pagination();
+            }
         }
     }
 }

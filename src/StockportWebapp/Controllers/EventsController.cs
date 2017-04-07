@@ -90,18 +90,23 @@ namespace StockportWebapp.Controllers
 
         private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse)
         {
-            model.Pagination = new Pagination();
-
             if (eventResponse != null && eventResponse.Events.Any())
             {
+                int MaxNumberOfItemsPerPage = 15;
+
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     eventResponse.Events, 
                     currentPageNumber, 
-                    "Events");
+                    "Events",
+                    MaxNumberOfItemsPerPage);
 
                 eventResponse.Events = paginatedEvents.Items;
                 model.Pagination = paginatedEvents.Pagination;
                 model.Pagination.CurrentUrl = model.CurrentUrl;
+            }
+            else
+            {
+                model.Pagination = new Pagination();
             }
         }
 

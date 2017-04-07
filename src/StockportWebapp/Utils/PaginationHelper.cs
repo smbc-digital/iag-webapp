@@ -58,20 +58,22 @@ namespace StockportWebapp.Utils
             return currentPageNumber < totalPages;
         }
 
-        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription)
+        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage)
         {
-            currentPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count);
-
             Pagination pagination = new Pagination(
                 items.Count,
                 currentPageNumber,
-                itemDescription);
+                itemDescription,
+                maxNumberOfItemsPerPage);
 
-            int itemsOnPreviousPages = Pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
+            var ExistingPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count, pagination.MaxItemsPerPage);
+            pagination.CurrentPageNumber = ExistingPageNumber;
+
+            int itemsOnPreviousPages = pagination.MaxItemsPerPage * (pagination.CurrentPageNumber - 1);
 
             List<T> itemsOnCurrentPage = items
                     .Skip(itemsOnPreviousPages)
-                    .Take(Pagination.MaxItemsPerPage).ToList();
+                    .Take(pagination.MaxItemsPerPage).ToList();
 
             pagination.TotalItemsOnPage = itemsOnCurrentPage.Count;
 
@@ -95,10 +97,10 @@ namespace StockportWebapp.Utils
             return urlHelper.RouteUrl(routeValueDictionary);
         }
 
-        private static int MakeSurePageNumberExists(int suggestedPageNumber, int totalItems)
+        private static int MakeSurePageNumberExists(int suggestedPageNumber, int totalItems, int numberOfItemsPerPage)
         {
             int actualPageNumber = suggestedPageNumber;
-            int highestPageNumber = CalculateHighestPageNumber(totalItems);
+            int highestPageNumber = CalculateHighestPageNumber(totalItems, numberOfItemsPerPage);
 
             if (suggestedPageNumber == 0)
             {
@@ -112,10 +114,10 @@ namespace StockportWebapp.Utils
             return actualPageNumber;
         }
 
-        private static int CalculateHighestPageNumber(int totalItems)
+        private static int CalculateHighestPageNumber(int totalItems, int numberOfItemsPerPage)
         {
-            return totalItems / Pagination.MaxItemsPerPage 
-                + totalItems % Pagination.MaxItemsPerPage;
+            return totalItems / numberOfItemsPerPage
+                + totalItems % numberOfItemsPerPage;
         }
 
         private static int CalculateFirstVisiblePageNumber(int currentPageNumber, int totalPages)

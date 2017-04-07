@@ -67,7 +67,7 @@ namespace StockportWebappTests.Unit.Controllers
 
         private readonly Newsroom _newsRoom;
         private readonly Newsroom _emptyNewsRoom;
-
+        public const int MaxNumberOfItemsPerPage = 15;
         public NewsControllerTest()
         {
             _newsRoom = new Newsroom(_listOfNewsItems, new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
@@ -310,9 +310,9 @@ namespace StockportWebappTests.Unit.Controllers
         [Theory]
         [InlineData(1, 1, 1, 1)]
         [InlineData(2, 1, 2, 1)]
-        [InlineData(Pagination.MaxItemsPerPage, 1, Pagination.MaxItemsPerPage, 1)]
-        [InlineData(Pagination.MaxItemsPerPage * 3, 1, Pagination.MaxItemsPerPage, 3)]
-        [InlineData(Pagination.MaxItemsPerPage + 1, 2, 1, 2)]
+        [InlineData(MaxNumberOfItemsPerPage, 1, MaxNumberOfItemsPerPage, 1)]
+        [InlineData(MaxNumberOfItemsPerPage * 3, 1, MaxNumberOfItemsPerPage, 3)]
+        [InlineData(MaxNumberOfItemsPerPage + 1, 2, 1, 2)]
         public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
             int totalNumItems,
             int requestedPageNumber,
@@ -335,7 +335,7 @@ namespace StockportWebappTests.Unit.Controllers
 
         [Theory]
         [InlineData(0, 50, 1)]
-        [InlineData(5, Pagination.MaxItemsPerPage * 3, 3)]
+        [InlineData(5, MaxNumberOfItemsPerPage * 3, 3)]
         public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
             int specifiedPageNumber,
             int numItems,

@@ -83,18 +83,23 @@ namespace StockportWebapp.Controllers
 
         private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber)
         {
-            model.Pagination = new Pagination();
-        
             if (newsRoom != null && newsRoom.News.Any())
             {
+                int MaxNumberOfItemsPerPage = 15;
+
                 var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     newsRoom.News, 
                     currentPageNumber, 
-                    "News articles");
+                    "News articles",
+                    MaxNumberOfItemsPerPage);
 
                 newsRoom.News = paginatedNews.Items;
                 model.Pagination = paginatedNews.Pagination;
                 model.Pagination.CurrentUrl = model.CurrentUrl;
+            }
+            else
+            {
+                model.Pagination = new Pagination();
             }
         }
 

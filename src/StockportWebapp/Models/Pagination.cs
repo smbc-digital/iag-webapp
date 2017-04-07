@@ -4,7 +4,7 @@ namespace StockportWebapp.Models
 {
     public class Pagination
     {
-        public const int MaxItemsPerPage = 15;
+        public int MaxItemsPerPage;
         public int TotalItems { get; set; }
         public int CurrentPageNumber { get; set; }
         public int TotalPages { get; set; }
@@ -12,12 +12,14 @@ namespace StockportWebapp.Models
         public int TotalItemsOnPage { get; set; }
         public string ItemDescription { get; set; }
 
-        public Pagination(int totalNumItems, int currentPageNumber, string itemDescription)
+        public Pagination(int totalNumItems, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage)
         {
             CurrentPageNumber = currentPageNumber;
             ItemDescription = itemDescription;
+            MaxItemsPerPage = maxNumberOfItemsPerPage;
             TotalItems = totalNumItems;
             TotalPages = CalculateTotalPages(totalNumItems);
+            
         }
 
         public Pagination()

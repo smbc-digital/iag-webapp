@@ -27,7 +27,7 @@
     @if (Model.Groups.Any())
     {
         <ul class="group-listing-container grid-container">
-            @foreach (var group in Model.Groups.Take(9))
+            @foreach (var group in Model.Groups)
             {
                 <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
                     <a class="group-card" href="../groups/@group.Slug">
@@ -47,6 +47,7 @@
                 </li>
             }
         </ul>
+        <div class="grid-container grid-100">@Html.Partial("Pagination", Model.Pagination)</div>
     }
     else
     {
