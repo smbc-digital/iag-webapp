@@ -7,7 +7,9 @@ prod: &prod
 
 stage: &stage
   << : *prod
-
+  GroupStartPage: true
+  GroupResultsPage: true
+  
 qa: &qa
   << : *prod
   << : *stage
@@ -16,13 +18,9 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  GroupStartPage: true
-  GroupResultsPage: true
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
-  GroupStartPage: true
-  GroupResultsPage: true
