@@ -12,7 +12,7 @@ namespace StockportWebapp.Models
         [StringLength(255, ErrorMessage = "Group name must be 250 characters or less in length.")]
         public string Name { get; set; }
 
-        [Display(Name = "Group Meeting Location")]
+        [Display(Name = "Group meeting location")]
         [Required]
         [StringLength(500, ErrorMessage = "Location must be 500 characters or less in length.")]
         public string Address { get; set; }

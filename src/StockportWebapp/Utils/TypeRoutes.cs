@@ -16,6 +16,8 @@
                     return "/news";
                 case "events":
                     return "/events";
+                case "groups":
+                    return "/groups";
                 case "payment":
                     return $"/payment/{slug}";
                 default:

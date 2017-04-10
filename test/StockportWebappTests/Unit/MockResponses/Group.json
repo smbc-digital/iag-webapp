@@ -23,5 +23,12 @@
       "icon": "si-house",
       "imageUrl": ""
     }
+  ],
+  "breadcrumbs": [
+    {
+      "title": "Find a local group",
+      "slug": "",
+      "type": "groups"
+    }
   ]
 }
