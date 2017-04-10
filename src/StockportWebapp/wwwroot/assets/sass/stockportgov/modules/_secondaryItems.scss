@@ -5,8 +5,6 @@
     @media #{$mobile,$tablet} {
         margin-top: 20px;
     }
-
-                             
 }
 
 .subitems-secondary {
@@ -19,12 +17,15 @@
     background-color: #fff;
     border-radius: 5px;
 
+
     @media #{$desktop} {
         margin-top: 30px;
     }
 
     li {
         margin-left: 0;
+
+
 
         @media #{$desktop} {
             &:nth-child(even) > .subitem-secondary {
@@ -40,23 +41,22 @@
             &:nth-child(n+3) > .subitem-secondary {
                 border-top: 1px $greyLight solid;
             }
-             &:nth-child(n+3) >  .subitem-secondary-no-chevron {
+
+            &:nth-child(n+3) > .subitem-secondary-no-chevron {
                 border-top: 1px $greyLight solid;
             }
-            
         }
-
-        
     }
 }
-#test-topic-page-secondary-topics-list > ul > li> div > a {
+
+#test-topic-page-secondary-topics-list > ul > li > div > a {
     @media #{$mobile, $tablet} {
         padding-left: 15px;
         padding-right: 15px;
     }
 }
 
-#test-topic-page-secondary-topics-list > ul > li> div > span {
+#test-topic-page-secondary-topics-list > ul > li > div > span {
     @media #{$mobile, $tablet} {
         padding-left: 15px;
         padding-right: 15px;
@@ -71,6 +71,8 @@
     padding-top: 0.4em;
     padding-bottom: 0.4em;
     word-wrap: break-word;
+    text-decoration: none;
+    color: $colorPrimary;
 
     @media #{$desktop} {
         padding-top: 0.4em;
@@ -79,32 +81,37 @@
         margin-right: 0;
     }
 
-    .subitem-teaser
-    { 
-        @media #{$mobile,$tablet} {
-            padding-left: 15px; 
-            padding-right: 15px;
-        } 
+    @media #{$mobile,$tablet} {
+        padding-left: 15px;
+        padding-right: 15px;
     }
 
-    a {
-        text-decoration: underline;
-        display: inline-block;
+    .subitem-teaser {
+        span {
+            color: black;
+            text-decoration: none;
+        }
+    }
 
-        @media #{$mobile,$tablet} {
-            text-align: left;
-            border: none;
+    .subitem-title {
+        span {
             text-decoration: underline;
-            line-height: 35px;
+            color: $colorPrimary;
+        }
+    }
 
-            &:hover {
+    &:hover {
+        text-decoration: initial;
+
+        .subitem-title {
+            span {
                 opacity: 0.5;
             }
         }
     }
 }
 
-.no-chevron{
+.no-chevron {
     &:before {
         @media #{$desktop} {
             content: "";
@@ -117,7 +124,7 @@
 }
 
 .subitems-secondary-two-column {
-    border-top: 5px solid #83aeac; 
+    border-top: 5px solid #83aeac;
     padding-bottom: 18px;
     margin-top: 0;
     background-color: #fff;
@@ -126,7 +133,7 @@
     padding-top: 1em;
     width: 100%;
     box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    
+
     @media #{$mobile,$tablet} {
         padding-top: 0;
     }
@@ -148,8 +155,6 @@
 
 .subitems-secondary-two-column li:nth-child(n+2) > .subitem-secondary {
     border-top: 1px solid #cbcbcb;
-
-    
 }
 
 .subitems-secondary-two-column .subitem-secondary {

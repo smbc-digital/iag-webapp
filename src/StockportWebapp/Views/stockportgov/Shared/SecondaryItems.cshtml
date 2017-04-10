@@ -9,15 +9,18 @@
                 @foreach (var subItem in Model.SecondaryItems)
                 {
                     <li>
-                        <div class="subitem-secondary">
-                            <a href="@subItem.NavigationLink">
-                                @subItem.Title
-                            </a> <br />
-                            <div class="subitem-teaser">
-                                <span>@subItem.Teaser</span>    
+                        <a href="@subItem.NavigationLink" class="subitem-secondary">
+                            <div >
+                                <div class="subitem-title">
+                                    <span>@subItem.Title</span>
+                                </div>
+                                
+                                <div class="subitem-teaser">
+                                    <span>@subItem.Teaser</span>
+                                </div>
+
                             </div>
-                            
-                        </div>
+                        </a>
                     </li>
                 }
             </ul>
