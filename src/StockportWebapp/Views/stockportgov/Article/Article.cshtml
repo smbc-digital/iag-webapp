@@ -29,7 +29,7 @@
                                     </h2>
                                 </div>
                             </div>
-                            <br />
+                            <div class="title-spacer"></div>                         
                         }
                     <div class="grid-100">
                         @if (string.IsNullOrEmpty(Model.Article.Image))
@@ -40,25 +40,28 @@
                         }
                         @{
                             if (Model.Article.Alerts != null)
-                            {
-                                foreach (var alert in Model.Article.Alerts)
-                                {
-                                    @Html.Partial("DisplayTemplates/Alert", alert)
-                                }
+                            {                                
+                                <div class="alert-container">
+                                    @foreach (var alert in Model.Article.Alerts)
+                                    {
+                                        @Html.Partial("DisplayTemplates/Alert", alert)
+                                    }
+                                </div>
                             }
                         }
 
                         <div class="grid-100">
 
-
-                            @if (Model.ShouldShowArticleSummary)
-                            {
+                            @if (Model.ShouldShowArticleSummary &&                                
+                                !string.Equals("<p></p>\n", Model.Article.Body)
+                                )
+                            {                               
                                 <div>
                                     @Html.Raw(Model.Article.Body)
                                 </div>
                             }
 
-                            @if (Model.DisplayedSection != null)
+                            @if (Model.DisplayedSection != null )
                             {
                                 @Html.Partial("../Shared/Section-Nav")
                                 @Html.Partial("../Shared/Article-Single-Section", Model)
