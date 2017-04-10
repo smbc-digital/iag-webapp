@@ -4,7 +4,7 @@
 @using StockportWebapp.ViewModels
 @model GroupResults
 @{
-    ViewData["Title"] = "Find a local group";
+    ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
     ViewData["og:title"] = "Groups";
     ViewData["Description"] = "Groups Results Page";
     ViewData["Beta"] = true;
@@ -13,7 +13,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>())
+    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Find a local group", "groups", "Group")})
 }
 
 <div class="l-page-content" id="content-no-margin-bottom">
@@ -35,7 +35,7 @@
                 <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
                     <a class="group-card" href="../groups/@group.Slug">
                         <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(group))"></div>
-                        <div class="group-card-information">
+                        <div class="group-card-information grid-100">
                             <div class="grid-100 group-title">
                                 <h3>@group.Name</h3>
                             </div>

@@ -1,6 +1,6 @@
 ﻿var matchboxFeaturedItemsShowcase = new Matchbox({
     parentSelector: ".group-listing-container",
-    childSelector: ".group-li",
+    childSelector: ".group-li .group-card",
     groupsOf: 1,
     breakpoints: [
     { bp: 767, groupsOf: 2 },
