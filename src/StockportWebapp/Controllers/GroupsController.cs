@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
@@ -61,6 +62,8 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as ProcessedGroup;
+
+            ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(group);
         }
