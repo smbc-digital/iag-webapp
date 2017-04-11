@@ -14,9 +14,9 @@
 
 @if (FeatureToggles.GroupBreadCrumb)
 {
-@section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
-}
+    @section Breadcrumbs {
+        @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+    }
 }
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
                                         <div class="group-details-heading">Location</div>
-                                       @if (!string.IsNullOrEmpty(Model.Address))
+                                        @if (!string.IsNullOrEmpty(Model.Address))
                                         {
                                             @Html.Raw(Model.Address)
                                         }
@@ -116,26 +116,24 @@
                                         {
                                             <text>&nbsp;</text>
                                         }
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
-                            </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                            </ul>
                         </div>
-
+                        <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
+                        </div>
+                    </div>
                     <div class="grid-100">
                         <h3 class="group-details-heading">Description</h3>
                         <article>
                             @Html.Raw(Model.Description)
                         </article>
-                        <hr />
+                        @Html.Partial("Share")
                         <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
                     </div>
-                    
-                    </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
     </div>
+</div>

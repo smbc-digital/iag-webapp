@@ -142,19 +142,13 @@ namespace StockportWebapp
             var loggerFactory = new LoggerFactory().AddNLog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 
-            if (!string.IsNullOrEmpty(Configuration["ses:accessKey"]) &&
-                !string.IsNullOrEmpty(Configuration["ses:secretKey"]))
-            {
+            
                 var amazonSesKeys = new AmazonSESKeys(Configuration["ses:accessKey"], Configuration["ses:secretKey"]);
                 services.AddSingleton(amazonSesKeys);
                 var credentals = new BasicAWSCredentials(amazonSesKeys.Accesskey, amazonSesKeys.SecretKey);
                 services.AddTransient<IAmazonSimpleEmailService>(
                     o => new AmazonSimpleEmailServiceClient(credentals, RegionEndpoint.EUWest1));
-            }
-            else
-            {
-                logger.LogInformation("Secrets not found.");
-            }
+            
             
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
