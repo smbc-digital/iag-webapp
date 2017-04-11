@@ -316,3 +316,16 @@ ul.nav-card-events-list {
         margin-bottom: 15px;
     }
 }
+
+.event-map-container{
+    .map-container{
+        height: 500px;
+        display: none;
+    }
+}
+
+.no-js {
+    .event-map-container {
+        display: none;
+    }
+}

@@ -27,6 +27,7 @@ namespace StockportWebappTests.Unit.Controllers
         private Mock<IGroupRepository> _groupRepository;
         public const int MaxNumberOfItemsPerPage = 9;
         private readonly Mock<IFilteredUrl> _filteredUrl;
+        private MapPosition _location = new MapPosition() { Lat = 1, Lon = 1 };
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
         {
@@ -53,7 +54,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null);
 
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
@@ -226,6 +227,24 @@ namespace StockportWebappTests.Unit.Controllers
             model.Pagination.CurrentUrl.Should().NotBeNull();
         }
 
+        [Fact]
+        public void ShouldReturnLocationIfOneIsSelected()
+        {
+            var location = new MapPosition() { Lat = 1, Lon = 1 };
+
+            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location);
+
+            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+
+            var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
+            var model = view.ViewData.Model as ProcessedGroup;
+
+            model.MapPosition.Should().Be(location);
+        }
+
+
         private GroupsController SetUpController(int numGroups)
         {
             List<Group> listOfGroups = BuildGroupList(numGroups);
@@ -254,7 +273,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    },new List<Crumb>());
+                    },new List<Crumb>(), _location);
 
                 listOfGroups.Add(group);
             }

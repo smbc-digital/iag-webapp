@@ -1,4 +1,5 @@
-﻿@using StockportWebapp.FeatureToggling
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @model ProcessedEvents
 
@@ -6,6 +7,7 @@
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.Teaser;
+    ViewData["Location"] = Model.Location;
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/m1DBoI";
     Layout = "../Shared/_Layout.cshtml";
@@ -135,7 +137,7 @@
                         <div class="grid-50 events-calender-container-image hide-on-mobile hide-on-tablet" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
                         </div>
                     </div>
-                    <div class="grid-100">
+                    <div>
                         <h3 class="group-details-heading">Description</h3>
                         <article>
                             @Html.Raw(Model.Description)
@@ -143,26 +145,9 @@
                     </div>
                     @if (Model.MapPosition != null && Model.MapPosition.Lat != 0.0 && Model.MapPosition.Lon != 0.0)
                     {
-                        <div id="map" class="grid-100" style="height: 500px;"></div>
-                        <script>
-                            function initMap() {
-                                var eventLocation = { lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon };
-                                var map = new google.maps.Map(document.getElementById('map'),
-                                {
-                                    zoom: 18,
-                                    center: eventLocation
-                                });
-                                var marker = new google.maps.Marker({
-                                    position: eventLocation,
-                                    map: map,
-                                    title: "@Model.Location"
-                                });
-                            }
-                        </script>
-                        <script async defer
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap">
-                        
-                        </script>
+                        <div class="event-map-container">                           
+                            @Html.Partial("MapPosition", Model.MapPosition)
+                        </div>
                     }
                 </div>
                 <div class="l-content-container grid-100">

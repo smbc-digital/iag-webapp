@@ -20,7 +20,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
         private readonly Group _group;
         private const string Name = "Friends of Stockport";
-        private const string Description = "The event";
+        private const string Description = "Description";
         private const string Slug = "group";
         private const string Address = "Bramall Hall, Carpark, SK7 6HG";
         private const string Website = "http://www.fos.org.uk";
@@ -32,6 +32,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private const string Twitter = "twitter";
         private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
         private List<GroupCategory> CategoriesReference = new List<GroupCategory>();
+        private MapPosition _mapPosition = new MapPosition() {Lat=39.0, Lon = 2.0};
 
 
         public GroupFactoryTest()
@@ -53,7 +54,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 breadcrumbs : _breadcrumbs,
                 categoriesReference : CategoriesReference,
                 facebook : Facebook,
-                twitter : Twitter
+                twitter : Twitter,
+                mapPosition:_mapPosition
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
@@ -65,6 +67,18 @@ namespace StockportWebappTests.Unit.ContentFactory
         {
             var result = _factory.Build(_group);
             result.Name.Should().Be("Friends of Stockport");
+            result.Description.Should().Be("Description");
+            result.Slug.Should().Be("group");
+            result.Address.Should().Be("Bramall Hall, Carpark, SK7 6HG");
+            result.Website.Should().Be("http://www.fos.org.uk");
+            result.Email.Should().Be("email");
+            result.PhoneNumber.Should().Be("phonenumber");
+            result.ImageUrl.Should().Be("image.jpg");
+            result.MapPosition.Lat.Should().Be(39.0);
+            result.MapPosition.Lon.Should().Be(2.0);
+            result.ThumbnailImageUrl.Should().Be("thumbnail.jpg");
+            result.Twitter.Should().Be("twitter");
+            result.Facebook.Should().Be("facebook");
 
         }
 
