@@ -27,8 +27,32 @@
             </div>              
         </div>
     </div>
-    <div class="group-startpage-image hide-on-mobile" style="background-image: url('/assets/images/content/Groups_hero_image.jpg')">
-
+    <div class="group-startpage-image hide-on-mobile" style="background-image: url('/assets/images/content/Groups_hero_image.jpg'); position:relative;">
+        <div style="background-color: rgba(5, 92, 88, 0.68); position: absolute; bottom: 0; width: 100%; height: 34%; display: flex; justify-content: center">
+            <div style="text-align: center; color: white; align-self: center">
+                <form>
+                    Show me
+                    <select>
+                        
+                        <option value="armedForces">Armed Forces</option>
+                        <option value="somethingElse">Something Else</option>
+                        <option value="another">Another</option>
+                    </select>
+                    groups in 
+                    <select>
+                        <option value="stockport">Stockport</option>
+                    </select>
+                    sorted by
+                    <select>
+                        <option value="a-z">Name A-Z</option>
+                        <option value="z-a">Name Z-A</option>
+                        <option value="nearest">Nearest</option>
+                    </select>
+                    <button class="button-default">Search local groups</button>
+                </form>
+                
+            </div>
+        </div>
     </div>   
     <div class="group-startpage">
         <div class="featured-category-items-wrapper">    
