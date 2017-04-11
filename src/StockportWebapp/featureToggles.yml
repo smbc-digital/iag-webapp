@@ -2,16 +2,13 @@
 prod: &prod
   TopicPageImages: true
   SinglePayment: true
-  GroupStartPage: false
-  GroupResultsPage: false
-  GroupBreadCrumb: false
-
-stage: &stage
-  << : *prod
   GroupStartPage: true
   GroupResultsPage: true
   GroupBreadCrumb: true
   
+stage: &stage
+  << : *prod
+
 qa: &qa
   << : *prod
   << : *stage
