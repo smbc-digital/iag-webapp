@@ -33,6 +33,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
         private List<GroupCategory> CategoriesReference = new List<GroupCategory>();
         private MapPosition _mapPosition = new MapPosition() {Lat=39.0, Lon = 2.0};
+        private bool _volunteering = false;
 
 
         public GroupFactoryTest()
@@ -55,7 +56,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 categoriesReference : CategoriesReference,
                 facebook : Facebook,
                 twitter : Twitter,
-                mapPosition:_mapPosition
+                mapPosition:_mapPosition,
+                volunteering:_volunteering
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
@@ -79,6 +81,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.ThumbnailImageUrl.Should().Be("thumbnail.jpg");
             result.Twitter.Should().Be("twitter");
             result.Facebook.Should().Be("facebook");
+            result.Volunteering.Should().Be(false);
 
         }
 

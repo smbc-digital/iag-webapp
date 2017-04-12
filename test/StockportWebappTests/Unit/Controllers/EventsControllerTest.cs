@@ -40,7 +40,7 @@ namespace StockportWebappTests.Unit.Controllers
 
         private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
             twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
-            address: "", categoriesReference: null, breadcrumbs:null, mapPosition:null);
+            address: "", categoriesReference: null, breadcrumbs:null, mapPosition:null, volunteering: false);
 
         private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
                                                                  "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
