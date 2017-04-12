@@ -1,0 +1,31 @@
+﻿.primary-filter-form {
+    text-align: center; 
+    color: white; 
+    align-self: center; 
+    font-size: 24px; 
+    font-weight: 600;
+}
+
+.primary-filter-container {
+    background-color: rgba(5, 92, 88, 0.68); 
+    position: absolute; 
+    bottom: 0; 
+    width: 100%;  
+    display: flex; 
+    justify-content: center
+}
+
+.primary-filter-container-start-page {
+    height: 34%
+}
+
+.primary-filter-container-results-page {
+    height: 100%;
+}
+
+.primary-filter-outer-container-results-page {
+    display: flex; 
+    flex-direction: row; 
+    position: relative; 
+    height: 143px;
+}

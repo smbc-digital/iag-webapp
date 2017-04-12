@@ -77,13 +77,19 @@ namespace StockportWebapp.Controllers
             {
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
-                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category));
+                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
                 if (response.IsNotFound())
                     return NotFound();
 
                 model = response.Content as GroupResults;
+
+                if (model.PrimaryFilter == null)
+                {
+                    model.PrimaryFilter = new PrimaryFilter();
+                }
+             
 
                 switch (orderBy.ToLower())
                 {
@@ -105,7 +111,11 @@ namespace StockportWebapp.Controllers
                 DoPagination(model, page);
 
                 if (model.Categories != null && model.Categories.Any())
+                {
                     ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
+                    model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
+                }
+                    
 
                 return View(model);
             }
