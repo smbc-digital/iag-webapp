@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -38,13 +39,14 @@ namespace StockportWebapp.Controllers
         {
             if (_featuretoggles.GroupStartPage)
             {
-                GroupStartPage model = new GroupStartPage();
+                GroupStartPage model = new GroupStartPage {PrimaryFilter = new PrimaryFilter()};
                 var response = await _repository.Get<List<GroupCategory>>();
                 var listOfGroupCategories = response.Content as List<GroupCategory>;
 
                 if (listOfGroupCategories != null)
                 {
                     model.Categories = listOfGroupCategories;
+                    model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
                 }
 
                 return View(model);
@@ -69,7 +71,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page)
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] string orderBy)
         {
             if (_featuretoggles.GroupResultsPage)
             {
@@ -82,6 +84,19 @@ namespace StockportWebapp.Controllers
                     return NotFound();
 
                 model = response.Content as GroupResults;
+
+                switch (orderBy.ToLower())
+                {
+                    case "a-z":
+                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
+                        break;
+                    case "z-a":
+                        model.Groups = model.Groups.OrderByDescending(g => g.Name).ToList();
+                        break;
+                    default:
+                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
+                        break;
+                }
 
                 model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
                 _filteredUrl.SetQueryUrl(model.CurrentUrl);
