@@ -144,7 +144,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var actionResponse =
                AsyncTestHelper.Resolve(
-                   controller.Results("nonsense", 1)) as ViewResult;
+                   controller.Results("nonsense", 1, "a-z")) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as GroupResults;
 
@@ -168,7 +168,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(totalNumItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("category", requestedPageNumber)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("category", requestedPageNumber, "a-z")) as ViewResult;
 
             // Assert
             var groupResult = actionResponse.ViewData.Model as GroupResults;
@@ -189,7 +189,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(numItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", specifiedPageNumber)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", specifiedPageNumber, "a-z")) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
             // Assert
@@ -204,7 +204,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(zeroItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, "a-z")) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
 
@@ -220,7 +220,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(numItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, "a-z")) as ViewResult;
             var model = actionResponse.ViewData.Model as GroupResults;
 
             // Assert
