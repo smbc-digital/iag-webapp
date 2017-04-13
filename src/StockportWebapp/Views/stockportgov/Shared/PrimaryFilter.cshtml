@@ -1,28 +1,18 @@
 ﻿@using StockportWebapp.ViewModels
 @model PrimaryFilter
 
-
-
     <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
-        Show me
-        <select id="category" name="category">
+        <label>Show me</label>
+        <select asp-for="Category" asp-items="@(new SelectList(Model.Categories,"Slug","Name"))" class="primary-filter-select">  
             <option selected value="all">All</option>
-            @foreach (var category in Model.Categories)
-            {
-                <option value="@category.Name">@category.Name</option>
-            }
         </select>
-        groups in
-        <select id="location" name="location">
+        <label>groups in</label>
+        <select id="location" name="location" class="primary-filter-select">
             <option value="stockport">Stockport</option>
         </select>
-        sorted by
-        <select id="order" name="orderBy">
-            <option value="a-z">Name A-Z</option>
-            <option value="z-a">Name Z-A</option>
-            <option value="nearest">Nearest</option>
-        </select>
-        <button type="submit" class="button-default">Search local groups</button>
+        <label>sorted by</label>
+        <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select"></select>
+        <button style="min-width: 250px; font-size: 18px;" type="submit" class="button-default">Search local groups</button>
     </form>
 
 

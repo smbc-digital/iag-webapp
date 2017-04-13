@@ -71,7 +71,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] string orderBy)
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] string order = "")
         {
             if (_featuretoggles.GroupResultsPage)
             {
@@ -91,12 +91,12 @@ namespace StockportWebapp.Controllers
                 }
              
 
-                switch (orderBy.ToLower())
+                switch (order.ToLower())
                 {
-                    case "a-z":
+                    case "name a-z":
                         model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
                         break;
-                    case "z-a":
+                    case "name z-a":
                         model.Groups = model.Groups.OrderByDescending(g => g.Name).ToList();
                         break;
                     default:

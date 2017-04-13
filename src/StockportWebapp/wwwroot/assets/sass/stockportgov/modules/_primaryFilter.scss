@@ -1,22 +1,49 @@
 ﻿.primary-filter-form {
-    text-align: center; 
-    color: white; 
-    align-self: center; 
-    font-size: 24px; 
+    text-align: center;
+    color: white;
+    align-self: center;
+    font-size: 24px;
     font-weight: 600;
+    font-family: 'Source Sans Pro';
+
+    label, select {
+        margin-right: 10px;      
+    }
+
+    button {
+        bottom: 2px;
+    }
+
+    .primary-filter-select {
+        appearance: none;
+        padding-left: 10px;
+        padding-right: 10px;
+        &:focus {
+            outline: none;
+        }
+        option {
+            color: black;
+            font-size: 16px;
+            font-family: 'Noto Sans';
+            &:focus {
+                outline: none;
+            } 
+        }
+
+    }
 }
 
 .primary-filter-container {
-    background-color: rgba(5, 92, 88, 0.68); 
-    position: absolute; 
-    bottom: 0; 
-    width: 100%;  
-    display: flex; 
-    justify-content: center
+    background-color: rgba(5, 92, 88, 0.68);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .primary-filter-container-start-page {
-    height: 34%
+    height: 34%;
 }
 
 .primary-filter-container-results-page {
@@ -24,8 +51,21 @@
 }
 
 .primary-filter-outer-container-results-page {
-    display: flex; 
-    flex-direction: row; 
-    position: relative; 
+    display: flex;
+    flex-direction: row;
+    position: relative;
     height: 143px;
+}
+
+.primary-filter-select {
+    height: 52px;
+    border-radius: 4px;
+    font-size: 24px;
+    color: #055c58;
+    font-weight: 600;
+    font-family: 'Source Sans Pro';
+}
+
+.primary-filter-button-text {
+    font-size: 18px;
 }

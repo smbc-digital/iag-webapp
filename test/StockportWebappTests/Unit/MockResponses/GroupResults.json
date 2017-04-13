@@ -11,7 +11,7 @@
       "address": "Northumberland Rd, Stockport SK5 8LS",
       "description": "A group for like-minded book-readers to read books like-mindedly as a group.",
       "imageUrl": "image-url.jpg",
-      "thumbnailImageUrl": "image-url.jpg",
+      "thumbnailImageUrl": "image-url.jpg",   
       "categoriesReference": [
         {
           "name": "Culture",
