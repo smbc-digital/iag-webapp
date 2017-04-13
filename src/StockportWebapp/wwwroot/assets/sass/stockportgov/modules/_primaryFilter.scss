@@ -15,9 +15,10 @@
     }
 
     .primary-filter-select {
-        appearance: none;
+        transition-duration: .3s;
         padding-left: 10px;
         padding-right: 10px;
+        
         &:focus {
             outline: none;
         }
@@ -68,4 +69,8 @@
 
 .primary-filter-button-text {
     font-size: 18px;
+}
+
+.hidden-select {
+    display: none;
 }
