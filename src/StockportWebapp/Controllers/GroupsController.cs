@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -38,13 +39,14 @@ namespace StockportWebapp.Controllers
         {
             if (_featuretoggles.GroupStartPage)
             {
-                GroupStartPage model = new GroupStartPage();
+                GroupStartPage model = new GroupStartPage {PrimaryFilter = new PrimaryFilter()};
                 var response = await _repository.Get<List<GroupCategory>>();
                 var listOfGroupCategories = response.Content as List<GroupCategory>;
 
                 if (listOfGroupCategories != null)
                 {
                     model.Categories = listOfGroupCategories;
+                    model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
                 }
 
                 return View(model);
@@ -69,22 +71,42 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page,[FromQuery] double lat,[FromQuery] double lon, [FromQuery] string order)
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page,[FromQuery] double lat,[FromQuery] double lon, [FromQuery] string order = "")
         {
             if (_featuretoggles.GroupResultsPage)
             {
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
-                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category));
+                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
                 if (lat != 0) queries.Add(new Query("Lat", lat.ToString()));
                 if (lon != 0) queries.Add(new Query("Lon", lon.ToString()));
                 if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
+
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
                 if (response.IsNotFound())
                     return NotFound();
 
                 model = response.Content as GroupResults;
+
+                if (model.PrimaryFilter == null)
+                {
+                    model.PrimaryFilter = new PrimaryFilter();
+                }
+             
+
+                switch (order.ToLower())
+                {
+                    case "name a-z":
+                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
+                        break;
+                    case "name z-a":
+                        model.Groups = model.Groups.OrderByDescending(g => g.Name).ToList();
+                        break;
+                    default:
+                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
+                        break;
+                }
 
                 model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
                 _filteredUrl.SetQueryUrl(model.CurrentUrl);
@@ -93,7 +115,11 @@ namespace StockportWebapp.Controllers
                 DoPagination(model, page);
 
                 if (model.Categories != null && model.Categories.Any())
+                {
                     ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
+                    model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
+                }
+                    
 
                 return View(model);
             }

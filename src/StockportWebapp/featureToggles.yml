@@ -5,6 +5,7 @@ prod: &prod
   GroupStartPage: true
   GroupResultsPage: true
   GroupBreadCrumb: true
+  GroupPrimaryFilter: false
   
 stage: &stage
   << : *prod
@@ -17,9 +18,11 @@ int:
   << : *prod
   << : *stage
   << : *qa
+  GroupPrimaryFilter: true
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
+  GroupPrimaryFilter: true

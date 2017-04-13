@@ -7,10 +7,11 @@ namespace StockportWebapp.ViewModels
     public class GroupResults
     {
         public List<Group> Groups = new List<Group>();
-        public List<GroupCategory> Categories = new List<GroupCategory>();
         public Pagination Pagination { get; set; }
         public QueryUrl CurrentUrl { get; private set; }
         public IFilteredUrl FilteredUrl { get; private set; }
+        public List<GroupCategory> Categories = new List<GroupCategory>();
+        public PrimaryFilter PrimaryFilter { set; get; }
 
         public GroupResults() { }
 
