@@ -148,6 +148,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, ReadFile("Group")));
             Client.For("http://content:5001/api/stockportgov/groupResults/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
+            Client.For("http://content:5001/api/stockportgov/groupResults/?Lat=53.40581278523235&Lon=-2.158041000366211")
+                .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
             Client.For("http://content:5001/api/stockportgov/groupCategory/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));        
         }
