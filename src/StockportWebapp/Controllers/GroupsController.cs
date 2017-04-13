@@ -78,8 +78,13 @@ namespace StockportWebapp.Controllers
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
+
                 if (lat != 0) queries.Add(new Query("Lat", lat.ToString()));
+                    else queries.Add(new Query("Lat", "53.40581278523235"));
+
                 if (lon != 0) queries.Add(new Query("Lon", lon.ToString()));
+                    else queries.Add(new Query("Lon", "-2.158041000366211"));
+
                 if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
 
                 var response = await _repository.Get<GroupResults>(queries: queries);
