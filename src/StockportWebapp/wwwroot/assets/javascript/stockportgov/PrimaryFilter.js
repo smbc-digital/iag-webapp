@@ -5,6 +5,8 @@
     $("#selectCategory").change(function () {
         $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
         $("#selectCategory").width($("#hiddenSelectCategory").width());
+
+        $("#selectCategory").css("content",'"."');
     });
 
     $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");

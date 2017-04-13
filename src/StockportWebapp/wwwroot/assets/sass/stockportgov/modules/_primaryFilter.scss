@@ -7,32 +7,60 @@
     font-family: 'Source Sans Pro';
 
     label, select {
-        margin-right: 10px;      
+        margin-right: 10px;
     }
 
-    button {
-        bottom: 2px;
-    }
-
-    .primary-filter-select {
-        transition-duration: .3s;
-        padding-left: 10px;
-        padding-right: 10px;
+    .select-wrapper {
         
-        &:focus {
-            outline: none;
-        }
-        option {
+        position: relative;
+
+        &:after {
+            display: inline-block;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            margin-top: -10px;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\f105";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 20px;
+            text-align: right;
+            padding-left: 10px;
+            height: 20px;
+            text-rendering: auto;
             color: black;
-            font-size: 16px;
-            font-family: 'Noto Sans';
+        }
+
+        .primary-filter-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            transition-duration: .3s;
+            padding-left: 10px;
+            padding-right: 30px;
+
             &:focus {
                 outline: none;
-            } 
-        }
+            }
 
+            option {
+                color: black;
+                font-size: 16px;
+                font-family: 'Noto Sans';
+
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
     }
 }
+
+button {
+    bottom: 2px;
+}
+
+
+
 
 .primary-filter-container {
     background-color: rgba(5, 92, 88, 0.68);
