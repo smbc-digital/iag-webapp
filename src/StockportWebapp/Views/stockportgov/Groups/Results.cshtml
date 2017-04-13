@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
 @model GroupResults
+@inject FeatureToggles FeatureToggles
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
     ViewData["og:title"] = "Groups";
@@ -29,9 +31,12 @@
         </div>
     </div>
     <div class="primary-filter-outer-container-results-page">
-        <div class="primary-filter-container primary-filter-container-results-page">
-            @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
-        </div>
+        @if (FeatureToggles.GroupPrimaryFilter)
+        {
+            <div class="primary-filter-container primary-filter-container-results-page">
+                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
+            </div>
+        }       
     </div>
     
     @if (Model.Groups.Any())
