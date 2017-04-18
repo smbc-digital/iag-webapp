@@ -77,7 +77,10 @@ namespace StockportWebapp.Controllers
             {
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
-                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
+                if (!string.IsNullOrEmpty(category))
+                queries.Add(new Query("Category", category == "all" ? "" : category));
+                queries.Add(new Query("Order", order));
+
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
                 if (response.IsNotFound())
@@ -88,21 +91,7 @@ namespace StockportWebapp.Controllers
                 if (model.PrimaryFilter == null)
                 {
                     model.PrimaryFilter = new PrimaryFilter();
-                }
-             
-
-                switch (order.ToLower())
-                {
-                    case "name a-z":
-                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
-                        break;
-                    case "name z-a":
-                        model.Groups = model.Groups.OrderByDescending(g => g.Name).ToList();
-                        break;
-                    default:
-                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
-                        break;
-                }
+                }            
 
                 model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
                 _filteredUrl.SetQueryUrl(model.CurrentUrl);

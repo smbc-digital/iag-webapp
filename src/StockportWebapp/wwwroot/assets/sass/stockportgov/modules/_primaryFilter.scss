@@ -10,49 +10,34 @@
         margin-right: 10px;
     }
 
-    .select-wrapper {
-        
-        position: relative;
-
-        &:after {
-            display: inline-block;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            margin-top: -10px;
-            -moz-osx-font-smoothing: grayscale;
-            content: "\f105";
-            font: normal normal normal 14px/1 FontAwesome;
-            font-size: 20px;
-            text-align: right;
-            padding-left: 10px;
-            height: 20px;
-            text-rendering: auto;
-            color: black;
+     @media #{$tablet} {
+            button {
+               margin-top: 15px;
+            }
         }
+}
 
-        .primary-filter-select {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            transition-duration: .3s;
-            padding-left: 10px;
-            padding-right: 30px;
+.primary-filter-select {
+    /*-webkit-appearance: none;
+            -moz-appearance: none;*/
+    transition-duration: .5s;
+    padding-left: 10px;
 
-            &:focus {
-                outline: none;
-            }
+    &:focus {
+        outline: none;
+    }
 
-            option {
-                color: black;
-                font-size: 16px;
-                font-family: 'Noto Sans';
+    option {
+        color: black;
+        font-size: 16px;
+        font-family: 'Noto Sans';
 
-                &:focus {
-                    outline: none;
-                }
-            }
+        &:focus {
+            outline: none;
         }
     }
+}
+
 }
 
 button {

@@ -3,25 +3,19 @@
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
     <label>Show me</label>
-    <span class="select-wrapper">
-        <select asp-for="Category" asp-items="@(new SelectList(Model.Categories,"Slug","Name"))" class="primary-filter-select" id="selectCategory">
-            <option selected value="all">All</option>
-        </select>
-    </span>
+    <select asp-for="Category" asp-items="@(new SelectList(Model.Categories,"Slug","Name"))" class="primary-filter-select" id="selectCategory">
+        <option selected value="all">All</option>
+    </select>
     
     <label>groups in</label>
-    <span class="select-wrapper">
-        <select name="location" class="primary-filter-select" id="selectLocation">
-            <option value="stockport">Stockport</option>
-        </select>
-    </span>
+    <select name="location" class="primary-filter-select" id="selectLocation">
+        <option value="stockport">Stockport</option>
+    </select>
     <label>sorted by</label>
-    <span class="select-wrapper">
-        <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select" id="selectOrder"></select>
-    </span>
-            <button style="min-width: 250px; font-size: 18px;" type="submit" class="button-default">Search local groups</button>
+    <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select" id="selectOrder"></select>
+    <button style="min-width: 250px; font-size: 18px;" type="submit" class="button-default">Search local groups</button>
 
-            <select id="hiddenSelectCategory" class="primary-filter-select hidden-select"></select>
-            <select id="hiddenSelectOrder" class="primary-filter-select hidden-select"></select>
-            <select id="hiddenSelectLocation" class="primary-filter-select hidden-select"></select>
+    <select id="hiddenSelectCategory" class="primary-filter-select hidden-select"></select>
+    <select id="hiddenSelectOrder" class="primary-filter-select hidden-select"></select>
+    <select id="hiddenSelectLocation" class="primary-filter-select hidden-select"></select>
 </form>
