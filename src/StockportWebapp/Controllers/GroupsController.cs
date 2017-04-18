@@ -77,9 +77,8 @@ namespace StockportWebapp.Controllers
             {
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
-                if (!string.IsNullOrEmpty(category))
-                queries.Add(new Query("Category", category == "all" ? "" : category));
-                queries.Add(new Query("Order", order));
+                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
+                if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));                          
 
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
@@ -91,8 +90,9 @@ namespace StockportWebapp.Controllers
                 if (model.PrimaryFilter == null)
                 {
                     model.PrimaryFilter = new PrimaryFilter();
-                }            
+                }
 
+                ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : char.ToUpper(category[0]) + category.Substring(1);
                 model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
                 _filteredUrl.SetQueryUrl(model.CurrentUrl);
                 model.AddFilteredUrl(_filteredUrl);

@@ -6,6 +6,10 @@
     font-weight: 600;
     font-family: 'Source Sans Pro';
 
+    @media #{$mobile} {
+           text-align: left;
+        }
+    
     label, select {
         margin-right: 10px;
     }
@@ -13,6 +17,12 @@
      @media #{$tablet} {
             button {
                margin-top: 15px;
+            }
+        }
+
+     @media #{$mobile} {
+            button {
+               margin-top: 10px;
             }
         }
 }
@@ -38,7 +48,6 @@
     }
 }
 
-}
 
 button {
     bottom: 2px;
