@@ -1,7 +1,6 @@
 var methods = {
     goToTopicListBlockPage: function (browser, title, link) {
         this.waitForElementVisible('@topicList', this.api.globals.timeOut);
-        browser.maximizeWindow();
         browser.useXpath()
             .assert.visible("//h4[@class='featured-topic-name' and text()='" + title + "']")
             .click("//a[contains(@href,'/topic/" + link + "')]");
@@ -25,7 +24,7 @@ var methods = {
     },
 
     checkForWebCastImage: function (browser) {
-        this.waitForElementVisible('.webcast', this.api.globals.timeOut);        
+        this.waitForElementVisible('.webcast', this.api.globals.timeOut);
     },
 
     assertNewsBannerIsVisible: function (browser) {
@@ -67,6 +66,11 @@ var methods = {
         this.waitForElementVisible('@atozList', this.api.globals.timeOut);
         browser.useXpath()
             .click("//a[contains(@href,'/atoz/" + letter + "')]");
+    },
+    closeCookieBanner: function(browser) {
+        this.waitForElementVisible('.cc_banner.cc_container.cc_container--open', this.api.globals.timeOut);
+        browser.pause(700);
+        browser.click(".cc_btn.cc_btn_accept_all");
     }
 };
 

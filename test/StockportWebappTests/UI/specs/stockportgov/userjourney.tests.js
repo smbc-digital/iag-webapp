@@ -6,14 +6,16 @@ module.exports = {
 
    'Find article for About the Hat Works': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
+       browser.maximizeWindow();
+       homepage.closeCookieBanner(browser);
        homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works", "uitest-hat-works");
-  
+
        var topicpage = browser.page.stockportgov.topicpage();
        topicpage.assertTitleIsVisible('UITEST: Hat Works');
        topicpage.assertSecondaryItemIsVisible(browser, "UITEST: Secondary Item");
-  
+
        topicpage.goToTopicListBlockPage(browser, "UITEST: About the Hat Works", "uitest-about-the-hat-works");
-  
+
        topicpage.assertTitleIsVisible("UITEST: About the Hat Works");
 
        var articlepage = browser.page.stockportgov.articlepage();
@@ -25,42 +27,42 @@ module.exports = {
 
        articlepage.goToNextSection(browser);
        articlepage.goToStartPage(browser, 'uitest-council-tax-reduction-form');
-  
+
        var startpage = browser.page.stockportgov.startpage();
        startpage.assertStartButtonIsVisible();
-  
+
        var breadcrumb = browser.page.stockportgov.breadcrumb();
        breadcrumb.goToHome(browser);
-  
+
        homepage.searchForBins(browser);
    },
-  
+
    'Find an article from the top tasks, which has a video, a table, and a profile and viewing the profile': function(browser) {
        var homepage = browser.page.stockportgov.homepage();
        homepage.navigate();
        homepage.goToTopTasksBlockPage(browser, "UITEST: Article with profile, video and table", "uitest-testarticle");
-  
+
        var articlepage = browser.page.stockportgov.articlepage();
        articlepage.assertTitleIsVisible("UITEST: Article with profile, video and table");
        articlepage.assertButoVideoIsVisible();
        articlepage.assertTableIsVisible();
        articlepage.assertProfileIsVisible("Graduate Development Officer");
        articlepage.goToProfile(browser, "uitest-kirsten");
-  
+
        var profilepage = browser.page.stockportgov.profilepage();
        profilepage.assertTitleIsVisible("UITEST: Kirsten");
    },
-  
+
    'Find an article which has a document': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        homepage.navigate();
        homepage.goToTopTasksBlockPage(browser, "UITEST: Article with profile, video and table", "uitest-testarticle");
-  
+
        var articlepage = browser.page.stockportgov.articlepage();
        articlepage.goToNextSection(browser);
        articlepage.assertDocumentIsVisible();
    },
-  
+
    'Find all homepage elements': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        homepage.navigate();
@@ -71,24 +73,24 @@ module.exports = {
        homepage.assertAtoZListIsVisible(browser);
        homepage.searchForPostCode(browser);
    },
-  
+
    'Search for news story and Find All NewsPage Elements': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        homepage.navigate();
        homepage.goToNewsroom(browser);
-  
+
        var newsroom = browser.page.stockportgov.newsroom();
        newsroom.assertTitleIsVisible("News");
        newsroom.goToNewsWithTitle(browser, "UITEST: Steel frame starts to go up at Redrock", "/news/uitest-steel-frame-starts-to-go-up-at-redrock");
-  
+
        var news = browser.page.stockportgov.news();
        news.assertTitleIsVisible("UITEST: Steel frame starts to go up at Redrock");
-  
+
        news.assertNewsSideBarVisible(browser,"Latest News");
        news.assertTimestampPresent(browser);
        news.assertNewsSharePresent(browser);
        news.assertNewsTagIsVisible("UITEST");
-  
+
        news.assertDocumentIsVisible();
    },
 
@@ -112,7 +114,7 @@ module.exports = {
        newsroom.assertLinkHasCorrectUrl(browser, allCategories, '/news');
    },
 
-   'Search for Event story and Find All EventsPage Elements': function (browser) {     
+   'Search for Event story and Find All EventsPage Elements': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
            homepage.navigate();
            homepage.goToEventsCalendar(browser);
@@ -126,7 +128,7 @@ module.exports = {
 
        events.assertHeadingStampPresent();
    },
-  
+
    'Navigate through AtoZ list to check Article listed under Both Title starting letter, & synonym letter': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        homepage.navigate();
@@ -163,10 +165,22 @@ module.exports = {
             "This is a lot of text. Too much for this box. This is a lot of text. This is the end of the test.");
     },
 
+  'Navigate to showcase/spotlight page and validate details  ': function (browser) {
+    var spotlightpage = browser.page.stockportgov.spotlightpage();
+        spotlightpage.navigate();
+        spotlightpage.assertBreadcrumbIsVisible();
+        spotlightpage.assertHeroImageIsVisible();
+        spotlightpage.assertTitleIsVisible("UITEST: showcase page");
+        spotlightpage.assertTeaserIsVisible(browser,"this is a spotlight page for ui-test");
+        spotlightpage.assertSubheadingIsVisible(browser,"spotlight subheading");
+        spotlightpage.assertFeaturedTopicsAreVisible();
+
+
+},
     after: function (browser, done) {
         setTimeout(function () {
-            done();
-            browser.end();
+        done();
+        browser.end();
         }, 200);
     }
 };
