@@ -1,0 +1,18 @@
+﻿@using StockportWebapp.ViewModels
+@model PrimaryFilter
+<form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form mobile-grid-100">
+    <div class="mobile-grid-100"><label>Choose a category</label></div>
+    <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectCategory">
+        <option selected value="all">All</option>
+    </select>
+    <div class="mobile-grid-100"><label>Enter a location</label></div>
+    <select name="location" class="primary-filter-select custom-arrow mobile-grid-100" id="selectLocation">
+        <option value="stockport">Stockport</option>
+    </select> 
+    <i class="fa fa-crosshairs"></i> 
+    <span>Use my current location</span>
+    <button id="filterButton" type="submit" class="button-default" >Search groups</button>   
+    
+    <input id="sortBy" style="display: none" name="Order"/>
+     
+</form>
