@@ -87,11 +87,6 @@ namespace StockportWebapp.Controllers
 
                 model = response.Content as GroupResults;
 
-                if (model.PrimaryFilter == null)
-                {
-                    model.PrimaryFilter = new PrimaryFilter();
-                }
-
                 ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : char.ToUpper(category[0]) + category.Substring(1);
                 model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
                 _filteredUrl.SetQueryUrl(model.CurrentUrl);
@@ -104,7 +99,8 @@ namespace StockportWebapp.Controllers
                     ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
                     model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
                 }
-                    
+
+                model.PrimaryFilter.Order = order;    
 
                 return View(model);
             }

@@ -13,3 +13,25 @@ $(document).ready(
         if ($(".featured-category-items-wrapper").length) { matchboxFeaturedItemsShowcase.init(); }
     }()
 );
+
+$(document).ready(
+    function() {
+        $("#edit-search").hide();
+        $(".result-arrow").addClass("result-search-down-arrow");
+
+        $("#open-edit-search").click(function () {
+            $("#edit-search").show();
+            $(".result-arrow").toggleClass("result-search-down-arrow");
+            $(".result-arrow").toggleClass("result-search-up-arrow");
+
+            $(".result-search-down-arrow").parent().click(function() {
+                $("#edit-search").show();
+            });
+            $(".result-search-up-arrow").parent().click(function () {
+                $("#edit-search").hide();
+            });
+        });
+    }
+);
+
+

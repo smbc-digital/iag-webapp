@@ -2,20 +2,28 @@
 @model PrimaryFilter
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
-    <label>Show me</label>
-    <select asp-for="Category" asp-items="@(new SelectList(Model.Categories,"Slug","Name"))" class="primary-filter-select" id="selectCategory">
-        <option selected value="all">All</option>
-    </select>
-    
-    <label>groups in</label>
-    <select name="location" class="primary-filter-select" id="selectLocation">
-        <option value="stockport">Stockport</option>
-    </select>
-    <label>sorted by</label>
-    <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select" id="selectOrder"></select>
-    <button style="min-width: 250px; font-size: 18px;" type="submit" class="button-default">Search local groups</button>
-
-    <select id="hiddenSelectCategory" class="primary-filter-select hidden-select"></select>
-    <select id="hiddenSelectOrder" class="primary-filter-select hidden-select"></select>
-    <select id="hiddenSelectLocation" class="primary-filter-select hidden-select"></select>
+    <div class="grid-100">
+            <div class="primary-filter-form-section">
+                <label>Show me</label>
+                    <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow" id="selectCategory">
+                        <option selected value="all">All</option>
+                    </select>
+            </div>
+            <div class="primary-filter-form-section">
+                <label>groups in</label>
+                <select name="location" class="primary-filter-select custom-arrow" id="selectLocation">
+                    <option value="stockport">Stockport</option>
+                </select>
+            </div>
+            <div class="primary-filter-form-section">
+                <label>sorted by</label>
+                <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select custom-arrow" id="selectOrder"></select>
+            </div>
+            <div class="primary-filter-form-section-button">
+                <button type="submit" class="button-default">Search local groups</button>
+            </div>
+    </div>
+        <select id="hiddenSelectCategory" class="primary-filter-select hidden-select"></select>
+        <select id="hiddenSelectOrder" class="primary-filter-select hidden-select"></select>
+        <select id="hiddenSelectLocation" class="primary-filter-select hidden-select"></select>
 </form>

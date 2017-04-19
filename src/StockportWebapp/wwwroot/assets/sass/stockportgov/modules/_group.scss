@@ -6,6 +6,10 @@
     }
 }
 
+#content-no-margin-bottom-mainpage {
+    margin-bottom: 0;
+}
+
 .group-grid-container-margins {
     margin-top: -20px;
     margin-bottom: -30px;
@@ -158,6 +162,22 @@
 
     @media #{$tablet} {
         height: 450px;
+    }
+}
+
+.group-startpage-mobile{
+    background-color: #055c58; 
+    margin-top: -20px; 
+    height: 365px;
+}
+
+.add-group-mobile {
+    div {
+        text-align: center;
+
+        label {
+            color: white
+        }
     }
 }
 
@@ -314,4 +334,8 @@
     .group-map-container {
         display: none;
     }
-    }
+}
+
+.hidden {
+    display: none;
+}
