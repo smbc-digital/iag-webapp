@@ -77,7 +77,6 @@ namespace StockportWebapp.Controllers
             {
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
-                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
 
                 if (lat != 0) queries.Add(new Query("Lat", lat.ToString()));
                     else queries.Add(new Query("Lat", "53.40581278523235"));
@@ -85,7 +84,8 @@ namespace StockportWebapp.Controllers
                 if (lon != 0) queries.Add(new Query("Lon", lon.ToString()));
                     else queries.Add(new Query("Lon", "-2.158041000366211"));
 
-                if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
+                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
+                if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));                          
 
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
@@ -94,25 +94,7 @@ namespace StockportWebapp.Controllers
 
                 model = response.Content as GroupResults;
 
-                if (model.PrimaryFilter == null)
-                {
-                    model.PrimaryFilter = new PrimaryFilter();
-                }
-             
-
-                switch (order.ToLower())
-                {
-                    case "name a-z":
-                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
-                        break;
-                    case "name z-a":
-                        model.Groups = model.Groups.OrderByDescending(g => g.Name).ToList();
-                        break;
-                    default:
-                        model.Groups = model.Groups.OrderBy(g => g.Name).ToList();
-                        break;
-                }
-
+                ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : char.ToUpper(category[0]) + category.Substring(1);
                 model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
                 _filteredUrl.SetQueryUrl(model.CurrentUrl);
                 model.AddFilteredUrl(_filteredUrl);
@@ -124,7 +106,8 @@ namespace StockportWebapp.Controllers
                     ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
                     model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
                 }
-                    
+
+                model.PrimaryFilter.Order = order;    
 
                 return View(model);
             }
