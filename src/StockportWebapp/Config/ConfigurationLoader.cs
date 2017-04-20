@@ -24,12 +24,18 @@ namespace StockportWebapp.Config
             var configuration = LoadAppSettings(envName, contentRootPath);
             var secretsLocation = configuration["secrets-location"];
             
-            return LoadConfigurationWithSecrets(envName, secretsLocation);
+            return LoadConfigurationWithSecrets(envName, secretsLocation, contentRootPath);
         }
 
-        private IConfigurationRoot LoadConfigurationWithSecrets(string envName, string secretsLocation)
+        private IConfigurationRoot LoadConfigurationWithSecrets(string envName, string secretsLocation, string contentRootPath)
         {
             var secretConfig = Path.Combine(secretsLocation, $"appsettings.{envName}.secrets.json");
+            var appConfig = Path.Combine(ConfigPath, "appsettings.json");
+            var envConfig = Path.Combine(ConfigPath, $"appsettings.{envName}.json");
+
+            ConfigBuilder.SetBasePath(contentRootPath);
+            ConfigBuilder.AddJsonFile(appConfig);
+            ConfigBuilder.AddJsonFile(envConfig);
             ConfigBuilder.AddJsonFile(secretConfig, true);
             ConfigBuilder.AddEnvironmentVariables();
 
