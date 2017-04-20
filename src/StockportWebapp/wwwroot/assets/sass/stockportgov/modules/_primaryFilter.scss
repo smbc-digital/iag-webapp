@@ -11,6 +11,7 @@
 
     @media #{$mobile} {
            text-align: left;
+           padding-left: 0;
         }
     .primary-filter-form-section {
         display: inline-block;

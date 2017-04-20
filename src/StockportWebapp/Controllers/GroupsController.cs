@@ -94,7 +94,7 @@ namespace StockportWebapp.Controllers
 
                 model = response.Content as GroupResults;
 
-                ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : char.ToUpper(category[0]) + category.Substring(1);
+                ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : (char.ToUpper(category[0]) + category.Substring(1)).Replace("-", " ");
                 model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
                 _filteredUrl.SetQueryUrl(model.CurrentUrl);
                 model.AddFilteredUrl(_filteredUrl);
