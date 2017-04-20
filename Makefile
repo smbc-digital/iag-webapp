@@ -15,12 +15,7 @@ APPLICATION_ROOT_PATH = ./src/StockportWebapp
 APPLICATION_PUBLISH_PATH = $(APPLICATION_ROOT_PATH)/publish/
 
 PROJECT_NAME = StockportWebapp
-CONTAINER_NAME = web
-IMAGE = smbc/webapp
-TAG = latest
 APP_VERSION ?= $(GO_PIPELINE_LABEL)
-AWS_DEFAULT_REGION ?= eu-west-1
-AWS_ACCOUNT ?= 390744977344
 
 .PHONY: build
 build: clean dotnet-restore dotnet-test version publish-app package-app
