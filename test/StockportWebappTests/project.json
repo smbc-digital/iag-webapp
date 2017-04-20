@@ -27,7 +27,7 @@
 
   "buildOptions": {
     "compile": {
-      "exclude": [ "UI" ]
+      "exclude": ["UI"]
     }
   }
 }
