@@ -57,7 +57,7 @@ namespace StockportWebapp
             var configBuilder = new ConfigurationBuilder();
             var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
             
-            Configuration = configLoader.LoadConfiguration(_appEnvironment, _contentRootPath);
+            Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
         }
