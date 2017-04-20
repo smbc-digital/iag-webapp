@@ -23,7 +23,7 @@ AWS_DEFAULT_REGION ?= eu-west-1
 AWS_ACCOUNT ?= 390744977344
 
 .PHONY: build
-build: clean dotnet-restore dotnet-test publish-app version package-app
+build: clean dotnet-restore dotnet-test version publish-app package-app
 
 .PHONY: clean
 clean: 
@@ -49,7 +49,7 @@ version:
 .PHONY: package-app
 package-app:
 	rm -f iag-webapp.zip
-	cd $(APPLICATION_PUBLISH_PATH); zip -r ../iag-webapp.zip ./*
+	cd $(APPLICATION_PUBLISH_PATH); zip -r ../../../iag-webapp.zip ./*
 
 # .PHONY: build
 # build:

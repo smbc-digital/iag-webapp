@@ -26,3 +26,7 @@ node_modules
 performanceTest/ab-reports/*
 src/StockportWebapp/app-config/injected/*.secrets.json
 src/StockportWebapp/app-config/appsettings.dev-local.json
+iag-webapp.zip
+src/StockportWebapp/bin/
+src/StockportWebapp/obj/
+src/StockportWebapp/publish/

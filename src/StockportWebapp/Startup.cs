@@ -51,21 +51,13 @@ namespace StockportWebapp
 
         public Startup(IHostingEnvironment env)
         {
-            var appConfig = Path.Combine(ConfigDir, "appsettings.json");
-            var envConfig = Path.Combine(ConfigDir, $"appsettings.{env.EnvironmentName}.json");
-            var secretConfig = Path.Combine(ConfigDir, "injected",
-                $"appsettings.{env.EnvironmentName}.secrets.json");
-
-            Configuration = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile(appConfig)
-                .AddJsonFile(envConfig)
-                .AddJsonFile(secretConfig, true)
-                .AddEnvironmentVariables()
-                .Build();
-
             _appEnvironment = env.EnvironmentName;
             _contentRootPath = env.ContentRootPath;
+
+            var configBuilder = new ConfigurationBuilder();
+            var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
+            
+            Configuration = configLoader.LoadConfiguration(_appEnvironment, _contentRootPath);
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
         }
