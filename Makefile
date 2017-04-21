@@ -15,7 +15,7 @@ APPLICATION_ROOT_PATH = ./src/StockportWebapp
 APPLICATION_PUBLISH_PATH = $(APPLICATION_ROOT_PATH)/publish/
 
 PROJECT_NAME = StockportWebapp
-APP_VERSION ?= $(GO_PIPELINE_LABEL)
+APP_VERSION ?= $(BUILD_NUMBER)
 
 .PHONY: build
 build: clean dotnet-restore dotnet-test version publish-app package-app
