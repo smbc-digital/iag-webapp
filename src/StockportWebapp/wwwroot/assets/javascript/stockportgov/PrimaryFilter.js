@@ -10,9 +10,9 @@
         $("#selectOrder").width($("#hiddenSelectOrder").width());
     });
 
-    $("#selectLocation").change(function () {
-        $("#hiddenSelectLocation").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
-        $("#selectLocation").width($("#hiddenSelectLocation").width());
+    $("#postcode").change(function () {
+        $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+        $("#postcode").width($("#hiddenSelectLocation").width());
     });
 
     $("#selectOrderMobile").change(function () {
@@ -27,6 +27,79 @@ $(window).resize(function () {
     $("#selectCategory").width($("#hiddenSelectCategory").width());
     $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
     $("#selectOrder").width($("#hiddenSelectOrder").width());
-    $("#hiddenSelectLocation").html("<option>" + $("#selectLocation").find(":selected").text() + "</option>");
-    $("#selectLocation").width($("#hiddenSelectLocation").width());
+    $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+    $("#postcode").width($("#hiddenSelectLocation").width());
 });
+
+$(document).ready(
+        function () {
+            $("#postcode").click(
+                function () {
+                    $("#getLocation").toggle();
+                }
+            );
+
+            $("#currentLocation").click(function () {               
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var geocoder = new google.maps.Geocoder();
+                    var latLng = new google.maps.LatLng(
+                        position.coords.latitude,
+                        position.coords.longitude);
+                    geocoder.geocode({
+                        'latLng': latLng
+                    },
+                        function (results, status) {
+                            if (status === google.maps.GeocoderStatus.OK) {
+                                var address = results[0].address_components;
+                                var lat = results[0].geometry.location.lat();
+                                var long = results[0].geometry.location.lng();
+
+                                $("#latitude").val(lat);
+                                $("#longitude").val(long);
+                                $("#location").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address, "postal_code"));
+                            } else {
+                                alert("Unable to get your current location for the following reason: " + status);
+                            }
+                        });
+                });
+                return false;
+            });
+
+            $("#btnLocation").click(function (event) {
+                event.preventDefault();
+                var address = $("#location").val();
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'address': address+ ", UK"}, function (results, status) {
+                    if (address !== "") {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            var address1 = results[0].address_components;                           
+                            $('#postcode').val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code"));
+                            $("#latitude").html(results[0].geometry.location.lat());
+                            $("#longitude").html(results[0].geometry.location.lng());
+                            UpdateLocationFieldSize();
+                            $("#getLocation").hide();
+                        } else {
+                            alert("Geocode was not successful for the following reason: " + status);
+                        }
+                    } else {
+                        $('#postcode').val("Stockport");
+                        $("#latitude").val("53.40581278523235")
+                        $("#longitude").val("-2.158041000366211");
+                        UpdateLocationFieldSize();
+                        $("#getLocation").hide();
+                    }
+                });
+            });
+        });
+
+function extractFromAdress(components, type) {
+    for (var i = 0; i < components.length; i++)
+        for (var j = 0; j < components[i].types.length; j++)
+            if (components[i].types[j] == type) return components[i].long_name;
+    return "";
+}
+
+function UpdateLocationFieldSize() {
+    $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+    $("#postcode").width($("#hiddenSelectLocation").width());
+};

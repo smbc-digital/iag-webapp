@@ -49,6 +49,7 @@ namespace StockportWebapp.Controllers
                     model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
                 }
 
+                model.PrimaryFilter.Location = "Stockport";
                 return View(model);
             }
 
@@ -71,7 +72,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page,[FromQuery] double lat,[FromQuery] double lon, [FromQuery] string order = "")
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page,[FromQuery] double lat,[FromQuery] double lon, [FromQuery] string order = "", [FromQuery] string location="Stockport")
         {
             if (_featuretoggles.GroupResultsPage)
             {
@@ -107,8 +108,8 @@ namespace StockportWebapp.Controllers
                     model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
                 }
 
-                model.PrimaryFilter.Order = order;    
-
+                model.PrimaryFilter.Order = order;
+                model.PrimaryFilter.Location = location;
                 return View(model);
             }
 

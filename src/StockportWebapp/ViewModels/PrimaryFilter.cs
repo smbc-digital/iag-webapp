@@ -9,5 +9,6 @@ namespace StockportWebapp.ViewModels
         public List<GroupCategory> Categories { set; get; } 
         public string Order { get; set; }
         public List<string> Orders = new List<string> {"Name A-Z", "Name Z-A", "Nearest"};
+        public string Location { get; set; }
     }
 }
