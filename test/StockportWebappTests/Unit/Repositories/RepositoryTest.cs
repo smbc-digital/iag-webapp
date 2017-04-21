@@ -23,7 +23,7 @@ namespace StockportWebappTests.Unit.Repositories
         public RepositoryTest()
         {
             var appConfig = new Mock<IApplicationConfiguration>();
-            appConfig.Setup(o => o.GetContentApiUri()).Returns(new Uri("http://content:5000/"));
+            appConfig.Setup(o => o.GetContentApiUri()).Returns(new Uri("http://localhost:5000/"));
 
             _urlGenerator = new UrlGenerator(appConfig.Object, new BusinessId(""));
             _repository = new Repository(_urlGenerator, _httpClientMock.Object);

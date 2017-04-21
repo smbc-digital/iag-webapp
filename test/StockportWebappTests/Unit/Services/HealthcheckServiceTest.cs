@@ -23,7 +23,7 @@ namespace StockportWebappTests.Unit.Services
         private readonly Mock<IFileWrapper> _fileWrapperMock;
         private readonly FakeResponseHandler _fakeHandler;
         private readonly Mock<IStubToUrlConverter> _mockUrlGenerator;
-        private const string healthcheckUrl = "http://content:5000/_healthcheck";
+        private const string healthcheckUrl = "http://localhost:5000/_healthcheck";
 
         public HealthcheckServiceTest()
         {
