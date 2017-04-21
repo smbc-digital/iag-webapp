@@ -33,9 +33,9 @@ $(window).resize(function () {
 
 $(document).ready(
         function () {
-            $("#postcode").click(
+            $("#postcode, #postcodeMobile").click(
                 function () {
-                    $("#getLocation").toggle();
+                    $("#getLocation, #getLocationMobile").toggle();
                 }
             );
 

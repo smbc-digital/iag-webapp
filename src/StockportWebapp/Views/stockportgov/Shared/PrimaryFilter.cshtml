@@ -15,11 +15,11 @@
         </div>
         <div class="primary-filter-form-section" style="position: relative">
             <label>groups in</label>
-            <input asp-for="Location" type="text" readonly="readonly" id="postcode" style="cursor:default" class="primary-filter-select custom-arrow" />
+            <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow" />
             <div id="getLocation">
                 <span>Enter postcode or place name</span>
-                <input type="text" name="Location" id="location" style="width: 100%"/>
-                <a id="currentLocation" href="#"><i class="fa fa-crosshairs"></i> Use my current location</a>
+                <input type="text" name="Location" id="location"/>
+                <a id="currentLocation" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
                 <button class="button-default" id="btnLocation">Use this location</button>
             </div>
         </div>
