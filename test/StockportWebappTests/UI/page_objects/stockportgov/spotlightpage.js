@@ -6,6 +6,7 @@ var methods = {
 
   assertHeroImageIsVisible: function() {
     this.waitForElementVisible('@heroImage', this.api.globals.timeOut)
+    .expect.element('@heroImage').to.have.css('background-image');
 
   },
 

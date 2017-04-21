@@ -6,19 +6,19 @@ prod: &prod
   GroupResultsPage: true
   GroupBreadCrumb: true
   GroupPrimaryFilter: false
-  
+
 stage: &stage
   << : *prod
 
 qa: &qa
   << : *prod
   << : *stage
+  GroupPrimaryFilter: true
 
 int:
   << : *prod
   << : *stage
   << : *qa
-  GroupPrimaryFilter: true
 
 local:
   << : *prod
