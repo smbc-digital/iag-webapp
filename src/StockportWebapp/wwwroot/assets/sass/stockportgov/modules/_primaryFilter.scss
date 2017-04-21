@@ -16,7 +16,7 @@
 
     .primary-filter-form-section {
         display: inline-block;
-        margin-bottom: 10px;
+        margin-bottom: 10px !important;
     }
 
     .primary-filter-form-section-button {
@@ -60,13 +60,6 @@
         border-bottom: 1px solid white;
     }
 
-
-    @media #{$tablet,$desktop} {
-        button {
-            margin-top: 15px;
-        }
-    }
-
     @media #{$mobile} {
         button {
             margin-top: 10px;
@@ -100,7 +93,6 @@ button {
 
 .primary-filter-container {
     background-color: rgba(5, 92, 88, 0.68);
-    position: absolute;
     bottom: 0;
     width: 100%;
     display: flex;
@@ -109,17 +101,13 @@ button {
 
 .primary-filter-container-start-page {
     min-height: 34%;
-}
-
-.primary-filter-container-results-page {
-    height: 100%;
+    position: absolute;
 }
 
 .primary-filter-outer-container-results-page {
     display: flex;
     flex-direction: row;
-    position: relative;
-    height: 143px;
+    min-height: 143px;
 }
 
 .primary-filter-select {
