@@ -35,12 +35,12 @@ namespace StockportWebappTests.Unit.Middleware
         }
 
         [Fact]
-        public void ShouldNotSetBusinessIdIfBusinessIdIsNoInHeader()
+        public void ShouldSetToDefaultBusinessIdIfBusinessIdIsNoInHeader()
         {
             var context = new DefaultHttpContext();
             _businessIdMiddleware.Invoke(context, _businessId);
 
-            _businessId.ToString().Should().Be("NOT SET");
+            _businessId.ToString().Should().Be("stockportgov");
         }
 
         [Fact]

@@ -28,6 +28,7 @@ namespace StockportWebapp.Middleware
             }
             else
             {
+                businessId.SetId("stockportgov");
                 _logger.LogError("BUSINESS-ID has not been set");
             }
 
