@@ -15,11 +15,11 @@
         }
     .primary-filter-form-section {
         display: inline-block;
+        margin-bottom: 10px;
     }
 
     .primary-filter-form-section-button {
         display: inline-block;
-        
     }
 
     label, select, input {
@@ -29,12 +29,15 @@
     button {
         font-size: 18px;
 
-        @media #{$mobile}{
+        @media #{$mobile}
+        {
             min-width: 100%;
-                       }
-        @media #{$desktop,$tablet}{
+        }
+
+        @media #{$desktop,$tablet}
+        {
             min-width: 250px; 
-            }
+        }
     }
 
     div {
@@ -53,7 +56,7 @@
 
      @media #{$tablet,$desktop} {
             button {
-               margin-top: 15px;
+               margin-top: 5px;
             }
         }
 
@@ -98,7 +101,7 @@ button {
 }
 
 .primary-filter-container-start-page {
-    height: 34%;
+    min-height: 34%;
 }
 
 .primary-filter-container-results-page {
