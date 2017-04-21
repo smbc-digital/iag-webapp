@@ -39,7 +39,7 @@
         }       
     </div>
     <div class="hide-on-desktop hide-on-tablet mobile-grid-100 group-search-mobile">
-        <div class="mobile-grid-100 group-result-label-container"><label>Showing <strong>@ViewBag.SelectedCategory</strong> groups near <strong>SK1 1AB</strong></label></div>
+        <div class="mobile-grid-100 group-result-label-container"><label>Showing <strong>@ViewBag.SelectedCategory</strong> groups near <strong>@Model.PrimaryFilter.Location</strong></label></div>
         <div id="edit-search">
             @if (FeatureToggles.GroupPrimaryFilter)
             {

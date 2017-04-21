@@ -2,6 +2,8 @@
 @model PrimaryFilter
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form primary-filter-form-mobile mobile-grid-100">
+    <input type="hidden" id="latitudeMobile" name="latitude" value="53.40581278523235" />
+    <input type="hidden" id="longitudeMobile" name="longitude" value="-2.158041000366211" />
     <div class="mobile-grid-100"><label>Choose a category</label></div>
     <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectCategory">
         <option selected value="all">All</option>
@@ -10,11 +12,11 @@
     <input asp-for="Location" type="text" readonly="readonly" id="postcodeMobile" class="primary-filter-select custom-arrow mobile-grid-100" />
     <div id="getLocationMobile"  style="left: 5px">
         <span>Enter postcode or place name</span>
-        <input type="text" name="Location" id="location" />
-        <a id="currentLocation" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
-        <button class="button-default" id="btnLocation">Use this location</button>
+        <input type="text" name="Location" id="locationMobile" />
+        <a id="currentLocationMobile" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
+        <button class="button-default" id="btnLocationMobile">Use this location</button>
     </div>
-    <button id="filterButton" type="submit" class="button-default" >Search groups</button>   
+    <button id="filterButtonMobile" type="submit" class="button-default" >Search groups</button>   
     
     <input id="sortBy" style="display: none" name="Order"/>
      
