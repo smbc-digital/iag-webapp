@@ -295,7 +295,8 @@ input.custom-arrow::-ms-expand {
     display: none;
 }
 
-primary-filter-form-mobile {
+.primary-filter-form-mobile {
+    padding-top: 0;
     a {
         icon {
             color: white;
@@ -307,3 +308,8 @@ primary-filter-form-mobile {
     
 }
 
+.hide-on-desktop {
+    .group-result-label-container {
+        padding-bottom: 0;
+    }
+}
