@@ -72,17 +72,17 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page,[FromQuery] double lat,[FromQuery] double lon, [FromQuery] string order = "", [FromQuery] string location="Stockport")
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page,[FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location="Stockport")
         {
             if (_featuretoggles.GroupResultsPage)
             {
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
 
-                if (lat != 0) queries.Add(new Query("Lat", lat.ToString()));
+                if (latitude != 0) queries.Add(new Query("Lat", latitude.ToString()));
                     else queries.Add(new Query("Lat", "53.40581278523235"));
 
-                if (lon != 0) queries.Add(new Query("Lon", lon.ToString()));
+                if (longitude != 0) queries.Add(new Query("Lon", longitude.ToString()));
                     else queries.Add(new Query("Lon", "-2.158041000366211"));
 
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              

@@ -50,12 +50,11 @@ $(document).ready(
                 },
                 function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var address = results[0].address_components;
                         var lat = results[0].geometry.location.lat();
                         var long = results[0].geometry.location.lng();
                         $("#latitude, #latitudeMobile").val(lat);
                         $("#longitude, #longitudeMobile").val(long);
-                        $("#location, #locationMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(results[0].address_components, "postal_code"));
+                        $("#location, #locationMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(results[0].address_components, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
                     }
                     else {
                         alert("Unable to get your current location for the following reason: " + status);
@@ -73,9 +72,9 @@ $(document).ready(
                 if (address !== "") {
                     if (status === google.maps.GeocoderStatus.OK) {
                         var address1 = results[0].address_components;
-                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code"));
-                        $("#latitude, #latitudeMobile").html(results[0].geometry.location.lat());
-                        $("#longitude, #longitudeMobile").html(results[0].geometry.location.lng());
+                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
+                        $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
                         UpdateLocationFieldSize();
                         $("#getLocation, #getLocationMobile").hide();
                     } else {
@@ -99,9 +98,9 @@ $(document).ready(
                 if (address !== "") {
                     if (status === google.maps.GeocoderStatus.OK) {
                         var address1 = results[0].address_components;
-                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code"));
-                        $("#latitude, #latitudeMobile").html(results[0].geometry.location.lat());
-                        $("#longitude, #longitudeMobile").html(results[0].geometry.location.lng());
+                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
+                        $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
                         UpdateLocationFieldSize();
                         $("#getLocation, #getLocationMobile").hide();
                     } else {
