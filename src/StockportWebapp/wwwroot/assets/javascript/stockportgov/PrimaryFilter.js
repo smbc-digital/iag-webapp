@@ -18,7 +18,7 @@
     $("#selectOrderMobile").change(function () {
         var orderby = $("#selectOrderMobile").find(":selected").text();
         $("#sortBy").val(orderby);
-        $("#filterButton").click();
+        $("#filterButtonMobile").click();
     });
 });
 
