@@ -17,11 +17,11 @@ module.exports = function(config) {
      // list of files / patterns to load in the browser
     files: [ 
       'jquery-2.2.2.min.js',
-	  './node_modules/jasmine-jquery/lib/jasmine-jquery.js',    
+	  './node_modules/jasmine-jquery/jasmine-jquery.js',    
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/vendor/*.js', included: true},
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/stockportgov/*.js', included: true},
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/healthystockport/*.js', included: true},
-      {pattern: 'C:/SMBC/iag/iag-webapp/test/StockportWebappTests/JSTests/*.js', included: true}, 
+      {pattern: 'C:/Code/iag-webapp/test/StockportWebappTests/JSTests/*.js', included: true}, 
     ],
 
 
