@@ -23,7 +23,7 @@
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
-    <div class="l-background-fixed background-image" @RenderSection("BackgroundImage", false)>
+    <div class="l-background-fixed background-image hide-on-mobile hide-on-tablet" @RenderSection("BackgroundImage", false)>
         <div class="l-dark-overlay hide-on-desktop"></div>
     </div>
     <div class="grid-container">
