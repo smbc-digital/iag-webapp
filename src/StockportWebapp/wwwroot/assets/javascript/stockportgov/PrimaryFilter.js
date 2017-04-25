@@ -57,7 +57,7 @@ $(document).ready(
                         $("#location, #locationMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(results[0].address_components, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
                     }
                     else {
-                        alert("Unable to get your current location for the following reason: " + status);
+                        alert("We couldn't find your location.");
                     }
                 });
             });
@@ -78,7 +78,7 @@ $(document).ready(
                         UpdateLocationFieldSize();
                         $("#getLocation, #getLocationMobile").hide();
                     } else {
-                        alert("Geocode was not successful for the following reason: " + status);
+                        alert("We couldn't find that location.");
                     }
                 } else {
                     $("#postcode, #postcodeMobile").val("Stockport");
@@ -104,7 +104,7 @@ $(document).ready(
                         UpdateLocationFieldSize();
                         $("#getLocation, #getLocationMobile").hide();
                     } else {
-                        alert("Geocode was not successful for the following reason: " + status);
+                        alert("We couldn't find that location.");
                     }
                 } else {
                     $("#postcode, #postcodeMobile").val("Stockport");
