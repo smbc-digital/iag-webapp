@@ -57,9 +57,11 @@ $(document).ready(
                         $("#location, #locationMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(results[0].address_components, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
                     }
                     else {
-                        alert("We couldn't find your location.");
+                        alert("We couldn't find your current location.");
                     }
                 });
+            }, function() {
+                alert("An error has occurred -- please check your device's location settings.");
             });
             return false;
         });
