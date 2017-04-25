@@ -8,5 +8,6 @@ namespace StockportWebapp.FeatureToggling
         public bool GroupResultsPage { get; set; } = false;
         public bool GroupBreadCrumb { get; set; } = false;
         public bool GroupPrimaryFilter { get; set; } = false;
+        public bool HSFooter { get; set; } = false;
     }
 }

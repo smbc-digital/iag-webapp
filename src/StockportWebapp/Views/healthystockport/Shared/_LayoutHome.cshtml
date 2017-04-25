@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using StockportWebapp.Config
+@using StockportWebapp.FeatureToggling
+@inject IApplicationConfiguration ApplicationConfiguration
+@inject BusinessId BusinessId
+@inject FeatureToggles FeatureToggles
+<!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
     <meta charset="utf-8" />
@@ -31,7 +36,16 @@
             @RenderBody()
         </div>
     </div>
-    @Html.Partial("Footer")
+    @if (FeatureToggles.HSFooter)
+    {
+        <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+            @await Component.InvokeAsync("Footer")
+        </distributed-cache>
+    }
+    else
+    {
+        @Html.Partial("Footer")
+    }
     <!--[if lte IE 9]>
         <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
         <![endif]-->
