@@ -9,11 +9,11 @@ prod: &prod
 
 stage: &stage
   << : *prod
+  GroupPrimaryFilter: true
 
 qa: &qa
   << : *prod
   << : *stage
-  GroupPrimaryFilter: true
 
 int:
   << : *prod
@@ -25,4 +25,3 @@ local:
   << : *stage
   << : *qa
   << : *int
-  GroupPrimaryFilter: true
