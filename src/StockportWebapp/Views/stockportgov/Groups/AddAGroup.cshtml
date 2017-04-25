@@ -2,8 +2,8 @@
 @using StockportWebapp.Models
 @model GroupSubmission
 @{
-    ViewData["Title"] = "Add a group";
-    ViewData["og:title"] = "Add a group";
+    ViewData["Title"] = "Add your group";
+    ViewData["og:title"] = "Add your group";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     Layout = "../Shared/_Layout.cshtml";
@@ -19,7 +19,7 @@
             <section aria-label="" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
-                        <h1>Add a group</h1>
+                        <h1>Add your group</h1>
 
                         @if (ViewBag.SubmissionError != null)
                         {
@@ -99,7 +99,7 @@
                                         <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <stock-button id="uitest-contact-form-submit"
-                                                      class="button-contact-us">Add a group</stock-button>
+                                                      class="button-contact-us">Add your group</stock-button>
                                     </fieldset>
                                 </div>
                             </div>
