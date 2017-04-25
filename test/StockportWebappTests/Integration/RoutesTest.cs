@@ -534,6 +534,16 @@ namespace StockportWebappTests.Integration
         }
 
         [Fact]
+        public void ItReturnsAGroupResultsPage()
+        {
+            SetBusinessIdRequestHeader("stockportgov");
+
+            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/results"));
+
+            result.Should().Contain("Brinnington");
+        }
+
+        [Fact]
         public void ItReturnsAGroupStartPage()
         {
             SetBusinessIdRequestHeader("stockportgov");
