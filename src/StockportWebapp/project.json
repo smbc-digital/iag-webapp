@@ -75,7 +75,8 @@
       "web.config",
       "NLog.config",
       "version.txt",
-      "sha.txt"
+      "sha.txt",
+      "featureToggles.yml"
     ]
   },
 
