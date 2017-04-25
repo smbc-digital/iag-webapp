@@ -72,7 +72,8 @@
       "wwwroot",
       "Views",
       "app-config",
-      "web.config"
+      "web.config",
+      "NLog.config"
     ]
   },
 
