@@ -79,11 +79,11 @@ namespace StockportWebapp.Controllers
                 GroupResults model = new GroupResults();
                 var queries = new List<Query>();
 
-                if (latitude != 0) queries.Add(new Query("Lat", latitude.ToString()));
-                    else queries.Add(new Query("Lat", "53.40581278523235"));
+                if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
+                    else queries.Add(new Query("latitude", "53.40581278523235"));
 
-                if (longitude != 0) queries.Add(new Query("Lon", longitude.ToString()));
-                    else queries.Add(new Query("Lon", "-2.158041000366211"));
+                if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
+                    else queries.Add(new Query("longitude", "-2.158041000366211"));
 
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
                 if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));                          
