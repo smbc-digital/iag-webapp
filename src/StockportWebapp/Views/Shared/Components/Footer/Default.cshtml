@@ -1,10 +1,15 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
 @model Footer
 @inject IStaticAssets StaticAssets
+@inject BusinessId BusinessId
 
 <footer>
-    @Html.Partial("AToZStockportGov", "")
-    <div class="l-container-footer">
+    @if (BusinessId.ToString() == "stockportgov")
+    {
+        @Html.Partial("AToZStockportGov", "")
+    }
+        <div class="l-container-footer grid-container">
         <div class="grid-container grid-parent">
             <div class="grid-100 grid-parent">
                 <div class="grid-30 tablet-grid-35 tablet-push-65 push-65 footer-social-container">
@@ -14,8 +19,16 @@
                     }
                 </div>
                 <div class="grid-25 tablet-grid-25 tablet-pull-35 pull-30 mobile-grid-100">
-                    <div class="footer-stockport-logo">
-                        <a href="http://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer%402x.png")" alt="Stockport Council Logo" /></a>
+                   <div class="footer-stockport-logo">
+                        @if (BusinessId.ToString() == "healthystockport")
+                        {
+                            <h6>Funded By</h6>
+                            <a href="http://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer.png")" alt ="Stockport Council Logo" /></a>
+                        }
+                        else
+                        {
+                            <a href="http://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer%402x.png")" alt="Stockport Council Logo" /></a>
+                        }
                     </div>
                 </div>
                 <div class="footer-links tablet-grid-40 pull-30 tablet-pull-35 grid-45 grid-100-mobile">
@@ -34,7 +47,7 @@
     <div class="grid-100 footer-bottom">
         <p>
             @if (Model.Copyright != null)
-        {
+            {
                 @Model.Copyright
             }
         </p>

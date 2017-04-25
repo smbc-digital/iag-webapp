@@ -11,7 +11,7 @@ namespace StockportWebapp.ViewModels
         public QueryUrl CurrentUrl { get; private set; }
         public IFilteredUrl FilteredUrl { get; private set; }
         public List<GroupCategory> Categories = new List<GroupCategory>();
-        public PrimaryFilter PrimaryFilter { set; get; }
+        public PrimaryFilter PrimaryFilter { set; get; } = new PrimaryFilter();
 
         public GroupResults() { }
 

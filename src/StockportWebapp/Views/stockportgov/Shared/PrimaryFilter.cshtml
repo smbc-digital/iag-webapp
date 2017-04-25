@@ -1,18 +1,38 @@
 ﻿@using StockportWebapp.ViewModels
 @model PrimaryFilter
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1BP1m8T6Ss2UGJhT7fSG4NonaWRktIZY"
+        async defer></script>
 
-    <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
-        <label>Show me</label>
-        <select asp-for="Category" asp-items="@(new SelectList(Model.Categories,"Slug","Name"))" class="primary-filter-select">  
-            <option selected value="all">All</option>
-        </select>
-        <label>groups in</label>
-        <select id="location" name="location" class="primary-filter-select">
-            <option value="stockport">Stockport</option>
-        </select>
-        <label>sorted by</label>
-        <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select"></select>
-        <button style="min-width: 250px; font-size: 18px;" type="submit" class="button-default">Search local groups</button>
-    </form>
+<form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
+    <input type="hidden" id="latitude" name="latitude" value="53.40581278523235" />
+    <input type="hidden" id="longitude" name="longitude" value="-2.158041000366211" />
+    <div class="grid-100">
+        <div class="primary-filter-form-section">
+            <label>Show me</label>
+            <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow" id="selectCategory">
+                <option selected value="all">All</option>
+            </select>
+        </div>
+        <div class="primary-filter-form-section" style="position: relative">
+            <label>groups in</label>
+            <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow" />
+            <div id="getLocation">
+                <span>Enter postcode or place name</span>
+                <input type="text" name="Location" id="location"/>
+                <a id="currentLocation" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
+                <button class="button-default" id="btnLocation">Use this location</button>
+            </div>
+        </div>
 
-
+        <div class="primary-filter-form-section">
+            <label>sorted by</label>
+            <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select custom-arrow" id="selectOrder"></select>
+        </div>
+        <div class="primary-filter-form-section-button">
+            <button type="submit" class="button-default">Search groups</button>
+        </div>
+    </div>
+    <select id="hiddenSelectCategory" class="primary-filter-select hidden-select"></select>
+    <select id="hiddenSelectOrder" class="primary-filter-select hidden-select"></select>
+    <select id="hiddenSelectLocation" class="primary-filter-select hidden-select"></select>
+</form>

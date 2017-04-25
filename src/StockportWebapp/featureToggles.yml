@@ -6,9 +6,11 @@ prod: &prod
   GroupResultsPage: true
   GroupBreadCrumb: true
   GroupPrimaryFilter: false
-  
+  HSFooter: false
+
 stage: &stage
   << : *prod
+  GroupPrimaryFilter: true
 
 qa: &qa
   << : *prod
@@ -18,11 +20,11 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  GroupPrimaryFilter: true
+  HSFooter: true
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
-  GroupPrimaryFilter: true
+  HSFooter: true

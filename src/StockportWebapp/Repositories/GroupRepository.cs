@@ -38,7 +38,7 @@ namespace StockportWebapp.Repositories
         public string GenerateEmailBody(GroupSubmission groupSubmission)
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append("<p>Thank you for submitting an group</p>");
+            stringBuilder.Append("<p>Thank you for submitting a group</p>");
             stringBuilder.Append("<p>Before your group is added to the group directory, it will be reviewed and if it is successful then it will be published on the website.</p>");
             stringBuilder.Append("<h1>Group submission</h1>");
 

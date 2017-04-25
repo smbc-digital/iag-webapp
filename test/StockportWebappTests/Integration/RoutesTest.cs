@@ -540,7 +540,7 @@ namespace StockportWebappTests.Integration
 
             var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/results"));
 
-            result.Should().Contain("brinnington");
+            result.Should().Contain("Brinnington");
         }
 
         [Fact]

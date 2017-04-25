@@ -136,6 +136,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, ReadFile("Profile")));
             Client.For("http://localhost:52648/api/stockportgov/footer")
                 .Return(HttpResponse.Successful(200, ReadFile("Footer")));
+            Client.For("http://localhost:52648/api/healthystockport/footer")
+                .Return(HttpResponse.Successful(200, ReadFile("Footer")));
             Client.For("http://localhost:52648/api/stockportgov/events")
                 .Return(HttpResponse.Successful(200, ReadFile("EventsCalendar")));
             Client.For("http://localhost:52648/api/stockportgov/events/event-of-the-century")
@@ -148,10 +150,10 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, ReadFile("Group")));
             Client.For("http://localhost:52648/api/stockportgov/groupResults/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
-            Client.For("http://localhost:52648/api/stockportgov/groupResults/?Lat=53.40581278523235&Lon=-2.158041000366211")
+            Client.For("http://localhost:52648/api/stockportgov/groupResults/?latitude=53.40581278523235&longitude=-2.158041000366211")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
             Client.For("http://localhost:52648/api/stockportgov/groupCategory/")
-                .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));        
+                .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));           
         }
 
         private static string ReadFile(string fileName)
