@@ -73,7 +73,9 @@
       "Views",
       "app-config",
       "web.config",
-      "NLog.config"
+      "NLog.config",
+      "version.txt",
+      "sha.txt"
     ]
   },
 
