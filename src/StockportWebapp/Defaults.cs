@@ -4,8 +4,8 @@
     {
         public static class Groups
         {
-            public const double StockportLatitude = 53.40581278523235;
-            public const double StockportLongitude = -2.158041000366211;
+            public const double StockportLatitude = 53.405817;
+            public const double StockportLongitude = -2.158046;
         }
     }
 }

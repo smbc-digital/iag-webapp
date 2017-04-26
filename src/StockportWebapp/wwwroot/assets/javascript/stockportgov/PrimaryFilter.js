@@ -52,9 +52,14 @@ $(document).ready(
                     if (status === google.maps.GeocoderStatus.OK) {
                         var lat = results[0].geometry.location.lat();
                         var long = results[0].geometry.location.lng();
+                        var street = extractFromAdress(results[0].address_components, "route");
+                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
+                        var city = extractFromAdress(results[0].address_components, "locality");
+                        var jointLocation = (street + " " + postcode + " " + city).trim();
+
                         $("#latitude, #latitudeMobile").val(lat);
                         $("#longitude, #longitudeMobile").val(long);
-                        $("#location, #locationMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(results[0].address_components, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        $("#postcode, #postcodeMobile").val(jointLocation);
                     }
                     else {
                         alert("We couldn't find your current location.");
@@ -73,8 +78,12 @@ $(document).ready(
             geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
                 if (address !== "") {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var address1 = results[0].address_components;
-                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        var street = extractFromAdress(results[0].address_components, "route");
+                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
+                        var city = extractFromAdress(results[0].address_components, "locality");
+                        var jointLocation = (street + " " + postcode + " " + city).trim();
+
+                        $("#postcode, #postcodeMobile").val(jointLocation);
                         $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
                         $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
                         UpdateLocationFieldSize();
@@ -99,8 +108,12 @@ $(document).ready(
             geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
                 if (address !== "") {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var address1 = results[0].address_components;
-                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        var street = extractFromAdress(results[0].address_components, "route");
+                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
+                        var city = extractFromAdress(results[0].address_components, "locality");
+                        var jointLocation = (street + " " + postcode + " " + city).trim();
+
+                        $("#postcode, #postcodeMobile").val(jointLocation);
                         $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
                         $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
                         UpdateLocationFieldSize();
