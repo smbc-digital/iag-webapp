@@ -79,7 +79,7 @@ namespace StockportWebapp.Utils
                 Host   = baseUrl.Host,
                 Port   = baseUrl.Port,
                 Scheme = baseUrl.Scheme,
-                Path   = "_healthcheck"
+                Path   = baseUrl.LocalPath + "_healthcheck"
             }.Uri.ToString();
         }
     }

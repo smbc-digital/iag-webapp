@@ -140,7 +140,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.HealthcheckUrl();
 
-            url.Should().Be("http://localhost.com/_healthcheck");
+            url.Should().Be("http://localhost.com/api/_healthcheck");
         }
     }
 }
