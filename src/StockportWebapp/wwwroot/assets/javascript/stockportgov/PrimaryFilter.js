@@ -89,8 +89,8 @@ $(document).ready(
                     }
                 } else {
                     $("#postcode, #postcodeMobile").val("Stockport");
-                    $("#latitude #postcodeMobile").val("53.40581278523235");
-                    $("#longitude #latitudeMobile").val("-2.158041000366211");
+                    $("#latitude #postcodeMobile").val("53.405817");
+                    $("#longitude #latitudeMobile").val("-2.158046");
                     UpdateLocationFieldSize();
                     $("#getLocation, #getLocationMobile").hide();
                 }
@@ -119,8 +119,8 @@ $(document).ready(
                     }
                 } else {
                     $("#postcode, #postcodeMobile").val("Stockport");
-                    $("#latitude #postcodeMobile").val("53.40581278523235");
-                    $("#longitude #latitudeMobile").val("-2.158041000366211");
+                    $("#latitude #postcodeMobile").val("53.405817");
+                    $("#longitude #latitudeMobile").val("-2.158046");
                     UpdateLocationFieldSize();
                     $("#getLocation, #getLocationMobile").hide();
                 }
