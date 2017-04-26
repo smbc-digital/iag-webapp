@@ -4,7 +4,7 @@
     @foreach (var carouselContent in Model)
     {
         <a href="@carouselContent.URL">
-            <div class="webcast webcast-@counter">
+            <div class="webcast webcast-@counter" style="background-image: url(@carouselContent.Image)">
 
                 <div class="webcast-text">
                     <h2>@carouselContent.Title</h2>
