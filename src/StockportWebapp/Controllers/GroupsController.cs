@@ -80,11 +80,9 @@ namespace StockportWebapp.Controllers
                 var queries = new List<Query>();
 
                 if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
-                    else queries.Add(new Query("latitude", "53.40581278523235"));
-
+                    
                 if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
-                    else queries.Add(new Query("longitude", "-2.158041000366211"));
-
+                    
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
                 if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));                          
 
