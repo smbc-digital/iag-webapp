@@ -35,3 +35,15 @@
        text-align:center;
   }
 }
+
+.hs-carousel-container {
+    padding: 10px 30px 40px 30px;
+
+    .webcast-text {
+        left: 45px;
+    }
+
+    .slick-dots {
+        left: 45px;
+    }
+}

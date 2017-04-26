@@ -5,13 +5,12 @@ prod: &prod
   GroupStartPage: true
   GroupResultsPage: true
   GroupBreadCrumb: true
-  GroupPrimaryFilter: false
+  GroupPrimaryFilter: true
   HSFooter: false
 
 stage: &stage
   << : *prod
-  GroupPrimaryFilter: true
-
+  
 qa: &qa
   << : *prod
   << : *stage
