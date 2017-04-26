@@ -50,16 +50,12 @@ $(document).ready(
                 },
                 function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var lat = results[0].geometry.location.lat();
-                        var long = results[0].geometry.location.lng();
                         var street = extractFromAdress(results[0].address_components, "route");
                         var postcode = extractFromAdress(results[0].address_components, "postal_code");
                         var city = extractFromAdress(results[0].address_components, "locality");
                         var jointLocation = (street + " " + postcode + " " + city).trim();
 
-                        $("#latitude, #latitudeMobile").val(lat);
-                        $("#longitude, #longitudeMobile").val(long);
-                        $("#postcode, #postcodeMobile").val(jointLocation);
+                        $("#location, #locationMobile").val(jointLocation);
                     }
                     else {
                         alert("We couldn't find your current location.");
