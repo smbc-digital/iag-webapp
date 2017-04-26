@@ -39,7 +39,16 @@ namespace StockportWebapp.Controllers
         {
             if (_featuretoggles.GroupStartPage)
             {
-                GroupStartPage model = new GroupStartPage {PrimaryFilter = new PrimaryFilter()};
+                var model = new GroupStartPage
+                {
+                    PrimaryFilter = new PrimaryFilter
+                    {
+                        Location = "Stockport",
+                        Latitude = Defaults.Groups.StockportLatitude,
+                        Longitude = Defaults.Groups.StockportLongitude
+                    }
+                };
+
                 var response = await _repository.Get<List<GroupCategory>>();
                 var listOfGroupCategories = response.Content as List<GroupCategory>;
 
@@ -49,7 +58,6 @@ namespace StockportWebapp.Controllers
                     model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
                 }
 
-                model.PrimaryFilter.Location = "Stockport";
                 return View(model);
             }
 
@@ -72,17 +80,15 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page,[FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location="Stockport")
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location="Stockport")
         {
             if (_featuretoggles.GroupResultsPage)
             {
-                GroupResults model = new GroupResults();
+                var model = new GroupResults();
                 var queries = new List<Query>();
 
                 if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
-                    
                 if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
-                    
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
                 if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));                          
 
@@ -108,6 +114,9 @@ namespace StockportWebapp.Controllers
 
                 model.PrimaryFilter.Order = order;
                 model.PrimaryFilter.Location = location;
+                model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
+                model.PrimaryFilter.Longitude = longitude != 0 ? longitude : Defaults.Groups.StockportLongitude;
+
                 return View(model);
             }
 
