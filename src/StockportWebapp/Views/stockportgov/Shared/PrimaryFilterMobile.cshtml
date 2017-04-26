@@ -2,8 +2,8 @@
 @model PrimaryFilter
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form primary-filter-form-mobile mobile-grid-100">
-    <input type="hidden" id="latitudeMobile" name="latitude" value="53.40581278523235" />
-    <input type="hidden" id="longitudeMobile" name="longitude" value="-2.158041000366211" />
+    <input asp-for="Latitude"  type="hidden" id="latitudeMobile" name="latitude" value="53.40581278523235" />
+    <input asp-for="Longitude" type="hidden" id="longitudeMobile" name="longitude" value="-2.158041000366211" />
     <div class="mobile-grid-100"><label>Choose a category</label></div>
     <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectCategory">
         <option selected value="all">All</option>

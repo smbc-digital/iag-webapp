@@ -4,8 +4,8 @@
         async defer></script>
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
-    <input type="hidden" id="latitude" name="latitude" value="53.40581278523235" />
-    <input type="hidden" id="longitude" name="longitude" value="-2.158041000366211" />
+    <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
+    <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
     <div class="grid-100">
         <div class="primary-filter-form-section">
             <label>Show me</label>
