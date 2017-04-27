@@ -23,16 +23,18 @@
         <div class="topic-block-list" style="text-align:center">
             @foreach (var subItem in Model.FeaturedTasks)
             {
-                <div class="grid-30 tablet-grid-100 mobile-grid-100 topic-block-container">
+                <div class="grid-30 tablet-grid-40 mobile-grid-100 topic-block-container">
                     <a href="@subItem.NavigationLink" class="topic-block">
                         <div class="topic-block-content">
-                            <div class="icon-bordered icon-bordered-fixed hide-on-tablet hide-on-mobile">
-                                <i class="fa @subItem.Icon fa-3x default-icon"></i>
+                            <i class="fa @subItem.Icon fa-3x default-icon hide-on-mobile"></i>
+                            <div class="hide-on-tablet hide-on-desktop topic-block-icon-container">
+                                <i class="fa @subItem.Icon fa-2x default-icon"></i>
                             </div>
                             <h4>@subItem.Title</h4>
-                            <p>@subItem.Teaser</p>
-                            <div class="article-chevron hide-on-mobile hide-on-desktop l-right-align">
-                                <i aria-hidden="true" class="fa fa-4x fa-angle-right"></i>
+                            <div style="border-top: solid 1px #ddd; margin: 10px -10px 10px -10px" class="hide-on-mobile"></div>
+                            <p class="hide-on-mobile">@subItem.Teaser</p>
+                            <div class="article-chevron hide-on-tablet hide-on-desktop l-right-align">
+                                <i aria-hidden="true" class="fa fa-2x fa-angle-right"></i>
                             </div>
                         </div>
                     </a>
