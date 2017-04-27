@@ -10,7 +10,8 @@ prod: &prod
 
 stage: &stage
   << : *prod
-  
+  HSFooter: true
+
 qa: &qa
   << : *prod
   << : *stage
@@ -19,7 +20,6 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  HSFooter: true
 
 local:
   << : *prod
