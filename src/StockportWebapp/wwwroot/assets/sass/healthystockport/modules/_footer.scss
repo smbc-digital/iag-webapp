@@ -5,6 +5,8 @@
 
 footer {
     .grid-container .grid-parent {
-    padding-left: 30px;
+        @media #{$desktop} {
+            padding-left: 30px;
+        }
     }
 }
