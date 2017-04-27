@@ -9,4 +9,14 @@ footer {
             padding-left: 30px;
         }
     }
+
+    @media #{$mobile} {
+        .l-container-footer, .grid-container {
+            padding-right: 0;
+        }
+
+        .footer-social-container {
+            margin-right: 0;
+        }        
+    }
 }

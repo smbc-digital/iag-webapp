@@ -28,18 +28,18 @@
 <body class="@(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
     @RenderBody()
-    <div id="error-footer">
-        @if (FeatureToggles.HSFooter)
-        {
-            <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
-                @await Component.InvokeAsync("Footer")
-            </distributed-cache>
-        }
-        else
-        {
-            @Html.Partial("Footer")
-        }
-    </div>
+<div id="error-footer">
+    @if (FeatureToggles.HSFooter)
+    {
+        <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+            @await Component.InvokeAsync("Footer")
+        </distributed-cache>
+    }
+    else
+    {
+        @Html.Partial("Footer")
+    }
+</div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="/assets/javascript/healthystockport.min.js"></script>
 </body>
