@@ -62,7 +62,7 @@ $(document).ready(
                     }
                 });
             }, function() {
-                alert("An error has occurred -- please check your device's location settings.");
+                alert("We couldn't find your current location -- please check the location settings on your device.");
             });
             return false;
         });
