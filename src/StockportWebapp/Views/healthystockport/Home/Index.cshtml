@@ -24,7 +24,7 @@
             <p class="feature-tagline">@Model.FeaturedTasksSummary</p>
             <div class="topic-block-list">
                 @foreach (var subItem in Model.FeaturedTasks)
-            {
+                {
                     <div class="grid-30 tablet-grid-40 mobile-grid-100 topic-block-container">
                         <a href="@subItem.NavigationLink" class="topic-block">
 
@@ -33,9 +33,9 @@
                                 <div class="hide-on-tablet hide-on-desktop topic-block-icon-container">
                                     <i class="fa @subItem.Icon fa-2x default-icon"></i>
                                 </div>
-                               
-                                    <h4 style="line-height: 3.5">@subItem.Title</h4>
-                               
+
+                                <h4>@subItem.Title</h4>
+
                                 <div class="topic-block-content-divider hide-on-mobile"></div>
                                 <p class="hide-on-mobile">@subItem.Teaser</p>
                                 <div class="article-chevron hide-on-tablet hide-on-desktop l-right-align">
@@ -44,7 +44,7 @@
                             </div>
                         </a>
                     </div>
-                }
+                }    
             </div>
             <div class="grid-100 grid-parent hs-carousel-container">
                 @Html.Partial("Carousel", Model.CarouselContents)
