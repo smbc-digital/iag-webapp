@@ -56,25 +56,6 @@ $(document).ready(function () {
     
 });
 
-// Fade background image on scroll
-
-var target = $('.background-image');
-var targetHeight = $(window).height();
-
-$(document).scroll(function (e) {
-
-
-    if (!$('body').hasClass('type-home')) {
-        var y_scroll_pos = $(this).scrollTop();
-        var scrollPercent = (targetHeight - (y_scroll_pos * 2.0)) / targetHeight;
-        if (scrollPercent >= 0) {
-            target.css('opacity', scrollPercent);
-        }
-        if (scrollPercent <= 0.02) {
-            target.css('opacity', 0);
-        }
-    }
-});
 
 $(window)
     .resize(function() {

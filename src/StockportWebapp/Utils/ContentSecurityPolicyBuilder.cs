@@ -39,6 +39,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.youtube.com")
                 .AddSource("https://stockportcouncil.typeform.com")
                 .AddSource("https://www.google.com/maps/")
+                .AddSource("http://www.opinionstage.com/polls/")
                 .Finish());
         }
 
@@ -122,6 +123,7 @@ namespace StockportWebapp.Utils
                 .AddSource("m.addthis.com/live/")
                 .AddSource("siteimproveanalytics.com/js/")
                 .AddSource("*.logo-net.co.uk/Delivery/")
+                .AddSource("https://www.opinionstage.com/assets/loader.js")
                 .Finish());
         }
 
