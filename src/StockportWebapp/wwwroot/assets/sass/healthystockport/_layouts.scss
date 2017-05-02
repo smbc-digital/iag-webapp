@@ -78,9 +78,7 @@
         max-height: none;
     }
 
-    @media #{$tablet}{
-        background-size:cover;
-    }
+    
     
     background-size: contain; 
     background-color: #dedede;
@@ -168,8 +166,7 @@
        padding-top: 40px;
        padding-bottom: 40px;
     }
-    @media #{$tablet} {
-      min-height: 480px;
+    @media #{$tablet} {     
       padding-top: 80px;
       padding-bottom: 40px;
     }
