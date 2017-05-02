@@ -29,24 +29,23 @@
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
-    <div class="l-background-fixed background-image hide-on-mobile hide-on-tablet" @RenderSection("BackgroundImage", false)>
-        <div class="l-dark-overlay hide-on-desktop"></div>
-    </div>
-    <div class="grid-container">
-        <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
-            @RenderBody()
+    <div class="l-background" @RenderSection("BackgroundImage", false)>
+        <div class="grid-container" >
+            <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
+                @RenderBody()
+            </div>
         </div>
+        @if (FeatureToggles.HSFooter)
+        {
+            <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+                @await Component.InvokeAsync("Footer")
+            </distributed-cache>
+        }
+        else
+        {
+            @Html.Partial("Footer")
+        }
     </div>
-    @if (FeatureToggles.HSFooter)
-    {
-        <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
-            @await Component.InvokeAsync("Footer")
-        </distributed-cache>
-    }
-    else
-    {
-        @Html.Partial("Footer")
-    }
     <!--[if lte IE 9]>
         <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
     <![endif]-->

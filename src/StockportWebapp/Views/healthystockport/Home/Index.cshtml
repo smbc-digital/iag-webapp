@@ -6,16 +6,23 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
 
 }
-
-<div class="l-homepage-body-container">
-    @section BackgroundImage {style="background-image: url(@Model.BackgroundImage)"}
-    <div class="l-background-image-container" style="background-image: url(@Model.BackgroundImage)">
+@section BackgroundImage {
+    @{
+        if (!string.IsNullOrEmpty(Model.BackgroundImage))
+        {
+            @:style = "background-image:url('@Model.BackgroundImage')"
+        }
+    }
+}
+<div>
+   
+    
         <div class="l-body-section-transparent grid-100">
             <div class="introduction grid-50">
                 @Html.Raw(Model.FreeText)
             </div>
         </div>
-    </div>
+    
 
     <div class="l-body-section-filled grid-100">
         <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature">

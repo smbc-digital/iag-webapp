@@ -1,6 +1,5 @@
 ﻿//TODO: Copied from styleguide, needs to be checked for redundancies
 .l-header-container {
-    position: fixed;
     width: 100%;
     height: 80px;
     top: 0px;
@@ -63,12 +62,39 @@
 
 // Copied from shared stockportgov styles, needs checking to remove redundancy:
 
+.l-background {
+    position:relative;
+	width: 100%;
+	z-index: 1;
+    display: block;
+    background-color: #ebebeb;
+    background-repeat:no-repeat;
+    @media #{$desktop} {
+        overflow: hidden;
+        padding-top: 180px;
+    }
+
+    img {
+        max-height: none;
+    }
+
+    @media #{$tablet}{
+        background-size:cover;
+    }
+    
+    background-size: contain; 
+    background-color: #dedede;
+}
+
+
+
+// Copied from shared styles, needs checking to remove redundancy:
 .l-background-fixed {
 	position: fixed;
 	width: 100%;
 	z-index: 1;
     display: block;
-    background-color: $colorPrimary;
+    background-color: $colorBrand;
     @media #{$desktop} {
         overflow: hidden;
     }
@@ -102,7 +128,7 @@
         margin-right: -10px;
     }
     @media #{$desktop} {
-        margin-top: 180px;
+        margin-top: 0px;
     }   
 }
 

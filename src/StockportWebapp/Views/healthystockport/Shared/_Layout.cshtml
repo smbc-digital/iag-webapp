@@ -36,8 +36,8 @@
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
-    <div class="l-background-fixed background-image hide-on-mobile" @RenderSection("BackgroundImage", false)></div>
-<main class="grid-container">
+    @RenderSection("Breadcrumbs", false)
+    <main class="l-background" @RenderSection("BackgroundImage", false)>
     <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
         <div class="l-body-section-filled grid-100">
             @RenderBody()
@@ -54,6 +54,7 @@
     {
         @Html.Partial("Footer")
     }
+   
     <!--[if lte IE 9]>
         <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
         <![endif]-->
