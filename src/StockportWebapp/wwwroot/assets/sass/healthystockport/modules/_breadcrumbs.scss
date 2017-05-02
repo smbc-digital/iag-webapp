@@ -1,0 +1,40 @@
+﻿/* ------ Breadcrumbs ------- */
+.breadcrumb-container {
+    background-color: #086964;;
+    width: 100%;
+    min-height:40px;
+
+    .breadcrumb {
+        max-width:1200px;
+        margin-bottom: 0;
+        color: $white;
+        padding-bottom:0px;
+        padding-top: 3px;
+
+        @media #{$mobile} {
+            padding: 0px;
+        }
+
+        li a {
+            color: $white;
+            text-transform:none;
+            font-weight:normal;
+
+            &:hover {
+                color: $colorPrimaryPale;
+            }
+        }
+
+        li.current a {
+            text-decoration:none;
+
+            &:hover {
+                color: $white;
+            }
+        }
+
+        .chevron {
+            color: $white;
+        }
+    }
+}
