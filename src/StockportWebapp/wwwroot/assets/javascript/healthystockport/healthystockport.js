@@ -10,21 +10,13 @@ var childselector = ".topic-block-content";
 
 $(document).ready(function () {
    
-    if ($(window).width() > tabletWidth) {
-        groupsOf = 3;
-        bp = 1024;
-    }
-    else if ($(window).width() <= tabletWidth) {
-        groupsOf = 2;
-        bp = 767;
-    }
-
     var matchboxPrimary = new Matchbox({
         parentSelector: ".topic-block-container",
         childSelector: childselector,
-        groupsOf: groupsOf,
+        groupsOf: 1,
         breakpoints: [
-        { bp: bp, groupsOf: groupsOf }
+        { bp: 767, groupsOf: 2 },
+        { bp: 1024, groupsOf: 3 }
         ]
     });
 
@@ -59,21 +51,14 @@ $(document).ready(function () {
 
 $(window)
     .resize(function() {
-        if ($(window).width() > tabletWidth) {
-            groupsOf = 3;
-            bp = 1024;
-
-        } else if ($(window).width() <= tabletWidth) {
-            groupsOf = 2;
-            bp = 767;
-        }
-
+       
         var matchboxPrimary = new Matchbox({
             parentSelector: ".topic-block-container",
             childSelector: childselector,
-            groupsOf: groupsOf,
+            groupsOf: 1,
             breakpoints: [
-                { bp: bp, groupsOf: groupsOf }
+            { bp: 767, groupsOf: 2 },
+            { bp: 1024, groupsOf: 3 }
             ]
         });
 
