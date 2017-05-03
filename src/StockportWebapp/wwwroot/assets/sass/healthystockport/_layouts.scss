@@ -194,10 +194,7 @@
         }
     }
 
-    @media #{$desktop} {
-        border-right: 1px solid rgba(0,0,0,0.1);
-    }
-
+   
     @media #{$mobile} {
         padding-left: 0;
         padding-right: 0;

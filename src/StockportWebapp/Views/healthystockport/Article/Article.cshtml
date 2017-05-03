@@ -18,8 +18,6 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Article.Breadcrumbs)
 }
-
-@Html.Partial("DisplayTemplates/Gutter", Model.Article.Icon)
 <section aria-label="article" class="grid-90 mobile-grid-100">
     <a name="@Model.Article.Title content" class="anchor anchor-content"></a>   
     <div class="grid-70 mobile-grid-100 l-content-container">
@@ -50,5 +48,4 @@
 
 
     </div>
-    @Html.Partial("DisplayTemplates/Aside")
 </section>
