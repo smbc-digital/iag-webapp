@@ -52,7 +52,7 @@
     height:100%;
 
     @media #{$desktop} {
-        top: 80px;
+        top: 120px;
     }
 }
 
@@ -88,7 +88,7 @@
 
 // Copied from shared styles, needs checking to remove redundancy:
 .l-background-fixed {
-	position: fixed;
+	position: absolute;
 	width: 100%;
 	z-index: 1;
     display: block;
