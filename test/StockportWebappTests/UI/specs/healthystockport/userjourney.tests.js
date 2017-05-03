@@ -17,6 +17,8 @@ module.exports = {
         articlepage.assertTitleIsVisible("UITEST: A balanced diet");
         articlepage.assertProfileIsVisible("Brinnington, Stockport");
         articlepage.goToNextSection(browser);
+
+        /*
         articlepage.goToContactUsPage(browser);
 
         var contactuspage = browser.page.healthystockport.contactuspage();
@@ -25,6 +27,7 @@ module.exports = {
         contactuspage.goToHomePage(browser);
 
         homepage.assertTitleIsVisible("People of Stockport");
+        */
     },
    
     after: function (browser, done) {
