@@ -19,8 +19,8 @@
     @Html.Partial("Breadcrumb", Model.Article.Breadcrumbs)
 }
 <section aria-label="article" class="grid-90 mobile-grid-100">
-    <a name="@Model.Article.Title content" class="anchor anchor-content"></a>   
-    <div class="grid-70 mobile-grid-100 l-content-container">
+    <a name="@Model.Article.Title content" class="anchor anchor-content"></a>
+    <div class="grid-100 prefix-5 tablet-prefix-5 tablet-grid-100 mobile-grid-100 l-content-container">
         @{
             if (Model.Article.Alerts != null)
             {
@@ -30,7 +30,16 @@
                 }
             }
         }
-        <h1>@Model.Article.Title</h1>
+
+        <div class="grid-10">
+            <i class="fa @Model.Article.Icon" style="color: goldenrod; font-size: 4em; display: inline-block; margin: 5px;width:50px"></i>
+        </div>
+        <div class="grid-90">
+            <h1>
+                @Model.Article.Title
+            </h1>
+        </div>
+
 
         @if (Model.ShouldShowArticleSummary)
         {
