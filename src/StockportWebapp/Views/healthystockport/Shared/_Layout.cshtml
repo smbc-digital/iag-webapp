@@ -65,6 +65,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="/assets/javascript/healthystockport.min.js"></script>
     <script src="/assets/javascript/vendor/slick.min.js"></script>
-   
+    <script>
+    $(document).ready(function () {
+
+        var matchboxPrimary = new Matchbox({
+            parentSelector: ".article-list-item",
+            childSelector: ".article-list-container",
+            groupsOf: 1,
+            breakpoints: [
+            { bp: 767, groupsOf: 2 },
+            { bp: 1024, groupsOf: 2 }
+            ]
+        });
+
+        matchboxPrimary.init();
+    });
+    </script>
 </body>
 </html>

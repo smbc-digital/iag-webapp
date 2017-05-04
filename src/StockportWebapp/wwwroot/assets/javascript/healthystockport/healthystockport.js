@@ -44,8 +44,6 @@ $(document).ready(function () {
         ($('body').hasClass('type-topic') || $('body').hasClass('type-article'))) {
         $('.l-body-container-pushed').css("margin-top", pushHeight);
     }
-
-    
 });
 
 

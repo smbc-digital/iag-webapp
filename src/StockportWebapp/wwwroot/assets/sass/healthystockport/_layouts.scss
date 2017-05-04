@@ -172,6 +172,23 @@
     }
 }
 
+.l-body-section-container{
+    text-align: center;
+
+    div {
+        h1 {
+            font-size: 2em;
+        }
+
+        hr {
+            width: 10%;
+            margin: 0 auto 30px;
+            border-color: #1AA9A1;
+            border-width: 1px;
+        }
+    }
+}
+
 .l-content-container {
     padding-bottom: 50px;
 

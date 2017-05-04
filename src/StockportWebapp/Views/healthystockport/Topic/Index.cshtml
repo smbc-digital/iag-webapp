@@ -17,6 +17,10 @@
     }
 }
 
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Topic.Breadcrumbs)
+}
+
 @*@Html.Partial("DisplayTemplates/Gutter", topic.Icon)
 <section aria-label="@Model.Topic.Name content" class="grid-90 mobile-grid-100">
     @Html.Partial("DisplayTemplates/Breadcrumb", topic.Breadcrumbs)
@@ -37,7 +41,7 @@
     @Html.Partial("DisplayTemplates/Aside")
 </section>*@
 
-<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100" style="text-align: center">   
+<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 l-body-section-container">   
     <div class="grid-100">
         @{
             if (topic.Alerts != null)
@@ -49,8 +53,9 @@
             }
         }
         <h1>@topic.Name</h1>
-        <hr style="width: 15%;margin: 0 auto 10px;border-color: #1AA9A1;border-width: 2px;">
+        <hr>
         @Html.Raw(topic.Summary)
         @Html.Partial("SubItem-List", topic)
     </div>
+    <hr style="border-bottom: 3px gray;">
 </section>
