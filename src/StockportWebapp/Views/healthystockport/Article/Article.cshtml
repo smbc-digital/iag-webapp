@@ -40,14 +40,6 @@
             </h1>
         </div>
 
-
-        @if (Model.ShouldShowArticleSummary)
-        {
-            <article>
-                @Html.Raw(Model.Article.Body)
-            </article>
-        }
-
         @if (Model.DisplayedSection != null)
         {
             @Html.Partial("../Shared/Section-Nav")
