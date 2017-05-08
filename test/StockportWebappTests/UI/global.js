@@ -1,0 +1,1 @@
+module.exports={"testUri":"http://stockportgov.local:5555","timeOut":10000};

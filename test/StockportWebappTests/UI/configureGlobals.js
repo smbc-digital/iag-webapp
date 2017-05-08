@@ -15,4 +15,4 @@ process.argv.forEach(function (val, index) {
 
 console.log(defaultConfiguration);
 var fs = require('fs');
-fs.writeFile('test/StockportWebappTests/UI/global.js', "module.exports=" + JSON.stringify(defaultConfiguration) + ";");
+fs.writeFile('global.js', "module.exports=" + JSON.stringify(defaultConfiguration) + ";");
