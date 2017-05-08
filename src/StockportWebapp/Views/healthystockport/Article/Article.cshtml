@@ -40,6 +40,12 @@
                     @Model.Article.Title
                 </h1>
             </div>
+            @if (Model.ShouldShowArticleSummary)
+            {
+                <article>
+                    @Html.Raw(Model.Article.Body)
+                </article>
+            }
         </div>
         
 

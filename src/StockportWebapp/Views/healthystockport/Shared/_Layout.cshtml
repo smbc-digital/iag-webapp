@@ -34,7 +34,7 @@
     @Html.Partial("CookieBanner")
     @await Component.InvokeAsync("GoogleAnalytics")
 </head>
-<body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+<body class="container-layout-free container-layout-mobile @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
     @Html.Partial("BrowserCheck")
     @RenderSection("Breadcrumbs", false)
