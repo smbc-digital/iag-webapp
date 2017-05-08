@@ -23,6 +23,18 @@ $(document).ready(function () {
     if ($(".topic-block-content").length > 0) {
         matchboxPrimary.init();
     }
+
+    var matchboxTopic = new Matchbox({
+        parentSelector: ".article-list-item",
+        childSelector: ".article-list-container",
+        groupsOf: 1,
+        breakpoints: [
+        { bp: 767, groupsOf: 2 },
+        { bp: 1024, groupsOf: 2 }
+        ]
+    });
+
+    matchboxTopic.init();
    
     $(".show-search-button").click(
             function () {
