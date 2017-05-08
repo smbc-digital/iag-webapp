@@ -18,7 +18,7 @@ module.exports = {
         return this.api.globals.testUri + 'topic';
     },
     elements: {
-        topicTitle: "h1",
+        topicTitle: "h2",
         topicList: ".article-list"
     }
 };
