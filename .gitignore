@@ -27,3 +27,4 @@ src/StockportWebapp/app-config/appsettings.dev-local.json
 src/StockportWebapp/publish/
 src/StockportWebapp/obj/
 src/StockportWebapp/bin/
+global.js
