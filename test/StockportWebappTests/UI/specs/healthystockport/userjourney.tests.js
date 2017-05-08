@@ -10,13 +10,13 @@ module.exports = {
 
         var topicpage = browser.page.healthystockport.topicpage();
         topicpage.assertTitleIsVisible('UITEST: Healthy weight');
-        topicpage.goToArticlePage(browser, "UITEST: A balanced diet", "uitest-a-balanced-diet");
+        //topicpage.goToArticlePage(browser, "UITEST: A balanced diet", "uitest-a-balanced-diet");
 
 
-        var articlepage = browser.page.healthystockport.articlepage();
-        articlepage.assertTitleIsVisible("UITEST: A balanced diet");
-        articlepage.assertProfileIsVisible("Brinnington, Stockport");
-        articlepage.goToNextSection(browser);
+        //var articlepage = browser.page.healthystockport.articlepage();
+        //articlepage.assertTitleIsVisible("UITEST: A balanced diet");
+        //articlepage.assertProfileIsVisible("Brinnington, Stockport");
+        //articlepage.goToNextSection(browser);
 
         /*
         articlepage.goToContactUsPage(browser);
