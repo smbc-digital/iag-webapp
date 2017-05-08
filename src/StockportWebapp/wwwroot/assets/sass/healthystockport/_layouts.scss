@@ -37,7 +37,7 @@
 }
 .l-body-container-mobile {
     @media #{$mobile} {
-        margin-top:60px !important;
+        /*/margin-top:60px !important;*/
     }
 }
 
@@ -66,8 +66,7 @@
     position:relative;
 	width: 100%;
 	z-index: 1;
-    display: block;
-    background-color: #ebebeb;
+    display: block;   
     background-repeat:no-repeat;
     @media #{$desktop} {
         overflow: hidden;
@@ -80,8 +79,7 @@
 
     
     
-    background-size: contain; 
-    background-color: #dedede;
+    background-size: contain;     
 }
 
 
@@ -106,8 +104,8 @@
     @media #{$desktop} {
        -webkit-border-radius: 10px;
        border-radius:10px;    
-       margin-left: 2.5%;
-       margin-right: 2.5%;
+       margin-left: 1.5%;
+       margin-right: 1.5%;
     }
 }
 
@@ -117,7 +115,7 @@
 
 .l-body-container-pushed {
     @media #{$mobile}{
-        margin-top:61px;             
+        margin-top:20px;             
     }
 
     @media #{$tablet}{
@@ -163,7 +161,7 @@
 	overflow: hidden;
     padding-bottom: 80px;
     @media #{$mobile} {
-       padding-top: 40px;
+       padding-top: 0;
        padding-bottom: 40px;
     }
     @media #{$tablet} {     
@@ -211,7 +209,7 @@
         }
     }
 
-   
+     
     @media #{$mobile} {
         padding-left: 0;
         padding-right: 0;

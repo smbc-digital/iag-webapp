@@ -2,7 +2,7 @@
 var mobileWidth = 767;
 var tabletWidth = (1024 - 17);
 var windowHeight = $(window).height();
-var pushHeight = (windowHeight / 2) + "px";
+var pushHeight = (windowHeight / 4) + "px";
 var groupsOf = 3;
 var bp = 1024;
 var childselector = ".topic-block-content";
@@ -32,7 +32,7 @@ $(document).ready(function () {
                     $(".l-body-container-mobile").css("cssText", "margin-top: 0 !important;");
                 } else {
 
-                    $(".l-body-container-mobile").css("cssText", "margin-top: 60px !important;");
+                    $(".l-body-container-mobile").css("cssText", "margin-top: 20px !important;");
                 }
             }
     );
