@@ -21,28 +21,8 @@
     @Html.Partial("Breadcrumb", Model.Topic.Breadcrumbs)
 }
 
-@*@Html.Partial("DisplayTemplates/Gutter", topic.Icon)
-<section aria-label="@Model.Topic.Name content" class="grid-90 mobile-grid-100">
-    @Html.Partial("DisplayTemplates/Breadcrumb", topic.Breadcrumbs)
-    <div class="grid-70 l-content-container">
-        @{
-            if (topic.Alerts != null)
-            {
-                foreach (var alert in topic.Alerts)
-                {
-                    @Html.Partial("DisplayTemplates/Alert", alert)
-                }
-            }
-        }
-        <h1>@topic.Name</h1>
-        @Html.Raw(topic.Summary)
-        @Html.Partial("DisplayTemplates/SubItem-List", topic)
-    </div>
-    @Html.Partial("DisplayTemplates/Aside")
-</section>*@
-
 <section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 l-body-section-container">   
-    <div class="grid-100">
+    <div class="grid-100 l-body-section-container-holder">
         @{
             if (topic.Alerts != null)
             {
@@ -55,7 +35,16 @@
         <h1>@topic.Name</h1>
         <hr>
         @Html.Raw(topic.Summary)
-        @Html.Partial("SubItem-List", topic)
+        @Html.Partial("SubItem-List", topic)        
     </div>
-    <hr style="border-bottom: 3px gray;">
+    
+    <div class="grid-100 l-body-section-container-contactus">
+        <div>
+            <hr class="top-line">
+            <p>Talk with one of our advisors today to get free specialist advice and information</p>
+
+            <stock-button class="button-default button-contact-us" as-link="true" href="@Url.Action("Article", "Article", new {articleSlug = "contact-us"})">Get in touch</stock-button>
+            <hr class="bottom-line">
+        </div>      
+    </div>
 </section>
