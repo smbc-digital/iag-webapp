@@ -257,10 +257,14 @@
                 padding-left: 0;
                 padding-right: 0;
             }
-             @media #{$desktop} {
+            @media #{$desktop} {
                 margin-left: 30px;
                 margin-right: 30px;
-            }            
+            }   
+            @media #{$mobile} {
+                margin-left: 0;
+                margin-right: 0;
+            }              
                      
            .top-line {               
                margin-bottom: 10px;
