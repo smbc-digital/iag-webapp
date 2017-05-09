@@ -44,6 +44,12 @@
       "desiredCapabilities": {
         "phantomjs.page.customHeaders.BUSINESS-ID": "healthystockport"
       }
+    },
+
+    "stockportgov" : {
+      "desiredCapabilities": {
+        "phantomjs.page.customHeaders.BUSINESS-ID": "stockportgov"
+      }
     }
 
   }
