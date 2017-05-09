@@ -4,9 +4,9 @@ var proxy = httpProxy.createProxyServer({});
 
 proxy.on('proxyReq', function(proxyReq, req, res, options) {
   var host = req.headers.host;
-  var id = "stockportgov";//host.split(":")[0].split(".")[0];
+  var id = host.split(":")[0].split(".")[0];
   console.log("The BusinessId is: " + id);
-  //if (id !== "") { proxyReq.setHeader('BUSINESS-ID', id); }
+  if (id !== "") { proxyReq.setHeader('BUSINESS-ID', id); }
 });
 
 var server = http.createServer(function(req, res) {
