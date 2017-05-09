@@ -80,7 +80,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location="Stockport")
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
         {
             if (_featuretoggles.GroupResultsPage)
             {
@@ -90,7 +90,8 @@ namespace StockportWebapp.Controllers
                 if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
                 if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
                 if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
-                if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));                          
+                if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
+                queries.Add(new Query("location", location));
 
                 var response = await _repository.Get<GroupResults>(queries: queries);
 
