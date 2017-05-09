@@ -30,6 +30,11 @@
 
 .l-body-section-filled {
     border-radius:10px 10px 0 0;
+
+    @media #{$tablet}
+    {
+        border-radius: 0px;
+    }
 }
 
 .l-body-section-filled-radius {
@@ -41,6 +46,7 @@
     @media #{$tablet} {
         padding-left:40px;
         padding-right:40px;
+        background-color: $white;
     }
 }
 
@@ -90,6 +96,14 @@
     height:100%;
 }
 
+.type-home
+{
+    @media #{$mobile}{
+        background-color: white;
+    }
+    
+}
+
 // Copied from shared stockportgov styles, needs checking to remove redundancy:
 
 .l-background {
@@ -121,7 +135,7 @@
 	width: 100%;
 	z-index: 1;
     display: block;
-    background-color: $colorBrand;
+    background-color: $easternBlue;
     @media #{$desktop} {
         overflow: hidden;
     }
@@ -195,13 +209,13 @@
        padding-top: 0;
        padding-bottom: 40px;
     }
-    @media #{$tablet} {     
-      padding-top: 80px;
-      padding-bottom: 40px;
+    @media #{$tablet} {
+      padding-bottom: 110px;
     }
 }
 
 .l-body-section-container{
+    text-align: center;
 
     .l-body-section-container-holder {
        
@@ -235,17 +249,9 @@
         @media #{$desktop, $tablet} {
             margin-top:10px;
         }
-
-        .l-body-section-container-holder-item {
-            text-align: center; 
-            margin-left: 10px; 
-            margin-right: 10px;
-        }
     }
 
     .l-body-section-container-contactus {
-
-        text-align:center;
 
         @media #{$mobile, $tablet} {
             padding-left: 0;

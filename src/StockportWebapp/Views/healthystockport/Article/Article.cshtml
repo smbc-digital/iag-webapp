@@ -20,7 +20,7 @@
 }
 <section aria-label="article" class="grid-90 mobile-grid-100">
     <a name="@Model.Article.Title content" class="anchor anchor-content"></a>
-    <div class="grid-100 prefix-5 tablet-prefix-5 tablet-grid-100 mobile-grid-100 l-content-container">
+    <div class="grid-100 prefix-5 tablet-grid-100 mobile-grid-100 l-body-section-container-holder ">
         @{
             if (Model.Article.Alerts != null)
             {
@@ -32,28 +32,23 @@
         }
         
         <div class="grid-parent hs-article-header">
-            <div class="grid-10 hs-article-icon-container">
-                <i class="fa @Model.Article.Icon""></i>
+            <div class="grid-100 tablet-grid-100">
+                <i class="hs-article-icon-container hide-on-mobile fa @Model.Article.Icon"></i>
+                <span class="hs-article-title-container">@Model.Article.Title</span>
             </div>
-            <div class="grid-90 hs-article-title-container">
-                <h1 >
-                    @Model.Article.Title
-                </h1>
-            </div>
+            <div class="clearfix"></div>
             @if (Model.ShouldShowArticleSummary)
             {
-                <article>
-                    @Html.Raw(Model.Article.Body)
-                </article>
+                @Html.Raw(Model.Article.Body)
             }
         </div>
         
 
         @if (Model.DisplayedSection != null)
         {
-            @Html.Partial("../Shared/Section-Nav")
+            @Html.Partial("../../Shared/Section-Nav")
             @Html.Partial("../Shared/Article-Single-Section", Model)
-            @Html.Partial("DisplayTemplates/Section-Pagination")
+            @Html.Partial("../Shared/Section-Pagination")
         }
 
 
