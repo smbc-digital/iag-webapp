@@ -1,4 +1,7 @@
 using System;
+using System.Diagnostics;
+using System.IO;
+using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.TestHost;
 using HttpClient = System.Net.Http.HttpClient;
 
@@ -8,12 +11,33 @@ namespace StockportWebappTests.Integration
     {
         private readonly HttpClient _client;
         private readonly TestServer _server;
-        private const string IntEnvironment = "local";
 
         public RoutesTestServerFixture()
         {
-            _server = TestAppFactory.MakeFakeApp("healthystockport", IntEnvironment);
+            var intEnvironment = GetEnvironmentNameFromASPNETCORE_ENVIRONMENT();
+            Console.WriteLine($"Using appsettings.{intEnvironment}.json");
+
+            _server = TestAppFactory.MakeFakeApp("healthystockport", intEnvironment);
             _client = _server.CreateClient();
+        }
+
+        private string GetEnvironmentNameFromASPNETCORE_ENVIRONMENT()
+        {
+            var result = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
+            if (result == "Production")
+            {
+                var env = new HostingEnvironment
+                {
+                    // If you pass in "Production" it will go to the AWS environment settings and check in ASPNETCORE_ENVIRONMENT
+                    EnvironmentName = "Production",
+                    ContentRootPath = Directory.GetCurrentDirectory()
+                };
+                var startup = new StockportWebapp.Startup(env);
+                result = startup.EnvironmentName;
+            }
+
+            return result;
         }
 
         public HttpClient Client => _client;
