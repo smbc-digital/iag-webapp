@@ -2,10 +2,6 @@
 prod: &prod
   TopicPageImages: true
   SinglePayment: true
-  GroupStartPage: true
-  GroupResultsPage: true
-  GroupBreadCrumb: true
-  GroupPrimaryFilter: true
   HSFooter: true
 
 stage: &stage

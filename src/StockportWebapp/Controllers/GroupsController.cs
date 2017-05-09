@@ -22,14 +22,10 @@ namespace StockportWebapp.Controllers
         private readonly IGroupRepository _groupRepository;
         private readonly IFilteredUrl _filteredUrl;
 
-        FeatureToggles _featuretoggles;
-
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository,
-            FeatureToggles featureToggles, IFilteredUrl filteredUrl)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
-            _featuretoggles = featureToggles;
             _groupRepository = groupRepository;
             _filteredUrl = filteredUrl;
         }
@@ -37,32 +33,26 @@ namespace StockportWebapp.Controllers
         [Route("/groups")]
         public async Task<IActionResult> Index()
         {
-            if (_featuretoggles.GroupStartPage)
+            var model = new GroupStartPage
             {
-                var model = new GroupStartPage
+                PrimaryFilter = new PrimaryFilter
                 {
-                    PrimaryFilter = new PrimaryFilter
-                    {
-                        Location = "Stockport",
-                        Latitude = Defaults.Groups.StockportLatitude,
-                        Longitude = Defaults.Groups.StockportLongitude
-                    }
-                };
-
-                var response = await _repository.Get<List<GroupCategory>>();
-                var listOfGroupCategories = response.Content as List<GroupCategory>;
-
-                if (listOfGroupCategories != null)
-                {
-                    model.Categories = listOfGroupCategories;
-                    model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
+                    Location = "Stockport",
+                    Latitude = Defaults.Groups.StockportLatitude,
+                    Longitude = Defaults.Groups.StockportLongitude
                 }
+            };
 
-                return View(model);
+            var response = await _repository.Get<List<GroupCategory>>();
+            var listOfGroupCategories = response.Content as List<GroupCategory>;
+
+            if (listOfGroupCategories != null)
+            {
+                model.Categories = listOfGroupCategories;
+                model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
             }
 
-            return NotFound();
-
+            return View(model);
         }
 
         [Route("/groups/{slug}")]
@@ -82,46 +72,41 @@ namespace StockportWebapp.Controllers
         [Route("groups/results")]
         public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
         {
-            if (_featuretoggles.GroupResultsPage)
+            var model = new GroupResults();
+            var queries = new List<Query>();
+
+            if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
+            if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
+            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
+            if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
+            queries.Add(new Query("location", location));
+
+            var response = await _repository.Get<GroupResults>(queries: queries);
+
+            if (response.IsNotFound())
+                return NotFound();
+
+            model = response.Content as GroupResults;
+
+            ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : (char.ToUpper(category[0]) + category.Substring(1)).Replace("-", " ");
+            model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(model.CurrentUrl);
+            model.AddFilteredUrl(_filteredUrl);
+
+            DoPagination(model, page);
+
+            if (model.Categories != null && model.Categories.Any())
             {
-                var model = new GroupResults();
-                var queries = new List<Query>();
-
-                if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
-                if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
-                if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
-                if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
-                queries.Add(new Query("location", location));
-
-                var response = await _repository.Get<GroupResults>(queries: queries);
-
-                if (response.IsNotFound())
-                    return NotFound();
-
-                model = response.Content as GroupResults;
-
-                ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : (char.ToUpper(category[0]) + category.Substring(1)).Replace("-", " ");
-                model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-                _filteredUrl.SetQueryUrl(model.CurrentUrl);
-                model.AddFilteredUrl(_filteredUrl);
-
-                DoPagination(model, page);
-
-                if (model.Categories != null && model.Categories.Any())
-                {
-                    ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
-                    model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
-                }
-
-                model.PrimaryFilter.Order = order;
-                model.PrimaryFilter.Location = location;
-                model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
-                model.PrimaryFilter.Longitude = longitude != 0 ? longitude : Defaults.Groups.StockportLongitude;
-
-                return View(model);
+                ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
+                model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
             }
 
-            return NotFound();
+            model.PrimaryFilter.Order = order;
+            model.PrimaryFilter.Location = location;
+            model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
+            model.PrimaryFilter.Longitude = longitude != 0 ? longitude : Defaults.Groups.StockportLongitude;
+
+            return View(model);
         }
       
 

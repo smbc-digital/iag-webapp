@@ -1,8 +1,6 @@
-﻿@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @model GroupStartPage
-@inject FeatureToggles FeatureToggles
 
 @{
     ViewData["Title"] = "Find a local group";
@@ -30,18 +28,12 @@
         </div>
     </div>
     <div class="group-startpage-image hide-on-mobile" style="background-image: url('/assets/images/content/Groups_hero_image.jpg');">
-        @if (FeatureToggles.GroupPrimaryFilter)
-        {
-            <div class="primary-filter-container primary-filter-container-start-page">
-                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
-            </div>
-        }
+        <div class="primary-filter-container primary-filter-container-start-page">
+            @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
+        </div>
     </div>
     <div class="hide-on-desktop hide-on-tablet mobile-grid-100 group-startpage-mobile">
-        @if (FeatureToggles.GroupPrimaryFilter)
-        {
-            @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
-        }
+        @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
     </div>
     <div class="group-startpage">
         <div class="featured-category-items-wrapper">

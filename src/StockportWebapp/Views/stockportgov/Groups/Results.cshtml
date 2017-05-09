@@ -1,9 +1,7 @@
-﻿@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
 @model GroupResults
-@inject FeatureToggles FeatureToggles
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
     ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - find a local group");
@@ -29,23 +27,16 @@
             </div> 
         </div>
     </div>
-   
-    @if (FeatureToggles.GroupPrimaryFilter)
-    {
-        <div class="primary-filter-outer-container-results-page hide-on-mobile">
-            <div class="primary-filter-container primary-filter-container-results-page">
-                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
-            </div>
+    <div class="primary-filter-outer-container-results-page hide-on-mobile">
+        <div class="primary-filter-container primary-filter-container-results-page">
+            @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
         </div>
-    }       
-    
+    </div>
+
     <div class="hide-on-desktop hide-on-tablet mobile-grid-100 group-search-mobile">
         <div class="mobile-grid-100 group-result-label-container"><label>Showing <strong>@ViewBag.SelectedCategory</strong> groups near <strong>@Model.PrimaryFilter.Location</strong></label></div>
         <div id="edit-search">
-            @if (FeatureToggles.GroupPrimaryFilter)
-            {
-                @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
-            }
+            @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
         </div>
         <div id="open-edit-search" class="mobile-grid-100">
             <label>Edit search</label>
