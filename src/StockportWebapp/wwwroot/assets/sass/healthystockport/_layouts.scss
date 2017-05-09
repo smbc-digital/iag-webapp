@@ -202,7 +202,6 @@
 }
 
 .l-body-section-container{
-    text-align: center;
 
     .l-body-section-container-holder {
        
@@ -236,9 +235,17 @@
         @media #{$desktop, $tablet} {
             margin-top:10px;
         }
+
+        .l-body-section-container-holder-item {
+            text-align: center; 
+            margin-left: 10px; 
+            margin-right: 10px;
+        }
     }
 
     .l-body-section-container-contactus {
+
+        text-align:center;
 
         @media #{$mobile, $tablet} {
             padding-left: 0;

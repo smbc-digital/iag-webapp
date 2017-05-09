@@ -32,9 +32,12 @@
                 }
             }
         }
-        <h2>@topic.Name</h2>
-        <hr>
-        @Html.Raw(topic.Summary)
+        <div class="l-body-section-container-holder-item">
+            <h2>@topic.Name</h2>
+            <hr>
+            @Html.Raw(topic.Summary)
+        </div>
+        
         @Html.Partial("SubItem-List", topic)        
     </div>
     
