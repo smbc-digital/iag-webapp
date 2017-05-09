@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@using StockportWebapp.FeatureToggling
+﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
@@ -7,8 +6,8 @@
 @inject FeatureToggles FeatureToggles
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
-    ViewData["og:title"] = "Groups";
-    ViewData["Description"] = "Groups Results Page";
+    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - find a local group");
+    ViewData["Description"] = "Find a local group results page";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
