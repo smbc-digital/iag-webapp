@@ -112,9 +112,8 @@
                                         <label asp-for="@Model.Fee"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        <label asp-for="Category1">Event categories</label>                                      
-                                        <div class="grid-100 grid-parent category-div" id="category-div1">
-                                            <span asp-validation-for="@Model.Category1" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <label>Event categories</label>                                      
+                                        <div class="grid-100 grid-parent category-div" id="category-div1">                                           
                                             <div class="grid-50 tablet-grid-80 mobile-grid-90 grid-parent">
                                                 <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="Category1">
                                                     <option disabled selected hidden value="">
@@ -125,6 +124,7 @@
                                                         <option value="@category">@category</option>
                                                     }
                                                 </select>
+                                                <span asp-validation-for="@Model.Category1" class="form-field-validation-error grid-100 tablet-grid-100 mobile-grid-100 grid-parent"></span>
                                                 <a href="#" id="add-category2" style="display: none"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add another category</a>
                                             </div>
                                             <div class="grid-50 mobile-grid-10 tablet-grid-20" style="display: none">
