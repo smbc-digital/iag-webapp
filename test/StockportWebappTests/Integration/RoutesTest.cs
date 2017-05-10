@@ -527,8 +527,7 @@ namespace StockportWebappTests.Integration
         public void ItReturnsAGroupPage()
         {
             SetBusinessIdRequestHeader("stockportgov");
-
-            Console.WriteLine($"Visiting {_client.BaseAddress}/groups/test-zumba-slug");
+            
             var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/test-zumba-slug"));
 
             result.Should().Contain("zumba");

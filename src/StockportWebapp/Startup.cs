@@ -44,7 +44,6 @@ namespace StockportWebapp
     public class Startup
     {
         public IConfigurationRoot Configuration { get; }
-        public string EnvironmentName { get; }
         private readonly string _appEnvironment;
         private readonly string _contentRootPath;
         public readonly string ConfigDir = "app-config";
@@ -59,7 +58,6 @@ namespace StockportWebapp
             var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
             
             Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
-            EnvironmentName = configLoader.EnvironmentName(env);
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
         }
