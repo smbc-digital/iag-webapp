@@ -24,7 +24,6 @@ namespace StockportWebappTests
             var hostBuilder = new WebHostBuilder()
               .UseStartup<FakeStartup>()
               .UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "src", "StockportWebapp"))
-              .UseUrls("http://localhost:52648")
               .UseKestrel()
               .UseEnvironment(environment);
 
@@ -61,7 +60,7 @@ namespace StockportWebappTests
             ResponseHandler = new FakeResponseHandler();
             var urlsDict = new Dictionary<Uri, string>
             {
-                {new Uri("http://localhost:52648/_healthcheck"), ReadFile("Healthcheck")}
+                {new Uri("http://localhost:5001/_healthcheck"), ReadFile("Healthcheck")}
             };
             foreach (var url in urlsDict.Keys)
             {
@@ -84,75 +83,77 @@ namespace StockportWebappTests
         {
             Client = new FakeHttpClient();
 
-            Client.For("http://localhost:52648/api/unittest/article/non-existent-url")
+            Client.For("http://localhost:5001/api/unittest/article/non-existent-url")
                 .Return(HttpResponse.Failure(404, "does not exist"));
-            Client.For("http://localhost:52648/api/unittest/article/this-is-a-redirect-from")
+            Client.For("http://localhost:5001/api/unittest/article/this-is-a-redirect-from")
                 .Return(HttpResponse.Failure(404, "does not exist"));
-            Client.For("http://localhost:52648/api/healthystockport/start-page/start-page")
+            Client.For("http://localhost:5001/api/healthystockport/start-page/start-page")
                 .Return(HttpResponse.Successful(200, ReadFile("StartPage")));
-            Client.For("http://localhost:52648/api/healthystockport/topic/test-topic")
+            Client.For("http://localhost:5001/api/healthystockport/topic/test-topic")
                 .Return(HttpResponse.Successful(200, ReadFile("TopicWithAlerts")));
-            Client.For("http://localhost:52648/api/healthystockport/article/physical-activity")
+            Client.For("http://localhost:5001/api/healthystockport/article/physical-activity")
                 .Return(HttpResponse.Successful(200, ReadFile("Article")));
-            Client.For("http://localhost:52648/api/healthystockport/homepage")
+            Client.For("http://localhost:5001/api/healthystockport/homepage")
                 .Return(HttpResponse.Successful(200, ReadFile("HomepageHealthyStockport")));
-            Client.For("http://localhost:52648/api/healthystockport/news/latest/2")
+            Client.For("http://localhost:5001/api/healthystockport/news/latest/2")
                 .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
-            Client.For("http://localhost:52648/api/healthystockport/events/latest/2")
+            Client.For("http://localhost:5001/api/healthystockport/events/latest/2")
                 .Return(HttpResponse.Successful(200, ReadFile("EventListing")));
-            Client.For("http://localhost:52648/api/healthystockport/events/latest/2?featured=true")
+            Client.For("http://localhost:5001/api/healthystockport/events/latest/2?featured=true")
                 .Return(HttpResponse.Successful(200, ReadFile("EventListingFeatured")));
-            Client.For("http://localhost:52648/api/healthystockport/news")
+            Client.For("http://localhost:5001/api/healthystockport/news")
                 .Return(HttpResponse.Successful(200, ReadFile("Newsroom")));
-            Client.For("http://localhost:52648/api/healthystockport/profile/test-profile")
+            Client.For("http://localhost:5001/api/healthystockport/profile/test-profile")
                 .Return(HttpResponse.Successful(200, ReadFile("Profile")));
-            Client.For("http://localhost:52648/api/healthystockport/article/contact-us")
+            Client.For("http://localhost:5001/api/healthystockport/article/contact-us")
                 .Return(HttpResponse.Successful(200, ReadFile("ContactUsArticle")));
-            Client.For("http://localhost:52648/api/healthystockport/article/about")
+            Client.For("http://localhost:5001/api/healthystockport/article/about")
                 .Return(HttpResponse.Successful(200, ReadFile("StandaloneArticleWithProfile")));
-            Client.For("http://localhost:52648/api/redirects")
+            Client.For("http://localhost:5001/api/redirects")
                 .Return(HttpResponse.Successful(200, ReadFile("Redirects")));
-            Client.For("http://localhost:52648/api/stockportgov/homepage")
+            Client.For("http://localhost:5001/api/stockportgov/homepage")
                 .Return(HttpResponse.Successful(200, ReadFile("HomepageStockportGov")));
-            Client.For("http://localhost:52648/api/stockportgov/topic/test-topic")
+            Client.For("http://localhost:5001/api/stockportgov/topic/test-topic")
                 .Return(HttpResponse.Successful(200, ReadFile("TopicWithAlerts")));
-            Client.For("http://localhost:52648/api/stockportgov/article/physical-activity")
+            Client.For("http://localhost:5001/api/stockportgov/article/physical-activity")
                 .Return(HttpResponse.Successful(200, ReadFile("Article")));
-            Client.For("http://localhost:52648/api/stockportgov/start-page/start-page")
+            Client.For("http://localhost:5001/api/stockportgov/start-page/start-page")
                 .Return(HttpResponse.Successful(200, ReadFile("StartPage")));
-            Client.For("http://localhost:52648/api/stockportgov/news")
+            Client.For("http://localhost:5001/api/stockportgov/news")
                 .Return(HttpResponse.Successful(200, ReadFile("Newsroom")));
-            Client.For("http://localhost:52648/api/stockportgov/news/latest/2")
+            Client.For("http://localhost:5001/api/stockportgov/news/latest/2")
                 .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
-            Client.For("http://localhost:52648/api/stockportgov/news/latest/7")
+            Client.For("http://localhost:5001/api/stockportgov/news/latest/7")
                 .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
-            Client.For("http://localhost:52648/api/stockportgov/news/test")
+            Client.For("http://localhost:5001/api/stockportgov/news/test")
                 .Return(HttpResponse.Successful(200, ReadFile("News")));
-            Client.For("http://localhost:52648/api/stockportgov/events/latest/2")
+            Client.For("http://localhost:5001/api/stockportgov/events/latest/2")
                 .Return(HttpResponse.Successful(200, ReadFile("EventListing")));
-            Client.For("http://localhost:52648/api/stockportgov/events/latest/2?featured=true")
+            Client.For("http://localhost:5001/api/stockportgov/events/latest/2?featured=true")
                 .Return(HttpResponse.Successful(200, ReadFile("EventListingFeatured")));
-            Client.For("http://localhost:52648/api/stockportgov/profile/test-profile")
+            Client.For("http://localhost:5001/api/stockportgov/profile/test-profile")
                 .Return(HttpResponse.Successful(200, ReadFile("Profile")));
-            Client.For("http://localhost:52648/api/stockportgov/footer")
+            Client.For("http://localhost:5001/api/stockportgov/footer")
                 .Return(HttpResponse.Successful(200, ReadFile("Footer")));
-            Client.For("http://localhost:52648/api/healthystockport/footer")
+            Client.For("http://localhost:5001/api/healthystockport/footer")
                 .Return(HttpResponse.Successful(200, ReadFile("Footer")));
-            Client.For("http://localhost:52648/api/stockportgov/events")
+            Client.For("http://localhost:5001/api/stockportgov/events")
                 .Return(HttpResponse.Successful(200, ReadFile("EventsCalendar")));
-            Client.For("http://localhost:52648/api/stockportgov/events/event-of-the-century")
+            Client.For("http://localhost:5001/api/stockportgov/events/event-of-the-century")
                 .Return(HttpResponse.Successful(200, ReadFile("Event")));
-            Client.For("http://localhost:52648/api/stockportgov/atoz/a")
+            Client.For("http://localhost:5001/api/stockportgov/atoz/a")
                 .Return(HttpResponse.Successful(200, ReadFile("AtoZ")));
-            Client.For("http://localhost:52648/api/stockportgov/showcase/a-showcase")
+            Client.For("http://localhost:5001/api/stockportgov/showcase/a-showcase")
                 .Return(HttpResponse.Successful(200, ReadFile("Showcase")));
-            Client.For("http://localhost:52648/api/stockportgov/group/test-zumba-slug")
+            Client.For("http://localhost:5001/api/stockportgov/group/test-zumba-slug")
                 .Return(HttpResponse.Successful(200, ReadFile("Group")));
-            Client.For("http://localhost:52648/api/stockportgov/groupResults/")
+            Client.For("http://localhost:5001/api/stockportgov/groupResults/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
-            Client.For("http://localhost:52648/api/stockportgov/groupResults/?latitude=53.40581278523235&longitude=-2.158041000366211")
+            Client.For("http://localhost:5001/api/stockportgov/groups/results/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
-            Client.For("http://localhost:52648/api/stockportgov/groupCategory/")
+            Client.For("http://localhost:5001/api/stockportgov/groupResults/?latitude=53.40581278523235&longitude=-2.158041000366211")
+                .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
+            Client.For("http://localhost:5001/api/stockportgov/groupCategory/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));           
         }
 
