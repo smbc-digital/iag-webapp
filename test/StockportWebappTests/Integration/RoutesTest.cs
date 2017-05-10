@@ -534,7 +534,7 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("zumba");
         }
         
-        [Fact(Skip="Something up with groups? skipping for now...")]
+        [Fact]
         public void ItReturnsAGroupResultsPage()
         {
             SetBusinessIdRequestHeader("stockportgov");
@@ -544,7 +544,7 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("Brinnington");
         }
 
-        [Fact(Skip = "Something up with groups? skipping for now...")]
+        [Fact]
         public void ItReturnsAGroupStartPage()
         {
             SetBusinessIdRequestHeader("stockportgov");
