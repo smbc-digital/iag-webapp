@@ -49,9 +49,12 @@
                     </div>
                 }    
             </div>
-            <div class="grid-100 grid-parent hs-carousel-container">
-                @Html.Partial("Carousel", Model.CarouselContents)
-            </div>
+            @if (Model.CarouselContents != null)
+            {
+                <div class="grid-100 grid-parent hs-carousel-container">
+                    @Html.Partial("Carousel", Model.CarouselContents)
+                </div>
+            }
         </section>
     </div>
 </div>

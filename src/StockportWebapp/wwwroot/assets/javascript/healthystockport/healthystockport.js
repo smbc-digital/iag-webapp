@@ -34,7 +34,9 @@ $(document).ready(function () {
         ]
     });
 
-    matchboxTopic.init();
+    if ($(".article-list-container").length > 0) {
+        matchboxTopic.init();
+    }
    
     $(".show-search-button").click(
             function () {
