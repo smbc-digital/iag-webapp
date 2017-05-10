@@ -4,6 +4,10 @@ module.exports = {
         homepage.navigate();
     },
 
+    'Deliberately failing test': function (browser) {
+        browser.useXpath().assert.visible("//div[@class='bibbidy-bobbidy-boo']/h4");
+    },
+
    'Find article for About the Hat Works': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        browser.maximizeWindow();
