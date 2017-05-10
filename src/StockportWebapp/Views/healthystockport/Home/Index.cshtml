@@ -26,7 +26,7 @@
             <h2>@Model.FeaturedTasksHeading</h2>
             <hr />
             <p class="feature-tagline">@Model.FeaturedTasksSummary</p>
-            <div class="topic-block-list">
+            <div class="topic-block-list" id="topicBlockList">
                 @foreach (var subItem in Model.FeaturedTasks)
                 {
                     <div class="grid-30 tablet-grid-40 mobile-grid-100 topic-block-container">

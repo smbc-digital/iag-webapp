@@ -1,6 +1,6 @@
 var methods = {
     goToTopicListBlockPage: function (browser, title, link) {
-        this.waitForElementVisible('@topicList', this.api.globals.timeOut);     
+        this.waitForElementVisible('h1', this.api.globals.timeOut);     
         browser.useXpath().assert.visible("//div[@class='topic-block-content']/h4")
             .click("//a[contains(@href,'" + link + "')]/div[@class='topic-block-content']");
     },

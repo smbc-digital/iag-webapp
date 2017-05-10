@@ -29,7 +29,7 @@
 }
 
 .l-body-section-filled {
-    border-radius:10px 10px 0 0;
+    border-radius:4px 4px 0 0;
 
     @media #{$tablet}
     {
@@ -90,6 +90,8 @@
     @media #{$mobile, $tablet} {
         height:35%;
     }
+
+   
 }
 
 .type-home .background-image {
@@ -124,7 +126,11 @@
 
     
     
-    background-size: contain;     
+    background-size: contain;  
+    
+    @media (max-width:350px){
+         background-size: 350px 200px;
+    }   
 }
 
 
@@ -213,12 +219,17 @@
       padding-bottom: 110px;
     }
 }
+ .alert-wrapper {
+            padding-top:10px;
+}
 
 .l-body-section-container{
     text-align: center;
 
+    
     .l-body-section-container-holder {
        
+        
         h2 {
             font-size: 2em;
             margin-bottom: 10px;

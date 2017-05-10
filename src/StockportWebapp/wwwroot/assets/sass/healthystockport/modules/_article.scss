@@ -3,7 +3,7 @@
     padding-bottom: 10px; 
     overflow: auto; 
     border-bottom: 1px solid #d3d3d3;
-    text-align:center;
+    
 
     .hs-article-icon-container {
         padding: 0;
@@ -11,11 +11,21 @@
         font-size: 4em; 
         display: inline-block;
         padding-right:10px;
-
+         vertical-align:middle;
     }
 
-    .hs-contact-us{
-        text-align: left;
+    .hs-article-title
+    {
+        text-align:left;
+        @media #{$mobile, $tablet} {
+            text-align:center;
+        }
+       
+    }
+
+    .hs-article-summary
+    {
+        text-align:left;
     }
 
     .hs-article-title-container {
@@ -23,7 +33,7 @@
         font-weight: 300; 
         line-height: 1.3; 
         letter-spacing: -.01em;
-
+         vertical-align:middle;
         @media #{$mobile} {
             font-size: 2em; 
         }
