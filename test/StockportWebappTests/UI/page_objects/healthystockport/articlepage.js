@@ -46,7 +46,7 @@ module.exports = {
       return this.api.globals.testUri + '/article';
   },
   elements: {
-      articleTitle: 'h1',
+      articleTitle: 'h2',
       articleContainer: '.l-article-container',
       paginationNext: '.pagination-next',
       profile: '.profile',

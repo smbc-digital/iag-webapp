@@ -6,28 +6,26 @@ module.exports = {
 
     'Navigating to article "UITEST: A balanced diet", navigationg to the contact us page and then returning to the homepage': function (browser) {
         var homepage = browser.page.healthystockport.homepage();
-        homepage.goToTopicListBlockPage(browser, "UITEST: Healthy weight", "/topic/uitest-healthy-weight");
+        homepage.goToTopicListBlockPage(browser, "UITEST: A balanced diet", "/topic/uitest-healthy-weight");
 
         var topicpage = browser.page.healthystockport.topicpage();
         topicpage.assertTitleIsVisible('UITEST: Healthy weight');
-        //topicpage.goToArticlePage(browser, "UITEST: A balanced diet", "uitest-a-balanced-diet");
+        topicpage.goToArticlePage(browser, "UITEST: A balanced diet", "uitest-a-balanced-diet");
 
 
-        //var articlepage = browser.page.healthystockport.articlepage();
-        //articlepage.assertTitleIsVisible("UITEST: A balanced diet");
-        //articlepage.assertProfileIsVisible("Brinnington, Stockport");
-        //articlepage.goToNextSection(browser);
+        var articlepage = browser.page.healthystockport.articlepage();
+        articlepage.assertTitleIsVisible("UITEST: Getting started");
+        articlepage.assertProfileIsVisible("Brinnington, Stockport");
+        articlepage.goToNextSection(browser);
 
-        /*
-        articlepage.goToContactUsPage(browser);
+        //articlepage.goToContactUsPage(browser);
 
-        var contactuspage = browser.page.healthystockport.contactuspage();
-        contactuspage.assertTitleIsVisible("Contact Us");
+        //var contactuspage = browser.page.healthystockport.contactuspage();
+        //contactuspage.assertTitleIsVisible("Contact Us");
 
-        contactuspage.goToHomePage(browser);
+        //contactuspage.goToHomePage(browser);
 
-        homepage.assertTitleIsVisible("People of Stockport");
-        */
+        //homepage.assertTitleIsVisible("People of Stockport");
     },
    
     after: function (browser, done) {

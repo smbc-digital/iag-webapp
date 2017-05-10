@@ -39,7 +39,16 @@
             <div class="clearfix"></div>
             @if (Model.ShouldShowArticleSummary)
             {
-                @Html.Raw(Model.Article.Body)
+                if (Model.Article.NavigationLink == "/contact-us")
+                {
+                    <div class="hs-contact-us">
+                        @Html.Raw(Model.Article.Body)
+                    </div>
+                }
+                else
+                {
+                    @Html.Raw(Model.Article.Body)
+                }
             }
         </div>
         
