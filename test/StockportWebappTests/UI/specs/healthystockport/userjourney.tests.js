@@ -2,6 +2,11 @@ module.exports = {
     before: function (browser) {
         var homepage = browser.page.healthystockport.homepage();
         homepage.navigate();
+        browser.useXpath().assert.visible("//div[@class='topic-block-content']/h4");
+    },
+
+    'Deliberately failing test': function (browser) {
+        browser.useXpath().assert.visible("//div[@class='bibbidy-bobbidy-boo']/h4");
     },
 
     'Navigating to article "UITEST: A balanced diet", navigationg to the contact us page and then returning to the homepage': function (browser) {
