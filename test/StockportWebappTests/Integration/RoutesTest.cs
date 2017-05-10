@@ -14,13 +14,16 @@ namespace StockportWebappTests.Integration
 {
     public class RoutesTest : IClassFixture<RoutesTestServerFixture>
     {
-        private readonly HttpClient _client;
+        // All requests made using this fake client will instantiate the actual controllers, but
+        // when the controllers make requests to ContentApi, the responses will be fake json files from the Unit/MockResponses folder.
+        // The routing which maps urls to fake responses is done in FakeHttpClientFactory.FakeHttpClientFactory() (currently in TestAppFactory.cs).
+        private readonly HttpClient _fakeClient;
         private readonly RoutesTestServerFixture _testServerFixture;
        
         public RoutesTest(RoutesTestServerFixture testServerFixture)
         {
             _testServerFixture = testServerFixture;
-            _client = _testServerFixture.Client;          
+            _fakeClient = _testServerFixture.Client;          
         }
 
         [Fact]
@@ -28,7 +31,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("unittest");
 
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/this-is-another-article"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetAsync("/this-is-another-article"));
 
             result.Headers.CacheControl.MaxAge.Value.Should().Be(TimeSpan.FromSeconds(21600));
         }
@@ -38,7 +41,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("unittest");
 
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/non-existent-url"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetAsync("/non-existent-url"));
              
             result.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -48,7 +51,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("unittest");
  
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/this-is-a-redirect-from"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetAsync("/this-is-a-redirect-from"));
  
             result.StatusCode.Should().Be(HttpStatusCode.MovedPermanently);
             result.Headers.Location.ToString().Should().Be("this-is-a-redirect-to");
@@ -60,12 +63,12 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var stockportResult = AsyncTestHelper.Resolve(_client.GetStringAsync("/"));
+            var stockportResult = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/"));
             stockportResult.Should().Contain("Welcome to Stockport Council");
 
             SetBusinessIdRequestHeader("healthystockport");
 
-            var healthyResult = AsyncTestHelper.Resolve(_client.GetStringAsync("/"));
+            var healthyResult = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/"));
 
             healthyResult.Should().Contain("Welcome to Healthy Stockport");
             healthyResult.Should().Contain("Eat healthy", "Should render a business-specific piece of content");
@@ -81,7 +84,7 @@ namespace StockportWebappTests.Integration
 
             var contactUsMessage = "You filled the form out incorrectly";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync($"/contact-us?message={contactUsMessage}"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync($"/contact-us?message={contactUsMessage}"));
 
             result.Should().Contain(contactUsMessage);
         }
@@ -91,7 +94,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = await _client.GetAsync("/physical-activity");
+            var result = await _fakeClient.GetAsync("/physical-activity");
 
             result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(15));
             result.Headers.CacheControl.Public.Should().Be(true);
@@ -102,7 +105,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/"));
 
             result.Should().Contain("Pay Council Tax");
             result.Should().Contain("Check your bin day");
@@ -115,7 +118,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/start/start-page"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/start/start-page"));
 
             result.Should().Contain("Start Page");
             result.Should().Contain("An upper body");
@@ -127,7 +130,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/topic/test-topic"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/topic/test-topic"));
 
             result.Should().Contain("This is an alert");
             result.Should().Contain("It also has a body text");
@@ -142,7 +145,7 @@ namespace StockportWebappTests.Integration
             var firstSectionBody = "Staying active and exercising";
             var sectionTwoBody = "Blah blah blah here";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/physical-activity"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/physical-activity"));
 
             result.Should().Contain(articleSummary);
             result.Should().Contain(firstSectionBody);
@@ -158,7 +161,7 @@ namespace StockportWebappTests.Integration
             var profileTeaser = "Profile teaser";
             var profileSubtitle = "This is a test profile";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/physical-activity/test-profile-section"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/physical-activity/test-profile-section"));
 
             result.Should().Contain(profileTitle);
             result.Should().Contain(profileTeaser);
@@ -175,7 +178,7 @@ namespace StockportWebappTests.Integration
             var documentUrl = "document.pdf";
             var fileName = "document.pdf";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/physical-activity/physical-activity-overview"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/physical-activity/physical-activity-overview"));
 
             result.Should().Contain(documentTitle);
             result.Should().Contain(documentSize);
@@ -192,7 +195,7 @@ namespace StockportWebappTests.Integration
             var profileTeaser = "This is a profile teaser";
             var profileSubtitle = "This is a test profile";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/about"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/about"));
 
             result.Should().Contain(profileTitle);
             result.Should().Contain(profileTeaser);
@@ -209,7 +212,7 @@ namespace StockportWebappTests.Integration
             var articleSummary = "Being active is great for your body";
             var sectionOneBody = "not in the content";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/physical-activity/types-of-physical-activity"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/physical-activity/types-of-physical-activity"));
 
             result.Should().Contain(requestedSectionBody);
             result.Should().NotContain(articleSummary);
@@ -224,7 +227,7 @@ namespace StockportWebappTests.Integration
             var requestedTitle = "Test Profile";
             var requestedBody = "Test body";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/profile/test-profile"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/profile/test-profile"));
 
             result.Should().Contain(requestedTitle);
             result.Should().Contain(requestedBody);
@@ -237,7 +240,7 @@ namespace StockportWebappTests.Integration
 
             var formHtmlTag = "<form";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/contact-us"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/contact-us"));
 
             result.Should().Contain(formHtmlTag);
         }
@@ -259,7 +262,7 @@ namespace StockportWebappTests.Integration
             var request = new HttpRequestMessage(HttpMethod.Post, "/contact-us") { Content = formContents };
             request.Headers.Add("Referer", "http://something.com/a-page");
 
-            var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
+            var result = AsyncTestHelper.Resolve(_fakeClient.SendAsync(request));
 
             result.StatusCode.Should().Be(HttpStatusCode.Redirect);
             result.Headers.Location.OriginalString.Should().Be("/thank-you?referer=%2Fa-page");
@@ -270,7 +273,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/_healthcheck"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/_healthcheck"));
 
             result.Should().Contain("appVersion");
             result.Should().Contain("sha");
@@ -284,7 +287,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/news/rss"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/news/rss"));
 
             result.Should().Contain("Stockport Council News Feed");
             result.Should().Contain("Another news article");
@@ -296,7 +299,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/robots.txt"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/robots.txt"));
 
             result.Should().Contain("# no robots");
         }
@@ -321,7 +324,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = await _client.GetAsync(path);
+            var result = await _fakeClient.GetAsync(path);
 
             result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(time));
             result.Headers.CacheControl.Public.Should().Be(true);
@@ -332,7 +335,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/postcode?postcode=this"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetAsync("/postcode?postcode=this"));
 
             result.StatusCode.Should().Be(HttpStatusCode.Redirect);
         }
@@ -342,7 +345,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/robots.txt"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/robots.txt"));
 
             result.Should().Contain("# no robots");
         }
@@ -358,7 +361,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync(url));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync(url));
 
             result.Should().Contain("2016 A Council Name");
         }
@@ -368,7 +371,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/"));
 
             result.Should().Contain("Pay Council Tax");
             result.Should().Contain("Check your bin day");
@@ -381,7 +384,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetAsync("/robots.txt"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetAsync("/robots.txt"));
 
             result.Headers.CacheControl.MaxAge.Value.Seconds.Should().Be(0);
             result.Headers.CacheControl.MaxAge.Value.Minutes.Should().Be(0);
@@ -393,7 +396,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
             
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/events"));
 
             result.Should().Contain("This is the event");
             result.Should().Contain("This is the second event");
@@ -405,7 +408,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events/event-of-the-century"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/events/event-of-the-century"));
 
             result.Should().Contain("This is the event");
         }
@@ -414,7 +417,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/ExternalTemplates/Democracy"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/ExternalTemplates/Democracy"));
 
             result.Should().Contain("{pagetitle}");
             result.Should().Contain("{breadcrumb}");
@@ -431,7 +434,7 @@ namespace StockportWebappTests.Integration
 
             var formHtmlTag = "<form";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/events/add-your-event"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/events/add-your-event"));
 
             result.Should().Contain(formHtmlTag);
         }
@@ -453,7 +456,7 @@ namespace StockportWebappTests.Integration
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/events/add-your-event") { Content = formContents };
 
-            var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
+            var result = AsyncTestHelper.Resolve(_fakeClient.SendAsync(request));
 
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -464,7 +467,7 @@ namespace StockportWebappTests.Integration
 
             var formHtmlTag = "<form";
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/add-a-group"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/groups/add-a-group"));
 
             result.Should().Contain(formHtmlTag);
         }
@@ -487,7 +490,7 @@ namespace StockportWebappTests.Integration
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/groups/add-a-group") { Content = formContents };
 
-            var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
+            var result = AsyncTestHelper.Resolve(_fakeClient.SendAsync(request));
 
             result.StatusCode.Should().Be(HttpStatusCode.Redirect);
         }
@@ -508,7 +511,7 @@ namespace StockportWebappTests.Integration
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/groups/add-a-group") { Content = formContents };
 
-            var result = AsyncTestHelper.Resolve(_client.SendAsync(request));
+            var result = AsyncTestHelper.Resolve(_fakeClient.SendAsync(request));
 
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -518,7 +521,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/showcase/a-showcase"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/showcase/a-showcase"));
 
             result.Should().Contain("test showcase");
         }
@@ -528,7 +531,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
             
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/test-zumba-slug"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/groups/test-zumba-slug"));
 
             result.Should().Contain("zumba");
         }
@@ -538,7 +541,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups/results"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/groups/results"));
 
             result.Should().Contain("Brinnington");
         }
@@ -548,7 +551,7 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("stockportgov");
 
-            var result = AsyncTestHelper.Resolve(_client.GetStringAsync("/groups"));
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/groups"));
 
             result.Should().Contain("Dancing");
         }
