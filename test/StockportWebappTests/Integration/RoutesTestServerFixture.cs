@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
+using StockportWebapp.Config;
 using HttpClient = System.Net.Http.HttpClient;
 
 namespace StockportWebappTests.Integration
@@ -23,21 +25,37 @@ namespace StockportWebappTests.Integration
 
         private string GetEnvironmentNameFromASPNETCORE_ENVIRONMENT()
         {
-            var result = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            string result = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
-            if (result == "Production")
+            if (WeAreInAWS(result))
             {
-                var env = new HostingEnvironment
-                {
-                    // If you pass in "Production" it will go to the AWS environment settings and check in ASPNETCORE_ENVIRONMENT
-                    EnvironmentName = "Production",
-                    ContentRootPath = Directory.GetCurrentDirectory()
-                };
-                var startup = new StockportWebapp.Startup(env);
-                result = startup.EnvironmentName;
+                result = FetchEnvironmentNameForAWS();
             }
 
             return result;
+        }
+
+        private string FetchEnvironmentNameForAWS()
+        {
+            // ConfigurationLoader.EnvironmentName knows to do some extra AWS finagling if environment name is "Production"
+            const string defaultAWSEnvName = "Production";
+            var env = new HostingEnvironment
+            {
+                EnvironmentName = defaultAWSEnvName,
+                ContentRootPath = Directory.GetCurrentDirectory()
+            };
+            var configBuilder = new ConfigurationBuilder();
+            const string configDirectory = "app-config";
+            var configLoader = new ConfigurationLoader(configBuilder, configDirectory);
+
+            return configLoader.EnvironmentName(env);
+        }
+
+        // NOTE: There is an issue in AWS ElasticBeanstalk that means our environment variables aren't set.
+        // This will mean that ASPNETCORE_ENVIRONMENT will default to Production.
+        private bool WeAreInAWS(string environmentName)
+        {
+            return environmentName == "Production";
         }
 
         public HttpClient Client => _client;
