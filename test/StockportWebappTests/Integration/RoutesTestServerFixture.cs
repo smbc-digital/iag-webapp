@@ -13,13 +13,14 @@ namespace StockportWebappTests.Integration
     {
         private readonly HttpClient _client;
         private readonly TestServer _server;
+        private const string IntEnvironment = "local";
 
         public RoutesTestServerFixture()
         {
             var intEnvironment = GetEnvironmentNameFromASPNETCORE_ENVIRONMENT();
             Console.WriteLine($"Using appsettings.{intEnvironment}.json");
 
-            _server = TestAppFactory.MakeFakeApp("healthystockport", intEnvironment);
+            _server = TestAppFactory.MakeFakeApp("healthystockport", IntEnvironment);
             _client = _server.CreateClient();
         }
 
