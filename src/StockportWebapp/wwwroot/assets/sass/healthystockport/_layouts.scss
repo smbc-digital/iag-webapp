@@ -281,6 +281,13 @@
         @media #{$desktop, $tablet} {
             margin-top:10px;
         }
+
+        .l-body-section-container-holder-alert {
+            text-align: left;
+        }
+        .l-body-section-container-holder-item {
+            padding: 0px 10px 0px 10px;
+        }
     }
 
     .l-body-section-container-contactus {

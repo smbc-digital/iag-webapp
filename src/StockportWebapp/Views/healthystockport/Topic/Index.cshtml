@@ -22,16 +22,18 @@
 }
 
 <section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 l-body-section-container topic-content">   
-    <div class="grid-100 l-body-section-container-holder">
-        @{
-            if (topic.Alerts != null)
-            {
-                foreach (var alert in topic.Alerts)
+    <div class="grid-100 l-body-section-container-holder">      
+        <div class="l-body-section-container-holder-alert">
+            @{
+                if (topic.Alerts != null)
                 {
-                    @Html.Partial("DisplayTemplates/Alert", alert)
+                    foreach (var alert in topic.Alerts)
+                    {
+                        @Html.Partial("DisplayTemplates/Alert", alert)
+                    }
                 }
             }
-        }
+        </div>
         <div class="l-body-section-container-holder-item">
             <h2>@topic.Name</h2>
             <hr>
@@ -51,3 +53,4 @@
         </div>      
     </div>
 </section>
+
