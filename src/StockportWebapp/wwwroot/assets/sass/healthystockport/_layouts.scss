@@ -58,20 +58,6 @@
         margin-top:140px;
     }
 }
-.l-body-container-mobile {
-    @media #{$mobile} {
-        /*/margin-top:60px !important;*/
-    }
-}
-
-.l-body-container-nondesktop-margin {
-    @media #{$mobile} {
-        margin-top:48% !important;
-    }
-     @media #{$tablet} {
-        margin-top:42% !important;
-    }
-}
 
 .l-homepage-body-container{
     margin-left: -10px; 
@@ -123,8 +109,6 @@
     img {
         max-height: none;
     }
-
-    
     
     background-size: contain;  
     
@@ -132,8 +116,6 @@
          background-size: 350px 200px;
     }   
 }
-
-
 
 // Copied from shared styles, needs checking to remove redundancy:
 .l-background-fixed {
@@ -177,6 +159,10 @@
     @media #{$desktop} {
         margin-top: 0px;
     }   
+
+    @media (max-width:350px){
+         margin-top: 0px;
+    }
 }
 
 .l-body-section-filled {
@@ -211,12 +197,19 @@
 	z-index: 5;
 	overflow: hidden;
     padding-bottom: 80px;
+
     @media #{$mobile} {
        padding-top: 0;
        padding-bottom: 40px;
     }
     @media #{$tablet} {
       padding-bottom: 110px;
+    }
+
+    @media (max-width:350px){
+         height: 200px;
+         padding-bottom: 0px;
+         padding-top: 10px;
     }
 }
  .alert-wrapper {
