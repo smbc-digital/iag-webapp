@@ -1,0 +1,20 @@
+﻿@model IEnumerable<StockportWebapp.Models.Crumb>
+<div class="breadcrumb-container">
+    <div class="grid-container grid-100">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            @{string title = ViewBag.Title != null ? ViewBag.Title.ToString() : "";}
+
+            @{
+                foreach (var crumb in Model)
+                {
+                    <li class="chevron">&rsaquo;</li>
+                    <li><a href="@crumb.NavigationLink">@crumb.Title</a></li>
+                }
+            }
+
+            <li class="chevron">&rsaquo;</li>
+            <li class="current">@Html.ActionLink(title, ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { tag = ViewBag.Tag })</li>
+        </ul>
+    </div>
+</div>

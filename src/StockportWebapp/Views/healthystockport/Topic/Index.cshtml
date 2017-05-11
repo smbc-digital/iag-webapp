@@ -17,10 +17,12 @@
     }
 }
 
-@Html.Partial("DisplayTemplates/Gutter", topic.Icon)
-<section aria-label="@Model.Topic.Name content" class="grid-90 mobile-grid-100">
-    @Html.Partial("DisplayTemplates/Breadcrumb", topic.Breadcrumbs)
-    <div class="grid-70 l-content-container">
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Topic.Breadcrumbs)
+}
+
+<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 l-body-section-container topic-content">   
+    <div class="grid-100 l-body-section-container-holder">
         @{
             if (topic.Alerts != null)
             {
@@ -30,9 +32,22 @@
                 }
             }
         }
-        <h1>@topic.Name</h1>
-        @Html.Raw(topic.Summary)
-        @Html.Partial("DisplayTemplates/SubItem-List", topic)
+        <div class="l-body-section-container-holder-item">
+            <h2>@topic.Name</h2>
+            <hr>
+            @Html.Raw(topic.Summary)
+        </div>
+        
+        @Html.Partial("SubItem-List", topic)        
     </div>
-    @Html.Partial("DisplayTemplates/Aside")
+    
+    <div class="grid-100 l-body-section-container-contactus">
+        <div>
+            <hr class="top-line">
+            <p>Talk with one of our advisors today to get free specialist advice and information</p>
+
+            <stock-button class="button button-outline button-partialrounded button-call-to-action" as-link="true" href="@Url.Action("Article", "Article", new {articleSlug = "contact-us"})">Get in touch</stock-button>
+            <hr class="bottom-line">
+        </div>      
+    </div>
 </section>

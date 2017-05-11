@@ -1,13 +1,11 @@
-﻿@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @model GroupStartPage
-@inject FeatureToggles FeatureToggles
 
 @{
     ViewData["Title"] = "Find a local group";
-    ViewData["og:title"] = "Groups";
-    ViewData["Description"] = "Groups Start Page";
+    ViewData["og:title"] = "Find a local group";
+    ViewData["Description"] = "Find a local group";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
@@ -30,18 +28,12 @@
         </div>
     </div>
     <div class="group-startpage-image hide-on-mobile" style="background-image: url('/assets/images/content/Groups_hero_image.jpg');">
-        @if (FeatureToggles.GroupPrimaryFilter)
-        {
-            <div class="primary-filter-container primary-filter-container-start-page">
-                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
-            </div>
-        }
+        <div class="primary-filter-container primary-filter-container-start-page">
+            @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
+        </div>
     </div>
     <div class="hide-on-desktop hide-on-tablet mobile-grid-100 group-startpage-mobile">
-        @if (FeatureToggles.GroupPrimaryFilter)
-        {
-            @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
-        }
+        @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
     </div>
     <div class="group-startpage">
         <div class="featured-category-items-wrapper">
@@ -67,9 +59,8 @@
         </div>
     </div>
     <div class="full-width-title hide-on-desktop hide-on-tablet" style="margin-bottom: 0">
-        <div class="grid-container grid-parent grid-100 add-group-mobile" >
+        <div class="grid-container grid-parent grid-100 add-group-mobile">
             <div class="grid-70 tablet-grid-70 mobile-grid-100">
-                <label>Complete our form to add your group to our group directory.</label>
             </div>
             <div class="header-right-button mobile-grid-100">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group</stock-button>

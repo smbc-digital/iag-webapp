@@ -77,8 +77,8 @@
                             <ul class="filters-list">
                                 @foreach (var category in Model.Categories)
                                 {
-                                    <li class="@(Model.Category == category ? "active" : "")">
-                                        <a href="@Url.RouteUrl(Model.CurrentUrl.AddQueriesToUrl(new Dictionary<string, string> {{"Category", category}}))"> @category</a>
+                                    <li class="@(Model.Category == category ? "active" : "")">                                       
+                                        <a href="@Url.RouteUrl(Model.FilteredUrl.AddCategoryFilter(category))">@category</a>
                                     </li>
                                 }
                             </ul>

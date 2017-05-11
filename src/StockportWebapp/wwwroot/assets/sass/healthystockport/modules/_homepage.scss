@@ -39,6 +39,10 @@
 .hs-carousel-container {
     padding: 10px 30px 40px 30px;
 
+    @media #{$mobile}{
+        padding: 10px 10px 40px 10px;
+    }
+
     .webcast-text {
         left: 45px;
     }

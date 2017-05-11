@@ -5,6 +5,18 @@
 
 footer {
     .grid-container .grid-parent {
-    padding-left: 30px;
+        @media #{$desktop} {
+            padding-left: 30px;
+        }
+    }
+
+    @media #{$mobile} {
+        .l-container-footer, .grid-container {
+            padding-right: 0;
+        }
+
+        .footer-social-container {
+            margin-right: 0;
+        }        
     }
 }

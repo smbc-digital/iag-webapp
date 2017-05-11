@@ -1,14 +1,11 @@
-﻿@using Microsoft.AspNetCore.Http
-@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
 @model GroupResults
-@inject FeatureToggles FeatureToggles
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
-    ViewData["og:title"] = "Groups";
-    ViewData["Description"] = "Groups Results Page";
+    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - find a local group");
+    ViewData["Description"] = "Find a local group results page";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
@@ -30,23 +27,16 @@
             </div> 
         </div>
     </div>
-   
-    @if (FeatureToggles.GroupPrimaryFilter)
-    {
-        <div class="primary-filter-outer-container-results-page hide-on-mobile">
-            <div class="primary-filter-container primary-filter-container-results-page">
-                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
-            </div>
+    <div class="primary-filter-outer-container-results-page hide-on-mobile">
+        <div class="primary-filter-container primary-filter-container-results-page">
+            @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
         </div>
-    }       
-    
+    </div>
+
     <div class="hide-on-desktop hide-on-tablet mobile-grid-100 group-search-mobile">
         <div class="mobile-grid-100 group-result-label-container"><label>Showing <strong>@ViewBag.SelectedCategory</strong> groups near <strong>@Model.PrimaryFilter.Location</strong></label></div>
         <div id="edit-search">
-            @if (FeatureToggles.GroupPrimaryFilter)
-            {
-                @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
-            }
+            @Html.Partial("PrimaryFilterMobile", Model.PrimaryFilter)
         </div>
         <div id="open-edit-search" class="mobile-grid-100">
             <label>Edit search</label>
@@ -87,7 +77,6 @@
         <div class="full-width-title hide-on-desktop hide-on-tablet">
             <div class="grid-container grid-parent grid-100">
                 <div class="grid-70 tablet-grid-70 mobile-grid-100" style="text-align: center">
-                    <label style="color: white">Complete our form to add your group to our group directory.</label>
                 </div>
                 <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
                     <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group</stock-button>
@@ -104,7 +93,6 @@
         <div class="full-width-title hide-on-desktop hide-on-tablet">
             <div class="grid-container grid-parent grid-100 add-group-mobile">
                 <div class="grid-70 tablet-grid-70 mobile-grid-100" style="text-align: center">
-                    <label style="color: white">Complete our form to add your group to our group directory.</label>
                 </div>
                 <div class="header-right-button mobile-grid-100">
                     <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group</stock-button>

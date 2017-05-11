@@ -50,18 +50,19 @@ $(document).ready(
                 },
                 function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var lat = results[0].geometry.location.lat();
-                        var long = results[0].geometry.location.lng();
-                        $("#latitude, #latitudeMobile").val(lat);
-                        $("#longitude, #longitudeMobile").val(long);
-                        $("#location, #locationMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(results[0].address_components, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        var street = extractFromAdress(results[0].address_components, "route");
+                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
+                        var city = extractFromAdress(results[0].address_components, "locality");
+                        var jointLocation = (street + " " + postcode + " " + city).trim();
+
+                        $("#location, #locationMobile").val(jointLocation);
                     }
                     else {
                         alert("We couldn't find your current location.");
                     }
                 });
             }, function() {
-                alert("An error has occurred -- please check your device's location settings.");
+                alert("We couldn't find your current location -- please check the location settings on your device.");
             });
             return false;
         });
@@ -73,8 +74,12 @@ $(document).ready(
             geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
                 if (address !== "") {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var address1 = results[0].address_components;
-                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        var street = extractFromAdress(results[0].address_components, "route");
+                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
+                        var city = extractFromAdress(results[0].address_components, "locality");
+                        var jointLocation = (street + " " + postcode + " " + city).trim();
+
+                        $("#postcode, #postcodeMobile").val(jointLocation);
                         $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
                         $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
                         UpdateLocationFieldSize();
@@ -84,8 +89,8 @@ $(document).ready(
                     }
                 } else {
                     $("#postcode, #postcodeMobile").val("Stockport");
-                    $("#latitude #postcodeMobile").val("53.40581278523235");
-                    $("#longitude #latitudeMobile").val("-2.158041000366211");
+                    $("#latitude #postcodeMobile").val("53.405817");
+                    $("#longitude #latitudeMobile").val("-2.158046");
                     UpdateLocationFieldSize();
                     $("#getLocation, #getLocationMobile").hide();
                 }
@@ -99,8 +104,12 @@ $(document).ready(
             geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
                 if (address !== "") {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var address1 = results[0].address_components;
-                        $("#postcode, #postcodeMobile").val(extractFromAdress(results[0].address_components, "route") + " " + extractFromAdress(address1, "postal_code") + " " + extractFromAdress(results[0].address_components, "locality"));
+                        var street = extractFromAdress(results[0].address_components, "route");
+                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
+                        var city = extractFromAdress(results[0].address_components, "locality");
+                        var jointLocation = (street + " " + postcode + " " + city).trim();
+
+                        $("#postcode, #postcodeMobile").val(jointLocation);
                         $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
                         $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
                         UpdateLocationFieldSize();
@@ -110,8 +119,8 @@ $(document).ready(
                     }
                 } else {
                     $("#postcode, #postcodeMobile").val("Stockport");
-                    $("#latitude #postcodeMobile").val("53.40581278523235");
-                    $("#longitude #latitudeMobile").val("-2.158041000366211");
+                    $("#latitude #postcodeMobile").val("53.405817");
+                    $("#longitude #latitudeMobile").val("-2.158046");
                     UpdateLocationFieldSize();
                     $("#getLocation, #getLocationMobile").hide();
                 }

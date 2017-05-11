@@ -26,8 +26,7 @@
     <!--<![endif]-->
     <link rel="stylesheet" href="~/assets/stylesheets/styleguide-hs.min.css" />
     <link rel="stylesheet" href="~/assets/stylesheets/site-hs.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <script src="/assets/javascript/vendor/slick.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />  
     <!--[if (lt IE 9) & (!IEMobile)]>
         <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
     <![endif]-->
@@ -35,16 +34,18 @@
     @Html.Partial("CookieBanner")
     @await Component.InvokeAsync("GoogleAnalytics")
 </head>
-<body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+<body class="container-layout-free container-layout-mobile @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
-    <div class="l-background-fixed background-image hide-on-mobile" @RenderSection("BackgroundImage", false)></div>
-<main class="grid-container">
-    <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
-        <div class="l-body-section-filled grid-100">
-            @RenderBody()
+    @Html.Partial("BrowserCheck")
+    @RenderSection("Breadcrumbs", false)
+    <div class="l-background-fixed background-image" @RenderSection("BackgroundImage", false) ></div>
+    <main class="grid-container i-grid-container-tablet">
+        <div class="l-container l-body-container l-body-container-pushed l-body-container-nondesktop-margin">
+            <div class="l-body-section-filled l-body-section-filled-radius grid-100">
+                @RenderBody()
+            </div>
         </div>
-    </div>
-</main>
+    </main>
     @if (FeatureToggles.HSFooter)
     {
         <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
@@ -55,12 +56,14 @@
     {
         @Html.Partial("Footer")
     }
+   
     <!--[if lte IE 9]>
         <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
         <![endif]-->
+    <script src="/assets/javascript/vendor/matchbox.min.js"></script>
     <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="/assets/javascript/healthystockport.min.js"></script>
-   
+    <script src="/assets/javascript/vendor/slick.min.js"></script>
 </body>
 </html>

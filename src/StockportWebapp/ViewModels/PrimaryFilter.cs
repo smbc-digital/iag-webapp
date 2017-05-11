@@ -10,5 +10,7 @@ namespace StockportWebapp.ViewModels
         public string Order { get; set; }
         public List<string> Orders = new List<string> {"Name A-Z", "Name Z-A", "Nearest"};
         public string Location { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
     }
 }

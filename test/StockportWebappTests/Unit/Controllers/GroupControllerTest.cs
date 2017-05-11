@@ -41,7 +41,7 @@ namespace StockportWebappTests.Unit.Controllers
             _fakeRepository = new FakeProcessedContentRepository();
             _groupRepository = new Mock<IGroupRepository>();
             _filteredUrl = new Mock<IFilteredUrl>();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, new FeatureToggles() { GroupResultsPage = true, GroupStartPage = true },_filteredUrl.Object);
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -139,8 +139,7 @@ namespace StockportWebappTests.Unit.Controllers
             emptyRepository.Setup(o => o.Get<GroupResults>(It.IsAny<string>(), It.IsAny<List<Query>>()))
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object,
-                new FeatureToggles() {GroupResultsPage = true, GroupStartPage = true}, _filteredUrl.Object);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -257,16 +256,16 @@ namespace StockportWebappTests.Unit.Controllers
                     It.IsAny<List<Query>>()))
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, new FeatureToggles() { GroupResultsPage = true, GroupStartPage = true }, _filteredUrl.Object);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object);
 
             return controller;
         }
 
         private List<Group> BuildGroupList(int numberOfItems)
         {
-            List<Group> listOfGroups = new List<Group>();
+            var listOfGroups = new List<Group>();
 
-            for (int i = 0; i < numberOfItems; i++)
+            for (var i = 0; i < numberOfItems; i++)
             {
                 var group = new Group("name", "slug" + i, "phoneNumber", "email", "website", "twitter", "facebook",
                     "address", "description", "imageUrl", "thumbnailImageUrl",

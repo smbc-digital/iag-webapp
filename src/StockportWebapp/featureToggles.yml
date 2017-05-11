@@ -2,15 +2,11 @@
 prod: &prod
   TopicPageImages: true
   SinglePayment: true
-  GroupStartPage: true
-  GroupResultsPage: true
-  GroupBreadCrumb: true
-  GroupPrimaryFilter: true
-  HSFooter: false
+  HSFooter: true
 
 stage: &stage
   << : *prod
-  
+
 qa: &qa
   << : *prod
   << : *stage
@@ -19,11 +15,9 @@ int:
   << : *prod
   << : *stage
   << : *qa
-  HSFooter: true
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
-  HSFooter: true

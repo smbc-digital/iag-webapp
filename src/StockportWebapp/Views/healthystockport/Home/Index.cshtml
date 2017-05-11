@@ -4,44 +4,57 @@
     ViewData["Title"] = "Welcome to Healthy Stockport";
     Layout = "../Shared/_LayoutHome.cshtml";
     ViewData["og:title"] = "Welcome to Stockport Council";
-}
 
-@section BackgroundImage {style="background-image: url(@Model.BackgroundImage)"}
-<div class="l-background-image-container" style="background-image: url(@Model.BackgroundImage)">
+}
+@section BackgroundImage {
+    @{
+        if (!string.IsNullOrEmpty(Model.BackgroundImage))
+        {
+            @:style = "background-image:url('@Model.BackgroundImage')"
+        }
+    }
+}
+<div>
     <div class="l-body-section-transparent grid-100">
         <div class="introduction grid-50">
             @Html.Raw(Model.FreeText)
         </div>
-    </div>
-</div>
+    </div>   
 
-<div class="l-body-section-filled grid-100">
-    <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature">
-        <h2>@Model.FeaturedTasksHeading</h2>
-        <hr />
-        <p class="feature-tagline">@Model.FeaturedTasksSummary</p>
-        <div class="topic-block-list" style="text-align:center">
-            @foreach (var subItem in Model.FeaturedTasks)
+    <div class="l-body-section-filled grid-100">
+        <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature">
+            <h2>@Model.FeaturedTasksHeading</h2>
+            <hr />
+            <p class="feature-tagline">@Model.FeaturedTasksSummary</p>
+            <div class="topic-block-list" id="topicBlockList">
+                @foreach (var subItem in Model.FeaturedTasks)
+                {
+                    <div class="grid-30 tablet-grid-40 mobile-grid-100 topic-block-container">
+                        <a href="@subItem.NavigationLink" class="topic-block">
+
+                            <div class="topic-block-content">
+                                <i class="fa @subItem.Icon fa-3x default-icon hide-on-mobile"></i>
+                                <div class="hide-on-tablet hide-on-desktop topic-block-icon-container">
+                                    <i class="fa @subItem.Icon fa-2x default-icon article-chevron-i"></i>
+                                </div>                              
+                                <h4>@subItem.Title</h4>
+
+                                <div class="topic-block-content-divider hide-on-mobile"></div>
+                                <p class="hide-on-mobile">@subItem.Teaser</p>
+                                <div class="article-chevron hide-on-tablet hide-on-desktop l-right-align">
+                                    <i aria-hidden="true" class="fa fa-2x fa-angle-right article-chevron-i"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }    
+            </div>
+            @if (Model.CarouselContents != null)
             {
-                <div class="grid-30 tablet-grid-100 mobile-grid-100 topic-block-container">
-                    <a href="@subItem.NavigationLink" class="topic-block">
-                        <div class="topic-block-content">
-                            <div class="icon-bordered icon-bordered-fixed hide-on-tablet hide-on-mobile">
-                                <i class="fa @subItem.Icon fa-3x default-icon"></i>
-                            </div>
-                            <h4>@subItem.Title</h4>
-                            <p>@subItem.Teaser</p>
-                            <div class="article-chevron hide-on-mobile hide-on-desktop l-right-align">
-                                <i aria-hidden="true" class="fa fa-4x fa-angle-right"></i>
-                            </div>
-                        </div>
-                    </a>
+                <div class="grid-100 grid-parent hs-carousel-container">
+                    @Html.Partial("Carousel", Model.CarouselContents)
                 </div>
             }
-        </div>
-        <div class="grid-100 grid-parent hs-carousel-container">
-            @Html.Partial("Carousel", Model.CarouselContents)
-        </div>
-    </section>
+        </section>
+    </div>
 </div>
-

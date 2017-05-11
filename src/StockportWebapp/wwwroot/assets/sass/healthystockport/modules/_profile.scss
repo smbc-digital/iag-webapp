@@ -1,0 +1,35 @@
+﻿.hs-profile-header {
+    padding-top: 15px; 
+    padding-bottom: 10px; 
+    overflow: auto; 
+    border-bottom: 1px solid #d3d3d3;
+    text-align:center;
+
+     @media #{$desktop} {
+            text-align:left;
+        }
+
+    .hs-profile-icon-container {
+        padding: 0;
+        color: goldenrod; 
+        font-size: 4em; 
+        display: inline-block;
+        padding-right:10px;
+
+    }
+
+    .hs-profile-title-container {
+        font-size: 3em; 
+        font-weight: 300; 
+        line-height: 1.3; 
+        letter-spacing: -.01em;
+
+        @media #{$mobile} {
+            font-size: 2em; 
+        }
+    }
+
+    article {
+        text-align: left;
+    }
+}

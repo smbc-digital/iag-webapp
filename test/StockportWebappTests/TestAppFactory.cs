@@ -149,7 +149,7 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, ReadFile("Group")));
             Client.For("http://localhost:5001/api/stockportgov/groupResults/")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
-            Client.For("http://localhost:5001/api/stockportgov/groups/results/")
+            Client.For("http://localhost:5001/api/stockportgov/groupResults/?location=Stockport")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
             Client.For("http://localhost:5001/api/stockportgov/groupResults/?latitude=53.40581278523235&longitude=-2.158041000366211")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
