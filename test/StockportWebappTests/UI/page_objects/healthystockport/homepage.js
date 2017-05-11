@@ -1,12 +1,12 @@
 var methods = {
     goToTopicListBlockPage: function (browser, title, link) {
-        this.waitForElementVisible('h1', this.api.globals.timeOut);     
+        browser.useCss().waitForElementVisible('h1', this.api.globals.timeOut);     
         browser.useXpath().assert.visible("//div[@class='topic-block-content']/h4")
             .click("//a[contains(@href,'" + link + "')]/div[@class='topic-block-content']");
     },
 
     assertTitleIsVisible: function (title) {
-        this.waitForElementVisible('@homeTitle', this.api.globals.timeOut)
+        this.useCss().waitForElementVisible('@homeTitle', this.api.globals.timeOut)
             .expect.element('@homeTitle').text.to.equal(title);
     },
 };

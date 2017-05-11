@@ -2,10 +2,10 @@ module.exports = {
     before: function (browser) {
         var homepage = browser.page.healthystockport.homepage();
         homepage.navigate();
-        browser.useXpath().assert.visible("//div[@class='topic-block-content']/h4");
+        browser.useCss().assert.visible("div.topic-block-content h4");
     },
 
-    'Navigating to article "UITEST: A balanced diet", navigationg to the contact us page and then returning to the homepage': function (browser) {
+    'Navigating to article "UITEST: A balanced diet", navigating to the contact us page and then returning to the homepage': function (browser) {
         var homepage = browser.page.healthystockport.homepage();
         homepage.goToTopicListBlockPage(browser, "UITEST: A balanced diet", "/topic/uitest-healthy-weight");
 
