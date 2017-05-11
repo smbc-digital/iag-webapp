@@ -133,6 +133,22 @@
     }
 }
 
+.l-background-fixed-errorpage {
+    height: 80%;
+    position: absolute;
+	width: 100%;
+	z-index: 1;
+    display: block;
+    background-color: $easternBlue;
+
+    @media #{$desktop} {
+        overflow: hidden;
+    }  
+
+    @media #{$mobile} {
+        height: 100%;
+    }
+}
 .l-container {
     @media #{$desktop} {
        -webkit-border-radius: 10px;
