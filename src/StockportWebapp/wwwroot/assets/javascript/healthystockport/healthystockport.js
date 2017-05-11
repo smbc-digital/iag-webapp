@@ -53,11 +53,12 @@ $(document).ready(function () {
 
     if (($('.background-image').css("background-image") !== "none"
         &&
-        $('.background-image').css("background-image") !== undefined)
+        $('.background-image').css("background-image") !== undefined)      
         &&
-        ($('body').hasClass('type-topic') || $('body').hasClass('type-article'))) {
-        $('.l-body-container-pushed').css("margin-top", pushHeight);
-    }
+        ($('body').hasClass('type-topic') || $('body').hasClass('type-article') || $('body').hasClass('type-profile'))) {
+            $('.l-body-container-pushed').css("margin-top", pushHeight);
+        }
+
 });
 
 
