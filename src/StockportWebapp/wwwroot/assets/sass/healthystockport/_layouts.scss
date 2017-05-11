@@ -142,6 +142,10 @@
     }
 }
 
+.l-background-fixed {
+    height: 80%;
+}
+
 .l-body-container {
 	position: relative;
 }
@@ -163,6 +167,13 @@
     @media (max-width:350px){
          margin-top: 0px;
     }
+}
+
+.l-body-container-pushed-errorpage {
+     margin-top: 180px;
+    @media #{$mobile}{
+        margin-top:50px;             
+    }  
 }
 
 .l-body-section-filled {
