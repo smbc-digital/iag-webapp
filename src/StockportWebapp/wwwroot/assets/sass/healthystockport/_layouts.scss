@@ -139,7 +139,7 @@
 	width: 100%;
 	z-index: 1;
     display: block;
-    background-color: $easternBlue;
+    background-color: #1AA9A1;
 
     @media #{$desktop} {
         overflow: hidden;
@@ -149,6 +149,7 @@
         height: 100%;
     }
 }
+
 .l-container {
     @media #{$desktop} {
        -webkit-border-radius: 10px;
@@ -158,9 +159,9 @@
     }
 }
 
-.l-background-fixed {
+/*.l-background-fixed {
     height: 80%;
-}
+}*/
 
 .l-body-container {
 	position: relative;
