@@ -51,13 +51,13 @@ namespace StockportWebapp
 
         public Startup(IHostingEnvironment env)
         {
-            _appEnvironment = env.EnvironmentName;
             _contentRootPath = env.ContentRootPath;
 
             var configBuilder = new ConfigurationBuilder();
             var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
             
             Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
+            _appEnvironment = configLoader.EnvironmentName(env);
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
         }
