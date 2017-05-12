@@ -73,7 +73,7 @@ namespace StockportWebapp.Utils
 
         public string HealthcheckUrl()
         {
-            var baseUrl = _config.GetContentApiUri();
+            var baseUrl = _config.GetContentApiUrlRoot();
             return  new UriBuilder
             {
                 Host   = baseUrl.Host,

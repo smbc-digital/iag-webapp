@@ -24,9 +24,10 @@ namespace StockportWebapp.Services
         private readonly FeatureToggles _featureToggles;
         private readonly Func<HttpClient> _httpMaker;
         private readonly IStubToUrlConverter _urlGenerator;
+        private readonly string _environment;
 
         public HealthcheckService(string appVersionPath, string shaPath, IFileWrapper fileWrapper,
-            FeatureToggles featureToggles, Func<HttpClient> httpMaker, IStubToUrlConverter urlGenerator)
+            FeatureToggles featureToggles, Func<HttpClient> httpMaker, IStubToUrlConverter urlGenerator, string environment)
         {
             _fileWrapper = fileWrapper;
             _featureToggles = featureToggles;
@@ -34,6 +35,7 @@ namespace StockportWebapp.Services
             _urlGenerator = urlGenerator;
             _appVersion = GetFirstFileLineOrDefault(appVersionPath, "dev");
             _sha = GetFirstFileLineOrDefault(shaPath, string.Empty);
+            _environment = environment;
         }
 
         private string GetFirstFileLineOrDefault(string filePath, string defaultValue)
@@ -61,7 +63,7 @@ namespace StockportWebapp.Services
             }
 
             return new Healthcheck(_appVersion, _sha, _featureToggles,
-                new Dictionary<string, Healthcheck>() {{"contentApi", healthcheck}});
+                new Dictionary<string, Healthcheck>() {{"contentApi", healthcheck}}, _environment);
         }
 
         private static async Task<Healthcheck> BuildDependencyHealthcheck(HttpResponseMessage httpResponse)

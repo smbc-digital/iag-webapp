@@ -123,7 +123,7 @@ namespace StockportWebapp
             services.AddTransient<IHealthcheckService>(
                 p => new HealthcheckService($"{_contentRootPath}/version.txt", $"{_contentRootPath}/sha.txt",
                     new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<Func<System.Net.Http.HttpClient>>(),
-                    p.GetService<UrlGenerator>()));
+                    p.GetService<UrlGenerator>(), _appEnvironment));
 
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();

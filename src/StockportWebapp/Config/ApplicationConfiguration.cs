@@ -12,6 +12,7 @@ namespace StockportWebapp.Config
         AppSetting GetAddThisShareId(string businessId);
         AppSetting GetRssEmail(string businessId);
         Uri GetContentApiUri();
+        Uri GetContentApiUrlRoot();
         AppSetting GetEmailHost(string businessId);
         AppSetting GetEmailRegion(string businessId);
         AppSetting GetEmailEmailFrom(string businessId);
@@ -79,6 +80,11 @@ namespace StockportWebapp.Config
         public Uri GetContentApiUri()
         {
             return new Uri(_appsettings["ContentApiUrl"]);
+        }
+
+        public Uri GetContentApiUrlRoot()
+        {
+            return new Uri(_appsettings["ContentApiUrlRoot"]);
         }
 
         public AppSetting GetEmailHost(string businessId)
