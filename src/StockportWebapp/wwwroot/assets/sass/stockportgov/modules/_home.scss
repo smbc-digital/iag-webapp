@@ -190,3 +190,52 @@
         }
     }
 }
+
+.homepage-group-link-container {
+    padding-top: 3%;
+    padding-bottom: 3%; 
+    background-color: #333333; 
+    text-align: center; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center;
+
+    .homepage-group-link-container-text {
+        color: white;
+        margin-bottom:  10px;
+        font-size: larger;
+
+         @media #{$mobile}{
+           line-height:normal;
+        }    
+        
+        @media #{$desktop}{
+           text-align: right;
+           padding-top: 6px;
+           margin-bottom: 0;
+        }       
+    }
+
+     .homepage-group-link-container-button {
+          margin-bottom: 10px;
+       
+        @media #{$desktop}{
+           text-align: left;
+           padding-left: 90px;
+           margin-bottom: 0;
+        }       
+    }
+
+    .button-groups {
+        width: auto;
+        min-width: 300px;
+        background-color: #333333; 
+        color: white; 
+        border-color: white; 
+        border-style: solid;
+        @media #{$mobile, $tablet} {
+            padding-right: 15px;
+            min-width: 200px;
+        }
+    }  
+}

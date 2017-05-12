@@ -1,5 +1,7 @@
-﻿@using StockportWebapp.ViewModels
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.ViewModels
 @model StockportWebapp.Models.ProcessedHomepage
+@inject FeatureToggles FeatureToggles
 
 @{
     ViewData["Title"] = "Welcome to Stockport Council";
@@ -46,6 +48,19 @@
 <div class="l-body-section-filled grid-100 grid-parent">
     @Html.Partial("FeaturedTopics", Model.FeaturedTopics)
 </div>
+
+@if(FeatureToggles.GroupButtonOnHomePage)
+{
+    <div class="grid-100 mobile-grid-100 tablet-grid-100 homepage-group-link-container">
+        <div class="grid-100 tablet-grid-100 mobile-grid-100">
+            <div class="homepage-group-link-container-text grid-50">Find a local group and get involved in your community</div>
+            <div class="homepage-group-link-container-button grid-50 grid-parent">
+                <stock-button class="button-groups" as-link="true" href="@Url.Action("Index", "Groups")">Find a local group</stock-button>
+            </div>
+        </div>
+    </div>
+}
+
 <div class="grid-100 grid-parent white-background">
     <div class="news-events-container grid-container tablet-grid-100">
         @if (Model.GetLatestNews().Any())
