@@ -3,6 +3,7 @@ prod: &prod
   TopicPageImages: true
   SinglePayment: true
   HSFooter: true
+  GroupButtonOnHomePage : false
 
 stage: &stage
   << : *prod
@@ -11,10 +12,11 @@ qa: &qa
   << : *prod
   << : *stage
 
-int:
+int: &int
   << : *prod
   << : *stage
   << : *qa
+  GroupButtonOnHomePage : true
 
 local:
   << : *prod

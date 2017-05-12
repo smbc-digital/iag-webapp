@@ -145,10 +145,15 @@
     margin-bottom: 20px;
     text-align:center;
 
-    #see-more-services, #see-more-services-mobile  {
+    #see-more-services  {
         display:none;
-        min-width: 0;
+        min-width: 200Px;
         padding-right:15px;
+    }
+
+    #see-more-services-mobile  {     
+        padding-right:15px;
+        display: block !important;
     }
 }
 
