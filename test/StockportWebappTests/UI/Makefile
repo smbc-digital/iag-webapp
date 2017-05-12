@@ -16,7 +16,7 @@ ui-test-all:
 .PHONY: ui-test
 ui-test:
 	node configureGlobals.js host=$(UI_TEST_HOST)
-	node nightwatch.js --env $(TEST_OS) --group $(BUSINESS_ID)
+	node nightwatch.js --env $(BUSINESS_ID) --group $(BUSINESS_ID)
 
 	
 # ---------------------------------------------------------------------------------------
