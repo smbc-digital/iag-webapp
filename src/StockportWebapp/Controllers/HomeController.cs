@@ -5,6 +5,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Http;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers

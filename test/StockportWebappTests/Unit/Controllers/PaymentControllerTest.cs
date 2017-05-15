@@ -9,6 +9,7 @@ using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebappTests.Unit.Fake;
 using Helper = StockportWebappTests.TestHelper;
 using StockportWebapp.Config;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {

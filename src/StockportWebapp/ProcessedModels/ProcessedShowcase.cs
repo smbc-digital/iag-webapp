@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using StockportWebapp.Models;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ProcessedModels
 {
     public class ProcessedShowcase : IProcessedContentType
     {

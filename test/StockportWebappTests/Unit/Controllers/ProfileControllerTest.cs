@@ -7,6 +7,7 @@ using StockportWebapp.Models;
 using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.ProcessedModels;
 using Helper = StockportWebappTests.TestHelper;
 
 namespace StockportWebappTests.Unit.Controllers

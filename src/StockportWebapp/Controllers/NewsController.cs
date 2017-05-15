@@ -11,6 +11,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 

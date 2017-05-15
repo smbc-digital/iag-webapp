@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using Xunit;
 using Helper = StockportWebappTests.TestHelper;

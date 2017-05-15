@@ -10,6 +10,7 @@ using Moq;
 using StockportWebappTests.Unit.Fake;
 using Xunit;
 using System.Net;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {

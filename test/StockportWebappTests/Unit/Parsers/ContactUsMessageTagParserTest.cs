@@ -3,6 +3,7 @@ using FluentAssertions;
 using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using Xunit;
 using static StockportWebapp.Models.LiveChat;

@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ProcessedModels
 {
     public interface IContactUsMessageContainer
     {

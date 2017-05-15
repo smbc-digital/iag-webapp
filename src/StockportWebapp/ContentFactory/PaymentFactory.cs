@@ -1,5 +1,6 @@
 ﻿using StockportWebapp.Models;
 using StockportWebapp.Parsers;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.ContentFactory

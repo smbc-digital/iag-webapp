@@ -10,6 +10,7 @@ using Xunit;
 using System.Linq;
 using Moq;
 using StockportWebapp.Parsers;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 
 namespace StockportWebappTests.Unit.Repositories

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Model

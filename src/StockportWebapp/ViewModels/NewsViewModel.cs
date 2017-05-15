@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.ViewModels
 {

@@ -21,6 +21,8 @@ namespace StockportWebappTests.Unit.Utils
             var config = new Mock<IApplicationConfiguration>();
             config.Setup(o => o.GetContentApiUri()).Returns(contentConfig);
 
+            config.Setup(o => o.GetContentApiUrlRoot()).Returns(contentConfig);
+
             var businessId = new BusinessId("test-id");
 
             _urlGenerator = new UrlGenerator(config.Object, businessId);

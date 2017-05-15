@@ -8,6 +8,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Http;
 using System.Linq;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.Controllers
 {

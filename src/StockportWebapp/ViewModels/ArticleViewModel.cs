@@ -2,6 +2,7 @@
 using StockportWebapp.Models;
 using System.Collections.Generic;
 using StockportWebapp.Exceptions;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.ViewModels
 {

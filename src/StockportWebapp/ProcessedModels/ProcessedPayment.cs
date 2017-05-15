@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+using StockportWebapp.Models;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ProcessedModels
 {
     public class ProcessedPayment : IProcessedContentType
     {

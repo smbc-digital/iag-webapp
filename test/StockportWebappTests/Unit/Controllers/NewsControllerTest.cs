@@ -12,6 +12,7 @@ using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.RSS;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;

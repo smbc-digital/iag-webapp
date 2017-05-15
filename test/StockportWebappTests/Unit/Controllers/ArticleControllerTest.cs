@@ -14,6 +14,7 @@ using Xunit;
 using Helper = StockportWebappTests.TestHelper;
 using static StockportWebapp.Models.LiveChat;
 using System;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebappTests.Unit.Controllers
 {

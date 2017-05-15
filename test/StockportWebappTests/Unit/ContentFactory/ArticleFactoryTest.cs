@@ -7,6 +7,7 @@ using Xunit;
 using Helper = StockportWebappTests.TestHelper;
 using Moq;
 using StockportWebapp.Parsers;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 
 namespace StockportWebappTests.Unit.ContentFactory

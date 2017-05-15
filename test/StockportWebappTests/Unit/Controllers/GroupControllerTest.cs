@@ -14,6 +14,7 @@ using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 

@@ -7,6 +7,7 @@ using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Parsers;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 
 namespace StockportWebappTests.Unit.ContentFactory
