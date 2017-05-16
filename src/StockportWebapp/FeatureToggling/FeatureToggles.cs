@@ -6,5 +6,7 @@ namespace StockportWebapp.FeatureToggling
         public bool SinglePayment { get; set; } = false;
         public bool HSFooter { get; set; } = false;
         public bool GroupButtonOnHomePage { get; set; } = false;
+        public bool GroupsAutoCompleteLocation { get; set; } = false;
     }
+
 }

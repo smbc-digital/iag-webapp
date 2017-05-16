@@ -33,7 +33,7 @@ $(window).resize(function () {
 
 $(document).ready(
     function () {
-        $("#postcode, #postcodeMobile").click(
+        $("#postcode, #postcodeMobile, #postcode-autocomplete").click(
             function () {
                 $("#getLocation, #getLocationMobile").toggle();
             }
@@ -95,6 +95,50 @@ $(document).ready(
                     $("#getLocation, #getLocationMobile").hide();
                 }
             });
+        });
+
+        $("#btnLocationAutoComplete").click(function (event) {
+            event.preventDefault();
+            $("#postcode, #postcodeMobile").val(autocompleteName);
+            $("#latitude, #latitudeMobile").val(autocompleteLocationLatitude);
+            $("#longitude, #longitudeMobile").val(autocompleteLocationLongitude);
+            UpdateLocationFieldSize();
+            $("#getLocation, #getLocationMobile").hide();
+        });
+
+
+        // set the default values
+        var autocompleteName = "Stockport";
+        var autocompleteLocationLatitude = 53.405817;
+        var autocompleteLocationLongitude = -2.158046;
+
+        // Set the default bounds to the UK
+        var defaultBounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(49.383639452689664, -17.39866406249996),
+          new google.maps.LatLng(59.53530451232491, 8.968523437500039));
+
+        var options = {
+            bounds: defaultBounds,
+            // the type of location we want to return
+            types: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
+            // the country to return results, the bounds above seemed to also be needed and not just this though
+            // this isn't 100% though and is just a suggestion to first look in gb
+            componentRestrictions: { country: 'gb' }
+        };
+        var input = document.getElementById('location-autocomplete');
+        var searchBox = new google.maps.places.SearchBox(input, options);
+
+        // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+        searchBox.addListener('places_changed', function () {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0) {
+                return;
+            }
+
+            autocompleteName = places[0].name;
+            autocompleteLocationLatitude = places[0].geometry.location.lat();
+            autocompleteLocationLongitude = places[0].geometry.location.lng();
         });
 
         $("#btnLocationMobile").click(function (event) {
