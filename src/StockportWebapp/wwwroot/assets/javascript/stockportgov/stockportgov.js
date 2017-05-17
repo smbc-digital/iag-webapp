@@ -19,6 +19,8 @@ $(document).ready(function () {
             }
     );
 
+   
+
     if ($(".l-page-content .nav-card-list").length) {
         matchboxPrimary.init();
     }

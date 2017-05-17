@@ -148,8 +148,10 @@
                                 @Html.Partial("MapPosition", Model.MapPosition)
                             </div>
                         }
-                        @Html.Partial("Share")
-                        <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
+                        <div id="shareThis">
+                            @Html.Partial("Share")
+                            <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
+                        </div>
                     </div>
                 </div>
             </section>
