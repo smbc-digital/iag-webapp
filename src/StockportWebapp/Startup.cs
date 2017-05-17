@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
@@ -16,7 +15,6 @@ using StockportWebapp.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Razor;
-using NLog;
 using NLog.Extensions.Logging;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.AmazonSES;
@@ -33,10 +31,7 @@ using StockportWebapp.ModelBinders;
 using StockportWebapp.DataProtection;
 using System.Linq;
 using System.Net;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Antiforgery;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace StockportWebapp

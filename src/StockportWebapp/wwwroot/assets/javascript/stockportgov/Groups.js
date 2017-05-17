@@ -31,6 +31,13 @@ $(document).ready(
                 $("#edit-search").hide();
             });
         });
+
+        $(".print-this")
+       .click(
+           function () {
+               window.print();
+           }
+       );
     }
 );
 

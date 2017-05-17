@@ -135,7 +135,7 @@ button {
     display: none;
     position: absolute;
     left: 113px;
-    z-index: 10000;
+    z-index: 10;
     width: 320px;
     background-color: white;
     color: black;
@@ -151,7 +151,7 @@ button {
         position: absolute;
         font: normal normal normal 14px/1 FontAwesome;
         content: "\f0d8";
-        z-index: 9999999;
+        z-index: 15;
         color: #fff;
         visibility: visible;
         font-size: 50px;
@@ -202,7 +202,7 @@ button {
     display: none;
     position: absolute;
     left: 5px;
-    z-index: 10000;
+    z-index: 10;
     width: 320px;
     background-color: white;
     color: black;
@@ -218,7 +218,7 @@ button {
         position: absolute;
         font: normal normal normal 14px/1 FontAwesome;
         content: "\f0d8";
-        z-index: 9999999;
+        z-index: 15;
         color: #fff;
         visibility: visible;
         font-size: 50px;
@@ -296,4 +296,9 @@ button {
     .group-result-label-container {
         padding-bottom: 0;
     }
+}
+
+// google auto complete custom styles
+.pac-container {
+    z-index: 20;
 }

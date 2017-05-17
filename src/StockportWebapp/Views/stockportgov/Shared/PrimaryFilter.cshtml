@@ -1,6 +1,8 @@
 ﻿@using StockportWebapp.ViewModels
 @model PrimaryFilter
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg"
+@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"
         async defer></script>
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
@@ -17,12 +19,26 @@
         </div>
         <div class="primary-filter-form-section" style="position: relative">
             <label>groups in</label>
-            <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow"/>
+            <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow" />
             <div id="getLocation">
                 <span>Enter postcode or place name</span>
-                <input type="text" id="location"/>
+                @if (featureToggles.GroupsAutoCompleteLocation)
+                {
+                    <input type="text" id="location-autocomplete" />
+                }
+                else
+                {
+                    <input type="text" id="location" />
+                }
                 <a id="currentLocation" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
-                <button class="button-default" id="btnLocation">Use this location</button>
+                @if (featureToggles.GroupsAutoCompleteLocation)
+                {
+                    <button class="button-default" id="btnLocationAutoComplete">Use this location</button>
+                }
+                else
+                {
+                    <button class="button-default" id="btnLocation">Use this location</button>
+                }
             </div>
         </div>
 

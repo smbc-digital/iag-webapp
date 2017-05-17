@@ -38,10 +38,10 @@
     @Html.Partial("Header")
     @Html.Partial("BrowserCheck")
     @RenderSection("Breadcrumbs", false)
-    <div class="l-background-fixed background-image" @RenderSection("BackgroundImage", false) ></div>
-    <main class="grid-container i-grid-container-tablet">
+   
+    <main class="grid-container i-grid-container-mobile">
         <div class="l-container l-body-container l-body-container-pushed l-body-container-nondesktop-margin">
-            <div class="l-body-section-filled l-body-section-filled-radius grid-100">
+            <div class="l-body-section-filled grid-100">
                 @RenderBody()
             </div>
         </div>
