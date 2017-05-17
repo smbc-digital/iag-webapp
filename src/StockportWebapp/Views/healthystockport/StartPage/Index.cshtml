@@ -6,9 +6,9 @@
     ViewData["og:title"] =  Model.Title;
 }
 
-@section BackgroundImage {
+@*@section BackgroundImage {
     style="background-image:url('@Model.BackgroundImage')"
-}
+}*@
 
 @Html.Partial("DisplayTemplates/Gutter", Model.Icon)
 <section aria-label="@Model.Title content" class="grid-90 mobile-grid-100">
