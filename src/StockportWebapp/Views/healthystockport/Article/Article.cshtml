@@ -6,21 +6,19 @@
     ViewData["og:title"] = Model.OgTitleMetaData;
 }
 
-@section BackgroundImage {
-    @{
-        if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
-        {
-            @:style = "background-image:url('@Model.Article.BackgroundImage')"
-        }
-    }
-}
-
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Article.Breadcrumbs)
 }
-<section aria-label="article" class="grid-90 mobile-grid-100">
+
+@if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
+{
+    <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.Article.BackgroundImage')">
+    </div>
+} 
+ 
+<section aria-label="article" class="grid-100 mobile-grid-100">
     <a name="@Model.Article.Title content" class="anchor anchor-content"></a>
-    <div class="grid-100 prefix-5 tablet-grid-100 mobile-grid-100 l-body-section-container-holder ">
+    <div class="grid-100 tablet-grid-100 mobile-grid-100 article-container">
         
             @{
                 if (Model.Article.Alerts != null && Model.Article.Alerts.Any())
@@ -35,7 +33,7 @@
             }
 
         <div class="grid-parent hs-article-header">
-            <div class="hs-article-title" class="grid-100 tablet-grid-100">
+            <div class="hs-article-title grid-100 tablet-grid-100">
                 <i class="hs-article-icon-container hide-on-mobile fa @Model.Article.Icon"></i>
                 <span class="hs-article-title-container">@Model.Article.Title</span>
             </div>
@@ -48,14 +46,12 @@
             }
         </div>
 
-
         @if (Model.DisplayedSection != null)
         {
             @Html.Partial("../../Shared/Section-Nav")
             @Html.Partial("../Shared/Article-Single-Section", Model)
             @Html.Partial("../Shared/Section-Pagination")
         }
-
 
     </div>
 </section>

@@ -7,26 +7,19 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
 
 }
-@section BackgroundImage {
-    @{
-        if (!string.IsNullOrEmpty(Model.BackgroundImage))
-        {
-            @:style = "background-image:url('@Model.BackgroundImage')"
-        }
-    }
-}
+
 <div>
-    <div class="l-body-section-transparent grid-100">
-        <div class="introduction grid-50">
+    <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.BackgroundImage');">
+        <div class="introduction grid-50"> 
             @Html.Raw(Model.FreeText)
         </div>
     </div>   
 
     <div class="l-body-section-filled grid-100">
-        <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature">
+        <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container">
             <h2>@Model.FeaturedTasksHeading</h2>
             <hr />
-            <p class="feature-tagline">@Model.FeaturedTasksSummary</p>
+            <p class="feature-tagline feature-tagline-heading">@Model.FeaturedTasksSummary</p>
             <div class="topic-block-list" id="topicBlockList">
                 @foreach (var subItem in Model.FeaturedTasks)
                 {
@@ -50,7 +43,7 @@
                     </div>
                 }    
             </div>
-            @if (Model.CarouselContents != null)
+            @if (Model.CarouselContents.Count() != 0)
             {
                 <div class="grid-100 grid-parent hs-carousel-container">
                     @Html.Partial("Carousel", Model.CarouselContents)

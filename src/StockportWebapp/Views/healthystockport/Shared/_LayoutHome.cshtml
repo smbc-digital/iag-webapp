@@ -30,8 +30,8 @@
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")
     @Html.Partial("BrowserCheck")
-    <div class="l-background" @RenderSection("BackgroundImage", false)>
-        <div class="grid-container" >
+    <div class="l-background">
+        <div class="grid-container l-background-holder">
             <div class="l-container l-body-container l-body-container-pushed l-body-container-mobile">
                 @RenderBody()
             </div>

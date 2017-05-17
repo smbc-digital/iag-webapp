@@ -1,5 +1,17 @@
-﻿.hs-article-header {
-    padding-top: 5px; 
+﻿.article-container {
+    padding: 0px 40px;
+
+    @media #{$tablet} {
+         padding: 0px 20px;
+    }
+
+     @media #{$mobile} {
+         padding: 0px 5px;
+    }
+}
+
+.hs-article-header {
+    padding-top: 10px; 
     padding-bottom: 10px; 
     overflow: auto; 
     border-bottom: 1px solid #d3d3d3;
@@ -17,9 +29,13 @@
     .hs-article-title
     {
         text-align:left;
+        padding-top: 15px;
         padding-bottom: 15px;
         @media #{$mobile, $tablet} {
             text-align:center;
+        }
+         @media #{$desktop}{
+            padding-left: 0px;
         }
        
     }
