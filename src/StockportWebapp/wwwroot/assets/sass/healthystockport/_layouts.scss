@@ -455,5 +455,8 @@ footer .l-dashed-list {
           @media #{$mobile} {
              padding-top: 15px; 
           }
+           @media #{$tablet} {
+             padding-left: 25px; 
+          }
      }
 }
