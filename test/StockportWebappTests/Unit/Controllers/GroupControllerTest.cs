@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using FluentAssertions;
 using Markdig.Helpers;
@@ -55,7 +56,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null,false);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null,false, null);
 
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
@@ -234,7 +235,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, null);
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
@@ -242,6 +243,25 @@ namespace StockportWebappTests.Unit.Controllers
             var model = view.ViewData.Model as ProcessedGroup;
 
             model.MapPosition.Should().Be(location);
+        }
+
+        [Fact]
+        public void ShouldReturnAListOfLinkedEvents()
+        {
+            var location = new MapPosition() { Lat = 1, Lon = 1 };
+            var linkedEvent = new Event() {Slug = "event-slug"};
+            var listOfLinkedEvents = new List<Event> { linkedEvent };
+ 
+            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, listOfLinkedEvents);
+
+            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+
+            var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
+            var model = view.ViewData.Model as ProcessedGroup;
+
+            model.Events.FirstOrDefault().Should().Be(linkedEvent);
         }
 
 
@@ -273,7 +293,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, new List<Crumb>(), _location, false);
+                    }, new List<Crumb>(), _location, false, null);
 
                 listOfGroups.Add(group);
             }

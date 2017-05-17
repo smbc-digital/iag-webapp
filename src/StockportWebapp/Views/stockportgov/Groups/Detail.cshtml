@@ -146,8 +146,15 @@
                             <div class="group-map-container">
                                 <h3 class="group-details-heading">How to find us</h3>
                                 @Html.Partial("MapPosition", Model.MapPosition)
+                                <hr />
                             </div>
                         }
+                        
+                        @if (Model.Events != null && Model.Events.Any())
+                        {
+                          @Html.Partial("EventCards", Model.Events.Take(3).ToList())
+                        }
+                        <div class="clearfix"></div>
                         @Html.Partial("Share")
                         <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
                     </div>

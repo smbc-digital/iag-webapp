@@ -21,10 +21,11 @@ namespace StockportWebapp.Models
         public MapPosition MapPosition { get; set; }
 
         public bool Volunteering { get; set; }
+        public List<Event> Events { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl, 
-            string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering)
+            string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering, List<Event> events )
         {
             Name = name;
             Slug = slug;
@@ -41,6 +42,7 @@ namespace StockportWebapp.Models
             Breadcrumbs = breadcrumbs;
             MapPosition = mapPosition;
             Volunteering = volunteering;
+            Events = events;
         }
     }
 }
