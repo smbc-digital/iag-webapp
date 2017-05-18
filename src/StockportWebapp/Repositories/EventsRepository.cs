@@ -38,6 +38,7 @@ namespace StockportWebapp.Repositories
         public string GenerateEmailBody(EventSubmission eventSubmission)
         {
             var stringBuilder = new StringBuilder();
+
             stringBuilder.Append("<p>Thank you for submitting an event</p>");
             stringBuilder.Append("<p>Before your event is added to the calendar, it will be reviewed and if it is successful then it will be published on the website.</p>");
             stringBuilder.Append("<h1>Event submission</h1>");
@@ -62,7 +63,8 @@ namespace StockportWebapp.Repositories
             if (eventSubmission.Attachment != null) stringBuilder.Append($"Additional event document: {FileHelper.GetFileNameFromPath(eventSubmission.Attachment)}<br />");
             stringBuilder.Append($"<br />Organiser email address: {eventSubmission.SubmitterEmail}");
             stringBuilder.Append("</p>");
-
+            stringBuilder.Append("<p>You can let us know about a change to this event by emailing us at:</p>");
+            stringBuilder.Append(@"<p><a href = ""mailto:&gt;website.updates@stockport.gov.uk""> website.updates@stockport.gov.uk</a></p>");
             return stringBuilder.ToString();
         }
 

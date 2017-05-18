@@ -128,21 +128,10 @@
 // Copied from shared styles, needs checking to remove redundancy:
 .l-background-fixed {
 	position: absolute;
-	/*width: 100%;
-	z-index: 1;
-    display: block;
-    background-color: $easternBlue;
-    @media #{$desktop} {
-        overflow: hidden;
-    }
-
-    img {
-        max-height: none;
-    }*/
 }
 
 .l-background-fixed-errorpage {
-    height: 80%;
+    height: 100%;
     position: absolute;
 	width: 100%;
 	z-index: 1;

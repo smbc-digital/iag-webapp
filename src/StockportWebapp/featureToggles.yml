@@ -3,7 +3,7 @@ prod: &prod
   TopicPageImages: true
   SinglePayment: true
   HSFooter: true
-  GroupButtonOnHomePage: false
+  GroupButtonOnHomePage: true
   GroupsAutoCompleteLocation: false
 
 stage: &stage
