@@ -20,6 +20,7 @@ namespace StockportWebapp.ProcessedModels
         public List<Crumb> Breadcrumbs { get; }
         public readonly MapPosition MapPosition;
         public readonly bool Volunteering;
+        public List<Event> Events { get; set; }
 
         public ProcessedGroup()
         {
@@ -27,7 +28,7 @@ namespace StockportWebapp.ProcessedModels
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, 
-                      List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering)
+                      List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering, List<Event> events )
         {
             Name = name;
             Slug = slug;
@@ -44,6 +45,7 @@ namespace StockportWebapp.ProcessedModels
             Breadcrumbs = breadcrumbs;
             MapPosition = mapPosition;
             Volunteering = volunteering;
+            Events = events;
         }
     }
 }

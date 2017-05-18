@@ -16,7 +16,7 @@ $(document).ready(function () {
         groupsOf: 1,
         breakpoints: [
         { bp: 767, groupsOf: 2 },
-        { bp: 1024, groupsOf: 3 }
+        { bp: 1025, groupsOf: 3 }
         ]
     });
 
@@ -41,19 +41,9 @@ $(document).ready(function () {
     $(".show-search-button").click(
             function () {
                 $("#mobileSearchInput").slideToggle(220);
-                $(".show-search-button").toggleClass("arrow");
-                if ($(".l-body-container-mobile").css("margin-top") !== "0px") {
-                    $(".l-body-container-mobile").css("cssText", "margin-top: 0 !important;");
-                } else {
-
-                    $(".l-body-container-mobile").css("cssText", "margin-top: 20px !important;");
-                }
+                $(".show-search-button").toggleClass("arrow");               
             }
     );
-
-    if (($('body').hasClass('type-topic') || $('body').hasClass('type-article') || $('body').hasClass('type-profile'))) {
-            $('.l-body-container-pushed').css("margin-top", pushHeight);
-        }
 });
 
 
@@ -66,7 +56,7 @@ $(window)
             groupsOf: 1,
             breakpoints: [
             { bp: 767, groupsOf: 2 },
-            { bp: 1024, groupsOf: 3 }
+            { bp: 1025, groupsOf: 3 }
             ]
         });
 

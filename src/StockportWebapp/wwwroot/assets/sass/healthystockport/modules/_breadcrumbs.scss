@@ -1,6 +1,6 @@
 ﻿/* ------ Breadcrumbs ------- */
 .breadcrumb-container {
-    background-color: #086964;;
+    background-color: #086964;
     width: 100%;
     min-height:40px;
 
@@ -16,6 +16,10 @@
         }
 
         @media #{$desktop} {
+            padding-left: 10px;
+        }
+
+        @media #{$tablet} {
             padding-left: 10px;
         }
 

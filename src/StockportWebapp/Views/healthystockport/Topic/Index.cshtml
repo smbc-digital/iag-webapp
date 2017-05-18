@@ -8,22 +8,18 @@
     ViewData["og:title"] = topic.Name;
 }
 
-@section BackgroundImage {
-    @{ 
-        if (!string.IsNullOrEmpty(topic.BackgroundImage))
-        {
-            @:style = "background-image:url('@topic.BackgroundImage')"
-        }
-    }
-}
-
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Topic.Breadcrumbs)
 }
+@if (!string.IsNullOrEmpty(topic.BackgroundImage))
+{
+    <div class="grid-100 l-background-hs-image" style="background-image: url('@topic.BackgroundImage');">
+    </div>  
+} 
 
-<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 l-body-section-container topic-content">   
-    <div class="grid-100 l-body-section-container-holder">      
-        <div class="l-body-section-container-holder-alert">
+<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">   
+    <div class="grid-100 topic-container-holder">      
+        <div class="topic-container-holder-alert">
             @{
                 if (topic.Alerts != null)
                 {
@@ -34,7 +30,7 @@
                 }
             }
         </div>
-        <div class="l-body-section-container-holder-item">
+        <div class="topic-container-holder-item">
             <h2>@topic.Name</h2>
             <hr>
             @Html.Raw(topic.Summary)
@@ -43,7 +39,7 @@
         @Html.Partial("SubItem-List", topic)        
     </div>
     
-    <div class="grid-100 l-body-section-container-contactus">
+    <div class="grid-100 topic-container-contactus">
         <div>
             <hr class="top-line">
             <p>Talk with one of our advisors today to get free specialist advice and information</p>

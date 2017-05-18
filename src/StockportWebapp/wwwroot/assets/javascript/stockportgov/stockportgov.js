@@ -10,6 +10,15 @@ var matchboxPrimary = new Matchbox({
     ]
 });
 
+var matchboxEventCards = new Matchbox({
+    parentSelector: ".event-listing-container",
+    childSelector: ".event-card-information",
+    groupsOf: 1,
+    breakpoints: [
+    { bp: 1024, groupsOf: 3 }
+    ]
+});
+
 $(document).ready(function () {
     SwapLogo();
     $(".show-search-button").click(
@@ -19,8 +28,14 @@ $(document).ready(function () {
             }
     );
 
+   
+
     if ($(".l-page-content .nav-card-list").length) {
         matchboxPrimary.init();
+    }
+
+    if ($(".event-listing-container").length) {
+        matchboxEventCards.init();
     }
 
     if (!Modernizr.inputtypes.date) {

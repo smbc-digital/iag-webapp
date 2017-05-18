@@ -198,6 +198,8 @@
     @media #{$tablet, $mobile} {
         padding-bottom: 10px;
     }
+
+    
 }
 
 .featured-category-items-wrapper {
@@ -324,9 +326,15 @@
 }
 
 .group-map-container {
-    padding-bottom: 10px;
+    
     .map-container {
         height: 330px;
+        margin-top:10px;
+    }
+
+    hr{
+        margin-top: 30px;
+        margin-bottom: 0px;
     }
 }
 

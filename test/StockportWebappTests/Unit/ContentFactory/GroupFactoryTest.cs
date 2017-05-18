@@ -34,6 +34,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private List<GroupCategory> CategoriesReference = new List<GroupCategory>();
         private MapPosition _mapPosition = new MapPosition() {Lat=39.0, Lon = 2.0};
         private bool _volunteering = false;
+        private List<Event> Events = new List<Event>();
 
 
         public GroupFactoryTest()
@@ -57,7 +58,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 facebook : Facebook,
                 twitter : Twitter,
                 mapPosition:_mapPosition,
-                volunteering:_volunteering
+                volunteering:_volunteering,
+                events: Events
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
