@@ -128,67 +128,69 @@ $(document).ready(
             });
         });
 
-        // set the default values
-        var autocompleteName = "Stockport";
-        var autocompleteLocationLatitude = 53.405817;
-        var autocompleteLocationLongitude = -2.158046;
+        if ($(".primary-filter-form-autocomplete").length > 0) {
+            // set the default values
+            var autocompleteName = "Stockport";
+            var autocompleteLocationLatitude = 53.405817;
+            var autocompleteLocationLongitude = -2.158046;
 
-        // auto complete
-        $("#btnLocationAutoComplete, #btnLocationMobileAutoComplete").click(function (event) {
-            event.preventDefault();
-            $("#postcode, #postcodeMobile").val(autocompleteName);
-            $("#latitude, #latitudeMobile").val(autocompleteLocationLatitude);
-            $("#longitude, #longitudeMobile").val(autocompleteLocationLongitude);
-            UpdateLocationFieldSize();
-            $("#getLocation, #getLocationMobile").hide();
-        });
+            // auto complete
+            $("#btnLocationAutoComplete, #btnLocationMobileAutoComplete").click(function (event) {
+                event.preventDefault();
+                $("#postcode, #postcodeMobile").val(autocompleteName);
+                $("#latitude, #latitudeMobile").val(autocompleteLocationLatitude);
+                $("#longitude, #longitudeMobile").val(autocompleteLocationLongitude);
+                UpdateLocationFieldSize();
+                $("#getLocation, #getLocationMobile").hide();
+            });
 
-        // Set the default bounds to the UK
-        var defaultBounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(49.383639452689664, -17.39866406249996),
-          new google.maps.LatLng(59.53530451232491, 8.968523437500039));
+            // Set the default bounds to the UK
+            var defaultBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(49.383639452689664, -17.39866406249996),
+                new google.maps.LatLng(59.53530451232491, 8.968523437500039));
 
-        var options = {
-            bounds: defaultBounds,
-            // the type of location we want to return
-            types: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
-            // the country to return results, the bounds above seemed to also be needed and not just this though
-            // this isn't 100% though and is just a suggestion to first look in gb
-            componentRestrictions: { country: 'gb' }
-        };
+            var options = {
+                bounds: defaultBounds,
+                // the type of location we want to return
+                types: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
+                // the country to return results, the bounds above seemed to also be needed and not just this though
+                // this isn't 100% though and is just a suggestion to first look in gb
+                componentRestrictions: { country: 'gb' }
+            };
 
-        // desktop
-        var input = document.getElementById('location-autocomplete');
-        var searchBox = new google.maps.places.SearchBox(input, options);
+            // desktop
+            var input = document.getElementById('location-autocomplete');
+            var searchBox = new google.maps.places.SearchBox(input, options);
 
-        // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
-        searchBox.addListener('places_changed', function () {
-            var places = searchBox.getPlaces();
+            // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+            searchBox.addListener('places_changed', function () {
+                var places = searchBox.getPlaces();
 
-            if (places.length == 0) {
-                return;
-            }
+                if (places.length == 0) {
+                    return;
+                }
 
-            autocompleteName = places[0].name;
-            autocompleteLocationLatitude = places[0].geometry.location.lat();
-            autocompleteLocationLongitude = places[0].geometry.location.lng();
-        });
+                autocompleteName = places[0].name;
+                autocompleteLocationLatitude = places[0].geometry.location.lat();
+                autocompleteLocationLongitude = places[0].geometry.location.lng();
+            });
 
-        // mobile
-        var inputMobile = document.getElementById('locationMobile-autocomplete');
-        var searchBoxMobile = new google.maps.places.SearchBox(inputMobile, options);
+            // mobile
+            var inputMobile = document.getElementById('locationMobile-autocomplete');
+            var searchBoxMobile = new google.maps.places.SearchBox(inputMobile, options);
 
-        searchBoxMobile.addListener('places_changed', function () {
-            var places = searchBoxMobile.getPlaces();
+            searchBoxMobile.addListener('places_changed', function () {
+                var places = searchBoxMobile.getPlaces();
 
-            if (places.length == 0) {
-                return;
-            }
+                if (places.length == 0) {
+                    return;
+                }
 
-            autocompleteName = places[0].name;
-            autocompleteLocationLatitude = places[0].geometry.location.lat();
-            autocompleteLocationLongitude = places[0].geometry.location.lng();
-        });
+                autocompleteName = places[0].name;
+                autocompleteLocationLatitude = places[0].geometry.location.lat();
+                autocompleteLocationLongitude = places[0].geometry.location.lng();
+            });
+        }
     });
 
 

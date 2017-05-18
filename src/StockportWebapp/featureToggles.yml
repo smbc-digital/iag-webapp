@@ -24,4 +24,4 @@ local:
   << : *stage
   << : *qa
   << : *int
-  GroupsAutoCompleteLocation: true
+  GroupsAutoCompleteLocation: false
