@@ -13,10 +13,7 @@ namespace StockportWebapp.Utils
         string NearestFriday();
         string NearestSunday();
         string NearestMonday();
-        string NextSunday();
-        string LastDayOfMonth();
-        string FirstDayOfNextMonth();
-        string LastDayOfNextMonth();
+        string NextSunday();       
     }
 
     public class DateCalculator : IDateCalculator
@@ -49,13 +46,7 @@ namespace StockportWebapp.Utils
             EventFilters.Add("thisweekend", thisWeekendEventFilter);
 
             var nextWeekEventFilter = new EventFilter(NearestMonday(), NextSunday(), "Next week");
-            EventFilters.Add("nextweek", nextWeekEventFilter);
-
-            var thismonthEventFilter = new EventFilter(Today(), LastDayOfMonth(), "This month");
-            EventFilters.Add("thismonth", thismonthEventFilter);
-
-            var nextmonthEventFilter = new EventFilter(FirstDayOfNextMonth(), LastDayOfNextMonth(), "Next month");
-            EventFilters.Add("nextmonth", nextmonthEventFilter);
+            EventFilters.Add("nextweek", nextWeekEventFilter);           
 
             return EventFilters;
         }
@@ -102,24 +93,6 @@ namespace StockportWebapp.Utils
         public string NextSunday()
         {
             return _today.AddDays(14 - (_today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)_today.DayOfWeek)).ToString("yyyy-MM-dd");
-        }
-
-        public string LastDayOfMonth()
-        {
-            var daysInMonth = DateTime.DaysInMonth(_today.Year, _today.Month);
-            return _today.AddDays(daysInMonth - _today.Day).ToString("yyyy-MM-dd");
-        }
-
-        public string FirstDayOfNextMonth()
-        {
-            return new DateTime(_today.AddMonths(1).Year, _today.AddMonths(1).Month, 1).ToString("yyyy-MM-dd");
-        }
-
-        public string LastDayOfNextMonth()
-        {
-            var daysInMonth = DateTime.DaysInMonth(_today.AddMonths(1).Year, _today.AddMonths(1).Month);
-            var date = new DateTime(_today.AddMonths(1).Year, _today.AddMonths(1).Month, 1);
-            return date.AddDays(daysInMonth - 1).ToString("yyyy-MM-dd");
         }
     }
 }
