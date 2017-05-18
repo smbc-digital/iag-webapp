@@ -1,18 +1,32 @@
-﻿@media print {
+﻿@media only print {
     .l-header-container,
     .banner-header-container,
-    .breadcrumb-container
-    ,footer, #shareThis, .group-calender-container-image{
+    .breadcrumb-container,
+    footer, #shareThis,
+    .group-calender-container-image,
+    .event-image{
         display:none;
     }
 
     .group-map-container{
-        page-break-before:always;
         page-break-inside:avoid;
     }
 
     .group-article-title {
-        font-size:1em;
-        color:#000000;
+        font-size:1.8em  !important ;
+        color:#000000  !important;
+    }
+
+    .upcoming-events-heading{
+        page-break-before:always;
+    }
+
+    .event-card{
+        box-shadow:none  !important;
+        page-break-inside:avoid !important;
+
+        .event-image{
+        display:none !important;
+        }
     }
 }
