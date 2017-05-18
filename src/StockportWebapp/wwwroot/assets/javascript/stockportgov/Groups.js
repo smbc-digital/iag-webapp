@@ -15,22 +15,31 @@ $(document).ready(
 );
 
 $(document).ready(
-    function() {
-        $("#edit-search").hide();
-        $(".result-arrow").addClass("result-search-down-arrow");
+    function () {
+        // only apply on mobile
+        var mobileWidth = 767;
 
-        $("#open-edit-search").click(function () {
-            $("#edit-search").show();
-            $(".result-arrow").toggleClass("result-search-down-arrow");
-            $(".result-arrow").toggleClass("result-search-up-arrow");
+        if ($(window).width() <= mobileWidth) {
+            $("#edit-search").hide();
+            $(".result-arrow").addClass("result-search-down-arrow");
 
-            $(".result-search-down-arrow").parent().click(function() {
+            $("#open-edit-search").click(function() {
                 $("#edit-search").show();
+                $(".result-arrow").toggleClass("result-search-down-arrow");
+                $(".result-arrow").toggleClass("result-search-up-arrow");
+
+                $(".result-search-down-arrow").parent().click(function() {
+                    $("#edit-search").show();
+                });
+                $(".result-search-up-arrow").parent().click(function() {
+                    $("#edit-search").hide();
+                });
             });
+
             $(".result-search-up-arrow").parent().click(function () {
                 $("#edit-search").hide();
             });
-        });
+        }
 
         $(".print-this")
        .click(
@@ -38,6 +47,7 @@ $(document).ready(
                window.print();
            }
        );
+
     }
 );
 

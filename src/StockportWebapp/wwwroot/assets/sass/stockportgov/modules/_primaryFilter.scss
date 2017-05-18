@@ -17,20 +17,42 @@
     .primary-filter-form-section {
         display: inline-block;
         margin-bottom: 10px !important;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
     }
 
     .primary-filter-form-section-button {
         display: inline-block;
+        @media #{$mobile} {
+            width: 100%;
+        }
     }
 
     label, select, input {
         margin-right: 10px;
+
+        @media #{$mobile} {
+            // important needed to overwrite the custom javascript to resize on desktop
+            width:100% !important;
+        }
+    }
+
+    label {
+        @media #{$mobile} {
+            text-align: left;
+        }
     }
 
     input {
         border: none;
         cursor:default;
         font-size:1em;
+
+        @media #{$mobile} {
+            box-sizing: border-box;
+        }
     }
 
     button {
@@ -43,12 +65,6 @@
         @media #{$desktop,$tablet} {
             min-width: 250px;
 
-        }
-    }
-
-    div {
-        @media #{$mobile} {
-            padding-left: 0px;
         }
     }
 
@@ -99,19 +115,25 @@ button {
     background-color: rgba(5, 92, 88, 0.68);
     bottom: 0;
     width: 100%;
-    display: flex;
+    @media #{$tablet, $desktop} {
+        display: flex;
+    }
     justify-content: center;
 }
 
 .primary-filter-container-start-page {
-    min-height: 34%;
-    position: absolute;
+    @media #{$tablet, $desktop} {
+        position: absolute;
+        min-height: 34%;
+    }
 }
 
 .primary-filter-outer-container-results-page {
     display: flex;
     flex-direction: row;
-    min-height: 143px;
+    @media #{$desktop, $tablet}{
+        min-height: 143px;
+    }
 }
 
 .primary-filter-select {
@@ -134,7 +156,9 @@ button {
 #getLocation {
     display: none;
     position: absolute;
-    left: 113px;
+    @media #{$desktop, $tablet} {
+        left: 113px;
+    }
     z-index: 10;
     width: 320px;
     background-color: white;
@@ -292,11 +316,42 @@ button {
     
 }
 
-.hide-on-desktop {
-    .group-result-label-container {
-        padding-bottom: 0;
+.group-result-label-container {
+        padding-top: 10px; 
+        padding-bottom:0px;
+        padding-left: 10px;
+        padding-right: 10px;
+
+        label {
+            color: white;
+        }
+    } 
+
+    #open-edit-search {
+        text-align: center; 
+        border-top: 1px solid white; 
+        padding-top: 10px; 
+        padding-bottom: 10px;
+
+        label {
+            color: white; 
+            font-size: 20px; 
+            font-weight: 800; 
+            width: 100%; 
+            padding-left: 25%; 
+            padding-right: 25%;
+        }
     }
-}
+
+    @media #{$desktop, $tablet} {
+        #edit-search {
+            display: flex !important;
+        }
+    }
+
+    .location-search-section {
+        position: relative;
+    }
 
 // google auto complete custom styles
 .pac-container {

@@ -2,23 +2,25 @@
 @model PrimaryFilter
 @inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"
         async defer></script>
 
-<form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form">
+<form asp-controller="Groups" asp-action="Results" method="get" class="@(featureToggles.GroupsAutoCompleteLocation ? "primary-filter-form primary-filter-form-autocomplete" : "primary-filter-form")">
 
     <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
     <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
 
     <div class="grid-100">
         <div class="primary-filter-form-section">
-            <label>Show me</label>
+            <label class="hide-on-mobile">Show me</label>
+            <label class="hide-on-desktop hide-on-tablet">Choose a category</label>
             <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow" id="selectCategory">
                 <option selected value="all">All</option>
             </select>
         </div>
-        <div class="primary-filter-form-section" style="position: relative">
-            <label>groups in</label>
+        <div class="primary-filter-form-section location-search-section">
+            <label class="hide-on-mobile">groups in</label>
+            <label class="hide-on-desktop hide-on-tablet">Enter a location</label>
             <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow" />
             <div id="getLocation">
                 <span>Enter postcode or place name</span>
@@ -42,12 +44,12 @@
             </div>
         </div>
 
-        <div class="primary-filter-form-section">
+        <div class="primary-filter-form-section hide-on-mobile">
             <label>sorted by</label>
             <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select custom-arrow" id="selectOrder"></select>
         </div>
         <div class="primary-filter-form-section-button">
-            <button type="submit" class="button-default">Search groups</button>
+            <button type="submit" class="button-default" id="filterButton">Search groups</button>
         </div>
     </div>
     <select id="hiddenSelectCategory" class="primary-filter-select hidden-select"></select>

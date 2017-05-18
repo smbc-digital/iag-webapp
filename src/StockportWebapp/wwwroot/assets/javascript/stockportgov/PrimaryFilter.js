@@ -17,29 +17,36 @@
 
     $("#selectOrderMobile").change(function () {
         var orderby = $("#selectOrderMobile").find(":selected").text();
-        $("#sortBy").val(orderby);
-        $("#filterButtonMobile").click();
+        $("#selectOrder").val(orderby);
+        $("#filterButton").click();
     });
 });
 
 $(window).resize(function () {
-    $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
-    $("#selectCategory").width($("#hiddenSelectCategory").width());
-    $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
-    $("#selectOrder").width($("#hiddenSelectOrder").width());
-    $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
-    $("#postcode").width($("#hiddenSelectLocation").width());
+    // only apply on tablet and desktop
+    var mobileWidth = 767;
+
+    if ($(window).width() > mobileWidth) {
+        $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
+        $("#selectCategory").width($("#hiddenSelectCategory").width());
+        $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
+        $("#selectOrder").width($("#hiddenSelectOrder").width());
+        $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+        $("#postcode").width($("#hiddenSelectLocation").width());
+    }
 });
 
 $(document).ready(
     function () {
-        $("#postcode, #postcodeMobile, #postcode-autocomplete").click(
+        // open the "location search" box
+        $("#postcode").click(
             function () {
-                $("#getLocation, #getLocationMobile").toggle();
+                $("#getLocation").toggle();
             }
         );
 
-        $("#currentLocation, #currentLocationMobile").click(function () {
+        // get current location
+        $("#currentLocation").click(function () {
             navigator.geolocation.getCurrentPosition(function (position) {
                 var geocoder = new google.maps.Geocoder();
                 var latLng = new google.maps.LatLng(
@@ -55,7 +62,7 @@ $(document).ready(
                         var city = extractFromAdress(results[0].address_components, "locality");
                         var jointLocation = (street + " " + postcode + " " + city).trim();
 
-                        $("#location, #locationMobile").val(jointLocation);
+                        $("#location").val(jointLocation);
                     }
                     else {
                         alert("We couldn't find your current location.");
@@ -67,7 +74,7 @@ $(document).ready(
             return false;
         });
 
-        // get location lookup
+        // get location lookup, non auto complete
         $("#btnLocation").click(function (event) {
             event.preventDefault();
             var address = $("#location").val();
@@ -80,70 +87,41 @@ $(document).ready(
                         var city = extractFromAdress(results[0].address_components, "locality");
                         var jointLocation = (street + " " + postcode + " " + city).trim();
 
-                        $("#postcode, #postcodeMobile").val(jointLocation);
-                        $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
-                        $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
+                        $("#postcode").val(jointLocation);
+                        $("#latitude").val(results[0].geometry.location.lat());
+                        $("#longitude").val(results[0].geometry.location.lng());
                         UpdateLocationFieldSize();
-                        $("#getLocation, #getLocationMobile").hide();
+                        $("#getLocation").hide();
                     } else {
                         alert("We couldn't find that location.");
                     }
                 } else {
-                    $("#postcode, #postcodeMobile").val("Stockport");
-                    $("#latitude #postcodeMobile").val("53.405817");
-                    $("#longitude #latitudeMobile").val("-2.158046");
+                    $("#postcode").val("Stockport");
+                    $("#latitude").val("53.405817");
+                    $("#longitude").val("-2.158046");
                     UpdateLocationFieldSize();
-                    $("#getLocation, #getLocationMobile").hide();
+                    $("#getLocation").hide();
                 }
             });
         });
 
-        $("#btnLocationMobile").click(function (event) {
+        // set the default values
+        var autocompleteName = "Stockport";
+        var autocompleteLocationLatitude = 53.405817;
+        var autocompleteLocationLongitude = -2.158046;
+
+        // auto complete
+        $("#btnLocationAutoComplete").click(function (event) {
             event.preventDefault();
-            var address = $("#locationMobile").val();
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
-                if (address !== "") {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        var street = extractFromAdress(results[0].address_components, "route");
-                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
-                        var city = extractFromAdress(results[0].address_components, "locality");
-                        var jointLocation = (street + " " + postcode + " " + city).trim();
-
-                        $("#postcode, #postcodeMobile").val(jointLocation);
-                        $("#latitude, #latitudeMobile").val(results[0].geometry.location.lat());
-                        $("#longitude, #longitudeMobile").val(results[0].geometry.location.lng());
-                        UpdateLocationFieldSize();
-                        $("#getLocation, #getLocationMobile").hide();
-                    } else {
-                        alert("We couldn't find that location.");
-                    }
-                } else {
-                    $("#postcode, #postcodeMobile").val("Stockport");
-                    $("#latitude #postcodeMobile").val("53.405817");
-                    $("#longitude #latitudeMobile").val("-2.158046");
-                    UpdateLocationFieldSize();
-                    $("#getLocation, #getLocationMobile").hide();
-                }
-            });
+            $("#postcode").val(autocompleteName);
+            $("#latitude").val(autocompleteLocationLatitude);
+            $("#longitude").val(autocompleteLocationLongitude);
+            UpdateLocationFieldSize();
+            $("#getLocation").hide();
         });
 
-        if ($(".primary-filter-form-autocomplete").length > 0) {
-            // set the default values
-            var autocompleteName = "Stockport";
-            var autocompleteLocationLatitude = 53.405817;
-            var autocompleteLocationLongitude = -2.158046;
-
-            // auto complete
-            $("#btnLocationAutoComplete, #btnLocationMobileAutoComplete").click(function (event) {
-                event.preventDefault();
-                $("#postcode, #postcodeMobile").val(autocompleteName);
-                $("#latitude, #latitudeMobile").val(autocompleteLocationLatitude);
-                $("#longitude, #longitudeMobile").val(autocompleteLocationLongitude);
-                UpdateLocationFieldSize();
-                $("#getLocation, #getLocationMobile").hide();
-            });
-
+        // only run of the auto complete is toggled on
+        if ($(".primary-filter-form-autocomplete").length) {
             // Set the default bounds to the UK
             var defaultBounds = new google.maps.LatLngBounds(
                 new google.maps.LatLng(49.383639452689664, -17.39866406249996),
@@ -192,8 +170,6 @@ $(document).ready(
             });
         }
     });
-
-
 
 function extractFromAdress(components, type) {
     for (var i = 0; i < components.length; i++)

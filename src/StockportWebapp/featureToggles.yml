@@ -18,10 +18,10 @@ int: &int
   << : *stage
   << : *qa
   GroupButtonOnHomePage : true
+  GroupsAutoCompleteLocation: true
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
-  GroupsAutoCompleteLocation: false

@@ -147,21 +147,35 @@
 }
 
 .group-startpage-image {
-    background-position: bottom;
-    background-repeat: no-repeat;
-    background-size: cover;
     display: table;
     width: 100%;
     margin-top: -20px;
-    background-color: #055c58;
     position:relative;
+    background-color: #055c58;
 
     @media #{$desktop} {
+        
         height: 420px;
+        background-image: url('/assets/images/content/Groups_hero_image.jpg');
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 
     @media #{$tablet} {
         height: 450px;
+        background-image: url('/assets/images/content/Groups_hero_image.jpg');
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
+.group-startpage-image.group-results {
+    @media #{$desktop, $tablet} {
+        background-color: unset;
+        height: 100%;
+        background-image: none;
     }
 }
 
@@ -178,12 +192,6 @@
         label {
             color: white
         }
-    }
-}
-
-.group-startpage {
-    @media #{$mobile} {
-        margin-top: -20px;
     }
 }
 
