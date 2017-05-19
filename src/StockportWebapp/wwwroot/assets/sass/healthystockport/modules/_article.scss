@@ -19,7 +19,7 @@
 
     .hs-article-icon-container {
         padding: 0;
-        color: goldenrod; 
+        color: #f2af29; 
         font-size: 4em; 
         display: inline-block;
         padding-right:10px;
@@ -54,29 +54,5 @@
         @media #{$mobile} {
             font-size: 2em; 
         }
-    }
-}
-
-.article-contactus {
-
-    @media #{$mobile, $tablet} {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    p {
-        margin-bottom: 10px; 
-        color: grey;
-    }
-
-        padding-left: 0;
-        margin-bottom: 21px;
-                     
-    .top-line {               
-        margin-bottom: 10px;
-    }
-
-    .bottom-line {
-        display:none;
     }
 }

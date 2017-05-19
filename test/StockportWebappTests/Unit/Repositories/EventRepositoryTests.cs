@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.Repositories
             response.Should().Contain(string.Concat("Event date: ", new DateTime(2016, 01, 01).ToString("dddd dd MMMM yyyy")));
             response.Should().Contain("Start time: 15:00");
             response.Should().Contain("End time: 18:00");
-            response.Should().Contain("How often does your event occur?: frequency");
+            response.Should().Contain("Frequency: frequency");
             response.Should().Contain("Price: fee");
             response.Should().Contain("Location: location");
             response.Should().Contain("Organiser name: submitted by");
