@@ -68,6 +68,7 @@ namespace StockportWebapp.Repositories
             if (eventSubmission.Attachment != null) stringBuilder.Append($"Additional event document: {FileHelper.GetFileNameFromPath(eventSubmission.Attachment)}<br />");
             stringBuilder.Append($"<br />Organiser email address: {eventSubmission.SubmitterEmail}");
             stringBuilder.Append("</p>");
+            stringBuilder.Append("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Changes to your event</h2>");
             stringBuilder.Append("<p style=\"font-family: 'Source Sans Pro', sans-serif\">You can let us know about a change to this event by emailing us at:</p>");
             stringBuilder.Append("<p style=\"font-family: 'Source Sans Pro', sans-serif\"><a href = \"mailto:&gt;website.updates@stockport.gov.uk\"> website.updates@stockport.gov.uk</a></p>");
             return stringBuilder.ToString();
