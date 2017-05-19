@@ -27,4 +27,18 @@
     </header>
 </div>
 @Html.Partial("MobileSearchBar")
+<div class="banner-header-container">
+    <div class="grid-container grid-100">
+        @if (ViewData["Beta"] != null && ViewData["BetaForm"] != null && (bool)ViewData["Beta"])
+        {
+            <div class="banner-header grid-100 mobile-grid-100 tablet-grid-100">
+                <p>
+                    <span class="banner-icon-beta">NEW</span><span class="banner-title-beta">This part of Stockport.gov.uk is brand new</span><span class="banner-body"> – your <a class="typeform-share link" data-mode="1" target="_blank" href="@ViewData["BetaForm"]">feedback</a> will help us improve it.</span>
+                </p>
+            </div>
+
+        }
+
+    </div>
+</div>
 @Html.Partial("BrowserCheck")
