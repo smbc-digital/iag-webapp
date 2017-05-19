@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using StockportWebapp.Models;
 using System.Text;
@@ -44,7 +45,7 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append("</tr>");
             stringBuilder.Append("</table>");
 
-            stringBuilder.Append("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Thank you for adding an event</h2>");
+            stringBuilder.Append("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Thank you for adding an event</h2><br />");
             stringBuilder.Append("<p style=\"font-family: 'Source Sans Pro', sans-serif\">Before your event is added to the calendar, it will be reviewed and if it is successful then it will be published on the website.</p>");
             stringBuilder.Append("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Your event</h2>");
 
