@@ -40,18 +40,25 @@ namespace StockportWebapp.Controllers
 
             var redirectUrl = new UriBuilder(referer).Path;
             var message = "We have been unable to process the request. Please try again later.";
-
-            if (ModelState.IsValid)
+            
+            if (contactUsDetails.ServiceEmail == "admissions.support@stockport.gov.uk")
             {
-                var successCode = await SendEmailMessage(contactUsDetails);
-                if (IsSuccess(successCode))
-                {
-                    return RedirectToAction("ThankYouMessage", routeValues: new {referer = redirectUrl});
-                }
+                message = "We have been unable to process the request as the schools admissions form is temporarily disabled. Please try again after 21st May 2017.";
             }
             else
             {
-                message = GetErrorsFromModelState(ModelState);
+                if (ModelState.IsValid)
+                {
+                    var successCode = await SendEmailMessage(contactUsDetails);
+                    if (IsSuccess(successCode))
+                    {
+                        return RedirectToAction("ThankYouMessage", routeValues: new { referer = redirectUrl });
+                    }
+                }
+                else
+                {
+                    message = GetErrorsFromModelState(ModelState);
+                }
             }
 
             var toUrl = $"{redirectUrl}?message={message}" + "#error-message-anchor";
