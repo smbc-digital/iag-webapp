@@ -2,8 +2,7 @@
 @model PrimaryFilter
 @inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"
-        async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="@(featureToggles.GroupsAutoCompleteLocation ? "primary-filter-form primary-filter-form-autocomplete" : "primary-filter-form")">
 
