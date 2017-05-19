@@ -4,12 +4,16 @@
     .breadcrumb-container,
     footer, #shareThis,
     .group-calender-container-image,
-    .event-image{
-        display:none;
+    .event-image,
+    .video-container
+    {
+        display:none !important;
     }
 
     .group-map-container{
-        page-break-inside:avoid;
+        position: relative;
+        page-break-before:always;
+        page-break-inside:avoid !important;
     }
 
     .group-article-title {
@@ -18,15 +22,23 @@
     }
 
     .upcoming-events-heading{
+        position: relative;
         page-break-before:always;
     }
 
     .event-card{
+        position: relative;
         box-shadow:none  !important;
         page-break-inside:avoid !important;
-
         .event-image{
         display:none !important;
         }
+        .event-card-informtion{
+             border-bottom:none!important;
+             border-left:none!important;
+             border-right:none!important;
+        }
     }
+
+    
 }
