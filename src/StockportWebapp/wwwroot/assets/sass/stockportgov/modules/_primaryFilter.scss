@@ -51,13 +51,19 @@
     padding-top: 10px;
     padding-bottom: 10px;
 
-    @media #{$desktop, $tablet} {
+    @media #{$desktop} {
         display: flex;
+        max-width: 1200px;
+    }
+
+    @media #{$tablet} {
+        max-width: 1024px;
     }
 
     @media #{$mobile} {
         text-align: left;
         padding-left: 0;
+        max-width: 767px;
     }
 
     .location-search-section {

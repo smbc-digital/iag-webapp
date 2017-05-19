@@ -16,7 +16,7 @@
     @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Find a local group", "groups", "Group")})
 }
 
-<div class="l-page-content">
+<div class="l-page-content" id="content-no-margin-bottom-mainpage">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-70 tablet-grid-70 mobile-grid-100">
@@ -71,7 +71,7 @@
         <div class="grid-container grid-100 group-pagination">
             @Html.Partial("Pagination", Model.Pagination)
         </div>
-        <div class="full-width-title hide-on-desktop hide-on-tablet">
+        <div class="full-width-title hide-on-desktop hide-on-tablet" style="margin-bottom: 0">
             <div class="grid-container grid-parent grid-100">
                 <div class="grid-70 tablet-grid-70 mobile-grid-100" style="text-align: center">
                 </div>
@@ -87,7 +87,7 @@
             <h1 class="">There are currently no groups matching your search.</h1>
             <p>Please edit your search and try again.</p>
         </div>
-        <div class="full-width-title hide-on-desktop hide-on-tablet">
+        <div class="full-width-title no-margin-bottom hide-on-desktop hide-on-tablet" style="margin-bottom: 0">
             <div class="grid-container grid-parent grid-100 add-group-mobile">
                 <div class="grid-70 tablet-grid-70 mobile-grid-100" style="text-align: center">
                 </div>
