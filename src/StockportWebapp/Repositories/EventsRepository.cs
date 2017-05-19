@@ -39,6 +39,11 @@ namespace StockportWebapp.Repositories
         public string GenerateEmailBody(EventSubmission eventSubmission)
         {
             var stringBuilder = new StringBuilder();
+
+            stringBuilder.Append("<meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\" />");
+            stringBuilder.Append("<title> Changing a password</title>");
+            stringBuilder.Append("</head>");
+            stringBuilder.Append("<body>");
             stringBuilder.Append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" id=\"templateHeader\" style=\"background-color: #F4F4F4; border-collapse: collapse !important; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\" width=\"100%\">");
             stringBuilder.Append("<tr>");
             stringBuilder.Append("<td class=\"headerContent\" style=\"background-color: #055C58; font-family: Helvetica; font-size: 20px; font-weight: bold; line-height: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 10px; padding-left: 10px; padding-right: 0; padding-top: 10px; text-align: left; vertical-align: middle;\" valign=\"top\"><img class=\"flexibleImage\" src=\"https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/logo-stockport-full%402x.png\" style =\"border: 0; height: auto; line-height: 100%; max-width: 225px; outline: none; text-decoration: none; width: 225px;\" width=\"225\" /></td>");
@@ -72,6 +77,7 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Changes to your event</h2>");
             stringBuilder.Append("<p style=\"font-family: 'Source Sans Pro', sans-serif\">You can let us know about a change to this event by emailing us at:</p>");
             stringBuilder.Append("<p style=\"font-family: 'Source Sans Pro', sans-serif\"><a href = \"mailto:&gt;website.updates@stockport.gov.uk\"> website.updates@stockport.gov.uk</a></p>");
+            stringBuilder.Append("</body>");
             return stringBuilder.ToString();
         }
 
