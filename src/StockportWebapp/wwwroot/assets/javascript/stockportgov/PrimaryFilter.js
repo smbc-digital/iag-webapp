@@ -38,6 +38,11 @@ $(window).resize(function () {
 
 $(document).ready(
     function () {
+        // set the default values
+        var autocompleteName = "Stockport";
+        var autocompleteLocationLatitude = 53.405817;
+        var autocompleteLocationLongitude = -2.158046;
+
         // open the "location search" box
         $("#postcode").click(
             function () {
@@ -62,7 +67,10 @@ $(document).ready(
                         var city = extractFromAdress(results[0].address_components, "locality");
                         var jointLocation = (street + " " + postcode + " " + city).trim();
 
-                        $("#location").val(jointLocation);
+                        $("#location, #location-autocomplete").val(jointLocation);
+                        autocompleteName = jointLocation;
+                        autocompleteLocationLatitude = results[0].geometry.location.lat();
+                        autocompleteLocationLongitude = results[0].geometry.location.lat();
                     }
                     else {
                         alert("We couldn't find your current location.");
@@ -82,16 +90,7 @@ $(document).ready(
             geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
                 if (address !== "") {
                     if (status === google.maps.GeocoderStatus.OK) {
-                        var street = extractFromAdress(results[0].address_components, "route");
-                        var postcode = extractFromAdress(results[0].address_components, "postal_code");
-                        var city = extractFromAdress(results[0].address_components, "locality");
-                        var jointLocation = (street + " " + postcode + " " + city).trim();
-
-                        $("#postcode").val(jointLocation);
-                        $("#latitude").val(results[0].geometry.location.lat());
-                        $("#longitude").val(results[0].geometry.location.lng());
-                        UpdateLocationFieldSize();
-                        $("#getLocation").hide();
+                        UpdateLocation(results);
                     } else {
                         alert("We couldn't find that location.");
                     }
@@ -105,10 +104,18 @@ $(document).ready(
             });
         });
 
-        // set the default values
-        var autocompleteName = "Stockport";
-        var autocompleteLocationLatitude = 53.405817;
-        var autocompleteLocationLongitude = -2.158046;
+        function UpdateLocation(results) {
+            var street = extractFromAdress(results[0].address_components, "route");
+            var postcode = extractFromAdress(results[0].address_components, "postal_code");
+            var city = extractFromAdress(results[0].address_components, "locality");
+            var jointLocation = (street + " " + postcode + " " + city).trim();
+
+            $("#postcode").val(jointLocation);
+            $("#latitude").val(results[0].geometry.location.lat());
+            $("#longitude").val(results[0].geometry.location.lng());
+            UpdateLocationFieldSize();
+            $("#getLocation").hide();
+        }
 
         // auto complete
         $("#btnLocationAutoComplete").click(function (event) {
