@@ -53,17 +53,15 @@
 
     @media #{$desktop} {
         display: flex;
-        max-width: 1200px;
     }
 
     @media #{$tablet} {
-        max-width: 1024px;
+        display: flex;
     }
 
     @media #{$mobile} {
         text-align: left;
         padding-left: 0;
-        max-width: 767px;
     }
 
     .location-search-section {
