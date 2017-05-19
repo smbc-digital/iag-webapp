@@ -152,22 +152,6 @@ $(document).ready(
                 autocompleteLocationLatitude = places[0].geometry.location.lat();
                 autocompleteLocationLongitude = places[0].geometry.location.lng();
             });
-
-            // mobile
-            var inputMobile = document.getElementById('locationMobile-autocomplete');
-            var searchBoxMobile = new google.maps.places.SearchBox(inputMobile, options);
-
-            searchBoxMobile.addListener('places_changed', function () {
-                var places = searchBoxMobile.getPlaces();
-
-                if (places.length == 0) {
-                    return;
-                }
-
-                autocompleteName = places[0].name;
-                autocompleteLocationLatitude = places[0].geometry.location.lat();
-                autocompleteLocationLongitude = places[0].geometry.location.lng();
-            });
         }
     });
 
