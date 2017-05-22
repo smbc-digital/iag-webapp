@@ -49,16 +49,15 @@ namespace StockportWebapp.Repositories
             stringBuilder.AppendLine("<td class=\"headerContent\" style=\"background-color: #055C58; font-family: Helvetica; font-size: 20px; font-weight: bold; line-height: 100%; mso-table-lspace: 0pt; mso-table-rspace: 0pt; padding-bottom: 10px; padding-left: 10px; padding-right: 0; padding-top: 10px; text-align: left; vertical-align: middle;\" valign=\"top\"><img class=\"flexibleImage\" src=\"https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/logo-stockport-full%402x.png\" style =\"border: 0; height: auto; line-height: 100%; max-width: 225px; outline: none; text-decoration: none; width: 225px;\" width=\"225\" /></td>");
             stringBuilder.AppendLine("</tr>");
             stringBuilder.AppendLine("</table>");
-            stringBuilder.AppendLine("<br/>");
-            stringBuilder.AppendLine("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Thank you for adding an event</h2><br />");
+            stringBuilder.AppendLine("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Thank you for adding an event</h2>");
             stringBuilder.AppendLine("<p style=\"font-family: 'Source Sans Pro', sans-serif\">Before your event is added to the calendar, it will be reviewed and if it is successful then it will be published on the website.</p>");
             stringBuilder.AppendLine("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Your event</h2>");
 
-            stringBuilder.AppendLine($"<p style=\"font-family: 'Source Sans Pro', sans-serif\">Event name: {eventSubmission.Title}<br />");
+            stringBuilder.AppendLine($"<p style=\"font-family: 'Source Sans Pro', sans-serif; line-height: 1.35em \">Event name: {eventSubmission.Title}<br />");
             if (eventSubmission.EventDate.HasValue) stringBuilder.AppendLine($"Event date: {eventSubmission.EventDate.Value:dddd dd MMMM yyyy}<br />");
             if (eventSubmission.StartTime.HasValue) stringBuilder.AppendLine($"Start time: {eventSubmission.StartTime.Value:HH:mm}<br />");
             if (eventSubmission.EndTime.HasValue) stringBuilder.AppendLine($"End time: {eventSubmission.EndTime.Value:HH:mm}<br />");
-            stringBuilder.AppendLine($"Frequency: {eventSubmission.Frequency}<br />");
+            if (!string.IsNullOrEmpty(eventSubmission.Frequency)) stringBuilder.AppendLine($"Frequency: {eventSubmission.Frequency}<br />");
             if (eventSubmission.EndDate.HasValue) stringBuilder.AppendLine($"End date: {eventSubmission.EndDate.Value:dddd dd MMMM yyyy}<br />");
             stringBuilder.AppendLine($"Price: {eventSubmission.Fee}<br />");
             stringBuilder.AppendLine($"Location: {eventSubmission.Location}<br />");            
