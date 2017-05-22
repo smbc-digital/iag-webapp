@@ -50,10 +50,11 @@ namespace StockportWebapp.Models
         public IEnumerable<Alert> Alerts { get; }
         public bool EmailAlerts { get; }
         public string EmailAlertsTopicId { get; }
+        public EventBanner EventBanner { get; }
 
         public Topic(string name, string slug, string summary, string teaser, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, IEnumerable<Crumb> breadcrumbs,
-            IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId)
+            IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner)
         {
             Name = name;
             Slug = slug;
@@ -71,11 +72,12 @@ namespace StockportWebapp.Models
             EmailAlertsTopicId = emailAlertsTopicId;
             NavigationLink = TypeRoutes.GetUrlFor("topic", slug);
             _topSubItems = Enumerable.Empty<SubItem>();
+            EventBanner = eventBanner;
         }
     }
 
     public class NullTopic : Topic
     {
-        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty) { }
+        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null) { }
     }
 }

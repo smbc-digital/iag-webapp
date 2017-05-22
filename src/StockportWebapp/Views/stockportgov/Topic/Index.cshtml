@@ -46,6 +46,24 @@
         }
         
         @Html.Partial("PrimarySubitems", topic)
+        
+        <div class="event-banner">
+            <a style="text-decoration: none">
+                <div class="event-banner-container mobile-grid-100">
+                    <div class="event-banner-icon-container">
+                        <i class="fa @Model.Topic.EventBanner.Icon default-icon eventbanner-icon"></i>
+                    </div>
+                    <div class="grid-80 mobile-grid-80 event-banner-text-container">
+                        <h3> @Model.Topic.EventBanner.Title</h3>
+                        <label class="hide-on-mobile">@Model.Topic.EventBanner.Teaser</label>
+                    </div>
+                    <div class="event-banner-chevron-container">
+                        <i class="fa fa-2x fa-angle-right event-banner-chevron"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
 
         @if (topic.SecondaryItems.Any())
         {

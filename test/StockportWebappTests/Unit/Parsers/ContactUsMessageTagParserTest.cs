@@ -112,7 +112,7 @@ namespace StockportWebappTests.Unit.Parsers
 
         private static Topic DefaultTopic()
         {
-            return new Topic("name", "slug", "summary", "teaser", "icon", "backgroundImage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id");
+            return new Topic("name", "slug", "summary", "teaser", "icon", "backgroundImage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null);
         }
     }
 }
