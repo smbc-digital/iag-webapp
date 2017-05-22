@@ -18,7 +18,7 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
-
+<link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css"/>
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
@@ -156,6 +156,7 @@
                         <div class="clearfix"></div>
                         <div id="shareThis">
                             @Html.Partial("Share")
+                            @Html.Partial("PrintThis")
                             <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
                         </div>
                     </div>
