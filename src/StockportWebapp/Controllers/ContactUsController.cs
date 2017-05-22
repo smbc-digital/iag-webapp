@@ -44,6 +44,7 @@ namespace StockportWebapp.Controllers
             if (contactUsDetails.ServiceEmail == "admissions.support@stockport.gov.uk")
             {
                 message = "We have been unable to process the request as the schools admissions form is temporarily disabled. Please try again after 21st May 2017.";
+                _logger.LogInformation("Attempted to send an email to admissions.support but we stopped that");
             }
             else
             {
