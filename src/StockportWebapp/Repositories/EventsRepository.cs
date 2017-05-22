@@ -76,8 +76,8 @@ namespace StockportWebapp.Repositories
             stringBuilder.AppendLine("<h2 style=\"font-family: 'Source Sans Pro', sans-serif\">Changes to your event</h2>");
             stringBuilder.AppendLine("<p style=\"font-family: 'Source Sans Pro', sans-serif\">You can let us know about a change to this event by emailing us at:</p>");
             stringBuilder.AppendLine("<p style=\"font-family: 'Source Sans Pro', sans-serif\"><a href=\"mailto:website.updates@stockport.gov.uk\"> website.updates@stockport.gov.uk</a></p>");
-            stringBuilder.AppendLine("<p style=\"font-family: 'Source Sans Pro', sans-serif\">Thank you,</p> <br />");
-            stringBuilder.AppendLine("<p style=\"font-family: 'Source Sans Pro', sans-serif\">Stockport Council</p> <br />");
+            stringBuilder.AppendLine("<p style=\"font-family: 'Source Sans Pro', sans-serif\">Thank you,</p>");
+            stringBuilder.AppendLine("<p style=\"font-family: 'Source Sans Pro', sans-serif\">Stockport Council</p>");
             stringBuilder.AppendLine("</body>");
             return stringBuilder.ToString();
         }
