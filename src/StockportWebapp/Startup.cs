@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
@@ -31,6 +32,7 @@ using StockportWebapp.ModelBinders;
 using StockportWebapp.DataProtection;
 using System.Linq;
 using System.Net;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
@@ -208,6 +210,22 @@ namespace StockportWebapp
                     }
             });
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
+
+            var ci = new CultureInfo("en-GB") {DateTimeFormat = {ShortDatePattern = "dd/MM/yyyy"}};
+
+            // Configure the Localization middleware
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(ci),
+                SupportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("en-GB"),
+            },
+                SupportedUICultures = new List<CultureInfo>
+            {
+                new CultureInfo("en-GB"),
+            }
+            });
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
