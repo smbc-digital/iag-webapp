@@ -11,8 +11,8 @@
     }
 
     .group-map-container{
-        position: relative;
-        page-break-before:always;
+        position: relative !important;
+        page-break-before:always !important;
         page-break-inside:avoid !important;
     }
 
@@ -22,12 +22,11 @@
     }
 
     .upcoming-events-heading{
-        position: relative;
-        page-break-before:always;
+        position: relative !important;
     }
 
     .event-card{
-        position: relative;
+        position: relative !important;
         box-shadow:none  !important;
         page-break-inside:avoid !important;
         .event-image{

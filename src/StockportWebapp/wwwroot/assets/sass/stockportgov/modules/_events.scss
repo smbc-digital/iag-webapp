@@ -312,8 +312,12 @@ ul.nav-card-events-list {
     text-align: center;
 
     .icon-bordered {
-        color: $richGreen;
+        color: #18914c;
         margin-bottom: 15px;
+    }
+
+    .thank-you-text{
+        text-align: left;
     }
 }
 
