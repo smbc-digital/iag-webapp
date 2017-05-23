@@ -15,6 +15,7 @@ var matchboxEventCards = new Matchbox({
     childSelector: ".event-card-information",
     groupsOf: 1,
     breakpoints: [
+    { bp: 767, groupsOf: 2 },
     { bp: 1024, groupsOf: 3 }
     ]
 });
