@@ -1,6 +1,5 @@
 ﻿.event-banner {
     @media #{$desktop, $tablet} {
-       height: 140px; 
        margin-bottom: 25px; 
        padding: 0 10px 0 10px;
     }
@@ -10,7 +9,6 @@
     }
 
     @media #{$mobile} {
-       height: 50px; 
        margin-bottom: 15px; 
        padding: 0 10px 0 10px;
        margin-top: 15px; 
@@ -21,73 +19,83 @@
       }
 
     .event-banner-container {
-        height: 140px; 
+        min-height: 140px; 
         background-color: #fff;
         padding-left: 0px;
+        display: flex;
+        border-radius: 2.5px;
+        box-shadow: 0 10px 20px rgba(0,0,0,.05);
 
          @media #{$mobile} {
-             height: 50px;
+             min-height: 60px;
          }
 
-        .event-banner-icon-container {
-            float: left; 
+        .event-banner-icon-container {           
             width: 140px;
-            background-color: #207eab; 
-            height: inherit; 
+            background-color: #207eab;          
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
             text-align: center;
+            border-radius: 2.5px 0px 0px 2.5px;
 
             @media #{$mobile} {
-             width: 50px;
+             width: 60px;
            }
 
             .eventbanner-icon {
-                color: #fff; 
-                height: 100px; 
-                width: 100px; 
-                margin-top: 30px; 
+                color: #fff;               
+                width: inherit;             
                 font-size: 80px;
 
                  @media #{$mobile} {
-                    color: #fff; 
-                    height: 50px; 
-                    width: 50px; 
-                    margin-top: 12px; 
-                    font-size: 25px;
+                    color: #fff;                              
+                    font-size: 35px;
                  }
             }
         }
 
         .event-banner-text-container {
-            float: left; 
-            height: inherit; 
-            padding: 10px 0 0 25px;
+            padding: 10px 0;                      
+            padding-left: 25px;
+            display: flex;  
+            justify-content:center;            
+            align-content:center;
+            flex-direction:column;
 
             @media #{$mobile} {
-               padding: 0 0 0 5px;
+               padding-left: 10px;
             }
 
             h3 {
                 font-weight: 600; 
-                font-size: 1.125em
+                font-size: 1.125em;
+                margin-top: 0px;
+                line-height: 1.2;
+                @media #{$desktop, $tablet} {
+                   margin-bottom: 10px;
+                }
             }
 
             label {
                 color:  #333;
+                line-height: 1.2;
             }
         }
 
         .event-banner-chevron-container {
-            float: right;
+            text-align: right;          
+            display: flex;
+            justify-content:center;
+            align-content:center;
+            flex-direction:column;
 
-            .event-banner-chevron {
-                margin-top: 45px; 
-                margin-right: 20px; 
+            .event-banner-chevron {                            
                 color: #333; 
                 font-size: 50px;
 
-                @media #{$mobile} {
-                   margin-top: 15px;
-                   margin-right: 0px; 
+                @media #{$mobile} {        
                    font-size: 20px; 
                  }
             }
