@@ -16,7 +16,7 @@ namespace StockportWebappTests.Unit.Model
         {
             const string summary = "# This is a heading for a topic";
             var topic = new Topic("Name", "slug", summary, "Teaser", "Icon", "Image", "Image", null, null, null,
-              new List<Crumb>(), null, true, "test-id");
+              new List<Crumb>(), null, true, "test-id", null);
 
             Assert.Equal("<h1>This is a heading for a topic</h1>\n", topic.Summary);
         }
