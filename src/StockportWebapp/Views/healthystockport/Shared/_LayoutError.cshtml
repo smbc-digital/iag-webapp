@@ -2,7 +2,6 @@
 @using StockportWebapp.FeatureToggling
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject BusinessId BusinessId
-@inject FeatureToggles FeatureToggles
 
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -30,16 +29,9 @@
     @Html.Partial("Header")
     @RenderBody()
 <div id="error-footer">
-    @if (FeatureToggles.HSFooter)
-    {
-        <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
-            @await Component.InvokeAsync("Footer")
-        </distributed-cache>
-    }
-    else
-    {
-        @Html.Partial("Footer")
-    }
+    <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
 </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
