@@ -20,6 +20,7 @@ namespace StockportWebapp.Config
         AppSetting GetEventSubmissionEmail(string businessId);
         AppSetting GetGroupSubmissionEmail(string businessId);
         AppSetting GetParisPamentLink(string businessId);
+        AppSetting GetReCaptchaKey();
         int GetFooterCache(string businessId);
         bool GetUseRedisSessions();
 
@@ -115,6 +116,11 @@ namespace StockportWebapp.Config
         public AppSetting GetParisPamentLink(string businessId)
         {
             return AppSetting.GetAppSetting(_appsettings[$"{businessId}:ParisPayment"]);
+        }
+
+        public AppSetting GetReCaptchaKey()
+        {
+            return AppSetting.GetAppSetting(_appsettings[$"ReCaptcha:SiteKey"]);
         }
 
         public int GetFooterCache(string businessId)

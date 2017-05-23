@@ -11,6 +11,7 @@ using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
+using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -127,6 +128,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/groups/add-a-group")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> AddAGroup(GroupSubmission groupSubmission)
         {
             var response = await _repository.Get<List<GroupCategory>>();

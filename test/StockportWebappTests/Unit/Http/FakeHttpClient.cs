@@ -1,6 +1,7 @@
 ﻿using StockportWebapp.Http;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Http
@@ -54,6 +55,12 @@ namespace StockportWebappTests.Unit.Http
         public bool Invoked(string url)
         {
             return invokedUrl == url;
+        }
+
+        public Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content)
+        {
+            //test
+            return null;
         }
     }
 }

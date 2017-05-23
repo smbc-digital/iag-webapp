@@ -32,6 +32,7 @@ using StockportWebapp.DataProtection;
 using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.Validation;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace StockportWebapp
@@ -70,12 +71,17 @@ namespace StockportWebapp
             services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(Configuration));
             services.AddSingleton(_ => new ShortUrlRedirects(new BusinessIdRedirectDictionary()));
             services.AddSingleton(_ => new LegacyUrlRedirects(new BusinessIdRedirectDictionary()));
+            services.AddSingleton(_ => new ValidateReCaptchaAttribute(_.GetService<IApplicationConfiguration>(), _.GetService<IHttpClient>()));
 
             services.AddSingleton<Func<System.Net.Http.HttpClient>>(
                 p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
 
             services.AddScoped<BusinessId>();
+
+            services.AddSingleton<IConfigurationRoot>(Configuration);
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddScoped<ValidateReCaptchaAttribute>();
 
             services.AddTransient(
                 p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
@@ -124,7 +130,8 @@ namespace StockportWebapp
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
             services.AddTransient<IEmailBuilder, EmailBuilder>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
-            services.AddTransient<HtmlParser>();
+            services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
+            
 
             var loggerFactory = new LoggerFactory().AddNLog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();

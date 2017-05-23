@@ -97,6 +97,8 @@
                                         <label asp-for="@Model.PhoneNumber"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
                                         <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <div class="g-recaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
 
                                         <stock-button id="uitest-contact-form-submit"
                                                       class="button-contact-us">Add your group</stock-button>

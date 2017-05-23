@@ -15,6 +15,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.ViewDetails;
 using Newtonsoft.Json;
+using StockportWebapp.Validation;
 
 namespace StockportWebapp.Controllers
 {
@@ -35,6 +36,7 @@ namespace StockportWebapp.Controllers
 
         [Route("/contact-us")]
         [HttpPost, IgnoreAntiforgeryToken]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
             var referer = Request.Headers["referer"];
@@ -50,14 +52,6 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                string EncodedResponse = Request.Form["g-Recaptcha-Response"];
-                bool IsCaptchaValid = (ReCaptchaClass.Validate(EncodedResponse).Result == "True" ? true : false);
-
-                if (IsCaptchaValid)
-                {
-                    //Valid Request
-                }
-
                 if (ModelState.IsValid)
                 {
                     var successCode = await SendEmailMessage(contactUsDetails);
@@ -132,38 +126,5 @@ namespace StockportWebapp.Controllers
             return await Task.FromResult(View("ThankYouMessage", referer));
         }
     }
-
-    public class ReCaptchaClass
-    {
-        public static async Task<string> Validate(string EncodedResponse)
-        {
-            var client = new HttpClient();
-
-            string PrivateKey = "6LfAeSIUAAAAADE2nSA77EnFFuqRSQTgXO1Ug2zo";
-
-            var GoogleReply = client.GetAsync(string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}", PrivateKey, EncodedResponse));
-
-            var captchaResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<ReCaptchaClass>(GoogleReply.Result.ToString());
-
-            return captchaResponse.Success;
-        }
-
-        [JsonProperty("success")]
-        public string Success
-        {
-            get { return m_Success; }
-            set { m_Success = value; }
-        }
-
-        private string m_Success;
-        [JsonProperty("error-codes")]
-        public List<string> ErrorCodes
-        {
-            get { return m_ErrorCodes; }
-            set { m_ErrorCodes = value; }
-        }
-
-
-        private List<string> m_ErrorCodes;
-    }
+    
 }

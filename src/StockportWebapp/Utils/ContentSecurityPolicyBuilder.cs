@@ -40,6 +40,8 @@ namespace StockportWebapp.Utils
                 .AddSource("https://stockportcouncil.typeform.com")
                 .AddSource("https://www.google.com/maps/")
                 .AddSource("http://www.opinionstage.com/polls/")
+                .AddSource("https://www.google.com/recaptcha/api2/anchor")
+                .AddSource("https://www.google.com/recaptcha/api2/bframe")
                 .Finish());
         }
 
@@ -124,6 +126,8 @@ namespace StockportWebapp.Utils
                 .AddSource("siteimproveanalytics.com/js/")
                 .AddSource("*.logo-net.co.uk/Delivery/")
                 .AddSource("https://www.opinionstage.com/assets/loader.js")
+                .AddSource("https://www.google.com/recaptcha/api.js")
+                .AddSource("https://www.gstatic.com/recaptcha/api2/r20170515161201/recaptcha__en.js")
                 .Finish());
         }
 
