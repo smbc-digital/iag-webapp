@@ -4,5 +4,6 @@ namespace StockportWebapp.FeatureToggling
     {
         public bool GroupsAutoCompleteLocation { get; set; } = false;
         public bool GroupManagement { get; set; } = false;
+        public bool ManageYourGroupButton { get; set; } = false;
     }
 }

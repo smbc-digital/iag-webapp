@@ -158,6 +158,15 @@
                             @Html.Partial("SharePrintThis")
                             <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
                         </div>
+                        @if (FeatureToggles.ManageYourGroupButton)
+                        {
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 manage-group-section">
+                                <h3>Manage your group information</h3>
+                                <p>Easily keep your group information up to date and promote your group to the people of Stockport and beyond.</p>
+                                <stock-button class="manage-group-button">Manage your groups</stock-button>
+                                <p>If you don't run this group, you can still let us know about a <a href="/contact-changes-to-group-information">change to the group</a>.</p>
+                            </div>
+                        }
                     </div>
                 </div>
             </section>

@@ -2,6 +2,7 @@
 prod: &prod
   GroupsAutoCompleteLocation: false
   GroupManagement: false
+  ManageYourGroupButton: false
 
 stage: &stage
   << : *prod
@@ -15,6 +16,8 @@ int: &int
   << : *stage
   << : *qa
   GroupManagement: true
+  GroupsAutoCompleteLocation: true
+  ManageYourGroupButton: true
 
 local:
   << : *prod
