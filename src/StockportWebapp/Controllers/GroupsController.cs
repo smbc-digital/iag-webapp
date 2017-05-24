@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 using System;
-using System.Collections;
-=======
->>>>>>> #947 Nick / Gary Create group management view and route with feature toggle
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -19,7 +15,6 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
-using System;
 
 namespace StockportWebapp.Controllers
 {
