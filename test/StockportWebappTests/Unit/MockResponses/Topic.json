@@ -20,5 +20,11 @@
     }
   ],
   "emailAlerts": true,
-  "emailAlertsTopicId": "test-id"  
+  "emailAlertsTopicId": "test-id",
+  "eventBanner": {
+    "title": "title",
+    "teaser": "teaser",
+    "icon": "icon",
+    "link": "link"
+  }
 }

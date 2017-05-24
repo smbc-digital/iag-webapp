@@ -50,7 +50,7 @@ namespace StockportWebappTests.Unit.Controllers
             };
             var featuredTopics = new List<Topic>
             {
-                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id")
+                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null)
             };
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text");
             var sunrise = new DateTime(2015, 9, 10);
@@ -141,7 +141,7 @@ namespace StockportWebappTests.Unit.Controllers
             };
             var featuredTopics = new List<Topic>
             {
-                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id")
+                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null)
             };
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text");
             var sunrise = new DateTime(2015, 9, 10);

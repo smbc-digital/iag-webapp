@@ -20,6 +20,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly TopicController _controller;
         private readonly Mock<IRepository> _repository;
         private const string BusinessId = "businessId";
+        private readonly EventBanner _eventBanner;
 
         public TopicControllerTest()
         {
@@ -29,6 +30,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _repository = new Mock<IRepository>();
             _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId));
+            _eventBanner = new EventBanner("title", "teaser", "icon", "link");
         }
         
         public SubItem CreateASubItem(int i)
@@ -41,7 +43,7 @@ namespace StockportWebappTests.Unit.Controllers
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
-              new List<Crumb>(), new List<Alert>(), true, "test-id");
+              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -59,6 +61,10 @@ namespace StockportWebappTests.Unit.Controllers
             Assert.Equal("Image", result.Image);
             result.EmailAlerts.Should().Be(true);
             result.EmailAlertsTopicId.Should().Be("test-id");
+            result.EventBanner.Title.Should().Be(_eventBanner.Title);
+            result.EventBanner.Teaser.Should().Be(_eventBanner.Teaser);
+            result.EventBanner.Icon.Should().Be(_eventBanner.Icon);
+            result.EventBanner.Link.Should().Be(_eventBanner.Link);
         }
 
         [Fact]
@@ -66,7 +72,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
-              new List<Crumb>(), new List<Alert>(), true, "test-id");
+              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -106,7 +112,7 @@ namespace StockportWebappTests.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
             };
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
-               new List<Crumb>(), alerts, true, "test-id");
+               new List<Crumb>(), alerts, true, "test-id", _eventBanner);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));

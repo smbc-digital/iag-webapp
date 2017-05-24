@@ -1,7 +1,6 @@
 ﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @model PaymentSubmission
-@inject FeatureToggles FeatureToggles
 
 @{
     ViewData["Title"] = Model.Payment.Title;
@@ -16,8 +15,6 @@
     @Html.Partial("Breadcrumb", Model.Payment.Breadcrumbs)
 }
 
-@if (FeatureToggles.SinglePayment)
-{
     <form asp-controller="Payment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data">
         <div class="grid-container-full-width">
             <div class="grid-container grid-100">
@@ -56,4 +53,3 @@
             </div>
         </div>
     </form>
-}

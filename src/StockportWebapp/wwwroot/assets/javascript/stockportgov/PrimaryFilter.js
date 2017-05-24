@@ -70,7 +70,7 @@ $(document).ready(
                         $("#location, #location-autocomplete").val(jointLocation);
                         autocompleteName = jointLocation;
                         autocompleteLocationLatitude = results[0].geometry.location.lat();
-                        autocompleteLocationLongitude = results[0].geometry.location.lat();
+                        autocompleteLocationLongitude = results[0].geometry.location.lng();
                     }
                     else {
                         alert("We couldn't find your current location.");

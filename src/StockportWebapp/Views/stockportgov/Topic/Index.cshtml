@@ -46,6 +46,11 @@
         }
         
         @Html.Partial("PrimarySubitems", topic)
+        
+        @if (!string.IsNullOrEmpty(topic.EventBanner.Title))
+        {
+            @Html.Partial("EventBanner", topic.EventBanner)
+        }
 
         @if (topic.SecondaryItems.Any())
         {
