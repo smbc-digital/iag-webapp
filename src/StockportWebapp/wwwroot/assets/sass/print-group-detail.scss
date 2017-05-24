@@ -24,9 +24,10 @@
     }
 
     .group-map-container{
-        position: relative !important;
+        /*position: relative !important;
         page-break-before:always !important;
-        page-break-inside:avoid !important;
+        page-break-inside:avoid !important;*/
+        display:none !important;
     }
 
     .group-article-title {
