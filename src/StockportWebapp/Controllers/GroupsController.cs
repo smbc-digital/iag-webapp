@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 using System;
 using System.Collections;
+=======
+>>>>>>> #947 Nick / Gary Create group management view and route with feature toggle
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -16,6 +19,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
+using System;
 
 namespace StockportWebapp.Controllers
 {
@@ -26,13 +30,15 @@ namespace StockportWebapp.Controllers
         private readonly IRepository _repository;
         private readonly IGroupRepository _groupRepository;
         private readonly IFilteredUrl _filteredUrl;
+        private readonly FeatureToggles _featureToggle;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl, FeatureToggles featureToggle)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
             _groupRepository = groupRepository;
             _filteredUrl = filteredUrl;
+            _featureToggle = featureToggle;
         }
 
         [Route("/groups")]
@@ -82,7 +88,7 @@ namespace StockportWebapp.Controllers
 
             if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
             if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
-            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
+            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
             if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
             queries.Add(new Query("location", location));
 
@@ -113,7 +119,7 @@ namespace StockportWebapp.Controllers
 
             return View(model);
         }
-      
+
 
         [Route("/groups/add-a-group")]
         public async Task<IActionResult> AddAGroup()
@@ -140,7 +146,7 @@ namespace StockportWebapp.Controllers
             {
                 groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
             }
-
+            
             if (!ModelState.IsValid)
             {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
@@ -173,6 +179,29 @@ namespace StockportWebapp.Controllers
         public IActionResult ThankYouMessage()
         {
             return View();
+        }
+
+        [Route("/groups/manage")]
+        public IActionResult Manage()
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var result = new GroupManagePage();
+
+            var groups = new List<Tuple<string, string, string, string>>();
+            groups.Add(new Tuple<string, string, string, string>("6th Altrincham Scouts Group 6th Altrincham Scouts Group 6th Altrincham Scouts Group 6th Altrincham Scouts Group", "Published", "green", "alt-6"));
+            groups.Add(new Tuple<string, string, string, string>("7th Altrincham Scout Group", "Archived", "red", "alt-7"));
+            groups.Add(new Tuple<string, string, string, string>("Little Bees Dance Group", "Published", "green", "little-bees"));
+            groups.Add(new Tuple<string, string, string, string>("Pannal Sports Football Club", "Pending Deletion", "yellow", "pannal"));
+            groups.Add(new Tuple<string, string, string, string>("Kersel Rugby Club", "Archived", "red", "kersel"));
+            groups.Add(new Tuple<string, string, string, string>("Middleton Model Railway Club", "Published", "green", "trains"));
+
+            result.Groups = groups;
+
+            return View(result);
         }
 
         private void DoPagination(GroupResults groupResults, int currentPageNumber)
