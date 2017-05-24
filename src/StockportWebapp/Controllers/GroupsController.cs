@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -137,8 +140,12 @@ namespace StockportWebapp.Controllers
             {
                 groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
             }
-            
-            if (!ModelState.IsValid) return View(groupSubmission);
+
+            if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                return View(groupSubmission);
+            }
 
             var successCode = await _groupRepository.SendEmailMessage(groupSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
@@ -146,6 +153,20 @@ namespace StockportWebapp.Controllers
             ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
 
             return View(groupSubmission);
+        }
+
+        private string GetErrorsFromModelState(ModelStateDictionary modelState)
+        {
+            var message = new StringBuilder();
+
+            foreach (var state in modelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
+                }
+            }
+            return message.ToString();
         }
 
         [Route("/groups/thank-you-message")]

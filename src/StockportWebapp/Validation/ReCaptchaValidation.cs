@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -46,7 +47,7 @@ namespace StockportWebapp.Validation
 
             if (string.IsNullOrWhiteSpace(token))
             {
-                AddModelError(context, "No reCaptcha Token Found");
+                AddModelError(context, "Verify you are not a robot by selecting the verification box above the \"submit\" button");
             }
             else
             {

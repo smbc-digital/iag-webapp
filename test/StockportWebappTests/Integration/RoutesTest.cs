@@ -256,7 +256,8 @@ namespace StockportWebappTests.Integration
                 new KeyValuePair<string, string>("Email", "bill@place.uk"),
                 new KeyValuePair<string, string>("Subject", "Test Subject"),
                 new KeyValuePair<string, string>("Message", "Test Message"),
-                new KeyValuePair<string, string>("ServiceEmail", "service@place.uk")
+                new KeyValuePair<string, string>("ServiceEmail", "service@place.uk"),
+                new KeyValuePair<string, string>("g-recaptcha-response", "test")
             });
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/contact-us") { Content = formContents };
@@ -486,6 +487,7 @@ namespace StockportWebappTests.Integration
                 new KeyValuePair<string, string>("Email", "email@gmail.com"),
                 new KeyValuePair<string, string>("PhoneNumber", "1234"),
                 new KeyValuePair<string, string>("Website","http://www.group.org.uk"),
+                new KeyValuePair<string, string>("g-recaptcha-response", "test")
             });
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/groups/add-a-group") { Content = formContents };

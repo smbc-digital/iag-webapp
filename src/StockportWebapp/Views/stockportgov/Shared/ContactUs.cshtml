@@ -1,5 +1,5 @@
 ﻿@model StockportWebapp.ViewDetails.ContactUsDetails
-<script src='https://www.google.com/recaptcha/api.js'></script>
+
 <div id="contactForm" />
 <form method="post" role="form" action="/contact-us">
     @Html.AntiForgeryToken()
@@ -8,13 +8,13 @@
             <fieldset>
                 <input type="hidden" asp-for="Title" />
                 <label asp-for="Name"></label>
-                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Name"/>
+                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Name" />
                 <span asp-validation-for="Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 <label asp-for="Email"></label>
-                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Email"/>
+                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Email" />
                 <span asp-validation-for="Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 <label asp-for="Subject"></label>
-                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Subject"/>
+                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Subject" />
                 <span asp-validation-for="Subject" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 <label asp-for="Message"></label>
                 <span class="text-control">
@@ -25,13 +25,15 @@
                     <span asp-validation-for="Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                     <span class="text-control chars-remaining">
                         <small></small>
-                    </span><br/>
+                    </span><br />
                 </div>
-                <input type="hidden" asp-for="ServiceEmail" value="@Model.ServiceEmail"/>
-                <div class="g-recaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
-                <stock-button id="uitest-contact-form-submit"
-                                     class="button-contact-us">Send your enquiry</stock-button>
-            </fieldset>
+                <input type="hidden" asp-for="ServiceEmail" value="@Model.ServiceEmail" />
+                <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+                <div class="clearfix">
         </div>
+        <stock-button id="uitest-contact-form-submit"
+                      class="button-contact-us">Send your enquiry</stock-button>
+        </fieldset>
+    </div>
     </div>
 </form>
