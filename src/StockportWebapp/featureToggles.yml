@@ -1,6 +1,6 @@
 ﻿---
 prod: &prod
-  GroupsAutoCompleteLocation: false
+  GroupsAutoCompleteLocation: true
   GroupManagement: false
   ManageYourGroupButton: false
 
@@ -16,7 +16,6 @@ int: &int
   << : *stage
   << : *qa
   GroupManagement: true
-  GroupsAutoCompleteLocation: true
   ManageYourGroupButton: true
 
 local:
