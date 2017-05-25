@@ -69,7 +69,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as ProcessedGroup;
-
+            
             ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(group);
@@ -195,6 +195,29 @@ namespace StockportWebapp.Controllers
             groups.Add(new Tuple<string, string, string, string>("Middleton Model Railway Club", "Published", "green", "trains"));
 
             result.Groups = groups;
+
+            return View(result);
+        }
+
+        [Route("/groups/manage/{slug}")]
+        public async Task<IActionResult> ManageGroup(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            var result = new ManageGroupViewModel
+            {
+                Name = group.Name,
+                Slug = slug
+            };
 
             return View(result);
         }

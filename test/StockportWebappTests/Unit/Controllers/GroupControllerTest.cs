@@ -30,6 +30,7 @@ namespace StockportWebappTests.Unit.Controllers
         public const int MaxNumberOfItemsPerPage = 9;
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private MapPosition _location = new MapPosition() { Lat = 1, Lon = 1 };
+        private FeatureToggles _featureToggle;
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
         {
@@ -43,7 +44,8 @@ namespace StockportWebappTests.Unit.Controllers
             _fakeRepository = new FakeProcessedContentRepository();
             _groupRepository = new Mock<IGroupRepository>();
             _filteredUrl = new Mock<IFilteredUrl>();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object);
+            _featureToggle = new FeatureToggles();
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object, _featureToggle);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -141,7 +143,8 @@ namespace StockportWebappTests.Unit.Controllers
             emptyRepository.Setup(o => o.Get<GroupResults>(It.IsAny<string>(), It.IsAny<List<Query>>()))
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object);
+            _featureToggle = new FeatureToggles();
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -277,7 +280,8 @@ namespace StockportWebappTests.Unit.Controllers
                     It.IsAny<List<Query>>()))
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object);
+            _featureToggle = new FeatureToggles();
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle);
 
             return controller;
         }
