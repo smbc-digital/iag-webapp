@@ -127,7 +127,7 @@ namespace StockportWebapp.Utils
                 .AddSource("*.logo-net.co.uk/Delivery/")
                 .AddSource("https://www.opinionstage.com/assets/loader.js")
                 .AddSource("https://www.google.com/recaptcha/api.js")
-                .AddSource("https://www.gstatic.com/recaptcha/api2/r20170515161201/recaptcha__en.js")
+                .AddSource("https://www.gstatic.com/recaptcha/api2/")
                 .Finish());
         }
 
