@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace StockportWebapp.Http
 {
     public interface IHttpClient
     {
         Task<HttpResponse> Get(string url);
+        Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content);
     }
 
     public class HttpClient : IHttpClient
@@ -25,6 +27,11 @@ namespace StockportWebapp.Http
             return new HttpResponse((int)task.StatusCode,
                                     content,
                                     task.ReasonPhrase);
+        }
+
+        public Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content)
+        {
+            return _client.PostAsync(requestURI, content);
         }
     }
 }

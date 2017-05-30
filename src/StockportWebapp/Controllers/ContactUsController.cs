@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Antiforgery;
@@ -13,6 +14,8 @@ using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.ViewDetails;
+using Newtonsoft.Json;
+using StockportWebapp.Validation;
 
 namespace StockportWebapp.Controllers
 {
@@ -33,6 +36,7 @@ namespace StockportWebapp.Controllers
 
         [Route("/contact-us")]
         [HttpPost, IgnoreAntiforgeryToken]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
             var referer = Request.Headers["referer"];
@@ -122,4 +126,5 @@ namespace StockportWebapp.Controllers
             return await Task.FromResult(View("ThankYouMessage", referer));
         }
     }
+    
 }

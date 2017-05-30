@@ -77,8 +77,12 @@
     margin-bottom: 0px;
 }
 
+#group-padding {
+    padding-bottom: 0;
+}
 .group-margin {
     margin-top: 20px;
+    padding-bottom: 0;
 }
 
 .group-calender-container {
@@ -140,6 +144,10 @@
 .group-details-heading {
     color: #666666;
     margin-bottom: 0px;
+}
+
+.sharethis {
+    overflow: auto;
 }
 
 .group-details-content {
@@ -354,3 +362,7 @@
 .hidden {
     display: none;
 }
+
+ .fa.account {
+        font-size: 20px;
+    }

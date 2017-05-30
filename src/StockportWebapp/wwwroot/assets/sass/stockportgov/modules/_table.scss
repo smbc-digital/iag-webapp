@@ -1,0 +1,126 @@
+﻿
+.sk-table-outer-container {
+
+    a {
+        text-decoration: none;
+    }
+
+    margin: 0 0 30px 0;
+
+    @media #{$mobile} {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .sk-table-body {
+        border-top: 5px solid #e8891f;
+        border-left: 1px solid #d3d3d3;
+        border-right: 1px solid #d3d3d3;
+        border-bottom: 1px solid #d3d3d3;
+        margin-top: 0;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .sk-table-header {
+        background-color: #d3d3d3;
+
+        span {
+            font-weight: 700;
+            padding-top: 5px;
+        }
+    }
+
+    a:hover .sk-table-cell .main {
+        text-decoration: underline;
+    }
+
+    .sk-table-row {
+        padding: 10px;
+    }
+
+    .sk-table-thin-row {
+        padding: 5px 10px;
+    }
+
+    .sk-table-row, .sk-table-thin-row {
+        border-top: solid 1px #d3d3d3;
+
+        .sk-table-cell {
+            font-size: 1.1em;
+            color: #1d3837;
+
+            .status {
+                color: #fff;
+                font-weight: 700;
+                padding: 0 10px;
+                font-size: .8em;
+                display: inline-block;
+                border-radius: 4px;
+
+                &.red {
+                    background-color: #c83725;
+                }
+
+                &.yellow {
+                    background-color: #ef8a17;
+                }
+
+                &.green {
+                    background-color: #15914c;
+                }
+            }
+
+            .button-default {
+                margin: 10px 20px 10px 0;
+
+                &.no-margin {
+                    margin:0;
+                }
+
+                @media #{$mobile} {
+                    margin-right: 0;
+                }
+
+                &.white {
+                    border: solid 1px #d3d3d3;
+                    color: #1d3837;
+                    background-color: transparent;
+                }
+
+                &.grey {
+                    border: solid 1px #7d7d7d;
+                    color: #fff;
+                    background-color: #7d7d7d;
+                }
+            }
+        }
+
+        .row-arrow:hover {
+            color: #1d3837;
+        }
+
+        .row-arrow:after {
+            content: "\f105";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 20px;
+            float: right;
+            padding-right: 20px;
+            padding-top: 7px;
+        }
+
+        .mobile-button-row {
+            margin-bottom: -10px;
+            padding: 20px 20px 20px 20px;
+        }
+    }
+}

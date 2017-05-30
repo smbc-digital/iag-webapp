@@ -134,7 +134,7 @@
                                 <div class="grid-100">
                                     <h3>Volunteering opportunities</h3>
                                     <p>If you would like to become a volunteer for this group, please email us with your interest and we’ll get in touch if there are any opportunities.</p>
-                                    <p><a class="volunteering-button" href="mailto:@Model.Email?subject=Volunteering&body=Hello%0A%0AI%20am%20interested%20in%20volunteering%20for%20your%20group.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/groups/@Model.Slug%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20see%20how%20I%20can%20help.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you.">Get in touch</a></p>                                   
+                                    <p><a class="volunteering-button" href="mailto:@Model.Email?subject=Volunteering&body=Hello%0A%0AI%20am%20interested%20in%20volunteering%20for%20your%20group.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/groups/@Model.Slug%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20see%20how%20I%20can%20help.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you."><span style="color: #333;">Get in touch</span></a></p>                                   
                                 </div>
                                 
                             </div>
@@ -154,10 +154,23 @@
                           @Html.Partial("EventCards", Model.Events.Take(3).ToList())
                         }
                         <div class="clearfix"></div>
-                        <div id="shareThis">
+                        <div id="shareThis" class="sharethis">
                             @Html.Partial("SharePrintThis")
-                            <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
+                           @if (!FeatureToggles.ManageYourGroupButton)
+                           {
+                              <a href="/contact-changes-to-group-information">Let us know about a change to this group</a> 
+                           }
+                            
                         </div>
+                        @if (FeatureToggles.ManageYourGroupButton)
+                        {
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 manage-group-section">
+                                <h3>Manage your group information</h3>
+                                <p>Easily keep your group information up to date and promote your group to the people of Stockport and beyond.</p>
+                                <stock-button class="manage-group-button" as-link="true" href="@Url.Action("Manage", "groups")">Manage your groups</stock-button>
+                                <p>If you don't run this group, you can still let us know about a <a href="/contact-changes-to-group-information">change to the group</a></p>
+                            </div>
+                        }
                     </div>
                 </div>
             </section>

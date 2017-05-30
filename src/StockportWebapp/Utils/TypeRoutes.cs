@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Utils
+﻿using System;
+
+namespace StockportWebapp.Utils
 {
     public class TypeRoutes
     {
@@ -17,7 +19,8 @@
                 case "events":
                     return "/events";
                 case "groups":
-                    return "/groups";
+                    slug = slug == "groups" ? string.Empty : slug;
+                    return $"/groups/{slug}";
                 case "payment":
                     return $"/payment/{slug}";
                 default:

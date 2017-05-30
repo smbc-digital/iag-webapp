@@ -1,4 +1,6 @@
-﻿@model StockportWebapp.ViewModels.ArticleViewModel
+﻿@using System.Threading.Tasks
+@using StockportWebapp.ViewModels
+@model StockportWebapp.ViewModels.ArticleViewModel
 @{
     ViewData["Title"] = Model.Article.Title;
     Layout = "../Shared/_Layout.cshtml";
@@ -14,9 +16,14 @@
 {
     <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.Article.BackgroundImage')">
     </div>
+    @section BackgroundImage
+{
+        @Html.Partial("ScaleImageByDevice", new Image("homepage-hero", Model.Article.BackgroundImage))
+    }
 } 
- 
-<section aria-label="article" class="grid-100 mobile-grid-100">
+
+
+    <section aria-label="article" class="grid-100 mobile-grid-100">
     <a name="@Model.Article.Title content" class="anchor anchor-content"></a>
     <div class="grid-100 tablet-grid-100 mobile-grid-100 article-container">
         

@@ -36,5 +36,28 @@ namespace StockportWebapp.Http
             }
             return await Task.FromResult(HttpResponse.Failure(503, "Failed to invoke the requested resource"));
         }
+
+        public async Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content)
+        {
+            _logger.LogInformation("Posting: " + requestURI);
+
+            try
+            {
+                HttpResponseMessage response = await _inner.PostAsync(requestURI, content);
+                _logger.LogDebug("Response: " + response);
+                return await Task.FromResult(response);
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle(ex => {
+                    bool handle = ex is HttpRequestException;
+                    if (handle)
+                        _logger.LogError(0, ex, "Failed to post the requested resource: ");
+                    return handle;
+                });
+            }
+
+            return await Task.FromResult(new HttpResponseMessage());
+        }
     }
 }

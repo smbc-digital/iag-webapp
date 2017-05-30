@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using StockportWebapp.Config;
@@ -14,6 +16,7 @@ using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
+using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -137,9 +140,14 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/events/add-your-event")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
         {
-            if (!ModelState.IsValid) return View(eventSubmission);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                return View(eventSubmission);
+            }
 
             var successCode = await _eventsRepository.SendEmailMessage(eventSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
@@ -147,6 +155,20 @@ namespace StockportWebapp.Controllers
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
             return View(eventSubmission);
+        }
+
+        private string GetErrorsFromModelState(ModelStateDictionary modelState)
+        {
+            var message = new StringBuilder();
+
+            foreach (var state in modelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
+                }
+            }
+            return message.ToString();
         }
 
         [Route("/events/thank-you-message")]

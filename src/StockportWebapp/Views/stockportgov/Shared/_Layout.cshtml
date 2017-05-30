@@ -37,11 +37,10 @@
     <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed"/>
     <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
 
-    
-
     @Html.Partial("CookieBanner")
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI= sha384-mXQoED/lFIuocc//nss8aJOIrz7X7XruhR6bO+sGceiSyMELoVdZkN7F0oYwcFH+ sha512-QAV866KcCo2YSgj8D7BW+Zn3Fe5wVKTWwzKtWy8mkW+tePcJL7JYilvdfrBFQcdz4ODD48GpIPnhTp9UDI37uw==" crossorigin="anonymous"></script>
     @await Component.InvokeAsync("GoogleAnalytics")
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     @Html.Partial("Header")

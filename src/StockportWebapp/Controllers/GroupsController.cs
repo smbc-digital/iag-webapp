@@ -1,16 +1,19 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
+using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -22,13 +25,15 @@ namespace StockportWebapp.Controllers
         private readonly IRepository _repository;
         private readonly IGroupRepository _groupRepository;
         private readonly IFilteredUrl _filteredUrl;
+        private readonly FeatureToggles _featureToggle;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl, FeatureToggles featureToggle)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
             _groupRepository = groupRepository;
             _filteredUrl = filteredUrl;
+            _featureToggle = featureToggle;
         }
 
         [Route("/groups")]
@@ -64,7 +69,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as ProcessedGroup;
-
+            
             ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(group);
@@ -78,7 +83,7 @@ namespace StockportWebapp.Controllers
 
             if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
             if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
-            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));              
+            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
             if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
             queries.Add(new Query("location", location));
 
@@ -109,7 +114,7 @@ namespace StockportWebapp.Controllers
 
             return View(model);
         }
-      
+
 
         [Route("/groups/add-a-group")]
         public async Task<IActionResult> AddAGroup()
@@ -127,6 +132,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/groups/add-a-group")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> AddAGroup(GroupSubmission groupSubmission)
         {
             var response = await _repository.Get<List<GroupCategory>>();
@@ -136,7 +142,11 @@ namespace StockportWebapp.Controllers
                 groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
             }
             
-            if (!ModelState.IsValid) return View(groupSubmission);
+            if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                return View(groupSubmission);
+            }
 
             var successCode = await _groupRepository.SendEmailMessage(groupSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
@@ -146,10 +156,70 @@ namespace StockportWebapp.Controllers
             return View(groupSubmission);
         }
 
+        private string GetErrorsFromModelState(ModelStateDictionary modelState)
+        {
+            var message = new StringBuilder();
+
+            foreach (var state in modelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
+                }
+            }
+            return message.ToString();
+        }
+
         [Route("/groups/thank-you-message")]
         public IActionResult ThankYouMessage()
         {
             return View();
+        }
+
+        [Route("/groups/manage")]
+        public IActionResult Manage()
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var result = new GroupManagePage();
+
+            var groups = new List<Tuple<string, string, string, string>>();
+            groups.Add(new Tuple<string, string, string, string>("6th Altrincham Scouts Group 6th Altrincham Scouts Group 6th Altrincham Scouts Group 6th Altrincham Scouts Group", "Published", "green", "alt-6"));
+            groups.Add(new Tuple<string, string, string, string>("7th Altrincham Scout Group", "Archived", "red", "alt-7"));
+            groups.Add(new Tuple<string, string, string, string>("Little Bees Dance Group", "Published", "green", "little-bees"));
+            groups.Add(new Tuple<string, string, string, string>("Pannal Sports Football Club", "Pending Deletion", "yellow", "pannal"));
+            groups.Add(new Tuple<string, string, string, string>("Kersel Rugby Club", "Archived", "red", "kersel"));
+            groups.Add(new Tuple<string, string, string, string>("Middleton Model Railway Club", "Published", "green", "trains"));
+
+            result.Groups = groups;
+
+            return View(result);
+        }
+
+        [Route("/groups/manage/{slug}")]
+        public async Task<IActionResult> ManageGroup(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            var result = new ManageGroupViewModel
+            {
+                Name = group.Name,
+                Slug = slug
+            };
+
+            return View(result);
         }
 
         private void DoPagination(GroupResults groupResults, int currentPageNumber)

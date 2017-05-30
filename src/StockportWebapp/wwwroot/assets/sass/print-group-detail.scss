@@ -5,15 +5,30 @@
     footer, #shareThis,
     .group-calender-container-image,
     .event-image,
-    .video-container
+    .video-container,
+    iframe,
+    .carousel,
+    .base-akita-container,
+    .button,
+    .volunteering-section,
+    .manage-group-section
     {
         display:none !important;
     }
 
+    p > img{
+         display:none !important;
+    }
+
+    #contactForm > form{
+          display:none !important;
+    }
+
     .group-map-container{
-        position: relative !important;
+        /*position: relative !important;
         page-break-before:always !important;
-        page-break-inside:avoid !important;
+        page-break-inside:avoid !important;*/
+        display:none !important;
     }
 
     .group-article-title {
