@@ -1,4 +1,5 @@
-﻿@model StockportWebapp.Models.StartPage
+﻿@using StockportWebapp.ViewModels
+@model StockportWebapp.Models.StartPage
 @{
     ViewData["Title"] = Model.Title;
     Layout = "../Shared/_Layout.cshtml";
@@ -9,7 +10,10 @@
 @*@section BackgroundImage {
     style="background-image:url('@Model.BackgroundImage')"
 }*@
-
+@section BackgroundImage
+{
+    @Html.Partial("ScaleImageByDevice", new Image("homepage-hero", Model.BackgroundImage))
+}
 @Html.Partial("DisplayTemplates/Gutter", Model.Icon)
 <section aria-label="@Model.Title content" class="grid-90 mobile-grid-100">
     @Html.Partial("DisplayTemplates/Breadcrumb", Model.Breadcrumbs)
