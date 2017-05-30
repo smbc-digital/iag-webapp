@@ -6,6 +6,8 @@ prod: &prod
 
 stage: &stage
   << : *prod
+  GroupManagement: true
+  ManageYourGroupButton: true
 
 qa: &qa
   << : *prod
@@ -15,8 +17,6 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
-  GroupManagement: true
-  ManageYourGroupButton: true
 
 local:
   << : *prod
