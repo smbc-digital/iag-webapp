@@ -83,21 +83,25 @@
             .button-default {
                 margin: 10px 20px 10px 0;
 
+                &.no-margin {
+                    margin:0;
+                }
+
                 @media #{$mobile} {
                     margin-right: 0;
                 }
-            }
 
-            .button-default.clear {
-                border: solid 1px #d3d3d3;
-                color: #1d3837;
-                background-color: transparent;
-            }
+                &.white {
+                    border: solid 1px #d3d3d3;
+                    color: #1d3837;
+                    background-color: transparent;
+                }
 
-            .button-default.grey {
-                border: solid 1px #7d7d7d;
-                color: #fff;
-                background-color: #7d7d7d;
+                &.grey {
+                    border: solid 1px #7d7d7d;
+                    color: #fff;
+                    background-color: #7d7d7d;
+                }
             }
         }
 
