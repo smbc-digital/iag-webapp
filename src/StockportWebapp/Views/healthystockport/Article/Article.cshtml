@@ -13,12 +13,12 @@
 }
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("homepage-hero", Model.Article.BackgroundImage))
+    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.Article.BackgroundImage))
 }
 
 @if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
 {
-    <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.Article.BackgroundImage')">
+    <div class="grid-100 l-background-hs-image">
     </div>
  
 }

@@ -11,7 +11,7 @@
 }
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("homepage-hero", Model.BackgroundImage))
+    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.BackgroundImage))
 }
 @section CarouselBackgroundImage
 {
@@ -23,7 +23,7 @@
     }
 }
 <div>
-    <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.BackgroundImage');">
+    <div class="grid-100 l-background-hs-image">
         <div class="introduction grid-50"> 
             @Html.Raw(Model.FreeText)
         </div>

@@ -10,14 +10,14 @@
 }
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("homepage-hero", Model.Topic.BackgroundImage))
+    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.Topic.BackgroundImage))
 }
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Topic.Breadcrumbs)
 }
 @if (!string.IsNullOrEmpty(topic.BackgroundImage))
 {
-    <div class="grid-100 l-background-hs-image" style="background-image: url('@topic.BackgroundImage');">
+    <div class="grid-100 l-background-hs-image">
     </div>  
 } 
 
