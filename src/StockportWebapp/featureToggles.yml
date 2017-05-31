@@ -3,6 +3,7 @@ prod: &prod
   GroupsAutoCompleteLocation: true
   GroupManagement: false
   ManageYourGroupButton: false
+  ContactUsIds: false
 
 stage: &stage
   << : *prod
@@ -17,6 +18,7 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
+  ContactUsIds: true
 
 local:
   << : *prod

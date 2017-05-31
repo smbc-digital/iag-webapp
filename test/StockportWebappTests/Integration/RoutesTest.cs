@@ -256,14 +256,14 @@ namespace StockportWebappTests.Integration
                 new KeyValuePair<string, string>("Email", "bill@place.uk"),
                 new KeyValuePair<string, string>("Subject", "Test Subject"),
                 new KeyValuePair<string, string>("Message", "Test Message"),
-                new KeyValuePair<string, string>("ServiceEmail", "service@place.uk"),
+                new KeyValuePair<string, string>("ServiceEmail", "test-email"),
                 new KeyValuePair<string, string>("g-recaptcha-response", "test")
             });
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/contact-us") { Content = formContents };
             request.Headers.Add("Referer", "http://something.com/a-page");
 
-            var result = AsyncTestHelper.Resolve(_fakeClient.SendAsync(request));
+            var result = AsyncTestHelper.Resolve(_fakeClient.SendAsync(request ));
 
             result.StatusCode.Should().Be(HttpStatusCode.Redirect);
             result.Headers.Location.OriginalString.Should().Be("/thank-you?referer=%2Fa-page");
