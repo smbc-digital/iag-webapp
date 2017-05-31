@@ -4,7 +4,7 @@
 @model ManageGroupViewModel
 
 @{
-    ViewData["Title"] = "Manage " + Model.Name;
+    ViewData["Title"] = Model.Name;
     ViewData["og:title"] = "Manage " + Model.Name;
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
@@ -12,7 +12,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Groups", "groups", "groups"), new Crumb("Manage your groups", "manage", "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups") })
 }
 
 <div class="grid-container-full-width">
