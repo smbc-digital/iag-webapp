@@ -40,7 +40,7 @@ else
     </div>
 }
 
-@if (FeatureToggles.ShowcaseConsultations)
+@if (FeatureToggles.ShowcaseConsultations && Model.Consultations.Any())
 {
     <div class="@titleHack">
         @Html.Partial("Consultations", Model.Consultations)
@@ -80,3 +80,10 @@ else
         }
     </div>
 </div>
+
+@if (Model.SocialMediaLinks.Any())
+{
+    <div class="@titleHack">
+        @Html.Partial("ShowcaseSocialMediaLinks", Model.SocialMediaLinks)
+    </div>
+}

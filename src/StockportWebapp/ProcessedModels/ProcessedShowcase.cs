@@ -14,11 +14,12 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<Crumb> Breadcrumbs;
         public readonly IEnumerable<SubItem> FeaturedItems;
         public readonly IEnumerable<Consultation> Consultations;
+        public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations)
+        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks)
         {
             Title = title;
             Slug = slug;
@@ -28,6 +29,7 @@ namespace StockportWebapp.ProcessedModels
             Breadcrumbs = breadcrumbs;
             FeaturedItems = featuredItems;
             Consultations = consultations;
+            SocialMediaLinks = socialMediaLinks;
         }
     }
 }

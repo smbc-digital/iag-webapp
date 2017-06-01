@@ -1,16 +1,10 @@
 ﻿using StockportWebapp.Models;
-using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.Utils;
 
 namespace StockportWebapp.ContentFactory
 {
     public class ShowcaseFactory
     { 
-        public ShowcaseFactory()
-        {        
-        }
-
         public virtual ProcessedShowcase Build(Showcase showcase)
         {
             return new ProcessedShowcase(
@@ -21,8 +15,9 @@ namespace StockportWebapp.ContentFactory
                 showcase.HeroImageUrl,
                 showcase.FeaturedItems,
                 showcase.Breadcrumbs,
-                showcase.Consultations
-                );
+                showcase.Consultations,
+                showcase.SocialMediaLinks
+            );
         }
     }
 }

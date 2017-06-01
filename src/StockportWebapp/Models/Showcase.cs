@@ -12,8 +12,9 @@ namespace StockportWebapp.Models
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public IEnumerable<SubItem> FeaturedItems { get; set; }
         public IEnumerable<Consultation> Consultations { get; set; }
+        public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
 
-        public Showcase(string title, string slug, string teaser, string subheading, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations)
+        public Showcase(string title, string slug, string teaser, string subheading, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks)
         {
             Title = title;
             Slug = slug;
@@ -23,6 +24,7 @@ namespace StockportWebapp.Models
             Breadcrumbs = breadcrumbs;
             FeaturedItems = featuredItems;
             Consultations = consultations;
+            SocialMediaLinks = socialMediaLinks;
         }
     }
 }
