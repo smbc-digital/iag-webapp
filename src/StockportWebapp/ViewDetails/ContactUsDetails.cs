@@ -11,6 +11,7 @@ namespace StockportWebapp.ViewDetails
     public class ContactUsDetails
     {
         public string ServiceEmailId { get; set; }
+        public string ServiceEmail { get; set; }
         private const string DefaultValue = "";
 
         [Required(ErrorMessage = "Your name is required")]

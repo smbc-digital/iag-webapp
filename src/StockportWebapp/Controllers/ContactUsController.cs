@@ -49,17 +49,8 @@ namespace StockportWebapp.Controllers
         {
             if (_featureToggles.ContactUsIds)
             {
-                var response = await _repository.Get<ContactUsId>(contactUsDetails.ServiceEmailId);
-                if (!response.IsSuccessful())
-                {
-                    ModelState.AddModelError(string.Empty, "We are currently having issues sending your inquiry. You can email your message to webcontent@stockport.gov.uk");
-                }
-                else
-                {
-                    var contactUsId = response.Content as ContactUsId;
-                    contactUsDetails.ServiceEmailId = contactUsId.EmailAddress;
-                }
-            }               
+                contactUsDetails.ServiceEmail = await GetEmailAddressFromId(contactUsDetails.ServiceEmailId);
+            }
 
             var referer = Request.Headers["referer"];
             if (string.IsNullOrEmpty(referer)) return NotFound();
@@ -90,6 +81,23 @@ namespace StockportWebapp.Controllers
 
             var toUrl = $"{redirectUrl}?message={message}" + "#error-message-anchor";
             return await Task.FromResult(Redirect(toUrl));
+        }
+
+        private async Task<string> GetEmailAddressFromId(string serviceEmailId)
+        {
+            var result = String.Empty;
+            var response = await _repository.Get<ContactUsId>(serviceEmailId);
+           
+            if (!response.IsSuccessful())
+            {
+                ModelState.AddModelError(string.Empty, "We are currently having issues sending your inquiry. You can email your message to webcontent@stockport.gov.uk");
+            }
+            else
+            {
+                var contactUsId = response.Content as ContactUsId;
+                result = contactUsId.EmailAddress;
+            }
+            return result;
         }
 
         private string GetErrorsFromModelState(ModelStateDictionary modelState)

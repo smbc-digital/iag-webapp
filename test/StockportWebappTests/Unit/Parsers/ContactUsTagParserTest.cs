@@ -59,7 +59,7 @@ namespace StockportWebappTests.Unit.Parsers
 
             parsedHtml.Should().Be("<p>This contact form is temporarily unavailable. Please check back later.</p>");
             LogTesting.Assert(_mockLogger, LogLevel.Error,
-                $"The service email in this CONTACT-US tag is invalid and this contact form will not render.");
+                $"The service email ID in this CONTACT-US tag is invalid and this contact form will not render.");
         }
 
         [Fact]
