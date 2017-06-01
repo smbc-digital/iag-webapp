@@ -29,12 +29,12 @@ namespace StockportWebappTests.Unit.Parsers
             var content = $"{{{{CONTACT-US: {email}}}}}";
             var renderResult = "result";
 
-            _viewRenderer.Setup(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmail == email)))
+            _viewRenderer.Setup(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmailId == email)))
                 .Returns(renderResult);
 
             var parsedHtml = _contactUsTagParser.Parse(content, null);
 
-            _viewRenderer.Verify(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmail == email)));
+            _viewRenderer.Verify(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmailId == email)));
             parsedHtml.Should().Contain(renderResult);
         }
 

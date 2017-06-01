@@ -49,7 +49,7 @@ namespace StockportWebapp.Controllers
         {
             if (_featureToggles.ContactUsIds)
             {
-                var response = await _repository.Get<ContactUsId>(contactUsDetails.ServiceEmail);
+                var response = await _repository.Get<ContactUsId>(contactUsDetails.ServiceEmailId);
                 if (!response.IsSuccessful())
                 {
                     ModelState.AddModelError(string.Empty, "We are currently having issues sending your inquiry. You can email your message to webcontent@stockport.gov.uk");
@@ -57,7 +57,7 @@ namespace StockportWebapp.Controllers
                 else
                 {
                     var contactUsId = response.Content as ContactUsId;
-                    contactUsDetails.ServiceEmail = contactUsId.EmailAddress;
+                    contactUsDetails.ServiceEmailId = contactUsId.EmailAddress;
                 }
             }               
 
@@ -67,7 +67,7 @@ namespace StockportWebapp.Controllers
             var redirectUrl = new UriBuilder(referer).Path;
             var message = "We have been unable to process the request. Please try again later.";           
 
-            if (contactUsDetails.ServiceEmail == "admissions.support@stockport.gov.uk")
+            if (contactUsDetails.ServiceEmailId == "admissions.support@stockport.gov.uk")
             {
                 message = "We have been unable to process the request as the schools admissions form is temporarily disabled. Please try again after 21st May 2017.";
                 _logger.LogInformation("Attempted to send an email to admissions.support but we stopped that");
@@ -124,7 +124,7 @@ namespace StockportWebapp.Controllers
                 (new EmailMessage(messageSubject,
                 CreateMessageBody(contactUsDetails),
                 fromEmail,
-                contactUsDetails.ServiceEmail,
+                contactUsDetails.ServiceEmailId,
                 contactUsDetails.Email,
                 new List<IFormFile>()));
         }

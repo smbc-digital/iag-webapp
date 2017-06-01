@@ -256,7 +256,7 @@ namespace StockportWebappTests.Integration
                 new KeyValuePair<string, string>("Email", "bill@place.uk"),
                 new KeyValuePair<string, string>("Subject", "Test Subject"),
                 new KeyValuePair<string, string>("Message", "Test Message"),
-                new KeyValuePair<string, string>("ServiceEmail", "test-email"),
+                new KeyValuePair<string, string>("ServiceEmailId", "test-email"),
                 new KeyValuePair<string, string>("g-recaptcha-response", "test")
             });
 
