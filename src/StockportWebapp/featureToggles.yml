@@ -4,6 +4,7 @@ prod: &prod
   GroupManagement: false
   ManageYourGroupButton: false
   ShowcaseConsultations: false
+  ContactUsIds: false
 
 stage: &stage
   << : *prod
@@ -19,6 +20,7 @@ int: &int
   << : *stage
   << : *qa
   ShowcaseConsultations: true
+  ContactUsIds: true
 
 local:
   << : *prod

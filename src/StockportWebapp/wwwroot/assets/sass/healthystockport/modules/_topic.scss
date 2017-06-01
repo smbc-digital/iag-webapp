@@ -41,13 +41,6 @@
             @media #{$tablet} {
                padding: 0px 20px;
             }
-
-            @media #{$mobile} {
-                div {
-                   padding-left: 0px;
-                   padding-right: 0px;
-                }
-            }
         }
 
         .topic-container-holder-item {
