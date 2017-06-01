@@ -20,7 +20,8 @@ namespace StockportWebapp.ContentFactory
                 showcase.Subheading,
                 showcase.HeroImageUrl,
                 showcase.FeaturedItems,
-                showcase.Breadcrumbs
+                showcase.Breadcrumbs,
+                showcase.Consultations
                 );
         }
     }

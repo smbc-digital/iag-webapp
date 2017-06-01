@@ -15,13 +15,15 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _subheading = "subheading";
         private string _heroImageUrl = "image-url.jpg";
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() {new Crumb("link", "title", "type")};
+        private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
         {
-            new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })};
+            new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
+        };
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _heroImageUrl, _breadcrumbs, _featuredItems);
+            return new Showcase(_title, _slug, _teaser, _subheading, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations);
         }
 
         public ShowcaseBuilder Title(string title)
@@ -66,6 +68,4 @@ namespace StockportWebappTests.Unit.TestBuilders
             return this;
         }
     }
-
-    
 }

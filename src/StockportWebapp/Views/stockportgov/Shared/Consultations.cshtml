@@ -1,0 +1,54 @@
+﻿@model IEnumerable<StockportWebapp.Models.Consultation>
+<div class="white-container-row">
+    <div class="grid-container">
+        <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
+            <section>
+                <div class="l-content-container grid-100 tablet-grid-100 mobile-grid-100 group-margin">
+                    <div class="sk-table-outer-container">
+                        <div class="sk-table-body">
+                            <div class="grid-100 sk-table-row grid-parent">
+                                <div class="grid-100 sk-table-cell">
+                                    <h3>Current Consultations</h3>
+                                </div>
+                            </div>
+
+                            <div class="sk-table-header sk-table-thin-row grid-100 grid-parent hide-on-mobile">
+                                <div class="grid-75 tablet-grid-60 mobile-grid-60">
+                                    <span>Description</span>
+                                </div>
+                                <div class="grid-25 tablet-grid-40  mobile-grid-40">
+                                    <span>Closing Date</span>
+                                </div>
+                            </div>
+
+                            @foreach (var item in Model.Where(i => i.ClosingDate > DateTime.Now).OrderBy(i => i.ClosingDate))
+                            {
+                                var date = item.ClosingDate == DateTime.Now.AddDays(1).Date ? "Tomorrow" : item.ClosingDate.ToString("dd MMMM yyyy");
+                                <a href="@item.Link">
+                                    <div class="grid-100 sk-table-row grid-parent">
+                                        <div class="sk-table-cell">
+                                            <i class="row-arrow centre"></i>
+                                        </div>
+                                        <div class="sk-table-cell grid-75 tablet-grid-60 mobile-grid-90">
+                                            <span class="main">@item.Title</span>
+                                        </div>
+                                        <div class="sk-table-cell grid-20 tablet-grid-35 mobile-grid-90">
+                                            <span class="centre"><span class="hide-on-desktop hide-on-tablet">Closing Date: </span>@date</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            }
+
+                            @if (Model.Any(i => i.ClosingDate < DateTime.Now))
+                            {
+                                <div class="grid-100 sk-table-row center">
+                                    <a href="@Url.Action("Previous", "Showcase")">View previous consultations</a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
