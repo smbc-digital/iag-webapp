@@ -1,19 +1,24 @@
 ﻿@model StockportWebapp.Models.MapPosition
-    <div id="map" class="grid-100 map-container"></div>
-    <script>
-        function initMap() {
-            var eventLocation = { lat: @Model.Lat, lng: @Model.Lon };
-            var map = new google.maps.Map(document.getElementById('map'),
-            {
-                zoom: 18,
-                center: eventLocation
-            });
-            var marker = new google.maps.Marker({
-                position: eventLocation,
-                map: map,
-                title: "@ViewData["Location"]"
-            });
-        }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
 
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
+<div id="map" class="grid-100 map-container"></div>
+<script>
+    function initMap() {
+        var eventLocation = { lat: @Model.Lat, lng: @Model.Lon };
+        var map = new google.maps.Map(document.getElementById('map'),
+        {
+            zoom: 18,
+            center: eventLocation
+        });
+        var marker = new google.maps.Marker({
+            position: eventLocation,
+            map: map,
+            title: "@ViewData["Location"]"
+        });
+    }
+</script>
+
+<div class="embed-map-container">
+    <iframe frameborder="0"
+            src="https://www.google.com/maps/embed/v1/place?q=@Model.Lat,@Model.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&zoom=18" allowfullscreen></iframe>
+</div>

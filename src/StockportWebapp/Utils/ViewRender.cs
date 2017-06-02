@@ -76,6 +76,8 @@ namespace StockportWebapp.Utils
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Headers.Add("BUSINESS-ID", _httpContextAccessor.HttpContext.Request.Headers["BUSINESS-ID"]);
             httpContext.RequestServices = _serviceProvider;
+            httpContext.Request.Host = _httpContextAccessor.HttpContext.Request.Host;
+            httpContext.Request.Scheme = _httpContextAccessor.HttpContext.Request.Scheme;
             return new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
         }
     }

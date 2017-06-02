@@ -15,5 +15,10 @@
     "fs": "0.0.2",
     "gulp-plumber": "1.1.0",
     "gulp-print": "2.0.1"
+  },
+  "dependencies": {
+    "jsreport-core": "^1.2.2",
+    "jsreport-jsrender": "^1.0.1",
+    "jsreport-phantom-pdf": "^1.4.3"
   }
 }

@@ -15,6 +15,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
+using Microsoft.AspNetCore.NodeServices;
 
 namespace StockportWebapp.Controllers
 {
@@ -26,14 +27,16 @@ namespace StockportWebapp.Controllers
         private readonly IGroupRepository _groupRepository;
         private readonly IFilteredUrl _filteredUrl;
         private readonly FeatureToggles _featureToggle;
+        private readonly IViewRender _viewRender;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl, FeatureToggles featureToggle)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
             _groupRepository = groupRepository;
             _filteredUrl = filteredUrl;
             _featureToggle = featureToggle;
+            _viewRender = viewRender;
         }
 
         [Route("/groups")]
@@ -69,7 +72,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as ProcessedGroup;
-            
+
             ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(group);
@@ -115,7 +118,6 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-
         [Route("/groups/add-a-group")]
         public async Task<IActionResult> AddAGroup()
         {
@@ -141,7 +143,7 @@ namespace StockportWebapp.Controllers
             {
                 groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
             }
-            
+
             if (!ModelState.IsValid)
             {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
@@ -156,18 +158,30 @@ namespace StockportWebapp.Controllers
             return View(groupSubmission);
         }
 
-        private string GetErrorsFromModelState(ModelStateDictionary modelState)
+        [HttpGet]
+        [Route("/groups/exportpdf/{slug}")]
+        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug)
         {
-            var message = new StringBuilder();
+            ViewBag.CurrentUrl = Request?.GetUri();
 
-            foreach (var state in modelState)
-            {
-                if (state.Value.Errors.Count > 0)
-                {
-                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
-                }
-            }
-            return message.ToString();
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
+            var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
+
+            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", string.Concat(renderedExportStyles, renderedHtml));
+
+            HttpContext.Response.ContentType = "application/pdf";
+
+            string filename = @"report.pdf";
+            HttpContext.Response.Headers.Add("x-filename", filename);
+            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
+            HttpContext.Response.Body.Write(result, 0, result.Length);
+            return new ContentResult();
         }
 
         [Route("/groups/thank-you-message")]
@@ -240,6 +254,20 @@ namespace StockportWebapp.Controllers
             {
                 groupResults.Pagination = new Pagination();
             }
+        }
+
+        private string GetErrorsFromModelState(ModelStateDictionary modelState)
+        {
+            var message = new StringBuilder();
+
+            foreach (var state in modelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
+                }
+            }
+            return message.ToString();
         }
     }
 }

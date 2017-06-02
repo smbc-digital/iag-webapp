@@ -159,7 +159,7 @@ namespace StockportWebapp
             ConfigureDataProtection(services, logger);
 
             services.AddApplicationInsightsTelemetry(Configuration);
-
+            services.AddNodeServices();
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());

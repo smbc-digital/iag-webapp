@@ -11,48 +11,44 @@
     .base-akita-container,
     .button,
     .volunteering-section,
-    .manage-group-section
-    {
-        display:none !important;
+    .manage-group-section {
+        display: none !important;
     }
 
-    p > img{
-         display:none !important;
+    p > img {
+        display: none !important;
     }
 
-    #contactForm > form{
-          display:none !important;
+    #contactForm > form {
+        display: none !important;
     }
 
-    .group-map-container{
-        /*position: relative !important;
-        page-break-before:always !important;
-        page-break-inside:avoid !important;*/
-        display:none !important;
+    .group-map-container {
+        display: none !important;
     }
 
     .group-article-title {
-        font-size:1.8em  !important ;
-        color:#000000  !important;
+        font-size: 1.8em !important;
+        color: #000000 !important;
     }
 
-    .upcoming-events-heading{
+    .upcoming-events-heading {
         position: relative !important;
     }
 
-    .event-card{
+    .event-card {
         position: relative !important;
-        box-shadow:none  !important;
-        page-break-inside:avoid !important;
-        .event-image{
-        display:none !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
+
+        .event-image {
+            display: none !important;
         }
-        .event-card-informtion{
-             border-bottom:none!important;
-             border-left:none!important;
-             border-right:none!important;
+
+        .event-card-informtion {
+            border-bottom: none !important;
+            border-left: none !important;
+            border-right: none !important;
         }
     }
-
-    
 }

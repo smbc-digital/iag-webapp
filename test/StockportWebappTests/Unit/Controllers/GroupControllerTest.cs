@@ -45,7 +45,7 @@ namespace StockportWebappTests.Unit.Controllers
             _groupRepository = new Mock<IGroupRepository>();
             _filteredUrl = new Mock<IFilteredUrl>();
             _featureToggle = new FeatureToggles();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object, _featureToggle);
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object, _featureToggle, null);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -144,7 +144,7 @@ namespace StockportWebappTests.Unit.Controllers
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -281,7 +281,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null);
 
             return controller;
         }
