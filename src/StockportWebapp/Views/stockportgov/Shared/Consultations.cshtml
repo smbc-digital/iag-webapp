@@ -23,7 +23,8 @@
 
                             @foreach (var item in Model.Where(i => i.ClosingDate > DateTime.Now).OrderBy(i => i.ClosingDate))
                             {
-                                var date = item.ClosingDate == DateTime.Now.AddDays(1).Date ? "Tomorrow" : item.ClosingDate.ToString("dd MMMM yyyy");
+                                var date = item.ClosingDate.Date == DateTime.Now.AddDays(1).Date ? "Tomorrow" : item.ClosingDate.ToString("dd MMMM yyyy");
+                                date = item.ClosingDate.Date == DateTime.Now.Date ? "Today" : date;
                                 <a href="@item.Link">
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell">
@@ -39,12 +40,12 @@
                                 </a>
                             }
 
-                            @if (Model.Any(i => i.ClosingDate < DateTime.Now))
+                            @*@if (Model.Any(i => i.ClosingDate < DateTime.Now))
                             {
                                 <div class="grid-100 sk-table-row center">
                                     <a href="@Url.Action("Previous", "Showcase")">View previous consultations</a>
                                 </div>
-                            }
+                            }*@
                         </div>
                     </div>
                 </div>
