@@ -12,11 +12,14 @@ namespace StockportWebapp.ContentFactory
                 showcase.Slug,
                 showcase.Teaser,
                 showcase.Subheading,
+                showcase.EventCategory,
+                showcase.EventSubheading,
                 showcase.HeroImageUrl,
                 showcase.FeaturedItems,
                 showcase.Breadcrumbs,
                 showcase.Consultations,
-                showcase.SocialMediaLinks
+                showcase.SocialMediaLinks,
+                showcase.Events
             );
         }
     }

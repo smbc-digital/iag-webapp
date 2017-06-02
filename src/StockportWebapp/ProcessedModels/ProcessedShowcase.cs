@@ -11,25 +11,31 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Teaser;
         public readonly string Subheading;
         public readonly string HeroImageUrl;
+        public readonly string EventCategory;
+        public readonly string EventSubheading;
         public readonly IEnumerable<Crumb> Breadcrumbs;
         public readonly IEnumerable<SubItem> FeaturedItems;
         public readonly IEnumerable<Consultation> Consultations;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
+        public readonly IEnumerable<Event> Events;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks)
+        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventSubheading, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events)
         {
             Title = title;
             Slug = slug;
             Teaser = teaser;
             Subheading = subHeading;
             HeroImageUrl = heroImageUrl;
+            EventCategory = eventCategory;
+            EventSubheading = eventSubheading;
             Breadcrumbs = breadcrumbs;
             FeaturedItems = featuredItems;
             Consultations = consultations;
             SocialMediaLinks = socialMediaLinks;
+            Events = events;
         }
     }
 }

@@ -3,6 +3,8 @@
   "slug": "test-showcase",
   "teaser": "Just a test",
   "subheading": "test subheading",
+  "eventCategory": "event category",
+  "eventSubheading": "event subheading",
   "heroImageUrl": "heroImageUrl.jpg",
   "featuredItems": [
     {
@@ -35,5 +37,6 @@
       "url": "url",
       "icon": "icon"
     }
-  ]
+  ],
+  "events":  [] 
 }

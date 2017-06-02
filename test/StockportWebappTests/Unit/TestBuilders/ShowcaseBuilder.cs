@@ -10,10 +10,13 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _slug = "showcase_slug";
         private string _teaser = "teaser";
         private string _subheading = "subheading";
+        private string _eventSubheading = "event subheading";
+        private string _eventCategory = "event category";
         private string _heroImageUrl = "image-url.jpg";
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() {new Crumb("link", "title", "type")};
         private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
+        private IEnumerable<Event> _events = new List<Event>();
         private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
         {
             new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
@@ -21,7 +24,7 @@ namespace StockportWebappTests.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks);
+            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventSubheading, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
         }
 
         public ShowcaseBuilder Title(string title)
@@ -45,6 +48,18 @@ namespace StockportWebappTests.Unit.TestBuilders
         public ShowcaseBuilder Subheading(string subheading)
         {
             _subheading = subheading;
+            return this;
+        }
+
+        public ShowcaseBuilder EventSubheading(string subheading)
+        {
+            _eventSubheading = subheading;
+            return this;
+        }
+
+        public ShowcaseBuilder EventCategory(string category)
+        {
+            _eventCategory = category;
             return this;
         }
 
@@ -75,6 +90,12 @@ namespace StockportWebappTests.Unit.TestBuilders
         public ShowcaseBuilder SocialMediaLinks(IEnumerable<SocialMediaLink> socialMediaLinks)
         {
             _socialMediaLinks = socialMediaLinks;
+            return this;
+        }
+
+        public ShowcaseBuilder Events(IEnumerable<Event> events)
+        {
+            _events = events;
             return this;
         }
     }
