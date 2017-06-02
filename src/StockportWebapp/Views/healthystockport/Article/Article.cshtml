@@ -1,4 +1,6 @@
-﻿@model StockportWebapp.ViewModels.ArticleViewModel
+﻿@using System.Threading.Tasks
+@using StockportWebapp.ViewModels
+@model StockportWebapp.ViewModels.ArticleViewModel
 @{
     ViewData["Title"] = Model.Article.Title;
     Layout = "../Shared/_Layout.cshtml";
@@ -9,14 +11,20 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Article.Breadcrumbs)
 }
+@section BackgroundImage
+{
+    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.Article.BackgroundImage))
+}
 
 @if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
 {
-    <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.Article.BackgroundImage')">
+    <div class="grid-100 l-background-hs-image">
     </div>
-} 
  
-<section aria-label="article" class="grid-100 mobile-grid-100">
+}
+
+
+    <section aria-label="article" class="grid-100 mobile-grid-100">
     <a name="@Model.Article.Title content" class="anchor anchor-content"></a>
     <div class="grid-100 tablet-grid-100 mobile-grid-100 article-container">
         

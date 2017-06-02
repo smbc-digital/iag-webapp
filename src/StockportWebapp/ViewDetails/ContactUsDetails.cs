@@ -10,6 +10,7 @@ namespace StockportWebapp.ViewDetails
 {
     public class ContactUsDetails
     {
+        public string ServiceEmailId { get; set; }
         public string ServiceEmail { get; set; }
         private const string DefaultValue = "";
 
@@ -46,19 +47,19 @@ namespace StockportWebapp.ViewDetails
         {         
         }
 
-        public ContactUsDetails(string serviceEmail, string title)
+        public ContactUsDetails(string serviceEmailId, string title)
         {
-            ServiceEmail = serviceEmail;
+            ServiceEmailId = serviceEmailId;
             Title = title;
         }
 
-        public ContactUsDetails(string name, string email, string message, string subject, string serviceEmail, string title)
+        public ContactUsDetails(string name, string email, string message, string subject, string serviceEmailId, string title)
         {
             Name = name;
             Email = email;
             Message = message;
             Subject = subject;
-            ServiceEmail = serviceEmail;
+            ServiceEmailId = serviceEmailId;
             Title = title;
         }
     }

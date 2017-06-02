@@ -1,14 +1,24 @@
 ﻿@using StockportWebapp.ProcessedModels
-@model StockportWebapp.ProcessedModels.ProcessedShowcase
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
+
+@model ProcessedShowcase
 @{
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.Teaser;
     Layout = "../Shared/_Layout.cshtml";
+    var titleHack = string.Empty;
+    ViewData["EventsH2"] = true;
+    ViewData["EventCategory"] = Model.EventCategory;
+    ViewData["EventSubheading"] = Model.EventSubheading;
 }
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
+
+@if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl))
+{
 <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
     <div class="title-card">
         <h1>
@@ -20,8 +30,27 @@
         </h2>
     </div>
 </div>
+}
+else
+{
+    titleHack = "full-width-title-margin-fix";
+    <div class="full-width-title">
+        <div class="grid-container grid-parent grid-100">
+            <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                <h1 class="full-width-title-with-button">@Model.Title</h1>
+            </div>
+        </div>
+    </div>
+}
 
-<div class="featured-items-wrapper">
+@if (FeatureToggles.ShowcaseConsultations && Model.Consultations.Any())
+{
+    <div class="@titleHack alt-container-row">
+        @Html.Partial("Consultations", Model.Consultations)
+    </div>
+}
+
+<div class="alt-container-row featured-items-wrapper">
     <h2>@Model.Subheading</h2>
     <div class="featured-topic-list">
         @{
@@ -54,3 +83,18 @@
         }
     </div>
 </div>
+
+
+@if (Model.Events.Any())
+{
+    <div class="@titleHack showcase-events alt-container-row">
+        @Html.Partial("ShowcaseEventCards", Model.Events)
+    </div>
+}
+
+@if (Model.SocialMediaLinks.Any())
+{
+    <div class="@titleHack alt-container-row">
+        @Html.Partial("ShowcaseSocialMediaLinks", Model.SocialMediaLinks)
+    </div>
+}

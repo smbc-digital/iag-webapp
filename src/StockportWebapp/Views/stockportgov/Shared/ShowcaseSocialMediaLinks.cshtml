@@ -1,0 +1,22 @@
+﻿@model IEnumerable<StockportWebapp.Models.SocialMediaLink>
+@{
+    var oneLinkclass = Model.Count() == 1 ? "one-social-link" : string.Empty;
+}
+<div class="grid-container">
+    <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
+        <section>
+            <div class="l-content-container showcase-container grid-100 tablet-grid-100 mobile-grid-100  @oneLinkclass">
+                <h2 class="text-centre">Find us on social media</h2>
+                <div class="text-centre">
+                    @foreach (var link in Model)
+                    {
+                        <stock-button as-link="true" class="socialMedia" href="@link.Url">
+                            <i class="@link.Icon fa"></i>
+                            @link.Title
+                        </stock-button>
+                    }
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

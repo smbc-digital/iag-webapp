@@ -29,12 +29,12 @@ namespace StockportWebappTests.Unit.Parsers
             var content = $"{{{{CONTACT-US: {email}}}}}";
             var renderResult = "result";
 
-            _viewRenderer.Setup(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmail == email)))
+            _viewRenderer.Setup(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmailId == email)))
                 .Returns(renderResult);
 
             var parsedHtml = _contactUsTagParser.Parse(content, null);
 
-            _viewRenderer.Verify(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmail == email)));
+            _viewRenderer.Verify(o => o.Render("ContactUs", It.Is<ContactUsDetails>(d => d.ServiceEmailId == email)));
             parsedHtml.Should().Contain(renderResult);
         }
 
@@ -59,7 +59,7 @@ namespace StockportWebappTests.Unit.Parsers
 
             parsedHtml.Should().Be("<p>This contact form is temporarily unavailable. Please check back later.</p>");
             LogTesting.Assert(_mockLogger, LogLevel.Error,
-                $"The service email in this CONTACT-US tag is invalid and this contact form will not render.");
+                $"The service email ID in this CONTACT-US tag is invalid and this contact form will not render.");
         }
 
         [Fact]

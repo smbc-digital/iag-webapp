@@ -27,15 +27,15 @@ namespace StockportWebapp.Parsers
         public static Regex ContactUsMessageTagRegex
             => new Regex("<!-- ##CONTACT_US_MESSAGE## -->", RegexOptions.Compiled);
 
-        protected string GenerateHtml(string serviceEmail)
+        protected string GenerateHtml(string serviceEmailId)
         {
-            if (string.IsNullOrEmpty(serviceEmail))
+            if (string.IsNullOrEmpty(serviceEmailId))
             {
                 _logger.LogError(
-                    $"The service email in this CONTACT-US tag is invalid and this contact form will not render.");
+                    $"The service email ID in this CONTACT-US tag is invalid and this contact form will not render.");
                 return UnableToRenderFormError;
             }
-            var renderResult = _viewRenderer.Render("ContactUs", new ContactUsDetails(serviceEmail, _articleTitle));
+            var renderResult = _viewRenderer.Render("ContactUs", new ContactUsDetails(serviceEmailId, _articleTitle));
             return string.Concat(ContactUsMessageTagRegex.ToString(), renderResult);
         }
 

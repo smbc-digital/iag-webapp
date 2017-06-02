@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
+using StockportWebapp.Repositories;
+using HttpResponse = StockportWebapp.Http.HttpResponse;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -34,6 +37,9 @@ namespace StockportWebappTests.Unit.Controllers
         private const string Path = "/page-with-contact-us-form";
         private readonly string _url = $"http://page.com{Path}";
         private readonly string _title = "Title";
+        private Mock<IRepository> _repository = new Mock<IRepository>();
+        private readonly ContactUsId _contactUsId;
+        private readonly FeatureToggles featureToggles = new FeatureToggles();
 
         public ContactUsControllerTest()
         {
@@ -45,7 +51,13 @@ namespace StockportWebappTests.Unit.Controllers
                 .Returns(AppSetting.GetAppSetting("businessid:Email:EmailFrom"));
 
             _businessId = new BusinessId("businessid");
-            _controller = new ContactUsController(_mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId);
+
+            _contactUsId = new ContactUsId("name", "slug", "email");
+          
+            _repository.Setup(o => o.Get<ContactUsId>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+               .ReturnsAsync(HttpResponse.Successful(200, _contactUsId));
+
+            _controller = new ContactUsController(_repository.Object, _mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId, featureToggles);
             _validContactDetails = new ContactUsDetails(_userName, _userEmail, _emailSubject,
                 _emailBody, _serviceEmails,_title);
 

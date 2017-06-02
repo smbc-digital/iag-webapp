@@ -30,8 +30,8 @@ namespace StockportWebappTests.Unit.Controllers
         {
             const string showcaseSlug = "showcase-slug";
             var showcase = new ProcessedShowcase("Test showcase", showcaseSlug, "showcase teaser",
-                                                 "showcase subheading", "af981b9771822643da7a03a9ae95886f/picture.jpg",
-                                                 new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") });
+                                                 "showcase subheading", "event category", "event subheading", "af981b9771822643da7a03a9ae95886f/picture.jpg",
+                                                 new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") }, new List<Consultation>(), new List<SocialMediaLink>(), new List<Event>());
 
             _fakeRepository.Set(new HttpResponse(200, showcase, string.Empty));
 
@@ -42,6 +42,8 @@ namespace StockportWebappTests.Unit.Controllers
             processedShowcase.Slug.Should().Be("showcase-slug");
             processedShowcase.Teaser.Should().Be("showcase teaser");
             processedShowcase.Subheading.Should().Be("showcase subheading");
+            processedShowcase.EventCategory.Should().Be("event category");
+            processedShowcase.EventSubheading.Should().Be("event subheading");
             processedShowcase.Breadcrumbs.Count().Should().Be(1);
             processedShowcase.FeaturedItems.Count().Should().Be(1);
         }

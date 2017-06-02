@@ -1,4 +1,6 @@
-﻿@using StockportWebapp.ProcessedModels
+﻿@using System.Threading.Tasks
+@using StockportWebapp.ProcessedModels
+@using StockportWebapp.ViewModels
 @model StockportWebapp.ProcessedModels.ProcessedProfile
 @{
 
@@ -12,10 +14,14 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
+@section BackgroundImage
+{
+    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.BackgroundImage))
+}
 
 @if (!string.IsNullOrEmpty(Model.BackgroundImage))
 {
-    <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.BackgroundImage');">
+    <div class="grid-100 l-background-hs-image">
     </div>
 } 
 

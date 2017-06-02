@@ -154,7 +154,9 @@ namespace StockportWebappTests
             Client.For("http://localhost:5001/api/stockportgov/groupResults/?latitude=53.40581278523235&longitude=-2.158041000366211")
                 .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
             Client.For("http://localhost:5001/api/stockportgov/groupCategory/")
-                .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));      
+                .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));
+            Client.For("http://localhost:5001/api/healthystockport/ContactUsId/test-email")
+                .Return(HttpResponse.Successful(200, ReadFile("ContactUsId")));
             Client.ForPostAsync("https://www.google.com/recaptcha/api/siteverify")     
                 .ReturnPostAsync(new HttpResponseMessage() { Content = new StringContent("{\"success\": true,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}") });
         }

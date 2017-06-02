@@ -15,10 +15,8 @@
     }
 
     .sk-table-body {
-        border-top: 5px solid #e8891f;
-        border-left: 1px solid #d3d3d3;
-        border-right: 1px solid #d3d3d3;
-        border-bottom: 1px solid #d3d3d3;
+        border-top: 5px solid #EF8A17;
+        border-bottom: 1px solid #DFDFDF;
         margin-top: 0;
         margin-bottom: 20px;
         background-color: #fff;
@@ -32,7 +30,7 @@
     }
 
     .sk-table-header {
-        background-color: #d3d3d3;
+        background-color: #EBEBEB;
 
         span {
             font-weight: 700;
@@ -46,6 +44,10 @@
 
     .sk-table-row {
         padding: 10px;
+
+        &.center {
+            text-align: center;
+        }
     }
 
     .sk-table-thin-row {
@@ -53,7 +55,9 @@
     }
 
     .sk-table-row, .sk-table-thin-row {
-        border-top: solid 1px #d3d3d3;
+        border-right: solid 1px #DFDFDF;
+        border-left: solid 1px #DFDFDF;
+        border-top: solid 1px #DFDFDF;
 
         .sk-table-cell {
             font-size: 1.1em;
@@ -83,21 +87,25 @@
             .button-default {
                 margin: 10px 20px 10px 0;
 
+                &.no-margin {
+                    margin:0;
+                }
+
                 @media #{$mobile} {
                     margin-right: 0;
                 }
-            }
 
-            .button-default.clear {
-                border: solid 1px #d3d3d3;
-                color: #1d3837;
-                background-color: transparent;
-            }
+                &.white {
+                    border: solid 1px #DFDFDF;
+                    color: #1d3837;
+                    background-color: transparent;
+                }
 
-            .button-default.grey {
-                border: solid 1px #7d7d7d;
-                color: #fff;
-                background-color: #7d7d7d;
+                &.grey {
+                    border: solid 1px #7d7d7d;
+                    color: #fff;
+                    background-color: #7d7d7d;
+                }
             }
         }
 

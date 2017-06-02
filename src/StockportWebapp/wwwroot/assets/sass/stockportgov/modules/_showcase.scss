@@ -110,9 +110,18 @@
     }   
 }
 
+.alt-container-row:nth-child(odd), .alt-container-row:nth-child(odd) .l-body-section-filled
+{
+    background-color:#ebebeb;
+}
+
+.alt-container-row:nth-child(even), .alt-container-row:nth-child(even) .l-body-section-filled
+{
+    background-color:#ffffff;
+}
+
 .featured-items-wrapper
 {
-    background-color: white; 
     padding-bottom: 20px; 
     padding-top: 10px;
 
@@ -144,4 +153,117 @@
             }
         }
     }
+}
+
+.showcase-container {
+    padding-bottom: 40px;
+
+    @media #{$mobile}{
+        h2 {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.showcase-events {
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .button-default.white {
+        border: solid 1px #DFDFDF;
+        color: #1d3837;
+        background-color: white;
+        margin-bottom:30px;
+        margin-top:-10px;
+    }
+
+    h2 {
+        font-weight: 600;
+        letter-spacing: -1px;
+        font-size: 1.875em;    
+        text-align: center;
+    }
+
+    @media #{$tablet} {
+        li:nth-child(3) {
+            display:none;
+        }
+    }
+}
+
+.button-default.socialMedia {
+    border: solid 1px #DFDFDF;
+    color: #1d3837;
+    background-color: white;
+    margin-right: 30px;
+    min-width: 100px;
+
+    @media #{$desktop} {
+        min-width:165px;
+    }
+
+    @media #{$mobile} {
+        border-top-width:0;
+        border-right-width:0;
+        border-left-width:0;
+        margin-right:0;
+        min-width:0;
+        box-shadow:none;
+    }
+}
+
+@media #{$desktop, $tablet} {
+    .one-social-link {
+        padding-bottom:0;
+        padding-right:30px;
+        padding-left:30px;
+        width:100%;
+
+        h2 {
+            display:block;
+            width:45%;
+            float:left;
+            text-align:right;
+            padding-top:10px;
+            padding-right:20px;
+        }
+
+        div {
+            display:block;
+            width:45%;
+            float:right;
+            text-align:left;
+            padding-left:20px;
+            margin-top:25px;
+
+            .button-default.socialMedia {
+                margin-right:0;
+            }
+
+        }
+    }
+}
+
+@media #{$tablet} {
+    .one-social-link {
+
+        h2 {
+            display:inline;
+            float:left;
+            text-align:left;
+            padding-right:0;
+        }
+
+        div {
+            display:inline;
+            float:right;
+            text-align:right;
+            padding-left:0;
+        }
+    }
+}
+
+.view-more-events-container {
+    clear: both;
 }

@@ -1,4 +1,6 @@
-﻿@using StockportWebapp.ProcessedModels
+﻿@using System.Threading.Tasks
+@using StockportWebapp.ProcessedModels
+@using StockportWebapp.ViewModels
 @model StockportWebapp.ProcessedModels.ProcessedHomepage
 
 @{
@@ -7,9 +9,21 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
 
 }
-
+@section BackgroundImage
+{
+    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.BackgroundImage))
+}
+@section CarouselBackgroundImage
+{
+    @{ int counter = 1; }
+    @foreach (var carouselContent in Model.CarouselContents)
+    {
+        @Html.Partial("ScaleImageByDevice", new Image("webcast-" + counter, carouselContent.Image))
+        counter++;
+    }
+}
 <div>
-    <div class="grid-100 l-background-hs-image" style="background-image: url('@Model.BackgroundImage');">
+    <div class="grid-100 l-background-hs-image">
         <div class="introduction grid-50"> 
             @Html.Raw(Model.FreeText)
         </div>

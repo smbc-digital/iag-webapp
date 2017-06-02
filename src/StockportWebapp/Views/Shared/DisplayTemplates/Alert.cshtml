@@ -1,11 +1,22 @@
 ﻿@model StockportWebapp.Models.Alert
 <div class="grid-100 tablet-grid-100 mobile-grid-100">
+    @{
+        var severity = Model.Severity.ToLowerInvariant();
+        var icon = "fa-info-circle";
+        if (severity == "error")
+        {
+            icon = "fa-exclamation-circle";
+        }
+        if (severity == "warning")
+        {
+            icon = "fa-exclamation-triangle";
+        }
+    }
     <div class="alert alert-@Model.Severity.ToLowerInvariant()">
         <div class="alert-icon">
-
-            <i class="fa fa-exclamation fa-3x"></i>
+                <i class="fa @icon fa-3x"></i>
         </div>
-        <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+        <div class="alert-content">
             <h3>@Model.Title</h3>
             @if (!string.IsNullOrEmpty(Model.SubHeading))
             {

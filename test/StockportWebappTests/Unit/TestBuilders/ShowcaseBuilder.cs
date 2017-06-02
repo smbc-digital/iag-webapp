@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Amazon.Runtime.Internal;
 using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.TestBuilders
@@ -13,15 +10,21 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _slug = "showcase_slug";
         private string _teaser = "teaser";
         private string _subheading = "subheading";
+        private string _eventSubheading = "event subheading";
+        private string _eventCategory = "event category";
         private string _heroImageUrl = "image-url.jpg";
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() {new Crumb("link", "title", "type")};
+        private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
+        private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
+        private IEnumerable<Event> _events = new List<Event>();
         private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
         {
-            new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })};
+            new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
+        };
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _heroImageUrl, _breadcrumbs, _featuredItems);
+            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventSubheading, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
         }
 
         public ShowcaseBuilder Title(string title)
@@ -48,6 +51,18 @@ namespace StockportWebappTests.Unit.TestBuilders
             return this;
         }
 
+        public ShowcaseBuilder EventSubheading(string subheading)
+        {
+            _eventSubheading = subheading;
+            return this;
+        }
+
+        public ShowcaseBuilder EventCategory(string category)
+        {
+            _eventCategory = category;
+            return this;
+        }
+
         public ShowcaseBuilder HeroImageUrl(string heroImageUrl)
         {
             _heroImageUrl = heroImageUrl;
@@ -65,7 +80,23 @@ namespace StockportWebappTests.Unit.TestBuilders
             _featuredItems = featuredItems;
             return this;
         }
-    }
 
-    
+        public ShowcaseBuilder Consultations(IEnumerable<Consultation> consultations)
+        {
+            _consultations = consultations;
+            return this;
+        }
+
+        public ShowcaseBuilder SocialMediaLinks(IEnumerable<SocialMediaLink> socialMediaLinks)
+        {
+            _socialMediaLinks = socialMediaLinks;
+            return this;
+        }
+
+        public ShowcaseBuilder Events(IEnumerable<Event> events)
+        {
+            _events = events;
+            return this;
+        }
+    }
 }
