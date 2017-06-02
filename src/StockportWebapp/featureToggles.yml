@@ -5,6 +5,7 @@ prod: &prod
   ManageYourGroupButton: false
   ShowcaseConsultations: false
   ContactUsIds: false
+  ExportGroupToPdf: false
 
 stage: &stage
   << : *prod
@@ -27,3 +28,4 @@ local:
   << : *stage
   << : *qa
   << : *int
+  ExportGroupToPdf: true

@@ -138,7 +138,7 @@
                         }
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">
-                            @Html.Partial("SharePrintThis")
+                            @Html.Partial("SharePrintThis", Model.Slug)
                             @if (!FeatureToggles.ManageYourGroupButton)
                             {
                                 <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>

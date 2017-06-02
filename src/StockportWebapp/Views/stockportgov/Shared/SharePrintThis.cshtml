@@ -1,4 +1,7 @@
-﻿@{
+﻿@model string
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
+@{
     var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
     var title = ViewData["Title"];
 }
@@ -15,7 +18,7 @@
         </div>
     </div>
 </div>
-<div class="share grid-80">
+<div class="share grid-20">
     <h6>Print this page</h6>
     <div class="addthis_toolbox">
         <div class="custom_images">
@@ -23,4 +26,16 @@
         </div>
     </div>
 </div>
+
+@if (FeatureToggles.ExportGroupToPdf)
+{
+    <div class="share grid-20">
+        <h6>Download as PDF</h6>
+        <div class="addthis_toolbox">
+            <div class="custom_images">
+                <a class="export-as-pdf" href="/groups/exportpdf/@Model" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+}
 

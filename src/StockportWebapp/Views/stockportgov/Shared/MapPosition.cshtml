@@ -1,4 +1,6 @@
-﻿@model StockportWebapp.Models.MapPosition
+﻿@using StockportWebapp.FeatureToggling
+@model StockportWebapp.Models.MapPosition
+@inject FeatureToggles FeatureToggles
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
 <div id="map" class="grid-100 map-container"></div>
@@ -18,7 +20,10 @@
     }
 </script>
 
-<div class="embed-map-container">
-    <iframe frameborder="0"
-            src="https://www.google.com/maps/embed/v1/place?q=@Model.Lat,@Model.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&zoom=18" allowfullscreen></iframe>
-</div>
+@if (FeatureToggles.ExportGroupToPdf)
+{
+    <div class="embed-map-container">
+        <iframe frameborder="0"
+                src="https://www.google.com/maps/embed/v1/place?q=@Model.Lat,@Model.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&zoom=18" allowfullscreen></iframe>
+    </div>
+}
