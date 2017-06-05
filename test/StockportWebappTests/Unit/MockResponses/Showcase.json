@@ -4,6 +4,9 @@
   "teaser": "Just a test",
   "subheading": "test subheading",
   "eventCategory": "event category",
+  "newsSubheading": "news subheading",
+  "newsCategory": "news category",
+  "newsArticle":  null, 
   "eventSubheading": "event subheading",
   "heroImageUrl": "heroImageUrl.jpg",
   "featuredItems": [
@@ -38,5 +41,5 @@
       "icon": "icon"
     }
   ],
-  "events":  [] 
+  "events": []
 }

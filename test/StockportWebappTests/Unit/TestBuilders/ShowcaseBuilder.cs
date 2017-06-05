@@ -12,6 +12,8 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _subheading = "subheading";
         private string _eventSubheading = "event subheading";
         private string _eventCategory = "event category";
+        private string _newsSubheading = "news subheading";
+        private string _newsCategory = "news category";
         private string _heroImageUrl = "image-url.jpg";
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() {new Crumb("link", "title", "type")};
         private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
@@ -24,7 +26,7 @@ namespace StockportWebappTests.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventSubheading, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
+            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
         }
 
         public ShowcaseBuilder Title(string title)

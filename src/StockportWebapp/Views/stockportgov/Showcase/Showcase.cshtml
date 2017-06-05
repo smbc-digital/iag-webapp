@@ -33,7 +33,6 @@
 }
 else
 {
-    titleHack = "full-width-title-margin-fix";
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-100 tablet-grid-100 mobile-grid-100">
@@ -41,6 +40,7 @@ else
             </div>
         </div>
     </div>
+    titleHack = "full-width-title-margin-fix";
 }
 
 @if (FeatureToggles.ShowcaseConsultations && Model.Consultations.Any())
@@ -48,6 +48,7 @@ else
     <div class="@titleHack alt-container-row">
         @Html.Partial("Consultations", Model.Consultations)
     </div>
+    titleHack = string.Empty;
 }
 
 <div class="alt-container-row featured-items-wrapper">
@@ -84,12 +85,20 @@ else
     </div>
 </div>
 
+@if (Model.NewsArticle != null)
+{
+    <div class="@titleHack showcase-news alt-container-row">
+        @Html.Partial("ShowcaseNewsArticle", Model)
+    </div>
+    titleHack = string.Empty;
+}
 
-@if (Model.Events.Any())
+@if (Model.Events.Any() && Model.NewsArticle == null)
 {
     <div class="@titleHack showcase-events alt-container-row">
         @Html.Partial("ShowcaseEventCards", Model.Events)
     </div>
+    titleHack = string.Empty;
 }
 
 @if (Model.SocialMediaLinks.Any())
@@ -97,4 +106,13 @@ else
     <div class="@titleHack alt-container-row">
         @Html.Partial("ShowcaseSocialMediaLinks", Model.SocialMediaLinks)
     </div>
+    titleHack = string.Empty;
+}
+
+@if (Model.Events.Any() && Model.NewsArticle != null)
+{
+    <div class="@titleHack showcase-events alt-container-row">
+        @Html.Partial("ShowcaseEventCards", Model.Events)
+    </div>
+    titleHack = string.Empty;
 }
