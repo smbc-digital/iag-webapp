@@ -1,4 +1,9 @@
 ﻿@model IEnumerable<StockportWebapp.Models.Consultation>
+@{
+
+    var list = Model.Where(i => i.ClosingDate > DateTime.Now).OrderBy(i => i.ClosingDate);
+}
+
 <div class="grid-container">
     <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
         <section>
@@ -10,17 +15,25 @@
                                 <h3>Current Consultations</h3>
                             </div>
                         </div>
-
-                        <div class="sk-table-header sk-table-thin-row grid-100 grid-parent hide-on-mobile">
-                            <div class="grid-75 tablet-grid-60 mobile-grid-60">
-                                <span>Description</span>
+                        @if (list.Any())
+                        {
+                            <div class="sk-table-header sk-table-thin-row grid-100 grid-parent hide-on-mobile">
+                                <div class="grid-75 tablet-grid-60 mobile-grid-60">
+                                    <span>Description</span>
+                                </div>
+                                <div class="grid-20 tablet-grid-35 mobile-grid-85 sk-table-header-right">
+                                    <span>Closing Date</span>
+                                </div>
                             </div>
-                            <div class="grid-20 tablet-grid-35 mobile-grid-85 sk-table-header-right">
-                                <span>Closing Date</span>
+                        }
+                        else
+                        {
+                            <div class="grid-100 sk-table-row no-data center">
+                                There are no current consultations
                             </div>
-                        </div>
+                        }
 
-                        @foreach (var item in Model.Where(i => i.ClosingDate > DateTime.Now).OrderBy(i => i.ClosingDate))
+                        @foreach (var item in list)
                         {
                             var date = item.ClosingDate.Date == DateTime.Now.AddDays(1).Date ? "Tomorrow" : item.ClosingDate.ToString("dd MMMM yyyy");
                             date = item.ClosingDate.Date == DateTime.Now.Date ? "Today" : date;
@@ -40,10 +53,10 @@
                         }
 
                         @if (Model.Any(i => i.ClosingDate < DateTime.Now))
-                            {
-                                <div class="grid-100 sk-table-row center">
-                                    <a href="@Url.Action("PreviousConsultations", "Showcase", new { @slug = ViewData["Slug"] })">View previous consultations</a>
-                                </div>
+                        {
+                            <div class="grid-100 sk-table-row center">
+                                <a href="@Url.Action("PreviousConsultations", "Showcase", new { @slug = ViewData["Slug"] })">View previous consultations</a>
+                            </div>
                         }
                     </div>
                 </div>

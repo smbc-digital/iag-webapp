@@ -71,6 +71,10 @@
         border-left: solid 1px #DFDFDF;
         border-top: solid 1px #DFDFDF;
 
+        &.no-data {
+            padding: 50px 0;
+        }
+
         .sk-table-cell, sk-table-cell-right {
             font-size: 1.1em;
             color: #1d3837;
