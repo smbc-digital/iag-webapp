@@ -241,12 +241,25 @@
     }
 }
 
+.showcase-social-media {
+    @media #{$desktop, $tablet} {
+        h2 {
+            margin-bottom:0;
+        }
+
+    }
+}
+
 .button-default.socialMedia {
     border: solid 1px #DFDFDF;
     color: #1d3837;
     background-color: white;
     margin-right: 30px;
-    min-width: 100px;
+    min-width: 200px;
+
+    @media #{$desktop, $tablet} {
+        margin-top:20px;
+    }
 
     @media #{$desktop} {
         min-width:165px;
