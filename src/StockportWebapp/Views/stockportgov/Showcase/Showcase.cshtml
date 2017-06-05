@@ -7,6 +7,7 @@
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
     ViewData["Description"] = Model.Teaser;
+    ViewData["Slug"] = Model.Slug;
     Layout = "../Shared/_Layout.cshtml";
     var titleHack = string.Empty;
     ViewData["EventsH2"] = true;
@@ -93,7 +94,7 @@ else
     titleHack = string.Empty;
 }
 
-@if (Model.Events.Any() && Model.NewsArticle == null)
+@if (Model.Events != null && Model.Events.Any() && Model.NewsArticle == null)
 {
     <div class="@titleHack showcase-events alt-container-row">
         @Html.Partial("ShowcaseEventCards", Model.Events)
@@ -101,7 +102,7 @@ else
     titleHack = string.Empty;
 }
 
-@if (Model.SocialMediaLinks.Any())
+@if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
 {
     <div class="@titleHack alt-container-row">
         @Html.Partial("ShowcaseSocialMediaLinks", Model.SocialMediaLinks)
@@ -109,7 +110,7 @@ else
     titleHack = string.Empty;
 }
 
-@if (Model.Events.Any() && Model.NewsArticle != null)
+@if (Model.Events != null && Model.Events.Any() && Model.NewsArticle != null)
 {
     <div class="@titleHack showcase-events alt-container-row">
         @Html.Partial("ShowcaseEventCards", Model.Events)
