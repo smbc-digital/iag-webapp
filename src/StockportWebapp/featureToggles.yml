@@ -11,17 +11,17 @@ stage: &stage
   << : *prod
   GroupManagement: true
   ManageYourGroupButton: true
+  ShowcaseConsultations: true
 
 qa: &qa
   << : *prod
   << : *stage
+  ContactUsIds: true
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
-  ShowcaseConsultations: true
-  ContactUsIds: true
 
 local:
   << : *prod
