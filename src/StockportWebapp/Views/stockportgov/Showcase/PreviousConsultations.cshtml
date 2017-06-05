@@ -1,13 +1,26 @@
-﻿@model IEnumerable<StockportWebapp.Models.Consultation>
-<div class="grid-container">
-    <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
-        <section>
-            <div class="l-content-container grid-100 tablet-grid-100 mobile-grid-100 group-margin">
+﻿@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+
+@model PreviousConsultaion
+@{
+    Layout = "../Shared/_Layout.cshtml";
+    ViewData["Title"] = "Previous Consultations";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb(Model.Title, Model.Slug, "showcase") })
+}
+
+<div class="grid-container-full-width previous-consultations">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
+            <div class="l-content-container grid-100 group-margin" id="group-padding">
+                <h1 class="group-article-title">@ViewData["Title"].ToString()</h1>
                 <div class="sk-table-outer-container">
                     <div class="sk-table-body">
                         <div class="grid-100 sk-table-row grid-parent">
                             <div class="grid-100 sk-table-cell">
-                                <h3>Current Consultations</h3>
+                                <h3>@ViewData["Title"].ToString()</h3>
                             </div>
                         </div>
 
@@ -20,10 +33,9 @@
                             </div>
                         </div>
 
-                        @foreach (var item in Model.Where(i => i.ClosingDate > DateTime.Now).OrderBy(i => i.ClosingDate))
+                        @foreach (var item in Model.Consultations)
                         {
-                            var date = item.ClosingDate.Date == DateTime.Now.AddDays(1).Date ? "Tomorrow" : item.ClosingDate.ToString("dd MMMM yyyy");
-                            date = item.ClosingDate.Date == DateTime.Now.Date ? "Today" : date;
+                            var date = item.ClosingDate.Date == DateTime.Now.AddDays(-1).Date ? "Yesterday" : item.ClosingDate.ToString("dd MMMM yyyy");
                             <a href="@item.Link">
                                 <div class="grid-100 sk-table-row grid-parent">
                                     <div class="sk-table-cell">
@@ -39,15 +51,14 @@
                             </a>
                         }
 
-                        @if (Model.Any(i => i.ClosingDate < DateTime.Now))
-                            {
-                                <div class="grid-100 sk-table-row center">
-                                    <a href="@Url.Action("PreviousConsultations", "Showcase", new { @slug = ViewData["Slug"] })">View previous consultations</a>
-                                </div>
-                        }
+                        <div class="grid-100 sk-table-row grid-parent">
+                            <div class="sk-table-cell sk-table-pagination">
+                                @Html.Partial("Pagination", Model.Pagination)
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </div>
 </div>

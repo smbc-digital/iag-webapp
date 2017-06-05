@@ -5,6 +5,12 @@
         text-decoration: none;
     }
 
+    .sk-table-pagination {
+        a {
+            text-decoration: underline;
+        }
+    }
+
     margin: 0 0 30px 0;
 
     @media #{$mobile} {
@@ -54,12 +60,18 @@
         padding: 5px 10px;
     }
 
+    @media #{$tablet, $desktop} {
+        .sk-table-cell-right, .sk-table-header-right {
+            text-align:right;
+        }
+    }
+
     .sk-table-row, .sk-table-thin-row {
         border-right: solid 1px #DFDFDF;
         border-left: solid 1px #DFDFDF;
         border-top: solid 1px #DFDFDF;
 
-        .sk-table-cell {
+        .sk-table-cell, sk-table-cell-right {
             font-size: 1.1em;
             color: #1d3837;
 
@@ -106,6 +118,11 @@
                     color: #fff;
                     background-color: #7d7d7d;
                 }
+            }
+
+            .pagination-section {
+                border-top-width:0;
+                margin-bottom:0;
             }
         }
 
