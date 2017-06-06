@@ -165,7 +165,7 @@
     }
 }
 
-.showcase-news {
+.showcase-news, .showcase-body {
 
     .l-article-content {
         padding-left: 10px;
@@ -255,6 +255,10 @@
     background-color: white;
     margin-right: 30px;
     min-width: 200px;
+
+    i {
+        margin-right:10px;
+    }
 
     @media #{$desktop, $tablet} {
         margin-top:20px;

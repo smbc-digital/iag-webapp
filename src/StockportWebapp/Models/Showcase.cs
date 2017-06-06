@@ -15,13 +15,15 @@ namespace StockportWebapp.Models
         public string NewsCategoryOrTag { get; set; }
         public string NewsSubheading { get; set; }
         public News NewsArticle { get; set; }
+        public string BodySubheading { get; set; }
+        public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public IEnumerable<SubItem> FeaturedItems { get; set; }
         public IEnumerable<Consultation> Consultations { get; set; }
         public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
         public IEnumerable<Event> Events { get; set; }
 
-        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventSubheading, string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, News newsArticle, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events)
+        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventSubheading, string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events)
         {
             Title = title;
             Slug = slug;
@@ -38,6 +40,8 @@ namespace StockportWebapp.Models
             NewsSubheading = newsSubheading;
             NewsCategoryTag = newsCatgeoryTag;
             NewsCategoryOrTag = newsCatgeoryOrTag;
+            BodySubheading = bodySubheading;
+            Body = body;
             NewsArticle = newsArticle;
         }
     }

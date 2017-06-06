@@ -117,3 +117,24 @@ else
     </div>
     titleHack = string.Empty;
 }
+@if (!string.IsNullOrWhiteSpace(Model.Body) && !string.Equals("<p></p>\n", Model.Body))
+{
+    <div class="@titleHack alt-container-row">
+        <div class="grid-container showcase-body">
+            <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
+                @if (!string.IsNullOrWhiteSpace(Model.BodySubheading))
+                {
+                    <div class="grid-100">
+                        <h2 class="text-centre">@Model.BodySubheading</h2>
+                    </div>
+                }
+                <div class="grid-100 grid-parent">
+                    @Html.Raw(Model.Body)
+                </div>
+
+            </div>
+        </div>
+    </div>
+    titleHack = string.Empty;
+}
+
