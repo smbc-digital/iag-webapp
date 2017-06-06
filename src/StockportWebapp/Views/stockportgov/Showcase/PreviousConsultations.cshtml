@@ -36,6 +36,7 @@
                         @foreach (var item in Model.Consultations)
                         {
                             var date = item.ClosingDate.Date == DateTime.Now.AddDays(-1).Date ? "Yesterday" : item.ClosingDate.ToString("dd MMMM yyyy");
+                            date = item.ClosingDate.Date == DateTime.Now.Date ? "Earlier today" : date;
                             <a href="@item.Link">
                                 <div class="grid-100 sk-table-row grid-parent">
                                     <div class="sk-table-cell">
