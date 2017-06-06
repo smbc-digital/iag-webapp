@@ -56,27 +56,19 @@ namespace StockportWebapp.Controllers
             if (string.IsNullOrEmpty(referer)) return NotFound();
 
             var redirectUrl = new UriBuilder(referer).Path;
-            var message = "We have been unable to process the request. Please try again later.";           
+            var message = "We have been unable to process the request. Please try again later.";
 
-            if (contactUsDetails.ServiceEmailId == "admissions.support@stockport.gov.uk")
+            if (ModelState.IsValid)
             {
-                message = "We have been unable to process the request as the schools admissions form is temporarily disabled. Please try again after 21st May 2017.";
-                _logger.LogInformation("Attempted to send an email to admissions.support but we stopped that");
+                var successCode = await SendEmailMessage(contactUsDetails);
+                if (IsSuccess(successCode))
+                {
+                    return RedirectToAction("ThankYouMessage", routeValues: new { referer = redirectUrl });
+                }
             }
             else
             {
-                if (ModelState.IsValid)
-                {                                 
-                    var successCode = await SendEmailMessage(contactUsDetails);
-                    if (IsSuccess(successCode))
-                    {
-                        return RedirectToAction("ThankYouMessage", routeValues: new { referer = redirectUrl });
-                    }
-                }
-                else
-                {
-                    message = GetErrorsFromModelState(ModelState);
-                }
+                message = GetErrorsFromModelState(ModelState);
             }
 
             var toUrl = $"{redirectUrl}?message={message}" + "#error-message-anchor";
@@ -87,7 +79,7 @@ namespace StockportWebapp.Controllers
         {
             var result = String.Empty;
             var response = await _repository.Get<ContactUsId>(serviceEmailId);
-           
+
             if (!response.IsSuccessful())
             {
                 ModelState.AddModelError(string.Empty, "We are currently having issues sending your inquiry. You can email your message to webcontent@stockport.gov.uk");
@@ -156,5 +148,5 @@ namespace StockportWebapp.Controllers
             return await Task.FromResult(View("ThankYouMessage", referer));
         }
     }
-    
+
 }
