@@ -1,9 +1,9 @@
 ﻿---
 prod: &prod
   GroupsAutoCompleteLocation: true
+  ShowcaseConsultations: true
   GroupManagement: false
   ManageYourGroupButton: false
-  ShowcaseConsultations: false
   ContactUsIds: false
   ExportGroupToPdf: false
 
@@ -11,7 +11,6 @@ stage: &stage
   << : *prod
   GroupManagement: true
   ManageYourGroupButton: true
-  ShowcaseConsultations: true
 
 qa: &qa
   << : *prod
