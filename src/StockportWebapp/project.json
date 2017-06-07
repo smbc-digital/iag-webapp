@@ -77,11 +77,13 @@
       "NLog.config",
       "version.txt",
       "sha.txt",
-      "featureToggles.yml"
+      "featureToggles.yml",
+      "pdf.js"
     ]
   },
 
   "scripts": {
+    "prepublish": [ "npm install" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
