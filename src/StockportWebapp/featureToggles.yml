@@ -17,6 +17,7 @@ qa: &qa
   << : *prod
   << : *stage
   ContactUsIds: true
+  ExportGroupToPdf: true
 
 int: &int
   << : *prod
@@ -28,4 +29,3 @@ local:
   << : *stage
   << : *qa
   << : *int
-  ExportGroupToPdf: true
