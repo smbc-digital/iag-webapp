@@ -124,7 +124,7 @@ namespace StockportWebapp.Controllers
                 (new EmailMessage(messageSubject,
                 CreateMessageBody(contactUsDetails),
                 fromEmail,
-                contactUsDetails.ServiceEmailId,
+                contactUsDetails.ServiceEmail,
                 contactUsDetails.Email,
                 new List<IFormFile>()));
         }
