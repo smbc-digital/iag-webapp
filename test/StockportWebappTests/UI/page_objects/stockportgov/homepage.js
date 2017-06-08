@@ -67,11 +67,11 @@ var methods = {
         browser.useXpath()
             .click("//a[contains(@href,'/atoz/" + letter + "')]");
     },
-    closeCookieBanner: function(browser) {
-        this.waitForElementVisible('.cc_banner.cc_container.cc_container--open', this.api.globals.timeOut);
-        browser.pause(700);
-        browser.click(".cc_btn.cc_btn_accept_all");
-    }
+    // closeCookieBanner: function(browser) {
+    //     this.waitForElementVisible('.cc_banner.cc_container.cc_container--open', this.api.globals.timeOut);
+    //     browser.pause(700);
+    //     browser.click(".cc_btn.cc_btn_accept_all");
+    // }
 };
 
 module.exports = {
