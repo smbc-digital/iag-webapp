@@ -1,5 +1,5 @@
 defaultConfiguration = {
-  testUri : 'http://192.168.99.100:5000',
+  testUri : 'https://int-windows-iag-origin.smbcdigital.net',
   timeOut : 10000
   // for development environment have a different emailAlertsUrl set
 };
