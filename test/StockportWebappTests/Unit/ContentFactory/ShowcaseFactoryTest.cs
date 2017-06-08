@@ -14,11 +14,13 @@ namespace StockportWebappTests.Unit.ContentFactory
 {
     public class ShowcaseFactoryTest
     {
-
+        private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+        private readonly Mock<MarkdownWrapper> _markdownWrapper;
 
         public ShowcaseFactoryTest()
         {
-
+            _tagParserContainer = new Mock<ISimpleTagParserContainer>();           
+            _markdownWrapper = new Mock<MarkdownWrapper>();
         }
 
         [Fact]
@@ -31,6 +33,7 @@ namespace StockportWebappTests.Unit.ContentFactory
                 .Teaser("test teaser")
                 .Subheading("test subheading")
                 .HeroImageUrl("test-image-url.jpg")
+                .Body("body")
                 .Breadcrumbs(new List<Crumb> { new Crumb("test link", "test title", "test type") })
                 .FeaturedItems(new List<SubItem>
         {
@@ -38,7 +41,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         })
                 .Build();
 
-            var _showcaseFactory = new ShowcaseFactory();
+            var _showcaseFactory = new ShowcaseFactory(_tagParserContainer.Object, _markdownWrapper.Object);
 
             // Act
             var processedShowcase = _showcaseFactory.Build(showcase);

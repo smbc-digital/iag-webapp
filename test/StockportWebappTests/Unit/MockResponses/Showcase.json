@@ -5,9 +5,12 @@
   "subheading": "test subheading",
   "eventCategory": "event category",
   "newsSubheading": "news subheading",
-  "newsCategory": "news category",
-  "newsArticle":  null, 
+  "newsCategoryTag": "news category tag",
+  "newsCategoryOrTag": "news category or tag",
+  "newsArticle": null,
   "eventSubheading": "event subheading",
+  "bodySubheading": "body subheading",
+  "body": "body", 
   "heroImageUrl": "heroImageUrl.jpg",
   "featuredItems": [
     {
@@ -43,3 +46,6 @@
   ],
   "events": []
 }
+
+ 
+       

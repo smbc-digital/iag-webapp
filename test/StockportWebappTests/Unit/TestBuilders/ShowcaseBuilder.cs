@@ -14,8 +14,10 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _eventCategory = "event category";
         private string _newsSubheading = "news subheading";
         private string _newsCategory = "news category";
+        private string _bodySubheading = "body subheading";
+        private string _body = "body";
         private string _heroImageUrl = "image-url.jpg";
-        private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() {new Crumb("link", "title", "type")};
+        private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
         private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
         private IEnumerable<Event> _events = new List<Event>();
@@ -26,7 +28,7 @@ namespace StockportWebappTests.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
+            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
         }
 
         public ShowcaseBuilder Title(string title)
@@ -62,6 +64,18 @@ namespace StockportWebappTests.Unit.TestBuilders
         public ShowcaseBuilder EventCategory(string category)
         {
             _eventCategory = category;
+            return this;
+        }
+
+        public ShowcaseBuilder BodySubheading(string subheading)
+        {
+            _bodySubheading = subheading;
+            return this;
+        }
+
+        public ShowcaseBuilder Body(string body)
+        {
+            _body = body;
             return this;
         }
 

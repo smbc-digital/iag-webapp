@@ -30,7 +30,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             const string showcaseSlug = "showcase-slug";
             var showcase = new ProcessedShowcase("Test showcase", showcaseSlug, "showcase teaser",
-                                                 "showcase subheading", "event category", "event subheading", "news subheading", "news category", "news type", null, "af981b9771822643da7a03a9ae95886f/picture.jpg",
+                                                 "showcase subheading", "event category", "event subheading", "news subheading", "news category", "news type", "body subheading", "body", null, "af981b9771822643da7a03a9ae95886f/picture.jpg",
                                                  new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") }, new List<Consultation>(), new List<SocialMediaLink>(), new List<Event>());
 
             _fakeRepository.Set(new HttpResponse(200, showcase, string.Empty));

@@ -37,7 +37,7 @@ namespace StockportWebapp.Controllers
             var article = articleHttpResponse.Content as ProcessedArticle;
 
             _contactUsMessageParser.Parse(article, message, "");
-
+            
             var viewModel = new ArticleViewModel(article);
 
             return View(viewModel);

@@ -51,6 +51,10 @@ namespace StockportWebapp.Controllers
             {
                 contactUsDetails.ServiceEmail = await GetEmailAddressFromId(contactUsDetails.ServiceEmailId);
             }
+            else
+            {
+                contactUsDetails.ServiceEmail = contactUsDetails.ServiceEmailId;
+            }
 
             var referer = Request.Headers["referer"];
             if (string.IsNullOrEmpty(referer)) return NotFound();
