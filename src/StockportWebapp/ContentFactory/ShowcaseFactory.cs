@@ -32,7 +32,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.NewsCategoryTag,
                 showcase.NewsCategoryOrTag,
                 showcase.BodySubheading,
-                showcase.Body,
+                body,
                 showcase.NewsArticle,
                 showcase.HeroImageUrl,
                 showcase.FeaturedItems,
