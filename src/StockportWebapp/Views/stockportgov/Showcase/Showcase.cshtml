@@ -113,7 +113,7 @@ else
 @if (Model.Events != null && Model.Events.Any() && Model.NewsArticle != null)
 {
     <div class="@titleHack showcase-events alt-container-row">
-        @Html.Partial("ShowcaseEventCards", Model.Events)
+        @Html.Partial("ShowcaseEventCards", Model.Events.Take(3))
     </div>
     titleHack = string.Empty;
 }
