@@ -19,7 +19,7 @@ namespace StockportWebapp.ContentFactory
         public virtual ProcessedShowcase Build(Showcase showcase)
         {
             var body = _tagParserContainer.ParseAll(showcase.Body);
-            body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
+            showcase.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
 
             return new ProcessedShowcase(
                 showcase.Title,
@@ -32,7 +32,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.NewsCategoryTag,
                 showcase.NewsCategoryOrTag,
                 showcase.BodySubheading,
-                body,
+                showcase.Body,
                 showcase.NewsArticle,
                 showcase.HeroImageUrl,
                 showcase.FeaturedItems,
