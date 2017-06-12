@@ -60,7 +60,6 @@ namespace StockportWebappTests.Unit.Controllers
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null);
 
-
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
@@ -297,7 +296,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, new List<Crumb>(), _location, false, null, null);
+                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators());
 
                 listOfGroups.Add(group);
             }
