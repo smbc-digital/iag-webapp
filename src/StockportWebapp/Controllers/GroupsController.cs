@@ -185,6 +185,18 @@ namespace StockportWebapp.Controllers
             return new ContentResult();
         }
 
+        [Route("/groups/manage/{slug}/users")]
+        public async Task<IActionResult> Users(string slug)
+        {
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            return View(group);
+        }
+
         [Route("/groups/thank-you-message")]
         public IActionResult ThankYouMessage()
         {

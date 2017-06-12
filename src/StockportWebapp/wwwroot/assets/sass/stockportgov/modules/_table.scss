@@ -44,7 +44,7 @@
         }
     }
 
-    a:hover .sk-table-cell .main {
+    a:hover .sk-table-cell .main, .sk-table-cell .link {
         text-decoration: underline;
     }
 
@@ -78,6 +78,10 @@
         .sk-table-cell, sk-table-cell-right {
             font-size: 1.1em;
             color: #1d3837;
+
+            .mobile-bold {
+                font-weight: 600;
+            }
 
             .status {
                 color: #fff;

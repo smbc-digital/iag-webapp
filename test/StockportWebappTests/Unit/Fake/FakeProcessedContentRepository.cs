@@ -15,6 +15,12 @@ namespace StockportWebappTests.Unit.Fake
             return Task.FromResult(_response);
         }
 
+        public Task<HttpResponse> Delete<T>(string slug = "")
+        {
+            // TODO - Get working when SDK work complete
+            return Task.FromResult(_response);
+        }
+
         public void Set(HttpResponse response)
         {
             _response = response;

@@ -17,15 +17,15 @@ namespace StockportWebapp.Models
         public string ThumbnailImageUrl { get; set; }
         public List<GroupCategory> CategoriesReference { get; }
         public List<Crumb> Breadcrumbs { get; set; }
-
         public MapPosition MapPosition { get; set; }
-
         public bool Volunteering { get; set; }
         public List<Event> Events { get; set; }
+        public GroupAdministrators GroupAdministrators { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
-            string twitter, string facebook, string address, string description, string imageUrl, 
-            string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering, List<Event> events )
+            string twitter, string facebook, string address, string description, string imageUrl,
+            string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs,
+            MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators)
         {
             Name = name;
             Slug = slug;
@@ -43,6 +43,7 @@ namespace StockportWebapp.Models
             MapPosition = mapPosition;
             Volunteering = volunteering;
             Events = events;
+            GroupAdministrators = groupAdministrators;
         }
     }
 }
