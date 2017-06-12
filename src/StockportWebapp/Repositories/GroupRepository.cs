@@ -16,6 +16,8 @@ namespace StockportWebapp.Repositories
     {
         string GenerateEmailBody(GroupSubmission groupSubmission);
         Task<HttpStatusCode> SendEmailMessage(GroupSubmission groupSubmission);
+        void SendEmailArchive(ProcessedGroup group);
+        void SendEmailDelete(ProcessedGroup group);
     }
 
     public class GroupRepository : IGroupRepository
@@ -56,11 +58,27 @@ namespace StockportWebapp.Repositories
             return stringBuilder.ToString();
         }
 
-        //public string GenerateEmailBody(ProcessedGroup group, string action)
-        //{
-        //    var stringBuilder = new StringBuilder();
-        //    stringBuilder.Append()
-        //}
+        public string GenerateEmailBodyArchive(ProcessedGroup group)
+        {
+            var stringBuilder = new StringBuilder();           
+            stringBuilder.Append("<h1>"+group.Name+" has been successfully archived</h1>");
+
+            stringBuilder.Append("<p>Your group has been archived straight away. This means it has been unpublished and that people will not be able to view it on the website.</p>");
+            stringBuilder.Append("<p>Archiving the group means that you will be able republish it at any time in the future.</p>");
+
+            return stringBuilder.ToString();
+        }
+
+        public string GenerateEmailBodyDelete(ProcessedGroup group)
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.Append("<h1>" + group.Name + " has been successfully deleted</h1>");
+
+            stringBuilder.Append("<p>Your group has been removed from the website straight away.</p>");
+            stringBuilder.Append("<p>Please note, your group's information has been completely deleted from our systems and you will not be able to recover it.</p>");
+
+            return stringBuilder.ToString();
+        }
 
         public Task<HttpStatusCode> SendEmailMessage(GroupSubmission groupSubmission)
         {
@@ -83,23 +101,40 @@ namespace StockportWebapp.Repositories
                );
         }
 
-        //public Task<HttpStatusCode> SendEmailMessage(ProcessedGroup group, string action)
-        //{
-        //    var messageSubject = $"{action} {group}";
+        public void SendEmailArchive(ProcessedGroup group)
+        {
+            var messageSubject = $"Archive {group}";
 
-        //    _logger.LogInformation("Sending group submission form email");
+            _logger.LogInformation("Sending group archive email");
 
-        //    var fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
-        //        ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
-        //        : string.Empty;
+            var fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
+                ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
+                : string.Empty;
 
-        //    return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBody(),
-        //        fromEmail,
-        //       _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
-        //       groupSubmission.Email,
-        //       attachments)
-        //       );
-        //}
+            foreach (var groupAdministrator in group.GroupAdministrators.Items)
+            {
+               _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyArchive(group),
+               fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), groupAdministrator.Email, new List<IFormFile>())
+              );
+            }
+        }
 
+        public void SendEmailDelete(ProcessedGroup group)
+        {
+            var messageSubject = $"Delete {group}";
+
+            _logger.LogInformation("Sending group delete email");
+
+            var fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
+                ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
+                : string.Empty;
+
+            foreach (var groupAdministrator in group.GroupAdministrators.Items)
+            {
+                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyDelete(group),
+                fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), groupAdministrator.Email, new List<IFormFile>())
+               );
+            }
+        }
     }
 }
