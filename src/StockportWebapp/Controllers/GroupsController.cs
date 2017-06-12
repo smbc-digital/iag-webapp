@@ -16,6 +16,7 @@ using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 using Microsoft.AspNetCore.NodeServices;
+using System.ComponentModel;
 
 namespace StockportWebapp.Controllers
 {
@@ -234,6 +235,105 @@ namespace StockportWebapp.Controllers
             };
 
             return View(result);
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{slug}/delete")]
+        public async Task<IActionResult> Delete(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            ViewBag.CurrentUrl = Request?.GetUri();
+
+            return View(group);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/delete")]
+        public async Task<IActionResult> DeleteGroup(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+            var group = response.Content as ProcessedGroup;
+
+            response = await _processedContentRepository.Delete<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            // TODO - Send emails
+
+            return RedirectToAction("DeleteConfirmation", new { group = group.Name });
+        }
+
+        [Route("/groups/manage/deleteconfirmation")]
+        public async Task<IActionResult> DeleteConfirmation(string group)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(group))
+            {
+                return NotFound();
+            }
+
+            ViewBag.GroupName = group;
+
+            return View();
+        }
+
+        [Route("/groups/manage/{slug}/archive")]
+        public async Task<IActionResult> Archive(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            ViewBag.CurrentUrl = Request?.GetUri();
+
+            return View(group);
+        }
+
+        [Route("/groups/manage/{slug}/archiveconfirmation")]
+        public async Task<IActionResult> ArchiveConfirmation(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            ViewBag.CurrentUrl = Request?.GetUri();
+
+            return View(group);
         }
 
         private void DoPagination(GroupResults groupResults, int currentPageNumber)

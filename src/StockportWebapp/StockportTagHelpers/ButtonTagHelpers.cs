@@ -17,9 +17,9 @@ namespace StockportTagHelpers
             {
                 output.TagName = "button";
             }
+
             await HtmlAttributes.UpdateClassesToInclude(output, "button-default");
         }
-
     }
 
     [HtmlTargetElement("stock-button-loading", ParentTag = null)]

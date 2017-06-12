@@ -96,6 +96,9 @@
     }
 }
 
+.l-group-container {
+    padding-bottom:20px;
+}
 .group-calender-container-description {
     padding: 0px;
     flex: 1;
@@ -370,3 +373,56 @@
  .embed-map-container {
      display: none;
  }
+
+ .l-group-content {
+
+     .centre {
+         text-align: center;
+     }
+
+     .green {
+         color: #119046;
+     }
+
+     .tick {
+         margin-bottom: 20px;
+     }
+
+     h2 {
+         margin-top:-15px;
+         margin-bottom:0;
+     }
+ }
+
+ .mixed-buttons {
+
+     padding-bottom: 20px;
+
+    @media #{$tablet,$desktop} {
+         .button-default {
+            padding-right:0;
+            padding-left:0;
+         }
+     }
+
+    @media #{$mobile} {
+         button.button-default {
+             width:100%;
+         }
+     }
+ }
+
+.button-default {
+
+    &.white {
+        border: solid 1px #DFDFDF;
+        color: #1d3837;
+        background-color: transparent;
+    }
+
+    &.grey {
+        border: solid 1px #7d7d7d;
+        color: #fff;
+        background-color: #7d7d7d;
+    }
+}
