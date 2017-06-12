@@ -1,0 +1,51 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model StockportWebapp.ProcessedModels.ProcessedGroup
+
+@{
+    ViewData["Title"] = "Archive " + Model.Name;
+    ViewData["og:title"] = "Archive " + Model.Name;
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Name, "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@Model.Name content">
+                <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
+                    <div class="grid-100">
+                        <h1 class="group-article-title">@ViewData["Title"]</h1>
+                    </div>
+                    <div class="grid-100">
+                        <h2>Leave your group for a later date</h2>
+                        <div>
+                            <p>Archiving your group means that you can unpublish it on the website and republish it at a later date.</p>
+                            <p>This is useful if your group is taking a break, or if it is seasonal.</p>
+                            <p>You will still be able to access all of your group's information via the 'manage your group' page.</p>
+                            <p>
+                                <strong>Are you sure you want to archive your group?</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid-30 mixed-buttons">
+                        <div>
+                            @using (Html.BeginForm("ArchiveGroup", "Groups", FormMethod.Post))
+                            {
+                                <stock-button class="">Archive my group</stock-button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+

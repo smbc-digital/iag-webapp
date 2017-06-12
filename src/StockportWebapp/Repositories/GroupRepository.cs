@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Repositories
@@ -55,6 +56,12 @@ namespace StockportWebapp.Repositories
             return stringBuilder.ToString();
         }
 
+        //public string GenerateEmailBody(ProcessedGroup group, string action)
+        //{
+        //    var stringBuilder = new StringBuilder();
+        //    stringBuilder.Append()
+        //}
+
         public Task<HttpStatusCode> SendEmailMessage(GroupSubmission groupSubmission)
         {
             var messageSubject = $"[Group] - {groupSubmission.Name}";
@@ -75,5 +82,24 @@ namespace StockportWebapp.Repositories
                attachments)
                );
         }
+
+        //public Task<HttpStatusCode> SendEmailMessage(ProcessedGroup group, string action)
+        //{
+        //    var messageSubject = $"{action} {group}";
+
+        //    _logger.LogInformation("Sending group submission form email");
+
+        //    var fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
+        //        ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
+        //        : string.Empty;
+
+        //    return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBody(),
+        //        fromEmail,
+        //       _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
+        //       groupSubmission.Email,
+        //       attachments)
+        //       );
+        //}
+
     }
 }
