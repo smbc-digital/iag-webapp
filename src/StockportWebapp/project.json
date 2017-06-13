@@ -79,7 +79,9 @@
       "sha.txt",
       "featureToggles.yml",
       "pdf.js",
-      "node_modules"
+      "node_modules/jsreport-core",
+      "node_modules/jsreport-jsrender",
+      "node_modules/jsreport-phantom-pdf"
     ]
   },
 
