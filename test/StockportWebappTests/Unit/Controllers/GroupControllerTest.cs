@@ -44,7 +44,7 @@ namespace StockportWebappTests.Unit.Controllers
             _fakeRepository = new FakeProcessedContentRepository();
             _groupRepository = new Mock<IGroupRepository>();
             _filteredUrl = new Mock<IFilteredUrl>();
-            _featureToggle = new FeatureToggles();
+            _featureToggle = new FeatureToggles() {GroupManagement = true};
             _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object, _featureToggle, null);
 
             // setup mocks
@@ -130,6 +130,30 @@ namespace StockportWebappTests.Unit.Controllers
 
             actionResponse.Should().BeOfType<ViewResult>();
             _groupRepository.Verify(o => o.SendEmailMessage(groupSubmission), Times.Never);
+        }
+
+        [Fact]
+        public void ItShouldGetARedirectResultForDelete()
+        {
+            var slug = "deleteSlug";
+            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null);
+            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.DeleteGroup(slug)) as RedirectToActionResult;
+            actionResponse.ActionName.Should().Be("DeleteConfirmation");
+        }
+
+        [Fact]
+        public void ItShouldGetARedirectResultForArchive()
+        {
+            var slug = "archiveSlug";
+            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null);
+            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.ArchiveGroup(slug)) as RedirectToActionResult;
+            actionResponse.ActionName.Should().Be("ArchiveConfirmation");
         }
 
         [Fact]
