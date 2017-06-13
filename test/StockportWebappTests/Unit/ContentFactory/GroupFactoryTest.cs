@@ -35,6 +35,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private MapPosition _mapPosition = new MapPosition() {Lat=39.0, Lon = 2.0};
         private bool _volunteering = false;
         private List<Event> Events = new List<Event>();
+        private GroupAdministrators _groupAdministrators = new GroupAdministrators();
 
 
         public GroupFactoryTest()
@@ -43,24 +44,24 @@ namespace StockportWebappTests.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
-            _group = new Group(
-                name: Name,
-                slug: Slug,
-                description: Description,
-                imageUrl: Image,
-                thumbnailImageUrl: ThumbnailImage,
-                address: Address,
-                website: Website,
-                email: Email,
-                phoneNumber: PhoneNumber,
-                breadcrumbs: _breadcrumbs,
-                categoriesReference: CategoriesReference,
-                facebook: Facebook,
-                twitter: Twitter,
-                mapPosition: _mapPosition,
-                volunteering: _volunteering,
+            _group = new Group(            
+                name : Name,
+                slug : Slug,
+                description : Description,
+                imageUrl : Image,
+                thumbnailImageUrl : ThumbnailImage,
+                address : Address,
+                website : Website,
+                email :Email,
+                phoneNumber : PhoneNumber,
+                breadcrumbs : _breadcrumbs,
+                categoriesReference : CategoriesReference,
+                facebook : Facebook,
+                twitter : Twitter,
+                mapPosition:_mapPosition,
+                volunteering:_volunteering,
                 events: Events,
-                groupAdministrators: null
+                groupAdministrators: _groupAdministrators
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);

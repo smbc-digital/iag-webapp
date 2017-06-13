@@ -367,9 +367,8 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful()) return response;
 
-            // TODO - Send emails
-
-            return RedirectToAction("DeleteConfirmation", new { group = group.Name });
+            _groupRepository.SendEmailDelete(group);
+           return RedirectToAction("DeleteConfirmation", new { group = group.Name });
         }
 
         [Route("/groups/manage/deleteconfirmation")]
@@ -407,6 +406,28 @@ namespace StockportWebapp.Controllers
             ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(group);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/archive")]
+        public async Task<IActionResult> ArchiveGroup(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+            var group = response.Content as ProcessedGroup;
+
+            response = await _processedContentRepository.Archive<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+           
+            _groupRepository.SendEmailArchive(group);
+            return RedirectToAction("ArchiveConfirmation", new { group = group.Name });
         }
 
         [Route("/groups/manage/{slug}/archiveconfirmation")]

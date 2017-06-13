@@ -78,7 +78,8 @@
       "version.txt",
       "sha.txt",
       "featureToggles.yml",
-      "pdf.js"
+      "pdf.js",
+      "node_modules"
     ]
   },
 
