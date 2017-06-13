@@ -197,6 +197,86 @@ namespace StockportWebapp.Controllers
             return View(group);
         }
 
+        [HttpGet]
+        [Route("/groups/manage/{slug}/newuser")]
+        public async Task<IActionResult> NewUser(string slug)
+        {
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            var model = new NewUserViewModel();
+            model.Slug = slug;
+            model.Name = group.Name;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/newuser")]
+        public async Task<IActionResult> NewUser(NewUserViewModel model)
+        {
+            var response = await _processedContentRepository.Get<Group>(model.Slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            {
+                return NotFound();
+            }
+            else if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+            }
+            else if (group.GroupAdministrators.Items.Any(u => u.Email == model.GroupAdministratorItem.Email))
+            {
+                ViewBag.SubmissionError = "Sorry, this email already exists for this group. You can only assign an email to a group once.";
+            }
+            else
+            {
+                group.GroupAdministrators.Items.Add(model.GroupAdministratorItem);
+                // TODO - Save this group to contentful 
+                return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
+            }
+
+            return View(model);
+        }
+
+        [Route("/groups/manage/{slug}/newuserconfirmation")]
+        public async Task<IActionResult> NewUserConfirmation(string slug, string email, string groupName)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(email))
+            {
+                return NotFound();
+            }
+
+            ViewBag.Slug = slug;
+            ViewBag.Email = email;
+            ViewBag.GroupName = groupName;
+
+            return View();
+        }
+
+        private bool HasGroupPermission(string email, ProcessedGroup group, string permission = "E")
+        {
+            if (group.GroupAdministrators.Items.Any(a => a.Email == email && a.Permission == permission))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         [Route("/groups/thank-you-message")]
         public IActionResult ThankYouMessage()
         {
@@ -287,9 +367,8 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful()) return response;
 
-            // TODO - Send emails
-
-            return RedirectToAction("DeleteConfirmation", new { group = group.Name });
+            _groupRepository.SendEmailDelete(group);
+           return RedirectToAction("DeleteConfirmation", new { group = group.Name });
         }
 
         [Route("/groups/manage/deleteconfirmation")]
@@ -327,6 +406,28 @@ namespace StockportWebapp.Controllers
             ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(group);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/archive")]
+        public async Task<IActionResult> ArchiveGroup(string slug)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+            var group = response.Content as ProcessedGroup;
+
+            response = await _processedContentRepository.Archive<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+           
+            _groupRepository.SendEmailArchive(group);
+            return RedirectToAction("ArchiveConfirmation", new { group = group.Name });
         }
 
         [Route("/groups/manage/{slug}/archiveconfirmation")]

@@ -4,8 +4,8 @@
 @model StockportWebapp.ProcessedModels.ProcessedGroup
 
 @{
-    ViewData["Title"] = "Delete " + Model.Name;
-    ViewData["og:title"] = "Delete " + Model.Name;
+    ViewData["Title"] = "Archive " + Model.Name;
+    ViewData["og:title"] = "Archive " + Model.Name;
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     Layout = "../Shared/_Layout.cshtml";
@@ -25,25 +25,22 @@
                         <h1 class="group-article-title">@ViewData["Title"]</h1>
                     </div>
                     <div class="grid-100">
-                        <h2>We're sad to see you go</h2>
+                        <h2>Leave your group for a later date</h2>
                         <div>
-                            <p>Deleting your group will mean that it is completely removed from the website. You will not be able to recover any of the group's information.</p>
-                            <p>If you think your group will be back up and running in the future, you can archive your group and publish it again when you need to.</p>
-                            <p>if you came here by accident, you can <a href="@Url.Action("ManageGroup", "Groups", new { slug = Model.Slug })">go back to manage your group</a>.</p>
+                            <p>Archiving your group means that you can unpublish it on the website and republish it at a later date.</p>
+                            <p>This is useful if your group is taking a break, or if it is seasonal.</p>
+                            <p>You will still be able to access all of your group's information via the 'manage your group' page.</p>
                             <p>
-                                <strong>Are you sure you want to delete your group?</strong>
+                                <strong>Are you sure you want to archive your group?</strong>
                             </p>
                         </div>
                     </div>
                     <div class="grid-30 mixed-buttons">
                         <div>
-                            @using (Html.BeginForm("DeleteGroup", "Groups", FormMethod.Post))
+                            @using (Html.BeginForm("ArchiveGroup", "Groups", FormMethod.Post))
                             {
-                                <stock-button>Delete your group</stock-button>
+                                <stock-button class="">Archive my group</stock-button>
                             }
-                        </div>
-                        <div>
-                            <stock-button as-link="true" class="grey" href="@Url.Action("Archive", "Groups", new { slug = Model.Slug })">Archive your group</stock-button>
                         </div>
                     </div>
                 </div>

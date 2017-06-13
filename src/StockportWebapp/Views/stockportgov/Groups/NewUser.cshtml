@@ -1,0 +1,80 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Helpers
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model NewUserViewModel
+@{
+    ViewData["Title"] = "Add a new user";
+    ViewData["og:title"] = "Add a new user";
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Name, "groups") , new Crumb("Users", "manage/" + Model.Name + "/users", "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="content">
+                <div class="l-content-container grid-100 group-margin" id="group-padding">
+                    <h1 class="group-article-title">Add a user</h1>
+                    @if (ViewBag.SubmissionError != null)
+                    {
+                        <div id="error-message-anchor"></div>
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                <div class="alert-icon">
+                                    <i class="fa fa-exclamation fa-3x"></i>
+                                </div>
+                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                    <h3>There has been a problem: </h3>
+                                    <p>@ViewBag.SubmissionError</p>
+                                </div>
+                            </div>
+                    }
+                    <noscript>
+                        <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                            <div class="alert-icon">
+                                <i class="fa fa-exclamation fa-3x"></i>
+                            </div>
+                            <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                <h3>There has been a problem: </h3>
+                                <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
+                            </div>
+                        </div>
+                    </noscript>
+                    <div class="grid-container grid-parent group-form">
+                        @using (Html.BeginForm("NewUser", "Groups", FormMethod.Post))
+                        {
+                        <div class="grid-100 grid-parent">
+                            <div>Adding a new user will mean that they are able to make changes to your group's information. They will be able to add and remove new users to your group.</div>
+                            <label asp-for="@Model.GroupAdministratorItem.Email">Enter their email address</label>
+                            <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.GroupAdministratorItem.Email" />
+                            <span asp-validation-for="@Model.GroupAdministratorItem.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                            <label asp-for="@Model.GroupAdministratorItem.Permission">Select their role</label>
+                            <div>An administrator can change all information on your group's page and is also able to add and remove users.</div>
+                            <div>An editor can only change information on your group's page and is not allowed to add or remove users.</div>
+                            <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="@Model.GroupAdministratorItem.Permission">
+                                <option disabled selected hidden value="">
+                                    Select permission
+                                </option>
+                                @foreach (var item in Model.SelectList)
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.GroupAdministratorItem.Permission" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                        </div>
+                        <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
+                            <stock-button class="">Add new user</stock-button>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

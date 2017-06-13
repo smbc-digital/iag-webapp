@@ -25,5 +25,10 @@ namespace StockportWebappTests.Unit.Fake
         {
             _response = response;
         }
+        
+        public Task<HttpResponse> Archive<T>(string slug = "")
+        {
+            return Task.FromResult(_response);
+        }
     }
 }

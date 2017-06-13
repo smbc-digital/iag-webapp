@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="grid-25 tablet-grid-40 hide-on-mobile sk-table-cell">
                                         <div class="header-right-button">
-                                            <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
+                                            <stock-button as-link="true" class="white no-margin" href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                                 {
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell grid-60 tablet-grid-60 mobile-grid-100">
-                                            <span class="main">@user.Email</span>
+                                            <span class="main mobile-bold">@user.Email</span>
                                         </div>
                                         <div class="sk-table-cell grid-30 tablet-grid-25 mobile-grid-100">
                                             <span>@GroupPermissionHelper.GetPermisison(user.Permission)</span>
@@ -66,7 +66,7 @@
                                 }
 
                                 <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
-                                    <stock-button as-link="true" class="sk-table white" href="@Url.Action("AddUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
+                                    <stock-button as-link="true" class="sk-table white" href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
                                 </div>
                             </div>
                         </div>

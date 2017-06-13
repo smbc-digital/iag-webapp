@@ -1,0 +1,43 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+
+@model StockportWebapp.ProcessedModels.ProcessedGroup
+
+@{
+    ViewData["Title"] = "Archive " + Model.Name;
+    ViewData["og:title"] = "Archive " + ViewBag.GroupName;
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + ViewBag.GroupName, "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@ViewData["Title"] content">
+                <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
+                    <div class="grid-100 centre">
+                        <h1 class="group-article-title">@ViewData["Title"]</h1>
+                        <div class="icon-bordered icon-bordered-fixed green tick">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                        </div>
+                        <h2>We've received your request to archive your group</h2>
+                    </div>
+                    <div class="grid-100 centre">
+                        <p>Your group will be unpublished and will be removed from the website.</p>
+                        <p>When you want your group to appear again, you can republish the group at any time.</p>
+                    </div>
+                    <div class="grid-100 centre mixed-buttons">
+                        <stock-button as-link="true" href="@Url.Action("Manage", "Groups")">Go back to manage your groups</stock-button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
