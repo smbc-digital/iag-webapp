@@ -2,7 +2,7 @@
 @using StockportWebapp.Helpers
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
-@model NewUserViewModel
+@model AddEditUserViewModel
 @{
     ViewData["Title"] = "Add a new user";
     ViewData["og:title"] = "Add a new user";
@@ -54,12 +54,12 @@
                             <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.GroupAdministratorItem.Email" />
                             <span asp-validation-for="@Model.GroupAdministratorItem.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                            <label asp-for="@Model.GroupAdministratorItem.Permission">Select their role</label>
+                            <label asp-for="@Model.GroupAdministratorItem.Permission" class="clearfix">Select their role</label>
                             <div>An administrator can change all information on your group's page and is also able to add and remove users.</div>
                             <div>An editor can only change information on your group's page and is not allowed to add or remove users.</div>
                             <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="@Model.GroupAdministratorItem.Permission">
                                 <option disabled selected hidden value="">
-                                    Select permission
+                                    Select role
                                 </option>
                                 @foreach (var item in Model.SelectList)
                                 {

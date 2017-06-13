@@ -207,7 +207,13 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            var model = new NewUserViewModel();
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            {
+                return NotFound();
+            }
+
+            var model = new AddEditUserViewModel();
             model.Slug = slug;
             model.Name = group.Name;
 
@@ -216,7 +222,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/groups/manage/{slug}/newuser")]
-        public async Task<IActionResult> NewUser(NewUserViewModel model)
+        public async Task<IActionResult> NewUser(AddEditUserViewModel model)
         {
             var response = await _processedContentRepository.Get<Group>(model.Slug);
 
@@ -249,6 +255,85 @@ namespace StockportWebapp.Controllers
 
         [Route("/groups/manage/{slug}/newuserconfirmation")]
         public async Task<IActionResult> NewUserConfirmation(string slug, string email, string groupName)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(email))
+            {
+                return NotFound();
+            }
+
+            ViewBag.Slug = slug;
+            ViewBag.Email = email;
+            ViewBag.GroupName = groupName;
+
+            return View();
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{slug}/edituser")]
+        public async Task<IActionResult> EditUser(string slug, string email)
+        {
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            {
+                return NotFound();
+            }
+
+            var groupAdministrator = group.GroupAdministrators.Items.Where(i => i.Email == email).FirstOrDefault();
+            if (groupAdministrator == null)
+            {
+                return NotFound();
+            }
+
+            var model = new AddEditUserViewModel();
+            model.Slug = slug;
+            model.Name = group.Name;
+            model.GroupAdministratorItem = groupAdministrator;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/edituser")]
+        public async Task<IActionResult> EditUser(AddEditUserViewModel model)
+        {
+            var response = await _processedContentRepository.Get<Group>(model.Slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            {
+                return NotFound();
+            }
+            else if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+            }
+            else
+            {
+                group.GroupAdministrators.Items.Where(i => i.Email == model.GroupAdministratorItem.Email).First().Permission = model.GroupAdministratorItem.Permission;
+                // TODO - Save this group to contentful 
+                return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
+            }
+
+            return View(model);
+        }
+
+        [Route("/groups/manage/{slug}/edituserconfirmation")]
+        public async Task<IActionResult> EditUserConfirmation(string slug, string email, string groupName)
         {
             if (!_featureToggle.GroupManagement)
             {

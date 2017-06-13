@@ -4,8 +4,8 @@
 @using StockportWebapp.ProcessedModels
 @model ProcessedGroup
 @{
-    ViewData["Title"] = "Add or remove users";
-    ViewData["og:title"] = "Add or remove users";
+    ViewData["Title"] = "Users";
+    ViewData["og:title"] = "Users";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     Layout = "../Shared/_Layout.cshtml";
@@ -60,19 +60,19 @@
                                             <span>@GroupPermissionHelper.GetPermisison(user.Permission)</span>
                                         </div>
                                         <div class="sk-table-cell grid-10 tablet-grid-15 mobile-grid-100">
-                                            <span class="link"><a href="#">Edit user</a></span>
+                                            <span class="link"><a href="@Url.Action("EditUser", "Groups", new { slug = Model.Slug, email = user.Email })">Edit user</a></span>
                                         </div>
                                     </div>
-                                }
+                                    }
 
-                                <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
-                                    <stock-button as-link="true" class="sk-table white" href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
+                                    <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
+                                        <stock-button as-link="true" class="sk-table white" href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
     </div>
-</div>

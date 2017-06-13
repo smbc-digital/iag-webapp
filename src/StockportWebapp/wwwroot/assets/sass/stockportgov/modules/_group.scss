@@ -429,19 +429,19 @@
 
 .group-form {
 
-    padding-bottom:40px;
+    padding-bottom: 20px;
 
     label {
         display:block;
-        font-weight:600;
+        font-weight: 600;
     }
 
     input, select {
-        display:block;
-        font-size:1.2em;
-        height:2em;
-        width:500px;
-        padding:0;
+        display: block;
+        font-size: 1.2em;
+        height: 2em;
+        width: 500px;
+        padding: 0;
 
         @media #{$mobile} {
             width:100%;
@@ -462,5 +462,25 @@
         @media #{$mobile} {
             width:100%;
         }
+    }
+
+    .full-button {
+        box-sizing: border-box;
+        display:block;
+        width:500px;
+        padding-right: 0;
+        padding-left: 0;
+        margin-top:5px;
+        @media #{$mobile} {
+            width:100%;
+        }
+    }
+
+    .top-gap {
+        padding-top: 10px;
+    }
+
+    .remove-user {
+        padding: 10px 0;
     }
 }
