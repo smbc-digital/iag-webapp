@@ -405,11 +405,11 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             _groupRepository.SendEmailDelete(group);
-            return RedirectToAction("RemoveUserConfirmation", new { group = group.Name });
+            return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, email = model.Email });
         }
 
         [Route("/groups/manage/removeconfirmation")]
-        public IActionResult RemoveUserConfirmation(string group)
+        public IActionResult RemoveUserConfirmation(string group, string slug, string email)
         {
             if (!_featureToggle.GroupManagement)
             {
@@ -420,10 +420,14 @@ namespace StockportWebapp.Controllers
             {
                 return NotFound();
             }
+            var model = new RemoveUserViewModel()
+            {
+                Slug = slug,
+                Email = email,
+                GroupName = group,
+            };           
 
-            ViewBag.GroupName = group;
-
-            return View();
+            return View(model);
         }
 
         private bool HasGroupPermission(string email, ProcessedGroup group, string permission = "E")

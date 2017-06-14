@@ -103,7 +103,7 @@ namespace StockportWebapp.Repositories
 
         public void SendEmailArchive(ProcessedGroup group)
         {
-            var messageSubject = $"Archive {group}";
+            var messageSubject = $"Archive {group.Name}";
 
             _logger.LogInformation("Sending group archive email");
 
@@ -111,17 +111,21 @@ namespace StockportWebapp.Repositories
                 ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
                 : string.Empty;
 
+            _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyArchive(group),
+                fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), group.Email,
+                new List<IFormFile>()));
+
             foreach (var groupAdministrator in group.GroupAdministrators.Items)
             {
                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyArchive(group),
-               fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), groupAdministrator.Email, new List<IFormFile>())
+               fromEmail, groupAdministrator.Email, new List<IFormFile>())
               );
             }
         }
 
         public void SendEmailDelete(ProcessedGroup group)
         {
-            var messageSubject = $"Delete {group}";
+            var messageSubject = $"Delete {group.Name}";
 
             _logger.LogInformation("Sending group delete email");
 
@@ -129,10 +133,14 @@ namespace StockportWebapp.Repositories
                 ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
                 : string.Empty;
 
+            _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyArchive(group),
+                fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), group.Email,
+                new List<IFormFile>()));
+
             foreach (var groupAdministrator in group.GroupAdministrators.Items)
             {
                 _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyDelete(group),
-                fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), groupAdministrator.Email, new List<IFormFile>())
+                fromEmail, groupAdministrator.Email, new List<IFormFile>())
                );
             }
         }
