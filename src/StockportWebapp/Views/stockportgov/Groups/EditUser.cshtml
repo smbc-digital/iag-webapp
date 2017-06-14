@@ -54,7 +54,8 @@
                                     <div>You are currently editing: <strong>@Model.GroupAdministratorItem.Email</strong></div>
 
                                     @Html.HiddenFor(m => m.GroupAdministratorItem.Email)
-
+                                </div>
+                                <div class="grid-100 grid-parent">
                                     <label asp-for="@Model.GroupAdministratorItem.Permission" class="clearfix top-gap">Change their role</label>
                                     <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="@Model.GroupAdministratorItem.Permission">
                                         @foreach (var item in Model.SelectList)

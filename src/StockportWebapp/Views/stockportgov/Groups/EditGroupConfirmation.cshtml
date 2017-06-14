@@ -3,15 +3,15 @@
 @using StockportWebapp.ViewModels
 
 @{
-    ViewData["Title"] = "Add a new user";
-    ViewData["og:title"] = "Add a new user";
+    ViewData["Title"] = "Edit group";
+    ViewData["og:title"] = "Edit group";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     Layout = "../Shared/_Layout.cshtml";
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupName, "groups"), new Crumb("Users", "manage/" + ViewBag.GroupName + "/users", "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupName, "groups") })
 }
 
 <div class="grid-container-full-width">
@@ -25,13 +25,13 @@
                         <div class="icon-bordered icon-bordered-fixed green tick">
                             <i class="fa fa-check fa-5x" aria-hidden="true"></i>
                         </div>
-                        <h2>You've successfully added @ViewBag.Email to @ViewBag.GroupName</h2>
+                        <h2>You've successfully changed @ViewBag.GroupName</h2>
                     </div>
                     <div class="grid-100 centre">
-                        <p>This user will now be able to manage your group's information.</p>
+                        <p>The change you've made will happen straight away so they won't have to do anything.</p>
                     </div>
                     <div class="grid-100 centre mixed-buttons">
-                        <stock-button as-link="true" href="@Url.Action("Users", "Groups", new { slug = ViewBag.Slug})">Go back to add or remove users</stock-button>
+                        <stock-button as-link="true" href="@Url.Action("ManageGroup", "Groups", new { slug = ViewBag.Slug})">Go back to manage your group</stock-button>
                     </div>
                 </div>
             </section>

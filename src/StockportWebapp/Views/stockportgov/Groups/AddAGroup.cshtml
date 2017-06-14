@@ -80,10 +80,10 @@
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <label asp-for="@Model.Category1">Group category</label>
+                                        <label asp-for="@Model.Categories">Group category</label>
                                         <div class="grid-100 grid-parent category-div" id="category-div1">
                                             <div class="grid-50 tablet-grid-50 mobile-grid-50 grid-parent">
-                                                <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="Category1">
+                                                <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="Categories">
                                                     <option disabled selected hidden value="">
                                                         Select category
                                                     </option>
@@ -93,7 +93,7 @@
                                                     }
                                                 </select>
                                             </div>
-                                            <span asp-validation-for="@Model.Category1" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span asp-validation-for="@Model.Categories" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
                                         <label asp-for="@Model.Email"></label>

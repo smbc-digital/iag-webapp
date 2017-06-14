@@ -15,7 +15,7 @@ namespace StockportWebapp.Models
         public string Description { get; set; }
         public string ImageUrl { get; set; }
         public string ThumbnailImageUrl { get; set; }
-        public List<GroupCategory> CategoriesReference { get; }
+        public List<GroupCategory> CategoriesReference { get; set; }
         public List<Crumb> Breadcrumbs { get; set; }
         public MapPosition MapPosition { get; set; }
         public bool Volunteering { get; set; }

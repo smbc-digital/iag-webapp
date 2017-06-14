@@ -208,7 +208,7 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             // TODO - Replace email for the logged on users email once Auth0 is implemented
-            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -231,7 +231,7 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             // TODO - Replace email for the logged on users email once Auth0 is implemented
-            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -284,7 +284,7 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             // TODO - Replace email for the logged on users email once Auth0 is implemented
-            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -314,7 +314,7 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             // TODO - Replace email for the logged on users email once Auth0 is implemented
-            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -352,9 +352,11 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
-        private bool HasGroupPermission(string email, ProcessedGroup group, string permission = "E")
+        private bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")
         {
-            if (group.GroupAdministrators.Items.Any(a => a.Email == email && a.Permission == permission))
+            var userPermission = groupAdministrators.FirstOrDefault(a => a.Email == email)?.Permission;
+
+            if (userPermission == permission || userPermission == "A")
             {
                 return true;
             }
@@ -379,8 +381,8 @@ namespace StockportWebapp.Controllers
             var result = new GroupManagePage();
 
             var groups = new List<Tuple<string, string, string, string>>();
-            groups.Add(new Tuple<string, string, string, string>("6th Altrincham Scouts Group 6th Altrincham Scouts Group 6th Altrincham Scouts Group 6th Altrincham Scouts Group", "Published", "green", "alt-6"));
-            groups.Add(new Tuple<string, string, string, string>("7th Altrincham Scout Group", "Archived", "red", "alt-7"));
+            groups.Add(new Tuple<string, string, string, string>("Zumba", "Published", "green", "zumba"));
+            groups.Add(new Tuple<string, string, string, string>("Offerton Knitting Circle", "Archived", "red", "offerton-knitting-circle"));
             groups.Add(new Tuple<string, string, string, string>("Little Bees Dance Group", "Published", "green", "little-bees"));
             groups.Add(new Tuple<string, string, string, string>("Pannal Sports Football Club", "Pending Deletion", "yellow", "pannal"));
             groups.Add(new Tuple<string, string, string, string>("Kersel Rugby Club", "Archived", "red", "kersel"));
@@ -532,6 +534,116 @@ namespace StockportWebapp.Controllers
             ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(group);
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{slug}/editgroup")]
+        public async Task<IActionResult> EditGroup(string slug)
+        {
+            var response = await _repository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as Group;
+
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+
+            var model = new GroupSubmission();
+            model.Address = group.Address;
+            model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
+            model.CategoriesList = string.Join(",", model.Categories);
+            model.Description = group.Description;
+            model.Email = group.Email;
+            model.Facebook = group.Facebook;
+            model.Name = group.Name;
+            model.PhoneNumber = group.PhoneNumber;
+            model.Twitter = group.Twitter;
+            model.Website = group.Website;
+
+            var categoryResponse = await _repository.Get<List<GroupCategory>>();
+            var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
+            if (listOfGroupCategories != null)
+            {
+                model.AvailableCategories = listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/editgroup")]
+        public async Task<IActionResult> EditGroup(string slug, GroupSubmission model)
+        {
+            var response = await _repository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as Group;
+
+            var categoryResponse = await _repository.Get<List<GroupCategory>>();
+            var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
+            if (listOfGroupCategories != null)
+            {
+                model.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+            }
+
+            group.Address = model.Address;
+            group.Description = model.Description;
+            group.Email = model.Email;
+            group.Facebook = model.Facebook;
+
+            // TODO - Save image (if ne wone uploaded) to contentful and attach to group
+            // group.ImageUrl = foo;
+
+            group.Name = model.Name;
+            group.PhoneNumber = model.PhoneNumber;
+            group.Twitter = model.Twitter;
+            group.Website = model.Website;
+            group.Volunteering = model.Volunteering;
+
+            group.CategoriesReference = new List<GroupCategory>();
+            group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));
+
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+            else if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+            }
+            else
+            {
+                // TODO - Save this group to contentful 
+
+                return RedirectToAction("EditGroupConfirmation", new { slug = slug, groupName = group.Name });
+            }
+
+            return View(model);
+        }
+
+        [Route("/groups/manage/{slug}/editgroupconfirmation")]
+        public async Task<IActionResult> EditGroupConfirmation(string slug, string groupName)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(groupName))
+            {
+                return NotFound();
+            }
+
+            ViewBag.Slug = slug;
+            ViewBag.GroupName = groupName;
+
+            return View();
         }
 
         private void DoPagination(GroupResults groupResults, int currentPageNumber)

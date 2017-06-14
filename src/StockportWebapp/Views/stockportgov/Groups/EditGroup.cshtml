@@ -1,0 +1,302 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model GroupSubmission
+@{
+    ViewData["Title"] = "Edit your group";
+    ViewData["og:title"] = "Edit your group";
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Name, "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="" class="grid-100 mobile-grid-100">
+                <div class="l-content-container">
+                    <div class="grid-100">
+                        <h1>Edit your group</h1>
+
+                        @if (ViewBag.SubmissionError != null)
+                        {
+                            <div id="error-message-anchor"></div>
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                <div class="alert-icon">
+                                    <i class="fa fa-exclamation fa-3x"></i>
+                                </div>
+                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                    <h3>There has been a problem: </h3>
+                                    <p>@ViewBag.SubmissionError</p>
+                                </div>
+                            </div>
+                        }
+                        <noscript>
+                            <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                <div class="alert-icon">
+                                    <i class="fa fa-exclamation fa-3x"></i>
+                                </div>
+                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                    <h3>There has been a problem: </h3>
+                                    <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
+                                </div>
+                            </div>
+                        </noscript>
+                        <form asp-controller="Groups" asp-action="EditGroup" method="post" role="form" enctype="multipart/form-data">
+                            <div class="form">
+                                <div class="form-section">
+                                    <fieldset>
+                                        <label asp-for="@Model.Name"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name" />
+                                        <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Address"></label>
+                                        <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Address" />
+                                        <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <div class="grid-100">
+
+                                        </div>
+                                        
+                                        <label asp-for="@Model.Description"></label>
+                                        <i class="small">
+                                            <ul>
+                                                <li>Let people know why they should visit your group</li>
+                                                <li>Let people know how to get in touch</li>
+                                            </ul>
+                                        </i>
+                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Categories">Group category</label>
+
+                                        <input type="hidden" asp-for="@Model.CategoriesList" />
+                                        @Html.Partial("multiselect", new MultiSelect() { Limit = 3, ObjectName = "Category", ValueControlId = "categories-list", AvailableValues = Model.AvailableCategories })
+
+                                        <label asp-for="@Model.Email"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
+                                        <span asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Website"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Website" />
+                                        <span asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.PhoneNumber"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
+                                        <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Facebook"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
+                                        <span asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Twitter"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
+                                        <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <div class="recurring-event-yn">
+                                            <label asp-for="@Model.Volunteering"></label>
+                                            <ul  class="radio-list">
+                                                <li><label><input type="radio" asp-for="@Model.Volunteering" value="False" checked="checked" class="schedule_multiple_events" />No</label></li>
+                                                <li><label><input type="radio" asp-for="@Model.Volunteering" value="True" class="schedule_multiple_events" />Yes</label></li>
+                                            </ul>
+                                        </div>
+
+                                        <stock-button id="uitest-contact-form-submit"
+                                                      class="button-contact-us" >Edit your group</stock-button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // init
+        MultiSelector.Init(3, 'categories-list', 'CategoriesList');
+    });
+
+
+
+
+    var MultiSelector = (function () {
+
+        var limit = 3;
+        var className = '';
+        var hiddenValue = '';
+
+        var categoriesList;
+        var categories;
+
+        // select a dropdown
+        var selectDropdown = function (select) {
+            var links = $('.' + className + '-add', '.' + className + '-div:visible');
+            var link = links[links.length - 1];
+            if (allHaveValues()) {
+                $(link).show();
+            }
+            else {
+                $(link).hide();
+            }
+
+            resetHiddenValueList();
+            populate();
+        }
+
+        // delete a dropdown
+        var deleteDropdown = function (link) {
+            $(link).parent().parent().hide();
+            resetHiddenValueList();
+            populate();
+        }
+
+        // click add new dropdown
+        var addDropdown = function (link) {
+            var newValue = $('#' + hiddenValue).val() + ',';
+            $('#' + hiddenValue).val(newValue);
+            populate();
+        }
+
+        var hideSelectedValues = function () {
+            $('option', '.' + className + '-select').show();
+            $('.' + className + '-select').each(function (index) {
+                var outer = this;
+                var outerIndex = index;
+                var val = $(outer).val();
+                $('.' + className + '-select').each(function (index) {
+                    var inner = this;
+                    var innerIndex = index;
+                    if (outerIndex !== innerIndex) {
+                        $('option[value="' + val + '"]', inner).hide();
+                    }
+                });
+            });
+        };
+
+        var showRemoves = function () {
+            var removes = $('.' + className + '-remove');
+            $(removes).show();
+            var loneIndex = -1;
+            var hasValueCount = 0;
+            var shownCategories = $('.' + className + '-div:visible');
+            var selects = $('select', $(shownCategories));
+            $(selects).each(function (index) {
+                if ($(this).val() !== null && $(this).val() !== '') {
+                    if (loneIndex == -1) {
+                        loneIndex = index;
+                    }
+                    hasValueCount++;
+                }
+            });
+
+            if (hasValueCount == 1) {
+                $($(removes)[loneIndex]).hide();
+            }
+        };
+
+        var resetHiddenValueList = function () {
+            var shownCategories = $('.' + className + '-div:visible');
+            var arrayList = '';
+            var comma = '';
+            for (var i = 0; i < shownCategories.length; i++) {
+                if (i > 0) arrayList += ',';
+                var select = $('select', $(shownCategories)[i]);
+                arrayList += $(select).val();
+            }
+
+            $('#' + hiddenValue).val(arrayList);
+        }
+
+        var allHaveValues = function () {
+            var result = true;
+            $('.' + className + '-select:visible').each(function () {
+                result = result && $(this).val() !== null && $(this).val() !== '';
+            });
+
+            return result;
+        }
+
+        var populate = function () {
+
+            categoriesList = $('#' + hiddenValue).val();
+            categories = categoriesList.split(',');
+
+            var max = categoriesList.length > limit ? limit : categoriesList.length;
+            categories = categories.slice(0, max);
+
+            $('.' + className + '-div').hide();
+            $('.' + className + '-add').hide();
+            $('.' + className + '-remove').hide();
+            $('.' + className + '-select').val('');
+
+            $('option', '.' + className + '-select').hide();
+
+            for (var i = 0; i < categories.length; i++) {
+                var div = $('.' + className + '-div')[i];
+                if (typeof (div) !== 'undefined') {
+
+                    $(div).show();
+
+                    var select = $('.' + className + '-select')[i];
+                    if (categories[i] !== null && categories[i].length > 0) {
+                        $(select).val(categories[i]);
+                        debugger;
+                        $($(select).children()[0]).css('display', 'none');
+                    }
+
+                    $(select).off('change').on('change', function () {
+                        selectDropdown(this);
+                    });
+                }
+            }
+
+            hideSelectedValues();
+
+            var shownCategories = $('.' + className + '-div:visible');
+
+            for (var i = 0; i < shownCategories.length; i++) {
+
+                var add = $('.' + className + '-add')[i];
+
+                if (i == shownCategories.length - 1 && shownCategories.length < limit) {
+                    if (allHaveValues()) {
+                        $(add).show();
+                    }
+                    $(add).off('click').on('click', function () {
+                        addDropdown(this);
+                    });
+                }
+
+                var removeLink = $('.' + className + '-remove-link')[i];
+                $(removeLink).off('click').on('click', function () {
+                    deleteDropdown(this);
+                });
+
+                showRemoves();
+            }
+        }
+
+        return {
+            Init: function (limitTo, instanceClassName, controlIdHoldingValues) {
+                limit = limitTo;
+                className = instanceClassName;
+                hiddenValue = controlIdHoldingValues;
+                populate();
+            }
+        };
+    })();
+
+
+
+
+</script>

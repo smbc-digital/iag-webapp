@@ -53,7 +53,7 @@
 
                             @foreach (var group in Model.Groups)
                             {
-                                <a href="/groups/@group.Item4">
+                                <a href="@Url.Action("ManageGroup", "Groups", new { slug = group.Item4 })">
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell">
                                             <i class="row-arrow centre"></i>

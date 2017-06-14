@@ -48,7 +48,7 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append($"<p>Group name: {groupSubmission.Name}<br />");
             stringBuilder.Append($"Location: {groupSubmission.Address}<br />");
             stringBuilder.Append($"Group description: {groupSubmission.Description}<br />");
-            stringBuilder.Append($"Group categories: {groupSubmission.Category1}<br />");
+            stringBuilder.Append($"Group categories: {groupSubmission.Categories}<br />");
             stringBuilder.Append($"Group email address: {groupSubmission.Email}<br />");
             stringBuilder.Append($"Group website: {groupSubmission.Website}<br />");
             stringBuilder.Append($"Group phone number: {groupSubmission.PhoneNumber}<br />");

@@ -26,11 +26,10 @@ namespace StockportWebapp.Models
         [Required]
         public string Description { get; set; }
 
-        public List<string> Categories;
-
-        [Required(ErrorMessage = "Select at least one group")]
-        [MaxLength(255)]
-        public string Category1 { get; set; }
+        [Display(Name="Categories")]
+        public List<string> Categories { get; set; }
+        public string CategoriesList { get; set; }
+        public List<string> AvailableCategories { get; set; }
 
         [Required]
         [Display(Name="Group email address")]
@@ -46,6 +45,9 @@ namespace StockportWebapp.Models
         public string Website { get; set; }
 
         public string Twitter { get; set; }
-        public string Facebook { get; set; }      
+        public string Facebook { get; set; }    
+        
+        [Display(Name="Do you have any volunteering oppurtunities?")]
+        public bool Volunteering { get; set; }
     }
 }
