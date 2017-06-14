@@ -78,10 +78,7 @@
       "version.txt",
       "sha.txt",
       "featureToggles.yml",
-      "pdf.js",
-      "node_modules/jsreport-core",
-      "node_modules/jsreport-jsrender",
-      "node_modules/jsreport-phantom-pdf"
+      "pdf.js"
     ]
   },
 
