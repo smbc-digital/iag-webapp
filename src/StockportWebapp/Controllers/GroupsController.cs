@@ -305,38 +305,6 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [Route("/groups/manage/{slug}/removeuser")]
-        public async Task<IActionResult> RemoveUser(string slug, string email)
-        {
-            var response = await _processedContentRepository.Get<Group>(slug);
-
-            if (!response.IsSuccessful()) return response;
-
-            var group = response.Content as ProcessedGroup;
-
-            // TODO - Replace email for the logged on users email once Auth0 is implemented
-            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
-            {
-                return NotFound();
-            }
-
-            var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
-            if (groupAdministrator == null)
-            {
-                return NotFound();
-            }
-
-            var model = new RemoveUserViewModel()
-            {
-                Slug = slug,
-                Email = email,
-                GroupName = group.Name,
-            };
-
-            return View(model);
-        }
-
         [HttpPost]
         [Route("/groups/manage/{slug}/edituser")]
         public async Task<IActionResult> EditUser(AddEditUserViewModel model)
@@ -384,6 +352,82 @@ namespace StockportWebapp.Controllers
             ViewBag.GroupName = groupName;
 
             return View();
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{slug}/removeuser")]
+        public async Task<IActionResult> Remove(string slug, string email)
+        {
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group, "A"))
+            {
+                return NotFound();
+            }
+
+            var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
+            if (groupAdministrator == null)
+            {
+                return NotFound();
+            }
+
+            var model = new RemoveUserViewModel()
+            {
+                Slug = slug,
+                Email = email,
+                GroupName = group.Name,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/removeuser")]
+        public async Task<IActionResult> RemoveUser(RemoveUserViewModel model)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(model.Slug);
+
+            if (!response.IsSuccessful()) return response;
+            var group = response.Content as ProcessedGroup;
+
+            response = await _processedContentRepository.Delete<Group>(model.Slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            _groupRepository.SendEmailDelete(group);
+            return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, email = model.Email });
+        }
+
+        [Route("/groups/manage/removeconfirmation")]
+        public IActionResult RemoveUserConfirmation(string group, string slug, string email)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(group))
+            {
+                return NotFound();
+            }
+            var model = new RemoveUserViewModel()
+            {
+                Slug = slug,
+                Email = email,
+                GroupName = group,
+            };           
+
+            return View(model);
         }
 
         private bool HasGroupPermission(string email, ProcessedGroup group, string permission = "E")
