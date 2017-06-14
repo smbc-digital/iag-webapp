@@ -78,12 +78,15 @@
       "version.txt",
       "sha.txt",
       "featureToggles.yml",
-      "pdf.js"
+      "pdf.js",
+      "node_modules/jsreport-core",
+      "node_modules/jsreport-jsrender",
+      "node_modules/jsreport-phantom-pdf"
     ]
   },
 
   "scripts": {
-    "prepublish": [ "npm install" ],
+    "prepublish": [ "npm install --production" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }
