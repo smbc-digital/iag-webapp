@@ -1,5 +1,6 @@
 ﻿@using StockportWebapp.Config
 @using StockportWebapp.Models
+@using StockportWebapp.ViewModels
 @model GroupSubmission
 @{
     ViewData["Title"] = "Add your group";
@@ -81,20 +82,9 @@
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Categories">Group category</label>
-                                        <div class="grid-100 grid-parent category-div" id="category-div1">
-                                            <div class="grid-50 tablet-grid-50 mobile-grid-50 grid-parent">
-                                                <select class="form-control grid-100 tablet-grid-100 mobile-grid-100" asp-for="Categories">
-                                                    <option disabled selected hidden value="">
-                                                        Select category
-                                                    </option>
-                                                    @foreach (var category in Model.Categories)
-                                                    {
-                                                        <option value="@category">@category</option>
-                                                    }
-                                                </select>
-                                            </div>
-                                            <span asp-validation-for="@Model.Categories" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        </div>
+                                        <input type="hidden" asp-for="@Model.CategoriesList" />
+                                        @Html.Partial("multiselect", new MultiSelect() { Limit = 3, ObjectName = "Category", ValueControlId = "categories-list", AvailableValues = Model.AvailableCategories })
+
 
                                         <label asp-for="@Model.Email"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
@@ -123,3 +113,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        // init
+        MultiSelector.Init(3, 'categories-list', 'CategoriesList');
+    });
+
+</script>

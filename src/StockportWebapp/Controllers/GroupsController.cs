@@ -105,12 +105,6 @@ namespace StockportWebapp.Controllers
 
             DoPagination(model, page);
 
-            if (model.Categories != null && model.Categories.Any())
-            {
-                ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
-                model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
-            }
-
             model.PrimaryFilter.Order = order;
             model.PrimaryFilter.Location = location;
             model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
@@ -127,8 +121,10 @@ namespace StockportWebapp.Controllers
             var listOfGroupCategories = response.Content as List<GroupCategory>;
             if (listOfGroupCategories != null)
             {
-                groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+                groupSubmission.AvailableCategories = listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
             }
+
+            var categoryResponse = await _repository.Get<List<GroupCategory>>();
 
             return View(groupSubmission);
         }
