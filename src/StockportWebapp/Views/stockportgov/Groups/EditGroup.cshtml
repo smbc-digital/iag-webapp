@@ -168,7 +168,7 @@
         }
 
         var hideSelectedValues = function () {
-            $('option', '.' + className + '-select').show();
+            $('option[value!=""]', '.' + className + '-select').show();
             $('.' + className + '-select').each(function (index) {
                 var outer = this;
                 var outerIndex = index;
@@ -238,8 +238,7 @@
             $('.' + className + '-add').hide();
             $('.' + className + '-remove').hide();
             $('.' + className + '-select').val('');
-
-            $('option', '.' + className + '-select').hide();
+            $('option[value=""]', '.' + className + '-select').show();
 
             for (var i = 0; i < categories.length; i++) {
                 var div = $('.' + className + '-div')[i];
@@ -249,9 +248,8 @@
 
                     var select = $('.' + className + '-select')[i];
                     if (categories[i] !== null && categories[i].length > 0) {
+                        $('option[value=""]', select).hide();
                         $(select).val(categories[i]);
-                        debugger;
-                        $($(select).children()[0]).css('display', 'none');
                     }
 
                     $(select).off('change').on('change', function () {

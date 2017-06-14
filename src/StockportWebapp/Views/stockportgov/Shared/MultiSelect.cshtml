@@ -7,7 +7,7 @@
     <div class="grid-100 grid-parent @Model.ValueControlId-div" id="@Model.ValueControlId-div">
         <div class="grid-50 tablet-grid-80 mobile-grid-90 grid-parent">
             <select class="form-control grid-100 tablet-grid-100 mobile-grid-100 @Model.ValueControlId-select">
-                <option selected hidden value="">
+                <option value="">
                     Select @Model.ObjectName.ToLower()
                 </option>
                 @foreach (var item in Model.AvailableValues)
