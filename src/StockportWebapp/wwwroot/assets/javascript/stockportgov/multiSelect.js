@@ -61,19 +61,19 @@
         var selects = $('select', $(shownCategories));
         $(selects).each(function (index) {
             if ($(this).val() !== null && $(this).val() !== '') {
-                if (loneIndex == -1) {
+                if (loneIndex === -1) {
                     loneIndex = index;
                 }
                 hasValueCount++;
             }
         });
 
-        if (hasValueCount == 1) {
+        if (hasValueCount === 1) {
             $($(removes)[loneIndex]).hide();
         }
 
-        if (shownCategories.length == 1) {
-            $($(removes)[0]).show();
+        if (shownCategories.length === 1) {
+            $($(removes)[0]).hide();
         }
     };
 
@@ -105,7 +105,7 @@
         categories = categoriesList.split(',');
 
         var max = categoriesList.length > limit ? limit : categoriesList.length;
-        max = max == 0 ? max = 1 : max;
+        max = max === 0 ? max = 1 : max;
         categories = categories.slice(0, max);
 
         $('.' + className + '-div').hide();
