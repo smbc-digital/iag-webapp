@@ -2,7 +2,6 @@
 
     var limit = 3;
     var className = '';
-    var hiddenValue = '';
 
     var categoriesList;
     var categories;
@@ -31,8 +30,8 @@
 
     // click add new dropdown
     var addDropdown = function (link) {
-        var newValue = $('#' + hiddenValue).val() + ',';
-        $('#' + hiddenValue).val(newValue);
+        var newValue = $('#' + className).val() + ',';
+        $('#' + className).val(newValue);
         populate();
     }
 
@@ -87,7 +86,7 @@
             arrayList += $(select).val();
         }
 
-        $('#' + hiddenValue).val(arrayList);
+        $('#' + className).val(arrayList);
     }
 
     var allHaveValues = function () {
@@ -100,8 +99,7 @@
     }
 
     var populate = function () {
-
-        categoriesList = $('#' + hiddenValue).val();
+        categoriesList = $('#' + className).val();
         categories = categoriesList.split(',');
 
         var max = categoriesList.length > limit ? limit : categoriesList.length;
@@ -159,11 +157,17 @@
     }
 
     return {
-        Init: function (limitTo, instanceClassName, controlIdHoldingValues) {
-            limit = limitTo;
-            className = instanceClassName;
-            hiddenValue = controlIdHoldingValues;
+        Init: function (baseControlId) {
+            className = baseControlId;
+            limit = $('#' + className + '-limit').val();
             populate();
         }
     };
 })();
+
+$(document).ready(function () {
+    $('.multi-select-control').each(function () {
+        MultiSelector.Init($(this).val());
+    });
+});
+

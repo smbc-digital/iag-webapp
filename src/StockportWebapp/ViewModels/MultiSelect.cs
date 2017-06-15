@@ -6,7 +6,7 @@ namespace StockportWebapp.ViewModels
     {
         public int Limit { get; set; }
 
-        public string ObjectName { get; set; }
+        public string Label { get; set; }
 
         public string ValueControlId { get; set; }
 
