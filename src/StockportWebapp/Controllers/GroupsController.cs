@@ -105,6 +105,12 @@ namespace StockportWebapp.Controllers
 
             DoPagination(model, page);
 
+            if (model.Categories != null && model.Categories.Any())
+            {
+                ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
+                model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
+            }
+
             model.PrimaryFilter.Order = order;
             model.PrimaryFilter.Location = location;
             model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
