@@ -117,14 +117,8 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> AddAGroup()
         {
             var groupSubmission = new GroupSubmission();
-            var response = await _repository.Get<List<GroupCategory>>();
-            var listOfGroupCategories = response.Content as List<GroupCategory>;
-            if (listOfGroupCategories != null)
-            {
-                groupSubmission.AvailableCategories = listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
-            }
 
-            var categoryResponse = await _repository.Get<List<GroupCategory>>();
+            groupSubmission.AvailableCategories = await GetAvailableGroupCategories();
 
             return View(groupSubmission);
         }
@@ -134,12 +128,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> AddAGroup(GroupSubmission groupSubmission)
         {
-            var response = await _repository.Get<List<GroupCategory>>();
-            var listOfGroupCategories = response.Content as List<GroupCategory>;
-            if (listOfGroupCategories != null)
-            {
-                groupSubmission.AvailableCategories = listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
-            }
+            groupSubmission.AvailableCategories = await GetAvailableGroupCategories();
 
             if (!ModelState.IsValid)
             {
@@ -153,6 +142,18 @@ namespace StockportWebapp.Controllers
             ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
 
             return View(groupSubmission);
+        }
+
+        private async Task<List<string>> GetAvailableGroupCategories()
+        {
+            var response = await _repository.Get<List<GroupCategory>>();
+            var listOfGroupCategories = response.Content as List<GroupCategory>;
+            if (listOfGroupCategories != null)
+            {
+                return listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
+            }
+
+            return null;
         }
 
         [HttpGet]
@@ -638,12 +639,7 @@ namespace StockportWebapp.Controllers
             model.Twitter = group.Twitter;
             model.Website = group.Website;
 
-            var categoryResponse = await _repository.Get<List<GroupCategory>>();
-            var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
-            if (listOfGroupCategories != null)
-            {
-                model.AvailableCategories = listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
-            }
+            model.AvailableCategories = await GetAvailableGroupCategories();
 
             return View(model);
         }
@@ -657,6 +653,8 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as Group;
+
+            model.AvailableCategories = await GetAvailableGroupCategories();
 
             var categoryResponse = await _repository.Get<List<GroupCategory>>();
             var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
