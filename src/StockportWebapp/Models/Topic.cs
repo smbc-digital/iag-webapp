@@ -45,16 +45,17 @@ namespace StockportWebapp.Models
             return secondary != null ? primary.Concat(secondary.Take(take)) : primary;
         }
 
-
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public IEnumerable<Alert> Alerts { get; }
         public bool EmailAlerts { get; }
         public string EmailAlertsTopicId { get; }
         public EventBanner EventBanner { get; }
+        public string ExpandingLinkTitle { get; }
+        public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set;  }
 
         public Topic(string name, string slug, string summary, string teaser, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, IEnumerable<Crumb> breadcrumbs,
-            IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner)
+            IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxs)
         {
             Name = name;
             Slug = slug;
@@ -73,11 +74,13 @@ namespace StockportWebapp.Models
             NavigationLink = TypeRoutes.GetUrlFor("topic", slug);
             _topSubItems = Enumerable.Empty<SubItem>();
             EventBanner = eventBanner;
+            ExpandingLinkTitle = expandingLinkTitle;
+            ExpandingLinkBoxes = expandingLinkBoxs;
         }
     }
 
     public class NullTopic : Topic
     {
-        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null) { }
+        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>()) { }
     }
 }
