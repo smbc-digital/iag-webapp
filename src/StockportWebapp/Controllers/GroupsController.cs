@@ -536,7 +536,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             _groupRepository.SendEmailDelete(group);
-           return RedirectToAction("DeleteConfirmation", new { group = group.Name });
+           return RedirectToAction("DeleteConfirmation", new { group = group.Slug });
         }
 
         [Route("/groups/manage/deleteconfirmation")]
@@ -595,7 +595,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
            
             _groupRepository.SendEmailArchive(group);
-            return RedirectToAction("ArchiveConfirmation", new { group = group.Name });
+            return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
         }
 
         [Route("/groups/manage/{slug}/archiveconfirmation")]

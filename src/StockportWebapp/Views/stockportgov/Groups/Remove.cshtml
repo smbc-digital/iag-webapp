@@ -10,7 +10,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupName, "groups"), new Crumb("Users", "manage/" + Model.GroupName + "/users", "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.Slug, "groups"), new Crumb("Users", "manage/" + Model.Slug + "/users", "groups") })
 }
 
 <div class="grid-container-full-width">
@@ -32,7 +32,6 @@
                                     @Html.Hidden("Email", Model.Email)
                                     @Html.Hidden("GroupName", Model.GroupName)
                                     <stock-button class="full-button">Remove user</stock-button>
-
                                 }
                             </div>
                             <div class="grid-100 grid-parent">
