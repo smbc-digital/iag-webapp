@@ -64,7 +64,7 @@
                                         }
                                     </select>
                                     <span asp-validation-for="@Model.GroupAdministratorItem.Permission" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                    <div class="remove-user"><a href="#">Remove User</a></div>
+                                    <div class="remove-user"><a href="@Url.Action("RemoveUser", "Groups", new { slug = Model.Slug, email = Model.GroupAdministratorItem.Email })">Remove User</a></div>
                                 </div>
                                 <div class="grid-100 grid-parent">
                                     <stock-button class="full-button">Save changes</stock-button>

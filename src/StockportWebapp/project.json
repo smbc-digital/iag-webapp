@@ -86,7 +86,7 @@
   },
 
   "scripts": {
-    "prepublish": [ "npm install" ],
+    "prepublish": [ "npm install --production" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
 }

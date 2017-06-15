@@ -140,7 +140,7 @@
 
             var add = $('.' + className + '-add')[i];
 
-            if (i == shownCategories.length - 1 && shownCategories.length < limit) {
+            if (i === shownCategories.length - 1 && shownCategories.length < limit) {
                 if (allHaveValues()) {
                     $(add).show();
                 }

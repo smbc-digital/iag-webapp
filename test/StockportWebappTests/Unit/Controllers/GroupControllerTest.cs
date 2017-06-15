@@ -97,7 +97,7 @@ namespace StockportWebappTests.Unit.Controllers
                 Email = "info@group.com",
                 Address = "Address",
                 PhoneNumber = "phone",
-                Category1 = "Category",
+                CategoriesList = "Category",
                 Image = null
             };
             _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.OK);

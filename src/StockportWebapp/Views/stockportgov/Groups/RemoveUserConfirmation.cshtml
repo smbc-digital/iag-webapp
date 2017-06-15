@@ -1,0 +1,41 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model RemoveUserViewModel
+
+@{
+    ViewData["Title"] = "Remove " + Model.Email;
+    ViewData["og:title"] = "Remove " + Model.Email;
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupName, "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@ViewData["Title"] content">
+                <div class="l-content-container grid-100 grid-parent group-margin  word-wrap" id="group-padding">
+                    <div class="grid-100 centre">
+                        <h1 class="group-article-title">@ViewData["Title"]</h1>
+                        <div class="icon-bordered icon-bordered-fixed green tick">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                        </div>
+                        <h2>You've successfully removed @Model.Email from @Model.GroupName</h2>
+                    </div>
+                    <div class="grid-100 centre">
+                        <p>If you accidently deleted this group, you can always <a href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">add them</a> again to your group.</p>
+                    </div>
+                    <div class="grid-100 centre mixed-buttons">
+                        <stock-button as-link="true" href="@Url.Action("Users", "Groups", new { slug = Model.Slug })">Go back to add or remove users</stock-button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+

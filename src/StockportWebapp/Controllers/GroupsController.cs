@@ -138,7 +138,7 @@ namespace StockportWebapp.Controllers
             var listOfGroupCategories = response.Content as List<GroupCategory>;
             if (listOfGroupCategories != null)
             {
-                groupSubmission.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+                groupSubmission.AvailableCategories = listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
             }
 
             if (!ModelState.IsValid)
@@ -250,7 +250,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/manage/{slug}/newuserconfirmation")]
-        public async Task<IActionResult> NewUserConfirmation(string slug, string email, string groupName)
+        public IActionResult NewUserConfirmation(string slug, string email, string groupName)
         {
             if (!_featureToggle.GroupManagement)
             {
@@ -285,16 +285,18 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var groupAdministrator = group.GroupAdministrators.Items.Where(i => i.Email == email).FirstOrDefault();
+            var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
             if (groupAdministrator == null)
             {
                 return NotFound();
             }
 
-            var model = new AddEditUserViewModel();
-            model.Slug = slug;
-            model.Name = group.Name;
-            model.GroupAdministratorItem = groupAdministrator;
+            var model = new AddEditUserViewModel
+            {
+                Slug = slug,
+                Name = @group.Name,
+                GroupAdministratorItem = groupAdministrator
+            };
 
             return View(model);
         }
@@ -320,7 +322,7 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                group.GroupAdministrators.Items.Where(i => i.Email == model.GroupAdministratorItem.Email).First().Permission = model.GroupAdministratorItem.Permission;
+                group.GroupAdministrators.Items.First(i => i.Email == model.GroupAdministratorItem.Email).Permission = model.GroupAdministratorItem.Permission;
                 // TODO - Save this group to contentful 
                 return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
@@ -329,7 +331,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/manage/{slug}/edituserconfirmation")]
-        public async Task<IActionResult> EditUserConfirmation(string slug, string email, string groupName)
+        public  IActionResult EditUserConfirmation(string slug, string email, string groupName)
         {
             if (!_featureToggle.GroupManagement)
             {
@@ -346,6 +348,82 @@ namespace StockportWebapp.Controllers
             ViewBag.GroupName = groupName;
 
             return View();
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{slug}/removeuser")]
+        public async Task<IActionResult> Remove(string slug, string email)
+        {
+            var response = await _processedContentRepository.Get<Group>(slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            // TODO - Replace email for the logged on users email once Auth0 is implemented
+            if (!HasGroupPermission("gary.holland@stockport.gov.uk", group.GroupAdministrators.Items, "A"))
+            {
+                return NotFound();
+            }
+
+            var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
+            if (groupAdministrator == null)
+            {
+                return NotFound();
+            }
+
+            var model = new RemoveUserViewModel()
+            {
+                Slug = slug,
+                Email = email,
+                GroupName = group.Name,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/removeuser")]
+        public async Task<IActionResult> RemoveUser(RemoveUserViewModel model)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(model.Slug);
+
+            if (!response.IsSuccessful()) return response;
+            var group = response.Content as ProcessedGroup;
+
+            response = await _processedContentRepository.Delete<Group>(model.Slug);
+
+            if (!response.IsSuccessful()) return response;
+
+            _groupRepository.SendEmailDelete(group);
+            return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, email = model.Email });
+        }
+
+        [Route("/groups/manage/removeconfirmation")]
+        public IActionResult RemoveUserConfirmation(string group, string slug, string email)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(group))
+            {
+                return NotFound();
+            }
+            var model = new RemoveUserViewModel()
+            {
+                Slug = slug,
+                Email = email,
+                GroupName = group,
+            };           
+
+            return View(model);
         }
 
         private bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")

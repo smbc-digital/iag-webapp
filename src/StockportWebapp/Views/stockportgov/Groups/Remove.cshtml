@@ -1,0 +1,47 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model RemoveUserViewModel
+@{
+    ViewData["Title"] = "Remove user";
+    ViewData["og:title"] = "Remove user";
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupName, "groups"), new Crumb("Users", "manage/" + Model.GroupName + "/users", "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="content">
+                <div class="l-content-container grid-100 group-margin remove-user-container" id="group-padding">
+                    <h1 class="group-article-title">Remove user</h1>
+                 <div class="group-form">
+                        <div class="grid-container grid-parent">
+                            <div class="grid-100 grid-parent">
+                                <b class="remove-user-confirmation  word-wrap">Are you sure you want to delete @Model.Email from your group?</b>
+                                <p>This will permanently remove the user and mean that they can't make any changes to your group's information.</p>
+                            </div>
+                            <div class="grid-100 grid-parent">
+                                @using (Html.BeginForm("RemoveUser", "Groups", FormMethod.Post))
+                                {
+                                    @Html.Hidden("Slug", Model.Slug)
+                                    @Html.Hidden("Email", Model.Email)
+                                    @Html.Hidden("GroupName", Model.GroupName)
+                                    <stock-button class="full-button">Remove user</stock-button>
+
+                                }
+                            </div>
+                            <div class="grid-100 grid-parent">
+                                <stock-button as-link class="grey full-button" href="@Url.Action("EditUser", "Groups", new { slug = Model.Slug, email = Model.Email })">Keep user</stock-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

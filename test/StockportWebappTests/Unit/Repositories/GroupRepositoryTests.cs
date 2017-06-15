@@ -46,7 +46,7 @@ namespace StockportWebappTests.Unit.Repositories
                 PhoneNumber = "phone",
                 Website = "http://www.group.org",
                 Description = "Description",
-                Category1 = "Category"
+                CategoriesList = "Category"
             };
 
             var response = _groupRepository.GenerateEmailBody(groupSubmission);
@@ -85,7 +85,7 @@ namespace StockportWebappTests.Unit.Repositories
                 PhoneNumber = "phone",
                 Website = "http://www.group.org",
                 Description = "Description",
-                Category1 = "Category"
+                CategoriesList = "Category"
             };
             var response = await _groupRepository.SendEmailMessage(groupSubmission);
 

@@ -482,7 +482,7 @@ namespace StockportWebappTests.Integration
             {
                 new KeyValuePair<string, string>("Name", "name"),                
                 new KeyValuePair<string, string>("Description", "description"),
-                new KeyValuePair<string, string>("Category1", "category"),
+                new KeyValuePair<string, string>("CategoriesList", "Dancing"),
                 new KeyValuePair<string, string>("Address", "address"),
                 new KeyValuePair<string, string>("Email", "email@gmail.com"),
                 new KeyValuePair<string, string>("PhoneNumber", "1234"),
@@ -506,7 +506,7 @@ namespace StockportWebappTests.Integration
             {
                 new KeyValuePair<string, string>("Name", "name"),
                 new KeyValuePair<string, string>("Description", "description"),
-                new KeyValuePair<string, string>("Category1", "category"),
+                new KeyValuePair<string, string>("CategoriesList", "Dancing"),
                 new KeyValuePair<string, string>("Address", "address"),
                 new KeyValuePair<string, string>("Email", "email@gmail.com"),            
             });
