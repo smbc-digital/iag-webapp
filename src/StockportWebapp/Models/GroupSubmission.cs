@@ -7,6 +7,8 @@ namespace StockportWebapp.Models
 {
     public class GroupSubmission
     {
+        public string Slug { get; set; }
+ 
         [Display(Name = "Group name")]
         [Required]
         [StringLength(255, ErrorMessage = "Group name must be 250 characters or less in length.")]

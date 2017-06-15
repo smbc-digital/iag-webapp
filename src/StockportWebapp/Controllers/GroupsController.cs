@@ -618,7 +618,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/groups/manage/{slug}/editgroup")]
+        [Route("/groups/manage/{slug}/update")]
         public async Task<IActionResult> EditGroup(string slug)
         {
             var response = await _repository.Get<Group>(slug);
@@ -651,7 +651,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpPost]
-        [Route("/groups/manage/{slug}/editgroup")]
+        [Route("/groups/manage/{slug}/update")]
         public async Task<IActionResult> EditGroup(string slug, GroupSubmission model)
         {
             var response = await _repository.Get<Group>(slug);
@@ -661,6 +661,7 @@ namespace StockportWebapp.Controllers
             var group = response.Content as Group;
 
             model.AvailableCategories = await GetAvailableGroupCategories();
+            model.Slug = group.Slug;
 
             var categoryResponse = await _repository.Get<List<GroupCategory>>();
             var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
@@ -673,10 +674,6 @@ namespace StockportWebapp.Controllers
             group.Description = model.Description;
             group.Email = model.Email;
             group.Facebook = model.Facebook;
-
-            // TODO - Save image (if ne wone uploaded) to contentful and attach to group
-            // group.ImageUrl = foo;
-
             group.Name = model.Name;
             group.PhoneNumber = model.PhoneNumber;
             group.Twitter = model.Twitter;
@@ -705,7 +702,7 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-        [Route("/groups/manage/{slug}/editgroupconfirmation")]
+        [Route("/groups/manage/{slug}/updateconfirmation")]
         public async Task<IActionResult> EditGroupConfirmation(string slug, string groupName)
         {
             if (!_featureToggle.GroupManagement)

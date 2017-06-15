@@ -11,7 +11,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Name, "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Slug, "groups") })
 }
 
 <div class="grid-container-full-width">
@@ -76,7 +76,7 @@
                                         <label asp-for="@Model.Categories">Group category</label>
 
                                         <input type="hidden" asp-for="@Model.CategoriesList" />
-                                        @Html.Partial("multiselect", new MultiSelect() { Limit = 5, ObjectName = "Category", ValueControlId = "categories-list", AvailableValues = Model.AvailableCategories })
+                                        @Html.Partial("multiselect", new MultiSelect() { Limit = 3, ObjectName = "Category", ValueControlId = "categories-list", AvailableValues = Model.AvailableCategories })
 
                                         <label asp-for="@Model.Email"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
@@ -123,7 +123,7 @@
 
     $(document).ready(function () {
         // init
-        MultiSelector.Init(5, 'categories-list', 'CategoriesList');
+        MultiSelector.Init(3, 'categories-list', 'CategoriesList');
     });
 
 </script>
