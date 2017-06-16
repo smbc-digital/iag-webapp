@@ -1,0 +1,24 @@
+﻿@model StockportWebapp.Models.PaymentResponse
+
+@{
+    Layout = "../Shared/_LayoutPrint.cshtml";
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@ViewData["Title"] content">
+                <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
+                    @Html.Partial("PaymentConfirmationBody", Model)
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.print();
+        setTimeout(function () { window.close(); }, 1000);
+    });
+</script>

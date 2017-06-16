@@ -1,0 +1,57 @@
+﻿@using System
+@using StockportWebapp.Config
+@using StockportWebapp.Models
+
+@model StockportWebapp.Models.PaymentResponse
+
+@{
+    ViewData["Title"] = "Pay your " + Model.Title.ToLower();
+    ViewData["og:title"] = ViewData["Title"];
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Payment", "Detail", "Payment") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@ViewData["Title"] content">
+                <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
+                    @Html.Partial("PaymentConfirmationBody", Model)
+                    <div class="grid-100 centre mixed-buttons">
+                        <stock-button as-link="true" href="@Url.Action("Index", "Home")">Go back to the homepage</stock-button>
+                    </div>
+                    <div class="grid-100 grid-parent">
+                        <div class="share padding-bottom grid-15 push-5 mobile-grid-50">
+                            <h6>Print this page</h6>
+                            <div class="addthis_toolbox">
+                                <div class="custom_images">
+                                    <a class="" href="javascript:openPrintPage();"><i class="fa fa-print" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="atclear"></div>
+                            </div>
+                        </div>
+                        <div class="share padding-bottom grid-15 push-5 mobile-grid-50">
+                            <h6>Download as PDF</h6>
+                            <div class="addthis_toolbox">
+                                <div class="custom_images">
+                                    <a class="export-as-pdf" href="/payment/@Model.Slug/exportpdf?authorisationcode=@Model.AuthorisationCode&receiptnumber=@Uri.EscapeUriString(Model.ReceiptNumber)&transactiontype=@Model.TransactionType&merchantnumber=@Model.MerchantNumber&data=@Model.Data&serviceprocessed=@Model.ServiceProcessed&merchanttid=@Model.MerchantTid&amount=@Model.Amount&date=@Uri.EscapeUriString(Model.Date)&administrationcharge=@Model.AdministrationCharge&hash=@Model.Hash" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                                </div>
+                                <div class="atclear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">   
+    function openPrintPage() {
+        window.open(document.location.href.replace("thanks?", "printThanks?"), "payment");
+    }
+</script>
