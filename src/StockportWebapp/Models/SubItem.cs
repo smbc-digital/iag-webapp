@@ -8,6 +8,7 @@ namespace StockportWebapp.Models
         public readonly string Title;
         public readonly string Icon;
         public readonly string Teaser;
+        public readonly string Type;
         public readonly string NavigationLink;
         public readonly string Image;
         public readonly List<SubItem> SubItems;
@@ -17,6 +18,7 @@ namespace StockportWebapp.Models
             Title = title;
             Icon = icon;
             Teaser = teaser;
+            Type = type;
             NavigationLink = TypeRoutes.GetUrlFor(type, slug);
             Image = image;
             SubItems = subItems;

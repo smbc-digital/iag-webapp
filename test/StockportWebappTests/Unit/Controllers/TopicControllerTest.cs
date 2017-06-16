@@ -43,7 +43,8 @@ namespace StockportWebappTests.Unit.Controllers
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
-              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner);
+                new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
+                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) });
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -65,6 +66,9 @@ namespace StockportWebappTests.Unit.Controllers
             result.EventBanner.Teaser.Should().Be(_eventBanner.Teaser);
             result.EventBanner.Icon.Should().Be(_eventBanner.Icon);
             result.EventBanner.Link.Should().Be(_eventBanner.Link);
+            result.ExpandingLinkTitle.Should().Be("expandingLinkText");
+            result.ExpandingLinkBoxes.First().Title.Should().Be("title");
+            result.ExpandingLinkBoxes.First().Links[0].Type.Should().Be("topic");
         }
 
         [Fact]
@@ -72,7 +76,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
-              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner);
+              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>());
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -112,7 +116,7 @@ namespace StockportWebappTests.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
             };
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
-               new List<Crumb>(), alerts, true, "test-id", _eventBanner);
+               new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>());
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
