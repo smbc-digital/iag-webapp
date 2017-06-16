@@ -644,6 +644,7 @@ namespace StockportWebapp.Controllers
             model.PhoneNumber = group.PhoneNumber;
             model.Twitter = group.Twitter;
             model.Website = group.Website;
+            model.Slug = group.Slug;
 
             model.AvailableCategories = await GetAvailableGroupCategories();
 
