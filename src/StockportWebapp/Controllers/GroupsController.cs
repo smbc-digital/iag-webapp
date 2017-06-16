@@ -163,7 +163,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/groups/exportpdf/{slug}")]
+        [Route("/groups/{slug}/exportpdf")]
         public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug)
         {
             ViewBag.CurrentUrl = Request?.GetUri();

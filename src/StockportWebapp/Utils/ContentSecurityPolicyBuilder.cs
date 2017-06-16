@@ -128,6 +128,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.opinionstage.com/assets/loader.js")
                 .AddSource("https://www.google.com/recaptcha/api.js")
                 .AddSource("https://www.gstatic.com/recaptcha/api2/")
+                .AddSource("https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js")
                 .Finish());
         }
 
@@ -139,6 +140,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://api.cludo.com/")
                 .AddSource("buto-ping-middleman.buto.tv/")
                 .AddSource("m.addthis.com/live/")
+                .AddSource("https://kinesis.eu-west-1.amazonaws.com/")
                 .Finish());
         }
 

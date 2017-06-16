@@ -85,9 +85,6 @@
                                         <input type="hidden" asp-for="@Model.CategoriesList" />
                                         @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories })
 
-
-
-
                                         <label asp-for="@Model.Email"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
                                         <span asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>

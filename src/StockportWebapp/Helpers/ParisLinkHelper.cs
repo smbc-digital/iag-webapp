@@ -33,12 +33,12 @@ namespace StockportWebapp.Helpers
             };
 
             return _parisLinkBuilder.ReturnText("Return To Main Menu")
-                             .IgnoreConfirmation("false")
+                             .IgnoreConfirmation("true")
                              .PayForBasketMode("true")
                              .Data(paymentSubmission.Payment.ParisReference)
                              .ParisRecordXML(xml)
-                             .ReturnUrl(returnUrl)
-                             //.ReturnUrl("https://www.stockport.gov.uk")
+                             //.ReturnUrl(returnUrl)
+                             .ReturnUrl(returnUrl.Replace("http://stockportgov.local:5555", "https://www.stockport.gov.uk"))
                              .Build(_applicationConfiguration);
         }
     }

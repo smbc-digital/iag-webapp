@@ -1,15 +1,25 @@
 ﻿.share {
+    padding-top: 10px;
+
+    &.border {
+        border-top: 1px solid $greyLighter;
+    }
+
+    &.padding-bottom {
+        padding-bottom: 10px;
+    }
+
     a {
         color: $greyDark;
         font-size:2em;
         padding-right:0.4em;
     }
-    padding-top: 10px;
-    border-top: 1px solid $greyLighter;
+
     h6 {
         text-transform: none;
         margin-bottom: 0px;
     }
+
     .addthis_button_facebook {
         
     }

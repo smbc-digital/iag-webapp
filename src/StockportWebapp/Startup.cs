@@ -36,6 +36,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Validation;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
+using StockportWebapp.Helpers;
 
 namespace StockportWebapp
 {
@@ -131,9 +132,9 @@ namespace StockportWebapp
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
             services.AddTransient<IEmailBuilder, EmailBuilder>();
+            services.AddTransient<HtmlParser>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
-            services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
-            
+            services.AddSingleton<ParisHashHelper>();
 
             var loggerFactory = new LoggerFactory().AddNLog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();

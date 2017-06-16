@@ -10,6 +10,7 @@ using StockportWebappTests.Unit.Fake;
 using Helper = StockportWebappTests.TestHelper;
 using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Utils;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -18,11 +19,12 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly FakeProcessedContentRepository _fakeRepository;
         private readonly PaymentController _paymentController;
         private readonly IApplicationConfiguration _applicationConfiguration;
+        private readonly IViewRender _viewRender;
 
         public PaymentControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _paymentController = new PaymentController(_fakeRepository, _applicationConfiguration);
+            _paymentController = new PaymentController(_fakeRepository, _applicationConfiguration, _viewRender, null);
         }
 
         [Fact]

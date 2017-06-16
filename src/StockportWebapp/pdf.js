@@ -4,15 +4,15 @@
     jsreport.init().then(function() {
         return jsreport.render({
             template: {
-                content: '{{:foo}}',
+                content: '{{:html}}',
                 engine: 'jsrender',
                 recipe: 'phantom-pdf',
                 phantom: {
-                    printDelay: 1000
+                    printDelay: 500
                 }
             },
             data: {
-                foo: theData
+                html: theData
             }
         }).then(function(resp) {
             callback(/* error */ null, resp.content.toJSON().data);
