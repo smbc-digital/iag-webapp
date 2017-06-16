@@ -53,7 +53,7 @@
                                 @foreach (var user in Model.GroupAdministrators.Items.OrderBy(i => i.Email))
                                 {
                                     <div class="grid-100 sk-table-row grid-parent">
-                                        <div class="sk-table-cell grid-60 tablet-grid-60 mobile-grid-100">
+                                        <div class="sk-table-cell grid-60 tablet-grid-60 mobile-grid-100 word-wrap">
                                             <span class="main mobile-bold">@user.Email</span>
                                         </div>
                                         <div class="sk-table-cell grid-30 tablet-grid-25 mobile-grid-100">
@@ -63,7 +63,7 @@
                                             <span class="link"><a href="@Url.Action("EditUser", "Groups", new { slug = Model.Slug, email = user.Email })">Edit user</a></span>
                                         </div>
                                     </div>
-                                    }
+                                 }
 
                                     <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
                                         <stock-button as-link="true" class="sk-table white" href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
