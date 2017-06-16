@@ -131,9 +131,8 @@ namespace StockportWebapp
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
             services.AddTransient<IEmailBuilder, EmailBuilder>();
+            services.AddTransient<HtmlParser>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
-            services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
-            
 
             var loggerFactory = new LoggerFactory().AddNLog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
