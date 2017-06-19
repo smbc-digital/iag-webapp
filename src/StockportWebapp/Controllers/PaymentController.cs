@@ -185,7 +185,7 @@ namespace StockportWebapp.Controllers
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
             var renderedHtml = _viewRender.Render("Shared/PaymentConfirmationPDF", model);
 
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", string.Concat(renderedExportStyles, renderedHtml));
+            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 500 });
 
             HttpContext.Response.ContentType = "application/pdf";
 

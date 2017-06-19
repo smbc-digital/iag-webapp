@@ -10,6 +10,7 @@ using StockportWebapp.Models;
 using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Helper = StockportWebappTests.TestHelper;
 using StockportWebapp.Repositories;
 using Moq;
@@ -31,6 +32,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private MapPosition _location = new MapPosition() { Lat = 1, Lon = 1 };
         private FeatureToggles _featureToggle;
+        private Mock<ILogger<GroupsController>> _logger;
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
         {
@@ -45,7 +47,8 @@ namespace StockportWebappTests.Unit.Controllers
             _groupRepository = new Mock<IGroupRepository>();
             _filteredUrl = new Mock<IFilteredUrl>();
             _featureToggle = new FeatureToggles() {GroupManagement = true};
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object, _featureToggle, null);
+            _logger = new Mock<ILogger<GroupsController>>();
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -167,7 +170,7 @@ namespace StockportWebappTests.Unit.Controllers
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -293,10 +296,10 @@ namespace StockportWebappTests.Unit.Controllers
 
         private GroupsController SetUpController(int numGroups)
         {
-            List<Group> listOfGroups = BuildGroupList(numGroups);
+            var listOfGroups = BuildGroupList(numGroups);
 
-            var bigGroupResults = new GroupResults();
-            bigGroupResults.Groups = listOfGroups;
+            var bigGroupResults = new GroupResults {Groups = listOfGroups};
+
             _repository.Setup(o =>
                 o.Get<GroupResults>(
                     It.IsAny<string>(),
@@ -304,7 +307,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             return controller;
         }

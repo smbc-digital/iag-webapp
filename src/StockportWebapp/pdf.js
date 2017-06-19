@@ -1,6 +1,5 @@
 ﻿module.exports = function (callback, theData) {
     var jsreport = require('jsreport-core')();
-
     jsreport.init().then(function() {
         return jsreport.render({
             template: {
@@ -8,11 +7,12 @@
                 engine: 'jsrender',
                 recipe: 'phantom-pdf',
                 phantom: {
-                    printDelay: 500
+                    printDelay: '{{:delay}}'
                 }
             },
             data: {
-                html: theData
+                html: theData.data,
+                delay: theData.delay
             }
         }).then(function(resp) {
             callback(/* error */ null, resp.content.toJSON().data);
