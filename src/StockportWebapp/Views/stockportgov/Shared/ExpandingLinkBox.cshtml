@@ -1,0 +1,35 @@
+﻿@using StockportWebapp.FeatureToggling
+@model StockportWebapp.Models.Topic
+
+<div class="expanding-link-box">
+    <div class="expanding-list">
+        <div class="expanding-list-header">
+            <label>@Model.ExpandingLinkTitle</label>
+        </div>
+
+        <hr />
+        <ul class="expanding-list-ul" >
+            @foreach (var ExpandingLinkBox in Model.ExpandingLinkBoxes)
+            {
+                <li class="grid-50 expanding-list-item">
+                    <div class="expanding-Link-text-holder">
+                        <div class="expanding-Link-text">
+                            <div class="expanding-Link-title expanding-link-box-button"><b>@ExpandingLinkBox.Title</b></div>
+                            <div class="expanding-Link-items">
+                                @foreach (var links in ExpandingLinkBox.Links)
+                                {
+                                    <div>
+                                        <a href="@links.NavigationLink">
+                                            @links.Title
+                                        </a>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

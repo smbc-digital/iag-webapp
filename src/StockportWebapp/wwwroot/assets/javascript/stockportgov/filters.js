@@ -1,6 +1,6 @@
 ﻿$(document)
     .ready(function () {
-        $(".l-filters .filter-title, .l-filters .filter-inner-title").click(function () {
+        $(".l-filters .filter-title, .l-filters .filter-inner-title .expanding-Link-text").click(function () {
             $(this).siblings("ul").slideToggle(100, function () {
                 $(this).parent("li").toggleClass("is-collapsed");
             });
@@ -25,4 +25,6 @@
                 $(this).parents("li").removeClass("is-collapsed");
             });
         }
+
+        
     });
