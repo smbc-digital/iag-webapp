@@ -14,7 +14,7 @@
             }
 
             <li class="chevron">&rsaquo;</li>
-            <li class="current">@Html.ActionLink(title, ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { tag = ViewBag.Tag })</li>
+            <li class="current"><span>@ViewBag.Title</span></li>
         </ul>
     </div>
 </div>
