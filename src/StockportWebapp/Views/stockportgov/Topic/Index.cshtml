@@ -47,6 +47,11 @@
         
         @Html.Partial("PrimarySubitems", topic)
         
+        @if (Model.Topic.ExpandingLinkBoxes != null && Model.Topic.ExpandingLinkBoxes.Any())
+        {
+            @Html.Partial("ExpandingLinkBox", topic)
+        }
+
         @if (!string.IsNullOrEmpty(topic.EventBanner.Title))
         {
             @Html.Partial("EventBanner", topic.EventBanner)
