@@ -94,10 +94,10 @@ else
     titleHack = string.Empty;
 }
 
-@if (Model.Events != null && Model.Events.Any() && Model.NewsArticle == null)
+@if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any() && Model.NewsArticle == null)
 {
     <div class="@titleHack showcase-events alt-container-row">
-        @Html.Partial("ShowcaseEventCards", Model.Events)
+        @Html.Partial("ShowcaseEventCards", Model.Events.Take(3).ToList())
     </div>
     titleHack = string.Empty;
 }
@@ -110,9 +110,9 @@ else
     titleHack = string.Empty;
 }
 
-@if (Model.Events != null && Model.Events.Any() && Model.NewsArticle != null)
+@if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any() && Model.NewsArticle != null)
 {
-    <div class="@titleHack showcase-events alt-container-row">
+    <div class="@titleHack showcase-events alt-container-row">       
         @Html.Partial("ShowcaseEventCards", Model.Events.Take(3).ToList())
     </div>
     titleHack = string.Empty;
