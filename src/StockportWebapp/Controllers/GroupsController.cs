@@ -167,7 +167,7 @@ namespace StockportWebapp.Controllers
         [HttpGet]
         [Route("/groups/{slug}/exportpdf")]
         [ResponseCache(NoStore = true)]
-        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug)
+        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug, [FromQuery] bool returnHtml = false)
         {
             ViewBag.CurrentUrl = Request?.GetUri();
 
@@ -179,17 +179,20 @@ namespace StockportWebapp.Controllers
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
             var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
+            var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 1000 });
+            // if raw html is requested, simply return the html ins
+            if (returnHtml) return Content(joinedHtml, "text/html");
+
+            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
 
             if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
 
             HttpContext.Response.ContentType = "application/pdf";
-
-            var filename = @"group.pdf";
-            HttpContext.Response.Headers.Add("x-filename", filename);
+            HttpContext.Response.Headers.Add("x-filename", "group.pdf");
             HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
             HttpContext.Response.Body.Write(result, 0, result.Length);
+
             return new ContentResult();
         }
 
