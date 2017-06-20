@@ -54,7 +54,7 @@ namespace StockportWebapp
 
             var configBuilder = new ConfigurationBuilder();
             var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
-            
+
             Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
             _appEnvironment = configLoader.EnvironmentName(env);
 
@@ -139,6 +139,24 @@ namespace StockportWebapp
             var loggerFactory = new LoggerFactory().AddNLog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 
+            if (!string.IsNullOrEmpty(Configuration["paris:preSalt"]) &&
+                !string.IsNullOrEmpty(Configuration["paris:postSalt"]) &&
+                !string.IsNullOrEmpty(Configuration["paris:privateSalt"]))
+            {
+                var parisKeys = new ParisKeys()
+                {
+                    PreSalt = Configuration["paris:preSalt"],
+                    PostSalt = Configuration["paris:postSalt"],
+                    PrivateSalt = Configuration["paris:privateSalt"]
+                };
+
+                services.AddSingleton(parisKeys);
+            }
+            else
+            {
+                logger.LogInformation("Paris secrets not found.");
+            }
+
             if (!string.IsNullOrEmpty(Configuration["ses:accessKey"]) &&
                 !string.IsNullOrEmpty(Configuration["ses:secretKey"]))
             {
@@ -152,7 +170,7 @@ namespace StockportWebapp
             {
                 logger.LogInformation("Secrets not found.");
             }
-            
+
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
             services.AddTransient<IDateCalculator>(p => new DateCalculator(p.GetService<ITimeProvider>()));
@@ -214,12 +232,12 @@ namespace StockportWebapp
                         else
                         {
                             context.Context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.Medium.ToString();
-                        }                     
+                        }
                     }
             });
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
 
-            var ci = new CultureInfo("en-GB") {DateTimeFormat = {ShortDatePattern = "dd/MM/yyyy"}};
+            var ci = new CultureInfo("en-GB") { DateTimeFormat = { ShortDatePattern = "dd/MM/yyyy" } };
 
             // Configure the Localization middleware
             app.UseRequestLocalization(new RequestLocalizationOptions
@@ -243,7 +261,7 @@ namespace StockportWebapp
         }
 
         private void ConfigureDataProtection(IServiceCollection services, ILogger logger)
-        {   
+        {
             if (_useRedisSession)
             {
                 var redisUrl = Configuration["TokenStoreUrl"];
@@ -260,7 +278,7 @@ namespace StockportWebapp
 
         private static string GetHostEntryForUrl(string host, ILogger logger)
         {
-            
+
             var addresses = Dns.GetHostEntryAsync(host).Result.AddressList;
 
             if (!addresses.Any())
