@@ -177,7 +177,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
+            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat("//", Request?.Host));
             var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
             var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 
