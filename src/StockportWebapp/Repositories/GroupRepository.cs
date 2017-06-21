@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Repositories
 {
@@ -18,6 +19,7 @@ namespace StockportWebapp.Repositories
         Task<HttpStatusCode> SendEmailMessage(GroupSubmission groupSubmission);
         void SendEmailArchive(ProcessedGroup group);
         void SendEmailDelete(ProcessedGroup group);
+        Task<HttpStatusCode> SendEmailChangeGroupInfo(ChangeGroupInfoViewModel groupSubmission);
     }
 
     public class GroupRepository : IGroupRepository
@@ -56,6 +58,18 @@ namespace StockportWebapp.Repositories
             stringBuilder.Append("</p>");
 
             return stringBuilder.ToString();
+        }
+
+        private string GenerateEmailBodyChangeGroupInfo(ChangeGroupInfoViewModel contactUsDetails)
+        {
+            return "Thank you for letting us know about a change to a group’s information.<br /><br />" +
+                   "We will take a look at the changes you have suggested so that we can make sure that they are correct.<br /><br />" +
+                   "The information you provided is below.<br /><br />" +
+                   $"SENDER : {contactUsDetails.Name}<br />" +
+                   $"EMAIL: {contactUsDetails.Email}<br />" +
+                   $"SUBJECT: {contactUsDetails.Subject}<br />" +
+                   $"MESSAGE: {contactUsDetails.Message}<br /><br />" +
+                   $"From page: https://www.stockport.gov.uk/groups/{contactUsDetails.Slug}/<br />";
         }
 
         public string GenerateEmailBodyArchive(ProcessedGroup group)
@@ -143,6 +157,26 @@ namespace StockportWebapp.Repositories
                 fromEmail, groupAdministrator.Email, new List<IFormFile>())
                );
             }
+        }
+
+        public Task<HttpStatusCode> SendEmailChangeGroupInfo(ChangeGroupInfoViewModel ChangeGroupInfo)
+        {           
+            var messageSubject = $"[Group] - {ChangeGroupInfo.Name}";
+
+            _logger.LogInformation("Sending group submission form email");
+
+            var attachments = new List<IFormFile>();
+           
+            var fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
+                ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
+                : string.Empty;
+
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyChangeGroupInfo(ChangeGroupInfo),
+                fromEmail,
+               _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
+               ChangeGroupInfo.Email,
+               attachments)
+               );
         }
     }
 }

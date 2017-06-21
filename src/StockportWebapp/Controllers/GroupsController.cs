@@ -166,6 +166,53 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
+        [Route("/groups/{slug}/change-group-info")]
+        public async Task<ActionResult> ChangeGroupInfo(string slug, string groupname)
+        {
+            var model = new ChangeGroupInfoViewModel
+            {
+                GroupName = groupname,
+                Slug = slug
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/groups/{slug}/change-group-info")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        public async Task<IActionResult> ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                return View(submission);
+            }
+
+            var successCode = _groupRepository.SendEmailChangeGroupInfo(submission).Result;
+            if (successCode == HttpStatusCode.OK)
+                return RedirectToAction("ChangeGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
+
+            ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
+
+            return View(submission);
+        }
+
+        [Route("/groups/{slug}/change-group-info-confirmation")]
+        public async Task<IActionResult> ChangeGroupInfoConfirmation(string slug, string groupName)
+        {
+            if (string.IsNullOrWhiteSpace(groupName))
+            {
+                return NotFound();
+            }
+
+            ViewBag.Slug = slug;
+            ViewBag.GroupName = groupName;
+
+            return View();
+        }
+
+        [HttpGet]
         [Route("/groups/{slug}/exportpdf")]
         [ResponseCache(NoStore = true)]
         public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, [FromServices] CurrentEnvironment environment, string slug, [FromQuery] bool returnHtml = false)

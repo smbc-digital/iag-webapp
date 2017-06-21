@@ -1,0 +1,41 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+
+@{
+    ViewData["Title"] = "Changes to a group's information";
+    ViewData["og:title"] = "Changes to a group's information";
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@ViewData["Title"] content">
+                <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
+                    <div class="grid-100 centre word-wrap">
+                        <h1 class="group-article-title">@ViewData["Title"]</h1>
+                        <div class="icon-bordered icon-bordered-fixed green tick">
+                            <i class="fa fa-check fa-5x" aria-hidden="true"></i>
+                        </div>
+                        <h2>You've successfully submitted a change for @ViewBag.GroupName</h2>
+                    </div>
+                    <div class="grid-100 centre">
+                        <p>We will take a look at the changes you have suggested so that we can make sure that they are correct.</p>
+                    </div>
+                    <div class="grid-100 centre mixed-buttons">
+                        <stock-button as-link="true" href="@Url.Action("Detail", "Groups", new { slug = ViewBag.Slug})">Go back to the group</stock-button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+

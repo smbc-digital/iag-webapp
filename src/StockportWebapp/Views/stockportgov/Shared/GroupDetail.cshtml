@@ -141,7 +141,7 @@
                             @Html.Partial("SharePrintThis", Model.Slug)
                             @if (!FeatureToggles.ManageYourGroupButton)
                             {
-                                <a href="/contact-changes-to-group-information">Let us know about a change to this group</a>
+                                @Html.ActionLink("Let us know about a change to this group", "ChangeGroupInfo", "Groups", new { slug = Model.Slug, groupname = Model.Name })
                             }
 
                         </div>
@@ -151,7 +151,7 @@
                                 <h3>Manage your group information</h3>
                                 <p>Easily keep your group information up to date and promote your group to the people of Stockport and beyond.</p>
                                 <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
-                                <p>If you don't run this group, you can still let us know about a <a href="/contact-changes-to-group-information">change to the group</a></p>
+                                <p>If you don't run this group, you can still let us know about a @Html.ActionLink("Let us know about a change to this group", "ChangeGroupInfo", "Groups", new { slug = Model.Slug, groupname = Model.Name })</p>
                             </div>
                         }
                     </div>
