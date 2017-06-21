@@ -7,8 +7,9 @@
                 engine: 'jsrender',
                 recipe: 'phantom-pdf',
                 phantom: {
-                    printDelay: '{{:delay}}'
-                }
+                    blockJavaScript: true,
+                    waitForJS: false
+    }
             },
             data: {
                 html: theData.data,
