@@ -71,6 +71,7 @@ namespace StockportWebapp
                 return featureTogglesReader.Build<FeatureToggles>();
             });
 
+            services.AddSingleton<CurrentEnvironment>(new CurrentEnvironment(_appEnvironment));
             services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(Configuration));
             services.AddSingleton(_ => new ShortUrlRedirects(new BusinessIdRedirectDictionary()));
             services.AddSingleton(_ => new LegacyUrlRedirects(new BusinessIdRedirectDictionary()));

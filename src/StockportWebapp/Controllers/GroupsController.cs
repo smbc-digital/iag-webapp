@@ -17,6 +17,7 @@ using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.Extensions.Logging;
+using StockportWebapp.Config;
 
 namespace StockportWebapp.Controllers
 {
@@ -167,7 +168,7 @@ namespace StockportWebapp.Controllers
         [HttpGet]
         [Route("/groups/{slug}/exportpdf")]
         [ResponseCache(NoStore = true)]
-        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug, [FromQuery] bool returnHtml = false)
+        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, [FromServices] CurrentEnvironment environment, string slug, [FromQuery] bool returnHtml = false)
         {
             ViewBag.CurrentUrl = Request?.GetUri();
 
@@ -177,7 +178,9 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat("//", Request?.Host));
+            var scheme = environment.Name == "local" ? "http" : "https";
+
+            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(scheme, "://", Request?.Host));
             var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
             var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 
