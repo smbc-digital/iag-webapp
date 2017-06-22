@@ -240,7 +240,7 @@ namespace StockportWebapp.Controllers
 
             if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
 
-            return File(result, "application/pdf", "group.pdf");
+            return new FileContentResult(result, "application/pdf");
         }
 
         [Route("/groups/manage/{slug}/users")]

@@ -16,10 +16,12 @@
                 html: theData.data,
                 delay: theData.delay
             }
-        }).then(function(resp) {
+        }).then(function (resp) {
+            console.log("Successfully exported group to pdf");
             callback(/* error */ null, resp.content.toJSON().data);
         });
-    }).catch(function(e) {
+    }).catch(function (e) {
+        console.log("Error exporting group to pdf: " + e);
         callback(/* error */ e, null);
     });
 };
