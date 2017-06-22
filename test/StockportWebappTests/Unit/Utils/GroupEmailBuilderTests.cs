@@ -1,0 +1,107 @@
+﻿using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
+using Moq;
+using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
+using StockportWebapp.Models;
+using StockportWebapp.Repositories;
+using Xunit;
+using FluentAssertions;
+using Microsoft.AspNetCore.Http.Internal;
+using System.Net;
+using StockportWebapp.Utils;
+using StockportWebapp.Emails.Models;
+using Microsoft.AspNetCore.Hosting.Internal;
+
+namespace StockportWebappTests.Unit.Utils
+{
+    public class GroupEmailBuilderTests
+    {
+        private readonly GroupEmailBuilder _groupEmailBuilder;
+        private readonly Mock<ILogger<GroupEmailBuilder>> _logger;
+        private readonly Mock<IHttpEmailClient> _emailClient;
+        private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
+
+
+        public GroupEmailBuilderTests()
+        {
+            _logger = new Mock<ILogger<GroupEmailBuilder>>();
+            _emailClient = new Mock<IHttpEmailClient>();
+            _applicationConfiguration = new Mock<IApplicationConfiguration>();
+
+            _applicationConfiguration.Setup(a => a.GetGroupSubmissionEmail(It.IsAny<string>()))
+                .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
+            _applicationConfiguration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
+                .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
+
+            _groupEmailBuilder = new GroupEmailBuilder(_logger.Object, _emailClient.Object, _applicationConfiguration.Object, new BusinessId("businessId"));
+        }
+
+        [Fact]
+        public void ItShouldBuildAEmailBodyFromFormContent()
+        {
+
+            var emailBody = new GroupAdd()
+            {
+                Location = "Address",
+                Categories = "Science, Sport, Music",
+                Name = "Group",
+                Email = "email",
+                Phone = "phone",
+                Website = "http://www.group.org",
+                Description = "Description"
+            };
+
+            var response = _groupEmailBuilder.GenerateEmailBodyFromHtml(emailBody);
+
+            response.Should().Contain("GROUP NAME: Group");
+            response.Should().Contain("LOCATION: Address");
+            response.Should().Contain("WEBSITE: http://www.group.org");
+            response.Should().Contain("DESCRIPTION: Description");
+            response.Should().Contain("EMAIL: email");
+            response.Should().Contain("CATEGORIES: Science, Sport, Music");
+            response.Should().Contain("PHONE: phone");
+        }
+
+        [Fact]
+        public void ItShouldBuildAEmailBodyWithImageFromFormContent()
+        {
+            var emailBody = new GroupAdd() { Image = "filename.jpg" };
+
+            var response = _groupEmailBuilder.GenerateEmailBodyFromHtml(emailBody);
+
+            response.Should().Contain("IMAGE: " + emailBody.Image);
+        }
+
+
+        [Fact]
+        public async void ItShouldSendAnEmailAndReturnAStatusCodeOf200()
+        {
+            _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ToEmail == AppSetting.GetAppSetting("GroupSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
+
+            var groupSubmission = new GroupSubmission()
+            {
+                Address = "Address",
+                Categories = new List<string>(),
+                Name = "Group",
+                Email = "email",
+                PhoneNumber = "phone",
+                Website = "http://www.group.org",
+                Description = "Description",
+                CategoriesList = "Category"
+            };
+            var response = await _groupEmailBuilder.SendEmailAddNew(groupSubmission);
+
+            response.Should().Be(HttpStatusCode.OK);
+        }
+
+        [Fact]
+        public async void ItShouldLogThatAnEmailWasSent()
+        {
+            var groupSubmission = new GroupSubmission { Email = "test@testing.xyz" };
+            await _groupEmailBuilder.SendEmailAddNew(groupSubmission);
+
+            LogTesting.Assert(_logger, LogLevel.Information, "Sending group submission form email");
+        }
+    }
+}

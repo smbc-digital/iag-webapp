@@ -26,21 +26,21 @@ namespace StockportWebapp.Controllers
     {
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRepository _repository;
-        private readonly IGroupRepository _groupRepository;
+        private readonly GroupEmailBuilder _emailBuilder;
         private readonly IFilteredUrl _filteredUrl;
         private readonly FeatureToggles _featureToggle;
         private readonly IViewRender _viewRender;
         private readonly ILogger<GroupsController> _logger;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, IGroupRepository groupRepository, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
-            _groupRepository = groupRepository;
             _filteredUrl = filteredUrl;
             _featureToggle = featureToggle;
             _viewRender = viewRender;
             _logger = logger;
+            _emailBuilder = emailBuilder;
         }
 
         [Route("/groups")]
@@ -145,7 +145,7 @@ namespace StockportWebapp.Controllers
                 return View(groupSubmission);
             }
 
-            var successCode = await _groupRepository.SendEmailMessage(groupSubmission);
+            var successCode = await _emailBuilder.SendEmailAddNew(groupSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
 
             ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
@@ -189,7 +189,7 @@ namespace StockportWebapp.Controllers
                 return View(submission);
             }
 
-            var successCode = _groupRepository.SendEmailChangeGroupInfo(submission).Result;
+            var successCode = _emailBuilder.SendEmailChangeGroupInfo(submission).Result;
             if (successCode == HttpStatusCode.OK)
                 return RedirectToAction("ChangeGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
 
@@ -465,7 +465,7 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful()) return response;
 
-            _groupRepository.SendEmailDelete(group);
+            _emailBuilder.SendEmailDelete(group);
             return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, email = model.Email });
         }
 
@@ -593,7 +593,7 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful()) return response;
 
-            _groupRepository.SendEmailDelete(group);
+            _emailBuilder.SendEmailDelete(group);
            return RedirectToAction("DeleteConfirmation", new { group = group.Slug });
         }
 
@@ -652,7 +652,7 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful()) return response;
            
-            _groupRepository.SendEmailArchive(group);
+            _emailBuilder.SendEmailArchive(group);
             return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
         }
 

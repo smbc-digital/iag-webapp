@@ -132,7 +132,7 @@ namespace StockportWebapp
 
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
             services.AddTransient<IHttpEmailClient, HttpEmailClient>();
-            services.AddTransient<IEmailBuilder, EmailBuilder>();
+            services.AddTransient<IEmailBuilder, Builders.EmailBuilder>();
             services.AddTransient<HtmlParser>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
             services.AddSingleton<ParisHashHelper>();
@@ -189,8 +189,12 @@ namespace StockportWebapp
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
             services.AddTransient<IEventsRepository, EventsRepository>();
-            services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<IPaymentRepository, PaymentRepository>();
+
+            services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(), 
+                                                            p.GetService<IHttpEmailClient>(),
+                                                            p.GetService<IApplicationConfiguration>(),
+                                                            p.GetService<BusinessId>()));
 
             services.Configure<RazorViewEngineOptions>(
             options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });

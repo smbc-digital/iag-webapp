@@ -53,6 +53,18 @@ namespace StockportWebapp.Builders
                 TextBody = bodyContent,
             };
 
+            if (bodyContent.Contains("<plaintext>"))
+            {
+                var start = bodyContent.IndexOf("<plaintext>");
+                var end = bodyContent.IndexOf("</plaintext>") + "</plaintext>".Length;
+                var plaintext = bodyContent.Substring(start, end - start);
+                bodyContent = bodyContent.Remove(start, end - start);
+                plaintext = plaintext.Remove(0, "<plaintext>".Length);
+                plaintext = plaintext.Remove(plaintext.IndexOf("</plaintext>"), "</plaintext>".Length);
+                body.HtmlBody = bodyContent;
+                body.TextBody = plaintext;
+            }
+
             foreach (var file in attachments)
             {
                 body.Attachments.Add(FileHelper.GetFileNameFromPath(file), file.OpenReadStream());

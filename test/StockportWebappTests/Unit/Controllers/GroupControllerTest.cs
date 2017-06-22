@@ -19,6 +19,9 @@ using StockportWebapp.FeatureToggling;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
+using StockportWebapp.AmazonSES;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -27,7 +30,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly FakeProcessedContentRepository _fakeRepository;
         private readonly GroupsController _groupController;
         private Mock<IRepository> _repository = new Mock<IRepository>();
-        private Mock<IGroupRepository> _groupRepository;
+        private Mock<GroupEmailBuilder> _groupEmailBuilder;
         public const int MaxNumberOfItemsPerPage = 9;
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private MapPosition _location = new MapPosition() { Lat = 1, Lon = 1 };
@@ -44,11 +47,20 @@ namespace StockportWebappTests.Unit.Controllers
         public GroupControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _groupRepository = new Mock<IGroupRepository>();
             _filteredUrl = new Mock<IFilteredUrl>();
             _featureToggle = new FeatureToggles() {GroupManagement = true};
             _logger = new Mock<ILogger<GroupsController>>();
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object,_filteredUrl.Object, _featureToggle, null, _logger.Object);
+
+            var emailLogger = new Mock<ILogger<GroupEmailBuilder>>();
+            var emailClient = new Mock<IHttpEmailClient>();
+            var emailConfig = new Mock<IApplicationConfiguration>();
+
+            emailConfig.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
+                .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
+
+            _groupEmailBuilder = new Mock<GroupEmailBuilder>(emailLogger.Object, emailClient.Object, emailConfig.Object, new BusinessId("BusinessId"));
+
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -103,7 +115,7 @@ namespace StockportWebappTests.Unit.Controllers
                 CategoriesList = "Category",
                 Image = null
             };
-            _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.OK);
+            _groupEmailBuilder.Setup(o => o.SendEmailAddNew(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.OK);
 
             var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission)) as RedirectToActionResult;
             actionResponse.ActionName.Should().Be("ThankYouMessage");
@@ -114,12 +126,12 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var groupSubmission = new GroupSubmission();
 
-            _groupRepository.Setup(o => o.SendEmailMessage(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
+            _groupEmailBuilder.Setup(o => o.SendEmailAddNew(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
 
             var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
 
             actionResponse.Should().BeOfType<ViewResult>();
-            _groupRepository.Verify(o => o.SendEmailMessage(groupSubmission), Times.Once);
+            _groupEmailBuilder.Verify(o => o.SendEmailAddNew(groupSubmission), Times.Once);
         }
 
         [Fact]
@@ -128,11 +140,11 @@ namespace StockportWebappTests.Unit.Controllers
             var groupSubmission = new GroupSubmission();
 
             _groupController.ModelState.AddModelError("Name", "an invalid name was provided");
-
+           
             var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
 
             actionResponse.Should().BeOfType<ViewResult>();
-            _groupRepository.Verify(o => o.SendEmailMessage(groupSubmission), Times.Never);
+            _groupEmailBuilder.Verify(o => o.SendEmailAddNew(groupSubmission), Times.Never);
         }
 
         [Fact]
@@ -170,7 +182,7 @@ namespace StockportWebappTests.Unit.Controllers
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -307,7 +319,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupRepository.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             return controller;
         }

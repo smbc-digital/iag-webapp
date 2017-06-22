@@ -1,0 +1,500 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Stockport.gov.uk</title>
+        <style type="text/css">
+            /* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
+
+            #outlook a {
+                padding: 0;
+            }
+            /* Force Outlook to provide a "view in browser" message */
+
+            .ReadMsgBody {
+                width: 100%;
+            }
+
+            .ExternalClass {
+                width: 100%;
+            }
+                /* Force Hotmail to display emails at full width */
+
+                .ExternalClass,
+                .ExternalClass p,
+                .ExternalClass span,
+                .ExternalClass font,
+                .ExternalClass td,
+                .ExternalClass div {
+                    line-height: 100%;
+                }
+            /* Force Hotmail to display normal line spacing */
+
+            body,
+            table,
+            td,
+            p,
+            a,
+            li,
+            blockquote {
+                -webkit-text-size-adjust: 100%;
+                -ms-text-size-adjust: 100%;
+            }
+            /* Prevent WebKit and Windows mobile changing default text sizes */
+
+            table,
+            td {
+                mso-table-lspace: 0pt;
+                mso-table-rspace: 0pt;
+            }
+            /* Remove spacing between tables in Outlook 2007 and up */
+
+            img {
+                -ms-interpolation-mode: bicubic;
+            }
+            /* Allow smoother rendering of resized image in Internet Explorer */
+            /* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            img {
+                width: 225px;
+                border: 0;
+                height: auto;
+                line-height: 100%;
+                outline: none;
+                text-decoration: none;
+            }
+
+            table {
+                border-collapse: collapse !important;
+            }
+
+            body,
+            #bodyTable,
+            #bodyCell {
+                height: 100% !important;
+                margin: 0;
+                padding: 0;
+                width: 100% !important;
+            }
+            /* /\/\/\/\/\/\/\/\/ TEMPLATE STYLES /\/\/\/\/\/\/\/\/ */
+            /* ========== Page Styles ========== */
+
+            #bodyCell {
+                padding: 20px;
+            }
+
+            #templateContainer {
+                width: 550px;
+            }
+            /**
+            * @tab Page
+            * @section background style
+            * @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+            * @theme page
+            */
+
+            body,
+            #bodyTable {
+                background-color: #EBEBEB;
+            }
+            /**
+            * @tab Page
+            * @section background style
+            * @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+            * @theme page
+            */
+
+            #bodyCell {
+                /*border-top:4px solid #BBBBBB;*/
+            }
+            /**
+            * @tab Page
+            * @section email border
+            * @tip Set the border for your email.
+            */
+
+            #templateContainer {
+                /*@editable border:1px solid #dddddd;*/
+            }
+            /**
+            * @tab Page
+            * @section heading 1
+            * @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+            * @style heading 1
+            */
+
+            h1 {
+                /*@editable*/
+                color: #202020 !important;
+                display: block;
+                /*@editable*/
+                font-family: Helvetica;
+                /*@editable*/
+                font-size: 26px;
+                /*@editable*/
+                font-style: normal;
+                /*@editable*/
+                font-weight: bold;
+                /*@editable*/
+                line-height: 100%;
+                /*@editable*/
+                letter-spacing: normal;
+                margin-top: 0;
+                margin-right: 0;
+                margin-bottom: 10px;
+                margin-left: 0;
+                /*@editable*/
+                text-align: left;
+            }
+            /* ========== Header Styles ========== */
+            /**
+            * @tab Header
+            * @section preheader style
+            * @tip Set the background color and bottom border for your email's preheader area.
+            * @theme header
+            */
+
+            #templatePreheader {
+                /*@editable*/
+                background-color: #F4F4F4;
+                /*@editable*/
+                border-bottom: 1px solid #CCCCCC;
+            }
+            /**
+            * @tab Header
+            * @section preheader text
+            * @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+            */
+
+            .preheaderContent {
+                /*@editable*/
+                color: #808080;
+                /*@editable*/
+                font-family: Helvetica;
+                /*@editable*/
+                font-size: 10px;
+                /*@editable*/
+                line-height: 125%;
+                /*@editable*/
+                text-align: left;
+            }
+            /**
+            * @tab Header
+            * @section header style
+            * @tip Set the background color and borders for your email's header area.
+            * @theme header
+            */
+
+            #templateHeader {
+                /*@editable*/
+                background-color: #F4F4F4;
+                /*@editable border-bottom:1px solid #CCCCCC;*/
+            }
+            /**
+            * @tab Header
+            * @section header text
+            * @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+            */
+
+            .headerContent {
+                /*@editable*/
+                background-color: #055C58;
+                /*@editable*/
+                font-family: Helvetica;
+                /*@editable*/
+                font-size: 20px;
+                /*@editable*/
+                font-weight: bold;
+                /*@editable*/
+                line-height: 100%;
+                /*@editable*/
+                padding-top: 10px;
+                /*@editable*/
+                padding-right: 0;
+                /*@editable*/
+                padding-bottom: 10px;
+                /*@editable*/
+                padding-left: 10px;
+                /*@editable*/
+                text-align: left;
+                /*@editable*/
+                vertical-align: middle;
+            }
+                /**
+            * @tab Header
+            * @section header link
+            * @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+            */
+
+                .headerContent a:link,
+                .headerContent a:visited,
+                /* Yahoo! Mail Override */
+                .headerContent a .yshortcuts
+                /* Yahoo! Mail Override */ {
+                    /*@editable*/
+                    color: #EB4102;
+                    /*@editable*/
+                    font-weight: 600;
+                    /*@editable*/
+                    text-decoration: underline;
+                }
+
+            #headerImage {
+                height: auto;
+                width: 225px !important;
+            }
+            /* ========== Body Styles ========== */
+            /**
+            * @tab Body
+            * @section body style
+            * @tip Set the background color and borders for your email's body area.
+            */
+
+            #templateBody {
+                /*@editable*/
+                background-color: #ffffff;
+            }
+            /**
+            * @tab Body
+            * @section body text
+            * @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
+            * @theme main
+            */
+
+            .bodyContent {
+                /*@editable*/
+                color: #000000;
+                /*@editable*/
+                font-family: Helvetica;
+                /*@editable*/
+                font-size: 23px;
+                /*@editable*/
+                line-height: 150%;
+                padding-top: 20px;
+                padding-right: 20px;
+                padding-bottom: 20px;
+                padding-left: 20px;
+                /*@editable*/
+                text-align: left;
+            }
+                /**
+            * @tab Body
+            * @section body link
+            * @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
+            */
+
+                .bodyContent a:link,
+                .bodyContent a:visited,
+                /* Yahoo! Mail Override */
+                .bodyContent a .yshortcuts
+                /* Yahoo! Mail Override */ {
+                    /*@editable*/
+                    color: #ffffff;
+                    /*@editable*/
+                    font-weight: normal;
+                }
+
+                .bodyContent img {
+                    display: inline;
+                    height: auto;
+                    width: 225px;
+                }
+
+            .td-button {
+                color: #ffffff !important;
+                font-size: 19px;
+                font-family: sans-serif;
+            }
+
+            .outlook-visited {
+                font-weight: normal;
+            }
+
+            .td-frame {
+                background-color: #00B79B !important;
+                border-bottom-width: 2px;
+            }
+
+            .table-button {
+                background-color: #00B79B !important;
+            }
+
+            .emailButton {
+                background-color: #00B79B;
+                border-collapse: separate;
+            }
+
+            .tableContent {
+                color: #FFFFFF;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 100%;
+                padding: 15px;
+            }
+
+            .tableContent a {
+                color: #FFFFFF;
+                display: block;
+                text-decoration: none;
+            }
+
+            .buttonContent {
+                color: #FFFFFF;
+                font-family: Helvetica;
+                font-size: 18px;
+                font-weight: bold;
+                line-height: 100%;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .buttonContent a {
+                color: #FFFFFF;
+                display: block;
+                text-decoration: none;
+            }
+            /* /\/\/\/\/\/\/\/\/ MOBILE STYLES /\/\/\/\/\/\/\/\/ */
+
+            @media only screen and (max-width: 480px) {
+                /* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
+                body,
+                table,
+                td,
+                p,
+                a,
+                li,
+                blockquote {
+                    -webkit-text-size-adjust: none !important;
+                }
+                /* Prevent Webkit platforms from changing default text sizes */
+                body {
+                    width: 100% !important;
+                    min-width: 100% !important;
+                }
+                /* Prevent iOS Mail from adding padding to the body */
+                /* /\/\/\/\/\/\/ MOBILE RESET STYLES /\/\/\/\/\/\/ */
+                #bodyCell {
+                    padding: 10px !important;
+                }
+                /* /\/\/\/\/\/\/ MOBILE TEMPLATE STYLES /\/\/\/\/\/\/ */
+                /* ======== Page Styles ======== */
+                /**
+                * @tab Mobile Styles
+                * @section template width
+                * @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
+                */
+                #templateContainer {
+                    max-width: 550px !important;
+                    /*@editable*/
+                    width: 100% !important;
+                }
+                /**
+                * @tab Mobile Styles
+                * @section heading 1
+                * @tip Make the first-level headings larger in size for better readability on small screens.
+                */
+                h1 {
+                    /*@editable*/
+                    font-size: 24px !important;
+                    /*@editable*/
+                    line-height: 100% !important;
+                }
+                /* ======== Header Styles ======== */
+                #templatePreheader {
+                    display: none !important;
+                }
+                /* Hide the template preheader to save space */
+                /**
+                * @tab Mobile Styles
+                * @section header image
+                * @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+                */
+                #headerImage {
+                    height: auto !important;
+                    /*@editable*/
+                    max-width: 600px !important;
+                    /*@editable*/
+                    width: 100% !important;
+                }
+                /**
+                * @tab Mobile Styles
+                * @section header text
+                * @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+                */
+                .headerContent {
+                    /*@editable*/
+                    font-size: 20px !important;
+                    /*@editable*/
+                    line-height: 125% !important;
+                }
+                /* ======== Body Styles ======== */
+                /**
+                * @tab Mobile Styles
+                * @section body text
+                * @tip Make the body content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+                */
+                .bodyContent {
+                    /*@editable*/
+                    font-size: 18px !important;
+                    /*@editable*/
+                    line-height: 125% !important;
+                }
+
+                table[class="emailButton"] {
+                    width: 100% !important;
+                }
+
+                td[class="buttonContent"] {
+                    padding: 0 !important;
+                }
+
+                    td[class="buttonContent"] a {
+                        padding: 15px !important;
+                    }
+            }
+        </style>
+    </head>
+
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+        <center>
+            <table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+                <tr>
+                    <td align="center" valign="top" id="bodyCell">
+                        <!-- BEGIN TEMPLATE // -->
+                        <table border="0" cellpadding="0" cellspacing="0" id="templateContainer">
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- BEGIN HEADER // -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader">
+                                        <tr>
+                                            <td valign="top" class="headerContent">
+                                                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/logo-stockport-full%402x.png" width="225" class="flexibleImage" style="max-width:225px;" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- // END HEADER -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- BEGIN BODY // -->
+                                    {{ MAIN_BODY }}
+                                    <!-- // END BODY -->
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- // END TEMPLATE -->
+                    </td>
+                </tr>
+            </table>
+        </center>
+    </body>
+
+</html>
