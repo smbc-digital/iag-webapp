@@ -71,6 +71,7 @@
   "publishOptions": {
     "include": [
       "wwwroot",
+      "emails/templates",
       "Views",
       "app-config",
       "web.config",
