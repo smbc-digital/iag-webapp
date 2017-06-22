@@ -8,8 +8,9 @@
                 recipe: 'phantom-pdf',
                 phantom: {
                     blockJavaScript: true,
-                    waitForJS: false
-    }
+                    waitForJS: false,
+                    allowLocalFilesAccess: true
+                }
             },
             data: {
                 html: theData.data,
