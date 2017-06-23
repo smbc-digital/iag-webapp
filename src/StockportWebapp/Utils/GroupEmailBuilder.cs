@@ -89,7 +89,7 @@ namespace StockportWebapp.Utils
 
             _logger.LogInformation("Sending group archive email");
 
-            var emailBody = new GroupDelete { Name = group.Name };
+            var emailBody = new GroupArchive { Name = group.Name };
 
             _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), group.Email,
