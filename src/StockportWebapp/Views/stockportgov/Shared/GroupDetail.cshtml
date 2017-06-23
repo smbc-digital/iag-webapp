@@ -1,6 +1,24 @@
-﻿@using StockportWebapp.FeatureToggling
+﻿@using System.Security.Cryptography.X509Certificates
+@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Extensions
 @inject FeatureToggles FeatureToggles
 @model StockportWebapp.ProcessedModels.ProcessedGroup
+
+
+@{
+    var socialLinksExtension = new SocialLinksExtension();
+    string facebook = string.Empty;
+    string twitter = string.Empty;
+
+    if (!string.IsNullOrEmpty(Model.Facebook))
+    {
+        facebook = socialLinksExtension.GetSubstring(Model.Facebook);
+    }
+    if (!string.IsNullOrEmpty(Model.Twitter))
+    {
+        twitter = socialLinksExtension.GetSubstring(Model.Twitter);
+    }
+}
 
 <div class="grid-container-full-width">
     <div class="grid-container remove-edges-for-pdf grid-100">
@@ -15,8 +33,7 @@
                         {
                             <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
                         }
-                        <div class="grid-60 tablet-grid-100 mobile-grid-100 group-calender-container-description">
-
+                        <div class="grid-60 tablet-grid-100 mobile-grid-100 group-calender-container-description">                          
                             <ul class="group-ul">
                                 <li class="group-details">
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -117,7 +134,14 @@
                                             </div>
                                             @if (!string.IsNullOrEmpty(Model.Facebook))
                                             {
-                                                <a href="@Model.Facebook">@Model.Facebook.ToLower().Replace("http://www.facebook.com/", "/")</a>
+                                                if (Model.Facebook.ToLower().StartsWith("http://") || Model.Facebook.ToLower().StartsWith("https://"))
+                                                {
+                                                    <a href="@Model.Facebook">@facebook</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="http://@Model.Facebook">@facebook</a>
+                                                }
                                             }
                                             else
                                             {
@@ -141,7 +165,14 @@
                                             </div>
                                             @if (!string.IsNullOrEmpty(Model.Twitter))
                                             {
-                                                <a href="@Model.Twitter">@Model.Twitter.ToLower().Replace("http://www.twitter.com/", "@")</a>
+                                                if (Model.Twitter.ToLower().StartsWith("http://") || Model.Twitter.ToLower().StartsWith("https://"))
+                                                {
+                                                    <a href="@Model.Twitter">@twitter</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="http://@Model.Twitter">@twitter</a>
+                                                }
                                             }
                                             else
                                             {
