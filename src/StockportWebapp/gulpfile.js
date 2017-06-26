@@ -24,6 +24,7 @@ var paths = {
      jsSite: "./wwwroot/assets/javascript/site.js",
      jsProject: "./wwwroot/assets/javascript/stockportgov/*.js",
      concatJsDest: "./wwwroot/assets/javascript/stockportgov.min.js",
+     concatFullJsDest: "./wwwroot/assets/javascript/stockportgov.js",
      jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
      concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
      minJs: "./wwwroot/assets/javascript/*.min.js",
@@ -31,7 +32,7 @@ var paths = {
      jsVendorMin: "./wwwroot/assets/javascript/vendor/*.min.js"
 };
 
-gulp.task("js", ['min:js:sg', 'min:js:hs']);
+gulp.task("js", ['min:js:sg', 'min:js:hs', 'js:sg', "js:hs"]);
 
 //js sg
 gulp.task("min:js:sg", function () {
@@ -46,12 +47,37 @@ gulp.task("min:js:sg", function () {
         }));
 });
 
+
+//js sg no min
+gulp.task("js:sg", function () {
+    return gulp.src([paths.jsSite, paths.jsProject, "!" + paths.minJs], { base: "." })
+        .pipe(plumber())
+        .pipe(concat(paths.concatFullJsDest))
+        .pipe(gulp.dest("."))
+        .pipe(plumber.stop())
+        .pipe(print(function (filepath) {
+            console.log('Processed: '.yellow + filepath.cyan);
+        }));
+});
+
 //js hs
 gulp.task("min:js:hs", function () {
     return gulp.src([paths.jsSite, paths.jsProjectHS, "!" + paths.minJs], { base: "." })
         .pipe(plumber())
         .pipe(concat(paths.concatJsDestHS))
         .pipe(uglify())
+        .pipe(gulp.dest("."))
+        .pipe(plumber.stop())
+        .pipe(print(function (filepath) {
+            console.log('Processed: '.yellow + filepath.cyan);
+        }));
+});
+
+//js hs no min
+gulp.task("js:hs", function () {
+    return gulp.src([paths.jsSite, paths.jsProjectHS, "!" + paths.minJs], { base: "." })
+        .pipe(plumber())
+        .pipe(concat(paths.concatJsDestHS))
         .pipe(gulp.dest("."))
         .pipe(plumber.stop())
         .pipe(print(function (filepath) {

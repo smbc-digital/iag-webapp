@@ -1,6 +1,7 @@
 ﻿@using StockportWebapp.Config
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject BusinessId BusinessId
+@inject CurrentEnvironment CurrentEnvironment
 
 <!DOCTYPE html>
 <html lang="en-GB" class="no-js">
@@ -52,6 +53,19 @@
 <![endif]-->
 <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
 <script type="text/javascript" src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
-<script src="/assets/javascript/stockportgov.min.js"></script>
+
+    
+    @if (CurrentEnvironment.Name.ToUpper() == "PROD")
+    {
+        <script src="/assets/javascript/stockportgov.min.js"></script>
+    }
+    else
+    {
+        <script src="/assets/javascript/stockportgov.js"></script>
+    }
+
+
+
+
 </body>
 </html>
