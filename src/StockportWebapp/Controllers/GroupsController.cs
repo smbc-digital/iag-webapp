@@ -253,7 +253,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             return View(group);
         }
@@ -270,7 +272,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             var model = new AddEditUserViewModel();
             model.Slug = slug;
@@ -340,7 +344,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
             if (groupAdministrator == null)
@@ -389,10 +395,14 @@ namespace StockportWebapp.Controllers
         public  IActionResult EditUserConfirmation(string slug, string email, string groupName)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(email))
+            {
                 return NotFound();
+            }
 
             ViewBag.Slug = slug;
             ViewBag.Email = email;
@@ -413,11 +423,15 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             var groupAdministrator = group.GroupAdministrators.Items.FirstOrDefault(i => i.Email == email);
             if (groupAdministrator == null)
+            {
                 return NotFound();
+            }
 
             var model = new RemoveUserViewModel()
             {
@@ -435,7 +449,9 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> RemoveUser(RemoveUserViewModel model, LoggedInPerson loggedInPerson)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             var response = await _processedContentRepository.Get<Group>(model.Slug);
 
@@ -443,7 +459,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             response = await _processedContentRepository.Delete<Group>(model.Slug);
 
@@ -457,10 +475,15 @@ namespace StockportWebapp.Controllers
         public IActionResult RemoveUserConfirmation(string group, string slug, string email)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             if (string.IsNullOrWhiteSpace(group))
+            {
                 return NotFound();
+            }
+
             var model = new RemoveUserViewModel()
             {
                 Slug = slug,
@@ -476,7 +499,9 @@ namespace StockportWebapp.Controllers
             var userPermission = groupAdministrators.FirstOrDefault(a => a.Email == email)?.Permission;
 
             if ((userPermission == permission) || (userPermission == "A"))
+            {
                 return true;
+            }
 
             return false;
         }
@@ -545,7 +570,9 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> Delete(string slug, LoggedInPerson loggedInPerson)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             var response = await _processedContentRepository.Get<Group>(slug);
 
@@ -554,7 +581,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
@@ -567,7 +596,9 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> DeleteGroup(string slug, LoggedInPerson loggedInPerson)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             var response = await _processedContentRepository.Get<Group>(slug);
 
@@ -575,7 +606,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             response = await _processedContentRepository.Delete<Group>(slug);
 
@@ -604,7 +637,9 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> Archive(string slug, LoggedInPerson loggedInPerson)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             var response = await _processedContentRepository.Get<Group>(slug);
 
@@ -613,7 +648,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
@@ -626,7 +663,9 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> ArchiveGroup(string slug, LoggedInPerson loggedInPerson)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             var response = await _processedContentRepository.Get<Group>(slug);
 
@@ -634,7 +673,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
                 return NotFound();
+            }
 
             response = await _processedContentRepository.Archive<Group>(slug);
 
@@ -645,16 +686,24 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/manage/{slug}/archiveconfirmation")]
-        public async Task<IActionResult> ArchiveConfirmation(string slug)
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> ArchiveConfirmation(string slug, LoggedInPerson loggedInPerson)
         {
             if (!_featureToggle.GroupManagement)
+            {
                 return NotFound();
+            }
 
             var response = await _processedContentRepository.Get<Group>(slug);
 
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as ProcessedGroup;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
+                return NotFound();
+            }
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
@@ -673,7 +722,9 @@ namespace StockportWebapp.Controllers
             var group = response.Content as Group;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
                 return NotFound();
+            }
 
             var model = new GroupSubmission();
             model.Address = group.Address;
@@ -726,11 +777,17 @@ namespace StockportWebapp.Controllers
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
                 return NotFound();
+            }
             else if (!ModelState.IsValid)
+            {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+            }
             else
-                return RedirectToAction("EditGroupConfirmation", new { slug = slug, groupName = @group.Name });
+            {
+                return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = @group.Name});
+            }
 
             return View(model);
         }
