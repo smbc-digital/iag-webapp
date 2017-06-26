@@ -1,6 +1,7 @@
 ﻿@using StockportWebapp.Config
 @using StockportWebapp.FeatureToggling
 @inject IApplicationConfiguration ApplicationConfiguration
+@inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
 
 <!DOCTYPE html>
@@ -64,7 +65,14 @@
     <![endif]-->
     <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
     <script src="/assets/javascript/vendor/matchbox.min.js"></script>
-    <script src="/assets/javascript/stockportgov.min.js"></script>
+    if (CurrentEnvironment.Name.ToUpper() == "PROD")
+    {
+        <script src="/assets/javascript/stockportgov.min.js"></script>
+    }
+    else
+    {
+        <script src="/assets/javascript/stockportgov.js"></script>
+    }
     @await Component.InvokeAsync("AddThis")
         
 </body>
