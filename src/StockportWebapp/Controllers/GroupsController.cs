@@ -210,7 +210,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/groups/{slug}/exportpdf")]
+        [Route("/groups/exportpdf/{slug}")]
         [ResponseCache(NoStore = true)]
         public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, [FromServices] CurrentEnvironment environment, string slug, [FromQuery] bool returnHtml = false)
         {
