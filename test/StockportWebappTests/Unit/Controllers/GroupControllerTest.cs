@@ -60,7 +60,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _groupEmailBuilder = new Mock<GroupEmailBuilder>(emailLogger.Object, emailClient.Object, emailConfig.Object, new BusinessId("BusinessId"));
 
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, null);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -151,11 +151,12 @@ namespace StockportWebappTests.Unit.Controllers
         public void ItShouldGetARedirectResultForDelete()
         {
             var slug = "deleteSlug";
+            var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } });
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
-            var actionResponse = AsyncTestHelper.Resolve(_groupController.DeleteGroup(slug)) as RedirectToActionResult;
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.DeleteGroup(slug, loggedInPerson)) as RedirectToActionResult;
             actionResponse.ActionName.Should().Be("DeleteConfirmation");
         }
 
@@ -163,11 +164,12 @@ namespace StockportWebappTests.Unit.Controllers
         public void ItShouldGetARedirectResultForArchive()
         {
             var slug = "archiveSlug";
+            var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } });
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
-            var actionResponse = AsyncTestHelper.Resolve(_groupController.ArchiveGroup(slug)) as RedirectToActionResult;
+            var actionResponse = AsyncTestHelper.Resolve(_groupController.ArchiveGroup(slug, loggedInPerson)) as RedirectToActionResult;
             actionResponse.ActionName.Should().Be("ArchiveConfirmation");
         }
 
@@ -182,7 +184,7 @@ namespace StockportWebappTests.Unit.Controllers
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, null);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -319,7 +321,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, null);
 
             return controller;
         }

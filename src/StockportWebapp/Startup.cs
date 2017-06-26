@@ -34,6 +34,7 @@ using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.Filters;
 using StockportWebapp.Validation;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.Helpers;
@@ -156,6 +157,13 @@ namespace StockportWebapp
             else
             {
                 logger.LogInformation("Paris secrets not found.");
+            }
+
+            if (!string.IsNullOrEmpty(Configuration["group:authenticationKey"]))
+            {
+                var groupKeys = new GroupAuthenticationKeys { Key = Configuration["group:authenticationKey"] };
+                services.AddSingleton(groupKeys);
+                services.AddScoped<GroupAuthorisation>();
             }
 
             if (!string.IsNullOrEmpty(Configuration["ses:accessKey"]) &&
