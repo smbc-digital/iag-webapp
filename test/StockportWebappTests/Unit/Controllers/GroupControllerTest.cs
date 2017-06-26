@@ -60,7 +60,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _groupEmailBuilder = new Mock<GroupEmailBuilder>(emailLogger.Object, emailClient.Object, emailConfig.Object, new BusinessId("BusinessId"));
 
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, null);
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -184,7 +184,7 @@ namespace StockportWebappTests.Unit.Controllers
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, null);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -321,7 +321,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, null);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object);
 
             return controller;
         }

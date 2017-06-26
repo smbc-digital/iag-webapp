@@ -32,9 +32,8 @@ namespace StockportWebapp.Controllers
         private readonly FeatureToggles _featureToggle;
         private readonly IViewRender _viewRender;
         private readonly ILogger<GroupsController> _logger;
-        private readonly GroupAuthenticationKeys _keys;
-
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, GroupAuthenticationKeys keys)
+      
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -43,7 +42,6 @@ namespace StockportWebapp.Controllers
             _viewRender = viewRender;
             _logger = logger;
             _emailBuilder = emailBuilder;
-            _keys = keys;
         }
 
         [Route("/groups")]
@@ -494,7 +492,7 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-        private bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")
+        public bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")
         {
             var userPermission = groupAdministrators.FirstOrDefault(a => a.Email == email)?.Permission;
 

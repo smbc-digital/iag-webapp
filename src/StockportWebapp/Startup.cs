@@ -163,8 +163,9 @@ namespace StockportWebapp
             {
                 var groupKeys = new GroupAuthenticationKeys { Key = Configuration["group:authenticationKey"] };
                 services.AddSingleton(groupKeys);
-                services.AddScoped<GroupAuthorisation>();
             }
+
+            services.AddScoped<GroupAuthorisation>();
 
             if (!string.IsNullOrEmpty(Configuration["ses:accessKey"]) &&
                 !string.IsNullOrEmpty(Configuration["ses:secretKey"]))
