@@ -11,6 +11,7 @@ stage: &stage
   << : *prod
   GroupManagement: true
   ManageYourGroupButton: true
+  ExportGroupToPdf: true
 
 qa: &qa
   << : *prod
