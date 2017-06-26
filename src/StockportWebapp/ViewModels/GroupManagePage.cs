@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using StockportWebapp.Models;
 
 namespace StockportWebapp.ViewModels
 {
     public class GroupManagePage
     {
-        public List<Tuple<string,string, string, string>> Groups { get; set; }
+        public List<Group> Groups { get; set; }
+        public string Email { get; set; }
     }
 }

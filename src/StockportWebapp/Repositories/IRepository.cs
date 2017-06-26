@@ -12,6 +12,7 @@ namespace StockportWebapp.Repositories
         Task<HttpResponse> GetLatest<T>(int limit);
         Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit);
         Task<HttpResponse> GetRedirects();
+        Task<HttpResponse> GetAdministratorsGroups(string email);
     }
 
     public interface IRepository<T>

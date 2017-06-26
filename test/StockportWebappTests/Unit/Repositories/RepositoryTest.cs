@@ -45,6 +45,24 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
+        public void GetsGroupsThatAnEmailAdministrors()
+        {
+            const string email = "buggs@loonytunes.com";
+            var url = _urlGenerator.AdministratorsGroups(email);
+
+            _httpClientMock.Setup(o => o.Get(url))
+                .ReturnsAsync(new HttpResponse(
+                    200,
+                    File.ReadAllText("Unit/MockResponses/GroupListing.json"),
+                    string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.GetAdministratorsGroups(email));
+            var groups = httpResponse.Content as List<Group>;
+
+            groups.Count(x => x.GroupAdministrators.Items.Any(item => item.Email == email)).Should().Be(1);
+        }
+
+        [Fact]
         public void GetsTopicByTopicSlug()
         {
             const string topicSlug = "healthy-living";

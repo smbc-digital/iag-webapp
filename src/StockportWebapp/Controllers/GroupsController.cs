@@ -512,22 +512,24 @@ namespace StockportWebapp.Controllers
 
         [Route("/groups/manage")]
         [ServiceFilter(typeof(GroupAuthorisation))]
-        public IActionResult Manage(LoggedInPerson loggedInPerson)
+        public async Task<IActionResult> Manage(LoggedInPerson loggedInPerson)
         {
             if (!_featureToggle.GroupManagement || (loggedInPerson == null))
+            {
                 return NotFound();
+            }
 
-            var result = new GroupManagePage();
+            var response = await _repository.GetAdministratorsGroups(loggedInPerson.Email);
 
-            var groups = new List<Tuple<string, string, string, string>>();
-            groups.Add(new Tuple<string, string, string, string>("Zumba", "Published", "green", "zumba"));
-            groups.Add(new Tuple<string, string, string, string>("Offerton Knitting Circle", "Archived", "red", "offerton-knitting-circle"));
-            groups.Add(new Tuple<string, string, string, string>("Little Bees Dance Group", "Published", "green", "little-bees"));
-            groups.Add(new Tuple<string, string, string, string>("Pannal Sports Football Club", "Pending Deletion", "yellow", "pannal"));
-            groups.Add(new Tuple<string, string, string, string>("Kersel Rugby Club", "Archived", "red", "kersel"));
-            groups.Add(new Tuple<string, string, string, string>("Middleton Model Railway Club", "Published", "green", "trains"));
+            if (!response.IsSuccessful()) return response;
 
-            result.Groups = groups;
+            var groups = response.Content as List<Group>;
+
+            var result = new GroupManagePage
+            {
+                Groups = groups,
+                Email = loggedInPerson.Email
+            };
 
             return View(result);
         }

@@ -1,5 +1,4 @@
-﻿@using StockportWebapp.Config
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @model GroupManagePage
 @{
@@ -47,23 +46,31 @@
                                     <span>Group name</span>
                                 </div>
                                 <div class="grid-25 tablet-grid-40  mobile-grid-40">
-                                    <span>Status</span>
+                                    <span>Permission</span>
                                 </div>
+                                @*<div class="grid-25 tablet-grid-40  mobile-grid-40">
+                                    <span>Status</span>
+                                </div>*@
                             </div>
 
                             @foreach (var group in Model.Groups)
                             {
-                                <a href="@Url.Action("ManageGroup", "Groups", new { slug = group.Item4 })">
+                                var permission = group.GroupAdministrators.Items.Any(a => a.Email == Model.Email && a.Permission == "A") ? "Administrator" : "Editor";
+                                
+                                <a href="@Url.Action("ManageGroup", "Groups", new { slug = group.Slug })">
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell">
                                             <i class="row-arrow centre"></i>
                                         </div>
                                         <div class="sk-table-cell grid-75 tablet-grid-60 mobile-grid-90">
-                                            <span class="main">@group.Item1</span>
+                                            <span class="main">@group.Name</span>
                                         </div>
                                         <div class="sk-table-cell grid-20 tablet-grid-35 mobile-grid-90">
-                                            <span class="centre status @group.Item3">@group.Item2</span>
+                                            <span>@permission</span>
                                         </div>
+                                        @*<div class="sk-table-cell grid-20 tablet-grid-35 mobile-grid-90">
+                                            <span class="centre status @group.Item3">@group.Item2</span>
+                                        </div>*@
                                     </div>
                                 </a>
                             }

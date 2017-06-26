@@ -72,6 +72,11 @@ namespace StockportWebapp.Utils
             return string.Concat(_config.GetContentApiUri(), "redirects");
         }
 
+        public string AdministratorsGroups(string email)
+        {
+            return $"{_config.GetContentApiUri()}{_businessId}/groups/administrators/{email}";
+        }
+
         public string HealthcheckUrl()
         {
             var baseUrl = _config.GetContentApiUrlRoot();

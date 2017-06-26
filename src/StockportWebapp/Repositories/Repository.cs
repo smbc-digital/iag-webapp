@@ -34,7 +34,7 @@ namespace StockportWebapp.Repositories
         public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit)
         {
             var url = _urlGenerator.UrlForLimitAndFeatured<T>(limit, true);
-              var httpResponse = await _httpClient.Get(url);
+            var httpResponse = await _httpClient.Get(url);
             return HttpResponse.Build<T>(httpResponse);
         }
 
@@ -43,6 +43,13 @@ namespace StockportWebapp.Repositories
             var url = _urlGenerator.RedirectUrl();
             var httpResponse = await _httpClient.Get(url);
             return HttpResponse.Build<Redirects>(httpResponse);
+        }
+
+        public async Task<HttpResponse> GetAdministratorsGroups(string email)
+        {
+            var url = _urlGenerator.AdministratorsGroups(email);
+            var httpResponse = await _httpClient.Get(url);
+            return HttpResponse.Build<List<Group>>(httpResponse);
         }
     }
 }

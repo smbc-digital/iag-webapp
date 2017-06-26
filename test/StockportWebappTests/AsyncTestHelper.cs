@@ -9,7 +9,7 @@ namespace StockportWebappTests
         public static T Resolve<T>(Task<T> task)
         {
             task.Wait(Timeout);
-           return task.Result;
+            return task.Result;
         }
     }
 }
