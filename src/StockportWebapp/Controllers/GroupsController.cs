@@ -32,6 +32,7 @@ namespace StockportWebapp.Controllers
         private readonly FeatureToggles _featureToggle;
         private readonly IViewRender _viewRender;
         private readonly ILogger<GroupsController> _logger;
+        private readonly List<Query> _managementQuery;
       
         public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger)
         {
@@ -42,6 +43,7 @@ namespace StockportWebapp.Controllers
             _viewRender = viewRender;
             _logger = logger;
             _emailBuilder = emailBuilder;
+            _managementQuery = new List<Query> { new Query("onlyActive", "false") };
         }
 
         [Route("/groups")]
@@ -244,7 +246,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Users(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -263,7 +265,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> NewUser(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -286,7 +288,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> NewUser(AddEditUserViewModel model, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(model.Slug);
+            var response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -335,7 +337,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> EditUser(string slug, string email, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -365,7 +367,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> EditUser(AddEditUserViewModel model, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(model.Slug);
+            var response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -414,7 +416,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Remove(string slug, string email, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -451,7 +453,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var response = await _processedContentRepository.Get<Group>(model.Slug);
+            var response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
             var group = response.Content as ProcessedGroup;
@@ -543,7 +545,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -564,7 +566,6 @@ namespace StockportWebapp.Controllers
             return View(result);
         }
 
-        [HttpGet]
         [Route("/groups/manage/{slug}/delete")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Delete(string slug, LoggedInPerson loggedInPerson)
@@ -574,7 +575,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -600,7 +601,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
             var group = response.Content as ProcessedGroup;
@@ -641,7 +642,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -667,7 +668,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
             var group = response.Content as ProcessedGroup;
@@ -694,7 +695,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -715,7 +716,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> EditGroup(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _repository.Get<Group>(slug);
+            var response = await _repository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
@@ -749,7 +750,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> EditGroup(string slug, GroupSubmission model, LoggedInPerson loggedInPerson)
         {
-            var response = await _repository.Get<Group>(slug);
+            var response = await _repository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 

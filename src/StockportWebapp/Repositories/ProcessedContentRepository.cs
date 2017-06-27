@@ -39,37 +39,13 @@ namespace StockportWebapp.Repositories
         public async Task<HttpResponse> Delete<T>(string slug)
         {
             // TODO - Replace this with the actual delete functionality
-
-            var url = _urlGenerator.UrlFor<T>(slug);
-            var httpResponse = await _httpClient.Get(url);
-
-            if (!httpResponse.IsSuccessful())
-            {
-                return httpResponse;
-            }
-
-            var model = HttpResponse.Build<T>(httpResponse);
-            var processedModel = _contentTypeFactory.Build((T)model.Content);
-
-            return HttpResponse.Successful(200, processedModel);
+            return HttpResponse.Successful(200, null);
         }
 
         public async Task<HttpResponse> Archive<T>(string slug)
         {
             // TODO - Replace this with the actual Archive functionality
-
-            var url = _urlGenerator.UrlFor<T>(slug);
-            var httpResponse = await _httpClient.Get(url);
-
-            if (!httpResponse.IsSuccessful())
-            {
-                return httpResponse;
-            }
-
-            var model = HttpResponse.Build<T>(httpResponse);
-            var processedModel = _contentTypeFactory.Build((T)model.Content);
-
-            return HttpResponse.Successful(200, processedModel);
+            return HttpResponse.Successful(200, null);
         }
     }
 }
