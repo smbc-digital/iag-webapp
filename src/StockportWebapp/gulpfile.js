@@ -27,6 +27,7 @@ var paths = {
      concatFullJsDest: "./wwwroot/assets/javascript/stockportgov.js",
      jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
      concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
+     concatFullJsDestHS: "./wwwroot/assets/javascript/healthystockport.js",
      minJs: "./wwwroot/assets/javascript/*.min.js",
      jsVendor: "./wwwroot/assets/javascript/vendor/*.js",
      jsVendorMin: "./wwwroot/assets/javascript/vendor/*.min.js"
@@ -77,7 +78,7 @@ gulp.task("min:js:hs", function () {
 gulp.task("js:hs", function () {
     return gulp.src([paths.jsSite, paths.jsProjectHS, "!" + paths.minJs], { base: "." })
         .pipe(plumber())
-        .pipe(concat(paths.concatJsDestHS))
+        .pipe(concat(paths.concatFullJsDestHS))
         .pipe(gulp.dest("."))
         .pipe(plumber.stop())
         .pipe(print(function (filepath) {
