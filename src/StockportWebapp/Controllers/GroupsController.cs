@@ -167,8 +167,8 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/groups/{slug}/change-group-info")]
-        public async Task<ActionResult> ChangeGroupInfo(string slug, string groupname)
+        [Route("/groups/manage/{slug}/change-group-info")]
+        public ActionResult ChangeGroupInfo(string slug, string groupname)
         {
             var model = new ChangeGroupInfoViewModel
             {
@@ -180,9 +180,9 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpPost]
-        [Route("/groups/{slug}/change-group-info")]
+        [Route("/groups/manage/{slug}/change-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
-        public async Task<IActionResult> ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
+        public  IActionResult ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
         {
             if (!ModelState.IsValid)
             {
@@ -200,7 +200,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/{slug}/change-group-info-confirmation")]
-        public async Task<IActionResult> ChangeGroupInfoConfirmation(string slug, string groupName)
+        public IActionResult ChangeGroupInfoConfirmation(string slug, string groupName)
         {
             if (string.IsNullOrWhiteSpace(groupName))
                 return NotFound();

@@ -24,7 +24,7 @@ namespace StockportWebapp.Config
         AppSetting GetReCaptchaKey();
         int GetFooterCache(string businessId);
         bool GetUseRedisSessions();
-
+        string GetMyAccountUrl();
         string GetStaticAssetsRootUrl();
     }
 
@@ -141,6 +141,11 @@ namespace StockportWebapp.Config
             bool output;
             bool.TryParse(_appsettings["UseRedisSessions"], out output);
             return output;
+        }
+
+        public string GetMyAccountUrl()
+        {
+            return _appsettings["myAccountUrl"];
         }
     }
 }

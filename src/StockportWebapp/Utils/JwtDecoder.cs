@@ -6,13 +6,18 @@ using System;
 
 namespace StockportWebapp.Utils
 {
-    public class JwtDecoder
+    public interface IJwtDecoder
     {
-        private static string _secretKey;
+        LoggedInPerson Decode(string token);
+    }
 
-        public JwtDecoder(string secretKey)
+    public class JwtDecoder : IJwtDecoder
+    {
+        private readonly GroupAuthenticationKeys _keys;
+
+        public JwtDecoder(GroupAuthenticationKeys keys)
         {
-            _secretKey = secretKey;
+            _keys = keys;
         }
 
         public LoggedInPerson Decode(string token)
@@ -22,7 +27,7 @@ namespace StockportWebapp.Utils
                 // valid tokens are split into three sections by .'s
                 if (token.Split('.').Length != 3) throw new InvalidJwtException("Invalid JWT token");
 
-                return JWT.Decode<LoggedInPerson>(token, Convert.FromBase64String(_secretKey), JwsAlgorithm.HS256);
+                return JWT.Decode<LoggedInPerson>(token, Convert.FromBase64String(_keys.Key), JwsAlgorithm.HS256);
             }
             catch (Exception ex)
             {

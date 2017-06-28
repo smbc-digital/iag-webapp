@@ -4,6 +4,7 @@ using System;
 using Newtonsoft.Json;
 using StockportWebapp.Utils;
 using StockportWebapp.Exceptions;
+using StockportWebapp.Models;
 
 namespace JwtTest
 {
@@ -18,7 +19,7 @@ namespace JwtTest
         {
             var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.QmkqA7HE-nOPqxx5kSG5NqDyVeBXUiJ3_i-lwZAdVkw";
 
-            var encoding = new JwtDecoder(_secretKeyValid);
+            var encoding = new JwtDecoder(new GroupAuthenticationKeys() {Key = _secretKeyValid });
 
             var person = encoding.Decode(token);
 
@@ -30,7 +31,7 @@ namespace JwtTest
         public void ShouldFailDecryptionWithInvalidKey()
         {
             var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.QmkqA7HE-nOPqxx5kSG5NqDyVeBXUiJ3_i-lwZAdVkw";
-            var encoding = new JwtDecoder(_secretKeyInvalid);
+            var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyInvalid });
 
             Exception ex = Assert.Throws<Jose.IntegrityException>(() => encoding.Decode(token));
 
@@ -41,7 +42,7 @@ namespace JwtTest
         public void ShouldFailDecryptionWithInvalidKeyThatIsNotBase64Encoded()
         {
             var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.QmkqA7HE-nOPqxx5kSG5NqDyVeBXUiJ3_i-lwZAdVkw";
-            var encoding = new JwtDecoder(_secretKeyNonEncoded);
+            var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyNonEncoded });
 
             Exception ex = Assert.Throws<Jose.IntegrityException>(() => encoding.Decode(token));
 
@@ -53,8 +54,7 @@ namespace JwtTest
         {
             // json structure is { "somethingelse": "testing name", "invalid": "testing@email", "anoher prop": "test" }
             var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21ldGhpbmdlbHNlIjoidGVzdGluZyBuYW1lIiwiaW52YWxpZCI6InRlc3RpbmdAZW1haWwiLCJhbm9oZXIgcHJvcCI6InRlc3QifQ.Kan31G8yHBgX0YJFqasugPSErNvMx1QWGQsZ4D-pybk";
-
-            var encoding = new JwtDecoder(_secretKeyValid);
+            var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid });
 
             var person = encoding.Decode(token);
 
@@ -66,8 +66,7 @@ namespace JwtTest
         public void ShouldThrowExceptionIfInvalidJwtToken()
         {
             var token = "tokenhasbeentamperedwith";
-
-            var encoding = new JwtDecoder(_secretKeyValid);
+            var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid });
 
             Exception ex = Assert.Throws<InvalidJwtException>(() => encoding.Decode(token));
 
@@ -79,7 +78,7 @@ namespace JwtTest
         {
             var token = "tokenhasbeentamperedwith.test.test";
 
-            var encoding = new JwtDecoder(_secretKeyValid);
+            var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid });
 
             Exception ex = Assert.Throws<JsonReaderException>(() => encoding.Decode(token));
 

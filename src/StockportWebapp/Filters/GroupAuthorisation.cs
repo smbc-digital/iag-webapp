@@ -1,5 +1,9 @@
 ﻿using System;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -7,11 +11,14 @@ namespace StockportWebapp.Filters
 {
     public class GroupAuthorisation : ActionFilterAttribute
     {
-        private readonly GroupAuthenticationKeys _keys;
+        private readonly IApplicationConfiguration _configuration;
+        private readonly IJwtDecoder _decoder;
+        private readonly IHttpContextAccessor _contextAccessor;
 
-        public GroupAuthorisation(GroupAuthenticationKeys keys)
+        public GroupAuthorisation(IApplicationConfiguration configuration, IJwtDecoder decoder)
         {
-            _keys = keys;
+            _configuration = configuration;
+            _decoder = decoder;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -21,12 +28,18 @@ namespace StockportWebapp.Filters
             try
             {
                 var token = context.HttpContext.Request.Cookies["jwtCookie"];
-                var decoder = new JwtDecoder(_keys.Key);
-                person = decoder.Decode(token);
+                if (!String.IsNullOrEmpty(token))
+                {
+                    person = _decoder.Decode(token);
+                }
+                else
+                {
+                    context.Result = new RedirectResult(_configuration.GetMyAccountUrl() + "?returnUrl=" + context.HttpContext.Request.GetUri(), false);
+                }
             }
             catch (Exception)
             {
-                // could not decode
+                
             }
 
             context.ActionArguments["loggedInPerson"] = person;
