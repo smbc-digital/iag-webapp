@@ -4,7 +4,7 @@ prod: &prod
   ShowcaseConsultations: true
   GroupManagement: false
   ManageYourGroupButton: false
-  ContactUsIds: false
+  ContactUsIds: true
   ExportGroupToPdf: false
 
 stage: &stage
@@ -16,7 +16,6 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
-  ContactUsIds: true
   ExportGroupToPdf: true
 
 int: &int
