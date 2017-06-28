@@ -164,7 +164,8 @@ namespace StockportWebapp
                 var groupKeys = new GroupAuthenticationKeys { Key = Configuration["group:authenticationKey"] };
                 services.AddSingleton(groupKeys);
 
-                services.AddScoped<GroupAuthorisation>();
+                services.AddScoped<GroupAuthorisation>(p => new GroupAuthorisation(p.GetService<IApplicationConfiguration>(), p.GetService<IJwtDecoder>(), p.GetService<CurrentEnvironment>()));
+
                 services.AddSingleton<IJwtDecoder>(p => new JwtDecoder(p.GetService<GroupAuthenticationKeys>()));
             }
 

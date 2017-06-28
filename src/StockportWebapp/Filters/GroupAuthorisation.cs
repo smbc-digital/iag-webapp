@@ -14,11 +14,13 @@ namespace StockportWebapp.Filters
         private readonly IApplicationConfiguration _configuration;
         private readonly IJwtDecoder _decoder;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly CurrentEnvironment _environment;
 
-        public GroupAuthorisation(IApplicationConfiguration configuration, IJwtDecoder decoder)
+        public GroupAuthorisation(IApplicationConfiguration configuration, IJwtDecoder decoder, CurrentEnvironment environment)
         {
             _configuration = configuration;
             _decoder = decoder;
+            _environment = environment;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -27,7 +29,7 @@ namespace StockportWebapp.Filters
             var person = new LoggedInPerson();
             try
             {
-                var token = context.HttpContext.Request.Cookies["jwtCookie"];
+                var token = context.HttpContext.Request.Cookies[CookieName()];
                 if (!String.IsNullOrEmpty(token))
                 {
                     person = _decoder.Decode(token);
@@ -43,6 +45,21 @@ namespace StockportWebapp.Filters
             }
 
             context.ActionArguments["loggedInPerson"] = person;
+        }
+
+        private string CookieName()
+        {
+            switch (_environment.Name.ToUpper())
+            {
+                case "INT":
+                    return "int_jwtCookie";
+                case "QA":
+                    return "qa_jwtCookie";
+                case "STAGE":
+                    return "staging_jwtCookie";
+                default:
+                    return "jwtCookie";
+            }
         }
     }
 }

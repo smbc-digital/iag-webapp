@@ -33,6 +33,7 @@ namespace StockportWebappTests
         private ActionExecutingContext _actionExcecutingContext;
         private DefaultHttpContext _context = new DefaultHttpContext();
         private Mock<IJwtDecoder> _decoder = new Mock<IJwtDecoder>();
+        private CurrentEnvironment _environment = new CurrentEnvironment("TEST");
 
         public GroupAuthorisationTest()
         {
@@ -50,7 +51,7 @@ namespace StockportWebappTests
             _context.Request.Scheme = "http";
             _context.Request.QueryString = new QueryString("");
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
-            var groupAuthorisation = new GroupAuthorisation(_applicationConfigurationMock.Object, _decoder.Object);
+            var groupAuthorisation = new GroupAuthorisation(_applicationConfigurationMock.Object, _decoder.Object, _environment);
 
             // Act
             groupAuthorisation.OnActionExecuting(_actionExcecutingContext);
@@ -76,7 +77,7 @@ namespace StockportWebappTests
             _context.Request.Cookies = new RequestCookieCollection(new Dictionary<string, string>() { { "jwtCookie", "test" } });
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
             _decoder.Setup(d => d.Decode(It.IsAny<string>())).Returns(new LoggedInPerson() {Email = "test", Name = "test"});
-            var groupAuthorisation = new GroupAuthorisation( _applicationConfigurationMock.Object, _decoder.Object);
+            var groupAuthorisation = new GroupAuthorisation( _applicationConfigurationMock.Object, _decoder.Object, _environment);
 
             // Act
             groupAuthorisation.OnActionExecuting(_actionExcecutingContext);
