@@ -1,0 +1,11 @@
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new AutoMapperConfig());
+            });
+
+            services.AddSingleton<IMapper>(p => config.CreateMapper());
+
+
+
+            services.AddSingleton<Func<ContentfulConfig, ManagementRepository>>(
+                p => { return x => new ManagementRepository(x, p.GetService<IContentfulClientManager>()); });

@@ -7,6 +7,7 @@ namespace StockportWebapp.Http
     {
         Task<HttpResponse> Get(string url);
         Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content);
+        Task<HttpResponse> PutAsync(string requestURI, HttpContent content);
     }
 
     public class HttpClient : IHttpClient
@@ -32,6 +33,15 @@ namespace StockportWebapp.Http
         public Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content)
         {
             return _client.PostAsync(requestURI, content);
+        }
+
+        public async Task<HttpResponse> PutAsync(string requestURI, HttpContent content)
+        {
+            var task = await _client.PutAsync(requestURI, content);
+
+            return new HttpResponse((int)task.StatusCode,
+                                    content,
+                                    task.ReasonPhrase);
         }
     }
 }

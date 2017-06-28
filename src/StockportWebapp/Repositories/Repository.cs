@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -22,6 +23,12 @@ namespace StockportWebapp.Repositories
             var url = _urlGenerator.UrlFor<T>(slug, queries);
             var httpResponse = await _httpClient.Get(url);
             return HttpResponse.Build<T>(httpResponse);
+        }
+
+        public async Task<HttpResponse> Put<T>(HttpContent content, string slug = "")
+        {
+            var url = $"{_urlGenerator.UrlFor<T>(slug)}update";
+            return await _httpClient.PutAsync(url, content);
         }
 
         public async Task<HttpResponse> GetLatest<T>(int limit)

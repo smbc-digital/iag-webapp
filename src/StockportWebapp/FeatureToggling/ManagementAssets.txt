@@ -1,0 +1,19 @@
+using System.Collections.Generic;
+using Contentful.Core.Models;
+using StockportContentApi.ContentfulModels;
+using StockportContentApi.Model;
+
+namespace StockportContentApi.ManagementModels
+{
+    public class ManagementAsset
+    {
+        public string Id;
+        public string LinkType = "Asset";
+        public string Type = "Link";
+    }
+
+    public class LinkReference
+    {
+        public ManagementAsset Sys { get; set; }
+    }
+}

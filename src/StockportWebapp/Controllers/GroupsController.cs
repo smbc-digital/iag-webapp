@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -17,6 +18,7 @@ using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Filters;
 
@@ -762,7 +764,9 @@ namespace StockportWebapp.Controllers
             var categoryResponse = await _repository.Get<List<GroupCategory>>();
             var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
             if (listOfGroupCategories != null)
+            {
                 model.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+            }
 
             group.Address = model.Address;
             group.Description = model.Description;
@@ -787,7 +791,19 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = @group.Name});
+                var jsonContent = JsonConvert.SerializeObject(group);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var putResponse = await _repository.Put<Group>(httpContent);
+
+                if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = @group.Name});
+                }
+                else
+                {
+                    // Error!
+                }
             }
 
             return View(model);
