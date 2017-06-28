@@ -167,7 +167,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/groups/manage/{slug}/change-group-info")]
+        [Route("/groups/{slug}/change-group-info")]
         public ActionResult ChangeGroupInfo(string slug, string groupname)
         {
             var model = new ChangeGroupInfoViewModel
@@ -180,8 +180,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpPost]
-        [Route("/groups/manage/{slug}/change-group-info")]
-        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        [Route("/groups/{slug}/change-group-info")]
         public  IActionResult ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
         {
             if (!ModelState.IsValid)
@@ -310,6 +309,7 @@ namespace StockportWebapp.Controllers
             {
                 group.GroupAdministrators.Items.Add(model.GroupAdministratorItem);
                 // TODO - Save this group to contentful 
+                _emailBuilder.SendEmailNewUser(model);
                 return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
 
@@ -356,7 +356,8 @@ namespace StockportWebapp.Controllers
             {
                 Slug = slug,
                 Name = @group.Name,
-                GroupAdministratorItem = groupAdministrator
+                GroupAdministratorItem = groupAdministrator,
+                Previousrole = groupAdministrator.Permission
             };
 
             return View(model);
@@ -373,7 +374,10 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            var administratorItem =
+                group.GroupAdministrators.Items.Where(i => i.Email == model.GroupAdministratorItem.Email);
+
+            if (!administratorItem.Any() || !HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -385,9 +389,10 @@ namespace StockportWebapp.Controllers
             {
                 group.GroupAdministrators.Items.First(i => i.Email == model.GroupAdministratorItem.Email).Permission = model.GroupAdministratorItem.Permission;
                 // TODO - Save this group to contentful 
+                _emailBuilder.SendEmailEditUser(model);
                 return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
-
+            
             return View(model);
         }
 
@@ -467,7 +472,7 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful()) return response;
 
-            _emailBuilder.SendEmailDelete(group);
+            _emailBuilder.SendEmailDeleteUser(model);
             return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, email = model.Email });
         }
 
@@ -787,6 +792,7 @@ namespace StockportWebapp.Controllers
             }
             else
             {
+                _emailBuilder.SendEmailEditGroup(model, loggedInPerson.Email);
                 return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = @group.Name});
             }
 

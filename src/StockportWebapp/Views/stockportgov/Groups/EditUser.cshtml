@@ -54,6 +54,8 @@
                                     <div>You are currently editing: <strong>@Model.GroupAdministratorItem.Email</strong></div>
 
                                     @Html.HiddenFor(m => m.GroupAdministratorItem.Email)
+                                    @Html.HiddenFor(m => m.Previousrole)
+                                    @Html.HiddenFor(m => m.Name)
                                 </div>
                                 <div class="grid-100 grid-parent">
                                     <label asp-for="@Model.GroupAdministratorItem.Permission" class="clearfix top-gap">Change their role</label>

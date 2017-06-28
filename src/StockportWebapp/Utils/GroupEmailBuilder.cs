@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using System;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
@@ -8,8 +9,10 @@ using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AngleSharp.Dom.Css;
 
 namespace StockportWebapp.Utils
 {
@@ -123,6 +126,90 @@ namespace StockportWebapp.Utils
                                                                     _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
                                                                     changeGroupInfo.Email,
                                                                     new List<IFormFile>()));
+        }
+
+        public virtual void SendEmailEditGroup(GroupSubmission group, string toEmail)
+        {
+            var messageSubject = $"Edit group {group.Name}";
+
+            _logger.LogInformation("Sending edit group email");
+
+            var emailBody = new GroupEdit() { Name = group.Name, Categories = group.CategoriesList, Description = group.Description,
+                                              Email = group.Email, Location = group.Address, Facebook = group.Facebook, Phone = group.PhoneNumber,
+                                              Twitter = group.Twitter, Website = group.Website};
+
+            var message = new EmailMessage(messageSubject, 
+                                           GenerateEmailBodyFromHtml(emailBody), 
+                                           _fromEmail, 
+                                           _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), 
+                                           toEmail, 
+                                           new List<IFormFile>());
+
+            _emailClient.SendEmailToService(message);
+        }
+
+        public virtual Task<HttpStatusCode> SendEmailEditUser(AddEditUserViewModel model)
+        {
+            var messageSubject = $"[Edit User] - {model.Name}";
+
+            _logger.LogInformation("Sending Edit User email");
+
+            var attachments = new List<IFormFile>();
+
+            var emailBody = new EditUser() { Name = model.Name, Role = GetRoleByInitial(model.GroupAdministratorItem.Permission), PreviousRole = GetRoleByInitial(model.Previousrole) };
+
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _fromEmail,
+                _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
+                model.GroupAdministratorItem.Email,
+                attachments));
+        }
+
+        public virtual Task<HttpStatusCode> SendEmailNewUser(AddEditUserViewModel model)
+        {
+            var messageSubject = $"[Add New User] - {model.Name}";
+
+            _logger.LogInformation("Sending Add New User email");
+
+            var attachments = new List<IFormFile>();
+
+            var emailBody = new AddUser() { GroupName = model.Name, Role = GetRoleByInitial(model.GroupAdministratorItem.Permission) };
+
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _fromEmail,
+                _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
+                model.GroupAdministratorItem.Email,
+                attachments));
+        }
+
+        public virtual Task<HttpStatusCode> SendEmailDeleteUser(RemoveUserViewModel model)
+        {
+            var messageSubject = $"[Delete User]";
+
+            _logger.LogInformation("Sending Delete User email");
+
+            var attachments = new List<IFormFile>();
+
+            var emailBody = new DeleteUser() { GroupName = model.GroupName };
+
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _fromEmail,
+                _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
+                model.Email,
+                attachments));
+        }
+
+        private string GetRoleByInitial(string initial)
+        {
+            switch (initial)
+            {
+                case "A":
+                    return "Administrator";
+                case "E":
+                    return "Editor";
+                default:
+                    return String.Empty;
+            }
         }
     }
 }
