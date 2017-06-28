@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Filters;
@@ -24,6 +25,7 @@ namespace StockportWebappTests.Unit.Utils
         private readonly DefaultHttpContext _context = new DefaultHttpContext();
         private readonly Mock<IJwtDecoder> _decoder = new Mock<IJwtDecoder>();
         private readonly CurrentEnvironment _environment = new CurrentEnvironment("TEST");
+        private readonly Mock<ILogger<GroupAuthorisation>> _logger = new Mock<ILogger<GroupAuthorisation>>();
 
         [Fact]
         public void ShouldRedirectIfNoCookie()
@@ -36,7 +38,7 @@ namespace StockportWebappTests.Unit.Utils
             _context.Request.Scheme = "http";
             _context.Request.QueryString = new QueryString("");
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
-            var groupAuthorisation = new GroupAuthorisation(_applicationConfigurationMock.Object, _decoder.Object, _environment);
+            var groupAuthorisation = new GroupAuthorisation(_applicationConfigurationMock.Object, _decoder.Object, _environment, _logger.Object);
 
             // Act
             groupAuthorisation.OnActionExecuting(_actionExcecutingContext);
@@ -62,7 +64,7 @@ namespace StockportWebappTests.Unit.Utils
             _context.Request.Cookies = new RequestCookieCollection(new Dictionary<string, string>() { { "jwtCookie", "test" } });
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
             _decoder.Setup(d => d.Decode(It.IsAny<string>())).Returns(new LoggedInPerson() {Email = "test", Name = "test"});
-            var groupAuthorisation = new GroupAuthorisation( _applicationConfigurationMock.Object, _decoder.Object, _environment);
+            var groupAuthorisation = new GroupAuthorisation( _applicationConfigurationMock.Object, _decoder.Object, _environment, _logger.Object);
 
             // Act
             groupAuthorisation.OnActionExecuting(_actionExcecutingContext);

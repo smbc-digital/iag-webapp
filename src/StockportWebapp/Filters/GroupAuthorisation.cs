@@ -3,6 +3,7 @@ using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -13,14 +14,15 @@ namespace StockportWebapp.Filters
     {
         private readonly IApplicationConfiguration _configuration;
         private readonly IJwtDecoder _decoder;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly CurrentEnvironment _environment;
+        private readonly ILogger<GroupAuthorisation> _logger;
 
-        public GroupAuthorisation(IApplicationConfiguration configuration, IJwtDecoder decoder, CurrentEnvironment environment)
+        public GroupAuthorisation(IApplicationConfiguration configuration, IJwtDecoder decoder, CurrentEnvironment environment, ILogger<GroupAuthorisation> logger)
         {
             _configuration = configuration;
             _decoder = decoder;
             _environment = environment;
+            _logger = logger;
         }
 
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -30,7 +32,7 @@ namespace StockportWebapp.Filters
             try
             {
                 var token = context.HttpContext.Request.Cookies[CookieName()];
-                if (!String.IsNullOrEmpty(token))
+                if (!string.IsNullOrEmpty(token))
                 {
                     person = _decoder.Decode(token);
                 }
@@ -39,9 +41,9 @@ namespace StockportWebapp.Filters
                     context.Result = new RedirectResult(_configuration.GetMyAccountUrl() + "?returnUrl=" + context.HttpContext.Request.GetUri(), false);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                _logger.LogWarning($"Exception thrown in GroupAuthorisation, {ex.Message}");
             }
 
             context.ActionArguments["loggedInPerson"] = person;
