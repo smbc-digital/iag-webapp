@@ -166,7 +166,7 @@ namespace StockportWebapp
 
                 services.AddScoped<GroupAuthorisation>(p => new GroupAuthorisation(p.GetService<IApplicationConfiguration>(), p.GetService<IJwtDecoder>(), p.GetService<CurrentEnvironment>()));
 
-                services.AddSingleton<IJwtDecoder>(p => new JwtDecoder(p.GetService<GroupAuthenticationKeys>()));
+                services.AddSingleton<IJwtDecoder>(p => new JwtDecoder(p.GetService<GroupAuthenticationKeys>(), p.GetService<ILogger<JwtDecoder>>()));
             }
 
             if (!string.IsNullOrEmpty(Configuration["ses:accessKey"]) &&

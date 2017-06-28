@@ -1,9 +1,5 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
 using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
@@ -11,34 +7,23 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Primitives;
 using Moq;
-using Newtonsoft.Json;
 using StockportWebapp.Config;
-using StockportWebapp.Utils;
-using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
-using StockportWebapp.Validation;
+using StockportWebapp.Utils;
+using Xunit;
 
-namespace StockportWebappTests
+namespace StockportWebappTests.Unit.Utils
 {
     public class GroupAuthorisationTest
     {
-        private readonly Mock<IApplicationConfiguration> _config = new Mock<IApplicationConfiguration>();
-        private Mock<IApplicationConfiguration> _applicationConfigurationMock = new Mock<IApplicationConfiguration>();
+        private readonly Mock<IApplicationConfiguration> _applicationConfigurationMock = new Mock<IApplicationConfiguration>();
         private ModelStateDictionary _modelState;
         private ActionExecutingContext _actionExcecutingContext;
-        private DefaultHttpContext _context = new DefaultHttpContext();
-        private Mock<IJwtDecoder> _decoder = new Mock<IJwtDecoder>();
-        private CurrentEnvironment _environment = new CurrentEnvironment("TEST");
-
-        public GroupAuthorisationTest()
-        {
-            
-        }
+        private readonly DefaultHttpContext _context = new DefaultHttpContext();
+        private readonly Mock<IJwtDecoder> _decoder = new Mock<IJwtDecoder>();
+        private readonly CurrentEnvironment _environment = new CurrentEnvironment("TEST");
 
         [Fact]
         public void ShouldRedirectIfNoCookie()
