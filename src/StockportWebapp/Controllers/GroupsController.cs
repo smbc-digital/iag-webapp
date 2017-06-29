@@ -279,9 +279,11 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var model = new AddEditUserViewModel();
-            model.Slug = slug;
-            model.Name = group.Name;
+            var model = new AddEditUserViewModel
+            {
+                Slug = slug,
+                Name = @group.Name
+            };
 
             return View(model);
         }
@@ -801,7 +803,7 @@ namespace StockportWebapp.Controllers
                 var jsonContent = JsonConvert.SerializeObject(group);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-                var putResponse = await _repository.Put<Group>(httpContent);
+                var putResponse = await _repository.Put<Group>(httpContent, slug);
 
                 if (putResponse.StatusCode == (int)HttpStatusCode.OK)
                 {

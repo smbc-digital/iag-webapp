@@ -55,7 +55,7 @@ namespace StockportWebappTests.Unit.Validation
         }
 
         [Fact]
-        public void ShouldReturnValidationFailureWhenTokenIsCorrect()
+        public void ShouldReturnValidationFailureWhenTokenIsIncorrect()
         {
             // Arrange
             SetUpParameters();

@@ -28,7 +28,7 @@ namespace StockportWebapp.Repositories
 
         public async Task<HttpResponse> Put<T>(HttpContent content, string slug = "")
         {
-            var url = $"{_urlGenerator.UrlFor<T>(slug)}update";
+            var url = $"{_urlGenerator.UrlFor<T>(slug)}";
             return await _httpClient.PutAsync(url, content);
         }
 
@@ -41,19 +41,19 @@ namespace StockportWebapp.Repositories
 
         public async Task<HttpResponse> RemoveAdministrator(string slug, string email)
         {
-            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/delete/{email}";
+            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}";
             return await _httpClient.DeleteAsync(url);
         }
 
         public async Task<HttpResponse> UpdateAdministrator(HttpContent permission, string slug, string email)
         {
-            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/update/{email}";
+            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}";
             return await _httpClient.PutAsync(url, permission);
         }
 
         public async Task<HttpResponse> AddAdministrator(StringContent permission, string slug, string email)
         {
-            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/add/{email}";
+            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}";
             return await _httpClient.PostAsync(url, permission);
         }
 
