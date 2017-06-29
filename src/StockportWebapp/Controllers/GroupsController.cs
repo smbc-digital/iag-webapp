@@ -33,8 +33,9 @@ namespace StockportWebapp.Controllers
         private readonly IViewRender _viewRender;
         private readonly ILogger<GroupsController> _logger;
         private readonly List<Query> _managementQuery;
+        private readonly IApplicationConfiguration _configuration;
       
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -42,6 +43,7 @@ namespace StockportWebapp.Controllers
             _featureToggle = featureToggle;
             _viewRender = viewRender;
             _logger = logger;
+            _configuration = configuration;
             _emailBuilder = emailBuilder;
             _managementQuery = new List<Query> { new Query("onlyActive", "false") };
         }
@@ -225,9 +227,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            var scheme = environment.Name == "local" ? "http" : "https";
-
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(scheme, "://", Request?.Host));
+            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
             var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
             var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 

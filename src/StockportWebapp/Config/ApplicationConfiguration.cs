@@ -26,6 +26,7 @@ namespace StockportWebapp.Config
         bool GetUseRedisSessions();
         string GetMyAccountUrl();
         string GetStaticAssetsRootUrl();
+        string GetExportHost();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -52,6 +53,11 @@ namespace StockportWebapp.Config
         public string GetStaticAssetsRootUrl()
         {
             return _appsettings["StaticAssetsRootUrl"];
+        }
+
+        public string GetExportHost()
+        {
+            return _appsettings["ExportHost"];
         }
 
         public AppSetting GetSearchUrl(string businessId)
