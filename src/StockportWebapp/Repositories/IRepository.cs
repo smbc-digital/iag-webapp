@@ -15,6 +15,9 @@ namespace StockportWebapp.Repositories
         Task<HttpResponse> GetRedirects();
         Task<HttpResponse> GetAdministratorsGroups(string email);
         Task<HttpResponse> Put<T>(HttpContent content, string slug = "");
+        Task<HttpResponse> RemoveAdministrator(string slug, string email);
+        Task<HttpResponse> UpdateAdministrator(HttpContent permission, string slug, string email);
+        Task<HttpResponse> AddAdministrator(StringContent permission, string modelSlug, string email);
     }
 
     public interface IRepository<T>

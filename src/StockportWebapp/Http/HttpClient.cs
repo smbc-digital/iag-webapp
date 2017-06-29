@@ -6,8 +6,10 @@ namespace StockportWebapp.Http
     public interface IHttpClient
     {
         Task<HttpResponse> Get(string url);
-        Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content);
+        Task<HttpResponseMessage> PostRecaptchaAsync(string requestURI, HttpContent content);
+        Task<HttpResponse> PostAsync(string requestURI, HttpContent content);
         Task<HttpResponse> PutAsync(string requestURI, HttpContent content);
+        Task<HttpResponse> DeleteAsync(string requestURI);
     }
 
     public class HttpClient : IHttpClient
@@ -30,9 +32,18 @@ namespace StockportWebapp.Http
                                     task.ReasonPhrase);
         }
 
-        public Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content)
+        public Task<HttpResponseMessage> PostRecaptchaAsync(string requestURI, HttpContent content)
         {
             return _client.PostAsync(requestURI, content);
+        }
+
+        public async Task<HttpResponse> PostAsync(string requestURI, HttpContent content)
+        {
+            var task = await _client.PostAsync(requestURI, content);
+
+            return new HttpResponse((int)task.StatusCode,
+                                    content,
+                                    task.ReasonPhrase);
         }
 
         public async Task<HttpResponse> PutAsync(string requestURI, HttpContent content)
@@ -41,6 +52,15 @@ namespace StockportWebapp.Http
 
             return new HttpResponse((int)task.StatusCode,
                                     content,
+                                    task.ReasonPhrase);
+        }
+
+        public async Task<HttpResponse> DeleteAsync(string requestURI)
+        {
+            var task = await _client.DeleteAsync(requestURI);
+
+            return new HttpResponse((int)task.StatusCode,
+                                    null,
                                     task.ReasonPhrase);
         }
     }

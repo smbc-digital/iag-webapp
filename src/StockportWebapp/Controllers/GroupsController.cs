@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.NodeServices;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
+using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 
 namespace StockportWebapp.Controllers
@@ -310,8 +311,11 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                group.GroupAdministrators.Items.Add(model.GroupAdministratorItem);
-                // TODO - Save this group to contentful 
+                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem.Permission);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                response = await _repository.AddAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
+                if (!response.IsSuccessful()) return response;
                 return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
 
@@ -385,8 +389,11 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                group.GroupAdministrators.Items.First(i => i.Email == model.GroupAdministratorItem.Email).Permission = model.GroupAdministratorItem.Permission;
-                // TODO - Save this group to contentful 
+                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem.Permission);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                
+                response = await _repository.UpdateAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
+                if (!response.IsSuccessful()) return response;
                 return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
 
@@ -465,7 +472,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            response = await _processedContentRepository.Delete<Group>(model.Slug);
+            response = await _repository.RemoveAdministrator(model.Slug, model.Email);
 
             if (!response.IsSuccessful()) return response;
 
@@ -798,11 +805,11 @@ namespace StockportWebapp.Controllers
 
                 if (putResponse.StatusCode == (int)HttpStatusCode.OK)
                 {
-                    return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = @group.Name});
+                    return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = group.Name});
                 }
                 else
                 {
-                    // Error!
+                    throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
                 }
             }
 

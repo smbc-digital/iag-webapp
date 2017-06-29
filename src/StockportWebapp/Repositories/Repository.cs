@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -36,6 +37,24 @@ namespace StockportWebapp.Repositories
             var url = _urlGenerator.UrlForLimit<T>(limit);
             var httpResponse = await _httpClient.Get(url);
             return HttpResponse.Build<T>(httpResponse);
+        }
+
+        public async Task<HttpResponse> RemoveAdministrator(string slug, string email)
+        {
+            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/delete/{email}";
+            return await _httpClient.DeleteAsync(url);
+        }
+
+        public async Task<HttpResponse> UpdateAdministrator(HttpContent permission, string slug, string email)
+        {
+            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/update/{email}";
+            return await _httpClient.PutAsync(url, permission);
+        }
+
+        public async Task<HttpResponse> AddAdministrator(StringContent permission, string slug, string email)
+        {
+            var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/add/{email}";
+            return await _httpClient.PostAsync(url, permission);
         }
 
         public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit)
