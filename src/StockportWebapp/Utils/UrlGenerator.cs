@@ -74,7 +74,7 @@ namespace StockportWebapp.Utils
 
         public string AdministratorsGroups(string email)
         {
-            return $"{_config.GetContentApiUri()}{_businessId}/groups/administrators/{email}";
+            return $"{_config.GetContentApiUri()}{_businessId}/group/administrators/{email}";
         }
 
         public string HealthcheckUrl()
