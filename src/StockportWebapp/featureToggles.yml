@@ -5,18 +5,16 @@ prod: &prod
   GroupManagement: false
   ManageYourGroupButton: false
   ContactUsIds: true
-  ExportGroupToPdf: false
+  ExportGroupToPdf: true
 
 stage: &stage
   << : *prod
   GroupManagement: true
   ManageYourGroupButton: true
-  ExportGroupToPdf: true
 
 qa: &qa
   << : *prod
   << : *stage
-  ExportGroupToPdf: true
 
 int: &int
   << : *prod
