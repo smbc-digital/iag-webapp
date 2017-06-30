@@ -283,8 +283,9 @@ $(document).ready(
         });
 
         // only run of the auto complete is toggled on
-        if ($(".primary-filter-form-autocomplete").length) {
+        if ($(".primary-filter-form-autocomplete").length || $('.location-search-input').length) {
             // Set the default bounds to the UK
+            debugger;
             var defaultBounds = new google.maps.LatLngBounds(
                 new google.maps.LatLng(49.383639452689664, -17.39866406249996),
                 new google.maps.LatLng(59.53530451232491, 8.968523437500039));

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Http;
@@ -13,6 +14,10 @@ namespace StockportWebapp.Repositories
         Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit);
         Task<HttpResponse> GetRedirects();
         Task<HttpResponse> GetAdministratorsGroups(string email);
+        Task<HttpResponse> Put<T>(HttpContent content, string slug = "");
+        Task<HttpResponse> RemoveAdministrator(string slug, string email);
+        Task<HttpResponse> UpdateAdministrator(HttpContent permission, string slug, string email);
+        Task<HttpResponse> AddAdministrator(StringContent permission, string modelSlug, string email);
     }
 
     public interface IRepository<T>

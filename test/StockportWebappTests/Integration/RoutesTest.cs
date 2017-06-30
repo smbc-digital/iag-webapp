@@ -5,10 +5,6 @@ using Xunit;
 using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
-using  StockportWebapp.Models;
-using Moq;
-using StockportWebapp.Http;
-using StockportWebapp.Repositories;
 
 namespace StockportWebappTests.Integration
 {
