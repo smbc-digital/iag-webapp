@@ -52,7 +52,14 @@
                                     <span>Status</span>
                                 </div>*@
                             </div>
-
+                            @if (Model.Groups.Count == 0)
+                            {
+                                <div class="grid-100 sk-table-row grid-parent">
+                                    <div class="sk-table-cell grid-100 tablet-grid-100 mobile-grid-100">
+                                        <span>Sorry, you do not have permission to manage any groups</span>
+                                    </div>
+                                </div>
+                            }
                             @foreach (var group in Model.Groups)
                             {
                                 var permission = group.GroupAdministrators.Items.Any(a => a.Email == Model.Email && a.Permission == "A") ? "Administrator" : "Editor";
