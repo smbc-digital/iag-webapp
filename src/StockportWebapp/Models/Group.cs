@@ -24,11 +24,12 @@ namespace StockportWebapp.Models
         public GroupAdministrators GroupAdministrators { get; set; }
         public DateTime? DateHiddenFrom { get; set; }
         public DateTime? DateHiddenTo { get; set; }
+        public string Status { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl,
             string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs,
-            MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo)
+            MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string status)
         {
             Name = name;
             Slug = slug;
@@ -49,6 +50,7 @@ namespace StockportWebapp.Models
             GroupAdministrators = groupAdministrators;
             DateHiddenFrom = dateHiddenFrom;
             DateHiddenTo = dateHiddenTo;
+            Status = status;
         }
     }
 }
