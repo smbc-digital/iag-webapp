@@ -67,7 +67,7 @@ namespace StockportWebapp.Validation
                     new KeyValuePair<string, string>("secret", _reCaptchaSecret),
                     new KeyValuePair<string, string>("response", token)
                 });
-            HttpResponseMessage response = await _httpClient.PostAsync(ApiVerificationEndpoint, content);
+            HttpResponseMessage response = await _httpClient.PostRecaptchaAsync(ApiVerificationEndpoint, content);
             string json = await response.Content.ReadAsStringAsync();
             var reCaptchaResponse = JsonConvert.DeserializeObject<ReCaptchaResponse>(json);
             if (reCaptchaResponse == null)

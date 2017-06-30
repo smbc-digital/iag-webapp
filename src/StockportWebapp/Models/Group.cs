@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace StockportWebapp.Models
 {
@@ -21,11 +22,13 @@ namespace StockportWebapp.Models
         public bool Volunteering { get; set; }
         public List<Event> Events { get; set; }
         public GroupAdministrators GroupAdministrators { get; set; }
+        public DateTime? DateHiddenFrom { get; set; }
+        public DateTime? DateHiddenTo { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl,
             string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs,
-            MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators)
+            MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo)
         {
             Name = name;
             Slug = slug;
@@ -44,6 +47,8 @@ namespace StockportWebapp.Models
             Volunteering = volunteering;
             Events = events;
             GroupAdministrators = groupAdministrators;
+            DateHiddenFrom = dateHiddenFrom;
+            DateHiddenTo = dateHiddenTo;
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
@@ -17,7 +18,9 @@ using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 using Microsoft.AspNetCore.NodeServices;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using StockportWebapp.Config;
+using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 
 namespace StockportWebapp.Controllers
@@ -275,9 +278,11 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var model = new AddEditUserViewModel();
-            model.Slug = slug;
-            model.Name = group.Name;
+            var model = new AddEditUserViewModel
+            {
+                Slug = slug,
+                Name = @group.Name
+            };
 
             return View(model);
         }
@@ -307,9 +312,11 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                group.GroupAdministrators.Items.Add(model.GroupAdministratorItem);
-                // TODO - Save this group to contentful 
-                _emailBuilder.SendEmailNewUser(model);
+                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem.Permission);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                response = await _repository.AddAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
+                if (!response.IsSuccessful()) return response;
                 return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
 
@@ -387,9 +394,11 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                group.GroupAdministrators.Items.First(i => i.Email == model.GroupAdministratorItem.Email).Permission = model.GroupAdministratorItem.Permission;
-                // TODO - Save this group to contentful 
-                _emailBuilder.SendEmailEditUser(model);
+                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem.Permission);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                
+                response = await _repository.UpdateAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
+                if (!response.IsSuccessful()) return response;
                 return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
             
@@ -468,7 +477,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            response = await _processedContentRepository.Delete<Group>(model.Slug);
+            response = await _repository.RemoveAdministrator(model.Slug, model.Email);
 
             if (!response.IsSuccessful()) return response;
 
@@ -616,7 +625,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            response = await _processedContentRepository.Delete<Group>(slug);
+            response = await _repository.Delete<Group>(slug);
 
             if (!response.IsSuccessful()) return response;
 
@@ -683,12 +692,23 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            response = await _processedContentRepository.Archive<Group>(slug);
+            group.DateHiddenFrom = DateTime.Now;
+            group.DateHiddenTo = null;
 
-            if (!response.IsSuccessful()) return response;
-           
-            _emailBuilder.SendEmailArchive(group);
-            return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
+            var jsonContent = JsonConvert.SerializeObject(group);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var putResponse = await _repository.Archive<Group>(httpContent, slug);
+
+            if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+            {
+                _emailBuilder.SendEmailArchive(group);
+                return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
+            }
+            else
+            {
+                throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
+            }
         }
 
         [Route("/groups/manage/{slug}/archiveconfirmation")]
@@ -767,7 +787,9 @@ namespace StockportWebapp.Controllers
             var categoryResponse = await _repository.Get<List<GroupCategory>>();
             var listOfGroupCategories = categoryResponse.Content as List<GroupCategory>;
             if (listOfGroupCategories != null)
+            {
                 model.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
+            }
 
             group.Address = model.Address;
             group.Description = model.Description;
@@ -792,8 +814,19 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                _emailBuilder.SendEmailEditGroup(model, loggedInPerson.Email);
-                return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = @group.Name});
+                var jsonContent = JsonConvert.SerializeObject(group);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var putResponse = await _repository.Put<Group>(httpContent, slug);
+
+                if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = group.Name});
+                }
+                else
+                {
+                    throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
+                }
             }
 
             return View(model);
