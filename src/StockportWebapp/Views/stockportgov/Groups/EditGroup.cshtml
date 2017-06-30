@@ -1,6 +1,7 @@
 ﻿@using StockportWebapp.Config
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 @model GroupSubmission
 @{
     ViewData["Title"] = "Edit your group";
@@ -59,9 +60,16 @@
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Address" />
                                         <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <div class="grid-100">
 
-                                        </div>
+                                        @if (featureToggles.GroupsAutoCompleteLocation)
+                                        {
+                                            <input type="text" id="location-autocomplete" class="location-search-input" />
+                                        }
+                                        else
+                                        {
+                                            <input type="text" id="location" class="location-search-input" />
+                                        }
+
                                         
                                         <label asp-for="@Model.Description"></label>
                                         <i class="small">
