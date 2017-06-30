@@ -20,6 +20,7 @@ namespace StockportWebapp.Repositories
         Task<HttpResponse> AddAdministrator(StringContent permission, string modelSlug, string email);
         Task<HttpResponse> Delete<T>(string slug = "");
         Task<HttpResponse> Archive<T>(HttpContent content, string slug = "");
+        Task<HttpResponse> Publish<T>(HttpContent content, string slug = "");
     }
 
     public interface IRepository<T>
