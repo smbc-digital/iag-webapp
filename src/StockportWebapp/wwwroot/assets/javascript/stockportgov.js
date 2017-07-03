@@ -773,13 +773,9 @@ $(document)
         
     });
 var matchboxTopicsHomepagePrimary = new Matchbox({
-    parentSelector: '.featured-topics .featured-topics-primary .featured-topic-list',
-    childSelector: '.featured-topic',
-    groupsOf: 3,
-    breakpoints: [
-    { bp: 767, groupsOf: 3 },
-    { bp: 1024, groupsOf: 3 }
-    ]
+    parentSelector: '.primary-feature-box',
+    childSelector: '.primary-feature-match',
+    groupsOf: 3
 });
 
 var matchboxTopicsHomepageSecond = new Matchbox({
@@ -823,7 +819,7 @@ var $moreFeaturedTopicsDiv = $("#more-topics");
 
 $(document).ready(
     function () {
-        if ($(".featured-topics .featured-topics-primary").length) { matchboxTopicsHomepagePrimary.init(); }
+        if ($(".primary-feature-box .primary-feature-match").length) { matchboxTopicsHomepagePrimary.init(); }
         if ($(".featured-topics .primary-topics").length) { matchboxTopicsHomepageSecond.init(); }
         if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMore.init(); }
         if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMoreMobile.init(); }
