@@ -93,8 +93,50 @@ namespace StockportWebapp.Controllers
 
                     xml = SerializeObject(listOfSitemapsArticles);
                     break;
-            }
+                case "homepage":
+                    var sitemapHomepage = new SitemapGoogle()
+                    {
+                        changefreq = "weekly",
+                        lastmod = DateTime.Now,
+                        loc = "www.stockport.gov.uk/",
+                        priority = "0.5"
+                    };
 
+                    xml = SerializeObject(sitemapHomepage);
+                    break;
+                case "groups":
+                    var responseGroups = await _repository.Get<List<Group>>();
+                    var groups = responseGroups.Content as List<Group>;
+                    var listOfGroupSitemaps =
+                        groups.Select(
+                            n =>
+                                new SitemapGoogle()
+                                {
+                                    changefreq = "weekly",
+                                    lastmod = DateTime.Now,
+                                    loc = "www.stockport.gov.uk/groups/" + n.Slug,
+                                    priority = "0.5"
+                                }).ToList();
+
+                    xml = SerializeObject(listOfGroupSitemaps);
+                    break;
+                case "showcase":
+                    var responseShowcases = await _repository.Get<List<Showcase>>();
+                    var showcases = responseShowcases.Content as List<Showcase>;
+                    var listOfShowcaseSitemaps =
+                        showcases.Select(
+                            n =>
+                                new SitemapGoogle()
+                                {
+                                    changefreq = "weekly",
+                                    lastmod = DateTime.Now,
+                                    loc = "www.stockport.gov.uk/showcase/" + n.Slug,
+                                    priority = "0.5"
+                                }).ToList();
+
+                    xml = SerializeObject(listOfShowcaseSitemaps);
+                    break;
+            }
             return this.Content(xml, "text/xml");
         }
 
@@ -102,7 +144,7 @@ namespace StockportWebapp.Controllers
         private string SerializeObject<T>(T dataToSerialize)
         {
             string xml;
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(List<SitemapGoogle>), new XmlRootAttribute("urlset"));
+            XmlSerializer xsSubmit = new XmlSerializer(typeof(T), new XmlRootAttribute("urlset"));
 
             using (var sww = new StringWriter())
             {

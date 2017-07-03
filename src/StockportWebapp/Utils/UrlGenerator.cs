@@ -20,7 +20,6 @@ namespace StockportWebapp.Utils
         private readonly Dictionary<Type, string> _urls = new Dictionary<Type, string>()
         {
             {typeof(Topic), "topic/"},
-            {typeof(Topic), "topic/"},
             {typeof(Article), "article/"},
             {typeof(Profile), "profile/"},
             {typeof(StartPage), "start-page/"},
