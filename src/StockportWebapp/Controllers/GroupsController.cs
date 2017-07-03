@@ -306,7 +306,7 @@ namespace StockportWebapp.Controllers
             {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
             }
-            else if (group.GroupAdministrators.Items.Any(u => u.Email == model.GroupAdministratorItem.Email))
+            else if (group.GroupAdministrators.Items.Any(u => u.Email.ToUpper() == model.GroupAdministratorItem.Email.ToUpper()))
             {
                 ViewBag.SubmissionError = "Sorry, this email already exists for this group. You can only assign an email to a group once.";
             }
@@ -850,6 +850,7 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> EditGroup(string slug, GroupSubmission model, LoggedInPerson loggedInPerson)
         {
             var response = await _repository.Get<Group>(slug, _managementQuery);
+            var validationErrors = new StringBuilder();
 
             if (!response.IsSuccessful()) return response;
 
@@ -885,7 +886,8 @@ namespace StockportWebapp.Controllers
             }
             else if (!ModelState.IsValid)
             {
-                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                validationErrors.Append(GetErrorsFromModelState(ModelState));
+                
             }
             else
             {
@@ -901,9 +903,12 @@ namespace StockportWebapp.Controllers
                 }
                 else
                 {
-                    throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
+                    _logger.LogError($"There was an error updating the group {group.Name}");
+                    validationErrors.Append($"There was an error updating the group {group.Name}" + Environment.NewLine); 
                 }
             }
+
+            ViewBag.SubmissionError = validationErrors;
 
             return View(model);
         }
