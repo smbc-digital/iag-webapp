@@ -15,7 +15,7 @@ namespace StockportWebapp.Models
         public string Name { get; set; }
 
         [Display(Name = "Group meeting location")]
-        [Required]
+        [Required(ErrorMessage = "Your meeting place was not recognised. Make sure you choose an address from the dropdown.")]
         [StringLength(500, ErrorMessage = "Location must be 500 characters or less in length.")]
         public string Address { get; set; }
 
@@ -49,7 +49,10 @@ namespace StockportWebapp.Models
         public string Twitter { get; set; }
         public string Facebook { get; set; }    
         
-        [Display(Name="Do you have any volunteering oppurtunities?")]
+        [Display(Name="Do you have any volunteering opportunities?")]
         public bool Volunteering { get; set; }
+
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

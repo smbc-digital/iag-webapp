@@ -753,6 +753,8 @@ namespace StockportWebapp.Controllers
             model.Twitter = group.Twitter;
             model.Website = group.Website;
             model.Slug = group.Slug;
+            model.Longitude = group.MapPosition.Lon;
+            model.Latitude = group.MapPosition.Lat;
 
             model.AvailableCategories = await GetAvailableGroupCategories();
 
@@ -789,6 +791,7 @@ namespace StockportWebapp.Controllers
             group.Twitter = model.Twitter;
             group.Website = model.Website;
             group.Volunteering = model.Volunteering;
+            group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
 
             group.CategoriesReference = new List<GroupCategory>();
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));
@@ -861,8 +864,13 @@ namespace StockportWebapp.Controllers
             var message = new StringBuilder();
 
             foreach (var state in modelState)
+            {
                 if (state.Value.Errors.Count > 0)
+                {
                     message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
+                }
+            }
+
             return message.ToString();
         }
     }
