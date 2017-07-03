@@ -306,7 +306,7 @@ namespace StockportWebapp.Controllers
             {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
             }
-            else if (group.GroupAdministrators.Items.Any(u => u.Email == model.GroupAdministratorItem.Email))
+            else if (group.GroupAdministrators.Items.Any(u => u.Email.ToUpper() == model.GroupAdministratorItem.Email.ToUpper()))
             {
                 ViewBag.SubmissionError = "Sorry, this email already exists for this group. You can only assign an email to a group once.";
             }
