@@ -319,7 +319,7 @@ $(document).ready(
         }
 
         // only run of the auto complete is toggled on
-        if ($(".primary-filter-form-autocomplete").length) {
+        if ($(".primary-filter-form-autocomplete").length || $('.location-search-input').length) {
             // Set the default bounds to the UK
             var defaultBounds = new google.maps.LatLngBounds(
                 new google.maps.LatLng(49.383639452689664, -17.39866406249996),
