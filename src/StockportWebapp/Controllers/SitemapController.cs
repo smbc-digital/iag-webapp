@@ -78,12 +78,8 @@ namespace StockportWebapp.Controllers
                     break;
 
                 case "article":
-                    var queriesArticle = new List<Query>();
-                    queriesArticle.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
-                    queriesArticle.Add(new Query("DateTo", DateTime.Now.ToString("yyyy-MM-dd")));
-
-                    var responseArticle = await _repository.Get<Article>(queries: queriesEvent);
-                    var articles = responseArticle.Content as List<Article>;
+                    var responseArticle = await _repository.Get<List<ArticleSiteMap>>();
+                    var articles = responseArticle.Content as List<ArticleSiteMap>;
                     var listOfSitemapsArticles =
                         articles.Select(e => e.Slug).Distinct().Select(
                             slug =>
@@ -91,11 +87,11 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = DateTime.Now,
-                                    loc = "www.stockport.gov.uk/events/" + slug,
+                                    loc = "www.stockport.gov.uk/" + slug,
                                     priority = "1.0"
                                 }).ToList();
 
-                    xml = SerializeObject(listOfSitemapsEvents);
+                    xml = SerializeObject(listOfSitemapsArticles);
                     break;
             }
 

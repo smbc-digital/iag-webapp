@@ -37,7 +37,8 @@ namespace StockportWebapp.Utils
             {typeof(Showcase), "showcase/"},
             {typeof(List<GroupCategory>), "groupCategory/"},
             {typeof(GroupResults), "groupResults/"},
-            {typeof(ContactUsId), "ContactUsId/"}
+            {typeof(ContactUsId), "ContactUsId/"},
+            {typeof(List<ArticleSiteMap>), "articleSiteMap"},
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)
@@ -75,6 +76,12 @@ namespace StockportWebapp.Utils
         public string AdministratorsGroups(string email)
         {
             return $"{_config.GetContentApiUri()}{_businessId}/groups/administrators/{email}";
+        }
+
+        public string ArticlesForSiteMap(string slug = "", List<Query> queries = null)
+        {
+            //return $"{_config.GetContentApiUri()}{_businessId}/articleSiteMap";
+            return string.Concat(_config.GetContentApiUri(), _businessId, "/", "articleSiteMap", slug, CreateQueryString(queries));
         }
 
         public string HealthcheckUrl()
