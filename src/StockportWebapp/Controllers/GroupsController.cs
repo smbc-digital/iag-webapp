@@ -570,12 +570,13 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            var result = new ManageGroupViewModel
+           var result = new ManageGroupViewModel
             {
                 Name = group.Name,
                 Slug = slug,
-                Administrator = HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A")
-            };
+                Administrator = HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"),
+               IsArchived = DateNowIsNotBetweenHiddenRange(group.DateHiddenFrom, group.DateHiddenTo)
+        };
 
             return View(result);
         }
@@ -625,7 +626,7 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            response = await _processedContentRepository.Delete<Group>(slug);
+            response = await _repository.Delete<Group>(slug);
 
             if (!response.IsSuccessful()) return response;
 
@@ -692,12 +693,23 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-            response = await _processedContentRepository.Archive<Group>(slug);
+            group.DateHiddenFrom = DateTime.Now;
+            group.DateHiddenTo = null;
 
-            if (!response.IsSuccessful()) return response;
-           
-            _emailBuilder.SendEmailArchive(group);
-            return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
+            var jsonContent = JsonConvert.SerializeObject(group);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var putResponse = await _repository.Archive<Group>(httpContent, slug);
+
+            if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+            {
+                _emailBuilder.SendEmailArchive(group);
+                return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
+            }
+            else
+            {
+                throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
+            }
         }
 
         [Route("/groups/manage/{slug}/archiveconfirmation")]
@@ -759,6 +771,86 @@ namespace StockportWebapp.Controllers
             model.AvailableCategories = await GetAvailableGroupCategories();
 
             return View(model);
+        }
+
+        [Route("/groups/manage/{slug}/publish")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> Publish(string slug, LoggedInPerson loggedInPerson)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as ProcessedGroup;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
+                return NotFound();
+            }
+
+            ViewBag.CurrentUrl = Request?.GetUri();
+
+            return View(group);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/publish")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> PublishGroup(string slug, LoggedInPerson loggedInPerson)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+
+            if (!response.IsSuccessful()) return response;
+            var group = response.Content as ProcessedGroup;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
+                return NotFound();
+            }
+
+            group.DateHiddenFrom = DateTime.MaxValue;
+            group.DateHiddenTo = DateTime.MaxValue; ;
+
+            var jsonContent = JsonConvert.SerializeObject(group);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var putResponse = await _repository.Publish<Group>(httpContent, slug);
+
+            if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+            {
+                _emailBuilder.SendEmailArchive(group);
+                return RedirectToAction("PublishConfirmation", new { slug = group.Slug, name = group.Name });
+            }
+            else
+            {
+                throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
+            }
+        }
+
+        [Route("/groups/manage/publishconfirmation")]
+        public async Task<IActionResult> PublishConfirmation(string slug, string name)
+        {
+            if (!_featureToggle.GroupManagement)
+                return NotFound();
+
+            if (string.IsNullOrWhiteSpace(slug))
+                return NotFound();
+
+            ViewBag.GroupName = name;
+
+            ViewBag.Slug = slug;
+
+            return View();
         }
 
         [HttpPost]
@@ -872,6 +964,12 @@ namespace StockportWebapp.Controllers
             }
 
             return message.ToString();
+        }
+
+        public bool DateNowIsNotBetweenHiddenRange(DateTime? hiddenFrom, DateTime? hiddenTo)
+        {
+            var now = DateTime.Now;
+            return hiddenFrom > now || (hiddenTo < now && hiddenTo != DateTime.MinValue) || (hiddenFrom == DateTime.MinValue && hiddenTo == DateTime.MinValue) || (hiddenFrom == null && hiddenTo == null);
         }
     }
 }

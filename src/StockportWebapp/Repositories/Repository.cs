@@ -32,6 +32,24 @@ namespace StockportWebapp.Repositories
             return await _httpClient.PutAsync(url, content);
         }
 
+        public async Task<HttpResponse> Delete<T>(string slug = "")
+        {
+            var url = $"{_urlGenerator.UrlFor<T>(slug)}";
+            return await _httpClient.DeleteAsync(url);
+        }
+
+        public async Task<HttpResponse> Archive<T>(HttpContent content, string slug = "")
+        {
+            var url = $"{_urlGenerator.UrlFor<T>(slug)}";
+            return await _httpClient.PutAsync(url, content);
+        }
+
+        public async Task<HttpResponse> Publish<T>(HttpContent content, string slug = "")
+        {
+            var url = $"{_urlGenerator.UrlFor<T>(slug)}";
+            return await _httpClient.PutAsync(url, content);
+        }
+
         public async Task<HttpResponse> GetLatest<T>(int limit)
         {
             var url = _urlGenerator.UrlForLimit<T>(limit);
