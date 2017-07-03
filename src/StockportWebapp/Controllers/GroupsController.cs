@@ -757,6 +757,7 @@ namespace StockportWebapp.Controllers
             model.Slug = group.Slug;
             model.Longitude = group.MapPosition.Lon;
             model.Latitude = group.MapPosition.Lat;
+            model.Volunteering = group.Volunteering;
 
             model.AvailableCategories = await GetAvailableGroupCategories();
 
