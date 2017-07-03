@@ -64,7 +64,7 @@
                                 </div>
                                 foreach (var group in Model.Groups)
                                 {
-                                    var permission = group.GroupAdministrators.Items.Any(a => a.Email == Model.Email && a.Permission == "A") ? "Administrator" : "Editor";
+                                    var permission = group.GroupAdministrators.Items.Any(a => a.Email.ToLower() == Model.Email.ToLower() && a.Permission == "A") ? "Administrator" : "Editor";
 
                                     <a href="@Url.Action("ManageGroup", "Groups", new {slug = group.Slug})">
                                         <div class="grid-100 sk-table-row grid-parent">

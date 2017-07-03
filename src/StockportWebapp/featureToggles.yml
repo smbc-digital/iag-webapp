@@ -1,7 +1,5 @@
 ﻿---
 prod: &prod
-  GroupsAutoCompleteLocation: true
-  ShowcaseConsultations: true
   GroupManagement: false
   ManageYourGroupButton: false
   ContactUsIds: true
