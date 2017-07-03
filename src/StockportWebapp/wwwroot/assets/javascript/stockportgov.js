@@ -347,9 +347,10 @@ $(document).ready(
                     return;
                 }
 
+                debugger;
                 autocompleteName = places[0].name;
                 if ($('.location-search-input-autoset').length) {
-                    if (typeof(places[0].formatted_address) == 'undefined') {
+                    if (typeof(places[0].formatted_address) !== 'undefined') {
                         autocompleteName = places[0].formatted_address.replace(', UK', '').replace(', United Kingdom', '');
                         if (autocompleteName.indexOf(places[0].name) < 0) {
                             autocompleteName = places[0].name + ', ' + autocompleteName;
