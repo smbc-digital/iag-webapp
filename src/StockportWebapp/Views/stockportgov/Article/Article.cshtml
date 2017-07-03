@@ -14,8 +14,8 @@
 }
 
 <div class="grid-container-full-width">
-    <div class="grid-container grid-100">
-        <div id="uitest-page-has-loaded" class="l-body-section-filled @(Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible
+    <div class="grid-container grid-100 table">
+        <div id="uitest-page-has-loaded" class="table-cell l-body-section-filled @(Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible
                                                                   ? "grid-parent mobile-grid-100 tablet-grid-100 grid-70"
                                                                   : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
@@ -75,7 +75,7 @@
         @{
             if (Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible)
             {
-                <div class="l-right-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
+                <div class="table-cell l-right-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
                     @if (Model.HasParentTopicWithSubItems())
                     {
                         <div class="l-right-side-bar-section">

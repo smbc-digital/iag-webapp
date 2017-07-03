@@ -178,3 +178,17 @@
         }
     }
 }
+
+@media #{$desktop} {
+    .table {
+        display:table;
+    }
+
+    .table-cell {
+        display:table-cell;
+
+        &.grid-70, &.grid-30 {
+            float:none;
+        }
+    }
+}
