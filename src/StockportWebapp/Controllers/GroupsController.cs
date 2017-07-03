@@ -317,6 +317,7 @@ namespace StockportWebapp.Controllers
 
                 response = await _repository.AddAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
                 if (!response.IsSuccessful()) return response;
+                await _emailBuilder.SendEmailNewUser(model);
                 return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
 
@@ -399,6 +400,7 @@ namespace StockportWebapp.Controllers
                 
                 response = await _repository.UpdateAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
                 if (!response.IsSuccessful()) return response;
+                await _emailBuilder.SendEmailEditUser(model);
                 return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
             }
             
@@ -481,7 +483,7 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful()) return response;
 
-            _emailBuilder.SendEmailDeleteUser(model);
+            await _emailBuilder.SendEmailDeleteUser(model);
             return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, email = model.Email });
         }
 
@@ -506,18 +508,6 @@ namespace StockportWebapp.Controllers
             };           
 
             return View(model);
-        }
-
-        public bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")
-        {
-            var userPermission = groupAdministrators.FirstOrDefault(a => a.Email == email)?.Permission;
-
-            if ((userPermission == permission) || (userPermission == "A"))
-            {
-                return true;
-            }
-
-            return false;
         }
 
         [Route("/groups/thank-you-message")]
@@ -635,7 +625,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/manage/deleteconfirmation")]
-        public async Task<IActionResult> DeleteConfirmation(string group)
+        public IActionResult DeleteConfirmation(string group)
         {
             if (!_featureToggle.GroupManagement)
                 return NotFound();
@@ -703,7 +693,7 @@ namespace StockportWebapp.Controllers
 
             if (putResponse.StatusCode == (int)HttpStatusCode.OK)
             {
-                _emailBuilder.SendEmailArchive(group);
+                _emailBuilder.SendEmailArchive(group, loggedInPerson.Email);
                 return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
             }
             else
@@ -826,7 +816,7 @@ namespace StockportWebapp.Controllers
 
             if (putResponse.StatusCode == (int)HttpStatusCode.OK)
             {
-                _emailBuilder.SendEmailArchive(group);
+                _emailBuilder.SendEmailPublish(group, loggedInPerson.Email);
                 return RedirectToAction("PublishConfirmation", new { slug = group.Slug, name = group.Name });
             }
             else
@@ -836,7 +826,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/manage/publishconfirmation")]
-        public async Task<IActionResult> PublishConfirmation(string slug, string name)
+        public IActionResult PublishConfirmation(string slug, string name)
         {
             if (!_featureToggle.GroupManagement)
                 return NotFound();
@@ -902,6 +892,7 @@ namespace StockportWebapp.Controllers
 
                 if (putResponse.StatusCode == (int)HttpStatusCode.OK)
                 {
+                    _emailBuilder.SendEmailEditGroup(model, loggedInPerson.Email);
                     return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = group.Name});
                 }
                 else
@@ -914,7 +905,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/manage/{slug}/updateconfirmation")]
-        public async Task<IActionResult> EditGroupConfirmation(string slug, string groupName)
+        public IActionResult EditGroupConfirmation(string slug, string groupName)
         {
             if (!_featureToggle.GroupManagement)
                 return NotFound();
@@ -962,6 +953,18 @@ namespace StockportWebapp.Controllers
         {
             var now = DateTime.Now;
             return hiddenFrom > now || (hiddenTo < now && hiddenTo != DateTime.MinValue) || (hiddenFrom == DateTime.MinValue && hiddenTo == DateTime.MinValue) || (hiddenFrom == null && hiddenTo == null);
+        }
+
+        public bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")
+        {
+            var userPermission = groupAdministrators.FirstOrDefault(a => a.Email.ToUpper() == email.ToUpper())?.Permission;
+
+            if ((userPermission == permission) || (userPermission == "A"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
