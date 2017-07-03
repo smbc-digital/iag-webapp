@@ -86,7 +86,7 @@ namespace StockportWebapp.Utils
             }
         }
 
-        public virtual void SendEmailArchive(ProcessedGroup group)
+        public virtual void SendEmailArchive(ProcessedGroup group, string toEmail)
         {
             var messageSubject = $"Archive {group.Name}";
 
@@ -95,14 +95,21 @@ namespace StockportWebapp.Utils
             var emailBody = new GroupArchive { Name = group.Name };
 
             _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
-                _fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), group.Email,
+                _fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), toEmail,
                 new List<IFormFile>()));
+        }
 
-            foreach (var groupAdministrator in group.GroupAdministrators.Items)
-            {
-                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
-                _fromEmail, groupAdministrator.Email, new List<IFormFile>()));
-            }
+        public virtual void SendEmailPublish(ProcessedGroup group, string toEmail)
+        {
+            var messageSubject = $"Publish {group.Name}";
+
+            _logger.LogInformation("Sending group publish email");
+
+            var emailBody = new GroupPublish() { Name = group.Name, Slug = group.Slug };
+
+            _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), toEmail,
+                new List<IFormFile>()));
         }
 
         public virtual Task<HttpStatusCode> SendEmailChangeGroupInfo(ChangeGroupInfoViewModel changeGroupInfo)
@@ -133,6 +140,8 @@ namespace StockportWebapp.Utils
             var messageSubject = $"Edit group {group.Name}";
 
             _logger.LogInformation("Sending edit group email");
+
+            toEmail += "; " + _configuration.GetGroupSubmissionEmail(_businessId.ToString());
 
             var emailBody = new GroupEdit() { Name = group.Name, Categories = group.CategoriesList, Description = group.Description,
                                               Email = group.Email, Location = group.Address, Facebook = group.Facebook, Phone = group.PhoneNumber,
