@@ -347,7 +347,6 @@ $(document).ready(
                     return;
                 }
 
-                debugger;
                 autocompleteName = places[0].name;
                 if ($('.location-search-input-autoset').length) {
                     if (typeof(places[0].formatted_address) !== 'undefined') {

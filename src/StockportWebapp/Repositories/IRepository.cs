@@ -17,7 +17,7 @@ namespace StockportWebapp.Repositories
         Task<HttpResponse> Put<T>(HttpContent content, string slug = "");
         Task<HttpResponse> RemoveAdministrator(string slug, string email);
         Task<HttpResponse> UpdateAdministrator(HttpContent permission, string slug, string email);
-        Task<HttpResponse> AddAdministrator(StringContent permission, string modelSlug, string email);
+        Task<HttpResponse> AddAdministrator(HttpContent permission, string modelSlug, string email);
         Task<HttpResponse> Delete<T>(string slug = "");
         Task<HttpResponse> Archive<T>(HttpContent content, string slug = "");
         Task<HttpResponse> Publish<T>(HttpContent content, string slug = "");

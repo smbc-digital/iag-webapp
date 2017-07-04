@@ -63,16 +63,16 @@ namespace StockportWebapp.Repositories
             return await _httpClient.DeleteAsync(url);
         }
 
-        public async Task<HttpResponse> UpdateAdministrator(HttpContent permission, string slug, string email)
+        public async Task<HttpResponse> UpdateAdministrator(HttpContent user, string slug, string email)
         {
             var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}";
-            return await _httpClient.PutAsync(url, permission);
+            return await _httpClient.PutAsync(url, user);
         }
 
-        public async Task<HttpResponse> AddAdministrator(StringContent permission, string slug, string email)
+        public async Task<HttpResponse> AddAdministrator(HttpContent user, string slug, string email)
         {
             var url = $"{_urlGenerator.UrlFor<Group>(slug)}/administrators/{email}";
-            return await _httpClient.PostAsync(url, permission);
+            return await _httpClient.PostAsync(url, user);
         }
 
         public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit)

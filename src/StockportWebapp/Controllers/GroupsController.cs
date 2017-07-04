@@ -312,29 +312,29 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem.Permission);
+                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 response = await _repository.AddAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
                 if (!response.IsSuccessful()) return response;
                 await _emailBuilder.SendEmailNewUser(model);
-                return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
+                return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, name = model.GroupAdministratorItem.Name, groupName = group.Name });
             }
 
             return View(model);
         }
 
         [Route("/groups/manage/{slug}/newuserconfirmation")]
-        public IActionResult NewUserConfirmation(string slug, string email, string groupName)
+        public IActionResult NewUserConfirmation(string slug, string name, string groupName)
         {
             if (!_featureToggle.GroupManagement)
                 return NotFound();
 
-            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(name))
                 return NotFound();
 
             ViewBag.Slug = slug;
-            ViewBag.Email = email;
+            ViewBag.Name = name;
             ViewBag.GroupName = groupName;
 
             return View();
@@ -382,8 +382,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            var administratorItem =
-                group.GroupAdministrators.Items.Where(i => i.Email == model.GroupAdministratorItem.Email);
+            var administratorItem = group.GroupAdministrators.Items.Where(i => i.Email == model.GroupAdministratorItem.Email);
 
             if (!administratorItem.Any() || !HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
@@ -395,33 +394,33 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem.Permission);
+                var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
                 
                 response = await _repository.UpdateAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
                 if (!response.IsSuccessful()) return response;
                 await _emailBuilder.SendEmailEditUser(model);
-                return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, email = model.GroupAdministratorItem.Email, groupName = group.Name });
+                return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, name = model.GroupAdministratorItem.Name, groupName = group.Name });
             }
             
             return View(model);
         }
 
         [Route("/groups/manage/{slug}/edituserconfirmation")]
-        public  IActionResult EditUserConfirmation(string slug, string email, string groupName)
+        public  IActionResult EditUserConfirmation(string slug, string name, string groupName)
         {
             if (!_featureToggle.GroupManagement)
             {
                 return NotFound();
             }
 
-            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(email))
+            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(name))
             {
                 return NotFound();
             }
 
             ViewBag.Slug = slug;
-            ViewBag.Email = email;
+            ViewBag.Name = name;
             ViewBag.GroupName = groupName;
 
             return View();
@@ -453,6 +452,7 @@ namespace StockportWebapp.Controllers
             {
                 Slug = slug,
                 Email = email,
+                Name = groupAdministrator.Name,
                 GroupName = group.Name,
             };
 
@@ -484,11 +484,11 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             await _emailBuilder.SendEmailDeleteUser(model);
-            return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, email = model.Email });
+            return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, name = model.Name });
         }
 
         [Route("/groups/manage/removeconfirmation")]
-        public IActionResult RemoveUserConfirmation(string group, string slug, string email)
+        public IActionResult RemoveUserConfirmation(string group, string slug, string name)
         {
             if (!_featureToggle.GroupManagement)
             {
@@ -503,7 +503,7 @@ namespace StockportWebapp.Controllers
             var model = new RemoveUserViewModel()
             {
                 Slug = slug,
-                Email = email,
+                Name = name,
                 GroupName = group,
             };           
 
