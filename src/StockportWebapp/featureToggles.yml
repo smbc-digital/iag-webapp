@@ -1,14 +1,12 @@
 ﻿---
 prod: &prod
-  GroupManagement: false
-  ManageYourGroupButton: false
   ContactUsIds: true
   ExportGroupToPdf: true
+  GroupManagement: true
+  ManageYourGroupButton: true
 
 stage: &stage
   << : *prod
-  GroupManagement: true
-  ManageYourGroupButton: true
 
 qa: &qa
   << : *prod
