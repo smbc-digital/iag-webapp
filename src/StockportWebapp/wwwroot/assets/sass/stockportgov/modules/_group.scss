@@ -434,6 +434,7 @@
     label {
         display:block;
         font-weight: 600;
+        padding-top:10px;
     }
 
     input, select {
@@ -446,6 +447,10 @@
         @media #{$mobile} {
             width:100%;
         }
+    }
+
+    .text-info {
+        margin-bottom:10px;
     }
 
     .form-field-validation-error {

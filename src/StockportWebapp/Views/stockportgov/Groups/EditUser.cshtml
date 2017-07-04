@@ -50,7 +50,7 @@
                             @using (Html.BeginForm("EditUser", "Groups", FormMethod.Post))
                             {
                                 <div class="grid-100 grid-parent word-wrap">
-                                    <div>You can change this user's email address and whether they are an administrator or editor. If this user is no longer a member of your group you can remove them completely so they can no longer make changes.</div>
+                                    <div>You can change this user's name and whether they are an administrator or editor. If this user is no longer a member of your group you can remove them completely so they can no longer make changes.</div>
                                     <div>You are currently editing: <strong>@Model.GroupAdministratorItem.Name</strong></div>
 
                                     @Html.HiddenFor(m => m.GroupAdministratorItem.Email)
