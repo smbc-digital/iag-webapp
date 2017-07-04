@@ -187,7 +187,7 @@ namespace StockportWebapp.Utils
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
-                model.GroupAdministratorItem.Email,
+                model.GroupAdministratorItem.Email + ";  website.updates@stockport.gov.uk",
                 attachments));
         }
 
