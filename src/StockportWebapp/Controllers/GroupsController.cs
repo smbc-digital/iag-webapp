@@ -727,43 +727,6 @@ namespace StockportWebapp.Controllers
             return View(group);
         }
 
-        [HttpGet]
-        [Route("/groups/manage/{slug}/update")]
-        [ServiceFilter(typeof(GroupAuthorisation))]
-        public async Task<IActionResult> EditGroup(string slug, LoggedInPerson loggedInPerson)
-        {
-            var response = await _repository.Get<Group>(slug, _managementQuery);
-
-            if (!response.IsSuccessful()) return response;
-
-            var group = response.Content as Group;
-
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-            {
-                return NotFound();
-            }
-
-            var model = new GroupSubmission();
-            model.Address = group.Address;
-            model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
-            model.CategoriesList = string.Join(",", model.Categories);
-            model.Description = group.Description;
-            model.Email = group.Email;
-            model.Facebook = group.Facebook;
-            model.Name = group.Name;
-            model.PhoneNumber = group.PhoneNumber;
-            model.Twitter = group.Twitter;
-            model.Website = group.Website;
-            model.Slug = group.Slug;
-            model.Longitude = group.MapPosition.Lon;
-            model.Latitude = group.MapPosition.Lat;
-            model.Volunteering = group.Volunteering;
-
-            model.AvailableCategories = await GetAvailableGroupCategories();
-
-            return View(model);
-        }
-
         [Route("/groups/manage/{slug}/publish")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Publish(string slug, LoggedInPerson loggedInPerson)
@@ -844,6 +807,43 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("/groups/manage/{slug}/update")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> EditGroup(string slug, LoggedInPerson loggedInPerson)
+        {
+            var response = await _repository.Get<Group>(slug, _managementQuery);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as Group;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+
+            var model = new GroupSubmission();
+            model.Address = group.Address;
+            model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
+            model.CategoriesList = string.Join(",", model.Categories);
+            model.Description = group.Description;
+            model.Email = group.Email;
+            model.Facebook = group.Facebook;
+            model.Name = group.Name;
+            model.PhoneNumber = group.PhoneNumber;
+            model.Twitter = group.Twitter;
+            model.Website = group.Website;
+            model.Slug = group.Slug;
+            model.Longitude = group.MapPosition.Lon;
+            model.Latitude = group.MapPosition.Lat;
+            model.Volunteering = group.Volunteering;
+
+            model.AvailableCategories = await GetAvailableGroupCategories();
+
+           return View(model);
+        }
+
         [HttpPost]
         [Route("/groups/manage/{slug}/update")]
         [ServiceFilter(typeof(GroupAuthorisation))]
@@ -904,12 +904,12 @@ namespace StockportWebapp.Controllers
                 else
                 {
                     _logger.LogError($"There was an error updating the group {group.Name}");
-                    validationErrors.Append($"There was an error updating the group {group.Name}" + Environment.NewLine); 
+                    validationErrors.Append($"There was an error updating the group {group.Name}" + Environment.NewLine);
                 }
             }
 
             ViewBag.SubmissionError = validationErrors;
-
+           
             return View(model);
         }
 
