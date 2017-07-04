@@ -141,15 +141,13 @@ namespace StockportWebapp.Utils
 
             _logger.LogInformation("Sending edit group email");
 
-            toEmail += "; " + _configuration.GetGroupSubmissionEmail(_businessId.ToString());
-
             var emailBody = new GroupEdit() { Name = group.Name, Categories = group.CategoriesList, Description = group.Description,
                                               Email = group.Email, Location = group.Address, Facebook = group.Facebook, Phone = group.PhoneNumber,
                                               Twitter = group.Twitter, Website = group.Website};
 
             var message = new EmailMessage(messageSubject, 
-                                           GenerateEmailBodyFromHtml(emailBody), 
-                                           _fromEmail, 
+                                           GenerateEmailBodyFromHtml(emailBody),
+                                           _fromEmail + ";  website.updates@stockport.gov.uk", 
                                            _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), 
                                            toEmail, 
                                            new List<IFormFile>());
@@ -187,7 +185,7 @@ namespace StockportWebapp.Utils
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
-                model.GroupAdministratorItem.Email + ";  website.updates@stockport.gov.uk",
+                model.GroupAdministratorItem.Email,
                 attachments));
         }
 
