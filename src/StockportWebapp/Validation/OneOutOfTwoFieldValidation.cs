@@ -34,7 +34,7 @@ namespace StockportWebapp.Validation
 
             if (String.IsNullOrWhiteSpace(firstValue) && String.IsNullOrWhiteSpace(secondValue))
             {
-                return new ValidationResult("");
+                return new ValidationResult("The group email address or group phone number field is required");
             }
             return ValidationResult.Success;
         }               

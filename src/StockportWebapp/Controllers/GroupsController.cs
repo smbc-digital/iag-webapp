@@ -22,6 +22,7 @@ using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
 
 namespace StockportWebapp.Controllers
 {
@@ -908,8 +909,8 @@ namespace StockportWebapp.Controllers
                 }
             }
 
-            ViewBag.SubmissionError = validationErrors;
-           
+            ViewBag.SubmissionError = validationErrors.Length > 0 ? validationErrors : null;
+
             return View(model);
         }
 
@@ -947,6 +948,7 @@ namespace StockportWebapp.Controllers
                 groupResults.Pagination = new Pagination();
             }
         }
+        
 
         private string GetErrorsFromModelState(ModelStateDictionary modelState)
         {
@@ -954,7 +956,7 @@ namespace StockportWebapp.Controllers
 
             foreach (var state in modelState)
             {
-                if (state.Value.Errors.Count > 0)
+                if (state.Value.Errors.Count > 0 && state.Key != "Email")
                 {
                     message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
                 }
