@@ -147,9 +147,9 @@ namespace StockportWebapp.Utils
 
             var message = new EmailMessage(messageSubject, 
                                            GenerateEmailBodyFromHtml(emailBody),
-                                           _fromEmail + ";  website.updates@stockport.gov.uk", 
-                                           _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), 
-                                           toEmail, 
+                                           _fromEmail, 
+                                           _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(),
+                                           toEmail + ";  website.updates@stockport.gov.uk", 
                                            new List<IFormFile>());
 
             _emailClient.SendEmailToService(message);
