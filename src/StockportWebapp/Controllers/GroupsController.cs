@@ -851,7 +851,7 @@ namespace StockportWebapp.Controllers
         {
             var response = await _repository.Get<Group>(slug, _managementQuery);
             var validationErrors = new StringBuilder();
-
+            ViewBag.DisplayContentapiUpadteError = false;
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as Group;
@@ -904,7 +904,7 @@ namespace StockportWebapp.Controllers
                 else
                 {
                     _logger.LogError($"There was an error updating the group {group.Name}");
-                    validationErrors.Append($"There was an error updating the group {group.Name}" + Environment.NewLine);
+                    ViewBag.DisplayContentapiUpadteError = true;
                 }
             }
 
