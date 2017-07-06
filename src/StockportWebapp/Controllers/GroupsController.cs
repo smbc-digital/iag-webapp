@@ -949,7 +949,6 @@ namespace StockportWebapp.Controllers
             }
         }
         
-
         private string GetErrorsFromModelState(ModelStateDictionary modelState)
         {
             var message = new StringBuilder();
@@ -961,7 +960,6 @@ namespace StockportWebapp.Controllers
                     message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
                 }
             }
-
             return message.ToString();
         }
 

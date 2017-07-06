@@ -20,9 +20,10 @@
             <label class="hide-on-mobile primary-filter-label">groups in</label>
             <label class="hide-on-desktop hide-on-tablet primary-filter-label">Enter a location</label>
             <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow" />
-            <div id="getLocation">
+            <div id="getLocation" class="mobile-grid-90 getLocation-width-mobile">
                 <label class="location-search-label">Enter postcode or place name</label>
-                    <input type="text" id="location-autocomplete" class="location-search-input" />
+                <input type="text" id="location-autocomplete" class="location-search-input input-validation-error"/>
+                <div id="locationError" class="form-field-validation-error grid-100 tablet-grid-100 mobile-grid-100 grid-parent">We couldn't find your current location -- please check the location settings on your device.</div>
                 <a id="currentLocation" class="current-location" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
                 <button class="button-default location-search-button" id="btnLocationAutoComplete">Use this location</button>
             </div>

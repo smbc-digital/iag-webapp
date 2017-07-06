@@ -234,10 +234,12 @@ $(document).ready(
                     }
                     else {
                         alert("We couldn't find your current location.");
+                        $("#getLocation").append("We couldn't find your current location.");
                     }
                 });
             }, function () {
-                alert("We couldn't find your current location -- please check the location settings on your device.");
+                $("#location-autocomplete").css("border", "1px solid #c83725");
+                $("#locationError").show();
             });
             return false;
         });
