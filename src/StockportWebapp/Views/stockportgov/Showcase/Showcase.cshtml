@@ -1,6 +1,5 @@
 ﻿@using StockportWebapp.ProcessedModels
 @using StockportWebapp.FeatureToggling
-@inject FeatureToggles FeatureToggles
 
 @model ProcessedShowcase
 @{
@@ -44,7 +43,7 @@ else
     titleHack = "full-width-title-margin-fix";
 }
 
-@if (FeatureToggles.ShowcaseConsultations && Model.Consultations.Any())
+@if (Model.Consultations.Any())
 {
     <div class="@titleHack alt-container-row">
         @Html.Partial("Consultations", Model.Consultations)

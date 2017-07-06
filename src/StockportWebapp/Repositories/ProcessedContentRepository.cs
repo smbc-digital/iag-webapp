@@ -35,17 +35,5 @@ namespace StockportWebapp.Repositories
 
             return HttpResponse.Successful(200, processedModel);
         }
-
-        public async Task<HttpResponse> Delete<T>(string slug)
-        {
-            // TODO - Replace this with the actual delete functionality
-            return HttpResponse.Successful(200, null);
-        }
-
-        public async Task<HttpResponse> Archive<T>(string slug)
-        {
-            // TODO - Replace this with the actual Archive functionality
-            return HttpResponse.Successful(200, null);
-        }
     }
 }

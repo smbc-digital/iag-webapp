@@ -13,7 +13,8 @@ var gulp = require("gulp"),
     fs = require('fs'),
     colors = require('colors'),
     plumber = require('gulp-plumber'),
-    print = require('gulp-print');
+    print = require('gulp-print'),
+    lec = require ('gulp-line-ending-corrector');
 
 var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
 
@@ -56,6 +57,7 @@ gulp.task("js:sg", function () {
         .pipe(concat(paths.concatFullJsDest))
         .pipe(gulp.dest("."))
         .pipe(plumber.stop())
+        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
         .pipe(print(function (filepath) {
             console.log('Processed: '.yellow + filepath.cyan);
         }));
@@ -69,6 +71,7 @@ gulp.task("min:js:hs", function () {
         .pipe(uglify())
         .pipe(gulp.dest("."))
         .pipe(plumber.stop())
+        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
         .pipe(print(function (filepath) {
             console.log('Processed: '.yellow + filepath.cyan);
         }));

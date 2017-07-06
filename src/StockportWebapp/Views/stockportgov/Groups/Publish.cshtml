@@ -4,8 +4,8 @@
 @model StockportWebapp.ProcessedModels.ProcessedGroup
 
 @{
-    ViewData["Title"] = "Archive " + Model.Name;
-    ViewData["og:title"] = "Archive " + Model.Name;
+    ViewData["Title"] = "Publish " + Model.Name;
+    ViewData["og:title"] = "Publish " + Model.Name;
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     Layout = "../Shared/_Layout.cshtml";
@@ -25,21 +25,21 @@
                         <h1 class="group-article-title">@ViewData["Title"]</h1>
                     </div>
                     <div class="grid-100">
-                        <h2>Hide this group until a later date</h2>
-                        <div class="group-confirmation-body">
-                            <p>Archiving your group means that it won’t appear on our website until you decide to republish it.</p>
-                            <p>This is useful if your group is taking a break, or if it is seasonal.</p>
-                            <p>You will still be able to access all of your group's information via the 'manage your group' page.</p>
+                        <h2>Make sure your group's information is up-to date</h2>
+                        <div>
+                            <p>It's really important that your group's information is up-to date.</p>
+                            <p>Up-to date information makes it easier for people who want to get involved in your group to get in touch with you.</p>
+                            <p>If you want to <a href="@Url.Action("EditGroup", "Groups", new {slug = Model.Slug})">update your group's information</a>, the changes will appear straight away.</p>
                             <p>
-                                <strong>Are you sure you want to archive your group?</strong>
+                                <strong>Are you sure you want to publish your group?</strong>
                             </p>
                         </div>
                     </div>
                     <div class="grid-30 mixed-buttons">
                         <div>
-                            @using (Html.BeginForm("ArchiveGroup", "Groups", FormMethod.Post))
+                            @using (Html.BeginForm("PublishGroup", "Groups", FormMethod.Post))
                             {
-                                <stock-button class="">Archive my group</stock-button>
+                                <stock-button class="">Publish my group</stock-button>
                             }
                         </div>
                     </div>

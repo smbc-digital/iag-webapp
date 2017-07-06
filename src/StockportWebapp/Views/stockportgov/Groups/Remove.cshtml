@@ -22,13 +22,14 @@
                  <div class="group-form">
                         <div class="grid-container grid-parent">
                             <div class="grid-100 grid-parent">
-                                <b class="remove-user-confirmation  word-wrap">Are you sure you want to delete @Model.Email from your group?</b>
+                                <b class="remove-user-confirmation  word-wrap">Are you sure you want to delete @Model.Name from your group?</b>
                                 <p>This will permanently remove the user and mean that they can't make any changes to your group's information.</p>
                             </div>
                             <div class="grid-100 grid-parent">
                                 @using (Html.BeginForm("RemoveUser", "Groups", FormMethod.Post))
                                 {
                                     @Html.Hidden("Slug", Model.Slug)
+                                    @Html.Hidden("Name", Model.Name)
                                     @Html.Hidden("Email", Model.Email)
                                     @Html.Hidden("GroupName", Model.GroupName)
                                     <stock-button class="full-button">Remove user</stock-button>

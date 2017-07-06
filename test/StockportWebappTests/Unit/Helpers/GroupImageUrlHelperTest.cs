@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
@@ -24,7 +25,7 @@ namespace StockportWebappTests.Unit.Helpers
                 Name = "name",
                 Slug = "slug"
             };
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "groupImageUrl", "thumbnail", new List<GroupCategory>() { groupCategory }, new List<Crumb>(), new MapPosition(), false, null, null);
+            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "groupImageUrl", "thumbnail", new List<GroupCategory>() { groupCategory }, new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published");
 
             // Act
             var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
@@ -44,7 +45,7 @@ namespace StockportWebappTests.Unit.Helpers
                 Name = "name",
                 Slug = "slug"
             };
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>() { groupCategory }, new List<Crumb>(), new MapPosition(), false, null, null);
+            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>() { groupCategory }, new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published");
 
             // Act
             var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
@@ -57,7 +58,7 @@ namespace StockportWebappTests.Unit.Helpers
         public void ShouldReturnEmptyStringIfTheGroupImageUrlisEmptyAndThereAreNoGroupCategories()
         {
             // Arrange
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>(), new List<Crumb>(), new MapPosition(), false, null, null);
+            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>(), new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published");
 
             // Act
             var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
@@ -85,7 +86,7 @@ namespace StockportWebappTests.Unit.Helpers
                 Slug = "slug"
             };
 
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>() { groupCategoryWithOutImageUrl, groupCategoryWithImageUrl }, new List<Crumb>(), new MapPosition(), false, null, null);
+            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>() { groupCategoryWithOutImageUrl, groupCategoryWithImageUrl }, new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published");
 
             // Act
             var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);

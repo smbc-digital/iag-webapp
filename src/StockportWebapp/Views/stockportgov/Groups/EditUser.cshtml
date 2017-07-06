@@ -50,12 +50,17 @@
                             @using (Html.BeginForm("EditUser", "Groups", FormMethod.Post))
                             {
                                 <div class="grid-100 grid-parent word-wrap">
-                                    <div>You can change this user's email address and whether they are an administrator or editor. If this user is no longer a member of your group you can remove them completely so they can no longer make changes.</div>
-                                    <div>You are currently editing: <strong>@Model.GroupAdministratorItem.Email</strong></div>
+                                    <div>You can change this user's name and whether they are an administrator or editor. If this user is no longer a member of your group you can remove them completely so they can no longer make changes.</div>
+                                    <div>You are currently editing: <strong>@Model.GroupAdministratorItem.Name (@Model.GroupAdministratorItem.Email)</strong></div>
 
                                     @Html.HiddenFor(m => m.GroupAdministratorItem.Email)
                                     @Html.HiddenFor(m => m.Previousrole)
                                     @Html.HiddenFor(m => m.Name)
+                                </div>
+                                <div class="grid-100 grid-parent">
+                                    <label asp-for="@Model.GroupAdministratorItem.Name">Change their name</label>
+                                    <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.GroupAdministratorItem.Name" />
+                                    <span asp-validation-for="@Model.GroupAdministratorItem.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                 </div>
                                 <div class="grid-100 grid-parent">
                                     <label asp-for="@Model.GroupAdministratorItem.Permission" class="clearfix top-gap">Change their role</label>

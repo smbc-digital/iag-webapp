@@ -35,9 +35,9 @@ namespace StockportWebapp.Builders
 
             message.From.Add(new MailboxAddress(string.Empty, emailMessage.FromEmail));
 
-            if (!string.IsNullOrEmpty(emailMessage.UserEmail))
+            if (!string.IsNullOrEmpty(emailMessage.CcEmail))
             {
-                message.Cc.Add(new MailboxAddress(string.Empty, emailMessage.UserEmail));
+                message.Cc.Add(new MailboxAddress(string.Empty, emailMessage.CcEmail));
             }
 
             message.Subject = emailMessage.Subject;

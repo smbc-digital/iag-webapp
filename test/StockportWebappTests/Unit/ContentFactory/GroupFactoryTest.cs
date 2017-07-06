@@ -61,7 +61,10 @@ namespace StockportWebappTests.Unit.ContentFactory
                 mapPosition:_mapPosition,
                 volunteering:_volunteering,
                 events: Events,
-                groupAdministrators: _groupAdministrators
+                groupAdministrators: _groupAdministrators,
+                dateHiddenFrom: DateTime.MinValue,
+                dateHiddenTo: DateTime.MinValue,
+                status: "published"
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
