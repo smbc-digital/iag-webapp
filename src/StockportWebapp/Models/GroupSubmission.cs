@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
@@ -33,12 +34,12 @@ namespace StockportWebapp.Models
         public string CategoriesList { get; set; }
         public List<string> AvailableCategories { get; set; }
 
-        [Required]
+        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
         [Display(Name="Group email address")]
         [EmailAddress(ErrorMessage = "Should be a valid Email Address")]
         public string Email { get; set; }
 
-        [Required]
+        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
         [Display(Name="Group phone number")]
         [Phone]
         public string PhoneNumber { get; set; }
