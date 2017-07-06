@@ -1068,6 +1068,46 @@ var matchboxEventCards = new Matchbox({
     ]
 });
 
+var matchboxArticle = new Matchbox({
+    parentSelector: ".article-cols",
+    childSelector: ".article-col",
+    groupsOf: 2,
+    breakpoints: [
+    { bp: 1024, groupsOf: 1 }
+    ]
+});
+
+var setManualMatchbox = function () {
+    if ($('.article-col-sidebar').length) {
+        var main = $('#uitest-page-has-loaded');
+        var side = $('.article-col-sidebar');
+
+        $(side).height('auto');
+        $(main).height('auto');
+
+        console.log('here', $(window).width(), $(main).height(), $(side).height());
+
+        if ($(window).width() > 1024) {
+            var mainHeight = $(main).height();
+            var sideHeight = $(side).height();
+
+            if (mainHeight > sideHeight) {
+                $(side).height(mainHeight);
+            }
+            else {
+                $(main).height(sideHeight);
+            }
+            console.log('here2', $(window).width(), $(main).height(), $(side).height());
+        }
+    }
+};
+
+setManualMatchbox();
+
+$(window).on('resize', function () {
+    setManualMatchbox();
+})
+
 $(document).ready(function () {
     SwapLogo();
     $(".show-search-button").click(
@@ -1076,8 +1116,6 @@ $(document).ready(function () {
                 $(".show-search-button").toggleClass("arrow");
             }
     );
-
-   
 
     if ($(".l-page-content .nav-card-list").length) {
         matchboxPrimary.init();
