@@ -16,7 +16,7 @@
     "WilderMinds.RssSyndication": "1.0.4",
     "AngleSharp": "0.9.9",
     "Microsoft.AspNetCore.NodeServices": "1.1.1",
-    "jose-jwt": "2.2.0",
+    "jose-jwt": "2.2.0"
   },
 
   "frameworks": {
