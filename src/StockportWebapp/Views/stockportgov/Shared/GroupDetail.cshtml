@@ -208,7 +208,7 @@
                             <div class="group-map-container">
                                 <h3 class="group-details-heading">How to find us</h3>
                                 @Html.Partial("MapPosition", Model.MapPosition)
-                                <hr />
+                                <hr class="hide-on-mobile hide-on-tablet" />
                             </div>
                         }
                         @if (Model.Events != null && Model.Events.Any())

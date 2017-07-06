@@ -9,16 +9,16 @@ namespace StockportWebapp.Models
         public string Body { get; }
         public string FromEmail { get; }
         public string ToEmail { get; }
-        public string UserEmail { get; }
+        public string CcEmail { get; }
         public List<IFormFile> Attachments { get; }
 
-        public EmailMessage(string subject, string body, string fromEmail, string toEmail, string userEmail, List<IFormFile> attachments)
+        public EmailMessage(string subject, string body, string fromEmail, string toEmail, string ccEmail, List<IFormFile> attachments)
         {
             Subject = subject;
             Body = body;
             FromEmail = fromEmail;
             ToEmail = toEmail;
-            UserEmail = userEmail;
+            CcEmail = ccEmail;
             Attachments = attachments;
             FromEmail = fromEmail;
         }

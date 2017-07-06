@@ -693,7 +693,7 @@ namespace StockportWebapp.Controllers
 
             if (putResponse.StatusCode == (int)HttpStatusCode.OK)
             {
-                _emailBuilder.SendEmailArchive(group, loggedInPerson.Email);
+                _emailBuilder.SendEmailArchive(group);
                 return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
             }
             else
@@ -782,7 +782,7 @@ namespace StockportWebapp.Controllers
 
             if (putResponse.StatusCode == (int)HttpStatusCode.OK)
             {
-                _emailBuilder.SendEmailPublish(group, loggedInPerson.Email);
+                _emailBuilder.SendEmailPublish(group);
                 return RedirectToAction("PublishConfirmation", new { slug = group.Slug, name = group.Name });
             }
             else
