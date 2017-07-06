@@ -80,6 +80,7 @@
 #group-padding {
     padding-bottom: 0;
 }
+
 .group-margin {
     margin-top: 20px;
     padding-bottom: 0;
@@ -97,8 +98,9 @@
 }
 
 .l-group-container {
-    padding-bottom:20px;
+    padding-bottom: 20px;
 }
+
 .group-calender-container-description {
     padding: 0px;
     flex: 1;
@@ -160,11 +162,10 @@
 .group-startpage-image {
     width: 100%;
     margin-top: -20px;
-    position:relative;
+    position: relative;
     background-color: #055c58;
 
     @media #{$desktop} {
-        
         height: 420px;
         background-image: url('/assets/images/content/Groups_hero_image.jpg');
         background-position: bottom;
@@ -189,9 +190,9 @@
     }
 }
 
-.group-startpage-mobile{
-    background-color: #055c58; 
-    margin-top: -20px; 
+.group-startpage-mobile {
+    background-color: #055c58;
+    margin-top: -20px;
     height: 365px;
 }
 
@@ -200,7 +201,7 @@
         text-align: center;
 
         label {
-            color: white
+            color: white;
         }
     }
 }
@@ -216,8 +217,6 @@
     @media #{$tablet, $mobile} {
         padding-bottom: 10px;
     }
-
-    
 }
 
 .featured-category-items-wrapper {
@@ -344,13 +343,13 @@
 }
 
 .group-map-container {
-    
+
     .map-container {
         height: 330px;
-        margin-top:10px;
+        margin-top: 10px;
     }
 
-    hr{
+    hr {
         margin-top: 30px;
         margin-bottom: 0px;
     }
@@ -366,51 +365,46 @@
     display: none;
 }
 
- .fa.account {
-        font-size: 20px;
+.fa.account {
+    font-size: 20px;
+}
+
+.l-group-content {
+
+    .centre {
+        text-align: center;
     }
 
- .embed-map-container {
-     display: none;
- }
+    .green {
+        color: #119046;
+    }
 
- .l-group-content {
+    .tick {
+        margin-bottom: 20px;
+    }
 
-     .centre {
-         text-align: center;
-     }
+    h2 {
+        margin-top: -15px;
+        margin-bottom: 0;
+    }
+}
 
-     .green {
-         color: #119046;
-     }
-
-     .tick {
-         margin-bottom: 20px;
-     }
-
-     h2 {
-         margin-top:-15px;
-         margin-bottom:0;
-     }
- }
-
- .mixed-buttons {
-
-     padding-bottom: 20px;
+.mixed-buttons {
+    padding-bottom: 20px;
 
     @media #{$tablet,$desktop} {
-         .button-default {
-            padding-right:0;
-            padding-left:0;
-         }
-     }
+        .button-default {
+            padding-right: 0;
+            padding-left: 0;
+        }
+    }
 
     @media #{$mobile} {
-         button.button-default {
-             width:100%;
-         }
-     }
- }
+        button.button-default {
+            width: 100%;
+        }
+    }
+}
 
 .button-default {
 
@@ -428,13 +422,12 @@
 }
 
 .group-form {
-
     padding-bottom: 20px;
 
     label {
-        display:block;
+        display: block;
         font-weight: 600;
-        padding-top:10px;
+        padding-top: 10px;
     }
 
     input, select {
@@ -445,39 +438,40 @@
         padding: 0;
 
         @media #{$mobile} {
-            width:100%;
+            width: 100%;
         }
     }
 
     .text-info {
-        margin-bottom:10px;
+        margin-bottom: 10px;
     }
 
     .form-field-validation-error {
-        width:500px;
+        width: 500px;
 
         @media #{$mobile} {
-            width:100%;
+            width: 100%;
         }
     }
 
     button {
-        margin-top:20px;
+        margin-top: 20px;
 
         @media #{$mobile} {
-            width:100%;
+            width: 100%;
         }
     }
 
     .full-button {
         box-sizing: border-box;
-        display:block;
-        width:500px;
+        display: block;
+        width: 500px;
         padding-right: 0;
         padding-left: 0;
-        margin-top:5px;
+        margin-top: 5px;
+
         @media #{$mobile} {
-            width:100%;
+            width: 100%;
         }
     }
 
@@ -496,7 +490,7 @@
 
 .l-content-container.grid-100.group-margin.remove-user-container {
     h1 {
-        padding-bottom: 10px
+        padding-bottom: 10px;
     }
 }
 
@@ -505,5 +499,5 @@
 }
 
 .group-confirmation-body p {
-    margin-bottom:10px;
+    margin-bottom: 10px;
 }
