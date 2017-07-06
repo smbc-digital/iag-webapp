@@ -66,6 +66,12 @@
 
     .location-search-section {
         position: relative;
+
+        .getLocation-width-mobile {
+            @media #{$mobile} {
+              width: inherit !important;
+            }
+        }
     }
 
     .primary-filter-form-section {
@@ -267,4 +273,10 @@
 // google auto complete custom styles
 .pac-container {
     z-index: 20;
+}
+
+#locationError {
+    display: none; 
+    border: 1px solid #c83725;
+    font-size: 16.8px;
 }
