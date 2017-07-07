@@ -199,8 +199,9 @@ var bsWysihtml5 = function($, wysihtml5) {
       'font-styles': true,
       'color': false,
       'emphasis': {
+        'underline': false,
         'small': true
-      },
+    },
       'blockquote': true,
       'lists': true,
       'html': false,

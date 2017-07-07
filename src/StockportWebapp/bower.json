@@ -2,5 +2,6 @@
   "name": "ASP.NET",
   "private": true,
   "dependencies": {
+    "bootstrap3-wysihtml5-bower": "0.3.3"
   }
 }

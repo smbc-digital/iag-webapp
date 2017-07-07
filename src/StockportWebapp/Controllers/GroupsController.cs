@@ -23,6 +23,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
+using ReverseMarkdown;
 
 namespace StockportWebapp.Controllers
 {
@@ -38,8 +39,9 @@ namespace StockportWebapp.Controllers
         private readonly ILogger<GroupsController> _logger;
         private readonly List<Query> _managementQuery;
         private readonly IApplicationConfiguration _configuration;
-      
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration)
+        private readonly MarkdownWrapper _markdownWrapper;
+
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -50,6 +52,7 @@ namespace StockportWebapp.Controllers
             _configuration = configuration;
             _emailBuilder = emailBuilder;
             _managementQuery = new List<Query> { new Query("onlyActive", "false") };
+            _markdownWrapper = markdownWrapper;
         }
 
         [Route("/groups")]
@@ -194,7 +197,7 @@ namespace StockportWebapp.Controllers
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
                 return View(submission);
             }
-
+            
             var successCode = _emailBuilder.SendEmailChangeGroupInfo(submission).Result;
             if (successCode == HttpStatusCode.OK)
                 return RedirectToAction("ChangeGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
@@ -828,7 +831,7 @@ namespace StockportWebapp.Controllers
             model.Address = group.Address;
             model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
             model.CategoriesList = string.Join(",", model.Categories);
-            model.Description = group.Description;
+            model.Description = _markdownWrapper.ConvertToHtml(group.Description);
             model.Email = group.Email;
             model.Facebook = group.Facebook;
             model.Name = group.Name;
@@ -867,8 +870,10 @@ namespace StockportWebapp.Controllers
                 model.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
             }
 
+            var converter = new Converter();
+
             group.Address = model.Address;
-            group.Description = model.Description;
+            group.Description = converter.Convert(model.Description);
             group.Email = model.Email;
             group.Facebook = model.Facebook;
             group.Name = model.Name;
@@ -888,7 +893,6 @@ namespace StockportWebapp.Controllers
             else if (!ModelState.IsValid)
             {
                 validationErrors.Append(GetErrorsFromModelState(ModelState));
-                
             }
             else
             {

@@ -1,4 +1,4 @@
-// TODO: in future try to replace most inline compability checks with polyfills for code readability 
+﻿// TODO: in future try to replace most inline compability checks with polyfills for code readability 
 
 // element.textContent polyfill.
 // Unsupporting browsers: IE8

@@ -50,6 +50,7 @@
     "StackExchange.Redis": "1.1.608",
     "Microsoft.AspNetCore.NodeServices": "1.1.1",
     "jose-jwt": "2.2.0",
+    "ReverseMarkdown": "1.0.0",
   },
 
   "tools": {
