@@ -140,6 +140,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://api.cludo.com/")
                 .AddSource("buto-ping-middleman.buto.tv/")
                 .AddSource("m.addthis.com/live/")
+                .AddSource("http://kinesis-ping-middleman.buto.tv")
                 .AddSource("https://kinesis.eu-west-1.amazonaws.com/")
                 .Finish());
         }
