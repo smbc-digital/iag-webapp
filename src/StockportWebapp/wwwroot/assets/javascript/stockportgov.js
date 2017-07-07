@@ -1096,7 +1096,7 @@ $(document).ready(function () {
 
     if ($(".article-col-sidebar").length) {
         // commented out as it's making the footer jump up on articles with video
-        matchboxArticle.init();
+        // matchboxArticle.init();
     }
 
     if (!Modernizr.inputtypes.date) {
