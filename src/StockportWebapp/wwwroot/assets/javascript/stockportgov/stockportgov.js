@@ -30,6 +30,33 @@ var matchboxArticle = new Matchbox({
 });
 
 $(document).ready(function () {
+
+    $('.wysiwyg').each(function () {
+        if (!$(this).parent().hasClass('stk-wysiwyg')) {
+            $(this).parent().addClass('stk-wysiwyg')
+        }
+    });
+
+    $('.wysiwyg').wysihtml5({
+        toolbar: {
+            fa: true,
+            "font-styles": false,
+            emphasis: {
+                bold: true,
+                italic: false,
+                underline: false,
+                small: false
+            },
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": true, //Button to insert a link. Default true
+            "image": false, //Button to insert an image. Default true,
+            "color": false, //Button to change color of font
+            "blockquote": false //Blockquote
+        },
+    });
+
+
     SwapLogo();
     $(".show-search-button").click(
             function () {
