@@ -51,11 +51,11 @@ var setManualMatchbox = function () {
     }
 };
 
-setManualMatchbox();
+//setManualMatchbox();
 
-$(window).on('resize', function () {
-    setManualMatchbox();
-})
+//$(window).on('resize', function () {
+//    setManualMatchbox();
+//})
 
 $(document).ready(function () {
     SwapLogo();
