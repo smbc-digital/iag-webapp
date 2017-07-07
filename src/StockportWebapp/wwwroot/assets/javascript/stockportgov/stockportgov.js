@@ -23,39 +23,11 @@ var matchboxEventCards = new Matchbox({
 var matchboxArticle = new Matchbox({
     parentSelector: ".article-cols",
     childSelector: ".article-col",
-    groupsOf: 2,
+    groupsOf: 1,
     breakpoints: [
-    { bp: 1024, groupsOf: 1 }
-    ]
+    { bp: 1024, groupsOf: 2 }
+]
 });
-
-var setManualMatchbox = function () {
-    if ($('.article-col-sidebar').length) {
-        var main = $('#uitest-page-has-loaded');
-        var side = $('.article-col-sidebar');
-
-        $(side).height('auto');
-        $(main).height('auto');
-
-        if ($(window).width() > 1024) {
-            var mainHeight = $(main).height();
-            var sideHeight = $(side).height();
-
-            if (mainHeight > sideHeight) {
-                $(side).height(mainHeight);
-            }
-            else {
-                $(main).height(sideHeight);
-            }
-        }
-    }
-};
-
-//setManualMatchbox();
-
-//$(window).on('resize', function () {
-//    setManualMatchbox();
-//})
 
 $(document).ready(function () {
     SwapLogo();
@@ -72,6 +44,10 @@ $(document).ready(function () {
 
     if ($(".event-listing-container").length) {
         matchboxEventCards.init();
+    }
+
+    if ($(".article-col-sidebar").length) {
+        matchboxArticle.init();
     }
 
     if (!Modernizr.inputtypes.date) {
