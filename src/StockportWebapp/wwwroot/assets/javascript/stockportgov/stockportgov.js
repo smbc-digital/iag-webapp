@@ -47,7 +47,8 @@ $(document).ready(function () {
     }
 
     if ($(".article-col-sidebar").length) {
-        matchboxArticle.init();
+        // commented out as it's making the footer jump up on articles with video
+        // matchboxArticle.init();
     }
 
     if (!Modernizr.inputtypes.date) {
