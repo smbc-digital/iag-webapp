@@ -40,6 +40,15 @@ var matchboxNewsHomepage = new Matchbox({
     groupsOf: 2
 });
 
+var matchboxLatest = new Matchbox({
+    parentSelector: ".latest-container",
+    childSelector: ".latest-nav-card-item",
+    groupsOf: 1,
+    breakpoints: [
+    { bp: 1024, groupsOf: 3 }
+    ]
+});
+
 var $seeMoreServicesButton = $("#see-more-services, #see-more-services-mobile");
 var $moreFeaturedTopicsDiv = $("#more-topics");
 
@@ -50,6 +59,7 @@ $(document).ready(
         if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMore.init(); }
         if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMoreMobile.init(); }
         if ($(".homepage-news-items").length) { matchboxNewsHomepage.init(); }
+        if ($(".latest-container").length > 0) { matchboxLatest.init(); }
 
         $moreFeaturedTopicsDiv.hide();
         $seeMoreServicesButton.addClass("is-visible");

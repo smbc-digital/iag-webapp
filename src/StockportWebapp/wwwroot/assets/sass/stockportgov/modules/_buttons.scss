@@ -30,4 +30,9 @@
     display:inline-block
 }
 
-
+.clear-button, .clear-button:hover {
+    background-color: #ffffff;
+    border: solid 1px #ccc;
+    color: #000000;
+    font-weight: 600;
+}

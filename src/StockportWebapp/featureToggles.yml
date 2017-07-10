@@ -4,6 +4,7 @@ prod: &prod
   ExportGroupToPdf: true
   GroupManagement: true
   ManageYourGroupButton: true
+  NewHomepageLayout: false
 
 stage: &stage
   << : *prod
@@ -22,3 +23,4 @@ local:
   << : *stage
   << : *qa
   << : *int
+  NewHomepageLayout: true

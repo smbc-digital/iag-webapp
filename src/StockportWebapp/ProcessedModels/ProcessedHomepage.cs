@@ -30,7 +30,13 @@ namespace StockportWebapp.ProcessedModels
             BackgroundImage = backgroundImage;
             LatestNews = lastNews;
             FreeText = freeText;
+
+            FeaturedGroupItem = new Group("Zumba", "zumba", "08768657", "", "", "", "", "", "This is Zumba fitness group for getting fit and stuff. This is Zumba fitness group for getting fit and stuff", "", "", null, null, null, false, null, null, null, null, "");
         }
+
+        public News FeaturedNewsItem { get; set; }
+        public Event FeaturedEventItem { get; set; }
+        public Group FeaturedGroupItem { get; set; }
 
         public List<News> GetLatestNews()
         {
@@ -45,11 +51,13 @@ namespace StockportWebapp.ProcessedModels
         public void SetLatestNews(List<News> latestNews)
         {
             LatestNews = latestNews;
+            FeaturedNewsItem = LatestNews?.First();
         }
 
         public void SetLatestEvents(List<Event> latestEvents)
         {
             LatestEvents = latestEvents;
+            FeaturedEventItem = LatestEvents?.First();
         }
     }
 }

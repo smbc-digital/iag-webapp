@@ -6,5 +6,6 @@ namespace StockportWebapp.FeatureToggling
         public bool ManageYourGroupButton { get; set; } = false;
         public bool ContactUsIds { get; set; } = false;
         public bool ExportGroupToPdf { get; set; } = false;
+        public bool NewHomepageLayout { get; set; } = true;
     }
 }
