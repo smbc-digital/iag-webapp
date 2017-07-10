@@ -33,7 +33,7 @@ namespace StockportWebapp.Helpers
             };
 
             return _parisLinkBuilder.ReturnText("Return To Main Menu")
-                             .IgnoreConfirmation("true")
+                             .IgnoreConfirmation("false")
                              .PayForBasketMode("true")
                              .Data(paymentSubmission.Payment.ParisReference)
                              .ParisRecordXML(xml)
