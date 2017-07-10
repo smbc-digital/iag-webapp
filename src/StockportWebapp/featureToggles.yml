@@ -4,6 +4,7 @@ prod: &prod
   ExportGroupToPdf: true
   GroupManagement: true
   ManageYourGroupButton: true
+  EditGroupWYSIWYG: false
 
 stage: &stage
   << : *prod
@@ -11,14 +12,16 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
+  EditGroupWYSIWYG: true
 
 int: &int
   << : *prod
   << : *stage
-  << : *qa
+  << : *qa 
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
+  

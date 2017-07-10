@@ -1,6 +1,8 @@
 ﻿@using StockportWebapp.Config
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@inject StockportWebapp.FeatureToggling.FeatureToggles FeatureToggles
+
 @model GroupSubmission
 @{
     ViewData["Title"] = "Edit your group";
@@ -91,8 +93,16 @@
 
                                         @Html.Partial("WysiwygIncludes")
                                         <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent">
-                                            <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>     
+                                            @if (FeatureToggles.EditGroupWYSIWYG)
+                                            {
+                                                <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
+                                            }
+                                            else
+                                            {
+                                                <textarea id="mytext" asp-for="@Model.Description" class="grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
+                                            }
                                         </div>
+
                                        
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
