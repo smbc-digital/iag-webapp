@@ -2,7 +2,7 @@
     // assertions go in here
     goToGroupsHomePage: function (browser) {
         this.waitForElementVisible('.button-groups', this.api.globals.timeOut);
-        browser.useXpath().click("//a[contains(@href,'/groups')]");
+        browser.useXpath().click("//a[contains(@href,'/groups') and contains(@class,'button-groups')]");
     },
     assertTitleIsVisible: function (title) {
         this.waitForElementVisible('@pageTitle', this.api.globals.timeOut)
