@@ -2,18 +2,20 @@
 <ul class="nav-card-list latest-container">
     @if (Model.FeaturedNewsItem != null)
     {
-    <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-        <span class="latest-nav-card-item">
-            <h2 class="news title">Latest news</h2>
-            <div class="body">
-                <h3><a href="/news/@Model.FeaturedNewsItem.Slug">@Model.FeaturedNewsItem.Title</a></h3>
-                <p class="date"><i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", Model.FeaturedNewsItem.SunriseDate)</p>
-                <p>@Model.FeaturedNewsItem.Teaser</p>
-                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
-            </div>
-        </span>
-        <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "News")">View more news</stock-button>
-    </li>
+        <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
+            <span class="latest-nav-card-item">
+                <h2 class="news title">Latest news</h2>
+                <div class="body">
+                    <a href="/news/@Model.FeaturedNewsItem.Slug">
+                        <h3>@Model.FeaturedNewsItem.Title</h3>
+                        <p class="date"><i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", Model.FeaturedNewsItem.SunriseDate)</p>
+                        <p>@Model.FeaturedNewsItem.Teaser</p>
+                        <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
+                    </a>
+                </div>
+            </span>
+            <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "News")">View more news</stock-button>
+        </li>
     }
 
     @if (Model.FeaturedEventItem != null)
@@ -35,32 +37,36 @@
         {
             date = Model.FeaturedEventItem.EventDate.ToString("dd MMMM yyyy 'at' hh") + Model.FeaturedEventItem.EventDate.ToString("tt").ToLower();
         }
-    <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-        <span class="latest-nav-card-item">
-            <h2 class="event title">What's on in Stockport</h2>
-            <div class="body">
-                <h3><a href="/events/@Model.FeaturedEventItem.Slug">@Model.FeaturedEventItem.Title</a></h3>
-                <p class="date"><i class="fa fa-clock-o"></i>@date</p>
-                <p>@Model.FeaturedEventItem.Teaser</p>
-                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
-            </div>
-        </span>
-        <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "Events")">View more events</stock-button>
-    </li>
+        <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
+            <span class="latest-nav-card-item">
+                <h2 class="event title">What's on in Stockport</h2>
+                <div class="body">
+                    <a href="/events/@Model.FeaturedEventItem.Slug">
+                        <h3>@Model.FeaturedEventItem.Title</h3>
+                        <p class="date"><i class="fa fa-clock-o"></i>@date</p>
+                        <p>@Model.FeaturedEventItem.Teaser</p>
+                        <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
+                    </a>
+                </div>
+            </span>
+            <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "Events")">View more events</stock-button>
+        </li>
     }
 
     @if (Model.FeaturedGroupItem != null)
     {
-    <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-        <span class="latest-nav-card-item">
-            <h2 class="group title">Featured group</h2>
-            <div class="body">
-                <h3><a href="/@Model.FeaturedGroupItem.Slug">@Model.FeaturedGroupItem.Name</a></h3>
-                <p>@Model.FeaturedGroupItem.Description</p>
-                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
-            </div>
-        </span>
-        <stock-button class="nav-card-title button button-featured-content-more button-groups" as-link="true" href="@Url.Action("Index", "Groups")">View more groups</stock-button>
-    </li>
+        <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
+            <span class="latest-nav-card-item">
+                <h2 class="group title">Featured group</h2>
+                <div class="body">
+                    <a href="/@Model.FeaturedGroupItem.Slug">
+                        <h3>@Model.FeaturedGroupItem.Name</h3>
+                        <p>@Model.FeaturedGroupItem.Description</p>
+                        <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
+                    </a>
+                </div>
+            </span>
+            <stock-button class="nav-card-title button button-featured-content-more button-groups" as-link="true" href="@Url.Action("Index", "Groups")">View more groups</stock-button>
+        </li>
     }
 </ul>
