@@ -10,6 +10,7 @@ using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class HomeController : Controller
     {
         private readonly IRepository _repository;
