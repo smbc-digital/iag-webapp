@@ -212,7 +212,8 @@ $(document).ready(
 
         // get current location
         $("#currentLocation").click(function () {
-            navigator.geolocation.getCurrentPosition(function (position) {
+            navigator.geolocation.getCurrentPosition(
+            function (position) {
                 var geocoder = new google.maps.Geocoder();
                 var latLng = new google.maps.LatLng(
                     position.coords.latitude,
@@ -233,14 +234,16 @@ $(document).ready(
                         autocompleteLocationLongitude = results[0].geometry.location.lng();
                     }
                     else {
-                        alert("We couldn't find your current location.");
-                        $("#getLocation").append("We couldn't find your current location.");
+                        $("#location-autocomplete").css("border", "1px solid #c83725");
+                        $("#locationError").show();
                     }
                 });
-            }, function () {
+            },
+            function () {
                 $("#location-autocomplete").css("border", "1px solid #c83725");
                 $("#locationError").show();
-            });
+            },
+            { maximumAge: 10000, timeout: 6000, enableHighAccuracy: true });
             return false;
         });
 
