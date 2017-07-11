@@ -7,7 +7,6 @@ module.exports = {
    'Find article for About the Hat Works': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        browser.maximizeWindow();
-       homepage.closeCookieBanner(browser);
       homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works", "uitest-hat-works");
 
        var topicpage = browser.page.stockportgov.topicpage();
