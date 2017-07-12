@@ -48,9 +48,15 @@ namespace StockportWebapp.Utils
             return date;
         }
 
-        public string StripUnwantedHtml(string html)
+        public string StripUnwantedHtml(string html, string allowedTags = "a,ol,ul,li,b")
         {
-            return Regex.Replace(html, @"&lt;(.|\n)*?&gt;", string.Empty);
+            // Remove any typed HTML
+            html = Regex.Replace(html, @"&lt;(.|\n)*?&gt;", string.Empty);
+
+            // Remove any pasted text
+            var replaceReg = @"(?!<\/?(" + allowedTags.Replace(",", "|") + ").*>)<.*?>";
+            var result = Regex.Replace(html,replaceReg, string.Empty);
+            return result;
         }
     }
 }

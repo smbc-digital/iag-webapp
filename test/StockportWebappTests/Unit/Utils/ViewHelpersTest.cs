@@ -36,5 +36,24 @@ namespace StockportWebappTests.Unit.Utils
             // Assert
             result.Should().Be(expected);
         }
+
+        [Theory]
+        [InlineData("<b>Bold Text</b>", "<b>Bold Text</b>")]
+        [InlineData("<b class=\"bolder\">Bold Text</b>", "<b class=\"bolder\">Bold Text</b>")]
+        [InlineData("<i>Italic Text</i>", "Italic Text")]
+        [InlineData("<i class=\"fancy\">Italic Text</i>", "Italic Text")]
+        [InlineData("&lt;b&gt;Bold Text&lt;/b&gt;", "Bold Text")]
+        [InlineData("<script type=\"text/javscript\">alert('foo');</script>", "alert('foo');")]
+        public void FormatWysiwygTextToOnlyAllowAllowedHtml(string html, string expected)
+        {
+            // Arrange
+            var viewHelper = new ViewHelpers(_timeProvider.Object);
+
+            // Act
+            var result = viewHelper.StripUnwantedHtml(html);
+
+            // Assert
+            result.Should().Be(expected);
+        }
     }
 }
