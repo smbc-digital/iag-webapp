@@ -140,7 +140,7 @@ namespace StockportWebapp
             services.AddTransient<HtmlParser>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
             services.AddSingleton<ParisHashHelper>();
-
+            services.AddSingleton(p => new CalendarHelper(p.GetService<ITimeProvider>()));
             var loggerFactory = new LoggerFactory().AddNLog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 

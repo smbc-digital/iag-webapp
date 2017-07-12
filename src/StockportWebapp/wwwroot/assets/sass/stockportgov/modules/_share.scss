@@ -23,4 +23,10 @@
     .addthis_button_facebook {
         
     }
+
+    .events-to-calendar {
+        @media #{$mobile, $tablet} {
+            padding-top: 15px;
+        }
+    }
 }
