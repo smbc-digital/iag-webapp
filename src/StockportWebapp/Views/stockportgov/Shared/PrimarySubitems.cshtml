@@ -1,31 +1,105 @@
 ﻿@using StockportWebapp.FeatureToggling
 @model StockportWebapp.Models.Topic
-@for (var i = 0; i < Model.SubItems.Count(); i += 3)
-{
-    <ul class="nav-card-list">
-        @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
-        {
-            <li class="nav-card grid-33" style="">
-                <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
+@inject FeatureToggles FeatureToggles
 
-                    @{
-                        if (!string.IsNullOrEmpty(subItem.Image))
-                        {
-                            <div class="nav-card-background-image" style="background-image:url(@subItem.Image)">
-                                <div class="nav-card-background-image-dark">
-                                    <h2 class="hide-on-desktop"><span>@subItem.Title</span></h2>
+@if (FeatureToggles.PrimaryItems)
+{
+    if (Model.SubItems.Any(i => string.IsNullOrEmpty(i.Image)))
+    {
+
+        <div class="grid-container grid-parent">
+            <div class="sk-table-outer-container">
+                <div class="sk-table-body primary-items">
+                   @if (!string.IsNullOrEmpty(Model.PrimaryItemTitle))
+                   {
+                    <div class="grid-100 sk-table-row grid-parent border-bottom">
+                        <span class="main"><strong>@Model.PrimaryItemTitle</strong></span>
+                    </div>
+                   } 
+                    @foreach (var subItem in Model.SubItems)
+                    {
+                        <div class="primary-item-container grid-50 tablet-grid-50 mobile-grid-100">
+                            <a href="@subItem.NavigationLink" style="display: block">
+                                <div class="subitem grid-100">
+                                    <div class="grid-95">
+                                        <strong>@subItem.Title</strong>
+                                        <div>@subItem.Teaser</div>
+                                    </div>
                                 </div>
-                            </div>
-                                <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
-                        }
-                        else
-                        {
-                            <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
-                                <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
-                        }
+                            </a>
+                        </div>
                     }
-                </a>
-            </li>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        for (var i = 0; i < Model.SubItems.Count(); i += 3)
+        {
+            <ul class="nav-card-list">
+                @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
+                {
+                    <li class="nav-card grid-33" style="">
+                        <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
+
+                            @{
+                                if (!string.IsNullOrEmpty(subItem.Image))
+                                {
+                                    <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
+                                        <div class="nav-card-background-image-dark">
+                                            <h2 class="hide-on-desktop">
+                                                <span>@subItem.Title</span>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                    <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
+                                }
+                                else
+                                {
+                                    <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
+                                    <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
+                                }
+                            }
+                        </a>
+                    </li>
+                }
+            </ul>
         }
-    </ul>
+    }
+}
+else
+{
+    for (var i = 0; i < Model.SubItems.Count(); i += 3)
+    {
+        <ul class="nav-card-list">
+            @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
+            {
+                <li class="nav-card grid-33" style="">
+                    <a href="@subItem.NavigationLink" class="nav-card-item @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
+
+                        @{
+                            if (!string.IsNullOrEmpty(subItem.Image))
+                            {
+                                <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
+                                    <div class="nav-card-background-image-dark">
+                                        <h2 class="hide-on-desktop"><span>@subItem.Title</span>
+                                        </h2>
+                                    </div>
+                                </div>
+                                <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
+                            }
+                            else
+                            {
+                                <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
+                                <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
+                            }
+                        }
+                    </a>
+                </li>
+            }
+        </ul>
+    }
 }
