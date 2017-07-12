@@ -22,7 +22,6 @@ using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
 using ReverseMarkdown;
 
 namespace StockportWebapp.Controllers
@@ -40,8 +39,9 @@ namespace StockportWebapp.Controllers
         private readonly List<Query> _managementQuery;
         private readonly IApplicationConfiguration _configuration;
         private readonly MarkdownWrapper _markdownWrapper;
+        private readonly ViewHelpers _viewHelpers;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -53,6 +53,7 @@ namespace StockportWebapp.Controllers
             _emailBuilder = emailBuilder;
             _managementQuery = new List<Query> { new Query("onlyActive", "false") };
             _markdownWrapper = markdownWrapper;
+            _viewHelpers = viewHelpers;
         }
 
         [Route("/groups")]
@@ -873,7 +874,7 @@ namespace StockportWebapp.Controllers
             var converter = new Converter();
 
             group.Address = model.Address;
-            group.Description = converter.Convert(model.Description);
+            group.Description = converter.Convert(_viewHelpers.StripUnwantedHtml(model.Description));
             group.Email = model.Email;
             group.Facebook = model.Facebook;
             group.Name = model.Name;
