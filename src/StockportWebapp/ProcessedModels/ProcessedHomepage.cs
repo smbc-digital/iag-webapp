@@ -18,7 +18,7 @@ namespace StockportWebapp.ProcessedModels
         private IEnumerable<News> LatestNews { get; set; }
         private IEnumerable<Event> LatestEvents { get; set; }
 
-        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText)
+        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup)
         {
             PopularSearchTerms = popularSearchTerms;
             FeaturedTasksHeading = featuredTasksHeading;
@@ -30,8 +30,7 @@ namespace StockportWebapp.ProcessedModels
             BackgroundImage = backgroundImage;
             LatestNews = lastNews;
             FreeText = freeText;
-
-            FeaturedGroupItem = new Group("Zumba", "zumba", "08768657", "", "", "", "", "", "This is Zumba fitness group for getting fit and stuff. This is Zumba fitness group for getting fit and stuff", "", "", null, null, null, false, null, null, null, null, "");
+            FeaturedGroupItem = featuredGroup;
         }
 
         public News FeaturedNewsItem { get; set; }

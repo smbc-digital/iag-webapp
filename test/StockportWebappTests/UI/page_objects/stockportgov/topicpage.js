@@ -6,7 +6,7 @@
 
     goToTopicListBlockPage: function (browser, title, link) {
         this.waitForElementVisible('@topicBody', this.api.globals.timeOut);
-        browser.useXpath().assert.visible("//h2[text()='" + title + "']")
+        browser.useXpath().assert.visible("//div[strong='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
     },
 

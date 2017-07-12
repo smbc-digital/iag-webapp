@@ -264,7 +264,6 @@
     transition: box-shadow .5s;
     display: block;
     text-decoration: none;
-
     border: solid 1px #999999;
     border-top: 0;
 
@@ -315,11 +314,17 @@
             @media #{$mobile, $tablet} {
                 color: #000000;
             }
+        }
 
+        .bullet {
+            color: #000000;
+        }
+
+        .bullet, .date {
             margin-bottom: 0;
 
             i {
-                margin-right: 5px;
+                margin-right: 10px;
             }
         }
     }
@@ -342,22 +347,6 @@
         margin-right: 30px;
         margin-left: 30px;
 
-        @media #{$mobile, $tablet} {
-            border: 0;
-            text-decoration: underline;
-            color: #39716e;
-            margin: 0;
-            padding: 0;
-            font-weight: 500;
-            top: -75px;
-            margin-right: 30px;
-            margin-left: 30px;
-
-            &:before {
-                content: "";
-            }
-        }
-
         &.invisible {
             visibility: hidden;
         }
@@ -373,6 +362,6 @@
 }
 
 .full-width-white {
-    width:100%;
+    width: 100%;
     background-color: #ffffff;
 }
