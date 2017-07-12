@@ -78,6 +78,9 @@ namespace StockportWebapp
             services.AddSingleton(_ => new LegacyUrlRedirects(new BusinessIdRedirectDictionary()));
             services.AddSingleton(_ => new ValidateReCaptchaAttribute(_.GetService<IApplicationConfiguration>(), _.GetService<IHttpClient>()));
 
+
+            services.AddSingleton(o => new ViewHelpers(o.GetService<ITimeProvider>()));
+
             services.AddSingleton<Func<System.Net.Http.HttpClient>>(
                 p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
