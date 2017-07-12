@@ -6,6 +6,7 @@ prod: &prod
   ManageYourGroupButton: true
   NewHomepageLayout: false
   EditGroupWYSIWYG: false
+  PrimaryItems: false
 
 stage: &stage
   << : *prod
@@ -13,16 +14,19 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
-  NewHomepageLayout: true
   EditGroupWYSIWYG: true
 
 int: &int
   << : *prod
   << : *stage
-  << : *qa 
+  << : *qa
+  NewHomepageLayout: true
+  PrimaryItems: true
 
 local:
   << : *prod
   << : *stage
   << : *qa
   << : *int
+  PrimaryItems: true
+ 

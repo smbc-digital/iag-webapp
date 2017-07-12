@@ -115,7 +115,6 @@
                 left: 113px;
             }
             z-index: 10;
-            width: 320px;
             background-color: white;
             color: black;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
@@ -160,13 +159,14 @@
             .location-search-input {
                 border-radius: 2px;
                 height: 40px;
-                width: 96%;
+                width: 100%;
                 border: 1px solid #D8D8D8;
                 margin-bottom: 10px;
                 margin-right: 12px;
                 padding: 5px;
                 font-family: "Noto Sans";
                 cursor: auto;
+                box-sizing: border-box;
             }
 
             .location-search-button {

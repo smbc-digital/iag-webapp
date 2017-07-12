@@ -8,5 +8,6 @@ namespace StockportWebapp.FeatureToggling
         public bool ExportGroupToPdf { get; set; } = false;
         public bool NewHomepageLayout { get; set; } = false;
         public bool EditGroupWYSIWYG { get; set; } = false;
+        public bool PrimaryItems { get; set; }
     }
 }
