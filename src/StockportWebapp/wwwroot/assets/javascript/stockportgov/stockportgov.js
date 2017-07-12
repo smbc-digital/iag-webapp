@@ -1,12 +1,21 @@
 ﻿var mobileWidth = 767;
 var tabletWidth = (1024 - 17);
+var matchboxPrimaryTopic = new Matchbox({
+    parentSelector: ".sk-table-body.primary-items",
+    childSelector: ".subitem",
+    groupsOf: 1,
+    breakpoints: [
+    { bp: 767, groupsOf: 2 },
+    { bp: 1024, groupsOf: 2 }
+    ]
+});
 
 var matchboxPrimary = new Matchbox({
     parentSelector: ".l-page-content .nav-card-list",
     childSelector: ".nav-card .nav-card-item",
     groupsOf: 1,
     breakpoints: [
-    { bp: 1024, groupsOf: 3 }
+        { bp: 1024, groupsOf: 3 }
     ]
 });
 
@@ -67,6 +76,10 @@ $(document).ready(function () {
 
     if ($(".l-page-content .nav-card-list").length) {
         matchboxPrimary.init();
+    }
+    
+    if ($(".primary-items").length) {
+        matchboxPrimaryTopic.init();
     }
 
     if ($(".event-listing-container").length) {
