@@ -18,7 +18,6 @@ module.exports = function(config) {
     files: [ 
       'jquery-2.2.2.min.js',
 	  'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-      'http://customer.cludo.com/scripts/bundles/search-script.min.js',
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/vendor/*.js', included: true},
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/stockportgov/*.js', included: true},
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/healthystockport/*.js', included: true},
