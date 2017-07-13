@@ -10,6 +10,7 @@
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
     Layout = "../Shared/_Layout.cshtml";
+    var currentPageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.Pagination.MaxItemsPerPage, Model.Pagination.TotalItems);
 }
 
 @section Breadcrumbs {
@@ -69,7 +70,7 @@
             }
         </ul>
         <div class="grid-container grid-100 group-pagination">
-            @Html.Partial("Pagination", Model.Pagination)
+                @Html.Partial("Pagination", Model.Pagination)    
         </div>
         <div class="full-width-title hide-on-desktop hide-on-tablet" style="margin-bottom: 0">
             <div class="grid-container grid-parent grid-100">

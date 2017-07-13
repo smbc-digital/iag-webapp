@@ -96,7 +96,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport",[FromQuery] int pageSize=12)
         {
             var model = new GroupResults();
             var queries = new List<Query>();
@@ -119,7 +119,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            DoPagination(model, page);
+            DoPagination(model, page, pageSize);
 
             if ((model.Categories != null) && model.Categories.Any())
             {
@@ -934,7 +934,7 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
-        private void DoPagination(GroupResults groupResults, int currentPageNumber)
+        private void DoPagination(GroupResults groupResults, int currentPageNumber ,int pageSize)
         {
             if ((groupResults != null) && groupResults.Groups.Any())
             {
@@ -942,7 +942,7 @@ namespace StockportWebapp.Controllers
                     groupResults.Groups,
                     currentPageNumber,
                     "groups",
-                    9);
+                    pageSize);
 
                 groupResults.Groups = paginatedGroups.Items;
                 groupResults.Pagination = paginatedGroups.Pagination;

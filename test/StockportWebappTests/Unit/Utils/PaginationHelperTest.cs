@@ -537,5 +537,22 @@ namespace StockportWebappTests.Unit.Utils
             // Assert 
             urlHelper.Verify();
         }
+
+        [Theory]
+        [InlineData(12, 70, 60)]
+        [InlineData(12, 50, 99)]
+        [InlineData(60, 70, 12)]
+        [InlineData(60, 50, 12)]
+        public void ShouldReturnCorrectPageSizeBasedOnCurrentPageSizeForGroupsButton(int maxItemsPerPage, int totalItems, int pageSizeShouldBe)
+        {
+            // Arrange
+
+
+            // Act
+            int result = PaginationHelper.GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems);
+
+            // Assert 
+            result.Should().Be(pageSizeShouldBe);
+        }
     }
 }

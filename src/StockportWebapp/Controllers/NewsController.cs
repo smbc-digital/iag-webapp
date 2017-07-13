@@ -47,7 +47,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int page)
+        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int page, [FromQuery]int pageSize = 12)
         {
             if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
             {
@@ -74,7 +74,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            DoPagination(newsRoom, model, page);
+            DoPagination(newsRoom, model, page ,pageSize);
           
             model.AddNews(newsRoom);
             model.AddUrlSetting(urlSetting);
@@ -82,17 +82,15 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-        private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber)
+        private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber ,int pageSize)
         {
             if (newsRoom != null && newsRoom.News.Any())
             {
-                int MaxNumberOfItemsPerPage = 15;
-
                 var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     newsRoom.News, 
                     currentPageNumber, 
                     "News articles",
-                    MaxNumberOfItemsPerPage);
+                    pageSize);
 
                 newsRoom.News = paginatedNews.Items;
                 model.Pagination = paginatedNews.Pagination;

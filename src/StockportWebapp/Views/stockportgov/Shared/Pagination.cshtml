@@ -8,9 +8,18 @@
         IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
         var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
         var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
+        var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems);
     }
-    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-display ">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.ItemDescription</div>
-    <div class="grid-50 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
+    @if (Model.TotalItems > 12)
+    {
+        <div class="grid-parent grid-50 mobile-grid-100 tablet-grid-50 page-size">
+            <a href="@PaginationHelper.BuildPageSizeUrl(Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)"> View @(pageSize == 99 ? "all" : pageSize.ToString()) @Model.ItemDescription per page</a> 
+        </div>
+    }   
+
+    <div class="grid-parent grid-@(Model.TotalItems > 12 ? "50" : "100") tablet-grid-@(Model.TotalItems > 12 ? "50" : "100") mobile-grid-100 pagination-display">Showing @indexOfFirstItemOnPage - @indexOfLastItemOnPage of @Model.TotalItems @Model.ItemDescription</div>
+    
+    <div class="grid-parent grid-100 tablet-grid-100 mobile-grid-100 pagination-page-numbers">
         @{
             if (PaginationHelper.ShowPreviousLink(Model.CurrentPageNumber))
             {
@@ -40,6 +49,5 @@
             }            
         }
     </div>
-
 </div>
 

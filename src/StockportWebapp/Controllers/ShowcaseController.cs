@@ -38,7 +38,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/showcase/{slug}/previousconsultations")]
-        public async Task<IActionResult> PreviousConsultations(string slug, [FromQuery]int Page)
+        public async Task<IActionResult> PreviousConsultations(string slug, [FromQuery]int Page,[FromQuery] int pageSize = 12)
         {
             var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
 
@@ -55,22 +55,20 @@ namespace StockportWebapp.Controllers
                 Pagination = new Pagination()
             };
 
-            DoPagination(Page, result);
+            DoPagination(Page, result, pageSize);
 
             return View(result);
         }
 
-        private void DoPagination(int currentPageNumber, PreviousConsultaion prevConsultation)
+        private void DoPagination(int currentPageNumber, PreviousConsultaion prevConsultation, int pageSize)
         {
             if (prevConsultation != null && prevConsultation.Consultations.Any())
             {
-                int MaxNumberOfItemsPerPage = 10;
-
                 var paginatedList = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     prevConsultation.Consultations.ToList(),
                     currentPageNumber,
                     "Consultations",
-                    MaxNumberOfItemsPerPage);
+                    pageSize);
 
                 prevConsultation.Consultations = paginatedList.Items;
                 prevConsultation.Pagination = paginatedList.Pagination;

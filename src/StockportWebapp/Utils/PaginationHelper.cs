@@ -97,6 +97,20 @@ namespace StockportWebapp.Utils
             return urlHelper.RouteUrl(routeValueDictionary);
         }
 
+        public static string BuildPageSizeUrl(int maxItemsPerPage, int totalItems, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
+        {
+            var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems);
+            RouteValueDictionary routeValueDictionary = queryUrl.AddQueriesToUrl(
+                new Dictionary<string, string>
+                {
+                    {
+                        "pageSize" , pageSize.ToString()
+                    }
+                });
+
+            return urlHelper.RouteUrl(routeValueDictionary);
+        }
+
         private static int MakeSurePageNumberExists(int suggestedPageNumber, int totalItems, int numberOfItemsPerPage)
         {
             int actualPageNumber = suggestedPageNumber;
@@ -192,6 +206,22 @@ namespace StockportWebapp.Utils
         private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
         {
             return currentPageNumber == (totalPages - 1);
+        }
+
+        public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems)
+        {
+            if(maxItemsPerPage == 12 && totalItems < 60)
+            {
+                return 99;
+            }
+            else if (maxItemsPerPage == 12 && totalItems > 60)
+            {
+                return 60;
+            }
+            else
+            {
+                return 12;
+            }
         }
     }
 }

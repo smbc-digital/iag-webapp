@@ -59,7 +59,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize = 12)
         {           
             if (eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
@@ -86,7 +86,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
             eventsCalendar.AddFilteredUrl(_filteredUrl);
 
-            DoPagination(eventsCalendar, Page, eventResponse);
+            DoPagination(eventsCalendar, Page, eventResponse, pageSize);
 
             if (eventResponse != null)
             {
@@ -97,17 +97,15 @@ namespace StockportWebapp.Controllers
             return View(eventsCalendar);
         }
 
-        private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse)
+        private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
         {
             if (eventResponse != null && eventResponse.Events.Any())
             {
-                int MaxNumberOfItemsPerPage = 15;
-
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     eventResponse.Events, 
                     currentPageNumber, 
                     "Events",
-                    MaxNumberOfItemsPerPage);
+                    pageSize);
 
                 eventResponse.Events = paginatedEvents.Items;
                 model.Pagination = paginatedEvents.Pagination;

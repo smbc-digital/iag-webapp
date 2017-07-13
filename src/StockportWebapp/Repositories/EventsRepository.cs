@@ -84,7 +84,7 @@ namespace StockportWebapp.Repositories
 
         public Task<HttpStatusCode> SendEmailMessage(EventSubmission eventSubmission)
         {
-            var messageSubject = $"[Event date] - {eventSubmission.EventDate.Value.ToString("dddd d MMMM yyyy")}, [Event] - {eventSubmission.Title}";
+            var messageSubject = $"[Event date] - {eventSubmission.EventDate.Value.ToString("d MMMM yyyy")}, [Event] - {eventSubmission.Title}";
 
             _logger.LogInformation("Sending event submission form email");
 
