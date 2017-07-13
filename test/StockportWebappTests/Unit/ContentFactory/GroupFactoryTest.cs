@@ -30,6 +30,11 @@ namespace StockportWebappTests.Unit.ContentFactory
         private const string ThumbnailImage = "thumbnail.jpg";
         private const string Facebook = "facebook";
         private const string Twitter = "twitter";
+
+        private const string Cost = "free";
+        private const string CostText = "cost";
+        private const string AbilityLevel = "level";
+
         private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
         private List<GroupCategory> CategoriesReference = new List<GroupCategory>();
         private MapPosition _mapPosition = new MapPosition() {Lat=39.0, Lon = 2.0};
@@ -64,7 +69,10 @@ namespace StockportWebappTests.Unit.ContentFactory
                 groupAdministrators: _groupAdministrators,
                 dateHiddenFrom: DateTime.MinValue,
                 dateHiddenTo: DateTime.MinValue,
-                status: "published"
+                status: "published",
+                cost: Cost,
+                costText: CostText,
+                abilityLevel: AbilityLevel
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
