@@ -97,4 +97,4 @@ ui-test-specific:
 # ---------------------------------------------------------------------------------------
 .PHONY: js-tests
 js-tests:
-	cd test/StockportWebappTests/JSTests && npm install && cd node_modules/karma/bin && karma start ../../../karma.conf.js --single-run
+	cd test/StockportWebappTests/JSTests && npm install && cd node_modules/karma/bin && node karma start ../../../karma.conf.js --single-run
