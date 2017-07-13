@@ -21,9 +21,9 @@ APP_VERSION ?= $(BUILD_NUMBER)
 build: clean dotnet-restore dotnet-test version publish-app package-app
 
 .PHONY: clean
-clean: 
+clean:
 	rm -rf $(APPLICATION_ROOT_PATH)/bin
-	
+
 .PHONY: dotnet-restore
 dotnet-restore:
 	dotnet restore
@@ -58,7 +58,7 @@ package-app:
 .PHONY: start-proxy
 start-proxy:
 	cd proxy ; npm install ; node index.js
-	
+
 # ---------------------------------------------------------------------------------------
 # -- UI Tests
 # ---------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ start-proxy:
 ui-test-all:
 	cd test/StockportWebappTests/UI && make ui-test-all
 
-	
+
 # ---------------------------------------------------------------------------------------
 # -- ui-test
 # -- USAGE: BUSINESS_ID=stockportgov UI_TEST_HOST=http://stockportgov.local:5555 Make ui-test
@@ -81,7 +81,7 @@ ui-test-all:
 ui-test:
 	cd test/StockportWebappTests/UI && make ui-test
 
-	
+
 # ---------------------------------------------------------------------------------------
 # -- ui-test
 # -- USAGE: BUSINESS_ID=stockportgov UI_TEST_HOST=http://stockportgov.local:5555 Make ui-test-specific testname="Find article for About the Hat Works"
@@ -89,3 +89,12 @@ ui-test:
 .PHONY: ui-test-specific
 ui-test-specific:
 	cd test/StockportWebappTests/UI && make ui-test-specific testname="$(testname)"
+
+
+# ---------------------------------------------------------------------------------------
+# -- js-tests
+# -- USAGE: make js-tests
+# ---------------------------------------------------------------------------------------
+.PHONY: js-tests
+js-tests:
+	cd test/StockportWebappTests/JSTests ; npm install ; npm install -g karma-cli ; karma start karma.conf.js --single-run
