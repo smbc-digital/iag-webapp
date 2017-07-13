@@ -1,17 +1,9 @@
 ﻿using Ical.Net;
 using Ical.Net.DataTypes;
-using Markdig.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Google.Apis.Calendar.v3;
-using Google.Apis.Calendar.v3.Data;
 using Ical.Net.Serialization;
 using Ical.Net.Serialization.iCalendar.Serializers;
 using StockportWebapp.Utils;
-using Google.Apis.Services;
 using Calendar = Ical.Net.Calendar;
 using Event = StockportWebapp.Models.Event;
 
