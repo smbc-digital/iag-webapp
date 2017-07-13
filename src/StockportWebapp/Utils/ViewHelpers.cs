@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace StockportWebapp.Utils
 {
@@ -45,6 +46,17 @@ namespace StockportWebapp.Utils
             }
 
             return date;
+        }
+
+        public string StripUnwantedHtml(string html, string allowedTags = "a,ol,ul,li,b")
+        {
+            // Remove any typed HTML
+            html = Regex.Replace(html, @"&lt;(.|\n)*?&gt;", string.Empty);
+
+            // Remove any pasted text
+            var replaceReg = @"(?!<\/?(" + allowedTags.Replace(",", "|") + ").*>)<.*?>";
+            var result = Regex.Replace(html,replaceReg, string.Empty);
+            return result;
         }
     }
 }

@@ -37,20 +37,24 @@
                     <h3 class="news-teaser">@Model.NewsItem.Teaser</h3>
                     @if (!string.IsNullOrEmpty(Model.NewsItem.Image))
                     {
-                        <img src="@Model.NewsItem.Image" class="news-title-image" alt="@Model.NewsItem.Title"/>
+                        <img src="@Model.NewsItem.Image" class="news-title-image" alt="@Model.NewsItem.Title" />
                     }
                     <article>
                         @Html.Raw(Model.NewsItem.Body)
                     </article>
-                        <ul class="news-tags">
-                            @foreach (var newsTag in Model.NewsItem.Tags)
-                            {
-                                <li class="news-tag">
-                                    <a href="@Url.Action("Index", "News", new {tag = newsTag})">@newsTag</a>
-                                </li>
-                            }
-                        </ul>
-                    @Html.Partial("Share")
+                    <ul class="news-tags">
+                        @foreach (var newsTag in Model.NewsItem.Tags)
+                        {
+                            <li class="news-tag">
+                                <a href="@Url.Action("Index", "News", new {tag = newsTag})">@newsTag</a>
+                            </li>
+                        }
+                    </ul>
+                    <div class="share border">
+                        <div class="grid-20">
+                            @Html.Partial("Share")
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>

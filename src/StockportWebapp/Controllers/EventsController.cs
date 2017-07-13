@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using StockportWebapp.Config;
+using StockportWebapp.Helpers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
@@ -32,7 +33,8 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
-
+        private readonly CalendarHelper _helper;
+        
         public EventsController(
             IRepository repository,
             IProcessedContentRepository processedContentRepository,
@@ -41,7 +43,9 @@ namespace StockportWebapp.Controllers
             ILogger<EventsController> logger, 
             IApplicationConfiguration config, 
             BusinessId businessId, 
-            IFilteredUrl filteredUrl)
+            IFilteredUrl filteredUrl,
+            CalendarHelper helper,
+            ITimeProvider timeProvider)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -51,6 +55,7 @@ namespace StockportWebapp.Controllers
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
+            _helper = helper;
         }
 
         [Route("/events")]
@@ -127,7 +132,17 @@ namespace StockportWebapp.Controllers
             var response = httpResponse.Content as ProcessedEvents;
 
             ViewBag.CurrentUrl = Request?.GetUri();
-           
+
+            if (date != null || date == DateTime.MinValue)
+            {
+                ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                ViewBag.Eventdate = response?.EventDate.ToString("yyyy-MM-dd");
+            }
+                
+
             return View(response);
         }
 
@@ -197,6 +212,30 @@ namespace StockportWebapp.Controllers
 
             _logger.LogDebug("Rss: Creating News Feed");
             return await Task.FromResult(Content(_rssFeedFactory.BuildRssFeed(response.Events, host, email), "application/rss+xml"));
+        }
+
+        [Route("events/add-to-calendar")]
+        public IActionResult AddToCalendar(string type, string eventUrl, string slug, DateTime eventDate, string name, string location, string startTime, string endTime, string description, string summary)
+        {
+            var eventItem = new Event()
+            {
+                Slug = slug, EventDate = eventDate, Title = name, Location = location, StartTime = startTime,
+                EndTime = endTime, Description = description, Teaser = summary
+            };
+
+            if (type == "google" || type == "yahoo")
+            {
+                var url = _helper.GetCalendarUrl(eventItem, eventUrl, type);
+                return Redirect(url);
+            }
+
+            if (type == "windows" || type == "apple")
+            {
+                byte[] calendarBytes = System.Text.Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
+                return File(calendarBytes, "text/calendar", slug + ".ics");
+            }
+
+            return null;
         }
     }
 }

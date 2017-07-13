@@ -81,7 +81,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ToEmail == AppSetting.GetAppSetting("EventSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
 
-            var response = await _eventsRepository.SendEmailMessage(new EventSubmission());
+            var response = await _eventsRepository.SendEmailMessage(new EventSubmission() {EventDate = new DateTime(2017, 9, 9) });
 
             response.Should().Be(HttpStatusCode.OK);
         }
@@ -89,7 +89,7 @@ namespace StockportWebappTests.Unit.Repositories
         [Fact]
         public async void ItShouldLogThatAnEmailWasSent()
         {
-            var eventSubmission = new EventSubmission { SubmitterEmail = "test@testing.xyz" };
+            var eventSubmission = new EventSubmission { SubmitterEmail = "test@testing.xyz", EventDate = new DateTime(2017,9,9)};
             await _eventsRepository.SendEmailMessage(eventSubmission);
 
             LogTesting.Assert(_logger, LogLevel.Information, "Sending event submission form email");
@@ -99,7 +99,7 @@ namespace StockportWebappTests.Unit.Repositories
         [Fact]
         public async void ItShouldReturnFeaturedEventsFirst()
         {
-            var eventSubmission = new EventSubmission { SubmitterEmail = "test@testing.xyz" };
+            var eventSubmission = new EventSubmission { SubmitterEmail = "test@testing.xyz", EventDate = new DateTime(2017, 9, 9) };
             await _eventsRepository.SendEmailMessage(eventSubmission);
 
             LogTesting.Assert(_logger, LogLevel.Information, "Sending event submission form email");
