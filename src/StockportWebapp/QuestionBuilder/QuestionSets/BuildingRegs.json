@@ -2,11 +2,12 @@
   {
     "pageId": 0,
     "buttonText": "Next step",
-    "description": "<p>This would be the total square footage of the floor. e.g. 3m x 3m = 9m squared</p>",
+    "description": "Use this handy Smart Answers facility to discover if you need Building Regulations for your conservatory",
     "ShouldCache": true,
     "questions": [
       {
         "questionId": "30SqMetres",
+        "secondaryInfo": "This would be the total square footage of the floor. e.g. 3m x 3m = 9m squared",
         "questionType": "Radio",
         "label": "Is the floor area less than 30 square metres?",
         "options": [
@@ -36,14 +37,14 @@
             "equalTo": "no"
           }
         ],
-        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+        "value": "http: //stockportgov.local:5555/you-need-building-regulations"
       }
     ]
   },
   {
     "pageId": 1,
     "buttonText": "Next step",
-    "description":  "Descripsoinasondasd", 
+    "description": "",
     "ShouldCache": true,
     "questions": [
       {
@@ -78,7 +79,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
       }
     ]
   },
@@ -119,7 +120,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
       }
     ]
   },
@@ -160,7 +161,7 @@
             "equalTo": "yes"
           }
         ],
-        "value": "https://www.stockport.gov.uk/legislation"
+        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
       },
       {
         "behaviourType": "Redirect",
@@ -170,7 +171,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
       }
     ]
   }
