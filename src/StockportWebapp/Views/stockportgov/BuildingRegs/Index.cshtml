@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Building regulations";
+    ViewData["Form"] = "true";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@model StockportWebapp.QuestionBuilder.Entities.Page
+
+
+<div class="container-header grid-container">
+    <div class="grid-100">
+        <h1>Do I need building regulations?</h1>
+
+        @Html.Partial("Components/QuestionRenderer/QuestionForm")
+    </div>
+</div>
+
+<script>
+    require(["questionComponent/questionModule"], function (module) {
+        module.init("building-regs");
+    })
+</script>

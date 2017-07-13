@@ -1,0 +1,177 @@
+﻿[
+  {
+    "pageId": 0,
+    "buttonText": "Next step",
+    "description": "<p>This would be the total square footage of the floor. e.g. 3m x 3m = 9m squared</p>",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "30SqMetres",
+        "questionType": "Radio",
+        "label": "Is the floor area less than 30 square metres?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "30SqMetres",
+            "equalTo": "no"
+          }
+        ],
+        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+      }
+    ]
+  },
+  {
+    "pageId": 1,
+    "buttonText": "Next step",
+    "description":  "Descripsoinasondasd", 
+    "ShouldCache": true,
+    "questions": [
+      {
+        "secondaryInfo": "<p>Do you leave the house to enter the conservatory? (javascript thing)</p>",
+        "questionId": "ExteriaDoorBetween",
+        "questionType": "Radio",
+        "label": "Is there an exterior quality door between the conservatory and house?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "ExteriaDoorBetween",
+            "equalTo": "no"
+          }
+        ],
+        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+      }
+    ]
+  },
+  {
+    "pageId": 2,
+    "buttonText": "Next step",
+    "description": "<p>Are the windows double-glazed or single-glazed/ Kite symbol marked.</p>",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "ToughenedSafetyGlass",
+        "questionType": "Radio",
+        "label": "Has the conservatory been contructed with toughened saftey glass?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "ToughenedSafetyGlass",
+            "equalTo": "no"
+          }
+        ],
+        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+      }
+    ]
+  },
+  {
+    "pageId": 3,
+    "buttonText": "Next step",
+    "description": "<p></p>",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "SeperateHeat",
+        "questionType": "Radio",
+        "label": "Does the conservatory have it's own seperate heating setup?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "SeperateHeat",
+            "equalTo": "yes"
+          }
+        ],
+        "value": "https://www.stockport.gov.uk/legislation"
+      },
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "SeperateHeat",
+            "equalTo": "no"
+          }
+        ],
+        "value": "https://www.stockport.gov.uk/building-regs-application-process"
+      }
+    ]
+  }
+]

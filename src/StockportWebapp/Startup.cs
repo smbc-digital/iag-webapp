@@ -38,6 +38,7 @@ using StockportWebapp.Filters;
 using StockportWebapp.Validation;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.Helpers;
+using StockportWebapp.QuestionBuilder;
 
 namespace StockportWebapp
 {
@@ -209,6 +210,11 @@ namespace StockportWebapp
 
             services.Configure<RazorViewEngineOptions>(
             options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
+
+            services.AddScoped<IBuildingRegsQuestions, BuildingRegsQuestions>(provider =>
+            {
+                return QuestionLoader.LoadQuestions<BuildingRegsQuestions>("BuildingRegs.json");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
