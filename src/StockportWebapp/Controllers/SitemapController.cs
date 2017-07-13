@@ -14,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.ProcessedModels;
 
@@ -23,15 +24,20 @@ namespace StockportWebapp.Controllers
     public class SitemapController : Controller
     {
         private readonly IRepository _repository;
+        private readonly ILogger<SitemapController> _logger;
 
-        public SitemapController(IRepository repository)
+        public SitemapController(IRepository repository, ILogger<SitemapController>  logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         [Route("/google-sitemap.xml")]
         public async Task<IActionResult> Sitemap(string type)
         {
+            _logger.LogInformation(string.Concat("Hitting site map for: ", type));
+            var domainUrl = Request?.GetUri().AbsoluteUri.Replace(Request?.GetUri().PathAndQuery, "/");
+           
             var xml = "";
             switch (type)
             {
@@ -49,7 +55,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = DateTime.Now,
-                                    loc = "www.stockport.gov.uk/news/" + n.Slug,
+                                    loc = domainUrl + "news/" + n.Slug,
                                     priority = "1.0"
                                 }).ToList();
 
@@ -70,7 +76,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = DateTime.Now,
-                                    loc = "www.stockport.gov.uk/events/" + slug,
+                                    loc = domainUrl + "events/" + slug,
                                     priority = "1.0"
                                 }).ToList();
 
@@ -87,7 +93,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = DateTime.Now,
-                                    loc = "www.stockport.gov.uk/" + slug,
+                                    loc = domainUrl + slug,
                                     priority = "1.0"
                                 }).ToList();
 
@@ -98,7 +104,7 @@ namespace StockportWebapp.Controllers
                     {
                         changefreq = "weekly",
                         lastmod = DateTime.Now,
-                        loc = "www.stockport.gov.uk/",
+                        loc = domainUrl,
                         priority = "0.5"
                     };
 
@@ -114,7 +120,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "weekly",
                                     lastmod = DateTime.Now,
-                                    loc = "www.stockport.gov.uk/groups/" + n.Slug,
+                                    loc = domainUrl + "groups/" + n.Slug,
                                     priority = "0.5"
                                 }).ToList();
 
@@ -130,7 +136,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "weekly",
                                     lastmod = DateTime.Now,
-                                    loc = "www.stockport.gov.uk/showcase/" + n.Slug,
+                                    loc = domainUrl + "showcase/" + n.Slug,
                                     priority = "0.5"
                                 }).ToList();
 
@@ -169,7 +175,6 @@ namespace StockportWebapp.Controllers
 
         public SitemapGoogle()
         {
-                
         }
     }
 }
