@@ -104,7 +104,7 @@ namespace StockportWebapp.Controllers
             if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
             if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
             if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
-            queries.Add(new Query("location", location));
+            if (!string.IsNullOrEmpty(location)) queries.Add(new Query("location", location));
 
             var response = await _repository.Get<GroupResults>(queries: queries);
 

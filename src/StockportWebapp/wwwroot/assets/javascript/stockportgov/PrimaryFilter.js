@@ -4,7 +4,8 @@ var LocationDefaults = {
     Latitude: 53.405817,
     Longitude: -2.158046,
     CurrentLocationError: "We couldn't find your current location -- please check the location settings on your device.",
-    LocationLookupError: "We couldn't find this location -- please check the location and try again."
+    LocationLookupError: "We couldn't find this location -- please check the location and try again.",
+    NoLocationError: "No location entered -- please enter a location and try again."
 };
 
 // location object
@@ -14,9 +15,13 @@ var Location = {
     Longitude: LocationDefaults.Longitude,
     HasBeenUpdated: false,
     ShowLocationError: function(error) {
-        $("#location-autocomplete").css("border", "1px solid #c83725");
+        $("#location-autocomplete").css("border", "1px solid #C83725");
         $("#locationError").html(error);
         $("#locationError").show();
+    },
+    HideLocationError: function () {
+        $("#location-autocomplete").css("border", "1px solid #D8D8D8");
+        $("#locationError").hide();
     },
     SetLocationValues: function () {
         // take what has been filled in on the autocomplete and use those values
@@ -26,15 +31,19 @@ var Location = {
         $("#longitude").val(this.Longitude);
         UpdateLocationFieldSize();
         $("#getLocation").hide();
-        $("#locationError").hide();
     },
     SetLocation: function(name, latitude, longitude) {
         this.Name = name;
         this.Longitude = longitude;
         this.Latitude = latitude;
         this.HasBeenUpdated = true;
-        $("#locationError").hide();
-    }    
+    },
+    GetLocationInputValue: function() {
+        return $("#location-autocomplete").val();
+    },
+    SetLocationInputValue: function(value) {
+        $("#location-autocomplete").val(value);
+    }
 };
 
 $(window).resize(function () {
@@ -93,9 +102,9 @@ $(document).ready(function () {
                 if (status === google.maps.GeocoderStatus.OK) {
                     var jointLocation = buildLocation(results[0].address_components);
 
-                    $("#location-autocomplete").val(jointLocation);
-
+                    Location.SetLocationInputValue(jointLocation);
                     Location.SetLocation(jointLocation, results[0].geometry.location.lat(), results[0].geometry.location.lng());
+                    Location.HideLocationError();
                 }
                 else {
                     Location.ShowLocationError(LocationDefaults.CurrentLocationError);
@@ -112,9 +121,15 @@ $(document).ready(function () {
     // use location click
     $("#btnLocationAutoComplete").click(function (event) {
         event.preventDefault();
+        var location = Location.GetLocationInputValue();
+        if (location === "") {
+            Location.ShowLocationError(LocationDefaults.NoLocationError);
+            return false;
+        }
         // check if location values have been set via autocomplete
         if (Location.HasBeenUpdated === true) {
             Location.SetLocationValues();
+            Location.HideLocationError();
         } else {
             // perform a lookup on the location in the textbox
             LocationLookupNonAutocomplete();
@@ -181,6 +196,7 @@ $(document).ready(function () {
             }
 
             Location.SetLocation(autocompleteName, places[0].geometry.location.lat(), places[0].geometry.location.lng());
+            Location.HideLocationError();
 
             if ($('.location-search-input-autoset').length) {
                 Location.SetLocationValues();
@@ -206,7 +222,15 @@ var buildLocation = function (addressComponents) {
     var street = extractFromAdress(addressComponents, "route");
     var postcode = extractFromAdress(addressComponents, "postal_code");
     var city = extractFromAdress(addressComponents, "locality");
-    return (street + " " + postcode + " " + city).trim();
+    var country = extractFromAdress(addressComponents, "country");
+    var joinedLocation = (street + " " + postcode + " " + city).trim();
+
+    if (joinedLocation === "") {
+        // only add the country into the locaion if nothing else comes back for the location
+        joinedLocation = country;
+    }
+
+    return joinedLocation;
 };
 
 var addValidationErrorToMeetingLocationField = function () {
@@ -217,19 +241,15 @@ var addValidationErrorToMeetingLocationField = function () {
 
 // get location lookup, non auto complete
 var LocationLookupNonAutocomplete = function () {
-    var address = $("#location-autocomplete").val();
+    var address = Location.GetLocationInputValue();
     var geocoder = new google.maps.Geocoder();
     geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
-        if (address !== "") {
-            if (status === google.maps.GeocoderStatus.OK) {
-                Location.SetLocation(buildLocation(results[0].address_components), results[0].geometry.location.lat(), results[0].geometry.location.lng());
-                Location.SetLocationValues();
-            } else {
-                Location.ShowLocationError(LocationDefaults.LocationLookupError);
-            }
-        } else {
-            Location.SetLocation(LocationDefaults.Name, LocationDefaults.Latitude, LocationDefaults.Longitude);
+        if (status === google.maps.GeocoderStatus.OK) {
+            Location.SetLocation(buildLocation(results[0].address_components), results[0].geometry.location.lat(), results[0].geometry.location.lng());
             Location.SetLocationValues();
+            Location.HideLocationError();
+        } else {
+            Location.ShowLocationError(LocationDefaults.LocationLookupError);
         }
     });
 };
