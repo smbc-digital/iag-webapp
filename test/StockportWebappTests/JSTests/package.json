@@ -18,8 +18,9 @@
     "gulp-stylus": "^2.1.1",
     "jasmine-core": "^2.5.2",
     "karma": "*",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "*",
-    "karma-jasmine": "*",
+    "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": "*",
     "merge-stream": "^1.0.0",
     "phantomjs": "*"
