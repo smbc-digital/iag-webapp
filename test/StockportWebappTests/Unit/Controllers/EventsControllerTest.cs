@@ -92,7 +92,9 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object
+                _filteredUrl.Object,
+                null,
+                null
                 );
         }
 
@@ -313,7 +315,9 @@ namespace StockportWebappTests.Unit.Controllers
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object
+                _filteredUrl.Object,
+                null,
+                null
             );
 
             return controller;
