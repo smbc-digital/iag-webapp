@@ -64,11 +64,13 @@
         margin-bottom: 0; 
      }
 
-    &:hover {
+    .featured-topic-link{
+        &:hover {
         text-decoration: none;
         .featured-topic-name {
             text-decoration: underline;
         }
+    }
     }
 
    .featured-topic-name {
