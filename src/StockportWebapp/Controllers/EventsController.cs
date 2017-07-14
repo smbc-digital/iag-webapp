@@ -105,7 +105,7 @@ namespace StockportWebapp.Controllers
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     eventResponse.Events, 
                     currentPageNumber, 
-                    "vents",
+                    "events",
                     pageSize,
                     _config.GetEventsDefaultPageSize("stockportgov"));
 
