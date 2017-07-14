@@ -22,6 +22,11 @@
         width: 100%;
         text-decoration: none;
         color: #3a716e;
+        transition-duration: 0.5s;
+        &:hover{ 
+            -webkit-box-shadow: 5px 5px 10px #ccc;
+        box-shadow: 5px 5px 10px #ccc;
+        }
 
         i {
             color: #999999;
