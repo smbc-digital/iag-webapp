@@ -101,7 +101,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendar()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar(), 1)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar(), 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -112,7 +112,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -236,7 +236,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage)) as ViewResult;
 
             // Assert
             var viewModel = actionResponse.ViewData.Model as EventCalendar;
@@ -257,7 +257,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
+            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage));
 
             // Assert
             model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
@@ -272,7 +272,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0));
+            AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
 
             // Assert
             model.Pagination.Should().NotBeNull();
@@ -287,7 +287,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0));
+            AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
 
             // Assert
             model.Pagination.CurrentUrl.Should().NotBeNull();

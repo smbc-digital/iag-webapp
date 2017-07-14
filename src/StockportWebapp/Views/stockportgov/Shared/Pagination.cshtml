@@ -1,6 +1,8 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.Pagination
+
 
 
 <div class="pagination-section grid-parent pagination-margin-bottom">
@@ -8,7 +10,7 @@
         IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
         var indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(Model.CurrentPageNumber, Model.MaxItemsPerPage);
         var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
-        var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems);
+        var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
     }
     @if (Model.TotalItems > 12)
     {

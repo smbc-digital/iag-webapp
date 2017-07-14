@@ -11,15 +11,16 @@ namespace StockportWebapp.Models
         public QueryUrl CurrentUrl { get; set; }
         public int TotalItemsOnPage { get; set; }
         public string ItemDescription { get; set; }
+        public int DefaultPageSize { get; set; }
 
-        public Pagination(int totalNumItems, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage)
+        public Pagination(int totalNumItems, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage, int defaultPageSize)
         {
             CurrentPageNumber = currentPageNumber;
             ItemDescription = itemDescription;
+            DefaultPageSize = defaultPageSize;
             MaxItemsPerPage = maxNumberOfItemsPerPage;
             TotalItems = totalNumItems;
             TotalPages = CalculateTotalPages(totalNumItems);
-            
         }
 
         public Pagination()

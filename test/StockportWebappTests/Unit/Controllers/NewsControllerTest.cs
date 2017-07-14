@@ -118,7 +118,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItReturnsANewsListingPageWithTwoItems()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel(), 1)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -191,7 +191,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
             var actionResponse =
                 AsyncTestHelper.Resolve(
-                    _controller.Index(new NewsroomViewModel { Tag = "Events", Category = "A Category" }, 1)) as ViewResult;
+                    _controller.Index(new NewsroomViewModel { Tag = "Events", Category = "A Category" }, 1, MaxNumberOfItemsPerPage)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -216,7 +216,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = new NewsController(_repository.Object, _processedContentRepository.Object,
                 _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId),
                 _filteredUrl.Object);
-            var response = AsyncTestHelper.Resolve(controller.Index(new NewsroomViewModel(), 1)) as HttpResponse;
+            var response = AsyncTestHelper.Resolve(controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage)) as HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
@@ -267,7 +267,7 @@ namespace StockportWebappTests.Unit.Controllers
                         {
                             DateFrom = new DateTime(2016, 10, 01),
                             DateTo = new DateTime(2016, 11, 01)
-                        }, 1)) as ViewResult;
+                        }, 1, MaxNumberOfItemsPerPage)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -300,7 +300,7 @@ namespace StockportWebappTests.Unit.Controllers
                        {
                            DateFrom = null,
                            DateTo = null
-                       }, 1)) as ViewResult;
+                       }, 1, MaxNumberOfItemsPerPage)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             
@@ -325,7 +325,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage)) as ViewResult;
             
             // Assert
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
@@ -347,7 +347,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
+            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage));
 
             // Assert
             model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
@@ -362,7 +362,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0));
+            AsyncTestHelper.Resolve(controller.Index(model, 0, MaxNumberOfItemsPerPage));
 
             // Assert
             model.Pagination.Should().NotBeNull();
@@ -377,7 +377,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0));
+            AsyncTestHelper.Resolve(controller.Index(model, 0, MaxNumberOfItemsPerPage));
 
             // Assert
             model.Pagination.CurrentUrl.Should().NotBeNull();

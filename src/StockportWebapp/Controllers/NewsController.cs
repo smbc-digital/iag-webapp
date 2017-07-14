@@ -47,7 +47,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int page, [FromQuery]int pageSize = 12)
+        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int page, [FromQuery]int pageSize)
         {
             if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
             {
@@ -89,8 +89,9 @@ namespace StockportWebapp.Controllers
                 var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     newsRoom.News, 
                     currentPageNumber, 
-                    "News articles",
-                    pageSize);
+                    "news articles",
+                    pageSize,
+                    _config.GetNewsDefaultPageSize("stockportgov"));
 
                 newsRoom.News = paginatedNews.Items;
                 model.Pagination = paginatedNews.Pagination;

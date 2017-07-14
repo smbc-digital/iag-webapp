@@ -96,7 +96,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport",[FromQuery] int pageSize=12)
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] int pageSize, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
         {
             var model = new GroupResults();
             var queries = new List<Query>();
@@ -942,7 +942,8 @@ namespace StockportWebapp.Controllers
                     groupResults.Groups,
                     currentPageNumber,
                     "groups",
-                    pageSize);
+                    pageSize,
+                    _configuration.GetGroupsDefaultPageSize("stockportgov"));
 
                 groupResults.Groups = paginatedGroups.Items;
                 groupResults.Pagination = paginatedGroups.Pagination;

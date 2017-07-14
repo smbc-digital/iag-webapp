@@ -34,7 +34,8 @@ namespace StockportWebapp.Controllers
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
         private readonly CalendarHelper _helper;
-        
+
+
         public EventsController(
             IRepository repository,
             IProcessedContentRepository processedContentRepository,
@@ -59,7 +60,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize = 12)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
         {           
             if (eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
@@ -104,8 +105,9 @@ namespace StockportWebapp.Controllers
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     eventResponse.Events, 
                     currentPageNumber, 
-                    "Events",
-                    pageSize);
+                    "vents",
+                    pageSize,
+                    _config.GetEventsDefaultPageSize("stockportgov"));
 
                 eventResponse.Events = paginatedEvents.Items;
                 model.Pagination = paginatedEvents.Pagination;

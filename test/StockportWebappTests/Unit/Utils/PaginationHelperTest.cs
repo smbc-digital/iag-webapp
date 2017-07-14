@@ -314,7 +314,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "Display Name", MaxNumberOfItemsPerPage).Items;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "Display Name", MaxNumberOfItemsPerPage, 12).Items;
 
             // Assert
             newListofNewsItems.Count.Should().Be(numItems);
@@ -330,7 +330,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "", MaxNumberOfItemsPerPage).Items;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "", MaxNumberOfItemsPerPage, 12).Items;
 
             // Assert
             newListofNewsItems.Count.Should().Be(MaxNumberOfItemsPerPage);
@@ -348,7 +348,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, lastPageNum, "item description", MaxNumberOfItemsPerPage).Items;
+            var newListofNewsItems = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, lastPageNum, "item description", MaxNumberOfItemsPerPage, 12).Items;
 
             // Assert
             newListofNewsItems.Count.Should().Be(numItems % MaxNumberOfItemsPerPage);
@@ -364,7 +364,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "item description", MaxNumberOfItemsPerPage).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 1, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be(1);
@@ -381,7 +381,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description", MaxNumberOfItemsPerPage).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be(numItems / MaxNumberOfItemsPerPage);
@@ -398,7 +398,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description", MaxNumberOfItemsPerPage).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, thisNumberIsIrrelevant, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
 
             // Assert
             pagination.TotalPages.Should().Be((numItems / MaxNumberOfItemsPerPage) + 1);
@@ -412,7 +412,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(thisNumberIsIrrelevant);
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 0, "item description", MaxNumberOfItemsPerPage).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, 0, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
 
             // Assert
             pagination.CurrentPageNumber.Should().Be(1);
@@ -433,7 +433,7 @@ namespace StockportWebappTests.Unit.Utils
             List<News> listofNewsItems = BuildListofNewsItems(numItems); 
 
             // Act
-            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, tooHigh, "item description", MaxNumberOfItemsPerPage).Pagination;
+            var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, tooHigh, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
 
             // Assert
             pagination.CurrentPageNumber.Should().Be(lastPageNumber);
@@ -549,7 +549,7 @@ namespace StockportWebappTests.Unit.Utils
 
 
             // Act
-            int result = PaginationHelper.GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems);
+            int result = PaginationHelper.GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, 12);
 
             // Assert 
             result.Should().Be(pageSizeShouldBe);

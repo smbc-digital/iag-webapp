@@ -203,7 +203,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var actionResponse =
                AsyncTestHelper.Resolve(
-                   controller.Results("nonsense", 1, 0 , 0, "a-z")) as ViewResult;
+                   controller.Results("nonsense", 1, 0 , MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as GroupResults;
 
@@ -227,7 +227,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(totalNumItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("category", requestedPageNumber, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("category", requestedPageNumber, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             // Assert
             var groupResult = actionResponse.ViewData.Model as GroupResults;
@@ -248,7 +248,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(numItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", specifiedPageNumber, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", specifiedPageNumber, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
             // Assert
@@ -263,7 +263,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(zeroItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
 
@@ -279,7 +279,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(numItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
             var model = actionResponse.ViewData.Model as GroupResults;
 
             // Assert

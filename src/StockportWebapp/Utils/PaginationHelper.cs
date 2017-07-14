@@ -58,13 +58,14 @@ namespace StockportWebapp.Utils
             return currentPageNumber < totalPages;
         }
 
-        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage)
+        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage, int defaultPageSize)
         {
             Pagination pagination = new Pagination(
                 items.Count,
                 currentPageNumber,
                 itemDescription,
-                maxNumberOfItemsPerPage);
+                maxNumberOfItemsPerPage == 0 ? defaultPageSize : maxNumberOfItemsPerPage,
+                defaultPageSize);
 
             var ExistingPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count, pagination.MaxItemsPerPage);
             pagination.CurrentPageNumber = ExistingPageNumber;
@@ -99,7 +100,7 @@ namespace StockportWebapp.Utils
 
         public static string BuildPageSizeUrl(int maxItemsPerPage, int totalItems, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
         {
-            var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems);
+            var pageSize = GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, maxItemsPerPage);
             RouteValueDictionary routeValueDictionary = queryUrl.AddQueriesToUrl(
                 new Dictionary<string, string>
                 {
@@ -208,19 +209,19 @@ namespace StockportWebapp.Utils
             return currentPageNumber == (totalPages - 1);
         }
 
-        public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems)
+        public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems, int defaultPageSize)
         {
-            if(maxItemsPerPage == 12 && totalItems < 60)
+            if(maxItemsPerPage == defaultPageSize && totalItems < 60)
             {
                 return 99;
             }
-            else if (maxItemsPerPage == 12 && totalItems > 60)
+            else if (maxItemsPerPage == defaultPageSize && totalItems > 60)
             {
                 return 60;
             }
             else
             {
-                return 12;
+                return defaultPageSize;
             }
         }
     }
