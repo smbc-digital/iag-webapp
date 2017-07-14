@@ -182,8 +182,9 @@ module.exports = {
           // assertions
           groups.goToGroupsHomePage(browser);
           groups.assertTitleIsVisible("Find a local group");
-          groups.assertAddAGroupButtonIsVisible(browser);
-          
+          groups.assertAddAGroupButtonIsVisibleAndGotToPage(browser);
+          groups.assertCanSubmitFormAndGetValidationErrors(browser);
+
       },
     after: function (browser, done) {
         setTimeout(function () {
