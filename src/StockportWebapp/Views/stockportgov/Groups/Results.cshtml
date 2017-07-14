@@ -50,6 +50,8 @@
         <ul class="group-listing-container grid-container">
             @foreach (var group in Model.Groups)
             {
+                var cost = group.Cost;
+                cost = cost == "Paid" && !string.IsNullOrEmpty(group.CostText) ? group.CostText : cost;
                 <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
                     <a class="group-card" href="../groups/@group.Slug">
                         <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(group))"></div>
@@ -57,12 +59,26 @@
                             <div class="grid-100 group-title">
                                 <h3>@group.Name</h3>
                             </div>
+                            @if (!string.IsNullOrWhiteSpace(cost))
+                            {
+                                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                                    <i class="fa fa-gbp" aria-hidden="true"></i>
+                                </div>
+                                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@cost</div>
+                            }
                             <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
                                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                             </div>
                             <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">
                                 @(group.Address.Length > 70 ? group.Address.Substring(0, 70) + "..." : group.Address)
                             </div>
+                            @if (!string.IsNullOrWhiteSpace(group.AbilityLevel))
+                            {
+                                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@group.AbilityLevel</div>
+                            }
                         </div>
                     </a>
                 </li>

@@ -48,7 +48,7 @@ namespace StockportWebapp.Utils
             return date;
         }
 
-        public string StripUnwantedHtml(string html, string allowedTags = "a,ol,ul,li,b")
+        public string StripUnwantedHtml(string html, string allowedTags = "a,ol,ul,li,b,strong")
         {
             // Remove any typed HTML
             html = Regex.Replace(html, @"&lt;(.|\n)*?&gt;", string.Empty);

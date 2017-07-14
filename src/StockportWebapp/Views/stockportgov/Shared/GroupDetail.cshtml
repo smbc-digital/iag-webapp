@@ -52,6 +52,51 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
+                                @if (!string.IsNullOrEmpty(Model.Cost))
+                                {
+                                    var cost = Model.Cost;
+                                    cost = cost == "Paid" && !string.IsNullOrEmpty(Model.CostText) ? Model.CostText : cost;
+                                    <li class="group-details">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                            <i class="fa fa-gbp fa-2x group-details-symbol"></i>
+                                        </div>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                            <div class="group-details-heading">Cost</div>
+                                            @cost
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.AbilityLevel))
+                                {
+                                    <li class="group-details">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                            <i class="fa fa-star fa-2x group-details-symbol"></i>
+                                        </div>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                            <div class="group-details-heading">Skill</div>
+                                            @Model.AbilityLevel
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                }
+                                <li class="group-details">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                        <i class="fa fa-map-marker fa-2x group-details-symbol"></i>
+                                    </div>
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                        <div class="group-details-heading">Location</div>
+                                        @if (!string.IsNullOrEmpty(Model.Address))
+                                        {
+                                            @Html.Raw(Model.Address)
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;</text>
+                                        }
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
 
                                 <li class="group-details">
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">

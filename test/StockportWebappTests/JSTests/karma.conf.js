@@ -11,17 +11,18 @@ module.exports = function(config) {
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: [
-      'jasmine',
+      'jasmine'
      ],
      
      // list of files / patterns to load in the browser
     files: [ 
       'jquery-2.2.2.min.js',
-	  './node_modules/jasmine-jquery/jasmine-jquery.js',    
+	  'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/vendor/*.js', included: true},
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/stockportgov/*.js', included: true},
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/healthystockport/*.js', included: true},
-      {pattern: 'C:/Code/iag-webapp/test/StockportWebappTests/JSTests/*.js', included: true}, 
+      { pattern: '*.js', included: true },
+      { pattern: '../../../src/StockportWebapp/wwwroot/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js', included: true }
     ],
 
 
