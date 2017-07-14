@@ -12,6 +12,7 @@ prod: &prod
 stage: &stage
   << : *prod
   NewHomepageLayout: true
+  PrimaryItems: true
 
 qa: &qa
   << : *prod
@@ -22,7 +23,6 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
-  PrimaryItems: true
   ExportGroupEventsToCalendar: true
 
 local:
