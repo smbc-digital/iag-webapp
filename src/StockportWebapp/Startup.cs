@@ -215,6 +215,11 @@ namespace StockportWebapp
             {
                 return QuestionLoader.LoadQuestions<BuildingRegsQuestions>("BuildingRegs.json");
             });
+
+            services.AddScoped<IBuildingRegsGarageQuestions, BuildingRegsGarageQuestions>(provider =>
+            {
+                return QuestionLoader.LoadQuestions<BuildingRegsGarageQuestions>("BuildingRegsGarage.json");
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

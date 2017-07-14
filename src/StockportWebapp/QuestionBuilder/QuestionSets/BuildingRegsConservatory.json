@@ -1,0 +1,177 @@
+﻿[
+  {
+    "pageId": 0,
+    "buttonText": "Next step",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "30SqMetres",
+        "secondaryInfo": "This would be the total square footage of the floor. e.g. 3m x 3m = 9m squared",
+        "questionType": "Radio",
+        "label": "Is the floor area less than 30 square metres?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "30SqMetres",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 1,
+    "buttonText": "Next step",
+    "description": "",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "secondaryInfo": "<p>Do you leave the house to enter the conservatory? (javascript thing)</p>",
+        "questionId": "ExteriaDoorBetween",
+        "questionType": "Radio",
+        "label": "Is there an exterior quality door between the conservatory and house?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "ExteriaDoorBetween",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 2,
+    "buttonText": "Next step",
+    "description": "<p>Are the windows double-glazed or single-glazed/ Kite symbol marked.</p>",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "ToughenedSafetyGlass",
+        "questionType": "Radio",
+        "label": "Has the conservatory been contructed with toughened saftey glass?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "ToughenedSafetyGlass",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 3,
+    "buttonText": "Next step",
+    "description": "<p></p>",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "SeperateHeat",
+        "questionType": "Radio",
+        "label": "Does the conservatory have it's own seperate heating setup?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "SeperateHeat",
+            "equalTo": "yes"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+      },
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "SeperateHeat",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  }
+]

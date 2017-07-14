@@ -1,0 +1,177 @@
+﻿[
+  {
+    "pageId": 0,
+    "buttonText": "Next step",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "AttachedDetached",
+        "secondaryInfo": "<label class=\"collapse\" for=\"_1\">Hide/Show Additional Information</label><input id=\"_1\" type=\"checkbox\"><div>Detached means it shares no external wall with another building. You could walk around it. <img src='https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/logo-stockport-full%402x.png'></div>",
+        "questionType": "Radio",
+        "label": "Is the garage Attached or Detached from the main house?",
+        "options": [
+          {
+            "label": "Attached",
+            "value": "attached"
+          },
+          {
+            "label": "Detached",
+            "value": "detached"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "AttachedDetached",
+            "equalTo": "attached"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 1,
+    "buttonText": "Next step",
+    "description": "",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "secondaryInfo": "<p>Do you leave the house to enter the conservatory? (javascript thing)</p>",
+        "questionId": "SingleStory",
+        "questionType": "Radio",
+        "label": "Is the garage Single Story?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "SingleStory",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 2,
+    "buttonText": "Next step",
+    "description": "",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "30SquareMetres",
+        "questionType": "Radio",
+        "label": "Is it more or less than 30 square metres?",
+        "options": [
+          {
+            "label": "More",
+            "value": "more"
+          },
+          {
+            "label": "Less",
+            "value": "less"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "30SquareMetres",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 3,
+    "buttonText": "Next step",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "Materials",
+        "secondaryInfo": "<strong>ROOF</strong> - non-combustible cement based sheeting fixed to steel roof trusses / tiled or slated roof on timber roof trusses or timbers / timber flat roof covered with felt with applied bitumen bedded 12.5mm limestone chippings.</br><strong>WALLS</strong> – brickwork / blockwork / concrete panels / steel frame clad in non-combustible cement based boarding.</br><strong>FLOORS</strong> – concrete slab.",
+        "questionType": "Radio",
+        "label": "Is it made of substantially incombustable materials?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "Materials",
+            "equalTo": "yes"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+      },
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "Materials",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  }
+]

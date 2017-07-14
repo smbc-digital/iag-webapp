@@ -2,7 +2,73 @@
   {
     "pageId": 0,
     "buttonText": "Next step",
-    "description": "Use this handy Smart Answers facility to discover if you need Building Regulations for your conservatory",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "buildWhat",
+        "secondaryInfo": "",
+        "questionType": "Radio",
+        "label": "What are you proposing to build?",
+        "options": [
+          {
+            "label": "Conservatory/Porch/Orangery",
+            "value": "conservatory"
+          },
+          {
+            "label": "Garage",
+            "value": "garage"
+          },
+          {
+            "label": "Shed",
+            "value": "shed"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "GoToPage",
+        "conditions": [
+          {
+            "questionId": "buildWhat",
+            "equalTo": "conservatory"
+          }
+        ],
+        "value": 1
+      },
+      {
+        "behaviourType": "GoToPage",
+        "conditions": [
+          {
+            "questionId": "buildWhat",
+            "equalTo": "garage"
+          }
+        ],
+        "value": 101
+      },
+      {
+        "behaviourType": "GoToPage",
+        "conditions": [
+          {
+            "questionId": "buildWhat",
+            "equalTo": "shed"
+          }
+        ],
+        "value": 201
+      }
+
+    ]
+  },
+  {
+    "pageId": 1,
+    "buttonText": "Next step",
+    "description": "Conservatory/Porch/Orangery",
     "ShouldCache": true,
     "questions": [
       {
@@ -37,18 +103,18 @@
             "equalTo": "no"
           }
         ],
-        "value": "http: //stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
       }
     ]
   },
   {
-    "pageId": 1,
+    "pageId": 2,
     "buttonText": "Next step",
-    "description": "",
+    "description": "Conservatory/Porch/Orangery",
     "ShouldCache": true,
     "questions": [
       {
-        "secondaryInfo": "<p>Do you leave the house to enter the conservatory? (javascript thing)</p>",
+        "secondaryInfo": "Do you leave the house to enter the conservatory?",
         "questionId": "ExteriaDoorBetween",
         "questionType": "Radio",
         "label": "Is there an exterior quality door between the conservatory and house?",
@@ -84,9 +150,9 @@
     ]
   },
   {
-    "pageId": 2,
+    "pageId": 3,
     "buttonText": "Next step",
-    "description": "<p>Are the windows double-glazed or single-glazed/ Kite symbol marked.</p>",
+    "description": "Are the windows double-glazed or single-glazed/ Kite symbol marked.",
     "ShouldCache": true,
     "questions": [
       {
@@ -125,7 +191,7 @@
     ]
   },
   {
-    "pageId": 3,
+    "pageId": 4,
     "buttonText": "Next step",
     "description": "<p></p>",
     "ShouldCache": true,
@@ -169,6 +235,355 @@
           {
             "questionId": "SeperateHeat",
             "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 101,
+    "buttonText": "Next step",
+    "description": "",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "secondaryInfo": "<p>Do you leave the house to enter the conservatory?</p>",
+        "questionId": "SingleStory",
+        "questionType": "Radio",
+        "label": "Is the garage Single Story?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "SingleStory",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 102,
+    "buttonText": "Next step",
+    "description": "",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "30SquareMetres",
+        "questionType": "Radio",
+        "label": "Is it more or less than 30 square metres?",
+        "options": [
+          {
+            "label": "More",
+            "value": "more"
+          },
+          {
+            "label": "Less",
+            "value": "less"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "30SquareMetres",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 103,
+    "buttonText": "Next step",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "Materials",
+        "secondaryInfo": "<strong>ROOF</strong> - non-combustible cement based sheeting fixed to steel roof trusses / tiled or slated roof on timber roof trusses or timbers / timber flat roof covered with felt with applied bitumen bedded 12.5mm limestone chippings.</br><strong>WALLS</strong> – brickwork / blockwork / concrete panels / steel frame clad in non-combustible cement based boarding.</br><strong>FLOORS</strong> – concrete slab.",
+        "questionType": "Radio",
+        "label": "Is it made of substantially incombustable materials?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "Materials",
+            "equalTo": "yes"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+      },
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "Materials",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 201,
+    "buttonText": "Next step",
+    "description": "Shed",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "shedSize",
+        "questionType": "Radio",
+        "label": "How many square metres is the shed's footprint?",
+        "options": [
+          {
+            "label": "More than 30 square metres",
+            "value": "more"
+          },
+          {
+            "label": "Between 15 and 30 square metres",
+            "value": "between"
+          },
+          {
+            "label": "Less than 15 square metres",
+            "value": "less"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "shedSize",
+            "equalTo": "more"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      },
+      {
+        "behaviourType": "GoToPage",
+        "conditions": [
+          {
+            "questionId": "shedSize",
+            "equalTo": "between"
+          }
+        ],
+        "value": 202
+      },
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "shedSize",
+            "equalTo": "less"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+      }
+    ]
+  },
+  {
+    "pageId": 202,
+    "buttonText": "Next step",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "boundary",
+        "questionType": "Radio",
+        "label": "Is it within 1 metre of a boundary?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "boundary",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+      },
+      {
+        "behaviourType": "GoToPage",
+        "conditions": [
+          {
+            "questionId": "boundary",
+            "equalTo": "yes"
+          }
+        ],
+        "value": 203
+      }
+    ]
+  },
+  {
+    "pageId": 203,
+    "buttonText": "Next step",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "materials",
+        "questionType": "Radio",
+        "label": "Is it made of substantially incombustable materials?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "materials",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+      },
+      {
+        "behaviourType": "GoToPage",
+        "conditions": [
+          {
+            "questionId": "materials",
+            "equalTo": "yes"
+          }
+        ],
+        "value": 204
+      }
+    ]
+  },
+  {
+    "pageId": 204,
+    "buttonText": "Next step",
+    "ShouldCache": true,
+    "questions": [
+      {
+        "questionId": "windowsDoors",
+        "questionType": "Radio",
+        "label": "Does it have windows or doors?",
+        "options": [
+          {
+            "label": "Yes",
+            "value": "yes"
+          },
+          {
+            "label": "No",
+            "value": "no"
+          }
+        ],
+        "validatorData": [
+          {
+            "type": "non-empty",
+            "message": "This is a required answer"
+          }
+        ]
+      }
+    ],
+    "behaviours": [
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "windowsDoors",
+            "equalTo": "no"
+          }
+        ],
+        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+      },
+      {
+        "behaviourType": "Redirect",
+        "conditions": [
+          {
+            "questionId": "windowsDoors",
+            "equalTo": "yes"
           }
         ],
         "value": "http://stockportgov.local:5555/you-need-building-regulations"
