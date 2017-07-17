@@ -1,42 +1,5 @@
 ﻿var mobileWidth = 767;
 var tabletWidth = (1024 - 17);
-var matchboxPrimaryTopic = new Matchbox({
-    parentSelector: ".sk-table-body.primary-items",
-    childSelector: ".subitem",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 767, groupsOf: 2 },
-    { bp: 1024, groupsOf: 2 }
-    ]
-});
-
-var matchboxPrimary = new Matchbox({
-    parentSelector: ".l-page-content .nav-card-list",
-    childSelector: ".nav-card .nav-card-item",
-    groupsOf: 1,
-    breakpoints: [
-        { bp: 1024, groupsOf: 3 }
-    ]
-});
-
-var matchboxEventCards = new Matchbox({
-    parentSelector: ".event-listing-container",
-    childSelector: ".event-card-information",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 767, groupsOf: 2 },
-    { bp: 1024, groupsOf: 3 }
-    ]
-});
-
-var matchboxArticle = new Matchbox({
-    parentSelector: ".article-cols",
-    childSelector: ".article-col",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 1024, groupsOf: 2 }
-]
-});
 
 $(document).ready(function () {
 
@@ -73,23 +36,6 @@ $(document).ready(function () {
                 $(".show-search-button").toggleClass("arrow");
             }
     );
-
-    if ($(".l-page-content .nav-card-list").length) {
-        matchboxPrimary.init();
-    }
-    
-    if ($(".primary-items").length) {
-        matchboxPrimaryTopic.init();
-    }
-
-    if ($(".event-listing-container").length) {
-        matchboxEventCards.init();
-    }
-
-    if ($(".article-col-sidebar").length) {
-        // commented out as it's making the footer jump up on articles with video
-        // matchboxArticle.init();
-    }
 
     if (!Modernizr.inputtypes.date) {
         $(".datepicker").datepicker({
