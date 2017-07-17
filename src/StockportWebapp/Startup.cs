@@ -194,10 +194,17 @@ namespace StockportWebapp
 
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddNodeServices();
+
+            services.AddAntiforgery(p =>
+            {
+                p.HeaderName = "X-SK-ANTI-FORGERY";
+                p.CookieName = "SK-ANTI-FORGERY";
+            });
+
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
-                if (_useRedisSession) options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddSingleton<IViewRender, ViewRender>();
