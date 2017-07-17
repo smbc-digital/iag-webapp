@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StockportWebapp.Models;
+using StockportWebapp.Repositories;
 
 namespace StockportWebapp.QuestionBuilder
 {
@@ -16,9 +18,11 @@ namespace StockportWebapp.QuestionBuilder
     {
         protected IDictionary<int, Page> Structure { get; set; }
         protected IHttpContextAccessor HttpContextAccessor;
-        protected BaseQuestionController(IDictionary<int, Page> structure, IHttpContextAccessor httpContextAccessor)
+
+        protected BaseQuestionController(string slug, IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader)
         {
-            Structure = structure;
+
+            Structure = questionLoader.LoadQuestions<BuildingRegsQuestions>(slug).Structure;
             HttpContextAccessor = httpContextAccessor;
         }
 

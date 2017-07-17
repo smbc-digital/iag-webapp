@@ -103,7 +103,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   },
@@ -145,7 +145,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   },
@@ -186,7 +186,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   },
@@ -227,7 +227,7 @@
             "equalTo": "yes"
           }
         ],
-        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+        "value": "http://localhost:5000/exempt-from-building-regulations"
       },
       {
         "behaviourType": "Redirect",
@@ -237,7 +237,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   },
@@ -279,7 +279,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   },
@@ -320,7 +320,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   },
@@ -361,7 +361,7 @@
             "equalTo": "yes"
           }
         ],
-        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+        "value": "http://localhost:5000/exempt-from-building-regulations"
       },
       {
         "behaviourType": "Redirect",
@@ -371,7 +371,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   },
@@ -416,7 +416,7 @@
             "equalTo": "more"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       },
       {
         "behaviourType": "GoToPage",
@@ -436,7 +436,7 @@
             "equalTo": "less"
           }
         ],
-        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+        "value": "http://localhost:5000/exempt-from-building-regulations"
       }
     ]
   },
@@ -476,7 +476,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+        "value": "http://localhost:5000/exempt-from-building-regulations"
       },
       {
         "behaviourType": "GoToPage",
@@ -526,7 +526,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       },
       {
         "behaviourType": "GoToPage",
@@ -576,7 +576,7 @@
             "equalTo": "no"
           }
         ],
-        "value": "http://stockportgov.local:5555/exempt-from-building-regulations"
+        "value": "http://localhost:5000/exempt-from-building-regulations"
       },
       {
         "behaviourType": "Redirect",
@@ -586,7 +586,7 @@
             "equalTo": "yes"
           }
         ],
-        "value": "http://stockportgov.local:5555/you-need-building-regulations"
+        "value": "http://localhost:5000/you-need-building-regulations"
       }
     ]
   }

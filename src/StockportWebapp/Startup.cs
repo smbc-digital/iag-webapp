@@ -32,6 +32,7 @@ using StockportWebapp.ModelBinders;
 using StockportWebapp.DataProtection;
 using System.Linq;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Filters;
@@ -211,15 +212,19 @@ namespace StockportWebapp
             services.Configure<RazorViewEngineOptions>(
             options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
 
-            services.AddScoped<IBuildingRegsQuestions, BuildingRegsQuestions>(provider =>
-            {
-                return QuestionLoader.LoadQuestions<BuildingRegsQuestions>("BuildingRegs.json");
-            });
 
-            services.AddScoped<IBuildingRegsGarageQuestions, BuildingRegsGarageQuestions>(provider =>
-            {
-                return QuestionLoader.LoadQuestions<BuildingRegsGarageQuestions>("BuildingRegsGarage.json");
-            });
+            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));
+            //services.AddSingleton<IBuildingRegsQuestions>(p => new BuildingRegsQuestions("building-regs", p.GetService<IHttpContextAccessor>(), p.GetService<QuestionLoader>()));
+
+            //services.AddScoped<IBuildingRegsQuestions, BuildingRegsQuestions>(provider =>
+            //{
+            //    return provider.GetService<QuestionLoader>().LoadQuestions<BuildingRegsQuestions>("building-regs");
+            //});
+//
+//            services.AddScoped<IBuildingRegsGarageQuestions, BuildingRegsGarageQuestions>(provider =>
+//            {
+//                return QuestionLoader.LoadQuestions<BuildingRegsGarageQuestions>("BuildingRegsGarage.json");
+//            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

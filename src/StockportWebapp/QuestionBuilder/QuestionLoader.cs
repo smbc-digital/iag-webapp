@@ -6,16 +6,25 @@ using System.Linq;
 using StockportWebapp.Helpers;
 using StockportWebapp.QuestionBuilder.Entities;
 using Newtonsoft.Json;
+using StockportWebapp.Models;
+using StockportWebapp.Repositories;
 
 namespace StockportWebapp.QuestionBuilder
 {
-    public static class QuestionLoader
+    public class QuestionLoader
     {
-        private static Dictionary<Type, string> _questionFiles = new Dictionary<Type, string>();
+        private readonly IRepository _repository;
+        private Dictionary<Type, string> _questionFiles = new Dictionary<Type, string>();
 
-        public static TQuestionStructure LoadQuestions<TQuestionStructure>(string questionSetFilename) where TQuestionStructure : IQuestionStructure, new()
+        public QuestionLoader(IRepository repository)
         {
-            var jsonQuestionSet = LoadJson<TQuestionStructure>(questionSetFilename);
+            _repository = repository;
+        }
+
+
+        public TQuestionStructure LoadQuestions<TQuestionStructure>(string slug) where TQuestionStructure : IQuestionStructure, new()
+        {
+            var jsonQuestionSet = LoadJson<TQuestionStructure>(slug);
             var questionList = JsonConvert.DeserializeObject<IList<Page>>(jsonQuestionSet, new JsonConverter[]
             {
                 new GenericJsonConverter<IQuestion, Question>(),
@@ -30,17 +39,14 @@ namespace StockportWebapp.QuestionBuilder
             return questionStructure;
         }
 
-        private static string LoadJson<TQuestionStructure>(string questionSetFilename) where TQuestionStructure : IQuestionStructure, new()
+        public string LoadJson<TQuestionStructure>(string questionSetFilename) where TQuestionStructure : IQuestionStructure, new()
         {
-            if (!_questionFiles.ContainsKey(typeof(TQuestionStructure)))
-            {
-                _questionFiles.Add(typeof(TQuestionStructure), File.ReadAllText($"QuestionBuilder/QuestionSets/{questionSetFilename}"));
-            }
+            var smart = _repository.Get<SmartAnswersSpike>("building-regs").Result.Content as SmartAnswersSpike;
 
-            return _questionFiles[typeof(TQuestionStructure)];
+            return smart.JsonTextField;
         }
 
-        private static ImmutableDictionary<int, Page> BuildQuestionMapFromList(IList<Page> questionList)
+        private ImmutableDictionary<int, Page> BuildQuestionMapFromList(IList<Page> questionList)
         {
             return questionList.Aggregate(new Dictionary<int, Page>(), (outVal, pageEntry) =>
             {

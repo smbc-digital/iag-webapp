@@ -16,8 +16,9 @@ namespace StockportWebapp.Controllers
     public class BuildingRegsController : BaseQuestionController<BuildingRegsModel, BuildingRegsMap>
     {
 
-        public BuildingRegsController(IBuildingRegsQuestions questionStructure, IHttpContextAccessor HttpContextAccessor) : base(questionStructure.Structure, HttpContextAccessor)
+        public BuildingRegsController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader) : base("building-regs", HttpContextAccessor, questionLoader)
         {
+
         }
 
         [HttpGet]
