@@ -13,7 +13,7 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Slug, "groups") })
 }
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
@@ -22,7 +22,7 @@
                     <div class="grid-100">
                         <h1>Edit your group</h1>
 
-                        @if (ViewBag.SubmissionError != null)
+                        @if (ViewBag.SubmissionError != null && ViewBag.DisplayContentapiUpadteError == false)
                         {
                             <div id="error-message-anchor"></div>
                             <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
@@ -35,6 +35,20 @@
                                 </div>
                             </div>
                         }
+
+                        @if (ViewBag.DisplayContentapiUpadteError == true)
+                        {
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                <div class="alert-icon">
+                                    <i class="fa fa-exclamation fa-3x"></i>
+                                </div>
+                                <div class="alert-content grid-85 tablet-grid-80 mobile-grid-80">
+                                    <h3>Sorry - it's not you, it's us </h3>
+                                    <p>We're having trouble saving the changes that you've tried to make to your group. You can use our <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">online form</a> to let us know what you wanted to change so we can look into this for you.<br></p>
+                                </div>
+                            </div>
+                        }
+                        
                         <noscript>
                             <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
                                 <div class="alert-icon">
@@ -55,13 +69,16 @@
                                         <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Address"></label>
-                                        <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Address" />
-                                        <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <div class="grid-100">
-
+                                        <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i><br />
+                                        <i>If your group does not have a specific meeting place, enter 'Stockport'</i>
+                                        <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" />
+                                        <div style="visibility:hidden;position:absolute;top:-100px;left:-100px;">
+                                            <input type="text" id="address" asp-for="@Model.Address" />
+                                            <input type="text" id="latitude" asp-for="@Model.Latitude" />
+                                            <input type="text" id="longitude" asp-for="@Model.Longitude" />
                                         </div>
+
+                                        <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <label asp-for="@Model.Description"></label>
                                         <i class="small">

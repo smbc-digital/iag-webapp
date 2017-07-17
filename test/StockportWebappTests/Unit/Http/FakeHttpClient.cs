@@ -73,7 +73,7 @@ namespace StockportWebappTests.Unit.Http
             return invokedUrl == url;
         }
 
-        public Task<HttpResponseMessage> PostAsync(string requestURI, HttpContent content)
+        public Task<HttpResponseMessage> PostRecaptchaAsync(string requestURI, HttpContent content)
         {
             invokedUrl = requestURI;
             if (_exception != null)
@@ -88,6 +88,21 @@ namespace StockportWebappTests.Unit.Http
                 Console.WriteLine($"No response found for: {requestURI}");
                 throw new KeyNotFoundException($"No response found for: {requestURI}");
             }
+        }
+
+        public Task<HttpResponse> PostAsync(string requestURI, HttpContent content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<HttpResponse> PutAsync(string requestURI, HttpContent content)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<HttpResponse> DeleteAsync(string requestURI)
+        {
+            throw new NotImplementedException();
         }
     }
 }

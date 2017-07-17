@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using StockportWebapp.Models;
 
@@ -22,6 +23,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly bool Volunteering;
         public List<Event> Events { get; set; }
         public readonly GroupAdministrators GroupAdministrators;
+        public DateTime? DateHiddenFrom { get; set; }
+        public DateTime? DateHiddenTo { get; set; }
 
         public ProcessedGroup()
         {
@@ -29,7 +32,7 @@ namespace StockportWebapp.ProcessedModels
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference,
-                      List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators)
+                      List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo)
         {
             Name = name;
             Slug = slug;
@@ -48,6 +51,8 @@ namespace StockportWebapp.ProcessedModels
             Volunteering = volunteering;
             Events = events;
             GroupAdministrators = groupAdministrators;
+            DateHiddenFrom = dateHiddenFrom;
+            DateHiddenTo = dateHiddenTo;
         }
     }
 }

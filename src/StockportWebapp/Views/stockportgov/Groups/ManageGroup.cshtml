@@ -68,7 +68,14 @@
                                         <div class="sk-table-cell">
                                             <div class="grid-100">
                                                 <stock-button as-link="true" class="" href="@Url.Action("Delete", "Groups", new {slug = Model.Slug})">Delete your group</stock-button>
-                                                <stock-button as-link="true" class="grey" href="@Url.Action("Archive", "Groups", new {slug = Model.Slug})">Archive your group</stock-button>
+                                                @if (Model.IsArchived)
+                                                {
+                                                    <stock-button as-link="true" class="grey" href="@Url.Action("Archive", "Groups", new {slug = Model.Slug})">Archive your group</stock-button>
+                                                }
+                                                else
+                                                {
+                                                    <stock-button as-link="true" class="grey" href="@Url.Action("Publish", "Groups", new {slug = Model.Slug})">Publish your group</stock-button>
+                                                }
                                             </div>
                                         </div>
                                     </div>
