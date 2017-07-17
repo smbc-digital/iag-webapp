@@ -4,7 +4,7 @@ namespace StockportWebapp.Models
 {
     public class Pagination
     {
-        public int MaxItemsPerPage;
+        public int MaxItemsPerPage { get; set; }
         public int TotalItems { get; set; }
         public int CurrentPageNumber { get; set; }
         public int TotalPages { get; set; }
