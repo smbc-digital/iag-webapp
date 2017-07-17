@@ -56,6 +56,14 @@ namespace StockportWebapp.Controllers
                                     priority = "1.0"
                                 }).ToList();
 
+                    listOfSitemaps.Insert(0, new SitemapGoogle()
+                                {
+                                    changefreq = "weekly",
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/news",
+                                    priority = "1.0"
+                                });
+
                     xml = SerializeObject(listOfSitemaps);
                     break;
 
@@ -76,6 +84,14 @@ namespace StockportWebapp.Controllers
                                     loc = $"{_baseURL}/events/{slug}",
                                     priority = "1.0"
                                 }).ToList();
+
+                    listOfSitemapsEvents.Insert(0, new SitemapGoogle()
+                    {
+                        changefreq = "weekly",
+                        lastmod = now,
+                        loc = $"{_baseURL}/events",
+                        priority = "1.0"
+                    });
 
                     xml = SerializeObject(listOfSitemapsEvents);
                     break;
@@ -122,6 +138,14 @@ namespace StockportWebapp.Controllers
                                     loc = $"{_baseURL}/groups/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
+
+                    listOfGroupSitemaps.Insert(0, new SitemapGoogle()
+                                {
+                                    changefreq = "weekly",
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/groups",
+                                    priority = "1.0"
+                                });
 
                     xml = SerializeObject(listOfGroupSitemaps);
                     break;
