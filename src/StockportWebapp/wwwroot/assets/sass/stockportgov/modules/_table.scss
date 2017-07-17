@@ -35,7 +35,7 @@
             .padding-mobile {
                 @media #{$mobile} {
                     padding: 0;
-                    padding-bottom:5px;
+                    padding-bottom: 5px;
                 }
 
                 @media #{$tablet, $desktop} {
@@ -199,6 +199,11 @@
 
             .button-default {
                 margin: 10px 20px 10px 0;
+
+                &:hover {
+                    -webkit-box-shadow: 5px 5px 10px #ccc;
+                    box-shadow: 5px 5px 10px #ccc;
+                }
 
                 &.no-margin {
                     margin: 0;

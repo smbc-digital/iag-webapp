@@ -111,7 +111,8 @@ gulp.task('css', function () {
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(paths.cssDest))
         .pipe(plumber.stop())
-        .pipe(print(function(filepath) {
+        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
+        .pipe(print(function (filepath) {
             console.log('Processed: '.yellow + filepath.cyan);
         }));
 });

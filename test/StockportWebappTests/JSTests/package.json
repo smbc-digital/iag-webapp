@@ -21,7 +21,7 @@
     "karma-chrome-launcher": "^2.2.0",
     "karma-cli": "*",
     "karma-jasmine": "^1.1.0",
-    "karma-phantomjs-launcher": "*",
+    "karma-phantomjs-launcher": "^1.0.4",
     "merge-stream": "^1.0.0",
     "phantomjs": "*"
   },

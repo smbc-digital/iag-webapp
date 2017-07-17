@@ -163,7 +163,7 @@ module.exports = {
             "Too much for this box. This is a lot of text. Too much for this box. This is a lot of text. Too much for this box. " +
             "This is a lot of text. Too much for this box. This is a lot of text. This is the end of the test.");
     },
-      'Navigate to showcase/spotlight page and validate details  ': function (browser) {
+      'Navigate to showcase/spotlight/theme page and validate details  ': function (browser) {
         var spotlightpage = browser.page.stockportgov.spotlightpage();
             spotlightpage.navigate();
             spotlightpage.assertBreadcrumbIsVisible();
@@ -174,13 +174,16 @@ module.exports = {
             spotlightpage.assertFeaturedTopicsAreVisible();
       },
       'Navigate to groups from homepage and validate details': function (browser) {
+          browser.maximizeWindow();
           // get the groups page
           var groups = browser.page.stockportgov.groups();
-          // navaigate to groups page
+          // navaigate to home page
           groups.navigate();
           // assertions
           groups.goToGroupsHomePage(browser);
           groups.assertTitleIsVisible("Find a local group");
+          groups.assertAddAGroupButtonIsVisibleAndGotToPage(browser);
+          groups.assertCanSubmitFormAndGetValidationErrors(browser);
 
       },
     after: function (browser, done) {

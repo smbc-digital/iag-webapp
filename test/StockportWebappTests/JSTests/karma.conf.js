@@ -46,7 +46,7 @@ module.exports = function(config) {
 
 
     // web server port
-    port: 9876,
+    port: 9878,
 
 
     // enable / disable colors in the output (reporters and logs)
@@ -73,6 +73,10 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    browserNoActivityTimeout: 20000,
+
+    browserDisconnectTolerance: 5
   })
 }

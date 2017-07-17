@@ -47,6 +47,10 @@ describe("Logo tests", function () {
 
 
 describe("Location search tests", function() {
+    beforeEach(function() {
+        affix('#location-autocomplete[value="test value"]');
+    });
+
     it("should set location properties", function () {
         Location.SetLocation("name", 1.1, 2.2);
 
