@@ -216,7 +216,7 @@ namespace StockportWebapp.Utils
         {
             if(maxItemsPerPage == defaultPageSize && totalItems < 60)
             {
-                return 99;
+                return 60;
             }
             else if (maxItemsPerPage == defaultPageSize && totalItems > 60)
             {
