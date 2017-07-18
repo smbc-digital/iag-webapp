@@ -209,10 +209,14 @@ namespace StockportWebapp
 
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
-            services.AddTransient<IEventsRepository, EventsRepository>();
             services.AddTransient<IPaymentRepository, PaymentRepository>();
 
-            services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(), 
+            services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(),
+                                                            p.GetService<IHttpEmailClient>(),
+                                                            p.GetService<IApplicationConfiguration>(),
+                                                            p.GetService<BusinessId>()));
+
+            services.AddTransient(p => new EventEmailBuilder(p.GetService<ILogger<EventEmailBuilder>>(),
                                                             p.GetService<IHttpEmailClient>(),
                                                             p.GetService<IApplicationConfiguration>(),
                                                             p.GetService<BusinessId>()));
