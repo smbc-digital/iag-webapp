@@ -540,7 +540,7 @@ namespace StockportWebappTests.Unit.Utils
 
         [Theory]
         [InlineData(12, 70, 60)]
-        [InlineData(12, 50, 99)]
+        [InlineData(12, 50, 60)]
         [InlineData(60, 70, 12)]
         [InlineData(60, 50, 12)]
         public void ShouldReturnCorrectPageSizeBasedOnCurrentPageSizeForGroupsButton(int maxItemsPerPage, int totalItems, int pageSizeShouldBe)
