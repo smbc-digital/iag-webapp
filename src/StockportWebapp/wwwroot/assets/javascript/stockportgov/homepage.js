@@ -23,7 +23,7 @@ $seeMoreServicesButton.on(
             }
         }
         );
-        //if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMore.init(); }
-        //if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMoreMobile.init(); }
+
+        STK.Matchboxes.Init();
     }
 );

@@ -15440,8 +15440,9 @@ $seeMoreServicesButton.on(
             }
         }
         );
-        //if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMore.init(); }
-        //if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMoreMobile.init(); }
+
+        console.log('here');
+        STK.Matchboxes.Init();
     }
 );
 if (location.protocol == "https:") {
