@@ -15441,7 +15441,6 @@ $seeMoreServicesButton.on(
         }
         );
 
-        console.log('here');
         STK.Matchboxes.Init();
     }
 );

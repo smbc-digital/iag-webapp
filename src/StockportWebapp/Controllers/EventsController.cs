@@ -29,17 +29,16 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRssFeedFactory _rssFeedFactory;
         private readonly ILogger<EventsController> _logger;
-        private readonly IEventsRepository _eventsRepository;
+        private readonly EventEmailBuilder _emailBuilder;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
         private readonly CalendarHelper _helper;
 
-
         public EventsController(
             IRepository repository,
             IProcessedContentRepository processedContentRepository,
-            IEventsRepository eventsRepository, 
+            EventEmailBuilder emailBuilder, 
             IRssFeedFactory rssFeedFactory,
             ILogger<EventsController> logger, 
             IApplicationConfiguration config, 
@@ -50,7 +49,7 @@ namespace StockportWebapp.Controllers
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
-            _eventsRepository = eventsRepository;
+            _emailBuilder = emailBuilder;
             _rssFeedFactory = rssFeedFactory;
             _logger = logger;
             _config = config;
@@ -64,10 +63,15 @@ namespace StockportWebapp.Controllers
         {           
             if (eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
-                if(ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
+                if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
+                {
                     ModelState["DateTo"].Errors.Clear();
+                }
+
                 if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0)
+                {
                     ModelState["DateFrom"].Errors.Clear();
+                }
             }
 
             var queries = new List<Query>();           
@@ -164,7 +168,7 @@ namespace StockportWebapp.Controllers
                 return View(eventSubmission);
             }
 
-            var successCode = await _eventsRepository.SendEmailMessage(eventSubmission);
+            var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
                
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
