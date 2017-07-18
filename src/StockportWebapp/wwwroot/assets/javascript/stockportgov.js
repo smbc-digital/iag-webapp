@@ -83,36 +83,6 @@ $(function () {
     }).resize();
 
 });
-var matchboxFeaturedItemsShowcase = new Matchbox({
-    parentSelector: ".group-listing-container",
-    childSelector: ".group-li .group-card",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 767, groupsOf: 2 },
-    { bp: 1024, groupsOf: 3 }
-    ]
-});
-
-$(document).ready(
-    function () {
-        if ($(".group-listing-container").length) { matchboxFeaturedItemsShowcase.init(); }
-    }()
-);
-var matchboxFeaturedItemsShowcase = new Matchbox({
-    parentSelector: ".featured-category-items-wrapper",
-    childSelector: '.featured-group-category',
-    groupsOf: 3,
-    breakpoints: [
-    { bp: 767, groupsOf: 5 },
-    { bp: 1024, groupsOf: 5 }
-    ]
-});
-
-$(document).ready(
-    function () {
-        if ($(".featured-category-items-wrapper").length) { matchboxFeaturedItemsShowcase.init(); }
-    }()
-);
 
 $(document).ready(
     function () {
@@ -408,21 +378,6 @@ var LocationLookupNonAutocomplete = function () {
         }
     });
 };
-var matchboxFeaturedItemsShowcase = new Matchbox({
-    parentSelector: ".featured-items-wrapper",
-    childSelector: '.featured-topic',
-    groupsOf: 3,
-    breakpoints: [
-    { bp: 767, groupsOf: 4 },
-    { bp: 1024, groupsOf: 5 }
-    ]
-});
-
-$(document).ready(
-    function () {
-        if ($(".featured-items-wrapper").length) { matchboxFeaturedItemsShowcase.init(); }
-    }()
-);
 $(document)
     .ready(function () {
         $(".expanding-Link-items").addClass("is-collapsed");
@@ -15460,69 +15415,12 @@ $(document)
 
         
     });
-var matchboxTopicsHomepagePrimary = new Matchbox({
-    parentSelector: '.primary-feature-box',
-    childSelector: '.primary-feature-match',
-    groupsOf: 3
-});
-
-var matchboxTopicsHomepageSecond = new Matchbox({
-    parentSelector: '.featured-topics .primary-topics .featured-topic-list',
-    childSelector: '.featured-topic',
-    groupsOf: 5,
-    breakpoints: [
-    { bp: 767, groupsOf: 5 },
-    { bp: 1024, groupsOf: 5 }
-    ]
-});
-
-var matchboxTopicsHomepageMore = new Matchbox({
-    parentSelector: '.featured-topics #more-topics .featured-topic-list.hide-on-mobile',
-    childSelector: '.featured-topic',
-    groupsOf: 5,
-    breakpoints: [
-    { bp: 767, groupsOf: 5 },
-    { bp: 1024, groupsOf: 5 }
-    ]
-});
-
-var matchboxTopicsHomepageMoreMobile = new Matchbox({
-    parentSelector: '.featured-topics #more-topics .featured-topic-list.hide-on-desktop',
-    childSelector: '.featured-topic',
-    groupsOf: 5,
-    breakpoints: [
-    { bp: 767, groupsOf: 4 },
-    { bp: 1024, groupsOf: 4 }
-    ]
-});
-
-var matchboxNewsHomepage = new Matchbox({
-    parentSelector: '.homepage-news-items',
-    childSelector: '.homepage-news-item',
-    groupsOf: 2
-});
-
-var matchboxLatest = new Matchbox({
-    parentSelector: ".latest-container",
-    childSelector: ".latest-nav-card-item",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 1024, groupsOf: 3 }
-    ]
-});
 
 var $seeMoreServicesButton = $("#see-more-services, #see-more-services-mobile");
 var $moreFeaturedTopicsDiv = $("#more-topics");
 
 $(document).ready(
     function () {
-        if ($(".primary-feature-box .primary-feature-match").length) { matchboxTopicsHomepagePrimary.init(); }
-        if ($(".featured-topics .primary-topics").length) { matchboxTopicsHomepageSecond.init(); }
-        if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMore.init(); }
-        if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMoreMobile.init(); }
-        if ($(".homepage-news-items").length) { matchboxNewsHomepage.init(); }
-        if ($(".latest-container").length > 0) { matchboxLatest.init(); }
-
         $moreFeaturedTopicsDiv.hide();
         $seeMoreServicesButton.addClass("is-visible");
     }()
@@ -15542,8 +15440,9 @@ $seeMoreServicesButton.on(
             }
         }
         );
-        if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMore.init(); }
-        if ($(".featured-topics #more-topics").length) { matchboxTopicsHomepageMoreMobile.init(); }
+
+        console.log('here');
+        STK.Matchboxes.Init();
     }
 );
 if (location.protocol == "https:") {
@@ -15567,6 +15466,139 @@ var newScript = document.createElement('script');
 newScript.type = 'text/javascript';
 newScript.src = src;
 headID.appendChild(newScript);
+var STK = {};
+
+STK.Matchboxes = (function () {
+
+    var self = this;
+    var matchboxes = [];
+
+    var populate = function () {
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".group-listing-container",
+            childSelector: ".group-li .group-card",
+            groupsOf: 1,
+            breakpoints: [
+            { bp: 767, groupsOf: 2 },
+            { bp: 1024, groupsOf: 3 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".featured-category-items-wrapper",
+            childSelector: '.featured-group-category',
+            groupsOf: 3,
+            breakpoints: [
+            { bp: 767, groupsOf: 5 },
+            { bp: 1024, groupsOf: 5 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: '.primary-feature-box',
+            childSelector: '.primary-feature-match',
+            groupsOf: 3
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: '.featured-topics .primary-topics .featured-topic-list',
+            childSelector: '.featured-topic',
+            groupsOf: 5,
+            breakpoints: [
+            { bp: 767, groupsOf: 5 },
+            { bp: 1024, groupsOf: 5 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: '.featured-topics #more-topics .featured-topic-list.hide-on-mobile',
+            childSelector: '.featured-topic',
+            groupsOf: 5,
+            breakpoints: [
+            { bp: 767, groupsOf: 5 },
+            { bp: 1024, groupsOf: 5 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: '.featured-topics #more-topics .featured-topic-list.hide-on-desktop',
+            childSelector: '.featured-topic',
+            groupsOf: 5,
+            breakpoints: [
+            { bp: 767, groupsOf: 4 },
+            { bp: 1024, groupsOf: 4 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: '.homepage-news-items',
+            childSelector: '.homepage-news-item',
+            groupsOf: 2
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".latest-container",
+            childSelector: ".latest-nav-card-item",
+            groupsOf: 1,
+            breakpoints: [
+            { bp: 1024, groupsOf: 3 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".featured-items-wrapper",
+            childSelector: '.featured-topic',
+            groupsOf: 3,
+            breakpoints: [
+            { bp: 767, groupsOf: 4 },
+            { bp: 1024, groupsOf: 5 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".sk-table-body.primary-items",
+            childSelector: ".subitem",
+            groupsOf: 1,
+            breakpoints: [
+            { bp: 767, groupsOf: 2 },
+            { bp: 1024, groupsOf: 2 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".l-page-content .nav-card-list",
+            childSelector: ".nav-card .nav-card-item",
+            groupsOf: 1,
+            breakpoints: [
+                { bp: 1024, groupsOf: 3 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".event-listing-container",
+            childSelector: ".event-card-information",
+            groupsOf: 1,
+            breakpoints: [
+            { bp: 767, groupsOf: 2 },
+            { bp: 1024, groupsOf: 3 }
+            ]
+        }));
+
+    };
+
+    return {
+        Init: function () {
+            populate();
+            for (var i = 0; i < matchboxes.length; i++) {
+                if ($(matchboxes[i].settings.parentSelector).length) { matchboxes[i].init(); }
+            }
+        }
+    };
+})();
+
+STK.Matchboxes.Init();
+
 var MultiSelector = (function () {
 
     var limit = 3;
@@ -15744,43 +15776,6 @@ $(document).ready(function () {
 document.documentElement.className = document.documentElement.className.replace("no-js", "js");
 var mobileWidth = 767;
 var tabletWidth = (1024 - 17);
-var matchboxPrimaryTopic = new Matchbox({
-    parentSelector: ".sk-table-body.primary-items",
-    childSelector: ".subitem",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 767, groupsOf: 2 },
-    { bp: 1024, groupsOf: 2 }
-    ]
-});
-
-var matchboxPrimary = new Matchbox({
-    parentSelector: ".l-page-content .nav-card-list",
-    childSelector: ".nav-card .nav-card-item",
-    groupsOf: 1,
-    breakpoints: [
-        { bp: 1024, groupsOf: 3 }
-    ]
-});
-
-var matchboxEventCards = new Matchbox({
-    parentSelector: ".event-listing-container",
-    childSelector: ".event-card-information",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 767, groupsOf: 2 },
-    { bp: 1024, groupsOf: 3 }
-    ]
-});
-
-var matchboxArticle = new Matchbox({
-    parentSelector: ".article-cols",
-    childSelector: ".article-col",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 1024, groupsOf: 2 }
-]
-});
 
 $(document).ready(function () {
 
@@ -15817,23 +15812,6 @@ $(document).ready(function () {
                 $(".show-search-button").toggleClass("arrow");
             }
     );
-
-    if ($(".l-page-content .nav-card-list").length) {
-        matchboxPrimary.init();
-    }
-    
-    if ($(".primary-items").length) {
-        matchboxPrimaryTopic.init();
-    }
-
-    if ($(".event-listing-container").length) {
-        matchboxEventCards.init();
-    }
-
-    if ($(".article-col-sidebar").length) {
-        // commented out as it's making the footer jump up on articles with video
-        // matchboxArticle.init();
-    }
 
     if (!Modernizr.inputtypes.date) {
         $(".datepicker").datepicker({
