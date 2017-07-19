@@ -195,10 +195,10 @@ namespace StockportWebapp
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddNodeServices();
 
-            //services.AddAntiforgery(p =>
-            //{
-            //    p.CookieName = "SK-ANTI-FORGERY";
-            //});
+            services.AddAntiforgery(p =>
+            {
+                p.CookieName = "SK-ANTI-FORGERY";
+            });
 
             services.AddMvc(options =>
             {
