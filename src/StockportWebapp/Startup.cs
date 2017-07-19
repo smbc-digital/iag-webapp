@@ -195,11 +195,10 @@ namespace StockportWebapp
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddNodeServices();
 
-            services.AddAntiforgery(p =>
-            {
-                p.HeaderName = "X-SK-ANTI-FORGERY";
-                p.CookieName = "SK-ANTI-FORGERY";
-            });
+            //services.AddAntiforgery(p =>
+            //{
+            //    p.CookieName = "SK-ANTI-FORGERY";
+            //});
 
             services.AddMvc(options =>
             {
@@ -301,7 +300,6 @@ namespace StockportWebapp
             }
             else
             {
-                services.AddAntiforgery();
                 logger.LogInformation("Not using redis for session management!");
             }
         }
