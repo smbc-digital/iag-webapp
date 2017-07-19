@@ -9,6 +9,7 @@ namespace StockportWebapp.Enums
     {
         Redirect,
         RedirectToAction,
+        RedirectToActionController,
         GoToPage
     }
 }

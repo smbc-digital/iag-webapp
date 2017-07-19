@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StockportWebapp.Controllers;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
@@ -101,6 +102,10 @@ namespace StockportWebapp.QuestionBuilder
                 if (behaviour.BehaviourType == EQuestionType.Redirect)
                 {
                     return Redirect(behaviour.Value);
+                }
+                if (behaviour.BehaviourType == EQuestionType.RedirectToActionController)
+                {
+                    return RedirectToAction("Article", "Article", new { articleSlug = behaviour.Value });
                 }
                 if (behaviour.BehaviourType == EQuestionType.RedirectToAction)
                 {
