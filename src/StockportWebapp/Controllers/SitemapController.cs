@@ -4,27 +4,20 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
-using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
-using StockportWebapp.Http;
 using System.Linq;
-using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;
-using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.Controllers
 {
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class SitemapController : Controller
     {
-        // private const string _baseURL = "https://www.stockport.gov.uk";
-        private const string _baseURL = "http://stockportgov.local:5555";
         private readonly IRepository _repository;
         private readonly ILogger<SitemapController> _logger;
 
@@ -37,17 +30,18 @@ namespace StockportWebapp.Controllers
         [Route("/google-sitemap.xml")]
         public async Task<IActionResult> Sitemap(string type)
         {
+            var baseURL = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
             var now = DateTime.Now;
             _logger.LogInformation(string.Concat("Hitting site map for: ", type));
             var domainUrl = Request?.GetUri().AbsoluteUri.Replace(Request?.GetUri().PathAndQuery, "/");
 
-            var xml = "";
+            var xml = string.Empty;
             switch (type)
             {
                 case "news":
                     var queries = new List<Query>();
                     queries.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
-                    queries.Add(new Query("DateTo", DateTime.Now.ToString("yyyy-MM-dd")));
+                    queries.Add(new Query("DateTo", now.ToString("yyyy-MM-dd")));
 
                     var response = await _repository.Get<Newsroom>(queries: queries);
                     var news = response.Content as Newsroom;
@@ -57,7 +51,7 @@ namespace StockportWebapp.Controllers
                                 new SitemapGoogle()
                                 {
                                     changefreq = "daily",
-                                    lastmod = DateTime.Now,
+                                    lastmod = now,
                                     loc = domainUrl + "news/" + n.Slug,
                                     priority = "1.0"
                                 }).ToList();
@@ -66,7 +60,7 @@ namespace StockportWebapp.Controllers
                     {
                         changefreq = "weekly",
                         lastmod = now,
-                        loc = $"{_baseURL}/news",
+                        loc = $"{baseURL}/news",
                         priority = "1.0"
                     });
 
@@ -87,7 +81,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/events/{slug}",
+                                    loc = $"{baseURL}/events/{slug}",
                                     priority = "1.0"
                                 }).ToList();
 
@@ -95,7 +89,7 @@ namespace StockportWebapp.Controllers
                     {
                         changefreq = "weekly",
                         lastmod = now,
-                        loc = $"{_baseURL}/events",
+                        loc = $"{baseURL}/events",
                         priority = "1.0"
                     });
 
@@ -112,7 +106,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/{slug}",
+                                    loc = $"{baseURL}/{slug}",
                                     priority = "1.0"
                                 }).ToList();
 
@@ -124,7 +118,7 @@ namespace StockportWebapp.Controllers
                     {
                         changefreq = "weekly",
                         lastmod = now,
-                        loc = _baseURL,
+                        loc = baseURL,
                         priority = "0.5"
                     };
 
@@ -141,7 +135,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "weekly",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/groups/{n.Slug}",
+                                    loc = $"{baseURL}/groups/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
@@ -149,7 +143,7 @@ namespace StockportWebapp.Controllers
                     {
                         changefreq = "weekly",
                         lastmod = now,
-                        loc = $"{_baseURL}/groups",
+                        loc = $"{baseURL}/groups",
                         priority = "1.0"
                     });
 
@@ -166,7 +160,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "weekly",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/showcase/{n.Slug}",
+                                    loc = $"{baseURL}/showcase/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
@@ -183,7 +177,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/{n.Slug}",
+                                    loc = $"{baseURL}/{n.Slug}",
                                     priority = "1"
                                 }).ToList();
 
@@ -200,7 +194,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "weekly",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/topic/{n.Slug}",
+                                    loc = $"{baseURL}/topic/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
@@ -217,7 +211,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/profile/{n.Slug}",
+                                    loc = $"{baseURL}/profile/{n.Slug}",
                                     priority = "1"
                                 }).ToList();
 
@@ -234,7 +228,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/payment/{n.Slug}",
+                                    loc = $"{baseURL}/payment/{n.Slug}",
                                     priority = "1"
                                 }).ToList();
 
@@ -251,7 +245,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "weekly",
                                     lastmod = now,
-                                    loc = $"{_baseURL}/start/{n.Slug}",
+                                    loc = $"{baseURL}/start/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
@@ -261,17 +255,17 @@ namespace StockportWebapp.Controllers
                 default:
 
                     var result = new List<SitemapGoogleIndex>();
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=news", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=events", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=article", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=homepage", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=groups", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=showcase", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=section", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=topic", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=profile", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=payment", priority = "1" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=start", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=news", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=events", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=article", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=homepage", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=groups", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=showcase", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=section", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=topic", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=profile", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=payment", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{baseURL}/google-sitemap.xml?type=start", priority = "1" });
 
                     xml = SerializeObject(result, true);
                     break;
