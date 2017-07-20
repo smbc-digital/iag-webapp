@@ -152,7 +152,7 @@
                     }
                 </div>
                 <div class="l-content-container grid-100">
-                    <div class="share border">
+                    <div class="share border top-border">
                         <div class="grid-20">
                             @Html.Partial("Share")
                         </div>
@@ -166,7 +166,7 @@
                                         <a href="@Url.Action("AddToCalendar", "Events", new {type = "windows", eventUrl =@url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, description = Model.Description, summary = Model.Teaser})"  title="Add to Outlook Calendar"><i class="fa fa-windows" aria-hidden="true"></i></a>
                                         <a href="@Url.Action("AddToCalendar", "Events", new {type = "google", eventUrl =@url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, description = Model.Description, summary = Model.Teaser})" target="_blank" title="Add to Google  Calendar"><i class="fa fa-google" aria-hidden="true"></i></a>
                                         <a href="@Url.Action("AddToCalendar", "Events", new {type = "apple", eventUrl =@url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, description = Model.Description, summary = Model.Teaser})" title="Add to Apple Calendar"><i class="fa fa-apple" aria-hidden="true"></i></a>
-                                        <a href="@Url.Action("AddToCalendar", "Events", new {type = "yahoo", eventUrl =@url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, description = Model.Description, summary = Model.Teaser})" target="_blank" title="Add to Yahoo  Calendar"><i class="fa fa-yahoo" aria-hidden="true"></i></a>
+                                        <a class="hide-on-mobile hide-on-tablet" href="@Url.Action("AddToCalendar", "Events", new {type = "yahoo", eventUrl =@url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, description = Model.Description, summary = Model.Teaser})" target="_blank" title="Add to Yahoo  Calendar"><i class="fa fa-yahoo" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>

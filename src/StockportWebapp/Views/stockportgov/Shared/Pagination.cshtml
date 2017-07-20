@@ -15,7 +15,7 @@
     @if (Model.TotalItems > Model.DefaultPageSize)
     {
         <div class="grid-parent grid-50 mobile-grid-100 tablet-grid-50 page-size">
-            <a href="@PaginationHelper.BuildPageSizeUrl(Model.MaxItemsPerPage, Model.DefaultPageSize, Model.TotalItems, Model.CurrentUrl, urlHelper)"> View @((pageSize == 60 && Model.TotalItems < 60) ? "all" : pageSize.ToString()) @Model.ItemDescription @(pageSize == 60 && Model.TotalItems < 60 ? "" : "per page") </a> 
+            <a href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)"> View @(pageSize == 99 ? "all" : pageSize.ToString()) @Model.ItemDescription @(pageSize == 99 ? string.Empty : "per page")</a> 
         </div>
     }   
 

@@ -1,10 +1,15 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@inject FeatureToggles FeatureToggles
+
 @model EventCalendar
 @{    
     ViewData["og:title"] = "Events";
-    ViewData["Title"] = "Events";   
+    ViewData["Title"] = "Events";
     Layout = "../Shared/_Layout.cshtml";
+
+    var hasSearched = !string.IsNullOrWhiteSpace(Model.Category) || Model.DateFrom != null || Model.DateTo != null;
 }
 
 @section Breadcrumbs {
@@ -15,13 +20,36 @@
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-70 tablet-grid-70 mobile-grid-100">
-                <h1 class="full-width-title-with-button">Events</h1>
+                <h1 class="full-width-title-with-button">What's on in Stockport</h1>
             </div>
-            <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
+            <div class="header-right-button grid-30 tablet-grid-30 hide-on-mobile">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
             </div>
         </div>
     </div>
     
-    @Html.Partial("EventsCalendar", Model)
+    @if (FeatureToggles.DisplayNewEventPageFeatures)
+    {
+        @Html.Partial("EventsFilterBar", Model)
+    }
+
+    @if (FeatureToggles.DisplayNewEventPageFeatures && hasSearched)
+    {
+        @Html.Partial("EventsResultsList", Model)
+    }
+    else
+    {
+        @Html.Partial("EventsCalendar", Model)
+    }
+    
+    @if (FeatureToggles.DisplayNewEventPageFeatures)
+    {
+    <div class="full-width-title hide-on-desktop hide-on-tablet add-button-container">
+        <div class="grid-container grid-parent mobile-grid-100">
+            <div class="header-right-button mobile-grid-100">
+                <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
+            </div>
+        </div>
+    </div>
+    }
 </div>
