@@ -69,8 +69,19 @@
                 -o-box-sizing: border-box;
                 box-sizing: border-box;
 
+
+
                 div {
                     padding-right: 15px;
+
+                    .sub-item-title {
+                        line-height: 30px;
+                        font-size:19px;
+                    }
+
+                    .sub-item-teaser {
+                        line-height: 27px;
+                    }
                 }
 
                 &:hover {

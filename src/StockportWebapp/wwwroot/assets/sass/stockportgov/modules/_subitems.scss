@@ -8,3 +8,13 @@
         padding-right: 0;
     }
 }
+
+.primary-items-no-margin {
+    .sk-table-outer-container {
+        margin: 0 0 0 0;
+
+        .sk-table-body {
+            margin-bottom: 5px;
+        }
+    }
+}
