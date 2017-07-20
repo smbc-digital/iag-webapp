@@ -45,7 +45,7 @@ module.exports = {
       sideBarTitle:".l-left-side-bar-section>h3",
       timeStamp: ".news-date.news-article-date",
       shareIT:".share",
-      shareThis:".share>h6",
+      shareThis:".share>div>h6",
       addThisIcons: ".addthis_toolbox",
       newsTag: "li.news-tag a",
       documentTag: '.test-documents',

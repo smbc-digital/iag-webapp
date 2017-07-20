@@ -2,7 +2,7 @@ var methods = {
     goToTopicListBlockPage: function (browser, title, link) {
         this.waitForElementVisible('@topicList', this.api.globals.timeOut);
         browser.useXpath()
-            .assert.visible("//h4[@class='featured-topic-name' and text()='" + title + "']")
+            .assert.visible("//div[@class='featured-topic-name' and text()='" + title + "']")
             .click("//a[contains(@href,'/topic/" + link + "')]");
     },
 
@@ -29,14 +29,13 @@ var methods = {
 
     assertNewsBannerIsVisible: function (browser) {
             this.waitForElementVisible('@newsroomCallToAction', this.api.globals.timeOut);
-            this.waitForElementVisible(".grid-parent.grid-100.homepage-latest-items", this.api.globals.timeOut);
-            this.waitForElementVisible(".grid-50.mobile-grid-100.homepage-latest-item", this.api.globals.timeOut)
-            .expect.element("#test-newsroom-calltoaction>h2").text.to.equal("Latest News");
+            this.waitForElementVisible(".latest-nav-card-item", this.api.globals.timeOut)
+            .expect.element(".news.title").text.to.equal("Latest news");
     },
 
     assertEventsBannerIsVisible: function (browser) {
         this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut)
-        .expect.element("#test-eventscalendar-calltoaction>h2").text.to.equal("Upcoming Events");
+        .expect.element(".event.title").text.to.equal("What's on in Stockport");
     },
 
     assertEmailAlertsIsVisible: function (browser, buttonText) {
@@ -51,15 +50,14 @@ var methods = {
     },
 
     goToNewsroom: function(browser) {
-        this.waitForElementVisible('@newsroomCallToAction', this.api.globals.timeOut)
-            .expect.element('@newsroomLink').text.to.equal("More News");
-        browser.click("#test-newsroom-link");
+        this.waitForElementVisible('@newsroomCallToAction', this.api.globals.timeOut);
+        browser.useXpath().click("//div[@class='full-width-white']//a[.='View more news']");
     },
 
     goToEventsCalendar: function (browser) {
-        this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut)
-            .expect.element('@eventcalendarLink').text.to.equal("View Events");
-        browser.useCss().click("#test-eventscalendar-link");
+        this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut);
+      //      .expect.element('@eventcalendarLink').text.to.equal("View Events");
+        browser.useXpath().click("//div[@class='full-width-white']//a[.='View more events']");
     },
 
     goToAtoZList: function(browser, letter) {
@@ -67,11 +65,11 @@ var methods = {
         browser.useXpath()
             .click("//a[contains(@href,'/atoz/" + letter + "')]");
     },
-    // closeCookieBanner: function(browser) {
-    //     this.waitForElementVisible('.cc_banner.cc_container.cc_container--open', this.api.globals.timeOut);
-    //     browser.pause(700);
-    //     browser.click(".cc_btn.cc_btn_accept_all");
-    // }
+  //    closeCookieBanner: function(browser) {
+  //     this.waitForElementVisible('.cc_banner.cc_container.cc_container--open', this.api.globals.timeOut);
+  //      browser.pause(700);
+  //      browser.click(".cc_btn.cc_btn_accept_all");
+  // }
 };
 
 module.exports = {
@@ -81,7 +79,7 @@ module.exports = {
       return this.api.globals.testUri;
   },
   elements: {
-      topicList: '#test-featured-topic-list',
+      topicList: '.primary-topics',
       taskList: '.uitest-task-block-list-loaded',
       searchBar: '.search-bar',
       postCodeSearch: 'input[type=text].light-on-dark-field',
@@ -89,9 +87,9 @@ module.exports = {
       emailAlerts: '#test-email-alerts',
       subscribeButton: "#test-subscribe",
       newsroomLink: "#test-newsroom-link",
-      newsroomCallToAction: "#test-newsroom-calltoaction",
+      newsroomCallToAction: ".featured-topic-list",
       eventcalendarLink: "#test-eventscalendar-link",
-      eventscalendarCallToAction: "#test-eventscalendar-calltoaction",
+      eventscalendarCallToAction: ".featured-topic-list",
       atozList: '.atoz'
   }
 };

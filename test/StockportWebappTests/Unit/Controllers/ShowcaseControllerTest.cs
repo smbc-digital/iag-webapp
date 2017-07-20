@@ -10,6 +10,7 @@ using Moq;
 using StockportWebappTests.Unit.Fake;
 using Xunit;
 using System.Net;
+using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -22,7 +23,7 @@ namespace StockportWebappTests.Unit.Controllers
         public ShowcaseControllerTest()
         {
             _fakeRepository = new FakeProcessedContentRepository();
-            _controller = new ShowcaseController(_fakeRepository, new Mock<ILogger<ShowcaseController>>().Object);
+            _controller = new ShowcaseController(_fakeRepository, new Mock<ILogger<ShowcaseController>>().Object, new Mock<IApplicationConfiguration>().Object);
         }
 
         [Fact]

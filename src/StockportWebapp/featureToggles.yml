@@ -1,12 +1,16 @@
 ﻿---
 prod: &prod
   ContactUsIds: true
-  ExportGroupToPdf: true
   GroupManagement: true
   ManageYourGroupButton: true
+  NewHomepageLayout: true
+  EditGroupWYSIWYG: true
+  PrimaryItems: false
+  ExportGroupEventsToCalendar: true
 
 stage: &stage
   << : *prod
+  PrimaryItems: true
 
 qa: &qa
   << : *prod

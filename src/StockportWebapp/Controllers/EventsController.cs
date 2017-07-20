@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using StockportWebapp.Config;
+using StockportWebapp.Helpers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
@@ -28,40 +29,49 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRssFeedFactory _rssFeedFactory;
         private readonly ILogger<EventsController> _logger;
-        private readonly IEventsRepository _eventsRepository;
+        private readonly EventEmailBuilder _emailBuilder;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
+        private readonly CalendarHelper _helper;
 
         public EventsController(
             IRepository repository,
             IProcessedContentRepository processedContentRepository,
-            IEventsRepository eventsRepository, 
+            EventEmailBuilder emailBuilder, 
             IRssFeedFactory rssFeedFactory,
             ILogger<EventsController> logger, 
             IApplicationConfiguration config, 
             BusinessId businessId, 
-            IFilteredUrl filteredUrl)
+            IFilteredUrl filteredUrl,
+            CalendarHelper helper,
+            ITimeProvider timeProvider)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
-            _eventsRepository = eventsRepository;
+            _emailBuilder = emailBuilder;
             _rssFeedFactory = rssFeedFactory;
             _logger = logger;
             _config = config;
             _businessId = businessId;
             _filteredUrl = filteredUrl;
+            _helper = helper;
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
         {           
             if (eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
-                if(ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
+                if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
+                {
                     ModelState["DateTo"].Errors.Clear();
+                }
+
                 if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0)
+                {
                     ModelState["DateFrom"].Errors.Clear();
+                }
             }
 
             var queries = new List<Query>();           
@@ -81,7 +91,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
             eventsCalendar.AddFilteredUrl(_filteredUrl);
 
-            DoPagination(eventsCalendar, Page, eventResponse);
+            DoPagination(eventsCalendar, Page, eventResponse, pageSize);
 
             if (eventResponse != null)
             {
@@ -92,17 +102,16 @@ namespace StockportWebapp.Controllers
             return View(eventsCalendar);
         }
 
-        private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse)
+        private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
         {
             if (eventResponse != null && eventResponse.Events.Any())
             {
-                int MaxNumberOfItemsPerPage = 15;
-
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     eventResponse.Events, 
                     currentPageNumber, 
-                    "Events",
-                    MaxNumberOfItemsPerPage);
+                    "events",
+                    pageSize,
+                    _config.GetEventsDefaultPageSize("stockportgov"));
 
                 eventResponse.Events = paginatedEvents.Items;
                 model.Pagination = paginatedEvents.Pagination;
@@ -127,7 +136,17 @@ namespace StockportWebapp.Controllers
             var response = httpResponse.Content as ProcessedEvents;
 
             ViewBag.CurrentUrl = Request?.GetUri();
-           
+
+            if (date != null || date == DateTime.MinValue)
+            {
+                ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                ViewBag.Eventdate = response?.EventDate.ToString("yyyy-MM-dd");
+            }
+                
+
             return View(response);
         }
 
@@ -149,7 +168,7 @@ namespace StockportWebapp.Controllers
                 return View(eventSubmission);
             }
 
-            var successCode = await _eventsRepository.SendEmailMessage(eventSubmission);
+            var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
                
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
@@ -197,6 +216,30 @@ namespace StockportWebapp.Controllers
 
             _logger.LogDebug("Rss: Creating News Feed");
             return await Task.FromResult(Content(_rssFeedFactory.BuildRssFeed(response.Events, host, email), "application/rss+xml"));
+        }
+
+        [Route("events/add-to-calendar")]
+        public IActionResult AddToCalendar(string type, string eventUrl, string slug, DateTime eventDate, string name, string location, string startTime, string endTime, string description, string summary)
+        {
+            var eventItem = new Event()
+            {
+                Slug = slug, EventDate = eventDate, Title = name, Location = location, StartTime = startTime,
+                EndTime = endTime, Description = description, Teaser = summary
+            };
+
+            if (type == "google" || type == "yahoo")
+            {
+                var url = _helper.GetCalendarUrl(eventItem, eventUrl, type);
+                return Redirect(url);
+            }
+
+            if (type == "windows" || type == "apple")
+            {
+                byte[] calendarBytes = System.Text.Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
+                return File(calendarBytes, "text/calendar", slug + ".ics");
+            }
+
+            return null;
         }
     }
 }

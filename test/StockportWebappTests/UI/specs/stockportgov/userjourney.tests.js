@@ -7,8 +7,7 @@ module.exports = {
    'Find article for About the Hat Works': function (browser) {
        var homepage = browser.page.stockportgov.homepage();
        browser.maximizeWindow();
-       //homepage.closeCookieBanner(browser);
-       homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works", "uitest-hat-works");
+      homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works", "uitest-hat-works");
 
        var topicpage = browser.page.stockportgov.topicpage();
        topicpage.assertTitleIsVisible('UITEST: Hat Works');
@@ -164,19 +163,29 @@ module.exports = {
             "Too much for this box. This is a lot of text. Too much for this box. This is a lot of text. Too much for this box. " +
             "This is a lot of text. Too much for this box. This is a lot of text. This is the end of the test.");
     },
+      'Navigate to showcase/spotlight/theme page and validate details  ': function (browser) {
+        var spotlightpage = browser.page.stockportgov.spotlightpage();
+            spotlightpage.navigate();
+            spotlightpage.assertBreadcrumbIsVisible();
+            spotlightpage.assertHeroImageIsVisible();
+            spotlightpage.assertTitleIsVisible("UITEST: showcase page");
+            spotlightpage.assertTeaserIsVisible(browser,"this is a spotlight page for ui-test");
+            spotlightpage.assertSubheadingIsVisible(browser,"spotlight subheading");
+            spotlightpage.assertFeaturedTopicsAreVisible();
+      },
+      'Navigate to groups from homepage and validate details': function (browser) {
+          browser.maximizeWindow();
+          // get the groups page
+          var groups = browser.page.stockportgov.groups();
+          // navaigate to home page
+          groups.navigate();
+          // assertions
+          groups.goToGroupsHomePage(browser);
+          groups.assertTitleIsVisible("Find a local group");
+          groups.assertAddAGroupButtonIsVisibleAndGotToPage(browser);
+          groups.assertCanSubmitFormAndGetValidationErrors(browser);
 
-  'Navigate to showcase/spotlight page and validate details  ': function (browser) {
-    var spotlightpage = browser.page.stockportgov.spotlightpage();
-        spotlightpage.navigate();
-        spotlightpage.assertBreadcrumbIsVisible();
-        spotlightpage.assertHeroImageIsVisible();
-        spotlightpage.assertTitleIsVisible("UITEST: showcase page");
-        spotlightpage.assertTeaserIsVisible(browser,"this is a spotlight page for ui-test");
-        spotlightpage.assertSubheadingIsVisible(browser,"spotlight subheading");
-        spotlightpage.assertFeaturedTopicsAreVisible();
-
-
-},
+      },
     after: function (browser, done) {
         setTimeout(function () {
         done();

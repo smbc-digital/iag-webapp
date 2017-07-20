@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using FluentAssertions;
-using Markdig.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Controllers;
@@ -10,14 +9,13 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
-
+using StockportWebapp.AmazonSES;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -30,8 +28,11 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly List<string> _categories;
         private readonly HttpResponse responseListing;
         private readonly HttpResponse _responseDetail;
-        private readonly Mock<IEventsRepository> _eventRepository;
+        private readonly EventEmailBuilder _eventEmailBuilder;
+        private readonly Mock<IHttpEmailClient> _emailClient;
+        private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
         private readonly Mock<IRssFeedFactory> _mockRssFeedFactory;
+        private readonly Mock<ILogger<EventEmailBuilder>> _emaillogger;
         private readonly Mock<ILogger<EventsController>> _logger;
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
@@ -40,7 +41,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
             twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
             address: "", categoriesReference: null, breadcrumbs:null, mapPosition:null, volunteering: false, events: new List<Event>(), groupAdministrators: new GroupAdministrators(), dateHiddenFrom: DateTime.MinValue,
-                dateHiddenTo: DateTime.MinValue, status: "published");
+                dateHiddenTo: DateTime.MinValue, status: "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
         private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
                                                                  "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -73,11 +74,17 @@ namespace StockportWebappTests.Unit.Controllers
             _processedContentRepository.Setup(o => o.Get<Event>("404-event", It.Is<List<Query>>(l => l.Count == 0)))
                 .ReturnsAsync(response404);
 
-            _eventRepository = new Mock<IEventsRepository>();
+            _emailClient = new Mock<IHttpEmailClient>();
+            _applicationConfiguration = new Mock<IApplicationConfiguration>();
+            _logger = new Mock<ILogger<EventsController>>();
+            _emaillogger = new Mock<ILogger<EventEmailBuilder>>();
+
+            _applicationConfiguration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
+                .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
+
+            _eventEmailBuilder = new EventEmailBuilder(_emaillogger.Object, _emailClient.Object, _applicationConfiguration.Object, new BusinessId("businessId"));
 
             _mockRssFeedFactory = new Mock<IRssFeedFactory>();
-            _logger = new Mock<ILogger<EventsController>>();
-            _config = new Mock<IApplicationConfiguration>();
             _config = new Mock<IApplicationConfiguration>();
             _filteredUrl = new Mock<IFilteredUrl>();
 
@@ -87,19 +94,21 @@ namespace StockportWebappTests.Unit.Controllers
             _controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
-                _eventRepository.Object, 
+                _eventEmailBuilder, 
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object
+                _filteredUrl.Object,
+                null,
+                null
                 );
         }
 
         [Fact]
         public void ShouldReturnEventsCalendar()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar(), 1)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar(), 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -110,7 +119,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -169,54 +178,6 @@ namespace StockportWebappTests.Unit.Controllers
             actionResponse.StatusCode.Should().Be(404);
         }
 
-        [Fact]
-        public void ItShouldGetARedirectResultForAValidEventSubmission()
-        {
-            var eventSubmission =  new EventSubmission()
-            {
-                Title = "Title",
-                Description = "Description",
-                EventDate = new DateTime(2017, 12, 01),
-                StartTime = new DateTime(2017, 01, 01, 10, 00, 00),
-                EndTime = new DateTime(2017, 01, 01, 12, 00, 00),
-                Fee = "£5.00",
-                Frequency = "Frequency",
-                Image = null,
-                Attachment = null
-            };
-
-            _eventRepository.Setup(o => o.SendEmailMessage(It.IsAny<EventSubmission>())).ReturnsAsync(HttpStatusCode.OK);
-
-            var actionResponse = AsyncTestHelper.Resolve(_controller.AddYourEvent(eventSubmission)) as RedirectToActionResult;
-            actionResponse.ActionName.Should().Be("ThankYouMessage");
-        }
-
-        [Fact]
-        public void ItShouldReturnBackToTheViewForAnInvalidEmailSubmission()
-        {
-            var eventSubmission = new EventSubmission();
-
-            _eventRepository.Setup(o => o.SendEmailMessage(It.IsAny<EventSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
-
-            var actionResponse = AsyncTestHelper.Resolve(_controller.AddYourEvent(eventSubmission));
-
-            actionResponse.Should().BeOfType<ViewResult>();
-            _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Once);
-        }
-
-        [Fact]
-        public void ItShouldNotSendAnEmailForAnInvalidFormSumbission()
-        {
-            var eventSubmission = new EventSubmission();
-
-            _controller.ModelState.AddModelError("Title", "an invalid title was provided");
-
-            var actionResponse = AsyncTestHelper.Resolve(_controller.AddYourEvent(eventSubmission));
-
-            actionResponse.Should().BeOfType<ViewResult>();
-            _eventRepository.Verify(o => o.SendEmailMessage(eventSubmission), Times.Never);
-        }
-        
         [Theory]
         [InlineData(1, 1, 1, 1)]
         [InlineData(2, 1, 2, 1)]
@@ -234,7 +195,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage)) as ViewResult;
 
             // Assert
             var viewModel = actionResponse.ViewData.Model as EventCalendar;
@@ -255,7 +216,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber));
+            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage));
 
             // Assert
             model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
@@ -270,7 +231,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0));
+            AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
 
             // Assert
             model.Pagination.Should().NotBeNull();
@@ -285,7 +246,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0));
+            AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
 
             // Assert
             model.Pagination.CurrentUrl.Should().NotBeNull();
@@ -308,12 +269,14 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
-                _eventRepository.Object,
+                _eventEmailBuilder,
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
                 new BusinessId(BusinessId),
-                _filteredUrl.Object
+                _filteredUrl.Object,
+                null,
+                null
             );
 
             return controller;

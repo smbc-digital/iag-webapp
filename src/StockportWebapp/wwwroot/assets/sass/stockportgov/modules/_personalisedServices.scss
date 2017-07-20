@@ -37,7 +37,15 @@
         }
     }
 
-    .enhanced_service {        
+    .enhanced_service {
+        
+        p {
+            font-size:1.4em;
+            font-weight:800;
+            margin-bottom:0;
+            margin-top:20px;
+        }
+                
         @media #{$tablet, $mobile} {
             margin-bottom: 20px;
 
@@ -64,10 +72,23 @@
             }
         }
 
+        @media #{$mobile} {
+            input {
+                width: 100%;
+            }
+        }
+
         button {
-            display: block;
+            display: inline;
             margin: 0 auto;
             margin-top: 20px;
+            @media #{$desktop, $tablet} {
+                margin-left: 40px;
+            }
+            min-width: 240px;
+            @media #{$mobile} {
+                width: 100%;
+            }
         }
     }
 }

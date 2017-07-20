@@ -57,7 +57,7 @@
 }
 
 .l-right-side-bar {
-    margin: 30px 0px 0px;
+    padding: 30px 0px 0px;
 
     ul {
         list-style: outside none none;
@@ -176,20 +176,5 @@
         @media #{$desktop} {
            padding-left: 35px;
         }
-    }
-}
-
-@media #{$desktop} {
-    .table {
-        display:table;
-    }
-
-    .table-cell {
-        display:table-cell;
-
-        &.grid-70, &.grid-30 {
-            float:none;
-        }
-
     }
 }

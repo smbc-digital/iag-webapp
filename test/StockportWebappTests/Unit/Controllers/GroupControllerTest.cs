@@ -40,6 +40,8 @@ namespace StockportWebappTests.Unit.Controllers
         private FeatureToggles _featureToggle;
         private Mock<ILogger<GroupsController>> _logger;
         private Mock<IApplicationConfiguration> _configuration = new Mock<IApplicationConfiguration>();
+        private MarkdownWrapper markdownWrapper = new MarkdownWrapper();
+
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
         {
@@ -64,7 +66,10 @@ namespace StockportWebappTests.Unit.Controllers
 
             _groupEmailBuilder = new Mock<GroupEmailBuilder>(emailLogger.Object, emailClient.Object, emailConfig.Object, new BusinessId("BusinessId"));
 
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object);
+            var mockTime = new Mock<ITimeProvider>();
+            var viewHelper = new ViewHelpers(mockTime.Object);
+
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -77,7 +82,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
@@ -158,7 +163,7 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, DateTime.MinValue, DateTime.MaxValue);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, DateTime.MinValue, DateTime.MaxValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
             _repository.Setup(r => r.Delete<Group>(slug))
                 .ReturnsAsync(new HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
@@ -173,7 +178,7 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } }, DateTime.MinValue, DateTime.MinValue);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } }, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
             _repository.Setup(r => r.Archive<Group>(It.IsAny<HttpContent>(), slug))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
@@ -192,11 +197,13 @@ namespace StockportWebappTests.Unit.Controllers
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object);
+            var mockTime = new Mock<ITimeProvider>();
+            var viewHelper = new ViewHelpers(mockTime.Object);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
-                   controller.Results("nonsense", 1, 0 , 0, "a-z")) as ViewResult;
+                   controller.Results("nonsense", 1, 0 , MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as GroupResults;
 
@@ -220,7 +227,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(totalNumItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("category", requestedPageNumber, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("category", requestedPageNumber, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             // Assert
             var groupResult = actionResponse.ViewData.Model as GroupResults;
@@ -241,7 +248,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(numItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", specifiedPageNumber, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", specifiedPageNumber, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
             // Assert
@@ -256,7 +263,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(zeroItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
 
@@ -272,7 +279,7 @@ namespace StockportWebappTests.Unit.Controllers
             var controller = SetUpController(numItems);
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
             var model = actionResponse.ViewData.Model as GroupResults;
 
             // Assert
@@ -286,7 +293,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, null, null, DateTime.MinValue, DateTime.MinValue);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, null, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
@@ -305,7 +312,7 @@ namespace StockportWebappTests.Unit.Controllers
  
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, listOfLinkedEvents, null, DateTime.MinValue, DateTime.MinValue);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, listOfLinkedEvents, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
@@ -329,7 +336,9 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
             _featureToggle = new FeatureToggles();
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object);
+            var mockTime = new Mock<ITimeProvider>();
+            var viewHelper = new ViewHelpers(mockTime.Object);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
 
             return controller;
         }
@@ -345,7 +354,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published");
+                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
                 listOfGroups.Add(group);
             }

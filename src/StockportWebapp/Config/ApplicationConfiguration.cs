@@ -27,6 +27,10 @@ namespace StockportWebapp.Config
         string GetMyAccountUrl();
         string GetStaticAssetsRootUrl();
         string GetExportHost();
+        int GetNewsDefaultPageSize(string businessId);
+        int GetEventsDefaultPageSize(string businessId);
+        int GetConsultationsDefaultPageSize(string businessId);
+        int GetGroupsDefaultPageSize(string businessId);
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -152,6 +156,31 @@ namespace StockportWebapp.Config
         public string GetMyAccountUrl()
         {
             return _appsettings["myAccountUrl"];
+        }
+
+        public int GetNewsDefaultPageSize(string businessId)
+        {
+            int result;
+            int.TryParse(_appsettings[$"{businessId}:NewsDefaultPageSize"], out result);
+            return result;
+        }
+        public int GetEventsDefaultPageSize(string businessId)
+        {
+            int result;
+            int.TryParse(_appsettings[$"{businessId}:EventsDefaultPageSize"], out result);
+            return result;
+        }
+        public int GetConsultationsDefaultPageSize(string businessId)
+        {
+            int result;
+            int.TryParse(_appsettings[$"{businessId}:ConsultationDefaultPageSize"], out result);
+            return result;
+        }
+        public int GetGroupsDefaultPageSize(string businessId)
+        {
+            int result;
+            int.TryParse(_appsettings[$"{businessId}:GroupsDefaultPageSize"], out result);
+            return result;
         }
     }
 }

@@ -58,13 +58,14 @@ namespace StockportWebapp.Utils
             return currentPageNumber < totalPages;
         }
 
-        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage)
+        public static PaginatedItems<T> GetPaginatedItemsForSpecifiedPage<T>(List<T> items, int currentPageNumber, string itemDescription, int maxNumberOfItemsPerPage, int defaultPageSize)
         {
             Pagination pagination = new Pagination(
                 items.Count,
                 currentPageNumber,
                 itemDescription,
-                maxNumberOfItemsPerPage);
+                maxNumberOfItemsPerPage == 0 ? defaultPageSize : maxNumberOfItemsPerPage,
+                defaultPageSize);
 
             var ExistingPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count, pagination.MaxItemsPerPage);
             pagination.CurrentPageNumber = ExistingPageNumber;
@@ -91,6 +92,23 @@ namespace StockportWebapp.Utils
                 {
                     {
                         "Page", pageNumber.ToString()
+                    }
+                });
+
+            return urlHelper.RouteUrl(routeValueDictionary);
+        }
+
+        public static string BuildPageSizeUrl(int maxItemsPerPage,int defaultPageSize, int totalItems, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
+        {
+            var pageSize = GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, defaultPageSize);
+            RouteValueDictionary routeValueDictionary = queryUrl.AddQueriesToUrl(
+                new Dictionary<string, string>
+                {
+                    {
+                        "pageSize" , pageSize.ToString()
+                    },
+                    {
+                        "page" , 1.ToString()
                     }
                 });
 
@@ -192,6 +210,22 @@ namespace StockportWebapp.Utils
         private static bool CurrentPageIsPenultimateVisiblePage(int currentPageNumber, int totalPages)
         {
             return currentPageNumber == (totalPages - 1);
+        }
+
+        public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems, int defaultPageSize)
+        {
+            if(maxItemsPerPage == defaultPageSize && totalItems < 60)
+            {
+                return 60;
+            }
+            else if (maxItemsPerPage == defaultPageSize && totalItems > 60)
+            {
+                return 60;
+            }
+            else
+            {
+                return defaultPageSize;
+            }
         }
     }
 }

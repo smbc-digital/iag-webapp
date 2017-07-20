@@ -6,7 +6,7 @@ namespace StockportWebapp.Models
     {
         public string Title { get; set; }
         public string Slug { get; set; }
-        public string Copyright { get; set; }
+        public string CopyrightSection { get; set; }
         public IEnumerable<SubItem> Links { get; set; }
         public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
 
@@ -14,7 +14,7 @@ namespace StockportWebapp.Models
         {
             Title = title;
             Slug = slug;
-            Copyright = copyright;
+            CopyrightSection = copyright;
             Links = links;
             SocialMediaLinks = socialMediaLinks;
         }

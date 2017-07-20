@@ -22,7 +22,7 @@ using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Internal;
+using ReverseMarkdown;
 
 namespace StockportWebapp.Controllers
 {
@@ -38,8 +38,10 @@ namespace StockportWebapp.Controllers
         private readonly ILogger<GroupsController> _logger;
         private readonly List<Query> _managementQuery;
         private readonly IApplicationConfiguration _configuration;
-      
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration)
+        private readonly MarkdownWrapper _markdownWrapper;
+        private readonly ViewHelpers _viewHelpers;
+
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -50,6 +52,8 @@ namespace StockportWebapp.Controllers
             _configuration = configuration;
             _emailBuilder = emailBuilder;
             _managementQuery = new List<Query> { new Query("onlyActive", "false") };
+            _markdownWrapper = markdownWrapper;
+            _viewHelpers = viewHelpers;
         }
 
         [Route("/groups")]
@@ -92,7 +96,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] int pageSize, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
         {
             var model = new GroupResults();
             var queries = new List<Query>();
@@ -101,7 +105,7 @@ namespace StockportWebapp.Controllers
             if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
             if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
             if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
-            queries.Add(new Query("location", location));
+            if (!string.IsNullOrEmpty(location)) queries.Add(new Query("location", location));
 
             var response = await _repository.Get<GroupResults>(queries: queries);
 
@@ -115,7 +119,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            DoPagination(model, page);
+            DoPagination(model, page, pageSize);
 
             if ((model.Categories != null) && model.Categories.Any())
             {
@@ -194,7 +198,7 @@ namespace StockportWebapp.Controllers
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
                 return View(submission);
             }
-
+            
             var successCode = _emailBuilder.SendEmailChangeGroupInfo(submission).Result;
             if (successCode == HttpStatusCode.OK)
                 return RedirectToAction("ChangeGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
@@ -828,7 +832,7 @@ namespace StockportWebapp.Controllers
             model.Address = group.Address;
             model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
             model.CategoriesList = string.Join(",", model.Categories);
-            model.Description = group.Description;
+            model.Description = _markdownWrapper.ConvertToHtml(group.Description);
             model.Email = group.Email;
             model.Facebook = group.Facebook;
             model.Name = group.Name;
@@ -867,8 +871,10 @@ namespace StockportWebapp.Controllers
                 model.Categories = listOfGroupCategories.Select(logc => logc.Name).ToList();
             }
 
+            var converter = new Converter();
+
             group.Address = model.Address;
-            group.Description = model.Description;
+            group.Description = converter.Convert(_viewHelpers.StripUnwantedHtml(model.Description));
             group.Email = model.Email;
             group.Facebook = model.Facebook;
             group.Name = model.Name;
@@ -888,7 +894,6 @@ namespace StockportWebapp.Controllers
             else if (!ModelState.IsValid)
             {
                 validationErrors.Append(GetErrorsFromModelState(ModelState));
-                
             }
             else
             {
@@ -929,7 +934,7 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
-        private void DoPagination(GroupResults groupResults, int currentPageNumber)
+        private void DoPagination(GroupResults groupResults, int currentPageNumber ,int pageSize)
         {
             if ((groupResults != null) && groupResults.Groups.Any())
             {
@@ -937,7 +942,8 @@ namespace StockportWebapp.Controllers
                     groupResults.Groups,
                     currentPageNumber,
                     "groups",
-                    9);
+                    pageSize,
+                    _configuration.GetGroupsDefaultPageSize("stockportgov"));
 
                 groupResults.Groups = paginatedGroups.Items;
                 groupResults.Pagination = paginatedGroups.Pagination;
@@ -949,7 +955,6 @@ namespace StockportWebapp.Controllers
             }
         }
         
-
         private string GetErrorsFromModelState(ModelStateDictionary modelState)
         {
             var message = new StringBuilder();
@@ -961,7 +966,6 @@ namespace StockportWebapp.Controllers
                     message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
                 }
             }
-
             return message.ToString();
         }
 

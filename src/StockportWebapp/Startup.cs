@@ -78,6 +78,9 @@ namespace StockportWebapp
             services.AddSingleton(_ => new LegacyUrlRedirects(new BusinessIdRedirectDictionary()));
             services.AddSingleton(_ => new ValidateReCaptchaAttribute(_.GetService<IApplicationConfiguration>(), _.GetService<IHttpClient>()));
 
+
+            services.AddSingleton(o => new ViewHelpers(o.GetService<ITimeProvider>()));
+
             services.AddSingleton<Func<System.Net.Http.HttpClient>>(
                 p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
@@ -137,7 +140,7 @@ namespace StockportWebapp
             services.AddTransient<HtmlParser>();
             services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
             services.AddSingleton<ParisHashHelper>();
-
+            services.AddSingleton(p => new CalendarHelper(p.GetService<ITimeProvider>()));
             var loggerFactory = new LoggerFactory().AddNLog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 
@@ -191,18 +194,28 @@ namespace StockportWebapp
 
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddNodeServices();
+
+            services.AddAntiforgery(p =>
+            {
+                p.CookieName = "SK-ANTI-FORGERY";
+            });
+
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
-                if (_useRedisSession) options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
-            services.AddTransient<IEventsRepository, EventsRepository>();
             services.AddTransient<IPaymentRepository, PaymentRepository>();
 
-            services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(), 
+            services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(),
+                                                            p.GetService<IHttpEmailClient>(),
+                                                            p.GetService<IApplicationConfiguration>(),
+                                                            p.GetService<BusinessId>()));
+
+            services.AddTransient(p => new EventEmailBuilder(p.GetService<ILogger<EventEmailBuilder>>(),
                                                             p.GetService<IHttpEmailClient>(),
                                                             p.GetService<IApplicationConfiguration>(),
                                                             p.GetService<BusinessId>()));
@@ -287,7 +300,6 @@ namespace StockportWebapp
             }
             else
             {
-                services.AddAntiforgery();
                 logger.LogInformation("Not using redis for session management!");
             }
         }

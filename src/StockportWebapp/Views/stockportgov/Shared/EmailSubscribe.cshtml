@@ -1,10 +1,9 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 
-<h2><i class="si-envelope-open"></i>Email Alerts</h2>
-<p>Stay up-to-date by subscribing to personalised email alerts from Stockport Council</p>
+<p>Get the latest news and information about your council services straight to your inbox</p>
 
 <form asp-controller="Home" asp-action="EmailSubscribe" method="get" role="form">
-    <input class="light-on-dark-field" type="text" name="emailAddress" placeholder="Your email address" />
+    <input class="light-on-dark-field" type="text" name="emailAddress" placeholder="Enter your email address" />
 
     <stock-button type="submit" id="test-subscribe">Subscribe</stock-button>
 </form>

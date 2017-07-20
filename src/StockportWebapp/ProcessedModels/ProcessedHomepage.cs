@@ -18,7 +18,7 @@ namespace StockportWebapp.ProcessedModels
         private IEnumerable<News> LatestNews { get; set; }
         private IEnumerable<Event> LatestEvents { get; set; }
 
-        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText)
+        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup)
         {
             PopularSearchTerms = popularSearchTerms;
             FeaturedTasksHeading = featuredTasksHeading;
@@ -30,7 +30,12 @@ namespace StockportWebapp.ProcessedModels
             BackgroundImage = backgroundImage;
             LatestNews = lastNews;
             FreeText = freeText;
+            FeaturedGroupItem = featuredGroup;
         }
+
+        public News FeaturedNewsItem { get; set; }
+        public Event FeaturedEventItem { get; set; }
+        public Group FeaturedGroupItem { get; set; }
 
         public List<News> GetLatestNews()
         {
@@ -45,11 +50,13 @@ namespace StockportWebapp.ProcessedModels
         public void SetLatestNews(List<News> latestNews)
         {
             LatestNews = latestNews;
+            FeaturedNewsItem = LatestNews?.First();
         }
 
         public void SetLatestEvents(List<Event> latestEvents)
         {
             LatestEvents = latestEvents;
+            FeaturedEventItem = LatestEvents?.First();
         }
     }
 }

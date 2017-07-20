@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
 
 namespace StockportWebapp.Utils
@@ -21,6 +20,7 @@ namespace StockportWebapp.Utils
                 var tag = $"{{{{ {property.Name.ToLower()} }}}}";
                 tag = tag.Replace("\r\n", "<br />").Replace("\r", "<br />").Replace("\n", "<br />");
                 var value = property.GetValue(details, null) == null ? string.Empty : property.GetValue(details, null);
+                value = value.ToString().Replace("\r\n", "<br />");
                 body = body.Replace(tag, value.ToString());
             }
 

@@ -9,6 +9,7 @@ using StockportWebapp.ViewModels;
 using System.Linq;
 using StockportWebapp.Utils;
 using System;
+using StockportWebapp.Config;
 
 namespace StockportWebapp.Controllers
 {
@@ -17,11 +18,13 @@ namespace StockportWebapp.Controllers
     {
         private readonly IProcessedContentRepository _repository;
         private readonly ILogger<ShowcaseController> _logger;
+        private readonly IApplicationConfiguration _config;
 
-        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger)
+        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger, IApplicationConfiguration config)
         {
             _repository = repository;
             _logger = logger;
+            _config = config;
         }
 
         [Route("/showcase/{slug}")]
@@ -38,7 +41,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/showcase/{slug}/previousconsultations")]
-        public async Task<IActionResult> PreviousConsultations(string slug, [FromQuery]int Page)
+        public async Task<IActionResult> PreviousConsultations(string slug, [FromQuery]int Page,[FromQuery] int pageSize)
         {
             var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
 
@@ -55,22 +58,21 @@ namespace StockportWebapp.Controllers
                 Pagination = new Pagination()
             };
 
-            DoPagination(Page, result);
+            DoPagination(Page, result, pageSize);
 
             return View(result);
         }
 
-        private void DoPagination(int currentPageNumber, PreviousConsultaion prevConsultation)
+        private void DoPagination(int currentPageNumber, PreviousConsultaion prevConsultation, int pageSize)
         {
             if (prevConsultation != null && prevConsultation.Consultations.Any())
             {
-                int MaxNumberOfItemsPerPage = 10;
-
                 var paginatedList = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     prevConsultation.Consultations.ToList(),
                     currentPageNumber,
-                    "Consultations",
-                    MaxNumberOfItemsPerPage);
+                    "consultations",
+                    pageSize,
+                    _config.GetConsultationsDefaultPageSize("stockportgov"));
 
                 prevConsultation.Consultations = paginatedList.Items;
                 prevConsultation.Pagination = paginatedList.Pagination;

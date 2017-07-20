@@ -8,6 +8,7 @@ namespace StockportWebapp.Models
     public class Topic
     {
         public string Name { get; }
+        public string Title { get; }
         public string Slug { get; }
         public string NavigationLink { get; }
         private string _summary;
@@ -52,12 +53,15 @@ namespace StockportWebapp.Models
         public EventBanner EventBanner { get; }
         public string ExpandingLinkTitle { get; }
         public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set;  }
+        public string PrimaryItemTitle { get; }
 
         public Topic(string name, string slug, string summary, string teaser, string icon,
-            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, IEnumerable<Crumb> breadcrumbs,
-            IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxs)
+            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, 
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, 
+            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxs, string primaryItemTitle, string title)
         {
             Name = name;
+            Title = title;
             Slug = slug;
             Summary = summary;
             Teaser = teaser;
@@ -76,11 +80,12 @@ namespace StockportWebapp.Models
             EventBanner = eventBanner;
             ExpandingLinkTitle = expandingLinkTitle;
             ExpandingLinkBoxes = expandingLinkBoxs;
+            PrimaryItemTitle = primaryItemTitle;
         }
     }
 
     public class NullTopic : Topic
     {
-        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>()) { }
+        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(), string.Empty, string.Empty) { }
     }
 }

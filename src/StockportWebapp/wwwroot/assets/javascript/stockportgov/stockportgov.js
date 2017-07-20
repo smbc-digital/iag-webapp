@@ -1,26 +1,34 @@
 ﻿var mobileWidth = 767;
 var tabletWidth = (1024 - 17);
 
-var matchboxPrimary = new Matchbox({
-    parentSelector: ".l-page-content .nav-card-list",
-    childSelector: ".nav-card .nav-card-item",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 1024, groupsOf: 3 }
-    ]
-});
-
-var matchboxEventCards = new Matchbox({
-    parentSelector: ".event-listing-container",
-    childSelector: ".event-card-information",
-    groupsOf: 1,
-    breakpoints: [
-    { bp: 767, groupsOf: 2 },
-    { bp: 1024, groupsOf: 3 }
-    ]
-});
-
 $(document).ready(function () {
+
+    $('.wysiwyg').each(function () {
+        if (!$(this).parent().hasClass('stk-wysiwyg')) {
+            $(this).parent().addClass('stk-wysiwyg')
+        }
+    });
+
+    $('.wysiwyg').wysihtml5({
+        toolbar: {
+            fa: true,
+            "font-styles": false,
+            emphasis: {
+                bold: true,
+                italic: false,
+                underline: false,
+                small: false
+            },
+            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+            "html": false, //Button which allows you to edit the generated HTML. Default false
+            "link": true, //Button to insert a link. Default true
+            "image": false, //Button to insert an image. Default true,
+            "color": false, //Button to change color of font
+            "blockquote": false //Blockquote
+        },
+    });
+
+
     SwapLogo();
     $(".show-search-button").click(
             function () {
@@ -28,16 +36,6 @@ $(document).ready(function () {
                 $(".show-search-button").toggleClass("arrow");
             }
     );
-
-   
-
-    if ($(".l-page-content .nav-card-list").length) {
-        matchboxPrimary.init();
-    }
-
-    if ($(".event-listing-container").length) {
-        matchboxEventCards.init();
-    }
 
     if (!Modernizr.inputtypes.date) {
         $(".datepicker").datepicker({

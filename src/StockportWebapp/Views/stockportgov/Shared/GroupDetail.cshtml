@@ -52,6 +52,34 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
+                                @if (!string.IsNullOrEmpty(Model.Cost))
+                                {
+                                    var cost = Model.Cost;
+                                    cost = cost == "Paid" && !string.IsNullOrEmpty(Model.CostText) ? Model.CostText : cost;
+                                    <li class="group-details">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                            <i class="fa fa-gbp fa-2x group-details-symbol"></i>
+                                        </div>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                            <div class="group-details-heading">Cost</div>
+                                            @cost
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.AbilityLevel))
+                                {
+                                    <li class="group-details">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                            <i class="fa fa-star fa-2x group-details-symbol"></i>
+                                        </div>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                            <div class="group-details-heading">Skill</div>
+                                            @Model.AbilityLevel
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                }
 
                                 <li class="group-details">
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -189,7 +217,7 @@
                     </div>
                     <div>
                         <h3 class="group-details-heading">Description</h3>
-                        @Html.Raw(Model.Description)
+                        @Html.Raw(Model.Description.StripEmojis())
                         @if (Model.Volunteering)
                         {
                             <div class="volunteering-section">
@@ -198,17 +226,15 @@
                                     <p>If you would like to become a volunteer for this group, please email us with your interest and we’ll get in touch if there are any opportunities.</p>
                                     <p><a class="volunteering-button" href="mailto:@Model.Email?subject=Volunteering&body=Hello%0A%0AI%20am%20interested%20in%20volunteering%20for%20your%20group.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/groups/@Model.Slug%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20see%20how%20I%20can%20help.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you."><span style="color: #333;">Get in touch</span></a></p>
                                 </div>
-
                             </div>
                         }
 
                         @if (Model.MapPosition != null && Model.MapPosition.Lat != 0.0 && Model.MapPosition.Lon != 0.0)
                         {
                             <hr />
-                            <div class="group-map-container">
+                            <div class="group-map-container group-map-container-padding">
                                 <h3 class="group-details-heading">How to find us</h3>
                                 @Html.Partial("MapPosition", Model.MapPosition)
-                                <hr class="hide-on-mobile hide-on-tablet" />
                             </div>
                         }
                         @if (Model.Events != null && Model.Events.Any())
@@ -230,7 +256,7 @@
                                 <h3>Manage your group information</h3>
                                 <p>Easily keep your group information up to date and promote your group to the people of Stockport and beyond.</p>
                                 <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
-                                <p>If you don't run this group, you can still let us know about a <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">Let us know about a change to this group</a></p>
+                                <p>If you don't run this group, <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">you can still let us know about a change to this group</a>.</p>
                             </div>
                         }
                     </div>
