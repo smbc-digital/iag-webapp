@@ -41,6 +41,8 @@ namespace StockportWebapp.Utils
             {typeof(GroupResults), "groupResults/"},
             {typeof(ContactUsId), "ContactUsId/"},
             {typeof(List<ArticleSiteMap>), "articleSiteMap"},
+            {typeof(List<TopicSitemap>), "topic"},
+            {typeof(List<StartPage>), "start-page"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)

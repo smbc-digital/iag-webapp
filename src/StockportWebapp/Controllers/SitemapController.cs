@@ -142,6 +142,39 @@ namespace StockportWebapp.Controllers
 
                     xml = SerializeObject(listOfShowcaseSitemaps);
                     break;
+
+                case "topics":
+                    var responseTopics = await _repository.Get<List<TopicSitemap>>();
+                    var topics = responseTopics.Content as List<TopicSitemap>;
+                    var listOfShowcaseTopics =
+                        topics.Select(
+                            n =>
+                                new SitemapGoogle()
+                                {
+                                    changefreq = "weekly",
+                                    lastmod = DateTime.Now,
+                                    loc = domainUrl + "topic/" + n.Slug,
+                                    priority = "0.5"
+                                }).ToList();
+
+                    xml = SerializeObject(listOfShowcaseTopics);
+                    break;
+                case "start-pages":
+                    var responseStartPages = await _repository.Get<List<StartPage>>();
+                    var startPage = responseStartPages.Content as List<StartPage>;
+                    var listOfStartPages =
+                        startPage.Select(
+                            n =>
+                                new SitemapGoogle()
+                                {
+                                    changefreq = "weekly",
+                                    lastmod = DateTime.Now,
+                                    loc = domainUrl + "start/" + n.Slug,
+                                    priority = "0.5"
+                                }).ToList();
+
+                    xml = SerializeObject(listOfStartPages);
+                    break;
             }
             return this.Content(xml, "text/xml");
         }
