@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace StockportWebapp.Extensions
 {
@@ -12,9 +9,14 @@ namespace StockportWebapp.Extensions
             return target.TrimStart("https://").TrimStart("http://");
         }
 
+        public static string StripEmojis(this string input)
+        {
+            return Regex.Replace(input, @"[^\u0000-\u007F]+", "");
+        }
+
         private static string TrimStart(this string target, string trimString)
         {
-            string result = target;
+            var result = target;
 
             while (result.StartsWith(trimString))
             {
