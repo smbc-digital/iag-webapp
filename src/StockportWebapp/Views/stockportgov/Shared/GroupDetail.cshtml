@@ -217,7 +217,7 @@
                     </div>
                     <div>
                         <h3 class="group-details-heading">Description</h3>
-                        @Html.Raw(Model.Description)
+                        @Html.Raw(Model.Description.StripEmojis())
                         @if (Model.Volunteering)
                         {
                             <div class="volunteering-section">
