@@ -167,7 +167,7 @@ namespace StockportWebapp.Controllers
                             n =>
                                 new SitemapGoogle()
                                 {
-                                    changefreq = "weekly",
+                                    changefreq = "monthly",
                                     lastmod = DateTime.Now,
                                     loc = domainUrl + "start/" + n.Slug,
                                     priority = "0.5"
