@@ -1,0 +1,49 @@
+﻿@using Google.Apis.Calendar.v3.Data
+@using StockportWebapp.ViewModels;
+@using StockportWebapp.Utils
+@inject ViewHelpers viewHelper
+@model EventCalendar
+@{
+    DateTime previousEnteredDate = DateTime.MinValue;
+}
+<ul class="grid-container group-listing-container" id="event-listing-container">
+    
+@foreach (var eventItem in Model.Events)
+{
+    if (previousEnteredDate != eventItem.EventDate)
+    {
+        <h2>@eventItem.EventDate.ToString("dddd dd MMMM yyyy")</h2>
+    }
+    <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
+        <a class="group-card" href="@Url.Action("Detail", "Events", new {slug = eventItem.Slug, date = eventItem.EventDate.ToString("yyyy-MM-dd")})" style="height: 353px;">
+            <div class="group-image" style="background-image: url(@eventItem.ThumbnailImageUrl)"></div>
+            <div class="group-card-information grid-100">
+                <div class="grid-100 group-title">
+                    <h3>@eventItem.Title</h3>
+                </div>
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                    <i class="fa fa-gbp" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">
+                    @eventItem.Fee
+                </div>
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">
+                    @viewHelper.FormatEventDate(eventItem.EventDate, eventItem.StartTime)
+                </div>
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">
+                    @eventItem.Location
+                </div>
+            </div>
+        </a>
+    </li>
+
+    previousEnteredDate = eventItem.EventDate.Date;
+}
+    @Html.Partial("Pagination", Model.Pagination)
+</ul>

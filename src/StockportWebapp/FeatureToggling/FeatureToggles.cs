@@ -10,5 +10,6 @@ namespace StockportWebapp.FeatureToggling
         public bool EditGroupWYSIWYG { get; set; } = false;
         public bool PrimaryItems { get; set; }
         public bool ExportGroupEventsToCalendar { get; set; } = false;
+        public bool DisplayNewEventPageFeatures { get; set; } = false;
     }
 }

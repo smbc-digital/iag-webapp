@@ -8,7 +8,7 @@ prod: &prod
   EditGroupWYSIWYG: false
   PrimaryItems: false
   ExportGroupEventsToCalendar: false
-
+  DisplayNewEventPageFeatures: false
 stage: &stage
   << : *prod
   NewHomepageLayout: true
@@ -24,6 +24,7 @@ int: &int
   << : *stage
   << : *qa
   ExportGroupEventsToCalendar: true
+  DisplayNewEventPageFeatures: true
 
 local:
   << : *prod
