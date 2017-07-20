@@ -194,18 +194,28 @@ namespace StockportWebapp
 
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddNodeServices();
+
+            services.AddAntiforgery(p =>
+            {
+                p.CookieName = "SK-ANTI-FORGERY";
+            });
+
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
-                if (_useRedisSession) options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddSingleton<IViewRender, ViewRender>();
             services.AddScoped<ILegacyRedirectsManager, LegacyRedirectsMapper>();
-            services.AddTransient<IEventsRepository, EventsRepository>();
             services.AddTransient<IPaymentRepository, PaymentRepository>();
 
-            services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(), 
+            services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(),
+                                                            p.GetService<IHttpEmailClient>(),
+                                                            p.GetService<IApplicationConfiguration>(),
+                                                            p.GetService<BusinessId>()));
+
+            services.AddTransient(p => new EventEmailBuilder(p.GetService<ILogger<EventEmailBuilder>>(),
                                                             p.GetService<IHttpEmailClient>(),
                                                             p.GetService<IApplicationConfiguration>(),
                                                             p.GetService<BusinessId>()));
@@ -290,7 +300,6 @@ namespace StockportWebapp
             }
             else
             {
-                services.AddAntiforgery();
                 logger.LogInformation("Not using redis for session management!");
             }
         }

@@ -1,23 +1,22 @@
 ﻿---
 prod: &prod
   ContactUsIds: true
-  ExportGroupToPdf: true
   GroupManagement: true
   ManageYourGroupButton: true
-  NewHomepageLayout: false
-  EditGroupWYSIWYG: false
+  NewHomepageLayout: true
+  EditGroupWYSIWYG: true
   PrimaryItems: false
   ExportGroupEventsToCalendar: false
   DisplayNewEventPageFeatures: false
+  ExportGroupEventsToCalendar: true
+
 stage: &stage
   << : *prod
-  NewHomepageLayout: true
   PrimaryItems: true
 
 qa: &qa
   << : *prod
   << : *stage
-  EditGroupWYSIWYG: true
 
 int: &int
   << : *prod
@@ -31,4 +30,3 @@ local:
   << : *stage
   << : *qa
   << : *int
-  PrimaryItems: true

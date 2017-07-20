@@ -29,7 +29,7 @@
                                 </h2>
                             </div>
                         </div>
-                            <div class="title-spacer"></div>
+                        <div class="title-spacer"></div>
                     }
                     <div class="grid-100">
                         @if (string.IsNullOrEmpty(Model.Article.Image))
@@ -52,9 +52,7 @@
 
                         <div class="grid-100">
 
-                            @if (Model.ShouldShowArticleSummary &&
-                !string.Equals("<p></p>\n", Model.Article.Body)
-                )
+                            @if (Model.ShouldShowArticleSummary && !string.Equals("<p></p>\n", Model.Article.Body))
                             {
                                 <div>
                                     @Html.Raw(Model.Article.Body)
@@ -99,13 +97,13 @@
                                 }
                             </ul>
                         </div>
-                                    }
+                    }
                     @if (Model.Article.LiveChatVisible)
                     {
                         @Html.Partial("LiveChat", Model.Article.LiveChat)
                     }
                 </div>
-                                    }
+            }
         }
     </div>
 </div>

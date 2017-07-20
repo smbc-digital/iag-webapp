@@ -2,7 +2,11 @@
     padding-top: 10px;
 
     &.border {
-        border-top: 1px solid $greyLighter;
+       
+    }
+
+    &.top-border {
+        border-top: 1px solid #ccc;
     }
 
     &.padding-bottom {

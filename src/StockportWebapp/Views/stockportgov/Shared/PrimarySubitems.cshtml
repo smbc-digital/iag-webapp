@@ -6,8 +6,7 @@
 {
     if (Model.SubItems.Any(i => string.IsNullOrEmpty(i.Image)))
     {
-
-        <div class="grid-container">
+        <div class="grid-container primary-items-no-margin">
             <div class="sk-table-outer-container">
                 <div class="sk-table-body primary-items">
                    @if (!string.IsNullOrEmpty(Model.PrimaryItemTitle))
@@ -25,8 +24,8 @@
                         <div class="grid-50 tablet-grid-50 mobile-grid-100 padding-mobile">
                             <stock-button class="subitem" as-link="true" href="@subItem.NavigationLink">
                                 <div>
-                                    <strong>@subItem.Title</strong>
-                                    <div>@subItem.Teaser</div>
+                                    <strong class="sub-item-title">@subItem.Title</strong>
+                                    <div class="sub-item-teaser">@subItem.Teaser</div>
                                 </div>
                             </stock-button>
                         </div>

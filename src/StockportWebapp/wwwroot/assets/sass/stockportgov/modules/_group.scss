@@ -151,8 +151,13 @@
     margin-bottom: 0px;
 }
 
+.group-details-heading-border {
+    border-top: 1px solid #ccc;
+}
+
 .sharethis {
     overflow: auto;
+    border-top: 1px solid #ccc;
 }
 
 .group-details-content {
@@ -353,6 +358,10 @@
         margin-top: 30px;
         margin-bottom: 0px;
     }
+}
+
+.group-map-container-padding{
+    padding-bottom: 30px;
 }
 
 .no-js {
