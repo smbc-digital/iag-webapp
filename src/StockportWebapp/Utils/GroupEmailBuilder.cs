@@ -75,14 +75,12 @@ namespace StockportWebapp.Utils
 
             var emailBody = new GroupDelete { Name = group.Name };
 
-            _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
-                _fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), group.Email,
-                new List<IFormFile>()));
+            var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
 
-            foreach (var groupAdministrator in group.GroupAdministrators.Items)
+            if (!string.IsNullOrEmpty(emailsTosend))
             {
                 _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
-                _fromEmail, groupAdministrator.Email, new List<IFormFile>()));
+                _fromEmail, emailsTosend, new List<IFormFile>()));
             }
         }
 
@@ -94,14 +92,29 @@ namespace StockportWebapp.Utils
 
             var emailBody = new GroupArchive { Name = group.Name };
 
-            _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
-                _fromEmail, _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), group.Email,
-                new List<IFormFile>()));
+            var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
 
-            foreach (var groupAdministrator in group.GroupAdministrators.Items)
+            if (!string.IsNullOrEmpty(emailsTosend))
             {
                 _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
-                _fromEmail, groupAdministrator.Email, new List<IFormFile>()));
+                _fromEmail, emailsTosend, new List<IFormFile>()));
+            }
+        }
+
+        public virtual void SendEmailPublish(ProcessedGroup group)
+        {
+            var messageSubject = $"Publish {group.Name}";
+
+            _logger.LogInformation("Sending group publish email");
+
+            var emailBody = new GroupPublish() { Name = group.Name, Slug = group.Slug };
+
+            var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
+
+            if (!string.IsNullOrEmpty(emailsTosend))
+            {
+                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _fromEmail, emailsTosend, new List<IFormFile>()));
             }
         }
 
@@ -139,10 +152,9 @@ namespace StockportWebapp.Utils
                                               Twitter = group.Twitter, Website = group.Website};
 
             var message = new EmailMessage(messageSubject, 
-                                           GenerateEmailBodyFromHtml(emailBody), 
+                                           GenerateEmailBodyFromHtml(emailBody),
                                            _fromEmail, 
-                                           _configuration.GetGroupArchiveEmail(_businessId.ToString()).ToString(), 
-                                           toEmail, 
+                                           toEmail + "," + _configuration.GetGroupArchiveEmail(_businessId.ToString()),
                                            new List<IFormFile>());
 
             _emailClient.SendEmailToService(message);
@@ -160,7 +172,6 @@ namespace StockportWebapp.Utils
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
-                _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
                 model.GroupAdministratorItem.Email,
                 attachments));
         }
@@ -177,7 +188,6 @@ namespace StockportWebapp.Utils
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
-                _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
                 model.GroupAdministratorItem.Email,
                 attachments));
         }
@@ -194,7 +204,6 @@ namespace StockportWebapp.Utils
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
-                _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
                 model.Email,
                 attachments));
         }

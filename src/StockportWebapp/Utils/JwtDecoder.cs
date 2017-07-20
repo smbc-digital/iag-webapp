@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using System;
+using System.Text;
 using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Utils
@@ -34,7 +35,7 @@ namespace StockportWebapp.Utils
                     throw new InvalidJwtException("Invalid JWT token");
                 }
 
-                return JWT.Decode<LoggedInPerson>(token, Convert.FromBase64String(_keys.Key), JwsAlgorithm.HS256);
+                return JWT.Decode<LoggedInPerson>(token, Encoding.ASCII.GetBytes(_keys.Key), JwsAlgorithm.HS256);
             }
             catch (Exception ex)
             {

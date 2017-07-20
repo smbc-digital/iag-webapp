@@ -11,7 +11,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.Slug, "groups"), new Crumb("Users", "manage/" + ViewBag.GroupName + "/users", "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.Slug, "groups"), new Crumb("Users", "manage/" + ViewBag.Slug + "/users", "groups") })
 }
 
 <div class="grid-container-full-width">
@@ -25,7 +25,7 @@
                         <div class="icon-bordered icon-bordered-fixed green tick">
                             <i class="fa fa-check fa-5x" aria-hidden="true"></i>
                         </div>
-                        <h2>You've successfully changed @ViewBag.Email</h2>
+                        <h2>You've successfully changed @ViewBag.Name</h2>
                     </div>
                     <div class="grid-100 centre">
                         <p>The change you've made will happen straight away so they won't have to do anything.</p>

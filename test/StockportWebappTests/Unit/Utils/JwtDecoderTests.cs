@@ -13,15 +13,14 @@ namespace JwtTest
 {
     public class JwtDecoderTests
     {
-        private string _secretKeyValid = "dGhpcyBpcyBhIHNlY3JldCBrZXk=";
-        private string _secretKeyInvalid = "dGhpcyBrZXkgaXMgaW52YWxpZA==";
-        private string _secretKeyNonEncoded = "this is not encoded";
+        private string _secretKeyValid = "secret";
+        private string _secretKeyInvalid = "notsecret";
         private Mock<ILogger<JwtDecoder>> _logger = new Mock<ILogger<JwtDecoder>>();
 
         [Fact]
         public void ShouldDecodePayloadWithValidKey()
         {
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.QmkqA7HE-nOPqxx5kSG5NqDyVeBXUiJ3_i-lwZAdVkw";
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.jLDZVRKDV94Nl2r-ya8XzZzzj-nx3gMh1C_A-J5XvKQ";
 
             var encoding = new JwtDecoder(new GroupAuthenticationKeys() {Key = _secretKeyValid }, _logger.Object);
 
@@ -45,22 +44,10 @@ namespace JwtTest
         }
 
         [Fact]
-        public void ShouldFailDecryptionWithInvalidKeyThatIsNotBase64Encoded()
-        {
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.QmkqA7HE-nOPqxx5kSG5NqDyVeBXUiJ3_i-lwZAdVkw";
-            var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyNonEncoded }, _logger.Object);
-
-            Exception ex = Assert.Throws<Jose.IntegrityException>(() => encoding.Decode(token));
-
-            ex.Message.Should().Be("Invalid signature.");
-            LogTesting.Assert(_logger, LogLevel.Warning, $"IntegrityException was thrown from jwt decoder for token {token}");
-        }
-
-        [Fact]
         public void IfJsonStructureChangesInPayloadShouldNotError()
         {
             // json structure is { "somethingelse": "testing name", "invalid": "testing@email", "anoher prop": "test" }
-            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21ldGhpbmdlbHNlIjoidGVzdGluZyBuYW1lIiwiaW52YWxpZCI6InRlc3RpbmdAZW1haWwiLCJhbm9oZXIgcHJvcCI6InRlc3QifQ.Kan31G8yHBgX0YJFqasugPSErNvMx1QWGQsZ4D-pybk";
+            var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb21ldGhpbmdlbHNlIjoidGVzdGluZyBuYW1lIiwiaW52YWxpZCI6InRlc3RpbmdAZW1haWwiLCJhbm9oZXIgcHJvcCI6InRlc3QifQ.Q-pSGiIo6HBbJ0fTMcstnXxuT42v-pEHOo9HoyspDWs";
             var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
 
             var person = encoding.Decode(token);

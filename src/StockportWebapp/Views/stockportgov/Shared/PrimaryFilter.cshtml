@@ -1,10 +1,9 @@
 ﻿@using StockportWebapp.ViewModels
 @model PrimaryFilter
-@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
 
-<form asp-controller="Groups" asp-action="Results" method="get" class="@(featureToggles.GroupsAutoCompleteLocation ? "primary-filter-form primary-filter-form-autocomplete" : "primary-filter-form")">
+<form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form primary-filter-form-autocomplete">
 
     <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
     <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
@@ -23,23 +22,9 @@
             <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow" />
             <div id="getLocation">
                 <label class="location-search-label">Enter postcode or place name</label>
-                @if (featureToggles.GroupsAutoCompleteLocation)
-                {
                     <input type="text" id="location-autocomplete" class="location-search-input" />
-                }
-                else
-                {
-                    <input type="text" id="location" class="location-search-input" />
-                }
                 <a id="currentLocation" class="current-location" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
-                @if (featureToggles.GroupsAutoCompleteLocation)
-                {
-                    <button class="button-default location-search-button" id="btnLocationAutoComplete">Use this location</button>
-                }
-                else
-                {
-                    <button class="button-default location-search-button" id="btnLocation">Use this location</button>
-                }
+                <button class="button-default location-search-button" id="btnLocationAutoComplete">Use this location</button>
             </div>
         </div>
 

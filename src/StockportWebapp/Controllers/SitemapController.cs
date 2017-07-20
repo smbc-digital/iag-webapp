@@ -23,10 +23,12 @@ namespace StockportWebapp.Controllers
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class SitemapController : Controller
     {
+        // private const string _baseURL = "https://www.stockport.gov.uk";
+        private const string _baseURL = "http://stockportgov.local:5555";
         private readonly IRepository _repository;
         private readonly ILogger<SitemapController> _logger;
 
-        public SitemapController(IRepository repository, ILogger<SitemapController>  logger)
+        public SitemapController(IRepository repository, ILogger<SitemapController> logger)
         {
             _repository = repository;
             _logger = logger;
@@ -35,9 +37,10 @@ namespace StockportWebapp.Controllers
         [Route("/google-sitemap.xml")]
         public async Task<IActionResult> Sitemap(string type)
         {
+            var now = DateTime.Now;
             _logger.LogInformation(string.Concat("Hitting site map for: ", type));
             var domainUrl = Request?.GetUri().AbsoluteUri.Replace(Request?.GetUri().PathAndQuery, "/");
-           
+
             var xml = "";
             switch (type)
             {
@@ -59,13 +62,21 @@ namespace StockportWebapp.Controllers
                                     priority = "1.0"
                                 }).ToList();
 
+                    listOfSitemaps.Insert(0, new SitemapGoogle()
+                    {
+                        changefreq = "weekly",
+                        lastmod = now,
+                        loc = $"{_baseURL}/news",
+                        priority = "1.0"
+                    });
+
                     xml = SerializeObject(listOfSitemaps);
                     break;
 
                 case "events":
                     var queriesEvent = new List<Query>();
                     queriesEvent.Add(new Query("DateFrom", DateTime.MinValue.ToString("yyyy-MM-dd")));
-                    queriesEvent.Add(new Query("DateTo", DateTime.Now.ToString("yyyy-MM-dd")));
+                    queriesEvent.Add(new Query("DateTo", DateTime.MaxValue.ToString("yyyy-MM-dd")));
 
                     var responseEvent = await _repository.Get<EventCalendar>(queries: queriesEvent);
                     var events = responseEvent.Content as EventCalendar;
@@ -75,10 +86,18 @@ namespace StockportWebapp.Controllers
                                 new SitemapGoogle()
                                 {
                                     changefreq = "daily",
-                                    lastmod = DateTime.Now,
-                                    loc = domainUrl + "events/" + slug,
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/events/{slug}",
                                     priority = "1.0"
                                 }).ToList();
+
+                    listOfSitemapsEvents.Insert(0, new SitemapGoogle()
+                    {
+                        changefreq = "weekly",
+                        lastmod = now,
+                        loc = $"{_baseURL}/events",
+                        priority = "1.0"
+                    });
 
                     xml = SerializeObject(listOfSitemapsEvents);
                     break;
@@ -92,24 +111,26 @@ namespace StockportWebapp.Controllers
                                 new SitemapGoogle()
                                 {
                                     changefreq = "daily",
-                                    lastmod = DateTime.Now,
-                                    loc = domainUrl + slug,
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/{slug}",
                                     priority = "1.0"
                                 }).ToList();
 
                     xml = SerializeObject(listOfSitemapsArticles);
                     break;
+
                 case "homepage":
                     var sitemapHomepage = new SitemapGoogle()
                     {
                         changefreq = "weekly",
-                        lastmod = DateTime.Now,
-                        loc = domainUrl,
+                        lastmod = now,
+                        loc = _baseURL,
                         priority = "0.5"
                     };
 
                     xml = SerializeObject(sitemapHomepage);
                     break;
+
                 case "groups":
                     var responseGroups = await _repository.Get<List<Group>>();
                     var groups = responseGroups.Content as List<Group>;
@@ -119,13 +140,22 @@ namespace StockportWebapp.Controllers
                                 new SitemapGoogle()
                                 {
                                     changefreq = "weekly",
-                                    lastmod = DateTime.Now,
-                                    loc = domainUrl + "groups/" + n.Slug,
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/groups/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
+                    listOfGroupSitemaps.Insert(0, new SitemapGoogle()
+                    {
+                        changefreq = "weekly",
+                        lastmod = now,
+                        loc = $"{_baseURL}/groups",
+                        priority = "1.0"
+                    });
+
                     xml = SerializeObject(listOfGroupSitemaps);
                     break;
+
                 case "showcase":
                     var responseShowcases = await _repository.Get<List<Showcase>>();
                     var showcases = responseShowcases.Content as List<Showcase>;
@@ -135,55 +165,127 @@ namespace StockportWebapp.Controllers
                                 new SitemapGoogle()
                                 {
                                     changefreq = "weekly",
-                                    lastmod = DateTime.Now,
-                                    loc = domainUrl + "showcase/" + n.Slug,
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/showcase/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
                     xml = SerializeObject(listOfShowcaseSitemaps);
                     break;
 
-                case "topics":
-                    var responseTopics = await _repository.Get<List<TopicSitemap>>();
-                    var topics = responseTopics.Content as List<TopicSitemap>;
-                    var listOfShowcaseTopics =
+                case "section":
+                    var responseSections = await _repository.Get<List<SectionSiteMap>>();
+                    var sections = responseSections.Content as List<SectionSiteMap>;
+                    var listOfSectionSitemaps =
+                        sections.Select(
+                            n =>
+                                new SitemapGoogle()
+                                {
+                                    changefreq = "daily",
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/{n.Slug}",
+                                    priority = "1"
+                                }).ToList();
+
+                    xml = SerializeObject(listOfSectionSitemaps);
+                    break;
+
+                case "topic":
+                    var responseTopic = await _repository.Get<List<TopicSitemap>>();
+                    var topics = responseTopic.Content as List<TopicSitemap>;
+                    var listOfTopicSitemaps =
                         topics.Select(
                             n =>
                                 new SitemapGoogle()
                                 {
                                     changefreq = "weekly",
-                                    lastmod = DateTime.Now,
-                                    loc = domainUrl + "topic/" + n.Slug,
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/topic/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
-                    xml = SerializeObject(listOfShowcaseTopics);
+                    xml = SerializeObject(listOfTopicSitemaps);
                     break;
-                case "start-pages":
-                    var responseStartPages = await _repository.Get<List<StartPage>>();
-                    var startPage = responseStartPages.Content as List<StartPage>;
-                    var listOfStartPages =
-                        startPage.Select(
+
+                case "profile":
+                    var responseProfiles = await _repository.Get<List<Profile>>();
+                    var profiles = responseProfiles.Content as List<Profile>;
+                    var listOfProfileSitemaps =
+                        profiles.Select(
                             n =>
                                 new SitemapGoogle()
                                 {
-                                    changefreq = "monthly",
-                                    lastmod = DateTime.Now,
-                                    loc = domainUrl + "start/" + n.Slug,
+                                    changefreq = "daily",
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/profile/{n.Slug}",
+                                    priority = "1"
+                                }).ToList();
+
+                    xml = SerializeObject(listOfProfileSitemaps);
+                    break;
+
+                case "payment":
+                    var responsePayments = await _repository.Get<List<Payment>>();
+                    var payments = responsePayments.Content as List<Payment>;
+                    var listOfPaymentSitemaps =
+                        payments.Select(
+                            n =>
+                                new SitemapGoogle()
+                                {
+                                    changefreq = "daily",
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/payment/{n.Slug}",
+                                    priority = "1"
+                                }).ToList();
+
+                    xml = SerializeObject(listOfPaymentSitemaps);
+                    break;
+
+                case "start":
+                    var responseStarts = await _repository.Get<List<StartPage>>();
+                    var starts = responseStarts.Content as List<StartPage>;
+                    var listOfStartSitemaps =
+                        starts.Select(
+                            n =>
+                                new SitemapGoogle()
+                                {
+                                    changefreq = "weekly",
+                                    lastmod = now,
+                                    loc = $"{_baseURL}/start/{n.Slug}",
                                     priority = "0.5"
                                 }).ToList();
 
-                    xml = SerializeObject(listOfStartPages);
+                    xml = SerializeObject(listOfStartSitemaps);
+                    break;
+
+                default:
+
+                    var result = new List<SitemapGoogleIndex>();
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=news", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=events", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=article", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=homepage", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=groups", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=showcase", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=section", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=topic", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=profile", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=payment", priority = "1" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now, loc = $"{_baseURL}/google-sitemap.xml?type=start", priority = "1" });
+
+                    xml = SerializeObject(result, true);
                     break;
             }
+
             return this.Content(xml, "text/xml");
         }
 
 
-        private string SerializeObject<T>(T dataToSerialize)
+        private string SerializeObject<T>(T dataToSerialize, bool indexPage = false)
         {
-            string xml;
-            XmlSerializer xsSubmit = new XmlSerializer(typeof(T), new XmlRootAttribute("urlset"));
+            var xml = string.Empty;
+            var attribute = indexPage ? "sitemapindex" : "urlset";
+            var xsSubmit = new XmlSerializer(typeof(T), null, null, new XmlRootAttribute(attribute), "http://www.sitemaps.org/schemas/sitemap/0.9");
 
             using (var sww = new StringWriter())
             {
@@ -198,14 +300,23 @@ namespace StockportWebapp.Controllers
         }
     }
 
-    [XmlType("url")]
-    public class SitemapGoogle
+    [XmlType("sitemap")]
+    public class SitemapGoogleIndex
     {
         public string loc { get; set; }
         public DateTime lastmod { get; set; }
         public string changefreq { get; set; }
         public string priority { get; set; }
 
+        public SitemapGoogleIndex()
+        {
+
+        }
+    }
+
+    [XmlType("url")]
+    public class SitemapGoogle : SitemapGoogleIndex
+    {
         public SitemapGoogle()
         {
         }

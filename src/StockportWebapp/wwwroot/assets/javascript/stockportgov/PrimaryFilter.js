@@ -36,6 +36,7 @@ $(window).resize(function () {
     }
 });
 
+
 $(document).ready(
     function () {
         // set the default values
@@ -49,6 +50,10 @@ $(document).ready(
                 $("#getLocation").toggle();
             }
         );
+
+        if ($('.location-search-input-autoset').length) {
+            $('.location-search-input-autoset').val($('#address').val());
+        }
 
         // get current location
         $("#currentLocation").click(function () {
@@ -76,7 +81,7 @@ $(document).ready(
                         alert("We couldn't find your current location.");
                     }
                 });
-            }, function() {
+            }, function () {
                 alert("We couldn't find your current location -- please check the location settings on your device.");
             });
             return false;
@@ -120,15 +125,46 @@ $(document).ready(
         // auto complete
         $("#btnLocationAutoComplete").click(function (event) {
             event.preventDefault();
+            setLocationValues();
+        });
+
+        var setLocationValues = function () {
             $("#postcode").val(autocompleteName);
+            $("#address").val(autocompleteName);
             $("#latitude").val(autocompleteLocationLatitude);
             $("#longitude").val(autocompleteLocationLongitude);
             UpdateLocationFieldSize();
             $("#getLocation").hide();
-        });
+        };
+
+        if ($('.location-search-input-autoset').length) {
+
+            var addValidationErrorToMeetingLocationField = function () {
+                if ($("#address").hasClass('input-validation-error')) {
+                    $('#location-autocomplete').addClass('input-validation-error');
+                }
+            }
+
+            addValidationErrorToMeetingLocationField();
+
+            $('.location-search-input-autoset').on('change', function () {
+                $("#address").val('');
+                $("#latitude").val(autocompleteLocationLatitude);
+                $("#longitude").val(autocompleteLocationLongitude);
+            });
+
+            $('form').on('invalid-form.validate', function (event, validator) {
+                for (var i = 0; i < validator.errorList.length; i++) {
+                    if (validator.errorList[i].element.id == 'address') {
+                        $('#location-autocomplete').addClass('input-validation-error');
+                        $("[data-valmsg-for='Address']").show();
+                    }
+                }
+            });
+        }
 
         // only run of the auto complete is toggled on
-        if ($(".primary-filter-form-autocomplete").length) {
+        if ($(".primary-filter-form-autocomplete").length || $('.location-search-input').length) {
             // Set the default bounds to the UK
             var defaultBounds = new google.maps.LatLngBounds(
                 new google.maps.LatLng(49.383639452689664, -17.39866406249996),
@@ -149,6 +185,7 @@ $(document).ready(
 
             // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
             searchBox.addListener('places_changed', function () {
+
                 var places = searchBox.getPlaces();
 
                 if (places.length == 0) {
@@ -156,8 +193,24 @@ $(document).ready(
                 }
 
                 autocompleteName = places[0].name;
+                if ($('.location-search-input-autoset').length) {
+                    if (typeof(places[0].formatted_address) !== 'undefined') {
+                        autocompleteName = places[0].formatted_address.replace(', UK', '').replace(', United Kingdom', '');
+                        if (autocompleteName.indexOf(places[0].name) < 0) {
+                            autocompleteName = places[0].name + ', ' + autocompleteName;
+                        }
+                    }
+
+                    $('#location-autocomplete').removeClass('input-validation-error');
+                    $("[data-valmsg-for='Address']").hide();
+                }
+
                 autocompleteLocationLatitude = places[0].geometry.location.lat();
                 autocompleteLocationLongitude = places[0].geometry.location.lng();
+
+                if ($('.location-search-input-autoset').length) {
+                    setLocationValues();
+                }
             });
         }
     });

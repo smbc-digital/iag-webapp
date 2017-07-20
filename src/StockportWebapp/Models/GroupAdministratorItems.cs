@@ -10,5 +10,8 @@ namespace StockportWebapp.Models
 
         [Required(ErrorMessage = "You must supply a role")]
         public string Permission { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "You must supply a name")]
+        public string Name { get; set; } = string.Empty;
     }
 }

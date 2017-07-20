@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
@@ -15,7 +16,7 @@ namespace StockportWebapp.Models
         public string Name { get; set; }
 
         [Display(Name = "Group meeting location")]
-        [Required]
+        [Required(ErrorMessage = "Your meeting place was not recognised. Make sure you choose an address from the dropdown.")]
         [StringLength(500, ErrorMessage = "Location must be 500 characters or less in length.")]
         public string Address { get; set; }
 
@@ -33,12 +34,12 @@ namespace StockportWebapp.Models
         public string CategoriesList { get; set; }
         public List<string> AvailableCategories { get; set; }
 
-        [Required]
+        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
         [Display(Name="Group email address")]
         [EmailAddress(ErrorMessage = "Should be a valid Email Address")]
         public string Email { get; set; }
 
-        [Required]
+        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
         [Display(Name="Group phone number")]
         [Phone]
         public string PhoneNumber { get; set; }
@@ -49,7 +50,10 @@ namespace StockportWebapp.Models
         public string Twitter { get; set; }
         public string Facebook { get; set; }    
         
-        [Display(Name="Do you have any volunteering oppurtunities?")]
+        [Display(Name="Do you have any volunteering opportunities?")]
         public bool Volunteering { get; set; }
+
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

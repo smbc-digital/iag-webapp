@@ -40,7 +40,7 @@
 
                                 <div class="sk-table-header sk-table-thin-row grid-100 grid-parent hide-on-mobile">
                                     <div class="grid-60 tablet-grid-60 mobile-grid-60">
-                                        <span>Email address</span>
+                                        <span>Name</span>
                                     </div>
                                     <div class="grid-30 tablet-grid-25  mobile-grid-40">
                                         <span>Role</span>
@@ -52,9 +52,10 @@
 
                                 @foreach (var user in Model.GroupAdministrators.Items.OrderBy(i => i.Email))
                                 {
+                                    var name = string.IsNullOrWhiteSpace(user.Name) ? "-" : user.Name;
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell grid-60 tablet-grid-60 mobile-grid-100 word-wrap">
-                                            <span class="main mobile-bold">@user.Email</span>
+                                            <span class="main mobile-bold">@name</span>
                                         </div>
                                         <div class="sk-table-cell grid-30 tablet-grid-25 mobile-grid-100">
                                             <span>@GroupPermissionHelper.GetPermisison(user.Permission)</span>

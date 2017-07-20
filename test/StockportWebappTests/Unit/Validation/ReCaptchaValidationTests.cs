@@ -44,7 +44,7 @@ namespace StockportWebappTests.Unit.Validation
             responseMessage.Content = new StringContent("{\"success\": true,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}");
 
             _httpClient.Setup(
-                    x => x.PostAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
+                    x => x.PostRecaptchaAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
                 .ReturnsAsync(responseMessage);
 
             // Act
@@ -55,7 +55,7 @@ namespace StockportWebappTests.Unit.Validation
         }
 
         [Fact]
-        public void ShouldReturnValidationFailureWhenTokenIsCorrect()
+        public void ShouldReturnValidationFailureWhenTokenIsIncorrect()
         {
             // Arrange
             SetUpParameters();
@@ -63,7 +63,7 @@ namespace StockportWebappTests.Unit.Validation
             responseMessage.Content = new StringContent("{\"success\": false,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}");
 
             _httpClient.Setup(
-                    x => x.PostAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
+                    x => x.PostRecaptchaAsync("https://www.google.com/recaptcha/api/siteverify", It.IsAny<FormUrlEncodedContent>()))
                 .ReturnsAsync(responseMessage);
 
             // Act

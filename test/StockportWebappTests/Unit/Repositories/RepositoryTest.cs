@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
 using FluentAssertions;
 using Moq;
+using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -419,5 +422,65 @@ namespace StockportWebappTests.Unit.Repositories
             eventList.Events.First().Teaser.Should().Be("Read more for the event");
         }
 
+        [Fact]
+        public void UpdatesGroup()
+        {
+            var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}";
+
+            var jsonContent = File.ReadAllText("Unit/MockResponses/Group.json");
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            _httpClientMock.Setup(o => o.PutAsync(url, httpContent))
+                .ReturnsAsync(new HttpResponse(200, null, string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.Put<Group>(httpContent, "test_slug"));
+
+            httpResponse.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public void DeletesGroupAdministrator()
+        {
+            var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}/administrators/test@test.com";
+
+            _httpClientMock.Setup(o => o.DeleteAsync(url))
+                .ReturnsAsync(new HttpResponse(200, null, string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.RemoveAdministrator("test_slug", "test@test.com"));
+
+            httpResponse.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public void AddsGroupAdministrator()
+        {
+            var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}/administrators/test@test.com";
+
+            var jsonContent = JsonConvert.SerializeObject("E");
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            _httpClientMock.Setup(o => o.PostAsync(url, httpContent))
+                .ReturnsAsync(new HttpResponse(200, null, string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.AddAdministrator(httpContent, "test_slug", "test@test.com"));
+
+            httpResponse.StatusCode.Should().Be(200);
+        }
+
+        [Fact]
+        public void UpdatesGroupAdministrator()
+        {
+            var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}/administrators/test@test.com";
+
+            var jsonContent = JsonConvert.SerializeObject("E");
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            _httpClientMock.Setup(o => o.PutAsync(url, httpContent))
+                .ReturnsAsync(new HttpResponse(200, null, string.Empty));
+
+            var httpResponse = AsyncTestHelper.Resolve(_repository.UpdateAdministrator(httpContent, "test_slug", "test@test.com"));
+
+            httpResponse.StatusCode.Should().Be(200);
+        }
     }
 }
