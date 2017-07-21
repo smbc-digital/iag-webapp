@@ -30,13 +30,13 @@
         }
 
         <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
-        start = "<div class=\"event-container-row\">";
+        start = "<div class=\"event-container-row matchbox-parent\">";
     }
 
     @Html.Raw(end);
     @Html.Raw(start);
     <div class="group-li grid-33 tablet-grid-50 mobile-grid-100">
-        <a class="group-card" href="@Url.Action("Detail", "Events", new {slug = eventItem.Slug, date = eventItem.EventDate.ToString("yyyy-MM-dd")})" style="height: 353px;">
+        <a class="group-card matchbox-child" href="@Url.Action("Detail", "Events", new {slug = eventItem.Slug, date = eventItem.EventDate.ToString("yyyy-MM-dd")})" style="height: 353px;">
             <div class="group-image" style="background-image: url(@eventItem.ThumbnailImageUrl)"></div>
             <div class="group-card-information grid-100">
                 <div class="grid-100 group-title">
