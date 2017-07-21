@@ -47,13 +47,13 @@
     
     @if (Model.Groups.Any())
     {
-        <ul class="group-listing-container grid-container">
+        <ul class="group-listing-container grid-container matchbox-parent">
             @foreach (var group in Model.Groups)
             {
                 var cost = group.Cost;
                 cost = cost == "Paid" && !string.IsNullOrEmpty(group.CostText) ? group.CostText : cost;
                 <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
-                    <a class="group-card" href="../groups/@group.Slug">
+                    <a class="group-card matchbox-child" href="../groups/@group.Slug">
                         <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(group))"></div>
                         <div class="group-card-information grid-100">
                             <div class="grid-100 group-title">

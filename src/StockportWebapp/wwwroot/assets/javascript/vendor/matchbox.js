@@ -137,19 +137,15 @@
   function getBoxes(instance) {
       // gets a list of the parent items
       var parent = arrayFromList(document.querySelectorAll(instance.settings.parentSelector));
-      var arrayOfBoxes;
+      var arrayOfBoxes = [];
 
       parent.forEach(function (item, index, array) {
           // get a list of the child items within each parent item
           var arr = arrayFromList(item.querySelectorAll(instance.settings.childSelector));
 
-          // dealing with empty array
-          if (arrayOfBoxes == undefined) {
-              arrayOfBoxes = arr;
-          } else {
-              // add to existing array
-              arrayOfBoxes.push.apply(arrayOfBoxes, arr);
-          }
+          // add to existing array
+          arrayOfBoxes.push(arr);
+
       });
       return arrayOfBoxes;
   }
@@ -163,7 +159,9 @@
     var boxes = getBoxes(instance);
 
     boxes.forEach(function (item, index, array) {
-        item.style.height = '';
+        item.forEach(function (item2, index2, array2) {
+            item2.style.height = '';
+        });
     });
   }
 
@@ -260,8 +258,11 @@
    * @param {Object} instance - Matchbox instance
    */
   function runMatchItems(instance) {
-    var boxes = getBoxes(instance);
-    matchItems(boxes, instance.settings.groupsOf);
+      var boxes = getBoxes(instance);
+
+      boxes.forEach(function (box, index, array) {
+          matchItems(box, instance.settings.groupsOf);
+      });
   }
 
   /**

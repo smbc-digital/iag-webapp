@@ -5,8 +5,9 @@
     var hideOnMobile = hasSearched ? "hide-on-mobile" : string.Empty;
     var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
     var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing events " : $"Showing <b>{Model.Category}</b> events ",
-                        Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
-                        Model.DateTo ==null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>  ");
+                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
+                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
+                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>");
 }
 <form action="/events" method="get">
     <div class="full-width-title" id="events-filter-bar">

@@ -5,17 +5,38 @@
 @model EventCalendar
 @{
     DateTime previousEnteredDate = DateTime.MinValue;
+    var hasEvents = Model.Events.Any();
+
 }
-<ul class="grid-container group-listing-container" id="event-listing-container">
+<div class="grid-container" id="event-listing-container">
     
+@if (!hasEvents)
+{
+    <div class="grid-container grid-100">
+        <h1>There are currently no events matching your search.</h1>
+        <p>Please edit your search and try again.</p>
+    </div>
+}
+
 @foreach (var eventItem in Model.Events)
 {
+    var start = string.Empty;
+    var end = string.Empty;
     if (previousEnteredDate != eventItem.EventDate)
     {
-        <h2>@eventItem.EventDate.ToString("dddd dd MMMM yyyy")</h2>
+        if (previousEnteredDate != DateTime.MinValue)
+        {
+            end = "</div>";
+        }
+
+        <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
+        start = "<div class=\"event-container-row matchbox-parent\">";
     }
-    <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
-        <a class="group-card" href="@Url.Action("Detail", "Events", new {slug = eventItem.Slug, date = eventItem.EventDate.ToString("yyyy-MM-dd")})" style="height: 353px;">
+
+    @Html.Raw(end);
+    @Html.Raw(start);
+    <div class="group-li grid-33 tablet-grid-50 mobile-grid-100">
+        <a class="group-card matchbox-child" href="@Url.Action("Detail", "Events", new {slug = eventItem.Slug, date = eventItem.EventDate.ToString("yyyy-MM-dd")})">
             <div class="group-image" style="background-image: url(@eventItem.ThumbnailImageUrl)"></div>
             <div class="group-card-information grid-100">
                 <div class="grid-100 group-title">
@@ -41,9 +62,13 @@
                 </div>
             </div>
         </a>
-    </li>
+    </div>
 
     previousEnteredDate = eventItem.EventDate.Date;
 }
+@if (hasEvents)
+{
+    @Html.Raw("</div>")
     @Html.Partial("Pagination", Model.Pagination)
-</ul>
+}
+</div>

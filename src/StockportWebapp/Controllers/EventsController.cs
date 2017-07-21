@@ -19,6 +19,7 @@ using StockportWebapp.RSS;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
 {
@@ -34,6 +35,7 @@ namespace StockportWebapp.Controllers
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
         private readonly CalendarHelper _helper;
+        private readonly FeatureToggles _featureToggle;
 
         public EventsController(
             IRepository repository,
@@ -45,7 +47,8 @@ namespace StockportWebapp.Controllers
             BusinessId businessId, 
             IFilteredUrl filteredUrl,
             CalendarHelper helper,
-            ITimeProvider timeProvider)
+            ITimeProvider timeProvider, 
+            FeatureToggles featureToggle)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -56,12 +59,13 @@ namespace StockportWebapp.Controllers
             _businessId = businessId;
             _filteredUrl = filteredUrl;
             _helper = helper;
+            _featureToggle = featureToggle;
         }
 
         [Route("/events")]
         public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
-        {           
-            if (eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
+        {
+            if (_featureToggle.DisplayNewEventPageFeatures || eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
                 if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
                 {
@@ -74,13 +78,13 @@ namespace StockportWebapp.Controllers
                 }
             }
 
-            var queries = new List<Query>();           
+            var queries = new List<Query>();
 
             if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
             if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
             if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));
             if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tag", eventsCalendar.Tag));
-             
+
             var httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
             if (!httpResponse.IsSuccessful()) return httpResponse;
