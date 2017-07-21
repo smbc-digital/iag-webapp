@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Dtos;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.QuestionBuilder.Maps;
 
@@ -15,15 +16,17 @@ namespace StockportWebapp.Controllers
     [Route("building-regs")]
     public class BuildingRegsController : BaseQuestionController<BuildingRegsModel, BuildingRegsMap>
     {
-
-        public BuildingRegsController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader) : base("building-regs", HttpContextAccessor, questionLoader)
+        public FeatureToggles _FeatureToggling;
+        public BuildingRegsController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling) : base("building-regs", HttpContextAccessor, questionLoader)
         {
-
+            _FeatureToggling = FeatureToggling;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
+            if (!_FeatureToggling.SmartAnswers) return Redirect("FriendlyError");
+
             var page = GetPage(0);
             return View(page);
         }
@@ -31,7 +34,7 @@ namespace StockportWebapp.Controllers
         [Route("unknown-error")]
         public IActionResult FriendlyError()
         {
-            return View();
+            return RedirectToAction("Error", new { id = 404 });
         }
 
         public override async Task<IActionResult> ProcessResults(BuildingRegsModel result, string endpointName)

@@ -9,6 +9,7 @@ prod: &prod
   ExportGroupEventsToCalendar: false
   DisplayNewEventPageFeatures: false
   ExportGroupEventsToCalendar: true
+  SmartAnswers : false
 
 stage: &stage
   << : *prod
@@ -23,7 +24,8 @@ int: &int
   << : *stage
   << : *qa
   ExportGroupEventsToCalendar: true
-  DisplayNewEventPageFeatures: true
+  DisplayNewEventPageFeatures: false
+  SmartAnswers : true
 
 local:
   << : *prod

@@ -1,7 +1,13 @@
-﻿<div class="grid-100 notification notification-error">
-    <div class="icon-bordered icon-bordered-fixed">
-        <i class="fa fa-exclamation fa-5x" aria-hidden="true"></i>
+﻿@{
+    Layout = "../Shared/_LayoutError.cshtml";
+}
+
+<main class="grid-container">
+    <div class="l-container-square l-body-container l-body-container-pushed l-body-container-mobile">
+        <div class="error-page">
+            <h1>Something's missing</h1>
+            <p class="error-page-message">Sorry, the page you are looking for cannot be found. It may have been removed, had its name changed, or is temporarily unavailable.</p>
+            <p><a href="/">Go back to the home page</a></p>
+        </div>
     </div>
-    <p><strong>We're having a few problems showing you this information</strong></p>
-    <p>Try again in a couple of minutes and we'll get things back up and running</p>
-</div>
+</main>
