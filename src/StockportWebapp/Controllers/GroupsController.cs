@@ -934,6 +934,47 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
+        [HttpGet]
+        [Route("/groups/manage/{slug}/events")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> ViewGroupsEvents(string slug, LoggedInPerson loggedInPerson)
+        {
+            var response = await _repository.Get<Group>(slug, _managementQuery);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as Group;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+
+            return View(group);
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{groupSlug}/events/{eventSlug}")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> GroupEventsDetails(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
+        {
+            var responseEvent = await _repository.Get<Event>(eventSlug, _managementQuery);
+            var responseGroup = await _repository.Get<Group>(groupSlug, _managementQuery);
+
+            if (!responseEvent.IsSuccessful()) return responseEvent;
+            if (!responseGroup.IsSuccessful()) return responseGroup;
+
+            var eventItem = responseEvent.Content as Event;
+            var group = responseGroup.Content as Group;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+
+            return View(eventItem);
+        }
+
         private void DoPagination(GroupResults groupResults, int currentPageNumber ,int pageSize)
         {
             if ((groupResults != null) && groupResults.Groups.Any())

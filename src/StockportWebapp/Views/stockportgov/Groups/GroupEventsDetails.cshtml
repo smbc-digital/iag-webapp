@@ -1,0 +1,32 @@
+﻿@using StockportWebapp.Models
+@model Event
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["og:title"] = Model.Title;
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "groups") })
+}
+<div class="grid-container grid-100 event-details">
+    <h1>@Model.Title </h1>
+    <h3>Event summary</h3>
+    <p><strong>Event date: </strong>@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
+    <p><strong>Start time: </strong> @Model.StartTime</p>
+    <p><strong>End time: </strong>@Model.EndTime</p>
+    <p><strong>Price: </strong>@Model.Fee</p>
+    <p><strong>Location: </strong>@Model.Location</p>
+    <p><strong>Organiser name: </strong>@Model.SubmittedBy</p>
+    <p><strong>Description: </strong>@Model.Description</p>
+    <div class="grid-100 grid-parent details-button">
+        <stock-button as-link="true" href="#">Edit your event</stock-button>    
+    </div>
+    
+    <div class="grid-100 grid-parent details-button">
+        <stock-button as-link="true" class="grey" href="#">Delete your event</stock-button>
+    </div>
+    
+</div>

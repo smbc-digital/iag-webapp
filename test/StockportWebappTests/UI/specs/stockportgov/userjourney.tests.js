@@ -2,6 +2,7 @@ module.exports = {
     before: function (browser) {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
+        browser.maximizeWindow();
     },
 
    'Find article for About the Hat Works': function (browser) {
