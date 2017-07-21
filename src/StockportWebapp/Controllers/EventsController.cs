@@ -80,9 +80,6 @@ namespace StockportWebapp.Controllers
 
             var queries = new List<Query>();
 
-            if (eventsCalendar.DateFrom.HasValue && !eventsCalendar.DateTo.HasValue) eventsCalendar.DateTo = eventsCalendar.DateFrom;
-            if (eventsCalendar.DateTo.HasValue && !eventsCalendar.DateFrom.HasValue) eventsCalendar.DateFrom = eventsCalendar.DateTo;
-
             if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
             if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
             if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));

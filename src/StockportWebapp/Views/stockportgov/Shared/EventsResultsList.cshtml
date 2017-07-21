@@ -36,7 +36,7 @@
     @Html.Raw(end);
     @Html.Raw(start);
     <div class="group-li grid-33 tablet-grid-50 mobile-grid-100">
-        <a class="group-card matchbox-child" href="@Url.Action("Detail", "Events", new {slug = eventItem.Slug, date = eventItem.EventDate.ToString("yyyy-MM-dd")})" style="height: 353px;">
+        <a class="group-card matchbox-child" href="@Url.Action("Detail", "Events", new {slug = eventItem.Slug, date = eventItem.EventDate.ToString("yyyy-MM-dd")})">
             <div class="group-image" style="background-image: url(@eventItem.ThumbnailImageUrl)"></div>
             <div class="group-card-information grid-100">
                 <div class="grid-100 group-title">
