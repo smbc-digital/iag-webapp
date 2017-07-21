@@ -8,6 +8,16 @@ STK.Matchboxes = (function () {
     var populate = function () {
 
         matchboxes.push(new Matchbox({
+            parentSelector: ".event-container-row",
+            childSelector: ".group-li .group-card",
+            groupsOf: 1,
+            breakpoints: [
+            { bp: 767, groupsOf: 2 },
+            { bp: 1024, groupsOf: 3 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
             parentSelector: ".group-listing-container",
             childSelector: ".group-li .group-card",
             groupsOf: 1,

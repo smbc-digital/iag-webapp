@@ -5,8 +5,8 @@
 
 @model EventCalendar
 @{    
-    ViewData["og:title"] = "Events";
-    ViewData["Title"] = "Events";
+    ViewData["og:title"] = "What's on in Stockport";
+    ViewData["Title"] = "What's on in Stockport";
     Layout = "../Shared/_Layout.cshtml";
 
     var hasSearched = !string.IsNullOrWhiteSpace(Model.Category) || Model.DateFrom != null || Model.DateTo != null;
@@ -33,7 +33,7 @@
         @Html.Partial("EventsFilterBar", Model)
     }
 
-    @if (FeatureToggles.DisplayNewEventPageFeatures && hasSearched)
+    @if (FeatureToggles.DisplayNewEventPageFeatures)
     {
         @Html.Partial("EventsResultsList", Model)
     }

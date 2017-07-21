@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
@@ -31,16 +30,15 @@ namespace StockportWebapp.Models
         [Display(Name = "End time")]
         [DataType(DataType.Time)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:H:mm}")]
-        [EndTimeLaterThanStartTimeValidation(otherPropertyName: "StartTime", erroMessgae: "End Time should be after Start Time")]
+        [EndTimeLaterThanStartTimeValidation(otherPropertyName: "StartTime", errorMessage: "End Time should be after Start Time")]
         public DateTime? EndTime { get; set; }
 
         [FutureDateValidation]
         [DataType(DataType.Date)]
         [Display(Name = "End date")]
-        [EndDateLaterThanStartDateValidation(otherPropertyName: "EventDate", erroMessgae: "End Date should be after Start Date")]
-        [EndDateGreaterThanStartDateFrequencyPeriodValidation(otherPropertyName: "EventDate", frequencyPropertyName: "Frequency", erroMessgae: "End Date should be after Start Date")]
+        [EndDateLaterThanStartDateValidation(otherPropertyName: "EventDate", errorMessage: "End Date should be after Start Date")]
+        [EndDateGreaterThanStartDateFrequencyPeriodValidation(otherPropertyName: "EventDate", frequencyPropertyName: "Frequency", errorMessage: "End Date should be after Start Date")]
         public DateTime? EndDate { get; set; }
-
 
         public string RecurringEventYn { get; set; }
 
