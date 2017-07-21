@@ -7,13 +7,30 @@
 @model StockportWebapp.QuestionBuilder.Entities.Page
 
 
-<div class="container-header grid-container">
+<div class="container-header grid-container building-regs">
     <div class="grid-100">
         <h1>Do I need building regulations?</h1>
 
         @Html.Partial("Components/QuestionRenderer/QuestionForm")
     </div>
 </div>
+
+<style>
+    .building-regs {
+        background-color:#fff;
+    }
+
+    .building-regs h1 {
+        padding: 20px 0;
+        font-size: 50px;
+        margin-bottom: 0;
+        color: #055c58;
+    }
+
+    .question-button-next {
+        margin-bottom: 40px;
+    }
+</style>
 
 @*<script>
     require(["questionComponent/questionModule"], function (module) {

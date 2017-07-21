@@ -43,7 +43,7 @@ namespace StockportWebapp.QuestionBuilder
         {
             var smart = _repository.Get<SmartAnswersSpike>("building-regs").Result.Content as SmartAnswersSpike;
 
-            return smart.JsonTextField;
+            return smart.Questionjson;
         }
 
         private ImmutableDictionary<int, Page> BuildQuestionMapFromList(IList<Page> questionList)

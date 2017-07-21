@@ -8,6 +8,6 @@ namespace StockportWebapp.Models
     public class SmartAnswersSpike
     {
         public string Slug { get; set; }
-        public string JsonTextField { get; set; }
+        public string Questionjson { get; set; }
     }
 }
