@@ -35,7 +35,14 @@
 
     @if (FeatureToggles.DisplayNewEventPageFeatures)
     {
-        @Html.Partial("EventsResultsList", Model)
+        if (Model.FromSearch)
+        {
+            @Html.Partial("EventsResultsList", Model)
+        }
+        else
+        {
+            @Html.Partial("EventsHomepage", Model)
+        }
     }
     else
     {

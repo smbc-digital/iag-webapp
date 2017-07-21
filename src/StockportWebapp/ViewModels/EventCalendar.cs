@@ -34,6 +34,8 @@ namespace StockportWebapp.ViewModels
 
         public EventCalendar() { }
 
+        public bool FromSearch { get; set; }
+
         public EventCalendar(List<Event> events, List<string> categories)
         {
             Events = events;

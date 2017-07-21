@@ -63,7 +63,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize, [FromQuery]int search)
         {
             if (_featureToggle.DisplayNewEventPageFeatures || eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
@@ -94,6 +94,7 @@ namespace StockportWebapp.Controllers
             eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
             eventsCalendar.AddFilteredUrl(_filteredUrl);
+            eventsCalendar.FromSearch = search == 1;
 
             DoPagination(eventsCalendar, Page, eventResponse, pageSize);
 
