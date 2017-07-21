@@ -1,11 +1,11 @@
 ﻿@using StockportWebapp.Utils
 @model StockportWebapp.ProcessedModels.ProcessedHomepage
 @inject ViewHelpers viewHelper
-<ul class="nav-card-list latest-container">
+<ul class="nav-card-list latest-container matchbox-parent">
     @if (Model.FeaturedNewsItem != null)
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-            <span class="latest-nav-card-item">
+            <span class="latest-nav-card-item matchbox-child">
                 <h2 class="news title">Latest news</h2>
                 <div class="body">
                     <a href="/news/@Model.FeaturedNewsItem.Slug">
@@ -23,7 +23,7 @@
     @if (Model.FeaturedEventItem != null)
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-            <span class="latest-nav-card-item">
+            <span class="latest-nav-card-item matchbox-child">
                 <h2 class="event title">What's on in Stockport</h2>
                 <div class="body">
                     <a href="/events/@Model.FeaturedEventItem.Slug">
@@ -41,7 +41,7 @@
     @if (Model.FeaturedGroupItem != null)
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-            <span class="latest-nav-card-item">
+            <span class="latest-nav-card-item matchbox-child">
                 <h2 class="group title">Featured group</h2>
                 <div class="body">
                     <a href="/groups/@Model.FeaturedGroupItem.Slug">
