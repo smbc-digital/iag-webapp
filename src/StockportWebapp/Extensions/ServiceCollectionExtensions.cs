@@ -5,7 +5,9 @@ using System.Net;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
+using AngleSharp.Parser.Html;
 using Markdig;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -65,6 +67,7 @@ namespace StockportWebapp.Extensions
         public static IServiceCollection AddTimeProvider(this IServiceCollection services)
         {
             services.AddSingleton<ITimeProvider>(new TimeProvider());
+            services.AddTransient<IDateCalculator>(p => new DateCalculator(p.GetService<ITimeProvider>()));
 
             return services;
         }
@@ -257,6 +260,14 @@ namespace StockportWebapp.Extensions
             {
                 logger.LogInformation("Not using redis for session management!");
             }
+
+            return services;
+        }
+
+        public static IServiceCollection AddCustomisedAngleSharp(this IServiceCollection services)
+        {
+            services.AddTransient<HtmlParser>();
+            services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
 
             return services;
         }

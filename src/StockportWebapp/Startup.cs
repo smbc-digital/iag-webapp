@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using AngleSharp.Parser.Html;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -15,7 +12,6 @@ using StockportWebapp.Config;
 using StockportWebapp.Middleware;
 using StockportWebapp.Scheduler;
 using StockportWebapp.ModelBinders;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.Extensions;
@@ -55,13 +51,11 @@ namespace StockportWebapp
             services.AddSingleton(o => new ViewHelpers(o.GetService<ITimeProvider>()));
             services.AddScoped<BusinessId>();
             services.AddTransient(p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
-            services.AddTransient<HtmlParser>();
-            services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
-            services.AddTransient<IDateCalculator>(p => new DateCalculator(p.GetService<ITimeProvider>()));
 
             // custom extensions
+            services.AddCustomisedAngleSharp();
             services.AddFeatureToggles(_contentRootPath, _appEnvironment);
             services.AddCustomisationOfViews();
             services.AddTimeProvider();
@@ -95,7 +89,7 @@ namespace StockportWebapp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
-            if (env.IsEnvironment("int") || env.IsEnvironment("local") || env.IsEnvironment("qa"))
+            if (_appEnvironment == "int" || _appEnvironment == "local" || _appEnvironment == "qa")
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -110,45 +104,13 @@ namespace StockportWebapp
             app.UseMiddleware<BetaToWwwMiddleware>();
             app.UseMiddleware<SecurityHeaderMiddleware>();
 
-            loggerFactory.AddNLog();
             app.UseApplicationInsightsRequestTelemetry();
             app.UseApplicationInsightsExceptionTelemetry();
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                OnPrepareResponse =
-                    (context) =>
-                    {
-                        var isLive = context.Context.Request.Host.Value.StartsWith("www.");
-                        var businessId = context.Context.Request.Headers["BUSINESS-ID"];
-                        var url = string.Concat("robots-", businessId, isLive ? "-live" : "", ".txt");
-                        if (context.File.Name == url)
-                        {
-                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=0";
-                        }
-                        else
-                        {
-                            context.Context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.Medium.ToString();
-                        }
-                    }
-            });
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
 
-            var ci = new CultureInfo("en-GB") { DateTimeFormat = { ShortDatePattern = "dd/MM/yyyy" } };
-
-            // Configure the Localization middleware
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture(ci),
-                SupportedCultures = new List<CultureInfo>
-            {
-                new CultureInfo("en-GB"),
-            },
-                SupportedUICultures = new List<CultureInfo>
-            {
-                new CultureInfo("en-GB"),
-            }
-            });
+            // custom extenstions
+            app.UseCustomStaticFiles();
+            app.UseCustomCulture();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
