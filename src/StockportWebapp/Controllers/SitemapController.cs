@@ -33,8 +33,7 @@ namespace StockportWebapp.Controllers
             var baseURL = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
             var now = DateTime.Now;
             _logger.LogInformation(string.Concat("Hitting site map for: ", type));
-            var domainUrl = Request?.GetUri().AbsoluteUri.Replace(Request?.GetUri().PathAndQuery, "/");
-
+          
             var xml = string.Empty;
             switch (type)
             {
@@ -52,7 +51,7 @@ namespace StockportWebapp.Controllers
                                 {
                                     changefreq = "daily",
                                     lastmod = now,
-                                    loc = domainUrl + "news/" + n.Slug,
+                                    loc = $"{baseURL}/news/{n.Slug}",
                                     priority = "1.0"
                                 }).ToList();
 
