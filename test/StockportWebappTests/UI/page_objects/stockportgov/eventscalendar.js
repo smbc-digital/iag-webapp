@@ -13,7 +13,7 @@ var methods = {
     goToFirstEvent: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
         browser.useCss().assert.visible("h3")
-            .click(".nav-card-events-title");
+            .click("h3");
     },
 
     removeFirstFilter: function (browser) {
