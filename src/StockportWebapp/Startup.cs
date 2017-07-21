@@ -32,12 +32,14 @@ using StockportWebapp.ModelBinders;
 using StockportWebapp.DataProtection;
 using System.Linq;
 using System.Net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Filters;
 using StockportWebapp.Validation;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.Helpers;
+using StockportWebapp.QuestionBuilder;
 
 namespace StockportWebapp
 {
@@ -222,6 +224,10 @@ namespace StockportWebapp
 
             services.Configure<RazorViewEngineOptions>(
             options => { options.ViewLocationExpanders.Add(new ViewLocationExpander()); });
+
+
+            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

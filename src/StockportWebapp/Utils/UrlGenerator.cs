@@ -48,6 +48,7 @@ namespace StockportWebapp.Utils
             {typeof(ContactUsId), "ContactUsId/"},
             {typeof(List<ArticleSiteMap>), "articleSiteMap"},
             {typeof(List<SectionSiteMap>), "sectionSiteMap"},
+            {typeof(SmartAnswersSpike), "SmartAnswers/"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)
@@ -58,17 +59,20 @@ namespace StockportWebapp.Utils
 
         public string UrlFor<T>(string slug = "", List<Query> queries = null)
         {
-            return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], slug, CreateQueryString(queries));
+            return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], slug,
+                CreateQueryString(queries));
         }
 
         public string UrlForLimit<T>(int limit)
         {
-            return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/", limit.ToString());
+            return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/",
+                limit.ToString());
         }
 
         public string UrlForLimitAndFeatured<T>(int limit, bool featured)
         {
-            return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/", limit.ToString(), $"?featured={featured.ToString().ToLower()}");
+            return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/latest/",
+                limit.ToString(), $"?featured={featured.ToString().ToLower()}");
         }
 
         private static string CreateQueryString(List<Query> queries)
@@ -96,12 +100,12 @@ namespace StockportWebapp.Utils
         public string HealthcheckUrl()
         {
             var baseUrl = _config.GetContentApiUrlRoot();
-            return  new UriBuilder
+            return new UriBuilder
             {
-                Host   = baseUrl.Host,
-                Port   = baseUrl.Port,
+                Host = baseUrl.Host,
+                Port = baseUrl.Port,
                 Scheme = baseUrl.Scheme,
-                Path   = baseUrl.LocalPath + "_healthcheck"
+                Path = baseUrl.LocalPath + "_healthcheck"
             }.Uri.ToString();
         }
     }
