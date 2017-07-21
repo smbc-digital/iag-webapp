@@ -132,7 +132,7 @@ namespace StockportWebapp.QuestionBuilder
             if (Structure.ContainsKey(pageId))
             {
                 page = Structure[pageId];
-                page.Reset();
+                //page.Reset();
             }
 
             return page;

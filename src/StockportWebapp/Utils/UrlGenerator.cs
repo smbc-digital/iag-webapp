@@ -48,7 +48,7 @@ namespace StockportWebapp.Utils
             {typeof(ContactUsId), "ContactUsId/"},
             {typeof(List<ArticleSiteMap>), "articleSiteMap"},
             {typeof(List<SectionSiteMap>), "sectionSiteMap"},
-            {typeof(SmartAnswersSpike), "SmartAnswers/"}
+            {typeof(SmartAnswers), "SmartAnswers/"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)

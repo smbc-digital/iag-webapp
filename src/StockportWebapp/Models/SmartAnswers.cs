@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StockportWebapp.Models
 {
-    public class SmartAnswersSpike
+    public class SmartAnswers
     {
         public string Slug { get; set; }
         public string Questionjson { get; set; }

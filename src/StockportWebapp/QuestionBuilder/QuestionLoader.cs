@@ -41,9 +41,11 @@ namespace StockportWebapp.QuestionBuilder
 
         public string LoadJson<TQuestionStructure>(string questionSetFilename) where TQuestionStructure : IQuestionStructure, new()
         {
-            var smart = _repository.Get<SmartAnswersSpike>("building-regs").Result.Content as SmartAnswersSpike;
+            var smart = _repository.Get<SmartAnswers>("building-regs").Result.Content;
 
-            return smart.Questionjson;
+            var question = smart as SmartAnswers;
+
+            return question.Questionjson;
         }
 
         private ImmutableDictionary<int, Page> BuildQuestionMapFromList(IList<Page> questionList)
