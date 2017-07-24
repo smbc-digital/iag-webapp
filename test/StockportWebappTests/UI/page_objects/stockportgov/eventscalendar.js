@@ -26,7 +26,7 @@ module.exports = {
   commands: [methods],
   url: function () {
     // This is giving us a page object for the index method
-      return this.api.globals.testUri + "/events";
+      return this.api.globals.testUri + "/events?FromSearch=true";
   },
   elements: {
       pageTitle: "h1",
