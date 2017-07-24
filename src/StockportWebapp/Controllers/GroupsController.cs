@@ -972,6 +972,9 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
+            ViewBag.GroupName = group.Name;
+            ViewBag.GroupSlug = group.Slug;
+
             return View(eventItem);
         }
 

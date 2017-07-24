@@ -9,7 +9,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + ViewBag.GroupSlug + "/events/", "groups") })
 }
 <div class="grid-container grid-100 event-details">
     <h1 id="event-title">@Model.Title </h1>
