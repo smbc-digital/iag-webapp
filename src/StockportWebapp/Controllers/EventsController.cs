@@ -40,14 +40,14 @@ namespace StockportWebapp.Controllers
         public EventsController(
             IRepository repository,
             IProcessedContentRepository processedContentRepository,
-            EventEmailBuilder emailBuilder, 
+            EventEmailBuilder emailBuilder,
             IRssFeedFactory rssFeedFactory,
-            ILogger<EventsController> logger, 
-            IApplicationConfiguration config, 
-            BusinessId businessId, 
+            ILogger<EventsController> logger,
+            IApplicationConfiguration config,
+            BusinessId businessId,
             IFilteredUrl filteredUrl,
             CalendarHelper helper,
-            ITimeProvider timeProvider, 
+            ITimeProvider timeProvider,
             FeatureToggles featureToggle)
         {
             _repository = repository;
@@ -81,48 +81,43 @@ namespace StockportWebapp.Controllers
             eventsCalendar.FromSearch = eventsCalendar.FromSearch || !string.IsNullOrWhiteSpace(eventsCalendar.Category) || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
                                                                     || eventsCalendar.DateFrom != null || eventsCalendar.DateTo != null;
 
-            if (eventsCalendar.FromSearch)
+            if (eventsCalendar.DateFrom.HasValue && eventsCalendar.DateTo.HasValue && eventsCalendar.DateFrom > eventsCalendar.DateTo)
             {
-                if (eventsCalendar.DateFrom.HasValue && eventsCalendar.DateTo.HasValue && eventsCalendar.DateFrom > eventsCalendar.DateTo)
-                {
-                    eventsCalendar.DateTo = eventsCalendar.DateFrom;
-                }
-
-                var queries = new List<Query>();
-
-                if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
-                if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
-                if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));
-                if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tag", eventsCalendar.Tag));
-
-                var httpResponse = await _repository.Get<EventResponse>(queries: queries);
-
-                if (!httpResponse.IsSuccessful()) return httpResponse;
-
-                var eventResponse = httpResponse.Content as EventResponse;
-
-                eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-                _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
-                eventsCalendar.AddFilteredUrl(_filteredUrl);
-
-                DoPagination(eventsCalendar, Page, eventResponse, pageSize);
-
-                if (eventResponse != null)
-                {
-                    eventsCalendar.AddEvents(eventResponse.Events);
-                    eventsCalendar.AddCategories(eventResponse.Categories);
-                }
+                eventsCalendar.DateTo = eventsCalendar.DateFrom;
             }
-            else
+
+            var queries = new List<Query>();
+
+            if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
+            if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
+            if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));
+            if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tag", eventsCalendar.Tag));
+
+            var httpResponse = await _repository.Get<EventResponse>(queries: queries);
+
+            if (!httpResponse.IsSuccessful()) return httpResponse;
+
+            var eventResponse = httpResponse.Content as EventResponse;
+
+            eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
+            eventsCalendar.AddFilteredUrl(_filteredUrl);
+
+            DoPagination(eventsCalendar, Page, eventResponse, pageSize);
+
+            if (eventResponse != null)
             {
-                var httpHomeResponse = await _repository.Get<EventHomepage>();
-
-                if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
-
-                var eventResponse = httpHomeResponse.Content as EventHomepage;
-
-                eventsCalendar.Homepage = eventResponse;
+                eventsCalendar.AddEvents(eventResponse.Events);
+                eventsCalendar.AddCategories(eventResponse.Categories);
             }
+
+            var httpHomeResponse = await _repository.Get<EventHomepage>();
+
+            if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
+
+            var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+
+            eventsCalendar.Homepage = eventHomeResponse;
 
             return View(eventsCalendar);
         }
@@ -132,8 +127,8 @@ namespace StockportWebapp.Controllers
             if (eventResponse != null && eventResponse.Events.Any())
             {
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                    eventResponse.Events, 
-                    currentPageNumber, 
+                    eventResponse.Events,
+                    currentPageNumber,
                     "events",
                     pageSize,
                     _config.GetEventsDefaultPageSize("stockportgov"));
@@ -170,14 +165,14 @@ namespace StockportWebapp.Controllers
             {
                 ViewBag.Eventdate = response?.EventDate.ToString("yyyy-MM-dd");
             }
-                
+
 
             return View(response);
         }
 
         [Route("/events/add-your-event")]
         public async Task<IActionResult> AddYourEvent()
-        {         
+        {
             var eventSubmission = new EventSubmission();
             return View(eventSubmission);
         }
@@ -195,7 +190,7 @@ namespace StockportWebapp.Controllers
 
             var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
-               
+
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
             return View(eventSubmission);
@@ -248,8 +243,14 @@ namespace StockportWebapp.Controllers
         {
             var eventItem = new Event()
             {
-                Slug = slug, EventDate = eventDate, Title = name, Location = location, StartTime = startTime,
-                EndTime = endTime, Description = description, Teaser = summary
+                Slug = slug,
+                EventDate = eventDate,
+                Title = name,
+                Location = location,
+                StartTime = startTime,
+                EndTime = endTime,
+                Description = description,
+                Teaser = summary
             };
 
             if (type == "google" || type == "yahoo")
