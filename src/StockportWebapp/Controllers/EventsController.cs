@@ -111,13 +111,16 @@ namespace StockportWebapp.Controllers
                 eventsCalendar.AddCategories(eventResponse.Categories);
             }
 
-            var httpHomeResponse = await _repository.Get<EventHomepage>();
+            if (!eventsCalendar.FromSearch)
+            {
+                var httpHomeResponse = await _repository.Get<EventHomepage>();
 
-            if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
+                if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
 
-            var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+                var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
-            eventsCalendar.Homepage = eventHomeResponse;
+                eventsCalendar.Homepage = eventHomeResponse;
+            }
 
             return View(eventsCalendar);
         }
