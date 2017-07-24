@@ -78,7 +78,7 @@ namespace StockportWebapp.Controllers
                 }
             }
 
-            eventsCalendar.FromSearch = eventsCalendar.FromSearch || !string.IsNullOrWhiteSpace(eventsCalendar.Category) 
+            eventsCalendar.FromSearch = eventsCalendar.FromSearch || !string.IsNullOrWhiteSpace(eventsCalendar.Category) || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
                                                                     || eventsCalendar.DateFrom != null || eventsCalendar.DateTo != null;
 
             if (eventsCalendar.FromSearch)

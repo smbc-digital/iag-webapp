@@ -366,7 +366,12 @@ ul.nav-card-events-list {
 }
 
 #event-listing-container {
+
     margin-top: 0;
+
+    &.no-margin {
+        margin-top: -20px;
+    }
 
     .no-results {
         margin-bottom: 125px;
@@ -389,13 +394,27 @@ ul.nav-card-events-list {
 
     .home-page-row
     {
-        &:nth-child(even)
+        .event-header
         {
-        background-color:#ffffff;
+            margin: 10px 0 10px 15px;
+        }
+
+        h3 {
+            display: inline-block;
+        }
+
+        .view-more {
+            text-decoration: underline;
+            margin-left:30px;
+        }
+
+        &:nth-child(even) {
+            background-color:#ffffff;
         }
      
-
-
+        .group-card {
+            border: solid 1px #d3d3d3;
+        }
     }
 }
 
