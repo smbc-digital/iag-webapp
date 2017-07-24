@@ -81,11 +81,6 @@ namespace StockportWebapp.Controllers
             eventsCalendar.FromSearch = eventsCalendar.FromSearch || !string.IsNullOrWhiteSpace(eventsCalendar.Category) || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
                                                                     || eventsCalendar.DateFrom != null || eventsCalendar.DateTo != null;
 
-            if (eventsCalendar.DateFrom.HasValue && eventsCalendar.DateTo.HasValue && eventsCalendar.DateFrom > eventsCalendar.DateTo)
-            {
-                eventsCalendar.DateTo = eventsCalendar.DateFrom;
-            }
-
             var queries = new List<Query>();
 
             if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
