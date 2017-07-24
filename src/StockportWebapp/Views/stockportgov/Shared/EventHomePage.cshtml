@@ -12,11 +12,11 @@
             <h3>@(row.IsLatest ? "Upcoming events" : row.Tag)</h3>
             @if (row.IsLatest)
             { 
-                <a class="view-more" title="View more events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
+                <a class="view-more hide-on-mobile" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>
             }
             else
             {
-                <a class="view-more" title="View more @row.Tag events" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more</a>
+                <a class="view-more hide-on-mobile" title="View more @row.Tag events" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more</a>
             }
             </div>
             <div class="grid-100 grid-parent event-container-row matchbox-parent">
@@ -26,18 +26,14 @@
                     switch (i)
                     {
                         case 1:
+                        case 2:
                             {
                                 classname = string.Empty;
                                 break;
                             }
-                        case 2:
-                            {
-                                classname = "hide-on-mobile";
-                                break;
-                            }
                         case 3:
                             {
-                                classname = "hide-on-mobile hide-on-tablet";
+                                classname = "hide-on-tablet";
                                 break;
                             }
                         default:
@@ -50,6 +46,16 @@
                         @Html.Partial("EventCard", item)
                     </div>
                     i++;
+                }
+            </div>
+            <div class="grid-100 hide-on-desktop hide-on-tablet">
+                @if (row.IsLatest)
+                {
+                    <stock-button as-link="true" class="white" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more upcoming events</stock-button>
+                }
+                else
+                {
+                    <stock-button as-link="true" class="white" title="View more @row.Tag events" href="@Url.Action("Index", "Events", new { Tag = row.Tag } )">View more @row.Tag events</stock-button>
                 }
             </div>
         </div>
