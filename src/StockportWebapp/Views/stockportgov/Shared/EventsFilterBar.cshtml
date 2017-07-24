@@ -5,10 +5,12 @@
     var hideOnMobile = hasSearched ? "hide-on-mobile" : string.Empty;
     var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
     var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing events " : $"Showing <b>{Model.Category}</b> events ",
-                        Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
-                        Model.DateTo ==null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>  ");
+                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
+                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
+                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>");
 }
 <form action="/events" method="get">
+    <input type="hidden" asp-for="@Model.FromSearch" value="true" />
     <div class="full-width-title" id="events-filter-bar">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @hideOnMobile">
@@ -17,14 +19,14 @@
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @showOnMobile">
                 <h2>@Html.Raw(nowShowing)</h2>
             </div>
-            <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section closed">
+            <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section open">
                 <div class="grid-25 tablet-grid-33 mobile-grid-100" class="form-field">
                     <div><label asp-for="@Model.DateFrom"></label></div>
-                    <div><input type="date" asp-for="@Model.DateFrom" placeholder="All dates" class="form-control" /></div>
+                    <div><input type="date" asp-for="@Model.DateFrom" placeholder="All dates" class="form-control datepicker" /></div>
                 </div>
                 <div class="grid-25 tablet-grid-33 mobile-grid-100" class="form-field">
                     <div><label asp-for="@Model.DateTo"></label></div>
-                    <div><input type="date" asp-for="@Model.DateTo" placeholder="All dates" class="form-control" /></div>
+                    <div><input type="date" asp-for="@Model.DateTo" placeholder="All dates" class="form-control datepicker" /></div>
                 </div>
                 <div class="grid-25 tablet-grid-33 mobile-grid-100" class="form-field">
                     <div><label asp-for="@Model.Category"></label></div>
@@ -35,11 +37,14 @@
                     <div class="button-container"><stock-button class="button-outline-white-transparent">Find what's on</stock-button></div>
                 </div>
             </div>
+            @if (Model.FromSearch)
+            {
             <div class="hide-on-tablet hide-on-desktop mobile-grid-100">
                 <div class="edit-search">
-                    <a href="javascript:toggleSearch();" id="edit-search-link" class="open">Edit search</a>
+                    <a href="javascript:toggleSearch();" id="edit-search-link" class="closed">Edit search</a>
                 </div> 
             </div>
+            }
         </div>
     </div>
 </form>

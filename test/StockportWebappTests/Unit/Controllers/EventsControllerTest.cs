@@ -16,6 +16,7 @@ using StockportWebapp.ViewModels;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -37,6 +38,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
         private readonly Mock<IFilteredUrl> _filteredUrl;
+        private readonly FeatureToggles _featureToggle;
 
         private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
             twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
@@ -50,6 +52,8 @@ namespace StockportWebappTests.Unit.Controllers
         public const int MaxNumberOfItemsPerPage = 15;
         public EventsControllerTest()
         {
+            _featureToggle = new FeatureToggles() { DisplayNewEventPageFeatures = true };
+
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
                                       Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group, Alerts = _alerts};
             _categories = new List<string> {"Category 1", "Category 2"};
@@ -101,14 +105,15 @@ namespace StockportWebappTests.Unit.Controllers
                 new BusinessId(BusinessId),
                 _filteredUrl.Object,
                 null,
-                null
+                null,
+                _featureToggle
                 );
         }
 
         [Fact]
         public void ShouldReturnEventsCalendar()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar(), 1, 12)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar() { FromSearch = true }, 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -119,7 +124,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar { FromSearch = true, Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -192,7 +197,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(totalNumItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage)) as ViewResult;
@@ -213,7 +218,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(numItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage));
@@ -228,7 +233,7 @@ namespace StockportWebappTests.Unit.Controllers
             // Arrange
             const int zeroItems = 0;
             var controller = SetUpController(zeroItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
@@ -243,7 +248,7 @@ namespace StockportWebappTests.Unit.Controllers
             // Arrange
             int numItems = 10;
             var controller = SetUpController(numItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
@@ -276,7 +281,8 @@ namespace StockportWebappTests.Unit.Controllers
                 new BusinessId(BusinessId),
                 _filteredUrl.Object,
                 null,
-                null
+                null,
+                _featureToggle
             );
 
             return controller;

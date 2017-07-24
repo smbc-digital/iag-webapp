@@ -8,7 +8,7 @@ namespace StockportWebapp.Validation
     {
         private readonly string _otherPropertyName;
 
-        public EndTimeLaterThanStartTimeValidation(string otherPropertyName, string erroMessgae) : base(erroMessgae)
+        public EndTimeLaterThanStartTimeValidation(string otherPropertyName, string errorMessage) : base(errorMessage)
         {
             _otherPropertyName = otherPropertyName;
 
