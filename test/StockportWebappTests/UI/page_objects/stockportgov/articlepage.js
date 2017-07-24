@@ -77,7 +77,7 @@ var methods = {
             .setValue("#" + field, fieldInput)
             .click('#uitest-contact-form-submit');
     },
-    
+
     submitContactUsForm: function (browser) {
         this.waitForElementVisible('@contactUsForm', this.api.globals.timeOut);
         browser.useCss().click('#uitest-contact-form-submit');
@@ -94,9 +94,9 @@ var methods = {
     assertCarouselIsVisible: function() {
         this.assert.visible('.carousel');
     },
-    
+
     assertCarouselImagesAreVisible: function() {
-        this.assert.visible('.carousel-image');
+        this.assert.visible('.carousel-image.slick-slide.slick-current.slick-active');
     }
 
 };

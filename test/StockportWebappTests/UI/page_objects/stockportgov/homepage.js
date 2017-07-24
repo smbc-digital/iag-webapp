@@ -1,9 +1,9 @@
 var methods = {
-    goToTopicListBlockPage: function (browser, title, link) {
+    goToTopicListBlockPage: function (browser, title) {
         this.waitForElementVisible('@topicList', this.api.globals.timeOut);
         browser.useXpath()
             .assert.visible("//div[@class='featured-topic-name' and text()='" + title + "']")
-            .click("//a[contains(@href,'/topic/" + link + "')]");
+            .click("//div[@class='featured-topic-name' and text()='" + title + "']");
     },
 
     goToTopTasksBlockPage: function(browser, title, link) {
@@ -18,10 +18,10 @@ var methods = {
             .click("div.search-bar > form > button.search-button");
     },
 
-    searchForPostCode: function (browser) {
-        this.waitForElementVisible('@postCodeSearch', this.api.globals.timeOut);
-        browser.setValue('input[type=text].light-on-dark-field', 'SK7 3EU').click("button[type=submit].button-default");
-    },
+    // searchForPostCode: function (browser) {
+    //     this.waitForElementVisible('@postCodeSearch', this.api.globals.timeOut);
+    //     browser.setValue('input[type=text].light-on-dark-field', 'SK7 3EU').click("button[type=submit].button-default");
+    // },
 
     checkForWebCastImage: function (browser) {
         this.waitForElementVisible('.webcast', this.api.globals.timeOut);

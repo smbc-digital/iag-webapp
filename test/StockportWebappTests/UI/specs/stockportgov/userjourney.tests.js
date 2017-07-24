@@ -4,16 +4,14 @@ module.exports = {
         homepage.navigate();
         browser.maximizeWindow();
         browser.setCookie({
-            name: "jwtCookie",
-            value:
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
-        });
+            name: "int_jwtCookie",
+            value:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"});
     },
 
     'Find article for About the Hat Works': function (browser) {
         var homepage = browser.page.stockportgov.homepage();
-        browser.maximizeWindow();
-        homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works", "uitest-hat-works");
+        // homepage.closeCookieBanner(browser);
+        homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works");
 
         var topicpage = browser.page.stockportgov.topicpage();
         topicpage.assertTitleIsVisible('UITEST: Hat Works');
@@ -76,7 +74,6 @@ module.exports = {
         homepage.assertEventsBannerIsVisible(browser);
         homepage.assertEmailAlertsIsVisible(browser, "Subscribe");
         homepage.assertAtoZListIsVisible(browser);
-        homepage.searchForPostCode(browser);
     },
 
     'Search for news story and Find All NewsPage Elements': function (browser) {
