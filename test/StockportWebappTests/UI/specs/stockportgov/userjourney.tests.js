@@ -3,6 +3,11 @@ module.exports = {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
         browser.maximizeWindow();
+        browser.setCookie({
+            name: "jwtCookie",
+            value:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
+        });
     },
 
    'Find article for About the Hat Works': function (browser) {
@@ -120,7 +125,7 @@ module.exports = {
            homepage.goToEventsCalendar(browser);
 
        var eventcalendar = browser.page.stockportgov.eventscalendar();
-       eventcalendar.assertTitleIsVisible("Events");
+       eventcalendar.assertTitleIsVisible("What's on in Stockport");
        eventcalendar.goToFirstEvent(browser);
 
        var events = browser.page.stockportgov.events();
@@ -185,6 +190,18 @@ module.exports = {
           groups.assertTitleIsVisible("Find a local group");
           groups.assertAddAGroupButtonIsVisibleAndGotToPage(browser);
           groups.assertCanSubmitFormAndGetValidationErrors(browser);
+
+      },
+      'Navigate to a groups upcoming events page from the groups management page': function (browser) {
+          // get the groups page
+          var manageGroups = browser.page.stockportgov.manageGroups();
+          // navaigate to home page
+          manageGroups.navigate();
+          // assertions
+          manageGroups.assertTitleIsVisible("Manage your groups");
+          manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
+          manageGroups.assertManageGroupsEventsTitleIsVisible("UITEST: A group for ui testing");
+
 
       },
     after: function (browser, done) {

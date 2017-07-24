@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -33,6 +34,8 @@ namespace StockportWebapp.ViewModels
 
         public EventCalendar() { }
 
+        public bool FromSearch { get; set; }
+
         public EventCalendar(List<Event> events, List<string> categories)
         {
             Events = events;
@@ -47,6 +50,18 @@ namespace StockportWebapp.ViewModels
         public void AddEvents(List<Event> events)
         {
             Events = events;
+        }
+
+        public List<SelectListItem> CategoryOptions()
+        {
+            var result = new List<SelectListItem>();
+            result.Add(new SelectListItem { Text = "All categories", Value = string.Empty });
+            foreach (var cat in Categories)
+            {
+                result.Add(new SelectListItem { Text = cat, Value = cat });
+            }
+
+            return result;
         }
 
         public void AddCategories(List<string> categories)

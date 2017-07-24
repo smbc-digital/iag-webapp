@@ -98,7 +98,7 @@ namespace StockportWebapp.Utils
             return urlHelper.RouteUrl(routeValueDictionary);
         }
 
-        public static string BuildPageSizeUrl(int maxItemsPerPage,int defaultPageSize, int totalItems, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
+        public static string BuildPageSizeUrl(int defaultPageSize, int maxItemsPerPage, int totalItems, QueryUrl queryUrl, IUrlHelperWrapper urlHelper)
         {
             var pageSize = GetOtherPageSizeByCurrentPageSize(maxItemsPerPage, totalItems, defaultPageSize);
             RouteValueDictionary routeValueDictionary = queryUrl.AddQueriesToUrl(

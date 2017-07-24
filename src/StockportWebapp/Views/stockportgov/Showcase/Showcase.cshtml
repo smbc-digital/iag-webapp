@@ -52,13 +52,13 @@ else
 }
 @if (Model.FeaturedItems.Any())
 {
-    <div class="alt-container-row featured-items-wrapper">
+    <div class="alt-container-row featured-items-wrapper matchbox-parent">
         <h2>@Model.Subheading</h2>
         <div class="featured-topic-list">
             @{
                 foreach (var item in Model.FeaturedItems)
                 {
-                    <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic">
+                    <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
 
                         <div class="featured-topic-content">
                             <a href="@item.NavigationLink">

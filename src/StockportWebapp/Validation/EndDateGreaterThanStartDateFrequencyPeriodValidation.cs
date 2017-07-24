@@ -10,7 +10,7 @@ namespace StockportWebapp.Validation
         private readonly string _otherPropertyName;
         private readonly string _frequencyPropertyName;
 
-        public EndDateGreaterThanStartDateFrequencyPeriodValidation(string otherPropertyName, string frequencyPropertyName, string erroMessgae) : base(erroMessgae)
+        public EndDateGreaterThanStartDateFrequencyPeriodValidation(string otherPropertyName, string frequencyPropertyName, string errorMessage) : base(errorMessage)
         {
             _otherPropertyName = otherPropertyName;
             _frequencyPropertyName = frequencyPropertyName;

@@ -6,19 +6,19 @@ var methods = {
 
     goToEventsWithTitle: function (browser, title, link) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
-        browser.useXpath().assert.visible("//h2[@class='nav-card-events-title' and text()='" + title + "']")
+        browser.useXpath().assert.visible("//h3[@text()='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
     },
 
     goToFirstEvent: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
-        browser.useCss().assert.visible("h2.nav-card-events-title")
-            .click(".nav-card-events-title");
+        browser.useCss().assert.visible("h3")
+            .click("h3");
     },
 
     removeFirstFilter: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
-        browser.useCss().click("li.filters-active li:first-child a");
+        //browser.useCss().click("li.filters-active li:first-child a");
     }
 };
 
@@ -30,6 +30,6 @@ module.exports = {
   },
   elements: {
       pageTitle: "h1",
-      eventsList: ".nav-card-events-list"
+      eventsList: "#event-listing-container"
   }
 };

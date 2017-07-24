@@ -16,6 +16,7 @@ using StockportWebapp.ViewModels;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -37,6 +38,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
         private readonly Mock<IFilteredUrl> _filteredUrl;
+        private readonly FeatureToggles _featureToggle;
 
         private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
             twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
@@ -50,6 +52,8 @@ namespace StockportWebappTests.Unit.Controllers
         public const int MaxNumberOfItemsPerPage = 15;
         public EventsControllerTest()
         {
+            _featureToggle = new FeatureToggles() { DisplayNewEventPageFeatures = true };
+
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
                                       Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group, Alerts = _alerts};
             _categories = new List<string> {"Category 1", "Category 2"};
@@ -101,7 +105,8 @@ namespace StockportWebappTests.Unit.Controllers
                 new BusinessId(BusinessId),
                 _filteredUrl.Object,
                 null,
-                null
+                null,
+                _featureToggle
                 );
         }
 
@@ -276,7 +281,8 @@ namespace StockportWebappTests.Unit.Controllers
                 new BusinessId(BusinessId),
                 _filteredUrl.Object,
                 null,
-                null
+                null,
+                _featureToggle
             );
 
             return controller;
