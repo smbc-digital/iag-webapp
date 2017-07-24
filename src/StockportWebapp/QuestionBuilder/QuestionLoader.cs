@@ -14,7 +14,6 @@ namespace StockportWebapp.QuestionBuilder
     public class QuestionLoader
     {
         private readonly IRepository _repository;
-        private Dictionary<Type, string> _questionFiles = new Dictionary<Type, string>();
 
         public QuestionLoader(IRepository repository)
         {
@@ -41,7 +40,7 @@ namespace StockportWebapp.QuestionBuilder
 
         public string LoadJson<TQuestionStructure>(string questionSetFilename) where TQuestionStructure : IQuestionStructure, new()
         {
-            var smart = _repository.Get<SmartAnswers>("building-regs").Result.Content;
+            var smart = _repository.Get<SmartAnswers>(questionSetFilename).Result.Content;
 
             var question = smart as SmartAnswers;
 

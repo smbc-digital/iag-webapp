@@ -69,17 +69,43 @@ namespace StockportWebappTests.Unit.SmartAnswers
         }
 
         [Fact]
+        public void GetAllDetails_ForFirstPage_AndAreAllValid()
+        {
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+
+            var page = navigator.GetPage(0);
+
+            page.PageId.Should().Be(0);
+            page.Description.Should().Be("Page 1");
+            page.ButtonText.Should().Be("Next step");
+            page.Questions.Count.Should().Be(1);
+            page.Questions[0].Label.Should().Be("What are you proposing to build?");
+
+            page.Behaviours.Count.Should().Be(3);
+            page.Behaviours[0].BehaviourType.Should().Be(EQuestionType.GoToPage);
+
+            page.Questions[0].Options.Count.Should().Be(3);
+            page.Questions[0].Options[0].Label.Should().Be("Conservatory/Porch/Orangery");
+            page.Questions[0].Options[1].Label.Should().Be("Garagee");
+            page.Questions[0].Options[2].Label.Should().Be("Shed");
+        }
+
+        [Fact]
         public void RunBehaviours_ShouldRunDefaultBehaviourIfNoBehavioursAreDefined()
         {
             var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
             const int currentPage = 203;
             var actual = navigator.DefaultBehaviour(currentPage);
 
-            Assert.NotNull(actual);
-            var viewResult = Assert.IsType<ViewResult>(actual);
-            var model = Assert.IsType<Page>(viewResult.Model);
-            Assert.Equal(204, model.PageId);
-            Assert.True(model.IsLastPage);
+            actual.Should().NotBeNull();
+            actual.Should().BeOfType<ViewResult>();
+            var viewResult = (ViewResult)actual;
+
+            viewResult.Model.Should().BeOfType<Page>();
+            var model = (Page)viewResult.Model;
+
+            model.PageId.Should().Be(204);
+            model.IsLastPage.Should().BeTrue();
         }
 
         [Fact]
@@ -89,8 +115,9 @@ namespace StockportWebappTests.Unit.SmartAnswers
             Page currentPage = navigator.GetPage(204);
 
             var actual = navigator.RunBehaviours(currentPage);
-            var model = Assert.IsType<RedirectResult>(actual);
-            Assert.Equal(currentPage.Behaviours[0].Value, model.Url);
+            actual.Should().BeOfType<RedirectResult>();
+            var model = (RedirectResult) actual;
+            currentPage.Behaviours[0].Value.Should().Be(model.Url);
         }
 
         [Fact]
@@ -100,8 +127,9 @@ namespace StockportWebappTests.Unit.SmartAnswers
             Page currentPage = navigator.GetPage(101);
 
             var actual = navigator.RunBehaviours(currentPage);
-            var model = Assert.IsType<RedirectToActionResult>(actual);
-            Assert.Equal(currentPage.Behaviours[0].Value, model.ActionName);
+            actual.Should().BeOfType<RedirectToActionResult>();
+            var model = (RedirectToActionResult) actual;
+            currentPage.Behaviours[0].Value.Should().Be(model.ActionName);
         }
 
 
@@ -109,31 +137,29 @@ namespace StockportWebappTests.Unit.SmartAnswers
         public void IndexShouldNotReturnCacheHeaderWhenPageShouldBeCached()
         {
             var httpContext = new DefaultHttpContext();
-            var httpContextAccessor = new Mock<IHttpContextAccessor>();
-            httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
+            _httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
             var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
             var page = new Page { ShouldCache = true };
 
             var result = navigator.Index(page);
 
-            Assert.False(httpContext.Response.Headers.ContainsKey("Cache-Control"));
-            Assert.False(httpContext.Response.Headers.ContainsKey("Pragma"));
+            httpContext.Response.Headers.ContainsKey("Cache-Control").Should().BeFalse();
+            httpContext.Response.Headers.ContainsKey("Pragma").Should().BeFalse();
         }
 
         [Fact]
         public void IndexShouldReturnCacheHeaderWhenPageShouldNotBeCached()
         {
-            var httpContext = new DefaultHttpContext();
-            var httpContextAccessor = new Mock<IHttpContextAccessor>();
-            httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
+            var httpContext = new DefaultHttpContext();         
+            _httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
 
             var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
             var page = new Page { ShouldCache = false };
 
             var result = navigator.Index(page);
 
-            Assert.Equal("no-store, must-revalidate, max-age=0", httpContext.Response.Headers["Cache-Control"]);
-            Assert.Equal("no-cache", httpContext.Response.Headers["Pragma"]);
+            httpContext.Response.Headers["Cache-Control"].Should().Equal("no-store, must-revalidate, max-age=0");
+            httpContext.Response.Headers["Pragma"].Should().Equal("no-cache");
         }
 
         private void SetFakeResponse()

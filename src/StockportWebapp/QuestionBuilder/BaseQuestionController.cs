@@ -22,9 +22,8 @@ namespace StockportWebapp.QuestionBuilder
 
         protected BaseQuestionController(string slug, IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader)
         {
-
-            Structure = questionLoader.LoadQuestions<BuildingRegsQuestions>(slug).Structure;
             HttpContextAccessor = httpContextAccessor;
+            Structure = questionLoader.LoadQuestions<BuildingRegsQuestions>(slug).Structure;
         }
 
         [HttpPost]

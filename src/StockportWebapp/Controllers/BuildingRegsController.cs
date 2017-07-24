@@ -13,11 +13,11 @@ using StockportWebapp.QuestionBuilder.Maps;
 
 namespace StockportWebapp.Controllers
 {
-    [Route("building-regs")]
+    [Route("building-regulations")]
     public class BuildingRegsController : BaseQuestionController<BuildingRegsModel, BuildingRegsMap>
     {
         public FeatureToggles _FeatureToggling;
-        public BuildingRegsController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling) : base("building-regs", HttpContextAccessor, questionLoader)
+        public BuildingRegsController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling) : base("building-regulations", HttpContextAccessor, questionLoader)
         {
             _FeatureToggling = FeatureToggling;
         }
