@@ -1,5 +1,6 @@
 ﻿.building-regs {
     background-color:#fff;
+    padding-left: 40px;
     h1 {
        padding: 20px 0;
        font-size: 50px;
@@ -10,4 +11,12 @@
 
 .question-button-next {
     margin-bottom: 40px;
+}
+
+.question-section{
+    margin-bottom: 0px;
+
+    .question-list{
+        margin-top:20px;
+    }
 }
