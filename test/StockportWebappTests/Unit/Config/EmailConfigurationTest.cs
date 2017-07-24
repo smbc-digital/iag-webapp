@@ -24,7 +24,7 @@ namespace StockportWebappTests.Unit.Config
             appsettings.Setup(o => o.GetEmailRegion(businessId)).Returns(regionSetting);
             appsettings.Setup(o => o.GetEmailEmailFrom(businessId)).Returns(emailFromSetting);
 
-            var emailConfigurationBuilder = new EmailConfigurationBuilder(amazonSESKeys, appsettings.Object);
+            var emailConfigurationBuilder = new EmailConfigurationBuilder(amazonSESKeys, appsettings.Object, "breaking the build to test ci");
 
             var emailConfig = emailConfigurationBuilder.Build(businessId);
 
