@@ -446,8 +446,17 @@ ul.nav-card-events-list {
             box-sizing: border-box;
             width: 100%;
             box-shadow: 0 10px 20px rgba(0,0,0,.05);
-            background-color: #00937c;
-            border-color: #00937c;
+            background-color: #06b79b;
+            border-color: #06b79b;
+
+            &:hover {
+                background-color: #07d0b0;
+                color: #fff;
+                cursor: pointer;
+                -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
+                box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
+                text-decoration: none;
+            }
 
             @media #{$mobile} {
                 margin-top: 10px;
