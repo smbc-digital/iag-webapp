@@ -21,7 +21,7 @@
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@Model.Name content">
                 <div class="l-content-container grid-100 group-margin" id="group-padding">
-                    <h1 class="group-article-title">@Model.Name</h1>
+                    <h1 id="manage-group-title" class="group-article-title">@Model.Name</h1>
                     <div class="grid-container grid-parent">
 
                         <div class="sk-table-outer-container">
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                <a href="@Url.Action("ViewGroupsEvents", "Groups", new { slug = Model.Slug })">
+                                <a id="view-group-events" href="@Url.Action("ViewGroupsEvents", "Groups", new { slug = Model.Slug })">
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell">
                                             <i class="row-arrow centre"></i>

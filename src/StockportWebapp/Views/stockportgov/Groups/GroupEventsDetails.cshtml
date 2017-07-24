@@ -12,7 +12,7 @@
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "groups") })
 }
 <div class="grid-container grid-100 event-details">
-    <h1>@Model.Title </h1>
+    <h1 id="event-title">@Model.Title </h1>
     <h3>Event summary</h3>
     <p><strong>Event date: </strong>@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
     <p><strong>Start time: </strong> @Model.StartTime</p>
