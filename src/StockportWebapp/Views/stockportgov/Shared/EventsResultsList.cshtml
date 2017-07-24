@@ -14,6 +14,11 @@
 {
     <div class="grid-container grid-100 no-results">
         <h1>There are currently no events matching your search.</h1>
+        @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && Model.DateFrom > Model.DateTo)
+        {
+            <p>This is becasue you searched for an invalid date range.</p>
+        }
+
         <p>Please edit your search and try again.</p>
     </div>
 }

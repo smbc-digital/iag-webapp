@@ -56,7 +56,7 @@ var methods = {
 
     goToEventsCalendar: function (browser) {
         this.waitForElementVisible('@eventscalendarCallToAction', this.api.globals.timeOut);
-      //      .expect.element('@eventcalendarLink').text.to.equal("View Events");
+        //.expect.element('@eventcalendarLink').text.to.equal("View Events");
         browser.useXpath().click("//div[@class='full-width-white']//a[.='View more events']");
     },
 
