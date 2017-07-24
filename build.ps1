@@ -57,7 +57,7 @@ function Main {
     _Publish
   }
   Catch {
-    Write-Error $_.Exception
+    Write-Output $_.Exception
   }
 }
 
