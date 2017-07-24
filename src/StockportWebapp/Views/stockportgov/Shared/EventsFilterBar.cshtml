@@ -9,7 +9,8 @@
                         Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
                         Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>");
 }
-<form action="/events?search=1" method="get">
+<form action="/events" method="get">
+    <input type="hidden" asp-for="@Model.FromSearch" value="true" />
     <div class="full-width-title" id="events-filter-bar">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @hideOnMobile">

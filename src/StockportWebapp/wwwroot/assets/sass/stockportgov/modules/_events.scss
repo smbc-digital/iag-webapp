@@ -364,6 +364,17 @@ ul.nav-card-events-list {
         clear: both;
         margin-bottom: 0;
     }
+
+    .home-page-row
+    {
+        &:nth-child(even)
+        {
+        background-color:#ffffff;
+        }
+     
+
+
+    }
 }
 
 #events-filter-bar {

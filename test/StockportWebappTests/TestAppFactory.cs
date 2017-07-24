@@ -144,6 +144,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, ReadFile("Footer")));
             Client.For("http://localhost:5001/api/healthystockport/footer")
                 .Return(HttpResponse.Successful(200, ReadFile("Footer")));
+            Client.For("http://localhost:5001/api/stockportgov/eventhomepage")
+                .Return(HttpResponse.Successful(200, ReadFile("EventHomepage")));
             Client.For("http://localhost:5001/api/stockportgov/events")
                 .Return(HttpResponse.Successful(200, ReadFile("EventsCalendar")));
             Client.For("http://localhost:5001/api/stockportgov/events/event-of-the-century")

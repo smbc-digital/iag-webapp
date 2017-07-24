@@ -8,8 +8,6 @@
     ViewData["og:title"] = "What's on in Stockport";
     ViewData["Title"] = "What's on in Stockport";
     Layout = "../Shared/_Layout.cshtml";
-
-    var hasSearched = !string.IsNullOrWhiteSpace(Model.Category) || Model.DateFrom != null || Model.DateTo != null;
 }
 
 @section Breadcrumbs {
@@ -41,7 +39,7 @@
         }
         else
         {
-            @Html.Partial("EventHomepage", Model)
+            @Html.Partial("EventHomepage", Model.Homepage)
         }
     }
     else

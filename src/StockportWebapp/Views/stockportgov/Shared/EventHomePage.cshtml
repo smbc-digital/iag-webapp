@@ -1,5 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using StockportWebapp.Utils
+@inject ViewHelpers viewHelper
+@model StockportWebapp.Models.EventHomepage
+
+<div id="event-listing-container">
+@foreach (var row in Model.Rows.Where(r => r.Events.Any()))
+{
+    var i = 1;
+    <div class="home-page-row">
+        <div class="grid-container">
+            <h3>@(row.IsLatest ? "Upcoming events" : row.Tag)</h3>
+            <div class="grid-100 event-container-row matchbox-parent">
+                @foreach (var item in row.Events)
+                {
+                    var classname = string.Empty;
+                    switch (i)
+                    {
+                        case 1:
+                            {
+                                classname = string.Empty;
+                                break;
+                            }
+                        case 2:
+                            {
+                                classname = "hide-on-mobile";
+                                break;
+                            }
+                        case 3:
+                            {
+                                classname = "hide-on-mobile hide-on-tablet";
+                                break;
+                            }
+                        default:
+                            {
+                                classname = "hide-on-desktop hide-on-tablet hide-on-mobile";
+                                break;
+                            }
+                    }
+                    <div class="@classname">
+                        @Html.Partial("EventCard", item)
+                    </div>
+                    i++;
+                }
+            </div>
+        </div>
+    </div>}
+</div>

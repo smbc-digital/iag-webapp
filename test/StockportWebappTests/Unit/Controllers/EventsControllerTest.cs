@@ -113,7 +113,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendar()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar(), 1, 12)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar() { FromSearch = true }, 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -124,7 +124,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar {Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12)) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar { FromSearch = true, Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12)) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -197,7 +197,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(totalNumItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage)) as ViewResult;
@@ -218,7 +218,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var controller = SetUpController(numItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage));
@@ -233,7 +233,7 @@ namespace StockportWebappTests.Unit.Controllers
             // Arrange
             const int zeroItems = 0;
             var controller = SetUpController(zeroItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
@@ -248,7 +248,7 @@ namespace StockportWebappTests.Unit.Controllers
             // Arrange
             int numItems = 10;
             var controller = SetUpController(numItems);
-            var model = new EventCalendar();
+            var model = new EventCalendar() { FromSearch = true };
 
             // Act
             AsyncTestHelper.Resolve(controller.Index(model, 0, 12));

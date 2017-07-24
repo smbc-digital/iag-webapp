@@ -63,7 +63,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize, [FromQuery]int search)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
         {
             if (_featureToggle.DisplayNewEventPageFeatures || eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
             {
@@ -78,30 +78,45 @@ namespace StockportWebapp.Controllers
                 }
             }
 
-            var queries = new List<Query>();
+            eventsCalendar.FromSearch = eventsCalendar.FromSearch || !string.IsNullOrWhiteSpace(eventsCalendar.Category) 
+                                                                    || eventsCalendar.DateFrom != null || eventsCalendar.DateTo != null;
 
-            if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
-            if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
-            if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));
-            if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tag", eventsCalendar.Tag));
-
-            var httpResponse = await _repository.Get<EventResponse>(queries: queries);
-
-            if (!httpResponse.IsSuccessful()) return httpResponse;
-
-            var eventResponse = httpResponse.Content as EventResponse;
-
-            eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
-            _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
-            eventsCalendar.AddFilteredUrl(_filteredUrl);
-            eventsCalendar.FromSearch = search == 1;
-
-            DoPagination(eventsCalendar, Page, eventResponse, pageSize);
-
-            if (eventResponse != null)
+            if (eventsCalendar.FromSearch)
             {
-                eventsCalendar.AddEvents(eventResponse.Events);
-                eventsCalendar.AddCategories(eventResponse.Categories);
+                var queries = new List<Query>();
+
+                if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-MM-dd")));
+                if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
+                if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));
+                if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tag", eventsCalendar.Tag));
+
+                var httpResponse = await _repository.Get<EventResponse>(queries: queries);
+
+                if (!httpResponse.IsSuccessful()) return httpResponse;
+
+                var eventResponse = httpResponse.Content as EventResponse;
+
+                eventsCalendar.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+                _filteredUrl.SetQueryUrl(eventsCalendar.CurrentUrl);
+                eventsCalendar.AddFilteredUrl(_filteredUrl);
+
+                DoPagination(eventsCalendar, Page, eventResponse, pageSize);
+
+                if (eventResponse != null)
+                {
+                    eventsCalendar.AddEvents(eventResponse.Events);
+                    eventsCalendar.AddCategories(eventResponse.Categories);
+                }
+            }
+            else
+            {
+                var httpHomeResponse = await _repository.Get<EventHomepage>();
+
+                if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
+
+                var eventResponse = httpHomeResponse.Content as EventHomepage;
+
+                eventsCalendar.Homepage = eventResponse;
             }
 
             return View(eventsCalendar);
