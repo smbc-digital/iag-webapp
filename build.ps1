@@ -29,7 +29,7 @@ function _DotnetRestore() {
 function _DotnetTest() {
   echo "Running dotnet test"
   pushd $testDir
-  dotnet test
+  dotnet test --no-build
   popd
 }
 
