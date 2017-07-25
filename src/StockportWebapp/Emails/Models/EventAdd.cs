@@ -16,5 +16,6 @@
         public string AttachmentPath { get; set; }
         public string Categories { get; set; }
         public string SubmitterEmail { get; set; }
+        public string GroupName { get; set; }
     }
 }
