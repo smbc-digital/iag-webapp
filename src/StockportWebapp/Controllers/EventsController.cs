@@ -169,7 +169,7 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> AddYourEvent()
         {
             var eventSubmission = new EventSubmission();
-            return View(eventSubmission);
+            return View("Add-Your-Event", eventSubmission);
         }
 
         [HttpPost]
@@ -180,7 +180,7 @@ namespace StockportWebapp.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
-                return View(eventSubmission);
+                return View("Add-Your-Event", eventSubmission);
             }
 
             var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
@@ -188,7 +188,7 @@ namespace StockportWebapp.Controllers
 
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
-            return View(eventSubmission);
+            return View("Add-Your-Event", eventSubmission);
         }
 
         private string GetErrorsFromModelState(ModelStateDictionary modelState)

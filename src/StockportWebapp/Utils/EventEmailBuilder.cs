@@ -66,7 +66,8 @@ namespace StockportWebapp.Utils
                 ImagePath = !string.IsNullOrEmpty(imagePath) ? imagePath : "-",
                 AttachmentPath = !string.IsNullOrEmpty(attachmentPath) ? attachmentPath : "-",
                 SubmitterEmail = !string.IsNullOrEmpty(eventSubmission.SubmitterEmail) ? eventSubmission.SubmitterEmail : "-",
-                Categories = categories
+                Categories = categories,
+                GroupName = string.IsNullOrEmpty(eventSubmission.GroupName) ? string.Empty : $"Group name: {eventSubmission.GroupName}"
             };
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
