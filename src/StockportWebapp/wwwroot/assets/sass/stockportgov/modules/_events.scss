@@ -460,6 +460,11 @@ ul.nav-card-events-list {
                 text-decoration: none;
             }
 
+            &:active {
+                border-color: #059e86;
+                background-color: #059e86;
+            }
+
             @media #{$mobile} {
                 margin-top: 10px;
             }
