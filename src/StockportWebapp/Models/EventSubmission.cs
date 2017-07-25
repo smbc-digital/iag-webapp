@@ -97,6 +97,10 @@ namespace StockportWebapp.Models
         [EmailAddress]
         [Display(Name = "Organiser email address")]
         public string SubmitterEmail { get; set; }
+       
+        public string GroupName { get; set; }
+
+        public string GroupSlug { get; set; }
 
         public EventSubmission()
         {           

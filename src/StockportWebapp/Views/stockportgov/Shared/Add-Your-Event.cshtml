@@ -5,10 +5,24 @@
     ViewData["Title"] = "Add your event";
     ViewData["og:title"] = "Add your event";
     Layout = "../Shared/_Layout.cshtml";
+    var controllerType = "Events";
+    if (!string.IsNullOrEmpty(Model.GroupName))
+    {
+        ViewData["Beta"] = true;
+        ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+        controllerType = "Groups";
+    }
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Events", "events", "events") })
+    @if (!string.IsNullOrEmpty(Model.GroupName))
+    {
+        @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups")})
+    }
+    else
+    {
+        @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Events", "events", "events")})
+    }
 }
 
 <div class="grid-container-full-width">
@@ -44,7 +58,7 @@
                             </div>
                         </noscript>
 
-                        <form asp-controller="Events" asp-action="AddYourEvent" method="post" role="form" enctype="multipart/form-data">
+                        <form asp-controller=@controllerType asp-action="AddYourEvent" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
@@ -206,6 +220,9 @@
                                         <span asp-validation-for="@Model.SubmitterEmail" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
                                         <div class="clearfix" ></div>
+                                        
+                                        @Html.HiddenFor(x=>x.GroupName)
+                                        @Html.HiddenFor(x => x.GroupSlug)
 
                                         <stock-button id="uitest-contact-form-submit"
                                                       class="button-contact-us">Add your event</stock-button>
