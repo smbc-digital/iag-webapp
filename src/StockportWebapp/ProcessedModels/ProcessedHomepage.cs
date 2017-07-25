@@ -18,6 +18,37 @@ namespace StockportWebapp.ProcessedModels
         private IEnumerable<News> LatestNews { get; set; }
         private IEnumerable<Event> LatestEvents { get; set; }
 
+        public GenericFeaturedItemList GenericItemList
+        {
+            get
+            {
+                var result = new GenericFeaturedItemList();
+                result.Items = new List<GenericFeaturedItem>();
+                foreach (var topic in FeaturedTopics)
+                {
+                    var item = new GenericFeaturedItem
+                    {
+                        Icon = topic.Icon,
+                        Title = topic.Title,
+                        Url = $"/topic/{topic.Slug}",
+                        SubItems = new List<GenericFeaturedItem>()
+                    };
+
+                    foreach (var subItem in topic.SubItems)
+                    {
+                        item.SubItems.Add(new GenericFeaturedItem { Title = subItem.Title, Url = subItem.NavigationLink, Icon = subItem.Icon });
+                    }
+
+                    result.Items.Add(item);
+                }
+
+                result.ButtonText = "View more services";
+                result.ButtonCssClass = string.Empty;
+
+                return result;
+            }
+        }
+
         public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup)
         {
             PopularSearchTerms = popularSearchTerms;

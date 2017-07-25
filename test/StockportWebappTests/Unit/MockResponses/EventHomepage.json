@@ -3,95 +3,96 @@
     {
       "isLatest": true,
       "tag": "",
-  "events": [
-    {
-      "title": "This is the event",
-      "slug": "event-of-the-century",
-      "teaser": "Read more for the event",
-      "imageUrl": "",
-      "thumbnailImageUrl": "",
-      "description": "The event  description",
-      "sunriseDate": "2016-12-08T00:00:00Z",
-      "sunsetDate": "2016-12-22T00:00:00Z",
-      "fee": "Free",
-      "location": "Bramall Hall, Carpark, SK7 6HG",
-      "submittedBy": "Friends of Stockport",
-      "longitude": "",
-      "latitude": "",
-      "featured": false,
-      "eventDate": "2016-12-30T00:00:00Z",
-      "startTime": "10:00",
-      "endTime": "17:00",
-      "breadcrumbs": [
+      "events": [
         {
-          "title": "Events",
-          "slug": "",
-          "type": "events"
-        }
-      ],
-      "categories": [ "Category 1", "Category 2" ]
-    },
+          "title": "This is the event",
+          "slug": "event-of-the-century",
+          "teaser": "Read more for the event",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "description": "The event  description",
+          "sunriseDate": "2016-12-08T00:00:00Z",
+          "sunsetDate": "2016-12-22T00:00:00Z",
+          "fee": "Free",
+          "location": "Bramall Hall, Carpark, SK7 6HG",
+          "submittedBy": "Friends of Stockport",
+          "longitude": "",
+          "latitude": "",
+          "featured": false,
+          "eventDate": "2016-12-30T00:00:00Z",
+          "startTime": "10:00",
+          "endTime": "17:00",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "categories": [ "Category 1", "Category 2" ]
+        },
 
-    {
-      "title": "This is the second event",
-      "slug": "second-event",
-      "teaser": "Read more for the event",
-      "imageUrl": "",
-      "thumbnailImageUrl": "",
-      "description": "The event  description",
-      "sunriseDate": "2016-11-08T00:00:00Z",
-      "sunsetDate": "2016-12-22T00:00:00Z",
-      "fee": "Free",
-      "location": "Bramall Hall, Carpark, SK7 6HG",
-      "submittedBy": "Friends of Stockport",
-      "longitude": "",
-      "latitude": "",
-      "featured": false,
-      "eventDate": "2016-12-30T00:00:00Z",
-      "startTime": "10:00",
-      "endTime": "17:00",
-      "breadcrumbs": [
         {
-          "title": "Events",
-          "slug": "",
-          "type": "events"
-        }
-      ],
-      "categories": [ "Category 1", "Category 2" ]
-    },
-    {
-      "title": "This is the third event",
-      "slug": "event-of-the-third-century",
-      "teaser": "Read more for the event",
-      "imageUrl": "",
-      "thumbnailImageUrl": "",
-      "description": "The event  description",
-      "sunriseDate": "2016-10-08T00:00:00Z",
-      "sunsetDate": "2016-12-22T00:00:00Z",
-      "fee": "Free",
-      "location": "Bramall Hall, Carpark, SK7 6HG",
-      "submittedBy": "Friends of Stockport",
-      "longitude": "",
-      "latitude": "",
-      "featured": false,
-      "eventDate": "2016-12-30T00:00:00Z",
-      "startTime": "10:00",
-      "endTime": "17:00",
-      "breadcrumbs": [
+          "title": "This is the second event",
+          "slug": "second-event",
+          "teaser": "Read more for the event",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "description": "The event  description",
+          "sunriseDate": "2016-11-08T00:00:00Z",
+          "sunsetDate": "2016-12-22T00:00:00Z",
+          "fee": "Free",
+          "location": "Bramall Hall, Carpark, SK7 6HG",
+          "submittedBy": "Friends of Stockport",
+          "longitude": "",
+          "latitude": "",
+          "featured": false,
+          "eventDate": "2016-12-30T00:00:00Z",
+          "startTime": "10:00",
+          "endTime": "17:00",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "categories": [ "Category 1", "Category 2" ]
+        },
         {
-          "title": "Events",
-          "slug": "",
-          "type": "events"
+          "title": "This is the third event",
+          "slug": "event-of-the-third-century",
+          "teaser": "Read more for the event",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "description": "The event  description",
+          "sunriseDate": "2016-10-08T00:00:00Z",
+          "sunsetDate": "2016-12-22T00:00:00Z",
+          "fee": "Free",
+          "location": "Bramall Hall, Carpark, SK7 6HG",
+          "submittedBy": "Friends of Stockport",
+          "longitude": "",
+          "latitude": "",
+          "featured": false,
+          "eventDate": "2016-12-30T00:00:00Z",
+          "startTime": "10:00",
+          "endTime": "17:00",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "categories": [ "Category 1", "Category 2" ]
         }
-      ],
-      "categories": [ "Category 1", "Category 2" ]
-    }
-  ],
+      ]
     },
     {
       "isLatest": false,
       "tag": "test",
       "events": []
     }
-  ]
+  ],
+  "categories": []
 }

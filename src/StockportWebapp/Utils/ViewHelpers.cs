@@ -33,7 +33,11 @@ namespace StockportWebapp.Utils
                 var time = startTime.Split(':');
                 var hour = 0;
                 int.TryParse(time[0], out hour);
-                if (hour == 12)
+                if (hour == 0)
+                {
+                    date = $"{date} at 12:{time[1]}am";
+                }
+                else if (hour == 12)
                 {
                     date = $"{date} at 12:{time[1]}pm";
                 }

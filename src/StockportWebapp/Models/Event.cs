@@ -28,6 +28,4 @@ namespace StockportWebapp.Models
         public Group Group { get; set; }
         public List<Alert> Alerts { get; set; }
     }
-
-   
 }

@@ -9,7 +9,7 @@ using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebappTests;
 
-namespace JwtTest
+namespace StockportWebAppTests.Unit.Utils
 {
     public class JwtDecoderTests
     {

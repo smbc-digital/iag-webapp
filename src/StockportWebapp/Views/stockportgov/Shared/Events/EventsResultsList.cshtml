@@ -41,7 +41,7 @@
     @Html.Raw(end);
     @Html.Raw(start);
 
-    @Html.Partial("EventCard", eventItem)
+    @Html.Partial("Events/EventCard", eventItem)
 
     previousEnteredDate = eventItem.EventDate.Date;
 }

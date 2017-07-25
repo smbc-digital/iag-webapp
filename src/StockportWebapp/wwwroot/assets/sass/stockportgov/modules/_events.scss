@@ -375,6 +375,7 @@ ul.nav-card-events-list {
 
     &.no-margin {
         margin-top: -20px;
+        margin-bottom: -30px;
     }
 
     .no-results {
@@ -410,7 +411,7 @@ ul.nav-card-events-list {
             margin-left: 30px;
         }
 
-        &:nth-child(even) {
+        &:nth-child(odd) {
             background-color: #ffffff;
         }
 

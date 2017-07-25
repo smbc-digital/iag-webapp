@@ -40,14 +40,14 @@
         <div class="search-bar">
             @Html.Partial("Search", new Tuple<string, string>("cludo-search-hero-form", "Hi there! What are you looking for?"))
         </div>
-        @*@Html.Partial("DynamicPopularSearch", Model.PopularSearchTerms)*@
+
         @Html.Partial("FeaturedTasks", Model.FeaturedTasks)
     </div>
 </div>
 
 
 <div class="l-body-section-filled grid-100 grid-parent">
-    @Html.Partial("FeaturedTopics", Model.FeaturedTopics)
+    @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
 </div>
 
 @if (FeatureToggles.NewHomepageLayout)

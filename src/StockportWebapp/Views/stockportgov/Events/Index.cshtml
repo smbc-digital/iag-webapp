@@ -4,14 +4,29 @@
 @inject FeatureToggles FeatureToggles
 
 @model EventCalendar
-@{    
-    ViewData["og:title"] = "What's on in Stockport";
-    ViewData["Title"] = "What's on in Stockport";
+@{
+    @if (FeatureToggles.DisplayNewEventPageFeatures && Model.FromSearch)
+    {
+        ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "All Categories" : Model.Homepage.Categories.Where(c => c.Slug == Model.Category).First().Name;
+        ViewData["Title"] = ViewData["og:title"];
+    }
+    else
+    {
+        ViewData["og:title"] = "What's on in Stockport";
+        ViewData["Title"] = "What's on in Stockport";
+    }
     Layout = "../Shared/_Layout.cshtml";
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>())
+    @if (FeatureToggles.DisplayNewEventPageFeatures && Model.FromSearch)
+    {
+        @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("What's on in Stockport", "events", "event") })
+    }
+    else
+    {
+        @Html.Partial("Breadcrumb", new List<Crumb>())
+    }
 }
 
 <div class="l-page-content">
@@ -28,23 +43,23 @@
     
     @if (FeatureToggles.DisplayNewEventPageFeatures)
     {
-        @Html.Partial("EventsFilterBar", Model)
+        @Html.Partial("Events/EventsFilterBar", Model)
     }
 
     @if (FeatureToggles.DisplayNewEventPageFeatures)
     {
         if (Model.FromSearch)
         {
-            @Html.Partial("EventsResultsList", Model)
+            @Html.Partial("Events/EventsResultsList", Model)
         }
         else
         {
-            @Html.Partial("EventHomepage", Model.Homepage)
+            @Html.Partial("Events/EventHomepage", Model.Homepage)
         }
     }
     else
     {
-        @Html.Partial("EventsCalendar", Model)
+        @Html.Partial("Events/EventsCalendar", Model)
     }
     
     @if (FeatureToggles.DisplayNewEventPageFeatures)

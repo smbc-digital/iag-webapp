@@ -63,12 +63,18 @@ namespace StockportWebappTests.Unit.Controllers
                 "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
                 new List<Crumb>(), _categories, new MapPosition(), "booking information",_group, _alerts);
 
+            var eventHomepage = new EventHomepage { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
+
             // setup responses (with mock data)
             responseListing = new HttpResponse(200, eventsCalendar, "");
             _responseDetail = new HttpResponse(200, eventItem, "");
+            var responseHomepage = new HttpResponse(200, eventHomepage, "");
             var response404 = new HttpResponse(404, null, "not found");
 
             // setup mocks
+            _repository.Setup(o => o.Get<EventHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(responseHomepage);
+
             _repository.Setup(o => o.Get<EventResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(responseListing);
 

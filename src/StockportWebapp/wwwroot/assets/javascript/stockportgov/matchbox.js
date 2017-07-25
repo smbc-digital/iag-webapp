@@ -16,6 +16,15 @@ STK.Matchboxes = (function () {
             { bp: 1024, groupsOf: 3 }
             ]
         }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".matchbox-parent-featured",
+            childSelector: ".matchbox-child",
+            groupsOf: 4,
+            breakpoints: [
+            { bp: 1024, groupsOf: 5 }
+            ]
+        }));
     };
 
     return {
