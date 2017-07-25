@@ -342,6 +342,10 @@ ul.nav-card-events-list {
     background-color: white;
 
     .event-details-content {
+        .recurring-event {
+            margin-bottom: 10px;
+        }
+
         margin-bottom: 20px;
 
         h1 {
@@ -553,4 +557,8 @@ ul.nav-card-events-list {
     @media #{$mobile} {
         font-weight: bold;
     }
+}
+
+.recurring-event {
+    margin-bottom: 20px;
 }

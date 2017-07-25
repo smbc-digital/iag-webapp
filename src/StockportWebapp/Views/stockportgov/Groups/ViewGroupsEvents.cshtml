@@ -14,78 +14,73 @@
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Slug, "groups") })
 }
 
-<div class="l-page-content" id="content-no-margin-bottom-mainpage">
-    <div class="full-width-title">
-        <div class="grid-container grid-parent grid-100">
-            <div class="grid-70 tablet-grid-70 mobile-grid-100">
-                <h1 id="manage-group-title" class="full-width-title-with-button">Manage your groups</h1>
-            </div>
-            <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
-                @*<stock-button as-link="true" class="button-outline-white-transparent" href="https://myaccount.stockport.gov.uk/"><i class="fa fa-cog account"></i>Account Settings</stock-button>*@
-            </div>
-        </div>
-    </div>
-    <div class="grid-container grid-100 grid-parent full-width-title-margin-fix">
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
-            <section>
-                <div class="l-content-container grid-100 group-margin">
-                    <div class="sk-table-outer-container">
-                        <div class="sk-table-body">
-                            <div class="grid-100 sk-table-row grid-parent">
-                                <div class="grid-75 tablet-grid-60 mobile-grid-100 sk-table-cell">
-                                    <h3>Your events</h3>
-                                </div>
-                                <div class="grid-25 tablet-grid-40 hide-on-mobile sk-table-cell">
-                                    <div class="header-right-button">
-                                        <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
-                                    </div>
-                                </div>
-                            </div>
-                            @if (!Model.Events.Any())
-                            {
+            <section aria-label="@Model.Name content">
+                <div class="l-content-container grid-100 group-margin" id="group-padding">
+                    <h1 id="manage-group-title" class="group-article-title">Manage your events</h1>
+                    <div class="grid-container grid-parent">
+                        <div class="sk-table-outer-container">
+                            <div class="sk-table-body">
                                 <div class="grid-100 sk-table-row grid-parent">
-                                    <div class="grid-100 tablet-grid-100 mobile-grid-100 sk-table-cell sk-noresults">
-                                        <span>You do not have permission to manage any events</span>
+                                    <div class="grid-75 tablet-grid-60 mobile-grid-100 sk-table-cell">
+                                        <h3>Your events</h3>
                                     </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="sk-table-header sk-table-thin-row grid-100 grid-parent hide-on-mobile">
-                                    <div class="grid-70 tablet-grid-70 mobile-grid-60">
-                                        <span>Event name</span>
-                                    </div>
-                                    <div class="grid-25 tablet-grid-25  mobile-grid-40">
-                                        <span>Event date</span>
-                                    </div>
-                                </div>
-                                foreach (var eventItem in Model.Events)
-                                {
-                                    <a id="@("event-item-" + eventItem.Slug)" href="@Url.Action("GroupEventsDetails", "Groups", new {groupSlug = Model.Slug, eventSlug = eventItem.Slug})">
-                                        <div class="grid-100 sk-table-row grid-parent">
-                                            <div class="sk-table-cell">
-                                                <i class="row-arrow centre"></i>
-                                            </div>
-                                            <div class="sk-table-cell grid-70 tablet-grid-70 mobile-grid-90 group-event-name">
-                                                <span class="main">@eventItem.Title</span>
-                                            </div>
-                                            <div class="sk-table-cell grid-25 tablet-grid-25 mobile-grid-90">
-                                                <span>@eventItem.EventDate.ToString("d MMMM yyyy")</span>
-                                            </div>
-                                            
+                                    <div class="grid-25 tablet-grid-40 hide-on-mobile sk-table-cell">
+                                        <div class="header-right-button">
+                                            <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
                                         </div>
-                                    </a>
-                                }
-
-                                <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
-                                    <stock-button as-link="true" class="sk-table white" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
+                                    </div>
                                 </div>
-                            }
-                        </div>
+                                @if (!Model.Events.Any())
+                                {
+                                    <div class="grid-100 sk-table-row grid-parent">
+                                        <div class="grid-100 tablet-grid-100 mobile-grid-100 sk-table-cell sk-noresults">
+                                            <span>You have no upcoming events</span>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="sk-table-header sk-table-thin-row grid-100 grid-parent hide-on-mobile">
+                                        <div class="grid-70 tablet-grid-70 mobile-grid-60">
+                                            <span>Event name</span>
+                                        </div>
+                                        <div class="grid-25 tablet-grid-25  mobile-grid-40">
+                                            <span>Event date</span>
+                                        </div>
+                                    </div>
+                                    foreach (var eventItem in Model.Events)
+                                    {
+                                        <a id="@("event-item-" + eventItem.Slug)" href="@Url.Action("GroupEventsDetails", "Groups", new {groupSlug = Model.Slug, eventSlug = eventItem.Slug})">
+                                            <div class="grid-100 sk-table-row grid-parent">
+                                                <div class="sk-table-cell">
+                                                    <i class="row-arrow centre"></i>
+                                                </div>
+                                                <div class="sk-table-cell grid-70 tablet-grid-70 mobile-grid-90 group-event-name">
+                                                    <span class="main">@eventItem.Title</span>
+                                                </div>
+                                                <div class="sk-table-cell grid-25 tablet-grid-25 mobile-grid-90">
+                                                    <span>@eventItem.EventDate.ToString("d MMMM yyyy")</span>
+                                                </div>
 
+                                            </div>
+                                        </a>
+                                    }
+
+                                    <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
+                                        <stock-button as-link="true" class="sk-table white" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </section>
         </div>
     </div>
 </div>
+
+

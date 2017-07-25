@@ -28,7 +28,7 @@
                         <p>Deleting your event will mean that it is completely removed from our events calendar. You will not be able to recover any of the event information.</p>
                         <div class="group-confirmation-body">
                             <p>If you'd like to keep your event but update the information, you can <a href="#">edit the event</a> instead.</p>
-                            <p>if you came here by accident, you can <a href="@Url.Action("ViewGroupsEvents", "Groups", new { slug = Model.Slug })">go back to manage your events</a>.</p>
+                            <p>if you came here by accident, you can <a href="@Url.Action("ViewGroupsEvents", "Groups", new { slug = ViewBag.GroupSlug })">go back to manage your events</a>.</p>
                             <p>
                                 <strong>Are you sure you want to delete your event?</strong>
                             </p>
