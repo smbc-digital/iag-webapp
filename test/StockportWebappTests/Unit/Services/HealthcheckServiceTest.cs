@@ -15,7 +15,7 @@ using HttpClient = System.Net.Http.HttpClient;
 
 namespace StockportWebappTests.Unit.Services
 {
-    public class HealthcheckServiceTest
+    public class HealthcheckServiceTest : TestingBaseClass
     {
         private readonly HealthcheckService _healthcheckService;
         private readonly string _shaPath;
@@ -35,7 +35,7 @@ namespace StockportWebappTests.Unit.Services
 
             var httpResponseMessage = new HttpResponseMessage
             {
-                Content = new StringContent(File.ReadAllText("Unit/MockResponses/Healthcheck.json"))
+                Content = new StringContent(GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Healthcheck.json"))
             };
             _fakeHandler = new FakeResponseHandler();
             _fakeHandler.AddFakeResponse(new Uri(healthcheckUrl), httpResponseMessage);

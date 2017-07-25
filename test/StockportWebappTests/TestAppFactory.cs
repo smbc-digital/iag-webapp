@@ -9,6 +9,7 @@ using StockportWebappTests.Unit.Http;
 using System.IO;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
 using StockportWebapp.AmazonSES;
 using StockportWebappTests.Unit.Fake;
 
@@ -22,10 +23,11 @@ namespace StockportWebappTests
             Environment.SetEnvironmentVariable("SES_SECRET_KEY", "secret-key");
 
             var hostBuilder = new WebHostBuilder()
-              .UseStartup<FakeStartup>()
-              .UseContentRoot(Path.Combine(Directory.GetCurrentDirectory(), "..", "..", "src", "StockportWebapp"))
-              .UseKestrel()
-              .UseEnvironment(environment);
+                .UseStartup<FakeStartup>()
+                .UseKestrel()
+                .UseEnvironment(environment)
+                .UseContentRoot(Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                    "..", "..", "..", "..", "..", "src", "StockportWebapp")));
 
             return new TestServer(hostBuilder);
         }
@@ -33,7 +35,10 @@ namespace StockportWebappTests
 
     public class FakeStartup : Startup
     {
-        public FakeStartup(IHostingEnvironment env) : base(env){}
+        public FakeStartup(IHostingEnvironment env) : base(env)
+        {
+            
+        }
 
         public LoggingHttpClient GetHttpClient(ILoggerFactory loggerFactory)
         {
@@ -58,7 +63,7 @@ namespace StockportWebappTests
         }
     }
 
-    internal class FakeResponseHandlerFactory
+    internal class FakeResponseHandlerFactory : TestingBaseClass
     {
         public FakeResponseHandler ResponseHandler { get; private set; }
 
@@ -67,7 +72,7 @@ namespace StockportWebappTests
             ResponseHandler = new FakeResponseHandler();
             var urlsDict = new Dictionary<Uri, string>
             {
-                {new Uri("http://localhost:5001/_healthcheck"), ReadFile("Healthcheck")}
+                {new Uri("http://localhost:5001/_healthcheck"), GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Healthcheck.json")}
             };
             foreach (var url in urlsDict.Keys)
             {
@@ -75,14 +80,9 @@ namespace StockportWebappTests
                 ResponseHandler.AddFakeResponse(url, httpResponseMessage);
             }
         }
-
-        private static string ReadFile(string fileName)
-        {
-            return File.ReadAllText($"Unit/MockResponses/{fileName}.json");
-        }
     }
 
-    internal class FakeHttpClientFactory
+    internal class FakeHttpClientFactory : TestingBaseClass
     {
         public FakeHttpClient Client { get; }
 
@@ -95,84 +95,79 @@ namespace StockportWebappTests
             Client.For("http://localhost:5001/api/unittest/article/this-is-a-redirect-from")
                 .Return(HttpResponse.Failure(404, "does not exist"));
             Client.For("http://localhost:5001/api/healthystockport/start-page/start-page")
-                .Return(HttpResponse.Successful(200, ReadFile("StartPage")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StartPage.json")));
             Client.For("http://localhost:5001/api/healthystockport/topic/test-topic")
-                .Return(HttpResponse.Successful(200, ReadFile("TopicWithAlerts")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAlerts.json")));
             Client.For("http://localhost:5001/api/healthystockport/article/physical-activity")
-                .Return(HttpResponse.Successful(200, ReadFile("Article")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Article.json")));
             Client.For("http://localhost:5001/api/healthystockport/homepage")
-                .Return(HttpResponse.Successful(200, ReadFile("HomepageHealthyStockport")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.HomepageHealthyStockport.json")));
             Client.For("http://localhost:5001/api/healthystockport/news/latest/2")
-                .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.NewsListing.json")));
             Client.For("http://localhost:5001/api/healthystockport/events/latest/2")
-                .Return(HttpResponse.Successful(200, ReadFile("EventListing")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListing.json")));
             Client.For("http://localhost:5001/api/healthystockport/events/latest/2?featured=true")
-                .Return(HttpResponse.Successful(200, ReadFile("EventListingFeatured")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListingFeatured.json")));
             Client.For("http://localhost:5001/api/healthystockport/news")
-                .Return(HttpResponse.Successful(200, ReadFile("Newsroom")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json")));
             Client.For("http://localhost:5001/api/healthystockport/profile/test-profile")
-                .Return(HttpResponse.Successful(200, ReadFile("Profile")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Profile.json")));
             Client.For("http://localhost:5001/api/healthystockport/article/contact-us")
-                .Return(HttpResponse.Successful(200, ReadFile("ContactUsArticle")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.ContactUsArticle.json")));
             Client.For("http://localhost:5001/api/healthystockport/article/about")
-                .Return(HttpResponse.Successful(200, ReadFile("StandaloneArticleWithProfile")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StandaloneArticleWithProfile.json")));
             Client.For("http://localhost:5001/api/redirects")
-                .Return(HttpResponse.Successful(200, ReadFile("Redirects")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Redirects.json")));
             Client.For("http://localhost:5001/api/stockportgov/homepage")
-                .Return(HttpResponse.Successful(200, ReadFile("HomepageStockportGov")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.HomepageStockportGov.json")));
             Client.For("http://localhost:5001/api/stockportgov/topic/test-topic")
-                .Return(HttpResponse.Successful(200, ReadFile("TopicWithAlerts")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAlerts.json")));
             Client.For("http://localhost:5001/api/stockportgov/article/physical-activity")
-                .Return(HttpResponse.Successful(200, ReadFile("Article")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Article.json")));
             Client.For("http://localhost:5001/api/stockportgov/start-page/start-page")
-                .Return(HttpResponse.Successful(200, ReadFile("StartPage")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StartPage.json")));
             Client.For("http://localhost:5001/api/stockportgov/news")
-                .Return(HttpResponse.Successful(200, ReadFile("Newsroom")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json")));
             Client.For("http://localhost:5001/api/stockportgov/news/latest/2")
-                .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.NewsListing.json")));
             Client.For("http://localhost:5001/api/stockportgov/news/latest/7")
-                .Return(HttpResponse.Successful(200, ReadFile("NewsListing")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.NewsListing.json")));
             Client.For("http://localhost:5001/api/stockportgov/news/test")
-                .Return(HttpResponse.Successful(200, ReadFile("News")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.News.json")));
             Client.For("http://localhost:5001/api/stockportgov/events/latest/2")
-                .Return(HttpResponse.Successful(200, ReadFile("EventListing")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListing.json")));
             Client.For("http://localhost:5001/api/stockportgov/events/latest/2?featured=true")
-                .Return(HttpResponse.Successful(200, ReadFile("EventListingFeatured")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListingFeatured.json")));
             Client.For("http://localhost:5001/api/stockportgov/profile/test-profile")
-                .Return(HttpResponse.Successful(200, ReadFile("Profile")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Profile.json")));
             Client.For("http://localhost:5001/api/stockportgov/footer")
-                .Return(HttpResponse.Successful(200, ReadFile("Footer")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Footer.json")));
             Client.For("http://localhost:5001/api/healthystockport/footer")
-                .Return(HttpResponse.Successful(200, ReadFile("Footer")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Footer.json")));
             Client.For("http://localhost:5001/api/stockportgov/eventhomepage")
-                .Return(HttpResponse.Successful(200, ReadFile("EventHomepage")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventHomepage.json")));
             Client.For("http://localhost:5001/api/stockportgov/events")
-                .Return(HttpResponse.Successful(200, ReadFile("EventsCalendar")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventsCalendar.json")));
             Client.For("http://localhost:5001/api/stockportgov/events/event-of-the-century")
-                .Return(HttpResponse.Successful(200, ReadFile("Event")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json")));
             Client.For("http://localhost:5001/api/stockportgov/atoz/a")
-                .Return(HttpResponse.Successful(200, ReadFile("AtoZ")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.AtoZ.json")));
             Client.For("http://localhost:5001/api/stockportgov/showcase/a-showcase")
-                .Return(HttpResponse.Successful(200, ReadFile("Showcase")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Showcase.json")));
             Client.For("http://localhost:5001/api/stockportgov/group/test-zumba-slug")
-                .Return(HttpResponse.Successful(200, ReadFile("Group")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Group.json")));
             Client.For("http://localhost:5001/api/stockportgov/groupResults/")
-                .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupResults.json")));
             Client.For("http://localhost:5001/api/stockportgov/groupResults/?location=Stockport")
-                .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupResults.json")));
             Client.For("http://localhost:5001/api/stockportgov/groupResults/?latitude=53.40581278523235&longitude=-2.158041000366211")
-                .Return(HttpResponse.Successful(200, ReadFile("GroupResults")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupResults.json")));
             Client.For("http://localhost:5001/api/stockportgov/groupCategory/")
-                .Return(HttpResponse.Successful(200, ReadFile("GroupStart")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupStart.json")));
             Client.For("http://localhost:5001/api/healthystockport/ContactUsId/test-email")
-                .Return(HttpResponse.Successful(200, ReadFile("ContactUsId")));
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.ContactUsId.json")));
             Client.ForPostAsync("https://www.google.com/recaptcha/api/siteverify")     
                 .ReturnPostAsync(new HttpResponseMessage() { Content = new StringContent("{\"success\": true,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}") });
-        }
-
-        private static string ReadFile(string fileName)
-        {
-            return File.ReadAllText($"Unit/MockResponses/{fileName}.json");
         }
     }
 }

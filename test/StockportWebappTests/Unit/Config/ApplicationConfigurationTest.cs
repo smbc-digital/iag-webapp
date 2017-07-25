@@ -3,6 +3,7 @@ using System.IO;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.PlatformAbstractions;
 using Moq;
 using StockportWebapp.Config;
 using Xunit;
@@ -15,7 +16,14 @@ namespace StockportWebappTests.Unit.Config
 
         public ApplicationConfigurationTest()
         {
-            var startup = new StockportWebapp.Startup(new HostingEnvironment() { EnvironmentName = "test", ContentRootPath = Directory.GetCurrentDirectory() });
+            var path = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                "..", "..", ".."));
+
+            var startup = new StockportWebapp.Startup(new HostingEnvironment
+            {
+                EnvironmentName = "test",
+                ContentRootPath = path
+            });
 
             var appSettings = startup.Configuration;
             _config = new ApplicationConfiguration(appSettings);
