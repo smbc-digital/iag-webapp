@@ -208,10 +208,10 @@ namespace StockportWebapp.Controllers
                             n =>
                                 new SitemapGoogle()
                                 {
-                                    changefreq = "daily",
+                                    changefreq = "monthly",
                                     lastmod = now,
                                     loc = $"{baseURL}/profile/{n.Slug}",
-                                    priority = "1"
+                                    priority = "0.5"
                                 }).ToList();
 
                     xml = SerializeObject(listOfProfileSitemaps);
@@ -225,10 +225,10 @@ namespace StockportWebapp.Controllers
                             n =>
                                 new SitemapGoogle()
                                 {
-                                    changefreq = "daily",
+                                    changefreq = "monthly",
                                     lastmod = now,
                                     loc = $"{baseURL}/payment/{n.Slug}",
-                                    priority = "1"
+                                    priority = "0.5"
                                 }).ToList();
 
                     xml = SerializeObject(listOfPaymentSitemaps);
@@ -242,7 +242,7 @@ namespace StockportWebapp.Controllers
                             n =>
                                 new SitemapGoogle()
                                 {
-                                    changefreq = "weekly",
+                                    changefreq = "monthly",
                                     lastmod = now,
                                     loc = $"{baseURL}/start/{n.Slug}",
                                     priority = "0.5"

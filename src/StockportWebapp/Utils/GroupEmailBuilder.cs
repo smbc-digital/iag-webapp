@@ -84,6 +84,25 @@ namespace StockportWebapp.Utils
             }
         }
 
+        public virtual void SendEmailEventDelete(ProcessedEvents eventItem, ProcessedGroup group)
+        {
+            var messageSubject = $"Delete {eventItem.Title}";
+
+            _logger.LogInformation("Sending event delete email");
+
+            var emailBody = new EventDelete { Title = eventItem.Title };
+
+            var emailsTosend = string.Join(",", group.GroupAdministrators.Items.Select(i => i.Email).ToList());
+            emailsTosend = emailsTosend + "," +
+                           _configuration.GetGroupSubmissionEmail(_businessId.ToString());
+
+            if (!string.IsNullOrEmpty(emailsTosend))
+            {
+                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _fromEmail, emailsTosend, new List<IFormFile>()));
+            }
+        }
+
         public virtual void SendEmailArchive(ProcessedGroup group)
         {
             var messageSubject = $"Archive {group.Name}";

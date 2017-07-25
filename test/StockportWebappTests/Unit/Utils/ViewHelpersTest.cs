@@ -24,6 +24,7 @@ namespace StockportWebappTests.Unit.Utils
         [InlineData(0, "09:30", "Today at 9:30am")]
         [InlineData(1, "09:30", "Tomorrow at 9:30am")]
         [InlineData(10, "19:30", "Saturday 11 February at 7:30pm")]
+        [InlineData(0, "12:00", "Today at 12:00pm")]
         public void FormatEventDateShouldReturnCorrectDateString(int daysOffset, string time, string expected)
         {
             // Arrange

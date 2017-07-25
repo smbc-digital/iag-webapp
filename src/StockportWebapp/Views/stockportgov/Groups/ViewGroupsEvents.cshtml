@@ -63,16 +63,16 @@
                                 {
                                     <a id="@("event-item-" + eventItem.Slug)" href="@Url.Action("GroupEventsDetails", "Groups", new {groupSlug = Model.Slug, eventSlug = eventItem.Slug})">
                                         <div class="grid-100 sk-table-row grid-parent">
-
-                                            <div class="sk-table-cell grid-70 tablet-grid-70 mobile-grid-60">
-                                                <span class="main">@eventItem.Title</span>
-                                            </div>
-                                            <div class="sk-table-cell grid-25 tablet-grid-250  mobile-grid-40">
-                                                <span>@eventItem.EventDate.ToString("d MMMM yyyy")</span>
-                                            </div>
-                                            <div class="sk-table-cell grid-5">
+                                            <div class="sk-table-cell">
                                                 <i class="row-arrow centre"></i>
                                             </div>
+                                            <div class="sk-table-cell grid-70 tablet-grid-70 mobile-grid-90 group-event-name">
+                                                <span class="main">@eventItem.Title</span>
+                                            </div>
+                                            <div class="sk-table-cell grid-25 tablet-grid-25 mobile-grid-90">
+                                                <span>@eventItem.EventDate.ToString("d MMMM yyyy")</span>
+                                            </div>
+                                            
                                         </div>
                                     </a>
                                 }

@@ -1,0 +1,50 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model StockportWebapp.ProcessedModels.ProcessedEvents
+
+@{
+    ViewData["Title"] = "Delete " + Model.Title;
+    ViewData["og:title"] = "Delete " + Model.Title;
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + ViewBag.GroupSlug + "/events/", "groups"), new Crumb(Model.Title, "manage/" + ViewBag.GroupSlug + "/events/" + Model.Slug, "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@Model.Title content">
+                <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
+                    <div class="grid-100">
+                        <h1 class="group-article-title">@ViewData["Title"]</h1>
+                    </div>
+                    <div class="grid-100">
+                        <p>Deleting your event will mean that it is completely removed from our events calendar. You will not be able to recover any of the event information.</p>
+                        <div class="group-confirmation-body">
+                            <p>If you'd like to keep your event but update the information, you can <a href="#">edit the event</a> instead.</p>
+                            <p>if you came here by accident, you can <a href="@Url.Action("ViewGroupsEvents", "Groups", new { slug = Model.Slug })">go back to manage your events</a>.</p>
+                            <p>
+                                <strong>Are you sure you want to delete your event?</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid-30 mixed-buttons">
+                        <div>
+                            @using (Html.BeginForm("DeleteAnEvent", "Groups", FormMethod.Post))
+                            {
+                                <stock-button>Delete your event</stock-button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
