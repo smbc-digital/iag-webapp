@@ -601,6 +601,66 @@ namespace StockportWebapp.Controllers
             return View(group);
         }
 
+        [Route("/groups/manage/{groupSlug}/events/{eventSlug}/delete")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> DeleteEvent(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
+            var groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
+
+            if (!eventResponse.IsSuccessful()) return eventResponse;
+
+            var eventItem = eventResponse.Content as ProcessedEvents;
+            var group = groupResponse.Content as ProcessedGroup;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
+                return NotFound();
+            }
+
+            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.GroupName = group.Name;
+            ViewBag.GroupSlug = group.Slug;
+
+            return View(eventItem);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{groupSlug}/events/{eventSlug}/delete")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> DeleteAnEvent(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
+        {
+            if (!_featureToggle.GroupManagement)
+            {
+                return NotFound();
+            }
+
+            var eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
+            var groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
+
+            if (!eventResponse.IsSuccessful()) return eventResponse;
+
+            var eventItem = eventResponse.Content as ProcessedEvents;
+            var group = groupResponse.Content as ProcessedGroup;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            {
+                return NotFound();
+            }
+
+            var deleteResponse = await _repository.Delete<Event>(eventSlug);
+
+            if (!deleteResponse.IsSuccessful()) return deleteResponse;
+
+            _emailBuilder.SendEmailEventDelete(eventItem, group);
+            return RedirectToAction("DeleteEventConfirmation", new { eventName = eventItem.Title, groupSlug = group.Slug, groupName = group.Name  });
+        }
+
         [HttpPost]
         [Route("/groups/manage/{slug}/delete")]
         [ServiceFilter(typeof(GroupAuthorisation))]
@@ -626,7 +686,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             _emailBuilder.SendEmailDelete(group);
-           return RedirectToAction("DeleteConfirmation", new { group = group.Slug });
+           return RedirectToAction("DeleteConfirmation", new { group = group.Name });
         }
 
         [Route("/groups/manage/deleteconfirmation")]
@@ -639,6 +699,22 @@ namespace StockportWebapp.Controllers
                 return NotFound();
 
             ViewBag.GroupName = group;
+
+            return View();
+        }
+
+        [Route("/groups/manage/deleteeventconfirmation")]
+        public IActionResult DeleteEventConfirmation(string eventName, string groupSlug, string groupName)
+        {
+            if (!_featureToggle.GroupManagement)
+                return NotFound();
+
+            if (string.IsNullOrWhiteSpace(eventName))
+                return NotFound();
+
+            ViewBag.EventName = eventName;
+            ViewBag.GroupName = groupName;
+            ViewBag.GroupSlug = groupSlug;
 
             return View();
         }
