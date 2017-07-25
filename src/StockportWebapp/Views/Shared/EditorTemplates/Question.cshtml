@@ -1,0 +1,6 @@
+﻿@model StockportWebapp.QuestionBuilder.Entities.Question
+
+@Html.Hidden("QuestionId", Model.QuestionId)
+@Html.Hidden("QuestionType", Model.QuestionType)
+
+@await Component.InvokeAsync("QuestionRenderer", new { question = Model })

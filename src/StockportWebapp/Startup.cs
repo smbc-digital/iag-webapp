@@ -13,7 +13,11 @@ using StockportWebapp.Middleware;
 using StockportWebapp.Scheduler;
 using StockportWebapp.ModelBinders;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
+using StockportWebapp.AmazonSES;
+using StockportWebapp.Controllers;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
+using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
 
 namespace StockportWebapp
@@ -53,6 +57,7 @@ namespace StockportWebapp
             services.AddTransient(p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
+            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));
 
             // custom extensions
             services.AddCustomisedAngleSharp();

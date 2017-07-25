@@ -4,10 +4,10 @@ var methods = {
             .expect.element('@pageTitle').text.to.equal(title);
     },
 
-    goToNewsWithTitle: function (browser, title, link) {
+    goToNewsWithTitle: function (browser, title) {
         this.waitForElementVisible('@newsList', this.api.globals.timeOut);
         browser.useXpath().assert.visible("//h2[@class='nav-card-news-title' and text()='" + title + "']")
-            .click("//a[contains(@href,'" + link + "')]");
+            .click("//h2[@class='nav-card-news-title' and text()='" + title + "']");
     },
 
     goToCategory: function (browser, category) {

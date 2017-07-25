@@ -7,7 +7,7 @@
     goToTopicListBlockPage: function (browser, title, link) {
         this.waitForElementVisible('@topicBody', this.api.globals.timeOut);
         browser.useXpath().assert.visible("//div[strong='" + title + "']")
-            .click("//a[contains(@href,'" + link + "')]");
+            .click("//div[strong='" + title + "']");
     },
 
     assertSecondaryItemIsVisible: function(browser,title) {

@@ -12,8 +12,8 @@ var methods = {
 
     goToFirstEvent: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
-        browser.useCss().assert.visible("h3")
-            .click("h3");
+        browser.useCss().assert.visible("h3.events-link")
+            .click("h3.events-link");
     },
 
     removeFirstFilter: function (browser) {

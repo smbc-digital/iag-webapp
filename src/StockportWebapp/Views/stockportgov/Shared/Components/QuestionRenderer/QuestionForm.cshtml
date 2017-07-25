@@ -1,0 +1,28 @@
+﻿@model StockportWebapp.QuestionBuilder.Entities.Page
+
+<span>@Html.Raw(Model.Description)</span>
+
+@using (Html.BeginForm(Model.Action, null, FormMethod.Post, new { @class = "question-form" }))
+{
+    if (Model.Questions.Count > 0)
+    {
+        @Html.EditorFor(model => Model.Questions)
+    }
+    @Html.HiddenFor(model => model.PageId)
+    if (!string.IsNullOrEmpty(Model.Endpoint))
+    {
+        @Html.HiddenFor(model => model.Endpoint)
+    }
+
+    if (Model.DisplayNextButton)
+    {
+        @*<input type="submit" value="Next step" class="button button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />*@
+        <stock-button class="question-button-next question-button-next-noscript">Next step</stock-button>
+    }
+}
+
+@*<script type="text/javascript">
+    require(['common/behaviours/buttonBehaviours'], function (buttonBehaviours) {
+        buttonBehaviours.showLoadingSpinnerOnButtonClick(".button-loadingbutton-loading");
+    });
+</script>*@
