@@ -26,6 +26,17 @@ var methods = {
   assertFeaturedTopicsAreVisible: function() {
     this.waitForElementVisible('@featuredtopics', this.api.globals.timeOut)
   },
+  assertCurrentConsulationsIsVisible: function(browser) {
+    this.waitForElementVisible('@consultaionSection', this.api.globals.timeOut)
+        .expect.element('@consulationHeading').text.to.equal("Current Consultations");
+        this.waitForElementVisible('@consultaionTable', this.api.globals.timeOut)
+  },
+  assertNewsSectionVisible: function() {
+    this.waitForElementVisible('@newsSection', this.api.globals.timeOut)
+  },
+  assertEventsSectionVisible: function() {
+    this.waitForElementVisible('@eventsSection', this.api.globals.timeOut)
+  },
 };
 
 module.exports = {
@@ -40,7 +51,13 @@ module.exports = {
     title: '.title-card>h1>span',
     teaser: '.title-card>h2>span',
     subheading: '.featured-items-wrapper>h2',
-    featuredtopics:'.featured-topic-list'
+    featuredtopics:'.featured-topic-list',
+    consultaionSection:'.l-content-container.grid-100.tablet-grid-100.mobile-grid-100.group-margin',
+    consulationHeading: '.grid-100.sk-table-cell>h3',
+    consultaionTable: '.grid-100.sk-table-row',
+    newsSection: '.showcase-news.alt-container-row',
+    eventsSection:'.showcase-events.alt-container-row'
+
 
 
 

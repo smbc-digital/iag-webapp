@@ -57,9 +57,11 @@ var methods = {
     },
 
 
-    assertLiveChatIsVisible: function() {
-        this.assert.visible(".side-bar-section-live-chat");
-        this.assert.visible(".online-chat");
+    assertLiveChatIsVisible: function(browser) {
+      this.waitForElementVisible('.l-right-side-bar-section.side-bar-section-live-chat', this.api.globals.timeOut);
+      browser.expect.element(".l-right-side-bar-section.side-bar-section-live-chat>h3").text.to.equal("UITEST: Live Chat");
+      browser.expect.element(".l-right-side-bar-section.side-bar-section-live-chat>p").text.to.contain("this is a live chat text");
+
     },
 
 
