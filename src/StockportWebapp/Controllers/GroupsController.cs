@@ -32,6 +32,7 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRepository _repository;
         private readonly GroupEmailBuilder _emailBuilder;
+        private readonly EventEmailBuilder _eventEmailBuilder;
         private readonly IFilteredUrl _filteredUrl;
         private readonly FeatureToggles _featureToggle;
         private readonly IViewRender _viewRender;
@@ -41,7 +42,7 @@ namespace StockportWebapp.Controllers
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -51,6 +52,7 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _configuration = configuration;
             _emailBuilder = emailBuilder;
+            _eventEmailBuilder = eventEmailBuilder;
             _managementQuery = new List<Query> { new Query("onlyActive", "false") };
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
@@ -1052,6 +1054,55 @@ namespace StockportWebapp.Controllers
             ViewBag.GroupSlug = group.Slug;
 
             return View(eventItem);
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{groupSlug}/events/add-your-event")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> AddYourEvent(string groupSlug, LoggedInPerson loggedInPerson)
+        {
+            var responseGroup = await _repository.Get<Group>(groupSlug, _managementQuery);
+            if (!responseGroup.IsSuccessful()) return responseGroup;
+            var group = responseGroup.Content as Group;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+                       
+            var eventSubmission = new EventSubmission();
+            eventSubmission.GroupName = group.Name;
+            eventSubmission.GroupSlug = group.Slug;
+            eventSubmission.SubmittedBy = loggedInPerson.Name;
+            eventSubmission.SubmitterEmail = loggedInPerson.Email;
+
+            return View("Add-Your-Event", eventSubmission);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{groupSlug}/events/add-your-event")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                return View("Add-Your-Event", eventSubmission);
+            }
+
+            var successCode = await _eventEmailBuilder.SendEmailAddNew(eventSubmission);
+            if (successCode == HttpStatusCode.OK) RedirectToAction("EventsThankYouMessage", eventSubmission);
+
+            ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
+
+            return View("Add-Your-Event", eventSubmission);
+        }
+
+        [Route("/groups/events-thank-you-message")]
+        public IActionResult EventsThankYouMessage(EventSubmission eventSubmission)
+        {
+            return View(eventSubmission);
         }
 
         private void DoPagination(GroupResults groupResults, int currentPageNumber ,int pageSize)

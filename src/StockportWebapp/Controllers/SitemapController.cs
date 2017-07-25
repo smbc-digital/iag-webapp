@@ -143,7 +143,7 @@ namespace StockportWebapp.Controllers
                         changefreq = "weekly",
                         lastmod = now,
                         loc = $"{baseURL}/groups",
-                        priority = "1.0"
+                        priority = "0.5"
                     });
 
                     xml = SerializeObject(listOfGroupSitemaps);
