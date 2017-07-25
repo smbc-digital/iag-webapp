@@ -27,6 +27,7 @@ namespace StockportWebapp.Models
         public List<string> Tags { get; set; }
         public Group Group { get; set; }
         public List<Alert> Alerts { get; set; }
+        public EventFrequency EventFrequency { get; set;  }
     }
 
    

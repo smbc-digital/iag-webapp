@@ -15,21 +15,27 @@
     <div class="event-details-content">
         <h1 id="event-title">@Model.Title </h1>
         <h3>Event summary</h3>
-        <p><strong>Event date: </strong>@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
-        <p><strong>Start time: </strong> @Model.StartTime</p>
-        <p><strong>End time: </strong>@Model.EndTime</p>
-        <p><strong>Price: </strong>@Model.Fee</p>
-        <p><strong>Location: </strong>@Model.Location</p>
-        <p><strong>Organiser name: </strong>@Model.SubmittedBy</p>
-        <p><strong>Description: </strong>@Model.Description</p>    
-    </div>
-    
+        @if (Model.EventFrequency != EventFrequency.None)
+        {
+            <p class="recurring-event">
+                This is a recurring event.
+            </p>
+        }
+            <p><strong>Event date: </strong>@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
+            <p><strong>Start time: </strong> @Model.StartTime</p>
+            <p><strong>End time: </strong>@Model.EndTime</p>
+            <p><strong>Price: </strong>@Model.Fee</p>
+            <p><strong>Location: </strong>@Model.Location</p>
+            <p><strong>Organiser name: </strong>@Model.SubmittedBy</p>
+            <p><strong>Description: </strong>@Model.Description</p>
+        </div>
 
-    <div class="grid-100 grid-parent details-button">
-        <stock-button as-link="true" href="#">Edit your event</stock-button>
-    </div>
-    <div class="grid-100 grid-parent details-button">
-        <stock-button as-link="true" class="grey" href="@Url.Action("DeleteEvent", "Groups")">Delete your event</stock-button>
-    </div>
 
-</div>
+        <div class="grid-100 grid-parent details-button">
+            <stock-button as-link="true" href="#">Edit your event</stock-button>
+        </div>
+        <div class="grid-100 grid-parent details-button">
+            <stock-button as-link="true" class="grey" href="@Url.Action("DeleteEvent", "Groups")">Delete your event</stock-button>
+        </div>
+
+    </div>
