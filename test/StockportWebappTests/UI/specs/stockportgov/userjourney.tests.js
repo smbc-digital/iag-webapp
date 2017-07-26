@@ -9,7 +9,7 @@ module.exports = {
         });
         browser.setCookie({
             name: "jwtCookie",
-            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
+            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwibmFtZSI6IlVJIFRlc3QifQ.89BlBYq8BrLZ88LSL5avDmUjcj7b_qUwEB0Mi_H-pUg"
         });
     },
 
