@@ -9,7 +9,7 @@ using Xunit;
 
 namespace StockportWebappTests.Unit.Model
 {
-    public class TopicTest
+    public class TopicTest : TestingBaseClass
     {
         [Fact]
         public void ConvertsMarkdownToHtml()
@@ -24,7 +24,7 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void ShouldDeserializeATopicWithOnePrimarySubItems()
         {
-            var content = File.ReadAllText("Unit/MockResponses/TopicWithAlerts.json");
+            var content = GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAlerts.json");
             var topic = JsonConvert.DeserializeObject<Topic>(content);
 
             topic.Name.Should().Be("Healthy Living");
@@ -36,7 +36,7 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void ShouldDeserializeATopicWithoutSubItems()
         {
-            var content = File.ReadAllText("Unit/MockResponses/Topic.json");
+            var content = GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Topic.json");
             var topic = JsonConvert.DeserializeObject<Topic>(content);
 
             topic.SubItems.Should().BeEmpty();
@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void ShouldDeserializeATopicWithSecondaryItems()
         {
-            var content = File.ReadAllText("Unit/MockResponses/TopicWithSecondaryItems.json");
+            var content = GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithSecondaryItems.json");
             var topic = JsonConvert.DeserializeObject<Topic>(content);
 
             topic.SecondaryItems.Count().Should().Be(1);
@@ -60,7 +60,7 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void ShouldDeserializeATopicWithTertiaryItems()
         {
-            var content = File.ReadAllText("Unit/MockResponses/TopicWithTertiaryItems.json");
+            var content = GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithTertiaryItems.json");
             var topic = JsonConvert.DeserializeObject<Topic>(content);
 
             topic.TertiaryItems.Count().Should().Be(1);
@@ -71,7 +71,7 @@ namespace StockportWebappTests.Unit.Model
         [Fact]
         public void ShouldUseSecondaryAndTertiaryItemsAsInTopItems()
         {
-            var content = File.ReadAllText("Unit/MockResponses/TopicWithAllItems.json");
+            var content = GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAllItems.json");
             var topic = JsonConvert.DeserializeObject<Topic>(content);
 
             topic.SubItems.Count().Should().Be(3);

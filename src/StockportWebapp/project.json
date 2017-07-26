@@ -4,7 +4,12 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "embed": {
+      "include": [
+        "Emails/Templates/*.html"
+      ]
+    }
   },
 
   "runtimeOptions": {
@@ -52,7 +57,7 @@
     "jose-jwt": "2.2.0",
     "ReverseMarkdown": "1.0.0",
     "Ical.Net": "3.0.11-net-core-beta",
-    "Google.Apis.Calendar.v3": "1.27.1.878",
+    "Google.Apis.Calendar.v3": "1.27.1.878"
   },
 
   "tools": {
@@ -87,7 +92,6 @@
       "node_modules"
     ]
   },
-
   "scripts": {
     "prepublish": [ "npm install --production" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]

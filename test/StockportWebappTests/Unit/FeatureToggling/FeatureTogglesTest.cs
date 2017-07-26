@@ -1,5 +1,7 @@
-﻿using FluentAssertions;
+﻿using System.IO;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.PlatformAbstractions;
 using Moq;
 using StockportWebapp.FeatureToggling;
 using StockportWebappTests.Unit.Fake;
@@ -12,7 +14,11 @@ namespace StockportWebappTests.Unit.FeatureToggling
     {
         private FeatureTogglesReader _featureTogglesReader;
         private static readonly Mock<ILogger<FeatureTogglesReader>> Logger = new Mock<ILogger<FeatureTogglesReader>>();
-        private const string YamlFile = "./Unit/FeatureToggling/featureToggles.yml";
+        readonly string YamlFile = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+            "..", "..", "..", "Unit", "FeatureToggling", "featureToggles.yml"));
+
+        readonly string invalidYamlFile = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+            "..", "..", "..", "Unit", "FeatureToggling", "yamlWithSyntaxError.yml"));
 
         [Fact]
         public void ShouldSetToggleValuesToTrueForGivenEnvironment()
@@ -119,9 +125,7 @@ namespace StockportWebappTests.Unit.FeatureToggling
         {
             string appEnvironment = "prod";
 
-            var fileWithSyntaxErrors = "./Unit/FeatureToggling/yamlWithSyntaxError.yml";
-
-            var featureTogglesReader = new FeatureTogglesReader(fileWithSyntaxErrors, appEnvironment, Logger.Object);
+            var featureTogglesReader = new FeatureTogglesReader(invalidYamlFile, appEnvironment, Logger.Object);
 
             var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
@@ -130,7 +134,7 @@ namespace StockportWebappTests.Unit.FeatureToggling
             featureToggles.OverriddenFeature.Should().Be(false);
 
             LogTesting.Assert(Logger, LogLevel.Warning,
-                $"Cannot parse feature toggles in {fileWithSyntaxErrors}. Setting all features to false.");
+                $"Cannot parse feature toggles in {invalidYamlFile}. Setting all features to false.");
         }
     }
 }

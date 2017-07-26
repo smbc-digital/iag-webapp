@@ -11,8 +11,8 @@ namespace StockportWebapp.Utils
 
             var template = typeof(T).Name;
 
-            var layout = File.ReadAllText($"emails/templates/_layout.html");
-            var body = File.ReadAllText($"emails/templates/{template}.html");
+            var layout = GetEmailTemplateForLayout();
+            var body = GetEmailTemplateForBody(template);
 
             PropertyInfo[] properties = typeof(T).GetProperties();
             foreach (var property in properties)
@@ -27,6 +27,16 @@ namespace StockportWebapp.Utils
             result = layout.Replace("{{ MAIN_BODY }}", body);
 
             return result;
+        }
+
+        public virtual string GetEmailTemplateForLayout()
+        {
+            return new FileReader().GetStringResponseFromFile("StockportWebapp.Emails.Templates._Layout.html");
+        }
+
+        public virtual string GetEmailTemplateForBody(string template)
+        {
+            return new FileReader().GetStringResponseFromFile($"StockportWebapp.Emails.Templates.{template}.html");
         }
     }
 }

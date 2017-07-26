@@ -5,6 +5,7 @@ using Xunit;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using Moq;
 using StockportWebapp.Builders;
 using StockportWebapp.Models;
 
@@ -40,10 +41,13 @@ namespace StockportWebappTests.Unit.Builders
         [Fact]
         public void ShouldReturnMemoryStreamForEmailWithAttachments()
         {
-            var attachments = new List<IFormFile>();
-            var attachment = File.OpenRead("TestFiles/test_attachment.txt");
-            attachments.Add(new FormFile(attachment, 0, attachment.Length, "test_attachment.txt", "test_attachment.txt"));
-            
+            var mockFile = new Mock<IFormFile>();
+            mockFile.Setup(o => o.FileName).Returns("test_attachment.txt");
+            mockFile.Setup(o => o.OpenReadStream().Length).Returns(5242879);
+            mockFile.Setup(o => o.OpenReadStream()).Returns(new MemoryStream());
+
+            var attachments = new List<IFormFile> {mockFile.Object};
+
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "serviceEmail@mail.com", "userEmail@mail.com", attachments);
 
             var stream = _emailBuilder.BuildMessageToStream(emailMessage);
@@ -55,19 +59,22 @@ namespace StockportWebappTests.Unit.Builders
             emailAsString.Should().Contain("serviceEmail@mail.com");
             emailAsString.Should().Contain("userEmail@mail.com");
             emailAsString.Should().Contain("test_attachment.txt");
-
-            attachment.Dispose();
         }
 
         [Fact]
         public void ShouldReturnMemoryStreamForEmailWithMultipleAttachments()
         {
-            var attachments = new List<IFormFile>();
+            var mockFile = new Mock<IFormFile>();
+            mockFile.Setup(o => o.FileName).Returns("test_attachment.txt");
+            mockFile.Setup(o => o.OpenReadStream().Length).Returns(5242879);
+            mockFile.Setup(o => o.OpenReadStream()).Returns(new MemoryStream());
 
-            var attachment = File.OpenRead("TestFiles/test_attachment.txt");
-            var docxAttachment = File.OpenRead("TestFiles/test_document.docx");
-            attachments.Add(new FormFile(attachment, 0, attachment.Length, "test_attachment.txt", "test_attachment.txt"));
-            attachments.Add(new FormFile(docxAttachment, 0, docxAttachment.Length, "test_document.docx", "test_document.docx"));
+            var mockFile2 = new Mock<IFormFile>();
+            mockFile2.Setup(o => o.FileName).Returns("test_document.docx");
+            mockFile2.Setup(o => o.OpenReadStream().Length).Returns(5242879);
+            mockFile2.Setup(o => o.OpenReadStream()).Returns(new MemoryStream());
+
+            var attachments = new List<IFormFile> { mockFile.Object, mockFile2.Object };
 
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "serviceEmail@mail.com", "userEmail@mail.com", attachments);
 
@@ -81,9 +88,6 @@ namespace StockportWebappTests.Unit.Builders
             emailAsString.Should().Contain("userEmail@mail.com");
             emailAsString.Should().Contain("test_attachment.txt");
             emailAsString.Should().Contain("test_document.docx");
-
-            attachment.Dispose();
-            docxAttachment.Dispose();
         }
 
         [Fact]
