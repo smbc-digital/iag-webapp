@@ -24,6 +24,37 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
         public readonly IEnumerable<Event> Events;
 
+        public GenericFeaturedItemList GenericItemList
+        {
+            get
+            {
+                var result = new GenericFeaturedItemList();
+                result.Items = new List<GenericFeaturedItem>();
+                foreach (var featuredItem in FeaturedItems)
+                {
+                    var item = new GenericFeaturedItem
+                    {
+                        Icon = featuredItem.Icon,
+                        Title = featuredItem.Title,
+                        Url = featuredItem.NavigationLink,
+                        SubItems = new List<GenericFeaturedItem>()
+                    };
+
+                    foreach (var subItem in featuredItem.SubItems)
+                    {
+                        item.SubItems.Add(new GenericFeaturedItem { Title = subItem.Title, Url = subItem.NavigationLink, Icon = subItem.Icon });
+                    }
+
+                    result.Items.Add(item);
+                }
+
+                result.ButtonText = string.Empty;
+                result.ButtonCssClass = string.Empty;
+
+                return result;
+            }
+        }
+
         public ProcessedShowcase()
         { }
 

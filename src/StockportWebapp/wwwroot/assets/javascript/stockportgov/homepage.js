@@ -1,29 +1,21 @@
-﻿
-var $seeMoreServicesButton = $("#see-more-services, #see-more-services-mobile");
-var $moreFeaturedTopicsDiv = $("#more-topics");
-
-$(document).ready(
+﻿$(document).ready(
     function () {
-        $moreFeaturedTopicsDiv.hide();
-        $seeMoreServicesButton.addClass("is-visible");
+        $(".generic-list-see-more-container").hide();
+        $(".generic-list-see-more").addClass("is-visible").on("click", function () {
+            self = this;
+            $genericMoreDiv = $(this).parent().parent().prev();
+            $genericMoreDiv.slideToggle(200, function () {
+                if (!$(self).hasClass("is-collapsed")) {
+                    $(self).text($(self).text().replace('more', 'fewer'));
+                    $(self).toggleClass("is-collapsed");
+                }
+                else {
+                    $(self).text($(self).text().replace('fewer', 'more'));
+                    $(self).toggleClass("is-collapsed");
+                }
+            });
+
+            STK.Matchboxes.Init();
+        });
     }()
-);
-
-$seeMoreServicesButton.on(
-    "click", function () {
-        $moreFeaturedTopicsDiv.slideToggle(200, function () {
-            if (!$seeMoreServicesButton.hasClass("is-collapsed")) {
-                $seeMoreServicesButton.text("See fewer services");
-                $seeMoreServicesButton.toggleClass("is-collapsed");
-
-            }
-            else {
-                $seeMoreServicesButton.text("See more services");
-                $seeMoreServicesButton.toggleClass("is-collapsed");
-            }
-        }
-        );
-
-        STK.Matchboxes.Init();
-    }
 );

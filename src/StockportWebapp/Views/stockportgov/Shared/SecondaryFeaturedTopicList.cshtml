@@ -1,43 +1,43 @@
 ﻿@model IEnumerable<StockportWebapp.Models.Topic>
 
 @{
-        <div class="primary-topics">
-            <div class="featured-topic-list matchbox-parent">
-                @Html.Partial("SecondaryFeaturedTopic", Model.Take(5))
+    <div class="primary-topics">
+        <div class="featured-topic-list matchbox-parent">
+            @Html.Partial("SecondaryFeaturedTopic", Model.Take(5))
+        </div>
+    </div>
+    <div id="more-topics">
+        @for (var count = 5; count < Model.Count(); count += 5)
+        {
+            <div class="featured-topic-list hide-on-mobile matchbox-parent">
+                @Html.Partial("SecondaryFeaturedTopic", Model.Skip(count).Take(5))
             </div>
-        </div>
-         <div id="more-topics">
-                 @for (var count = 5; count < Model.Count(); count += 5)
-                 {
-                     <div class="featured-topic-list hide-on-mobile matchbox-parent">
-                         @Html.Partial("SecondaryFeaturedTopic", Model.Skip(count).Take(5))
-                     </div>
-                 }
-                 @for (var count = 4; count < Model.Count(); count += 4)
-                 {
-                     <div class="featured-topic-list hide-on-desktop hide-on-tablet matchbox-parent">
-                         @Html.Partial("SecondaryFeaturedTopic", Model.Skip(count).Take(4))
-                     </div>
-                 }
-         </div>
-        <div class="hide-on-mobile">
-            @if (Model.Count() > 5)
-            {
-                <div class="featured-content-button-wrapper">
-                    <a id="see-more-services" class="button-default button-outline button-partialrounded button-featured-content-more button-see-more-services">See more services</a>
+        }
+        @for (var count = 4; count < Model.Count(); count += 4)
+        {
+            <div class="featured-topic-list hide-on-desktop hide-on-tablet matchbox-parent">
+                @Html.Partial("SecondaryFeaturedTopic", Model.Skip(count).Take(4))
+            </div>
+        }
+    </div>
+    <div class="hide-on-mobile">
+        @if (Model.Count() > 5)
+        {
+            <div class="featured-content-button-wrapper">
+                <a id="see-more-services" class="button-default button-outline button-partialrounded button-featured-content-more button-see-more-services">See more services</a>
+            </div>
+        }
+    </div>
+    <div class="hide-on-desktop hide-on-tablet">
+        @if (Model.Count() > 4)
+        {
+            <div class="mobile-grid-100 featured-content-button-wrapper">
+                <div class="mobile-grid-100">
+                    <a id="see-more-services-mobile" class="button-default button-outline button-partialrounded button-featured-content-more button-see-more-services">See more services</a>
                 </div>
-            }
-        </div>
-        <div class="hide-on-desktop hide-on-tablet">
-            @if (Model.Count() > 4)
-            {
-                <div class="mobile-grid-100 featured-content-button-wrapper">
-                    <div class="mobile-grid-100">
-                        <a id="see-more-services-mobile" class="button-default button-outline button-partialrounded button-featured-content-more button-see-more-services">See more services</a>
-                    </div>
-                </div>
-            }
-        </div>
-    }
+            </div>
+        }
+    </div>
+}
 
 

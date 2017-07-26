@@ -3,8 +3,6 @@
 @using StockportWebapp.Utils
 @model StockportWebapp.Models.Pagination
 
-
-
 <div class="pagination-section grid-parent pagination-margin-bottom">
     @{
         IUrlHelperWrapper urlHelper = new UrlHelperWrapper(Url);
@@ -12,10 +10,11 @@
         var indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(Model.CurrentPageNumber, Model.TotalItemsOnPage, Model.MaxItemsPerPage);
         var pageSize = PaginationHelper.GetOtherPageSizeByCurrentPageSize(Model.MaxItemsPerPage, Model.TotalItems, Model.DefaultPageSize);
     }
+
     @if (Model.TotalItems > Model.DefaultPageSize)
     {
         <div class="grid-parent grid-50 mobile-grid-100 tablet-grid-50 page-size">
-            <a href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)"> View @(pageSize == 99 ? "all" : pageSize.ToString()) @Model.ItemDescription @(pageSize == 99 ? string.Empty : "per page")</a> 
+            <a href="@PaginationHelper.BuildPageSizeUrl(Model.DefaultPageSize, Model.MaxItemsPerPage, Model.TotalItems, Model.CurrentUrl, urlHelper)"> View @(pageSize == 60 && Model.TotalItems < 60 ? "all" : pageSize.ToString()) @Model.ItemDescription @(pageSize == 60 && Model.TotalItems < 60 ? string.Empty : "per page")</a>
         </div>
     }   
 

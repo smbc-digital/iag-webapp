@@ -10,7 +10,7 @@
     "StockportWebapp": "1.0.0-*",
     "xunit": "2.1.0",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
-    "Microsoft.AspNetCore.TestHost": "1.0.0-*",
+    "Microsoft.AspNetCore.TestHost": "1.0.2",
     "Moq": "4.6.25-alpha",
     "System.Diagnostics.TraceSource": "4.0.0",
     "WilderMinds.RssSyndication": "1.0.4",
@@ -29,7 +29,12 @@
 
   "buildOptions": {
     "compile": {
-      "exclude": ["UI"]
+      "exclude": [ "UI" ]
+    },
+    "embed": {
+      "include": [
+        "Unit/MockResponses/*.json"
+      ]
     }
   }
 }

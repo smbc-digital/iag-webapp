@@ -3,7 +3,7 @@
     <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
         <div class="grid-100">
             <section>
-                @Html.Partial("EventCards", Model)
+                @Html.Partial("Events/EventCards", Model)
             </section>
             <div class="text-centre view-more-events-container">
                 <stock-button as-link="true" class="white" href="@Url.Action("Index", "Events")?category=@ViewData["EventCategory"]">View more events</stock-button>

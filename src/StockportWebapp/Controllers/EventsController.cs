@@ -106,16 +106,13 @@ namespace StockportWebapp.Controllers
                 eventsCalendar.AddCategories(eventResponse.Categories);
             }
 
-            if (!eventsCalendar.FromSearch)
-            {
-                var httpHomeResponse = await _repository.Get<EventHomepage>();
+            var httpHomeResponse = await _repository.Get<EventHomepage>();
 
-                if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
+            if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
 
-                var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+            var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
-                eventsCalendar.Homepage = eventHomeResponse;
-            }
+            eventsCalendar.Homepage = eventHomeResponse;
 
             return View(eventsCalendar);
         }
@@ -172,7 +169,7 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> AddYourEvent()
         {
             var eventSubmission = new EventSubmission();
-            return View(eventSubmission);
+            return View("Add-Your-Event", eventSubmission);
         }
 
         [HttpPost]
@@ -183,7 +180,7 @@ namespace StockportWebapp.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
-                return View(eventSubmission);
+                return View("Add-Your-Event", eventSubmission);
             }
 
             var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
@@ -191,7 +188,7 @@ namespace StockportWebapp.Controllers
 
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
-            return View(eventSubmission);
+            return View("Add-Your-Event", eventSubmission);
         }
 
         private string GetErrorsFromModelState(ModelStateDictionary modelState)

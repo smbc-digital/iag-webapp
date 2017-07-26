@@ -18,7 +18,7 @@
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-70 tablet-grid-70 mobile-grid-100">
-                <h1 id="manage-group-title" class="full-width-title-with-button">Manage your groups</h1>
+                <h1 id="manage-group-title" class="full-width-title-with-button">Manage your events</h1>
             </div>
             <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
                 @*<stock-button as-link="true" class="button-outline-white-transparent" href="https://myaccount.stockport.gov.uk/"><i class="fa fa-cog account"></i>Account Settings</stock-button>*@
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="grid-25 tablet-grid-40 hide-on-mobile sk-table-cell">
                                     <div class="header-right-button">
-                                        <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
+                                        <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddYourEvent", "Groups", new {groupSlug = Model.Slug})">Add your event</stock-button>
                                     </div>
                                 </div>
                             </div>
@@ -76,7 +76,6 @@
                                         </div>
                                     </a>
                                 }
-
                                 <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
                                     <stock-button as-link="true" class="sk-table white" href="@Url.Action("AddYourEvent", "Events")">Add your event</stock-button>
                                 </div>

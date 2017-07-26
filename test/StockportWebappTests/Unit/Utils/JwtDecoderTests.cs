@@ -7,9 +7,8 @@ using Newtonsoft.Json;
 using StockportWebapp.Utils;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
-using StockportWebappTests;
 
-namespace JwtTest
+namespace StockportWebappTests.Unit.Utils
 {
     public class JwtDecoderTests
     {

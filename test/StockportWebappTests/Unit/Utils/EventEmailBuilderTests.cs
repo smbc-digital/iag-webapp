@@ -32,7 +32,6 @@ namespace StockportWebappTests.Unit.Utils
                 .Returns(AppSetting.GetAppSetting("EventSubmissionEmail"));
 
             _eventEmailBuilder = new EventEmailBuilder(_logger.Object, _emailClient.Object, applicationConfiguration.Object, new BusinessId("businessId"));
-          
         }
 
         [Fact]

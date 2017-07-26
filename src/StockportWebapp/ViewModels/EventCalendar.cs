@@ -67,6 +67,18 @@ namespace StockportWebapp.ViewModels
             return result;
         }
 
+        public List<SelectListItem> EventCategoryOptions()
+        {
+            var result = new List<SelectListItem>();
+            result.Add(new SelectListItem { Text = "All categories", Value = string.Empty });
+            foreach (var cat in Homepage.Categories)
+            {
+                result.Add(new SelectListItem { Text = cat.Name, Value = cat.Slug });
+            }
+
+            return result;
+        }
+
         public void AddCategories(List<string> categories)
         {
             Categories = categories;

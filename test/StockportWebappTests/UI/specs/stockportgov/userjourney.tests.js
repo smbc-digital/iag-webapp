@@ -9,7 +9,7 @@ module.exports = {
         });
         browser.setCookie({
             name: "jwtCookie",
-            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
+            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwibmFtZSI6IlVJIFRlc3QifQ.89BlBYq8BrLZ88LSL5avDmUjcj7b_qUwEB0Mi_H-pUg"
         });
     },
 
@@ -28,7 +28,7 @@ module.exports = {
 
         var articlepage = browser.page.stockportgov.articlepage();
         articlepage.assertTitleIsVisible('UITEST: About the Hat Works');
-        articlepage.assertLiveChatIsVisible();
+        articlepage.assertLiveChatIsVisible(browser);
 
         articlepage.assertCarouselIsVisible();
         articlepage.assertCarouselImagesAreVisible();
@@ -171,15 +171,19 @@ module.exports = {
             "Too much for this box. This is a lot of text. Too much for this box. This is a lot of text. Too much for this box. " +
             "This is a lot of text. Too much for this box. This is a lot of text. This is the end of the test.");
     },
-    'Navigate to showcase/spotlight/theme page and validate details  ': function (browser) {
-        var spotlightpage = browser.page.stockportgov.spotlightpage();
-        spotlightpage.navigate();
-        spotlightpage.assertBreadcrumbIsVisible();
-        spotlightpage.assertHeroImageIsVisible();
-        spotlightpage.assertTitleIsVisible("UITEST: showcase page");
-        spotlightpage.assertTeaserIsVisible(browser, "this is a spotlight page for ui-test");
-        spotlightpage.assertSubheadingIsVisible(browser, "spotlight subheading");
-        spotlightpage.assertFeaturedTopicsAreVisible();
+    'Navigate to showcase and validate details  ': function (browser) {
+        var showcasePage = browser.page.stockportgov.showcase();
+        showcasePage.navigate();
+        showcasePage.assertBreadcrumbIsVisible();
+        showcasePage.assertHeroImageIsVisible();
+        showcasePage.assertTitleIsVisible("UITEST: showcase page");
+        showcasePage.assertTeaserIsVisible(browser, "this is a spotlight page for ui-test");
+        showcasePage.assertCurrentConsulationsIsVisible(browser);
+        showcasePage.assertSubheadingIsVisible(browser, "spotlight subheading");
+        showcasePage.assertFeaturedTopicsAreVisible();
+        showcasePage.assertNewsSectionVisible();
+        showcasePage.assertEventsSectionVisible();
+
     },
     'Navigate to groups from homepage and validate details': function (browser) {
         browser.maximizeWindow();
@@ -204,7 +208,7 @@ module.exports = {
         manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
         manageGroups.assertManageGroupsTitleIsVisible("UITEST: A group for ui testing");
         manageGroups.assertViewEventsButtonIsVisibleAndClickIt(browser);
-        manageGroups.assertManageGroupsEventsTitleIsVisible("Manage your groups");
+        manageGroups.assertManageGroupsEventsTitleIsVisible("Manage your events");
         manageGroups.assertGroupsEventIsVisibleAndClickIt(browser);
         manageGroups.assertEventsTitleIsVisible("UITEST: Hats Amazing");
     },
