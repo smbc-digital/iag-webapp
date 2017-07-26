@@ -239,7 +239,7 @@
                         }
                         @if (Model.Events != null && Model.Events.Any())
                         {
-                            @Html.Partial("EventCards", Model.Events.Take(3).ToList())
+                            @Html.Partial("Events/EventCards", Model.Events.Take(3).ToList())
                         }
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">

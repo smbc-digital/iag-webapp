@@ -142,6 +142,7 @@ namespace StockportWebapp.Utils
                 .AddSource("m.addthis.com/live/")
                 .AddSource("http://kinesis-ping-middleman.buto.tv")
                 .AddSource("https://kinesis.eu-west-1.amazonaws.com/")
+                .AddSource("https://zldiarvaya.execute-api.eu-west-1.amazonaws.com/prod/")
                 .Finish());
         }
 
