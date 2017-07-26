@@ -24,7 +24,7 @@ int: &int
   << : *stage
   << : *qa
   ExportGroupEventsToCalendar: true
-  DisplayNewEventPageFeatures: false
+  DisplayNewEventPageFeatures: true
   SmartAnswers : true
 
 local:

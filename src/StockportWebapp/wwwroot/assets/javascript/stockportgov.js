@@ -378,6 +378,37 @@ var LocationLookupNonAutocomplete = function () {
         }
     });
 };
+var STK = {};
+
+STK.RefineBy = (function () {
+
+    var closeFilters = function () {
+        $(".refine").removeClass("open");
+        $(".refine-filters").hide();
+    };
+
+    var openFilter = function (filter) {
+        $(".refine", $(filter))[0].addClass("open");
+
+        if ($(".refine", $(filter))[0].hasClass("open")) {
+            $(".refine-filters", $(filter))[0].hide();
+        } else {
+            $(".refine-filters", $(filter))[0].show();
+            $(".refine", $(filter))[0].removeClass("open");
+        }
+    };
+
+    return {
+        Init: function () {
+
+            $(".refine").click(function () {
+                closeFilters();
+                openFilter(this);
+            });
+        }
+    };
+})();
+STK.RefineBy.Init();
 $(document)
     .ready(function () {
         $(".expanding-Link-items").addClass("is-collapsed");
