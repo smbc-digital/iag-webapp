@@ -1,16 +1,10 @@
-define(['jquery', 'questionController', 'questionView', 'questionValidator'],
-  function ($, controllerCtor, viewCtor, validatorCtor) {
-
+SMART.Module = function () {
     return {
-      init: function (route) {
-
-        var view = viewCtor();
-        var validator = validatorCtor();
-        var controller = controllerCtor(route, view, validator);
-
-        $(function () {
-          controller.init();
-        });
-      }
+        init: function (route) {
+            var controller = SMART.Controller(route, SMART.View(), SMART.Validator());
+            $(function () {
+                controller.init();
+            });
+        }
     };
-  });
+}
