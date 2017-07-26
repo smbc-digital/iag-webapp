@@ -16,13 +16,10 @@
 
     if (Model.DisplayNextButton)
     {
-        @*<input type="submit" value="Next step" class="button button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />*@
-        <stock-button class="question-button-next question-button-next-noscript">Next step</stock-button>
+        //<stock-button class="question-button-next question-button-next-noscript">Next step</stock-button>
+        <button disabled="disabled" type="submit" class="button button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script">@Model.ButtonText</button>  
+        <noscript>
+            <input type="submit" value="Next step" class="button button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />
+        </noscript>
     }
 }
-
-@*<script type="text/javascript">
-    require(['common/behaviours/buttonBehaviours'], function (buttonBehaviours) {
-        buttonBehaviours.showLoadingSpinnerOnButtonClick(".button-loadingbutton-loading");
-    });
-</script>*@
