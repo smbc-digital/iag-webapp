@@ -1,3 +1,5 @@
+var SMART = {};
+
 // Launching fullscreen overlays
 $('.launch-fullscreen-overlay[data-overlay]').on( 'click', function() {
    var overlayData = $(this).data('overlay'),
