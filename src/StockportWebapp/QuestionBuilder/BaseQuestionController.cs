@@ -7,9 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using StockportWebapp.Controllers;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.QuestionBuilder
 {
@@ -19,11 +17,28 @@ namespace StockportWebapp.QuestionBuilder
     {
         protected IDictionary<int, Page> Structure { get; set; }
         protected IHttpContextAccessor HttpContextAccessor;
+        protected string Slug;
+        protected string Title;
 
-        protected BaseQuestionController(string slug, IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader)
+        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader)
         {
+            var slug = string.Empty;
+            var url = httpContextAccessor.HttpContext.Request.Path.ToString();
+            if (url.IndexOf("smart-answers/") > 0)
+            {
+                var start = url.IndexOf("smart-answers/") + 14;
+                var end = url.IndexOf("?", start) > start ? url.IndexOf("?", start) : url.Length;
+                slug = url.Substring(start, end - start);
+                slug = slug.Replace("/validate", string.Empty);
+            }
+            else
+            {
+                slug = url;
+            }
+
             HttpContextAccessor = httpContextAccessor;
-            Structure = questionLoader.LoadQuestions<BuildingRegsQuestions>(slug).Structure;
+            Structure = questionLoader.LoadQuestions<GenericSmartAnswersQuestions>(slug, ref Title).Structure;
+            Slug = slug;
         }
 
         [HttpPost]
@@ -121,7 +136,12 @@ namespace StockportWebapp.QuestionBuilder
             }
 
             page.AddAnswers(allAnswers);
-            return View(page);
+
+            var result = new SmartAnswerViewModel();
+            result.Page = page;
+            result.Slug = Slug;
+            result.Title = Title;
+            return View(result);
         }
 
         public Page GetPage(int pageId)

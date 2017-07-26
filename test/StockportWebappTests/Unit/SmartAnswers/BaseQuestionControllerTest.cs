@@ -20,13 +20,13 @@ using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests.Unit.SmartAnswers
 {
-    internal class TestQuestionController : BaseQuestionController<BuildingRegsModel, BuildingRegsMap>
+    internal class TestQuestionController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
-        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle) : base("building-regs", httpContextAccessor, questionLoader)
+        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle) : base(httpContextAccessor, questionLoader)
         {
         }
 
-        public override Task<IActionResult> ProcessResults(BuildingRegsModel result, string endpointName)
+        public override Task<IActionResult> ProcessResults(GenericSmartAnswersModel result, string endpointName)
         {
             return null;
         }
@@ -54,6 +54,8 @@ namespace StockportWebappTests.Unit.SmartAnswers
 
             _repository.Setup(o => o.Get<StockportWebapp.Models.SmartAnswers>(It.IsAny<string>(), null))
                 .ReturnsAsync(new HttpResponse(200, _smartAnswersResponse, string.Empty));
+
+            _httpContextAccessor.Setup(_ => _.HttpContext.Request.Path).Returns("/smart-answers/pathUrl");
         }
 
         [Fact]

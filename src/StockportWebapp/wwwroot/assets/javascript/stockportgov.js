@@ -15797,7 +15797,7 @@ SMART.Controller = function (route, view, validator) {
 
     function getValidationRoute() {
         var validateAction = 'validate';
-        return route.lastIndexOf("/") === (route.length - 1) ? route + validateAction : route + '/' + validateAction;
+        return route.lastIndexOf("/") === (route.length - 1) ? '/' + route + validateAction : '/' + route + '/' + validateAction;
     }
 
     var validateQuestions = function (form, selectedInput, bypassShowValidation) {
