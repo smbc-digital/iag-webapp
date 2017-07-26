@@ -208,7 +208,7 @@ module.exports = {
         manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
         manageGroups.assertManageGroupsTitleIsVisible("UITEST: A group for ui testing");
         manageGroups.assertViewEventsButtonIsVisibleAndClickIt(browser);
-        manageGroups.assertManageGroupsEventsTitleIsVisible("Manage your event");
+        manageGroups.assertManageGroupsEventsTitleIsVisible("Manage your events");
         manageGroups.assertGroupsEventIsVisibleAndClickIt(browser);
         manageGroups.assertEventsTitleIsVisible("UITEST: Hats Amazing");
     },
