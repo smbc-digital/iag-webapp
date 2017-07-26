@@ -1,23 +1,35 @@
-﻿<div class="" id="event-listing-refine-bar">
-    
-    <div class="grid-100">
+﻿<div id="event-listing-refine-bar">
+    <div class="grid-container" >
+        <div class="grid-100">
 
-        <div class="refine">
-            Refine By
-        </div>
+            <div class="refine">
+                Refine By
+            </div>
 
-        <div class="refine hide-on-desktop hide-on-tablet">
-            <a href="#">Featured Events<span class="badge">2</span></a>
-        </div>
+            <div class="refine">
+                <a href="#">Featured Events<div class="badge"><span>2</span></div></a>
+                <div class="refine-filters">
+                    <input type="checkbox" value="paid" />Children's half-term events
+                </div>
+            </div>
 
-        <div class="refine">
-            <a href="#">Location<span class="badge">2</span></a>
-        </div>
+            @*<div class="refine">
+                <a href="#">Location<div class="badge"><span>2</span></div></a>
+            </div>*@
 
-        <div class="refine">
-            <a href="#">Price<span class="badge">2</span></a>
-        </div>
+            <div class="refine">
+                <a href="#">Price<div class="badge"><span>2</span></div></a>
+                
+                <div class="refine-filters">
+                    <input type="checkbox" value="paid" /> Paid
+                    <div></div>
+                    <input type="checkbox" value="free" /> Free
+                </div>
+            </div>
 
+
+        </div>    
     </div>
+    
 
 </div>
