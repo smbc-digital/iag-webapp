@@ -1092,7 +1092,7 @@ namespace StockportWebapp.Controllers
             }
 
             var successCode = await _eventEmailBuilder.SendEmailAddNew(eventSubmission);
-            if (successCode == HttpStatusCode.OK) RedirectToAction("EventsThankYouMessage", eventSubmission);
+            if (successCode == HttpStatusCode.OK) return RedirectToAction("EventsThankYouMessage", eventSubmission);
 
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
