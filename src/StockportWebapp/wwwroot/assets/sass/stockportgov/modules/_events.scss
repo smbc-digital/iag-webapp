@@ -572,3 +572,74 @@ ul.nav-card-events-list {
 .recurring-event {
     margin-bottom: 20px;
 }
+
+#event-listing-refine-bar {
+    background-color: #ffffff;
+    margin-top: -20px;
+
+    .grid-container {
+        .refine {
+            float: left;
+            border-right: solid 1px #ebebeb;
+            padding: 20px 30px;
+            font-size: 1.3em;
+            font-weight: 700;
+            position: relative;
+
+            a {
+                display: block;
+                text-decoration: none;
+                color: #000000;
+
+
+                &:before {
+                    float: right;
+                    text-align: right;
+                    margin-top: 10px;
+                    margin-right: 10px;
+                    margin-left: 30px;
+                    font-size: 1em;
+                    content: "\f107";
+                    font: normal normal normal 1em/1 FontAwesome;
+                }
+
+                .badge{
+                    margin-left:10px;
+                }
+
+                &.open:before {
+                    content: "\f106";
+                }
+            }
+
+            .refine-filters{
+                display:none;
+                border-top:3px solid #055C58;
+                position:absolute;
+                background-color:white;
+                margin-top:20px;
+                margin-left: -30px;
+                width: 100%;
+                font-size: 0.75em;
+                font-weight: 100;
+                padding: 5px 10px;
+                box-sizing:border-box;
+            }
+        }
+    }
+}
+
+.badge {
+    display: inline-block;
+
+    span {
+        border-radius: 50%;
+        color: #ffffff;
+        background-color: #055C58;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+    }
+}

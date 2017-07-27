@@ -8,6 +8,9 @@
     var hasEvents = Model.Events.Any();
 
 }
+
+@Html.Partial("Events/EventsRefineByBar", Model)
+
 <div class="grid-container" id="event-listing-container">
     
 @if (!hasEvents)
