@@ -372,6 +372,10 @@ ul.nav-card-events-list {
 .add-button-container {
     position: relative;
     top: 30px;
+
+    .grid-container{
+        padding: 0 5px;
+    }
 }
 
 #event-listing-container {
@@ -393,7 +397,7 @@ ul.nav-card-events-list {
     }
 
     .group-li {
-        margin-bottom: 20px;
+        margin-bottom: 00px;
     }
 
     .pagination-section {
@@ -403,11 +407,17 @@ ul.nav-card-events-list {
 
     .home-page-row {
         .event-header {
-            margin: 10px 0 10px 15px;
+            margin: 10px 0 15px 5px;
+        }
+
+        .event-button{
+            padding-left:5px;
+            padding-right:5px;
         }
 
         h3 {
             display: inline-block;
+            margin-top:0;
         }
 
         .view-more {
@@ -426,7 +436,7 @@ ul.nav-card-events-list {
         .white {
             background-color: #ffffff;
             margin-top: -10px;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
         }
     }
 }
