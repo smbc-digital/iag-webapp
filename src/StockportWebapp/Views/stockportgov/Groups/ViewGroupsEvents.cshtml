@@ -38,8 +38,11 @@
                                     {
                                         <div class="grid-100 sk-table-row grid-parent">
                                             <div class="grid-100 tablet-grid-100 mobile-grid-100 sk-table-cell sk-noresults">
-                                                <span>You do not have permission to manage any events</span>
+                                                <span>You have no upcoming events.</span>
                                             </div>
+                                        </div>
+                                        <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
+                                            <stock-button as-link="true" class="sk-table white" href="@Url.Action("AddYourEvent", "Groups", new {groupSlug = Model.Slug})">Add your event</stock-button>
                                         </div>
                                     }
                                     else
