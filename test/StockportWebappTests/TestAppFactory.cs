@@ -164,6 +164,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupResults.json")));
             Client.For("http://localhost:5001/api/stockportgov/groupCategory/")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupStart.json")));
+            Client.For("http://localhost:5001/api/stockportgov/smart/smart-test")
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Smart.json")));
             Client.For("http://localhost:5001/api/healthystockport/ContactUsId/test-email")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.ContactUsId.json")));
             Client.ForPostAsync("https://www.google.com/recaptcha/api/siteverify")     

@@ -317,6 +317,7 @@ namespace StockportWebappTests.Integration
         [InlineData("/atoz/a", 60)]
         [InlineData("/showcase/a-showcase", 30)]
         [InlineData("/groups/test-zumba-slug", 15)]
+        [InlineData("/smart/smart-test", 15)]
         public async void ItReturnsTheCorrectHeaders(string path, int time)
         {
             SetBusinessIdRequestHeader("stockportgov");

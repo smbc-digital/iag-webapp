@@ -24,9 +24,9 @@ namespace StockportWebapp.QuestionBuilder
         {
             var slug = string.Empty;
             var url = httpContextAccessor.HttpContext.Request.Path.ToString();
-            if (url.IndexOf("smart-answers/") > 0)
+            if (url.IndexOf("smart/") > 0)
             {
-                var start = url.IndexOf("smart-answers/") + 14;
+                var start = url.IndexOf("smart/") + 6;
                 var end = url.IndexOf("?", start) > start ? url.IndexOf("?", start) : url.Length;
                 slug = url.Substring(start, end - start);
                 slug = slug.Replace("/validate", string.Empty);

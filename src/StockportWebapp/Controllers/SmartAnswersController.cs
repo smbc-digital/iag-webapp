@@ -11,7 +11,8 @@ using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
-    [Route("smart-answers/{slug}")]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+    [Route("smart/{slug}")]
     public class SmartAnswersController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
         public FeatureToggles _FeatureToggling;
