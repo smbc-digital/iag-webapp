@@ -78,6 +78,8 @@ namespace StockportWebapp.Controllers
                 }
             }
 
+            if (!string.IsNullOrEmpty(eventsCalendar.Tag)) { eventsCalendar.KeepTag = eventsCalendar.Tag; }
+
             eventsCalendar.FromSearch = eventsCalendar.FromSearch || !string.IsNullOrWhiteSpace(eventsCalendar.Category) || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
                                                                     || eventsCalendar.DateFrom != null || eventsCalendar.DateTo != null;
 
@@ -87,6 +89,7 @@ namespace StockportWebapp.Controllers
             if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-MM-dd")));
             if (!eventsCalendar.Category.IsNullOrWhiteSpace()) queries.Add(new Query("Category", eventsCalendar.Category));
             if (!eventsCalendar.Tag.IsNullOrWhiteSpace()) queries.Add(new Query("tag", eventsCalendar.Tag));
+            if (eventsCalendar.Price != null) queries.Add(new Query("price", string.Join(",", eventsCalendar.Price)));
 
             var httpResponse = await _repository.Get<EventResponse>(queries: queries);
 

@@ -1,4 +1,5 @@
 ﻿var SMART = {};
+var STK = {};
 
 // Launching fullscreen overlays
 $('.launch-fullscreen-overlay[data-overlay]').on( 'click', function() {
