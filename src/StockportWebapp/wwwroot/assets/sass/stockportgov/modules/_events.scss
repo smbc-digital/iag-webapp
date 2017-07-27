@@ -372,6 +372,10 @@ ul.nav-card-events-list {
 .add-button-container {
     position: relative;
     top: 30px;
+
+    .grid-container {
+        padding: 0 5px;
+    }
 }
 
 #event-listing-container {
@@ -393,7 +397,7 @@ ul.nav-card-events-list {
     }
 
     .group-li {
-        margin-bottom: 20px;
+        margin-bottom: 00px;
     }
 
     .pagination-section {
@@ -403,11 +407,17 @@ ul.nav-card-events-list {
 
     .home-page-row {
         .event-header {
-            margin: 10px 0 10px 15px;
+            margin: 10px 0 15px 5px;
+        }
+
+        .event-button {
+            padding-left: 5px;
+            padding-right: 5px;
         }
 
         h3 {
             display: inline-block;
+            margin-top: 0;
         }
 
         .view-more {
@@ -426,7 +436,7 @@ ul.nav-card-events-list {
         .white {
             background-color: #ffffff;
             margin-top: -10px;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
         }
     }
 }
@@ -581,7 +591,6 @@ ul.nav-card-events-list {
                 text-decoration: none;
                 color: #000000;
 
-
                 &:before {
                     float: right;
                     text-align: right;
@@ -593,27 +602,65 @@ ul.nav-card-events-list {
                     font: normal normal normal 1em/1 FontAwesome;
                 }
 
-                .badge{
-                    margin-left:10px;
-                }
-
-                &.open:before {
-                    content: "\f106";
+                .badge {
+                    margin-left: 10px;
+                    visibility: hidden;
                 }
             }
 
-            .refine-filters{
-                display:none;
-                border-top:3px solid #055C58;
-                position:absolute;
-                background-color:white;
-                margin-top:20px;
+            &.open a:before {
+                content: "\f106";
+            }
+
+            .refine-filters {
+                display: none;
+                border-top: 3px solid #055C58;
+                position: absolute;
+                background-color: white;
+                margin-top: 20px;
                 margin-left: -30px;
                 width: 100%;
                 font-size: 0.75em;
                 font-weight: 100;
                 padding: 5px 10px;
-                box-sizing:border-box;
+                box-sizing: border-box;
+                color: #00937C;
+
+                input[type=checkbox] {
+                    display: none;
+
+                    & + span:before {
+                        font-family: FontAwesome;
+                        display: inline-block;
+                        content: "\f096";
+                        letter-spacing: 15px;
+                    }
+
+                    &:checked + span:before {
+                        content: "\f046";
+                        letter-spacing: 13px;
+                    }
+                }
+
+                a {
+                    color: #00937C;
+                    display: inline;
+                    text-decoration: underline;
+
+                    &:before {
+                        content: "";
+                        float: left;
+                        margin: 0;
+                    }
+
+                    &.apply {
+                        float: right;
+                    }
+                }
+            }
+
+            &.open .refine-filters {
+                display: block;
             }
         }
     }
@@ -624,6 +671,7 @@ ul.nav-card-events-list {
 
     span {
         border-radius: 50%;
+        font-size: 14px;
         color: #ffffff;
         background-color: #055C58;
         width: 30px;

@@ -24,7 +24,6 @@ namespace StockportWebapp.Models
                 }
 
                 result.ButtonText = "View more categories";
-                result.ButtonCssClass = "grey";
 
                 return result;
             }

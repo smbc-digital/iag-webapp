@@ -342,6 +342,26 @@
     }
 }
 
+.button-default.green {
+    background-color: #06b79b;
+
+    &:active {
+        background-color: #059e86;
+    }
+
+    &:hover {
+        background-color: #07d0b0;
+    }
+
+    &:focus {
+        background-color: #06b79b;
+
+        &:hover {
+            background-color: #07d0b0;
+        }
+    }
+}
+
 .nav-card {
     .button-default {
         background-color: #ffffff;

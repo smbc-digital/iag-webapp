@@ -16,26 +16,69 @@ namespace StockportWebapp.QuestionBuilder.Entities
             // Conditions must all match for Behaviour to trigger
             if (Conditions != null && Conditions.Count > 0)
             {
-                var didConditionMatch = true;
                 foreach (var condition in Conditions)
                 {
                     var matchedQuestion = responses.FirstOrDefault(r => r.QuestionId == condition.QuestionId);
-                    if (matchedQuestion != null &&
-                        String.Equals(matchedQuestion.Response, condition.EqualTo,
-                            StringComparison.CurrentCultureIgnoreCase) && didConditionMatch)
+                    if (matchedQuestion != null)
                     {
-                        didConditionMatch = true;
+                        if (!string.IsNullOrEmpty(condition.EqualTo))
+                        {
+                            return IsEqualTo(matchedQuestion.Response, condition.EqualTo);
+                        }
+
+                        if (!string.IsNullOrEmpty(condition.Between))
+                        {
+                            return IsBetween(matchedQuestion.Response, condition.Between);
+                        }
                     }
-                    else
-                    {
-                        didConditionMatch = false;
-                    }
+                    return false;
                 }
-                return didConditionMatch;
             }
 
             // If we don't have any conditions on the behaviour, it should match
             return true;
+        }
+
+        public bool IsBetween(string value, string condition)
+        {
+            int enteredValue;
+            if (!int.TryParse(value, out enteredValue)) return false;
+
+            var splitValues = condition.Split(',');
+
+            if (splitValues.Length != 2) return false;
+
+            splitValues = HandleTextInBetweenValues(splitValues);
+
+            var betweenValues = splitValues.Select(int.Parse).ToList();
+
+            return enteredValue >= betweenValues[0] && enteredValue <= betweenValues[1];
+        }
+
+        private static string[] HandleTextInBetweenValues(IEnumerable<string> splitValues)
+        {
+            return splitValues.Select(_ =>
+            {
+                int valueAsInteger;
+                if (!int.TryParse(_, out valueAsInteger))
+                {
+                    return int.MaxValue.ToString();
+                }
+
+                return _;
+
+            }).ToArray();
+        }
+
+        public bool IsEqualTo(string value, string condition)
+        {
+            if (String.Equals(value, condition,
+                StringComparison.CurrentCultureIgnoreCase))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
