@@ -194,9 +194,10 @@ function swallowError(error) {
 
 //watch
 gulp.task('watch', function () {
-    gulp.watch("wwwroot/assets/javascript/stockportgov/*.js", ['min:js:sg']);
-    gulp.watch("wwwroot/assets/javascript/healthystockport/*.js", ['min:js:hs']);
-    gulp.watch("wwwroot/assets/javascript/site.js", ['min:js:hs', 'min:js:sg']);
+    gulp.watch("wwwroot/assets/javascript/stockportgov/*.js", ['js:sg', 'min:js:sg']);
+    gulp.watch("wwwroot/assets/javascript/stockportgov/**/*.js", ['js:sg', 'min:js:sg']);
+    gulp.watch("wwwroot/assets/javascript/healthystockport/*.js", ['js:hs', 'min:js:hs']);
+    gulp.watch("wwwroot/assets/javascript/site.js", ['js:sg', 'js:hs', 'min:js:hs', 'min:js:sg']);
     gulp.watch("wwwroot/assets/javascript/stockportgov/vendor/*.js", ['min:js:vendor']);
     gulp.watch("wwwroot/assets/sass/**/*.scss", ['css']);
 });

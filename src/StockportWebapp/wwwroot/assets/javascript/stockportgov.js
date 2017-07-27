@@ -383,24 +383,26 @@ var STK = {};
 STK.RefineBy = (function () {
 
     var closeFilters = function () {
-        $(".refine").removeClass("open");
+        $(".refine a").removeClass("open");
         $(".refine-filters").hide();
     };
 
     var openFilter = function (filter) {
-        $(".refine", $(filter))[0].addClass("open");
 
-        if ($(".refine", $(filter))[0].hasClass("open")) {
-            $(".refine-filters", $(filter))[0].hide();
+        debugger;
+
+        $("a", $(filter)).addClass("open");
+
+        if ($("a", $(filter)).hasClass("open")) {
+            $(".refine-filters", $(filter)).hide();
         } else {
-            $(".refine-filters", $(filter))[0].show();
-            $(".refine", $(filter))[0].removeClass("open");
+            $(".refine-filters", $(filter)).show();
+            $("a", $(filter)).removeClass("open");
         }
     };
 
     return {
         Init: function () {
-
             $(".refine").click(function () {
                 closeFilters();
                 openFilter(this);
@@ -408,6 +410,7 @@ STK.RefineBy = (function () {
         }
     };
 })();
+
 STK.RefineBy.Init();
 $(document)
     .ready(function () {
@@ -15509,11 +15512,20 @@ STK.Matchboxes = (function () {
         }));
 
         matchboxes.push(new Matchbox({
-            parentSelector: ".matchbox-parent-featured",
+            parentSelector: ".matchbox-parent-4-4-5",
             childSelector: ".matchbox-child",
             groupsOf: 4,
             breakpoints: [
             { bp: 1024, groupsOf: 5 }
+            ]
+        }));
+
+        matchboxes.push(new Matchbox({
+            parentSelector: ".matchbox-parent-1-2-2",
+            childSelector: ".matchbox-child",
+            groupsOf: 1,
+            breakpoints: [
+            { bp: 767, groupsOf: 2 }
             ]
         }));
     };
