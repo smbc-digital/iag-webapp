@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = Model.Title;
+    ViewData["Form"] = "true";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@model StockportWebapp.ViewModels.SmartAnswerViewModel
+
+
+<div class="container-header grid-container" id="smart-answers-container">
+    <div class="grid-100">
+        <h1>@ViewData["Title"]</h1>
+
+        @Html.Partial("Components/QuestionRenderer/QuestionForm", Model.Page)
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        SMART.Module().init("smart-answers/@Model.Slug");
+    });
+</script>

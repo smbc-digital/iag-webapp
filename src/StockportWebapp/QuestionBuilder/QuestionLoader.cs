@@ -21,10 +21,15 @@ namespace StockportWebapp.QuestionBuilder
         }
 
 
-        public TQuestionStructure LoadQuestions<TQuestionStructure>(string slug) where TQuestionStructure : IQuestionStructure, new()
+        public TQuestionStructure LoadQuestions<TQuestionStructure>(string slug, ref string title) where TQuestionStructure : IQuestionStructure, new()
         {
-            var jsonQuestionSet = LoadJson<TQuestionStructure>(slug);
-            var questionList = JsonConvert.DeserializeObject<IList<Page>>(jsonQuestionSet, new JsonConverter[]
+            var smartAnswer = LoadJson<TQuestionStructure>(slug);
+
+            if (smartAnswer == null) return new TQuestionStructure();
+
+            title = smartAnswer.Title;
+
+            var questionList = JsonConvert.DeserializeObject<IList<Page>>(smartAnswer.Questionjson, new JsonConverter[]
             {
                 new GenericJsonConverter<IQuestion, Question>(),
                 new GenericJsonConverter<IBehaviour, Behaviour>() 
@@ -38,13 +43,13 @@ namespace StockportWebapp.QuestionBuilder
             return questionStructure;
         }
 
-        public string LoadJson<TQuestionStructure>(string questionSetFilename) where TQuestionStructure : IQuestionStructure, new()
+        public SmartAnswers LoadJson<TQuestionStructure>(string questionSetFilename) where TQuestionStructure : IQuestionStructure, new()
         {
             var smart = _repository.Get<SmartAnswers>(questionSetFilename).Result.Content;
 
             var question = smart as SmartAnswers;
 
-            return question.Questionjson;
+            return question;
         }
 
         private ImmutableDictionary<int, Page> BuildQuestionMapFromList(IList<Page> questionList)
