@@ -51,7 +51,14 @@ namespace StockportWebapp.QuestionBuilder
 
                 if (page.HasValidationErrors())
                 {
-                    return View(page);
+                    var model = new SmartAnswerViewModel
+                    {
+                        Page = page,
+                        Slug = Slug,
+                        Title = Title
+                    };
+
+                    return View(model);
                 }
             }
 
