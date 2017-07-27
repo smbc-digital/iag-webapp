@@ -170,6 +170,14 @@
             background-color: #a6a6a6;
         }
     }
+
+    @media #{$mobile} {
+        padding: 0 20px 0 20px;
+
+        .green {
+            width: 100%;
+        }
+    }
 }
 
 .button-see-more-services {
