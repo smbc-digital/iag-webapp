@@ -1,28 +1,45 @@
-﻿.building-regs {
-    background-color:#fff;
+﻿#smart-answers-container {
+    background-color: #fff;
     padding-left: 40px;
+
     h1 {
-       padding: 20px 0;
-       font-size: 50px;
-       margin-bottom: 0;
-       color: #055c58;
+        padding: 20px 0;
+        font-size: 50px;
+        margin-bottom: 0;
+        color: #055c58;
     }
-}
 
-.question-button-next {
-    margin-bottom: 40px;
-}
-
-.question-section{
-    margin-bottom: 0px;
-
-    .question-list{
-        margin-top:20px;
+    .question-button-next {
+        margin-bottom: 40px;
     }
-}
 
-.type-buildingregs{
-    .atoz{
+    .question-section {
+        margin-bottom: 0px;
+
+        .question-list {
+            margin-top: 20px;
+        }
+    }
+
+    .type-buildingregs {
+        .atoz {
+            display: none;
+        }
+    }
+
+    .collapse {
+        cursor: pointer;
+    }
+
+    .collapse + input {
         display: none;
+    }
+
+    .collapse + input + div {
+        display: none;
+    }
+
+    .collapse + input:checked + div {
+        display: block;
     }
 }
