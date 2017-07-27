@@ -1,4 +1,4 @@
-﻿#smart-answers-container {
+﻿﻿#smart-answers-container {
     background-color: #fff;
     padding-left: 40px;
 
@@ -36,6 +36,16 @@
     }
 
     .collapse + input + div {
+        display: none;
+    }
+
+    .collapse + input:checked + div {
+        display: block;
+    }
+}
+
+.type-smartanswers {
+    .atoz {
         display: none;
     }
 
