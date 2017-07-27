@@ -28,6 +28,7 @@ namespace StockportWebapp.ViewModels
         public List<Event> Events { get; private set; } = new List<Event>();
         public List<string> Categories { get; private set; } = new List<string>();
         public string Tag { get; set; }
+        public string[] Price { get; set; }
         public string HomepageTags { get; set; }
         public IFilteredUrl FilteredUrl { get; private set; }
         public QueryUrl CurrentUrl { get; private set; }
@@ -38,6 +39,7 @@ namespace StockportWebapp.ViewModels
         public EventCalendar() { }
 
         public bool FromSearch { get; set; }
+        public string KeepTag { get; set; }
 
         public EventCalendar(List<Event> events, List<string> categories)
         {
