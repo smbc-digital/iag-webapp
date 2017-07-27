@@ -53,6 +53,7 @@ namespace StockportWebapp.Utils
                 .AddSource("font.googleapis.com")
                 .AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
                 .AddSource("fonts.gstatic.com/")
+                .AddSource("static.tacdn.com")
                 .Finish());
         }
 
@@ -84,7 +85,7 @@ namespace StockportWebapp.Utils
                 .AddSource("stockportb.logo-net.co.uk/")
                 .AddSource("*.cloudfront.net/butotv/")
                 .AddSource("data:")
-                .AddSource("https://www.tripadvisor.co.uk/")
+                .AddSource("www.tripadvisor.co.uk/")
                 .Finish());
         }
 
@@ -101,6 +102,11 @@ namespace StockportWebapp.Utils
                 .AddSource("fonts.googleapis.com/")
                 .AddSource("cdnjs.cloudflare.com/ajax/libs/cookieconsent2/")
                 .AddSource("*.cloudfront.net/butotv/")
+                .AddSource("*.tripadvisor.com")
+                .AddSource("*.tripadvisor.co.uk")
+                .AddSource("*.tripadvisor.co.uk")
+                .AddSource("static.tacdn.com")
+                .AddSource("data:")
                 .Finish());
         }
 
@@ -131,8 +137,9 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.gstatic.com/recaptcha/api2/")
                 .AddSource("https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js")
                 .AddSource("https://www.jscache.com/")
-                .AddSource("https://www.tripadvisor.com/")
-                .AddSource("https://www.tripadvisor.co.uk/")
+                .AddSource("*.tripadvisor.com")
+                .AddSource("*.tripadvisor.co.uk")
+                .AddSource("static.tacdn.com")
                 .Finish());
         }
 
