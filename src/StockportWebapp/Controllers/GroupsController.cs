@@ -660,7 +660,7 @@ namespace StockportWebapp.Controllers
             if (!deleteResponse.IsSuccessful()) return deleteResponse;
 
             _emailBuilder.SendEmailEventDelete(eventItem, group);
-            return RedirectToAction("DeleteEventConfirmation", new { eventName = eventItem.Title, groupSlug = group.Slug, groupName = group.Name  });
+            return RedirectToAction("DeleteEventConfirmation", new { eventName = eventItem.Title, eventSlug = eventItem.Slug, groupSlug = group.Slug, groupName = group.Name  });
         }
 
         [HttpPost]
@@ -706,7 +706,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/groups/manage/deleteeventconfirmation")]
-        public IActionResult DeleteEventConfirmation(string eventName, string groupSlug, string groupName)
+        public IActionResult DeleteEventConfirmation(string eventName, string eventSlug, string groupSlug, string groupName)
         {
             if (!_featureToggle.GroupManagement)
                 return NotFound();
@@ -717,6 +717,7 @@ namespace StockportWebapp.Controllers
             ViewBag.EventName = eventName;
             ViewBag.GroupName = groupName;
             ViewBag.GroupSlug = groupSlug;
+            ViewBag.EventSlug = eventSlug;
 
             return View();
         }
