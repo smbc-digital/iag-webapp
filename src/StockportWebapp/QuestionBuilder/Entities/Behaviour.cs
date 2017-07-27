@@ -42,22 +42,32 @@ namespace StockportWebapp.QuestionBuilder.Entities
         public bool IsBetween(string value, string condition)
         {
             int enteredValue;
-            if (int.TryParse(value, out enteredValue))
+            if (!int.TryParse(value, out enteredValue)) return false;
+
+            var splitValues = condition.Split(',');
+
+            if (splitValues.Length != 2) return false;
+
+            splitValues = HandleTextInBetweenValues(splitValues);
+
+            var betweenValues = splitValues.Select(int.Parse).ToList();
+
+            return enteredValue >= betweenValues[0] && enteredValue <= betweenValues[1];
+        }
+
+        private static string[] HandleTextInBetweenValues(IEnumerable<string> splitValues)
+        {
+            return splitValues.Select(_ =>
             {
-                string[] splitValues = condition.Split(',');
-
-                if (splitValues[1] == "max")
-                    splitValues[1] = int.MaxValue.ToString();
-
-                List<int> betweenValues = splitValues.Select(int.Parse).ToList();
-
-                if (enteredValue >= betweenValues[0] && enteredValue <= betweenValues[1])
+                int valueAsInteger;
+                if (!int.TryParse(_, out valueAsInteger))
                 {
-                    return true;
+                    return int.MaxValue.ToString();
                 }
-            }
 
-            return false;
+                return _;
+
+            }).ToArray();
         }
 
         public bool IsEqualTo(string value, string condition)

@@ -107,6 +107,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [InlineData("30","0,20",false)]
         [InlineData("30","0,max",true)]
         [InlineData("0","0,max",true)]
+        [InlineData("200","max,123",false)]
         public void ShouldTrigger_ShouldTriggerBetweenCondition_AndReturnCorrectBoolValue(string value, string condition, bool expected)
         {
             // Arrange
