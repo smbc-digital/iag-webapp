@@ -385,22 +385,11 @@ var STK = {};
 STK.RefineBy = (function () {
 
     var closeFilters = function () {
-        $(".refine a").removeClass("open");
-        $(".refine-filters").hide();
+        $(".refine").removeClass("open");
     };
 
     var openFilter = function (filter) {
-
-        debugger;
-
-        $("a", $(filter)).addClass("open");
-
-        if ($("a", $(filter)).hasClass("open")) {
-            $(".refine-filters", $(filter)).hide();
-        } else {
-            $(".refine-filters", $(filter)).show();
-            $("a", $(filter)).removeClass("open");
-        }
+        $(filter).toggleClass("open")
     };
 
     return {
@@ -15834,3 +15823,142 @@ function setEndDateToStartDate(endDateId, startDateId) {
     }
 }
 
+
+
+SMART.Controller = function (route, view, validator) {
+
+    function getValidationRoute() {
+        var validateAction = 'validate';
+        return route.lastIndexOf("/") === (route.length - 1) ? '/' + route + validateAction : '/' + route + '/' + validateAction;
+    }
+
+    var validateQuestions = function (form, selectedInput, bypassShowValidation) {
+        var deferredResult = $.Deferred();
+        var validationRoute = getValidationRoute();
+        $.post(validationRoute,
+            form.serialize(),
+            function () {
+            })
+            .done(function (response) {
+                var isValid = validator.processValidation(response, selectedInput, view.showValidationForQuestion, bypassShowValidation);
+                isValid ? view.enableNextButton() : view.disableNextButton();
+                deferredResult.resolve();
+            }).fail(function (xhr) {
+                deferredResult.reject(xhr.status + ' [' + xhr.statusText + ']');
+            });
+
+        return deferredResult.promise();
+    };
+
+    var init = function () {
+        view.showNextbutton();
+        view.bindEventListeners(validateQuestions);
+    };
+
+    return {
+        init: init,
+        validateQuestions: validateQuestions
+    };
+}
+SMART.Module = function () {
+    return {
+        init: function (route) {
+            var controller = SMART.Controller(route, SMART.View(), SMART.Validator());
+            $(function () {
+                controller.init();
+            });
+        }
+    };
+}
+
+SMART.Validator = function () {
+
+    var processValidation = function (validationResults, selectedInput, callback, bypassShowValidation) {
+        var invalidResutls = $.grep(validationResults,
+          function (v) {
+              return v.isValid === false;
+          });
+
+        var selectedResults = $.grep(validationResults,
+          function (v) {
+              return v.questionId === selectedInput.attr("data-questionid");
+          });
+
+        $(selectedResults).each(function () {
+            if (this.isValid || (!bypassShowValidation)) {
+                callback(this.questionId, this.isValid, this.message);
+            }
+        });
+
+        return (invalidResutls.length === 0);
+    };
+
+    return {
+        processValidation: processValidation
+    };
+}
+
+
+SMART.View = function () {
+
+    var disableNextButton = function () {
+        var button = $(".question-button-next");
+        button.prop("disabled", true);
+        button.addClass("button-disabled");
+    };
+
+    var enableNextButton = function () {
+        var button = $(".question-button-next");
+        button.prop("disabled", false);
+        button.removeClass("button-disabled");
+    };
+
+    var showNextbutton = function () {
+        var scriptButton = $(".question-button-next-script");
+        scriptButton.show();
+    };
+
+    var showValidationForQuestion = function (questionId, isValid, validationMessage) {
+        var validationContainer = $("div[data-questionid=" + questionId + "], span[data-questionid=" + questionId + "]");
+        var validationMessageSpan = validationContainer.find("span").last();
+        var validatedInput = $("input[data-questionid='" + questionId + "']");
+        var validationClass = "input-validation-error";
+
+        validationMessageSpan.html(validationMessage);
+
+        if (isValid) {
+            validationContainer.hide();
+            validatedInput.removeClass(validationClass);
+        }
+        else {
+            validatedInput.addClass(validationClass);
+            validationContainer.show();
+        }
+    };
+
+    var bindEventListeners = function (validationCallback) {
+        $("form.question-form input").change(function () {
+            validationCallback($("form.question-form"), $(this));
+        });
+        $("form.question-form input").blur(function () {
+            validationCallback($("form.question-form"), $(this));
+        });
+        $("form.question-form input").keyup(function (e) {
+            if (e.keyCode !== 9) {
+                validationCallback($("form.question-form"), $(this), true);
+            }
+        });
+        $(document).ready(function () {
+            validationCallback($("form.question-form"), $(this));
+        });
+    };
+
+    return {
+        showNextbutton: showNextbutton,
+        bindEventListeners: bindEventListeners,
+        disableNextButton: disableNextButton,
+        enableNextButton: enableNextButton,
+        showValidationForQuestion: showValidationForQuestion
+    };
+
+}

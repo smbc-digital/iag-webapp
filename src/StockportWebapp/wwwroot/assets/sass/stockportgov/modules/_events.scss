@@ -581,7 +581,6 @@ ul.nav-card-events-list {
                 text-decoration: none;
                 color: #000000;
 
-
                 &:before {
                     float: right;
                     text-align: right;
@@ -596,13 +595,13 @@ ul.nav-card-events-list {
                 .badge{
                     margin-left:10px;
                 }
-
-                &.open:before {
-                    content: "\f106";
-                }
             }
 
-            .refine-filters{
+            &.open a:before {
+                content: "\f106";
+            }
+
+            .refine-filters {
                 display:none;
                 border-top:3px solid #055C58;
                 position:absolute;
@@ -614,6 +613,10 @@ ul.nav-card-events-list {
                 font-weight: 100;
                 padding: 5px 10px;
                 box-sizing:border-box;
+            }
+
+            &.open .refine-filters{
+                display: block;
             }
         }
     }
