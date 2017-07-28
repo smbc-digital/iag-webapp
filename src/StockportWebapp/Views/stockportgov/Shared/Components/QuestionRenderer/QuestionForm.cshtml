@@ -4,11 +4,14 @@
 
 @using (Html.BeginForm(Model.Action, null, FormMethod.Post, new { @class = "question-form" }))
 {
+    <div>@Model.PreviousAnswersJson</div>
+
     if (Model.Questions.Count > 0)
     {
         @Html.EditorFor(model => Model.Questions)
     }
     @Html.HiddenFor(model => model.PageId)
+    @Html.HiddenFor(model => model.PreviousAnswersJson)
     if (!string.IsNullOrEmpty(Model.Endpoint))
     {
         @Html.HiddenFor(model => model.Endpoint)

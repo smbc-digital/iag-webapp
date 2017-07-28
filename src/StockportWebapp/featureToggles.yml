@@ -12,12 +12,12 @@ prod: &prod
 
 stage: &stage
   << : *prod
-    DisplayNewEventPageFeatures: true
+  DisplayNewEventPageFeatures: true
 
 qa: &qa
   << : *prod
   << : *stage
-    SmartAnswers : true
+  SmartAnswers : true
 
 int: &int
   << : *prod

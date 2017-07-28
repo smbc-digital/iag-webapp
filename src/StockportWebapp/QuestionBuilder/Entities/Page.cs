@@ -62,6 +62,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
             set { _previousAnswers = value; }
         }
 
+        public string PreviousAnswersJson { get; set; }
         public string AnalyticsEvent { get; set; }
         public string Description { get; }
         public IList<Behaviour> Behaviours { get; }
