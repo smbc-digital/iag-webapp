@@ -47,9 +47,7 @@ namespace StockportWebapp.Controllers
         [Route("summary")]
         public IActionResult Summary(string previousAnswersjson)
         {
-            var page = TempData["page"] as Page;
             var model = new SmartAnswerSummaryViewModel();
-            model.PreviousAnswers = page.PreviousAnswers.ToList();
             return View(model);
         }
 

@@ -148,8 +148,8 @@ namespace StockportWebapp.QuestionBuilder
                 }
                 if (behaviour.BehaviourType == EQuestionType.GoToSummary)
                 {
-                    TempData["page"] = page;
-                    return RedirectToAction("Summary", "SmartAnswers");
+                    ViewData["page"] = page;
+                    return View("Summary");
                 }
 
                 page = GetPage(Convert.ToInt32(behaviour.Value));

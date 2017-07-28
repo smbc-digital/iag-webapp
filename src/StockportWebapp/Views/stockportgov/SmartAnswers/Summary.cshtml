@@ -1,17 +1,19 @@
 ﻿@{
     ViewData["Form"] = "true";
+    var page = ViewData["page"] as Page;
     Layout = "../Shared/_Layout.cshtml";
 }
 
+@using StockportWebapp.QuestionBuilder.Entities
 @model StockportWebapp.ViewModels.SmartAnswerSummaryViewModel
 
 
 <div class="container-header grid-container" id="smart-answers-container">
     <div class="grid-100">
-
-    @foreach (var previousAnswer in Model.PreviousAnswers)
+        <h1>Sumamry</h1>
+    @foreach (var previousAnswer in page.PreviousAnswers)
     {
-        <div>@previousAnswer.QuestionId</div>
+        <div><strong>@previousAnswer.QuestionId</strong></div>
         <div>@previousAnswer.Response</div>
     }
     </div>
