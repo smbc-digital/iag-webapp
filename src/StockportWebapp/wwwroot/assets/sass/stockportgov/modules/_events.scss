@@ -577,7 +577,50 @@ ul.nav-card-events-list {
     background-color: #ffffff;
     margin-top: -20px;
 
+    @media #{$mobile} {
+        background-color: #ebebeb;
+    }
+
+    .white {
+        background-color: #ffffff;
+    }
+
     .grid-container {
+        .refine-all {
+            padding-top: 20px;
+
+            .button-default {
+                font-weight: 600;
+                width: 100%;
+            }
+        }
+
+        @media #{$mobile} {
+            #refine-slider {
+                position: absolute;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                background-color: #ffffff;
+                z-index: 9999;
+
+                .scroller {
+                    overflow:scroll;
+                }
+            }
+        }
+
+        .badge {
+            margin-left: 10px;
+            margin-right: 40px;
+            visibility: hidden;
+        }
+
+        .clear-all-filters {
+            padding: 10px 30px 20px 30px;
+            position: relative;
+        }
+
         .refine {
             float: left;
             border-right: solid 1px #ebebeb;
@@ -586,36 +629,45 @@ ul.nav-card-events-list {
             font-weight: 700;
             position: relative;
 
+            @media #{$mobile} {
+                float: none;
+                border-right: 0;
+                border-bottom: 1px 1px #ebebeb;
+                padding: 10px 30px 0 30px;
+                font-size: 1.1em;
+
+                &.title {
+                    padding-top:20px;
+                    font-size: 1.3em;
+                }
+            }
+
             a {
                 display: block;
                 text-decoration: none;
                 color: #000000;
 
-                &:before {
-                    float: right;
-                    text-align: right;
-                    margin-top: 10px;
-                    margin-right: 10px;
-                    margin-left: 30px;
-                    font-size: 1em;
-                    content: "\f107";
-                    font: normal normal normal 1em/1 FontAwesome;
-                }
-
-                .badge {
-                    margin-left: 10px;
-                    visibility: hidden;
+                @media #{$tablet,$desktop} {
+                    &:before {
+                        float: right;
+                        text-align: right;
+                        margin-top: 10px;
+                        margin-right: 10px;
+                        margin-left: 30px;
+                        font-size: 1em;
+                        content: "\f107";
+                        font: normal normal normal 1em/1 FontAwesome;
+                    }
                 }
             }
 
             &.open a:before {
-                content: "\f106";
+                @media #{$tablet,$desktop} {
+                    content: "\f106";
+                }
             }
 
             .refine-filters {
-                display: none;
-                border-top: 3px solid #055C58;
-                position: absolute;
                 background-color: white;
                 margin-top: 20px;
                 margin-left: -30px;
@@ -624,7 +676,21 @@ ul.nav-card-events-list {
                 font-weight: 100;
                 padding: 5px 10px;
                 box-sizing: border-box;
-                color: #00937C;
+                color: #055C58;
+
+                @media #{$tablet,$desktop} {
+                    display: none;
+                    padding: 20px;
+                    border-top: 3px solid #055C58;
+                    position: absolute;
+                }
+
+                @media #{$mobile} {
+                    border-bottom: solid 1px #ebebeb;
+                    margin-left: 0;
+                    margin-top: 0;
+                    font-size: 1em;
+                }
 
                 input[type=checkbox] {
                     display: none;
@@ -643,7 +709,7 @@ ul.nav-card-events-list {
                 }
 
                 a {
-                    color: #00937C;
+                    color: #055C58;
                     display: inline;
                     text-decoration: underline;
 
@@ -661,6 +727,28 @@ ul.nav-card-events-list {
 
             &.open .refine-filters {
                 display: block;
+            }
+        }
+
+        .update-cancel-bar {
+            position:fixed;
+            bottom:0;
+            padding:20px;
+            width:100%;
+            box-sizing: border-box;
+            background-color: #ebebeb;
+
+            .button-default {
+                min-width: 48%;
+                display: inline-block;
+                
+                &:before {
+                    content:'';
+                }
+
+                &.apply {
+                    float:right;
+                }
             }
         }
     }
