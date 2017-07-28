@@ -5,29 +5,26 @@ prod: &prod
   ManageYourGroupButton: true
   NewHomepageLayout: true
   EditGroupWYSIWYG: true
-  PrimaryItems: false
-  ExportGroupEventsToCalendar: false
+  PrimaryItems: true
   DisplayNewEventPageFeatures: false
   ExportGroupEventsToCalendar: true
   SmartAnswers : false
 
 stage: &stage
   << : *prod
-  PrimaryItems: true
+  DisplayNewEventPageFeatures: true
 
 qa: &qa
   << : *prod
   << : *stage
+  SmartAnswers : true
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
-  ExportGroupEventsToCalendar: true
-  DisplayNewEventPageFeatures: true
-  SmartAnswers : true
 
-local:
+local: &local
   << : *prod
   << : *stage
   << : *qa

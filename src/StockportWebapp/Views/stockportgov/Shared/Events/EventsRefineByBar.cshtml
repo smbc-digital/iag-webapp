@@ -1,54 +1,66 @@
 ﻿@using StockportWebapp.ViewModels;
 @model EventCalendar
-<div id="event-listing-refine-bar" class="hide-on-mobile" style="display:none;">
-    <div class="grid-container" >
-        <div class="grid-100">
+<div id="event-listing-refine-bar" style="display:none;">
+    <div class="grid-container">
+        <div class="grid-100 grid-parent">
 
-            <div class="refine">
-                Refine By
+            <div class="hide-on-desktop hide-on-tablet refine-all">
+                <stock-button class="white" id="reveal-refine-by">Refine by<div class="badge"><span>2</span></div></stock-button>
             </div>
 
-            @if (!string.IsNullOrEmpty(Model.KeepTag) || !string.IsNullOrEmpty(Model.Tag))
-            {
-            <div class="refine">
-                <a class="link" href="javascript:void(0)">Featured Events<div class="badge"><span>2</span></div></a>
-                <div class="refine-filters">
-                    <label>
-                        <input type="checkbox" name="tag" value="@Model.KeepTag" @(!string.IsNullOrEmpty(Model.Tag) ? "checked" : string.Empty) />
-                        <span>@Model.KeepTag</span>
-                    </label>
-                    <div>
-                        <a class="cancel" href="javascript:void(0)">Cancel</a>
-                        <a class="apply" href="javascript:void(0)">Apply</a>
+            <div id="refine-slider">
+                <div class="scroller">
+                    <div class="refine title">
+                        Refine by
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.KeepTag) || !string.IsNullOrEmpty(Model.Tag))
+                    {
+                        <div class="refine">
+                            <a class="link" href="javascript:void(0)">Featured events<div class="badge hide-on-mobile"><span></span></div></a>
+                            <div class="refine-filters">
+                                <label>
+                                    <input type="checkbox" name="tag" value="@Model.KeepTag" @(!string.IsNullOrEmpty(Model.Tag) ? "checked" : string.Empty) />
+                                    <span>@Model.KeepTag</span>
+                                </label>
+                                <div class="hide-on-mobile">
+                                    <a class="cancel" href="javascript:void(0)">Cancel</a>
+                                    <a class="apply" href="javascript:void(0)">Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="refine">
+                        <a class="link" href="javascript:void(0)">Price<div class="badge hide-on-mobile"><span></span></div></a>
+
+                        <div class="refine-filters">
+                            <label>
+                                <input type="checkbox" name="price" value="paid" @(Model.Price == null || Model.Price.Any(p => p == "paid") ? "checked" : string.Empty) />
+                                <span>Paid</span>
+                            </label>
+                            <div></div>
+                            <label>
+                                <input type="checkbox" name="price" value="free" @(Model.Price == null || Model.Price.Any(p => p == "free") ? "checked" : string.Empty) />
+                                <span>Free</span>
+                            </label>
+                            <div class="hide-on-mobile">
+                                <a class="cancel" href="javascript:void(0)">Cancel</a>
+                                <a class="apply" href="javascript:void(0)">Apply</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hide-on-desktop hide-on-tablet clear-all-filters">
+                        <a href="javascript:void(0);" class="">Clear all filters</a>
                     </div>
                 </div>
-            </div>
-            }
-            @*<div class="refine">
-                <a href="#">Location<div class="badge"><span>2</span></div></a>
-            </div>*@
-
-            <div class="refine">
-                <a class="link" href="javascript:void(0)">Price<div class="badge"><span>2</span></div></a>
-                
-                <div class="refine-filters">
-                    <label>
-                        <input type="checkbox" name="price" value="paid" @(Model.Price != null && Model.Price.Any(p => p == "paid") ? "checked" : string.Empty) />
-                        <span>Paid</span>
-                    </label>
-                    <div></div>
-                    <label>
-                        <input type="checkbox" name="price" value="free" @(Model.Price != null && Model.Price.Any(p => p == "free") ? "checked" : string.Empty) />
-                        <span>Free</span>
-                    </label>
-                    <div>
-                        <a class="cancel" href="javascript:void(0)">Cancel</a>
-                        <a class="apply" href="javascript:void(0)">Apply</a>
-                    </div>
+                <div class="hide-on-desktop hide-on-tablet update-cancel-bar">
+                    <stock-button class="white cancel">Cancel</stock-button>
+                    <stock-button class="green apply">Update</stock-button>
                 </div>
+
             </div>
-
-
         </div>    
     </div>
     
