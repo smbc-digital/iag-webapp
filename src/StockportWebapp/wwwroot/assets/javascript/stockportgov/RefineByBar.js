@@ -1,48 +1,24 @@
-﻿STK.Utils = (function () {
-
-    var stripParamFromQueryString = function (url, param) {
-        url = url.toLowerCase();
-        param = param.toLowerCase();
-
-        var result = '';
-        var splitter = '?';
-        var urlArray = url.split('?');
-        result = urlArray[0];
-        if (urlArray.length > 1) {
-            var params = urlArray[1].split('&');
-            for (var i = 0; i < params.length; i++) {
-                var entry = params[i].split('=')
-                if (entry[0].toLowerCase() !== param.toLowerCase()) {
-                    result = result + splitter + params[i];
-                    splitter = '&';
-                }
-            }
-        }
-
-        return result;
-    };
-
-    return {
-        StripParamFromQueryString: stripParamFromQueryString
-    };
-})();
-
-
-STK.RefineBy = (function () {
+﻿STK.RefineBy = (function () {
 
     var currentState = [];
 
     var closeFilters = function (link) {
         $('.link', '#event-listing-refine-bar').each(function () {
-            if (this !== link) {
-                $(this).parent().removeClass('open');
+            if (this !== link && $(this).closest('.refine').hasClass('open')) {
+                reApplyStateAndClose(this);
             }
         });
     };
 
     var openFilter = function (link) {
         var parent = $(link).parent();
-        $(parent).toggleClass('open')
+
+        if ($(parent).hasClass('open')) {
+            reApplyStateAndClose(link);
+        }
+        else {
+            $(parent).addClass('open')
+        }
 
         currentState = [];
         $('input[type=checkbox]', parent).each(function () {
@@ -76,6 +52,16 @@ STK.RefineBy = (function () {
 
             if (count > 0) {
                 $('.badge', $(this)).html('<span>' + count + '</span>').css('visibility', 'visible');
+                if ($('.none-selected-error', this).length) {
+                    $('.none-selected-error', this).hide();
+                    $('.apply', this).removeClass('disabled').off('click').on('click', function () { applyFilter(); });
+                    $('.update-button', '#event-listing-refine-bar').removeClass('disabled').prop('disabled', '');
+                }
+            }
+            else if ($('.none-selected-error', this).length) {
+                $('.none-selected-error', this).show();
+                $('.apply', this).addClass('disabled').off('click');
+                $('.update-button', '#event-listing-refine-bar').addClass('disabled').prop('disabled', 'disabled');
             }
         });
 
@@ -92,11 +78,13 @@ STK.RefineBy = (function () {
         href = STK.Utils.StripParamFromQueryString(href, 'tag');
         href = STK.Utils.StripParamFromQueryString(href, 'price');
 
+        var tag = getTag();
+        if (typeof (tag) == 'undefined') { tag = ''; }
         if (href.indexOf('?') < 0) {
-            href += '?keeptag=' + getTag() + '&fromsearch=true';
+            href += '?keeptag=' + tag + '&fromsearch=true';
         }
         else {
-            href += '&keeptag=' + getTag() + '&fromsearch=true';
+            href += '&keeptag=' + tag + '&fromsearch=true';
         }
 
         $('input:checked', '#event-listing-refine-bar').each(function () {
@@ -139,6 +127,7 @@ STK.RefineBy = (function () {
         $('input[type=checkbox]', '#event-listing-refine-bar').each(function (index) {
             $(this).prop('checked', currentState[index]);
         });
+        setBadges();
     };
 
     var clearAllFilters = function () {
@@ -149,23 +138,25 @@ STK.RefineBy = (function () {
 
     return {
         Init: function () {
+            setBadges();
+            initialiseSlider();
+
             $('#event-listing-refine-bar').show();
 
-            $('.link', '#event-listing-refine-bar').click(function () {
+            $('.link', '#event-listing-refine-bar').on('click', function () {
                 closeFilters(this);
                 openFilter(this);
             });
 
-            $('.cancel', '#event-listing-refine-bar').click(function () {
+            $('.cancel', '#event-listing-refine-bar').on('click', function () {
                 reApplyStateAndClose(this);
             });
 
-            $('.apply', '#event-listing-refine-bar').click(function () {
+            $('.apply', '#event-listing-refine-bar').on('click', function () {
                 applyFilter();
             });
 
-            setBadges();
-            $('input[type=checkbox]', '#event-listing-refine-bar').click(function () {
+            $('input[type=checkbox]', '#event-listing-refine-bar').on('click', function () {
                 setBadges();
             });
 
@@ -173,24 +164,23 @@ STK.RefineBy = (function () {
                 revealSlider();
             });
 
-            $('.update-cancel-bar .cancel', '#event-listing-refine-bar').click(function () {
+            $('.update-cancel-bar .cancel', '#event-listing-refine-bar').on('click', function () {
                 hideSlider();
             });
 
-            $('.update-cancel-bar .apply', '#event-listing-refine-bar').click(function () {
+            $('.update-cancel-bar .apply', '#event-listing-refine-bar').on('click', function () {
                 applyFilter();
             });
 
-            $('.clear-all-filters a', '#event-listing-refine-bar').click(function () {
+            $('.clear-all-filters a', '#event-listing-refine-bar').on('click', function () {
                 clearAllFilters();
+                setBadges();
             });
 
             $(window).on('resize', function () {
                 clearHeight();
                 hideSlider();
             });
-
-            initialiseSlider();
         }
     };
 })();

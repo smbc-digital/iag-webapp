@@ -41,8 +41,8 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
         public bool IsBetween(string value, string condition)
         {
-            int enteredValue;
-            if (!int.TryParse(value, out enteredValue)) return false;
+            double enteredValue;
+            if (!double.TryParse(value, out enteredValue)) return false;
 
             var splitValues = condition.Split(',');
 
@@ -50,7 +50,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
             splitValues = HandleTextInBetweenValues(splitValues);
 
-            var betweenValues = splitValues.Select(int.Parse).ToList();
+            var betweenValues = splitValues.Select(double.Parse).ToList();
 
             return enteredValue >= betweenValues[0] && enteredValue <= betweenValues[1];
         }
@@ -59,8 +59,8 @@ namespace StockportWebapp.QuestionBuilder.Entities
         {
             return splitValues.Select(_ =>
             {
-                int valueAsInteger;
-                if (!int.TryParse(_, out valueAsInteger))
+                double valueAsNumber;
+                if (!double.TryParse(_, out valueAsNumber))
                 {
                     return int.MaxValue.ToString();
                 }

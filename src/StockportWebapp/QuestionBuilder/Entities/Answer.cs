@@ -6,7 +6,9 @@ namespace StockportWebapp.QuestionBuilder.Entities
     public class Answer
     {
         public string QuestionId { get; set; }
+        public string QuestionText { get; set; }
         public string Response { get; set; }
+        public string ResponseValue { get; set; }
     }
 
     public static class ExtensionMethods

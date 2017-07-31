@@ -1,9 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using StockportWebapp.Dtos;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.QuestionBuilder;
+using StockportWebapp.QuestionBuilder.Entities;
 using StockportWebapp.QuestionBuilder.Maps;
 using StockportWebapp.ViewModels;
 
@@ -38,6 +42,13 @@ namespace StockportWebapp.Controllers
         public IActionResult FriendlyError()
         {
             return NotFound();
+        }
+
+        [Route("summary")]
+        public IActionResult Summary(string previousAnswersjson)
+        {
+            var model = new SmartAnswerSummaryViewModel();
+            return View(model);
         }
 
         public override async Task<IActionResult> ProcessResults(GenericSmartAnswersModel result, string endpointName)

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.QuestionBuilder
@@ -46,7 +47,15 @@ namespace StockportWebapp.QuestionBuilder
         {
             if (page.Questions.Count > 0)
             {
+                var tempJson = page.PreviousAnswersJson;
                 page = ProcesssPage(page);
+
+                if (tempJson != null)
+                {
+                    page.PreviousAnswers = JsonConvert.DeserializeObject<IList<Answer>>(tempJson);
+                    page.PreviousAnswersJson = tempJson;
+                }
+                   
                 page.ValidateQuestions();
 
                 if (page.HasValidationErrors())
@@ -106,7 +115,9 @@ namespace StockportWebapp.QuestionBuilder
 
         public IActionResult RunBehaviours(Page page)
         {
+
             var allAnswers = page.GetCombinedAnswers();
+            
             IBehaviour behaviour = null;
 
             if (page.Behaviours != null)
@@ -120,6 +131,9 @@ namespace StockportWebapp.QuestionBuilder
 
             if (behaviour != null)
             {
+                page.AddAnswers(allAnswers);
+                page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
+
                 if (behaviour.BehaviourType == EQuestionType.Redirect)
                 {
                     return Redirect(behaviour.Value);
@@ -132,7 +146,15 @@ namespace StockportWebapp.QuestionBuilder
                 {
                     return RedirectToAction(behaviour.Value);
                 }
+                if (behaviour.BehaviourType == EQuestionType.GoToSummary)
+                {
+                    ViewData["page"] = page;
+                    return View("Summary");
+                }
+
                 page = GetPage(Convert.ToInt32(behaviour.Value));
+                page.AddAnswers(allAnswers);
+
             }
             else
             {
@@ -140,14 +162,18 @@ namespace StockportWebapp.QuestionBuilder
                 {
                     page = GetNextPage(page.PageId);
                 }
+                page.AddAnswers(allAnswers);
             }
 
-            page.AddAnswers(allAnswers);
+            var result = new SmartAnswerViewModel
+            {
+                Page = page,
+                Slug = Slug,
+                Title = Title
+            };
 
-            var result = new SmartAnswerViewModel();
-            result.Page = page;
-            result.Slug = Slug;
-            result.Title = Title;
+            result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
+
             return View(result);
         }
 

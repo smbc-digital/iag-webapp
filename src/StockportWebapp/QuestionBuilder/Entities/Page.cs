@@ -62,6 +62,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
             set { _previousAnswers = value; }
         }
 
+        public string PreviousAnswersJson { get; set; }
         public string AnalyticsEvent { get; set; }
         public string Description { get; }
         public IList<Behaviour> Behaviours { get; }
@@ -94,7 +95,8 @@ namespace StockportWebapp.QuestionBuilder.Entities
             return Questions.Select(q => new Answer
             {
                 QuestionId = q.QuestionId,
-                Response = q.Response
+                Response = q.Response,
+                QuestionText = q.Label
             }).ToList();
         }
 
