@@ -44,6 +44,10 @@
                                 <input type="checkbox" name="price" value="free" @(Model.Price == null || Model.Price.Any(p => p == "free") ? "checked" : string.Empty) />
                                 <span>Free</span>
                             </label>
+                            <div class="none-selected-error">
+                                <div class="fa fa-info"></div>
+                                <span>You must select at least one price option before you can apply.</span>
+                            </div>
                             <div class="hide-on-mobile">
                                 <a class="cancel" href="javascript:void(0)">Cancel</a>
                                 <a class="apply" href="javascript:void(0)">Apply</a>
@@ -57,7 +61,7 @@
                 </div>
                 <div class="hide-on-desktop hide-on-tablet update-cancel-bar">
                     <stock-button class="white cancel">Cancel</stock-button>
-                    <stock-button class="green apply">Update</stock-button>
+                    <stock-button class="green apply update-button">Apply</stock-button>
                 </div>
 
             </div>

@@ -24,7 +24,7 @@ int: &int
   << : *stage
   << : *qa
 
-local:
+local: &local
   << : *prod
   << : *stage
   << : *qa

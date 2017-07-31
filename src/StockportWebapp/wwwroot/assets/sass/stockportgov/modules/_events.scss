@@ -585,6 +585,7 @@ ul.nav-card-events-list {
         background-color: #ffffff;
     }
 
+
     .grid-container {
         .refine-all {
             padding-top: 20px;
@@ -592,6 +593,10 @@ ul.nav-card-events-list {
             .button-default {
                 font-weight: 600;
                 width: 100%;
+
+                .badge {
+                    margin-right: 0;
+                }
             }
         }
 
@@ -605,7 +610,7 @@ ul.nav-card-events-list {
                 z-index: 9999;
 
                 .scroller {
-                    overflow:scroll;
+                    overflow: scroll;
                 }
             }
         }
@@ -629,6 +634,12 @@ ul.nav-card-events-list {
             font-weight: 700;
             position: relative;
 
+            @media #{$tablet, $desktop} {
+                &.title {
+                    padding-left:10px;
+                }
+            }
+
             @media #{$mobile} {
                 float: none;
                 border-right: 0;
@@ -637,7 +648,7 @@ ul.nav-card-events-list {
                 font-size: 1.1em;
 
                 &.title {
-                    padding-top:20px;
+                    padding-top: 20px;
                     font-size: 1.3em;
                 }
             }
@@ -645,7 +656,7 @@ ul.nav-card-events-list {
             a {
                 display: block;
                 text-decoration: none;
-                color: #000000;
+                color: #333;
 
                 @media #{$tablet,$desktop} {
                     &:before {
@@ -692,6 +703,30 @@ ul.nav-card-events-list {
                     font-size: 1em;
                 }
 
+                .none-selected-error {
+                    display: none;
+                    color: #333;
+                    font-size: 0.9em;
+
+                    div {
+                        float:left;
+                    }
+
+                    .fa-info {
+                        color: #ffffff;
+                        border-radius: 50%;
+                        background-color: #EF8A16;
+                        font-size: 1em;
+                        width: 20px;
+                        height: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        float: left;
+                        margin: 4px 10px 0 0;
+                    }
+                }
+
                 input[type=checkbox] {
                     display: none;
 
@@ -721,6 +756,11 @@ ul.nav-card-events-list {
 
                     &.apply {
                         float: right;
+
+                        &.disabled {
+                            color: #a0a0a0;
+                            cursor: default;
+                        }
                     }
                 }
             }
@@ -731,23 +771,30 @@ ul.nav-card-events-list {
         }
 
         .update-cancel-bar {
-            position:fixed;
-            bottom:0;
-            padding:20px;
-            width:100%;
+            position: fixed;
+            bottom: 0;
+            padding: 20px;
+            width: 100%;
             box-sizing: border-box;
             background-color: #ebebeb;
 
             .button-default {
                 min-width: 48%;
                 display: inline-block;
-                
+
                 &:before {
-                    content:'';
+                    content: '';
                 }
 
                 &.apply {
-                    float:right;
+                    float: right;
+                }
+
+                &.disabled, .disabled:hover {
+                    border-width: 0;
+                    background-color: #e1e1e1;
+                    cursor: default;
+                    box-shadow:none;
                 }
             }
         }
