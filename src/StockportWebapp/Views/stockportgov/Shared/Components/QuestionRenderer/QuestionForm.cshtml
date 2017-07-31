@@ -19,9 +19,9 @@
     {
         if(Model.PageId != 0)
         {
-            <stock-button id="back-button" class="button-previous question-button-next-script">Previous Question</stock-button>
+            <stock-button id="back-button" class="button-previous question-button-next-script button-width">Previous step</stock-button>
         }
-        <button disabled="disabled" type="submit" class="button button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script">@Model.ButtonText</button>  
+        <button disabled="disabled" type="submit" class="button button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script button-width">@Model.ButtonText</button>  
         <noscript>
             <input type="submit" value="Next step" class="button button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />
         </noscript>
