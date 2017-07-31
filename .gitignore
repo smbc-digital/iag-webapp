@@ -1,5 +1,6 @@
 .vs
 */**/*.xproj.user
+*/**/*.csproj.user
 *.userprefs
 *.iml
 */**/project.lock.json
