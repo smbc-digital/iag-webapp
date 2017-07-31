@@ -59,3 +59,13 @@
        display: none;
    }
 }
+
+.button-previous {
+    font-weight:bold;
+    &:before{
+        font-size: 17px;
+        text-align: left;
+        content: "\f104";
+        left: 0px;  
+    }
+}

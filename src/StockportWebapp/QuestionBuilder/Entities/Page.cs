@@ -95,7 +95,8 @@ namespace StockportWebapp.QuestionBuilder.Entities
             return Questions.Select(q => new Answer
             {
                 QuestionId = q.QuestionId,
-                Response = q.Response
+                Response = q.Response,
+                QuestionText = q.Label
             }).ToList();
         }
 

@@ -10,10 +10,10 @@
 
 <div class="container-header grid-container" id="smart-answers-container">
     <div class="grid-100">
-        <h1>Sumamry</h1>
+        <h1>Summary</h1>
     @foreach (var previousAnswer in page.PreviousAnswers)
     {
-        <div><strong>@previousAnswer.QuestionId</strong></div>
+        <div><strong>@previousAnswer.QuestionText</strong></div>
         <div>@previousAnswer.Response</div>
     }
     </div>
