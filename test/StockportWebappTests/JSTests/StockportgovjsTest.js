@@ -1,12 +1,12 @@
-describe("Date tests", function (){
+describe("Date tests", function () {
     beforeEach(function () {
         affix('input#input1[value="2"] input#input2[value=""]');
     });
-    
-    it("sets end date to be start date", function (){
+
+    it("sets end date to be start date", function () {
         Modernizr.inputtypes.date = false;
-        
-        setEndDateToStartDate("input2", "input1");               
+
+        setEndDateToStartDate("input2", "input1");
         expect($("#input2").val()).toEqual($("#input1").val());
     });
 });
@@ -45,20 +45,36 @@ describe("Logo tests", function () {
         });
 });
 
+describe("Utils tests",
+    function () {
 
-describe("Location search tests", function() {
-    beforeEach(function() {
-        affix('#location-autocomplete[value="test value"]');
+        var tests = [
+            {
+                url: "http://www.test.com?param1=test",
+                param: "param1",
+                result: "http://www.test.com"
+            },
+            {
+                url: "http://www.test.com?param1=test&param2=testest",
+                param: "param1",
+                result: "http://www.test.com?param2=testest"
+            }
+        ];
+        function addTest(url, param, result) {
+            it("Should strip a param from a query string",
+                function () {
+                    var urlReturned = STK.Utils.StripParamFromQueryString(url, param);
+
+                    expect(urlReturned).toEqual(result);
+                });
+        }
+
+        for (var test in tests) {
+            addTest(tests[test].url, tests[test].param, tests[test].result);
+        }
+
     });
 
-    it("should set location properties", function () {
-        Location.SetLocation("name", 1.1, 2.2);
-
-        expect(Location.Name).toEqual("name");
-        expect(Location.Latitude).toEqual(1.1);
-        expect(Location.Longitude).toEqual(2.2);
-    });
-});
 
 function $sandbox(content) {
     var $box = $('#sandbox');

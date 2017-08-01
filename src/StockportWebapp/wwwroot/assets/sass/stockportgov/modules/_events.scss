@@ -579,6 +579,10 @@ ul.nav-card-events-list {
 
     @media #{$mobile} {
         background-color: #ebebeb;
+
+        .primary-filter-label, .location-search-button {
+            display:none;
+        }
     }
 
     .white {
@@ -607,7 +611,7 @@ ul.nav-card-events-list {
                 height: 100%;
                 width: 100%;
                 background-color: #ffffff;
-                z-index: 9999;
+                z-index: 9;
 
                 .scroller {
                     overflow: scroll;

@@ -1,3 +1,5 @@
+var SMART = SMART || {};
+
 SMART.Module = function () {
     return {
         init: function (route) {
