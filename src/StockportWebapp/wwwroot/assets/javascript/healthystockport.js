@@ -123,14 +123,13 @@ var windowHeight = $(window).height();
 var pushHeight = (windowHeight / 4) + "px";
 var groupsOf = 3;
 var bp = 1024;
-var childselector = ".topic-block-content";
 
 
 $(document).ready(function () {
    
     var matchboxPrimary = new Matchbox({
-        parentSelector: ".topic-block-container",
-        childSelector: childselector,
+        parentSelector: ".topic-block-list",
+        childSelector: ".topic-block",
         groupsOf: 1,
         breakpoints: [
         { bp: 767, groupsOf: 2 },
@@ -169,8 +168,8 @@ $(window)
     .resize(function() {
        
         var matchboxPrimary = new Matchbox({
-            parentSelector: ".topic-block-container",
-            childSelector: childselector,
+            parentSelector: ".topic-block-list",
+            childSelector: ".topic-block",
             groupsOf: 1,
             breakpoints: [
             { bp: 767, groupsOf: 2 },
