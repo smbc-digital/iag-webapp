@@ -16223,9 +16223,14 @@ SMART.View = function () {
         }
     };
 
+    var showTertiaryInformation = function (questionId) {
+        $("span[data-questionid=" + questionId + "]").toggle();
+    }
+
     var bindEventListeners = function (validationCallback) {
         $("form.question-form input").change(function () {
             validationCallback($("form.question-form"), $(this));
+            showTertiaryInformation()
         });
         $("form.question-form input").blur(function () {
             validationCallback($("form.question-form"), $(this));

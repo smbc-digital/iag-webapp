@@ -12,9 +12,21 @@
             <li>
                 @Html.RadioButton("Response", @item.Value, new { id = string.Concat(@Model.QuestionId, @item.Value), data_questionid = Model.QuestionId })
                 <label for="@string.Concat(@Model.QuestionId, @item.Value)">@item.Label</label>
+                <span class="tertiary-Information hidden">@item.TertiaryInformation</span>
             </li>
         }
     </ul>
 
     @Html.Partial("_ValidationError.cshtml", Model)
+    
+    <span id="tertiary-Information-value"></span>
+
 </div>
+
+<script>
+    $("input[type='radio']").change(function () {     
+        var li = $(this).parent();
+        var text = $(".tertiary-Information", li).text();
+        $("#tertiary-Information-value").text(text);
+    })
+</script>

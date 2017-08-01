@@ -7,5 +7,6 @@
         public const string Numeric = "numeric";
         public const string Telephone = "telephone";
         public const string Name = "name";
+        public const string Decimal = "decimal";
     }
 }

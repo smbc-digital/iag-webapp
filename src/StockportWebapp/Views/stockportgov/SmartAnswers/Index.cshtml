@@ -6,7 +6,6 @@
 
 @model StockportWebapp.ViewModels.SmartAnswerViewModel
 
-
 <div class="container-header grid-container" id="smart-answers-container">
     <div class="grid-100">
         <h1>@ViewData["Title"]</h1>
@@ -18,5 +17,11 @@
 <script>
     $(document).ready(function () {
         SMART.Module().init("smart/@Model.Slug");
+
+        $("#back-button").show().click(function() {
+            window.history.back();
+        });
+
     });
+
 </script>
