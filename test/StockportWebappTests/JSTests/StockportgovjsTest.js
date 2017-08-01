@@ -1,12 +1,12 @@
-describe("Date tests", function (){
+describe("Date tests", function () {
     beforeEach(function () {
         affix('input#input1[value="2"] input#input2[value=""]');
     });
-    
-    it("sets end date to be start date", function (){
+
+    it("sets end date to be start date", function () {
         Modernizr.inputtypes.date = false;
-        
-        setEndDateToStartDate("input2", "input1");               
+
+        setEndDateToStartDate("input2", "input1");
         expect($("#input2").val()).toEqual($("#input1").val());
     });
 });
@@ -48,20 +48,9 @@ describe("Logo tests", function () {
 describe("Utils tests",
     function () {
 
-<<<<<<< HEAD
-describe("Util Tests", function() {
-    beforeEach(function() {
-    });
-
-    it("should strip param from url", function () {
-
-        var result = STK.Utils.StripParamFromQueryString('https://www.here.com?val1=this&val2=that', 'val1')
-
-        expect(Location.Longitude).toEqual('https://www.here.com?val2=that');
-=======
         var tests = [
             {
-                url:"http://www.test.com?param1=test",
+                url: "http://www.test.com?param1=test",
                 param: "param1",
                 result: "http://www.test.com"
             },
@@ -84,7 +73,6 @@ describe("Util Tests", function() {
             addTest(tests[test].url, tests[test].param, tests[test].result);
         }
 
->>>>>>> c02f161bee6e692178dc0388a3a12c78a2d9329c
     });
 
 
