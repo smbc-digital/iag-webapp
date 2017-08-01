@@ -1,12 +1,7 @@
 ﻿@using StockportWebapp.ViewModels
 @model PrimaryFilter
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
-
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form primary-filter-form-autocomplete">
-
-    <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
-    <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
 
     <div class="grid-100">
         <div class="primary-filter-form-section">
@@ -16,18 +11,13 @@
                 <option selected value="all">All</option>
             </select>
         </div>
-        <div class="primary-filter-form-section location-search-section">
-            <label class="hide-on-mobile primary-filter-label">groups in</label>
-            <label class="hide-on-desktop hide-on-tablet primary-filter-label">Enter a location</label>
-            <input asp-for="Location" type="text" readonly="readonly" id="postcode" class="primary-filter-select custom-arrow" />
-            <div id="getLocation" class="mobile-grid-90 getLocation-width-mobile">
-                <label class="location-search-label">Enter postcode or place name</label>
-                <input type="text" id="location-autocomplete" class="location-search-input input-validation-error"/>
-                <div id="locationError" class="form-field-validation-error grid-100 tablet-grid-100 mobile-grid-100 grid-parent"></div>
-                <a id="currentLocation" class="current-location" href="#"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>
-                <button class="button-default location-search-button" id="btnLocationAutoComplete">Use this location</button>
-            </div>
-        </div>
+
+        <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
+        <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
+        <input asp-for="Location" type="hidden" id="location" />
+
+        @Html.Partial("LocationSearch", new LocationSearch
+            { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = Model.Location, Label = "groups in" })
 
         <div class="primary-filter-form-section hide-on-mobile">
             <label class="primary-filter-label">sorted by</label>

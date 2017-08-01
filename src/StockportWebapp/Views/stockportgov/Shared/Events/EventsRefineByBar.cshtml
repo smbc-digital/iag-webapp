@@ -32,6 +32,19 @@
                     }
 
                     <div class="refine">
+                        <a class="link" href="javascript:void(0)">Location<div class="badge hide-on-mobile"><span></span></div></a>
+
+                        <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
+                        <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
+                        <input asp-for="Location" type="hidden" id="location" name="location" />
+
+                        <div class="refine-filters">
+                            @Html.Partial("LocationSearch", new LocationSearch
+                               { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = string.Empty, Callback = "STK.RefineBy.ApplyLocation()" })
+                        </div>
+                    </div>
+
+                    <div class="refine">
                         <a class="link" href="javascript:void(0)">Price<div class="badge hide-on-mobile"><span></span></div></a>
 
                         <div class="refine-filters">

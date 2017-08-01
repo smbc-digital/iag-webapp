@@ -40,6 +40,9 @@ namespace StockportWebapp.ViewModels
 
         public bool FromSearch { get; set; }
         public string KeepTag { get; set; }
+        public string Location { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
 
         public EventCalendar(List<Event> events, List<string> categories)
         {

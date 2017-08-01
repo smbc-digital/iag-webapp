@@ -68,4 +68,13 @@
         content: "\f104";
         left: 0px;  
     }
+    @media #{$mobile} {
+            margin-bottom : 10px;
+        }
+}
+
+.button-width {
+     @media #{$mobile} {
+            width : 160px;
+        }
 }

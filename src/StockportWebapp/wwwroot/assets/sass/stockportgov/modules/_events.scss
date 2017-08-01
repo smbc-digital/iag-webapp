@@ -618,6 +618,9 @@ ul.nav-card-events-list {
         .badge {
             margin-left: 10px;
             margin-right: 40px;
+            @media #{$tablet} {
+                margin-right: 10px;
+            }
             visibility: hidden;
         }
 
@@ -633,6 +636,10 @@ ul.nav-card-events-list {
             font-size: 1.3em;
             font-weight: 700;
             position: relative;
+
+            @media #{$tablet} {
+                padding: 20px 10px;
+            }
 
             @media #{$tablet, $desktop} {
                 &.title {
@@ -658,13 +665,20 @@ ul.nav-card-events-list {
                 text-decoration: none;
                 color: #333;
 
+                @media #{$tablet} {
+                    margin-left: 0;
+                }
+
+                @media #{$desktop} {
+                    margin-left: 30px;
+                }
+
                 @media #{$tablet,$desktop} {
                     &:before {
                         float: right;
                         text-align: right;
                         margin-top: 10px;
                         margin-right: 10px;
-                        margin-left: 30px;
                         font-size: 1em;
                         content: "\f107";
                         font: normal normal normal 1em/1 FontAwesome;
@@ -682,6 +696,10 @@ ul.nav-card-events-list {
                 background-color: white;
                 margin-top: 20px;
                 margin-left: -30px;
+                @media #{$tablet} {
+                    margin-left: -10px;
+                }
+
                 width: 100%;
                 font-size: 0.75em;
                 font-weight: 100;
