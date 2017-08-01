@@ -1,4 +1,6 @@
-﻿STK.Matchboxes = (function () {
+﻿var STK = STK || {};
+
+STK.Matchboxes = (function () {
 
     var self = this;
     var matchboxes = [];

@@ -1,3 +1,4 @@
+var SMART = SMART || {};
 
 SMART.Controller = function (route, view, validator) {
 
