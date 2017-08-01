@@ -50,6 +50,12 @@
                 }
             });
 
+            var $lat = $('input[name=latitude]', $(this));
+            if ($lat.length == 1 && $lat.val() !== '' && $lat.val() !== '0') {
+                count++;
+                allcount++;
+            }
+
             if (count > 0) {
                 $('.badge', $(this)).html('<span>' + count + '</span>').css('visibility', 'visible');
                 if ($('.none-selected-error', this).length) {
@@ -77,6 +83,9 @@
         href = STK.Utils.StripParamFromQueryString(href, 'fromsearch');
         href = STK.Utils.StripParamFromQueryString(href, 'tag');
         href = STK.Utils.StripParamFromQueryString(href, 'price');
+        href = STK.Utils.StripParamFromQueryString(href, 'longitude');
+        href = STK.Utils.StripParamFromQueryString(href, 'latitude');
+        href = STK.Utils.StripParamFromQueryString(href, 'location');
 
         var tag = getTag();
         if (typeof (tag) == 'undefined') { tag = ''; }
@@ -91,6 +100,18 @@
             href += '&' + $(this).prop('name') + '=' + $(this).val();
         });
 
+        $('input[name=longitude]', '#event-listing-refine-bar').each(function () {
+            href += '&longitude=' + $(this).val();
+        });
+
+        $('input[name=latitude]', '#event-listing-refine-bar').each(function () {
+            href += '&latitude=' + $(this).val();
+        });
+
+        $('input[name=location]', '#event-listing-refine-bar').each(function () {
+            href += '&location=' + $(this).val();
+        });
+
         window.location.href = href;
     };
 
@@ -101,6 +122,23 @@
     var initialiseSlider = function () {
         var width = $(window).width();
         $('#refine-slider').css('left', width);
+
+        var location = $('#location').val();
+        if (location !== '') {
+            $('.location-search-input').val(location);
+            $('.search-all', '#event-listing-refine-bar').show();
+        }
+        else {
+            $('.search-all', '#event-listing-refine-bar').hide();
+        }
+    };
+
+    var searchAll = function () {
+        $('#location').val('');
+        $('#longitude').val('0');
+        $('#latitude').val('0');
+        $('.location-search-input').val('All locations');
+        setBadges();
     };
 
     var revealSlider = function () {
@@ -135,6 +173,11 @@
             $(this).prop('checked', false);
         });
     };
+
+    var applyLocation = function () {
+        setBadges();
+        applyFilter();
+    }
 
     return {
         Init: function () {
@@ -177,11 +220,16 @@
                 setBadges();
             });
 
+            $('.search-all', '#event-listing-refine-bar').on('click', function () {
+                searchAll();
+            });
+
             $(window).on('resize', function () {
                 clearHeight();
                 hideSlider();
             });
-        }
+        },
+        ApplyLocation: applyLocation
     };
 })();
 
