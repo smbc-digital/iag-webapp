@@ -127,9 +127,35 @@ var childselector = ".topic-block-content";
 
 
 $(document).ready(function () {
+   
+    var matchboxPrimary = new Matchbox({
+        parentSelector: ".topic-block-container",
+        childSelector: childselector,
+        groupsOf: 1,
+        breakpoints: [
+        { bp: 767, groupsOf: 2 },
+        { bp: 1025, groupsOf: 3 }
+        ]
+    });
 
-    STK.Matchboxes.Init();
+    if ($(".topic-block-content").length > 0) {
+        matchboxPrimary.init();
+    }
 
+    var matchboxTopic = new Matchbox({
+        parentSelector: ".article-list-item",
+        childSelector: ".article-list-container",
+        groupsOf: 1,
+        breakpoints: [
+        { bp: 767, groupsOf: 2 },
+        { bp: 1024, groupsOf: 2 }
+        ]
+    });
+
+    if ($(".article-list-container").length > 0) {
+        matchboxTopic.init();
+    }
+   
     $(".show-search-button").click(
             function () {
                 $("#mobileSearchInput").slideToggle(220);
