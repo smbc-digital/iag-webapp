@@ -172,6 +172,8 @@
         $('input[type=checkbox]', '#event-listing-refine-bar').each(function () {
             $(this).prop('checked', false);
         });
+
+        searchAll();
     };
 
     var applyLocation = function () {

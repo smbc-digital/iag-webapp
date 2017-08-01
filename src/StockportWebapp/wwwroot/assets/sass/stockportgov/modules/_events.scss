@@ -579,6 +579,10 @@ ul.nav-card-events-list {
 
     @media #{$mobile} {
         background-color: #ebebeb;
+
+        .primary-filter-label, .location-search-button {
+            display:none;
+        }
     }
 
     .white {

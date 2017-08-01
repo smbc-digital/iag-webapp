@@ -46,17 +46,15 @@ describe("Logo tests", function () {
 });
 
 
-describe("Location search tests", function() {
+describe("Util Tests", function() {
     beforeEach(function() {
-        affix('#location-autocomplete[value="test value"]');
     });
 
-    it("should set location properties", function () {
-        Location.SetLocation("name", 1.1, 2.2);
+    it("should strip param from url", function () {
 
-        expect(Location.Name).toEqual("name");
-        expect(Location.Latitude).toEqual(1.1);
-        expect(Location.Longitude).toEqual(2.2);
+        var result = STK.Utils.StripParamFromQueryString('https://www.here.com?val1=this&val2=that', 'val1')
+
+        expect(Location.Longitude).toEqual('https://www.here.com?val2=that');
     });
 });
 
