@@ -1,3 +1,5 @@
+var SMART = SMART || {};
+
 SMART.View = function () {
 
     var disableNextButton = function () {

@@ -1,4 +1,6 @@
-﻿STK.PrimaryFilter = (function () {
+﻿var STK = STK || {};
+
+STK.PrimaryFilter = (function () {
 
     var locationDefaults = {
         Name: "Stockport",

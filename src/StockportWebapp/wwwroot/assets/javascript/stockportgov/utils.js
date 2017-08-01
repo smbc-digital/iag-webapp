@@ -1,4 +1,6 @@
-﻿STK.Utils = (function () {
+﻿var STK = STK || {};
+
+STK.Utils = (function () {
 
     var stripParamFromQueryString = function (url, param) {
         url = url.toLowerCase();

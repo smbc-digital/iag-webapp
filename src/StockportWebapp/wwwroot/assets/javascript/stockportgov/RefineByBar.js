@@ -1,4 +1,6 @@
-﻿STK.RefineBy = (function () {
+﻿var STK = STK || {};
+
+STK.RefineBy = (function () {
 
     var currentState = [];
 

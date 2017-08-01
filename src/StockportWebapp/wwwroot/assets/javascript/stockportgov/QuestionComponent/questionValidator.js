@@ -1,3 +1,5 @@
+var SMART = SMART || {};
+
 SMART.Validator = function () {
 
     var processValidation = function (validationResults, selectedInput, callback, bypassShowValidation) {

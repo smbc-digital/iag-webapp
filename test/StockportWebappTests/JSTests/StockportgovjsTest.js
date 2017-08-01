@@ -45,7 +45,10 @@ describe("Logo tests", function () {
         });
 });
 
+describe("Utils tests",
+    function () {
 
+<<<<<<< HEAD
 describe("Util Tests", function() {
     beforeEach(function() {
     });
@@ -55,8 +58,35 @@ describe("Util Tests", function() {
         var result = STK.Utils.StripParamFromQueryString('https://www.here.com?val1=this&val2=that', 'val1')
 
         expect(Location.Longitude).toEqual('https://www.here.com?val2=that');
+=======
+        var tests = [
+            {
+                url:"http://www.test.com?param1=test",
+                param: "param1",
+                result: "http://www.test.com"
+            },
+            {
+                url: "http://www.test.com?param1=test&param2=testest",
+                param: "param1",
+                result: "http://www.test.com?param2=testest"
+            }
+        ];
+        function addTest(url, param, result) {
+            it("Should strip a param from a query string",
+                function () {
+                    var urlReturned = STK.Utils.StripParamFromQueryString(url, param);
+
+                    expect(urlReturned).toEqual(result);
+                });
+        }
+
+        for (var test in tests) {
+            addTest(tests[test].url, tests[test].param, tests[test].result);
+        }
+
+>>>>>>> c02f161bee6e692178dc0388a3a12c78a2d9329c
     });
-});
+
 
 function $sandbox(content) {
     var $box = $('#sandbox');
