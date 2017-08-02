@@ -216,7 +216,7 @@ STK.RefineBy = (function () {
             });
 
             $('.update-cancel-bar .apply', '#event-listing-refine-bar').on('click', function () {
-                applyFilter();
+                $("#btnLocationAutoComplete").click();
             });
 
             $('.clear-all-filters a', '#event-listing-refine-bar').on('click', function () {
