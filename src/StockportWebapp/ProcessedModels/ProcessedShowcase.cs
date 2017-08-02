@@ -11,6 +11,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Subheading;
         public readonly string HeroImageUrl;
         public readonly string EventCategory;
+        public readonly string EventsCategoryOrTag;
         public readonly string EventSubheading;
         public readonly string NewsCategoryTag;
         public readonly string NewsCategoryOrTag;
@@ -58,7 +59,7 @@ namespace StockportWebapp.ProcessedModels
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events)
+        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events)
         {
             Title = title;
             Slug = slug;
@@ -78,6 +79,7 @@ namespace StockportWebapp.ProcessedModels
             BodySubheading = bodySubheading;
             Body = body;
             NewsArticle = newsArticle;
+            EventsCategoryOrTag = eventsCategoryOrTag;
         }
     }
 }
