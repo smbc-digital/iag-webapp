@@ -1,12 +1,20 @@
-﻿@model IEnumerable<StockportWebapp.Models.Event>
+﻿@model StockportWebapp.ProcessedModels.ProcessedShowcase
+
 <div class="grid-container">
     <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
         <div class="grid-100">
             <section>
-                @Html.Partial("Events/EventCards", Model)
+                @Html.Partial("Events/EventCards", Model.Events.Take(3).ToList())
             </section>
             <div class="text-centre view-more-events-container">
-                <stock-button as-link="true" class="white" href="@Url.Action("Index", "Events")?category=@ViewData["EventCategory"]">View more events</stock-button>
+                @if (Model.EventsCategoryOrTag == "T")
+                {
+                    <stock-button as-link="true" class="white" href="@Url.Action("Index", "Events")?tag=@ViewData["EventCategory"]">View more events</stock-button>
+                }
+                else
+                {
+                    <stock-button as-link="true" class="white" href="@Url.Action("Index", "Events")?category=@ViewData["EventCategory"]">View more events</stock-button>
+                }
             </div>
         </div>
     </div>

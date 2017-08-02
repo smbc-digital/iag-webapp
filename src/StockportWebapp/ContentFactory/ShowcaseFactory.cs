@@ -27,6 +27,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.Teaser,
                 showcase.Subheading,
                 showcase.EventCategory,
+                showcase.EventsCategoryOrTag,
                 showcase.EventSubheading,
                 showcase.NewsSubheading,
                 showcase.NewsCategoryTag,
