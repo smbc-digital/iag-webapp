@@ -15704,21 +15704,21 @@ STK.PrimaryFilter = (function () {
 
     var locationLookupNonAutocomplete = function () {
         var address = location.GetLocationInputValue();
-        if ($('#callback').val() === '') {
-            var geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
-                if (status === google.maps.GeocoderStatus.OK) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if ($('#callback').val() === '') {
                     location.SetLocation(buildLocation(results[0].address_components), results[0].geometry.location.lat(), results[0].geometry.location.lng());
                     location.SetLocationValues();
                     location.HideLocationError();
-                } else {
-                    location.ShowLocationError(locationDefaults.LocationLookupError);
                 }
-            });
-        }
-        else {
-            eval($('#callback').val());
-        }
+                else {
+                    eval($('#callback').val());
+                }
+            } else {
+                location.ShowLocationError(locationDefaults.LocationLookupError);
+            }
+        });
     };
 
     var init = function () {
@@ -15890,7 +15890,7 @@ STK.PrimaryFilter = (function () {
     };
 
     return {
-        Init: function () { 
+        Init: function () {
             init();
             $(window).resize(function () {
                 resize();
