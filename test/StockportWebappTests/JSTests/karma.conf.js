@@ -1,3 +1,5 @@
+/// <reference path="cludo.min.js" />
+/// <reference path="cludo.min.js" />
 // Karma configuration
 // Generated on Mon Mar 20 2017 14:43:48 GMT+0000 (GMT Standard Time)
 
@@ -18,7 +20,7 @@ module.exports = function(config) {
     files: [ 
       'jquery-2.2.2.min.js',
 	  'node_modules/jasmine-jquery/lib/jasmine-jquery.js',
-      'http://customer.cludo.com/scripts/bundles/search-script.min.js',
+      'cludo.min.js',
       {pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/vendor/*.js', included: true},
       { pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/stockportgov.js', included: true },
       { pattern: '../../../src/StockportWebapp/wwwroot/assets/javascript/healthystockport.js', included: true },
