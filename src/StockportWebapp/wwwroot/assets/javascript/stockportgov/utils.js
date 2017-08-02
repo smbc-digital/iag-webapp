@@ -2,6 +2,18 @@
 
 STK.Utils = (function () {
 
+    var swapLogo = function() {
+        var image = $("#header .logo-main-image");
+        var logoMobile = image.attr("data-mobile-image");
+        var logoDesktop = image.attr("data-desktop-image");
+
+        if ($(window).width() <= STK.StartUp.MobileWidth) {
+            image.attr("src", logoMobile);
+        } else {
+            image.attr("src", logoDesktop);
+        }
+    }
+
     var stripParamFromQueryString = function (url, param) {
         url = url.toLowerCase();
         param = param.toLowerCase();
@@ -25,6 +37,7 @@ STK.Utils = (function () {
     };
 
     return {
-        StripParamFromQueryString: stripParamFromQueryString
+        StripParamFromQueryString: stripParamFromQueryString,
+        SwapLogo: swapLogo
     };
 })();
