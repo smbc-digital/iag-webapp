@@ -6,7 +6,7 @@ describe("Date tests", function () {
     it("sets end date to be start date", function () {
         Modernizr.inputtypes.date = false;
 
-        setEndDateToStartDate("input2", "input1");
+        STK.Events.SetEndDateToStartDate("input2", "input1");
         expect($("#input2").val()).toEqual($("#input1").val());
     });
 });
@@ -25,7 +25,7 @@ describe("Logo tests", function () {
                 }
             });
             // act
-            SwapLogo();
+            STK.Utils.SwapLogo();
             // assert
             expect($(".logo-main-image").attr("src")).toEqual("mobileimage.jpg");
         });
@@ -39,7 +39,7 @@ describe("Logo tests", function () {
                 }
             });
             // act
-            SwapLogo();
+            STK.Utils.SwapLogo();
             // assert
             expect($(".logo-main-image").attr("src")).toEqual("desktopimage.jpg");
         });

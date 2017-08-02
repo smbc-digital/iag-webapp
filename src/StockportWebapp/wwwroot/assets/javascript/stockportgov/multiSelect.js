@@ -1,4 +1,6 @@
-﻿var MultiSelector = (function () {
+﻿var STK = STK || {};
+
+STK.MultiSelector = (function () {
 
     var limit = 3;
     var className = '';
@@ -6,7 +8,6 @@
     var categoriesList;
     var categories;
 
-    // select a dropdown
     var selectDropdown = function (select) {
         var links = $('.' + className + '-add', '.' + className + '-div:visible');
         var link = links[links.length - 1];
@@ -21,14 +22,12 @@
         populate();
     }
 
-    // delete a dropdown
     var deleteDropdown = function (link) {
         $(link).parent().parent().hide();
         resetHiddenValueList();
         populate();
     }
 
-    // click add new dropdown
     var addDropdown = function (link) {
         var newValue = $('#' + className).val() + ',';
         $('#' + className).val(newValue);
@@ -167,7 +166,7 @@
 
 $(document).ready(function () {
     $('.multi-select-control').each(function () {
-        MultiSelector.Init($(this).val());
+        STK.MultiSelector.Init($(this).val());
     });
 });
 
