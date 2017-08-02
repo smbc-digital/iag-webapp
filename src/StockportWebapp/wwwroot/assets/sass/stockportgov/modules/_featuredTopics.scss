@@ -158,6 +158,12 @@
     .generic-list-see-more {
         background-color: #999;
 
+        @media #{$mobile} {
+            width: 100%;
+            padding-left:10px;
+            padding-right:10px;
+        }
+
         &:active {
             background-color: #8c8c8c;
         }
@@ -172,7 +178,6 @@
     }
 
     @media #{$mobile} {
-        padding: 0 20px 0 20px;
 
         .green {
             width: 100%;

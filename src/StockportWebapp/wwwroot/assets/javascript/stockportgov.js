@@ -16417,6 +16417,14 @@ SMART.View = function () {
                 validationCallback($("form.question-form"), $(this), true);
             }
         });
+
+        $(document).keyup(function (e) {
+            debugger;
+            if (e.keyCode === 13) {
+                
+                $("#next-button").click();
+            }
+        });
         $(document).ready(function () {
             validationCallback($("form.question-form"), $(this));
         });
