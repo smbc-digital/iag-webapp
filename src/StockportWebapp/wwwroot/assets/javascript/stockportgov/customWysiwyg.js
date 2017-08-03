@@ -1,8 +1,8 @@
-﻿var STK = STK || {};
-
-STK.WYSIWYG = (function () {
+﻿define(["jquery"], function ($) {
 
     // TODO: in future try to replace most inline compability checks with polyfills for code readability 
+
+    var overrideAMD = false;
 
     // element.textContent polyfill.
     // Unsupporting browsers: IE8
@@ -58,9 +58,9 @@ STK.WYSIWYG = (function () {
     ;
 
     (function (factory, global) {
-        if (typeof define == "function" && define.amd) {
+        if (overrideAMD && typeof define == "function" && define.amd) {
             // AMD. Register as an anonymous module.
-            define(factory);
+            define("rangy", factory);
             /*
                 TODO: look into this properly.
                 
@@ -3795,9 +3795,9 @@ STK.WYSIWYG = (function () {
  * Build date: 4 August 2014
  */
     (function (factory, global) {
-        if (typeof define == "function" && define.amd) {
+        if (overrideAMD && typeof define == "function" && define.amd) {
             // AMD. Register as an anonymous module with a dependency on Rangy.
-            define(["rangy"], factory);
+            define("rangyCreateModule", ["rangy"], factory);
             /*
              } else if (typeof exports == "object") {
              // Node/CommonJS style for Browserify
@@ -14281,7 +14281,7 @@ STK.WYSIWYG = (function () {
         return buffer;
     });/* jshint expr: true */
     (function (factory) {
-        if (typeof define === 'function' && define.amd) {
+        if (overrideAMD && typeof define === 'function' && define.amd) {
             // AMD. Register as an anonymous module.
             define('bootstrap.wysihtml5', ['jquery', 'wysihtml5', 'bootstrap', 'bootstrap.wysihtml5.templates', 'bootstrap.wysihtml5.commands'], factory);
         } else {
@@ -14564,7 +14564,7 @@ STK.WYSIWYG = (function () {
 
             var locale = $.fn.wysihtml5.locale = {};
         };
-        bsWysihtml5($, wysihtml5);
+        bsWysihtml5($, this["wysihtml5"]);
     }));
     (function (wysihtml5) {
         wysihtml5.commands.small = {
@@ -14576,13 +14576,13 @@ STK.WYSIWYG = (function () {
                 return wysihtml5.commands.formatInline.state(composer, command, "small");
             }
         };
-    })(wysihtml5);
+    })(this["wysihtml5"]);
 
     /**
      * English translation for bootstrap-wysihtml5
      */
     (function (factory) {
-        if (typeof define === 'function' && define.amd) {
+        if (overrideAMD && typeof define === 'function' && define.amd) {
             // AMD. Register as an anonymous module.
             define('bootstrap.wysihtml5.en-US', ['jquery', 'bootstrap.wysihtml5'], factory);
         } else {
@@ -14641,7 +14641,7 @@ STK.WYSIWYG = (function () {
     }));
 
 
-    var documentReady = function () {
+    var init = function () {
         $('.wysiwyg').each(function () {
             if (!$(this).parent().hasClass('stk-wysiwyg')) {
                 $(this).parent().addClass('stk-wysiwyg')
@@ -14668,17 +14668,7 @@ STK.WYSIWYG = (function () {
         });
     };
 
-    var init = function () {
-
-        $(document).ready(function () {
-            documentReady();
-        });
-
-    };
-
     return {
         Init: init
     }
-})();
-
-STK.WYSIWYG.Init();
+});

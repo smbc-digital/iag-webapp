@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.RefineBy = (function () {
+﻿define(["jquery", "utils"], function ($, utils) {
 
     var currentState = [];
 
@@ -79,15 +77,16 @@ STK.RefineBy = (function () {
     };
 
     var applyFilter = function () {
+
         var href = window.location.href;
 
-        href = STK.Utils.StripParamFromQueryString(href, 'keeptag');
-        href = STK.Utils.StripParamFromQueryString(href, 'fromsearch');
-        href = STK.Utils.StripParamFromQueryString(href, 'tag');
-        href = STK.Utils.StripParamFromQueryString(href, 'price');
-        href = STK.Utils.StripParamFromQueryString(href, 'longitude');
-        href = STK.Utils.StripParamFromQueryString(href, 'latitude');
-        href = STK.Utils.StripParamFromQueryString(href, 'location');
+        href = utils.StripParamFromQueryString(href, 'keeptag');
+        href = utils.StripParamFromQueryString(href, 'fromsearch');
+        href = utils.StripParamFromQueryString(href, 'tag');
+        href = utils.StripParamFromQueryString(href, 'price');
+        href = utils.StripParamFromQueryString(href, 'longitude');
+        href = utils.StripParamFromQueryString(href, 'latitude');
+        href = utils.StripParamFromQueryString(href, 'location');
 
         var tag = getTag();
         if (typeof (tag) == 'undefined') { tag = ''; }
@@ -235,7 +234,5 @@ STK.RefineBy = (function () {
         },
         ApplyLocation: applyLocation
     };
-})();
-
-STK.RefineBy.Init();
+});
 

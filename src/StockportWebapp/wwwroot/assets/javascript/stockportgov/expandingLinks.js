@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.ExpandingLinks = (function () {
+﻿define(["jquery"], function ($) {
 
     var init = function () {
         $(document).ready(function () {
@@ -21,10 +19,7 @@ STK.ExpandingLinks = (function () {
     return {
         Init: init
     }
-})();
-
-
-STK.ExpandingLinks.Init();
+});
 
 
 

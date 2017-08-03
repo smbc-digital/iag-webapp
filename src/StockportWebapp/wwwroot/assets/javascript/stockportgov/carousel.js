@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.Carousel = (function () {
+﻿define(["jquery", "slick"], function ($, slick) {
 
     var init = function () {
         $(".carousel a").css("display", "block");
@@ -24,7 +22,4 @@ STK.Carousel = (function () {
     return {
         Init: init
     }
-})();
-
-
-STK.Carousel.Init();
+});

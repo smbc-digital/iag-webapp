@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.ContactUs = (function () {
+﻿define(["jquery"], function ($) {
 
     var setupCharsRemaining = function () {
 
@@ -70,7 +68,4 @@ STK.ContactUs = (function () {
     return {
         Init: init
     }
-})();
-
-
-STK.ContactUs.Init();
+});
