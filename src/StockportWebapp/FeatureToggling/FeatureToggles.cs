@@ -1,10 +1,7 @@
 namespace StockportWebapp.FeatureToggling
 {
     public class FeatureToggles
-    {
-        public bool GroupManagement { get; set; } = false;
-        public bool ManageYourGroupButton { get; set; } = false;
-        public bool ContactUsIds { get; set; } = false;
+    {      
         public bool NewHomepageLayout { get; set; } = false;
         public bool EditGroupWYSIWYG { get; set; } = false;
         public bool SmartAnswers { get; set; } = false;

@@ -30,16 +30,14 @@ namespace StockportWebapp.Controllers
         private readonly ILogger<ContactUsController> _logger;
         private readonly IApplicationConfiguration _applicationConfiguration;
         private readonly BusinessId _businessId;
-        private readonly FeatureToggles _featureToggles;
 
-        public ContactUsController(IRepository repository, IHttpEmailClient emailClient, ILogger<ContactUsController> logger, IApplicationConfiguration applicationConfiguration, BusinessId businessId, FeatureToggles featureToggles)
+        public ContactUsController(IRepository repository, IHttpEmailClient emailClient, ILogger<ContactUsController> logger, IApplicationConfiguration applicationConfiguration, BusinessId businessId)
         {
             _repository = repository;
             _emailClient = emailClient;
             _logger = logger;
             _applicationConfiguration = applicationConfiguration;
-            _businessId = businessId;
-            _featureToggles = featureToggles;
+            _businessId = businessId;           
         }
 
         [Route("/contact-us")]
@@ -47,14 +45,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
-            if (_featureToggles.ContactUsIds)
-            {
-                contactUsDetails.ServiceEmail = await GetEmailAddressFromId(contactUsDetails.ServiceEmailId);
-            }
-            else
-            {
-                contactUsDetails.ServiceEmail = contactUsDetails.ServiceEmailId;
-            }
+            contactUsDetails.ServiceEmail = contactUsDetails.ServiceEmailId;
 
             var referer = Request.Headers["referer"];
             if (string.IsNullOrEmpty(referer)) return NotFound();

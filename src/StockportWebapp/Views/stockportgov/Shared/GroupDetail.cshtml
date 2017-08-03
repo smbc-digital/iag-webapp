@@ -244,21 +244,15 @@
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">
                             @Html.Partial("SharePrintThis", Model.Slug)
-                            @if (!FeatureToggles.ManageYourGroupButton)
-                            {
-                                <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">Let us know about a change to this group</a>
-                            }
+                            <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">Let us know about a change to this group</a>
 
                         </div>
-                        @if (FeatureToggles.ManageYourGroupButton)
-                        {
-                            <div class="grid-100 tablet-grid-100 mobile-grid-100 manage-group-section">
-                                <h3>Manage your group information</h3>
-                                <p>Easily keep your group information up to date and promote your group to the people of Stockport and beyond.</p>
-                                <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
-                                <p>If you don't run this group, <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">you can still let us know about a change to this group</a>.</p>
-                            </div>
-                        }
+                        <div class="grid-100 tablet-grid-100 mobile-grid-100 manage-group-section">
+                            <h3>Manage your group information</h3>
+                            <p>Easily keep your group information up to date and promote your group to the people of Stockport and beyond.</p>
+                            <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
+                            <p>If you don't run this group, <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">you can still let us know about a change to this group</a>.</p>
+                        </div>
                     </div>
                 </div>
             </section>

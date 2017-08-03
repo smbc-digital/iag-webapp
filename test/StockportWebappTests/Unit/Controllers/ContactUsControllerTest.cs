@@ -39,8 +39,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly string _title = "Title";
         private Mock<IRepository> _repository = new Mock<IRepository>();
         private readonly ContactUsId _contactUsId;
-        private readonly FeatureToggles featureToggles = new FeatureToggles();
-
+        
         public ContactUsControllerTest()
         {
             _mockEmailClient = new Mock<IHttpEmailClient>();
@@ -57,7 +56,7 @@ namespace StockportWebappTests.Unit.Controllers
             _repository.Setup(o => o.Get<ContactUsId>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                .ReturnsAsync(HttpResponse.Successful(200, _contactUsId));
 
-            _controller = new ContactUsController(_repository.Object, _mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId, featureToggles);
+            _controller = new ContactUsController(_repository.Object, _mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId);
             _validContactDetails = new ContactUsDetails(_userName, _userEmail, _emailSubject,
                 _emailBody, _serviceEmails,_title);
 

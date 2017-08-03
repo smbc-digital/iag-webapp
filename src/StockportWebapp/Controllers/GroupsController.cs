@@ -34,7 +34,6 @@ namespace StockportWebapp.Controllers
         private readonly GroupEmailBuilder _emailBuilder;
         private readonly EventEmailBuilder _eventEmailBuilder;
         private readonly IFilteredUrl _filteredUrl;
-        private readonly FeatureToggles _featureToggle;
         private readonly IViewRender _viewRender;
         private readonly ILogger<GroupsController> _logger;
         private readonly List<Query> _managementQuery;
@@ -42,12 +41,11 @@ namespace StockportWebapp.Controllers
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, FeatureToggles featureToggle, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
             _filteredUrl = filteredUrl;
-            _featureToggle = featureToggle;
             _viewRender = viewRender;
             _logger = logger;
             _configuration = configuration;
@@ -334,9 +332,6 @@ namespace StockportWebapp.Controllers
         [Route("/groups/manage/{slug}/newuserconfirmation")]
         public IActionResult NewUserConfirmation(string slug, string name, string groupName)
         {
-            if (!_featureToggle.GroupManagement)
-                return NotFound();
-
             if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(name))
                 return NotFound();
 
@@ -416,11 +411,6 @@ namespace StockportWebapp.Controllers
         [Route("/groups/manage/{slug}/edituserconfirmation")]
         public  IActionResult EditUserConfirmation(string slug, string name, string groupName)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(name))
             {
                 return NotFound();
@@ -471,11 +461,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> RemoveUser(RemoveUserViewModel model, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(model.Slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -497,11 +482,6 @@ namespace StockportWebapp.Controllers
         [Route("/groups/manage/removeconfirmation")]
         public IActionResult RemoveUserConfirmation(string group, string slug, string name)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             if (string.IsNullOrWhiteSpace(group))
             {
                 return NotFound();
@@ -527,11 +507,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Manage(LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement || (loggedInPerson == null))
-            {
-                return NotFound();
-            }
-
             var response = await _repository.GetAdministratorsGroups(loggedInPerson.Email);
 
             if (!response.IsSuccessful()) return response;
@@ -551,11 +526,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> ManageGroup(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -582,11 +552,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Delete(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -607,11 +572,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> DeleteEvent(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
             var groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
 
@@ -637,11 +597,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> DeleteAnEvent(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var eventResponse = await _processedContentRepository.Get<Event>(eventSlug, _managementQuery);
             var groupResponse = await _processedContentRepository.Get<Group>(groupSlug, _managementQuery);
 
@@ -668,11 +623,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> DeleteGroup(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -694,9 +644,6 @@ namespace StockportWebapp.Controllers
         [Route("/groups/manage/deleteconfirmation")]
         public IActionResult DeleteConfirmation(string group)
         {
-            if (!_featureToggle.GroupManagement)
-                return NotFound();
-
             if (string.IsNullOrWhiteSpace(group))
                 return NotFound();
 
@@ -708,9 +655,6 @@ namespace StockportWebapp.Controllers
         [Route("/groups/manage/deleteeventconfirmation")]
         public IActionResult DeleteEventConfirmation(string eventName, string eventSlug, string groupSlug, string groupName)
         {
-            if (!_featureToggle.GroupManagement)
-                return NotFound();
-
             if (string.IsNullOrWhiteSpace(eventName))
                 return NotFound();
 
@@ -726,11 +670,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Archive(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -752,11 +691,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> ArchiveGroup(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -790,11 +724,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> ArchiveConfirmation(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -815,11 +744,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Publish(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -841,11 +765,6 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> PublishGroup(string slug, LoggedInPerson loggedInPerson)
         {
-            if (!_featureToggle.GroupManagement)
-            {
-                return NotFound();
-            }
-
             var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
@@ -878,9 +797,6 @@ namespace StockportWebapp.Controllers
         [Route("/groups/manage/publishconfirmation")]
         public IActionResult PublishConfirmation(string slug, string name)
         {
-            if (!_featureToggle.GroupManagement)
-                return NotFound();
-
             if (string.IsNullOrWhiteSpace(slug))
                 return NotFound();
 
@@ -1001,9 +917,6 @@ namespace StockportWebapp.Controllers
         [Route("/groups/manage/{slug}/updateconfirmation")]
         public IActionResult EditGroupConfirmation(string slug, string groupName)
         {
-            if (!_featureToggle.GroupManagement)
-                return NotFound();
-
             if (string.IsNullOrWhiteSpace(groupName))
                 return NotFound();
 

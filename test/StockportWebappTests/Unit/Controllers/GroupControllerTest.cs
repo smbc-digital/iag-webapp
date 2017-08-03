@@ -38,7 +38,6 @@ namespace StockportWebappTests.Unit.Controllers
         public const int MaxNumberOfItemsPerPage = 9;
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private MapPosition _location = new MapPosition() { Lat = 1, Lon = 1 };
-        private FeatureToggles _featureToggle;
         private Mock<ILogger<GroupsController>> _logger;
         private Mock<IApplicationConfiguration> _configuration = new Mock<IApplicationConfiguration>();
         private MarkdownWrapper markdownWrapper = new MarkdownWrapper();
@@ -55,7 +54,6 @@ namespace StockportWebappTests.Unit.Controllers
         {
             _fakeRepository = new FakeProcessedContentRepository();
             _filteredUrl = new Mock<IFilteredUrl>();
-            _featureToggle = new FeatureToggles() {GroupManagement = true};
             _logger = new Mock<ILogger<GroupsController>>();
 
             var emailLogger = new Mock<ILogger<GroupEmailBuilder>>();
@@ -72,7 +70,7 @@ namespace StockportWebappTests.Unit.Controllers
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
 
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -199,10 +197,9 @@ namespace StockportWebappTests.Unit.Controllers
             emptyRepository.Setup(o => o.Get<GroupResults>(It.IsAny<string>(), It.IsAny<List<Query>>()))
               .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
-            _featureToggle = new FeatureToggles();
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -338,10 +335,9 @@ namespace StockportWebappTests.Unit.Controllers
                     It.IsAny<List<Query>>()))
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
-            _featureToggle = new FeatureToggles();
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, _featureToggle, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
 
             return controller;
         }

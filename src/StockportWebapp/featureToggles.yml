@@ -1,8 +1,5 @@
 ﻿---
 prod: &prod
-  ContactUsIds: true
-  GroupManagement: true
-  ManageYourGroupButton: true
   NewHomepageLayout: true
   EditGroupWYSIWYG: true
   PrimaryItems: true
