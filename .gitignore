@@ -1,5 +1,6 @@
 .vs
 */**/*.xproj.user
+*/**/*.csproj.user
 *.userprefs
 *.iml
 */**/project.lock.json
@@ -14,6 +15,8 @@ StockportWebapp.sln.DotSettings.user
 */**/obj/Debug
 */**/bin/Release
 */**/obj/Release
+*/**/bin
+*/**/obj
 test/UI/node_modules/
 test/UI/
 test/UI/reports/**

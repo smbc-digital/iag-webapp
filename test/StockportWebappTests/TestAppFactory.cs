@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using StockportWebapp.AmazonSES;
 using StockportWebappTests.Unit.Fake;
+using StockportWebappTests.Extensions;
 
 namespace StockportWebappTests
 {
@@ -26,6 +27,7 @@ namespace StockportWebappTests
                 .UseStartup<FakeStartup>()
                 .UseKestrel()
                 .UseEnvironment(environment)
+                .ConfigureTestServices()
                 .UseContentRoot(Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
                     "..", "..", "..", "..", "..", "src", "StockportWebapp")));
 

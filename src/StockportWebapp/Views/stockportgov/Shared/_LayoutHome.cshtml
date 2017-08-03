@@ -21,8 +21,8 @@
 
     <link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css"/>
-    <link rel="stylesheet" href="/assets/stylesheets/styleguide-sg.min.css"/>
-    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/stylesheets/vendor/slick.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
     <!--[if IE]>
@@ -43,29 +43,10 @@
 <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
     @await Component.InvokeAsync("Footer")
 </distributed-cache>
-@*
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js" integrity="sha256-36cp2Co+/62rEAAYHLmRCPIych47CvdM+uTBJwSzWjI= sha384-mXQoED/lFIuocc//nss8aJOIrz7X7XruhR6bO+sGceiSyMELoVdZkN7F0oYwcFH+ sha512-QAV866KcCo2YSgj8D7BW+Zn3Fe5wVKTWwzKtWy8mkW+tePcJL7JYilvdfrBFQcdz4ODD48GpIPnhTp9UDI37uw==" crossorigin="anonymous"></script>*@
-@*<script src="/assets/javascript/vendor/slick.min.js"></script>*@
 
 <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
 <script src="/assets/javascript/vendor/matchbox.js"></script>
 <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
 
-
-<!--[if lte IE 9]>
-    <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
-<![endif]-->
-@*<script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-<script type="text/javascript" src="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>*@
-
-    
-    @*@if (CurrentEnvironment.Name.ToUpper() == "PROD")
-    {
-        <script src="/assets/javascript/stockportgov.min.js"></script>
-    }
-    else
-    {
-        <script src="/assets/javascript/stockportgov.js"></script>
-    }*@
 </body>
 </html>

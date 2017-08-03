@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             var processedShowcase = _showcaseFactory.Build(showcase);
 
             // Assert   
-            processedShowcase.ShouldBeEquivalentTo(showcase, o => o.Excluding(e => e.GenericItemList));
+            processedShowcase.ShouldBeEquivalentTo(showcase);
         }
     }
 }

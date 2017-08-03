@@ -147,7 +147,7 @@
         $('#refine-slider').css('top', top).removeClass('hide-on-mobile').animate({ 'left': 0 }, 250);
         var height = $('#refine-slider').height() - $('.update-cancel-bar', '#event-listing-refine-bar').height();
         $('.scroller', '#refine-slider').height(height);
-        $('body').css('overflow', 'hidden');
+        $('body').css('overflow-y', 'hidden');
 
         currentState = [];
         $('input[type=checkbox]', '#event-listing-refine-bar').each(function () {
@@ -162,7 +162,7 @@
     var hideSlider = function () {
         var width = $(window).width();
         $('#refine-slider').animate({ 'left': width }, 250, 'swing', function () { $('#refine-slider').addClass('hide-on-mobile'); });
-        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-y', 'scroll');
         $('input[type=checkbox]', '#event-listing-refine-bar').each(function (index) {
             $(this).prop('checked', currentState[index]);
         });
