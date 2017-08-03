@@ -12,6 +12,7 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _subheading = "subheading";
         private string _eventSubheading = "event subheading";
         private string _eventCategory = "event category";
+        private string _eventCategoryOrtag = "event category or tag";
         private string _newsSubheading = "news subheading";
         private string _newsCategory = "news category";
         private string _bodySubheading = "body subheading";
@@ -28,7 +29,7 @@ namespace StockportWebappTests.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
+            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventCategoryOrtag, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events);
         }
 
         public ShowcaseBuilder Title(string title)
