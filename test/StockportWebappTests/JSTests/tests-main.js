@@ -17,7 +17,7 @@ requirejs.config({
     baseUrl: "/base/",
     paths: {
         "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
-        "jasmine-fixture": "test/StockportWebappTests/JSTests/jasmine-fixture.min",
+        "modernizr": "src/StockportWebapp/wwwroot/assets/javascript/vendor/modernizr.min",
         "events": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/events",
         "utils": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/utils"
     },

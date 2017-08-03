@@ -1,5 +1,4 @@
 /// <reference path="cludo.min.js" />
-/// <reference path="cludo.min.js" />
 // Karma configuration
 // Generated on Mon Mar 20 2017 14:43:48 GMT+0000 (GMT Standard Time)
 
@@ -18,10 +17,10 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
+            { pattern: './src/StockportWebapp/wwwroot/assets/javascript/vendor/modernizr.min.js', included: false },
             { pattern: './src/StockportWebapp/wwwroot/assets/javascript/stockportgov/utils.js', included: false },
             { pattern: './src/StockportWebapp/wwwroot/assets/javascript/stockportgov/events.js', included: false },
             { pattern: './test/StockportWebappTests/JSTests/StockportgovjsTest.js', included: false },
-            { pattern: './test/StockportWebappTests/JSTests/jasmine-fixture.min.js', included: false },
             './test/StockportWebappTests/JSTests/tests-main.js'
         ],
 
