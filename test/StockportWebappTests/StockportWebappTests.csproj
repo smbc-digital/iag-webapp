@@ -17,13 +17,16 @@
 
   <ItemGroup>
     <Compile Remove="%2a%2a\**" />
+    <Compile Remove="JSTests\node_modules\**" />
     <Compile Remove="UI\**\*" />
     <EmbeddedResource Include="Unit\MockResponses\*.json" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Remove="%2a%2a\**" />
+    <EmbeddedResource Remove="JSTests\node_modules\**" />
     <None Remove="%2a%2a\**" />
+    <None Remove="JSTests\node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
