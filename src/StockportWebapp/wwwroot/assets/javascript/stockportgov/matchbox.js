@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.Matchboxes = (function () {
+﻿define(["jquery"], function ($) {
 
     var self = this;
     var matchboxes = [];
@@ -44,6 +42,4 @@ STK.Matchboxes = (function () {
             }
         }
     };
-})();
-
-STK.Matchboxes.Init();
+});

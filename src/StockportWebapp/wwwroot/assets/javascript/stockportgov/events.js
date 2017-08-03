@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.Events = (function () {
+﻿define(["jquery"], function ($) {
 
     var setEndDateToStartDate = function (endDateId, startDateId) {
         if (!Modernizr.inputtypes.date) {
@@ -272,19 +270,16 @@ STK.Events = (function () {
     };
 
     var init = function () {
-        $(document).ready(function () {
+        setDatePickers();
+        setCategories();
 
-            setDatePickers();
-            setCategories();
-
-            if (!$("#EndDate").val() && !$("input[name='Frequency']:checked").val()) {
-                $(".schedule_multiple_events_inputs").hide();
-            }
-            $(".additional-category").hide();
-            $(".schedule_multiple_events").show();
-            $(".schedule_multiple_events").change(function () {
-                $(".schedule_multiple_events_inputs").slideToggle(200);
-            });
+        if (!$("#EndDate").val() && !$("input[name='Frequency']:checked").val()) {
+            $(".schedule_multiple_events_inputs").hide();
+        }
+        $(".additional-category").hide();
+        $(".schedule_multiple_events").show();
+        $(".schedule_multiple_events").change(function () {
+            $(".schedule_multiple_events_inputs").slideToggle(200);
         });
     };
 
@@ -293,8 +288,6 @@ STK.Events = (function () {
         SetEndDateToStartDate: setEndDateToStartDate
     };
 
-})();
-
-STK.Events.Init();
+});
 
 

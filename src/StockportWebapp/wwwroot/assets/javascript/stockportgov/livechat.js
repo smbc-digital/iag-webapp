@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.LiveChat = (function () {
+﻿define(["jquery"], function ($) {
 
     var init = function () {
         if (location.protocol == "https:") {
@@ -31,8 +29,6 @@ STK.LiveChat = (function () {
             init();
         }
     }
-})();
-
-STK.LiveChat.Init();
+});
 
 

@@ -1,16 +1,11 @@
-﻿var STK = STK || {};
-
-STK.StartUp = (function () {
-
-    var mobileWidth = 767;
-    var tabletWidth = (1024 - 17);
+﻿define(["jquery", "multiselect", "utils"], function ($, multiSelector, utils) {
 
     var documentReady = function () {
         $('.global-alert-close-container a').on('click', function () {
             $(this).closest('.global-alert').hide();
         });
 
-        STK.Utils.SwapLogo();
+        utils.SwapLogo();
 
         $(".show-search-button").click(function () {
             $("#mobileSearchInput").slideToggle(220);
@@ -20,9 +15,9 @@ STK.StartUp = (function () {
 
     var documentResize = function () {
 
-        STK.Utils.SwapLogo();
+        utils.SwapLogo();
 
-        if ($(window).width() > tabletWidth) {
+        if ($(window).width() > utils.TabletWidth) {
             $("#mobileSearchInput").hide();
             $(".show-search-button").removeClass("arrow");
             $('#displayRefineBy').css('display', 'block');
@@ -33,10 +28,9 @@ STK.StartUp = (function () {
 
         $(document).ready(function () {
             $('.multi-select-control').each(function () {
-                STK.MultiSelector.Init($(this).val());
+                multiSelector.Init($(this).val());
             });
         });
-
 
         document.documentElement.className = document.documentElement.className.replace("no-js", "js");
 
@@ -50,12 +44,7 @@ STK.StartUp = (function () {
     };
 
     return {
-        Init: init,
-        MobileWidth: mobileWidth,
-        TabletWidth: tabletWidth
+        Init: init
     }
-})();
-
-STK.StartUp.Init();
-
+});
 

@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.Filters = (function () {
+﻿define(["jquery", "utils"], function ($, utils) {
 
     var init = function () {
         $(document).ready(function () {
@@ -10,7 +8,7 @@ STK.Filters = (function () {
                 });
             });
 
-            if ($(window).width() <= STK.StartUp.TabletWidth) {
+            if ($(window).width() <= utils.TabletWidth) {
                 $(".l-filters .collapsible:not(#custom-filter-li)").addClass("is-collapsed");
                 $(".filters-list li.active .field-validation-error").parents("li").removeClass("is-collapsed");
             } else {
@@ -22,7 +20,7 @@ STK.Filters = (function () {
                 $("#custom-filter-li").removeClass("is-collapsed");
             }
 
-            if ($(window).width() > STK.StartUp.TabletWidth) {
+            if ($(window).width() > utils.TabletWidth) {
                 $(".filters-list li.active").each(function () {
                     $(this).parents("li").removeClass("is-collapsed");
                 });
@@ -33,7 +31,4 @@ STK.Filters = (function () {
     return {
         Init: init
     }
-})();
-
-
-STK.Filters.Init();
+});

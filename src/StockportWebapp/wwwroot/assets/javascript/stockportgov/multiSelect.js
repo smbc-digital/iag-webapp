@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.MultiSelector = (function () {
+﻿define(["jquery"], function ($) {
 
     var limit = 3;
     var className = '';
@@ -162,11 +160,6 @@ STK.MultiSelector = (function () {
             populate();
         }
     };
-})();
-
-$(document).ready(function () {
-    $('.multi-select-control').each(function () {
-        STK.MultiSelector.Init($(this).val());
-    });
 });
+
 

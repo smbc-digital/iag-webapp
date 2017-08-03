@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.PrimaryFilter = (function () {
+﻿define(["jquery", "refinebybar"], function ($, refinebybar) {
 
     var locationDefaults = {
         Name: "Stockport",
@@ -119,6 +117,17 @@ STK.PrimaryFilter = (function () {
                 location.ShowLocationError(locationDefaults.LocationLookupError);
             }
         });
+    };
+
+    var setSelectBoxes = function () {
+        if ($(window).width() > 767) {
+            $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
+            $("#selectCategory").width($("#hiddenSelectCategory").width());
+            $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
+            $("#selectOrder").width($("#hiddenSelectOrder").width());
+            $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+            $("#postcode").width($("#hiddenSelectLocation").width());
+        }
     };
 
     var init = function () {
@@ -278,25 +287,14 @@ STK.PrimaryFilter = (function () {
         }
     };
 
-    var resize = function () {
-        if ($(window).width() > 767) {
-            $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
-            $("#selectCategory").width($("#hiddenSelectCategory").width());
-            $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
-            $("#selectOrder").width($("#hiddenSelectOrder").width());
-            $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
-            $("#postcode").width($("#hiddenSelectLocation").width());
-        }
-    };
+    setSelectBoxes();
 
     return {
         Init: function () {
             init();
             $(window).resize(function () {
-                resize();
+                setSelectBoxes();
             });
         }
     }
-})();
-
-STK.PrimaryFilter.Init();
+});

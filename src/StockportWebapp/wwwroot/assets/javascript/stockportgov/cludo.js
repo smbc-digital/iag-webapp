@@ -1,6 +1,4 @@
-﻿var STK = STK || {};
-
-STK.CludoSearch = (function () {
+﻿define(["jquery", "cludo"], function ($, cludo) {
 
     var init = function () {
         var cludoSettings = {
@@ -21,7 +19,4 @@ STK.CludoSearch = (function () {
     return {
         Init: init
     }
-})();
-
-
-STK.CludoSearch.Init();
+});

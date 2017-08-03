@@ -85,12 +85,265 @@ $(function () {
 });
 var STK = STK || {};
 
+<<<<<<< HEAD
+STK.RefineBy = (function () {
+
+    var currentState = [];
+
+    var closeFilters = function (link) {
+        $('.link', '#event-listing-refine-bar').each(function () {
+            if (this !== link && $(this).closest('.refine').hasClass('open')) {
+                reApplyStateAndClose(this);
+            }
+        });
+    };
+
+    var openFilter = function (link) {
+        var parent = $(link).parent();
+
+        if ($(parent).hasClass('open')) {
+            reApplyStateAndClose(link);
+        }
+        else {
+            $(parent).addClass('open')
+        }
+
+        currentState = [];
+        $('input[type=checkbox]', parent).each(function () {
+            currentState.push($(this).prop('checked'));
+        });
+    };
+
+    var reApplyStateAndClose = function (link) {
+        var parent = $(link).closest('.refine');
+
+        $('input[type=checkbox]', $(parent)).each(function (index) {
+            $(this).prop('checked', currentState[index]);
+        });
+
+        $(parent).removeClass('open');
+        setBadges();
+    };
+
+    var setBadges = function () {
+        $('.badge', '#event-listing-refine-bar').css('visibility', 'hidden');
+
+        var allcount = 0;
+        $('.refine', '#event-listing-refine-bar').each(function () {
+            var count = 0;
+            $('input[type=checkbox]', $(this)).each(function () {
+                if ($(this).prop('checked')) {
+                    count++;
+                    allcount++;
+                }
+            });
+
+            var $lat = $('input[name=latitude]', $(this));
+            if ($lat.length == 1 && $lat.val() !== '' && $lat.val() !== '0') {
+                count++;
+                allcount++;
+            }
+
+            if (count > 0) {
+                $('.badge', $(this)).html('<span>' + count + '</span>').css('visibility', 'visible');
+                if ($('.none-selected-error', this).length) {
+                    $('.none-selected-error', this).hide();
+                    $('.apply', this).removeClass('disabled').off('click').on('click', function () { applyFilter(); });
+                    $('.update-button', '#event-listing-refine-bar').removeClass('disabled').prop('disabled', '');
+                }
+            }
+            else if ($('.none-selected-error', this).length) {
+                $('.none-selected-error', this).show();
+                $('.apply', this).addClass('disabled').off('click');
+                $('.update-button', '#event-listing-refine-bar').addClass('disabled').prop('disabled', 'disabled');
+            }
+        });
+
+        if (allcount > 0) {
+            $('.refine-all .badge', '#event-listing-refine-bar').html('<span>' + allcount + '</span>').css('visibility', 'visible');
+        }
+    };
+
+    var applyFilter = function () {
+
+        var href = window.location.href;
+
+        href = STK.Utils.StripParamFromQueryString(href, 'keeptag');
+        href = STK.Utils.StripParamFromQueryString(href, 'fromsearch');
+        href = STK.Utils.StripParamFromQueryString(href, 'tag');
+        href = STK.Utils.StripParamFromQueryString(href, 'price');
+        href = STK.Utils.StripParamFromQueryString(href, 'longitude');
+        href = STK.Utils.StripParamFromQueryString(href, 'latitude');
+        href = STK.Utils.StripParamFromQueryString(href, 'location');
+
+        var tag = getTag();
+        if (typeof (tag) == 'undefined') { tag = ''; }
+        if (href.indexOf('?') < 0) {
+            href += '?keeptag=' + tag + '&fromsearch=true';
+        }
+        else {
+            href += '&keeptag=' + tag + '&fromsearch=true';
+        }
+
+        $('input:checked', '#event-listing-refine-bar').each(function () {
+            href += '&' + $(this).prop('name') + '=' + $(this).val();
+        });
+
+        $('input[name=longitude]', '#event-listing-refine-bar').each(function () {
+            href += '&longitude=' + $(this).val();
+        });
+
+        $('input[name=latitude]', '#event-listing-refine-bar').each(function () {
+            href += '&latitude=' + $(this).val();
+        });
+
+        $('input[name=location]', '#event-listing-refine-bar').each(function () {
+            href += '&location=' + $(this).val();
+        });
+
+        window.location.href = href;
+    };
+
+    var getTag = function () {
+        return $('input[name=tag]', '#event-listing-refine-bar').val();
+    };
+
+    var initialiseSlider = function () {
+        var width = $(window).width();
+        $('#refine-slider').css('left', width);
+
+        var location = $('#location').val();
+        if (location !== '') {
+            $('.location-search-input').val(location);
+            $('.search-all', '#event-listing-refine-bar').show();
+        }
+        else {
+            $('.search-all', '#event-listing-refine-bar').hide();
+        }
+    };
+
+    var searchAll = function () {
+        $('#location').val('');
+        $('#longitude').val('0');
+        $('#latitude').val('0');
+        $('.location-search-input').val('All locations');
+        setBadges();
+    };
+
+    var revealSlider = function () {
+        var top = $(document).scrollTop();
+        $('#refine-slider').css('top', top).removeClass('hide-on-mobile').animate({ 'left': 0 }, 250);
+        var height = $('#refine-slider').height() - $('.update-cancel-bar', '#event-listing-refine-bar').height();
+        $('.scroller', '#refine-slider').height(height);
+        $('body').css('overflow', 'hidden');
+
+        currentState = [];
+        $('input[type=checkbox]', '#event-listing-refine-bar').each(function () {
+            currentState.push($(this).prop('checked'));
+        });
+    };
+
+    var clearHeight = function () {
+        $('.scroller', '#refine-slider').height('');
+    };
+
+    var hideSlider = function () {
+        var width = $(window).width();
+        $('#refine-slider').animate({ 'left': width }, 250, 'swing', function () { $('#refine-slider').addClass('hide-on-mobile'); });
+        $('body').css('overflow', 'scroll');
+        $('input[type=checkbox]', '#event-listing-refine-bar').each(function (index) {
+            $(this).prop('checked', currentState[index]);
+        });
+        setBadges();
+    };
+
+    var clearAllFilters = function () {
+        $('input[type=checkbox]', '#event-listing-refine-bar').each(function () {
+            $(this).prop('checked', false);
+        });
+
+        searchAll();
+    };
+
+    var applyLocation = function () {
+        setBadges();
+        applyFilter();
+    }
+
+    return {
+        Init: function () {
+            setBadges();
+            initialiseSlider();
+
+            $('#event-listing-refine-bar').show();
+
+            $('.link', '#event-listing-refine-bar').on('click', function () {
+                closeFilters(this);
+                openFilter(this);
+            });
+
+            $('.cancel', '#event-listing-refine-bar').on('click', function () {
+                reApplyStateAndClose(this);
+            });
+
+            $('.apply', '#event-listing-refine-bar').on('click', function () {
+                applyFilter();
+            });
+
+            $('input[type=checkbox]', '#event-listing-refine-bar').on('click', function () {
+                setBadges();
+            });
+
+            $('#reveal-refine-by').click(function () {
+                revealSlider();
+            });
+
+            $('.update-cancel-bar .cancel', '#event-listing-refine-bar').on('click', function () {
+                hideSlider();
+            });
+
+            $('.update-cancel-bar .apply', '#event-listing-refine-bar').on('click', function () {
+                $("#btnLocationAutoComplete").click();
+            });
+
+            $('.clear-all-filters a', '#event-listing-refine-bar').on('click', function () {
+                clearAllFilters();
+                setBadges();
+            });
+
+            $('.search-all', '#event-listing-refine-bar').on('click', function () {
+                searchAll();
+            });
+
+            $(window).on('resize', function () {
+                clearHeight();
+                hideSlider();
+            });
+        },
+        ApplyLocation: applyLocation
+    };
+})();
+
+STK.RefineBy.Init();
+
+
+define(["jquery", "slick"], function ($, slick) {
+=======
 STK.Groups = (function () {
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
     var init = function () {
         $(document).ready(
             function () {
 
+<<<<<<< HEAD
+    return {
+        Init: init
+    }
+});
+
+var STK = STK || {};
+=======
                 if ($(window).width() <= STK.StartUp.MobileWidth) {
                     $("#edit-search").hide();
                     $(".result-arrow").addClass("result-search-down-arrow");
@@ -107,6 +360,7 @@ STK.Groups = (function () {
                             $("#edit-search").hide();
                         });
                     });
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
                     $(".result-search-up-arrow").parent().click(function () {
                         $("#edit-search").hide();
@@ -357,6 +611,22 @@ STK.PrimaryFilter = (function () {
                 }
             });
 
+<<<<<<< HEAD
+    (function (factory, global) {
+        if (1 === 2 && typeof define == "function" && define.amd) {
+            // AMD. Register as an anonymous module.
+            define("rangy", factory);
+            /*
+                TODO: look into this properly.
+                
+                } else if (typeof exports == "object") {
+                    // Node/CommonJS style for Browserify
+                    module.exports = factory;
+            */
+        } else {
+            // No AMD or CommonJS support so we place Rangy in a global variable
+            global.rangy = factory();
+=======
             $('form').on('invalid-form.validate', function (event, validator) {
                 for (var i = 0; i < validator.errorList.length; i++) {
                     if (validator.errorList[i].element.id == 'address') {
@@ -365,6 +635,7 @@ STK.PrimaryFilter = (function () {
                     }
                 }
             });
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
         }
 
         // only run of the auto complete is on the page
@@ -3720,6 +3991,40 @@ STK.WYSIWYG = (function () {
                     // Previously an iframe was used but this caused problems in some circumstances in IE, so tests are
                     // performed on the current document's selection. See issue 109.
 
+<<<<<<< HEAD
+        return api;
+    }, this);;/**
+ * Selection save and restore module for Rangy.
+ * Saves and restores user selections using marker invisible elements in the DOM.
+ *
+ * Part of Rangy, a cross-browser JavaScript range and selection library
+ * http://code.google.com/p/rangy/
+ *
+ * Depends on Rangy core.
+ *
+ * Copyright 2014, Tim Down
+ * Licensed under the MIT license.
+ * Version: 1.3alpha.20140804
+ * Build date: 4 August 2014
+ */
+    (function (factory, global) {
+        if (1 === 2 && typeof define == "function" && define.amd) {
+            // AMD. Register as an anonymous module with a dependency on Rangy.
+            define("rangyCreateModule", ["rangy"], factory);
+            /*
+             } else if (typeof exports == "object") {
+             // Node/CommonJS style for Browserify
+             module.exports = factory;
+             */
+        } else {
+            // No AMD or CommonJS support so we use the rangy global variable
+            factory(global.rangy);
+        }
+    })
+    (function (rangy) {
+        rangy.createModule("SaveRestore", ["WrappedRange"], function (api, module) {
+            var dom = api.dom;
+=======
                     // Note also that if a selection previously existed, it is wiped by these tests. This should usually be fine
                     // because initialization usually happens when the document loads, but could be a problem for a script that
                     // loads and initializes Rangy later. If anyone complains, code could be added to save and restore the
@@ -3734,6 +4039,7 @@ STK.WYSIWYG = (function () {
                         for (var i = 0; i < originalSelectionRangeCount; ++i) {
                             originalSelectionRanges[i] = sel.getRangeAt(i);
                         }
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
                         // Create some test elements
                         var body = getBody(document);
@@ -14473,7 +14779,54 @@ STK.WYSIWYG = (function () {
                   });
               },
 
+<<<<<<< HEAD
+        buffer += "<li>\n  <div class=\"btn-group\">\n    <a class=\"btn ";
+        stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)), stack1 == null || stack1 === false ? stack1 : stack1.toolbar)), stack1 == null || stack1 === false ? stack1 : stack1.size), { hash: {}, inverse: self.noop, fn: self.program(1, program1, data), data: data });
+        if (stack1 || stack1 === 0) { buffer += stack1; }
+        buffer += " btn-default\" data-wysihtml5-command=\"insertUnorderedList\" title=\""
+          + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.locale)), stack1 == null || stack1 === false ? stack1 : stack1.lists)), stack1 == null || stack1 === false ? stack1 : stack1.unordered)), typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+          + "\" tabindex=\"-1\">\n    ";
+        stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)), stack1 == null || stack1 === false ? stack1 : stack1.toolbar)), stack1 == null || stack1 === false ? stack1 : stack1.fa), { hash: {}, inverse: self.program(5, program5, data), fn: self.program(3, program3, data), data: data });
+        if (stack1 || stack1 === 0) { buffer += stack1; }
+        buffer += "\n    </a>\n    <a class=\"btn ";
+        stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)), stack1 == null || stack1 === false ? stack1 : stack1.toolbar)), stack1 == null || stack1 === false ? stack1 : stack1.size), { hash: {}, inverse: self.noop, fn: self.program(1, program1, data), data: data });
+        if (stack1 || stack1 === 0) { buffer += stack1; }
+        buffer += " btn-default\" data-wysihtml5-command=\"insertOrderedList\" title=\""
+          + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.locale)), stack1 == null || stack1 === false ? stack1 : stack1.lists)), stack1 == null || stack1 === false ? stack1 : stack1.ordered)), typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+          + "\" tabindex=\"-1\">\n    ";
+        stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)), stack1 == null || stack1 === false ? stack1 : stack1.toolbar)), stack1 == null || stack1 === false ? stack1 : stack1.fa), { hash: {}, inverse: self.program(9, program9, data), fn: self.program(7, program7, data), data: data });
+        //if(stack1 || stack1 === 0) { buffer += stack1; }
+        //buffer += "\n    </a>\n    <a class=\"btn ";
+        //stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.size), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+        //if(stack1 || stack1 === 0) { buffer += stack1; }
+        //buffer += " btn-default\" data-wysihtml5-command=\"Outdent\" title=\""
+        //  + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.locale)),stack1 == null || stack1 === false ? stack1 : stack1.lists)),stack1 == null || stack1 === false ? stack1 : stack1.outdent)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+        //  + "\" tabindex=\"-1\">\n    ";
+        //stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.fa), {hash:{},inverse:self.program(13, program13, data),fn:self.program(11, program11, data),data:data});
+        //if(stack1 || stack1 === 0) { buffer += stack1; }
+        //buffer += "\n    </a>\n    <a class=\"btn ";
+        //stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.size), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+        //if(stack1 || stack1 === 0) { buffer += stack1; }
+        //buffer += " btn-default\" data-wysihtml5-command=\"Indent\" title=\""
+        //  + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.locale)),stack1 == null || stack1 === false ? stack1 : stack1.lists)),stack1 == null || stack1 === false ? stack1 : stack1.indent)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+        //  + "\" tabindex=\"-1\">\n    ";
+        //stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.toolbar)),stack1 == null || stack1 === false ? stack1 : stack1.fa), {hash:{},inverse:self.program(17, program17, data),fn:self.program(15, program15, data),data:data});
+        if (stack1 || stack1 === 0) { buffer += stack1; }
+        buffer += "\n    </a>\n  </div>\n</li>\n";
+        return buffer;
+    });/* jshint expr: true */
+    (function (factory) {
+        if (1 === 2 && typeof define === 'function' && define.amd) {
+            // AMD. Register as an anonymous module.
+            define('bootstrap.wysihtml5', ['jquery', 'wysihtml5', 'bootstrap', 'bootstrap.wysihtml5.templates', 'bootstrap.wysihtml5.commands'], factory);
+        } else {
+            // Browser globals
+            factory(jQuery, wysihtml5);
+        }
+    }(function ($, wysihtml5) {
+=======
               _updateLinkStates: function () {
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
                   var commandMapping = this.commandMapping,
                       actionMapping = this.actionMapping,
@@ -14731,6 +15084,18 @@ STK.WYSIWYG = (function () {
             return buffer;
         }
 
+<<<<<<< HEAD
+    /**
+     * English translation for bootstrap-wysihtml5
+     */
+    (function (factory) {
+        if (1 === 2 && typeof define === 'function' && define.amd) {
+            // AMD. Register as an anonymous module.
+            define('bootstrap.wysihtml5.en-US', ['jquery', 'bootstrap.wysihtml5'], factory);
+        } else {
+            // Browser globals
+            factory(jQuery);
+=======
         buffer += "<li class=\"dropdown\">\n  <a class=\"btn btn-default dropdown-toggle ";
         stack1 = helpers['if'].call(depth0, ((stack1 = ((stack1 = (depth0 && depth0.options)), stack1 == null || stack1 === false ? stack1 : stack1.toolbar)), stack1 == null || stack1 === false ? stack1 : stack1.size), { hash: {}, inverse: self.noop, fn: self.program(1, program1, data), data: data });
         if (stack1 || stack1 === 0) { buffer += stack1; }
@@ -14773,6 +15138,7 @@ STK.WYSIWYG = (function () {
             buffer += "btn-"
               + escapeExpression(((stack1 = ((stack1 = ((stack1 = (depth0 && depth0.options)), stack1 == null || stack1 === false ? stack1 : stack1.toolbar)), stack1 == null || stack1 === false ? stack1 : stack1.size)), typeof stack1 === functionType ? stack1.apply(depth0) : stack1));
             return buffer;
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
         }
 
         function program3(depth0, data) {
@@ -14825,6 +15191,9 @@ STK.WYSIWYG = (function () {
         function program3(depth0, data) {
 
 
+<<<<<<< HEAD
+var STK = STK || {};
+=======
             return "\n      <span class=\"fa fa-font\"></span>\n    ";
         }
 
@@ -14859,6 +15228,7 @@ STK.WYSIWYG = (function () {
           + "</a></li>\n  </ul>\n</li>\n";
         return buffer;
     });
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
     this["wysihtml5"]["tpl"]["html"] = Handlebars.template(function (Handlebars, depth0, helpers, partials, data) {
         this.compilerInfo = [4, '>= 1.0.0'];
@@ -15040,11 +15410,31 @@ STK.WYSIWYG = (function () {
             return "\n      <span class=\"glyphicon glyphicon-th-list\"></span>\n    ";
         }
 
+<<<<<<< HEAD
+            if ($(window).width() <= STK.Utils.TabletWidth) {
+                $(".l-filters .collapsible:not(#custom-filter-li)").addClass("is-collapsed");
+                $(".filters-list li.active .field-validation-error").parents("li").removeClass("is-collapsed");
+            } else {
+                $(".l-filters .filter:not(#custom-filter-li):not(#date-filter):not(#category-filter).collapsible").addClass("is-collapsed");
+                $(".l-filters .filter:not(#custom-filter-li):not(#date-filter):not(#category-filter) .collapsible").addClass("is-collapsed");
+            }
+=======
         function program11(depth0, data) {
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
 
+<<<<<<< HEAD
+            if ($(window).width() > STK.Utils.TabletWidth) {
+                $(".filters-list li.active").each(function () {
+                    $(this).parents("li").removeClass("is-collapsed");
+                });
+            }
+        });
+    };
+=======
             return "\n      <span class=\"fa fa-outdent\"></span>\n    ";
         }
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
         function program13(depth0, data) {
 
@@ -15058,7 +15448,13 @@ STK.WYSIWYG = (function () {
             return "\n      <span class=\"fa fa-indent\"></span>\n    ";
         }
 
+<<<<<<< HEAD
+                if ($(window).width() <= STK.Utils.MobileWidth) {
+                    $("#edit-search").hide();
+                    $(".result-arrow").addClass("result-search-down-arrow");
+=======
         function program17(depth0, data) {
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
 
             return "\n      <span class=\"glyphicon glyphicon-indent-left\"></span>\n    ";
@@ -15282,6 +15678,9 @@ STK.WYSIWYG = (function () {
                 }
             };
 
+<<<<<<< HEAD
+define(["jquery"], function ($) {
+=======
             $.fn.wysihtml5 = function (method) {
                 if (methods[method]) {
                     return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
@@ -15293,6 +15692,7 @@ STK.WYSIWYG = (function () {
             };
 
             $.fn.wysihtml5.Constructor = Wysihtml5;
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
             var defaultOptions = $.fn.wysihtml5.defaultOptions = {
                 toolbar: {
@@ -15545,11 +15945,31 @@ STK.Events = (function () {
             $("#Category1 option[value='" + cat2Value + "']").hide();
             $("#Category3 option[value='" + cat2Value + "']").hide();
         }
+<<<<<<< HEAD
+    };
+});
+
+
+
+var STK = STK || {};
+
+STK.PrimaryFilter = (function () {
+
+    var locationDefaults = {
+        Name: "Stockport",
+        Latitude: 53.405817,
+        Longitude: -2.158046,
+        CurrentLocationError: "We couldn't find your current location -- please check the location settings on your device.",
+        LocationLookupError: "We couldn't find this location -- please check the location and try again.",
+        NoLocationError: "No location entered -- please enter a location and try again."
+    };
+=======
         if (cat3Value && cat3Value !== thisValue) {
             $("#Category1 option[value='" + cat3Value + "']").hide();
             $("#Category2 option[value='" + cat3Value + "']").hide();
         }
     }
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
     var setDatePickers = function () {
         if (!Modernizr.inputtypes.date) {
@@ -15841,6 +16261,29 @@ STK.ExpandingLinks.Init();
 
 
 
+<<<<<<< HEAD
+requirejs.config({
+    baseUrl: 'assets/javascript/stockportgov',
+    paths: {
+        "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
+        "jquery-ui": "assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
+        "jquery-validate": "assets/javascript/stockportgov/jquery.validate.min",
+        "Modernizr": "assets/javascript/stockportgov/modernizr.min",
+        "Matchbox": "assets/javascript/stockportgov/matchbox",
+        "Slick": "assets/javascript/vendor/slick",
+        "Recaptcha": "https://www.google.com/recaptcha/api",
+        "Rangy": "lib/rangy-1.3/rangy-core"
+    }
+});
+
+require(['startup'], function (startup) {
+    startup.Init();
+});
+
+require(['carousel'], function (carousel) {
+    carousel.Init();
+});
+=======
 var STK = STK || {};
 
 STK.Filters = (function () {
@@ -16142,10 +16585,10 @@ $(document).ready(function () {
     });
 });
 
+>>>>>>> 8463681586f4464661b24fa777f955b3494a713f
 
-var STK = STK || {};
 
-STK.StartUp = (function () {
+define(["jquery", "multiSelect", "utils"], function ($, multiSelector, utils) {
 
     var mobileWidth = 767;
     var tabletWidth = (1024 - 17);
@@ -16155,7 +16598,7 @@ STK.StartUp = (function () {
             $(this).closest('.global-alert').hide();
         });
 
-        STK.Utils.SwapLogo();
+        utils.SwapLogo();
 
         $(".show-search-button").click(function () {
             $("#mobileSearchInput").slideToggle(220);
@@ -16178,7 +16621,7 @@ STK.StartUp = (function () {
 
         $(document).ready(function () {
             $('.multi-select-control').each(function () {
-                STK.MultiSelector.Init($(this).val());
+                multiSelector.Init($(this).val());
             });
         });
 
@@ -16199,22 +16642,17 @@ STK.StartUp = (function () {
         MobileWidth: mobileWidth,
         TabletWidth: tabletWidth
     }
-})();
-
-STK.StartUp.Init();
+});
 
 
-
-var STK = STK || {};
-
-STK.Utils = (function () {
+define(["jquery", "startUp"], function ($, startUp) {
 
     var swapLogo = function() {
         var image = $("#header .logo-main-image");
         var logoMobile = image.attr("data-mobile-image");
         var logoDesktop = image.attr("data-desktop-image");
 
-        if ($(window).width() <= STK.StartUp.MobileWidth) {
+        if ($(window).width() <= startUp.MobileWidth) {
             image.attr("src", logoMobile);
         } else {
             image.attr("src", logoDesktop);
@@ -16247,7 +16685,7 @@ STK.Utils = (function () {
         StripParamFromQueryString: stripParamFromQueryString,
         SwapLogo: swapLogo
     };
-})();
+});
 var STK = STK || {};
 
 STK.ViewMoreSlider = (function () {

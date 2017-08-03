@@ -1,13 +1,14 @@
-﻿var STK = STK || {};
+﻿define(["jquery"], function ($) {
 
-STK.Utils = (function () {
+    var mobileWidth = 767;
+    var tabletWidth = (1024 - 17);
 
-    var swapLogo = function() {
+    var swapLogo = function () {
         var image = $("#header .logo-main-image");
         var logoMobile = image.attr("data-mobile-image");
         var logoDesktop = image.attr("data-desktop-image");
 
-        if ($(window).width() <= STK.StartUp.MobileWidth) {
+        if ($(window).width() <= mobileWidth) {
             image.attr("src", logoMobile);
         } else {
             image.attr("src", logoDesktop);
@@ -38,6 +39,8 @@ STK.Utils = (function () {
 
     return {
         StripParamFromQueryString: stripParamFromQueryString,
-        SwapLogo: swapLogo
+        SwapLogo: swapLogo,
+        MobileWidth: mobileWidth,
+        TabletWidth: tabletWidth
     };
-})();
+});
