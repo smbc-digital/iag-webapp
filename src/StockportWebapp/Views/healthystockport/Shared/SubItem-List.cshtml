@@ -1,13 +1,15 @@
 ﻿@model StockportWebapp.Models.Topic
 @{ var allTopics = Model.SubItems.Concat(Model.SecondaryItems);}
-<ul class="article-list article-list-container grid-100">
+<ul class="article-list article-list-container grid-100 matchbox-parent-1-2-2">
     @foreach (var subItem in allTopics)
     {
         <li class="article-list-item article-list-item-mobile grid-50 tablet-grid-50 mobile-grid-100">
             <a href="@subItem.NavigationLink" class="article-list-item-block grid-45 tablet-grid-45">
                 <div class="article-list-container">
-                    <h2>@subItem.Title</h2>
-                    <p>@subItem.Teaser</p>
+                    <div class="matchbox-child">
+                        <h2>@subItem.Title</h2>
+                        <p>@subItem.Teaser</p>
+                    </div>
                 </div>
                 <div class="article-chevron l-right-align">
                     <i aria-hidden="true" class="fa fa-2x fa-angle-right"></i>
