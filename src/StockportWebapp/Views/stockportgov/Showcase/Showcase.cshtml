@@ -52,10 +52,35 @@ else
 }
 @if (Model.FeaturedItems.Any())
 {
-    <div class="alt-container-row featured-items-wrapper matchbox-parent">
+    <div class="alt-container-row featured-items-wrapper matchbox-parent-4-4-5">
         <h2>@Model.Subheading</h2>
         <div class="featured-topic-list">
-            @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
+            @{
+                foreach (var item in Model.FeaturedItems)
+                {
+                    <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
+                        <div class="featured-topic-content">
+                            <a href="@item.NavigationLink">
+                                <div class="featured-topic-icon">
+                                    <i class="@item.Icon si-default"></i>
+                                </div>
+                                <div class="featured-topic-name">@item.Title</div>
+                            </a>
+                            <p class="hide-on-mobile hide-on-tablet featured-topic-description">
+                                @if (item.SubItems.Any())
+                                {
+                                    <span>Including</span>
+                                }
+                                @foreach (var subItem in item.SubItems.Take(2))
+                                {
+                                    <br />
+                                    <a href="@subItem.NavigationLink">@subItem.Title</a>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 }
