@@ -1,19 +1,26 @@
-﻿var tests = [];
-for (var file in window.__karma__.files) {
-    if (window.__karma__.files.hasOwnProperty(file)) {
-        if (/Test\.js$/.test(file)) {
-            tests.push(file);
-        }
+﻿var allTestFiles = [];
+var TEST_REGEXP = /(spec|test)\.js$/i;
+
+// Get a list of all the test files to include
+Object.keys(window.__karma__.files).forEach(function (file) {
+
+    if (TEST_REGEXP.test(file)) {
+        // Normalize paths to RequireJS module names.
+        // If you require sub-dependencies of test files to be loaded as-is (requiring file extension)
+        // then do not normalize the paths
+        var normalizedTestModule = file.replace(/^\/base\/|\.js$/g, '');
+        allTestFiles.push(normalizedTestModule);
     }
-}
+});
 
 requirejs.config({
-    baseUrl: '../../../src/StockportWebapp/wwwroot/assets/javascript',
+    baseUrl: "/base/",
     paths: {
         "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
-        "events": "stockportgov/events",
-        "utils": "stockportgov/utils",
+        "jasmine-fixture": "test/StockportWebappTests/JSTests/jasmine-fixture.min",
+        "events": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/events",
+        "utils": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/utils"
     },
-    deps: tests,
+    deps: allTestFiles,
     callback: window.__karma__.start
 });

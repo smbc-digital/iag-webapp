@@ -1,24 +1,25 @@
-define(function () {
-    it("is a simple test", function () {
-        expect("A").toEqual("A");
+
+
+define(['utils', 'events', 'jasmine-fixture'], function (utils, events, affix) {
+
+    describe("Very simple test", function () {
+        it("is a simple test", function () {
+            expect("A").toEqual("A");
+        });
     });
-});
 
+    describe("Date tests", function () {
+        beforeEach(function () {
+            affix('input#input1[value="2"] input#input2[value=""]');
+        });
 
-//define(['utils', 'events'], function (utils, events) {
+        it("sets end date to be start date", function () {
+            Modernizr.inputtypes.date = false;
 
-    //describe("Date tests", function () {
-    //    beforeEach(function () {
-    //        affix('input#input1[value="2"] input#input2[value=""]');
-    //    });
-
-    //    it("sets end date to be start date", function () {
-    //        Modernizr.inputtypes.date = false;
-
-    //        events.SetEndDateToStartDate("input2", "input1");
-    //        expect($("#input2").val()).toEqual($("#input1").val());
-    //    });
-    //});
+            events.SetEndDateToStartDate("input2", "input1");
+            expect($("#input2").val()).toEqual($("#input1").val());
+        });
+    });
 
     //describe("Logo tests", function () {
     //    beforeEach(function () {
@@ -54,44 +55,32 @@ define(function () {
     //        });
     //});
 
-//    describe("Utils tests",
-//        function (utils) {
+    //describe("Utils tests", function () {
 
-//            var tests = [
-//                {
-//                    url: "http://www.test.com?param1=test",
-//                    param: "param1",
-//                    result: "http://www.test.com"
-//                },
-//                {
-//                    url: "http://www.test.com?param1=test&param2=testest",
-//                    param: "param1",
-//                    result: "http://www.test.com?param2=testest"
-//                }
-//            ];
+    //        var tests = [
+    //            {
+    //                url: "http://www.test.com?param1=test",
+    //                param: "param1",
+    //                result: "http://www.test.com"
+    //            },
+    //            {
+    //                url: "http://www.test.com?param1=test&param2=testest",
+    //                param: "param1",
+    //                result: "http://www.test.com?param2=testest"
+    //            }
+    //        ];
 
-//            function addTest(url, param, result) {
-//                it("Should strip a param from a query string", function () {
-//                        var urlReturned = utils.StripParamFromQueryString(url, param);
+    //        function addTest(url, param, result) {
+    //            it("Should strip a param from a query string", function () {
+    //                    var urlReturned = utils.StripParamFromQueryString(url, param);
 
-//                        expect(urlReturned).toEqual(result);
-//                    });
-//            }
+    //                    expect(urlReturned).toEqual(result);
+    //                });
+    //        }
 
-//            for (var test in tests) {
-//                addTest(tests[test].url, tests[test].param, tests[test].result);
-//            }
+    //        for (var test in tests) {
+    //            addTest(tests[test].url, tests[test].param, tests[test].result);
+    //        }
 
-//        });
-//});
-
-//function $sandbox(content) {
-//    var $box = $('#sandbox');
-//    if ($box.length == 0) {
-//        $box = $('<div id="sandbox"></div>').appendTo('body');
-//    }
-//    if (content == undefined) {
-//        return $box;
-//    }
-//    return $box.html(content);
-//}
+    //    });
+}); 
