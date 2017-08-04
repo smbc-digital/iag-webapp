@@ -23,14 +23,10 @@ var paths = {
      sass: "./wwwroot/assets/sass/**/*.scss",
      cssDest: "./wwwroot/assets/stylesheets",
      jsSite: "./wwwroot/assets/javascript/site.js",
-     jsProject: "./wwwroot/assets/javascript/stockportgov/*.js",
      jsSmart: "./wwwroot/assets/javascript/stockportgov/QuestionComponent/*.js",
-     concatJsDest: "./wwwroot/assets/javascript/stockportgov.min.js",
-     concatFullJsDest: "./wwwroot/assets/javascript/stockportgov.js",
      jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
      concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
      concatFullJsDestHS: "./wwwroot/assets/javascript/healthystockport.js",
-     minJs: "./wwwroot/assets/javascript/*.min.js",
      jsVendor: "./wwwroot/assets/javascript/vendor/*.js",
      jsVendorMin: "./wwwroot/assets/javascript/vendor/*.min.js"
 };

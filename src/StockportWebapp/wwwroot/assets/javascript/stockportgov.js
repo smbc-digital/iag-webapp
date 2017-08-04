@@ -713,7 +713,7 @@ define(["jquery", "cludo"], function ($, cludo) {
     }
 });
 
-define(["jquery"], function ($) {
+define([], function () {
 
     var setupCharsRemaining = function () {
 
@@ -774,10 +774,8 @@ define(["jquery"], function ($) {
     };
 
     var init = function () {
-        $(document).ready(function () {
-            setupCharsRemaining();
-            onlySubmitFormIfValid();
-        });
+        setupCharsRemaining();
+        onlySubmitFormIfValid();
     };
 
     return {
