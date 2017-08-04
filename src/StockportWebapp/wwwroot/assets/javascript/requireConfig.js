@@ -28,6 +28,10 @@
         "startup": "stockportgov/startup",
         "utils": "stockportgov/utils",
         "viewmoreslider": "stockportgov/viewmoreslider",
+        "questioncontroller": "stockportgov/questioncomponent/questioncontroller",
+        "questionmodule": "stockportgov/questioncomponent/questionmodule",
+        "questionvalidator": "stockportgov/questioncomponent/questionvalidator",
+        "questionview": "stockportgov/questioncomponent/questionview",
     },
     shim: {
         bootstrap: {

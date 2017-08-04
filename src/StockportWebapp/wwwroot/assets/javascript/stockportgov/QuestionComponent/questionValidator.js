@@ -1,17 +1,15 @@
-var SMART = SMART || {};
-
-SMART.Validator = function () {
+define(["jquery"], function ($) {
 
     var processValidation = function (validationResults, selectedInput, callback, bypassShowValidation) {
         var invalidResutls = $.grep(validationResults,
-          function (v) {
-              return v.isValid === false;
-          });
+            function (v) {
+                return v.isValid === false;
+            });
 
         var selectedResults = $.grep(validationResults,
-          function (v) {
-              return v.questionId === selectedInput.attr("data-questionid");
-          });
+            function (v) {
+                return v.questionId === selectedInput.attr("data-questionid");
+            });
 
         $(selectedResults).each(function () {
             if (this.isValid || (!bypassShowValidation)) {
@@ -25,5 +23,5 @@ SMART.Validator = function () {
     return {
         processValidation: processValidation
     };
-}
+});
 

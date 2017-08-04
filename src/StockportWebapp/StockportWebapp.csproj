@@ -66,4 +66,8 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\assets\javascript\vendor\require.2.3.4.min.js" />
+  </ItemGroup>
+
 </Project>

@@ -1,6 +1,4 @@
-var SMART = SMART || {};
-
-SMART.View = function () {
+define(["jquery"], function ($) {
 
     var disableNextButton = function () {
         var button = $(".question-button-next");
@@ -58,7 +56,7 @@ SMART.View = function () {
         $(document).keyup(function (e) {
             debugger;
             if (e.keyCode === 13) {
-                
+
                 $("#next-button").click();
             }
         });
@@ -74,5 +72,4 @@ SMART.View = function () {
         enableNextButton: enableNextButton,
         showValidationForQuestion: showValidationForQuestion
     };
-
-}
+});

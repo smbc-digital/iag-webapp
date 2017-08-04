@@ -1,6 +1,6 @@
-var SMART = SMART || {};
+define(["jquery", "questionview", "questionvalidator"], function ($, view, validator) {
 
-SMART.Controller = function (route, view, validator) {
+    var route;
 
     function getValidationRoute() {
         var validateAction = 'validate';
@@ -25,7 +25,8 @@ SMART.Controller = function (route, view, validator) {
         return deferredResult.promise();
     };
 
-    var init = function () {
+    var init = function (thisroute) {
+        route = thisroute;
         view.showNextbutton();
         view.bindEventListeners(validateQuestions);
     };
@@ -34,4 +35,4 @@ SMART.Controller = function (route, view, validator) {
         init: init,
         validateQuestions: validateQuestions
     };
-}
+});

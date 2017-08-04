@@ -14,14 +14,11 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        SMART.Module().init("smart/@Model.Slug");
-
-        $("#back-button").show().click(function() {
-            window.history.back();
-        });
-
+@section Scripts
+{
+<script type="text/javascript">
+    require(["stockportgov/questioncomponent/questionmodule"], function (module){
+        module.Init("smart/@Model.Slug");
     });
-
 </script>
+}
