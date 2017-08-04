@@ -1,4 +1,4 @@
-﻿define(["jquery"], function ($) {
+﻿define([], function () {
 
     var setupCharsRemaining = function () {
 
@@ -59,10 +59,8 @@
     };
 
     var init = function () {
-        $(document).ready(function () {
-            setupCharsRemaining();
-            onlySubmitFormIfValid();
-        });
+        setupCharsRemaining();
+        onlySubmitFormIfValid();
     };
 
     return {

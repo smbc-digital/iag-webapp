@@ -1,15 +1,16 @@
 ﻿requirejs.config({
     baseUrl: '/assets/javascript',
     paths: {
-        "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
-        "recaptcha": "https://www.google.com/recaptcha/api",
-        "cludo": "http://customer.cludo.com/scripts/bundles/search-script.min",
+        "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
+        "recaptcha": "//www.google.com/recaptcha/api",
+        "cludo": "//customer.cludo.com/scripts/bundles/search-script.min",
         "jquery-ui": "/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
         "bootstrap": "/lib/bootstrap/dist/js/bootstrap.min",
         "handlebars": "/lib/handlebars/handlebars.runtime.min",
         "rangy": "/lib/rangy-1.3/rangy-core",
         "wysiwygtoolbar": "/lib/wysihtml5x/dist/wysihtml5x-toolbar.min",
-        "jquery-validate": "vendor/jquery.validate.min",
+        "validate": "vendor/jquery.validate.min",
+        "unobtrusive": "vendor/jquery.validate.unobtrusive.min",
         "slick": "vendor/slick",
         "carousel": "stockportgov/carousel",
         "cludoconfig": "stockportgov/cludo",
@@ -37,12 +38,18 @@
         },
         customwysiwyg: {
             deps: ['wysiwygtoolbar']
+        },
+        unobtrusive: {
+            deps: ['validate']
+        },
+        validate: {
+            deps: ['jquery']
         }
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider'],
-        function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider) {
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $) {
             carousel.Init();
             cludoconfig.Init();
             contactus.Init();
