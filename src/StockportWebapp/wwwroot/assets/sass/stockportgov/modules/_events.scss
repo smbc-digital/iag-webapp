@@ -581,7 +581,7 @@ ul.nav-card-events-list {
         background-color: #ebebeb;
 
         .primary-filter-label, .location-search-button {
-            display:none;
+            display: none;
         }
     }
 
@@ -622,9 +622,11 @@ ul.nav-card-events-list {
         .badge {
             margin-left: 10px;
             margin-right: 40px;
+
             @media #{$tablet} {
                 margin-right: 10px;
             }
+
             visibility: hidden;
         }
 
@@ -647,7 +649,7 @@ ul.nav-card-events-list {
 
             @media #{$tablet, $desktop} {
                 &.title {
-                    padding-left:10px;
+                    padding-left: 10px;
                 }
             }
 
@@ -660,6 +662,7 @@ ul.nav-card-events-list {
 
                 &.title {
                     padding-top: 20px;
+                    padding-right: 10px;
                     font-size: 1.3em;
                 }
             }
@@ -697,9 +700,15 @@ ul.nav-card-events-list {
             }
 
             .refine-filters {
+
+                @media #{$tablet} {
+                    min-width: 300px;
+                }
+
                 background-color: white;
                 margin-top: 20px;
                 margin-left: -30px;
+
                 @media #{$tablet} {
                     margin-left: -10px;
                 }
@@ -731,7 +740,7 @@ ul.nav-card-events-list {
                     font-size: 0.9em;
 
                     div {
-                        float:left;
+                        float: left;
                     }
 
                     .fa-info {
@@ -799,6 +808,7 @@ ul.nav-card-events-list {
             width: 100%;
             box-sizing: border-box;
             background-color: #ebebeb;
+            z-index: 10; 
 
             .button-default {
                 min-width: 48%;
@@ -816,7 +826,7 @@ ul.nav-card-events-list {
                     border-width: 0;
                     background-color: #e1e1e1;
                     cursor: default;
-                    box-shadow:none;
+                    box-shadow: none;
                 }
             }
         }

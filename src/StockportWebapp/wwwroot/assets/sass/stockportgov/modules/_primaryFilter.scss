@@ -71,12 +71,6 @@
         @media #{$mobile} {
             display: flex;
         }
-
-        .getLocation-width-mobile {
-            @media #{$mobile} {
-                width: inherit !important;
-            }
-        }
     }
 
     .primary-filter-form-section {

@@ -38,7 +38,7 @@
                         <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
                         <input asp-for="Location" type="hidden" id="location" name="location" />
 
-                        <div class="refine-filters">
+                        <div class="refine-filters location">
                             @Html.Partial("LocationSearch", new LocationSearch
                                { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = string.Empty, Callback = "refinebybar.ApplyLocation()" })
                         </div>
