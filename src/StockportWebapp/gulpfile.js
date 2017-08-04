@@ -14,77 +14,124 @@ var gulp = require("gulp"),
     colors = require('colors'),
     plumber = require('gulp-plumber'),
     print = require('gulp-print'),
-    lec = require ('gulp-line-ending-corrector');
+    lec = require('gulp-line-ending-corrector'),
+    replace = require('gulp-replace');
 
 var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
 
 // paths
 var paths = {
-     sass: "./wwwroot/assets/sass/**/*.scss",
-     cssDest: "./wwwroot/assets/stylesheets",
-     jsSite: "./wwwroot/assets/javascript/site.js",
-     jsSmart: "./wwwroot/assets/javascript/stockportgov/QuestionComponent/*.js",
-     jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
-     concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
-     concatFullJsDestHS: "./wwwroot/assets/javascript/healthystockport.js",
-     jsVendor: "./wwwroot/assets/javascript/vendor/*.js",
-     jsVendorMin: "./wwwroot/assets/javascript/vendor/*.min.js"
+    sass: "./wwwroot/assets/sass/**/*.scss",
+    cssDest: "./wwwroot/assets/stylesheets",
+    jsProject: "./wwwroot/assets/javascript/stockportgov/**/*.js",
+    jsConfig: "./wwwroot/assets/javascript/requireConfig.js",
+    jsConfigHS: "./wwwroot/assets/javascript/requireConfigHealthyStockport.js",
+    concatJsDest: "./wwwroot/assets/javascript/stockportgov.min.js",
+    concatFullJsDest: "./wwwroot/assets/javascript/stockportgov.js",
+    jsSmart: "./wwwroot/assets/javascript/stockportgov/QuestionComponent/*.js",
+    jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
+    concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
+    concatFullJsDestHS: "./wwwroot/assets/javascript/healthystockport.js",
+    jsVendor: "./wwwroot/assets/javascript/vendor/*.js",
+    minJs: "./wwwroot/assets/javascript/**/*.min.js",
 };
 
-gulp.task("js", ['min:js:sg', 'min:js:hs', 'js:sg', "js:hs"]);
+gulp.task("js", ['min:js:sg', 'min:config:sg', 'min:js:hs', 'min:config:hs']);
 
-//js sg
-gulp.task("min:js:sg", function () {
-    return gulp.src([paths.jsSite, paths.jsProject, "!" + paths.minJs], { base: "." })
-        .pipe(plumber())
-        .pipe(concat(paths.concatJsDest))
+gulp.task('min:js:sg', function () {
+    return gulp.src([paths.jsProject, '!' + paths.minJs,])
         .pipe(uglify())
-        .pipe(gulp.dest("."))
-        .pipe(plumber.stop())
-        .pipe(print(function(filepath) {
-            console.log('Processed: '.yellow + filepath.cyan);
-        }));
+        .pipe(rename(function (path) {
+            path.extname = ".min.js";
+        }))
+        .pipe(gulp.dest('./wwwroot/assets/javascript/stockportgov'));
 });
 
-
-//js sg no min
-gulp.task("js:sg", function () {
-    return gulp.src([paths.jsSite, paths.jsProject, "!" + paths.minJs, paths.jsSmart], { base: "." })
-        .pipe(plumber())
-        .pipe(concat(paths.concatFullJsDest))
-        .pipe(gulp.dest("."))
-        .pipe(plumber.stop())
-        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
-        .pipe(print(function (filepath) {
-            console.log('Processed: '.yellow + filepath.cyan);
-        }));
-});
-
-//js hs
-gulp.task("min:js:hs", function () {
-    return gulp.src([paths.jsSite, paths.jsProjectHS, "!" + paths.minJs], { base: "." })
-        .pipe(plumber())
-        .pipe(concat(paths.concatJsDestHS))
+gulp.task('min:config:sg', function () {
+    return gulp.src(paths.jsConfig)
+        .pipe(replace(/stockportgov\/(.+)\"/g, function (match) {
+            return match.replace('"', '.min"');
+        }))
         .pipe(uglify())
-        .pipe(gulp.dest("."))
-        .pipe(plumber.stop())
-        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
-        .pipe(print(function (filepath) {
-            console.log('Processed: '.yellow + filepath.cyan);
-        }));
+        .pipe(rename(function (path) {
+            path.extname = ".min.js";
+        }))
+        .pipe(gulp.dest('./wwwroot/assets/javascript'));
 });
 
-//js hs no min
-gulp.task("js:hs", function () {
-    return gulp.src([paths.jsSite, paths.jsProjectHS, "!" + paths.minJs], { base: "." })
-        .pipe(plumber())
-        .pipe(concat(paths.concatFullJsDestHS))
-        .pipe(gulp.dest("."))
-        .pipe(plumber.stop())
-        .pipe(print(function (filepath) {
-            console.log('Processed: '.yellow + filepath.cyan);
-        }));
+gulp.task('min:js:hs', function () {
+    return gulp.src([paths.jsProjectHS, '!' + paths.minJs,])
+        .pipe(uglify())
+        .pipe(rename(function (path) {
+            path.extname = ".min.js";
+        }))
+        .pipe(gulp.dest('./wwwroot/assets/javascript/healthystockport'));
 });
+
+gulp.task('min:config:hs', function () {
+    return gulp.src(paths.jsConfigHS)
+        .pipe(replace(/healthystockport\/(.+)\"/g, function (match) {
+            return match.replace('"', '.min"');
+        }))
+        .pipe(uglify())
+        .pipe(rename(function (path) {
+            path.extname = ".min.js";
+        }))
+        .pipe(gulp.dest('./wwwroot/assets/javascript'));
+});
+
+
+////js sg
+//gulp.task("min:js:sg", function () {
+//    return gulp.src([paths.jsProject, "!" + paths.minJs], { base: "." })
+//        .pipe(plumber())
+//        .pipe(concat(paths.concatJsDest))
+//        .pipe(uglify())
+//        .pipe(gulp.dest("."))
+//        .pipe(plumber.stop())
+//        .pipe(print(function (filepath) {
+//            console.log('Processed: '.yellow + filepath.cyan);
+//        }));
+//});
+
+////js sg no min
+//gulp.task("js:sg", function () {
+//    return gulp.src([paths.jsProject, "!" + paths.minJs, paths.jsSmart], { base: "." })
+//        .pipe(plumber())
+//        .pipe(concat(paths.concatFullJsDest))
+//        .pipe(gulp.dest("."))
+//        .pipe(plumber.stop())
+//        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
+//        .pipe(print(function (filepath) {
+//            console.log('Processed: '.yellow + filepath.cyan);
+//        }));
+//});
+
+////js hs
+//gulp.task("min:js:hs", function () {
+//    return gulp.src([paths.jsProjectHS, "!" + paths.minJs], { base: "." })
+//        .pipe(plumber())
+//        .pipe(concat(paths.concatJsDestHS))
+//        .pipe(uglify())
+//        .pipe(gulp.dest("."))
+//        .pipe(plumber.stop())
+//        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
+//        .pipe(print(function (filepath) {
+//            console.log('Processed: '.yellow + filepath.cyan);
+//        }));
+//});
+
+////js hs no min
+//gulp.task("js:hs", function () {
+//    return gulp.src([paths.jsProjectHS, "!" + paths.minJs], { base: "." })
+//        .pipe(plumber())
+//        .pipe(concat(paths.concatFullJsDestHS))
+//        .pipe(gulp.dest("."))
+//        .pipe(plumber.stop())
+//        .pipe(print(function (filepath) {
+//            console.log('Processed: '.yellow + filepath.cyan);
+//        }));
+//});
 
 //js vendor
 gulp.task("min:js:vendor", function () {
@@ -118,21 +165,19 @@ gulp.task('pull-styleguide', function () {
     pullArtifacts('master');
 });
 
-gulp.task('pull-styleguide-from-tag',
-    function () {
-        fs.readFile("../../StyleGuideVersion.lock", function (err, data) {
-            if (err) {
-                console.log('There was an error reading the StyleGuideVersion.lock file: ' + err);
-                throw err;
-            } else {
-                var version = data.toString().trim();
-                console.log(colors.yellow("Pulling artifacts from tag " + version));
+gulp.task('pull-styleguide-from-tag', function () {
+    fs.readFile("../../StyleGuideVersion.lock", function (err, data) {
+        if (err) {
+            console.log('There was an error reading the StyleGuideVersion.lock file: ' + err);
+            throw err;
+        } else {
+            var version = data.toString().trim();
+            console.log(colors.yellow("Pulling artifacts from tag " + version));
 
-                pullArtifacts(version);
-            }
-        });
-    }
-);
+            pullArtifacts(version);
+        }
+    });
+});
 
 var pullAssetFile = function (file, outputDir, outputFile, version) {
     var styleguideFolder = "/src/StockportStyleGuide/wwwroot/styleguide-artifacts/";
@@ -157,16 +202,16 @@ var pullFile = function (file, outputDir, outputFile, version, fromFolder) {
 
     request
         .get(options,
-            function (error, response, body) {
-                if (error || body.startsWith("<!DOCTYPE html>") || response.statusCode !== 200) {
-                    console.log("There was an error requesting: ".red);
-                    if (error) console.log(colors.white(error));
-                } else {
-                    console.log("Successfully pulled artifact from: ".yellow);
-                    fs.writeFile(outputDir + '/' + outputFile, body);
-                }
-                console.log(url.cyan);
-            });
+        function (error, response, body) {
+            if (error || body.startsWith("<!DOCTYPE html>") || response.statusCode !== 200) {
+                console.log("There was an error requesting: ".red);
+                if (error) console.log(colors.white(error));
+            } else {
+                console.log("Successfully pulled artifact from: ".yellow);
+                fs.writeFile(outputDir + '/' + outputFile, body);
+            }
+            console.log(url.cyan);
+        });
 };
 
 var pullArtifacts = function (version) {

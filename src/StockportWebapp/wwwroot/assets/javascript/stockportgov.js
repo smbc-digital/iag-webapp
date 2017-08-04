@@ -1,433 +1,8 @@
-// Launching fullscreen overlays
-$('.launch-fullscreen-overlay[data-overlay]').on( 'click', function() {
-   var overlayData = $(this).data('overlay'),
-       $target = $('#'+overlayData),
-       triggerEvent = 'launch-overlay-'+overlayData;
-   $('body').addClass('overlay-open no-scroll').trigger(triggerEvent);
-
-   if ( ! $('body').hasClass('container-layout-free') ) {
-      var $wrapAll = $('#container .wrap-all').eq(0),
-          width = $wrapAll.outerWidth(),
-          left = $wrapAll.offset().left,
-          css = { width: width, left: left, };
-      $target.css(css);
-      $target.find('.button-close').css(css);
-   }
-
-   $target.addClass('is-active');
-   setTimeout( function() {
-      $target.addClass('is-open');
-   }, 10 );
-});
-
-// Closing Fullscreen Overlays
-$('.fullscreen-overlay .button-close').on( 'click', function() {
-   var $overlay = $(this).parent().trigger('close');
-   $overlay.removeClass('is-open');
-   setTimeout( function() {
-      $overlay.removeClass('is-active');
-      $('body').removeClass('no-scroll overlay-open');
-   }, 500);
-});
-
-$('.alert-close a')
-    .on('click',
-        function() {
-            $(this).closest('.alert').hide();            
-            if ($('.alert:visible').length === 0) {
-                $('.alert-container').css('margin-bottom', '0');
-            }
-        });
-
-if ($('.alert:visible').length === 0) {
-    $('.alert-container').css('margin-bottom', '0');
-}
-
-$(function () {
-
-    // Find all YouTube videos
-    var $allVideos = $("iframe[src^='https://www.youtube.com']"),
-
-	    // The element that is fluid width
-	    $fluidEl = $("article");
-
-    // Figure out and save aspect ratio for each video
-    $allVideos.each(function () {
-
-        $(this)
-			.data('aspectRatio', this.height / this.width)
-
-			// and remove the hard coded width/height
-			.removeAttr('height')
-			.removeAttr('width');
-
-    });
-
-    // When the window is resized
-    // (You'll probably want to debounce this)
-    $(window).resize(function () {
-
-        var newWidth = $fluidEl.width();
-
-        // Resize all videos according to their own aspect ratio
-        $allVideos.each(function () {
-
-            var $el = $(this);
-            $el
-				.width(newWidth)
-				.height(newWidth * $el.data('aspectRatio'));
-
-        });
-
-        // Kick off one resize to fix all videos on page load
-    }).resize();
-
-});
-define(["jquery", "utils"], function ($, utils) {
-
-    var init = function () {
-
-        if ($(window).width() <= utils.MobileWidth) {
-            $("#edit-search").hide();
-            $(".result-arrow").addClass("result-search-down-arrow");
-
-            $("#open-edit-search").click(function () {
-                $("#edit-search").show();
-                $(".result-arrow").toggleClass("result-search-down-arrow");
-                $(".result-arrow").toggleClass("result-search-up-arrow");
-
-                $(".result-search-down-arrow").parent().click(function () {
-                    $("#edit-search").show();
-                });
-                $(".result-search-up-arrow").parent().click(function () {
-                    $("#edit-search").hide();
-                });
-            });
-
-            $(".result-search-up-arrow").parent().click(function () {
-                $("#edit-search").hide();
-            });
-        }
-
-        $(".print-this").click(function () {
-            window.print();
-        });
-    };
-
-    return {
-        Init: init
-    }
-});
-
-
-
-
-
-
-define(["jquery", "refinebybar"], function ($, refinebybar) {
-
-    var locationDefaults = {
-        Name: "Stockport",
-        Latitude: 53.405817,
-        Longitude: -2.158046,
-        CurrentLocationError: "We couldn't find your current location -- please check the location settings on your device.",
-        LocationLookupError: "We couldn't find this location -- please check the location and try again.",
-        NoLocationError: "No location entered -- please enter a location and try again."
-    };
-
-    var location = {
-        Name: locationDefaults.Name,
-        Latitude: locationDefaults.Latitude,
-        Longitude: locationDefaults.Longitude,
-        HasBeenUpdated: false,
-        ShowLocationError: function (error) {
-            $("#location-autocomplete").css("border", "1px solid #C83725");
-            $("#locationError").html(error);
-            $("#locationError").show();
-        },
-        HideLocationError: function () {
-            $("#location-autocomplete").css("border", "1px solid #D8D8D8");
-            $("#locationError").hide();
-        },
-        SetLocationValues: function () {
-            // take what has been filled in on the autocomplete and use those values
-            $("#postcode").val(this.Name);
-            var controlId = $('#locationControlId').val();
-            if ($("#" + controlId).length) {
-                $("#" + controlId).val(this.Name);
-            }
-            $("#address").val(this.Name);
-
-            var longitudeControlId = $('#longitudeControlId').val();
-            longitudeControlId = typeof (longitudeControlId) === 'undefined' || longitudeControlId === '' ? 'longitude' : longitudeControlId;
-            if ($("#" + longitudeControlId).length) {
-                $("#" + longitudeControlId).val(this.Longitude);
-            }
-
-            var latitudeControlId = $('#latitudeControlId').val();
-            latitudeControlId = typeof (latitudeControlId) === 'undefined' || latitudeControlId === '' ? 'latitude' : latitudeControlId;
-            if ($("#" + latitudeControlId).length) {
-                $("#" + latitudeControlId).val(this.Latitude);
-            }
-
-            if ($('#callback').val() === '') {
-                updateLocationFieldSize();
-                $("#getLocation").hide();
-            }
-            else {
-                eval($('#callback').val());
-            }
-        },
-        SetLocation: function (name, latitude, longitude) {
-            this.Name = name;
-            this.Longitude = longitude;
-            this.Latitude = latitude;
-            this.HasBeenUpdated = true;
-        },
-        GetLocationInputValue: function () {
-            return $("#location-autocomplete").val();
-        },
-        SetLocationInputValue: function (value) {
-            $("#location-autocomplete").val(value);
-        }
-    };
-
-    var extractFromAdress = function (components, type) {
-        for (var i = 0; i < components.length; i++)
-            for (var j = 0; j < components[i].types.length; j++)
-                if (components[i].types[j] === type) return components[i].long_name;
-        return "";
-    }
-
-    var updateLocationFieldSize = function () {
-        $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
-        $("#postcode").width($("#hiddenSelectLocation").width());
-    };
-
-    var buildLocation = function (addressComponents) {
-        // take the address components and build a nice address from them
-        var street = extractFromAdress(addressComponents, "route");
-        var postcode = extractFromAdress(addressComponents, "postal_code");
-        var city = extractFromAdress(addressComponents, "locality");
-        var country = extractFromAdress(addressComponents, "country");
-        var joinedLocation = (street + " " + postcode + " " + city).trim();
-
-        if (joinedLocation === "") {
-            // only add the country into the locaion if nothing else comes back for the location
-            joinedLocation = country;
-        }
-
-        return joinedLocation;
-    };
-
-    var addValidationErrorToMeetingLocationField = function () {
-        if ($("#address").hasClass('input-validation-error')) {
-            $('#location-autocomplete').addClass('input-validation-error');
-        }
-    }
-
-    var locationLookupNonAutocomplete = function () {
-        var address = location.GetLocationInputValue();
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
-            if (status === google.maps.GeocoderStatus.OK) {
-                if ($('#callback').val() === '') {
-                    location.SetLocation(buildLocation(results[0].address_components), results[0].geometry.location.lat(), results[0].geometry.location.lng());
-                    location.SetLocationValues();
-                    location.HideLocationError();
-                }
-                else {
-                    eval($('#callback').val());
-                }
-            } else {
-                location.ShowLocationError(locationDefaults.LocationLookupError);
-            }
-        });
-    };
-
-    var setSelectBoxes = function () {
-        if ($(window).width() > 767) {
-            $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
-            $("#selectCategory").width($("#hiddenSelectCategory").width());
-            $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
-            $("#selectOrder").width($("#hiddenSelectOrder").width());
-            $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
-            $("#postcode").width($("#hiddenSelectLocation").width());
-        }
-    };
-
-    var init = function () {
-        $("#selectCategory").change(function () {
-            $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
-            $("#selectCategory").width($("#hiddenSelectCategory").width());
-        });
-
-        $("#selectOrder").change(function () {
-            $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
-            $("#selectOrder").width($("#hiddenSelectOrder").width());
-        });
-
-        $("#postcode").change(function () {
-            $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
-            $("#postcode").width($("#hiddenSelectLocation").width());
-        });
-
-        $("#selectOrderMobile").change(function () {
-            var orderby = $("#selectOrderMobile").find(":selected").text();
-            $("#selectOrder").val(orderby);
-            $("#filterButton").click();
-        });
-
-        // open the "location search" box
-        $("#postcode").click(function () {
-            $("#getLocation").toggle();
-        });
-
-        if ($('.location-search-input-autoset').length) { $('.location-search-input-autoset').val($('#address').val()); }
-
-        // get current location
-        $("#currentLocation").click(function () {
-            navigator.geolocation.getCurrentPosition(
-            function (position) {
-                var geocoder = new google.maps.Geocoder();
-                var latLng = new google.maps.LatLng(
-                    position.coords.latitude,
-                    position.coords.longitude);
-                geocoder.geocode({
-                    'latLng': latLng
-                },
-                function (results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        var jointLocation = buildLocation(results[0].address_components);
-
-                        location.SetLocationInputValue(jointLocation);
-                        location.SetLocation(jointLocation, results[0].geometry.location.lat(), results[0].geometry.location.lng());
-                        location.HideLocationError();
-                    }
-                    else {
-                        location.ShowLocationError(locationDefaults.CurrentLocationError);
-                    }
-                });
-            },
-            function () {
-                location.ShowLocationError(locationDefaults.CurrentLocationError);
-            },
-            { maximumAge: 10000, timeout: 6000, enableHighAccuracy: true });
-            return false;
-        });
-
-        // use location click
-        $("#btnLocationAutoComplete").click(function (event) {
-            event.preventDefault();
-            var address = location.GetLocationInputValue();
-            if (address === "") {
-                location.ShowLocationError(locationDefaults.NoLocationError);
-                return false;
-            }
-            // check if location values have been set via autocomplete
-            if (location.HasBeenUpdated === true) {
-                location.SetLocationValues();
-                location.HideLocationError();
-            } else {
-                // perform a lookup on the location in the textbox
-                locationLookupNonAutocomplete();
-            }
-        });
-
-        if ($('.location-search-input-autoset').length) {
-            addValidationErrorToMeetingLocationField();
-
-            $('.location-search-input-autoset').on('change', function () {
-                $("#address").val('');
-
-                var latitudeControlId = $('#latitudeControlId').val();
-                latitudeControlId = typeof (latitudeControlId) === 'undefined' || latitudeControlId === '' ? 'latitude' : latitudeControlId;
-                if ($("#" + latitudeControlId).length) {
-                    $("#" + latitudeControlId).val(location.Latitude);
-                }
-
-                var longitudeControlId = $('#longitudeControlId').val();
-                longitudeControlId = typeof (longitudeControlId) === 'undefined' || longitudeControlId === '' ? 'longitude' : longitudeControlId;
-                if ($("#" + longitudeControlId).length) {
-                    $("#" + longitudeControlId).val(location.Longitude);
-                }
-            });
-
-            $('form').on('invalid-form.validate', function (event, validator) {
-                for (var i = 0; i < validator.errorList.length; i++) {
-                    if (validator.errorList[i].element.id == 'address') {
-                        $('#location-autocomplete').addClass('input-validation-error');
-                        $("[data-valmsg-for='Address']").show();
-                    }
-                }
-            });
-        }
-
-        // only run of the auto complete is on the page
-        if ($(".primary-filter-form-autocomplete").length || $('.location-search-input').length) {
-            // Set the default bounds to the UK
-            var defaultBounds = new google.maps.LatLngBounds(
-                new google.maps.LatLng(49.383639452689664, -17.39866406249996),
-                new google.maps.LatLng(59.53530451232491, 8.968523437500039));
-
-            var options = {
-                bounds: defaultBounds,
-                // the type of location we want to return
-                types: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
-                // the country to return results, the bounds above seemed to also be needed and not just this though
-                // this isn't 100% though and is just a suggestion to first look in gb
-                componentRestrictions: { country: 'gb' }
-            };
-
-            var searchBox = new google.maps.places.SearchBox(document.getElementById('location-autocomplete'), options);
-
-            // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
-            searchBox.addListener('places_changed', function () {
-                var places = searchBox.getPlaces();
-
-                if (places.length === 0) {
-                    return;
-                }
-
-                var autocompleteName = places[0].name;
-                if ($('.location-search-input-autoset').length) {
-
-                    if (typeof (places[0].formatted_address) !== 'undefined') {
-                        autocompleteName = places[0].formatted_address.replace(', UK', '').replace(', United Kingdom', '');
-                        if (autocompleteName.indexOf(places[0].name) < 0) {
-                            autocompleteName = places[0].name + ', ' + autocompleteName;
-                        }
-                    }
-
-                    $('#location-autocomplete').removeClass('input-validation-error');
-                    $("[data-valmsg-for='Address']").hide();
-                }
-
-                location.SetLocation(autocompleteName, places[0].geometry.location.lat(), places[0].geometry.location.lng());
-                location.HideLocationError();
-
-                if ($('.location-search-input-autoset').length) {
-                    location.SetLocationValues();
-                }
-            });
-        }
-    };
-
-    setSelectBoxes();
-
-    return {
-        Init: function () {
-            init();
-            $(window).resize(function () {
-                setSelectBoxes();
-            });
-        }
-    }
-});
-
 define(["jquery", "utils"], function ($, utils) {
 
     var currentState = [];
+
+    var windowWidth = $(window).width();
 
     var closeFilters = function (link) {
         $('.link', '#event-listing-refine-bar').each(function () {
@@ -507,6 +82,7 @@ define(["jquery", "utils"], function ($, utils) {
 
         var href = window.location.href;
 
+        href = utils.StripParamFromQueryString(href, 'page');
         href = utils.StripParamFromQueryString(href, 'keeptag');
         href = utils.StripParamFromQueryString(href, 'fromsearch');
         href = utils.StripParamFromQueryString(href, 'tag');
@@ -580,6 +156,8 @@ define(["jquery", "utils"], function ($, utils) {
         $('input[type=checkbox]', '#event-listing-refine-bar').each(function () {
             currentState.push($(this).prop('checked'));
         });
+
+        windowWidth = $(window).width();
     };
 
     var clearHeight = function () {
@@ -656,7 +234,9 @@ define(["jquery", "utils"], function ($, utils) {
 
             $(window).on('resize', function () {
                 clearHeight();
-                hideSlider();
+                if (windowWidth !== $(window).width()) {
+                    hideSlider();
+                }
             });
         },
         ApplyLocation: applyLocation
@@ -15813,6 +15393,47 @@ define(["jquery", "utils"], function ($, utils) {
     }
 });
 
+define(["jquery", "utils"], function ($, utils) {
+
+    var init = function () {
+
+        if ($(window).width() <= utils.MobileWidth) {
+            $("#edit-search").hide();
+            $(".result-arrow").addClass("result-search-down-arrow");
+
+            $("#open-edit-search").click(function () {
+                $("#edit-search").show();
+                $(".result-arrow").toggleClass("result-search-down-arrow");
+                $(".result-arrow").toggleClass("result-search-up-arrow");
+
+                $(".result-search-down-arrow").parent().click(function () {
+                    $("#edit-search").show();
+                });
+                $(".result-search-up-arrow").parent().click(function () {
+                    $("#edit-search").hide();
+                });
+            });
+
+            $(".result-search-up-arrow").parent().click(function () {
+                $("#edit-search").hide();
+            });
+        }
+
+        $(".print-this").click(function () {
+            window.print();
+        });
+    };
+
+    return {
+        Init: init
+    }
+});
+
+
+
+
+
+
 define(["jquery"], function ($) {
 
     var init = function () {
@@ -16060,6 +15681,307 @@ define(["jquery"], function ($) {
 
 
 
+define(["jquery", "refinebybar"], function ($, refinebybar) {
+
+    var locationDefaults = {
+        Name: "Stockport",
+        Latitude: 53.405817,
+        Longitude: -2.158046,
+        CurrentLocationError: "We couldn't find your current location -- please check the location settings on your device.",
+        LocationLookupError: "We couldn't find this location -- please check the location and try again.",
+        NoLocationError: "No location entered -- please enter a location and try again."
+    };
+
+    var location = {
+        Name: locationDefaults.Name,
+        Latitude: locationDefaults.Latitude,
+        Longitude: locationDefaults.Longitude,
+        HasBeenUpdated: false,
+        ShowLocationError: function (error) {
+            $("#location-autocomplete").css("border", "1px solid #C83725");
+            $("#locationError").html(error);
+            $("#locationError").show();
+        },
+        HideLocationError: function () {
+            $("#location-autocomplete").css("border", "1px solid #D8D8D8");
+            $("#locationError").hide();
+        },
+        SetLocationValues: function () {
+            // take what has been filled in on the autocomplete and use those values
+            $("#postcode").val(this.Name);
+            var controlId = $('#locationControlId').val();
+            if ($("#" + controlId).length) {
+                $("#" + controlId).val(this.Name);
+            }
+            $("#address").val(this.Name);
+
+            var longitudeControlId = $('#longitudeControlId').val();
+            longitudeControlId = typeof (longitudeControlId) === 'undefined' || longitudeControlId === '' ? 'longitude' : longitudeControlId;
+            if ($("#" + longitudeControlId).length) {
+                $("#" + longitudeControlId).val(this.Longitude);
+            }
+
+            var latitudeControlId = $('#latitudeControlId').val();
+            latitudeControlId = typeof (latitudeControlId) === 'undefined' || latitudeControlId === '' ? 'latitude' : latitudeControlId;
+            if ($("#" + latitudeControlId).length) {
+                $("#" + latitudeControlId).val(this.Latitude);
+            }
+
+            if ($('#callback').val() === '') {
+                updateLocationFieldSize();
+                $("#getLocation").hide();
+            }
+            else {
+                eval($('#callback').val());
+            }
+        },
+        SetLocation: function (name, latitude, longitude) {
+            this.Name = name;
+            this.Longitude = longitude;
+            this.Latitude = latitude;
+            this.HasBeenUpdated = true;
+        },
+        GetLocationInputValue: function () {
+            return $("#location-autocomplete").val();
+        },
+        SetLocationInputValue: function (value) {
+            $("#location-autocomplete").val(value);
+        }
+    };
+
+    var extractFromAdress = function (components, type) {
+        for (var i = 0; i < components.length; i++)
+            for (var j = 0; j < components[i].types.length; j++)
+                if (components[i].types[j] === type) return components[i].long_name;
+        return "";
+    }
+
+    var updateLocationFieldSize = function () {
+        $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+        $("#postcode").width($("#hiddenSelectLocation").width());
+    };
+
+    var buildLocation = function (addressComponents) {
+        // take the address components and build a nice address from them
+        var street = extractFromAdress(addressComponents, "route");
+        var postcode = extractFromAdress(addressComponents, "postal_code");
+        var city = extractFromAdress(addressComponents, "locality");
+        var country = extractFromAdress(addressComponents, "country");
+        var joinedLocation = (street + " " + postcode + " " + city).trim();
+
+        if (joinedLocation === "") {
+            // only add the country into the locaion if nothing else comes back for the location
+            joinedLocation = country;
+        }
+
+        return joinedLocation;
+    };
+
+    var addValidationErrorToMeetingLocationField = function () {
+        if ($("#address").hasClass('input-validation-error')) {
+            $('#location-autocomplete').addClass('input-validation-error');
+        }
+    }
+
+    var locationLookupNonAutocomplete = function () {
+        var address = location.GetLocationInputValue();
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'address': address + ", UK" }, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if ($('#callback').val() === '') {
+                    location.SetLocation(buildLocation(results[0].address_components), results[0].geometry.location.lat(), results[0].geometry.location.lng());
+                    location.SetLocationValues();
+                    location.HideLocationError();
+                }
+                else {
+                    eval($('#callback').val());
+                }
+            } else {
+                location.ShowLocationError(locationDefaults.LocationLookupError);
+            }
+        });
+    };
+
+    var setSelectBoxes = function () {
+        if ($(window).width() > 767) {
+            $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
+            $("#selectCategory").width($("#hiddenSelectCategory").width());
+            $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
+            $("#selectOrder").width($("#hiddenSelectOrder").width());
+            $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+            $("#postcode").width($("#hiddenSelectLocation").width());
+        }
+    };
+
+    var init = function () {
+        $("#selectCategory").change(function () {
+            $("#hiddenSelectCategory").html("<option>" + $("#selectCategory").find(":selected").text() + "</option>");
+            $("#selectCategory").width($("#hiddenSelectCategory").width());
+        });
+
+        $("#selectOrder").change(function () {
+            $("#hiddenSelectOrder").html("<option>" + $("#selectOrder").find(":selected").text() + "</option>");
+            $("#selectOrder").width($("#hiddenSelectOrder").width());
+        });
+
+        $("#postcode").change(function () {
+            $("#hiddenSelectLocation").html("<option>" + $("#postcode").val() + "</option>");
+            $("#postcode").width($("#hiddenSelectLocation").width());
+        });
+
+        $("#selectOrderMobile").change(function () {
+            var orderby = $("#selectOrderMobile").find(":selected").text();
+            $("#selectOrder").val(orderby);
+            $("#filterButton").click();
+        });
+
+        // open the "location search" box
+        $("#postcode").click(function () {
+            $("#getLocation").toggle();
+        });
+
+        if ($('.location-search-input-autoset').length) { $('.location-search-input-autoset').val($('#address').val()); }
+
+        // get current location
+        $("#currentLocation").click(function () {
+            navigator.geolocation.getCurrentPosition(
+            function (position) {
+                var geocoder = new google.maps.Geocoder();
+                var latLng = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude);
+                geocoder.geocode({
+                    'latLng': latLng
+                },
+                function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        var jointLocation = buildLocation(results[0].address_components);
+
+                        location.SetLocationInputValue(jointLocation);
+                        location.SetLocation(jointLocation, results[0].geometry.location.lat(), results[0].geometry.location.lng());
+                        location.HideLocationError();
+                    }
+                    else {
+                        location.ShowLocationError(locationDefaults.CurrentLocationError);
+                    }
+                });
+            },
+            function () {
+                location.ShowLocationError(locationDefaults.CurrentLocationError);
+            },
+            { maximumAge: 10000, timeout: 6000, enableHighAccuracy: true });
+            return false;
+        });
+
+        // use location click
+        $("#btnLocationAutoComplete").click(function (event) {
+            event.preventDefault();
+            var address = location.GetLocationInputValue();
+            if (address === "") {
+                location.ShowLocationError(locationDefaults.NoLocationError);
+                return false;
+            }
+            // check if location values have been set via autocomplete
+            if (location.HasBeenUpdated === true) {
+                location.SetLocationValues();
+                location.HideLocationError();
+            } else {
+                // perform a lookup on the location in the textbox
+                locationLookupNonAutocomplete();
+            }
+        });
+
+        if ($('.location-search-input-autoset').length) {
+            addValidationErrorToMeetingLocationField();
+
+            $('.location-search-input-autoset').on('change', function () {
+                $("#address").val('');
+
+                var latitudeControlId = $('#latitudeControlId').val();
+                latitudeControlId = typeof (latitudeControlId) === 'undefined' || latitudeControlId === '' ? 'latitude' : latitudeControlId;
+                if ($("#" + latitudeControlId).length) {
+                    $("#" + latitudeControlId).val(location.Latitude);
+                }
+
+                var longitudeControlId = $('#longitudeControlId').val();
+                longitudeControlId = typeof (longitudeControlId) === 'undefined' || longitudeControlId === '' ? 'longitude' : longitudeControlId;
+                if ($("#" + longitudeControlId).length) {
+                    $("#" + longitudeControlId).val(location.Longitude);
+                }
+            });
+
+            $('form').on('invalid-form.validate', function (event, validator) {
+                for (var i = 0; i < validator.errorList.length; i++) {
+                    if (validator.errorList[i].element.id == 'address') {
+                        $('#location-autocomplete').addClass('input-validation-error');
+                        $("[data-valmsg-for='Address']").show();
+                    }
+                }
+            });
+        }
+
+        // only run of the auto complete is on the page
+        if ($(".primary-filter-form-autocomplete").length || $('.location-search-input').length) {
+            // Set the default bounds to the UK
+            var defaultBounds = new google.maps.LatLngBounds(
+                new google.maps.LatLng(49.383639452689664, -17.39866406249996),
+                new google.maps.LatLng(59.53530451232491, 8.968523437500039));
+
+            var options = {
+                bounds: defaultBounds,
+                // the type of location we want to return
+                types: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
+                // the country to return results, the bounds above seemed to also be needed and not just this though
+                // this isn't 100% though and is just a suggestion to first look in gb
+                componentRestrictions: { country: 'gb' }
+            };
+
+            var searchBox = new google.maps.places.SearchBox(document.getElementById('location-autocomplete'), options);
+
+            // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
+            searchBox.addListener('places_changed', function () {
+                var places = searchBox.getPlaces();
+
+                if (places.length === 0) {
+                    return;
+                }
+
+                var autocompleteName = places[0].name;
+                if ($('.location-search-input-autoset').length) {
+
+                    if (typeof (places[0].formatted_address) !== 'undefined') {
+                        autocompleteName = places[0].formatted_address.replace(', UK', '').replace(', United Kingdom', '');
+                        if (autocompleteName.indexOf(places[0].name) < 0) {
+                            autocompleteName = places[0].name + ', ' + autocompleteName;
+                        }
+                    }
+
+                    $('#location-autocomplete').removeClass('input-validation-error');
+                    $("[data-valmsg-for='Address']").hide();
+                }
+
+                location.SetLocation(autocompleteName, places[0].geometry.location.lat(), places[0].geometry.location.lng());
+                location.HideLocationError();
+
+                if ($('.location-search-input-autoset').length) {
+                    location.SetLocationValues();
+                }
+            });
+        }
+    };
+
+    setSelectBoxes();
+
+    return {
+        Init: function () {
+            init();
+            $(window).resize(function () {
+                setSelectBoxes();
+            });
+        }
+    }
+});
+
 define(["jquery", "multiselect", "utils"], function ($, multiSelector, utils) {
 
     var documentReady = function () {
@@ -16185,9 +16107,9 @@ define(["jquery", "matchboxconfig"], function ($, matchboxes) {
 });
 
 
-var SMART = SMART || {};
+define(["jquery", "questionview", "questionvalidator"], function ($, view, validator) {
 
-SMART.Controller = function (route, view, validator) {
+    var route;
 
     function getValidationRoute() {
         var validateAction = 'validate';
@@ -16212,7 +16134,8 @@ SMART.Controller = function (route, view, validator) {
         return deferredResult.promise();
     };
 
-    var init = function () {
+    var init = function (thisroute) {
+        route = thisroute;
         view.showNextbutton();
         view.bindEventListeners(validateQuestions);
     };
@@ -16221,34 +16144,40 @@ SMART.Controller = function (route, view, validator) {
         init: init,
         validateQuestions: validateQuestions
     };
-}
-var SMART = SMART || {};
-
-SMART.Module = function () {
+});
+define(["jquery", "questioncontroller"], function ($, controller) {
     return {
-        init: function (route) {
-            var controller = SMART.Controller(route, SMART.View(), SMART.Validator());
+        Init: function (route) {
+
             $(function () {
-                controller.init();
+                controller.init(route);
+            });
+
+            $("#back-button").show().click(function () {
+                window.history.back();
+            });
+
+            $("input[type='radio']").change(function () {
+                var li = $(this).parent();
+                var text = $(".tertiary-Information", li).text();
+                $("#tertiary-Information-value").text(text);
             });
         }
     };
-}
+});
 
-var SMART = SMART || {};
-
-SMART.Validator = function () {
+define(["jquery"], function ($) {
 
     var processValidation = function (validationResults, selectedInput, callback, bypassShowValidation) {
         var invalidResutls = $.grep(validationResults,
-          function (v) {
-              return v.isValid === false;
-          });
+            function (v) {
+                return v.isValid === false;
+            });
 
         var selectedResults = $.grep(validationResults,
-          function (v) {
-              return v.questionId === selectedInput.attr("data-questionid");
-          });
+            function (v) {
+                return v.questionId === selectedInput.attr("data-questionid");
+            });
 
         $(selectedResults).each(function () {
             if (this.isValid || (!bypassShowValidation)) {
@@ -16262,12 +16191,10 @@ SMART.Validator = function () {
     return {
         processValidation: processValidation
     };
-}
+});
 
 
-var SMART = SMART || {};
-
-SMART.View = function () {
+define(["jquery"], function ($) {
 
     var disableNextButton = function () {
         var button = $(".question-button-next");
@@ -16325,7 +16252,7 @@ SMART.View = function () {
         $(document).keyup(function (e) {
             debugger;
             if (e.keyCode === 13) {
-                
+
                 $("#next-button").click();
             }
         });
@@ -16341,5 +16268,4 @@ SMART.View = function () {
         enableNextButton: enableNextButton,
         showValidationForQuestion: showValidationForQuestion
     };
-
-}
+});

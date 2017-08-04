@@ -10,7 +10,7 @@
         "carousel": "healthystockport/carousel",
         "cludoconfig": "healthystockport/cludo",
         "healthystockport": "healthystockport/healthystockport",
-        "matchboxconfig": "stockportgov/matchbox",
+        "matchboxconfig": "healthystockport/matchbox",
     },
     shim: {
         unobtrusive: {

@@ -16,7 +16,8 @@
     "gulp-plumber": "1.1.0",
     "gulp-print": "2.0.1",
     "gulp-line-ending-corrector": "1.0.1",
-    "requirejs": "2.3.4"
+    "requirejs": "2.3.4",
+    "gulp-replace": "0.6.1"
   },
   "dependencies": {
     "jsreport-core": "^1.2.2",

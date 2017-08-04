@@ -100,7 +100,6 @@ var methods = {
     assertCarouselImagesAreVisible: function() {
         this.assert.visible('.carousel-image.slick-slide.slick-current.slick-active');
     }
-
 };
 
 module.exports = {

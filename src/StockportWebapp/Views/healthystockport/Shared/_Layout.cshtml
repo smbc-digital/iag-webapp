@@ -50,23 +50,13 @@
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
 
-    <!--[if lte IE 9]>
-        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html"></script>
-        <![endif]-->
+    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
     <script src="/assets/javascript/vendor/matchbox.min.js"></script>
-    <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    
-    @if (CurrentEnvironment.Name.ToUpper() == "PROD")
-    {
-        <script src="/assets/javascript/healthystockport.min.js"></script>
-    }
-    else
-    {
-        <script src="/assets/javascript/healthystockport.js"></script>
-    }
-
-
-    <script src="/assets/javascript/vendor/slick.min.js"></script>
+    <environment names="prod,stage">
+        <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    </environment>
+    <environment names="int,local,qa">
+        <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    </environment>
 </body>
 </html>
