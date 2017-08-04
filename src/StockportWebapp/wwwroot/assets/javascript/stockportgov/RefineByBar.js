@@ -2,6 +2,8 @@
 
     var currentState = [];
 
+    var windowWidth = $(window).width();
+
     var closeFilters = function (link) {
         $('.link', '#event-listing-refine-bar').each(function () {
             if (this !== link && $(this).closest('.refine').hasClass('open')) {
@@ -80,6 +82,7 @@
 
         var href = window.location.href;
 
+        href = utils.StripParamFromQueryString(href, 'page');
         href = utils.StripParamFromQueryString(href, 'keeptag');
         href = utils.StripParamFromQueryString(href, 'fromsearch');
         href = utils.StripParamFromQueryString(href, 'tag');
@@ -153,6 +156,8 @@
         $('input[type=checkbox]', '#event-listing-refine-bar').each(function () {
             currentState.push($(this).prop('checked'));
         });
+
+        windowWidth = $(window).width();
     };
 
     var clearHeight = function () {
@@ -229,7 +234,9 @@
 
             $(window).on('resize', function () {
                 clearHeight();
-                hideSlider();
+                if (windowWidth !== $(window).width()) {
+                    hideSlider();
+                }
             });
         },
         ApplyLocation: applyLocation
