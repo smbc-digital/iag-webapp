@@ -45,6 +45,8 @@
     @RenderSection("Breadcrumbs", false)
     <main>
         @RenderBody()
+
+        <div class="hidden" id="envname">@CurrentEnvironment.Name</div>
     </main>
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
