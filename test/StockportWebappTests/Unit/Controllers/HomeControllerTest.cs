@@ -221,7 +221,7 @@ namespace StockportWebappTests.Unit.Controllers
             var appSetting = AppSetting.GetAppSetting(EmailAlertsUrl);
             _config.Setup(o => o.GetEmailAlertsUrl(_businessId)).Returns(appSetting);
 
-            var response = AsyncTestHelper.Resolve(_controller.EmailSubscribe(emailAddress));
+            var response = AsyncTestHelper.Resolve(_controller.EmailSubscribe(emailAddress, ""));
 
             response.Should().BeOfType<RedirectResult>();
             var redirect = response as RedirectResult;
@@ -236,7 +236,7 @@ namespace StockportWebappTests.Unit.Controllers
             var appSetting = AppSetting.GetAppSetting(null);
             _config.Setup(o => o.GetEmailAlertsUrl(_businessId)).Returns(appSetting);
 
-            var response = AsyncTestHelper.Resolve(_controller.EmailSubscribe(emailAddress)) as StatusCodeResult;
+            var response = AsyncTestHelper.Resolve(_controller.EmailSubscribe(emailAddress, "")) as StatusCodeResult;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }

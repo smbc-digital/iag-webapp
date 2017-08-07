@@ -40,7 +40,9 @@ namespace StockportWebapp.ContentFactory
                 showcase.Breadcrumbs,
                 showcase.Consultations,
                 showcase.SocialMediaLinks,
-                showcase.Events
+                showcase.Events,
+                showcase.EmailAlertsTopicId,
+                showcase.EmailAlertsText
             );
         }
     }

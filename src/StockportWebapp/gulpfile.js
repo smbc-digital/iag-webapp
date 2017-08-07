@@ -80,59 +80,6 @@ gulp.task('min:config:hs', function () {
         .pipe(gulp.dest('./wwwroot/assets/javascript'));
 });
 
-
-////js sg
-//gulp.task("min:js:sg", function () {
-//    return gulp.src([paths.jsProject, "!" + paths.minJs], { base: "." })
-//        .pipe(plumber())
-//        .pipe(concat(paths.concatJsDest))
-//        .pipe(uglify())
-//        .pipe(gulp.dest("."))
-//        .pipe(plumber.stop())
-//        .pipe(print(function (filepath) {
-//            console.log('Processed: '.yellow + filepath.cyan);
-//        }));
-//});
-
-////js sg no min
-//gulp.task("js:sg", function () {
-//    return gulp.src([paths.jsProject, "!" + paths.minJs, paths.jsSmart], { base: "." })
-//        .pipe(plumber())
-//        .pipe(concat(paths.concatFullJsDest))
-//        .pipe(gulp.dest("."))
-//        .pipe(plumber.stop())
-//        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
-//        .pipe(print(function (filepath) {
-//            console.log('Processed: '.yellow + filepath.cyan);
-//        }));
-//});
-
-////js hs
-//gulp.task("min:js:hs", function () {
-//    return gulp.src([paths.jsProjectHS, "!" + paths.minJs], { base: "." })
-//        .pipe(plumber())
-//        .pipe(concat(paths.concatJsDestHS))
-//        .pipe(uglify())
-//        .pipe(gulp.dest("."))
-//        .pipe(plumber.stop())
-//        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
-//        .pipe(print(function (filepath) {
-//            console.log('Processed: '.yellow + filepath.cyan);
-//        }));
-//});
-
-////js hs no min
-//gulp.task("js:hs", function () {
-//    return gulp.src([paths.jsProjectHS, "!" + paths.minJs], { base: "." })
-//        .pipe(plumber())
-//        .pipe(concat(paths.concatFullJsDestHS))
-//        .pipe(gulp.dest("."))
-//        .pipe(plumber.stop())
-//        .pipe(print(function (filepath) {
-//            console.log('Processed: '.yellow + filepath.cyan);
-//        }));
-//});
-
 //js vendor
 gulp.task("min:js:vendor", function () {
     return gulp.src([paths.jsVendor, "!" + paths.jsVendorMin], { base: "." })
@@ -236,11 +183,9 @@ function swallowError(error) {
 
 //watch
 gulp.task('watch', function () {
-    gulp.watch("wwwroot/assets/javascript/stockportgov/*.js", ['js:sg', 'min:js:sg']);
-    gulp.watch("wwwroot/assets/javascript/stockportgov/**/*.js", ['js:sg', 'min:js:sg']);
-    gulp.watch("wwwroot/assets/javascript/healthystockport/*.js", ['js:hs', 'min:js:hs']);
-    gulp.watch("wwwroot/assets/javascript/site.js", ['js:sg', 'js:hs', 'min:js:hs', 'min:js:sg']);
-    gulp.watch("wwwroot/assets/javascript/stockportgov/QuestionComponent/*.js", ['js:sg', 'min:js:sg']);
+    gulp.watch("wwwroot/assets/javascript/stockportgov/*.js", ['js']);
+    gulp.watch("wwwroot/assets/javascript/stockportgov/**/*.js", ['js']);
+    gulp.watch("wwwroot/assets/javascript/healthystockport/*.js", ['js']);
     gulp.watch("wwwroot/assets/javascript/stockportgov/vendor/*.js", ['min:js:vendor']);
     gulp.watch("wwwroot/assets/sass/**/*.scss", ['css']);
 });

@@ -7,3 +7,5 @@ Disallow:/*.tiff$
 Disallow:/*.bmp$
 Disallow:/*.pdf$
 Disallow:/*.svg$
+Disallow:/smart/*
+Disallow:/*_hidden

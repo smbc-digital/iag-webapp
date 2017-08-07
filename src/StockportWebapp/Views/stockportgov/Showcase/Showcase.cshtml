@@ -1,4 +1,6 @@
-﻿@using StockportWebapp.ProcessedModels
+﻿@using System.Linq
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using StockportWebapp.ProcessedModels
 @using StockportWebapp.FeatureToggling
 
 @model ProcessedShowcase
@@ -19,17 +21,17 @@
 
 @if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl))
 {
-<div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
-    <div class="title-card">
-        <h1>
-            <span>@Model.Title</span>
-        </h1>
-        <div class="clearfix"><hr class="hero-image-divider" /> </div>
-        <h2>
-            <span>@Model.Teaser</span>
-        </h2>
+    <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
+        <div class="title-card">
+            <h1>
+                <span>@Model.Title</span>
+            </h1>
+            <div class="clearfix"><hr class="hero-image-divider" /> </div>
+            <h2>
+                <span>@Model.Teaser</span>
+            </h2>
+        </div>
     </div>
-</div>
 }
 else
 {
@@ -58,32 +60,32 @@ else
             @{
                 foreach (var item in Model.FeaturedItems)
                 {
-                    <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
-                        <div class="featured-topic-content">
-                            <a href="@item.NavigationLink">
-                                <div class="featured-topic-icon">
-                                    <i class="@item.Icon si-default"></i>
-                                </div>
-                                <div class="featured-topic-name">@item.Title</div>
-                            </a>
-                            <p class="hide-on-mobile hide-on-tablet featured-topic-description">
-                                @if (item.SubItems.Any())
-                                {
-                                    <span>Including</span>
-                                }
-                                @foreach (var subItem in item.SubItems.Take(2))
-                                {
-                                    <br />
-                                    <a href="@subItem.NavigationLink">@subItem.Title</a>
-                                }
-                            </p>
+            <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
+                <div class="featured-topic-content">
+                    <a href="@item.NavigationLink">
+                        <div class="featured-topic-icon">
+                            <i class="@item.Icon si-default"></i>
                         </div>
-                    </div>
+                        <div class="featured-topic-name">@item.Title</div>
+                    </a>
+                    <p class="hide-on-mobile hide-on-tablet featured-topic-description">
+                        @if (item.SubItems.Any())
+                                {
+                                <span>Including</span>
+                                }
+                        @foreach (var subItem in item.SubItems.Take(2))
+                                {
+                                <br />
+                                <a href="@subItem.NavigationLink">@subItem.Title</a>
+                                }
+                    </p>
+                </div>
+            </div>
                 }
             }
         </div>
     </div>
-}
+                }
 
 @if (Model.NewsArticle != null)
 {
@@ -111,7 +113,7 @@ else
 
 @if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any() && Model.NewsArticle != null)
 {
-    <div class="@titleHack showcase-events alt-container-row">       
+    <div class="@titleHack showcase-events alt-container-row">
         @Html.Partial("ShowcaseEventCards", Model)
     </div>
     titleHack = string.Empty;
@@ -130,12 +132,47 @@ else
                 <div class="grid-100 grid-parent">
                     <article>
                         @Html.Raw(Model.Body)
-                    </article>                   
+                    </article>
                 </div>
 
             </div>
         </div>
     </div>
     titleHack = string.Empty;
+}
+
+@if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
+{
+    <div class="@titleHack alt-container-row showcase-email-banner grid-container">
+        <div class="email-banner">
+            <div class="email-banner-container mobile-grid-100 grid-parent">
+                <div class="email-banner-icon-container hide-on-mobile hide-on-tablet">
+                    <i class="si-envelope-open email-banner-icon"></i>
+                </div>
+                <div class="email-banner-inner grid-parent grid-95 tablet-grid-95 mobile-grid-100">
+                    <div class="grid-100 tablet-grid-100 mobile-grid-100 email-banner-text-container">
+                        <div class="grid-100 grid-parent">
+                            <h3> @Model.EmailAlertsText</h3>
+                        </div>
+                    </div>
+                    <div class="grid-100 input-container">
+                        <form method="get" role="form" action="/subscribe">
+                            
+                            <div class="grid-50 tablet-grid-50 grid-parent">
+                                <input type="email" name="emailAddress" placeholder="Enter your email address">
+                            </div>
+                            <div class="grid-30 tablet-grid-50 grid-parent">
+                                <button type="submit" id="test-subscribe" class="button-default">Subscribe</button>
+                            </div>
+                            <div class="suffix-10"></div>
+                            @Html.HiddenFor(o => o.EmailAlertsTopicId)
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 }
 
