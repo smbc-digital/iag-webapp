@@ -1,3 +1,4 @@
-﻿User-agent: *  
+﻿# no robots
+User-agent: *  
 Disallow: /smart/*
 Disallow: /*_hidden
