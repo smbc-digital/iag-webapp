@@ -40,10 +40,12 @@
 
     var setDatePickers = function () {
         if (!Modernizr.inputtypes.date) {
-            $(".datepicker").datepicker({
-                inline: true,
-                dateFormat: 'dd/mm/yy'
-            });
+            if ($(".datepicker").length > 0) {
+                $(".datepicker").datepicker({
+                    inline: true,
+                    dateFormat: 'dd/mm/yy'
+                });    
+            }
 
             $(".hasDatepicker").each(function () {
                 var selectedDate = $(this).val();
