@@ -9,6 +9,7 @@
     <UserSecretsId>aspnet5-StockportWebappSolution-fc49787c-9e31-4f98-92f9-0c35044e86c7</UserSecretsId>
     <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
     <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6</PackageTargetFallback>
+	<DefaultItemExcludes>$(DefaultItemExcludes);publish/**/*</DefaultItemExcludes>
   </PropertyGroup>
 
   <ItemGroup>
