@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{834F9BD9-CB11-4539-BB5F-D67DCE98294B}"
 EndProject
@@ -10,23 +10,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		docker.sh = docker.sh
 		Dockerfile = Dockerfile
 		env.sh = env.sh
+		global.json = global.json
 		Makefile = Makefile
 		nightwatch.json = nightwatch.json
 		README.md = README.md
 		trigger.sh = trigger.sh
 	EndProjectSection
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "StockportWebapp", "src\StockportWebapp\StockportWebapp.xproj", "{3E4F66AD-1EE4-46C1-A8B3-804BF0A07907}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{47F41370-AE23-4545-9FEE-D54380B14ED5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "StockportWebappTests", "test\StockportWebappTests\StockportWebappTests.xproj", "{A7CF79BF-5D84-4C23-8C6B-89A8FCB9D2E1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{4B02FD1B-52F9-496A-92EA-89CFE979BA18}"
 	ProjectSection(SolutionItems) = preProject
 		proxy\index.js = proxy\index.js
 		proxy\package.json = proxy\package.json
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockportWebapp", "src\StockportWebapp\StockportWebapp.csproj", "{3E4F66AD-1EE4-46C1-A8B3-804BF0A07907}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockportWebappTests", "test\StockportWebappTests\StockportWebappTests.csproj", "{A7CF79BF-5D84-4C23-8C6B-89A8FCB9D2E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,8 +48,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4B02FD1B-52F9-496A-92EA-89CFE979BA18} = {0F15F6E8-5F44-4EA0-BA58-9B9C0AB52F29}
 		{3E4F66AD-1EE4-46C1-A8B3-804BF0A07907} = {834F9BD9-CB11-4539-BB5F-D67DCE98294B}
 		{A7CF79BF-5D84-4C23-8C6B-89A8FCB9D2E1} = {47F41370-AE23-4545-9FEE-D54380B14ED5}
+		{4B02FD1B-52F9-496A-92EA-89CFE979BA18} = {0F15F6E8-5F44-4EA0-BA58-9B9C0AB52F29}
 	EndGlobalSection
 EndGlobal

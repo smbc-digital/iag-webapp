@@ -11,6 +11,7 @@ using System.Linq;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.QuestionBuilder.Maps;
+using System;
 
 namespace StockportWebapp.Controllers
 {
@@ -26,6 +27,12 @@ namespace StockportWebapp.Controllers
             _repository = repository;
             _logger = logger;
             _contactUsMessageParser = contactUsMessageParser;
+        }
+
+        [Route("/map")]
+        public async Task<IActionResult> Map([FromQuery] string source, [FromQuery] string panels, [FromQuery] string layers)
+        {
+            return View(new Tuple<string, string, string>(source, panels, layers));
         }
 
         [Route("/{articleSlug}")]
