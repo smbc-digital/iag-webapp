@@ -12,6 +12,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Http;
+using System.Text;
 
 namespace StockportWebapp.Controllers
 {
@@ -280,7 +281,7 @@ namespace StockportWebapp.Controllers
             var attribute = indexPage ? "sitemapindex" : "urlset";
             var xsSubmit = new XmlSerializer(typeof(T), null, null, new XmlRootAttribute(attribute), "http://www.sitemaps.org/schemas/sitemap/0.9");
 
-            using (var sww = new StringWriter())
+            using (var sww = new Utf8StringWriter())
             {
                 using (XmlWriter writer = XmlWriter.Create(sww))
                 {
@@ -290,6 +291,14 @@ namespace StockportWebapp.Controllers
             }
 
             return xml;
+        }
+    }
+
+    public class Utf8StringWriter : StringWriter
+    {        
+        public override Encoding Encoding
+        {
+            get { return new UTF8Encoding(false); }
         }
     }
 
