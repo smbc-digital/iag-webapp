@@ -1,7 +1,7 @@
 ﻿requirejs.config({
     baseUrl: '/assets/javascript',
     paths: {
-        "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
+        "jquery": "vendor/jquery.min",
         "recaptcha": "//www.google.com/recaptcha/api",
         "cludo": "//customer.cludo.com/scripts/bundles/search-script.min",
         "jquery-ui": "/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
@@ -54,6 +54,7 @@
 
 require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery'],
     function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $) {
+        //alert("hi");
             carousel.Init();
             cludoconfig.Init();
             contactus.Init();
