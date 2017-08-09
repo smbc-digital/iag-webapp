@@ -94,11 +94,11 @@ var methods = {
     },
 
     assertCarouselIsVisible: function() {
-        this.assert.visible('.carousel');
+      this.waitForElementVisible('.carousel', this.api.globals.timeOut);
     },
 
     assertCarouselImagesAreVisible: function() {
-        this.assert.visible('.carousel-image.slick-slide.slick-current.slick-active');
+      this.waitForElementVisible('.carousel-image.slick-slide.slick-current.slick-active', this.api.globals.timeOut);
     }
 };
 
