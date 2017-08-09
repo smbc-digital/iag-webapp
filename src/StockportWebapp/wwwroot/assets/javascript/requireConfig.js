@@ -4,7 +4,6 @@
         "jquery": "vendor/jquery.min",
         "recaptcha": "//www.google.com/recaptcha/api",
         "cludo": "//customer.cludo.com/scripts/bundles/search-script.min",
-        "jquery-ui": "/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
         "bootstrap": "/lib/bootstrap/dist/js/bootstrap.min",
         "handlebars": "/lib/handlebars/handlebars.runtime.min",
         "rangy": "/lib/rangy-1.3/rangy-core",
@@ -49,7 +48,7 @@
         },
         validate: {
             deps: ['jquery']
-        }
+        },
     }
 });
 

@@ -12,12 +12,11 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Article.Breadcrumbs)
 }
-
 <div class="grid-container-full-width">
     <div class="grid-container grid-100 article-cols">
         <div id="uitest-page-has-loaded" class="article-col l-body-section-filled @(Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible
-                                                                  ? "grid-parent mobile-grid-100 tablet-grid-100 grid-70"
-                                                                  : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
+                                                                      ? "grid-parent mobile-grid-100 tablet-grid-100 grid-70"
+                                                                      : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
                 <div class="l-content-container">
                     @if (!string.IsNullOrEmpty(Model.Article.Image))
@@ -29,7 +28,7 @@
                                 </h2>
                             </div>
                         </div>
-                        <div class="title-spacer"></div>
+                            <div class="title-spacer"></div>
                     }
                     <div class="grid-100">
                         @if (string.IsNullOrEmpty(Model.Article.Image))
@@ -54,7 +53,7 @@
 
                             @if (Model.ShouldShowArticleSummary && !string.Equals("<p></p>\n", Model.Article.Body))
                             {
-                                <div>
+                                <div class="map-content">
                                     @Html.Raw(Model.Article.Body)
                                 </div>
                             }
@@ -97,13 +96,13 @@
                                 }
                             </ul>
                         </div>
-                    }
+                                    }
                     @if (Model.Article.LiveChatVisible)
                     {
                         @Html.Partial("LiveChat", Model.Article.LiveChat)
                     }
                 </div>
-            }
+                }
         }
     </div>
 </div>
