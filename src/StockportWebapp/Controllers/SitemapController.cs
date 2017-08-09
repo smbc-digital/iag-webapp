@@ -254,18 +254,18 @@ namespace StockportWebapp.Controllers
 
                 default:
 
-                    var result = new List<SitemapGoogle>();
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=homepage", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=groups", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=showcase", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=section", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=topic", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=profile", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=payment", priority = "1.0" });
-                    result.Add(new SitemapGoogle { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=start", priority = "1.0" });
+                    var result = new List<SitemapGoogleIndex>();
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=homepage", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=groups", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=showcase", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=section", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=topic", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=profile", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=payment", priority = "1.0" });
+                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=start", priority = "1.0" });
 
                     xml = SerializeObject(result, true);
                     break;
@@ -302,22 +302,28 @@ namespace StockportWebapp.Controllers
         }
     }
 
-    [XmlType("sitemap")]
-    public class SitemapGoogleIndex
+    public class Sitemap
     {
         public string loc { get; set; }
         public string lastmod { get; set; }
         public string changefreq { get; set; }
         public string priority { get; set; }
 
+        public Sitemap()
+        {
+        }
+    }
+
+    [XmlType("sitemap")]
+    public class SitemapGoogleIndex : Sitemap
+    {
         public SitemapGoogleIndex()
         {
-
         }
     }
 
     [XmlType("url")]
-    public class SitemapGoogle : SitemapGoogleIndex
+    public class SitemapGoogle : Sitemap
     {
         public SitemapGoogle()
         {

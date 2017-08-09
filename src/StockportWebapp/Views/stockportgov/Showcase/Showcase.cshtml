@@ -19,6 +19,14 @@
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
 
+@if (Model.Alerts != null)
+{
+    foreach (var alert in Model.Alerts)
+    {
+        @Html.Partial("GlobalAlert", alert)
+    }
+}
+
 @if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl))
 {
     <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
