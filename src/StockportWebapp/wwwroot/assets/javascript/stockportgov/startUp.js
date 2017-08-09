@@ -5,6 +5,10 @@
             $(this).closest('.global-alert').hide();
         });
 
+        $('.alert-close a').on('click', function () {
+            $(this).closest('.alert').hide();
+        });
+
         utils.SwapLogo();
 
         $(".show-search-button").click(function () {
