@@ -8,10 +8,22 @@
                 <stock-button class="white" id="reveal-refine-by">Refine by<div class="badge"><span>2</span></div></stock-button>
             </div>
 
-            <div id="refine-slider">
+            <div id="refine-slider" class="hide-on-mobile">
                 <div class="scroller">
                     <div class="refine title">
                         Refine by
+                    </div>
+
+                    <div class="refine">
+                        <a class="link" href="javascript:void(0)">Location<div class="badge hide-on-mobile"><span></span></div></a>
+
+                        <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
+                        <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
+                        <input asp-for="Location" type="hidden" id="location" name="location" />
+
+                        <div class="refine-filters location">
+                            @Html.Partial("LocationSearch", new LocationSearch { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = string.Empty, Callback = "refinebybar.ApplyLocation()" })
+                        </div>
                     </div>
 
                     @if (!string.IsNullOrEmpty(Model.KeepTag) || !string.IsNullOrEmpty(Model.Tag))
@@ -30,19 +42,6 @@
                             </div>
                         </div>
                     }
-
-                    <div class="refine">
-                        <a class="link" href="javascript:void(0)">Location<div class="badge hide-on-mobile"><span></span></div></a>
-
-                        <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
-                        <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
-                        <input asp-for="Location" type="hidden" id="location" name="location" />
-
-                        <div class="refine-filters location">
-                            @Html.Partial("LocationSearch", new LocationSearch
-                               { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = string.Empty, Callback = "refinebybar.ApplyLocation()" })
-                        </div>
-                    </div>
 
                     <div class="refine">
                         <a class="link" href="javascript:void(0)">Price<div class="badge hide-on-mobile"><span></span></div></a>
