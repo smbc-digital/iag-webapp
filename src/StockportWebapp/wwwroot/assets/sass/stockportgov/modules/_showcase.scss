@@ -102,6 +102,10 @@
 
 .alt-container-row:nth-child(even), .alt-container-row:nth-child(even) .l-body-section-filled {
     background-color: #ffffff;
+
+    .email-banner .email-banner-container {
+        border: solid 1px #ebebeb;
+    }
 }
 
 .featured-items-wrapper {
@@ -313,8 +317,8 @@
 .showcase-email-banner {
 
     @media #{$desktop, $tablet} {
-        margin-top: 20px;
-        margin-bottom: 20px; 
+        padding-top: 20px;
+        padding-bottom: 20px;
     }
 }
 

@@ -38,6 +38,67 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="app-config\appsettings.json" />
+    <None Include="app-config\appsettings.test.json" />
+    <None Include="app-config\appsettings.test2.json" />
+    <None Include="app-config\injected\appsettings.test.secrets.json" />
+    <None Include="app-config\injected\appsettings.test2.secrets.json" />
+    <None Include="appsettings.DEV.json" />
+    <None Include="appsettings.json" />
+    <None Include="appsettings.STAGING.json" />
+    <None Include="Emails\Templates\ChangeGroupInfoConfirmation.html" />
+    <None Include="Emails\Templates\EventAdd.html" />
+    <None Include="Emails\Templates\GroupAdd.html" />
+    <None Include="Emails\Templates\GroupArchive.html" />
+    <None Include="Emails\Templates\GroupDelete.html" />
+    <None Include="Emails\Templates\_Layout.html" />
+    <None Include="JSTests\cludo.min.js" />
+    <None Include="JSTests\jasmine-fixture.min.js" />
+    <None Include="JSTests\jquery-2.2.2.min.js" />
+    <None Include="JSTests\karma.conf.js" />
+    <None Include="JSTests\package.json" />
+    <None Include="JSTests\require.2.3.4.min.js" />
+    <None Include="JSTests\StockportgovjsTest.js" />
+    <None Include="JSTests\tests-main.js" />
+    <None Include="TestFiles\test_attachment.txt" />
+    <None Include="TestFiles\test_document.docx" />
+    <None Include="UI\configureGlobals.js" />
+    <None Include="UI\global.js" />
+    <None Include="UI\Makefile" />
+    <None Include="UI\nightwatch.js" />
+    <None Include="UI\nightwatch.json" />
+    <None Include="UI\package.json" />
+    <None Include="UI\page_objects\healthystockport\articlepage.js" />
+    <None Include="UI\page_objects\healthystockport\contactuspage.js" />
+    <None Include="UI\page_objects\healthystockport\homepage.js" />
+    <None Include="UI\page_objects\healthystockport\topicpage.js" />
+    <None Include="UI\page_objects\stockportgov\articlepage.js" />
+    <None Include="UI\page_objects\stockportgov\atozpage.js" />
+    <None Include="UI\page_objects\stockportgov\breadcrumb.js" />
+    <None Include="UI\page_objects\stockportgov\events.js" />
+    <None Include="UI\page_objects\stockportgov\eventscalendar.js" />
+    <None Include="UI\page_objects\stockportgov\groups.js" />
+    <None Include="UI\page_objects\stockportgov\homepage.js" />
+    <None Include="UI\page_objects\stockportgov\manageGroups.js" />
+    <None Include="UI\page_objects\stockportgov\news.js" />
+    <None Include="UI\page_objects\stockportgov\newsroom.js" />
+    <None Include="UI\page_objects\stockportgov\profilepage.js" />
+    <None Include="UI\page_objects\stockportgov\showcase.js" />
+    <None Include="UI\page_objects\stockportgov\startpage.js" />
+    <None Include="UI\page_objects\stockportgov\topicpage.js" />
+    <None Include="UI\reports\stockportgov\PHANTOMJS_2.1.1_XP_userjourney.tests.xml" />
+    <None Include="UI\screenshots\stockportgov\userjourney.tests\Find-article-for-About-the-Hat-Works_FAILED_Aug-04-2017-083407-GMT+0100-%28GMT-Summer.png" />
+    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-Contact-Us-form-and-enter-invalid-data-into-the-form_ERROR_Aug-04-2017-083622-GMT+0100-%28GMT-Summer.png" />
+    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-Contact-Us-form-and-enter-invalid-data-into-the-form_FAILED_Aug-04-2017-083622-GMT+0100-%28GMT-Summer.png" />
+    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-groups-upcoming-events-page-from-the-groups-management-page_FAILED_Aug-04-2017-090305-GMT+0100-%28GMT-Summer.png" />
+    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-groups-upcoming-events-page-from-the-groups-management-page_FAILED_Aug-04-2017-093509-GMT+0100-%28GMT-Summer.png" />
+    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-showcase-and-validate-details--_FAILED_Aug-07-2017-143600-GMT+0100-%28GMT-Summer.png" />
+    <None Include="UI\selenium-server-standalone-2.53.0.jar" />
+    <None Include="UI\specs\healthystockport\userjourney.tests.js" />
+    <None Include="UI\specs\stockportgov\userjourney.tests.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\StockportWebapp\StockportWebapp.csproj" />
   </ItemGroup>
 

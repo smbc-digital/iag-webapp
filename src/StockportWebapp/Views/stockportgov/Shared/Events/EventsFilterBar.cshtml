@@ -16,12 +16,12 @@
     <div class="full-width-title" id="events-filter-bar">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @hideOnMobile">
-                <h2>Find something to do in Stockport</h2>
+                <label>Find something to do in Stockport</label>
             </div>
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @showOnMobile">
                 <h2>@Html.Raw(nowShowing)</h2>
             </div>
-            <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section open">
+            <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section closed">
                 <div class="grid-25 tablet-grid-33 mobile-grid-100" class="form-field">
                     <div><label asp-for="@Model.DateFrom"></label></div>
                     <div><input type="date" asp-for="@Model.DateFrom" placeholder="All dates" class="form-control datepicker" /></div>
@@ -50,7 +50,7 @@
             {
             <div class="hide-on-tablet hide-on-desktop mobile-grid-100">
                 <div class="edit-search">
-                    <a href="javascript:toggleSearch();" id="edit-search-link" class="closed">Edit search</a>
+                    <a href="javascript:toggleSearch();" id="edit-search-link" class="open">Edit search</a>
                 </div> 
             </div>
             }

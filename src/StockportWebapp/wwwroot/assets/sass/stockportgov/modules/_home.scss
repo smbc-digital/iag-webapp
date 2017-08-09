@@ -1,5 +1,9 @@
 ﻿$fontstack: 'Source Sans Pro', sans-serif; //temporary until fonts are refactored.
 
+.breadcrumb {
+    border-bottom-width: 0;
+}
+
 ﻿.homepage-hero {
     padding: 0px 10px 0px 10px;
 

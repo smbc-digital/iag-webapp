@@ -1,1 +1,1 @@
-module.exports={"testUri":"http://stockportgov.local:5555/","timeOut":10000};
+module.exports={"testUri":"https://int-windows-iag-origin.smbcdigital.net","timeOut":10000};
