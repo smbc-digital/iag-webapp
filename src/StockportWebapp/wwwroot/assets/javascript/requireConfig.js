@@ -31,10 +31,6 @@
         "questionmodule": "stockportgov/questioncomponent/questionmodule",
         "questionvalidator": "stockportgov/questioncomponent/questionvalidator",
         "questionview": "stockportgov/questioncomponent/questionview",
-        //"isharelocal": "stockportgov/ishare",
-        //"responsivedesign": "http://maps.stockport.gov.uk/js/responsivedesign",
-        //"prototype": "//maps.stockport.gov.uk/iShare5.0.Web/js/lib/prototype-1.6.0.3",
-        //"ishare": "http://maps.stockport.gov.uk/iShare5.0.Web/FileIncluderJS.aspx?dummy="
     },
     shim: {
         bootstrap: {
@@ -52,18 +48,11 @@
         validate: {
             deps: ['jquery']
         },
-        //"jquery-ui": {
-        //    deps: ['jquery']
-        //},
-        //ishare: {
-        //    deps: ['prototype']
-        //},
     }
 });
 
 require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, jq) {
-            jq.noConflict();
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $) {
             carousel.Init();
             cludoconfig.Init();
             contactus.Init();

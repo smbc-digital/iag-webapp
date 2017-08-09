@@ -20,8 +20,11 @@
     <Content Include="wwwroot\assets\javascript\requireConfigHealthyStockport.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\stockportgov\iShare.js" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_emailBanner.scss" />
+    <Content Include="wwwroot\assets\sass\stockportgov\modules\_iShareMap.scss" />
+    <Content Include="wwwroot\assets\sass\stockportgov\modules\_map - Copy.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <None Update="wwwroot\**\*;emails\templates\**\*;Views\**\*;app-config\**\*;NLog.config;version.txt;sha.txt;featureToggles.yml;pdf.js;node_modules\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>

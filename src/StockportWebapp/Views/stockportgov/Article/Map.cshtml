@@ -11,12 +11,11 @@
     <link type="text/css" href="http://maps.stockport.gov.uk/css/responsive/normalize.css" rel="stylesheet">
     <link type="text/css" href="http://maps.stockport.gov.uk/css/responsive/responsive.css" rel="stylesheet">
     <link type="text/css" href="http://maps.stockport.gov.uk/custom.smbc/css/stockport.min.css" rel="stylesheet">
-    <link type="text/css" href="http://maps.stockport.gov.uk/custom.smbc/css/overrides.min.css" rel="stylesheet">
 
     <script type="text/javascript" src="http://maps.stockport.gov.uk/js/responsivedesign.js"></script>
     <script type="text/javascript" src="http://maps.stockport.gov.uk/custom.smbc/js/jquery-1.10.1.js"></script>
     <script type="text/javascript" src="http://maps.stockport.gov.uk/custom.smbc/js/jquery-ui.js"></script>
-
+    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" />
 
     <script type="text/javascript">
         if (!window.astun) { window.astun = {}; }
@@ -31,111 +30,10 @@
     <script type="text/javascript" src="http://maps.stockport.gov.uk/js/lib/prototype-1.6.0.3.js"></script>
     <script type="text/javascript" src="http://maps.stockport.gov.uk/FileIncluderJS.aspx?language="></script>
 </head>
+
 <body>
-    <style type="text/css">
-        #atButtonBar {
-            display: none;
-        }
-
-        .atBaseMapSwitcher {
-            position: absolute;
-            top: 7px;
-            right: 5px;
-            z-index: 10000;
-            border: medium none;
-            background: none repeat scroll 0% 0% transparent;
-        }
-
-            .atBaseMapSwitcher ul {
-                list-style-type: none;
-                margin: 0px;
-                padding: 0px;
-            }
-
-            .atBaseMapSwitcher li {
-                position: relative;
-                display: block;
-                margin: 0px;
-            }
-
-            .atBaseMapSwitcher ul li a.atBM-active {
-                background-color: #138A26;
-                border-width: 2px;
-                border-color: white;
-            }
-
-            .atBaseMapSwitcher a {
-                padding: 3px 6px;
-                border: 2px solid white;
-                font-size: inherit;
-                display: block;
-                float: none;
-                text-decoration: none;
-                box-shadow: none;
-                background-color: #55565A;
-                color: white;
-                text-align: center;
-            }
-
-            .atBaseMapSwitcher ul li:last-child a {
-                border-width: 0 2px 2px 2px;
-            }
-
-            .atBaseMapSwitcher ul li:first-child a.atBM-active {
-                box-shadow: inset 0.5em 0.5em 0.5em rgba(64, 32, 32, 0.1);
-            }
-
-        div#atPanelToggle {
-            left: 11px;
-            top: 18px;
-            height: 30px;
-        }
-
-        div#atPanelToggle, div#atZoomControls {
-            position: absolute;
-            z-index: 1000;
-        }
-
-        div#atZoomControls {
-            left: 11px;
-            top: 80px;
-        }
-
-        div#atPanelToggle a {
-            background-image: url(menu.png);
-            background-size: 18px;
-            background-repeat: no-repeat;
-            background-position: 50%;
-        }
-
-        div#atZoomControls a {
-            display: block;
-            font-size: 26px;
-            line-height: 25px;
-            margin-top: 5px;
-        }
-
-        div#atZoomControls a, div#atPanelToggle a {
-            width: 40px;
-            height: 50px;
-            display: inline-block;
-            font-size: 18px;
-            font-weight: bold;
-            text-align: center;
-            padding: 10px;
-            border-radius: 4px;
-            border: 2px solid white;
-            background-color: #55565A;
-            color: white;
-            box-shadow: none;
-            text-decoration: none;
-        }
-    </style>
-
     <form name="atMapSpurForm" method="post" action="myhouse.aspx" id="atMapSpurForm" class="astunContainer atJSEnabled">
-
         <div id="atButtonBar"><input type="submit" name="atButtonBar$btnOtherThings" value="Show side panel" id="atButtonBar_btnOtherThings" class="ui-state-default ui-corner-all" /><input type="submit" name="atButtonBar$btnResetPage" value="Reset" id="atButtonBar_btnResetPage" class="ui-state-default ui-corner-all" /></div>
-
         <div id="atMyMaps" class="atModule atVersion2">
             <div id="atContent" class="atMapContent">
                 <div class="atPanelContainer">
@@ -153,7 +51,6 @@
     </form>
 
     <script type="text/javascript">
-        //var intTime = new Date();
         Event.observe(window, 'load', function () {
             pageType = $('atMap') ? 'isharemaps.mymaps' : 'isharemaps.simple';
             Astun.JS.IncludeJS(pageType, function () {
@@ -202,49 +99,123 @@
             }
             loader.mapID = 'atMap';
 
+            function isSmallWindow() {
+                return jQuery(window).width() < 740;
+            }
+
+            function panelShown() {
+                var right = jQuery('.atMainJQWrapper').css('right');
+                return right == 'auto' || parseInt(right, 10) == 0;
+            }
+
+            function dialogOpen() {
+                return (jQuery('.ui-dialog.map-panel').children().length > 1)
+            }
+
+            // Hide the side panel by default on small screens
+            if (isSmallWindow()) {
+                jQuery.fn.panelswrapper.defaults.hideInStart = true;
+            }
+
+            function openDialog() {
+                // If the user has changed map source there will be
+                // an additional empty div.atPanelInnerWrapper which
+                // we need to remove
+                jQuery('.atPanelInnerWrapper:empty').remove();
+
+                // Ensure the dialog is destroyed first, without destroying
+                // it the content can be missing if the content has been shown
+                // as a side panel before the user resized the window to cause
+                // it to be displayed in a dialog
+                jQuery('.atPanelInnerWrapper').dialog('destroy');
+
+                var winH = jQuery(window).height();
+                var winW = jQuery(window).width();
+
+                // Determine the dimensions of the dialog to suit the window
+                var maxHeight = 600;
+                var maxWidth = 400;
+                var minPadding = 10;
+                var height = winH - (2 * minPadding);
+                var width = winW - (2 * minPadding);
+                height = (height > maxHeight) ? maxHeight : height;
+                width = (width > maxWidth) ? maxWidth : width;
+
+                // Position the dialog
+                var top = (winH - height) / 2;
+                var left = (winW - width) / 2;
+
+                var d = jQuery('.atPanelInnerWrapper').dialog({
+                    title: "Menu",
+                    appendTo: "#atMyMaps",
+                    height: height,
+                    width: width,
+                    modal: true,
+                    resizable: false,
+                    draggable: false,
+                    dialogClass: "map-panel",
+                    open: function () {
+                        // Close the dialog if the user clicks on the overlay
+                        // which makes it modal
+                        jQuery('.ui-widget-overlay').bind('click', function () {
+                            closeDialog();
+                        })
+                    },
+                    close: function () {
+                        jQuery('.atPanelInnerWrapper')
+                            .removeClass('ui-dialog-content')
+                            .appendTo(jQuery('.atOuterWpr.noTB'));
+                    }
+                }).dialog('widget');
+
+                d.css('position', 'fixed').css('top', top + 'px').css('left', left + 'px');
+            }
+
+            function closeDialog() {
+                jQuery('a.ui-dialog-titlebar-close').click();
+            }
+
             Event.observe($(loader.mapID), 'astun:sourceLoad', function (evt) {
-                var panels =
-                    [
+                var allowedPanels = '@Model.Item2';
+
+                var panels = [];
+
+                if (allowedPanels.indexOf('Address') >= 0) {
+                    panels.push(
                         {
                             cssClass: 'atMapSourceSwitcher',
                             pluginName: 'mapsourceswitcher',
                             pluginData: evt,
                             pluginOpts: { collapseInStart: true }
-                        }
-                            ,
+                        });
+                }
+
+                if (allowedPanels.indexOf('TakeMeTo') >= 0) {
+                    panels.push(
+                    {
+                        cssClass: 'atTakeMeTo',
+                        pluginName: 'takemeto',
+                        pluginData: evt,
+                        pluginOpts: { collapseInStart: true }
+                    });
+                }
+
+                if (allowedPanels.indexOf('Categories') >= 0) {
+                    panels.push(
                         {
-                            cssClass: 'atPanelSearchFor',
-                            pluginName: 'searchfor',
-                            pluginData: evt,
-                            pluginOpts: { collapseInStart: true }
-                        }
-                        ,
-                        {
-                            cssClass: 'atPanelFindNearest',
-                            pluginName: 'findnearest',
-                            pluginData: evt,
-                            pluginOpts: { collapseInStart: true }
-                        }
-                        ,
-                        {
-                            cssClass: 'atTakeMeTo',
-                            pluginName: 'takemeto',
-                            pluginData: evt,
-                            pluginOpts: { collapseInStart: true }
-                        }
-                        ,
-                        {
-                            cssClass: 'atShowmapCategories',
-                            pluginName: 'showmapcategories',
-                            pluginData: evt,
-                            pluginOpts: {}
-                        }
-                    ],
-                    //Options to pass to the function
-                    options = {
-                        panelWrapperTopPosition: 1,
-                        attachPanelWrapperTo: '#' + loader.mapID
-                    };
+                        cssClass: 'atShowmapCategories',
+                        pluginName: 'showmapcategories',
+                        pluginData: evt,
+                        pluginOpts: { collapseInStart: true }
+                    });
+                }
+
+                //Options to pass to the function
+                var options = {
+                    panelWrapperTopPosition: 1,
+                    attachPanelWrapperTo: '#' + loader.mapID
+                };
+
                 //Call the function which will start all jQuery plugins having these options
                 jqueryFunctions(jQuery, jQuery('#' + loader.mapID), panels, options);
 
@@ -253,7 +224,6 @@
                     jQuery('#' + loader.mapID).trigger('togglePanelWrapper');
                     return false;
                 });
-
 
                 // Attempt to ensure the popup is not obscured by base map buttons
                 astun.mapWrapper.map.paddingForPopups.right = 120;
@@ -266,28 +236,17 @@
                     })[0]
                 );
 
-                //// Attempt to open the info popup if InfoEasting and InfoNorthing
-                //// parameters are passed on the query string
-                //try {
-                //    var params = Astun.JS.Common.getObjectFromQuerystring(window.location.search);
-                //    if (params.InfoEasting && params.InfoNorthing) {
-                //        var e = parseFloat(params.InfoEasting);
-                //        var n = parseFloat(params.InfoNorthing);
-                //        astun.mapWrapper.interactions.showMapToolTip({ 'lonLat': new OpenLayers.LonLat(e, n) });
-                //    }
-                //} catch (e) {
-                //    if (console && console.warn) {
-                //        console.warn('Unable to display popup', e);
-                //    }
-                //}
+                jQuery('.atJqOpenClose').hide();
+
 
                 function fixPanelPosition() {
                     // Ensure the vertical positon of the panel is correct
                     jQuery('.atPanelWrapperParent').css('top', Math.round(jQuery('#atMap').offset().top));
                 }
 
+                var appendTo = isSmallWindow() ? '.atPanelContent.olMap' : '.olMapViewport';
                 // New bolder menu toggle button
-                jQuery('<div id="atPanelToggle" class="atPanelToggle"><a href="#" title="Menu">&nbsp;</a></div>').appendTo('.atPanelContent.olMap').click(function () {
+                jQuery('<div id="atPanelToggle" class="atPanelToggle"><a href="#" title="Menu">&nbsp;</a></div>').appendTo(appendTo).click(function () {
                     if (isSmallWindow()) {
                         openDialog();
                     } else {
@@ -300,7 +259,7 @@
 
                 fixPanelPosition();
 
-                jQuery('<div id="atZoomControls" class="atZoomControls"><a href="#zoomin" class="zoomin" title="Zoom in">+</a><a href="#zoomout" class="zoomout" title="Zoom out">-</a></div>').appendTo('.atPanelContent.olMap').click(function (e) {
+                jQuery('<div id="atZoomControls" class="atZoomControls"><a href="#zoomin" class="zoomin" title="Zoom in">&nbsp;</a><a href="#zoomout" class="zoomout" title="Zoom out">&nbsp;</a></div>').appendTo(appendTo).click(function (e) {
                     if (e.target.hash === '#zoomin') {
                         astun.mapWrapper.map.zoomIn()
                     } else {
@@ -309,6 +268,37 @@
                     return false;
                 });
 
+                var mapElm = $('atMap');
+
+                // Close the dialog when a map source is choosen
+                jQuery(mapElm).bind('loadMapSource', window, function (evt) {
+                    if (dialogOpen()) {
+                        closeDialog();
+                    }
+                });
+
+                // Close dialog when a take me to link is clicked
+                jQuery(mapElm).bind('mapMove', window, function (evt) {
+                    if (dialogOpen()) {
+                        closeDialog();
+                    }
+                });
+
+                // Close dialog when search for or find nearest results are found
+                Event.observe(mapElm, 'astun:resultsReceived', function (evt) {
+                    if (evt.memo.html.toLowerCase().indexOf(Astun.lang.common.noResultsFound.toLowerCase()) === -1) {
+                        if (dialogOpen()) {
+                            closeDialog();
+                        }
+                    }
+                });
+
+                function windowSized() {
+                    if (panelShown()/* && isSmallWindow()*/) {
+                        // Close it
+                        jQuery('.atJqOpenClose').click();
+                    }
+                }
             });
             //Start the map
             loader.map = new Astun.JS.Map(loader.mapID, { mapSource: '@Model.Item1', layers: '@Model.Item3' });
