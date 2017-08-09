@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace StockportWebapp.Parsers
 {
@@ -9,7 +10,21 @@ namespace StockportWebapp.Parsers
 
         protected string GenerateHtml(string tagData)
         {
-            return $"<div id=\"buto_{tagData}\"></div><script>(function(d,config){{var script=d.createElement(\"script\");script.setAttribute(\"async\",true);var data=JSON.stringify(config);script.src=\"//js.buto.tv/video/\"+data;var s=d.getElementsByTagName(\"script\")[0];s.parentNode.insertBefore(script,s)}})(document,{{\"object_id\":\"{tagData}\"}})</script>";
+            var outputHtml = new StringBuilder();
+
+            outputHtml.Append($"<div id=\"buto_{tagData}\"></div>");
+            outputHtml.Append("<script>");
+            outputHtml.Append("var globalButoIds = globalButoIds || [];");
+            outputHtml.Append("(");
+            outputHtml.Append("function (d, config) {");
+            outputHtml.Append("var data = JSON.stringify(config);");
+            outputHtml.Append("globalButoIds.push(\"//js.buto.tv/video/\" + data);");
+            outputHtml.Append("alert(globalButoIds);");
+            outputHtml.Append($"}}(document, {{ \"object_id\": \"{ tagData}\" }})");
+            outputHtml.Append(")");
+            outputHtml.Append("</script>");
+
+            return outputHtml.ToString();
         }
 
         public VideoTagParser()

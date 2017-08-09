@@ -32,6 +32,7 @@
         "questionmodule": "stockportgov/questioncomponent/questionmodule",
         "questionvalidator": "stockportgov/questioncomponent/questionvalidator",
         "questionview": "stockportgov/questioncomponent/questionview",
+        "clipboard": "//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min"
     },
     shim: {
         bootstrap: {
@@ -52,9 +53,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $) {
-        //alert("hi");
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard) {
             carousel.Init();
             cludoconfig.Init();
             contactus.Init();
@@ -72,5 +72,11 @@ require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'exp
         }
 );
 
+if (typeof(globalButoIds) !== "undefined") {
+    require(globalButoIds,
+        function () {
+        }
+    );
+}
 
 

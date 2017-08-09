@@ -46,13 +46,13 @@
     @RenderSection("Breadcrumbs", false)
     <main>
         @RenderBody()
-        
+
         <div class="hidden" id="envname">@CurrentEnvironment.Name</div>
     </main>
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
- 
+
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
     <script src="/assets/javascript/vendor/matchbox.min.js"></script>
 
@@ -61,6 +61,5 @@
     @await Component.InvokeAsync("AddThis")
 
     @RenderSection("Scripts", false)
-        
 </body>
 </html>

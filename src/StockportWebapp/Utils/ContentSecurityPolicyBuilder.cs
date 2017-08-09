@@ -140,6 +140,7 @@ namespace StockportWebapp.Utils
                 .AddSource("*.tripadvisor.com")
                 .AddSource("*.tripadvisor.co.uk")
                 .AddSource("static.tacdn.com")
+                .AddSource("http://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js")
                 .Finish());
         }
 
@@ -154,6 +155,7 @@ namespace StockportWebapp.Utils
                 .AddSource("http://kinesis-ping-middleman.buto.tv")
                 .AddSource("https://kinesis.eu-west-1.amazonaws.com/")
                 .AddSource("https://zldiarvaya.execute-api.eu-west-1.amazonaws.com/prod/")
+                .AddSource("https://13bg9nmobj.execute-api.eu-west-1.amazonaws.com/production/player-analytics")
                 .Finish());
         }
 
