@@ -15,7 +15,8 @@ var gulp = require("gulp"),
     plumber = require('gulp-plumber'),
     print = require('gulp-print'),
     lec = require('gulp-line-ending-corrector'),
-    replace = require('gulp-replace');
+    replace = require('gulp-replace'),
+    cached = require('gulp-cached');
 
 var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
 
@@ -23,28 +24,24 @@ var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
 var paths = {
     sass: "./wwwroot/assets/sass/**/*.scss",
     cssDest: "./wwwroot/assets/stylesheets",
-    jsProject: "./wwwroot/assets/javascript/stockportgov/**/*.js",
+    jsProject: "./wwwroot/assets/javascript/**/**/*.js",
+    minJs: "./wwwroot/assets/javascript/**/**/*.min.js",
     jsConfig: "./wwwroot/assets/javascript/requireConfig.js",
-    jsConfigHS: "./wwwroot/assets/javascript/requireConfigHealthyStockport.js",
-    concatJsDest: "./wwwroot/assets/javascript/stockportgov.min.js",
-    concatFullJsDest: "./wwwroot/assets/javascript/stockportgov.js",
-    jsSmart: "./wwwroot/assets/javascript/stockportgov/QuestionComponent/*.js",
-    jsProjectHS: "./wwwroot/assets/javascript/healthystockport/*.js",
-    concatJsDestHS: "./wwwroot/assets/javascript/healthystockport.min.js",
-    concatFullJsDestHS: "./wwwroot/assets/javascript/healthystockport.js",
-    jsVendor: "./wwwroot/assets/javascript/vendor/*.js",
-    minJs: "./wwwroot/assets/javascript/**/*.min.js",
+    jsConfigHS: "./wwwroot/assets/javascript/requireConfigHealthyStockport.js"
 };
 
-gulp.task("js", ['min:js:sg', 'min:config:sg', 'min:js:hs', 'min:config:hs']);
+gulp.task("min:config:all", ['min:config:sg', 'min:config:hs']);
 
-gulp.task('min:js:sg', function () {
-    return gulp.src([paths.jsProject, '!' + paths.minJs,])
+gulp.task('min:js', function () {
+    return gulp.src([paths.jsProject, '!' + paths.minJs, '!' + paths.jsConfig, '!' + paths.jsConfigHS])
+        .pipe(cached('js'))
         .pipe(uglify())
         .pipe(rename(function (path) {
             path.extname = ".min.js";
         }))
-        .pipe(gulp.dest('./wwwroot/assets/javascript/stockportgov'));
+        .pipe(gulp.dest(function (file) {
+            return file.base;
+        }));
 });
 
 gulp.task('min:config:sg', function () {
@@ -59,15 +56,6 @@ gulp.task('min:config:sg', function () {
         .pipe(gulp.dest('./wwwroot/assets/javascript'));
 });
 
-gulp.task('min:js:hs', function () {
-    return gulp.src([paths.jsProjectHS, '!' + paths.minJs,])
-        .pipe(uglify())
-        .pipe(rename(function (path) {
-            path.extname = ".min.js";
-        }))
-        .pipe(gulp.dest('./wwwroot/assets/javascript/healthystockport'));
-});
-
 gulp.task('min:config:hs', function () {
     return gulp.src(paths.jsConfigHS)
         .pipe(replace(/healthystockport\/(.+)\"/g, function (match) {
@@ -78,19 +66,6 @@ gulp.task('min:config:hs', function () {
             path.extname = ".min.js";
         }))
         .pipe(gulp.dest('./wwwroot/assets/javascript'));
-});
-
-//js vendor
-gulp.task("min:js:vendor", function () {
-    return gulp.src([paths.jsVendor, "!" + paths.jsVendorMin], { base: "." })
-        .pipe(plumber())
-        .pipe(uglify())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(gulp.dest("."))
-        .pipe(plumber.stop())
-        .pipe(print(function (filepath) {
-            console.log('Processed vendor js: '.yellow + filepath.cyan);
-        }));
 });
 
 //css
@@ -108,6 +83,7 @@ gulp.task('css', function () {
         }));
 });
 
+// style guide tasks
 gulp.task('pull-styleguide', function () {
     pullArtifacts('master');
 });
@@ -183,9 +159,8 @@ function swallowError(error) {
 
 //watch
 gulp.task('watch', function () {
-    gulp.watch("wwwroot/assets/javascript/stockportgov/*.js", ['js']);
-    gulp.watch("wwwroot/assets/javascript/stockportgov/**/*.js", ['js']);
-    gulp.watch("wwwroot/assets/javascript/healthystockport/*.js", ['js']);
-    gulp.watch("wwwroot/assets/javascript/stockportgov/vendor/*.js", ['min:js:vendor']);
-    gulp.watch("wwwroot/assets/sass/**/*.scss", ['css']);
+    gulp.watch([paths.jsProject, '!' + paths.minJs], ['min:js']);
+    gulp.watch(paths.jsConfig, ['min:config:sg']);
+    gulp.watch(paths.jsConfigHS, ['min:config:hs']);
+    gulp.watch(paths.sass, ['css']);
 });

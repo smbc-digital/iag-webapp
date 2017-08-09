@@ -5,7 +5,7 @@
         $(".carousel div").css("display", "block");
         $(document).ready(
                 function () {
-                    $(".carousel").slick(
+                    $(".carousel").slick( 
                      {
                          arrows: true,
                          infinite: true,
