@@ -26,11 +26,12 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<Event> Events;
         public readonly string EmailAlertsTopicId;
         public readonly string EmailAlertsText;
+        public readonly IEnumerable<Alert> Alerts;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText)
+        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts)
         {
             Title = title;
             Slug = slug;
@@ -53,6 +54,7 @@ namespace StockportWebapp.ProcessedModels
             EventsCategoryOrTag = eventsCategoryOrTag;
             EmailAlertsTopicId = emailAlertsTopicId;
             EmailAlertsText = emailAlertsText;
+            Alerts = alerts;
         }
     }
 }

@@ -12,6 +12,7 @@ using Xunit;
 using System.Net;
 using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
+using System;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -30,9 +31,11 @@ namespace StockportWebappTests.Unit.Controllers
         public void ItReturnsShowcaseWithProcessedBody()
         {
             const string showcaseSlug = "showcase-slug";
+            var alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))};
             var showcase = new ProcessedShowcase("Test showcase", showcaseSlug, "showcase teaser",
                                                  "showcase subheading", "event category", "events Category Or Tag", "event subheading", "news subheading", "news category", "news type", "body subheading", "body", null, "af981b9771822643da7a03a9ae95886f/picture.jpg",
-                                                 new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") }, new List<Consultation>(), new List<SocialMediaLink>(), new List<Event>(), "", "");
+                                                 new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") }, new List<Consultation>(), new List<SocialMediaLink>(), new List<Event>(), "", "", alerts);
 
             _fakeRepository.Set(new HttpResponse(200, showcase, string.Empty));
 
@@ -47,6 +50,7 @@ namespace StockportWebappTests.Unit.Controllers
             processedShowcase.EventSubheading.Should().Be("event subheading");
             processedShowcase.Breadcrumbs.Count().Should().Be(1);
             processedShowcase.FeaturedItems.Count().Should().Be(1);
+            processedShowcase.Alerts.Count().Should().Be(1);
         }
 
         [Fact]
