@@ -29,7 +29,6 @@ namespace StockportWebappTests.Unit.Parsers
             outputHtml.Append("function (d, config) {");
             outputHtml.Append("var data = JSON.stringify(config);");
             outputHtml.Append("globalButoIds.push(\"//js.buto.tv/video/\" + data);");
-            outputHtml.Append("alert(globalButoIds);");
             outputHtml.Append($"}}(document, {{ \"object_id\": \"{ tag}\" }})");
             outputHtml.Append(")");
             outputHtml.Append("</script>");
