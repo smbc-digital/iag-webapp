@@ -279,13 +279,15 @@ namespace StockportWebapp.Controllers
         {
             var xml = string.Empty;
             var attribute = indexPage ? "sitemapindex" : "urlset";
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add(string.Empty, "http://www.sitemaps.org/schemas/sitemap/0.9");
             var xsSubmit = new XmlSerializer(typeof(T), null, null, new XmlRootAttribute(attribute), "http://www.sitemaps.org/schemas/sitemap/0.9");
-
+            
             using (var sww = new Utf8StringWriter())
             {
                 using (XmlWriter writer = XmlWriter.Create(sww))
                 {
-                    xsSubmit.Serialize(writer, dataToSerialize);
+                    xsSubmit.Serialize(writer, dataToSerialize, ns);
                     xml = sww.ToString(); // Your XML
                 }
             }
