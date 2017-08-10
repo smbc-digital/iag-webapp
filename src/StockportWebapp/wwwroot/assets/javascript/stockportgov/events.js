@@ -1,4 +1,4 @@
-﻿define(["jquery"], function ($) {
+﻿define(["jquery", "jquery-ui"], function ($) {
 
     var setEndDateToStartDate = function (endDateId, startDateId) {
         if (!Modernizr.inputtypes.date) {

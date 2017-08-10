@@ -31,7 +31,8 @@
         "questionmodule": "stockportgov/questioncomponent/questionmodule",
         "questionvalidator": "stockportgov/questioncomponent/questionvalidator",
         "questionview": "stockportgov/questioncomponent/questionview",
-        "clipboard": "//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min"
+        "clipboard": "//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min",
+        "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min"
     },
     shim: {
         bootstrap: {
