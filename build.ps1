@@ -2,7 +2,7 @@ param (
   [string]$appVersion = "local-build"
 )
 
-$appName = "iag-webapp"
+$appName = "webapp"
 $projectPath = "src/StockportWebapp"
 $testDir = "test/StockportWebappTests"
 $publishDir = "$projectPath/publish"
