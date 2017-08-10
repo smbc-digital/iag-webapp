@@ -171,7 +171,8 @@ namespace StockportWebapp.Utils
                     ("media-src")
                 .AddSource("https://www.youtube.com/")
                 .AddSource("*.cloudfront.net/butotv/live/videos/")
-                .Finish());
+				.AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
+				.Finish());
         }
 
         private void BuildObjectSource()
