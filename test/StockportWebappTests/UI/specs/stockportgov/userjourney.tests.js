@@ -32,7 +32,7 @@ module.exports = {
         articlepage.assertLiveChatIsVisible(browser);
         browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot3.png');
         articlepage.assertCarouselIsVisible();
-        articlepage.assertCarouselImagesAreVisible();
+        articlepage.assertCarouselImagesAreVisible(browser);
 
         articlepage.goToNextSection(browser);
         articlepage.goToStartPage(browser, 'uitest-council-tax-reduction-form');
