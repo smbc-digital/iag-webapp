@@ -15,7 +15,6 @@ namespace StockportWebapp.Parsers
             outputHtml.Append($"<div id=\"buto_{tagData}\"></div>");
             outputHtml.Append("<script>");
             outputHtml.Append("var globalButoIds = globalButoIds || [];");
-            outputHtml.Append("console.log('test');");
             outputHtml.Append("(");
             outputHtml.Append("function (d, config) {");
             outputHtml.Append("var data = JSON.stringify(config);");
