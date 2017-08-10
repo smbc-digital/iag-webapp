@@ -14,7 +14,9 @@
 {
     foreach (var alert in Model.Alerts)
     {
-        @Html.Partial("GlobalAlert", alert)
+        <div>
+            @Html.Partial("GlobalAlert", alert)
+        </div>
     }
 }
 
