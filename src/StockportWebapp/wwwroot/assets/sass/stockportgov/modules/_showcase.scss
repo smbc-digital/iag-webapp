@@ -103,8 +103,16 @@
 .alt-container-row:nth-child(even), .alt-container-row:nth-child(even) .l-body-section-filled {
     background-color: #ffffff;
 
-    .email-banner .email-banner-container {
-        border: solid 1px #ebebeb;
+    .email-banner {
+
+        @media #{$mobile} {
+            margin-bottom: 0;
+        }
+
+        .email-banner-container {
+            border: solid 1px #ebebeb;
+            margin: 10px 0;
+        }
     }
 }
 
@@ -321,4 +329,3 @@
         padding-bottom: 20px;
     }
 }
-
