@@ -16,7 +16,7 @@ Object.keys(window.__karma__.files).forEach(function (file) {
 requirejs.config({
     baseUrl: "/base/",
     paths: {
-        "jquery": "https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
+        "jquery": "src/StockportWebapp/wwwroot/assets/javascript/vendor/jquery.min",
         "modernizr": "src/StockportWebapp/wwwroot/assets/javascript/vendor/modernizr.min",
         "events": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/events",
         "utils": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/utils"
