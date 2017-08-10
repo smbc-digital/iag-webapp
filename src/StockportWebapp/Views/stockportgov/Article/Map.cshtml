@@ -43,6 +43,11 @@
                             <span>
                                 <br><span style="display:block; padding-top:7px">Loading...</span>
                             </span>
+                            <div style="clear: both"></div>
+                            <div id="atPanelResults" style="display: none; padding: 5px; margin-top: 10px; font-size: 80%" class="ui-state-default ui-corner-all">
+                                <h3 style="margin: 5px">Map Information:</h3>
+                                <div id="atResults">Results</div>
+                            </div>
                         </div>
                     </div>
                 </div> <!-- .atPanelContainer -->
@@ -85,7 +90,7 @@
             if (jQuery('#atMyAlerts').length > 0) jQuery('#atMyAlertsLocationBased .atPanelContent:first').myalertsaccordion();
 
             //Address finder
-            var addressfinder = new Astun.JS.GetData.AddressFinder(astun.mypages.eventElement, 'getdata.aspx');
+            var addressfinder = new Astun.JS.GetData.AddressFinder(astun.mypages.eventElement, '//maps.stockport.gov.uk/getdata.aspx');
             jQuery('#atLocationBar').addresssearch("", "", "", { addressBarSearch: true });
 
             //On Pagereset button click, delete the cookies first - bug 1932
@@ -182,18 +187,20 @@
 
                 if (allowedPanels.indexOf('Address') >= 0) {
                     panels.push(
-                        {
-                            cssClass: 'atMapSourceSwitcher',
-                            pluginName: 'mapsourceswitcher',
-                            pluginData: evt,
-                            pluginOpts: { collapseInStart: true }
-                        });
+                    {
+                        cssClass: 'atPanelSearch',
+                        title: 'Address Search',
+                        pluginName: 'addresssearch',
+                        pluginData: evt,
+                        pluginOpts: { collapseInStart: true }
+                    });
                 }
 
                 if (allowedPanels.indexOf('TakeMeTo') >= 0) {
                     panels.push(
                     {
                         cssClass: 'atTakeMeTo',
+                        title: 'Take Me To',
                         pluginName: 'takemeto',
                         pluginData: evt,
                         pluginOpts: { collapseInStart: true }
@@ -202,8 +209,9 @@
 
                 if (allowedPanels.indexOf('Categories') >= 0) {
                     panels.push(
-                        {
+                    {
                         cssClass: 'atShowmapCategories',
+                        title: 'Show Map Categories',
                         pluginName: 'showmapcategories',
                         pluginData: evt,
                         pluginOpts: { collapseInStart: true }
@@ -305,7 +313,7 @@
 
 
             //Initialize the address finder
-            loader.addressFinder = new Astun.JS.GetData.AddressFinder(loader.map.mapElement, loader.map.dataUrl);
+            loader.addressFinder = new Astun.JS.GetData.AddressFinder(loader.map.mapElement, loader.map.dataurl);
         }
     </script>
 </body>
