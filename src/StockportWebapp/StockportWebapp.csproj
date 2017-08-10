@@ -22,7 +22,7 @@
     </Content>
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_emailBanner.scss" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_iShareMap.scss" />
-    <Content Include="wwwroot\assets\sass\stockportgov\modules\_map - Copy.scss">
+    <Content Include="wwwroot\images\jquery\loaderSml.gif">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <None Update="wwwroot\**\*;emails\templates\**\*;Views\**\*;app-config\**\*;NLog.config;version.txt;sha.txt;featureToggles.yml;pdf.js;node_modules\**\*">
