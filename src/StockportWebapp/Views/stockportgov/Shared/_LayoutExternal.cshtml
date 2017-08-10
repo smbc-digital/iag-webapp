@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using StockportWebapp.Config
+@inject CurrentEnvironment CurrentEnvironment
+<!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
     <!--
@@ -45,11 +48,13 @@
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
     <script src="/assets/javascript/vendor/matchbox.min.js"></script>
     
-    <environment names="prod,stage">
-        <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    </environment>
-    <environment names="int,local,qa">
-        <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    </environment>
+@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
+{
+    <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+}
+else
+{
+    <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+}
 </body>
 </html>
