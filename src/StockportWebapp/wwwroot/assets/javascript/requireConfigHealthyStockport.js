@@ -11,6 +11,7 @@
         "cludoconfig": "healthystockport/cludo",
         "healthystockport": "healthystockport/healthystockport",
         "matchboxconfig": "healthystockport/matchbox",
+        "startup": "healthystockport/startup",
     },
     shim: {
         unobtrusive: {
@@ -25,9 +26,10 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'healthystockport', 'matchboxconfig', 'validate', 'unobtrusive', 'jquery'],
-    function (carousel, cludoconfig, healthystockport, matchboxconfig, validate, unobtrusive, $) {
+require(['carousel', 'cludoconfig', 'healthystockport', 'matchboxconfig', 'validate', 'unobtrusive', 'jquery', 'startup'],
+    function (carousel, cludoconfig, healthystockport, matchboxconfig, validate, unobtrusive, $, startup) {
         matchboxconfig.Init();
+        startup.Init();
     }
 );
 
