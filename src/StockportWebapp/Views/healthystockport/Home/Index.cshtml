@@ -34,11 +34,11 @@
             <h2>@Model.FeaturedTasksHeading</h2>
             <hr />
             <p class="feature-tagline feature-tagline-heading">@Model.FeaturedTasksSummary</p>
-            <div class="topic-block-list" id="topicBlockList">
+            <div class="topic-block-list matchbox-parent" id="topicBlockList">
                 @foreach (var subItem in Model.FeaturedTasks)
                 {
                     <div class="grid-30 tablet-grid-40 mobile-grid-100 topic-block-container">
-                        <a href="@subItem.NavigationLink" class="topic-block">
+                        <a href="@subItem.NavigationLink" class="topic-block matchbox-child">
 
                             <div class="topic-block-content">
                                 <i class="fa @subItem.Icon fa-3x default-icon hide-on-mobile"></i>

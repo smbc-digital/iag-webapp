@@ -24,6 +24,7 @@ namespace StockportWebapp.Config
         AppSetting GetReCaptchaKey();
         int GetFooterCache(string businessId);
         bool GetUseRedisSessions();
+        bool SendAmazonEmails();
         string GetMyAccountUrl();
         string GetStaticAssetsRootUrl();
         string GetExportHost();
@@ -150,6 +151,13 @@ namespace StockportWebapp.Config
         {
             bool output;
             bool.TryParse(_appsettings["UseRedisSessions"], out output);
+            return output;
+        }
+
+        public bool SendAmazonEmails()
+        {
+            bool output;
+            bool.TryParse(_appsettings["SendAmazonEmails"], out output);
             return output;
         }
 

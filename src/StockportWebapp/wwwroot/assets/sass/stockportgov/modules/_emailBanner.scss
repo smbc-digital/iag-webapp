@@ -1,4 +1,6 @@
 ﻿.email-banner {
+    height:auto;
+
     @media #{$desktop, $tablet} {
         margin-bottom: 25px;
         padding: 0 10px 0 10px;
@@ -15,6 +17,7 @@
     }
 
     .email-banner-container {
+        height:100%;
         min-height: 140px;
         background-color: #fff;
         padding-left: 0px;

@@ -11,7 +11,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupName, "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups") })
 }
 
 <div class="grid-container-full-width">
@@ -28,7 +28,7 @@
                         <h2>Your group has been successfully deleted</h2>
                     </div>
                     <div class="grid-100 centre word-wrap">
-                        <p>The group will be removed from the website straight away.</p>
+                        <p>The group will be removed from the website shortly.</p>
                     </div>
                     <div class="grid-100 centre mixed-buttons">
                         <stock-button as-link="true" href="@Url.Action("Manage", "Groups")">Go back to manage your groups</stock-button>
