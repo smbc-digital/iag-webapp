@@ -29,6 +29,7 @@ namespace StockportWebapp
         private readonly string _contentRootPath;
         public readonly string ConfigDir = "app-config";
         private readonly bool _useRedisSession;
+        private readonly bool _sendAmazonEmails;
 
         public Startup(IHostingEnvironment env)
         {
@@ -41,6 +42,7 @@ namespace StockportWebapp
             _appEnvironment = configLoader.EnvironmentName(env);
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
+            _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -70,7 +72,7 @@ namespace StockportWebapp
             services.AddTagParsers();
             services.AddMarkdown();
             services.AddFactories();
-            services.AddCustomHttpClients();
+            services.AddCustomHttpClients(_sendAmazonEmails);
             services.AddRepositories();
             services.AddCustomServices(_contentRootPath, _appEnvironment);
             services.AddBuilders();

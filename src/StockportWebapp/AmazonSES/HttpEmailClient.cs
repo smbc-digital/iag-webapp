@@ -19,12 +19,14 @@ namespace StockportWebapp.AmazonSES
         private readonly IAmazonSimpleEmailService _amazonSimpleEmailService;
         private readonly ILogger<HttpEmailClient> _logger;
         private readonly IEmailBuilder _emailBuilder;
+        private readonly bool _sendAmazonEmails;
 
-        public HttpEmailClient(ILogger<HttpEmailClient> logger,IEmailBuilder emailBuilder, IAmazonSimpleEmailService amazonSimpleEmailService)
+        public HttpEmailClient(ILogger<HttpEmailClient> logger,IEmailBuilder emailBuilder, IAmazonSimpleEmailService amazonSimpleEmailService, bool sendAmazonEmails)
         {
             _logger = logger;
             _emailBuilder = emailBuilder;
             _amazonSimpleEmailService = amazonSimpleEmailService;
+            _sendAmazonEmails = sendAmazonEmails;
         }
 
         public async Task<HttpStatusCode> SendEmailToService(EmailMessage emailMessage)
@@ -46,7 +48,11 @@ namespace StockportWebapp.AmazonSES
 
             try
             {
-                var response = await _amazonSimpleEmailService.SendRawEmailAsync(sendRequest);
+                SendRawEmailResponse response = new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.OK };
+
+                if (_sendAmazonEmails) {
+                    response = await _amazonSimpleEmailService.SendRawEmailAsync(sendRequest);
+                }
 
                 LogResponse(response);
 
@@ -63,11 +69,11 @@ namespace StockportWebapp.AmazonSES
         {
             if (response.HttpStatusCode == HttpStatusCode.OK)
             {
-                _logger.LogInformation($"An email was sent to Amazon SES with message id: {response.MessageId} and request id {response.ResponseMetadata.RequestId}");
+                _logger.LogInformation($"An email was sent to Amazon SES with message id: {response.MessageId} and request id {response.ResponseMetadata?.RequestId}");
             }
             else
             {
-                _logger.LogWarning($"There was a problem sending an email, message id: {response.MessageId} and request id: {response.ResponseMetadata.RequestId} and status code {response.HttpStatusCode}");
+                _logger.LogWarning($"There was a problem sending an email, message id: {response.MessageId} and request id: {response.ResponseMetadata?.RequestId} and status code {response.HttpStatusCode}");
             }
         }
     }
