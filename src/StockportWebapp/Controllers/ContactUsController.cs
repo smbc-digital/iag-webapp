@@ -45,7 +45,7 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
-            contactUsDetails.ServiceEmail = contactUsDetails.ServiceEmailId;
+            contactUsDetails.ServiceEmail = await GetEmailAddressFromId(contactUsDetails.ServiceEmailId);
 
             var referer = Request.Headers["referer"];
             if (string.IsNullOrEmpty(referer)) return NotFound();

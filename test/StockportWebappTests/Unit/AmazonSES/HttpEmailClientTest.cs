@@ -32,7 +32,7 @@ namespace StockportWebappTests.Unit.AmazonSES
         [Fact]
         public void ItShouldReturnA500AndLogItIfTheServiceEmailIsNullOrEmpty()
         {
-            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object);
+            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "", "", "user@email.com", new List<IFormFile>());
 
             var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.AmazonSES
             _amazonEmailService.Setup(o => o.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.OK, MessageId = "test", ResponseMetadata = new ResponseMetadata { RequestId = "test" } });
 
-            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object);
+            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
 
             var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
@@ -63,7 +63,7 @@ namespace StockportWebappTests.Unit.AmazonSES
             _amazonEmailService.Setup(o => o.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.InternalServerError, MessageId = "test", ResponseMetadata = new ResponseMetadata { RequestId = "test" } });
 
-            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object);
+            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
 
             var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
@@ -79,13 +79,26 @@ namespace StockportWebappTests.Unit.AmazonSES
                     o => o.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()))
                 .ThrowsAsync(new Exception("There was an error"));
 
-            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object);
+            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
 
             var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
 
             httpStatusCode.Should().Be(HttpStatusCode.BadRequest);
             LogTesting.Assert(_mockLogger, LogLevel.Error, "An error occurred trying to send an email to Amazon SES. \nThere was an error");
+        }
+
+        [Fact]
+        public void ItShouldReturnAOk_When_SendAmazonEmail_SetToFalse()
+        {
+
+            var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, false);
+            var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
+
+            var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
+
+            httpStatusCode.Should().Be(HttpStatusCode.OK);
+            _amazonEmailService.Verify(_ => _.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()),Times.Never);
         }
     }
 }
