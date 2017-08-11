@@ -19,6 +19,7 @@ using StockportWebapp.Controllers;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
+using StockportWebapp.Helpers;
 
 namespace StockportWebapp
 {
@@ -54,6 +55,7 @@ namespace StockportWebapp
 
             // other
             services.AddSingleton<CurrentEnvironment>(new CurrentEnvironment(_appEnvironment));
+            services.AddTransient<HostHelper>(p => new HostHelper(p.GetService<CurrentEnvironment>()));
             services.AddSingleton(o => new ViewHelpers(o.GetService<ITimeProvider>()));
             services.AddScoped<BusinessId>();
             services.AddTransient(p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
