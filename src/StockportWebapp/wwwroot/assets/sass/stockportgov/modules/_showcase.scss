@@ -329,3 +329,13 @@
         padding-bottom: 20px;
     }
 }
+
+.showcase-news-container {
+    transition: all .5s;
+    transition-property: opacity,box-shadow;
+}
+
+.showcase-news-container:hover {
+    transition-duration: 0.5s;
+    box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+}
