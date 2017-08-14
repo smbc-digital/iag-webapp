@@ -113,10 +113,10 @@
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="1.1.2" />
     <PackageReference Include="Moq" Version="4.6.25-alpha" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.0.0" />
-    <PackageReference Include="WilderMinds.RssSyndication" Version="1.0.4" />
+    <PackageReference Include="WilderMinds.RssSyndication" Version="1.1.0" />
     <PackageReference Include="AngleSharp" Version="0.9.9" />
     <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="1.1.1" />
-    <PackageReference Include="jose-jwt" Version="2.2.0" />
+    <PackageReference Include="jose-jwt" Version="2.4.0" />
   </ItemGroup>
 
   <ItemGroup>
