@@ -128,7 +128,7 @@ namespace StockportWebapp.Utils
                 .AddSource("customer.cludo.com/scripts/")
                 .AddSource("cdnjs.cloudflare.com/ajax/libs/cookieconsent2/")
                 .AddSource("s3-eu-west-1.amazonaws.com/")
-                .AddSource("//s7.addthis.com/")
+                .AddSource("s7.addthis.com/")
                 .AddSource("https://stockportcouncil.typeform.com/")
                 .AddSource("maps.stockport.gov.uk/")
                 .AddSource("share.typeform.com/")
