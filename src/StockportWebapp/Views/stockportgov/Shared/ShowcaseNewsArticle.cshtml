@@ -18,7 +18,7 @@
         <div class="card-news grid-100 grid-parent">
             <div class="grid-100 grid-parent">
                 <a href="@Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug})">
-                    <div class="news-bottom-border grid-100 grid-parent">
+                    <div class="news-bottom-border showcase-news-container grid-100 grid-parent">
                         @if (!string.IsNullOrEmpty(Model.NewsArticle.ThumbnailImage))
                         {
                             <div class="mobile-grid-100 tablet-grid-30 grid-30 grid-parent nav-card-news-thumbnail nav-card-news-thumbnail-background-image tablet-push-70 push-70" style="background-image: url(@Model.NewsArticle.ThumbnailImage);"></div>

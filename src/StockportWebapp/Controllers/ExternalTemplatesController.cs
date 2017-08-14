@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.Helpers;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Controllers
@@ -8,9 +9,11 @@ namespace StockportWebapp.Controllers
     {
         private readonly IViewRender _viewRender;
         private readonly IHtmlUtilities _htmlUtilities;
+        private readonly HostHelper _hostHelper;
 
-        public ExternalTemplateController(IViewRender viewRender, IHtmlUtilities htmlUtilities)
+        public ExternalTemplateController(IViewRender viewRender, IHtmlUtilities htmlUtilities, HostHelper hostHelper)
         {
+            _hostHelper = hostHelper;
             _viewRender = viewRender;
             _htmlUtilities = htmlUtilities;
         }
@@ -19,7 +22,7 @@ namespace StockportWebapp.Controllers
         public IActionResult Democracy()
         {
             var view = _viewRender.Render("ExternalTemplates/Democracy", new {});
-            view = _htmlUtilities.ConvertRelativeUrltoAbsolute(view, "https://www.stockport.gov.uk");
+            view = _htmlUtilities.ConvertRelativeUrltoAbsolute(view, _hostHelper.GetHost(Request));
             return Content(view, "text/html");
         }
     }

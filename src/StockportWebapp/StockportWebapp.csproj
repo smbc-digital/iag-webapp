@@ -84,5 +84,9 @@
   <ItemGroup>
     <None Include="wwwroot\assets\javascript\vendor\require.2.3.4.min.js" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Content Include="node_modules\**\*" CopyToPublishDirectory="Always" />
+  </ItemGroup>
 
 </Project>

@@ -6,7 +6,7 @@
 
     goToArticlePage: function (browser, title, link) {
         this.waitForElementVisible('@topicList', this.api.globals.timeOut);
-        browser.useXpath().assert.visible("//li[@class='article-list-item article-list-item-mobile grid-50 tablet-grid-50 mobile-grid-100']")
+        browser.useXpath().assert.visible("//li[@class='article-list-item article-list-item-mobile grid-50 tablet-grid-50 mobile-grid-100 matchbox-item']")
             .click("//li/a[contains(@href,'" + link + "')]");
     }
 };

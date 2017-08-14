@@ -17,6 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{47F41370-AE23-4545-9FEE-D54380B14ED5}"
+	ProjectSection(SolutionItems) = preProject
+		src\StockportWebapp\Views\stockportgov\Shared\GenericFeaturedItemList.cshtml = src\StockportWebapp\Views\stockportgov\Shared\GenericFeaturedItemList.cshtml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "proxy", "proxy", "{4B02FD1B-52F9-496A-92EA-89CFE979BA18}"
 	ProjectSection(SolutionItems) = preProject

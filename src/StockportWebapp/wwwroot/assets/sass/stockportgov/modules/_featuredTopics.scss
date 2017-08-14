@@ -31,6 +31,11 @@
     text-align: center;
 }
 
+.generic-Featured-Items-margin-top {
+    margin-top:20px;
+}
+
+
 .featured-topic:not(:first-child) {
     border-left: solid 1px rgba(0,0,0,0.1);
 }
