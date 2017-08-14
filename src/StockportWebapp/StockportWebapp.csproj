@@ -62,7 +62,7 @@
     <PackageReference Include="AWSSDK.Core" Version="3.3.17.5" />
     <PackageReference Include="AWSSDK.SimpleEmail" Version="3.3.2" />
     <PackageReference Include="MimeKit" Version="1.10.0" />
-    <PackageReference Include="StackExchange.Redis" Version="1.1.608" />
+    <PackageReference Include="StackExchange.Redis" Version="1.2.6" />
     <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="1.1.1" />
     <PackageReference Include="jose-jwt" Version="2.4.0" />
     <PackageReference Include="ReverseMarkdown" Version="1.0.0" />
