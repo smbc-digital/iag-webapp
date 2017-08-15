@@ -628,223 +628,229 @@ ul.nav-card-events-list {
             }
 
             visibility: hidden;
-        }
 
-        .clear-all-filters {
-            padding: 10px 30px 20px 30px;
-            position: relative;
-        }
-
-        .refine {
-            float: left;
-            border-right: solid 1px #ebebeb;
-            padding: 20px 30px;
-            font-size: 1.3em;
-            font-weight: 700;
-            position: relative;
-
-            @media #{$tablet} {
-                padding: 20px 10px;
-            }
-
-            @media #{$tablet, $desktop} {
-                &.title {
-                    padding-left: 10px;
+            span {
+                @media #{$desktop,$tablet} {
+                    position: relative;
+                    top: -3px;
                 }
             }
 
-            @media #{$mobile} {
-                float: none;
-                border-right: 0;
-                border-bottom: 1px 1px #ebebeb;
-                padding: 10px 30px 0 30px;
-                font-size: 1.1em;
-
-                &.title {
-                    padding-top: 20px;
-                    padding-right: 10px;
-                    font-size: 1.3em;
-                }
+            .clear-all-filters {
+                padding: 10px 30px 20px 30px;
+                position: relative;
             }
 
-            a {
-                display: block;
-                text-decoration: none;
-                color: #333;
+            .refine {
+                float: left;
+                border-right: solid 1px #ebebeb;
+                padding: 20px 30px;
+                font-size: 1.3em;
+                font-weight: 700;
+                position: relative;
 
                 @media #{$tablet} {
-                    margin-left: 0;
+                    padding: 20px 10px;
                 }
 
-                @media #{$desktop} {
-                    margin-left: 10px;
-                }
-
-                @media #{$tablet,$desktop} {
-                    &:before {
-                        float: right;
-                        text-align: right;
-                        margin-top: 10px;
-                        margin-right: 10px;
-                        font-size: 1em;
-                        content: "\f107";
-                        font: normal normal normal 1em/1 FontAwesome;
+                @media #{$tablet, $desktop} {
+                    &.title {
+                        padding-left: 10px;
                     }
-                }
-            }
-
-            &.open a:before {
-                @media #{$tablet,$desktop} {
-                    content: "\f106";
-                }
-            }
-
-            .refine-filters {
-
-                @media #{$tablet} {
-                    min-width: 300px;
-                }
-
-                background-color: white;
-                margin-top: 20px;
-                margin-left: -30px;
-
-                @media #{$tablet} {
-                    margin-left: -10px;
-                }
-
-                width: 100%;
-                font-size: 0.75em;
-                font-weight: 100;
-                padding: 5px 10px;
-                box-sizing: border-box;
-                color: #055C58;
-
-                @media #{$tablet,$desktop} {
-                    display: none;
-                    padding: 20px;
-                    border-top: 3px solid #055C58;
-                    position: absolute;
                 }
 
                 @media #{$mobile} {
-                    border-bottom: solid 1px #ebebeb;
-                    margin-left: 0;
-                    margin-top: 0;
-                    font-size: 1em;
-                }
+                    float: none;
+                    border-right: 0;
+                    border-bottom: 1px 1px #ebebeb;
+                    padding: 10px 30px 0 30px;
+                    font-size: 1.1em;
 
-                .none-selected-error {
-                    display: none;
-                    color: #333;
-                    font-size: 0.9em;
-
-                    div {
-                        float: left;
-                    }
-
-                    .fa-info {
-                        color: #ffffff;
-                        border-radius: 50%;
-                        background-color: #EF8A16;
-                        font-size: 1em;
-                        width: 20px;
-                        height: 20px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        float: left;
-                        margin: 4px 10px 0 0;
-                    }
-                }
-
-                input[type=checkbox] {
-                    display: none;
-
-                    & + span:before {
-                        font-family: FontAwesome;
-                        display: inline-block;
-                        content: "\f096";
-                        letter-spacing: 15px;
-                    }
-
-                    &:checked + span:before {
-                        content: "\f046";
-                        letter-spacing: 13px;
+                    &.title {
+                        padding-top: 20px;
+                        padding-right: 10px;
+                        font-size: 1.3em;
                     }
                 }
 
                 a {
+                    display: inline-block;
+                    text-decoration: none;
+                    color: #333;
+
+                    @media #{$tablet} {
+                        margin-left: 0;
+                    }
+
+                    @media #{$desktop} {
+                        margin-left: 10px;
+                    }
+
+                    @media #{$tablet,$desktop} {
+                        &:before {
+                            float: right;
+                            text-align: right;
+                            margin-top: 10px;
+                            margin-right: 10px;
+                            font-size: 1em;
+                            content: "\f107";
+                            font: normal normal normal 1em/1 FontAwesome;
+                        }
+                    }
+                }
+
+                &.open a:before {
+                    @media #{$tablet,$desktop} {
+                        content: "\f106";
+                    }
+                }
+
+                .refine-filters {
+
+                    @media #{$tablet} {
+                        min-width: 300px;
+                    }
+
+                    background-color: white;
+                    margin-top: 20px;
+                    margin-left: -30px;
+
+                    @media #{$tablet} {
+                        margin-left: -10px;
+                    }
+
+                    width: 100%;
+                    font-size: 0.75em;
+                    font-weight: 100;
+                    padding: 5px 10px;
+                    box-sizing: border-box;
                     color: #055C58;
-                    display: inline;
-                    text-decoration: underline;
+
+                    @media #{$tablet,$desktop} {
+                        display: none;
+                        padding: 20px;
+                        border-top: 3px solid #055C58;
+                        position: absolute;
+                    }
+
+                    @media #{$mobile} {
+                        border-bottom: solid 1px #ebebeb;
+                        margin-left: 0;
+                        margin-top: 0;
+                        font-size: 1em;
+                    }
+
+                    .none-selected-error {
+                        display: none;
+                        color: #333;
+                        font-size: 0.9em;
+
+                        div {
+                            float: left;
+                        }
+
+                        .fa-info {
+                            color: #ffffff;
+                            border-radius: 50%;
+                            background-color: #EF8A16;
+                            font-size: 1em;
+                            width: 20px;
+                            height: 20px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            float: left;
+                            margin: 4px 10px 0 0;
+                        }
+                    }
+
+                    input[type=checkbox] {
+                        display: none;
+
+                        & + span:before {
+                            font-family: FontAwesome;
+                            display: inline-block;
+                            content: "\f096";
+                            letter-spacing: 15px;
+                        }
+
+                        &:checked + span:before {
+                            content: "\f046";
+                            letter-spacing: 13px;
+                        }
+                    }
+
+                    a {
+                        color: #055C58;
+                        display: inline;
+                        text-decoration: underline;
+
+                        &:before {
+                            content: "";
+                            float: left;
+                            margin: 0;
+                        }
+
+                        &.apply {
+                            float: right;
+
+                            &.disabled {
+                                color: #a0a0a0;
+                                cursor: default;
+                            }
+                        }
+                    }
+                }
+
+                &.open .refine-filters {
+                    display: block;
+                }
+            }
+
+            .update-cancel-bar {
+                position: fixed;
+                bottom: 0;
+                padding: 20px;
+                width: 100%;
+                box-sizing: border-box;
+                background-color: #ebebeb;
+                z-index: 10;
+
+                .button-default {
+                    min-width: 48%;
+                    display: inline-block;
 
                     &:before {
-                        content: "";
-                        float: left;
-                        margin: 0;
+                        content: '';
                     }
 
                     &.apply {
                         float: right;
+                    }
 
-                        &.disabled {
-                            color: #a0a0a0;
-                            cursor: default;
-                        }
+                    &.disabled, .disabled:hover {
+                        border-width: 0;
+                        background-color: #e1e1e1;
+                        cursor: default;
+                        box-shadow: none;
                     }
                 }
             }
-
-            &.open .refine-filters {
-                display: block;
-            }
-        }
-
-        .update-cancel-bar {
-            position: fixed;
-            bottom: 0;
-            padding: 20px;
-            width: 100%;
-            box-sizing: border-box;
-            background-color: #ebebeb;
-            z-index: 10; 
-
-            .button-default {
-                min-width: 48%;
-                display: inline-block;
-
-                &:before {
-                    content: '';
-                }
-
-                &.apply {
-                    float: right;
-                }
-
-                &.disabled, .disabled:hover {
-                    border-width: 0;
-                    background-color: #e1e1e1;
-                    cursor: default;
-                    box-shadow: none;
-                }
-            }
         }
     }
-}
 
-.badge {
-    display: inline-block;
+    .badge {
+        display: inline-block;
 
-    span {
-        border-radius: 50%;
-        font-size: 14px;
-        color: #ffffff;
-        background-color: #055C58;
-        width: 30px;
-        height: 30px;
-        align-items: center;
-        justify-content: center;
-        display: flex;
+        span {
+            border-radius: 50%;
+            font-size: 14px;
+            color: #ffffff;
+            background-color: #055C58;
+            width: 30px;
+            height: 30px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
     }
-}
