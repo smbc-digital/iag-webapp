@@ -94,13 +94,13 @@ var methods = {
     },
 
     assertCarouselIsVisible: function() {
-      this.waitForElementVisible('.carousel', this.api.globals.timeOut);
+        this.waitForElementVisible('.carousel', 120000;
     },
 
     assertCarouselImagesAreVisible: function (browser) {
       browser.pause(5000);
       browser.useCss();
-      this.waitForElementVisible('.carousel-image.slick-slide.slick-current.slick-active', this.api.globals.timeOut);
+      this.waitForElementVisible('.carousel-image.slick-slide.slick-current.slick-active', 120000);
     }
 };
 
