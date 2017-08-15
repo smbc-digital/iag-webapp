@@ -100,7 +100,7 @@ var methods = {
     assertCarouselImagesAreVisible: function (browser) {
       browser.pause(5000);
       browser.useCss();
-      this.waitForElementVisible('.carousel-image.slick-slide.slick-current.slick-active', 120000);
+      this.waitForElementVisible('.carousel-image.slick-slide.slick-current.slick-active', this.api.globals.timeOut);
     }
 };
 
