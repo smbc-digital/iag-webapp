@@ -1217,7 +1217,10 @@ namespace StockportWebapp.Controllers
             }
 
             Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
-            eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
+            if (frequency != EventFrequency.None)
+            {
+                eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
+            }
 
             var successCode = await _eventEmailBuilder.SendEmailAddNew(eventSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("EventsThankYouMessage", eventSubmission);
