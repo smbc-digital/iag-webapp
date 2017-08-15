@@ -3,6 +3,7 @@ using FluentAssertions;
 using StockportWebapp.Utils;
 using Moq;
 using System;
+using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.Utils
 {
@@ -215,7 +216,7 @@ namespace StockportWebappTests.Unit.Utils
             filter.DateTo.Should().BeEmpty();
             filter.DateFrom.Should().BeEmpty();
         }
-    
+
 
         [Fact]
         public void ShouldReturnEmptyFilterForStringEmptyKey()
@@ -230,6 +231,66 @@ namespace StockportWebappTests.Unit.Utils
             filter.DateRange.Should().BeEmpty();
             filter.DateTo.Should().BeEmpty();
             filter.DateFrom.Should().BeEmpty();
+        }
+
+        [Theory]
+        [InlineData(0, EventFrequency.None, 1)]
+        [InlineData(3, EventFrequency.Daily, 3)]
+        [InlineData(21, EventFrequency.Weekly, 3)]
+        [InlineData(42, EventFrequency.Fortnightly, 3)]
+        [InlineData(31, EventFrequency.Monthly, 1)]
+        [InlineData(31, EventFrequency.MonthlyDate, 1)]
+        [InlineData(365, EventFrequency.Yearly, 1)]
+        public void  ShowReturnCorrectEndDateForReoccurringEvents(int daysHence, EventFrequency freq, int occurences)
+        {
+            // Arrange
+            var date = new DateTime(2017, 12, 25);
+
+            _mockTimeProvider.Setup(o => o.Today()).Returns(date);
+
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+
+            var testEvent = new Event { EventFrequency = freq, Occurences = occurences, EventDate = date };
+
+            // Act
+            var enddate = dateCalculator.GetEventEndDate(testEvent);
+
+            // Assert
+            enddate.Should().Be(testEvent.EventDate.AddDays(daysHence));
+        }
+
+        [Theory]
+        [InlineData(0, EventFrequency.None, 1)]
+        [InlineData(3, EventFrequency.Daily, 4)]
+        [InlineData(6, EventFrequency.Weekly, 1)]
+        [InlineData(7, EventFrequency.Weekly, 2)]
+        [InlineData(20, EventFrequency.Weekly, 3)]
+        [InlineData(21, EventFrequency.Weekly, 4)]
+        [InlineData(22, EventFrequency.Weekly, 4)]
+        [InlineData(13, EventFrequency.Fortnightly, 1)]
+        [InlineData(15, EventFrequency.Fortnightly, 2)]
+        [InlineData(42, EventFrequency.Fortnightly, 4)]
+        [InlineData(31, EventFrequency.Monthly, 2)]
+        [InlineData(65, EventFrequency.MonthlyDate, 3)]
+        [InlineData(360, EventFrequency.Yearly, 1)]
+        [InlineData(365, EventFrequency.Yearly, 2)]
+        [InlineData(370, EventFrequency.Yearly, 2)]
+        public void GetEventOccurences_ShowReturnCorrectCountOfEventOccurences(int daysHence, EventFrequency freq, int occurences)
+        {
+            // Arrange
+            var date = new DateTime(2017, 12, 25);
+
+            _mockTimeProvider.Setup(o => o.Today()).Returns(date);
+
+            var dateCalculator = new DateCalculator(_mockTimeProvider.Object);
+
+            var testEvent = new Event { EventFrequency = freq, Occurences = occurences, EventDate = date };
+
+            // Act
+            var result = dateCalculator.GetEventOccurences(testEvent.EventFrequency, testEvent.EventDate, testEvent.EventDate.AddDays(daysHence));
+
+            // Assert
+            result.Should().Be(occurences);
         }
     }
 }

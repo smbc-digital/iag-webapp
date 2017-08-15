@@ -14,7 +14,10 @@ namespace StockportWebapp.Validation
             if (!date.HasValue) return ValidationResult.Success;
             var today = DateTime.Today;
             if (date.Value.Date > today)
+            {
                 return ValidationResult.Success;
+            }
+
             return new  ValidationResult("Should be a future date");
         }
     }

@@ -41,6 +41,7 @@ namespace StockportWebappTests.Unit.Controllers
         private Mock<ILogger<GroupsController>> _logger;
         private Mock<IApplicationConfiguration> _configuration = new Mock<IApplicationConfiguration>();
         private MarkdownWrapper markdownWrapper = new MarkdownWrapper();
+        private DateCalculator datetimeCalculator;
 
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
@@ -70,7 +71,9 @@ namespace StockportWebappTests.Unit.Controllers
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
 
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
+            datetimeCalculator = new DateCalculator(mockTime.Object);
+
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
@@ -199,7 +202,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -337,7 +340,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator);
 
             return controller;
         }
