@@ -255,17 +255,17 @@ namespace StockportWebapp.Controllers
                 default:
 
                     var result = new List<SitemapGoogleIndex>();
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=homepage" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=groups" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=showcase" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=section" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=topic" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=profile" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=payment" });
-                    result.Add(new SitemapGoogleIndex { changefreq = "daily", lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=start" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=news" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=events" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=article" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=homepage" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=groups" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=showcase" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=section" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=topic" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=profile" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=payment" });
+                    result.Add(new SitemapGoogleIndex { lastmod = now.ToString("yyyy-MM-ddTHH:mm:sszzz"), loc = $"{baseURL}/google-sitemap.xml?type=start" });
 
                     xml = SerializeObject(result, true);
                     break;
@@ -309,8 +309,7 @@ namespace StockportWebapp.Controllers
     public class SitemapGoogleIndex 
     {
         public string loc { get; set; }
-        public string lastmod { get; set; }
-        public string changefreq { get; set; }
+        public string lastmod { get; set; }       
 
         public SitemapGoogleIndex()
         {
@@ -321,6 +320,7 @@ namespace StockportWebapp.Controllers
     public class SitemapGoogle : SitemapGoogleIndex
     {
         public string priority { get; set; }
+        public string changefreq { get; set; }
 
         public SitemapGoogle()
         {
