@@ -39,6 +39,7 @@ namespace StockportWebappTests.Unit.Controllers
         private const string BusinessId = "businessId";
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private readonly FeatureToggles _featureToggle;
+        private readonly DateCalculator _datetimeCalculator;
 
         private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
             twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
@@ -57,6 +58,9 @@ namespace StockportWebappTests.Unit.Controllers
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
                                       Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group, Alerts = _alerts};
             _categories = new List<string> {"Category 1", "Category 2"};
+
+            var mockTime = new Mock<ITimeProvider>();
+            _datetimeCalculator = new DateCalculator(mockTime.Object);
 
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
@@ -112,7 +116,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _filteredUrl.Object,
                 null,
                 null,
-                _featureToggle
+                _featureToggle,
+                _datetimeCalculator
                 );
         }
 
@@ -288,7 +293,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _filteredUrl.Object,
                 null,
                 null,
-                _featureToggle
+                _featureToggle,
+                _datetimeCalculator
             );
 
             return controller;

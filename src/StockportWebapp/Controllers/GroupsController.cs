@@ -40,8 +40,9 @@ namespace StockportWebapp.Controllers
         private readonly IApplicationConfiguration _configuration;
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
+        private readonly IDateCalculator _dateCalculator;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -54,6 +55,7 @@ namespace StockportWebapp.Controllers
             _managementQuery = new List<Query> { new Query("onlyActive", "false") };
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
+            _dateCalculator = dateCalculator;
         }
 
         [Route("/groups")]
@@ -171,7 +173,21 @@ namespace StockportWebapp.Controllers
             var response = await _repository.Get<List<GroupCategory>>();
             var listOfGroupCategories = response.Content as List<GroupCategory>;
             if (listOfGroupCategories != null)
+            {
                 return listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
+            }
+
+            return null;
+        }
+
+        private async Task<List<string>> GetAvailableEventCategories()
+        {
+            var response = await _repository.Get<List<EventCategory>>();
+            var listOfEventCategories = response.Content as List<EventCategory>;
+            if (listOfEventCategories != null)
+            {
+                return listOfEventCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
+            }
 
             return null;
         }
@@ -568,6 +584,8 @@ namespace StockportWebapp.Controllers
             return View(group);
         }
 
+
+
         [Route("/groups/manage/{groupSlug}/events/{eventSlug}/delete")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> DeleteEvent(string groupSlug, string eventSlug, LoggedInPerson loggedInPerson)
@@ -825,8 +843,6 @@ namespace StockportWebapp.Controllers
 
             var model = new GroupSubmission();
             model.Address = group.Address;
-            model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
-            model.CategoriesList = string.Join(",", model.Categories);
             model.Description = _markdownWrapper.ConvertToHtml(group.Description);
             model.Email = group.Email;
             model.Facebook = group.Facebook;
@@ -838,7 +854,8 @@ namespace StockportWebapp.Controllers
             model.Longitude = group.MapPosition.Lon;
             model.Latitude = group.MapPosition.Lat;
             model.Volunteering = group.Volunteering;
-
+            model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
+            model.CategoriesList = string.Join(",", model.Categories);
             model.AvailableCategories = await GetAvailableGroupCategories();
 
            return View(model);
@@ -851,7 +868,7 @@ namespace StockportWebapp.Controllers
         {
             var response = await _repository.Get<Group>(slug, _managementQuery);
             var validationErrors = new StringBuilder();
-            ViewBag.DisplayContentapiUpadteError = false;
+            ViewBag.DisplayContentapiUpdateError = false;
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as Group;
@@ -905,7 +922,186 @@ namespace StockportWebapp.Controllers
                 else
                 {
                     _logger.LogError($"There was an error updating the group {group.Name}");
-                    ViewBag.DisplayContentapiUpadteError = true;
+                    ViewBag.DisplayContentapiUpdateError = true;
+                }
+            }
+
+            ViewBag.SubmissionError = validationErrors.Length > 0 ? validationErrors : null;
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Route("/groups/manage/{groupslug}/events/{eventslug}/update")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> EditEvent(string groupslug, string eventslug, LoggedInPerson loggedInPerson)
+        {
+            var response = await _repository.Get<Group>(groupslug, _managementQuery);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as Group;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+
+            var eventResponse = await _repository.Get<Event>(eventslug, _managementQuery);
+
+            if (!response.IsSuccessful()) return eventResponse;
+
+            var eventDetail = eventResponse.Content as Event;
+
+            var model = new EventSubmission();
+
+            model.AvailableCategories = await GetAvailableEventCategories();
+
+            if (eventDetail.EventCategories.Any())
+            {
+                model.CategoriesList = eventDetail.EventCategories[0].Name;
+
+                if (model.CategoriesList.Length > 0)
+                {
+                    model.CategoriesList += $",{eventDetail.EventCategories[1].Name}";
+                }
+
+                if (model.CategoriesList.Length > 1)
+                {
+                    model.CategoriesList += $",{eventDetail.EventCategories[2].Name}";
+                }
+            }
+
+            model.Description = _markdownWrapper.ConvertToHtml(eventDetail.Description);
+            model.EndDate = _dateCalculator.GetEventEndDate(eventDetail);
+            model.EndTime = DateTime.ParseExact(eventDetail.EndTime, "HH:mm", null);
+            model.EventDate = eventDetail.EventDate;
+            model.Fee = eventDetail.Fee;
+            model.Frequency = eventDetail.EventFrequency.ToString();
+            model.Location = eventDetail.Location;
+            model.RecurringEventYn = eventDetail.EventFrequency == EventFrequency.None ? "No" : "Yes";
+            model.StartTime = DateTime.ParseExact(eventDetail.StartTime, "HH:mm", null);
+            model.Title = eventDetail.Title;
+            model.SubmittedBy = eventDetail.SubmittedBy;
+            model.SubmitterEmail = loggedInPerson.Email;
+
+            model.Slug = eventDetail.Slug;
+            model.GroupName = group.Name;
+            model.GroupSlug = group.Slug;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("/groups/manage/{slug}/events/{eventslug}/update")]
+        [ServiceFilter(typeof(GroupAuthorisation))]
+        public async Task<IActionResult> EditEvent(string slug, string eventslug, EventSubmission model, LoggedInPerson loggedInPerson)
+        {
+            var response = await _repository.Get<Group>(slug, _managementQuery);
+
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as Group;
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+
+            var eventResponse = await _repository.Get<Event>(eventslug, _managementQuery);
+            var validationErrors = new StringBuilder();
+            ViewBag.DisplayContentapiUpdateError = false;
+
+            if (!eventResponse.IsSuccessful()) return eventResponse;
+
+            var eventDetail = eventResponse.Content as Event;
+
+            model.Slug = eventDetail.Slug;
+            model.GroupSlug = group.Slug;
+            model.GroupName = group.Name;
+
+            var converter = new Converter();
+
+            eventDetail.Title = model.Title;
+            eventDetail.Description = converter.Convert(_viewHelpers.StripUnwantedHtml(model.Description));
+            eventDetail.EndTime = ((DateTime)model.EndTime).ToString("HH:mm");
+            eventDetail.EventDate = (DateTime)model.EventDate;
+            eventDetail.Fee = model.Fee;
+            eventDetail.Location = model.Location;
+
+            if (model.RecurringEventYn == "Yes")
+            {
+                switch (model.Frequency)
+                {
+                    case "Daily":
+                        eventDetail.EventFrequency = EventFrequency.Daily;
+                        break;
+                    case "Fortnightly":
+                        eventDetail.EventFrequency = EventFrequency.Fortnightly;
+                        break;
+                    case "Weekly":
+                        eventDetail.EventFrequency = EventFrequency.Weekly;
+                        break;
+                    case "Monthly":
+                        eventDetail.EventFrequency = EventFrequency.Monthly;
+                        break;
+                    case "MonthlyDate":
+                        eventDetail.EventFrequency = EventFrequency.MonthlyDate;
+                        break;
+                    case "MonthlyDay":
+                        eventDetail.EventFrequency = EventFrequency.MonthlyDay;
+                        break;
+                    case "Yearly":
+                        eventDetail.EventFrequency = EventFrequency.Yearly;
+                        break;
+                    default:
+                        eventDetail.EventFrequency = EventFrequency.None;
+                        break;
+                }
+
+                eventDetail.Occurences = _dateCalculator.GetEventOccurences(eventDetail.EventFrequency, (DateTime)model.EventDate, (DateTime)model.EndDate);
+            }
+            else
+            {
+                eventDetail.EventFrequency = EventFrequency.None;
+                eventDetail.Occurences = 1;
+            }
+
+            eventDetail.StartTime = model.StartTime?.ToString("HH:mm");
+            eventDetail.UpdatedAt = DateTime.Now;
+
+            model.Occurrences = eventDetail.Occurences;
+
+            var categoryResponse = await _repository.Get<List<EventCategory>>();
+            var listOfEventCategories = categoryResponse.Content as List<EventCategory>;
+
+            eventDetail.EventCategories = listOfEventCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)).ToList();
+            model.AvailableCategories = await GetAvailableEventCategories();
+
+            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            {
+                return NotFound();
+            }
+            else if (!ModelState.IsValid)
+            {
+                validationErrors.Append(GetErrorsFromModelState(ModelState));
+            }
+            else
+            {
+                var jsonContent = JsonConvert.SerializeObject(eventDetail);
+                var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                var putResponse = await _repository.Put<Event>(httpContent, eventslug);
+
+                if (putResponse.StatusCode == (int)HttpStatusCode.OK)
+                {
+                    _eventEmailBuilder.SendEmailEditEvent(model, loggedInPerson.Email);
+                    return RedirectToAction("EditEventConfirmation", new { groupslug = group.Slug, groupName = group.Name, eventslug = eventDetail.Slug, eventname = eventDetail.Title });
+                }
+                else
+                {
+                    _logger.LogError($"There was an error updating the event {eventDetail.Title}");
+                    ViewBag.DisplayContentapiUpdateError = true;
                 }
             }
 
@@ -921,6 +1117,20 @@ namespace StockportWebapp.Controllers
                 return NotFound();
 
             ViewBag.Slug = slug;
+            ViewBag.GroupName = groupName;
+
+            return View();
+        }
+
+        [Route("/groups/manage/{groupslug}/events/{eventslug}/updateconfirmation")]
+        public IActionResult EditEventConfirmation(string groupslug, string eventslug, string groupName, string eventName)
+        {
+            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(eventName))
+                return NotFound();
+
+            ViewBag.Slug = eventslug;
+            ViewBag.EventName = eventName;
+            ViewBag.GroupSlug = groupslug;
             ViewBag.GroupName = groupName;
 
             return View();
@@ -944,6 +1154,7 @@ namespace StockportWebapp.Controllers
 
             return View(group);
         }
+
 
         [HttpGet]
         [Route("/groups/manage/{groupSlug}/events/{eventSlug}")]
@@ -1004,6 +1215,9 @@ namespace StockportWebapp.Controllers
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
                 return View("Add-Your-Event", eventSubmission);
             }
+
+            Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
+            eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
 
             var successCode = await _eventEmailBuilder.SendEmailAddNew(eventSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("EventsThankYouMessage", eventSubmission);

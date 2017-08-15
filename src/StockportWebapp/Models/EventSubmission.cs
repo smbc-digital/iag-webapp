@@ -16,9 +16,7 @@ namespace StockportWebapp.Models
         [Required]
         [DataType(DataType.Date)]
         [Display(Name = "Event date")]
-        [FutureDateValidation]
         public DateTime? EventDate { get; set; }
-
 
         [Required]
         [Display(Name = "Start time")]
@@ -33,7 +31,6 @@ namespace StockportWebapp.Models
         [EndTimeLaterThanStartTimeValidation(otherPropertyName: "StartTime", errorMessage: "End Time should be after Start Time")]
         public DateTime? EndTime { get; set; }
 
-        [FutureDateValidation]
         [DataType(DataType.Date)]
         [Display(Name = "End date")]
         [EndDateLaterThanStartDateValidation(otherPropertyName: "EventDate", errorMessage: "End Date should be after Start Date")]
@@ -41,6 +38,7 @@ namespace StockportWebapp.Models
         public DateTime? EndDate { get; set; }
 
         public string RecurringEventYn { get; set; }
+        public int Occurrences { get; set; }
 
         public Dictionary<string, string> Frequencylist = new Dictionary<string, string>()
         {
@@ -60,17 +58,8 @@ namespace StockportWebapp.Models
         [Display(Name = "Price")]
         public string Fee { get; set; }
 
-        public List<string> Categories;
-        
-        [Required(ErrorMessage = "Select at least one category")]
-        [MaxLength(255)]
-        public string Category1 { get; set; }
-      
-        [MaxLength(255)]
-        public string Category2 { get; set; }
-
-        [MaxLength(255)]
-        public string Category3{ get; set; }
+        public List<string> AvailableCategories { get; set; }
+        public string CategoriesList { get; set; }
 
         [Required]
         public string Location { get; set; }
@@ -102,34 +91,9 @@ namespace StockportWebapp.Models
 
         public string GroupSlug { get; set; }
 
-        public EventSubmission()
-        {           
-           Categories = BuildCategoryList();
-        }
+        public string Slug { get; set; }
 
-        public EventSubmission(string title, DateTime eventDate, DateTime startTime, DateTime endTime,
-            DateTime endDate, string frequency, string fee, string location, string submittedBy,
-            IFormFile image, string description, IFormFile attachment, string submitterEmail, string category1, string category2, string category3 )
-        {
-            Title = title;
-            EventDate = eventDate;
-            StartTime = startTime;
-            EndTime = endTime;
-            EndDate = endDate;
-            Frequency = frequency;
-            Fee = fee;
-            Location = location;
-            SubmittedBy = submittedBy;
-            Image = image;
-            Description = description;
-            Attachment = attachment; 
-            SubmitterEmail = submitterEmail;
-            Category1 = category1;
-            Category2 = category2;
-            Category3 = category3;
-        }
-
-       public List<string> BuildCategoryList()
+        public List<string> BuildCategoryList()
         {
            return new List<string> {
                 "Air Raid Shelters", "Arts and crafts", "Bramall Hall", "Business", "Community and charity", "Children and families", "Dancing", "Digital skills", "Education and learning", "Fairs",

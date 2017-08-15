@@ -1,4 +1,5 @@
-﻿using System;
+﻿using StockportWebapp.Models;
+using System;
 using System.Collections.Generic;
 
 namespace StockportWebapp.Utils
@@ -13,7 +14,9 @@ namespace StockportWebapp.Utils
         string NearestFriday();
         string NearestSunday();
         string NearestMonday();
-        string NextSunday();       
+        string NextSunday();
+        DateTime GetEventEndDate(Event detail);
+        int GetEventOccurences(EventFrequency freq, DateTime startDate, DateTime endDate);
     }
 
     public class DateCalculator : IDateCalculator
@@ -93,6 +96,76 @@ namespace StockportWebapp.Utils
         public string NextSunday()
         {
             return _today.AddDays(14 - (_today.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)_today.DayOfWeek)).ToString("yyyy-MM-dd");
+        }
+
+        public DateTime GetEventEndDate(Event detail)
+        {
+            var result = detail.EventDate;
+
+            switch (detail.EventFrequency)
+            {
+                case EventFrequency.Daily:
+                    result = detail.EventDate.AddDays(detail.Occurences);
+                    break;
+                case EventFrequency.Weekly:
+                    result = detail.EventDate.AddDays(detail.Occurences * 7);
+                    break;
+                case EventFrequency.Fortnightly:
+                    result = detail.EventDate.AddDays(detail.Occurences * 14);
+                    break;
+                case EventFrequency.Monthly:
+                case EventFrequency.MonthlyDate:
+                case EventFrequency.MonthlyDay:
+                    result = detail.EventDate.AddMonths(detail.Occurences);
+                    break;
+                case EventFrequency.Yearly:
+                    result = detail.EventDate.AddYears(detail.Occurences);
+                    break;
+            }
+
+            return result;
+        }
+
+        public int GetEventOccurences(EventFrequency freq, DateTime startDate, DateTime endDate)
+        {
+            double diff = 0;
+            switch (freq)
+            {
+                case EventFrequency.None:
+                    diff = 0;
+                    break;
+                case EventFrequency.Daily:
+                    diff = endDate.Subtract(startDate).Days;
+                    break;
+                case EventFrequency.Weekly:
+                    diff = endDate.Subtract(startDate).Days / 7;
+                    break;
+                case EventFrequency.Fortnightly:
+                    diff = endDate.Subtract(startDate).Days / 14;
+                    break;
+                case EventFrequency.Monthly:
+                case EventFrequency.MonthlyDate:
+                case EventFrequency.MonthlyDay:
+                    var temp = startDate;
+                    do
+                    {
+                        temp = temp.AddMonths(1);
+                        diff++;
+                    } while (temp <= endDate && diff < 1000);
+
+                    return (int)diff;
+                case EventFrequency.Yearly:
+                    var tempYears = startDate;
+                    do
+                    {
+                        tempYears = tempYears.AddYears(1);
+                        diff++;
+                    } while (tempYears <= endDate && diff < 1000);
+
+                    return (int)diff;
+            }
+
+            return (int)Math.Floor(diff) + 1; // Add 1 for the initial occurence;
         }
     }
 }
