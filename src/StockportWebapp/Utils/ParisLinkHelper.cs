@@ -2,7 +2,7 @@
 using StockportWebapp.Models;
 using StockportWebappTests.Unit.Builders;
 
-namespace StockportWebapp.Helpers
+namespace StockportWebapp.Utils
 {
     public static class ParisLinkHelper
     {

@@ -208,3 +208,18 @@
         }
     }
 }
+
+#topic-page-content {
+
+    margin-bottom: 0;
+
+    .alert-information, .subitems-tertiary-padding, .subitem-outer-container, .event-banner, .expanding-link-box, .primary-items-no-margin {
+        margin-top: 0;
+        margin-bottom: 20px;
+
+        .sk-table-outer-container, .sk-table-outer-container .sk-table-body, .subitems-secondary-two-column, .subitems-tertiary-two-column {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+    }
+}

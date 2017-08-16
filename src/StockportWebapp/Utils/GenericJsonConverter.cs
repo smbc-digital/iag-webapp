@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace StockportWebapp.Helpers
+namespace StockportWebapp.Utils
 {
     public class GenericJsonConverter<TInterface, TConcrete> : JsonConverter
     {

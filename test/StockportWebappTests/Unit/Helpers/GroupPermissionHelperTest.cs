@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Xunit;
-using StockportWebapp.Helpers;
+using StockportWebapp.Utils;
 
 namespace StockportWebappTests.Unit.Helpers
 {

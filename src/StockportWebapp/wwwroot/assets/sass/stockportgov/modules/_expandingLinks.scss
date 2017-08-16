@@ -32,19 +32,19 @@
 .expanding-link-box {
     padding: 0px 10px;
 
-     @media #{$mobile, $tablet}{
+    @media #{$mobile, $tablet} {
         margin-top: 25px;
     }
 
     .expanding-list {
-        border-top: 4px solid #005c57;
+        border-top: 4px solid #83aeac;
         border-radius: 5px;
         background-color: #fff;
 
-        .expanding-list-header{
+        .expanding-list-header {
             padding: 10px;
 
-            label{
+            label {
                 font-weight: bold
             }
         }
@@ -52,46 +52,46 @@
 }
 
 ul.expanding-list-ul {
-   border:none;
-   width:100%;
-   margin-top:20px;
-   list-style-type: none;
- 
-   @media #{$desktop} {
-      display:table;      
-      text-align:center;
-      margin-bottom: 20px;
-   }
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    list-style-type: none;
 
-   @media #{$mobile, $tablet} {
-       margin-top: 0;
-       margin-bottom: 0;
-   }
+    @media #{$desktop} {
+        display: table;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    @media #{$mobile, $tablet} {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 
     li {
-        margin-left:0px;
+        margin-left: 0px;
         padding-bottom: 20px;
     }
 
     .expanding-Link-text-holder {
-        margin-left:0px;
-        border-left: 4px solid #005c57;        
-        border-radius: 5px; 
-        border-top: 1px solid #d3d3d3; 
-        border-right: 1px solid #d3d3d3; 
-        border-bottom: 1px solid #d3d3d3; 
-        text-align: left; 
-        margin-top: 0px;   
+        margin-left: 0px;
+        border-left: 4px solid #83aeac;
+        border-radius: 5px;
+        border-top: 1px solid #d3d3d3;
+        border-right: 1px solid #d3d3d3;
+        border-bottom: 1px solid #d3d3d3;
+        text-align: left;
+        margin-top: 0px;
         transition-duration: 0.5s;
-        
+
         &:hover {
             box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
             cursor: pointer;
         }
-        
-        .is-collapsed{
-            display:none;
-            }      
+
+        .is-collapsed {
+            display: none;
+        }
     }
 }
 

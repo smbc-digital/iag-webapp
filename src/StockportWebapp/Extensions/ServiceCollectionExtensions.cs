@@ -20,7 +20,7 @@ using StockportWebapp.Controllers;
 using StockportWebapp.DataProtection;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Filters;
-using StockportWebapp.Helpers;
+using StockportWebapp.Utils;
 using StockportWebapp.Http;
 using StockportWebapp.Middleware;
 using StockportWebapp.Models;

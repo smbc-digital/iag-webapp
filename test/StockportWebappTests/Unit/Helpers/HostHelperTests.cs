@@ -3,7 +3,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
 using StockportWebapp.Config;
-using StockportWebapp.Helpers;
+using StockportWebapp.Utils;
 
 namespace StockportWebappTests.Unit.Helpers
 {

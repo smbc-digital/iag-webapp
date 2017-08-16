@@ -14,6 +14,11 @@ namespace StockportWebapp.Parsers
 
             var splitTagData = tagData.Split(';');
 
+            if (splitTagData.Length < 4)
+            {
+                return string.Empty;
+            }
+
             string mapSource = splitTagData[0];
             string panelOne = splitTagData[1];
             string panelTwo = splitTagData[2];

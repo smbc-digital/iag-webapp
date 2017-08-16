@@ -88,7 +88,10 @@ namespace StockportWebapp.Utils
                 .AddSource("*.cloudfront.net/butotv/")
                 .AddSource("data:")
                 .AddSource("www.tripadvisor.co.uk/")
-                .Finish());
+				.AddSource("syndication.twitter.com/i/")
+				.AddSource("platform.twitter.com/css/")
+				.AddSource("pbs.twimg.com/")
+				.Finish());
         }
 
         private void BuildStyleSource()
@@ -110,7 +113,8 @@ namespace StockportWebapp.Utils
                 .AddSource("*.tripadvisor.co.uk")
                 .AddSource("static.tacdn.com")
                 .AddSource("data:")
-                .Finish());
+				.AddSource("platform.twitter.com/css/")
+				.Finish());
         }
 
         private void BuildScriptSource()
@@ -146,7 +150,10 @@ namespace StockportWebapp.Utils
                 .AddSource("*.tripadvisor.co.uk")
                 .AddSource("static.tacdn.com")
                 .AddSource("http://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js")
-                .Finish());
+				.AddSource("platform.twitter.com/")
+				.AddSource("cdn.syndication.twimg.com/timeline/")
+				.AddSource("platform.twitter.com/css/")
+				.Finish());
         }
 
         private void BuildConnectSource()
