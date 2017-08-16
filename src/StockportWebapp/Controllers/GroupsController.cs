@@ -936,6 +936,20 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
+        [Route("/groups/favourites")]
+        public async Task<IActionResult> FavouriteGroups()
+        {
+            var groups = new List<Group>();
+
+            favouritesHelper.AddToFavourites<Group>("test");
+            favouritesHelper.AddToFavourites<Group>("foo");
+            favouritesHelper.AddToFavourites<Group>("bar");
+            favouritesHelper.RemoveFromFavourites<Group>("test");
+
+            return View();
+        }
+
+        [HttpGet]
         [Route("/groups/manage/{groupslug}/events/{eventslug}/update")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> EditEvent(string groupslug, string eventslug, LoggedInPerson loggedInPerson)
@@ -977,7 +991,11 @@ namespace StockportWebapp.Controllers
             }
 
             model.Description = _markdownWrapper.ConvertToHtml(eventDetail.Description);
-            model.EndDate = _dateCalculator.GetEventEndDate(eventDetail);
+            if (eventDetail.EventFrequency != EventFrequency.None)
+            {
+                model.EndDate = _dateCalculator.GetEventEndDate(eventDetail);
+            }
+
             model.EndTime = DateTime.ParseExact(eventDetail.EndTime, "HH:mm", null);
             model.EventDate = eventDetail.EventDate;
             model.Fee = eventDetail.Fee;
@@ -994,21 +1012,6 @@ namespace StockportWebapp.Controllers
             model.GroupSlug = group.Slug;
 
             return View(model);
-        }
-
-        [HttpGet]
-        [HttpPost]
-        [Route("/groups/favourites")]
-        public async Task<IActionResult> FavouriteGroups()
-        {
-            var groups = new List<Group>();
-
-            favouritesHelper.AddToFavourites<Group>("test");
-            favouritesHelper.AddToFavourites<Group>("foo");
-            favouritesHelper.AddToFavourites<Group>("bar");
-            favouritesHelper.RemoveFromFavourites<Group>("test");
-
-            return View();
         }
 
         [HttpPost]
