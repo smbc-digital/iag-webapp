@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using StockportWebapp.Config;
 
-namespace StockportWebapp.Helpers
+namespace StockportWebapp.Utils
 {
     public class HostHelper
     {

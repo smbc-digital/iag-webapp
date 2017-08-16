@@ -9,7 +9,7 @@ using System.Text;
 using System;
 using Microsoft.AspNetCore.Http;
 
-namespace StockportWebapp.Helpers
+namespace StockportWebapp.Utils
 {
     /// <summary>
     /// Available Hashing Algorithms for PARIS results validation

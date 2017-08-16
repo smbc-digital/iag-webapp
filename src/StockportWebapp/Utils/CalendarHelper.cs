@@ -7,7 +7,7 @@ using StockportWebapp.Utils;
 using Calendar = Ical.Net.Calendar;
 using Event = StockportWebapp.Models.Event;
 
-namespace StockportWebapp.Helpers
+namespace StockportWebapp.Utils
 {
     public class CalendarHelper 
     {
