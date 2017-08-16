@@ -356,7 +356,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
+                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false);
 
                 listOfGroups.Add(group);
             }
