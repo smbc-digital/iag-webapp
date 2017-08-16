@@ -27,6 +27,10 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_emailBanner.scss" />
+    <Content Include="wwwroot\assets\sass\stockportgov\modules\_groupCards.scss" />
+    <Content Include="wwwroot\assets\sass\stockportgov\modules\_groupResults - Copy.scss">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_iShareMap.scss" />
     <Content Include="wwwroot\images\jquery\loaderSml.gif">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
