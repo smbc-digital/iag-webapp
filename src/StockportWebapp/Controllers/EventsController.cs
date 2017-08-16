@@ -36,6 +36,7 @@ namespace StockportWebapp.Controllers
         private readonly IFilteredUrl _filteredUrl;
         private readonly CalendarHelper _helper;
         private readonly FeatureToggles _featureToggle;
+        private readonly IDateCalculator _dateCalculator;
 
         public EventsController(
             IRepository repository,
@@ -48,7 +49,8 @@ namespace StockportWebapp.Controllers
             IFilteredUrl filteredUrl,
             CalendarHelper helper,
             ITimeProvider timeProvider,
-            FeatureToggles featureToggle)
+            FeatureToggles featureToggle, 
+            IDateCalculator dateCalculator)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -60,6 +62,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl = filteredUrl;
             _helper = helper;
             _featureToggle = featureToggle;
+            _dateCalculator = dateCalculator;
         }
 
         [Route("/events")]
@@ -189,6 +192,9 @@ namespace StockportWebapp.Controllers
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
                 return View("Add-Your-Event", eventSubmission);
             }
+
+            Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
+            eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
 
             var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
             if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");

@@ -8,6 +8,7 @@ using StockportWebapp.Models;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace StockportWebapp.Utils
 {
@@ -44,10 +45,6 @@ namespace StockportWebapp.Utils
             if (eventSubmission.Image != null) attachments.Add(eventSubmission.Image);
             if (eventSubmission.Attachment != null) attachments.Add(eventSubmission.Attachment);
 
-            var categories = string.Concat(string.IsNullOrEmpty(eventSubmission.Category1) ? string.Empty : $"{eventSubmission.Category1}, ",
-                                            string.IsNullOrEmpty(eventSubmission.Category2) ? string.Empty : $"{eventSubmission.Category2}, ",
-                                            string.IsNullOrEmpty(eventSubmission.Category3) ? string.Empty : $"{eventSubmission.Category3}, ").TrimEnd(' ').TrimEnd(',');
-
             var imagePath = FileHelper.GetFileNameFromPath(eventSubmission.Image);
             var attachmentPath = FileHelper.GetFileNameFromPath(eventSubmission.Attachment);
 
@@ -66,8 +63,9 @@ namespace StockportWebapp.Utils
                 ImagePath = !string.IsNullOrEmpty(imagePath) ? imagePath : "-",
                 AttachmentPath = !string.IsNullOrEmpty(attachmentPath) ? attachmentPath : "-",
                 SubmitterEmail = !string.IsNullOrEmpty(eventSubmission.SubmitterEmail) ? eventSubmission.SubmitterEmail : "-",
-                Categories = categories,
-                GroupName = string.IsNullOrEmpty(eventSubmission.GroupName) ? string.Empty : $"Group name: {eventSubmission.GroupName}"
+                Categories = eventSubmission.CategoriesList,
+                GroupName = string.IsNullOrEmpty(eventSubmission.GroupName) ? string.Empty : $"Group name: {eventSubmission.GroupName}",
+                Occurrences = eventSubmission.Occurrences == 0 ? string.Empty : $"(occurs {eventSubmission.Occurrences} times)",
             };
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
@@ -75,6 +73,37 @@ namespace StockportWebapp.Utils
                 _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
                 eventSubmission.SubmitterEmail,
                 attachments));
+        }
+
+        public virtual Task<HttpStatusCode> SendEmailEditEvent(EventSubmission eventDetail, string updatedByEmail)
+        {
+            var messageSubject = $"Edit event {eventDetail.Title}";
+
+            _logger.LogInformation("Sending event edit form email");
+
+            var emailBody = new EventEdit
+            {
+                Title = eventDetail.Title,
+                EventDate = eventDetail.EventDate.HasValue ? ((DateTime)eventDetail.EventDate).ToString("dddd dd MMMM yyyy") : "-",
+                EndDate = eventDetail.EndDate.HasValue ? ((DateTime)eventDetail.EndDate).ToString("dddd dd MMMM yyyy") : "-",
+                StartTime = eventDetail.StartTime.HasValue ? ((DateTime)eventDetail.StartTime).ToString("HH:mm") : "-",
+                EndTime = eventDetail.EndTime.HasValue ? ((DateTime)eventDetail.EndTime).ToString("HH:mm") : "-",
+                Frequency = !string.IsNullOrEmpty(eventDetail.Frequency) ? eventDetail.Frequency : "-",
+                Fee = !string.IsNullOrEmpty(eventDetail.Fee) ? eventDetail.Fee : "-",
+                Location = !string.IsNullOrEmpty(eventDetail.Location) ? eventDetail.Location : "-",
+                SubmittedBy = !string.IsNullOrEmpty(eventDetail.SubmittedBy) ? eventDetail.SubmittedBy : "-",
+                Description = !string.IsNullOrEmpty(eventDetail.Description) ? eventDetail.Description : "-",
+                SubmitterEmail = !string.IsNullOrEmpty(eventDetail.SubmitterEmail) ? eventDetail.SubmitterEmail : "-",
+                Categories = eventDetail.CategoriesList,
+                GroupName = string.IsNullOrEmpty(eventDetail.GroupName) ? string.Empty : $"Group name: {eventDetail.GroupName}",
+                Occurrences = eventDetail.Occurrences == 0 ? string.Empty : $"(occurs {eventDetail.Occurrences} times)",
+            };
+
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _fromEmail,
+                _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
+                eventDetail.SubmitterEmail,
+                null));
         }
     }
 }

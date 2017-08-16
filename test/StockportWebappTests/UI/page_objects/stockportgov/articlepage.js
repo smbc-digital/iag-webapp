@@ -94,7 +94,7 @@ var methods = {
     },
 
     assertCarouselIsVisible: function() {
-      this.waitForElementVisible('.carousel', this.api.globals.timeOut);
+        this.waitForElementVisible('.carousel', this.api.globals.timeOut);
     },
 
     assertCarouselImagesAreVisible: function (browser) {

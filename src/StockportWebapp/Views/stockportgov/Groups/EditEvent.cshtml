@@ -1,10 +1,11 @@
 ﻿@using StockportWebapp.Config
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@inject StockportWebapp.FeatureToggling.FeatureToggles FeatureToggles
 @model EventSubmission
 @{
-    ViewData["Title"] = "Add your event";
-    ViewData["og:title"] = "Add your event";
+    ViewData["Title"] = "Edit your event";
+    ViewData["og:title"] = "Edit your event";
     Layout = "../Shared/_Layout.cshtml";
     var controllerType = "Events";
     if (!string.IsNullOrEmpty(Model.GroupName))
@@ -16,14 +17,7 @@
 }
 
 @section Breadcrumbs {
-    @if (!string.IsNullOrEmpty(Model.GroupName))
-    {
-        @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups")})
-    }
-    else
-    {
-        @Html.Partial("Breadcrumb", new List<Crumb> {new Crumb("Events", "events", "events")})
-    }
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups"), new Crumb(Model.Title, "manage/" + Model.GroupSlug + "/events/" + Model.Slug, "groups") })
 }
 
 <div class="grid-container-full-width">
@@ -32,7 +26,7 @@
             <section aria-label="" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
-                        <h1>Add your event</h1>
+                        <h1>Edit your event</h1>
 
                         @if (ViewBag.SubmissionError != null)
                         {
@@ -59,7 +53,9 @@
                             </div>
                         </noscript>
 
-                        <form asp-controller=@controllerType asp-action="AddYourEvent" method="post" role="form" enctype="multipart/form-data">
+                        <form asp-controller=@controllerType asp-action="EditEvent" method="post" role="form">
+                            <input type="hidden" asp-for="@Model.SubmitterEmail" />
+                            <input type="hidden" asp-for="@Model.SubmittedBy" />
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
@@ -74,9 +70,19 @@
                                                 <li>Let people know how to get in touch</li>
                                             </ul>
                                         </i>
-                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
-                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        @Html.Partial("WysiwygIncludes")
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent">
+                                            @if (FeatureToggles.EditGroupWYSIWYG)
+                                            {
+                                                <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
+                                            }
+                                            else
+                                            {
+                                                <textarea id="mytext" asp-for="@Model.Description" class="grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
+                                            }
+                                        </div>
 
+                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Location"></label>
                                         <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
@@ -104,8 +110,8 @@
                                         <div class="recurring-event-yn">
                                             <label>Is this a recurring event?</label>
                                             <ul class="radio-list">
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnNo" value="No" checked="checked" class="schedule_multiple_events" />No</label></li>
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnYes" value="Yes" class="schedule_multiple_events" />Yes</label></li>
+                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnNo" value="No" checked="@(Model.RecurringEventYn == "No" ? "checked" : string.Empty)" class="schedule_multiple_events" />No</label></li>
+                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnYes" value="Yes" checked="@(Model.RecurringEventYn == "Yes" ? "checked" : string.Empty)" class="schedule_multiple_events" />Yes</label></li>
                                             </ul>
                                         </div>
 
@@ -115,7 +121,7 @@
                                                 @foreach (var item in Model.Frequencylist.Keys)
                                                 {
                                                     <li>
-                                                        <label><input type="radio" value="@item" asp-for="Frequency"> @item</label>
+                                                        <label><input type="radio" value="@item" asp-for="Frequency">@item</label>
 
                                                     </li>
                                                     if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
@@ -137,42 +143,12 @@
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label>Event categories</label>                                      
-                                        <div class="grid-100 grid-parent category-div">
+                                        <div class="grid-100 grid-parent category-div" id="category-div1">
                                             <input type="hidden" asp-for="@Model.CategoriesList" />
-                                            @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.BuildCategoryList() })
+                                            @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories })
                                         </div>
-                                        <label asp-for="@Model.Image"></label>
-                                        <i>
-                                            Choose an image that captures your event
-                                            <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
-                                            <br />Accepted file types: jpg, jpeg, gif and png
-                                        </i>
-                                        <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
-                                        <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <label asp-for="@Model.Attachment"></label>
-                                        <i>
-                                            Add a document that will help to promote your events; such as brochures or booklets
-                                            <br />Accepted file types: doc, docx, pdf and odt
-                                        </i>
-                                        <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Attachment" />
-                                        <span asp-validation-for="@Model.Attachment" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <label asp-for="@Model.SubmittedBy"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.SubmittedBy" />
-                                        <span asp-validation-for="@Model.SubmittedBy" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <label asp-for="@Model.SubmitterEmail"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.SubmitterEmail" />
-                                        <span asp-validation-for="@Model.SubmitterEmail" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
-                                        <div class="clearfix" ></div>
-                                        
-                                        @Html.HiddenFor(x=>x.GroupName)
-                                        @Html.HiddenFor(x => x.GroupSlug)
-
-                                        <stock-button id="uitest-contact-form-submit"
-                                                      class="button-contact-us">Add your event</stock-button>
+                                        <stock-button id="uitest-contact-form-submit" class="button-contact-us">Save changes</stock-button>
                                     </fieldset>
                                 </div>
                             </div>

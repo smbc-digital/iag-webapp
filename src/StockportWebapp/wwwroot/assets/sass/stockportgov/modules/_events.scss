@@ -628,6 +628,13 @@ ul.nav-card-events-list {
             }
 
             visibility: hidden;
+
+            @media #{$desktop, $tablet} {
+                span {
+                    position: relative;
+                    top: -3px;
+                }
+            }
         }
 
         .clear-all-filters {
@@ -668,7 +675,7 @@ ul.nav-card-events-list {
             }
 
             a {
-                display: block;
+                display: inline-block;
                 text-decoration: none;
                 color: #333;
 
@@ -808,7 +815,7 @@ ul.nav-card-events-list {
             width: 100%;
             box-sizing: border-box;
             background-color: #ebebeb;
-            z-index: 10; 
+            z-index: 10;
 
             .button-default {
                 min-width: 48%;

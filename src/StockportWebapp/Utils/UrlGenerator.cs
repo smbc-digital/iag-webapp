@@ -45,6 +45,7 @@ namespace StockportWebapp.Utils
             {typeof(Showcase), "showcase/"},
             {typeof(List<Showcase>), "showcase/"},
             {typeof(List<GroupCategory>), "groupCategory/"},
+            {typeof(List<EventCategory>), "eventCategory/"},
             {typeof(GroupResults), "groupResults/"},
             {typeof(ContactUsId), "ContactUsId/"},
             {typeof(List<ArticleSiteMap>), "articleSiteMap"},
