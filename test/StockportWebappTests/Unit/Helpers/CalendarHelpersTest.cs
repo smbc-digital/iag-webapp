@@ -4,7 +4,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
 using Moq;
-using StockportWebapp.Helpers;
+using StockportWebapp.Utils;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Helpers

@@ -5,7 +5,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.Helpers;
+using StockportWebapp.Utils;
 using StockportWebapp.ProcessedModels;
 using Microsoft.AspNetCore.NodeServices;
 using StockportWebapp.Utils;

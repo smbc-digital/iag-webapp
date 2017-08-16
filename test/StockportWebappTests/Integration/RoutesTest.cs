@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
+using Moq;
 using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
