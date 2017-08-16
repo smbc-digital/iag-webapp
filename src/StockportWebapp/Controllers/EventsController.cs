@@ -184,6 +184,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/events/add-your-event")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
         {
             if (!ModelState.IsValid)

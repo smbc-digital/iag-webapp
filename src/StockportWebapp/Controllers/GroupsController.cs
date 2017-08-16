@@ -207,6 +207,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/groups/{slug}/change-group-info")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public  IActionResult ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
         {
             if (!ModelState.IsValid)
