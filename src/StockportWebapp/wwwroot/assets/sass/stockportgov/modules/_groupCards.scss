@@ -39,6 +39,12 @@
             transition-duration: 0.5s;
             display: block;
 
+            .favourite {
+                display: block;
+                border-top: solid 1px black;
+                font-size: 0.9em;
+            }
+
             &:hover {
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             }
