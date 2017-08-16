@@ -1,0 +1,38 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.Utils
+@model Group
+@{
+    var cost = Model.Cost;
+    cost = cost == "Paid" && !string.IsNullOrEmpty(Model.CostText) ? Model.CostText : cost;
+}
+
+<li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
+    <a class="group-card matchbox-child" href="../groups/@Model.Slug">
+        <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(Model))"></div>
+        <div class="group-card-information grid-100">
+            <div class="grid-100 group-title">
+                <h3>@Model.Name</h3>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(cost))
+            {
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                    <i class="fa fa-gbp" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@cost</div>
+            }
+            <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+            <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">
+                @(Model.Address.Length > 70 ? Model.Address.Substring(0, 70) + "..." : Model.Address)
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.AbilityLevel))
+            {
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@Model.AbilityLevel</div>
+            }
+        </div>
+    </a>
+</li>

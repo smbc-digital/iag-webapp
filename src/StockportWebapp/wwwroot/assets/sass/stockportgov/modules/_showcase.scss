@@ -339,3 +339,13 @@
     transition-duration: 0.5s;
     box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
 }
+
+.ie {
+    .showcase-email-banner {
+        height: 140px;
+
+        .email-banner {
+            height: 100%;
+        }
+    }
+}
