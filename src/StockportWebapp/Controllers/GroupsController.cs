@@ -23,6 +23,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 using ReverseMarkdown;
+using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Controllers
 {
@@ -41,8 +42,9 @@ namespace StockportWebapp.Controllers
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
         private readonly IDateCalculator _dateCalculator;
+        private readonly FavouritesHelper favouritesHelper;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -56,6 +58,7 @@ namespace StockportWebapp.Controllers
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
+            favouritesHelper = new FavouritesHelper(httpContextAccessor);
         }
 
         [Route("/groups")]
@@ -991,6 +994,21 @@ namespace StockportWebapp.Controllers
             model.GroupSlug = group.Slug;
 
             return View(model);
+        }
+
+        [HttpGet]
+        [HttpPost]
+        [Route("/groups/favourites")]
+        public async Task<IActionResult> FavouriteGroups()
+        {
+            var groups = new List<Group>();
+
+            favouritesHelper.AddToFavourites<Group>("test");
+            favouritesHelper.AddToFavourites<Group>("foo");
+            favouritesHelper.AddToFavourites<Group>("bar");
+            favouritesHelper.RemoveFromFavourites<Group>("test");
+
+            return View();
         }
 
         [HttpPost]

@@ -20,6 +20,7 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
 using StockportWebapp.Utils;
+using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp
 {
@@ -91,6 +92,8 @@ namespace StockportWebapp
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
             });
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
