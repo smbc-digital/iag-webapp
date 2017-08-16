@@ -72,7 +72,9 @@ namespace StockportWebappTests.Unit.ContentFactory
                 status: "published",
                 cost: Cost,
                 costText: CostText,
-                abilityLevel: AbilityLevel
+                abilityLevel: AbilityLevel,
+                favourite: false
+                
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);

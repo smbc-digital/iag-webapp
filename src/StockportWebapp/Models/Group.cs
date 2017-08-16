@@ -28,11 +28,12 @@ namespace StockportWebapp.Models
         public string Cost { get; set; }
         public string CostText { get; set; }
         public string AbilityLevel { get; set; }
+        public bool Favourite { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl,
             string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs,
-            MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string status, string cost, string costText, string abilityLevel)
+            MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string status, string cost, string costText, string abilityLevel, bool favourite)
         {
             Name = name;
             Slug = slug;
@@ -57,6 +58,7 @@ namespace StockportWebapp.Models
             Cost = cost;
             CostText = costText;
             AbilityLevel = abilityLevel;
+            Favourite = favourite;
         }
     }
 }
