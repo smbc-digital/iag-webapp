@@ -28,6 +28,11 @@
         }
     };
 
+    var isIE = function (userAgent) {
+        userAgent = userAgent || navigator.userAgent;
+        return userAgent.indexOf("MSIE ") > -1 || userAgent.indexOf("Trident/") > -1 || userAgent.indexOf("Edge/") > -1;
+    }
+
     var init = function () {
 
         $(document).ready(function () {
@@ -35,6 +40,10 @@
                 multiSelector.Init($(this).val());
             });
         });
+
+        if (isIE() === true) {
+            $("html").addClass("ie"); 
+        }
 
         document.documentElement.className = document.documentElement.className.replace("no-js", "js");
 
@@ -45,6 +54,7 @@
         $(window).resize(function () {
             documentResize();
         });
+        
     };
 
     return {
