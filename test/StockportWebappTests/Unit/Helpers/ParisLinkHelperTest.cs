@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.Helpers;
+using StockportWebapp.Utils;
 using StockportWebapp.Models;
 using System;
 using System.Collections.Generic;

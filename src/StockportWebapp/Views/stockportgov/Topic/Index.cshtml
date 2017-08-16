@@ -13,26 +13,25 @@
     @Html.Partial("Breadcrumb", topic.Breadcrumbs)
 }
 
-<div class="l-page-content">
+<div class="l-page-content" id="topic-page-content">
+
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="@(Model.Topic.EmailAlerts ? "grid-70 tablet-grid-70" : "grid-100 tablet-grid-100") mobile-grid-100">
                 <h1>@topic.Name</h1>
                 @if (topic.Summary != null)
                 {
-                    @Html.Raw(@topic.Summary)
+                @Html.Raw(@topic.Summary)
                 }
             </div>
             @if (Model.Topic.EmailAlerts)
             {
-                <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
-                        <stock-button as-link="true" class="button-outline-white-transparent" href="@Model.EmailAlertsUrl" target="_blank"><i class="fa fa-envelope-o fa-1x"></i>Email alerts</stock-button>
-                </div>
+            <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
+                <stock-button as-link="true" class="button-outline-white-transparent" href="@Model.EmailAlertsUrl" target="_blank"><i class="fa fa-envelope-o fa-1x"></i>Email alerts</stock-button>
+            </div>
             }
         </div>
-        
     </div>
-
 
     <div class="grid-container grid-parent">
         @{
@@ -43,10 +42,10 @@
                     @Html.Partial("DisplayTemplates/Alert", alert)
                 }
             }
-        } 
+        }
 
         @Html.Partial("PrimarySubitems", topic)
-        
+
         @if (Model.Topic.ExpandingLinkBoxes != null && Model.Topic.ExpandingLinkBoxes.Any())
         {
             @Html.Partial("ExpandingLinkBox", topic)
@@ -61,11 +60,10 @@
         {
             @Html.Partial("SecondaryItems", topic)
         }
+
         @if (topic.TertiaryItems.Any())
         {
-          @Html.Partial("TertiaryItems", topic)
+            @Html.Partial("TertiaryItems", topic)
         }
-        
-
     </div>
 </div>

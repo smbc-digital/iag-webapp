@@ -1,4 +1,4 @@
-﻿namespace StockportWebapp.Helpers
+﻿namespace StockportWebapp.Utils
 {
     public static class GroupPermissionHelper
     {

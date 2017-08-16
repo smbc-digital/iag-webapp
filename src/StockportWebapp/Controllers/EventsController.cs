@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using Quartz.Util;
 using StockportWebapp.Config;
-using StockportWebapp.Helpers;
+using StockportWebapp.Utils;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
@@ -184,6 +184,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/events/add-your-event")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
         {
             if (!ModelState.IsValid)

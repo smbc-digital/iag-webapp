@@ -239,8 +239,20 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void CreatesRssFeedFromFactory()
         {
-            _repository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), null))
-                .ReturnsAsync(HttpResponse.Successful(200, _newsRoom));
+            var repository = new Mock<IRepository>();
+
+            repository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), null))
+              .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
+
+            _controller = new NewsController(
+               repository.Object,
+               _processedContentRepository.Object,
+               _mockRssFeedFactory.Object,
+               _logger.Object,
+               _config.Object,
+               new BusinessId(BusinessId),
+               _filteredUrl.Object
+           );          
 
             var response = AsyncTestHelper.Resolve(_controller.Rss()) as ContentResult;
 
