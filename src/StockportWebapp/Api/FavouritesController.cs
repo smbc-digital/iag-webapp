@@ -16,21 +16,39 @@ namespace StockportWebapp.Api
             favouritesHelper = _favouritesHelper;
         }
 
-        [Route("/favourites/groups/add")]
+        [Route("/favourites/add")]
         public IActionResult AddGroupsFavourite([FromQuery]string slug, [FromQuery] string type)
         {
-            favouritesHelper.AddToFavourites<Group>(slug);
+            switch (type)
+            {
+                case "group":
+                    favouritesHelper.AddToFavourites<Group>(slug);
+                    break;
+                case "event":
+                    favouritesHelper.AddToFavourites<Event>(slug);
+                    break;
+            }
 
-            return null;
+            return new OkResult();
         }
 
-        [Route("/favourites/groups/remove")]
+        [Route("/favourites/remove")]
         public IActionResult RemoveGroupsFavourite([FromQuery]string slug, [FromQuery] string type)
         {
-            favouritesHelper.RemoveFromFavourites<Group>(slug);
+            switch (type)
+            {
+                case "group":
+                    favouritesHelper.RemoveFromFavourites<Group>(slug);
+                    break;
+                case "event":
+                    favouritesHelper.RemoveFromFavourites<Event>(slug);
+                    break;
+            }
 
-            return null;
+            return new OkResult();
         }
+
+        
 
     }
 }

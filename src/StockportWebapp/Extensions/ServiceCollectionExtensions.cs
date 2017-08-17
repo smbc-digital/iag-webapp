@@ -7,6 +7,7 @@ using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using AngleSharp.Parser.Html;
 using Markdig;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
@@ -183,6 +184,7 @@ namespace StockportWebapp.Extensions
         {
             services.AddSingleton(p => new CalendarHelper(p.GetService<ITimeProvider>()));
             services.AddSingleton<ParisHashHelper>();
+            services.AddSingleton(p => new FavouritesHelper(p.GetService<IHttpContextAccessor>()));
 
             return services;
         }

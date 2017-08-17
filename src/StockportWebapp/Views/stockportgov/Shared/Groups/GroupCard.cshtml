@@ -39,18 +39,18 @@
 
         @if (Model.Favourite)
         {
-            <a class="favourite grid-100" data-item="@Model.Slug" href="#">
+            <a class="remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
                 <div class="grid-10 favourite-icon">
                     <i class="fa fa-star" aria-hidden="true"></i>
                 </div>
                 <div class="grid-90">
                     <span class="favourite-text">Remove from favourites</span>
-                </div>
+                </div>  
             </a>
         }
         else
         {
-            <a class="favourite grid-100" data-item="@Model.Slug" href="">
+            <a class="add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
                 <div class="grid-10 favourite-icon">
                     <i class="fa fa-star-o" aria-hidden="true"></i>
                 </div>
