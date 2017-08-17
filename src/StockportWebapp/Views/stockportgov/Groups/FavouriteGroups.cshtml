@@ -39,17 +39,20 @@
                             </div>
                             <div class="l-content-container grid-100 favourite-share-container">
                                 <div class="share border top-border">
-                                    @*<div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i><b>Email favourites</b>
-                                    </div>*@
                                     <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
-                                        <i class="fa fa-print" aria-hidden="true"></i><b>Print favourites</b>
+                                        <a href="@Url.Action("FavouriteGroupsClearAll", "groups")">
+                                            <i class="fa fa-print" aria-hidden="true"></i><b>Print favourites</b>
+                                        </a>
                                     </div>
                                     <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
-                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i><b>Download as PDF</b>
+                                        <a href="@Url.Action("FavouriteGroupsClearAll", "groups")">
+                                            <i class="fa fa-file-pdf-o" aria-hidden="true"></i><b>Download as PDF</b>
+                                        </a>
                                     </div>
                                     <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i><b>Clear all favourites</b>
+                                        <a href="@Url.Action("FavouriteGroupsClearAll", "groups")">
+                                            <i class="fa fa-trash-o" aria-hidden="true"></i><b>Clear all favourites</b>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

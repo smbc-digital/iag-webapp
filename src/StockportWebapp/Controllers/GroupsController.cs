@@ -935,6 +935,29 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        [Route("/groups/favourites/clearall")]
+        public IActionResult FavouriteGroupsClearAll()
+        {
+            var model = new Favourites
+            {
+                Type = "groups",
+                Crumbs = new List<Crumb> { new Crumb("Find a local group", "groups", "groups") },
+                FavouritesUrl = "/groups/favourites"
+            };
+
+            return View("~/views/stockportgov/favourites/confirmclearall.cshtml", model);
+        }
+
+        [HttpPost]
+        [Route("/groups/favourites/clearall")]
+        public IActionResult FavouriteGroupsClearAll(Favourites model)
+        {
+            favouritesHelper.RemoveAllFromFavourites<Group>();
+            return RedirectToAction("FavouriteGroups");
+        }
+
         [HttpGet]
         [Route("/groups/favourites")]
         public async Task<IActionResult> FavouriteGroups([FromQuery] int page, [FromQuery] int pageSize)
