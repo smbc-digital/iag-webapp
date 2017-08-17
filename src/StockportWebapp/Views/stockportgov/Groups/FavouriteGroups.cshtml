@@ -1,6 +1,6 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
-@model GroupStartPage
+@model GroupResults
 
 @{
     ViewData["Title"] = "Favourite groups";
@@ -16,10 +16,66 @@
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group") })
 }
 
-<div class="grid-container grid-100 event-details">
-    <div class="event-details-content">
-        <h1 id="event-title">Favourite groups</h1>
-        <div>Stuff to go in here</div>
+<div class="grid-container-full-width" id="group-favourites">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="content">
+                <div class="l-content-container grid-100 group-margin" id="group-padding">
+                    <h1 id="manage-group-title" class="group-article-title">Favourite groups</h1>
+                    <div class="grid-container grid-parent">
+
+                        @if (Model.Groups.Any())
+                        {
+                            <ul class="group-listing-container grid-container matchbox-parent">
+                                @foreach (var group in Model.Groups)
+                                {
+                                    @Html.Partial("Groups/GroupCard", group)
+                                }
+                            </ul>
+
+                            <div class="grid-container grid-100 group-pagination">
+                                @Html.Partial("Pagination", Model.Pagination)
+                            </div>
+                            <div class="l-content-container grid-100 favourite-share-container">
+                                <div class="share border top-border">
+                                    @*<div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i><b>Email favourites</b>
+                                    </div>*@
+                                    <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
+                                        <i class="fa fa-print" aria-hidden="true"></i><b>Print favourites</b>
+                                    </div>
+                                    <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i><b>Download as PDF</b>
+                                    </div>
+                                    <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i><b>Clear all favourites</b>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="grid-container grid-100 center-block" id="no-results">
+                                <div class="l-content-container grid-100 grid-parent group-margin">
+                                    <div class="grid-100 centre word-wrap">
+                                        <div class="icon-bordered icon-bordered-fixed green tick">
+                                            <i class="fa fa-star fa-5x" aria-hidden="true"></i>
+                                        </div>
+                                        <h2>You have 0 favourite groups</h2>
+                                    </div>
+                                    <div class="grid-100 centre">
+                                        <p>If you want to add more favourites visit our find a local group page.</p>
+                                    </div>
+                                    <div class="grid-100 centre mixed-buttons">
+                                        <stock-button as-link="true" href="@Url.Action("Index", "Groups")">Find a local group</stock-button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+        </div>
     </div>
 </div>
 

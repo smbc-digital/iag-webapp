@@ -1,0 +1,195 @@
+﻿using Xunit;
+using FluentAssertions;
+using System;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Newtonsoft.Json;
+using StockportWebapp.Utils;
+using StockportWebapp.Exceptions;
+using StockportWebapp.Models;
+using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
+using System.Net;
+using System.Collections;
+
+namespace StockportWebappTests.Unit.Utils
+{
+    public class FakeCookie : IRequestCookieCollection, IResponseCookies
+    {
+        private Dictionary<string, string> _dictionary = new Dictionary<string, string>();
+
+        public FakeCookie(bool addDefaults = false)
+        {
+            if (addDefaults)
+            {
+                _dictionary.Add("favourites", $"{{ \"{typeof(Group).ToString()}\":[\"foo\",\"bar\",\"test1\"] }}");
+            }
+        }
+
+        public string this[string key] {
+            get
+            {
+                if (_dictionary.ContainsKey(key))
+                {
+                    return _dictionary[key];
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+        }
+
+        public int Count { get; }
+
+        public ICollection<string> Keys { get; }
+
+        public bool ContainsKey(string key)
+        {
+            return true;
+        }
+
+        public bool TryGetValue(string key, out string value)
+        {
+            value = _dictionary[key];
+            return true;
+        }
+
+        public IEnumerable<KeyValuePair<string, string>> GetEnumerator()
+        {
+            return new List<KeyValuePair<string, string>>();
+        }
+
+        IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Append(string key, string value)
+        {
+            _dictionary[key] = value;
+        }
+
+        public void Append(string key, string value, CookieOptions options)
+        {
+            _dictionary[key] = value;
+        }
+
+        public void Delete(string key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(string key, CookieOptions options)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class FavouritesHelperTests
+    {
+        private readonly FavouritesHelper favouritesHelper;
+        private Mock<IHttpContextAccessor> httpContextAccessor;
+
+        public FavouritesHelperTests()
+        {
+            httpContextAccessor = new Mock<IHttpContextAccessor>();
+            favouritesHelper = new FavouritesHelper(httpContextAccessor.Object);
+        }
+
+        [Fact]
+        public void ShouldPopulateFavouritePropertyToCollectionWhencallingPopulateFavourites()
+        {
+            // Arrange
+            var cookies = new FakeCookie(true);
+
+            var groups = new List<Group>();
+            groups.Add(new Group("test 1", "test1", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, null, null, false, null, null, null, null, string.Empty, string.Empty, string.Empty, string.Empty, false));
+            groups.Add(new Group("test 2", "test2", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, null, null, false, null, null, null, null, string.Empty, string.Empty, string.Empty, string.Empty, false));
+
+            httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+
+            // Act
+            groups = favouritesHelper.PopulateFavourites(groups);
+
+            // Assert
+            groups[0].Favourite.Should().Be(true);
+            groups[1].Favourite.Should().Be(false);
+        }
+
+        [Fact]
+        public void ShouldAddToFavouritesCollection()
+        {
+            // Arrange
+            var cookies = new FakeCookie();
+
+            httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+            httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+
+            // Act
+            favouritesHelper.AddToFavourites<Group>("test1");
+            favouritesHelper.AddToFavourites<Event>("test2");
+            var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+
+            // Assert
+            result[typeof(Group).ToString()].Should().Equal(@"test1");
+            result[typeof(Event).ToString()].Should().Equal(@"test2");
+        }
+
+        [Fact]
+        public void ShouldRemoveFromFavouritesCollection()
+        {
+            // Arrange
+            var cookies = new FakeCookie(true);
+
+            httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+            httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+
+            // Act
+            favouritesHelper.RemoveFromFavourites<Group>("foo");
+            favouritesHelper.RemoveFromFavourites<Group>("bar");
+            var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+
+            // Assert
+            result[typeof(Group).ToString()].Should().Equal(@"test1");
+        }
+
+        [Fact]
+        public void ShouldRemoveAllFromFavouritesCollection()
+        {
+            // Arrange
+            var cookies = new FakeCookie(true);
+
+            httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+            httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+
+            // Act
+            favouritesHelper.RemoveAllFromFavourites<Group>();
+            var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
+
+            // Assert
+            result.ContainsKey(typeof(Group).ToString()).Should().Be(false);
+        }
+
+        [Fact]
+        public void ShouldGetAllFavouritesFromFavouritesCollection()
+        {
+            // Arrange
+            var cookies = new FakeCookie(true);
+
+            httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+            httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
+
+            // Act
+            var favourites = favouritesHelper.GetFavourites<Group>();
+
+            // Assert
+            favourites.Should().HaveCount(3);
+        }
+    }
+}
