@@ -379,66 +379,70 @@ ul.nav-card-events-list {
 }
 
 #event-listing-container {
-    margin-top: 0;
+	margin-top: 0;
 
-    &.no-margin {
-        margin-top: -20px;
-        margin-bottom: -30px;
-    }
+	&.no-margin {
+		margin-top: -20px;
+		margin-bottom: -30px;
+	}
 
-    .no-results {
-        margin-bottom: 125px;
-    }
+	.no-results {
+		margin-bottom: 125px;
+	}
 
-    h2 {
-        clear: both;
-        margin: 0 0 10px 10px;
-        font-size: 1.6em;
-    }
+	h2 {
+		clear: both;
+		margin: 0 0 10px 10px;
+		font-size: 1.6em;
+	}
 
-    .group-li {
-        margin-bottom: 00px;
-    }
+	.group-li {
+		margin-bottom: 00px;
+	}
 
-    .pagination-section {
-        clear: both;
-        margin-bottom: 0;
-    }
+	.pagination-section {
+		clear: both;
+		margin-bottom: 0;
+	}
 
-    .home-page-row {
-        .event-header {
-            margin: 10px 0 15px 15px;
-        }
+	.home-page-row {
+		.event-header {
+			margin: 10px 0 15px 15px;
 
-        .event-button {
-            padding-left: 5px;
-            padding-right: 5px;
-        }
+			@media #{$mobile, $tablet} {
+				margin: 10px 0 15px 5px;
+			}
+		}
 
-        h3 {
-            display: inline-block;
-            margin-top: 0;
-        }
+		.event-button {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
 
-        .view-more {
-            text-decoration: underline;
-            margin-left: 30px;
-        }
+		h3 {
+			display: inline-block;
+			margin-top: 0;
+		}
 
-        &:nth-child(odd) {
-            background-color: #ffffff;
-        }
+		.view-more {
+			text-decoration: underline;
+			margin-left: 30px;
+		}
 
-        .group-card {
-            border: solid 1px #d3d3d3;
-        }
+		&:nth-child(odd) {
+			background-color: #ffffff;
+		}
 
-        .white {
-            background-color: #ffffff;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-    }
+		.group-card {
+			border: solid 1px #d3d3d3;
+		}
+
+		.white {
+			background-color: #ffffff;
+			margin-top: 0;
+			margin-bottom: 20px;
+		}
+	}
 }
 
 #events-filter-bar {
