@@ -36,14 +36,28 @@
 
             </div>
         </a>
-        <a class="favourite grid-100" href="../groups/@Model.Slug">
-            <div class="grid-10 group-card-icon">
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <div class="grid-90 group-card-text">
-                Add to favourites
-            </div>
-        </a>
-    </div>
 
+        @if (Model.Favourite)
+        {
+            <a class="favourite grid-100" data-item="@Model.Slug" href="#">
+                <div class="grid-10 favourite-icon">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90">
+                    <span class="favourite-text">Remove from favourites</span>
+                </div>
+            </a>
+        }
+        else
+        {
+            <a class="favourite grid-100" data-item="@Model.Slug" href="">
+                <div class="grid-10 favourite-icon">
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90">
+                    <span class="favourite-text">Add to favourites</span>
+                </div>
+            </a>
+        }
+    </div>
 </li>

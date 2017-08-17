@@ -33,7 +33,7 @@
                         {
                             <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
                         }
-                        <div class="grid-60 tablet-grid-100 mobile-grid-100 group-calender-container-description">                          
+                        <div class="grid-60 tablet-grid-100 mobile-grid-100 group-calender-container-description">
                             <ul class="group-ul">
                                 <li class="group-details">
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -175,6 +175,14 @@
                                             {
                                                 <text>&nbsp;</text>
                                             }
+                                            <a class="favourite grid-100" href="../groups/fguiojn">
+                                                <div class="grid-10 favourite-icon">
+                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="grid-90">
+                                                    <span class="favourite-text">Add to favourites</span>
+                                                </div>
+                                            </a>
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
@@ -210,6 +218,34 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
+                                <li class="group-details">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                        @if (Model.Favourite)
+                                        {
+                                            <i class="fa fa-star fa-2x group-details-symbol"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-star-o fa-2x group-details-symbol"></i>
+                                        }
+                                    </div>
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                        <div class="group-details-heading">
+                                            Favourites
+                                        </div>
+                                        <div class="group-details-heading"></div>
+                                        @if (Model.Favourite)
+                                        {
+                                            <a>Remove from favourites</a>
+                                        }
+                                        else
+                                        {
+                                            <a>Add to favourites</a>
+                                        }
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+
                             </ul>
                         </div>
                         <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">

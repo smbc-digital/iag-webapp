@@ -27,7 +27,7 @@ namespace StockportWebapp.ContentFactory
 
             return new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter,
                 group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, 
-                group.Breadcrumbs, group.MapPosition, group.Volunteering, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, group.Cost, group.CostText, group.AbilityLevel);
+                group.Breadcrumbs, group.MapPosition, group.Volunteering, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, group.Cost, group.CostText, group.AbilityLevel, group.Favourite);
         }
     }
 }

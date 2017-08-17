@@ -41,8 +41,14 @@
 
             .favourite {
                 display: block;
-                border-top: solid 1px black;
+                border-top: solid 1px #ebebeb;
                 font-size: 0.9em;
+                padding-left: 15px;
+                padding-top: 10px;
+
+                .favourite-text {
+                    text-decoration: underline;
+                }
             }
 
             &:hover {
