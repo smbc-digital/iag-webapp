@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using StockportWebapp.AmazonSES;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -42,6 +43,7 @@ namespace StockportWebappTests.Unit.Controllers
         private Mock<IApplicationConfiguration> _configuration = new Mock<IApplicationConfiguration>();
         private MarkdownWrapper markdownWrapper = new MarkdownWrapper();
         private DateCalculator datetimeCalculator;
+        private Mock<IHttpContextAccessor> http;
 
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
@@ -73,11 +75,13 @@ namespace StockportWebappTests.Unit.Controllers
 
             datetimeCalculator = new DateCalculator(mockTime.Object);
 
-            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator);
+            http = new Mock<IHttpContextAccessor>();
+
+            _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object);
 
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
-                .ReturnsAsync(HttpResponse.Successful(200, groupCategories));
+                .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful(200, groupCategories));
 
         }
 
@@ -88,7 +92,7 @@ namespace StockportWebappTests.Unit.Controllers
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
@@ -99,9 +103,9 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void GetsA404NotFoundGroup()
         {
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_groupController.Detail("not-found-slug")) as HttpResponse;
+            var response = AsyncTestHelper.Resolve(_groupController.Detail("not-found-slug")) as StockportWebapp.Http.HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
@@ -169,8 +173,8 @@ namespace StockportWebappTests.Unit.Controllers
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, DateTime.MinValue, DateTime.MaxValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
             _repository.Setup(r => r.Delete<Group>(slug))
-                .ReturnsAsync(new HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
+            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
             var actionResponse = AsyncTestHelper.Resolve(_groupController.DeleteGroup(slug, loggedInPerson)) as RedirectToActionResult;
             actionResponse.ActionName.Should().Be("DeleteConfirmation");
         }
@@ -184,8 +188,8 @@ namespace StockportWebappTests.Unit.Controllers
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } }, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
             _repository.Setup(r => r.Archive<Group>(It.IsAny<HttpContent>(), slug))
-                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
             var actionResponse = AsyncTestHelper.Resolve(_groupController.ArchiveGroup(slug, loggedInPerson)) as RedirectToActionResult;
             actionResponse.ActionName.Should().Be("ArchiveConfirmation");
         }
@@ -198,11 +202,11 @@ namespace StockportWebappTests.Unit.Controllers
             var _emptyGroupResults = new GroupResults() {Groups = new List<Group>()};
 
             emptyRepository.Setup(o => o.Get<GroupResults>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-              .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
+              .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator);
+            var controller = new GroupsController(_fakeRepository, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object);
 
             var actionResponse =
                AsyncTestHelper.Resolve(
@@ -298,7 +302,7 @@ namespace StockportWebappTests.Unit.Controllers
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, null, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
@@ -317,7 +321,7 @@ namespace StockportWebappTests.Unit.Controllers
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, listOfLinkedEvents, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty);
 
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
@@ -336,11 +340,11 @@ namespace StockportWebappTests.Unit.Controllers
                 o.Get<GroupResults>(
                     It.IsAny<string>(),
                     It.IsAny<List<Query>>()))
-                .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
+                .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator);
+            var controller = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object);
 
             return controller;
         }

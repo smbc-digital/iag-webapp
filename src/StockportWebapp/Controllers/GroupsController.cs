@@ -23,6 +23,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 using ReverseMarkdown;
+using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Controllers
 {
@@ -41,8 +42,9 @@ namespace StockportWebapp.Controllers
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
         private readonly IDateCalculator _dateCalculator;
+        private readonly FavouritesHelper favouritesHelper;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -56,6 +58,7 @@ namespace StockportWebapp.Controllers
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
+            favouritesHelper = new FavouritesHelper(httpContextAccessor);
         }
 
         [Route("/groups")]
@@ -933,6 +936,20 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
+        [Route("/groups/favourites")]
+        public async Task<IActionResult> FavouriteGroups()
+        {
+            var groups = new List<Group>();
+
+            favouritesHelper.AddToFavourites<Group>("test");
+            favouritesHelper.AddToFavourites<Group>("foo");
+            favouritesHelper.AddToFavourites<Group>("bar");
+            favouritesHelper.RemoveFromFavourites<Group>("test");
+
+            return View();
+        }
+
+        [HttpGet]
         [Route("/groups/manage/{groupslug}/events/{eventslug}/update")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> EditEvent(string groupslug, string eventslug, LoggedInPerson loggedInPerson)
@@ -974,7 +991,11 @@ namespace StockportWebapp.Controllers
             }
 
             model.Description = _markdownWrapper.ConvertToHtml(eventDetail.Description);
-            model.EndDate = _dateCalculator.GetEventEndDate(eventDetail);
+            if (eventDetail.EventFrequency != EventFrequency.None)
+            {
+                model.EndDate = _dateCalculator.GetEventEndDate(eventDetail);
+            }
+
             model.EndTime = DateTime.ParseExact(eventDetail.EndTime, "HH:mm", null);
             model.EventDate = eventDetail.EventDate;
             model.Fee = eventDetail.Fee;

@@ -1,0 +1,25 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model GroupStartPage
+
+@{
+    ViewData["Title"] = "Favourite groups";
+    ViewData["og:title"] = "Favourite groups";
+    ViewData["Description"] = "Favourite groups";
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    ViewData["Type"] = "Group";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group") })
+}
+
+<div class="grid-container grid-100 event-details">
+    <div class="event-details-content">
+        <h1 id="event-title">Favourite groups</h1>
+        <div>Stuff to go in here</div>
+    </div>
+</div>
+

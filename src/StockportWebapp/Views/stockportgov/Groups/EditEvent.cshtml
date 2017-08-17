@@ -110,8 +110,8 @@
                                         <div class="recurring-event-yn">
                                             <label>Is this a recurring event?</label>
                                             <ul class="radio-list">
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnNo" value="No" checked="@(Model.RecurringEventYn == "No" ? "checked" : string.Empty)" class="schedule_multiple_events" />No</label></li>
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnYes" value="Yes" checked="@(Model.RecurringEventYn == "Yes" ? "checked" : string.Empty)" class="schedule_multiple_events" />Yes</label></li>
+                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnNo" value="No" @(Model.RecurringEventYn == "No" ? "checked=\"checked\"" : string.Empty)" class="schedule_multiple_events" />No</label></li>
+                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnYes" value="Yes" @(Model.RecurringEventYn == "Yes" ? "checked=\"checked\"" : string.Empty)" class="schedule_multiple_events" />Yes</label></li>
                                             </ul>
                                         </div>
 
@@ -142,7 +142,7 @@
                                         <label asp-for="@Model.Fee"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
                                         <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        <label>Event categories</label>                                      
+                                        <label>Event categories</label>
                                         <div class="grid-100 grid-parent category-div" id="category-div1">
                                             <input type="hidden" asp-for="@Model.CategoriesList" />
                                             @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories })
