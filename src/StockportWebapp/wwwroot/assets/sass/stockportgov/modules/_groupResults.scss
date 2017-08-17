@@ -168,6 +168,15 @@
         .favourite-share {
             padding-left: 0px;
 
+            a {
+                font-size: 1em;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
             i {
                 font-weight: 600;
             }
