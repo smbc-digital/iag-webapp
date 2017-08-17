@@ -1,5 +1,7 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
 @using StockportWebapp.Utils
+@inject FeatureToggles FeatureToggles
 @model Group
 @{
     var cost = Model.Cost;
@@ -36,4 +38,15 @@
 
         </div>
     </a>
+    @if (FeatureToggles.GroupFavourites)
+    {
+        <a class="group-card matchbox-child" href="../groups/@Model.Slug">
+            <div class="grid-10">
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <div class="grid-90">
+                Add to favourites 
+            </div>
+        </a>
+    }
 </li>
