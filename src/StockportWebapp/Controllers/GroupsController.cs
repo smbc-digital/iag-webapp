@@ -984,7 +984,15 @@ namespace StockportWebapp.Controllers
             model = response.Content as GroupResults;
             DoPagination(model, page, pageSize);
 
-            return View(model);
+            if (pageSize == -1)
+            {
+                return View("~/views/stockportgov/groups/FavouriteGroupsPrint.cshtml", model);
+            }
+            else
+            {
+                return View(model);
+            }
+
         }
 
         [HttpGet]
