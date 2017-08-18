@@ -1,0 +1,46 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model Favourites
+@{
+    ViewData["Title"] = "Favourite " + Model.Type;
+    ViewData["og:title"] = "Favourite " + Model.Type;
+    ViewData["Beta"] = true;
+    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Crumbs)
+}
+
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+
+        <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@Model.Type favourite content">
+                <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
+                    <div class="grid-100">
+                        <h1 class="group-article-title">Favourite @Model.Type</h1>
+                    </div>
+                    <div class="grid-100">
+                        <p>If you choose to clear your favourites it will delete all of your saves @Model.Type.</p>
+                        <p>If you came here by accident, you can <a href="@Model.FavouritesUrl">go back to view your favourite @Model.Type</a>.</p>
+                        <p>
+                            <strong>Are you sure you want to clear your @Model.Type?</strong>
+                        </p>
+                    </div>
+                    <div class="grid-30 mixed-buttons">
+                        <div>
+                            @using (Html.BeginForm())
+                            {
+                                <stock-button>Clear favourites</stock-button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

@@ -937,18 +937,56 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        [Route("/groups/favourites/clearall")]
+        public IActionResult FavouriteGroupsClearAll()
+        {
+            var model = new Favourites
+            {
+                Type = "groups",
+                Crumbs = new List<Crumb> { new Crumb("Find a local group", "groups", "groups") },
+                FavouritesUrl = "/groups/favourites"
+            };
+
+            return View("~/views/stockportgov/favourites/confirmclearall.cshtml", model);
+        }
+
+        [HttpPost]
+        [Route("/groups/favourites/clearall")]
+        public IActionResult FavouriteGroupsClearAll(Favourites model)
+        {
+            favouritesHelper.RemoveAllFromFavourites<Group>();
+            return RedirectToAction("FavouriteGroups");
+        }
+
         [HttpGet]
         [Route("/groups/favourites")]
-        public async Task<IActionResult> FavouriteGroups()
+        public async Task<IActionResult> FavouriteGroups([FromQuery] int page, [FromQuery] int pageSize)
         {
-            var groups = new List<Group>();
+            var model = new GroupResults();
+            var queries = new List<Query>();
 
-            favouritesHelper.AddToFavourites<Group>("test");
-            favouritesHelper.AddToFavourites<Group>("foo");
-            favouritesHelper.AddToFavourites<Group>("bar");
-            favouritesHelper.RemoveFromFavourites<Group>("test");
+            var favouritesList = favouritesHelper.GetFavourites<Group>();
+            var favourites = "-NO-FAVOURITES-SET-";
+            if (favouritesList != null && favouritesList.Any())
+            {
+                favourites = string.Join(",", favouritesHelper.GetFavourites<Group>());
+            }
+            
+            queries.Add(new Query("slugs", favourites));
 
-            return View();
+            var response = await _repository.Get<GroupResults>(queries: queries);
+
+            if (response.IsNotFound())
+            {
+                return NotFound();
+            }
+
+            model = response.Content as GroupResults;
+            DoPagination(model, page, pageSize);
+
+            return View(model);
         }
 
         [HttpGet]

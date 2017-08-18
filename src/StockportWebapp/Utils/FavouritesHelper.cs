@@ -66,7 +66,7 @@ namespace StockportWebapp.Utils
                 favourites.Add(typeof(T).ToString(), new List<string>());
             }
 
-            if (!favourites[typeof(T).ToString()].Any(f => f == slug))
+            if (favourites[typeof(T).ToString()].Any(f => f == slug))
             {
                 favourites[typeof(T).ToString()].Remove(slug);
             }
