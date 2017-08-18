@@ -29,6 +29,7 @@
     <Content Include="wwwroot\assets\javascript\stockportgov\favourite.js" />
     <Content Include="wwwroot\assets\javascript\stockportgov\favourites.cs" />
     <Content Include="wwwroot\assets\javascript\stockportgov\favourites.js" />
+    <Content Include="wwwroot\assets\javascript\stockportgov\tracking.js" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_emailBanner.scss" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_favourites.scss" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_iShareMap.scss" />
