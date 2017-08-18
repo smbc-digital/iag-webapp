@@ -32,7 +32,8 @@
         "questionvalidator": "stockportgov/questioncomponent/questionvalidator",
         "questionview": "stockportgov/questioncomponent/questionview",
         "clipboard": "//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min",
-        "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min"
+        "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
+        "favourite": "stockportgov/favourite",
     },
     shim: {
         'jquery-ui': {
@@ -56,30 +57,29 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui) {
-            carousel.Init();
-            cludoconfig.Init();
-            contactus.Init();
-            customwysiwyg.Init();
-            events.Init();
-            expandinglinks.Init();
-            filters.Init();
-            groups.Init();
-            livechat.Init();
-            matchboxconfig.Init();
-            primaryfilter.Init();
-            refinebybar.Init();
-            startup.Init();
-            viewmoreslider.Init();
-        }
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourite'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourite) {
+        carousel.Init();
+        cludoconfig.Init();
+        contactus.Init();
+        customwysiwyg.Init();
+        events.Init();
+        expandinglinks.Init();
+        filters.Init();
+        groups.Init();
+        livechat.Init();
+        matchboxconfig.Init();
+        primaryfilter.Init();
+        refinebybar.Init();
+        startup.Init();
+        viewmoreslider.Init();
+        favourite.Init();
+    }
 );
 
-if (typeof(globalButoIds) !== "undefined") {
+if (typeof (globalButoIds) !== "undefined") {
     require(globalButoIds,
         function () {
         }
     );
 }
-
-
