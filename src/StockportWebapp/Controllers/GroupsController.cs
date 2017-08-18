@@ -958,9 +958,7 @@ namespace StockportWebapp.Controllers
             return RedirectToAction("FavouriteGroups");
         }
 
-        [HttpGet]
-        [Route("/groups/favourites")]
-        public async Task<IActionResult> FavouriteGroups([FromQuery] int page, [FromQuery] int pageSize)
+        private async Task<Http.HttpResponse> GetFavouriteGroupResults()
         {
             var model = new GroupResults();
             var queries = new List<Query>();
@@ -971,28 +969,64 @@ namespace StockportWebapp.Controllers
             {
                 favourites = string.Join(",", favouritesHelper.GetFavourites<Group>());
             }
-            
+
             queries.Add(new Query("slugs", favourites));
 
-            var response = await _repository.Get<GroupResults>(queries: queries);
+            return await _repository.Get<GroupResults>(queries: queries);
+        }
+
+        [HttpGet]
+        [Route("/groups/favourites")]
+        public async Task<IActionResult> FavouriteGroups([FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var response = await GetFavouriteGroupResults();
 
             if (response.IsNotFound())
             {
                 return NotFound();
             }
 
-            model = response.Content as GroupResults;
+            var model = response.Content as GroupResults;
+
             DoPagination(model, page, pageSize);
 
             if (pageSize == -1)
             {
-                return View("~/views/stockportgov/groups/FavouriteGroupsPrint.cshtml", model);
+                return View("FavouriteGroupsPrint", model);
             }
             else
             {
                 return View(model);
             }
+        }
 
+        [HttpGet]
+        [Route("/groups/favourites/exportpdf")]
+        public async Task<IActionResult> FavouriteGroupsPDF([FromServices] INodeServices nodeServices)
+        {
+            var response = await GetFavouriteGroupResults();
+
+            if (response.IsNotFound())
+            {
+                return NotFound();
+            }
+
+            var model = response.Content as GroupResults;
+
+            DoPagination(model, 0, -1);
+
+            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
+            var renderedHtml = _viewRender.Render("Groups/FavouriteGroupsPrint", model);
+
+            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 500 });
+
+            HttpContext.Response.ContentType = "application/pdf";
+
+            string filename = @"receipt.pdf";
+            HttpContext.Response.Headers.Add("x-filename", filename);
+            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
+            HttpContext.Response.Body.Write(result, 0, result.Length);
+            return new ContentResult();
         }
 
         [HttpGet]
