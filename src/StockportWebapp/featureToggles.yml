@@ -1,10 +1,8 @@
 ﻿---
 prod: &prod
-  NewHomepageLayout: true
-  EditGroupWYSIWYG: true
+  NewHomepageLayout: true  
   PrimaryItems: true
-  DisplayNewEventPageFeatures: false
-  ExportGroupEventsToCalendar: true
+  DisplayNewEventPageFeatures: false 
   SmartAnswers : false
   GroupFavourites : false
 
