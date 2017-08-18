@@ -8,5 +8,6 @@ namespace StockportWebapp.FeatureToggling
         public bool PrimaryItems { get; set; }
         public bool ExportGroupEventsToCalendar { get; set; } = false;
         public bool DisplayNewEventPageFeatures { get; set; } = false;
+        public bool GroupFavourites { get; set; } = false;
     }
 }

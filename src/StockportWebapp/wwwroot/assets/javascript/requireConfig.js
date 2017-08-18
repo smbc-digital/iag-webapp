@@ -36,11 +36,14 @@
         "favourite": "stockportgov/favourite",
     },
     shim: {
-        bootstrap: {
+        'jquery-ui': {
             deps: ['jquery']
         },
+        bootstrap: {
+            deps: ['jquery', 'jquery-ui']
+        },
         wysiwygtoolbar: {
-            deps: ['rangy']
+            deps: ['jquery', 'jquery-ui', 'bootstrap', 'rangy']
         },
         customwysiwyg: {
             deps: ['wysiwygtoolbar']
@@ -54,8 +57,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'favourite'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, favourite) {
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourite'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourite) {
             carousel.Init();
             cludoconfig.Init();
             contactus.Init();

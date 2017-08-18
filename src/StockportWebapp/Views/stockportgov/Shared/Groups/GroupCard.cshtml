@@ -1,13 +1,15 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
 @using StockportWebapp.Utils
+@inject FeatureToggles FeatureToggles
 @model Group
 @{
     var cost = Model.Cost;
     cost = cost == "Paid" && !string.IsNullOrEmpty(Model.CostText) ? Model.CostText : cost;
 }
 <li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
-    <div class="group-card grid-100 grid-parent">
-        <a href="../groups/@Model.Slug">
+    <div class="group-card grid-100 grid-parent matchbox-child">
+        <a href="../groups/@Model.Slug" class="group-card-main">
             <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(Model))"></div>
             <div class="group-card-information grid-100">
                 <div class="grid-100 group-title">
@@ -36,28 +38,21 @@
 
             </div>
         </a>
-
-        @if (Model.Favourite)
-        {
-            <a class="remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
-                <div class="grid-10 favourite-icon">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                </div>
-                <div class="grid-90">
-                    <span class="favourite-text">Remove from favourites</span>
-                </div>  
-            </a>
-        }
-        else
-        {
-            <a class="add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
-                <div class="grid-10 favourite-icon">
-                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                </div>
-                <div class="grid-90">
-                    <span class="favourite-text">Add to favourites</span>
-                </div>
-            </a>
-        }
+        <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
+            <div class="grid-10 favourite-icon">
+                <i class="fa fa-star" aria-hidden="true"></i>
+            </div>
+            <div class="grid-90">
+                <span class="favourite-text">Remove from favourites</span>
+            </div>  
+        </a>
+        <a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
+            <div class="grid-10 favourite-icon">
+                <i class="fa fa-star-o" aria-hidden="true"></i>
+            </div>
+            <div class="grid-90">
+                <span class="favourite-text">Add to favourites</span>
+            </div>
+        </a>
     </div>
 </li>

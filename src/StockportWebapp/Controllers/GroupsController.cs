@@ -132,6 +132,8 @@ namespace StockportWebapp.Controllers
                 model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
             }
 
+            favouritesHelper.PopulateFavourites(model.Groups);
+
             model.PrimaryFilter.Order = order;
             model.PrimaryFilter.Location = location;
             model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
@@ -979,12 +981,12 @@ namespace StockportWebapp.Controllers
             {
                 model.CategoriesList = eventDetail.EventCategories[0].Name;
 
-                if (model.CategoriesList.Length > 0)
+                if (eventDetail.EventCategories.Count() > 1)
                 {
                     model.CategoriesList += $",{eventDetail.EventCategories[1].Name}";
                 }
 
-                if (model.CategoriesList.Length > 1)
+                if (eventDetail.EventCategories.Count() > 2)
                 {
                     model.CategoriesList += $",{eventDetail.EventCategories[2].Name}";
                 }
@@ -1097,7 +1099,11 @@ namespace StockportWebapp.Controllers
             var categoryResponse = await _repository.Get<List<EventCategory>>();
             var listOfEventCategories = categoryResponse.Content as List<EventCategory>;
 
-            eventDetail.EventCategories = listOfEventCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)).ToList();
+            if (!string.IsNullOrEmpty(model.CategoriesList))
+            {
+                eventDetail.EventCategories = listOfEventCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)).ToList();
+            }
+
             model.AvailableCategories = await GetAvailableEventCategories();
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))

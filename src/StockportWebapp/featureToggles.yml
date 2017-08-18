@@ -6,6 +6,7 @@ prod: &prod
   DisplayNewEventPageFeatures: false
   ExportGroupEventsToCalendar: true
   SmartAnswers : false
+  GroupFavourites : false
 
 stage: &stage
   << : *prod
@@ -20,9 +21,11 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
+  GroupFavourites : true
 
 local: &local
   << : *prod
   << : *stage
   << : *qa
   << : *int
+  
