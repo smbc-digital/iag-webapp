@@ -33,7 +33,7 @@
         "questionview": "stockportgov/questioncomponent/questionview",
         "clipboard": "//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min",
         "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
-        "favourite": "stockportgov/favourite",
+        "favourites": "stockportgov/favourites",
         "tracking": "stockportgov/tracking",
     },
     shim: {
@@ -58,8 +58,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourite', 'tracking'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourite, tracking) {
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking) {
         carousel.Init();
         cludoconfig.Init();
         contactus.Init();
@@ -74,7 +74,7 @@ require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'exp
         refinebybar.Init();
         startup.Init();
         viewmoreslider.Init();
-        favourite.Init();
+        favourites.Init();
         tracking.Init();
     }
 );
