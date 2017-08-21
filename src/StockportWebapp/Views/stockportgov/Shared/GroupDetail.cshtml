@@ -175,14 +175,6 @@
                                             {
                                                 <text>&nbsp;</text>
                                             }
-                                            <a class="favourite grid-100" href="../groups/fguiojn">
-                                                <div class="grid-10 favourite-icon">
-                                                    <i class="fa fa-star-o" aria-hidden="true"></i>
-                                                </div>
-                                                <div class="grid-90">
-                                                    <span class="favourite-text">Add to favourites</span>
-                                                </div>
-                                            </a>
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
@@ -218,30 +210,34 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
-                                <li class="group-details">
+                                <li id="remove-favourite-@Model.Slug" class="group-details @(!Model.Favourite ? "hidden" : "")">
                                     <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                        @if (Model.Favourite)
-                                        {
-                                            <i class="fa fa-star fa-2x group-details-symbol"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="fa fa-star-o fa-2x group-details-symbol"></i>
-                                        }
+                                        <i class="fa fa-star fa-2x group-details-symbol"></i>
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
                                         <div class="group-details-heading">
                                             Favourites
                                         </div>
                                         <div class="group-details-heading"></div>
-                                        @if (Model.Favourite)
-                                        {
-                                            <a>Remove from favourites</a>
-                                        }
-                                        else
-                                        {
-                                            <a>Add to favourites</a>
-                                        }
+                                        <a data-slug="@Model.Slug" class="remove-favourite" data-type="group" href="javascript:void(0);">
+                                            Remove from favourites
+                                        </a>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+
+                                <li id="add-favourite-@Model.Slug" class="group-details @(Model.Favourite ? "hidden" : "")">
+                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter ">
+                                        <i class="fa fa-star-o fa-2x group-details-symbol"></i>
+                                    </div>
+                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                        <div class="group-details-heading">
+                                            Favourites
+                                        </div>
+                                        <div class="group-details-heading"></div>
+                                        <a data-slug="@Model.Slug" class="add-favourite" data-type="group" href="javascript:void(0);">
+                                            Add to favourites
+                                        </a>
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>

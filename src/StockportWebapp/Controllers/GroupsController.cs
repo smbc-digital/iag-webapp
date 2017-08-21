@@ -89,15 +89,25 @@ namespace StockportWebapp.Controllers
         [Route("/groups/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
-            var response = await _processedContentRepository.Get<Group>(slug);
+            var response = await _repository.Get<Group>(slug);
 
             if (!response.IsSuccessful()) return response;
 
-            var group = response.Content as ProcessedGroup;
+            var group = response.Content as Group;
+
+            favouritesHelper.PopulateFavourites(new List<Group>()
+            {
+                group
+            });
+
+            var processedGroup = new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter, group.Facebook,
+                group.Address, group.Description, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, group.Breadcrumbs, group.MapPosition,
+                group.Volunteering, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, group.Cost, group.CostText,
+                group.AbilityLevel, group.Favourite);
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
-            return View(group);
+            return View(processedGroup);
         }
 
         [Route("groups/results")]

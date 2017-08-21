@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using System.Text;
+using Microsoft.AspNetCore.Http;
 using StockportWebapp.Config;
 
 namespace StockportWebapp.Utils
@@ -16,6 +18,17 @@ namespace StockportWebapp.Utils
         {
             var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
             return string.Concat(scheme, "://", request?.Host);
+        }
+
+        public string GetHostAndQueryString(HttpRequest request)
+        {
+            var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
+            var builder = new StringBuilder();
+            builder.Append(scheme);
+            builder.Append("://");
+            builder.Append(request?.Host);
+            builder.Append(request.QueryString);
+            return builder.ToString();
         }
     }
 }

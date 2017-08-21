@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using StockportWebapp.AmazonSES;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using StockportWebappTests.Unit.Utils;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -77,6 +78,9 @@ namespace StockportWebappTests.Unit.Controllers
 
             http = new Mock<IHttpContextAccessor>();
 
+            var cookies = new FakeCookie(true);
+            http.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
+
             _groupController = new GroupsController(_fakeRepository, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object);
 
             // setup mocks
@@ -88,22 +92,34 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItReturnsAGroupWithProcessedBody()
         {
-            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
+            var processedGroup = new ProcessedGroup("testname", "testslug", Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
 
-            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            var group = new Group("testname", "testslug", Helper.AnyString, Helper.AnyString, 
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
+
+            _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
 
-            model.Should().Be(processedGroup);
+            model.Name.Should().Be(processedGroup.Name);
+            model.Slug.Should().Be(processedGroup.Slug);
+            model.Address.Should().Be(processedGroup.Address);
+            model.Email.Should().Be(processedGroup.Email);
+
         }
 
         [Fact]
         public void GetsA404NotFoundGroup()
         {
-            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+            _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
             var response = AsyncTestHelper.Resolve(_groupController.Detail("not-found-slug")) as StockportWebapp.Http.HttpResponse;
 
@@ -298,11 +314,12 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var location = new MapPosition() { Lat = 1, Lon = 1 };
 
-            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, null, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false);
+            var group = new Group(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, null, null, location, false, null, null, DateTime.MinValue, DateTime.MinValue, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
 
-            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
@@ -316,12 +333,13 @@ namespace StockportWebappTests.Unit.Controllers
             var location = new MapPosition() { Lat = 1, Lon = 1 };
             var linkedEvent = new Event() {Slug = "event-slug"};
             var listOfLinkedEvents = new List<Event> { linkedEvent };
- 
-            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, location, false, listOfLinkedEvents, null, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false);
 
-            _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            var group = new Group(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, null, null, location, false, listOfLinkedEvents, null, DateTime.MinValue, DateTime.MinValue, Helper.AnyString,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
+
+            _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;

@@ -38,21 +38,23 @@
 
             </div>
         </a>
-        <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
-            <div class="grid-10 favourite-icon">
-                <i class="fa fa-star" aria-hidden="true"></i>
-            </div>
-            <div class="grid-90">
-                <span class="favourite-text">Remove from favourites</span>
-            </div>  
-        </a>
-        <a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
-            <div class="grid-10 favourite-icon">
-                <i class="fa fa-star-o" aria-hidden="true"></i>
-            </div>
-            <div class="grid-90">
-                <span class="favourite-text">Add to favourites</span>
-            </div>
-        </a>
     </div>
+    <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0))">
+    @*<a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="@( $"/favourites/nojs/add?slug={Model.Slug}&type=group&action=results&controller=groups")">*@
+        <div class="grid-10 mobile-grid-10 favourite-icon">
+            <i class="fa fa-star" aria-hidden="true"></i>
+        </div>
+        <div class="grid-90 mobile-grid-90">
+            <span class="favourite-text">Remove from favourites</span>
+        </div>
+    </a>
+    <a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0))">
+    @*<a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="@( $"/favourites/nojs/add?slug={Model.Slug}&type=group&action=results&controller=groups")">*@
+        <div class="grid-10  mobile-grid-10 favourite-icon">
+            <i class="fa fa-star-o" aria-hidden="true"></i>
+        </div>
+        <div class="grid-90 mobile-grid-90">
+            <span class="favourite-text">Add to favourites</span>
+        </div>
+    </a>
 </li>

@@ -8,7 +8,16 @@ using System.Reflection;
 
 namespace StockportWebapp.Utils
 {
-    public class FavouritesHelper
+    public interface IFavouritesHelper
+    {
+        void AddToFavourites<T>(string slug);
+        List<string> GetFavourites<T>();
+        List<T> PopulateFavourites<T>(List<T> items);
+        void RemoveAllFromFavourites<T>();
+        void RemoveFromFavourites<T>(string slug);
+    }
+
+    public class FavouritesHelper : IFavouritesHelper
     {
         private IHttpContextAccessor httpContextAccessor;
 
@@ -19,7 +28,11 @@ namespace StockportWebapp.Utils
 
         public List<T> PopulateFavourites<T>(List<T> items)
         {
-            var favourites = GetFavouritesAsObject()[typeof(T).ToString()];
+            var allFavourites = GetFavouritesAsObject();
+
+            if (!allFavourites.Keys.Any()) return items;
+
+            var favourites = allFavourites[typeof(T).ToString()];
 
             foreach (var item in items)
             {

@@ -1,17 +1,10 @@
 ﻿.group-listing-container, #event-listing-container {
     margin-top: 40px;
 
-    @media #{$mobile} {
-        margin-top: 20px;
-    }
-
     .group-li {
         margin-left: 0;
         list-style-type: none;
-
-        @media #{$desktop, $tablet} {
-            margin-bottom: 40px;
-        }
+        margin-bottom: 40px;
 
         @media #{$desktop} {
             padding-left: 15px;
@@ -24,11 +17,59 @@
         }
 
         @media #{$mobile} {
-            padding-bottom: 20px;
+            favourite-text {
+                position: relative;
+                top: -10px;
+                left: 20px;
+            }
         }
 
         a {
             text-decoration: none;
+        }
+
+        @media #{$tablet} {
+            .favourite-text {
+                position: relative;
+                top: -29px;
+                left: 20px;
+            }
+
+            margin-bottom: 10px;
+        }
+
+        .remove-favourite {
+            display: block;
+            border-top: solid 1px #ebebeb;
+            font-size: 0.9em;
+            padding-left: 15px;
+            padding-top: 10px;
+            margin-top: -45px;
+
+            .favourite-text {
+                text-decoration: underline;
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        .add-favourite {
+            display: block;
+            border-top: solid 1px #ebebeb;
+            font-size: 0.9em;
+            padding-left: 15px;
+            padding-top: 10px;
+            margin-top: -45px;
+
+            .favourite-text {
+                text-decoration: underline;
+            }
+
+            &.hidden {
+                display: none;
+            }
         }
 
         .group-card {
@@ -38,45 +79,15 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             transition-duration: 0.5s;
             display: block;
-
-            .remove-favourite {
-                display: block;
-                border-top: solid 1px #ebebeb;
-                font-size: 0.9em;
-                padding-left: 15px;
-                padding-top: 10px;
-
-                .favourite-text {
-                    text-decoration: underline;
-                }
-
-                &.hidden {
-                    display: none;
-                }
-            }
-
-            .add-favourite {
-                display: block;
-                border-top: solid 1px #ebebeb;
-                font-size: 0.9em;
-                padding-left: 15px;
-                padding-top: 10px;
-
-                .favourite-text {
-                    text-decoration: underline;
-                }
-
-                &.hidden {
-                    display: none;
-                }
-            }
+            padding-bottom: 50px;
 
             &:hover {
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             }
 
             .group-card-main {
-                display:block;
+                display: block;
+
                 .group-card-information {
                     color: black;
                     padding-left: 15px;
