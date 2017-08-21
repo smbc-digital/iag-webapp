@@ -612,7 +612,6 @@ ul.nav-card-events-list {
             #refine-slider {
                 position: absolute;
                 top: 0;
-                bottom: 0;
                 min-height:100%;
                 height: auto;
                 width: 100%;
@@ -620,7 +619,7 @@ ul.nav-card-events-list {
                 z-index: 9;
 
                 .scroller {
-                    overflow: hidden;
+                    overflow: scroll;
                 }
             }
         }
