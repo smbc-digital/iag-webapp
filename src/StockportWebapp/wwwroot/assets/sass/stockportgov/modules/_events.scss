@@ -610,8 +610,9 @@ ul.nav-card-events-list {
 
         @media #{$mobile} {
             #refine-slider {
-                position: fixed;
+                position: absolute;
                 top: 0;
+                bottom: 0;
                 min-height:100%;
                 height: auto;
                 width: 100%;
