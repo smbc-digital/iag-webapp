@@ -64,7 +64,7 @@ namespace StockportWebapp.Utils
                 items.Count,
                 currentPageNumber,
                 itemDescription,
-                maxNumberOfItemsPerPage == 0 ? defaultPageSize : maxNumberOfItemsPerPage,
+                maxNumberOfItemsPerPage == -1 ? items.Count() : maxNumberOfItemsPerPage == 0 ? defaultPageSize : maxNumberOfItemsPerPage,
                 defaultPageSize);
 
             var ExistingPageNumber = MakeSurePageNumberExists(currentPageNumber, items.Count, pagination.MaxItemsPerPage);

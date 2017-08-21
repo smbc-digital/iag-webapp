@@ -56,6 +56,8 @@ namespace StockportWebapp.Utils
 
         public string StripUnwantedHtml(string html, string allowedTags = "a,ol,ul,li,b,strong")
         {
+            html = string.IsNullOrEmpty(html) ? string.Empty : html;
+
             // Remove any typed HTML
             html = Regex.Replace(html, @"&lt;(.|\n)*?&gt;", string.Empty);
 

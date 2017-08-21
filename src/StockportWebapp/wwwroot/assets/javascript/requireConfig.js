@@ -34,6 +34,7 @@
         "clipboard": "//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min",
         "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
         "favourite": "stockportgov/favourite",
+        "tracking": "stockportgov/tracking",
     },
     shim: {
         'jquery-ui': {
@@ -57,31 +58,30 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourite'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourite) {
-            carousel.Init();
-            cludoconfig.Init();
-            contactus.Init();
-            customwysiwyg.Init();
-            events.Init();
-            expandinglinks.Init();
-            filters.Init();
-            groups.Init();
-            livechat.Init();
-            matchboxconfig.Init();
-            primaryfilter.Init();
-            refinebybar.Init();
-            startup.Init();
-            viewmoreslider.Init();
-            favourite.Init();
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourite', 'tracking'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourite, tracking) {
+        carousel.Init();
+        cludoconfig.Init();
+        contactus.Init();
+        customwysiwyg.Init();
+        events.Init();
+        expandinglinks.Init();
+        filters.Init();
+        groups.Init();
+        livechat.Init();
+        matchboxconfig.Init();
+        primaryfilter.Init();
+        refinebybar.Init();
+        startup.Init();
+        viewmoreslider.Init();
+        favourite.Init();
+        tracking.Init();
     }
 );
 
-if (typeof(globalButoIds) !== "undefined") {
+if (typeof (globalButoIds) !== "undefined") {
     require(globalButoIds,
         function () {
         }
     );
 }
-
-

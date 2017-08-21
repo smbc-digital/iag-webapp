@@ -39,8 +39,7 @@
             </div>
         </a>
     </div>
-    <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0))">
-    @*<a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="@( $"/favourites/nojs/add?slug={Model.Slug}&type=group&action=results&controller=groups")">*@
+    <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100 event-tracking" data-category="Groups" data-action="Remove from favourites" data-label="@Model.Slug" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
         <div class="grid-10 mobile-grid-10 favourite-icon">
             <i class="fa fa-star" aria-hidden="true"></i>
         </div>
@@ -48,8 +47,7 @@
             <span class="favourite-text">Remove from favourites</span>
         </div>
     </a>
-    <a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="javascript:void(0))">
-    @*<a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100" data-slug="@Model.Slug" data-type="group" href="@( $"/favourites/nojs/add?slug={Model.Slug}&type=group&action=results&controller=groups")">*@
+    <a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100 event-tracking" data-category="Groups" data-action="Add to favourites" data-label="@Model.Slug" data-slug="@Model.Slug" data-type="group" href="javascript:void(0);">
         <div class="grid-10  mobile-grid-10 favourite-icon">
             <i class="fa fa-star-o" aria-hidden="true"></i>
         </div>
@@ -58,3 +56,4 @@
         </div>
     </a>
 </li>
+
