@@ -26,7 +26,6 @@
     <Content Include="wwwroot\assets\javascript\requireConfigHealthyStockport.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\stockportgov\Favourite.js" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_emailBanner.scss" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_groupCards - Copy.scss" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_groupCards.scss" />

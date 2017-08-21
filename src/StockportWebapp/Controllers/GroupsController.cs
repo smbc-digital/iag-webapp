@@ -1000,6 +1000,12 @@ namespace StockportWebapp.Controllers
 
             var model = response.Content as GroupResults;
 
+            model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(model.CurrentUrl);
+            model.AddFilteredUrl(_filteredUrl);
+
+            favouritesHelper.PopulateFavourites(model.Groups);
+
             DoPagination(model, page, pageSize);
 
             if (pageSize == -1)
