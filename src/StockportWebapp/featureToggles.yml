@@ -1,29 +1,29 @@
 ﻿---
 prod: &prod
-  NewHomepageLayout: true  
+  NewHomepageLayout: true
   PrimaryItems: true
-  DisplayNewEventPageFeatures: false 
+  DisplayNewEventPageFeatures: false
   SmartAnswers : false
   GroupFavourites : false
 
 stage: &stage
   << : *prod
   DisplayNewEventPageFeatures: true
+  SmartAnswers : true
+  GroupFavourites : true
 
 qa: &qa
   << : *prod
   << : *stage
-  SmartAnswers : true
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
-  GroupFavourites : true
+
 
 local: &local
   << : *prod
   << : *stage
   << : *qa
   << : *int
-  
