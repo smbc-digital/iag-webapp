@@ -30,6 +30,7 @@
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_groupCards - Copy.scss" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_groupCards.scss" />
     <Content Include="wwwroot\assets\sass\stockportgov\modules\_iShareMap.scss" />
+    <Content Include="wwwroot\assets\stylesheets\vendor\_switches.scss" />
     <Content Include="wwwroot\images\jquery\loaderSml.gif">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -89,6 +90,10 @@
   
   <ItemGroup>
     <Content Include="node_modules\**\*" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\stylesheets\vendor\materialize\" />
   </ItemGroup>
 
 </Project>

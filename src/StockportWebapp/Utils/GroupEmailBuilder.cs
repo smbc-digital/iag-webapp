@@ -57,7 +57,9 @@ namespace StockportWebapp.Utils
                 Email = groupSubmission.Email,
                 Phone = groupSubmission.PhoneNumber,
                 Website = groupSubmission.Website,
-                Categories = groupSubmission.CategoriesList
+                Categories = groupSubmission.CategoriesList,
+                VolunteeringText = groupSubmission.VolunteeringText,
+                VolunteeringNeeded = groupSubmission.Volunteering
             };
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),

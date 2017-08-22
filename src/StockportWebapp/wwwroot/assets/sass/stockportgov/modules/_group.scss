@@ -360,7 +360,7 @@
     }
 }
 
-.group-map-container-padding{
+.group-map-container-padding {
     padding-bottom: 30px;
 }
 
@@ -585,5 +585,11 @@
         span {
             margin-left: 8px;
         }
+    }
+}
+
+.form-section {
+    .label-for-checkbox {
+        display: inline-block;
     }
 }

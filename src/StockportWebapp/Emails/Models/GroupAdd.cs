@@ -10,5 +10,7 @@
         public string Website { get; set; }
         public string Phone { get; set; }
         public string Image { get; set; }
+        public bool VolunteeringNeeded{ get; set; }
+        public string VolunteeringText { get; set; }
     }
 }

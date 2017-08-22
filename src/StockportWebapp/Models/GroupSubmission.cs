@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
@@ -55,5 +56,8 @@ namespace StockportWebapp.Models
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
+
+        public string VolunteeringText { get; set; } =
+            "If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any oppurtunities.";
     }
 }

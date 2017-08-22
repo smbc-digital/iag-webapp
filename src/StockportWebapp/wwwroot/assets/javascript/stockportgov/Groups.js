@@ -1,5 +1,14 @@
 ﻿define(["jquery", "utils"], function ($, utils) {
 
+    var handleVolunteering = function (input) {
+        if ($(input).is(':checked') === true) {
+            $("#volunteering-text").show();
+        }
+        else {
+            $("#volunteering-text").hide();
+        }
+    };
+
     var init = function () {
 
         if ($(window).width() <= utils.MobileWidth) {
@@ -26,6 +35,12 @@
 
         $(".print-this").click(function () {
             window.print();
+        });
+
+        handleVolunteering($("#volunteering-needed"));
+
+        $("#volunteering-needed").on("change", function () {
+            handleVolunteering(this);
         });
     };
 
