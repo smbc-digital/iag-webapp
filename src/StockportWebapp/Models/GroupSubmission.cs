@@ -58,6 +58,6 @@ namespace StockportWebapp.Models
         public double Longitude { get; set; }
 
         public string VolunteeringText { get; set; } =
-            "If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any oppurtunities.";
+            "If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.";
     }
 }
