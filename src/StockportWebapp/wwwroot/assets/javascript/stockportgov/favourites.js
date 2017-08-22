@@ -2,20 +2,25 @@
 
 
     var favouriteCount = 0;
+    var favebar = false;
 
     var addFavourites = function (slug, type) {
         $.get("/favourites/add?slug=" + slug + "&type=" + type,
             function (data, status) {
-                favouriteCount++;
-                updateBar();
+                if (favebar) {
+                    favouriteCount++;
+                    updateBar();
+                }
             });
     };
 
     var removeFavourites = function (slug, type) {
         $.get("/favourites/remove?slug=" + slug + "&type=" + type,
             function (data, status) {
-                favouriteCount--;
-                updateBar();
+                if (favebar) {
+                    favouriteCount--;
+                    updateBar();
+                }
             });
     };
 
@@ -67,6 +72,7 @@
     };
 
     var initialiseFaveBar = function () {
+        
         var siteArea = getSiteArea();
 
         if (siteArea !== '') {
@@ -75,6 +81,7 @@
             if (typeof (thisFaves) !== 'undefined') {
                 favouriteCount = thisFaves.length;
                 updateBar();
+                favebar = true;
             }
         }
     };
