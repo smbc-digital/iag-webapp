@@ -6,6 +6,7 @@
     color: #ffffff;
     z-index: 999;
     cursor: pointer;
+    padding:5px 0;
 
     .count {
         padding-left: 10px;
@@ -15,9 +16,6 @@
         @media #{$tablet} {
             margin-left: 10px;
         }
-
-        @media #{$mobile} {
-            text-align: center;
-        }
+        text-align: center;
     }
 }
