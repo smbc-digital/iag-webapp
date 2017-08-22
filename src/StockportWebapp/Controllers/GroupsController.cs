@@ -103,7 +103,7 @@ namespace StockportWebapp.Controllers
             var processedGroup = new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter, group.Facebook,
                 group.Address, group.Description, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, group.Breadcrumbs, group.MapPosition,
                 group.Volunteering, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, group.Cost, group.CostText,
-                group.AbilityLevel, group.Favourite);
+                group.AbilityLevel, group.Favourite, group.VolunteeringText);
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
@@ -911,6 +911,8 @@ namespace StockportWebapp.Controllers
             group.Website = model.Website;
             group.Volunteering = model.Volunteering;
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
+            group.Volunteering = model.Volunteering;
+            group.VolunteeringText = model.VolunteeringText;
 
             group.CategoriesReference = new List<GroupCategory>();
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));

@@ -95,12 +95,12 @@ namespace StockportWebappTests.Unit.Controllers
             var processedGroup = new ProcessedGroup("testname", "testslug", Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false, Helper.AnyString);
 
             var group = new Group("testname", "testslug", Helper.AnyString, Helper.AnyString, 
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, null, null, null, false, null, null, DateTime.MinValue, DateTime.MinValue, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false, Helper.AnyString);
 
             _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
@@ -187,7 +187,7 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, DateTime.MinValue, DateTime.MaxValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, DateTime.MinValue, DateTime.MaxValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: Helper.AnyString);
             _repository.Setup(r => r.Delete<Group>(slug))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
             _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
@@ -202,7 +202,7 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } }, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, false, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } }, DateTime.MinValue, DateTime.MinValue, cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: Helper.AnyString);
             _repository.Setup(r => r.Archive<Group>(It.IsAny<HttpContent>(), slug))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
             _fakeRepository.Set(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
@@ -316,7 +316,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var group = new Group(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, null, null, location, false, null, null, DateTime.MinValue, DateTime.MinValue, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false, "");
 
             _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
@@ -336,7 +336,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var group = new Group(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, null, null, location, false, listOfLinkedEvents, null, DateTime.MinValue, DateTime.MinValue, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, false);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false, Helper.AnyString);
 
             _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
@@ -378,7 +378,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false);
+                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: "");
 
                 listOfGroups.Add(group);
             }

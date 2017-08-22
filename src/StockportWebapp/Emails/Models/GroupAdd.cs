@@ -12,5 +12,7 @@
         public string Image { get; set; }
         public bool VolunteeringNeeded{ get; set; }
         public string VolunteeringText { get; set; }
+        public string Facebook { get; set; }
+        public string Twitter { get; set; }
     }
 }

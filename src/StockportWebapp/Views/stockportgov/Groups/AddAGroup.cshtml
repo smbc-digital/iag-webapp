@@ -88,7 +88,8 @@
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
-                                        <label class="label-for-checkbox" asp-for="@Model.Volunteering"></label>
+                                        <label class="label-for-checkbox hide-on-mobile">Do you have any volunteering opportunities?</label>
+                                        <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
                                         <div class="switch">
                                             <label>
                                                 <input asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
@@ -123,6 +124,14 @@
                                         <label asp-for="@Model.PhoneNumber"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
                                         <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        
+                                        <label asp-for="@Model.Facebook"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
+                                        <span asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Twitter"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
+                                        <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
                                         <div Class="clearfix"></div>

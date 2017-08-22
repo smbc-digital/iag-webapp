@@ -73,7 +73,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 cost: Cost,
                 costText: CostText,
                 abilityLevel: AbilityLevel,
-                favourite: false
+                favourite: false,
+                volunteeringText: ""
                 
             );
 

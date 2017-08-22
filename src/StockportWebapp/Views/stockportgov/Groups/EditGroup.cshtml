@@ -95,7 +95,8 @@
                                             <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>                                                                                    
                                         </div>
                                         
-                                        <label class="label-for-checkbox" asp-for="@Model.Volunteering"></label>
+                                        <label class="label-for-checkbox hide-on-mobile">Do you have any volunteering opportunities?</label>
+                                        <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
                                         <div class="switch">
                                             <label>
                                                 <input asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
