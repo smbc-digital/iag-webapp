@@ -190,6 +190,14 @@
             return false;
         });
 
+        $("#allLocations").click(function () {
+            $('#location').val('Stockport');
+            $('#longitude').val('-2.158046');
+            $('#latitude').val('53.405817');
+            $('.location-search-input').val('Stockport');
+            location.SetLocation('Stockport', '53.405817', '-2.158046');
+        });
+
         // use location click
         $("#btnLocationAutoComplete").click(function (event) {
             event.preventDefault();

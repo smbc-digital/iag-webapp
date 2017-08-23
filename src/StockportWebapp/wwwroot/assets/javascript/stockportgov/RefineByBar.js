@@ -131,6 +131,7 @@
         if (location !== '') {
             $('.location-search-input').val(location);
             $('.search-all', '#event-listing-refine-bar').show();
+            $('.search-all', '#primary-filter-listing-refine-bar').show();
         }
         else {
             $('.search-all', '#event-listing-refine-bar').hide();
