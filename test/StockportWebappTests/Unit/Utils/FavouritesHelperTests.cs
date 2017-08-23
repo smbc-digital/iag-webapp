@@ -1,15 +1,12 @@
 ﻿using Xunit;
 using FluentAssertions;
 using System;
-using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json;
 using StockportWebapp.Utils;
-using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
-using System.Net;
 using System.Collections;
 
 namespace StockportWebappTests.Unit.Utils
