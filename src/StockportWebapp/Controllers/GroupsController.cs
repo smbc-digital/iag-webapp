@@ -1028,12 +1028,11 @@ namespace StockportWebapp.Controllers
         [Route("/groups/exportpdf/favourites")]
         public async Task<IActionResult> FavouriteGroupsPDF([FromServices] INodeServices nodeServices)
         {
+            _logger.LogInformation("Exporting group favourites to pdf");
+
             var response = await GetFavouriteGroupResults();
 
-            if (response.IsNotFound())
-            {
-                return NotFound();
-            }
+            if (response.IsNotFound()) return NotFound();
 
             var model = response.Content as GroupResults;
 
@@ -1042,15 +1041,11 @@ namespace StockportWebapp.Controllers
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
             var renderedHtml = _viewRender.Render("Groups/FavouriteGroupsPrint", model);
 
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 500 });
+            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 1000 });
 
-            HttpContext.Response.ContentType = "application/pdf";
+            if (result == null) _logger.LogError("Failed to export group favourites to pdf");
 
-            string filename = @"receipt.pdf";
-            HttpContext.Response.Headers.Add("x-filename", filename);
-            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
-            HttpContext.Response.Body.Write(result, 0, result.Length);
-            return new ContentResult();
+            return new FileContentResult(result, "application/pdf");
         }
 
         [HttpGet]
