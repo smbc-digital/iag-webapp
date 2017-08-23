@@ -254,9 +254,9 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/exportpdf/{slug}")]
-        [ResponseCache(NoStore = true)]
         public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, [FromServices] CurrentEnvironment environment, string slug, [FromQuery] bool returnHtml = false)
         {
             _logger.LogInformation(string.Concat("Exporting group ", slug, " to pdf"));
@@ -1024,6 +1024,7 @@ namespace StockportWebapp.Controllers
             }
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/exportpdf/favourites")]
         public async Task<IActionResult> FavouriteGroupsPDF([FromServices] INodeServices nodeServices)
