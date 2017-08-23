@@ -42,6 +42,8 @@
         $("#volunteering-needed").on("change", function () {
             handleVolunteering(this);
         });
+
+        $(".remove-favourite,.add-favourite").attr("href", "javascript:void(0)");
     };
 
     return {

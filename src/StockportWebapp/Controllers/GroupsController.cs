@@ -86,6 +86,7 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/groups/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
@@ -110,6 +111,7 @@ namespace StockportWebapp.Controllers
             return View(processedGroup);
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [Route("groups/results")]
         public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] int pageSize, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
         {
@@ -989,6 +991,7 @@ namespace StockportWebapp.Controllers
             return await _repository.Get<GroupResults>(queries: queries);
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/favourites")]
         public async Task<IActionResult> FavouriteGroups([FromQuery] int page, [FromQuery] int pageSize)

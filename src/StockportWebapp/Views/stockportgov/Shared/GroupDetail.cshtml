@@ -219,7 +219,7 @@
                                             Favourites
                                         </div>
                                         <div class="group-details-heading"></div>
-                                        <a data-slug="@Model.Slug" class="remove-favourite" data-type="group" href="javascript:void(0);">
+                                        <a data-slug="@Model.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")">
                                             Remove from favourites
                                         </a>
                                     </div>
@@ -235,7 +235,7 @@
                                             Favourites
                                         </div>
                                         <div class="group-details-heading"></div>
-                                        <a data-slug="@Model.Slug" class="add-favourite" data-type="group" href="javascript:void(0);">
+                                        <a data-slug="@Model.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")">
                                             Add to favourites
                                         </a>
                                     </div>

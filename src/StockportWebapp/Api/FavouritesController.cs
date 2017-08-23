@@ -37,9 +37,9 @@ namespace StockportWebapp.Api
 
             return new OkResult();
         }
-
+        
         [Route("/favourites/nojs/add")]
-        public IActionResult AddGroupsFavouriteNoJs([FromQuery]string slug, [FromQuery] string type, [FromQuery] string action, [FromQuery] string controller)
+        public IActionResult AddGroupsFavouriteNoJs([FromQuery]string slug, [FromQuery] string type)
         {
             switch (type)
             {
@@ -51,7 +51,7 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            return new RedirectToActionResult(action, controller, null);
+            return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
         }
 
         [Route("/favourites/remove")]
@@ -83,7 +83,7 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            return new RedirectResult(hostHelper.GetHostAndQueryString(httpContextAccessor.HttpContext.Request));
+            return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
         }
 
 
