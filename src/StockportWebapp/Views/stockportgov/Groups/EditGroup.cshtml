@@ -143,14 +143,6 @@
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
                                         <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <div class="recurring-event-yn">
-                                            <label asp-for="@Model.Volunteering"></label>
-                                            <ul  class="radio-list">
-                                                <li><label><input type="radio" asp-for="@Model.Volunteering" value="False" checked="checked" class="schedule_multiple_events" />No</label></li>
-                                                <li><label><input type="radio" asp-for="@Model.Volunteering" value="True" class="schedule_multiple_events" />Yes</label></li>
-                                            </ul>
-                                        </div>
-
                                         <stock-button id="uitest-contact-form-submit"
                                                       class="button-contact-us" >Edit your group</stock-button>
                                     </fieldset>
