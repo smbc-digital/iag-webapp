@@ -1024,7 +1024,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/groups/favourites/exportpdf")]
+        [Route("/groups/exportpdf/favourites")]
         public async Task<IActionResult> FavouriteGroupsPDF([FromServices] INodeServices nodeServices)
         {
             var response = await GetFavouriteGroupResults();
@@ -1038,7 +1038,7 @@ namespace StockportWebapp.Controllers
 
             DoPagination(model, 0, -1);
 
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
+            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
             var renderedHtml = _viewRender.Render("Groups/FavouriteGroupsPrint", model);
 
             var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 500 });

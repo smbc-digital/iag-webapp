@@ -2,7 +2,7 @@
 
 
     var favouriteCount = 0;
-    var favebar = false;
+    var favebar = true;
 
     var addFavourites = function (slug, type) {
         $.get("/favourites/add?slug=" + slug + "&type=" + type,
@@ -59,6 +59,7 @@
         if (folders.length > 1) {
             var root = folders[1];
             if (folders.length > 2 && (folders[2] === 'favourites' || folders[2] === 'manage')) {
+                favebar = false;
                 return '';
             }
         }
@@ -75,13 +76,12 @@
         
         var siteArea = getSiteArea();
 
-        if (siteArea !== '') {
+        if (siteArea !== '' && readCookie('favourites')) {
             var favourites = $.parseJSON(unescape(readCookie('favourites')));
             var thisFaves = favourites[siteArea];
             if (typeof (thisFaves) !== 'undefined') {
                 favouriteCount = thisFaves.length;
                 updateBar();
-                favebar = true;
             }
         }
     };
