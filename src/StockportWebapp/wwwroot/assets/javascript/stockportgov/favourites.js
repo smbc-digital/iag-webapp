@@ -1,8 +1,9 @@
-﻿define(["jquery"], function ($) {
+﻿define(["jquery", "matchboxconfig"], function ($, matchboxes) {
 
 
     var favouriteCount = 0;
     var favebar = true;
+    var onFavouritesPage = false;
 
     var addFavourites = function (slug, type) {
         $.get("/favourites/add?slug=" + slug + "&type=" + type,
@@ -20,6 +21,17 @@
                 if (favebar) {
                     favouriteCount--;
                     updateBar();
+                }
+
+                if (onFavouritesPage) {
+                    $("#item-card-" + slug).remove();
+
+                    if ($(".group-card").length === 0) {
+                        $("#no-results").show();
+                        $("#favourites-list").hide();
+                    }
+
+                    matchboxes.Init();
                 }
             });
     };
@@ -59,6 +71,11 @@
         if (folders.length > 1) {
             var root = folders[1];
             if (folders.length > 2 && (folders[2] === 'favourites' || folders[2] === 'manage')) {
+
+                if (folders[2] === 'favourites') {
+                    onFavouritesPage = true;
+                }
+
                 favebar = false;
                 return '';
             }

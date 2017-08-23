@@ -7,7 +7,7 @@
     var cost = Model.Cost;
     cost = cost == "Paid" && !string.IsNullOrEmpty(Model.CostText) ? Model.CostText : cost;
 }
-<li class="group-li grid-33 tablet-grid-50 mobile-grid-100">
+<li id="item-card-@Model.Slug" class="group-li grid-33 tablet-grid-50 mobile-grid-100">
     <div class="group-card grid-100 grid-parent matchbox-child">
         <a href="../groups/@Model.Slug" class="group-card-main">
             <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(Model))"></div>

@@ -24,9 +24,8 @@
                 <div class="l-content-container grid-100 group-margin" id="group-padding">
                     <h1 id="manage-group-title" class="group-article-title">Favourite groups</h1>
                     <div class="grid-container grid-parent">
+                        <div id="favourites-list" class="@(Model.Groups.Any() ? "" : "hidden")">
 
-                        @if (Model.Groups.Any())
-                        {
                             @Html.Partial("Groups/GroupCardList", Model.Groups)
 
                             <div class="grid-container grid-100 group-pagination">
@@ -51,26 +50,25 @@
                                     </div>
                                 </div>
                             </div>
-                        }
-                        else
-                        {
-                            <div class="grid-container grid-100 center-block" id="no-results">
-                                <div class="l-content-container grid-100 grid-parent group-margin">
-                                    <div class="grid-100 centre word-wrap">
-                                        <div class="icon-bordered icon-bordered-fixed green tick">
-                                            <i class="fa fa-star fa-5x" aria-hidden="true"></i>
-                                        </div>
-                                        <h2>You have 0 favourite groups</h2>
+                        </div>
+
+                        <div class="grid-container grid-100 center-block @(!Model.Groups.Any() ? "" : "hidden")" id="no-results">
+                            <div class="l-content-container grid-100 grid-parent group-margin">
+                                <div class="grid-100 centre word-wrap">
+                                    <div class="icon-bordered icon-bordered-fixed green tick">
+                                        <i class="fa fa-star fa-5x" aria-hidden="true"></i>
                                     </div>
-                                    <div class="grid-100 centre">
-                                        <p>If you want to add more favourites visit our find a local group page.</p>
-                                    </div>
-                                    <div class="grid-100 centre mixed-buttons">
-                                        <stock-button as-link="true" href="@Url.Action("Index", "Groups")">Find a local group</stock-button>
-                                    </div>
+                                    <h2>You have 0 favourite groups</h2>
+                                </div>
+                                <div class="grid-100 centre">
+                                    <p>If you want to add more favourites visit our find a local group page.</p>
+                                </div>
+                                <div class="grid-100 centre mixed-buttons">
+                                    <stock-button as-link="true" href="@Url.Action("Index", "Groups")">Find a local group</stock-button>
                                 </div>
                             </div>
-                        }
+                        </div>
+
                     </div>
                 </div>
             </section>
