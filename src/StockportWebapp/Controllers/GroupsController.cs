@@ -874,6 +874,7 @@ namespace StockportWebapp.Controllers
             model.Volunteering = group.Volunteering;
             model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
             model.CategoriesList = string.Join(",", model.Categories);
+            model.VolunteeringText = group.VolunteeringText;
             model.AvailableCategories = await GetAvailableGroupCategories();
 
            return View(model);
