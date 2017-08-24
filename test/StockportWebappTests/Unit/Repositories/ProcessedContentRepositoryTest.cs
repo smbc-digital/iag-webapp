@@ -9,6 +9,7 @@ using StockportWebapp.Utils;
 using Xunit;
 using System.Linq;
 using Moq;
+using StockportWebapp.Config;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
@@ -25,6 +26,7 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
         private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
+        private readonly Mock<IApplicationConfiguration> appConfig;
 
         public ProcessedContentRepositoryTest()
         {
@@ -34,11 +36,12 @@ namespace StockportWebappTests.Unit.Repositories
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _mockUrlGenerator = new Mock<IStubToUrlConverter>();
+            appConfig = new Mock<IApplicationConfiguration>();
 
             _mockHttpClient = new Mock<IHttpClient>();
 
             var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object);
-            _repository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, contentFactory);
+            _repository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, contentFactory, appConfig.Object);
         }
 
         /*
@@ -53,7 +56,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             var body = "Staying active and exercising is essential to reach and maintain a healthy lifestyle.";
 
-            _mockHttpClient.Setup(o => o.Get(url))
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Article.json"), string.Empty));
 
             _tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns(body);
@@ -90,7 +93,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string url = "article-with-slug-url";
             _mockUrlGenerator.Setup(o => o.UrlFor<Article>(articleSlug, It.IsAny<List<Query>>())).Returns(url);
 
-            _mockHttpClient.Setup(o => o.Get(url))
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.ArticleWithoutBackgroundImage.json"),
                     string.Empty));
 
@@ -111,7 +114,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string url = "non-existent-article-with-slug-url";
             _mockUrlGenerator.Setup(o => o.UrlFor<Article>(nonExistentArticle, It.IsAny<List<Query>>())).Returns(url);
 
-            _mockHttpClient.Setup(o => o.Get(url))
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(HttpResponse.Failure(404, articleNotFoundError));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Article>(nonExistentArticle));
@@ -127,7 +130,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string url = "get-articlewithalerts-with-slug-url";
 
             _mockUrlGenerator.Setup(o => o.UrlFor<Article>(articleSlug, It.IsAny<List<Query>>())).Returns(url);
-            _mockHttpClient.Setup(o => o.Get(url))
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.ArticleWithAlerts.json"),
                     string.Empty));
 
@@ -154,7 +157,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             _mockUrlGenerator.Setup(o => o.UrlFor<Profile>(profileSlug, It.IsAny<List<Query>>())).Returns(url);
 
-            _mockHttpClient.Setup(o => o.Get(url))
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Profile.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Profile>(profileSlug));
@@ -185,7 +188,7 @@ namespace StockportWebappTests.Unit.Repositories
             _mockUrlGenerator.Setup(o => o.UrlFor<News>(slug, It.IsAny<List<Query>>())).Returns(url);
             var body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
-            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.News.json"), string.Empty));
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.News.json"), string.Empty));
 
             _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
@@ -212,7 +215,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             var body = "The event description";
 
-            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json"), string.Empty));
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json"), string.Empty));
 
             _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
@@ -238,7 +241,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             var body = "The event description";
 
-            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json"), string.Empty));
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json"), string.Empty));
 
             _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
@@ -263,7 +266,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             var body = "The group description";
 
-            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Group.json"), string.Empty));
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Group.json"), string.Empty));
 
             _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
@@ -289,7 +292,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string url = "url";
 
             _mockUrlGenerator.Setup(o => o.UrlFor<Showcase>(slug, null)).Returns(url);
-            _mockHttpClient.Setup(o => o.Get(url)).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Showcase.json"), string.Empty));
+            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Showcase.json"), string.Empty));
 
             //Act
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Showcase>(slug));

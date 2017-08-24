@@ -29,7 +29,7 @@ namespace StockportWebappTests.Unit.Repositories
             appConfig.Setup(o => o.GetContentApiUri()).Returns(new Uri("http://localhost:5000/"));
 
             _urlGenerator = new UrlGenerator(appConfig.Object, new BusinessId(""));
-            _repository = new Repository(_urlGenerator, _httpClientMock.Object);
+            _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object);
         }
 
         [Fact]
@@ -39,7 +39,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string topicNotFoundError = "No topic found for not found";
             var url = _urlGenerator.UrlFor<Topic>(unrecognizedTopic);
 
-            _httpClientMock.Setup(o => o.Get(url)).ReturnsAsync(HttpResponse.Failure(404, topicNotFoundError));
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(HttpResponse.Failure(404, topicNotFoundError));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Topic>(unrecognizedTopic));
 
@@ -53,7 +53,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string email = "buggs@loonytunes.com";
             var url = _urlGenerator.AdministratorsGroups(email);
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
                     GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupListing.json"),
@@ -71,7 +71,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string topicSlug = "healthy-living";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
                     GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Topic.json"),
@@ -98,7 +98,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string topicSlug = "healthy-living";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
                     GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithSubItemsAndSecondaryItems.json"),
@@ -120,7 +120,7 @@ namespace StockportWebappTests.Unit.Repositories
             const string topicSlug = "healthy-living";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
                     GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAlerts.json"),
@@ -150,7 +150,7 @@ namespace StockportWebappTests.Unit.Repositories
             var startPageSlug = "slug";
             var url = _urlGenerator.UrlFor<StartPage>(startPageSlug);
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StartPage.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<StartPage>(startPageSlug));
@@ -183,7 +183,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             var url = _urlGenerator.UrlFor<StartPage>(nonExistentStartPage);
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(HttpResponse.Failure(404, articleNotFoundError));
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<StartPage>(nonExistentStartPage));
 
@@ -199,7 +199,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlFor<Homepage>();
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.HomepageStockportGov.json"),
                     string.Empty));
 
@@ -237,7 +237,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlFor<Newsroom>();
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Newsroom>());
@@ -291,7 +291,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlFor<List<AtoZ>>();
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.AtoZ.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<List<AtoZ>>());
@@ -310,7 +310,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlFor<Newsroom>("2");
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Newsroom>("2"));
@@ -327,7 +327,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlFor<Newsroom>("/tag/Tag1");
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Newsroom>("/tag/Tag1"));
@@ -350,7 +350,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.RedirectUrl();
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Redirects.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.GetRedirects());
@@ -376,7 +376,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlFor<EventCalendar>();
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventsCalendar.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<EventCalendar>());
@@ -393,7 +393,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlFor<Event>("event-of-the-century");
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json"), string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>("event-of-the-century"));
@@ -409,7 +409,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = _urlGenerator.UrlForLimit<EventCalendar>(2);
 
-            _httpClientMock.Setup(o => o.Get(url))
+            _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListing.json"),
                     string.Empty));
 
@@ -430,7 +430,7 @@ namespace StockportWebappTests.Unit.Repositories
             var jsonContent = GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Group.json");
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            _httpClientMock.Setup(o => o.PutAsync(url, httpContent))
+            _httpClientMock.Setup(o => o.PutAsync(url, httpContent, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Put<Group>(httpContent, "test_slug"));
@@ -443,7 +443,7 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}/administrators/test@test.com";
 
-            _httpClientMock.Setup(o => o.DeleteAsync(url))
+            _httpClientMock.Setup(o => o.DeleteAsync(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.RemoveAdministrator("test_slug", "test@test.com"));
@@ -459,7 +459,7 @@ namespace StockportWebappTests.Unit.Repositories
             var jsonContent = JsonConvert.SerializeObject("E");
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            _httpClientMock.Setup(o => o.PostAsync(url, httpContent))
+            _httpClientMock.Setup(o => o.PostAsync(url, httpContent, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.AddAdministrator(httpContent, "test_slug", "test@test.com"));
@@ -475,7 +475,7 @@ namespace StockportWebappTests.Unit.Repositories
             var jsonContent = JsonConvert.SerializeObject("E");
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            _httpClientMock.Setup(o => o.PutAsync(url, httpContent))
+            _httpClientMock.Setup(o => o.PutAsync(url, httpContent, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.UpdateAdministrator(httpContent, "test_slug", "test@test.com"));

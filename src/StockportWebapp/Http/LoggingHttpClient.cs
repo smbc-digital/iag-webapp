@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -17,12 +18,12 @@ namespace StockportWebapp.Http
             _logger = logger;
         }
 
-        public async Task<HttpResponse> Get(string url)
+        public async Task<HttpResponse> Get(string url, Dictionary<string, string> headers)
         {
             _logger.LogInformation("Querying: " + url);
             try
             {
-                HttpResponse response = await _inner.Get(url);
+                HttpResponse response = await _inner.Get(url, headers);
                 _logger.LogDebug("Response: " + response);
                 return await Task.FromResult(response);
             }
@@ -61,13 +62,13 @@ namespace StockportWebapp.Http
             return await Task.FromResult(new HttpResponseMessage());
         }
 
-        public async Task<HttpResponse> PutAsync(string requestURI, HttpContent content)
+        public async Task<HttpResponse> PutAsync(string requestURI, HttpContent content, Dictionary<string, string> headers)
         {
             _logger.LogInformation("Putting: " + requestURI);
 
             try
             {
-                HttpResponse response = await _inner.PutAsync(requestURI, content);
+                HttpResponse response = await _inner.PutAsync(requestURI, content, headers);
                 _logger.LogDebug("Response: " + response);
                 return await Task.FromResult(response);
             }
@@ -84,13 +85,13 @@ namespace StockportWebapp.Http
             return await Task.FromResult(new HttpResponse((int)HttpStatusCode.OK, null, string.Empty));
         }
 
-        public async Task<HttpResponse> PostAsync(string requestURI, HttpContent content)
+        public async Task<HttpResponse> PostAsync(string requestURI, HttpContent content, Dictionary<string, string> headers)
         {
             _logger.LogInformation("Posting: " + requestURI);
 
             try
             {
-                HttpResponse response = await _inner.PostAsync(requestURI, content);
+                HttpResponse response = await _inner.PostAsync(requestURI, content, headers);
                 _logger.LogDebug("Response: " + response);
                 return await Task.FromResult(response);
             }
@@ -107,13 +108,13 @@ namespace StockportWebapp.Http
             return await Task.FromResult(new HttpResponse((int)HttpStatusCode.OK, null, string.Empty));
         }
 
-        public async Task<HttpResponse> DeleteAsync(string requestURI)
+        public async Task<HttpResponse> DeleteAsync(string requestURI, Dictionary<string, string> headers)
         {
             _logger.LogInformation("Deleting: " + requestURI);
 
             try
             {
-                HttpResponse response = await _inner.DeleteAsync(requestURI);
+                HttpResponse response = await _inner.DeleteAsync(requestURI, headers);
                 _logger.LogDebug("Response: " + response);
                 return await Task.FromResult(response);
             }

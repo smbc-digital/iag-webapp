@@ -51,7 +51,7 @@ namespace StockportWebappTests.Unit.Http
             _exception = exception;
         }
 
-        public Task<HttpResponse> Get(string url)
+        public Task<HttpResponse> Get(string url, Dictionary<string, string> headers)
         {
             invokedUrl = url;
             if (_exception != null)
@@ -90,17 +90,17 @@ namespace StockportWebappTests.Unit.Http
             }
         }
 
-        public Task<HttpResponse> PostAsync(string requestURI, HttpContent content)
+        public Task<HttpResponse> PostAsync(string requestURI, HttpContent content, Dictionary<string, string> headers)
         {
             throw new NotImplementedException();
         }
 
-        public Task<HttpResponse> PutAsync(string requestURI, HttpContent content)
+        public Task<HttpResponse> PutAsync(string requestURI, HttpContent content, Dictionary<string, string> headers)
         {
             throw new NotImplementedException();
         }
 
-        public Task<HttpResponse> DeleteAsync(string requestURI)
+        public Task<HttpResponse> DeleteAsync(string requestURI, Dictionary<string, string> headers)
         {
             throw new NotImplementedException();
         }

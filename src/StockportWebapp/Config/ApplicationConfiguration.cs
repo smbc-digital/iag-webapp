@@ -32,6 +32,7 @@ namespace StockportWebapp.Config
         int GetEventsDefaultPageSize(string businessId);
         int GetConsultationsDefaultPageSize(string businessId);
         int GetGroupsDefaultPageSize(string businessId);
+        string GetContentApiAuthenticationKey();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -189,6 +190,10 @@ namespace StockportWebapp.Config
             int result;
             int.TryParse(_appsettings[$"{businessId}:GroupsDefaultPageSize"], out result);
             return result;
+        }
+        public string GetContentApiAuthenticationKey()
+        {
+            return _appsettings["ContentApiAuthenticationKey"];
         }
     }
 }
