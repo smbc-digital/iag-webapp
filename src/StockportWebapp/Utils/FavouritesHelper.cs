@@ -32,7 +32,9 @@ namespace StockportWebapp.Utils
 
             if (!allFavourites.Keys.Any()) return items;
 
-            var favourites = allFavourites[typeof(T).ToString()];
+            var type = typeof(T).ToString().Replace("Processed", "");
+
+            var favourites = allFavourites[type];
 
             foreach (var item in items)
             {

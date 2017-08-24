@@ -6,23 +6,23 @@ namespace StockportWebapp.ProcessedModels
 {
     public class ProcessedGroup : IProcessedContentType
     {
-        public readonly string Name;
-        public readonly string Slug;
-        public readonly string PhoneNumber;
-        public readonly string Email;
-        public readonly string Website;
-        public readonly string Twitter;
-        public readonly string Facebook;
-        public readonly string Address;
-        public readonly string Description;
-        public readonly string ImageUrl;
-        public readonly string ThumbnailImageUrl;
-        public readonly List<GroupCategory> CategoriesReference;
-        public List<Crumb> Breadcrumbs { get; }
-        public readonly MapPosition MapPosition;
-        public readonly bool Volunteering;
+        public string Name { get; set; }
+        public string Slug { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
+        public string Website { get; set; }
+        public string Twitter { get; set; }
+        public string Facebook { get; set; }
+        public string Address { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }
+        public string ThumbnailImageUrl { get; set; }
+        public List<GroupCategory> CategoriesReference { get; set; }
+        public List<Crumb> Breadcrumbs { get; set; }
+        public MapPosition MapPosition { get; set; }
+        public bool Volunteering { get; set; }
         public List<Event> Events { get; set; }
-        public readonly GroupAdministrators GroupAdministrators;
+        public GroupAdministrators GroupAdministrators { get; set; }
         public DateTime? DateHiddenFrom { get; set; }
         public DateTime? DateHiddenTo { get; set; }
         public string Cost { get; set; }
