@@ -210,37 +210,40 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
-                                <li id="remove-favourite-@Model.Slug" class="group-details @(!Model.Favourite ? "hidden" : "")">
-                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                        <i class="fa fa-star fa-2x group-details-symbol"></i>
-                                    </div>
-                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                        <div class="group-details-heading">
-                                            Favourites
+                                @if (FeatureToggles.GroupFavourites)
+                                {
+                                    <li id="remove-favourite-@Model.Slug" class="group-details @(!Model.Favourite ? "hidden" : "")">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                            <i class="fa fa-star fa-2x group-details-symbol"></i>
                                         </div>
-                                        <div class="group-details-heading"></div>
-                                        <a data-slug="@Model.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")">
-                                            Remove from favourites
-                                        </a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                            <div class="group-details-heading">
+                                                Favourites
+                                            </div>
+                                            <div class="group-details-heading"></div>
+                                            <a data-slug="@Model.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")">
+                                                Remove from favourites
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
 
-                                <li id="add-favourite-@Model.Slug" class="group-details @(Model.Favourite ? "hidden" : "")">
-                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter ">
-                                        <i class="fa fa-star-o fa-2x group-details-symbol"></i>
-                                    </div>
-                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                        <div class="group-details-heading">
-                                            Favourites
+                                    <li id="add-favourite-@Model.Slug" class="group-details @(Model.Favourite ? "hidden" : "")">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter ">
+                                            <i class="fa fa-star-o fa-2x group-details-symbol"></i>
                                         </div>
-                                        <div class="group-details-heading"></div>
-                                        <a data-slug="@Model.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")">
-                                            Add to favourites
-                                        </a>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                            <div class="group-details-heading">
+                                                Favourites
+                                            </div>
+                                            <div class="group-details-heading"></div>
+                                            <a data-slug="@Model.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")">
+                                                Add to favourites
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                }
 
                             </ul>
                         </div>
