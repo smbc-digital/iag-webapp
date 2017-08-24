@@ -2,14 +2,12 @@
 prod: &prod
   NewHomepageLayout: true
   PrimaryItems: true
-  DisplayNewEventPageFeatures: false
-  SmartAnswers : false
+  DisplayNewEventPageFeatures: true
+  SmartAnswers : true
   GroupFavourites : false
 
 stage: &stage
   << : *prod
-  DisplayNewEventPageFeatures: true
-  SmartAnswers : true
   GroupFavourites : true
 
 qa: &qa
