@@ -1,0 +1,14 @@
+﻿@using StockportWebapp.ProcessedModels
+@model StockportWebapp.ProcessedModels.ProcessedShowcase
+
+<div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
+    <div class="title-card">
+        <h1>
+            <span>@Model.Title</span>
+        </h1>
+        <div class="clearfix"><hr class="hero-image-divider" /> </div>       
+        <h2>
+            <span>@Model.Teaser</span>
+        </h2>       
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@using StockportWebapp.ViewModels
+@model PrimaryFilter
+
+<form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form primary-filter-form-autocomplete">
+
+    <div class="grid-100" id="primary-filter-listing-refine-bar">
+        <div class="primary-filter-form-section">
+            <label class="hide-on-mobile primary-filter-label">Show me</label>
+            <label class="hide-on-desktop hide-on-tablet filter-label">Choose a category</label>
+            <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow" id="selectCategory">
+                <option selected value="all">All</option>
+            </select>
+        </div>
+
+        <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
+        <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
+        <input asp-for="Location" type="hidden" id="location" />
+
+        @Html.Partial("LocationSearch", new LocationSearch
+            { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = Model.Location, Label = "groups in" })
+
+        <div class="primary-filter-form-section hide-on-mobile">
+            <label class="primary-filter-label">sorted by</label>
+            <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select custom-arrow" id="selectOrder"></select>
+        </div>
+        <div class="primary-filter-form-section-button">
+            <button type="submit" class="button-default primary-filter-button" id="filterButton">Search groups</button>
+        </div>
+    </div>
+    @* HIDDEN - Used for auto-resizing selects *@
+    <select id="hiddenSelectCategory" class="primary-filter-select hidden"></select>
+    <select id="hiddenSelectOrder" class="primary-filter-select hidden"></select>
+    <select id="hiddenSelectLocation" class="primary-filter-select hidden"></select>
+</form>

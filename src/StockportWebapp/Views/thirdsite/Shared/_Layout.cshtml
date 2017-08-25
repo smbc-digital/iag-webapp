@@ -1,0 +1,73 @@
+﻿@using StockportWebapp.Config
+@inject IApplicationConfiguration ApplicationConfiguration
+@inject CurrentEnvironment CurrentEnvironment
+@inject BusinessId BusinessId
+
+<!DOCTYPE html>
+<html lang="en-GB" class="no-js">
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+    @Html.Partial("SecurityHeaders")
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+
+    @Html.Partial("OwnershipVerificationCodes")
+    @Html.Partial("Favicon")
+
+    <title>@ViewData["Title"] - THIRD SITE</title>
+    @if (ViewData["Description"] != null)
+    {
+        <meta name="Description" content="@ViewData["Description"]"/>
+    }
+    @if (ViewData["CanonicalUrl"] != null)
+    {
+        @Html.Partial("Canonical-Link")
+    }
+    @if (ViewData["og:title"] != null)
+    {
+        <meta property="og:title" content="@ViewData["og:title"]"/>
+    }
+    <link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/assets/stylesheets/vendor/slick.min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.css"/>
+    <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed"/>
+    <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed"/>
+
+    @Html.Partial("CookieBanner")
+    @await Component.InvokeAsync("GoogleAnalytics")
+</head>
+<body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+    @Html.Partial("Header")
+    @RenderSection("Breadcrumbs", false)
+<main>
+    <div>THIRD SITE</div>
+    @RenderBody()
+
+    <div class="hidden" id="envname">@CurrentEnvironment.Name</div>
+</main>
+    @*<distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>*@
+
+    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
+    <script src="/assets/javascript/vendor/matchbox.min.js"></script>
+    
+@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
+{
+    <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+}
+else
+{
+    <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+}
+
+@await Component.InvokeAsync("AddThis")
+
+    @RenderSection("Scripts", false)
+</body>
+</html>

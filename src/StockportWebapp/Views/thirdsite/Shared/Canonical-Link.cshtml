@@ -1,0 +1,4 @@
+﻿@if (ViewData["CanonicalUrl"] != null)
+{
+    <link rel="canonical" href="@Context.Request.Host@ViewData["CanonicalUrl"]">
+}

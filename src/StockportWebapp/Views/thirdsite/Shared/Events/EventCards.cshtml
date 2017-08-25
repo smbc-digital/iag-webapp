@@ -1,0 +1,64 @@
+﻿@model List<StockportWebapp.Models.Event>
+
+@{
+    var heading = "Our upcoming events";
+    if (ViewData["EventSubheading"] != null && !string.IsNullOrEmpty(ViewData["EventSubheading"].ToString()))
+    {
+        heading = ViewData["EventSubheading"].ToString();
+    }
+
+    var useH2 = false;
+    if (ViewData["EventsH2"] != null && (bool) ViewData["EventsH2"])
+    {
+        useH2 = true;
+    }
+}
+
+@if (useH2)
+{
+    <h2>@heading</h2>
+}
+else
+{
+    <h3 class="group-details-heading group-details-heading-border upcoming-events-heading">@heading</h3>
+}
+<ul id="event-listing-container" class="event-listing-container matchbox-parent">
+    @foreach (var eventItem in Model)
+    {
+        <li class="event-li grid-33 tablet-grid-50 mobile-grid-100">
+            <a class="event-card" href="../events/@eventItem.Slug?date=@eventItem.EventDate.ToString("yyyy-MM-dd")">
+                <div class="event-image" style="background-image: url(@eventItem.ImageUrl)"></div>
+                <div class="event-card-information matchbox-child grid-100">
+                    <div class="grid-100 event-title">
+                        <h3>@eventItem.Title</h3>
+                    </div>
+                    <div>
+                        <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
+                            <i class="fa fa-gbp" aria-hidden="true"></i>
+                        </div>
+                        <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
+                            @(eventItem.Fee.Length > 70 ? eventItem.Fee.Substring(0, 70) + "..." : eventItem.Fee)
+                        </div>
+                    </div>
+                    <div>
+                        <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
+                            @eventItem.EventDate.ToString("D") @eventItem.StartTime
+                        </div>
+                    </div>
+                    <div>
+                        <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        </div>
+                        <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
+                            @(eventItem.Location.Length > 70 ? eventItem.Location.Substring(0, 70) + "..." : eventItem.Location)
+                        </div>
+                    </div>
+                </div>
+
+            </a>
+        </li>
+    }
+</ul>

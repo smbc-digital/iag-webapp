@@ -1,0 +1,38 @@
+﻿@model string
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
+@{
+    var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
+    var title = ViewData["Title"];
+}
+
+
+<div class="share border grid-20">
+    <h6>Share this</h6>
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <div class="addthis_toolbox">
+        <div class="custom_images">
+            <a class="addthis_button_facebook" href="http://www.facebook.com/share.php?url=@url"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+            <a class="addthis_button_twitter" href="http://twitter.com/intent/tweet?url=@url&text=@title"><i class="fa fa-twitter-square" aria-hidden="true"></i></a>
+            <a href="mailto:?body=@url&subject=@title"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+<div class="share border grid-20">
+    <h6>Print this page</h6>
+    <div class="addthis_toolbox">
+        <div class="custom_images">
+            <a class="print-this" href="#"><i class="fa fa-print" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="share border grid-60">
+    <h6>Download as PDF</h6>
+    <div class="addthis_toolbox">
+        <div class="custom_images">
+            <a class="export-as-pdf" href="/groups/exportpdf/@Model" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+        </div>
+    </div>
+</div>
+
