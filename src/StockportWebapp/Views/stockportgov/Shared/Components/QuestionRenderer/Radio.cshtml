@@ -1,11 +1,16 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
 
 <div class="form-section question-section">
-    <label for="Response">@Model.Label</label>
+    <label for="Response">@Model.Label</label>    
     @if (!String.IsNullOrEmpty(Model.SecondaryInfo))
     {
-        @Html.Raw(Model.SecondaryInfo)
+        <div class="grid-100" style="padding-left:0px;">
+            <div class="grid-50 tablet-grid-70 secondary-info-holder">
+                @Html.Raw(Model.SecondaryInfo)
+            </div>
+        </div>
     }
+    <span>Select from the list</span>
     <ul class="radio-list question-list">
         @foreach (var item in @Model.Options)
         {
@@ -22,4 +27,3 @@
     <span id="tertiary-Information-value"></span>
 
 </div>
-

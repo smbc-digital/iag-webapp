@@ -48,6 +48,7 @@ namespace StockportWebapp.Controllers
         public IActionResult Summary(string previousAnswersjson)
         {
             var model = new SmartAnswerSummaryViewModel();
+            ViewBag.Title = "test";
             return View(model);
         }
 

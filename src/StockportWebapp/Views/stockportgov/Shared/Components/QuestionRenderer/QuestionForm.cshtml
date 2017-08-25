@@ -16,14 +16,16 @@
     }
 
     if (Model.DisplayNextButton)
-    {
-        if(Model.PageId != 0)
+    {       
+        <button disabled="disabled" type="submit" class="button button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script button-width">@Model.ButtonText</button>
+        if (Model.PageId != 0)
         {
-            <stock-button id="back-button" class="button-previous question-button-next-script button-width">Previous step</stock-button>
+            <div class="question-button-next-container"><a id="back-button" class="question-button-next-script button-width">Back</a></div>           
         }
-        <button disabled="disabled" type="submit" class="button button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script button-width">@Model.ButtonText</button>  
+       
         <noscript>
             <input id="next-button" type="submit" value="Next step" class="button button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />
         </noscript>
+        <div class="question-margin-bottom"></div>
     }
 }
