@@ -1,7 +1,8 @@
 ﻿@{   
     ViewData["Form"] = "true";
     var page = ViewData["page"] as Page;
-    Layout = "../Shared/_Layout.cshtml";    
+    Layout = "../Shared/_Layout.cshtml";
+    ViewData["Title"] = ViewData["pageTitle"];
 }
 
 @using StockportWebapp.QuestionBuilder.Entities
