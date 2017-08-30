@@ -10,12 +10,10 @@ namespace StockportWebapp.ViewModels
 {
     public class EventCalendar
     {
-        [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]       
         public DateTime? DateFrom { get; set; }
-
-        [Required]
+        
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]
