@@ -27,10 +27,11 @@ var paths = {
     jsProject: "./wwwroot/assets/javascript/**/**/*.js",
     minJs: "./wwwroot/assets/javascript/**/**/*.min.js",
     jsConfig: "./wwwroot/assets/javascript/requireConfig.js",
-    jsConfigHS: "./wwwroot/assets/javascript/requireConfigHealthyStockport.js"
+    jsConfigHS: "./wwwroot/assets/javascript/requireConfigHealthyStockport.js",
+    jsConfigTS: "./wwwroot/assets/javascript/requireConfigThirdSite.js"
 };
 
-gulp.task("min:config:all", ['min:config:sg', 'min:config:hs']);
+gulp.task("min:config:all", ['min:config:sg', 'min:config:hs', 'min:config:ts']);
 
 gulp.task('min:js', function () {
     return gulp.src([paths.jsProject, '!' + paths.minJs, '!' + paths.jsConfig, '!' + paths.jsConfigHS])
@@ -59,6 +60,18 @@ gulp.task('min:config:sg', function () {
 gulp.task('min:config:hs', function () {
     return gulp.src(paths.jsConfigHS)
         .pipe(replace(/healthystockport\/(.+)\"/g, function (match) {
+            return match.replace('"', '.min"');
+        }))
+        .pipe(uglify())
+        .pipe(rename(function (path) {
+            path.extname = ".min.js";
+        }))
+        .pipe(gulp.dest('./wwwroot/assets/javascript'));
+});
+
+gulp.task('min:config:ts', function () {
+    return gulp.src(paths.jsConfigTS)
+        .pipe(replace(/thirdsite\/(.+)\"/g, function (match) {
             return match.replace('"', '.min"');
         }))
         .pipe(uglify())
