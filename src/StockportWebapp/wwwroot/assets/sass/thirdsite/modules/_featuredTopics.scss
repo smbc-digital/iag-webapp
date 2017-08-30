@@ -1,0 +1,225 @@
+﻿$fontstack: 'Source Sans Pro', sans-serif; //temporary until fonts are refactored.
+@mixin darken-with-not($class, $class-to-ignore) {
+    @for $i from 1 through 7 {
+        .#{$class}-#{$i} {
+            .darken {
+                background-color: rgba(0,0,0,$i/20);
+            }
+
+            &:not(.#{$class-to-ignore}) {
+                &:hover .darken {
+                    background-color: rgba(255,255,255,0.1);
+                }
+
+                .darken {
+                    border-left: 7px solid rgba(255, 255, 255, 0.1);
+                }
+            }
+        }
+    }
+}
+
+.featured-topics {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.featured-topic-list {
+    margin: 0 auto;
+    max-width: 1200px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.generic-Featured-Items-margin-top {
+    margin-top:20px;
+}
+
+
+.featured-topic:not(:first-child) {
+    border-left: solid 1px rgba(0,0,0,0.1);
+}
+
+.featured-topic {
+    float: none;
+    display: inline-block;
+    margin-right: -5px;
+    vertical-align: top;
+    text-align: center;
+    text-decoration: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+
+    @media #{$mobile} {
+        font-size: 65%;
+    }
+
+    @media #{$tablet} {
+        font-size: 85%;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    i {
+        display: inline-block;
+        font-size: 3em;
+        color: $colorPrimary;
+    }
+
+    h4, p {
+        margin-bottom: 0;
+    }
+
+    .featured-topic-link {
+        &:hover {
+            text-decoration: none;
+
+            .featured-topic-name {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .featured-topic-name {
+        font-family: $fontstack;
+        color: $greyDarkest;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 1.5em;
+
+        @media #{$mobile} {
+            margin-bottom: 10px;
+        }
+
+        @media #{$mobile} {
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+
+    .featured-topic-description {
+        color: $greyDark;
+        font-size: 13px;
+        line-height: 1.5;
+
+        a {
+            font-size: 14px;
+        }
+    }
+}
+
+.featured-topics-primary {
+    padding-bottom: 0;
+
+    .featured-topic {
+        margin-bottom: 10px;
+
+        a {
+            cursor: pointer;
+        }
+    }
+}
+
+.featured-topics-secondary {
+    .featured-topic {
+        margin-bottom: 10px;
+    }
+}
+
+.featured-topics.featured-topics-primary {
+    background-color: $white;
+}
+
+.featured-topics.featured-topics-secondary {
+    background-color: $white;
+}
+
+.featured-topic-content {
+    padding: 15px 0 15px 0;
+    min-width: 100%;
+    height: inherit;
+}
+
+.featured-topic-icon {
+    color: $colorPrimary;
+    margin: auto;
+    border: none;
+    height: 50px;
+    width: 50px;
+    padding: 15px;
+
+    @media #{$mobile} {
+        padding: 0;
+    }
+}
+
+.featured-content-button-wrapper {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+
+    .generic-list-see-more {
+        background-color: #999;
+
+        @media #{$mobile} {
+            width: 100%;
+            padding-left:10px;
+            padding-right:10px;
+        }
+
+        &:active {
+            background-color: #8c8c8c;
+        }
+
+        &:hover {
+            background-color: #a6a6a6;
+        }
+
+        &:focus {
+            background-color: #a6a6a6;
+        }
+    }
+
+    @media #{$mobile} {
+
+        .green {
+            width: 100%;
+        }
+    }
+}
+
+.button-see-more-services {
+    &:before {
+        content: "\f107";
+        position: relative;
+        right: 0;
+        margin-top: 0px;
+    }
+
+    &:active {
+        background-color: #999;
+    }
+
+    &.is-collapsed {
+        &:before {
+            content: "\f106";
+        }
+    }
+}
+
+#topic-page-content {
+
+    margin-bottom: 0;
+
+    .alert-information, .subitems-tertiary-padding, .subitem-outer-container, .event-banner, .expanding-link-box, .primary-items-no-margin {
+        margin-top: 0;
+        margin-bottom: 20px;
+
+        .sk-table-outer-container, .sk-table-outer-container .sk-table-body, .subitems-secondary-two-column, .subitems-tertiary-two-column {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+    }
+}

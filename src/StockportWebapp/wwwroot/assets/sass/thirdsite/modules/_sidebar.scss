@@ -1,0 +1,180 @@
+﻿.l-left-side-bar {
+    margin: 30px 0px 0px;
+
+    ul {
+        list-style: outside none none;
+        padding: 0px;
+
+        li {
+            border-bottom: 1px solid $greyLighter;
+            margin-left: 0px;
+            margin-right: 10px;
+        
+            a {
+                display:block;
+                padding: 10px;
+            }
+        }
+
+        li.active {
+            background-color: $white;
+            margin-right:0px;
+
+            a {
+                color: $paleRed;
+
+                &:after {
+                    padding-left: 10px;
+                    color: $paleRed;
+                    content: "\f105";
+                    font: normal normal normal 14px/1 FontAwesome;
+                    font-size: 18px;
+                    text-decoration: none;
+                    display: inline-block;
+                    
+                    @media #{$mobile, $tablet} {
+                        display:none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.l-left-side-bar-section {
+    margin-bottom:50px;
+
+    @media #{$mobile, $tablet} {
+        margin-left: 10px;
+    }
+
+    h3 {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $greyLighter;
+    }
+}
+
+.l-right-side-bar {
+    padding: 30px 0px 0px;
+
+    ul {
+        list-style: outside none none;
+        padding: 0px;
+
+        li {
+            border-bottom: 1px solid $greyLighter;  
+                      
+            @media #{$desktop} {
+               margin-left: 20px;
+               margin-right: 0px;
+            }
+
+            @media #{$mobile, $tablet} {
+               margin-left: 0px;
+               margin-right: 10px;
+            }          
+        
+            a {
+                display:block;  
+                              
+                @media #{$desktop} {
+                  padding: 10px 0px 10px 18px;
+                }
+
+                @media #{$mobile, $tablet} {
+                  padding: 10px;
+                }       
+            }
+        }       
+
+        li.active {
+            background-color: $white;
+            margin-left:0px;
+            margin-right:0px;
+
+            a {
+                color: $paleRed;
+
+                 @media #{$desktop} {
+                    padding: 10px 0px 10px 22px;  
+                    display:table;
+                    
+                    span {
+                        display: table-cell;
+                    }                                                                             
+                   }  
+
+                 &:before {    
+                     padding-right: 10px;
+                     content: "\f104";                
+                     color: $paleRed;
+                     font: normal normal normal 14px/1 FontAwesome;
+                     font-size: 18px;
+                     text-decoration: none;
+                     display: inline-block; 
+                      
+                     @media #{$mobile, $tablet} {
+                         display:none;  
+                     }                  
+                }                    
+        }       
+    }
+  }
+}
+
+.l-right-side-bar-section {
+    margin-bottom:50px;
+
+    @media #{$mobile, $tablet} {
+        margin-left: 10px;
+    }
+
+    h3 {
+        padding-right: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $greyLighter;
+
+        @media #{$desktop} {
+           padding-left: 38px;
+        }
+
+        @media #{$mobile, $tablet} {
+           padding-left: 10px;
+        }        
+    }
+}
+
+.side-bar-section-live-chat {
+ 
+    @media #{$mobile, $tablet} {
+           margin-right:10px;
+        }   
+    p{                   
+        font-size: 14px;
+
+        @media #{$desktop} {
+           padding-left: 35px;
+        }
+
+        @media #{$mobile, $tablet} {
+           padding-left: 10px;
+        }        
+    }
+
+    .button-default {
+        margin-top:20px;
+        min-width:unset;
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 1.125em;
+    }
+    
+    .online-chat {
+        margin-bottom:20px;
+        @media #{$desktop} {
+           padding-left: 35px;
+        }
+    }
+}

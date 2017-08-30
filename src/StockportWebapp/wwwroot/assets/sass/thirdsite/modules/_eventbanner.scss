@@ -1,0 +1,126 @@
+﻿.event-banner {
+    @media #{$desktop, $tablet} {
+        margin-bottom: 25px;
+        padding: 0 10px 0 10px;
+    }
+
+    @media #{$tablet} {
+        margin-top: 25px;
+    }
+
+    @media #{$mobile} {
+        margin-bottom: 15px;
+        padding: 0 10px 0 10px;
+        margin-top: 15px;
+    }
+
+    a {
+        text-decoration: none;
+
+        &>div {
+            transition-duration: 0.5s;
+        }
+    }
+
+    .event-banner-container {
+        min-height: 140px;
+        background-color: #fff;
+        padding-left: 0px;
+        display: flex;
+        border-radius: 2.5px;
+        box-shadow: 0 10px 20px rgba(0,0,0,.05);
+
+        @media #{$mobile} {
+            min-height: 60px;
+        }
+
+        .event-banner-icon-container {
+            width: 140px;
+            background-color: #207eab;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 2.5px 0px 0px 2.5px;
+
+            @media #{$mobile} {
+                width: 60px;
+            }
+
+            .eventbanner-icon {
+                color: #fff;
+                width: inherit;
+                font-size: 80px;
+
+                @media #{$mobile} {
+                    color: #fff;
+                    font-size: 35px;
+                }
+            }
+        }
+
+        .event-banner-text-container {
+            padding: 10px 0;
+            padding-left: 25px;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+
+            @media #{$mobile} {
+                padding-left: 10px;
+            }
+
+            h3 {
+                font-weight: 600;
+                font-size: 1.125em;
+                margin-top: 0px;
+                line-height: 1.2;
+
+                @media #{$desktop, $tablet} {
+                    margin-bottom: 10px;
+                }
+            }
+
+            label {
+                color: #333;
+                line-height: 1.2;
+            }
+        }
+
+        .event-banner-chevron-container {
+            text-align: right;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+
+            .event-banner-chevron {
+                color: #333;
+                font-size: 50px;
+
+                @media #{$mobile} {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    .event-banner-container:hover {
+        box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+    }
+}
+
+.ie {
+    .event-banner {
+        height: 140px;
+
+        .event-banner-container {
+            height: 100%;
+            .eventbanner-icon{
+                width:100%;
+            }
+        }
+    }
+}

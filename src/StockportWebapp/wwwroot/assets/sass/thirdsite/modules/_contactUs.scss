@@ -1,0 +1,30 @@
+﻿@charset 'UTF-8';
+
+.form-section {
+    border-bottom: 0;
+}
+
+.button-contact-us {
+    width: 100%;
+
+    @media #{$desktop, $tablet} {
+        width: auto;
+        min-width: 300px;
+    }
+}
+
+.enquiry-message {
+    padding-bottom:20px;
+
+    > textarea {
+        margin-bottom:0px;
+    }
+
+    > span.form-field-validation-error {
+        margin-bottom:0px;
+    }
+}
+
+small.error-text {
+    color:$red;
+}

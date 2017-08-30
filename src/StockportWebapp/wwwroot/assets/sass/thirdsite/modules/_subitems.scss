@@ -1,0 +1,23 @@
+﻿.subitems {
+    margin-top: -15px;
+
+    @media #{$mobile, $tablet} {
+        margin: 0 0 -20px 0;
+        margin-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.primary-items-no-margin {
+
+    @media #{$mobile} {
+        .sk-table-outer-container {
+            margin: 0 0 0 0;
+
+            .sk-table-body {
+                margin-bottom: 5px;
+            }
+        }
+    }
+}
