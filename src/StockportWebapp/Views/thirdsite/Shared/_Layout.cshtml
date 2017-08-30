@@ -57,11 +57,11 @@
     
 @if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
 {
-    <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/requireThirdSite.2.3.4.min.js"></script>
+    <script data-main="/assets/javascript/requireConfigThirdSite.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
 }
 else
 {
-    <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/requireThirdSite.2.3.4.min.js"></script>
+    <script data-main="/assets/javascript/requireConfigThirdSite" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
 }
 
 @await Component.InvokeAsync("AddThis")
