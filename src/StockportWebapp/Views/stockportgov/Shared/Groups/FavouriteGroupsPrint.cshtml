@@ -37,7 +37,7 @@
                                                 <div class="group-card-icon">
                                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                                 </div>
-                                                @(group.Address.Length > 70 ? group.Address.Substring(0, 70) + "..." : group.Address)
+                                                @(group.Address)
                                             </div>
                                             @if (!string.IsNullOrWhiteSpace(group.AbilityLevel))
                                             {
