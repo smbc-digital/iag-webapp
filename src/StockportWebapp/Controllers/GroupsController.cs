@@ -1007,7 +1007,8 @@ namespace StockportWebapp.Controllers
 
             favouritesHelper.PopulateFavourites(model.Groups);
 
-            DoPagination(model, page, pageSize);
+            //Temporarily removed pagination
+            //DoPagination(model, page, pageSize);
 
             if (pageSize == -1)
             {
@@ -1032,7 +1033,8 @@ namespace StockportWebapp.Controllers
 
             var model = response.Content as GroupResults;
 
-            DoPagination(model, 0, -1);
+            //Temporarily removed pagination
+            //DoPagination(model, 0, -1);
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
             var renderedHtml = _viewRender.Render("Groups/FavouriteGroupsPrint", model);

@@ -1,7 +1,8 @@
-﻿@{
+﻿@{   
     ViewData["Form"] = "true";
     var page = ViewData["page"] as Page;
     Layout = "../Shared/_Layout.cshtml";
+    ViewData["Title"] = ViewData["pageTitle"];
 }
 
 @using StockportWebapp.QuestionBuilder.Entities
@@ -10,11 +11,14 @@
 
 <div class="container-header grid-container" id="smart-answers-container">
     <div class="grid-100">
-        <h1>Summary</h1>
+        <h1>@ViewData["pageTitle"]</h1>
+        <label class="smart-answers-container-label">Check your answers before we give you your results</label>
     @foreach (var previousAnswer in page.PreviousAnswers)
     {
-        <div><strong>@previousAnswer.QuestionText</strong></div>
-        <div>@previousAnswer.Response</div>
+        <div class="smart-answers-container">
+            <div class="grid-50 tablet-grid-50 mobile-grid-100"><strong>@previousAnswer.QuestionText</strong></div>
+            <div class="grid-50 tablet-grid-50 mobile-grid-100">@previousAnswer.Response</div>
+        </div>        
     }
     </div>
 </div>

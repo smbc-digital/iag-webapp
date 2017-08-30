@@ -62,7 +62,33 @@ define(["jquery"], function ($) {
         });
         $(document).ready(function () {
             validationCallback($("form.question-form"), $(this));
-        });
+        }); 
+
+        $(document).ready(function () {
+            if ($("#_1").is(':checked')) {
+                $(".info-drop-down-up").removeClass("fa-angle-down");
+                $(".info-drop-down-up").addClass("fa-angle-up");
+            } else {
+                $(".info-drop-down-up").addClass("fa-angle-down");
+                $(".info-drop-down-up").removeClass("fa-angle-up");
+            }
+        });  
+
+        $(document).ready(function () {                       
+            var isOpen = $("#_1").is(':checked');
+            $(".secondary-info-container").on('click', function () {
+                if (!isOpen) {                    
+                    isOpen = true;                   
+                    $(".info-drop-down-up").removeClass("fa-angle-down");
+                    $(".info-drop-down-up").addClass("fa-angle-up");
+                }
+                else {                   
+                    isOpen = false;
+                    $(".info-drop-down-up").addClass("fa-angle-down");
+                    $(".info-drop-down-up").removeClass("fa-angle-up");
+                }
+            });
+        });   
     };
 
     return {
@@ -73,3 +99,4 @@ define(["jquery"], function ($) {
         showValidationForQuestion: showValidationForQuestion
     };
 });
+
