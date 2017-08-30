@@ -25,21 +25,17 @@
                     <h1 id="manage-group-title" class="group-article-title">Favourite groups</h1>
                     <div class="grid-container grid-parent">
                         <div id="favourites-list" class="@(Model.Groups.Any() ? "" : "hidden")">
-
                             @Html.Partial("Groups/GroupCardList", Model.Groups)
-
-                            @*<div class="grid-container grid-100 group-pagination">
-                                @Html.Partial("Pagination", Model.Pagination)
-                            </div>*@
                             <div class="l-content-container grid-100 favourite-share-container">
                                 <div class="share border top-border">
-                                    <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
-                                        <a href="@Url.Action("FavouriteGroups", "groups", new { PageSize = -1 })" target="_blank">
+                                    <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">                                        
+                                        <a href="#" class="print-this">
                                             <i class="fa fa-print" aria-hidden="true"></i><b>Print favourites</b>
+                                            <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-favourites.min.css" />
                                         </a>
                                     </div>
                                     <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">
-                                        <a href="@Url.Action("FavouriteGroupsPDF", "groups")">
+                                        <a href="@Url.Action("FavouriteGroupsPDF", "groups")" target="_blank">
                                             <i class="fa fa-file-pdf-o" aria-hidden="true"></i><b>Download as PDF</b>
                                         </a>
                                     </div>
