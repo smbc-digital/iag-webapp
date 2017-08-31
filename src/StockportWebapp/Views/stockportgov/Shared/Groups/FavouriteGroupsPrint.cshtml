@@ -17,7 +17,7 @@
                             {
                                 var cost = group.Cost;
                                 cost = cost == "Paid" && !string.IsNullOrEmpty(group.CostText) ? group.CostText : cost;
-                                <tr>
+                                <tr id="print-favourite-group-item-@group.Slug">
                                     <td width="200">
                                         <image style="width:200px;" src="@GroupImageUrlHelper.GetImageUrl(group)"></image>
                                     </td>
@@ -27,18 +27,22 @@
                                                 <h3>@group.Name</h3>
                                             </div>
                                             @if (!string.IsNullOrWhiteSpace(cost))
-                                            {
-                                                <div class="group-card-icon">
-                                                    <i class="fa fa-gbp" aria-hidden="true"></i>
+                                            {                                               
+                                                <div class="group-card-text">
+                                                    <div class="group-card-icon">
+                                                        <i class="fa fa-gbp" aria-hidden="true"></i>
+                                                        @cost
+                                                    </div>
                                                 </div>
-                                                <div class="group-card-text">@cost</div>
                                             }                                           
                                             <div class="group-card-text">
                                                 <div class="group-card-icon">
                                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                    @(group.Address)
                                                 </div>
-                                                @(group.Address)
+                                                
                                             </div>
+
                                             @if (!string.IsNullOrWhiteSpace(group.AbilityLevel))
                                             {
                                                 <div class="group-card-icon">

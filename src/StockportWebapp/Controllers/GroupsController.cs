@@ -1033,11 +1033,13 @@ namespace StockportWebapp.Controllers
 
             var model = response.Content as GroupResults;
 
+            var groupList = model.Groups;
+
             //Temporarily removed pagination
             //DoPagination(model, 0, -1);
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-            var renderedHtml = _viewRender.Render("Groups/FavouriteGroupsPrint", model);
+            var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
 
             var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 1000 });
 

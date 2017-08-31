@@ -43,6 +43,7 @@
             addFavourites(slug, type);
             $("#add-favourite-" + slug).addClass("hidden");
             $("#remove-favourite-" + slug).removeClass("hidden");
+            $("#print-favourite-group-item-" + slug).removeClass("hidden");
         });
 
         $(".remove-favourite").on("click", function () {
@@ -51,6 +52,7 @@
             removeFavourites(slug, type);
             $("#add-favourite-" + slug).removeClass("hidden");
             $("#remove-favourite-" + slug).addClass("hidden");
+            $("#print-favourite-group-item-" + slug).addClass("hidden");
         });
     };
 
