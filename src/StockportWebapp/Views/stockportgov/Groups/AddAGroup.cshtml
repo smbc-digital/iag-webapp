@@ -107,6 +107,7 @@
                                             <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" >
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any oppurtunities.
                                             </textarea>
+                                            <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
                                         <label asp-for="@Model.Categories">Group category</label>

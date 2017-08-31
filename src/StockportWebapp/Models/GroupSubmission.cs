@@ -13,7 +13,7 @@ namespace StockportWebapp.Models
  
         [Display(Name = "Group name")]
         [Required]
-        [StringLength(255, ErrorMessage = "Group name must be 250 characters or less in length.")]
+        [StringLength(250, ErrorMessage = "Group name must be 250 characters or less in length.")]
         public string Name { get; set; }
 
         [Display(Name = "Group meeting location")]
@@ -48,7 +48,10 @@ namespace StockportWebapp.Models
         [Display(Name="Group website")]       
         public string Website { get; set; }
 
+        [Display(Name = "Twitter (optional)")]
         public string Twitter { get; set; }
+
+        [Display(Name = "Facebook (optional)")]
         public string Facebook { get; set; }    
         
         [Display(Name="Do you have any volunteering opportunities?")]
@@ -57,6 +60,7 @@ namespace StockportWebapp.Models
         public double Latitude { get; set; }
         public double Longitude { get; set; }
 
+        [StringLength(250, ErrorMessage = "Volunteering text must be 250 characters or less in length.")]
         public string VolunteeringText { get; set; } =
             "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible.";
     }

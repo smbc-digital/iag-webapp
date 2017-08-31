@@ -869,7 +869,7 @@ namespace StockportWebapp.Controllers
             model.Volunteering = group.Volunteering;
             model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
             model.CategoriesList = string.Join(",", model.Categories);
-            model.VolunteeringText = group.VolunteeringText;
+            model.VolunteeringText = GetVolunteeringText(group.VolunteeringText);
             model.AvailableCategories = await GetAvailableGroupCategories();
 
            return View(model);
@@ -910,7 +910,10 @@ namespace StockportWebapp.Controllers
             group.Volunteering = model.Volunteering;
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
             group.Volunteering = model.Volunteering;
-            group.VolunteeringText = model.VolunteeringText;
+
+           
+
+            group.VolunteeringText = GetVolunteeringText(model.VolunteeringText);
 
             group.CategoriesReference = new List<GroupCategory>();
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));
@@ -1412,6 +1415,11 @@ namespace StockportWebapp.Controllers
             }
 
             return false;
+        }
+
+        private string GetVolunteeringText(string volunteeringText)
+        {
+            return string.IsNullOrEmpty(volunteeringText) ? "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible." : volunteeringText;
         }
     }
 }
