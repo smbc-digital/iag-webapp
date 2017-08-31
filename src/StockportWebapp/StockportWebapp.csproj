@@ -14,40 +14,144 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-    <Content Include="wwwroot\assets\javascript\requireConfigHealthyStockport - Copy.js">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\assets\javascript\requireConfigThirdSite.js" />
     <Content Include="wwwroot\assets\javascript\requireConfigThirdSite.min.js" />
-    <Content Include="wwwroot\assets\javascript\thirdsite\carousel.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\carousel.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\carousel.min.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\carousel.min.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\cludo.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\cludo.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\cludo.min.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\cludo.min.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\healthystockport.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\contactUs.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\matchbox.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\contactUs.min.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\matchbox.min.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\events.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\startUp.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\events.min.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\startUp.min.js">
+    <Content Include="wwwroot\assets\javascript\stockportgov\expandingLinks.js">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="wwwroot\assets\javascript\thirdsite\thirdsite.js" />
-    <Content Include="wwwroot\assets\javascript\thirdsite\thirdsite.min.js" />
+    <Content Include="wwwroot\assets\javascript\stockportgov\expandingLinks.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\favourites.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\favourites.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\filters.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\filters.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\Groups.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\groups.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\livechat.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\livechat.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\matchbox.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\matchbox.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\multiSelect.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\multiSelect.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\PrimaryFilter.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\primaryFilter.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\RefineByBar.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\RefineByBar.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\startUp.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\startUp.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\tracking.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\tracking.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\utils.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\utils.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\viewMoreSlider.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\stockportgov\viewMoreSlider.min.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\assets\javascript\thirdsite\carousel.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\carousel.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\cludo.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\cludo.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\contactUs.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\contactUs.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\events.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\events.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\expandingLinks.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\expandingLinks.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\favourites.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\favourites.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\filters.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\filters.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\Groups.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\groups.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\livechat.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\livechat.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\matchbox.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\matchbox.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\multiSelect.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\multiSelect.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\PrimaryFilter.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\primaryFilter.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\RefineByBar.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\RefineByBar.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\startUp.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\startUp.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\tracking.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\tracking.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\utils.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\utils.min.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\viewMoreSlider.js" />
+    <Content Include="wwwroot\assets\javascript\thirdsite\viewMoreSlider.min.js" />
     <Content Include="wwwroot\assets\sass\site-sg - Copy.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
