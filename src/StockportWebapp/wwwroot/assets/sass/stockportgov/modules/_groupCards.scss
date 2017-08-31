@@ -125,24 +125,27 @@
     }
 }
 
-.group-favourites-print {
-    display: none;
+#favourites-list {
+    .group-favourites-print {
+        display: none;
 
-    body {
-        -webkit-print-color-adjust: exact;
-    }
+        body {
+            -webkit-print-color-adjust: exact;
+        }
 
-    .group-card-icon, .group-card-text {
-        float: left;
-        padding-left: 5px;
-        display: inline-block;
-    }
+        .group-card-icon, .group-card-text {
+            float: left;
+            padding-left: 5px;
+            display: inline-block;
+        }
 
-    .group-card-text {
-        padding-left: 0px;
-    }
+        .group-card-text {
+            padding-left: 0px;
+        }
 
-    .group-card-icon {
-        padding-right: 5px;
+        .group-card-icon {
+            padding-right: 5px;
+        }
     }
 }
+
