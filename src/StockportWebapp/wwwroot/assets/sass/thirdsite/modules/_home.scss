@@ -6,6 +6,7 @@
 
 ﻿.homepage-hero {
     padding: 0px 10px 0px 10px;
+    height: 400px;
 
     @media #{$mobile, $tablet} {
         padding-top: 20px;
@@ -26,6 +27,11 @@
     @supports (-ms-accelerator:true) {
         /* IE Edge 12+ CSS styles go here */
         background-attachment: scroll;
+    }
+
+    .featured-tasks
+    {
+        display:flex;
     }
 }
 
@@ -347,7 +353,7 @@
 }
 
 .button-default.green {
-    background-color: #06b79b;
+    background-color: $colorPrimary;
 
     &:active {
         background-color: #059e86;

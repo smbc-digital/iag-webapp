@@ -43,7 +43,7 @@ namespace StockportWebapp.ProcessedModels
                 }
 
                 result.ButtonText = "View more services";
-                result.ButtonCssClass = "green";
+                result.ButtonCssClass = "brown";
 
                 return result;
             }

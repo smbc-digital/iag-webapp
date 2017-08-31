@@ -152,9 +152,6 @@
     <Content Include="wwwroot\assets\javascript\thirdsite\utils.min.js" />
     <Content Include="wwwroot\assets\javascript\thirdsite\viewMoreSlider.js" />
     <Content Include="wwwroot\assets\javascript\thirdsite\viewMoreSlider.min.js" />
-    <Content Include="wwwroot\assets\sass\site-sg - Copy.scss">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\assets\sass\site-ts.scss" />
     <Content Include="wwwroot\assets\sass\thirdsite\modules\_atoz.scss">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

@@ -209,12 +209,12 @@
     }
 
     .current-location, .all-locations {
-        color: #055c58;
+        color: $colorPrimary;
         font-size: .875em;
 
         span {
             margin-left: 5px;
-            color: #055c58;
+            color: $colorPrimary;
         }
     }
 
@@ -248,7 +248,7 @@
     height: 52px;
     border-radius: 4px;
     font-size: 24px;
-    color: #055c58;
+    color: $colorPrimary;
     font-weight: 600;
     font-family: 'Source Sans Pro';
 

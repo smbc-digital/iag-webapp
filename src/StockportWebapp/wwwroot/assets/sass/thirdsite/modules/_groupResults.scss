@@ -40,7 +40,7 @@
 }
 
 .group-search-mobile {
-    background-color: #055c58;
+    background-color: $colorPrimary;
 }
 
 #group-favourites {
@@ -50,7 +50,7 @@
     }
 
     .icon-bordered-fixed.green {
-        color: #055c58;
+        color: $colorPrimary;
     }
 
     #no-results {

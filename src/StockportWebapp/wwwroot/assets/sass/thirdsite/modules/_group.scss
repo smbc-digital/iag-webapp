@@ -168,7 +168,7 @@
     width: 100%;
     margin-top: -20px;
     position: relative;
-    background-color: #055c58;
+    background-color: $colorPrimary;
 
     @media #{$desktop} {
         height: 420px;
@@ -196,7 +196,7 @@
 }
 
 .group-startpage-mobile {
-    background-color: #055c58;
+    background-color: $colorPrimary;
     margin-top: -20px;
     height: 365px;
 }

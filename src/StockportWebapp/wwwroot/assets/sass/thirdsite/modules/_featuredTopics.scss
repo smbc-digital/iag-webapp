@@ -143,12 +143,15 @@
 }
 
 .featured-topic-icon {
-    color: $colorPrimary;
     margin: auto;
     border: none;
     height: 50px;
     width: 50px;
     padding: 15px;
+
+    i {
+        color: $colorPrimary;
+    }
 
     @media #{$mobile} {
         padding: 0;
