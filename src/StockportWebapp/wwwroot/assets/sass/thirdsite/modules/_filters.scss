@@ -40,7 +40,7 @@
     }
 
     .filter-title, .filter-inner-title {
-        color: $colorPrimary;
+        color: #66280E;
         margin-bottom: 0;
         position: relative;
         cursor: pointer;
@@ -78,7 +78,7 @@
     }
 
     .filter-inner-title {
-        color: $colorPrimary;
+        color: #66280E;
 
         @media #{$mobile, $tablet} {
             padding-top: 10px;

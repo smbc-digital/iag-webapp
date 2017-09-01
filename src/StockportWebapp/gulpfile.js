@@ -157,6 +157,7 @@ var pullArtifacts = function (version) {
         pullAssetFile("styleguide-hs.min.css", "wwwroot/assets/stylesheets", "styleguide-hs.min.css", version);
         pullAssetFile("styleguide-sg.min.css", "wwwroot/assets/stylesheets", "styleguide-sg.min.css", version);
         pullAssetFile("_color-palette-sg.scss", "wwwroot/assets/sass/styleguide", "_colors-sg.scss", version);
+        pullAssetFile("_color-palette-ts.scss", "wwwroot/assets/sass/styleguide", "_colors-ts.scss", version);
         pullAssetFile("_devices.scss", "wwwroot/assets/sass/styleguide", "_devices.scss", version);
         pullCodeFile("ButtonTagHelpers.cs", "StockportTagHelpers", "ButtonTagHelpers.cs", version);
         pullCodeFile("ProfileTagHelpers.cs", "StockportTagHelpers", "ProfileTagHelpers.cs", version);

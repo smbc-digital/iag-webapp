@@ -284,7 +284,7 @@ ul.nav-card-events-list {
 }
 
 .events-date {
-    color: $colorPrimary;
+    color: #66280E;
 
     i {
         padding-right: 5px;
@@ -351,7 +351,7 @@ ul.nav-card-events-list {
         h1 {
             font-size: 50px;
             margin-bottom: 0;
-            color: $colorPrimary;
+            color: #66280E;
         }
 
         h3 {
@@ -448,7 +448,7 @@ ul.nav-card-events-list {
 #events-filter-bar {
     color: #ffffff;
     margin-top: -20px;
-    background-color: $colorPrimary;
+    background-color: #66280E;
 
     h2 {
         color: #ffffff;
@@ -730,12 +730,12 @@ ul.nav-card-events-list {
                 font-weight: 100;
                 padding: 5px 10px;
                 box-sizing: border-box;
-                color: $colorPrimary;
+                color: #66280E;
 
                 @media #{$tablet,$desktop} {
                     display: none;
                     padding: 20px;
-                    border-top: 3px solid $colorPrimary;
+                    border-top: 3px solid #66280E;
                     position: absolute;
                 }
 
@@ -787,7 +787,7 @@ ul.nav-card-events-list {
                 }
 
                 a {
-                    color: $colorPrimary;
+                    color: #66280E;
                     display: inline;
                     text-decoration: underline;
 
@@ -852,7 +852,7 @@ ul.nav-card-events-list {
         border-radius: 50%;
         font-size: 14px;
         color: #ffffff;
-        background-color: $colorPrimary;
+        background-color: #66280E;
         width: 30px;
         height: 30px;
         align-items: center;

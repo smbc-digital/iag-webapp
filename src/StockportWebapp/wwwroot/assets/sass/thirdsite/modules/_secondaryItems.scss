@@ -72,7 +72,7 @@
     padding-bottom: 0.4em;
     word-wrap: break-word;
     text-decoration: none;
-    color: $colorPrimary;
+    color: #66280E;
 
     @media #{$desktop} {
         padding-top: 0.4em;
@@ -96,7 +96,7 @@
     .subitem-title {
         span {
             text-decoration: underline;
-            color: $colorPrimary;
+            color: #66280E;
         }
     }
 
