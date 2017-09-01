@@ -7,18 +7,18 @@
     var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
     var hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
     var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
-    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing All " : $"Showing <b>{Model.Category}</b> events ",
+    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <b>All</b> events " : $"Showing <b>{Model.Category}</b> events ",
                         Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
                         Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
                         Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>",
-                        Model.DateFrom == null && Model.DateTo == null ? "All dates" : string.Empty);
+                        Model.DateFrom == null && Model.DateTo == null ? "from <b>All dates</b>" : string.Empty);
 }
 <form action="/events" method="get">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
     <div class="full-width-title" id="events-filter-bar">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-100 tablet-grid-100 @hideOnMobile">
-                <label>Find something to do in Stockport</label>
+                <h2>Find something to do in Stockport</h2>
             </div>
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @showOnMobile">
                 <label>@Html.Raw(nowShowing)</label>
