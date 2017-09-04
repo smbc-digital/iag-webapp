@@ -158,8 +158,8 @@ namespace StockportWebapp.Extensions
         {
             services.AddTransient<IHealthcheckService>(
                 p => new HealthcheckService($"{contentRootPath}/version.txt", $"{contentRootPath}/sha.txt",
-                    new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<Func<System.Net.Http.HttpClient>>(),
-                    p.GetService<UrlGenerator>(), appEnvironment));
+                    new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<System.Net.Http.HttpClient>(),
+                    p.GetService<UrlGenerator>(), appEnvironment, p.GetService<IApplicationConfiguration>()));
 
             return services;
         }

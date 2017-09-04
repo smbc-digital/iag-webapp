@@ -14,9 +14,6 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-    <Content Include="wwwroot\assets\sass\print-group-detail - Copy.scss">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="wwwroot\assets\sass\print-group-favourites.scss" />
     <None Update="emails\templates\**\*;Views\**\*;app-config\**\*;NLog.config;version.txt;sha.txt;featureToggles.yml;pdf.js;node_modules\**\*">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -66,6 +63,10 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0" />
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Models\RedisValueData.cs" />
   </ItemGroup>
 
 </Project>

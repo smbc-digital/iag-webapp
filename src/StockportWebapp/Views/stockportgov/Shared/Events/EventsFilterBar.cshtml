@@ -3,34 +3,36 @@
 @inject FeatureToggles FeatureToggles
 @model EventCalendar
 @{
-    var hasSearched = !string.IsNullOrWhiteSpace(Model.Category) || Model.DateFrom != null || Model.DateTo != null;
-    var hideOnMobile = hasSearched ? "hide-on-mobile" : string.Empty;
+    var closeThis = (Model.FromSearch) ? "close-this-section" : string.Empty;
+    var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
+    var hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
     var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
-    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing events " : $"Showing <b>{Model.Category}</b> events ",
+    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <b>All</b> events " : $"Showing <b>{Model.Category}</b> events ",
                         Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
                         Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
-                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>");
+                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>",
+                        Model.DateFrom == null && Model.DateTo == null ? "from <b>All dates</b>" : string.Empty);
 }
 <form action="/events" method="get">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
     <div class="full-width-title" id="events-filter-bar">
         <div class="grid-container grid-parent grid-100">
-            <div class="grid-100 tablet-grid-100 mobile-grid-100 @hideOnMobile">
+            <div class="grid-100 tablet-grid-100 @hideOnMobile">
                 <h2>Find something to do in Stockport</h2>
             </div>
             <div class="grid-100 tablet-grid-100 mobile-grid-100 @showOnMobile">
-                <h2>@Html.Raw(nowShowing)</h2>
+                <label>@Html.Raw(nowShowing)</label>
             </div>
-            <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section closed">
-                <div class="grid-25 tablet-grid-33 mobile-grid-100" class="form-field">
+            <div class="grid-100 tablet-grid-100 mobile-grid-100 grid-parent form-section @closeThis" id="events-search-filter-container">
+                <div class="grid-25 tablet-grid-33 mobile-grid-100">
                     <div><label asp-for="@Model.DateFrom"></label></div>
                     <div><input type="date" asp-for="@Model.DateFrom" placeholder="All dates" class="form-control datepicker" /></div>
                 </div>
-                <div class="grid-25 tablet-grid-33 mobile-grid-100" class="form-field">
+                <div class="grid-25 tablet-grid-33 mobile-grid-100">
                     <div><label asp-for="@Model.DateTo"></label></div>
                     <div><input type="date" asp-for="@Model.DateTo" placeholder="All dates" class="form-control datepicker" /></div>
                 </div>
-                <div class="grid-25 tablet-grid-33 mobile-grid-100" class="form-field">
+                <div class="grid-25 tablet-grid-33 mobile-grid-100">
                     <div><label asp-for="@Model.Category"></label></div>
                     @if (FeatureToggles.DisplayNewEventPageFeatures)
                     {
@@ -41,14 +43,14 @@
                         <div><select asp-for="@Model.Category" asp-items="@Model.CategoryOptions()" placeholder="All categories" class="form-control"></select></div>
                     }
                 </div>
-                <div class="grid-25 tablet-grid-100 mobile-grid-100" class="form-field">
+                <div class="grid-25 tablet-grid-100 mobile-grid-100">
                     <div class="invisible hide-on-tablet hide-on-mobile"><label>Hide me</label></div>
                     <div class="button-container"><stock-button class="button-outline-white-transparent">Find what's on</stock-button></div>
                 </div>
             </div>
-            <div class="hide-on-tablet hide-on-desktop mobile-grid-100">
+            <div class="mobile-grid-100 @showOnMobile">
                 <div class="edit-search">
-                    <a href="javascript:toggleSearch();" id="edit-search-link" class="open">Edit search</a>
+                    <a href="javascript:toggleSearch();" id="edit-search-link">Edit search</a>
                 </div> 
             </div>
             
@@ -56,12 +58,12 @@
     </div>
 </form>
 
-<script type="text/javascript">
+<script type="text/javascript">    
 
     function toggleSearch() {
         var container = $('.form-section', '#events-filter-bar');
         var button = $('#edit-search-link');
-
+    
         if ($(button).hasClass('open')) {
             $(button).removeClass('open');
             $(container).removeClass('closed');
