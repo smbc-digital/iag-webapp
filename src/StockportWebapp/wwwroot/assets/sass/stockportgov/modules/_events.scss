@@ -567,6 +567,12 @@ ul.nav-card-events-list {
     }
 }
 
+.hideThisDiv {
+    @media #{$mobile} {
+        display: none;
+    }
+}
+
 .group-event-name {
     @media #{$mobile} {
         font-weight: bold;
@@ -619,7 +625,7 @@ ul.nav-card-events-list {
                 z-index: 9;
 
                 .scroller {
-                    overflow: scroll;
+                    overflow: scroll;                  
                 }
             }
         }
