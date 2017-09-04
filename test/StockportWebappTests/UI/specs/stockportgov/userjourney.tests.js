@@ -31,7 +31,7 @@ module.exports = {
         articlepage.assertTitleIsVisible('UITEST: About the Hat Works');
         articlepage.assertLiveChatIsVisible(browser);
         browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot3.png');
-        articlepage.assertCarouselIsVisible();
+        articlepage.assertCarouselIsVisible(browser);
         articlepage.assertCarouselImagesAreVisible(browser);
 
         articlepage.goToNextSection(browser);
