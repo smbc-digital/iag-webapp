@@ -1152,6 +1152,7 @@ namespace StockportWebapp.Controllers
             eventDetail.EventDate = (DateTime)model.EventDate;
             eventDetail.Fee = model.Fee;
             eventDetail.Location = model.Location;
+            eventDetail.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
 
             if (model.RecurringEventYn == "Yes")
             {
