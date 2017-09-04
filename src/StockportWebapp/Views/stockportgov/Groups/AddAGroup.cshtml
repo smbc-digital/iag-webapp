@@ -3,15 +3,15 @@
 @using StockportWebapp.ViewModels
 @model GroupSubmission
 @{
-    ViewData["Title"] = "Add your group";
-    ViewData["og:title"] = "Add your group";
+    ViewData["Title"] = "Add your group or service";
+    ViewData["og:title"] = "Add your group or service";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     Layout = "../Shared/_Layout.cshtml";
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Our Local Stockport", "groups", "groups") })
 }
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
@@ -21,7 +21,7 @@
             <section aria-label="" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
-                        <h1>Add your group</h1>
+                        <h1>Add your group or service</h1>
 
                         @if (ViewBag.SubmissionError != null)
                         {
@@ -138,7 +138,7 @@
                                         <div Class="clearfix"></div>
 
                                         <stock-button id="uitest-contact-form-submit"
-                                                      class="button-contact-us">Add your group</stock-button>
+                                                      class="button-contact-us">Add your group or service</stock-button>
                                     </fieldset>
                                 </div>
                             </div>
