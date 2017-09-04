@@ -13,7 +13,7 @@
                         Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>",
                         Model.DateFrom == null && Model.DateTo == null ? "from <b>All dates</b>" : string.Empty);
 }
-<form action="/events" method="get">
+<form action="/events" method="get" id="events-filter-bar-container">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />
     <div class="full-width-title" id="events-filter-bar">
         <div class="grid-container grid-parent grid-100">
