@@ -149,7 +149,7 @@
     var revealSlider = function () {
         var top = $(document).scrollTop();
         $('#refine-slider').css('top', top).removeClass('hide-on-mobile').animate({ 'left': 0 }, 250);
-        var height = $('#refine-slider').height() - $('.update-cancel-bar', '#event-listing-refine-bar').height();
+        var height = $('#refine-slider').height() - 50 - $('.update-cancel-bar', '#event-listing-refine-bar').height();
         $('.scroller', '#refine-slider').height(height);
         $('body').css('overflow-y', 'hidden');
 
@@ -214,10 +214,29 @@
 
             $('#reveal-refine-by').click(function () {
                 revealSlider();
+                $('#event-listing-container').addClass('hideThisDiv');  
+                $('.atoz').addClass('hideThisDiv');   
+                $('.l-container-footer').addClass('hideThisDiv');    
+                $('.footer-bottom').addClass('hideThisDiv');
+                $('.l-header-container').addClass('hideThisDiv');  
+                $('.breadcrumb-container').addClass('hideThisDiv');  
+                $('.full-width-title').addClass('hideThisDiv');
+                $('#events-filter-bar-container').addClass('hideThisDiv');
             });
 
             $('.update-cancel-bar .cancel', '#event-listing-refine-bar').on('click', function () {
-                hideSlider();
+                hideSlider();                      
+            });
+
+            $('.update-cancel-bar .cancel').on('click', function () {
+                $('#event-listing-container').removeClass('hideThisDiv'); 
+                $('.atoz').removeClass('hideThisDiv'); 
+                $('.l-container-footer').removeClass('hideThisDiv'); 
+                $('.footer-bottom').removeClass('hideThisDiv'); 
+                $('.l-header-container').removeClass('hideThisDiv');
+                $('.breadcrumb-container').removeClass('hideThisDiv'); 
+                $('.full-width-title').removeClass('hideThisDiv');
+                $('#events-filter-bar-container').removeClass('hideThisDiv');
             });
 
             $('.update-cancel-bar .apply', '#event-listing-refine-bar').on('click', function () {
