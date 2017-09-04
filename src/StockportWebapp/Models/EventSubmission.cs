@@ -64,6 +64,9 @@ namespace StockportWebapp.Models
         [Required]
         public string Location { get; set; }
 
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+
         [Required]
         [MaxLength(255)]
         [Display(Name = "Organiser name")]
