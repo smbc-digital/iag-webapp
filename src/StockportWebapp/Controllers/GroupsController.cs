@@ -532,6 +532,7 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/groups/manage")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Manage(LoggedInPerson loggedInPerson)
