@@ -959,7 +959,7 @@ namespace StockportWebapp.Controllers
             var model = new Favourites
             {
                 Type = "groups",
-                Crumbs = new List<Crumb> { new Crumb("Find a local group", "groups", "groups") },
+                Crumbs = new List<Crumb> { new Crumb("Our Local Stockport", "groups", "groups") },
                 FavouritesUrl = "/groups/favourites"
             };
 

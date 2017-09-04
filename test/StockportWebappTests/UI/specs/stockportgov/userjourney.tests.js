@@ -199,7 +199,7 @@ module.exports = {
         groups.navigate();
         // assertions
         groups.goToGroupsHomePage(browser);
-        groups.assertTitleIsVisible("Find a local group");
+        groups.assertTitleIsVisible("Our Local Stockport");
         groups.assertAddAGroupButtonIsVisibleAndGotToPage(browser);
         groups.assertCanSubmitFormAndGetValidationErrors(browser);
 

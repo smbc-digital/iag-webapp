@@ -12,7 +12,7 @@
     assertAddAGroupButtonIsVisibleAndGotToPage: function (browser) {
         browser.useXpath().waitForElementVisible(".//*[@id='add-group-button']", this.api.globals.timeOut)
             .expect.element(".//*[@id='add-group-button']")
-            .text.to.equal("Add your group");
+            .text.to.equal("Add your group or service");
 
         browser.useXpath().click(".//*[@id='add-group-button']");
     },
