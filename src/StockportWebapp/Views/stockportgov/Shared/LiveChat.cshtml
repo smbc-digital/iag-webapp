@@ -3,6 +3,6 @@
     <h3>@Model.Title</h3>
     <div id="OnlineChat" class="online-chat"> <stock-button>Live chat</stock-button> </div> 
     <p >
-        @Model.Text
+        @Html.Raw(Model.Text)
     </p> 
 </div>
