@@ -148,7 +148,7 @@
 
     var revealSlider = function () {
         var top = $(document).scrollTop();
-        $('#refine-slider').css('top', top).removeClass('hide-on-mobile').animate({ 'left': 0 }, 250);
+        $('#refine-slider').css('top', '0').removeClass('hide-on-mobile').animate({ 'left': 0 }, 250);
         windowWidth = $(window).width();
         var height = $(window).height() - 50 - $('.update-cancel-bar', '#event-listing-refine-bar').height();
         if (windowWidth > height) {
