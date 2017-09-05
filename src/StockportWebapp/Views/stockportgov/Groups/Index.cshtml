@@ -33,25 +33,11 @@
         </div>
     </div>
     <div class="group-startpage">
-        <div class="featured-category-items-wrapper matchbox-parent">
+        <div class="featured-category-items-wrapper matchbox-parent grid-container">
             <div class="featured-group-category-list">
                 <h3 class="group-category-list-title hide hide-on-desktop">Discover something new in Stockport</h3>
                 <h2 class="group-category-list-title hide-on-mobile hide-on-tablet">Discover something new in Stockport</h2>
-                @{
-                    foreach (var item in Model.Categories)
-                    {
-                        <div class="grid-20 tablet-grid-20 mobile-grid-33 featured-group-category matchbox-child">
-                            <div class="featured-group-category-content">
-                                <a href="/groups/results?category=@item.Slug&order=Name+A-Z">
-                                    <div class="featured-group-category-icon">
-                                        <i class="@item.Icon si-default"></i>
-                                    </div>
-                                    <div class="featured-group-category-name">@item.Name</div>
-                                </a>
-                            </div>
-                        </div>
-                    }
-                }
+                @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
             </div>
         </div>
     </div>
@@ -63,8 +49,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
