@@ -36,8 +36,7 @@ module.exports = {
 
         var startpage = browser.page.stockportgov.startpage();
         startpage.assertStartButtonIsVisible();
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot4.png');
-        var breadcrumb = browser.page.stockportgov.breadcrumb();
+      var breadcrumb = browser.page.stockportgov.breadcrumb();
         breadcrumb.goToHome(browser);
 
         homepage.searchForBins(browser);
@@ -54,7 +53,6 @@ module.exports = {
         articlepage.assertTableIsVisible();
         articlepage.assertProfileIsVisible("Graduate Development Officer");
         articlepage.goToProfile(browser, "uitest-kirsten");
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot5.png');
 
         var profilepage = browser.page.stockportgov.profilepage();
         profilepage.assertTitleIsVisible("UITEST: Kirsten");
@@ -84,8 +82,6 @@ module.exports = {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
         homepage.goToNewsroom(browser);
-
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot6.png');
 
         var newsroom = browser.page.stockportgov.newsroom();
         newsroom.assertTitleIsVisible("News");
@@ -126,9 +122,6 @@ module.exports = {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
         homepage.goToEventsCalendar(browser);
-
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot7.png');
-
         var eventcalendar = browser.page.stockportgov.eventscalendar();
         eventcalendar.assertTitleIsVisible("What's on in Stockport");
         eventcalendar.goToFirstEvent(browser);
