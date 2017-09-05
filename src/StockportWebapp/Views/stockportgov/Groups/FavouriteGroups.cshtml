@@ -13,7 +13,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Our Local Stockport", "groups", "Group") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Our Stockport Local", "groups", "Group") })
 }
 
 <div class="grid-container-full-width" id="group-favourites">
@@ -57,10 +57,10 @@
                                     <h2>You have 0 favourite groups</h2>
                                 </div>
                                 <div class="grid-100 centre">
-                                    <p>If you want to add more favourites visit our Our Local Stockport page.</p>
+                                    <p>If you want to add more favourites visit our Our Stockport Local page.</p>
                                 </div>
                                 <div class="grid-100 centre mixed-buttons">
-                                    <stock-button as-link="true" href="@Url.Action("Index", "Groups")">Our Local Stockport</stock-button>
+                                    <stock-button as-link="true" href="@Url.Action("Index", "Groups")">Our Stockport Local</stock-button>
                                 </div>
                             </div>
                         </div>
