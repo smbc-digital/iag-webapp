@@ -9,16 +9,14 @@ module.exports = {
         });
         browser.setCookie({
             name: "jwtCookie",
-            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwibmFtZSI6IlVJIFRlc3QifQ.89BlBYq8BrLZ88LSL5avDmUjcj7b_qUwEB0Mi_H-pUg"
+            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
         });
     },
 
     'Find article for About the Hat Works': function (browser) {
         var homepage = browser.page.stockportgov.homepage();
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot1.png');
         // homepage.closeCookieBanner(browser);
         homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works");
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot2.png');
         var topicpage = browser.page.stockportgov.topicpage();
         topicpage.assertTitleIsVisible('UITEST: Hat Works');
         topicpage.assertSecondaryItemIsVisible(browser, "UITEST: Secondary Item");
@@ -30,7 +28,6 @@ module.exports = {
         var articlepage = browser.page.stockportgov.articlepage();
         articlepage.assertTitleIsVisible('UITEST: About the Hat Works');
         articlepage.assertLiveChatIsVisible(browser);
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot3.png');
         articlepage.assertCarouselIsVisible(browser);
         articlepage.assertCarouselImagesAreVisible(browser);
 
@@ -50,8 +47,8 @@ module.exports = {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
         homepage.goToTopTasksBlockPage(browser, "UITEST: Article with profile, video and table", "uitest-testarticle");
-
         var articlepage = browser.page.stockportgov.articlepage();
+
         articlepage.assertTitleIsVisible("UITEST: Article with profile, video and table");
         articlepage.assertButoVideoIsVisible();
         articlepage.assertTableIsVisible();
