@@ -143,7 +143,6 @@
           // get a list of the child items within each parent item
           var arr = arrayFromList(item.querySelectorAll(instance.settings.childSelector));
 
-          console.log(arr);
           // add to existing array
           arrayOfBoxes.push(arr);
 

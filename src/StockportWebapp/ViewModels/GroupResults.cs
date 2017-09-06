@@ -12,6 +12,7 @@ namespace StockportWebapp.ViewModels
         public IFilteredUrl FilteredUrl { get; private set; }
         public List<GroupCategory> Categories = new List<GroupCategory>();
         public PrimaryFilter PrimaryFilter { set; get; } = new PrimaryFilter();
+        public bool GetInvolved { get; set; }
 
         public GroupResults() { }
 
@@ -23,6 +24,32 @@ namespace StockportWebapp.ViewModels
         public void AddQueryUrl(QueryUrl queryUrl)
         {
             CurrentUrl = queryUrl;
+        }
+
+        public RefineByBar RefineByBar()
+        {
+            var bar = new RefineByBar
+            {
+                ShowLocation = false,
+                KeepLocationQueryValues = true,
+                MobileFilterText = "Filter",
+                Filters = new List<RefineByFilters>()
+            };
+
+            var price = new RefineByFilters
+            {
+                Label = "Get involved",
+                Mandatory = false,
+                Name = "getinvolved",
+                Items = new List<RefineByFilterItems>
+                {
+                    new RefineByFilterItems { Label = "Volunteering opportunities", Checked = GetInvolved, Value = "yes" }
+                }
+            };
+
+            bar.Filters.Add(price);
+
+            return bar;
         }
     }
 }

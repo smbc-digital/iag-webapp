@@ -5,6 +5,7 @@ prod: &prod
   DisplayNewEventPageFeatures: true
   SmartAnswers : true
   GroupFavourites : false
+  GroupFilterBar : false
 
 stage: &stage
   << : *prod
@@ -18,6 +19,7 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
+  GroupFilterBar : true
 
 
 local: &local
