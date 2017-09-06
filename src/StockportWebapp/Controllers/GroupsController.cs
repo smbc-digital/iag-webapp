@@ -108,7 +108,7 @@ namespace StockportWebapp.Controllers
 
         [ResponseCache(NoStore = true, Duration = 0)]
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] int pageSize, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport")
+        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] int pageSize, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport", [FromQuery] string getInvolved = "")
         {
             var model = new GroupResults();
             var queries = new List<Query>();
@@ -118,6 +118,7 @@ namespace StockportWebapp.Controllers
             if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
             if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
             if (!string.IsNullOrEmpty(location)) queries.Add(new Query("location", location));
+            if (!string.IsNullOrEmpty(getInvolved)) queries.Add(new Query("volunteering", getInvolved));
 
             var response = await _repository.Get<GroupResults>(queries: queries);
 
@@ -145,6 +146,7 @@ namespace StockportWebapp.Controllers
             model.PrimaryFilter.Location = location;
             model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
             model.PrimaryFilter.Longitude = longitude != 0 ? longitude : Defaults.Groups.StockportLongitude;
+            model.GetInvolved = getInvolved == "yes";
 
             return View(model);
         }

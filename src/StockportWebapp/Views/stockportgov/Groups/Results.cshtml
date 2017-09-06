@@ -1,6 +1,8 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
 @model GroupResults
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
@@ -13,10 +15,10 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Our Stockport Local", "groups", "Group")})
+    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Our Stockport Local", "groups", "Group") })
 }
 
-<div class="l-page-content" id="content-no-margin-bottom-mainpage">
+<div class="l-page-content group-result-page" id="content-no-margin-bottom-mainpage">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-70 tablet-grid-70 mobile-grid-100">
@@ -24,10 +26,11 @@
             </div>
             <div class="header-right-button grid-30 tablet-grid-30 hide-on-mobile">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
-            </div> 
+            </div>
         </div>
     </div>
-    
+
+
     <div class="group-startpage-image group-results">
         <div class="mobile-grid-100 group-result-label-container hide-on-desktop hide-on-tablet"><label>Showing <strong>@ViewBag.SelectedCategory</strong> groups near <strong>@Model.PrimaryFilter.Location</strong></label></div>
         <div class="primary-filter-outer-container-results-page">
@@ -40,11 +43,22 @@
             <span class="result-arrow"></span>
         </div>
     </div>
-
-    <div class="hide-on-desktop hide-on-tablet mobile-grid-100" style="padding-top: 15px;">
-        <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
+    <div class="filter-sort-bar">
+        @{
+            var featureToggleWidth = "mobile-grid-100";
+        }
+        @if (FeatureToggles.GroupFilterBar)
+        {
+            featureToggleWidth = "mobile-grid-50 mobile-pull-left group-sort-by-order";
+            <div class="mobile-grid-50 mobile-pull-right group-sort-by-filter">
+                @Html.Partial("RefineByBar", Model.RefineByBar())
+            </div>
+        }
+        <div class="hide-on-desktop hide-on-tablet @featureToggleWidth">
+            <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
+        </div>
     </div>
-    
+
     @if (Model.Groups.Any())
     {
         <ul class="group-listing-container grid-container matchbox-parent">
@@ -54,7 +68,7 @@
             }
         </ul>
         <div class="grid-container grid-100 group-pagination">
-                @Html.Partial("Pagination", Model.Pagination)    
+            @Html.Partial("Pagination", Model.Pagination)
         </div>
     }
     else
@@ -64,7 +78,7 @@
             <p>Please edit your search and try again.</p>
         </div>
     }
-    
+
     <div class="footer-container-box hide-on-desktop hide-on-tablet">
         <div class="grid-container grid-parent grid-100 add-group-mobile">
             <div class="header-right-button mobile-grid-100">

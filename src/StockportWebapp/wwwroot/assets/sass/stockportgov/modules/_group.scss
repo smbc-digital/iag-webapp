@@ -10,6 +10,68 @@
     margin-bottom: 0;
 }
 
+.group-result-page {
+    @media #{$mobile} {
+        #listing-refine-bar .grid-container .refine-all {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .filter-sort-bar {
+            padding-left: 5px;
+            padding-bottom: 10px;
+
+            .primary-filter-select {
+                border-radius: 3px;
+                font-family: 'Source Sans Pro';
+                font-size: 1.125em;
+                letter-spacing: 0;
+                padding: 15px 25px 15px 15px;
+                position: relative;
+                text-align: center;
+                text-decoration: none;
+                transition: all .5s;
+                transition-property: opacity,box-shadow;
+                border: 1px solid #DFDFDF;
+                color: #1d3837;
+                height: 62px;
+            }
+
+            .button-default {
+                min-width: 100px;
+                min-height: 62px;
+            }
+
+            .custom-arrow {
+                background-image: url(/assets/images/ui-images/angle-down-black.png);
+                background-size: 15px;
+            }
+        }
+
+        #listing-refine-bar {
+            .grid-container {
+                padding-right: 5px;
+            }
+        }
+
+        .group-sort-by-order {
+            padding-right: 0px;
+            padding-top: 15px;
+        }
+
+        .group-sort-by-filter {
+            padding-left: 0px;
+        }
+    }
+
+    @media #{$tablet} {
+        .group-sort-by-filter {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+}
+
 .group-grid-container-margins {
     margin-top: -20px;
     margin-bottom: -30px;
