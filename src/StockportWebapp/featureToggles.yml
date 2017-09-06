@@ -4,12 +4,11 @@ prod: &prod
   PrimaryItems: true
   DisplayNewEventPageFeatures: true
   SmartAnswers : true
-  GroupFavourites : false
+  GroupFavourites : true
   GroupFilterBar : false
 
 stage: &stage
   << : *prod
-  GroupFavourites : true
 
 qa: &qa
   << : *prod
