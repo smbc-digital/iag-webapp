@@ -23,8 +23,7 @@ var methods = {
       browser.click("#Category option[value='" + category +"']");
       browser.click("button.button-default.button-outline-white-transparent");
       browser.assert.urlContains(category);
-      browser.assert.visible("#listing-refine-bar");
-
+      this.waitForElementVisible('#listing-refine-bar', this.api.globals.timeOut);
     },
     goToFirstEvent: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
