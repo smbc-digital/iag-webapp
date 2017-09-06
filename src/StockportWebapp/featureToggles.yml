@@ -6,6 +6,7 @@ prod: &prod
   SmartAnswers : true
   GroupFavourites : true
   GroupFilterBar : false
+  GroupHomepage : false
 
 stage: &stage
   << : *prod
@@ -19,6 +20,7 @@ int: &int
   << : *stage
   << : *qa
   GroupFilterBar : true
+  GroupHomepage : true
 
 
 local: &local
