@@ -38,14 +38,14 @@
                                 }
                                 @foreach (var item in filter.Items)
                                 {
-                                    <label class="@( i >= 2 ? "toggle hidden" : "")">
+                                    <label class="@( i >= 10 ? "toggle hidden" : "")">
                                         <input type="checkbox" name="@filter.Name" value="@item.Value" @(item.Checked ? "checked" : string.Empty) />
                                         <span class="refine-filters-label">@item.Label</span>
                                     </label>
                                     <div></div>
                                     i++;
                                 }
-                                @if (i >= 2)
+                                @if (i > 10)
                                 {
                                     <div class="show-all">
                                         <div>
