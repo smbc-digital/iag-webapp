@@ -118,7 +118,7 @@ namespace StockportWebapp.Controllers
             if (!string.IsNullOrEmpty(groupSearch.Category)) queries.Add(new Query("Category", groupSearch.Category == "all" ? "" : groupSearch.Category));
             if (!string.IsNullOrEmpty(groupSearch.Order)) queries.Add(new Query("Order", groupSearch.Order));
             if (!string.IsNullOrEmpty(groupSearch.Location)) queries.Add(new Query("location", groupSearch.Location));
-            if (!string.IsNullOrEmpty(groupSearch.GetInvolved)) queries.Add(new Query("volunteering", groupSearch.GetInvolved));
+            if (!string.IsNullOrEmpty(groupSearch.GetInvolved)) queries.Add(new Query("getinvolved", groupSearch.GetInvolved));
             if (groupSearch.SubCategories.Any()) queries.Add(new Query("subcategories", string.Join(",", groupSearch.SubCategories)));
 
             var response = await _repository.Get<GroupResults>(queries: queries);

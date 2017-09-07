@@ -46,18 +46,18 @@ namespace StockportWebapp.ViewModels
                 Items = new List<RefineByFilterItems>()
             };
 
-            var allSubCategories = Groups.SelectMany(g => g.SubCategories);
-            var distinctSubcategories = allSubCategories.GroupBy(c => c.Slug).Select(c => c.First());
-
-            foreach (var cat in distinctSubcategories.OrderBy(c => c.Name))
+            var allSubCategories = Groups.SelectMany(g => g.SubCategories == null ? new List<GroupSubCategory>() : g.SubCategories);
+            if (allSubCategories != null && allSubCategories.Any())
             {
-                subCategories.Items.Add(new RefineByFilterItems { Label = cat.Name, Checked = SubCategories.Any(c => c.ToLower() == cat.Slug.ToLower()), Value = cat.Slug });
-            }
+                var distinctSubcategories = allSubCategories.GroupBy(c => c.Slug).Select(c => c.First());
+            
+                foreach (var cat in distinctSubcategories.OrderBy(c => c.Name))
+                {
+                    subCategories.Items.Add(new RefineByFilterItems { Label = cat.Name, Checked = SubCategories.Any(c => c.ToLower() == cat.Slug.ToLower()), Value = cat.Slug });
+                }
 
-            if (distinctSubcategories.Count() > 0)
-            {
                 bar.Filters.Add(subCategories);
-            }
+            }           
 
             var getInvolved = new RefineByFilters
             {
