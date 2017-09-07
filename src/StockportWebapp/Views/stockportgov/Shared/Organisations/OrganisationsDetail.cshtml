@@ -1,11 +1,30 @@
-﻿@using System.Security.Cryptography.X509Certificates
-@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Extensions
-@inject FeatureToggles FeatureToggles
-@model StockportWebapp.ProcessedModels.ProcessedOrganisation
-
+﻿@model StockportWebapp.ProcessedModels.ProcessedOrganisation
 
 <div class="grid-container-full-width">
-    Hello
-
+    <div class="grid-container organisation-detail">
+        <div class="grid-100">
+            <h1>@Model.Title</h1>    
+            <img src="@Model.ImageUrl" class="news-title-image" alt="@Model.ImageUrl" />
+            <hr/>
+            <div>
+                <strong>About Us</strong>  
+                <div>@Model.AboutUs</div>
+            </div>
+            <hr/>
+            <div>
+                <div>
+                    <strong>Contact Us</strong>
+                </div>
+                <div>
+                    <i class="fa fa-phone-square" aria-hidden="true"></i> @Model.Phone
+                    <div></div>
+                    <i class="fa fa-envelope" aria-hidden="true"></i> @Model.Email
+                </div>
+            </div>
+            <div>
+                <strong>What we offer</strong>
+                @foreach(var group in Model.) //GROUPS?
+            </div>
+        </div>
+    </div>    
 </div>
