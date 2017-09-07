@@ -33,13 +33,25 @@
                         <div class="refine">
                             <a class="link" href="javascript:void(0)">@filter.Label<div class="badge hide-on-mobile"><span></span></div></a>
                             <div class="refine-filters">
+                                @{
+                                    var i = 0; 
+                                }
                                 @foreach (var item in filter.Items)
                                 {
-                                <label>
-                                    <input type="checkbox" name="@filter.Name" value="@item.Value" @(item.Checked ? "checked" : string.Empty) />
-                                    <span class="refine-filters-label">@item.Label</span>
-                                </label>
-                                <div></div>
+                                    <label class="@( i >= 2 ? "toggle hidden" : "")">
+                                        <input type="checkbox" name="@filter.Name" value="@item.Value" @(item.Checked ? "checked" : string.Empty) />
+                                        <span class="refine-filters-label">@item.Label</span>
+                                    </label>
+                                    <div></div>
+                                    i++;
+                                }
+                                @if (i >= 2)
+                                {
+                                    <div class="show-all">
+                                        <div>
+                                            <a class="show show-more" href="javascript:void(0)">Show all @filter.Label.ToLower()</a>
+                                        </div>
+                                    </div>
                                 }
                                 @if (filter.Mandatory)
                                 {

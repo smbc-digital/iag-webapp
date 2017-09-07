@@ -17,6 +17,7 @@ namespace StockportWebapp.Models
         public string ImageUrl { get; set; }
         public string ThumbnailImageUrl { get; set; }
         public List<GroupCategory> CategoriesReference { get; set; }
+        public List<GroupSubCategory> SubCategories { get; set; }
         public List<Crumb> Breadcrumbs { get; set; }
         public MapPosition MapPosition { get; set; }
         public bool Volunteering { get; set; }
@@ -33,7 +34,7 @@ namespace StockportWebapp.Models
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl,
-            string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<Crumb> breadcrumbs,
+            string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories, List<Crumb> breadcrumbs,
             MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string status, string cost, string costText, string abilityLevel, bool favourite, string volunteeringText)
         {
             Name = name;
@@ -48,6 +49,7 @@ namespace StockportWebapp.Models
             ImageUrl = imageUrl;
             ThumbnailImageUrl = thumbnailImageUrl;
             CategoriesReference = categoriesReference;
+            SubCategories = subCategories;
             Breadcrumbs = breadcrumbs;
             MapPosition = mapPosition;
             Volunteering = volunteering;

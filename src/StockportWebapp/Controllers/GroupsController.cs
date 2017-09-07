@@ -108,17 +108,18 @@ namespace StockportWebapp.Controllers
 
         [ResponseCache(NoStore = true, Duration = 0)]
         [Route("groups/results")]
-        public async Task<IActionResult> Results([FromQuery] string category, [FromQuery] int page, [FromQuery] double latitude, [FromQuery] int pageSize, [FromQuery] double longitude, [FromQuery] string order = "", [FromQuery] string location = "Stockport", [FromQuery] string getInvolved = "")
+        public async Task<IActionResult> Results([FromQuery] int page, [FromQuery] int pageSize, GroupSearch groupSearch)
         {
             var model = new GroupResults();
             var queries = new List<Query>();
 
-            if (latitude != 0) queries.Add(new Query("latitude", latitude.ToString()));
-            if (longitude != 0) queries.Add(new Query("longitude", longitude.ToString()));
-            if (!string.IsNullOrEmpty(category)) queries.Add(new Query("Category", category == "all" ? "" : category));
-            if (!string.IsNullOrEmpty(order)) queries.Add(new Query("Order", order));
-            if (!string.IsNullOrEmpty(location)) queries.Add(new Query("location", location));
-            if (!string.IsNullOrEmpty(getInvolved)) queries.Add(new Query("volunteering", getInvolved));
+            if (groupSearch.Latitude != 0) queries.Add(new Query("latitude", groupSearch.Latitude.ToString()));
+            if (groupSearch.Longitude != 0) queries.Add(new Query("longitude", groupSearch.Longitude.ToString()));
+            if (!string.IsNullOrEmpty(groupSearch.Category)) queries.Add(new Query("Category", groupSearch.Category == "all" ? "" : groupSearch.Category));
+            if (!string.IsNullOrEmpty(groupSearch.Order)) queries.Add(new Query("Order", groupSearch.Order));
+            if (!string.IsNullOrEmpty(groupSearch.Location)) queries.Add(new Query("location", groupSearch.Location));
+            if (!string.IsNullOrEmpty(groupSearch.GetInvolved)) queries.Add(new Query("volunteering", groupSearch.GetInvolved));
+            if (groupSearch.SubCategories.Any()) queries.Add(new Query("subcategories", string.Join(",", groupSearch.SubCategories)));
 
             var response = await _repository.Get<GroupResults>(queries: queries);
 
@@ -127,7 +128,7 @@ namespace StockportWebapp.Controllers
 
             model = response.Content as GroupResults;
 
-            ViewBag.SelectedCategory = string.IsNullOrEmpty(category) ? "All" : (char.ToUpper(category[0]) + category.Substring(1)).Replace("-", " ");
+            ViewBag.SelectedCategory = string.IsNullOrEmpty(groupSearch.Category) ? "All" : (char.ToUpper(groupSearch.Category[0]) + groupSearch.Category.Substring(1)).Replace("-", " ");
             model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
@@ -136,17 +137,18 @@ namespace StockportWebapp.Controllers
 
             if ((model.Categories != null) && model.Categories.Any())
             {
-                ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == category);
+                ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == groupSearch.Category);
                 model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
             }
 
             favouritesHelper.PopulateFavourites(model.Groups);
 
-            model.PrimaryFilter.Order = order;
-            model.PrimaryFilter.Location = location;
-            model.PrimaryFilter.Latitude = latitude != 0 ? latitude : Defaults.Groups.StockportLatitude;
-            model.PrimaryFilter.Longitude = longitude != 0 ? longitude : Defaults.Groups.StockportLongitude;
-            model.GetInvolved = getInvolved == "yes";
+            model.PrimaryFilter.Order = groupSearch.Order;
+            model.PrimaryFilter.Location = groupSearch.Location;
+            model.PrimaryFilter.Latitude = groupSearch.Latitude != 0 ? groupSearch.Latitude : Defaults.Groups.StockportLatitude;
+            model.PrimaryFilter.Longitude = groupSearch.Longitude != 0 ? groupSearch.Longitude : Defaults.Groups.StockportLongitude;
+            model.GetInvolved = groupSearch.GetInvolved == "yes";
+            model.SubCategories = groupSearch.SubCategories;
 
             return View(model);
         }

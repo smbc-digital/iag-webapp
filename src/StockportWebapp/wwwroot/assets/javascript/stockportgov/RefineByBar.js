@@ -94,6 +94,7 @@
         href = utils.StripParamFromQueryString(href, 'tag');
         href = utils.StripParamFromQueryString(href, 'price');
         href = utils.StripParamFromQueryString(href, 'getinvolved');
+        href = utils.StripParamFromQueryString(href, 'subcategories');
         if ($('#KeepLocationQueryValues').val() !== "1") {
             href = utils.StripParamFromQueryString(href, 'longitude');
             href = utils.StripParamFromQueryString(href, 'latitude');
@@ -210,6 +211,17 @@
         applyFilter();
     }
 
+    var showAll = function (element) {
+        $("label.toggle", $(element).parent().parent().parent()).toggle();
+        $(element).toggleClass("show-more");
+        if ($(element).html().indexOf(" all ") > 0) {
+            $(element).text($(element).text().replace(" all ", " fewer "));
+        }
+        else {
+            $(element).text($(element).text().replace(" fewer ", " all "));
+        }
+    }
+
     return {
         Init: function () {
             setBadges();
@@ -253,6 +265,10 @@
 
             $('.search-all', '#listing-refine-bar').on('click', function () {
                 searchAll();
+            });
+
+            $('.show', '#listing-refine-bar').on('click', function () {
+                showAll(this);
             });
 
             $(window).on('resize', function () {
