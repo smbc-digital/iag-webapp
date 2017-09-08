@@ -341,32 +341,37 @@
                 }
 
                 @media #{$mobile, $tablet} {
-                    height: 56px;
-                    margin-bottom: 20px;
-                    padding-top: 10px;
-
                     h5 {
                         display: inline-block;
+                        vertical-align: middle;
                     }
                 }
 
+                @media #{$tablet} {
+                    height: 56px;
+                    margin-bottom: 23px;
+                    padding-top: 10px;                    
+                }
+
                 @media #{$mobile} {
-                    display: flex;
+                    display: table;
+                    height: 75px;
+                    margin-bottom: 20px;
+                    padding-top: 0px;
 
                     h5 {
-                        width: 65%;
-                        line-height: initial;
+                        width: 70%;
+                        line-height: initial;                       
                     }
                 }
 
                 .group-block-icon-container {
                     width: 61px;
                     display: inline-table;
-                    margin-right: 12px;
+                    margin-right: 5px;
                     height: 100%;
                     text-align: center;
-                    vertical-align: middle;
-
+                   
                     i {
                         color: $orange;
                         background-color: $white;
