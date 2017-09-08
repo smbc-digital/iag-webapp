@@ -49,18 +49,19 @@ namespace StockportWebappTests.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
-            _group = new Group(            
-                name : Name,
-                slug : Slug,
-                description : Description,
-                imageUrl : Image,
-                thumbnailImageUrl : ThumbnailImage,
-                address : Address,
-                website : Website,
-                email :Email,
-                phoneNumber : PhoneNumber,
-                breadcrumbs : _breadcrumbs,
-                categoriesReference : CategoriesReference,
+            _group = new Group(
+                name: Name,
+                slug: Slug,
+                description: Description,
+                imageUrl: Image,
+                thumbnailImageUrl: ThumbnailImage,
+                address: Address,
+                website: Website,
+                email: Email,
+                phoneNumber: PhoneNumber,
+                breadcrumbs: _breadcrumbs,
+                categoriesReference: CategoriesReference,
+                subCategories: null,
                 facebook : Facebook,
                 twitter : Twitter,
                 mapPosition:_mapPosition,

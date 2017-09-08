@@ -60,22 +60,22 @@
 
 require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking'],
     function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking) {
-        carousel.Init();
-        cludoconfig.Init();
-        contactus.Init();
-        customwysiwyg.Init();
-        events.Init();
+        startup.Init();
+        refinebybar.Init();
+        primaryfilter.Init();
         expandinglinks.Init();
+        contactus.Init();
         filters.Init();
         groups.Init();
         livechat.Init();
-        matchboxconfig.Init();
-        primaryfilter.Init();
-        refinebybar.Init();
-        startup.Init();
         viewmoreslider.Init();
         favourites.Init();
         tracking.Init();
+        events.Init();
+        carousel.Init();
+        cludoconfig.Init();
+        matchboxconfig.Init();
+        customwysiwyg.Init();
     }
 );
 

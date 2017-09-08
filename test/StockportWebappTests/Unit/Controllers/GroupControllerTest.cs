@@ -223,9 +223,17 @@ namespace StockportWebappTests.Unit.Controllers
             var viewHelper = new ViewHelpers(mockTime.Object);
             var controller = new GroupsController(_processedRepository.Object, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object);
 
+            var search = new GroupSearch
+            {
+                Category = "nonsense",
+                Order = "a-z",
+                Latitude = 0,
+                Longitude = 0
+            };
+
             var actionResponse =
                AsyncTestHelper.Resolve(
-                   controller.Results("nonsense", 1, 0 , MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
+                   controller.Results(1, MaxNumberOfItemsPerPage, search)) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as GroupResults;
 
@@ -248,8 +256,16 @@ namespace StockportWebappTests.Unit.Controllers
             // Arrange
             var controller = SetUpController(totalNumItems);
 
+            var search = new GroupSearch
+            {
+                Category = "category",
+                Order = "a-z",
+                Latitude = 0,
+                Longitude = 0
+            };
+
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("category", requestedPageNumber, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results(requestedPageNumber, MaxNumberOfItemsPerPage, search)) as ViewResult;
 
             // Assert
             var groupResult = actionResponse.ViewData.Model as GroupResults;
@@ -269,8 +285,16 @@ namespace StockportWebappTests.Unit.Controllers
             // Arrange
             var controller = SetUpController(numItems);
 
+            var search = new GroupSearch
+            {
+                Category = "",
+                Order = "a-z",
+                Latitude = 0,
+                Longitude = 0
+            };
+
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", specifiedPageNumber, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results(specifiedPageNumber, MaxNumberOfItemsPerPage, search)) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
             // Assert
@@ -284,8 +308,16 @@ namespace StockportWebappTests.Unit.Controllers
             const int zeroItems = 0;
             var controller = SetUpController(zeroItems);
 
+            var search = new GroupSearch
+            {
+                Category = "",
+                Order = "a-z",
+                Latitude = 0,
+                Longitude = 0
+            };
+
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results(0, MaxNumberOfItemsPerPage, search)) as ViewResult;
 
             var model = actionResponse.ViewData.Model as GroupResults;
 
@@ -300,8 +332,16 @@ namespace StockportWebappTests.Unit.Controllers
             int numItems = 10;
             var controller = SetUpController(numItems);
 
+            var search = new GroupSearch
+            {
+                Category = "",
+                Order = "a-z",
+                Latitude = 0,
+                Longitude = 0
+            };
+
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results("", 0, 0, MaxNumberOfItemsPerPage, 0, "a-z")) as ViewResult;
+            var actionResponse = AsyncTestHelper.Resolve(controller.Results(0, MaxNumberOfItemsPerPage, search)) as ViewResult;
             var model = actionResponse.ViewData.Model as GroupResults;
 
             // Assert
@@ -372,7 +412,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: "");
+                    }, null, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: "");
 
                 listOfGroups.Add(group);
             }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
+using System.Linq;
 
 namespace StockportWebapp.ViewModels
 {
@@ -11,6 +12,7 @@ namespace StockportWebapp.ViewModels
         public QueryUrl CurrentUrl { get; private set; }
         public IFilteredUrl FilteredUrl { get; private set; }
         public List<GroupCategory> Categories = new List<GroupCategory>();
+        public List<string> SubCategories = new List<string>();
         public PrimaryFilter PrimaryFilter { set; get; } = new PrimaryFilter();
         public bool GetInvolved { get; set; }
 
@@ -36,7 +38,28 @@ namespace StockportWebapp.ViewModels
                 Filters = new List<RefineByFilters>()
             };
 
-            var price = new RefineByFilters
+            var subCategories = new RefineByFilters
+            {
+                Label = "Subcategories",
+                Mandatory = false,
+                Name = "subcategories",
+                Items = new List<RefineByFilterItems>()
+            };
+
+            var allSubCategories = Groups.SelectMany(g => g.SubCategories == null ? new List<GroupSubCategory>() : g.SubCategories);
+            if (allSubCategories != null && allSubCategories.Any())
+            {
+                var distinctSubcategories = allSubCategories.GroupBy(c => c.Slug).Select(c => c.First());
+            
+                foreach (var cat in distinctSubcategories.OrderBy(c => c.Name))
+                {
+                    subCategories.Items.Add(new RefineByFilterItems { Label = cat.Name, Checked = SubCategories.Any(c => c.ToLower() == cat.Slug.ToLower()), Value = cat.Slug });
+                }
+
+                bar.Filters.Add(subCategories);
+            }           
+
+            var getInvolved = new RefineByFilters
             {
                 Label = "Get involved",
                 Mandatory = false,
@@ -47,7 +70,7 @@ namespace StockportWebapp.ViewModels
                 }
             };
 
-            bar.Filters.Add(price);
+            bar.Filters.Add(getInvolved);
 
             return bar;
         }
