@@ -7,6 +7,7 @@ namespace StockportWebapp.ViewModels
     {
         public List<GroupCategory> Categories = new List<GroupCategory>();
         public PrimaryFilter PrimaryFilter { set; get; }
+        public string BackgroundImage { set; get; }
 
         public GroupStartPage() { }
 

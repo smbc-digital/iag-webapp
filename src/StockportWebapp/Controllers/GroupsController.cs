@@ -73,16 +73,19 @@ namespace StockportWebapp.Controllers
                     Longitude = Defaults.Groups.StockportLongitude
                 }
             };
-
+            
             var response = await _repository.Get<List<GroupCategory>>();
             var listOfGroupCategories = response.Content as List<GroupCategory>;
+            var groupHomepageResponse = await _repository.Get<GroupHomepage>();
+            var homepage = groupHomepageResponse.Content as GroupHomepage;
 
             if (listOfGroupCategories != null)
             {
                 model.Categories = listOfGroupCategories;
                 model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
             }
-
+            model.BackgroundImage = homepage.BackgroundImage;
+                
             return View(model);
         }
 

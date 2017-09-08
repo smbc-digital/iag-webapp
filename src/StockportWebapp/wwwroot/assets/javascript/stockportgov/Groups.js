@@ -1,4 +1,4 @@
-﻿define(["jquery", "utils"], function ($, utils) {
+﻿define(["jquery", "utils", "primaryfilter"], function ($, utils, primaryfilter) {
 
     var handleVolunteering = function (input) {
         if ($(input).is(':checked') === true) {
@@ -45,6 +45,51 @@
 
         $(".remove-favourite,.add-favourite").attr("href", "javascript:void(0)");
     };
+
+    $("#currentLocationgroup").click(function () {
+        var latitude = "";
+        var logitude = "";
+        var LocationLookupError = "We couldn't find this location -- please check the location and try again.";
+        var CurrentLocationError = "We couldn't find your current location -- please check the location settings on your device.";
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                var geocoder = new google.maps.Geocoder();
+                var latLng = new google.maps.LatLng(
+                    position.coords.latitude,
+                    position.coords.longitude);
+                geocoder.geocode({
+                    'latLng': latLng
+                },
+                    function (results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            var jointLocation = primaryfilter.BuildLocation(results[0].address_components);
+                            var url = window.location.href;
+                            latitude = position.coords.latitude;
+                            longitude = position.coords.longitude;
+
+                            var fullurl = url + "/results?Category=all&latitude=" + latitude + "&longitude=" + longitude + "&Location=" + jointLocation + "&Order=Nearest";
+                            window.location.href = fullurl;
+                        }
+                        else {
+                            ShowLocationError(LocationLookupError);
+                        }
+                    });               
+            },
+            function () {
+                ShowLocationError(CurrentLocationError);
+            },
+            { maximumAge: 10000, timeout: 6000, enableHighAccuracy: true });
+        return false;
+    });
+
+    var ShowLocationError = function (errorMessage) {
+        $("#currentLocationgrouperror").css("border", "1px solid #C83725");
+        $("#currentLocationgrouperror").html(errorMessage);
+        $(".group-homepage-container .form-field-validation-error").show();
+        $("#currentLocationgrouperror").show();
+        $("#currentLocationgroup").css("margin-bottom", "10px");
+        $("#currentLocationgroup .group-block-content").addClass("group-block-content-margin");
+    }
 
     return {
         Init: init

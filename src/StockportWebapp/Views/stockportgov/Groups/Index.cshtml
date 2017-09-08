@@ -1,5 +1,7 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
 @model GroupStartPage
 
 @{
@@ -27,12 +29,21 @@
             </div>
         </div>
     </div>
-    <div class="group-startpage-image">
-        <div class="primary-filter-container primary-filter-container-start-page">
-            @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
+    @if (FeatureToggles.GroupHomepage)
+    {
+        <div class="group-homepage-image" style="background-image: url(@Model.BackgroundImage)">
+            @Html.Partial("../Shared/Groups/GroupHomeFilter")
         </div>
-    </div>
-    <div class="group-startpage">
+    }
+    else
+    {
+        <div class="group-startpage-image">
+            <div class="primary-filter-container primary-filter-container-start-page">
+                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
+            </div>
+        </div>
+    }
+    <div class="group-startpage" style="background-color: #fff;">
         <div class="featured-category-items-wrapper matchbox-parent grid-container">
             <div class="featured-group-category-list">
                 <h3 class="group-category-list-title hide hide-on-desktop">Discover something new in Stockport</h3>

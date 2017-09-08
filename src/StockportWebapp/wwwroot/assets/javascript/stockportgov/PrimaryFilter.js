@@ -303,6 +303,7 @@
             $(window).resize(function () {
                 setSelectBoxes();
             });
-        }
+        },
+        BuildLocation: buildLocation
     }
 });
