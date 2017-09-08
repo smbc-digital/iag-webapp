@@ -14,12 +14,23 @@ namespace StockportWebapp.ViewModels
         public List<GroupCategory> Categories = new List<GroupCategory>();
         public List<GroupSubCategory> AvailableSubCategories = new List<GroupSubCategory>();
         public List<string> SubCategories = new List<string>();
-        public string Tag { get; set; }
-        public string KeepTag { get; set; }
+        public string Tag { get; set; } = string.Empty;
+        public string KeepTag { get; set; } = string.Empty;
         public PrimaryFilter PrimaryFilter { set; get; } = new PrimaryFilter();
         public bool GetInvolved { get; set; }
         public string OrganisationName {
-            get { return Groups.First(g => g.Organisation?.Slug == KeepTag).Organisation.Title; }
+            get
+            {
+                var firstGroup = Groups.First(g => g.Organisation?.Slug == KeepTag);
+                if (firstGroup == null || firstGroup.Organisation == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return firstGroup.Organisation.Title;
+                }
+            }
         }
 
         public GroupResults() { }

@@ -155,6 +155,17 @@ namespace StockportWebapp.Controllers
             model.Tag = groupSearch.Tag;
             model.KeepTag = groupSearch.KeepTag;
 
+            try
+            {
+                ViewBag.AbsoluteUri = Request.GetUri().AbsoluteUri;
+            }
+            catch
+            {
+                //This is for unit tests
+                ViewBag.AbsoluteUri = string.Empty;
+            }
+            
+
             return View(model);
         }
 

@@ -59,6 +59,7 @@
             <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
         </div>
     </div>
+
     @if (!string.IsNullOrEmpty(Model.Tag))
     {
         <div class="grid-container ">
@@ -67,13 +68,12 @@
                     <label>Organisation</label>
                     <h1><a href="/organisations/@Model.KeepTag">@Model.OrganisationName</a> </h1>
                     <div class="remove-filter">
-                        <a href="@Context.Request.GetUri().AbsoluteUri.Replace("&tag=" + Model.Tag, "").Replace("?tag=" + Model.Tag, "")">Remove this filter</a>
+                        <a href="@ViewBag.AbsoluteUri.Replace("&tag=" + Model.Tag, "").Replace("?tag=" + Model.Tag, "")">Remove this filter</a>
                     </div>
                 </div>    
             </div>
         </div>    
     }
-    
 
     @if (Model.Groups.Any())
     {
