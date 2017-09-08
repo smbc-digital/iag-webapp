@@ -47,6 +47,12 @@ namespace StockportWebappTests.Unit.Controllers
             new GroupCategory() {Name = "name 3", Slug = "name3", Icon = "icon3", ImageUrl = "imageUrl3"},
         };
 
+        private readonly GroupHomepage groupHomepage = new GroupHomepage
+        {
+            Title = "Group Homepage Title",
+            BackgroundImage = "background-image.jpg"
+        };
+
         public GroupControllerTest()
         {
             _filteredUrl = new Mock<IFilteredUrl>();
@@ -74,11 +80,13 @@ namespace StockportWebappTests.Unit.Controllers
             http.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
 
             _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object);
-
+            
             // setup mocks
             _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
                 .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful(200, groupCategories));
 
+            _repository.Setup(o => o.Get<GroupHomepage>("", null))
+                .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful(200, groupHomepage));
         }
 
         [Fact]

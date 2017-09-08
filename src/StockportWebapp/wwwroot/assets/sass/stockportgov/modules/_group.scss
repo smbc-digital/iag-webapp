@@ -33,7 +33,7 @@
                 transition: all .5s;
                 transition-property: opacity,box-shadow;
                 border: 1px solid #DFDFDF;
-                color: #1d3837;
+                color: $colorPrimaryDark;
                 height: 62px;
             }
 
@@ -192,8 +192,8 @@
 }
 
 .group-details {
-    background: #e1e1e1;
-    border: 1px solid #ebebeb;
+    background: $greyLightest;
+    border: 1px solid $offWhite;
     margin-left: 0px;
     word-wrap: break-word;
 }
@@ -205,32 +205,196 @@
 }
 
 .group-details-symbol {
-    color: #666666;
+    color: $greyDark;
 }
 
 .group-details-heading {
-    color: #666666;
+    color: $greyDark;
     margin-bottom: 0px;
 }
 
 .group-details-heading-border {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $greyLighter;
 }
 
 .sharethis {
     overflow: auto;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $greyLighter;
 }
 
 .group-details-content {
     background: #f5f5f5;
 }
 
+.webcast-gradient {
+    position: relative;
+    z-index: 10;
+}
+
+.group-homepage-image {
+    width: 100%;
+    margin-top: -20px;
+    position: relative;
+    height: auto;
+    padding-bottom: 20px;
+
+    @media #{$desktop} {
+        min-height: 275px;
+        padding-bottom: 25px;
+    }
+
+    @media #{$mobile} {
+        background-image: none !important;
+        padding-top: 0px;
+    }
+
+    .group-home-filter {
+        @media #{$desktop, $tablet} {
+            background: -moz-linear-gradient(bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.65) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to top, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+        }
+
+        .grid-container {
+            @media #{$mobile} {
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+        }
+    }
+
+    @media #{$desktop, $tablet} {
+        background-position: bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .group-homepage-title {
+        padding-left: 10px;
+        margin-bottom: 20px;
+        line-height: 1.2em;
+        color: $white;
+        padding-top: 20px;
+
+        @media #{$mobile, $tablet} {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+
+        @media #{$mobile} {
+            color: $black;
+        }
+    }
+
+    .group-homepage-list {
+
+
+        .group-homepage-container {
+
+            a {
+                background-color: $white;
+                color: $black;
+                display: block;
+                text-decoration: none;
+
+                @media #{$desktop} {
+                    border: 1px solid rgba(0,0,0,.1);
+                    text-align: center;
+                    padding: 15px 0;
+                    border-top: 3px solid $orange;
+                    border-radius: 5px 5px 4px 4px;
+                }
+
+                @media #{$mobile, $tablet} {
+                    border-left: 3px solid $orange;
+                    border-radius: 5px 4px 4px 5px;
+                }
+            }
+
+            a:hover {
+                transition-duration: 0.5s;
+                box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+            }
+
+            .group-block-content-margin {
+                @media #{$mobile, $tablet} {
+                    margin-bottom: 0px !important;
+                }
+            }
+
+            .group-block-content {
+                padding-top: 30px;
+                min-width: 100%;
+                display: table;
+                border-radius: 3px;
+
+                .group-chevron {
+                    display: table-cell;
+                    vertical-align: middle;
+                    padding-right: 15px;
+
+                    i {
+                        color: #000;
+                    }
+                }
+
+                @media #{$mobile, $tablet} {
+                    h5 {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
+
+                @media #{$tablet} {
+                    height: 56px;
+                    margin-bottom: 23px;
+                    padding-top: 10px;                    
+                }
+
+                @media #{$mobile} {
+                    display: table;
+                    height: 75px;
+                    margin-bottom: 20px;
+                    padding-top: 0px;
+
+                    h5 {
+                        width: 70%;
+                        line-height: initial;                       
+                    }
+                }
+
+                .group-block-icon-container {
+                    width: 61px;
+                    display: inline-table;
+                    margin-right: 5px;
+                    height: 100%;
+                    text-align: center;
+                   
+                    i {
+                        color: $orange;
+                        background-color: $white;
+
+                        @media #{$mobile, $tablet} {
+                            color: $black;
+                            padding: 0px 10px 7px 10px;
+                            display: table-cell;
+                            margin-left: 0;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 .group-startpage-image {
     width: 100%;
     margin-top: -20px;
     position: relative;
-    background-color: #055c58;
+    background-color: $colorPrimary;
 
     @media #{$desktop} {
         height: 420px;
@@ -258,7 +422,7 @@
 }
 
 .group-startpage-mobile {
-    background-color: #055c58;
+    background-color: $colorPrimary;
     margin-top: -20px;
     height: 365px;
 }
@@ -287,7 +451,7 @@
 }
 
 .featured-category-items-wrapper {
-    background-color: white;
+    background-color: $white;
     padding-bottom: 20px;
     padding-top: 10px;
 
@@ -481,13 +645,13 @@
 
     &.white {
         border: solid 1px #DFDFDF;
-        color: #1d3837;
+        color: $colorPrimaryDark;
         background-color: transparent;
     }
 
     &.grey {
         border: solid 1px #7d7d7d;
-        color: #fff;
+        color: $white;
         background-color: #7d7d7d;
     }
 }
@@ -575,7 +739,7 @@
 
 .footer-container-box {
     margin-bottom: 0;
-    background-color: #00937c;
+    background-color: $tealDark;
     padding-top: 15px;
     padding-bottom: 15px;
 
@@ -585,20 +749,20 @@
 }
 
 .volunteering-section {
-    background-color: #ebebeb;
+    background-color: $offWhite;
     border-left: 5px solid #D8D8D8;
     margin-bottom: 30px;
 
     .volunteering-button {
         border-radius: 3px;
         border-width: 1px;
-        border-color: #999999;
+        border-color: $greyMiddle;
         border-style: solid;
         padding-left: 30px;
         padding-bottom: 8px;
         padding-top: 8px;
         text-decoration: none;
-        color: #333;
+        color: $greyDarkest;
         font-size: 16px;
         font-weight: 600;
         transition-duration: 0.5s;
@@ -609,7 +773,7 @@
         }
 
         &:hover {
-            box-shadow: 5px 5px 10px #ccc;
+            box-shadow: 5px 5px 10px $greyLighter;
             background-color: $greyLightest;
         }
 
@@ -624,12 +788,12 @@
 }
 
 .manage-group-section {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid $greyLighter;
     margin-top: 20px;
     padding-left: 0px;
 
     h3 {
-        color: #666;
+        color: $greyDark;
     }
 
     p {
@@ -638,15 +802,15 @@
     }
 
     .manage-group-button {
-        border-color: #999;
-        background-color: #fff;
-        color: #333;
+        border-color: $greyMiddle;
+        background-color: $white;
+        color: $greyDarkest;
         font-weight: 600;
         margin-top: 10px;
         margin-bottom: 10px;
 
         &:hover {
-            box-shadow: 5px 5px 10px #ccc;
+            box-shadow: 5px 5px 10px $greyLighter;
         }
 
         span {

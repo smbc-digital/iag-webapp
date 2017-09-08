@@ -35,6 +35,7 @@ namespace StockportWebapp.Utils
             {typeof(Event), "events/"},
             {typeof(EventCalendar), "events"},
             {typeof(EventHomepage), "eventhomepage"},
+            {typeof(GroupHomepage), "grouphomepage"},
             {typeof(EventResponse), "events"},
             {typeof(Group), "group/"},
             {typeof(List<Group>), "group/"},

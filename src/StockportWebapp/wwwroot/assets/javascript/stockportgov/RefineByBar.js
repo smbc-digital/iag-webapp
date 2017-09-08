@@ -59,10 +59,12 @@
                 }
             });
 
-            var $lat = $('input[name=latitude]', $('#refine-by-bar-container'));
-            if ($lat.length == 1 && $lat.val() !== '' && $lat.val() !== '0') {
-                count++;
-                allcount++;
+            if ($('.refine-filters.location', $(this)).length) {
+                var $lat = $('input[name=latitude]', $('#refine-by-bar-container'));
+                if ($lat.length == 1 && $lat.val() !== '' && $lat.val() !== '0') {
+                    count++;
+                    allcount++;
+                }
             }
 
             if (count > 0) {

@@ -247,10 +247,10 @@
 
         // only run of the auto complete is on the page
         if ($(".primary-filter-form-autocomplete").length || $('.location-search-input').length) {
-            // Set the default bounds to the UK
+            // Set the default bounds to Stockport, this is a suggestion to google to look within these bounds
             var defaultBounds = new google.maps.LatLngBounds(
-                new google.maps.LatLng(49.383639452689664, -17.39866406249996),
-                new google.maps.LatLng(59.53530451232491, 8.968523437500039));
+                new google.maps.LatLng(53.3435829465, -2.2532923571),
+                new google.maps.LatLng(53.4410365421, -2.0231358656));
 
             var options = {
                 bounds: defaultBounds,
@@ -303,6 +303,7 @@
             $(window).resize(function () {
                 setSelectBoxes();
             });
-        }
+        },
+        BuildLocation: buildLocation
     }
 });
