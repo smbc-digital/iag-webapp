@@ -1,4 +1,5 @@
-﻿@using StockportWebapp.Models
+﻿@using Microsoft.ApplicationInsights.AspNetCore.Extensions
+@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
 @using StockportWebapp.FeatureToggling
@@ -58,6 +59,21 @@
             <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
         </div>
     </div>
+    @if (!string.IsNullOrEmpty(Model.Tag))
+    {
+        <div class="grid-container ">
+            <div class="organisation-bar-container">
+                <div class="grid-100 organisation-bar">
+                    <label>Organisation</label>
+                    <h1><a href="/organisations/@Model.KeepTag">@Model.OrganisationName</a> </h1>
+                    <div class="remove-filter">
+                        <a href="@Context.Request.GetUri().AbsoluteUri.Replace("&tag=" + Model.Tag, "").Replace("?tag=" + Model.Tag, "")">Remove this filter</a>
+                    </div>
+                </div>    
+            </div>
+        </div>    
+    }
+    
 
     @if (Model.Groups.Any())
     {

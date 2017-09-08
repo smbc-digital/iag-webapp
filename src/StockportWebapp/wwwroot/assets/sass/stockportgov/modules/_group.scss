@@ -603,6 +603,11 @@
         font-weight: 600;
         transition-duration: 0.5s;
 
+        @media #{$mobile} {
+            display:block;
+            text-align: center;
+        }
+
         &:hover {
             box-shadow: 5px 5px 10px #ccc;
             background-color: $greyLightest;

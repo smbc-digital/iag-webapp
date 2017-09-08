@@ -95,6 +95,7 @@
         href = utils.StripParamFromQueryString(href, 'price');
         href = utils.StripParamFromQueryString(href, 'getinvolved');
         href = utils.StripParamFromQueryString(href, 'subcategories');
+        href = utils.StripParamFromQueryString(href, 'organisation');
         if ($('#KeepLocationQueryValues').val() !== "1") {
             href = utils.StripParamFromQueryString(href, 'longitude');
             href = utils.StripParamFromQueryString(href, 'latitude');

@@ -20,8 +20,16 @@ namespace StockportWebapp.ContentFactory
             
             var body = _markdownWrapper.ConvertToHtml(organisation.AboutUs ?? "");
 
-            return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, organisation.AboutUs, organisation.Phone, 
-                organisation.Email, organisation.Volunteering, organisation.VolunteeringText);
+            var volunteering = new Volunteering
+            {
+                Email = organisation.Email,
+                VolunteeringText = organisation.VolunteeringText,
+                VolunteeringNeeded = organisation.Volunteering,
+                Url = $"organisations/{organisation.Slug}"
+            };
+
+            return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone, 
+                organisation.Email, organisation.Groups, volunteering);
         }
     }
 }

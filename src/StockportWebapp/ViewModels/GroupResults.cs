@@ -12,9 +12,15 @@ namespace StockportWebapp.ViewModels
         public QueryUrl CurrentUrl { get; private set; }
         public IFilteredUrl FilteredUrl { get; private set; }
         public List<GroupCategory> Categories = new List<GroupCategory>();
+        public List<GroupSubCategory> AvailableSubCategories = new List<GroupSubCategory>();
         public List<string> SubCategories = new List<string>();
+        public string Tag { get; set; }
+        public string KeepTag { get; set; }
         public PrimaryFilter PrimaryFilter { set; get; } = new PrimaryFilter();
         public bool GetInvolved { get; set; }
+        public string OrganisationName {
+            get { return Groups.First(g => g.Organisation?.Slug == KeepTag).Organisation.Title; }
+        }
 
         public GroupResults() { }
 
@@ -46,10 +52,9 @@ namespace StockportWebapp.ViewModels
                 Items = new List<RefineByFilterItems>()
             };
 
-            var allSubCategories = Groups.SelectMany(g => g.SubCategories == null ? new List<GroupSubCategory>() : g.SubCategories);
-            if (allSubCategories != null && allSubCategories.Any())
+            if (AvailableSubCategories != null && AvailableSubCategories.Any())
             {
-                var distinctSubcategories = allSubCategories.GroupBy(c => c.Slug).Select(c => c.First());
+                var distinctSubcategories = AvailableSubCategories.GroupBy(c => c.Slug).Select(c => c.First());
             
                 foreach (var cat in distinctSubcategories.OrderBy(c => c.Name))
                 {
@@ -71,6 +76,22 @@ namespace StockportWebapp.ViewModels
             };
 
             bar.Filters.Add(getInvolved);
+
+            if (!string.IsNullOrEmpty(KeepTag) || !string.IsNullOrEmpty(Tag))
+            {
+                var organisation = new RefineByFilters
+                {
+                    Label = "Organisation",
+                    Mandatory = false,
+                    Name = "tag",
+                    Items = new List<RefineByFilterItems>
+                    {
+                        new RefineByFilterItems { Label = OrganisationName, Checked = !string.IsNullOrEmpty(Tag), Value = KeepTag }
+                    }
+                };
+
+                bar.Filters.Add(organisation);
+            }
 
             return bar;
         }

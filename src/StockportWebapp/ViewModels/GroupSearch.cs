@@ -11,6 +11,8 @@ namespace StockportWebapp.ViewModels
         public double Longitude { get; set; }
         public string Order { get; set; }
         public string Location { get; set; } = "Stockport";
+        public string Tag { get; set; }
+        public string KeepTag { get; set; }
         public string GetInvolved { get; set; } = string.Empty;
     }
 }
