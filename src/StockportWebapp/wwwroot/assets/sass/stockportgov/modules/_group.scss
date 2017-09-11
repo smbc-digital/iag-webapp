@@ -10,6 +10,31 @@
     margin-bottom: 0;
 }
 
+#group-homepage {
+    margin-bottom: 0;
+    
+    h2 {
+        display: inline-block;
+        margin-top: 20px;
+        
+    }
+
+    .group-header {
+        a {
+            margin-left: 30px;
+        }
+    }
+
+    .group-listing-container {
+        margin-top: 0;
+    }
+    
+    .group-button {
+        margin-bottom: 20px;
+        margin-top: -20px;
+    }
+}
+
 .group-result-page {
     @media #{$mobile} {
         #listing-refine-bar .grid-container .refine-all {
@@ -57,6 +82,7 @@
         .group-sort-by-order {
             padding-right: 0px;
             padding-top: 15px;
+            padding-bottom: 15px;
         }
 
         .group-sort-by-filter {

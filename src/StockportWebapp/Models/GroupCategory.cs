@@ -6,12 +6,14 @@ using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {
-    public class GroupHomepage
+    public class GroupCategory
     {
-        public string Title { get; set; }
-        public string BackgroundImage { get; set; }
+        public string Name { get; set; }
+        public string Slug { get; set; }
+        public string Icon { get; set; }
+        public string ImageUrl { get; set; }
 
-        public GroupHomepage() { }
+        public GroupCategory() { }
         
     }
 }

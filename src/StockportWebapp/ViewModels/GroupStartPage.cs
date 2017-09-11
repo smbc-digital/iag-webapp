@@ -8,6 +8,10 @@ namespace StockportWebapp.ViewModels
         public List<GroupCategory> Categories = new List<GroupCategory>();
         public PrimaryFilter PrimaryFilter { set; get; }
         public string BackgroundImage { set; get; }
+        public string FeaturedGroupsHeading { get; set; }
+        public List<Group> FeaturedGroups { get; set; }
+        public GroupCategory FeaturedGroupsCategory { get; set; }
+        public GroupSubCategory FeaturedGroupsSubCategory { get; set; }
 
         public GroupStartPage() { }
 

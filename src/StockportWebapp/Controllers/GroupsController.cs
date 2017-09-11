@@ -84,7 +84,12 @@ namespace StockportWebapp.Controllers
                 model.Categories = listOfGroupCategories;
                 model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
             }
+            
             model.BackgroundImage = homepage.BackgroundImage;
+            model.FeaturedGroupsHeading = homepage.FeaturedGroupsHeading;
+            model.FeaturedGroups = homepage.FeaturedGroups;
+            model.FeaturedGroupsCategory = homepage.FeaturedGroupsCategory;
+            model.FeaturedGroupsSubCategory = homepage.FeaturedGroupsSubCategory;
                 
             return View(model);
         }
@@ -1444,7 +1449,7 @@ namespace StockportWebapp.Controllers
 
         private string GetVolunteeringText(string volunteeringText)
         {
-            return string.IsNullOrEmpty(volunteeringText) ? "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible." : volunteeringText;
+            return string.IsNullOrEmpty(volunteeringText) ? "If you would like to find out more about being a volunteer with us, please e-mail with your interest and weï¿½ll be in contact as soon as possible." : volunteeringText;
         }
     }
 }

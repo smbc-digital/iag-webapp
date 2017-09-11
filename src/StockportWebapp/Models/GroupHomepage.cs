@@ -6,14 +6,17 @@ using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {
-    public class GroupCategory
+    public class GroupHomepage
     {
-        public string Name { get; set; }
-        public string Slug { get; set; }
-        public string Icon { get; set; }
-        public string ImageUrl { get; set; }
+        public string Title { get; set; }
+        public string BackgroundImage { get; set; }
+        
+        public string FeaturedGroupsHeading { get; set; }
+        public List<Group> FeaturedGroups { get; set; }
+        public GroupCategory FeaturedGroupsCategory { get; set; }
+        public GroupSubCategory FeaturedGroupsSubCategory { get; set; }
 
-        public GroupCategory() { }
+        public GroupHomepage() { }
         
     }
 }
