@@ -75,7 +75,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 costText: CostText,
                 abilityLevel: AbilityLevel,
                 favourite: false,
-                volunteeringText: ""
+                volunteeringText: "text",
+                organisation: null
                 
             );
 
@@ -84,7 +85,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         }
 
         [Fact]
-        public void ShouldSetTheCorrespondingFieldsForAProcessedEvent()
+        public void ShouldSetTheCorrespondingFieldsForAProcessedGroup()
         {
             var result = _factory.Build(_group);
             result.Name.Should().Be("Friends of Stockport");
@@ -100,7 +101,8 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.ThumbnailImageUrl.Should().Be("thumbnail.jpg");
             result.Twitter.Should().Be("twitter");
             result.Facebook.Should().Be("facebook");
-            result.Volunteering.Should().Be(false);
+            result.Volunteering.VolunteeringNeeded.Should().Be(false);
+            result.Volunteering.VolunteeringText.Should().Be("text");
 
         }
 

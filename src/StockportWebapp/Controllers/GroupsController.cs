@@ -116,12 +116,15 @@ namespace StockportWebapp.Controllers
             var model = new GroupResults();
             var queries = new List<Query>();
 
+            if (!string.IsNullOrEmpty(groupSearch.Tag)) { groupSearch.KeepTag = groupSearch.Tag; }
+
             if (groupSearch.Latitude != 0) queries.Add(new Query("latitude", groupSearch.Latitude.ToString()));
             if (groupSearch.Longitude != 0) queries.Add(new Query("longitude", groupSearch.Longitude.ToString()));
             if (!string.IsNullOrEmpty(groupSearch.Category)) queries.Add(new Query("Category", groupSearch.Category == "all" ? "" : groupSearch.Category));
             if (!string.IsNullOrEmpty(groupSearch.Order)) queries.Add(new Query("Order", groupSearch.Order));
             if (!string.IsNullOrEmpty(groupSearch.Location)) queries.Add(new Query("location", groupSearch.Location));
             if (!string.IsNullOrEmpty(groupSearch.GetInvolved)) queries.Add(new Query("getinvolved", groupSearch.GetInvolved));
+            if (!string.IsNullOrEmpty(groupSearch.Tag)) queries.Add(new Query("organisation", groupSearch.Tag));
             if (groupSearch.SubCategories.Any()) queries.Add(new Query("subcategories", string.Join(",", groupSearch.SubCategories)));
 
             var response = await _repository.Get<GroupResults>(queries: queries);
@@ -152,6 +155,19 @@ namespace StockportWebapp.Controllers
             model.PrimaryFilter.Longitude = groupSearch.Longitude != 0 ? groupSearch.Longitude : Defaults.Groups.StockportLongitude;
             model.GetInvolved = groupSearch.GetInvolved == "yes";
             model.SubCategories = groupSearch.SubCategories;
+            model.Tag = groupSearch.Tag;
+            model.KeepTag = groupSearch.KeepTag;
+
+            try
+            {
+                ViewBag.AbsoluteUri = Request.GetUri().AbsoluteUri;
+            }
+            catch
+            {
+                //This is for unit tests
+                ViewBag.AbsoluteUri = string.Empty;
+            }
+            
 
             return View(model);
         }

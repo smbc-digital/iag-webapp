@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
+@using StockportWebapp.ProcessedModels
+@model StockportWebapp.ProcessedModels.ProcessedOrganisation
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["og:title"] = Model.Title;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Our Stockport Local", "groups", "groups") })
+}
+
+@Html.Partial("Organisations/OrganisationsDetail", Model)

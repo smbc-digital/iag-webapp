@@ -253,24 +253,8 @@
                     <div>
                         <h3 class="group-details-heading">Description</h3>
                         @Html.Raw(Model.Description.StripEmojis())
-                        @if (Model.Volunteering)
-                        {
-                            <div class="volunteering-section">
-                                <div class="grid-100">
-                                    <h3>Volunteering opportunities</h3>
-                                    @if (string.IsNullOrEmpty(Model.VolunteeringText))
-                                    {
-                                        <p>If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible.</p>
-                                    }
-                                    else
-                                    {
-                                        <p>@Model.VolunteeringText</p>
-                                    }
-                                    
-                                    <p><a class="volunteering-button" href="mailto:@Model.Email?subject=Volunteering&body=Hello%0A%0AI%20am%20interested%20in%20volunteering%20for%20your%20group.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/groups/@Model.Slug%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20see%20how%20I%20can%20help.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you."><span style="color: #333;">Get in touch</span></a></p>
-                                </div>
-                            </div>
-                        }
+
+                        @Html.Partial("Groups/VolunteeringBar", Model.Volunteering)
 
                         @if (Model.MapPosition != null && Model.MapPosition.Lat != 0.0 && Model.MapPosition.Lon != 0.0)
                         {
