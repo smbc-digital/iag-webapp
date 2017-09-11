@@ -190,7 +190,15 @@
             return false;
         });
 
-        $("#allLocations").click(function () {
+        $(".events-refine-by-bar-container #allLocations").click(function () {
+            $('#location').val('');
+            $('#longitude').val('');
+            $('#latitude').val('');
+            $('.location-search-input').val('');
+            location.SetLocation('', '', '');
+        });
+
+        $(".group-startpage-image #allLocations").click(function () {
             $('#location').val('Stockport');
             $('#longitude').val('-2.158046');
             $('#latitude').val('53.405817');
