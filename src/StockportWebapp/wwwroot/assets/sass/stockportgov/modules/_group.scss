@@ -330,13 +330,17 @@
                 display: table;
                 border-radius: 3px;
 
+                i {
+                    color: #333333;
+                }
+
                 .group-chevron {
                     display: table-cell;
                     vertical-align: middle;
                     padding-right: 15px;
 
                     i {
-                        color: #000;
+                        color: #333333;
                     }
                 }
 
@@ -350,7 +354,7 @@
                 @media #{$tablet} {
                     height: 56px;
                     margin-bottom: 23px;
-                    padding-top: 10px;                    
+                    padding-top: 10px;
                 }
 
                 @media #{$mobile} {
@@ -361,7 +365,7 @@
 
                     h5 {
                         width: 70%;
-                        line-height: initial;                       
+                        line-height: initial;
                     }
                 }
 
@@ -371,13 +375,12 @@
                     margin-right: 5px;
                     height: 100%;
                     text-align: center;
-                   
+
                     i {
-                        color: $orange;
+                        color: #333333;
                         background-color: $white;
 
                         @media #{$mobile, $tablet} {
-                            color: $black;
                             padding: 0px 10px 7px 10px;
                             display: table-cell;
                             margin-left: 0;
@@ -739,9 +742,18 @@
 
 .footer-container-box {
     margin-bottom: 0;
-    background-color: $tealDark;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    background-color: #333333;
+    padding-top: 1px;
+    padding-bottom: 20px;
+
+    .footer-container-box-label {
+        padding: 0px 10px 15px 10px;
+        color: #fff;
+
+        h3 {
+            color: #fff;
+        }
+    }
 
     .button-default {
         margin-top: 0px;
