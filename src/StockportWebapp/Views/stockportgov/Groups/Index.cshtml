@@ -1,5 +1,7 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
 @model GroupStartPage
 
 @{
@@ -19,20 +21,29 @@
 <div class="l-page-content" id="content-no-margin-bottom-mainpage">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
-            <div class="grid-70 tablet-grid-70 mobile-grid-100">
+            <div class="grid-70 tablet-grid-60 mobile-grid-100">
                 <h1 class="full-width-title-with-button">Our Stockport Local</h1>
             </div>
-            <div class="header-right-button grid-30 tablet-grid-30 hide-on-mobile">
+            <div class="header-right-button grid-30 tablet-grid-40 hide-on-mobile">
                 <stock-button as-link="true" id="add-group-button" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
             </div>
         </div>
     </div>
-    <div class="group-startpage-image">
-        <div class="primary-filter-container primary-filter-container-start-page">
-            @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
+    @if (FeatureToggles.GroupHomepage)
+    {
+        <div class="group-homepage-image" style="background-image: url(@Model.BackgroundImage)">
+            @Html.Partial("../Shared/Groups/GroupHomeFilter")
         </div>
-    </div>
-    <div class="group-startpage">
+    }
+    else
+    {
+        <div class="group-startpage-image">
+            <div class="primary-filter-container primary-filter-container-start-page">
+                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
+            </div>
+        </div>
+    }
+    <div class="group-startpage" style="background-color: #fff;">
         <div class="featured-category-items-wrapper matchbox-parent grid-container">
             <div class="featured-group-category-list">
                 <h3 class="group-category-list-title hide hide-on-desktop">Discover something new in Stockport</h3>
@@ -42,6 +53,10 @@
         </div>
     </div>
     <div class="footer-container-box hide-on-desktop hide-on-tablet">
+        <div class="footer-container-box-label">
+            <h3>Add your group or service</h3>
+            <label>Complete our form to add your group or service to Stockport Local.</label>
+        </div>       
         <div class="grid-container grid-parent grid-100 add-group-mobile">
             <div class="header-right-button mobile-grid-100">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>

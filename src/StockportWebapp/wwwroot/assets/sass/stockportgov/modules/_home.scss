@@ -291,6 +291,11 @@
         border-top-right-radius: 5px;
         font-size: 1.875em;
 
+        a {
+            color: #ffffff;
+            display: block;
+        }
+
         &.title {
             height: 60px;
             line-height: 60px;

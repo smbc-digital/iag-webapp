@@ -1,4 +1,5 @@
-﻿@using StockportWebapp.Models
+﻿@using Microsoft.ApplicationInsights.AspNetCore.Extensions
+@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
 @using StockportWebapp.FeatureToggling
@@ -21,10 +22,10 @@
 <div class="l-page-content group-result-page" id="content-no-margin-bottom-mainpage">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
-            <div class="grid-70 tablet-grid-70 mobile-grid-100">
+            <div class="grid-70 tablet-grid-60 mobile-grid-100">
                 <h1 class="full-width-title-with-button">Our Stockport Local</h1>
             </div>
-            <div class="header-right-button grid-30 tablet-grid-30 hide-on-mobile">
+            <div class="header-right-button grid-30 tablet-grid-40 hide-on-mobile">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
             </div>
         </div>
@@ -59,6 +60,21 @@
         </div>
     </div>
 
+    @if (!string.IsNullOrEmpty(Model.Tag))
+    {
+        <div class="grid-container ">
+            <div class="organisation-bar-container">
+                <div class="grid-100 organisation-bar">
+                    <label>Organisation</label>
+                    <h1><a href="/organisations/@Model.KeepTag">@Model.OrganisationName</a> </h1>
+                    <div class="remove-filter">
+                        <a href="@ViewBag.AbsoluteUri.Replace("&tag=" + Model.Tag, "").Replace("?tag=" + Model.Tag, "")">Remove this filter</a>
+                    </div>
+                </div>    
+            </div>
+        </div>    
+    }
+
     @if (Model.Groups.Any())
     {
         <ul class="group-listing-container grid-container matchbox-parent">
@@ -80,6 +96,10 @@
     }
 
     <div class="footer-container-box hide-on-desktop hide-on-tablet">
+        <div class="footer-container-box-label">
+            <h3>Add your group or service</h3>
+            <label>Complete our form to add your group or service to Stockport Local.</label>
+        </div>      
         <div class="grid-container grid-parent grid-100 add-group-mobile">
             <div class="header-right-button mobile-grid-100">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
