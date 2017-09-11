@@ -210,6 +210,24 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
+                                 @if (!string.IsNullOrEmpty(Model.Organisation.Title))
+                                {
+                                    <li class="group-details">
+                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
+                                            <i class="fa  fa-heart fa-2x group-details-symbol"></i>
+                                        </div>
+                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
+                                            <div class="group-details-heading">
+                                                Provided by
+                                            </div>
+                                            <div class="group-details-heading"></div>
+                                            <a href="/organisations/@Model.Organisation.Slug">
+                                                @Model.Organisation.Title
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </li>
+                                }
                                 @if (FeatureToggles.GroupFavourites)
                                 {
                                     <li id="remove-favourite-@Model.Slug" class="group-details @(!Model.Favourite ? "hidden" : "")">
