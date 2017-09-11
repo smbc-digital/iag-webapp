@@ -739,9 +739,18 @@
 
 .footer-container-box {
     margin-bottom: 0;
-    background-color: $tealDark;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    background-color: #333333;
+    padding-top: 1px;
+    padding-bottom: 20px;
+
+    .footer-container-box-label {
+        padding: 0px 10px 15px 10px;
+        color: #fff;
+
+        h3 {
+            color: #fff;
+        }
+    }
 
     .button-default {
         margin-top: 0px;
