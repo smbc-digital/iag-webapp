@@ -768,13 +768,57 @@
         transition-duration: 0.5s;
 
         @media #{$mobile} {
-            display:block;
+            display: block;
             text-align: center;
         }
 
         &:hover {
             box-shadow: 5px 5px 10px $greyLighter;
             background-color: $greyLightest;
+        }
+
+        &:after {
+            content: "\f105";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 18px;
+            padding-left: 25px;
+            padding-right: 10px;
+        }
+    }
+}
+
+.donations-section {
+    background-color: #333333;
+    margin-bottom: 30px;
+    color: #ffffff;
+    border-left: 5px solid #333333;
+    border-radius: 3px;
+
+    h3, a {
+        color: #ffffff;
+    }
+
+    .donations-button {
+        border-radius: 3px;
+        border-width: 1px;
+        border-color: #ffffff;
+        border-style: solid;
+        padding-left: 30px;
+        padding-bottom: 8px;
+        padding-top: 8px;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 600;
+        transition-duration: 0.5s;
+
+        @media #{$mobile} {
+            display: block;
+            text-align: center;
+        }
+
+        &:hover {
+            box-shadow: 5px 5px 10px #000000;
         }
 
         &:after {

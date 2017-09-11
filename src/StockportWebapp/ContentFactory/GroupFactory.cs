@@ -34,9 +34,16 @@ namespace StockportWebapp.ContentFactory
                 Url = $"groups/{group.Slug}"
             };
 
+            var donations = new Donations()
+            {
+                Email = group.Email,
+                GetDonations = group.Donations,
+                Url = $"groups/{group.Slug}"
+            };
+
             return new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter,
                 group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, 
-                group.Breadcrumbs, group.MapPosition, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering);
+                group.Breadcrumbs, group.MapPosition, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, donations);
         }
     }
 }
