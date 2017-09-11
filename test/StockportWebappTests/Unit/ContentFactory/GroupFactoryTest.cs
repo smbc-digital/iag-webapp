@@ -76,8 +76,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 abilityLevel: AbilityLevel,
                 favourite: false,
                 volunteeringText: "text",
-                organisation: null
-                
+                organisation: null,
+                donations: false
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);

@@ -13,11 +13,12 @@ namespace StockportWebapp.ProcessedModels
         public string Email { get; }
         public List<Group> Groups { get; }
         public Volunteering Volunteering { get; }
+        public Donations Donations { get; }
 
         public ProcessedOrganisation() { }
 
         public ProcessedOrganisation(string title, string slug, string imageUrl, string aboutUs, string phone,
-            string email, List<Group> groups, Volunteering volunteering)
+            string email, List<Group> groups, Volunteering volunteering, Donations donations)
         {
             Title = title;
             Slug = slug;
@@ -27,6 +28,7 @@ namespace StockportWebapp.ProcessedModels
             ImageUrl = imageUrl;
             Volunteering = volunteering;
             Groups = groups;
+            Donations = donations;
         }
     }
 }

@@ -29,6 +29,8 @@ namespace StockportWebapp.ProcessedModels
         public string AbilityLevel { get; set; }
         public bool Favourite { get; set; }
         public Volunteering Volunteering { get; set; }
+        public Organisation Organisation { get; set; }
+        public Donations Donations { get; set; }
 
         public ProcessedGroup()
         {
@@ -36,7 +38,7 @@ namespace StockportWebapp.ProcessedModels
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference,
-                      List<Crumb> breadcrumbs, MapPosition mapPosition, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering)
+                      List<Crumb> breadcrumbs, MapPosition mapPosition, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, Donations donations)
         {
             Name = name;
             Slug = slug;
@@ -61,6 +63,8 @@ namespace StockportWebapp.ProcessedModels
             CostText = costText;
             AbilityLevel = abilityLevel;
             Favourite = favourite;
+            Organisation = organisation;
+            Donations = donations;
         }
     }
 }

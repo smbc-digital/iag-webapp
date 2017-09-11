@@ -5,6 +5,16 @@
   "email": "hello@stockportzumba.whatever",
   "website": "stockportzumba.io",
   "twitter": "twitter.com/stockportzumba",
+  "organisation": {
+    "title": "Stockport Furry Organisation",
+    "slug": "stockport-furry-organisation",
+    "image": {},
+    "aboutUs": "An organisation dedicated to all the furry animals out there.",
+    "phone": "12345667901",
+    "email": "test@test.net",
+    "volunteering": true,
+    "volunteeringText": "Please help"
+  },
   "facebook": "facebook.com/stockportzumba",
   "address": "zumba house,\nzumba road,\nzumba zumba zumba",
   "description": "The group description",

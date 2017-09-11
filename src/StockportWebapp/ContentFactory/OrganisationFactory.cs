@@ -28,8 +28,15 @@ namespace StockportWebapp.ContentFactory
                 Url = $"organisations/{organisation.Slug}"
             };
 
+            var donations = new Donations()
+            {
+                Email = organisation.Email,
+                GetDonations = organisation.Donations,
+                Url = $"groups/{organisation.Slug}"
+            };
+
             return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone, 
-                organisation.Email, organisation.Groups, volunteering);
+                organisation.Email, organisation.Groups, volunteering, donations);
         }
     }
 }

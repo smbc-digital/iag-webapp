@@ -356,13 +356,17 @@
                 display: table;
                 border-radius: 3px;
 
+                i {
+                    color: #333333;
+                }
+
                 .group-chevron {
                     display: table-cell;
                     vertical-align: middle;
                     padding-right: 15px;
 
                     i {
-                        color: #000;
+                        color: #333333;
                     }
                 }
 
@@ -376,7 +380,7 @@
                 @media #{$tablet} {
                     height: 56px;
                     margin-bottom: 23px;
-                    padding-top: 10px;                    
+                    padding-top: 10px;
                 }
 
                 @media #{$mobile} {
@@ -387,7 +391,7 @@
 
                     h5 {
                         width: 70%;
-                        line-height: initial;                       
+                        line-height: initial;
                     }
                 }
 
@@ -397,13 +401,12 @@
                     margin-right: 5px;
                     height: 100%;
                     text-align: center;
-                   
+
                     i {
-                        color: $orange;
+                        color: #333333;
                         background-color: $white;
 
                         @media #{$mobile, $tablet} {
-                            color: $black;
                             padding: 0px 10px 7px 10px;
                             display: table-cell;
                             margin-left: 0;
@@ -765,9 +768,18 @@
 
 .footer-container-box {
     margin-bottom: 0;
-    background-color: $tealDark;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    background-color: #333333;
+    padding-top: 1px;
+    padding-bottom: 20px;
+
+    .footer-container-box-label {
+        padding: 0px 10px 15px 10px;
+        color: #fff;
+
+        h3 {
+            color: #fff;
+        }
+    }
 
     .button-default {
         margin-top: 0px;
@@ -794,13 +806,57 @@
         transition-duration: 0.5s;
 
         @media #{$mobile} {
-            display:block;
+            display: block;
             text-align: center;
         }
 
         &:hover {
             box-shadow: 5px 5px 10px $greyLighter;
             background-color: $greyLightest;
+        }
+
+        &:after {
+            content: "\f105";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 18px;
+            padding-left: 25px;
+            padding-right: 10px;
+        }
+    }
+}
+
+.donations-section {
+    background-color: #333333;
+    margin-bottom: 30px;
+    color: #ffffff;
+    border-left: 5px solid #333333;
+    border-radius: 3px;
+
+    h3, a {
+        color: #ffffff;
+    }
+
+    .donations-button {
+        border-radius: 3px;
+        border-width: 1px;
+        border-color: #ffffff;
+        border-style: solid;
+        padding-left: 30px;
+        padding-bottom: 8px;
+        padding-top: 8px;
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 600;
+        transition-duration: 0.5s;
+
+        @media #{$mobile} {
+            display: block;
+            text-align: center;
+        }
+
+        &:hover {
+            box-shadow: 5px 5px 10px #000000;
         }
 
         &:after {
@@ -848,5 +904,15 @@
 .form-section {
     .label-for-checkbox {
         display: inline-block;
+    }
+}
+
+.groups-location-search {
+    position: relative;
+
+    .form-field-validation-error {
+        @media #{$desktop, $tablet} {
+            position: absolute;
+        }
     }
 }
