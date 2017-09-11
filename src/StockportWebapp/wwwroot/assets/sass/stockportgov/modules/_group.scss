@@ -880,3 +880,13 @@
         display: inline-block;
     }
 }
+
+.groups-location-search {
+    position: relative;
+
+    .form-field-validation-error {
+        @media #{$desktop, $tablet} {
+            position: absolute;
+        }
+    }
+}
