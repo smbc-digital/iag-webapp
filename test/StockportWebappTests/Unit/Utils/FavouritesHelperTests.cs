@@ -106,8 +106,8 @@ namespace StockportWebappTests.Unit.Utils
             var cookies = new FakeCookie(true);
 
             var groups = new List<Group>();
-            groups.Add(new Group("test 1", "test1", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, null, null, null, false, null, null, null, null, string.Empty, string.Empty, string.Empty, string.Empty, false, "", null));
-            groups.Add(new Group("test 2", "test2", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, null, null, null, false, null, null, null, null, string.Empty, string.Empty, string.Empty, string.Empty, false, "", null));
+            groups.Add(new Group("test 1", "test1", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, null, null, null, false, null, null, null, null, string.Empty, string.Empty, string.Empty, string.Empty, false, "", null, null));
+            groups.Add(new Group("test 2", "test2", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, null, null, null, null, false, null, null, null, null, string.Empty, string.Empty, string.Empty, string.Empty, false, "", null, null));
 
             httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
 
