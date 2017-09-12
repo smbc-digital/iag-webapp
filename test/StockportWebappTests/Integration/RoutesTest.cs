@@ -74,7 +74,7 @@ namespace StockportWebappTests.Integration
 
             var thirdsiteResult = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/"));
 
-            thirdsiteResult.Should().Contain("THIS IS A TEST WEBSITE");
+            thirdsiteResult.Should().Contain("Want to know more?");
 
         }
         #endregion
