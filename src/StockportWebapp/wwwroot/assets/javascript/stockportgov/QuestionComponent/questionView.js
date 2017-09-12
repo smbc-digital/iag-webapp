@@ -40,23 +40,21 @@ define(["jquery"], function ($) {
     }
 
     var bindEventListeners = function (validationCallback) {
-        $("form.question-form input").change(function () {
+        $("form.question-form input, form.question-form textarea").change(function () {
             validationCallback($("form.question-form"), $(this));
             showTertiaryInformation()
         });
-        $("form.question-form input").blur(function () {
+        $("form.question-form input, form.question-form textarea").blur(function () {
             validationCallback($("form.question-form"), $(this));
         });
-        $("form.question-form input").keyup(function (e) {
+        $("form.question-form input, form.question-form textarea").keyup(function (e) {
             if (e.keyCode !== 9) {
                 validationCallback($("form.question-form"), $(this), true);
             }
         });
 
         $(document).keyup(function (e) {
-            debugger;
             if (e.keyCode === 13) {
-
                 $("#next-button").click();
             }
         });
