@@ -4,6 +4,7 @@ using StockportWebapp.Models;
 using Xunit;
 using Helper = StockportWebappTests.TestHelper;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Parsers;
@@ -22,9 +23,10 @@ namespace StockportWebappTests.Unit.ContentFactory
             var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
             var documentTagParser = new Mock<IDynamicTagParser<Document>>();
             var alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
+            var httpContextAccessor = new Mock<IHttpContextAccessor>();
             tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns("");
 
-            _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object);
+            _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object);
         }
 
         [Fact]

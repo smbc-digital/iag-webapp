@@ -163,6 +163,23 @@ namespace StockportWebapp.Controllers
             model.Tag = groupSearch.Tag;
             model.KeepTag = groupSearch.KeepTag;
 
+
+            if (!string.IsNullOrEmpty(groupSearch.Tag))
+            {
+                var firstGroup = model.Groups.First(g => g.Organisation?.Slug == groupSearch.KeepTag);
+                model.OrganisationName = firstGroup?.Organisation == null ? string.Empty : firstGroup.Organisation.Title;
+            }
+            else if (!string.IsNullOrEmpty(groupSearch.KeepTag))
+            {
+                var organisationFilterResponse = await _repository.Get<Organisation>(groupSearch.KeepTag);
+                var organisationFilter = organisationFilterResponse.Content as Organisation;
+
+                if (organisationFilter != null)
+                {
+                    model.OrganisationName = organisationFilter.Title;
+                }
+            }
+            
             try
             {
                 ViewBag.AbsoluteUri = Request.GetUri().AbsoluteUri;

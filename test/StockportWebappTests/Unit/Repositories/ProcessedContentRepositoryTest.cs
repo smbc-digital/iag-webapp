@@ -8,11 +8,13 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
+using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests.Unit.Repositories
 {
@@ -27,6 +29,7 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
         private readonly Mock<IApplicationConfiguration> appConfig;
+        private readonly Mock<IHttpContextAccessor> httpContextAccessor;
 
         public ProcessedContentRepositoryTest()
         {
@@ -37,10 +40,10 @@ namespace StockportWebappTests.Unit.Repositories
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _mockUrlGenerator = new Mock<IStubToUrlConverter>();
             appConfig = new Mock<IApplicationConfiguration>();
-
+            httpContextAccessor = new Mock<IHttpContextAccessor>();
             _mockHttpClient = new Mock<IHttpClient>();
 
-            var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object);
+            var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, httpContextAccessor.Object);
             _repository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, contentFactory, appConfig.Object);
         }
 
