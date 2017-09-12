@@ -192,14 +192,7 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Redirects.json")));
             Client.ForPostAsync("https://www.google.com/recaptcha/api/siteverify")
                 .ReturnPostAsync(new HttpResponseMessage() { Content = new StringContent("{\"success\": true,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}") });
-<<<<<<< HEAD
             #endregion
-
-
-
-=======
-            
->>>>>>> master
         }
     }
 }
