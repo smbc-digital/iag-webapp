@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Specialized;
+using Elasticsearch.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -12,15 +14,13 @@ using StockportWebapp.Config;
 using StockportWebapp.Middleware;
 using StockportWebapp.Scheduler;
 using StockportWebapp.ModelBinders;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Razor;
-using StockportWebapp.AmazonSES;
-using StockportWebapp.Controllers;
 using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
-using StockportWebapp.Utils;
 using Microsoft.AspNetCore.Http;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.Elasticsearch;
 
 namespace StockportWebapp
 {
@@ -45,13 +45,20 @@ namespace StockportWebapp
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
+
+            var loggerConfig = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .Enrich.WithProperty("Application", "IAG Web App")
+                .WriteTo.LiterateConsole();
+
+            Log.Logger = loggerConfig.CreateLogger();
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
             // logging
-            var loggerFactory = new LoggerFactory().AddNLog();
+            var loggerFactory = new LoggerFactory().AddSerilog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 
             // other
@@ -97,8 +104,11 @@ namespace StockportWebapp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider, IApplicationLifetime appLifetime)
         {
+            // add logging
+            loggerFactory.AddSerilog();
+
             if (_appEnvironment == "int" || _appEnvironment == "local" || _appEnvironment == "qa")
             {
                 app.UseDeveloperExceptionPage();
@@ -127,6 +137,9 @@ namespace StockportWebapp
             app.UseMvc(routes => { routes.MapRoute("thankyou", "{controller=ContactUs}/{action=ThankYou}/"); });
             app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
             app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
+
+            // close logger
+            appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
         }
     }
 }
