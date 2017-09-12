@@ -9,7 +9,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Our Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups") })
 }
 
 <div class="grid-container-full-width">

@@ -63,6 +63,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
 
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
+            _markdownWrapper.Setup(o => o.ConvertToHtml(_liveChat.Text)).Returns(_liveChat.Text);
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);

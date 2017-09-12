@@ -20,7 +20,6 @@ namespace StockportWebapp.ProcessedModels
         public List<GroupCategory> CategoriesReference { get; set; }
         public List<Crumb> Breadcrumbs { get; set; }
         public MapPosition MapPosition { get; set; }
-        public bool Volunteering { get; set; }
         public List<Event> Events { get; set; }
         public GroupAdministrators GroupAdministrators { get; set; }
         public DateTime? DateHiddenFrom { get; set; }
@@ -29,7 +28,9 @@ namespace StockportWebapp.ProcessedModels
         public string CostText { get; set; }
         public string AbilityLevel { get; set; }
         public bool Favourite { get; set; }
-        public string VolunteeringText { get; set; }
+        public Volunteering Volunteering { get; set; }
+        public Organisation Organisation { get; set; }
+        public Donations Donations { get; set; }
 
         public ProcessedGroup()
         {
@@ -37,7 +38,7 @@ namespace StockportWebapp.ProcessedModels
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference,
-                      List<Crumb> breadcrumbs, MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string cost, string costText, string abilityLevel, bool favourite, string volunteeringText)
+                      List<Crumb> breadcrumbs, MapPosition mapPosition, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, string cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, Donations donations)
         {
             Name = name;
             Slug = slug;
@@ -62,7 +63,8 @@ namespace StockportWebapp.ProcessedModels
             CostText = costText;
             AbilityLevel = abilityLevel;
             Favourite = favourite;
-            VolunteeringText = volunteeringText;
+            Organisation = organisation;
+            Donations = donations;
         }
     }
 }

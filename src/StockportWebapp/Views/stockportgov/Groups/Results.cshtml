@@ -1,11 +1,14 @@
-﻿@using StockportWebapp.Models
+﻿@using Microsoft.ApplicationInsights.AspNetCore.Extensions
+@using StockportWebapp.Models
 @using StockportWebapp.Utils
 @using StockportWebapp.ViewModels
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
 @model GroupResults
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
-    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - find a local group");
-    ViewData["Description"] = "Find a local group results page";
+    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - Our Stockport Local");
+    ViewData["Description"] = "Our Stockport Local results page";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
@@ -13,21 +16,22 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Find a local group", "groups", "Group")})
+    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Our Stockport Local", "groups", "Group") })
 }
 
-<div class="l-page-content" id="content-no-margin-bottom-mainpage">
+<div class="l-page-content group-result-page" id="content-no-margin-bottom-mainpage">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
-            <div class="grid-70 tablet-grid-70 mobile-grid-100">
-                <h1 class="full-width-title-with-button">Find a local group</h1>
+            <div class="grid-70 tablet-grid-60 mobile-grid-100">
+                <h1 class="full-width-title-with-button">Our Stockport Local</h1>
             </div>
-            <div class="header-right-button grid-30 tablet-grid-30 hide-on-mobile">
-                <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group</stock-button>
-            </div> 
+            <div class="header-right-button grid-30 tablet-grid-40 hide-on-mobile">
+                <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
+            </div>
         </div>
     </div>
-    
+
+
     <div class="group-startpage-image group-results">
         <div class="mobile-grid-100 group-result-label-container hide-on-desktop hide-on-tablet"><label>Showing <strong>@ViewBag.SelectedCategory</strong> groups near <strong>@Model.PrimaryFilter.Location</strong></label></div>
         <div class="primary-filter-outer-container-results-page">
@@ -40,11 +44,37 @@
             <span class="result-arrow"></span>
         </div>
     </div>
-
-    <div class="hide-on-desktop hide-on-tablet mobile-grid-100" style="padding-top: 15px;">
-        <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
+    <div class="filter-sort-bar">
+        @{
+            var featureToggleWidth = "mobile-grid-100";
+        }
+        @if (FeatureToggles.GroupFilterBar)
+        {
+            featureToggleWidth = "mobile-grid-50 mobile-pull-left group-sort-by-order";
+            <div class="mobile-grid-50 mobile-pull-right group-sort-by-filter grid-parent">
+                @Html.Partial("RefineByBar", Model.RefineByBar())
+            </div>
+        }
+        <div class="hide-on-desktop hide-on-tablet @featureToggleWidth">
+            <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
+        </div>
     </div>
-    
+
+    @if (!string.IsNullOrEmpty(Model.Tag))
+    {
+        <div class="grid-container ">
+            <div class="organisation-bar-container">
+                <div class="grid-100 organisation-bar">
+                    <label>Organisation</label>
+                    <h1><a href="/organisations/@Model.KeepTag">@Model.OrganisationName</a> </h1>
+                    <div class="remove-filter">
+                        <a href="@ViewBag.AbsoluteUri.Replace("&tag=" + Model.Tag, "").Replace("?tag=" + Model.Tag, "")">Remove this filter</a>
+                    </div>
+                </div>    
+            </div>
+        </div>    
+    }
+
     @if (Model.Groups.Any())
     {
         <ul class="group-listing-container grid-container matchbox-parent">
@@ -54,21 +84,25 @@
             }
         </ul>
         <div class="grid-container grid-100 group-pagination">
-                @Html.Partial("Pagination", Model.Pagination)    
+            @Html.Partial("Pagination", Model.Pagination)
         </div>
     }
     else
     {
         <div class="grid-container grid-100">
-            <h1 class="">There are currently no groups matching your search.</h1>
+            <h2 class="">There are currently no groups matching your search.</h2>
             <p>Please edit your search and try again.</p>
         </div>
     }
-    
+
     <div class="footer-container-box hide-on-desktop hide-on-tablet">
+        <div class="footer-container-box-label">
+            <h3>Add your group or service</h3>
+            <label>Complete our form to add your group or service to Stockport Local.</label>
+        </div>      
         <div class="grid-container grid-parent grid-100 add-group-mobile">
             <div class="header-right-button mobile-grid-100">
-                <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group</stock-button>
+                <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
             </div>
         </div>
     </div>

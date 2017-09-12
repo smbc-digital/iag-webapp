@@ -1,0 +1,17 @@
+﻿{
+  "title": "title",
+  "slug": "slug",
+  "backgroundImage": "image-url.jpg",
+  "featuredGroupsHeading": "",
+  "featuredGroups": [],
+  "featuredGroupsCategory": {
+    "name": "",
+    "slug": "",
+    "icon": "",
+    "imageUrl": ""
+  },
+  "featuredGroupsSubCategory": {
+    "name": "",
+    "slug": ""
+  }
+}

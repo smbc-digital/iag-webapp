@@ -9,6 +9,7 @@ using StockportWebapp.Services;
 using StockportWebapp.Utils;
 using Xunit;
 using StockportWebapp;
+using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebappTests.Unit.Fake;
 using HttpClient = System.Net.Http.HttpClient;
@@ -24,6 +25,7 @@ namespace StockportWebappTests.Unit.Services
         private readonly FakeResponseHandler _fakeHandler;
         private readonly Mock<IStubToUrlConverter> _mockUrlGenerator;
         private const string healthcheckUrl = "http://localhost:5000/_healthcheck";
+        private readonly Mock<IApplicationConfiguration> _configuration;
 
         public HealthcheckServiceTest()
         {
@@ -32,6 +34,8 @@ namespace StockportWebappTests.Unit.Services
             _fileWrapperMock = new Mock<IFileWrapper>();
             _mockUrlGenerator = new Mock<IStubToUrlConverter>();
             _mockUrlGenerator.Setup(o => o.HealthcheckUrl()).Returns(healthcheckUrl);
+            _configuration = new Mock<IApplicationConfiguration>();
+            _configuration.Setup(_ => _.GetContentApiAuthenticationKey()).Returns("AuthKey");
 
             var httpResponseMessage = new HttpResponseMessage
             {
@@ -56,8 +60,7 @@ namespace StockportWebappTests.Unit.Services
         private HealthcheckService CreateHealthcheckService(string appVersionPath, string shaPath,
             FeatureToggles featureToggles)
         {
-            return new HealthcheckService(appVersionPath, shaPath, _fileWrapperMock.Object, featureToggles,
-                () => new HttpClient(_fakeHandler), _mockUrlGenerator.Object, "local");
+            return new HealthcheckService(appVersionPath, shaPath, _fileWrapperMock.Object, featureToggles, new HttpClient(_fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object);
         }
 
         private HealthcheckService CreateHealthcheckServiceWithDefaultFeatureToggles(string appVersionPath,
@@ -170,7 +173,7 @@ namespace StockportWebappTests.Unit.Services
             fakeHandler.AddFakeResponse(new Uri(healthcheckUrl), NoneSuccessfulResponse);
 
             var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
-                new FeatureToggles(), () => new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local");
+                new FeatureToggles(), new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object);
 
             var check = AsyncTestHelper.Resolve(healthcheckService.Get());
 
@@ -190,7 +193,7 @@ namespace StockportWebappTests.Unit.Services
             fakeHandler.ThrowException(new Uri(healthcheckUrl), new HttpRequestException());
 
             var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
-                new FeatureToggles(), () => new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local");
+                new FeatureToggles(), new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object);
 
             var check = AsyncTestHelper.Resolve(healthcheckService.Get());
 

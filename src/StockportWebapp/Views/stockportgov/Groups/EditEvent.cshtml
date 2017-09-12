@@ -17,9 +17,10 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Find a local group", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups"), new Crumb(Model.Title, "manage/" + Model.GroupSlug + "/events/" + Model.Slug, "groups") })
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Our Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups"), new Crumb(Model.Title, "manage/" + Model.GroupSlug + "/events/" + Model.Slug, "groups") })
 }
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
@@ -79,9 +80,13 @@
 
                                         <label asp-for="@Model.Location"></label>
                                         <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Location" />
+                                        <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Location" />
+                                        <div style="visibility:hidden;position:absolute;top:-100px;left:-100px;">
+                                            <input type="text" id="location" asp-for="@Model.Location" />
+                                            <input type="text" id="latitude" asp-for="@Model.Latitude" />
+                                            <input type="text" id="longitude" asp-for="@Model.Longitude" />
+                                        </div>
                                         <span asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
 
                                         <label asp-for="@Model.EventDate"></label>
                                         <input type="date" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control datepicker" asp-for="@Model.EventDate" />

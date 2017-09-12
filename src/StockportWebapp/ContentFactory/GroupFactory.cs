@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
@@ -25,9 +26,25 @@ namespace StockportWebapp.ContentFactory
             processedBody = Regex.Replace(processedBody, "<script", "<scri-pt", RegexOptions.IgnoreCase);
             processedBody = Regex.Replace(processedBody, "javascript", "javascri-pt", RegexOptions.IgnoreCase);
 
+            var volunteering = new Volunteering()
+            {
+                Email = group.Email,
+                VolunteeringText = group.VolunteeringText,
+                VolunteeringNeeded = group.Volunteering,
+                Url = $"groups/{group.Slug}"
+            };
+
+            var donations = new Donations()
+            {
+                Email = group.Email,
+                GetDonations = group.Donations,
+                Url = $"groups/{group.Slug}"
+            };
+
             return new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter,
                 group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, 
-                group.Breadcrumbs, group.MapPosition, group.Volunteering, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, group.Cost, group.CostText, group.AbilityLevel, group.Favourite, group.VolunteeringText);
+                group.Breadcrumbs, group.MapPosition, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, 
+                group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation, donations);
         }
     }
 }

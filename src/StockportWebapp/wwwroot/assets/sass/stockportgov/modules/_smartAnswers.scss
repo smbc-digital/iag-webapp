@@ -1,23 +1,48 @@
 ﻿﻿#smart-answers-container {
     background-color: #fff;
-    padding-left: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1140px;
+
+    @media #{$desktop, $tablet} {
+        padding-left: 30px;
+    }
 
     h1 {
         padding: 20px 0;
-        font-size: 50px;
+        font-size: 40px;
         margin-bottom: 0;
         color: #055c58;
     }
 
-    .question-button-next {
+    .question-margin-bottom {
         margin-bottom: 40px;
     }
 
     .question-section {
         margin-bottom: 0px;
+        padding-bottom: 10px;
 
         .question-list {
-            margin-top: 20px;
+            margin-top: 5px;
+
+            li {
+                label {
+                    font-size: 1.0em;
+                    font-weight: 400;
+
+                    @media #{$mobile} {
+                        width: auto;
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+
+    .question-button-next {
+        @media #{$mobile} {
+            width: 100%;
         }
     }
 
@@ -31,6 +56,13 @@
         cursor: pointer;
     }
 
+    .info-drop-down-up {
+        font-weight: bold;
+        font-size: larger;
+        float: right;
+        margin-top: 5px;
+    }
+
     .collapse + input {
         display: none;
     }
@@ -41,6 +73,50 @@
 
     .collapse + input:checked + div {
         display: block;
+    }
+
+    .secondary-info-holder {
+        border-top: 1px solid #e1e1e1;
+        border-bottom: 1px solid #e1e1e1;
+        padding-left: 0px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .secondary-info-container {
+        font-size: 1.2em;
+
+        div {
+            padding: 0px;
+            line-height: initial;
+        }
+    }
+
+    .smart-answers-container {
+        border-top: 1px solid #e1e1e1;
+        padding-bottom: 25px;
+        padding-top: 25px;
+        overflow: hidden;
+
+        @media #{$mobile} {
+            padding-bottom: 0px;
+            padding-top: 0px;
+        }
+
+        div {
+            padding: 0px;
+        }
+    }
+
+    .smart-answers-container-label {
+        display: block;
+        clear: both;
+        font-family: "Source Sans Pro",sans-serif;
+        font-size: 1.5em;
+        font-weight: 600;
+        letter-spacing: -1px;
+        margin-bottom: 20px;
     }
 }
 
@@ -60,7 +136,20 @@
    }
 }
 
-.button-previous {
+.question-button-next-container {
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.info-image {
+    /*margin-right: 20px;*/
+
+    i {
+        font-size: 28px;
+        color: #207eab;
+    }
+}
+/*.button-previous {
     font-weight:bold;
     &:before{
         font-size: 17px;
@@ -71,10 +160,10 @@
     @media #{$mobile} {
             margin-bottom : 10px;
         }
+}*/
+.button-width {
+    @media #{$mobile} {
+        width: 160px;
+    }
 }
 
-.button-width {
-     @media #{$mobile} {
-            width : 160px;
-        }
-}

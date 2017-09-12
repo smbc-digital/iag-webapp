@@ -314,6 +314,7 @@
 
   <ItemGroup>
     <Folder Include="Views\healthystockport\" />
+    <None Include="Models\RedisValueData.cs" />
   </ItemGroup>
 
 </Project>

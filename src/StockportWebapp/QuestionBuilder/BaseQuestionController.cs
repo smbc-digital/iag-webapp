@@ -149,6 +149,7 @@ namespace StockportWebapp.QuestionBuilder
                 if (behaviour.BehaviourType == EQuestionType.GoToSummary)
                 {
                     ViewData["page"] = page;
+                    ViewData["pageTitle"] = Title;
                     return View("Summary");
                 }
 
@@ -171,7 +172,7 @@ namespace StockportWebapp.QuestionBuilder
                 Slug = Slug,
                 Title = Title
             };
-
+            
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
             return View(result);

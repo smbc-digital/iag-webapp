@@ -559,6 +559,7 @@ namespace StockportWebappTests.Integration
             var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/groups"));
 
             result.Should().Contain("Dancing");
+            result.Should().Contain("group-homepage-title");
         }
 
         #endregion

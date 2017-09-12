@@ -3,35 +3,31 @@ module.exports = {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
         browser.maximizeWindow();
+        homepage.closeCookieBanner(browser);
         browser.setCookie({
             name: "int_jwtCookie",
             value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
         });
         browser.setCookie({
             name: "jwtCookie",
-            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwibmFtZSI6IlVJIFRlc3QifQ.89BlBYq8BrLZ88LSL5avDmUjcj7b_qUwEB0Mi_H-pUg"
+            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
         });
+
     },
 
     'Find article for About the Hat Works': function (browser) {
         var homepage = browser.page.stockportgov.homepage();
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot1.png');
-        // homepage.closeCookieBanner(browser);
         homepage.goToTopicListBlockPage(browser, "UITEST: Hat Works");
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot2.png');
         var topicpage = browser.page.stockportgov.topicpage();
         topicpage.assertTitleIsVisible('UITEST: Hat Works');
         topicpage.assertSecondaryItemIsVisible(browser, "UITEST: Secondary Item");
-
         topicpage.goToTopicListBlockPage(browser, "UITEST: About the Hat Works", "uitest-about-the-hat-works");
-
         topicpage.assertTitleIsVisible("UITEST: About the Hat Works");
 
         var articlepage = browser.page.stockportgov.articlepage();
         articlepage.assertTitleIsVisible('UITEST: About the Hat Works');
         articlepage.assertLiveChatIsVisible(browser);
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot3.png');
-        articlepage.assertCarouselIsVisible();
+        articlepage.assertCarouselIsVisible(browser);
         articlepage.assertCarouselImagesAreVisible(browser);
 
         articlepage.goToNextSection(browser);
@@ -39,7 +35,6 @@ module.exports = {
 
         var startpage = browser.page.stockportgov.startpage();
         startpage.assertStartButtonIsVisible();
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot4.png');
         var breadcrumb = browser.page.stockportgov.breadcrumb();
         breadcrumb.goToHome(browser);
 
@@ -57,7 +52,6 @@ module.exports = {
         articlepage.assertTableIsVisible();
         articlepage.assertProfileIsVisible("Graduate Development Officer");
         articlepage.goToProfile(browser, "uitest-kirsten");
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot5.png');
 
         var profilepage = browser.page.stockportgov.profilepage();
         profilepage.assertTitleIsVisible("UITEST: Kirsten");
@@ -88,8 +82,6 @@ module.exports = {
         homepage.navigate();
         homepage.goToNewsroom(browser);
 
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot6.png');
-
         var newsroom = browser.page.stockportgov.newsroom();
         newsroom.assertTitleIsVisible("News");
         newsroom.goToNewsWithTitle(browser, "UITEST: Steel frame starts to go up at Redrock", "/news/uitest-steel-frame-starts-to-go-up-at-redrock");
@@ -107,7 +99,6 @@ module.exports = {
 
     'Visit a news article via category, then check category and date links': function (browser) {
         var homepage = browser.page.stockportgov.homepage();
-        browser.maximizeWindow();
         homepage.navigate();
         homepage.goToNewsroom(browser);
 
@@ -129,16 +120,14 @@ module.exports = {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
         homepage.goToEventsCalendar(browser);
-
-        browser.saveScreenshot('screenshots/stockportgov/userjourney.tests/screenshot7.png');
-
         var eventcalendar = browser.page.stockportgov.eventscalendar();
         eventcalendar.assertTitleIsVisible("What's on in Stockport");
+        eventcalendar.assertPrimaryFilter(browser);
+        eventcalendar.selectDropdownCategoryAndSearch(browser, "ui-test");
         eventcalendar.goToFirstEvent(browser);
 
         var events = browser.page.stockportgov.events();
         events.assertEventHasTitle(browser);
-
         events.assertHeadingStampPresent();
     },
 
@@ -192,14 +181,13 @@ module.exports = {
 
     },
     'Navigate to groups from homepage and validate details': function (browser) {
-        browser.maximizeWindow();
         // get the groups page
         var groups = browser.page.stockportgov.groups();
         // navaigate to home page
         groups.navigate();
         // assertions
         groups.goToGroupsHomePage(browser);
-        groups.assertTitleIsVisible("Find a local group");
+        groups.assertTitleIsVisible("Our Stockport Local");
         groups.assertAddAGroupButtonIsVisibleAndGotToPage(browser);
         groups.assertCanSubmitFormAndGetValidationErrors(browser);
 

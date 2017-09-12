@@ -6,7 +6,7 @@
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
             <span class="latest-nav-card-item matchbox-child">
-                <h2 class="news title">Latest news</h2>
+                <h2 class="news title"><a href="@Url.Action("Index", "News")">Latest news</a></h2>
                 <div class="body">
                     <a href="/news/@Model.FeaturedNewsItem.Slug">
                         <h3>@Model.FeaturedNewsItem.Title</h3>
@@ -24,7 +24,7 @@
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
             <span class="latest-nav-card-item matchbox-child">
-                <h2 class="event title">What's on in Stockport</h2>
+                <h2 class="event title"><a href="@Url.Action("Index", "Events")">What's on in Stockport</a></h2>
                 <div class="body">
                     <a href="/events/@Model.FeaturedEventItem.Slug">
                         <h3>@Model.FeaturedEventItem.Title</h3>
@@ -42,7 +42,7 @@
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
             <span class="latest-nav-card-item matchbox-child">
-                <h2 class="group title">Featured group</h2>
+                <h2 class="group title"><a href="@Url.Action("Index", "Groups")">Our Stockport Local</a></h2>
                 <div class="body">
                     <a href="/groups/@Model.FeaturedGroupItem.Slug">
                         <h3>@Model.FeaturedGroupItem.Name</h3>
@@ -65,7 +65,7 @@
                     </a>
                 </div>
             </span>
-            <stock-button class="nav-card-title button button-featured-content-more button-groups" as-link="true" href="@Url.Action("Index", "Groups")">View more groups</stock-button>
+            <stock-button class="nav-card-title button button-featured-content-more button-groups" as-link="true" href="@Url.Action("Index", "Groups")">View more groups and services</stock-button>
         </li>
     }
 </ul>

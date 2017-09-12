@@ -9,7 +9,22 @@ var methods = {
         browser.useXpath().assert.visible("//h3[@text()='" + title + "']")
             .click("//a[contains(@href,'" + link + "')]");
     },
+    assertPrimaryFilter: function(browser){
+      browser.useCss();
+      this.waitForElementVisible('#events-filter-bar', this.api.globals.timeOut);
+      this.waitForElementVisible('#DateFrom', this.api.globals.timeOut);
+      this.waitForElementVisible('#DateTo', this.api.globals.timeOut);
+      this.waitForElementVisible('#Category', this.api.globals.timeOut);
 
+    },
+    selectDropdownCategoryAndSearch: function(browser, category){
+      browser.useCss().click("#Category");
+      this.waitForElementVisible("#Category option[value='" + category +"']", this.api.globals.timeOut);
+      browser.click("#Category option[value='" + category +"']");
+      browser.click("button.button-default.button-outline-white-transparent");
+      browser.assert.urlContains(category);
+      // this.waitForElementVisible('#listing-refine-bar', this.api.globals.timeOut);
+    },
     goToFirstEvent: function (browser) {
         this.waitForElementVisible('@eventsList', this.api.globals.timeOut);
         browser.useCss().assert.visible("h3.events-link")

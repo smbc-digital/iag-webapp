@@ -1,40 +1,25 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @using StockportWebapp.Utils
-@model GroupResults
-@{
-    Layout = "../Shared/_LayoutPrint.cshtml";
-}
+@model List<Group>
 
-<style type="text/css">
-    body {
-        -webkit-print-color-adjust: exact;
-    }
-
-    .group-card-icon, .group-card-text {
-        float:left;
-        padding-left: 5px;
-        display:inline-block;
-    }
-</style>
-
-<div class="grid-container-full-width" id="group-favourites">
+<div class="grid-container-full-width group-favourites-print" id="group-favourites">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <div class="l-content-container grid-100 group-margin" id="group-padding">
-                <h1 id="manage-group-title" class="group-article-title">Favourite groups</h1>
+                <h1 id="manage-group-title-print" class="group-article-title">Favourite groups</h1>
                 <div class="grid-container grid-parent">
 
-                    @if (Model.Groups.Any())
+                    @if (Model.Any())
                     {
                         <table>
-                            @foreach (var group in Model.Groups)
+                            @foreach (var group in Model)
                             {
                                 var cost = group.Cost;
                                 cost = cost == "Paid" && !string.IsNullOrEmpty(group.CostText) ? group.CostText : cost;
-                                <tr>
+                                <tr id="print-favourite-group-item-@group.Slug">
                                     <td width="200">
-                                        <image style="width:200px" src="@GroupImageUrlHelper.GetImageUrl(group)"></image>
+                                        <image style="width:200px;" src="@GroupImageUrlHelper.GetImageUrl(group)"></image>
                                     </td>
                                     <td>
                                         <div class="group-card-information grid-100">
@@ -42,18 +27,22 @@
                                                 <h3>@group.Name</h3>
                                             </div>
                                             @if (!string.IsNullOrWhiteSpace(cost))
-                                            {
-                                                <div class="group-card-icon">
-                                                    <i class="fa fa-gbp" aria-hidden="true"></i>
+                                            {                                               
+                                                <div class="group-card-text">
+                                                    <div class="group-card-icon">
+                                                        <i class="fa fa-gbp" aria-hidden="true"></i>
+                                                        @cost
+                                                    </div>
                                                 </div>
-                                                <div class="group-card-text">@cost</div>
-                                            }
-                                            <div class="group-card-icon">
-                                                <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                            </div>
+                                            }                                           
                                             <div class="group-card-text">
-                                                @(group.Address.Length > 70 ? group.Address.Substring(0, 70) + "..." : group.Address)
+                                                <div class="group-card-icon">
+                                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                    @(group.Address)
+                                                </div>
+                                                
                                             </div>
+
                                             @if (!string.IsNullOrWhiteSpace(group.AbilityLevel))
                                             {
                                                 <div class="group-card-icon">
@@ -73,9 +62,3 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        window.print();
-        setTimeout(function () { window.close(); }, 1000);
-    });
-</script>

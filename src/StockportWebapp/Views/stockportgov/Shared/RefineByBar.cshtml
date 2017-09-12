@@ -1,0 +1,85 @@
+﻿@using StockportWebapp.ViewModels;
+@model RefineByBar
+<div id="listing-refine-bar" style="display:none;">
+    <div class="grid-container">
+        <div class="grid-100 grid-parent">
+
+            <div class="hide-on-desktop hide-on-tablet refine-all">
+                <stock-button class="white" id="reveal-refine-by">@Model.MobileFilterText<div class="badge"><span>2</span></div></stock-button>
+            </div>
+
+            <div id="refine-slider" class="hide-on-mobile">
+                <div class="scroller">
+                    <div class="refine title">
+                        Refine by
+                    </div>
+
+                    @if (Model.ShowLocation)
+                    {
+                    <div class="refine">
+                        <a class="link" href="javascript:void(0)">Location<div class="badge hide-on-mobile"><span></span></div></a>
+                        <div class="refine-filters location">
+                            @Html.Partial("LocationSearch", new LocationSearch { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = string.Empty, Callback = "refinebybar.ApplyLocation()" })
+                        </div>
+                    </div>
+                    }
+                    else if (Model.KeepLocationQueryValues)
+                    { 
+                        <input type="hidden" id="KeepLocationQueryValues" value="1" />
+                    }
+
+                    @foreach (var filter in Model.Filters)
+                    {
+                        <div class="refine">
+                            <a class="link" href="javascript:void(0)">@filter.Label<div class="badge hide-on-mobile"><span></span></div></a>
+                            <div class="refine-filters">
+                                @{
+                                    var i = 0; 
+                                }
+                                @foreach (var item in filter.Items)
+                                {
+                                    <label class="@( i >= 10 ? "toggle hidden" : "")">
+                                        <input type="checkbox" name="@filter.Name" value="@item.Value" @(item.Checked ? "checked" : string.Empty) />
+                                        <span class="refine-filters-label">@item.Label</span>
+                                    </label>
+                                    <div></div>
+                                    i++;
+                                }
+                                @if (i > 10)
+                                {
+                                    <div class="show-all">
+                                        <div>
+                                            <a class="show show-more" href="javascript:void(0)">Show all @filter.Label.ToLower()</a>
+                                        </div>
+                                    </div>
+                                }
+                                @if (filter.Mandatory)
+                                {
+                                <div class="none-selected-error">
+                                    <div class="fa fa-info"></div>
+                                    <span>You must select at least one @filter.Label.ToLower() option before you can apply.</span>
+                                </div>
+                                }
+                                <div class="hide-on-mobile">
+                                    <a class="cancel" href="javascript:void(0)">Cancel</a>
+                                    <a class="apply" href="javascript:void(0)">Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="hide-on-desktop hide-on-tablet clear-all-filters">
+                        <a href="javascript:void(0);" class="">Clear all filters</a>
+                    </div>                    
+                </div>
+                <div class="hide-on-desktop hide-on-tablet update-cancel-bar">
+                    <stock-button class="white cancel">Cancel</stock-button>
+                    <stock-button class="green apply update-button">Apply</stock-button>
+                </div>
+
+            </div>
+        </div>    
+    </div>
+    
+
+</div>

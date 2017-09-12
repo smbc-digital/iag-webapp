@@ -38,6 +38,7 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             transition-duration: 0.5s;
             display: block;
+            border: solid 1px #ebebeb;
 
             &:hover {
                 box-shadow: 0 10px 20px rgba(0,0,0,0.2);

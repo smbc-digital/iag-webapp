@@ -64,6 +64,11 @@
         $(".schedule_multiple_events").change(function () {
             $(".schedule_multiple_events_inputs").slideToggle(200);
         });
+
+        if ($("#events-search-filter-container").hasClass("close-this-section")) {
+            $('#events-search-filter-container').addClass('closed');
+            $('#edit-search-link').addClass('open');
+        }
     };
 
     return {

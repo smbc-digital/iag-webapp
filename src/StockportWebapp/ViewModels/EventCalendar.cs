@@ -5,17 +5,16 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
+using System.Linq;
 
 namespace StockportWebapp.ViewModels
 {
     public class EventCalendar
     {
-        [Required]
         [Display(Name = "Start date")]
         [DataType(DataType.Date)]       
         public DateTime? DateFrom { get; set; }
-
-        [Required]
+        
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]
@@ -104,6 +103,47 @@ namespace StockportWebapp.ViewModels
             return DateFrom.HasValue && DateTo.HasValue
                 ? DateFrom.Value.ToString("dd/MM/yyyy") + " to " + DateTo.Value.ToString("dd/MM/yyyy")
                 : string.Empty;
+        }
+
+        public RefineByBar RefineByBar()
+        {
+            var bar = new RefineByBar
+            {
+                ShowLocation = true,
+                Filters = new List<RefineByFilters>()
+            };
+
+            if (!string.IsNullOrEmpty(KeepTag) || !string.IsNullOrEmpty(Tag))
+            {
+                var featured = new RefineByFilters
+                {
+                    Label = "Featured events",
+                    Mandatory = false,
+                    Name = "tag",
+                    Items = new List<RefineByFilterItems>
+                    {
+                        new RefineByFilterItems { Label = KeepTag, Checked = !string.IsNullOrEmpty(Tag), Value = KeepTag }
+                    }
+                };
+
+                bar.Filters.Add(featured);
+            }
+
+            var price = new RefineByFilters
+            {
+                Label = "Price",
+                Mandatory = true,
+                Name = "price",
+                Items = new List<RefineByFilterItems>
+                {
+                    new RefineByFilterItems { Label = "Paid", Checked = Price == null || Price.Any(p => p == "paid"), Value = "paid" },
+                    new RefineByFilterItems { Label = "Free", Checked = Price == null || Price.Any(p => p == "free"), Value = "free" }
+                }
+            };
+
+            bar.Filters.Add(price);
+
+            return bar;
         }
     }
 }

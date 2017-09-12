@@ -139,6 +139,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupResults.json")));
             Client.For("http://localhost:5001/api/stockportgov/groupCategory/")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupStart.json")));
+            Client.For("http://localhost:5001/api/stockportgov/grouphomepage")
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupHomepage.json")));
             Client.For("http://localhost:5001/api/stockportgov/smart/smart-test")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Smart.json")));
             #endregion
@@ -190,10 +192,14 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Redirects.json")));
             Client.ForPostAsync("https://www.google.com/recaptcha/api/siteverify")
                 .ReturnPostAsync(new HttpResponseMessage() { Content = new StringContent("{\"success\": true,\"challenge_ts\": \"2017-05-23T15:50:16Z\",\"hostname\": \"stockportgov.local\"}") });
+<<<<<<< HEAD
             #endregion
 
 
 
+=======
+            
+>>>>>>> master
         }
     }
 }

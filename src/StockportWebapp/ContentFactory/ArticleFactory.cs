@@ -35,6 +35,10 @@ namespace StockportWebapp.ContentFactory
 
             var body = _tagParserContainer.ParseAll(article.Body, article.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");
+            if (article.LiveChat != null)
+            {
+                article.LiveChat.Text = _markdownWrapper.ConvertToHtml(article.LiveChat.Text ?? "");
+            }
             body = _profileTagParser.Parse(body, article.Profiles);
             body = _documentTagParser.Parse(body, article.Documents);
             body = _alertsInlineTagParser.Parse(body, article.AlertsInline);

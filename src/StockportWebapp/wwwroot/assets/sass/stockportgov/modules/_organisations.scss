@@ -1,0 +1,77 @@
+﻿.organisation-detail {
+    background-color: #fff;
+
+    h1 {
+        color: $colorPrimary;
+        font-size: 3em;
+
+        @media #{$mobile} {
+            font-size: 2em;
+        }
+    }
+
+    img {
+        @media #{$desktop, $tablet} {
+            width: 50%;
+        }
+    }
+
+    .show-more-button {
+        padding-left: 20px;
+    }
+
+    .group-card {
+        border: solid 1px #e3e3e3;
+    }
+
+    i {
+        margin-right: 10px;
+    }
+
+    hr {
+        margin-top: 10px;
+    }
+
+    .group-listing-container {
+        margin-top: 20px;
+    }
+
+    .mobile-show-more{
+        padding: 0 5px;
+        margin-top: -25px;
+        margin-bottom: 20px;
+    }
+}
+
+.organisation-bar-container {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 20px;
+    margin-bottom: -15px;
+
+    .organisation-bar {
+        background-color: #1D3837;
+        border-radius: 5px;
+        padding: 20px;
+        display: inline-block;
+
+        h1 {
+            margin: 0;
+
+            a {
+                color: #fff;
+                text-decoration: none;
+            }
+        }
+
+        label {
+            color: grey;
+        }
+
+        .remove-filter {
+            a {
+                color: #fff;
+            }
+        }
+    }
+}

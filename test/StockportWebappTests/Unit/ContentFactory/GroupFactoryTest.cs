@@ -49,18 +49,19 @@ namespace StockportWebappTests.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
-            _group = new Group(            
-                name : Name,
-                slug : Slug,
-                description : Description,
-                imageUrl : Image,
-                thumbnailImageUrl : ThumbnailImage,
-                address : Address,
-                website : Website,
-                email :Email,
-                phoneNumber : PhoneNumber,
-                breadcrumbs : _breadcrumbs,
-                categoriesReference : CategoriesReference,
+            _group = new Group(
+                name: Name,
+                slug: Slug,
+                description: Description,
+                imageUrl: Image,
+                thumbnailImageUrl: ThumbnailImage,
+                address: Address,
+                website: Website,
+                email: Email,
+                phoneNumber: PhoneNumber,
+                breadcrumbs: _breadcrumbs,
+                categoriesReference: CategoriesReference,
+                subCategories: null,
                 facebook : Facebook,
                 twitter : Twitter,
                 mapPosition:_mapPosition,
@@ -74,8 +75,9 @@ namespace StockportWebappTests.Unit.ContentFactory
                 costText: CostText,
                 abilityLevel: AbilityLevel,
                 favourite: false,
-                volunteeringText: ""
-                
+                volunteeringText: "text",
+                organisation: null,
+                donations: false
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
@@ -83,7 +85,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         }
 
         [Fact]
-        public void ShouldSetTheCorrespondingFieldsForAProcessedEvent()
+        public void ShouldSetTheCorrespondingFieldsForAProcessedGroup()
         {
             var result = _factory.Build(_group);
             result.Name.Should().Be("Friends of Stockport");
@@ -99,7 +101,8 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.ThumbnailImageUrl.Should().Be("thumbnail.jpg");
             result.Twitter.Should().Be("twitter");
             result.Facebook.Should().Be("facebook");
-            result.Volunteering.Should().Be(false);
+            result.Volunteering.VolunteeringNeeded.Should().Be(false);
+            result.Volunteering.VolunteeringText.Should().Be("text");
 
         }
 

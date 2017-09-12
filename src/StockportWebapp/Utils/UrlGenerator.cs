@@ -35,6 +35,7 @@ namespace StockportWebapp.Utils
             {typeof(Event), "events/"},
             {typeof(EventCalendar), "events"},
             {typeof(EventHomepage), "eventhomepage"},
+            {typeof(GroupHomepage), "grouphomepage"},
             {typeof(EventResponse), "events"},
             {typeof(Group), "group/"},
             {typeof(List<Group>), "group/"},
@@ -50,7 +51,8 @@ namespace StockportWebapp.Utils
             {typeof(ContactUsId), "ContactUsId/"},
             {typeof(List<ArticleSiteMap>), "articleSiteMap"},
             {typeof(List<SectionSiteMap>), "sectionSiteMap"},
-            {typeof(SmartAnswers), "smart/"}
+            {typeof(SmartAnswers), "smart/"},
+            {typeof(Organisation), "organisations/"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)

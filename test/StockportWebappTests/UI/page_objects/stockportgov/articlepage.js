@@ -60,7 +60,7 @@ var methods = {
     assertLiveChatIsVisible: function(browser) {
       this.waitForElementVisible('.l-right-side-bar-section.side-bar-section-live-chat', this.api.globals.timeOut);
       browser.expect.element(".l-right-side-bar-section.side-bar-section-live-chat>h3").text.to.equal("UITEST: Live Chat");
-      browser.expect.element(".l-right-side-bar-section.side-bar-section-live-chat>p").text.to.contain("this is a live chat text");
+      browser.useXpath().expect.element("//div[@class='l-right-side-bar-section side-bar-section-live-chat']/p[2]").text.to.contain("this is a live chat text");
 
     },
 
@@ -93,12 +93,12 @@ var methods = {
             .assert.visible("//span[@class='' and text()='" + expectedtext + "']");
     },
 
-    assertCarouselIsVisible: function() {
+    assertCarouselIsVisible: function(browser) {
+      browser.useCss();
         this.waitForElementVisible('.carousel', this.api.globals.timeOut);
     },
 
     assertCarouselImagesAreVisible: function (browser) {
-      browser.pause(5000);
       browser.useCss();
       this.waitForElementVisible('.carousel-image.slick-slide.slick-current.slick-active', this.api.globals.timeOut);
     }

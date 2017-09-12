@@ -157,7 +157,15 @@
             $("#getLocation").toggle();
         });
 
-        if ($('.location-search-input-autoset').length) { $('.location-search-input-autoset').val($('#address').val()); }
+        if ($('.location-search-input-autoset').length) { 
+            // TODO - Ask Raj why this was changed
+            var addressVal = $('#address').val();
+            if (typeof(addressVal) === 'undefined' || !addressVal.length) {
+                addressVal = $('#location').val();
+            }
+            
+            $('.location-search-input-autoset').val(addressVal); 
+        }
 
         // get current location
         $("#currentLocation").click(function () {
@@ -190,7 +198,15 @@
             return false;
         });
 
-        $("#allLocations").click(function () {
+        $(".events-refine-by-bar-container #allLocations").click(function () {
+            $('#location').val('');
+            $('#longitude').val('');
+            $('#latitude').val('');
+            $('.location-search-input').val('');
+            location.SetLocation('', '', '');
+        });
+
+        $(".group-startpage-image #allLocations").click(function () {
             $('#location').val('Stockport');
             $('#longitude').val('-2.158046');
             $('#latitude').val('53.405817');
@@ -247,21 +263,23 @@
 
         // only run of the auto complete is on the page
         if ($(".primary-filter-form-autocomplete").length || $('.location-search-input').length) {
-            // Set the default bounds to the UK
+            // Set the default bounds to Stockport, this is a suggestion to google to look within these bounds
             var defaultBounds = new google.maps.LatLngBounds(
-                new google.maps.LatLng(49.383639452689664, -17.39866406249996),
-                new google.maps.LatLng(59.53530451232491, 8.968523437500039));
+                new google.maps.LatLng(53.3435829465, -2.2532923571),
+                new google.maps.LatLng(53.4410365421, -2.0231358656));
 
             var options = {
                 bounds: defaultBounds,
                 // the type of location we want to return
-                types: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
+                //types: ['geocode'],
+                //address_components: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
+                //  
                 // the country to return results, the bounds above seemed to also be needed and not just this though
                 // this isn't 100% though and is just a suggestion to first look in gb
                 componentRestrictions: { country: 'gb' }
             };
 
-            var searchBox = new google.maps.places.SearchBox(document.getElementById('location-autocomplete'), options);
+            var searchBox = new google.maps.places.Autocomplete(document.getElementById('location-autocomplete'), options);
 
             // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
             searchBox.addListener('places_changed', function () {
@@ -303,6 +321,7 @@
             $(window).resize(function () {
                 setSelectBoxes();
             });
-        }
+        },
+        BuildLocation: buildLocation
     }
 });

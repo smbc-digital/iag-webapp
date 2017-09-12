@@ -36,3 +36,4 @@ define(["jquery", "questionview", "questionvalidator"], function ($, view, valid
         validateQuestions: validateQuestions
     };
 });
+
