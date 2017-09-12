@@ -10,6 +10,31 @@
     margin-bottom: 0;
 }
 
+#group-homepage {
+    margin-bottom: 0;
+    
+    h2 {
+        display: inline-block;
+        margin-top: 20px;
+        
+    }
+
+    .group-header {
+        a {
+            margin-left: 30px;
+        }
+    }
+
+    .group-listing-container {
+        margin-top: 0;
+    }
+    
+    .group-button {
+        margin-bottom: 20px;
+        margin-top: -20px;
+    }
+}
+
 .group-result-page {
     @media #{$mobile} {
         #listing-refine-bar .grid-container .refine-all {
@@ -35,6 +60,8 @@
                 border: 1px solid #DFDFDF;
                 color: $colorPrimaryDark;
                 height: 62px;
+                font-weight: bold;
+                
             }
 
             .button-default {
@@ -57,6 +84,7 @@
         .group-sort-by-order {
             padding-right: 0px;
             padding-top: 15px;
+            padding-bottom: 15px;
         }
 
         .group-sort-by-filter {
@@ -373,7 +401,7 @@
                     width: 61px;
                     display: inline-table;
                     margin-right: 5px;
-                    height: 100%;
+                    height: 70%;
                     text-align: center;
 
                     i {
@@ -381,10 +409,17 @@
                         background-color: $white;
 
                         @media #{$mobile, $tablet} {
-                            padding: 0px 10px 7px 10px;
                             display: table-cell;
                             margin-left: 0;
                             vertical-align: middle;
+                        }
+
+                        @media #{$tablet} {
+                            padding: 0px 10px 7px 10px;
+                        }
+
+                        @media #{$mobile} {
+                            padding: 20px 10px 0 10px;
                         }
                     }
                 }

@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@using StockportWebapp.Config
+@inject CurrentEnvironment CurrentEnvironment
+<!DOCTYPE html>
+<html lang="en-GB" class="no-js">
+<head>
+    <!--
+    {settings
+    (breadcrumb-before-item:<li>)
+        (breadcrumb-after-item:</li>)
+    (breadcrumb-divider:<li class="chevron">›</li>)
+    (nav-parent-start:<ul>)
+        (nav-parent-end:</ul>)
+    (nav-before-item:<li>)
+        (nav-after-item:</li>)
+    (nav-normal-class:)
+    (nav-active-class:active)
+    }
+
+    -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+    @Html.Partial("Favicon")
+
+    <title>@ViewData["Title"] - Stockport Council</title>
+    @if (ViewData["Description"] != null)
+    {
+        <meta name="Description" content="@ViewData["Description"]"/>
+    }
+    @if (ViewData["og:title"] != null)
+    {
+        <meta property="og:title" content="@ViewData["og:title"]" />
+    }
+    <link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-ts.min.css"/>
+    <link rel="stylesheet" href="~/assets/stylesheets/site-ts.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
+</head>
+<body class="container-layout-free">
+    @Html.Partial("Header")
+<main>
+    @RenderBody()
+</main>
+    @Html.Partial("StaticFooter")
+    
+    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
+    <script src="/assets/javascript/vendor/matchbox.min.js"></script>
+    
+@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
+{
+    <script data-main="/assets/javascript/requireConfigThirdSite.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+}
+else
+{
+    <script data-main="/assets/javascript/requireConfigThirdSite" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+}
+</body>
+</html>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
@@ -9,10 +10,12 @@ namespace StockportWebapp.ContentFactory
     public class OrganisationFactory
     {
         private readonly MarkdownWrapper _markdownWrapper;
+        private readonly FavouritesHelper favouritesHelper;
 
-        public OrganisationFactory(MarkdownWrapper markdownWrapper)
+        public OrganisationFactory(MarkdownWrapper markdownWrapper, IHttpContextAccessor httpContextAccessor)
         {
             _markdownWrapper = markdownWrapper;
+            favouritesHelper = new FavouritesHelper(httpContextAccessor);
         }
 
         public virtual ProcessedOrganisation Build(Organisation organisation)
@@ -35,8 +38,10 @@ namespace StockportWebapp.ContentFactory
                 Url = $"groups/{organisation.Slug}"
             };
 
+            var groupsWithFavourites = favouritesHelper.PopulateFavourites(organisation.Groups);
+
             return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone, 
-                organisation.Email, organisation.Groups, volunteering, donations);
+                organisation.Email, groupsWithFavourites, volunteering, donations);
         }
     }
 }

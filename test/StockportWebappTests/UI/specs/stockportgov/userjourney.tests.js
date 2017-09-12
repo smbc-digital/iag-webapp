@@ -12,7 +12,6 @@ module.exports = {
             name: "jwtCookie",
             value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
         });
-
     },
 
     'Find article for About the Hat Works': function (browser) {
@@ -205,6 +204,18 @@ module.exports = {
         manageGroups.assertManageGroupsEventsTitleIsVisible("Manage your events");
         manageGroups.assertGroupsEventIsVisibleAndClickIt(browser);
         manageGroups.assertEventsTitleIsVisible("UITEST: Hats Amazing");
+    },
+    'Navigate to the groups homepage and validate page': function (browser) {
+        var groupsHomepage = browser.page.stockportgov.groupsHomepage();
+        groupsHomepage.navigate();
+
+        // assertions
+        groupsHomepage.assertGroupHomepageTitleIsVisible("Get involved in your local community with Stockport Local");
+        groupsHomepage.assertGroupsHomepageFeaturedListContainerIsVisible();
+        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemOneIsVisible("Search everything");
+        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemTwoIsVisible("Find help and support");
+        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemThreeIsVisible("What's near me?");
+        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemFourIsVisible("Find where to volunteer");
     },
     after: function (browser, done) {
         setTimeout(function () {

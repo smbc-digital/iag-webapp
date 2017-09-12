@@ -60,7 +60,11 @@
         var path = window.location.href.toLowerCase().replace('http://', '').replace('https://', '');
         var folders = path.split('/');
         if (folders.length > 1) {
-            return folders[1];
+            var rootFolder = folders[1];
+            if(rootFolder === "organisations"){
+                return "groups";
+            }
+            return rootFolder;
         }
         else {
             return '';
@@ -85,6 +89,8 @@
 
         switch (root) {
         case 'groups':
+            return 'StockportWebapp.Models.Group';
+        case 'organisations':
             return 'StockportWebapp.Models.Group';
         }
 

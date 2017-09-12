@@ -1,0 +1,25 @@
+﻿@model StockportWebapp.ViewModels.MultiSelect
+@{
+}
+<input type="hidden" id="@Model.ValueControlId-limit" value="@Model.Limit" />
+<input type="hidden" class="multi-select-control" value="@Model.ValueControlId" />
+@for (var i = 1; i <= Model.Limit; i++)
+{
+    <div class="grid-100 grid-parent @Model.ValueControlId-div" id="@Model.ValueControlId-div">
+        <div class="grid-50 tablet-grid-80 mobile-grid-90 grid-parent">
+            <select class="form-control grid-100 tablet-grid-100 mobile-grid-100 @Model.ValueControlId-select">
+                <option value="">
+                    Select @Model.Label.ToLower()
+                </option>
+                @foreach (var item in Model.AvailableValues)
+                {
+                    <option value="@item">@item</option>
+                }
+            </select>
+            <a href="javascript:void(0);" class="@Model.ValueControlId-add" style="display: none"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add another @Model.Label.ToLower()</a>
+        </div>
+        <div class="grid-50 mobile-grid-10 tablet-grid-20 @Model.ValueControlId-remove" style="display: none">
+            <a href="javascript:void(0);" class="@Model.ValueControlId-remove-link"><i class="fa fa-times-circle fa-2x" style="display: inline-block; vertical-align: middle; line-height: 1.5" aria-hidden="true"></i></a>
+        </div>
+    </div>
+}

@@ -157,7 +157,15 @@
             $("#getLocation").toggle();
         });
 
-        if ($('.location-search-input-autoset').length) { $('.location-search-input-autoset').val($('#address').val()); }
+        if ($('.location-search-input-autoset').length) { 
+            // TODO - Ask Raj why this was changed
+            var addressVal = $('#address').val();
+            if (typeof(addressVal) === 'undefined' || !addressVal.length) {
+                addressVal = $('#location').val();
+            }
+            
+            $('.location-search-input-autoset').val(addressVal); 
+        }
 
         // get current location
         $("#currentLocation").click(function () {

@@ -1,0 +1,110 @@
+﻿.subitems-tertiary-padding {
+    margin-top: -15px;
+
+    @media #{$mobile, $tablet} {
+        margin: 0 0 0 0;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+
+.subitem-tertiary {
+    margin-left: 10px;
+    margin-right: 0;
+    padding-left: 0;
+    display: block;
+
+    @media #{$desktop} {
+        padding-top: 0.4em;
+        padding-bottom: 0.4em;
+        margin-left: 10px !important;
+        margin-right: 10px;
+    }
+
+    &:before {
+        @media #{$desktop} {
+            content: "\f105";
+            text-align: right;
+            float: right;
+            font: bold normal normal 20px/1 FontAwesome;
+            margin-top: 7px;
+
+        }
+    }
+
+    a {
+        text-decoration: none;
+
+        @media #{$mobile,$tablet} {
+            text-align: left;
+            border: none;
+            text-decoration: none;
+            line-height: 35px;
+
+            &:hover {
+                opacity: 0.5;
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+.no-chevron{
+    &:before {
+        @media #{$desktop} {
+            content: "";
+            text-align: right;
+            float: right;
+            font: bold normal normal 20px/1 FontAwesome;
+            margin-top: 7px;
+        }
+    }
+}
+
+.subitems-tertiary-two-column {
+   
+    background-color: #fff;
+     margin-top: 45px;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    width: 100%;
+  
+    @media #{$mobile, $tablet} {
+        margin-top: 25px;
+    }
+}
+
+.subitems-tertiary-two-column ul {
+    list-style-type: none;
+    margin-bottom: 0px;
+
+}
+
+.subitems-tertiary-two-column ul li {
+    margin-left: 0px;
+}
+
+.subitems-tertiary-two-column li:nth-child(n+2) > .subitem-tertiary {
+    border-top: 1px solid #bcbcbc;
+
+    @media #{$mobile,$tablet} {
+        border-top: none;
+    }
+}
+
+.subitems-tertiary-two-column .subitem-tertiary {
+    margin-left: 10px;
+    margin-right: 10px;
+
+    @media #{$mobile,$tablet} {
+        margin-left: 10px;
+        margin-right: 10px;
+   }
+}
+
+.subitems-tertiary-two-column ul:last-child .subitem-tertiary {
+    @media #{$mobile,$tablet} {
+        border-top: none;
+    }
+}

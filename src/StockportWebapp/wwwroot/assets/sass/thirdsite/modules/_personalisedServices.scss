@@ -1,0 +1,94 @@
+﻿.personalised-services {
+    background-color: $colorPrimaryDark;
+    color: $white;
+    text-align: center;
+    padding: 20px 10px;
+
+    h2 {
+        color: $white;
+        margin: 0;
+        margin-left: -15px;
+
+        i {
+            padding-right: 10px;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    form {
+        padding-top: 10px;
+    }
+
+    button {
+        border: 1px solid #00B79B;
+        margin: 0 auto;
+        margin-top:30px;
+        padding: 13px 40px 13px 40px;
+        min-width: 100px;
+
+        @media #{$tablet, $desktop} {
+            margin-left: 10px;
+            margin-top: 0;
+        }
+
+        &:before {
+            padding-right: 5px;
+        }
+    }
+
+    .enhanced_service {
+        
+        p {
+            font-size:1.4em;
+            font-weight:800;
+            margin-bottom:0;
+            margin-top:20px;
+        }
+                
+        @media #{$tablet, $mobile} {
+            margin-bottom: 20px;
+
+            &:not(:first-child) {
+                border-top: 1px solid rgba(255, 255, 255, 0.2);
+                padding-top: 20px;
+            }
+        }    
+
+        @media #{$desktop} {
+            padding-left: 50px;
+            padding-right: 50px;
+
+            &:not(:first-child) {
+                border-left: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            i {
+                display: block;
+                padding-right: 0;
+                font-size: 2.3em;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media #{$mobile} {
+            input {
+                width: 100%;
+            }
+        }
+
+        button {
+            display: inline;
+            margin: 0 auto;
+            margin-top: 20px;
+            @media #{$desktop, $tablet} {
+                margin-left: 40px;
+            }
+            min-width: 240px;
+            @media #{$mobile} {
+                width: 100%;
+            }
+        }
+    }
+}

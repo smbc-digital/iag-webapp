@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
@@ -11,7 +12,7 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly Dictionary<Type, dynamic> _factories = new Dictionary<Type, object>();
 
-        public ContentTypeFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser)
+        public ContentTypeFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IHttpContextAccessor httpContextAccesor)
         {
             var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser);
 
@@ -24,7 +25,7 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(Group), new GroupFactory(tagParserContainer, markdownWrapper));
             _factories.Add(typeof(Payment), new PaymentFactory(tagParserContainer, markdownWrapper));
             _factories.Add(typeof(Showcase), new ShowcaseFactory(tagParserContainer, markdownWrapper));
-            _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper));
+            _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccesor));
         }
 
         public IProcessedContentType Build<T>(T content)

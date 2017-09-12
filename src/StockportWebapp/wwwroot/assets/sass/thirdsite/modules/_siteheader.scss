@@ -1,0 +1,62 @@
+﻿.type-home .header-myaccount {
+    width: 100%;
+}
+
+.type-home .header-search-bar {
+    width: 0;
+}
+
+.menu {
+    color: $colorPrimaryPale;
+    text-align: right;
+
+    .menu-logged-out {
+        display: table;
+        padding: 10px 20px;
+        height: 50px;
+        text-align: right;
+
+        @media #{$tablet} {
+            height: 35px;
+            padding: 15px;
+        }
+
+        @media #{$mobile} {
+            height: 35px;
+            padding-right: 10px;
+            padding-top: 10px;
+            padding-left: 0px;
+            padding-bottom: 0px;
+        }
+
+        a {
+            @media #{$mobile} {
+                font-size: 14px;
+            }
+
+            display: table-cell;
+            vertical-align: middle;
+            color: $white;
+            text-decoration: none;
+
+            i {
+                color: $colorPrimaryPale;
+                padding-right: 10px;
+            }
+
+            &:hover {
+                text-decoration: underline;
+
+                i {
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+.type-home {
+    .menu .menu-logged-out {
+        padding-right: 0;
+    }
+}

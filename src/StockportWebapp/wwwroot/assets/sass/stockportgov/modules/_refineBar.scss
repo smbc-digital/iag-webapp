@@ -23,13 +23,18 @@
                 font-weight: 600;
                 width: 100%;
 
+                @media #{$mobile} {
+                    font-weight: bold;
+                    text-align: left;
+                }
+
                 .badge {
                     margin-right: 0;
                 }
             }
         }
 
-        @media #{$mobile} {
+        @media #{$mobile} { 
 
             #refine-slider {
                 position: absolute;

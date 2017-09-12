@@ -70,6 +70,12 @@ namespace StockportWebappTests.Integration
             healthyResult.Should().Contain("Welcome to Healthy Stockport");
             healthyResult.Should().Contain("Eat healthy", "Should render a business-specific piece of content");
 
+            SetBusinessIdRequestHeader("thirdsite");
+
+            var thirdsiteResult = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/"));
+
+            thirdsiteResult.Should().Contain("Want to know more?");
+
         }
         #endregion
 
@@ -554,6 +560,85 @@ namespace StockportWebappTests.Integration
 
             result.Should().Contain("Dancing");
             result.Should().Contain("group-homepage-title");
+        }
+
+        #endregion
+
+        #region thirdsite
+
+        [Fact]
+        public async void ThirdSiteItReturnsTheCorrectHeadersForArticles()
+        {
+            SetBusinessIdRequestHeader("thirdsite");
+
+            var result = await _fakeClient.GetAsync("/physical-activity");
+
+            result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(15));
+            result.Headers.CacheControl.Public.Should().Be(true);
+        }
+
+        [Fact]
+        public void ThirdSiteItReturnsAnArticlePageWithFirstSectionOnlyGivenArticleSlug()
+        {
+            SetBusinessIdRequestHeader("thirdsite");
+
+            var articleSummary = "Being active is great for your body";
+            var firstSectionBody = "Staying active and exercising";
+            var sectionTwoBody = "Blah blah blah here";
+
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/physical-activity"));
+
+            result.Should().Contain(articleSummary);
+            result.Should().Contain(firstSectionBody);
+            result.Should().NotContain(sectionTwoBody);
+        }
+
+        [Fact]
+        public void ThirdSiteItReturnsAnArticlePageAndRendersDocumentInSection()
+        {
+            SetBusinessIdRequestHeader("thirdsite");
+
+            var documentTitle = "Metroshuttle route map";
+            var documentSize = "658 KB";
+            var documentUrl = "document.pdf";
+            var fileName = "document.pdf";
+
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/physical-activity/physical-activity-overview"));
+
+            result.Should().Contain(documentTitle);
+            result.Should().Contain(documentSize);
+            result.Should().Contain(documentUrl);
+            result.Should().Contain(fileName);
+        }
+
+        [Fact]
+        public void ThirdSiteItReturnsAnArticlePageWithRequestedSectionGivenArticleAndSectionSlugs()
+        {
+            SetBusinessIdRequestHeader("thirdsite");
+
+            var requestedSectionBody = "body content";
+            var articleSummary = "Being active is great for your body";
+            var sectionOneBody = "not in the content";
+
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/physical-activity/types-of-physical-activity"));
+
+            result.Should().Contain(requestedSectionBody);
+            result.Should().NotContain(articleSummary);
+            result.Should().NotContain(sectionOneBody);
+        }
+
+        [Fact]
+        public void ThirdSiteItReturnsAHealthcheck()
+        {
+            SetBusinessIdRequestHeader("thirdsite");
+
+            var result = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/_healthcheck"));
+
+            result.Should().Contain("appVersion");
+            result.Should().Contain("sha");
+            result.Should().Contain("featureToggles");
+            result.Should().Contain("dependencies");
+            result.Should().Contain("contentApi");
         }
 
         #endregion

@@ -1,0 +1,14 @@
+﻿@charset 'UTF-8';
+.button-submit-payment {
+    width: 100%;   
+
+    @media #{$desktop, $tablet} {
+        width: auto;
+        min-width: 300px;
+        margin-top: 10px;
+    }
+
+    @media #{$mobile}{
+        margin-top: 20px;
+    }
+}
