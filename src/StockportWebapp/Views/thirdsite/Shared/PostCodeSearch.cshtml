@@ -1,0 +1,9 @@
+﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+<h2><i class="si-location"></i>My Area</h2>
+<p>Search for services and amenities in your local area. Including the nearest schools, clinics and waste collections</p>
+
+<form asp-controller="Search" asp-action="Postcode" method="get" role="form">
+    <input class="light-on-dark-field" type="text" name="query" placeholder="Your postcode or road name" />
+    <stock-button type="submit">Search</stock-button>
+</form>

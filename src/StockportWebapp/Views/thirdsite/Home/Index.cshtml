@@ -1,0 +1,94 @@
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.ProcessedModels
+@using StockportWebapp.ViewModels
+@model StockportWebapp.ProcessedModels.ProcessedHomepage
+@inject FeatureToggles FeatureToggles
+
+@{
+    ViewData["Title"] = "Welcome to the third site";
+    ViewData["og:title"] = "Welcome to the third site";
+    Layout = "../Shared/_LayoutHome.cshtml";
+}
+
+@if (Model.Alerts != null)
+{
+    foreach (var alert in Model.Alerts)
+    {
+        <div>
+            @Html.Partial("GlobalAlert", alert)
+        </div>
+    }
+}
+
+@*css overides to request images per device*@
+
+@section BackgroundImage
+{
+    @Html.Partial("ScaleImageByDevice",new Image("homepage-hero", Model.BackgroundImage))
+}
+@section CarouselBackgroundImage
+{
+    @{ int counter = 1; }
+    @foreach (var carouselContent in Model.CarouselContents)
+    {
+        @Html.Partial("ScaleImageByDevice", new Image("webcast-"+counter, carouselContent.Image))
+        counter++;
+    }
+}
+
+@*homepage template*@
+<div class="homepage-hero">
+    <div class="featured-tasks grid-container l-max-width-950">
+        @Html.Partial("FeaturedTasks", Model.FeaturedTasks)
+    </div>
+</div>
+
+
+<div class="home-page-featured-items l-body-section-filled grid-100 grid-parent">
+    @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
+</div>
+
+@if (FeatureToggles.NewHomepageLayout)
+{
+    <div class="grid-100 mobile-grid-100 tablet-grid-100 homepage-group-link-container">
+        <div class="grid-100 tablet-grid-100 mobile-grid-100">
+            <div class="homepage-group-link-container-text grid-100">Want to know more?</div>
+            <div class="homepage-group-link-container-button grid-100 grid-parent">
+                <stock-button class="do-it-online" as-link="true" href="https://en.wikipedia.org/wiki/Dog">Find it online</stock-button>
+            </div>
+        </div>
+    </div>
+    <div class="full-width-white">
+        <div class="featured-topic-list">
+            @Html.Partial("LatestNewsEventGroup", Model)
+        </div>
+    </div>
+}
+else
+{
+    <div class="grid-100 mobile-grid-100 tablet-grid-100 homepage-group-link-container">
+        <div class="grid-100 tablet-grid-100 mobile-grid-100">
+            <div class="homepage-group-link-container-text grid-50">Find a local group and get involved in your community</div>
+            <div class="homepage-group-link-container-button grid-50 grid-parent">
+                <stock-button class="button-groups" as-link="true" href="@Url.Action("Index", "Groups")">Find a local group</stock-button>
+            </div>
+        </div>
+    </div>
+    <div class="grid-100 grid-parent white-background">
+        <div class="news-events-container grid-container tablet-grid-100">
+            @if (Model.GetLatestNews().Any())
+            {
+                <div id="test-newsroom-calltoaction" class="news-events grid-50">
+                    @Html.Partial("HomePageNews", Model.GetLatestNews())
+                </div>
+            }
+            <div id="test-eventscalendar-calltoaction" class="news-events @(!Model.GetLatestNews().Any() ? "grid-100" : "grid-50")">
+                @Html.Partial("HomepageEventsWithListing", Model.GetLatestEvents())
+            </div>
+        </div>
+    </div>
+}
+
+<div class="grid-100 grid-parent">
+    @Html.Partial("Carousel", Model.CarouselContents)
+</div>

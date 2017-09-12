@@ -1,0 +1,11 @@
+﻿.header-right-button {
+    .button-default {
+        min-width: 190px;
+        float: right;
+
+        @media #{$mobile} {
+            float: none;
+            margin-top: 10px;
+        }
+    }
+}

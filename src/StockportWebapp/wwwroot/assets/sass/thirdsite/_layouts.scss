@@ -1,0 +1,46 @@
+﻿.l-short-content {
+    @media #{$desktop, $tablet} {
+        min-height: 50vh;
+    }
+}
+
+.l-fixed-footer {
+    @media #{$desktop, $tablet} {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+    }
+}
+
+.l-page-content {
+    margin-bottom:30px;
+}
+
+.grid-container-full-width {
+    max-width:none;
+
+    .l-container {
+        margin:0;   
+    }
+
+    .l-content-container {
+        border:none;
+        padding-bottom: 50px;
+
+        h1 {
+            padding:20px 0;
+            font-size: 50px;
+            margin-bottom: 0;
+            color: #66280E;
+
+            @media #{$mobile} {
+                font-size: 30px;
+            }
+        }
+       
+        h1.centered {
+            text-align:center;
+        }
+        
+    }
+}

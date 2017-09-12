@@ -1,0 +1,320 @@
+﻿// containers
+.primary-filter-container {
+    background-color: rgba(5, 92, 88, 0.68);
+    bottom: 0;
+    width: 100%;
+
+    @media #{$tablet, $desktop} {
+        display: flex;
+    }
+
+    justify-content: center;
+}
+
+.primary-filter-container-start-page {
+    @media #{$tablet, $desktop} {
+        position: absolute;
+        min-height: 34%;
+        height: 34%;
+    }
+}
+
+.primary-filter-outer-container-results-page {
+    flex-direction: row;
+
+    @media #{$desktop, $tablet} {
+        min-height: 143px;
+        height: 143px;
+        display: flex;
+    }
+}
+
+.group-result-label-container {
+    padding-top: 10px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    label {
+        color: white;
+    }
+}
+
+// form
+.primary-filter-form {
+    text-align: center;
+    color: white;
+    align-self: center;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: 'Source Sans Pro';
+    margin-bottom: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    @media #{$desktop} {
+        display: flex;
+    }
+
+    @media #{$tablet} {
+        display: flex;
+    }
+
+    @media #{$mobile} {
+        text-align: left;
+        padding-left: 0;
+    }
+
+    .location-search-section {
+        position: relative;
+
+        @media #{$mobile} {
+            display: flex;
+        }
+    }
+
+    .primary-filter-form-section {
+        display: inline-block;
+        margin-bottom: 10px;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
+
+        .primary-filter-label, .primary-filter-select, .primary-filter-input {
+            margin-right: 10px;
+
+            @media #{$mobile} {
+                // important needed to overwrite the custom javascript to resize on desktop
+                width: 100% !important;
+            }
+        }
+
+        .primary-filter-label {
+            @media #{$mobile} {
+                text-align: left;
+            }
+        }
+
+        input.primary-filter-select {
+            border: none;
+            cursor: default;
+            font-size: 1em;
+
+            @media #{$mobile} {
+                box-sizing: border-box;
+            }
+        }
+    }
+
+    .primary-filter-form-section-button {
+        display: inline-block;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
+    }
+
+    .primary-filter-button {
+        font-size: 18px;
+        bottom: 2px;
+
+        @media #{$mobile} {
+            min-width: 100%;
+            margin-top: 30px;
+        }
+
+        @media #{$desktop, $tablet} {
+            min-width: 250px;
+        }
+    }
+}
+
+.refine-filters {
+    #postcode.primary-filter-select {
+        display: none;
+    }
+
+    #getLocation {
+        display: block;
+        position: relative;
+        box-shadow: none;
+        left: 0;
+        padding: 0;
+        margin-top: 0;
+        font-size: 1em;
+
+        &:before {
+            content: '';
+        }
+
+        .location-search-label {
+            color: #333;
+            position: relative;
+            top: -6px;
+        }
+
+        .button-default {
+            min-width: 0;
+        }
+
+        .search-link a {
+            margin-left: 0;
+        }
+    }
+}
+
+#getLocation {
+    display: none;
+    position: absolute;
+
+    @media #{$desktop, $tablet} {
+        left: 113px;
+    }
+
+    z-index: 10;
+    background-color: white;
+    color: black;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    margin-top: 10px;
+    padding: 15px;
+    text-align: left;
+    font-size: 0.8em;
+    font-weight: normal;
+    line-height: 1.5;
+
+    &:before {
+        position: absolute;
+        font: normal normal normal 14px/1 FontAwesome;
+        content: "\f0d8";
+        z-index: 15;
+        color: #fff;
+        visibility: visible;
+        font-size: 50px;
+        line-height: 29px;
+        width: 25px;
+        height: 35px;
+        padding-bottom: 10px;
+        margin-top: -34px;
+        margin-left: -10px;
+    }
+
+    .location-search-label {
+        color: black;
+        font-size: .875em;
+    }
+
+    .search-all {
+        display: none;
+    }
+
+    .current-location, .all-locations {
+        color: #66280E;
+        font-size: .875em;
+
+        span {
+            margin-left: 5px;
+            color: #66280E;
+        }
+    }
+
+    .location-search-input {
+        border-radius: 2px;
+        height: 40px;
+        width: 100%;
+        border: 1px solid #D8D8D8;
+        margin-bottom: 10px;
+        margin-right: 12px;
+        padding: 5px;
+        font-family: "Noto Sans";
+        cursor: auto;
+        box-sizing: border-box;
+    }
+
+    .location-search-button {
+        background-color: #666666;
+        width: 100%;
+        font-weight: 600;
+        margin-top: 15px;
+    }
+}
+
+
+// this is used outside of the parent selector, so need to be placed outside of nesting
+.primary-filter-select {
+    transition-duration: .5s;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 52px;
+    border-radius: 4px;
+    font-size: 24px;
+    color: #66280E;
+    font-weight: 600;
+    font-family: 'Source Sans Pro';
+
+    @media #{$mobile} {
+        padding-right: 30px;
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    option {
+        color: black;
+        font-size: 16px;
+        font-family: 'Noto Sans';
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+// change the default arrow (will still show default in IE9)
+.custom-arrow {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background-image: url('/assets/images/ui-images/angle-down-green.png');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-color: white;
+}
+
+.custom-arrow::-ms-expand {
+    display: none;
+}
+
+#open-edit-search {
+    text-align: center;
+    border-top: 1px solid white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    .open-edit-search-label {
+        color: white;
+        font-size: 20px;
+        font-weight: 800;
+        width: 100%;
+        padding-left: 25%;
+        padding-right: 25%;
+    }
+}
+
+#edit-search {
+    @media #{$desktop, $tablet} {
+        display: flex !important;
+    }
+}
+
+// google auto complete custom styles
+.pac-container {
+    z-index: 20;
+}
+
+#locationError {
+    display: none;
+    border: 1px solid #c83725;
+    font-size: 16.8px;
+}

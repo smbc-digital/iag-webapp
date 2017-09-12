@@ -1,0 +1,265 @@
+﻿
+.sk-table-outer-container {
+
+    a {
+        text-decoration: none;
+    }
+
+    .sk-table-pagination {
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    margin: 0 0 30px 0;
+
+    @media #{$mobile} {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .sk-table-body {
+        border-top: 5px solid #EF8A17;
+        border-bottom: 1px solid #DFDFDF;
+        margin-top: 0;
+        margin-bottom: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        width: 100%;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+
+        &.primary-items {
+
+            .padding-mobile {
+                @media #{$mobile} {
+                    padding: 0;
+                    padding-bottom: 5px;
+                }
+
+                @media #{$tablet, $desktop} {
+                    &:nth-child(odd) {
+                        padding-right: 15px;
+                    }
+
+                    &:nth-child(even) {
+                        padding-left: 15px;
+                    }
+                }
+            }
+
+            padding: 10px 0;
+
+            a {
+                box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+            }
+
+            .button-default.subitem {
+                color: #333333;
+                background-color: #ffffff;
+                transition: 0.5s;
+                width: 100%;
+                text-align: left;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                -ms-box-sizing: border-box;
+                -o-box-sizing: border-box;
+                box-sizing: border-box;
+
+
+
+                div {
+                    padding-right: 15px;
+
+                    .sub-item-title {
+                        line-height: 30px;
+                        font-size:19px;
+                    }
+
+                    .sub-item-teaser {
+                        line-height: 27px;
+                    }
+                }
+
+                &:hover {
+                    box-shadow: 0 10px 20px rgba(0,0,0,.1);
+                }
+
+                &:nth-child(even) {
+                    clear: left;
+                }
+
+                @media #{$mobile} {
+                    margin: 0;
+                    color: #333333;
+                    border-left: 0;
+                    border-right: 0;
+                    border-radius: 0;
+                    box-shadow: none;
+                    border-bottom: 0;
+                    color: #333333;
+
+                    &:first-child {
+                        clear: left;
+                        margin-top: -11px;
+                    }
+                }
+            }
+        }
+
+        .sk-noresults {
+            padding: 40px 0;
+            text-align: center;
+        }
+    }
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .sk-table-header {
+        background-color: #EBEBEB;
+
+        span {
+            font-weight: 700;
+            padding-top: 5px;
+        }
+    }
+
+    a:hover .sk-table-cell .main, .sk-table-cell .link {
+        text-decoration: underline;        
+    }
+
+    .sk-table-row {
+        padding: 10px;
+
+        &.center {
+            text-align: center;
+        }
+
+        &.border-bottom {
+            border-bottom: 1px solid #ebebeb;
+            border-left-width: 0px;
+            border-right-width: 0px;
+            border-top-width: 0px;
+            margin-bottom: 10px;
+            padding-left: 30px;
+            padding-top: 0;
+
+            &.primary-title {
+                padding-left: 15px;
+            }
+        }
+
+        .header-right-button a.button-default {
+            font-size: 100%;
+        }
+    }
+
+    .sk-table-thin-row {
+        padding: 5px 10px;
+    }
+
+    @media #{$tablet, $desktop} {
+        .sk-table-cell-right, .sk-table-header-right {
+            text-align: right;
+        }
+    }
+
+    .sk-table-row, .sk-table-thin-row {
+        border-right: solid 1px #DFDFDF;
+        border-left: solid 1px #DFDFDF;
+        border-top: solid 1px #DFDFDF;
+
+        &.no-data {
+            padding: 50px 0;
+        }
+
+        .sk-table-cell, sk-table-cell-right {
+            font-size: 1.1em;
+            color: #1d3837;
+
+            .mobile-bold {
+                font-weight: 600;
+            }
+
+            .status {
+                color: #fff;
+                font-weight: 700;
+                padding: 0 10px;
+                font-size: .8em;
+                display: inline-block;
+                border-radius: 4px;
+
+                &.red {
+                    background-color: #c83725;
+                }
+
+                &.yellow {
+                    background-color: #ef8a17;
+                }
+
+                &.green {
+                    background-color: #15914c;
+                }
+            }
+
+            .button-default {
+                margin: 10px 20px 10px 0;
+
+                &:hover {
+                    -webkit-box-shadow: 5px 5px 10px #ccc;
+                    box-shadow: 5px 5px 10px #ccc;
+                }
+
+                &.no-margin {
+                    margin: 0;
+                }
+
+                @media #{$mobile} {
+                    margin-right: 0;
+                }
+
+                &.white {
+                    border: solid 1px #DFDFDF;
+                    color: #1d3837;
+                    background-color: transparent;
+                }
+
+                &.grey {
+                    border: solid 1px #7d7d7d;
+                    color: #fff;
+                    background-color: #7d7d7d;
+                }
+            }
+
+            .pagination-section {
+                border-top-width: 0;
+                margin-bottom: 0;
+            }
+
+            
+        }
+
+        .row-arrow:hover {
+            color: #1d3837;
+        }
+
+        .row-arrow:after {
+            content: "\f105";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 20px;
+            float: right;
+            padding-right: 20px;
+            padding-top: 7px;
+        }
+
+        .mobile-button-row {
+            margin-bottom: -10px;
+            padding: 20px 20px 20px 20px;
+        }
+    }
+}

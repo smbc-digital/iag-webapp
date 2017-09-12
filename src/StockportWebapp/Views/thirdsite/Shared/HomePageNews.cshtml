@@ -1,0 +1,20 @@
+﻿@model IEnumerable<StockportWebapp.Models.News>
+<h2>Latest News</h2>
+
+<div class="grid-parent grid-100 homepage-latest-items">
+    @foreach (var newsItem in Model)
+    {
+        <a href="@Url.Action("Detail", "News", new {slug = newsItem.Slug})">
+            <div class="@(Model.Count() > 1 ? "grid-50" : "grid-100") mobile-grid-100 homepage-latest-item">
+                <h3>@newsItem.Title</h3>
+                <p class="news-date">
+                    <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", newsItem.SunriseDate)</p>
+                <p>@newsItem.Teaser</p>
+            </div>
+        </a>
+    }
+</div>
+
+<a id="test-newsroom-link" href="@Url.Action("Index", "News")">
+    <div class="button button-outline button-featured-content-more button-partialrounded">More News</div>
+</a>

@@ -1,0 +1,155 @@
+﻿.email-banner {
+    height:auto;
+
+    @media #{$desktop, $tablet} {
+        margin-bottom: 25px;
+        padding: 0 10px 0 10px;
+    }
+
+    @media #{$tablet} {
+        margin-top: 25px;
+    }
+
+    @media #{$mobile} {
+        margin-bottom: 15px;
+        padding: 0 10px 0 10px;
+        margin-top: 15px;
+    }
+
+    .email-banner-container {
+        height:100%;
+        min-height: 140px;
+        background-color: #fff;
+        padding-left: 0px;
+        display: flex;
+        border-radius: 3px;
+        box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.1);
+
+        @media #{$tablet} {
+            border: solid 1px #DFDFDF;
+        }
+
+        .email-banner-icon-container {
+            width: 140px;
+            background-color: #207eab;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+            text-align: center;
+            border-radius: 3px 0px 0px 3px;
+
+            @media #{$mobile} {
+                width: 60px;
+            }
+
+            .email-banner-icon {
+                color: #fff;
+                width: inherit;
+                font-size: 80px;
+
+                @media #{$mobile} {
+                    color: #fff;
+                    font-size: 35px;
+                }
+            }
+        }
+
+        .email-banner-inner {
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+
+            @media #{$desktop} {
+                padding: 0 30px;
+            }
+
+            .email-banner-text-container {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                flex-direction: column;
+
+                h3 {
+                    font-weight: 600;
+                    font-size: 1.4em;
+                    margin-top: 0px;
+                    line-height: 1.2;
+
+
+                    @media #{$mobile} {
+                        padding-top: 10px;
+                        font-size: 1.3em;
+                        font-weight: 700;
+                    }
+
+                    @media #{$tablet} {
+                        padding: 15px 10px;
+                        font-size: 1.3em;
+                        font-weight: 700;
+                    }
+                }
+            }
+
+            .input-container {
+
+                @media #{$mobile} {
+                    padding-top: 10px;
+                }
+
+                @media #{$tablet} {
+                    padding-left: 20px;
+                    padding-bottom: 10px;
+                }
+
+                form div {
+
+                    &:first-child {
+                        @media #{$desktop, $tablet} {
+                            padding-right: 15px;
+                        }
+                    }
+
+                    input {
+                        font-size: 1.2em;
+                        border-radius: 3px;
+                        padding: 12px 15px;
+                        background-color: $white;
+                        border: solid 1px #bcbcbc;
+                        box-sizing: border-box;
+                        width: 100%;
+
+                        @media #{$mobile} {
+                            min-width: 100%;
+                        }
+                        /* These colours are specific to this kind of input box */
+                        &::-webkit-input-placeholder {
+                            color: #afb8b8;
+                        }
+
+                        &:-moz-placeholder {
+                            color: #afb8b8;
+                        }
+                        /* Firefox 18- */
+                        &::-moz-placeholder {
+                            color: #afb8b8;
+                        }
+                        /* Firefox 19+ */
+                        &:-ms-input-placeholder {
+                            color: #afb8b8;
+                        }
+                    }
+
+                    .button-default {
+                        min-width: 100%;
+
+                        @media #{$mobile} {
+                            margin-top: 15px;
+                            margin-bottom: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

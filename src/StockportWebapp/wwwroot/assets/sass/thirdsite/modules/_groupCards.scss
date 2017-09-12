@@ -1,0 +1,126 @@
+﻿.group-listing-container {
+    margin-top: 40px;
+
+    .group-li {
+        margin-left: 0;
+        list-style-type: none;
+        margin-bottom: 40px;
+
+        @media #{$desktop} {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        @media #{$mobile,$tablet} {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        @media #{$mobile} {
+            favourite-text {
+                position: relative;
+                top: -10px;
+                left: 20px;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        @media #{$tablet} {
+            .favourite-text {
+                position: relative;
+                top: -29px;
+                left: 20px;
+            }
+
+            margin-bottom: 10px;
+        }
+
+        .remove-favourite {
+            display: block;
+            border-top: solid 1px #ebebeb;
+            font-size: 0.9em;
+            padding-left: 15px;
+            padding-top: 10px;
+            margin-top: -50px;
+
+            .favourite-text {
+                text-decoration: underline;
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        .add-favourite {
+            display: block;
+            border-top: solid 1px #ebebeb;
+            font-size: 0.9em;
+            padding-left: 15px;
+            padding-top: 10px;
+            margin-top: -50px;
+
+            .favourite-text {
+                text-decoration: underline;
+            }
+
+            &.hidden {
+                display: none;
+            }
+        }
+
+        .group-card {
+            background-color: #ffffff;
+            padding: 0 0 10px 0;
+            border-radius: 4px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition-duration: 0.5s;
+            display: block;
+            padding-bottom: 50px;
+
+            &:hover {
+                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            }
+
+            .group-card-main {
+                display: block;
+
+                .group-card-information {
+                    color: black;
+                    padding-left: 15px;
+                    padding-right: 15px;
+                    word-wrap: break-word;
+                    display: block;
+
+                    .group-title {
+                        h3 {
+                            margin-top: 0;
+                        }
+                    }
+
+                    .group-card-icon {
+                        font-size: 0.9em;
+                    }
+
+                    .group-card-text {
+                        font-size: 0.9em;
+                    }
+                }
+
+                .group-image {
+                    height: 233px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    display: inline-block;
+                    width: 100%;
+                    border-top-left-radius: 4px;
+                    border-top-right-radius: 4px;
+                }
+            }
+        }
+    }
+}

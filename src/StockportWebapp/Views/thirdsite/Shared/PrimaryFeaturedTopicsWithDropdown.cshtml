@@ -1,0 +1,27 @@
+﻿@model IEnumerable<StockportWebapp.Models.Topic>
+
+<div class="featured-topics featured-topics-primary">
+    <div id="test-featured-topic-list" class="featured-topic-list primary-feature-box matchbox-parent">
+        @foreach (var topic in Model)
+        {
+            <div class="grid-33 tablet-grid-33 mobile-grid-33 featured-topic primary-feature-match matchbox-child">
+                <div class="featured-topic-content">
+                    <a class="arrow featured-topic-arrow arrow-hidden" data-child="featured-topic-children-@topic.Slug" href="@topic.NavigationLink">
+                        <div class="featured-topic-icon">
+                            <i class="@topic.Icon si-default"></i>
+                        </div>
+
+                        <h4 class="featured-topic-name">@topic.Title</h4>
+                    </a>
+                    <p class="hide-on-mobile hide-on-tablet featured-topic-description">
+                        Including
+                        @foreach (var subItem in topic.TopSubItems.Take(2))
+                        {
+                            <br /><a href="@subItem.NavigationLink">@subItem.Title</a>
+                        }
+                    </p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,262 @@
+﻿.l-filters {
+    margin: 15px 0px 15px 0px;
+
+    @media #{$mobile, $tablet} {
+        background-color: $white;
+        border: 1px solid $greyLight;
+        border-radius: 3px;
+        box-shadow: 0 10px 20px rgba(0,0,0,.05);
+    }
+
+    .filters-heading {
+        font-weight: 600;
+        margin: 0;
+        font-size: 1.1em;
+
+        @media #{$mobile, $tablet} {
+            display: none;
+        }
+    }
+
+    .filters-active ul {
+        list-style: none;
+        margin-bottom: 0;
+
+        @media #{$mobile, $tablet} {
+            li:first-child {
+                padding-top: 10px;
+            }
+        }
+
+        a {
+            padding: 0;
+        }
+    }
+
+    .filters-list {
+        list-style: outside none none;
+        padding: 0px;
+        margin-bottom: 0;
+    }
+
+    .filter-title, .filter-inner-title {
+        color: #66280E;
+        margin-bottom: 0;
+        position: relative;
+        cursor: pointer;
+        border-bottom: 1px solid $greyLight;
+
+        &.custom-date-title {
+            border-bottom-width: 0px;
+            margin-bottom: 0px;
+            font-weight: normal;
+            padding-top: 0px;
+            padding-bottom: 10px;
+        }
+
+        &:after {
+            padding-left: 10px;
+            content: "\f107";
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: -10px;
+            position: absolute;
+            right: 5px;
+            top: 50%;
+        }
+    }
+
+    .filter-title {
+        font-weight: 600;
+        padding: 10px 0;
+
+        @media #{$desktop} {
+            margin-bottom: 10px;
+        }
+    }
+
+    .filter-inner-title {
+        color: #66280E;
+
+        @media #{$mobile, $tablet} {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    .mobile-filter-heading {
+        border-top: 1px solid $greyLight;
+        border-bottom: none;
+        text-align: center;
+
+        @media #{$desktop} {
+            display: none;
+        }
+    }
+
+    .filter-title.mobile-filter-heading:after {
+        content: "\f106";
+    }
+
+    .is-collapsed {
+        .filter-title {
+            @media #{$mobile, $tablet} {
+                border-top: none;
+            }
+        }
+
+        .filter-title, .filter-inner-title {
+            &:after {
+                content: "\f105";
+            }
+        }
+
+        .filter-inner-title {
+            border-bottom: none;
+        }
+
+        ul {
+            display: none;
+        }
+    }
+
+    .filter:last-child.is-collapsed .filter-title {
+        @media #{$mobile, $tablet} {
+            border-bottom: none;
+        }
+    }
+
+    .is-collapsed {
+        .mobile-filter-heading:after {
+            content: "\f107";
+        }
+    }
+
+    li {
+        margin: 0;
+
+        a {
+            display: block;
+            text-decoration: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            @media #{$desktop} {
+                padding-top: 1px;
+                padding-bottom: 1px;
+            }
+        }
+    }
+
+    li.active {
+        a {
+            color: $paleRed;
+
+            &:after {
+                padding-left: 10px;
+                color: $paleRed;
+                content: "\f105";
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 18px;
+                text-decoration: none;
+                display: inline-block;
+            }
+        }
+    }
+
+    li.customdateactive {
+        a {
+            color: $paleRed;
+
+            &:after {
+                padding-left: 10px;
+                color: $paleRed;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: 18px;
+                text-decoration: none;
+                display: inline-block;
+            }
+        }
+    }
+
+    .filter li:not(:first-child) {
+        border-top: 1px solid $greyLight;
+    }
+
+    .filter li {
+        @media #{$desktop} {
+            margin-right: 50px;
+        }
+    }
+
+    .filters-inner-list {
+        margin-left: 40px;
+
+        @media #{$desktop} {
+            li {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+.custom-date {
+    li {
+        margin-right: 0px !important; 
+        border-bottom: solid 1px #ccc; 
+        padding-bottom: 10px;
+
+        input{
+            padding-left: 10px;
+            padding-top: 5px; 
+            padding-bottom: 5px;     
+            height: 45px;
+            font-size: initial;
+            width:100%;
+            box-sizing: border-box;
+           -webkit-appearance: textfield;
+           -moz-appearance: textfield;
+            position: relative;
+            z-index: 1000;
+        }
+
+        .date-from{
+            line-height: 1.5;    
+            min-height: 25px;                
+        }
+
+        .date-to{
+            line-height: 1.5; 
+            margin-top: 5px;         
+        }
+
+        .update-button{
+            padding-top: 10px;     
+                  
+            .button-customdate {
+                width: 100%;
+                padding-top: 5px; 
+                padding-bottom: 5px;
+                height: 45px;
+    
+                @media #{$desktop} {
+                width:auto;
+                min-width: 100%;                      
+                }
+            }                           
+        }
+    }
+
+    .form-customdate-validation-error {
+        width:auto;
+        min-width:100%;
+        box-sizing: border-box;
+    }
+}
+
+
+
+
+     
