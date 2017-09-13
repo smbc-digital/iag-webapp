@@ -147,7 +147,7 @@ namespace StockportWebapp.Extensions
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(p.GetService<ISimpleTagParserContainer>(),
                             p.GetService<IDynamicTagParser<Profile>>(), p.GetService<MarkdownWrapper>(),
-                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>()), p.GetService<IApplicationConfiguration>()));
+                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IHttpContextAccessor>()), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IPaymentRepository, PaymentRepository>();
 

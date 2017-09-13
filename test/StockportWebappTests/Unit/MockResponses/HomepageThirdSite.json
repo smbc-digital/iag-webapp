@@ -1,0 +1,45 @@
+﻿{
+  "popularSearchTerms": [],
+  "featuredTasksHeading": "",
+  "featuredTasksSummary": "",
+  "featuredTasks": [
+    {
+      "slug": "one",
+      "title": "One",
+      "teaser": "One Article",
+      "icon": "",
+      "type": "article",
+      "sunriseDate": "0001-01-01T00:00:00Z",
+      "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+      "image": "",
+      "subItems": []
+    }
+  ],
+  "featuredTopics": [
+    {
+      "slug": "one",
+      "title": "One",
+      "teaser": "One Article",
+      "icon": "",
+      "type": "article",
+      "sunriseDate": "0001-01-01T00:00:00Z",
+      "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+      "image": "",
+      "subItems": []
+    }
+  ],
+  "alerts": [
+    {
+      "title": "Warning. Something isn't working right",
+      "subHeading": "Something is broken and we're looking at it.",
+      "body": "Lauren Ipsum. Blah, Yada, Tada, Tue.",
+      "severity": "Error",
+      "sunriseDate": "2017-08-01T00:00:00+01:00",
+      "sunsetDate": "2017-10-26T00:00:00+01:00"
+    }
+  ],
+  "carouselContents": [],
+  "backgroundImage": "img",
+  "freeText": "",
+  "featuredGroup": null
+}

@@ -18,20 +18,7 @@ namespace StockportWebapp.ViewModels
         public string KeepTag { get; set; } = string.Empty;
         public PrimaryFilter PrimaryFilter { set; get; } = new PrimaryFilter();
         public bool GetInvolved { get; set; }
-        public string OrganisationName {
-            get
-            {
-                var firstGroup = Groups.First(g => g.Organisation?.Slug == KeepTag);
-                if (firstGroup == null || firstGroup.Organisation == null)
-                {
-                    return string.Empty;
-                }
-                else
-                {
-                    return firstGroup.Organisation.Title;
-                }
-            }
-        }
+        public string OrganisationName { get; set;  }
 
         public GroupResults() { }
 

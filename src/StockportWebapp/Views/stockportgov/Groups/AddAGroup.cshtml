@@ -58,12 +58,9 @@
                                         <label asp-for="@Model.Address"></label>
                                         <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i><br />
                                         <i>If your group does not have a specific meeting place, enter 'Stockport'</i>
-                                        <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" />
-                                        <div style="visibility:hidden;position:absolute;top:-100px;left:-100px;">
-                                            <input type="text" id="address" asp-for="@Model.Address" />
-                                            <input type="text" id="latitude" asp-for="@Model.Latitude" />
-                                            <input type="text" id="longitude" asp-for="@Model.Longitude" />
-                                        </div>
+                                        <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
+                                        <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
+                                        <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
                                         <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <div class="grid-100">
@@ -98,14 +95,14 @@
                                         </div>
                                         <i class="small">
                                             <ul>
-                                                <li>Let people get in touch with you about volunteering oppurtunities</li>
+                                                <li>Let people get in touch with you about volunteering opportunities</li>
                                                 <li>Let people know that your group is looking for volunteers</li>
                                             </ul>
                                         </i>
                                         <div id="volunteering-text">
                                             <i>You can edit the text below to customise this message</i>
                                             <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" >
-                                                If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any oppurtunities.
+                                                If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
                                             <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>

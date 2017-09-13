@@ -1,0 +1,50 @@
+﻿@model StockportWebapp.ViewDetails.ContactUsDetails
+
+<div id="contactForm" />
+<noscript>
+    <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+        <div class="alert-icon">
+            <i class="fa fa-exclamation fa-3x"></i>
+        </div>
+        <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+            <h3>There has been a problem: </h3>
+            <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
+        </div>
+    </div>
+</noscript>
+<form method="post" role="form" action="/contact-us">
+    @Html.AntiForgeryToken()
+    <div class="form">
+        <div class="form-section">
+            <fieldset>
+                <input type="hidden" asp-for="Title" />
+                <label asp-for="Name"></label>
+                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                <label asp-for="Email"></label>
+                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Email" />
+                <span asp-validation-for="Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                <label asp-for="Subject"></label>
+                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="Subject" />
+                <span asp-validation-for="Subject" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                <label asp-for="Message"></label>
+                <span class="text-control">
+                    <small>The enquiry message must be no more than 500 characters long.</small>
+                </span>
+                <div class="enquiry-message">
+                    <textarea asp-for="Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Message"></textarea>
+                    <span asp-validation-for="Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                    <span class="text-control chars-remaining">
+                        <small></small>
+                    </span><br />
+                </div>
+                <input type="hidden" asp-for="ServiceEmailId" value="@Model.ServiceEmailId" />
+                <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+                <div class="clearfix">
+                </div>
+                <stock-button id="uitest-contact-form-submit"
+                              class="button-contact-us">Send your enquiry</stock-button>
+            </fieldset>
+        </div>
+    </div>
+</form>

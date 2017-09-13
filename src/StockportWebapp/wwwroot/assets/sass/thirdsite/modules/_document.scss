@@ -1,0 +1,53 @@
+﻿.document {
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+
+    .document-icon {        
+        vertical-align: top;
+        float:left;
+        opacity: .5;
+        transition: opacity 0.3s;
+        padding-right:0px;
+        width:65px;
+
+        &:hover {opacity: 1;} 
+
+        @media #{$mobile} {
+            width: 15%;
+        }
+
+        a {text-decoration:none} 
+
+        i {
+            color: #66280E;
+            padding-left: 00px;
+            
+            font-size: 3em;
+            @media #{$mobile} {
+               font-size: 2.2em;
+            }    
+        }
+    }
+
+    .document-detail {
+        border-left: solid 1px #ccc;
+        vertical-align: top;
+        padding-left: 20px;
+        border-top: none;
+        border-bottom: none;
+
+        .document-detail-title {
+            line-height: 1.65em;
+            color: #66280E;
+            letter-spacing: -1px;
+            font-weight: 400;
+            font-size: 1.65em;
+        }
+
+        p {
+            margin-bottom:0px;
+        }
+    }
+
+
+}

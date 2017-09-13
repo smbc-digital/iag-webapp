@@ -1,0 +1,15 @@
+﻿@using Humanizer
+@model DateTime
+
+@if ((DateTime.Now - Model).Days < 1)
+{
+    @Model.Humanize()
+}
+else if ((DateTime.Now - Model).Days == 1)
+{
+    @("Yesterday")
+}
+else
+{
+    @String.Format("{0:d MMMM yyyy}", Model)
+}

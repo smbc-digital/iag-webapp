@@ -4,8 +4,11 @@
     <div class="grid-container organisation-detail">
         <div class="grid-100">
             <h1>@Model.Title</h1>
-            <img src="@Model.ImageUrl" alt="@Model.ImageUrl" />
-            <hr />
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl" alt="@Model.ImageUrl" />
+                <hr />   
+            }
             <div>
                 <strong>About Us</strong>
                 <div>@Html.Raw(Model.AboutUs)</div>
@@ -41,7 +44,12 @@
             }
             
             @Html.Partial("Groups/VolunteeringBar", Model.Volunteering)
-            
+            @Html.Partial("Groups/DonationsBar", Model.Donations)
+
+            <div id="shareThis" class="sharethis">
+                @Html.Partial("SharePrintThis", new Tuple<string, string>("organisations", Model.Slug))
+            </div>
+
         </div>
     </div>
 </div>

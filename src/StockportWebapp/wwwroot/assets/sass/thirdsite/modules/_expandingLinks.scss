@@ -1,0 +1,116 @@
+﻿.expanding-link-box-button { 
+    border-radius: 5px;
+    text-align: center;
+    width: auto;
+    color:$greyDarkest;
+    padding: 10px 0;
+    text-decoration:none;
+    font-weight: bold;
+    font-weight: 600;
+
+    &.button {
+        box-shadow: none;
+    }
+
+    &:before {
+        content: "\f107";
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: inherit;
+        text-rendering: auto;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: right;
+        float: right;
+        margin-top: 7px;
+        padding-right: 10px;
+    }   
+
+    &.is-collapsed-toggle {
+        &:before {content: "\f106";}
+    }
+}
+
+.expanding-link-box {
+    padding: 0px 10px;
+
+    @media #{$mobile, $tablet} {
+        margin-top: 25px;
+    }
+
+    .expanding-list {
+        border-top: 4px solid #83aeac;
+        border-radius: 5px;
+        background-color: #fff;
+
+        .expanding-list-header {
+            padding: 10px;
+
+            label {
+                font-weight: bold
+            }
+        }
+    }
+}
+
+ul.expanding-list-ul {
+    border: none;
+    width: 100%;
+    margin-top: 20px;
+    list-style-type: none;
+
+    @media #{$desktop} {
+        display: table;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    @media #{$mobile, $tablet} {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    li {
+        margin-left: 0px;
+        padding-bottom: 20px;
+    }
+
+    .expanding-Link-text-holder {
+        margin-left: 0px;
+        border-left: 4px solid #83aeac;
+        border-radius: 5px;
+        border-top: 1px solid #d3d3d3;
+        border-right: 1px solid #d3d3d3;
+        border-bottom: 1px solid #d3d3d3;
+        text-align: left;
+        margin-top: 0px;
+        transition-duration: 0.5s;
+
+        &:hover {
+            box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+            cursor: pointer;
+        }
+
+        .is-collapsed {
+            display: none;
+        }
+    }
+}
+
+.expanding-Link-title{
+    padding-left: 20px;
+    padding: 10px; 
+    text-align: left;
+}
+
+.expanding-Link-items{
+    padding: 0px 10px 10px 10px;   
+}
+
+ul.expanding-list-ul:nth-of-type(1) {
+    @media #{$mobile, $tablet} {
+       margin-top: 20px;
+   }
+}
+
+.expanding-list-item:nth-child(odd){
+    clear:both;
+}

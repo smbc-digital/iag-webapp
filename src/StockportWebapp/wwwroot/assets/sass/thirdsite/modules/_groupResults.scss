@@ -1,0 +1,117 @@
+﻿
+.no-js {
+    .group-listing-container {
+        .group-li {
+            height: 100%;
+        }
+    }
+}
+
+.result-search-down-arrow {
+    &:after {
+        padding-left: 10px;
+        color: $white;
+        content: "\f107";
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: 18px;
+        text-decoration: none;
+        display: inline-block;
+    }
+}
+
+.result-search-up-arrow {
+    &:after {
+        padding-left: 10px;
+        color: $white;
+        content: "\f106";
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: 18px;
+        text-decoration: none;
+        display: inline-block;
+    }
+}
+
+.group-pagination {
+
+    .pagination-section {
+        border-top-width: 2px;
+        border-top-color: rgba(0,0,0, 0.2);
+    }
+}
+
+.group-search-mobile {
+    background-color: #66280E;
+}
+
+#group-favourites {
+    h1 {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+
+    .icon-bordered-fixed.green {
+        color: #66280E;
+    }
+
+    #no-results {
+        @media #{$tablet,$desktop} {
+            width: 50%;
+        }
+
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .group-listing-container {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+    }
+
+    .pagination-section {
+        margin-bottom: 0;
+        padding: 10px;
+    }
+
+    .favourite-share-container {
+
+        .share {
+            padding-top: 15px;
+        }
+
+        @media #{$mobile,$tablet} {
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-bottom: 15px;
+        }
+
+        .favourite-share {
+            padding-left: 0px;
+
+            a {
+                color: #333333;
+                font-size: 1em;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            i {
+                color: #666666;
+                font-weight: 600;
+            }
+
+            b {
+                margin-left: 10px;
+            }
+
+            @media #{$mobile,$tablet} {
+                margin-bottom: 15px;
+            }
+        }
+    }
+}

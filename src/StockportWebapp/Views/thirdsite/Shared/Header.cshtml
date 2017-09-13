@@ -1,0 +1,32 @@
+﻿@using System.Threading.Tasks
+@using StockportWebapp.Models
+@inject IStaticAssets StaticAssets
+
+@*This script enables the feedback button.*@
+<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
+
+<div class="l-header-container">
+    <header id="header" class="grid-container grid-100">
+        <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
+            <a href="/"><img src="/assets/images/ui-images/third-site-logo.png" data-mobile-image="/assets/images/ui-images/third-site-logo.png" data-desktop-image="/assets/images/ui-images/third-site-logo.png" alt="Stockport Gov" title="Welcome to Stockport Council" class="logo-main-image"></a>
+        </div>
+        <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
+        </div>
+    </header>
+</div>
+@Html.Partial("MobileSearchBar")
+<div class="banner-header-container">
+    <div class="grid-container grid-100">
+        @if (ViewData["Beta"] != null && ViewData["BetaForm"] != null && (bool)ViewData["Beta"])
+        {
+            <div class="banner-header grid-100 mobile-grid-100 tablet-grid-100">
+                <p>
+                    <span class="banner-icon-beta">NEW</span><span class="banner-title-beta">This part of Stockport.gov.uk is brand new</span><span class="banner-body"> – your <a class="typeform-share link" data-mode="1" target="_blank" href="@ViewData["BetaForm"]">feedback</a> will help us improve it.</span>
+                </p>
+            </div>
+
+        }
+
+    </div>
+</div>
+@Html.Partial("BrowserCheck")

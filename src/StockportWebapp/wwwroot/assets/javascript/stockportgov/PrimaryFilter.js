@@ -157,7 +157,13 @@
             $("#getLocation").toggle();
         });
 
-        if ($('.location-search-input-autoset').length) { $('.location-search-input-autoset').val($('#address').val()); }
+        if ($('.location-search-input-autoset').length) { 
+            var addressVal = $('#address').val();
+            if (typeof(addressVal) === 'undefined' || !addressVal.length) {
+                addressVal = $('#location').val();
+            }
+            $('.location-search-input-autoset').val(addressVal); 
+        }
 
         // get current location
         $("#currentLocation").click(function () {
@@ -263,13 +269,15 @@
             var options = {
                 bounds: defaultBounds,
                 // the type of location we want to return
-                types: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
+                //types: ['geocode'],
+                //address_components: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
+                //  
                 // the country to return results, the bounds above seemed to also be needed and not just this though
                 // this isn't 100% though and is just a suggestion to first look in gb
                 componentRestrictions: { country: 'gb' }
             };
 
-            var searchBox = new google.maps.places.SearchBox(document.getElementById('location-autocomplete'), options);
+            var searchBox = new google.maps.places.Autocomplete(document.getElementById('location-autocomplete'), options);
 
             // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
             searchBox.addListener('places_changed', function () {

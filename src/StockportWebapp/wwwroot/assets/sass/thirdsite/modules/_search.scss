@@ -1,0 +1,77 @@
+﻿.no-js{
+    .search-bar, .search-bar-mobile-header-container, .search-bar-header-container, .show-search-button{
+        display:none;
+    }
+}
+
+// Cludo 
+
+#search_autocomplete {
+    @media #{$mobile, $tablet} {
+        top: 45px
+    }
+}
+
+#cludo-search-results *, #cludo-search-form * {
+    font-family: "Noto Sans",sans-serif;
+}
+
+#cludo-search-results, #cludo-search-form {
+    h1, h2, h3, h4, h5 {
+        font-family: "Source Sans Pro",sans-serif;
+    }
+
+    .cludo-search-modal-body .search-results .search-results-item a h3 {
+        font-size: 25px;
+    }
+}
+
+@media #{$desktop} {
+    .search-bar-header-container #cludo-search-form {   
+        z-index: 99;  
+        .search-input {
+            border: none;
+            background-color: #fff;
+            color: #333;
+            padding: 15px 60px 15px 15px;
+            height: 50px;
+            line-height: 1.3;
+            width: 100%;
+            font-size: 16px;
+            -webkit-appearance: none;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .search-button {
+            background: 0 0;
+            color: #333;
+            border: none;
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            overflow: auto;
+            text-indent: 0;
+            -webkit-transition: none;
+            transition: none;
+            padding: 0;    
+            text-align: center;     
+
+            i {
+                text-align: center;
+
+                &:before {
+                    font-family: FontAwesome;
+                }
+            }
+        }
+
+        #search_autocomplete {
+            top: 50px;
+        }
+    }
+}

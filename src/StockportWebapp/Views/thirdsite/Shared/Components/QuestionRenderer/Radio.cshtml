@@ -1,0 +1,25 @@
+﻿@model StockportWebapp.QuestionBuilder.Entities.Question
+
+<div class="form-section question-section">
+    <label for="Response">@Model.Label</label>
+    @if (!String.IsNullOrEmpty(Model.SecondaryInfo))
+    {
+        @Html.Raw(Model.SecondaryInfo)
+    }
+    <ul class="radio-list question-list">
+        @foreach (var item in @Model.Options)
+        {
+            <li>
+                @Html.RadioButton("Response", @item.Value, new { id = string.Concat(@Model.QuestionId, @item.Value), data_questionid = Model.QuestionId })
+                <label for="@string.Concat(@Model.QuestionId, @item.Value)">@item.Label</label>
+                <span class="tertiary-Information hidden">@item.TertiaryInformation</span>
+            </li>
+        }
+    </ul>
+
+    @Html.Partial("_ValidationError.cshtml", Model)
+    
+    <span id="tertiary-Information-value"></span>
+
+</div>
+
