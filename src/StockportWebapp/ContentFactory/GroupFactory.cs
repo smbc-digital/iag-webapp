@@ -35,7 +35,7 @@ namespace StockportWebapp.ContentFactory
             };
 
             return new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter,
-                group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, 
+                group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, group.SubCategories,
                 group.Breadcrumbs, group.MapPosition, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, 
                 group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation, group.LinkedGroups);
         }

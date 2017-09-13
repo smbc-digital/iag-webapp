@@ -94,7 +94,7 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var processedGroup = new ProcessedGroup("testname", "testslug", Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null,  null, null, DateTime.MinValue, DateTime.MinValue,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null,  null, null, DateTime.MinValue, DateTime.MinValue,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, false, null, null, null);
 
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
@@ -182,7 +182,7 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, 
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, 
                DateTime.MinValue, DateTime.MaxValue, string.Empty, string.Empty, string.Empty, false, null, null, null);
             _repository.Setup(r => r.Delete<Group>(slug))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
@@ -200,7 +200,7 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } },
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } },
                DateTime.MinValue, DateTime.MinValue, string.Empty, string.Empty, string.Empty, false, null, null, null);
             _repository.Setup(r => r.Archive<Group>(It.IsAny<HttpContent>(), slug))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));

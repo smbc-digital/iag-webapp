@@ -18,6 +18,7 @@ namespace StockportWebapp.ProcessedModels
         public string ImageUrl { get; set; }
         public string ThumbnailImageUrl { get; set; }
         public List<GroupCategory> CategoriesReference { get; set; }
+        public List<GroupSubCategory> SubCategories { get; set; }
         public List<Crumb> Breadcrumbs { get; set; }
         public MapPosition MapPosition { get; set; }
         public List<Event> Events { get; set; }
@@ -37,7 +38,7 @@ namespace StockportWebapp.ProcessedModels
         }
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
-                      string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference,
+                      string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories,
                       List<Crumb> breadcrumbs, MapPosition mapPosition, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, 
                       string cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, List<Group> linkedGroups)
         {
@@ -53,6 +54,7 @@ namespace StockportWebapp.ProcessedModels
             ImageUrl = imageUrl;
             ThumbnailImageUrl = thumbnailImageUrl;
             CategoriesReference = categoriesReference;
+            SubCategories = subCategories;
             Breadcrumbs = breadcrumbs;
             MapPosition = mapPosition;
             Volunteering = volunteering;

@@ -34,6 +34,16 @@
       "imageUrl": ""
     }
   ],
+  "subCategories": [
+    {
+      "name": "Culture",
+      "slug": "culture"     
+    },
+    {
+      "name": "Children and family",
+      "slug": "children-and-family"    
+    }
+  ],
   "breadcrumbs": [
     {
       "title": "Our Stockport Local",
