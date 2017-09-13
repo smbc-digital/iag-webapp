@@ -74,12 +74,9 @@
                                         <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i><br />
                                         <i>If your group does not have a specific meeting place, enter 'Stockport'</i>
                                         <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
-                                        <div style="visibility:hidden;position:absolute;top:-100px;left:-100px;">
-                                            <input type="text" id="location" asp-for="@Model.Address" />
-                                            <input type="text" id="latitude" asp-for="@Model.Latitude" />
-                                            <input type="text" id="longitude" asp-for="@Model.Longitude" />
-                                        </div>
-
+                                        <input type="hidden" id="address" value="@Model.Address" />
+                                        <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
+                                        <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
                                         <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div>
                                             <label asp-for="@Model.Description"></label>

@@ -158,12 +158,10 @@
         });
 
         if ($('.location-search-input-autoset').length) { 
-            // TODO - Ask Raj why this was changed
             var addressVal = $('#address').val();
             if (typeof(addressVal) === 'undefined' || !addressVal.length) {
                 addressVal = $('#location').val();
             }
-            
             $('.location-search-input-autoset').val(addressVal); 
         }
 

@@ -101,7 +101,7 @@ namespace StockportWebapp.Models
            return new List<string> {
                 "Air Raid Shelters", "Arts and crafts", "Bramall Hall", "Business", "Community and charity", "Children and families", "Dancing", "Digital skills", "Education and learning", "Fairs",
                 "Food and drink", "Hat Works", "Health and wellbeing", "Libraries", "Markets", "Museums", "Music and concerts", "Open days and drop-ins", "Parks and outdoors", "Seasonal", "Sports and fitness",
-                "Staircase House", "Stockport War Memorial Art Gallery", "Talks and lectures", "Town Hall", "Theatre, performance and comedy"};
+                "Staircase House", "Stockport War Memorial Art Gallery", "Talks and lectures", "Town Hall", "Theatre performance and comedy"};
         }
     }   
 }
