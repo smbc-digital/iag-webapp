@@ -1,8 +1,12 @@
 ﻿.manage-group-section,
 .map-container,
 .volunteering-section,
-.sharethis 
-{
+.donations-section,
+.sharethis,
+.add-favourite,
+.remove-favourite,
+.mobile-show-more,
+.directions-list {
     display: none !important;
 }
 
@@ -24,13 +28,15 @@ body{
     page-break-inside: avoid !important;
 }
 
-.event-li{
+.event-li, .group-li {
+    -webkit-print-color-adjust: exact;
     margin-bottom: 30px;
     page-break-inside: avoid !important;
     width: 33%;
     display: inline-block;
+    vertical-align: top;
 
-    a{
+    a {
         display: inline-block;
         min-height: 330px;
     }
@@ -56,6 +62,6 @@ body{
     text-align: center;
 }
 
-.directions-list {
-    display:none;
+.organisation-detail img {
+    width: 30%;
 }

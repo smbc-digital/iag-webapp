@@ -297,7 +297,8 @@ namespace StockportWebapp.Controllers
         [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/exportpdf/{slug}")]
-        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, [FromServices] CurrentEnvironment environment, string slug, [FromQuery] bool returnHtml = false)
+        [Route("/groups/export/{slug}")]
+        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, [FromServices] CurrentEnvironment environment, string slug, [FromQuery] bool returnHtml = false, bool print = false)
         {
             _logger.LogInformation(string.Concat("Exporting group ", slug, " to pdf"));
 
@@ -310,11 +311,12 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
+            var printScript = print ? _viewRender.Render("Shared/ExportPrint", group) : string.Empty;
             var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
-            var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
+            var joinedHtml = string.Concat(renderedExportStyles, printScript, renderedHtml);
 
             // if raw html is requested, simply return the html instead
-            if (returnHtml) return Content(joinedHtml, "text/html");
+            if (returnHtml || print) return Content(joinedHtml, "text/html");
 
             var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
 
