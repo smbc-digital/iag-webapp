@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model Tuple<string, string>
 @using StockportWebapp.FeatureToggling
 @inject FeatureToggles FeatureToggles
 @{
@@ -22,7 +22,7 @@
     <h6>Print this page</h6>
     <div class="addthis_toolbox">
         <div class="custom_images">
-            <a class="print-this" href="#"><i class="fa fa-print" aria-hidden="true"></i></a>
+            <a href="javascript:openPrintPage();"><i class="fa fa-print" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
@@ -31,8 +31,15 @@
     <h6>Download as PDF</h6>
     <div class="addthis_toolbox">
         <div class="custom_images">
-            <a class="export-as-pdf" href="/groups/exportpdf/@Model" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+            <a class="export-as-pdf" href="/@Model.Item1/exportpdf/@Model.Item2" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    function openPrintPage() {
+        window.open("/@Model.Item1/export/@Model.Item2?print=true", "@Model.Item1");
+    }
+</script>
 

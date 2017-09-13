@@ -290,7 +290,7 @@
                         }
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">
-                            @Html.Partial("SharePrintThis", Model.Slug)
+                            @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Slug))
                         </div>
                         <div class="grid-100 tablet-grid-100 mobile-grid-100 manage-group-section">
                             <h3>Manage your group information</h3>

@@ -46,6 +46,10 @@
             @Html.Partial("Groups/VolunteeringBar", Model.Volunteering)
             @Html.Partial("Groups/DonationsBar", Model.Donations)
 
+            <div id="shareThis" class="sharethis">
+                @Html.Partial("SharePrintThis", new Tuple<string, string>("organisations", Model.Slug))
             </div>
+
+        </div>
     </div>
 </div>
