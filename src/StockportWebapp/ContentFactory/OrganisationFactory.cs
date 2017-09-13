@@ -28,7 +28,8 @@ namespace StockportWebapp.ContentFactory
                 Email = organisation.Email,
                 VolunteeringText = organisation.VolunteeringText,
                 VolunteeringNeeded = organisation.Volunteering,
-                Url = $"organisations/{organisation.Slug}"
+                Url = $"organisations/{organisation.Slug}",
+                Type = "organisation"
             };
 
             var donations = new Donations()

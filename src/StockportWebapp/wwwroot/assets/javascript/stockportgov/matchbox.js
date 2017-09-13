@@ -16,6 +16,12 @@
         }));
 
         matchboxes.push(new Matchbox({
+            parentSelector: ".matchbox-parent-3-3-3",
+            childSelector: ".matchbox-child",
+            groupsOf: 3
+        }));
+
+        matchboxes.push(new Matchbox({
             parentSelector: ".matchbox-parent-4-4-5",
             childSelector: ".matchbox-child",
             groupsOf: 4,
