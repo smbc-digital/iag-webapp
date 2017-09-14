@@ -102,9 +102,8 @@ else
     <div class="alt-container-row featured-items-wrapper matchbox-parent-4-4-5">
         <h2>@Model.Subheading</h2>
         <div class="featured-topic-list">
-            @{
-                foreach (var item in Model.FeaturedItems)
-                {
+            @foreach (var item in Model.FeaturedItems)
+            {
             <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
                 <div class="featured-topic-content">
                     <a href="@item.NavigationLink">
@@ -115,22 +114,21 @@ else
                     </a>
                     <p class="hide-on-mobile hide-on-tablet featured-topic-description">
                         @if (item.SubItems.Any())
-                                {
-                                <span>Including</span>
-                                }
+                    {
+                        <span>Including</span>
+                    }
                         @foreach (var subItem in item.SubItems.Take(2))
-                                {
-                                <br />
-                                <a href="@subItem.NavigationLink">@subItem.Title</a>
-                                }
+                    {
+                        <br />
+                        <a href="@subItem.NavigationLink">@subItem.Title</a>
+                    }
                     </p>
                 </div>
             </div>
-                }
             }
         </div>
     </div>
-                }
+}
 
 @if (Model.NewsArticle != null)
 {
@@ -156,6 +154,14 @@ else
     titleHack = string.Empty;
 }
 
+@if (Model.KeyFacts != null && Model.KeyFacts.Any())
+{
+    <div class="@titleHack alt-container-row">
+        @Html.Partial("Showcase/KeyFacts", Model.KeyFacts)
+    </div>
+    titleHack = string.Empty;
+}
+
 @if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any() && Model.NewsArticle != null)
 {
     <div class="@titleHack showcase-events alt-container-row">
@@ -163,6 +169,7 @@ else
     </div>
     titleHack = string.Empty;
 }
+
 @if (!string.IsNullOrWhiteSpace(Model.Body) && !string.Equals("<p></p>\n", Model.Body))
 {
     <div class="@titleHack alt-container-row">
@@ -179,7 +186,6 @@ else
                         @Html.Raw(Model.Body)
                     </article>
                 </div>
-
             </div>
         </div>
     </div>
@@ -202,7 +208,7 @@ else
                     </div>
                     <div class="grid-100 input-container">
                         <form method="get" role="form" action="/subscribe">
-                            
+
                             <div class="grid-50 tablet-grid-50 grid-parent">
                                 <input type="email" name="emailAddress" placeholder="Enter your email address">
                             </div>
@@ -214,10 +220,8 @@ else
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
+    titleHack = string.Empty;
 }
-
