@@ -26,8 +26,9 @@ namespace StockportWebapp.Models
         public string EmailAlertsTopicId { get; set; }
         public string EmailAlertsText { get; set; }
         public IEnumerable<Alert> Alerts { get; }
+        public IEnumerable<KeyFact> KeyFacts { get; }
 
-        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts)
+        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<KeyFact> keyFacts)
         {
             Title = title;
             Slug = slug;
@@ -51,6 +52,7 @@ namespace StockportWebapp.Models
             EmailAlertsTopicId = emailAlertsTopicId;
             EmailAlertsText = emailAlertsText;
             Alerts = alerts;
+            KeyFacts = keyFacts;
         }
     }
 }
