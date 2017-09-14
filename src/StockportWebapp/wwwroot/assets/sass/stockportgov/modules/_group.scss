@@ -245,6 +245,61 @@
     border-top: 1px solid $greyLighter;
 }
 
+.upcoming-events-container {
+    .group-details-heading {
+        padding-top: 20px;
+    }
+
+    #event-listing-container {
+        margin-top: 10px;
+    }
+}
+
+.linked-group-container {
+    padding-top: 20px;
+
+    h3 {
+        display: inline-block;
+        margin-top: 0px;
+    }
+
+    .view-more {
+        margin-left: 30px;
+    }
+
+    .group-listing-container {
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-top: 10px;
+
+        @media #{$mobile} {
+            margin-bottom: 0px;
+        }
+    }
+
+    @media #{$mobile} {
+        margin-bottom: 20px;
+
+        li {
+            margin-bottom: 32px !important;
+        }
+
+        .view-more-mobile {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .button-default {
+            color: #333;
+            background-color: #FFF !important;
+        }
+    }
+
+    .group-favourites-print {
+        display: none !important;
+    }
+}
+
 .sharethis {
     overflow: auto;
     border-top: 1px solid $greyLighter;

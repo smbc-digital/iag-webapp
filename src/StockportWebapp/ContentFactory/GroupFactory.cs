@@ -31,7 +31,8 @@ namespace StockportWebapp.ContentFactory
                 Email = group.Email,
                 VolunteeringText = group.VolunteeringText,
                 VolunteeringNeeded = group.Volunteering,
-                Url = $"groups/{group.Slug}"
+                Url = $"groups/{group.Slug}",
+                Type = "group"
             };
 
             var donations = new Donations()
@@ -42,9 +43,9 @@ namespace StockportWebapp.ContentFactory
             };
 
             return new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter,
-                group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, 
+                group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, group.SubCategories,
                 group.Breadcrumbs, group.MapPosition, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, 
-                group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation, donations);
+                group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation, group.LinkedGroups, donations);
         }
     }
 }

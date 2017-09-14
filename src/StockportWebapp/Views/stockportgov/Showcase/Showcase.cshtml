@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using StockportWebapp.ProcessedModels
 @using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
 
 @model ProcessedShowcase
 @{
@@ -27,30 +28,66 @@
     }
 }
 
-@if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl))
+@if (FeatureToggles.ShowcaseRedesign && Model.PrimaryItems != null && Model.PrimaryItems.Count() == 3)
 {
     <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
-        <div class="title-card">
-            <h1>
-                <span>@Model.Title</span>
-            </h1>
-            <div class="clearfix"><hr class="hero-image-divider" /> </div>
-            <h2>
-                <span>@Model.Teaser</span>
-            </h2>
+        <div class="title-card showcase-redesign-title-card">
+            <div class="grid-container tablet-grid-100 grid-100 matchbox-parent-3-3-3 showcase-title">
+                <div class="showcase-title-container mobile-grid-100 tablet-grid-100">
+                    <h1>
+                        <span>@Model.Title</span>
+                    </h1>
+                </div>
+
+                <div class="clearfix"></div>
+
+                @foreach (var item in Model.PrimaryItems)
+                {
+                    <div class="showcase-primary-item-container grid-33 tablet-grid-100 mobile-grid-100 matchbox-child">
+                        <a href="@item.NavigationLink">
+                            <div class="showcase-primary-item">
+                                <div class="primary-item-icon colour-icon tablet-grid-15 mobile-grid-25">
+                                    <i class="@item.Icon si-default"></i>
+                                </div>
+                                <h3 class="primary-item-title tablet-grid-75 mobile-grid-65">@item.Title</h3>
+                                <div class="primary-item-teaser hide-on-tablet hide-on-mobile">@item.Teaser</div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 }
 else
 {
-    <div class="full-width-title">
-        <div class="grid-container grid-parent grid-100">
-            <div class="grid-100 tablet-grid-100 mobile-grid-100">
-                <h1 class="full-width-title-with-button">@Model.Title</h1>
+
+    if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl))
+    {
+        <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
+            <div class="title-card">
+                <h1>
+                    <span>@Model.Title</span>
+                </h1>
+                <div class="clearfix"><hr class="hero-image-divider" /> </div>
+                <h2>
+                    <span>@Model.Teaser</span>
+                </h2>
+            </div>
+        </div> 
+    }
+    else
+    {
+        <div class="full-width-title">
+            <div class="grid-container grid-parent grid-100">
+                <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                    <h1 class="full-width-title-with-button">@Model.Title</h1>
+                </div>
             </div>
         </div>
-    </div>
-    titleHack = "full-width-title-margin-fix";
+        titleHack = "full-width-title-margin-fix";
+    }
+    
 }
 
 @if (Model.Consultations.Any())

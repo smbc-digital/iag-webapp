@@ -21,6 +21,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly News NewsArticle;
         public readonly IEnumerable<Crumb> Breadcrumbs;
         public readonly IEnumerable<SubItem> FeaturedItems;
+        public readonly IEnumerable<SubItem> PrimaryItems;
         public readonly IEnumerable<Consultation> Consultations;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
         public readonly IEnumerable<Event> Events;
@@ -32,7 +33,7 @@ namespace StockportWebapp.ProcessedModels
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<KeyFact> keyFacts)
+        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts)
         {
             Title = title;
             Slug = slug;
@@ -57,6 +58,7 @@ namespace StockportWebapp.ProcessedModels
             EmailAlertsText = emailAlertsText;
             Alerts = alerts;
             KeyFacts = keyFacts;
+            PrimaryItems = primaryItems;
         }
     }
 }
