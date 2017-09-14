@@ -164,9 +164,9 @@ namespace StockportWebapp.Controllers
             model.KeepTag = groupSearch.KeepTag;
 
 
-            if (!string.IsNullOrEmpty(groupSearch.Tag))
+            if (!string.IsNullOrEmpty(groupSearch.Tag) && model.Groups.Any(g => g.Organisation?.Slug == groupSearch.Tag))
             {
-                var firstGroup = model.Groups.First(g => g.Organisation?.Slug == groupSearch.KeepTag);
+                var firstGroup = model.Groups.First(g => g.Organisation?.Slug == groupSearch.Tag);
                 model.OrganisationName = firstGroup?.Organisation == null ? string.Empty : firstGroup.Organisation.Title;
             }
             else if (!string.IsNullOrEmpty(groupSearch.KeepTag))
