@@ -39,6 +39,8 @@ namespace StockportWebapp.Controllers
 
             var organisation = response.Content as ProcessedOrganisation;
 
+            ViewBag.CurrentUrl = Request?.GetUri();
+
             return View(organisation);
         }
 
