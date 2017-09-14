@@ -1,0 +1,25 @@
+﻿.advertisement-container{
+    height:100px;
+    padding-bottom:20px;
+ 
+    .advertisement-image {
+        height:100%;
+        width: 100%;
+        background: red no-repeat center;
+        background-size: cover;
+        display: inline-block;
+
+        .title-card {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(20, 20, 20, 0.5);
+            
+            .advertisement-banner{
+                background-color: $colorPrimary;
+                color: white;
+                font-size: 10px;
+                font-weight: 600;
+            }
+        }
+    }
+}
