@@ -11,7 +11,8 @@ prod: &prod
 
 stage: &stage
   << : *prod
-
+  GroupFilterBar : true
+  GroupHomepage : true
 qa: &qa
   << : *prod
   << : *stage
@@ -20,8 +21,6 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
-  GroupFilterBar : true
-  GroupHomepage : true
   ShowcaseRedesign: true
 
 local: &local
