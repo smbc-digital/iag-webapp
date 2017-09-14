@@ -1,0 +1,89 @@
+﻿@media only print {
+    .l-header-container,
+    .banner-header-container,
+    .breadcrumb-container,
+    footer, #shareThis,
+    .group-calender-container-image,
+    .event-image,
+    .video-container,
+    iframe,
+    .carousel,
+    .base-akita-container,
+    .button,
+    .donations-section,
+    .volunteering-section,
+    .manage-group-section,
+    .add-favourite,
+    .remove-favourite,
+    .mobile-show-more,
+    #favourites-bar {
+        display: none !important;
+    }
+
+    p > img {
+        display: none !important;
+    }
+
+    img {
+        width:400px;
+    }
+
+    #contactForm > form {
+        display: none !important;
+    }
+
+    .group-map-container {
+        display: none !important;
+    }
+
+    .group-article-title {
+        font-size: 1.8em !important;
+        color: #000000 !important;
+    }
+
+    .upcoming-events-heading {
+        position: relative !important;
+    }
+
+    .event-li, .group-li {
+        -webkit-print-color-adjust: exact;
+        margin-bottom: 30px;
+        page-break-inside: avoid !important;
+        width: 33%;
+        display: inline-block;
+        vertical-align: top;
+
+        a {
+            display: inline-block;
+            min-height: 330px;
+        }
+
+        .event-card-text {
+            margin-top: -5px;
+        }
+
+        .event-image {
+            margin-bottom: 10px;
+        }
+
+        .event-title h3 {
+            font-size: 1.1em;
+        }
+    }
+
+    .event-card {
+            position: relative !important;
+            box-shadow: none !important;
+            page-break-inside: avoid !important;
+
+            .event-image {
+                display: none !important;
+            }
+
+            .event-card-informtion {
+                border-bottom: none !important;
+                border-left: none !important;
+                border-right: none !important;
+            }
+        }
+    }
