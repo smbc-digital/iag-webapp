@@ -327,6 +327,44 @@
 
 .showcase-news, .showcase-body {
 
+    &.key-facts {
+        .fact {
+            @media #{$tablet,$desktop} {
+                &:nth-child(odd) {
+                    padding-right: 25px;
+                }
+
+                &:nth-child(even) {
+                    padding-left: 25px;
+                }
+            }
+
+            .icon-holder {
+                text-align: center;
+                margin-top: 7px;
+            }
+        }
+
+        a {
+            display: block;
+            color: #000;
+            border-bottom: solid 1px #d0d0d0;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            padding-top: 10px;
+            padding-bottom: 20px;
+
+            &.bottomrow {
+                border-bottom: solid 0px #d0d0d0;
+            }
+
+            i {
+                color: #055c58;
+                font-size: 3em;
+            }
+        }
+    }
+
     .l-article-content {
         padding-left: 10px;
         padding-right: 10px;
