@@ -286,7 +286,26 @@
                         }
                         @if (Model.Events != null && Model.Events.Any())
                         {
-                            @Html.Partial("Events/EventCards", Model.Events.Take(3).ToList())
+                            <div class="upcoming-events-container">
+                                @Html.Partial("Events/EventCards", Model.Events.Take(3).ToList())
+                            </div>                           
+                        }
+                        @if (Model.LinkedGroups != null && Model.LinkedGroups.Any())
+                        {
+                            <div class="group-details-heading-border linked-group-container">
+                                <h3 class="group-details-heading">You may also like</h3>
+                                @if (Model.LinkedGroups.Count() > 3)
+                                {
+                                    <a class="view-more hide-on-mobile" href="/groups/results?category=@Model.CategoriesReference[0].Slug&subcategories=@Model.SubCategories[0].Slug">View more</a>
+                                }
+                                @Html.Partial("groups/GroupCardList", Model.LinkedGroups.OrderBy(_ => Guid.NewGuid()).Take(3).ToList())
+                                @if (Model.LinkedGroups.Count() > 3)
+                                {
+                                    <div class="grid-100 hide-on-desktop hide-on-tablet view-more-mobile">
+                                        <a class="button-default" href="/groups/results?category=@Model.CategoriesReference[0].Slug&subcategories=@Model.SubCategories[0].Slug">View more results like this</a>
+                                    </div>
+                                }
+                            </div>                           
                         }
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">

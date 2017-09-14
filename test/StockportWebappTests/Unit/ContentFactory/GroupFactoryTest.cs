@@ -77,6 +77,7 @@ namespace StockportWebappTests.Unit.ContentFactory
                 favourite: false,
                 volunteeringText: "text",
                 organisation: null,
+                linkedGroups: null,                
                 donations: false
             );
 
