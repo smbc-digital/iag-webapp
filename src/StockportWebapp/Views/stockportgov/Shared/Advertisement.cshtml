@@ -1,20 +1,37 @@
 ﻿@using StockportWebapp.Config
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
-@model string
+@model Advertisement
 
-<div class="grid-container advertisement-container" >
-    <div class="advertisement-image" style="background-image: url(https://static.pexels.com/photos/97906/pexels-photo-97906.jpeg)">
-        <div class="title-card">
-            <div class="advertisement-banner">ADVERTISEMENT</div>
-            <div class="advertisement-text">
-                <div class="grid-100 grid-parent advertisement-title">
-                    Stockport Exchange phase two is almost complete
-                </div>
-                <div class="grid-100 grid-parent advertisement-teaser hide-on-mobile">
-                    The second phase of the development has see a new office, retail space and Holiday Inn Express open to visitors
+
+@if (Model != null)
+{
+    <div class="grid-container advertisement-container">
+        
+        <div class="advertisement-image" style="background-image: url(@Model.Image)">
+            @if (!string.IsNullOrEmpty(Model.NavigationUrl))
+            {
+                @:<a href="@Model.NavigationUrl">
+            }
+            <div class="title-card">
+                @if (Model.Isadvertisement)
+                {
+                    <div class="advertisement-banner">ADVERTISEMENT</div>
+                }
+                <div class="advertisement-text">
+                    <h3 class="grid-100 grid-parent advertisement-title">
+                        @Model.Title
+                    </h3>
+                    <div class="grid-100 grid-parent advertisement-teaser hide-on-mobile">
+                        @Model.Teaser
+                    </div>
                 </div>
             </div>
+            @if (!string.IsNullOrEmpty(Model.NavigationUrl))
+            {
+                @:</a>
+            }
         </div>
+        
     </div>
-</div>
+}    

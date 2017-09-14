@@ -44,7 +44,7 @@ namespace StockportWebapp.ContentFactory
             body = _alertsInlineTagParser.Parse(body, article.AlertsInline);
 
             return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, 
-                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline);
+                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline, article.Advertisement);
         }
     }
 }

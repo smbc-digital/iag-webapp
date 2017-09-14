@@ -1,27 +1,42 @@
-﻿.advertisement-container{
+﻿.advertisement-container.grid-container{
     height:200px;
     padding-bottom: 20px;
     margin-bottom: 20px;
-
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 3px;
+    
     @media #{$mobile} {
         height:150px; 
     }
  
     .advertisement-image {
         height:100%;
-        width: 100%;
-        background: no-repeat center;
+        width: 100%; 
+        background: $colorPrimary no-repeat center;
         background-size: cover;
         display: inline-block;
         padding-bottom: 20px;
+        border-radius: 3px;
+        transition-duration: 0.5s;
+        
 
+        &:hover {
+            box-shadow: 0 16px 20px 0 rgba(0,0,0,.1);
+        }
+        
+        a{
+            text-decoration: none;
+        }
+        
         .title-card {
             width: 100%;
             height: 100%;
             background-color: rgba(20, 20, 20, 0.5);
             padding-bottom:20px;
+            border-radius: 3px;
             
-            .advertisement-banner{
+            .advertisement-banner{ 
                 position: absolute;
                 background-color: $colorPrimary;
                 color: $white;
@@ -40,14 +55,12 @@
                 margin-left: 20px;
                 margin-right: 20px;
                 margin-bottom: 20px;
-                font-size:14px;
-
-                @media #{$mobile} {
-                    font-size: 20px;
-                }
+                line-height: 1.5;
+                text-decoration: none;
                 
                 .advertisement-title{
                     font-weight: 600;
+                    color: $white;
                 }
 
                 .advertisement-teaser{
