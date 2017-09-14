@@ -11,7 +11,7 @@ namespace StockportWebapp.Validation
 
             if (file == null) return ValidationResult.Success;
 
-            if (file.FileName.EndsWith(".jpg") || file.FileName.EndsWith(".jpeg") || file.FileName.EndsWith(".png") || file.FileName.EndsWith(".gif"))
+            if (file.FileName.ToLower().EndsWith(".jpg") || file.FileName.ToLower().EndsWith(".jpeg") || file.FileName.ToLower().EndsWith(".png") || file.FileName.ToLower().EndsWith(".gif"))
                 return ValidationResult.Success;
          
             return new ValidationResult("Should be an png, jpg or gif file");
