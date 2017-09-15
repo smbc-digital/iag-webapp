@@ -237,6 +237,10 @@
     .title-card.showcase-redesign-title-card {
         display: inline-block;
 
+        @media #{$desktop} {
+            height: 555px;
+        }
+
         @media #{$mobile} {
             padding-top: 0;
             text-align: left;
