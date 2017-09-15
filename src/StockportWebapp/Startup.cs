@@ -56,13 +56,13 @@ namespace StockportWebapp
             var esConfig = new ElasticSearch();
             Configuration.GetSection("ElasticSearch").Bind(esConfig);
 
-            if (esConfig.Enabled)
+            if (esConfig.Enabled && !string.IsNullOrEmpty(esConfig.Url) && !string.IsNullOrEmpty(esConfig.Authorization))
             {
                 loggerConfig.WriteTo.Elasticsearch(
                     new ElasticsearchSinkOptions(new Uri(esConfig.Url))
                     {
                         AutoRegisterTemplate = true,
-                        MinimumLogEventLevel = LogEventLevel.Debug,
+                        MinimumLogEventLevel = esConfig.LogLevel,
                         CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true),
                         IndexFormat = esConfig.LogFormat,
                         ModifyConnectionSettings = (c) => c.GlobalHeaders(new NameValueCollection
@@ -70,7 +70,6 @@ namespace StockportWebapp
                             {"Authorization", esConfig.Authorization}
                         })
                     });
-
             }
 
             Log.Logger = loggerConfig.CreateLogger();
