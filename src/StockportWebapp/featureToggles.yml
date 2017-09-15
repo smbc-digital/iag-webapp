@@ -1,8 +1,5 @@
 ﻿---
 prod: &prod
-  NewHomepageLayout: true
-  PrimaryItems: true
-  DisplayNewEventPageFeatures: true
   SmartAnswers : true
   GroupFavourites : true
   GroupFilterBar : false

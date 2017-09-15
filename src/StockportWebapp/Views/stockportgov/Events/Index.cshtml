@@ -1,33 +1,16 @@
-﻿@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
-@inject FeatureToggles FeatureToggles
 
 @model EventCalendar
 @{
-    @if (FeatureToggles.DisplayNewEventPageFeatures && Model.FromSearch)
-    {
-        var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
-        ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "All Categories" : category == null ? Model.Category : category.Name;
-        ViewData["Title"] = ViewData["og:title"];
-    }
-    else
-    {
-        ViewData["og:title"] = "What's on in Stockport";
-        ViewData["Title"] = "What's on in Stockport";
-    }
+    var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
+    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "All Categories" : category == null ? Model.Category : category.Name;
+    ViewData["Title"] = ViewData["og:title"];
     Layout = "../Shared/_Layout.cshtml";
 }
 
 @section Breadcrumbs {
-    @if (FeatureToggles.DisplayNewEventPageFeatures && Model.FromSearch)
-    {
-        @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("What's on in Stockport", "events", "event") })
-    }
-    else
-    {
-        @Html.Partial("Breadcrumb", new List<Crumb>())
-    }
+    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("What's on in Stockport", "events", "event") })
 }
 
 <div class="l-page-content">
@@ -42,29 +25,17 @@
         </div>
     </div>
     
-    @if (FeatureToggles.DisplayNewEventPageFeatures)
-    {
-        @Html.Partial("Events/EventsFilterBar", Model)
-    }
+    @Html.Partial("Events/EventsFilterBar", Model)
 
-    @if (FeatureToggles.DisplayNewEventPageFeatures)
+    @if (Model.FromSearch)
     {
-        if (Model.FromSearch)
-        {
-            @Html.Partial("Events/EventsResultsList", Model)
-        }
-        else
-        {
-            @Html.Partial("Events/EventHomepage", Model.Homepage)
-        }
+        @Html.Partial("Events/EventsResultsList", Model)
     }
     else
     {
-        @Html.Partial("Events/EventsCalendar", Model)
+        @Html.Partial("Events/EventHomepage", Model.Homepage)
     }
     
-    @if (FeatureToggles.DisplayNewEventPageFeatures)
-    {
     <div class="full-width-title hide-on-desktop hide-on-tablet add-button-container">
         <div class="grid-container grid-parent mobile-grid-100">
             <div class="header-right-button mobile-grid-100">
@@ -72,5 +43,4 @@
             </div>
         </div>
     </div>
-    }
 </div>

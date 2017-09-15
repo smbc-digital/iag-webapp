@@ -38,7 +38,6 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
         private readonly Mock<IFilteredUrl> _filteredUrl;
-        private readonly FeatureToggles _featureToggle;
         private readonly DateCalculator _datetimeCalculator;
 
         private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
@@ -53,8 +52,6 @@ namespace StockportWebappTests.Unit.Controllers
         public const int MaxNumberOfItemsPerPage = 15;
         public EventsControllerTest()
         {
-            _featureToggle = new FeatureToggles() { DisplayNewEventPageFeatures = true };
-
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
                                       Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group, Alerts = _alerts};
             _categories = new List<string> {"Category 1", "Category 2"};
@@ -116,7 +113,6 @@ namespace StockportWebappTests.Unit.Controllers
                 _filteredUrl.Object,
                 null,
                 null,
-                _featureToggle,
                 _datetimeCalculator
                 );
         }
@@ -293,7 +289,6 @@ namespace StockportWebappTests.Unit.Controllers
                 _filteredUrl.Object,
                 null,
                 null,
-                _featureToggle,
                 _datetimeCalculator
             );
 

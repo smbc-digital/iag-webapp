@@ -1,76 +1,36 @@
-﻿@using StockportWebapp.FeatureToggling
-@model StockportWebapp.Models.Topic
-@inject FeatureToggles FeatureToggles
+﻿@model StockportWebapp.Models.Topic
 
-@if (FeatureToggles.PrimaryItems)
+@if (Model.SubItems.Any(i => string.IsNullOrEmpty(i.Image)))
 {
-    if (Model.SubItems.Any(i => string.IsNullOrEmpty(i.Image)))
-    {
-        <div class="grid-container primary-items-no-margin">
-            <div class="sk-table-outer-container">
-                <div class="sk-table-body primary-items matchbox-parent-1-2-2">
-                   @if (!string.IsNullOrEmpty(Model.PrimaryItemTitle))
+    <div class="grid-container primary-items-no-margin">
+        <div class="sk-table-outer-container">
+            <div class="sk-table-body primary-items matchbox-parent-1-2-2">
+                @if (!string.IsNullOrEmpty(Model.PrimaryItemTitle))
                    {
-                       <div class="grid-100 sk-table-row grid-parent border-bottom primary-title">
-                           <span class="main"><strong>@Model.PrimaryItemTitle</strong></span>
-                       </div>
+                    <div class="grid-100 sk-table-row grid-parent border-bottom primary-title">
+                        <span class="main"><strong>@Model.PrimaryItemTitle</strong></span>
+                    </div>
                    }
                    else
                    {
-                       <div class="clearfix"></div>
-                   }
-                    @foreach (var subItem in Model.SubItems)
-                    {
-                        <div class="grid-50 tablet-grid-50 mobile-grid-100 padding-mobile">
-                            <stock-button class="subitem matchbox-child" as-link="true" href="@subItem.NavigationLink">
-                                <div>
-                                    <strong class="sub-item-title">@subItem.Title</strong>
-                                    <div class="sub-item-teaser">@subItem.Teaser</div>
-                                </div>
-                            </stock-button>
-                        </div>
-                    }
                     <div class="clearfix"></div>
-                </div>
-
+                   }
+                @foreach (var subItem in Model.SubItems)
+                    {
+                    <div class="grid-50 tablet-grid-50 mobile-grid-100 padding-mobile">
+                        <stock-button class="subitem matchbox-child" as-link="true" href="@subItem.NavigationLink">
+                            <div>
+                                <strong class="sub-item-title">@subItem.Title</strong>
+                                <div class="sub-item-teaser">@subItem.Teaser</div>
+                            </div>
+                        </stock-button>
+                    </div>
+                    }
+                <div class="clearfix"></div>
             </div>
-        </div>
-    }
-    else
-    {
-        for (var i = 0; i < Model.SubItems.Count(); i += 3)
-        {
-            <ul class="nav-card-list matchbox-parent">
-                @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
-                {
-                    <li class="nav-card grid-33" style="">
-                        <a href="@subItem.NavigationLink" class="nav-card-item matchbox-child @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
 
-                            @{
-                                if (!string.IsNullOrEmpty(subItem.Image))
-                                {
-                                    <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
-                                        <div class="nav-card-background-image-dark">
-                                            <h2 class="hide-on-desktop">
-                                                <span>@subItem.Title</span>
-                                                
-                                            </h2>
-                                        </div>
-                                    </div>
-                                    <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
-                                }
-                                else
-                                {
-                                    <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
-                                    <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
-                                }
-                            }
-                        </a>
-                    </li>
-                }
-            </ul>
-        }
-    }
+        </div>
+    </div>
 }
 else
 {
@@ -78,30 +38,32 @@ else
     {
         <ul class="nav-card-list matchbox-parent">
             @foreach (var subItem in Model.SubItems.Skip(i).Take(3))
-            {
+                {
                 <li class="nav-card grid-33" style="">
                     <a href="@subItem.NavigationLink" class="nav-card-item matchbox-child @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
 
                         @{
-                            if (!string.IsNullOrEmpty(subItem.Image))
-                            {
-                                <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
-                                    <div class="nav-card-background-image-dark">
-                                        <h2 class="hide-on-desktop"><span>@subItem.Title</span>
-                                        </h2>
-                                    </div>
+                                if (!string.IsNullOrEmpty(subItem.Image))
+                                {
+                            <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
+                                <div class="nav-card-background-image-dark">
+                                    <h2 class="hide-on-desktop">
+                                        <span>@subItem.Title</span>
+
+                                    </h2>
                                 </div>
-                                <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
-                            }
-                            else
-                            {
-                                <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
-                                <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
-                            }
+                            </div>
+                            <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
+                                }
+                                else
+                                {
+                            <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
+                            <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
+                                }
                         }
                     </a>
                 </li>
-            }
+                }
         </ul>
-    }
-}
+                                }
+                            }
