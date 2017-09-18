@@ -25,4 +25,9 @@ namespace StockportWebapp.Models
             Image = image;
         }
     }
+
+    public class NullAdvertisement : Advertisement
+    {
+        public NullAdvertisement() : base(string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue, false, String.Empty, String.Empty) { }
+    }
 }

@@ -42,9 +42,14 @@ namespace StockportWebappTests.Unit.Controllers
         public void GivenNavigateToTopicReturnsTopicWithExpectedProperties()
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+
+
+            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
+                DateTime.MinValue, false, string.Empty, string.Empty);
+
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
-                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty);
+                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, advertisement);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -75,8 +80,12 @@ namespace StockportWebappTests.Unit.Controllers
         public void GivenNavigateToTopicReturnsListOfSubItemsByTopic()
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+
+            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
+                DateTime.MinValue, false, string.Empty, string.Empty);
+
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
-              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty);
+              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -115,8 +124,12 @@ namespace StockportWebappTests.Unit.Controllers
                 new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
             };
+
+            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
+                DateTime.MinValue, false, string.Empty, string.Empty);
+
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
-               new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty);
+               new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));

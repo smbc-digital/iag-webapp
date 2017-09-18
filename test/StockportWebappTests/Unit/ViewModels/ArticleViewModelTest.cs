@@ -187,9 +187,12 @@ namespace StockportWebappTests.Unit.ViewModels
             var firstSecondaryitem = new SubItem(Helper.AnyString, "first-secondaryitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
             var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
-            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty);
+            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
+                DateTime.MinValue, false, string.Empty, string.Empty);
+
+            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
             var article = new ProcessedArticle(Helper.AnyString,Helper.AnyString, Helper.AnyString, Helper.AnyString,new List<ProcessedSection>(),
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement());
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -217,10 +220,13 @@ namespace StockportWebappTests.Unit.ViewModels
             var subItems = new List<SubItem> { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
             var secondaryItems = new List<SubItem> { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
 
+            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
+                DateTime.MinValue, false, string.Empty, string.Empty);
+
             var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty);
+                subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
             var article = new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<ProcessedSection>(), Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>());
+                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement());
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -239,10 +245,14 @@ namespace StockportWebappTests.Unit.ViewModels
 
         private ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
         {
+
+            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
+                DateTime.MinValue, false, string.Empty, string.Empty);
+
             var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
-                new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty);
+                new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
             return new ProcessedArticle(Helper.AnyString, slug, Helper.AnyString, Helper.AnyString, sections,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement());
         }
 
 

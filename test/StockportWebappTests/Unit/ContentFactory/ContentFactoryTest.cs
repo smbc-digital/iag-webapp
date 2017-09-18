@@ -55,7 +55,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
         {
             var article = new Article(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                new List<Section>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), false, new LiveChat(Helper.AnyString, Helper.AnyString), new List<Alert>());
+                new List<Section>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), false, new LiveChat(Helper.AnyString, Helper.AnyString), new List<Alert>(), new Advertisement(Helper.AnyString, Helper.AnyString, Helper.AnyString, DateTime.MinValue, DateTime.MinValue, false, Helper.AnyString, Helper.AnyString));
 
             var processedArticle = _factory.Build<Article>(article);
 
