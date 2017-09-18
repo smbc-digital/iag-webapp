@@ -59,6 +59,54 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
+        public void GivenArticleHasAdvertisement()
+        {
+            const string articleSlug = "physical-activity";
+
+            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
+                DateTime.MinValue, true, "image-url", "image");
+
+
+            var article = new ProcessedArticle("Physical Activity", "physical-activity",
+                "Being active is great for your body", "teaser", new List<ProcessedSection>() { DummySection() },
+                "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
+                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), advertisement);
+
+            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+
+            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            var viewModel = articlePage.ViewData.Model as ArticleViewModel;
+
+            viewModel.Article.Advertisement.Isadvertisement.Should().Be(true);
+            viewModel.Article.Advertisement.Title.Should().Be("ad-title");
+            viewModel.Article.Advertisement.Teaser.Should().Be("ad-teaser");
+            viewModel.Article.Advertisement.Image.Should().Be("image");
+            viewModel.Article.Advertisement.Slug.Should().Be("ad-slug");
+        }
+
+        [Fact]
+        public void GivenArticleHasAdvertisementWhenIsAdvertisementIsFalse()
+        {
+            const string articleSlug = "physical-activity";
+
+            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
+                DateTime.MinValue, false, "image-url", "image");
+
+
+            var article = new ProcessedArticle("Physical Activity", "physical-activity",
+                "Being active is great for your body", "teaser", new List<ProcessedSection>() { DummySection() },
+                "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
+                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), advertisement);
+
+            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+
+            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            var viewModel = articlePage.ViewData.Model as ArticleViewModel;
+
+            viewModel.Article.Advertisement.Isadvertisement.Should().Be(false);
+        }
+
+        [Fact]
         public void MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
         {
             const string articleSlug = "physical-activity";

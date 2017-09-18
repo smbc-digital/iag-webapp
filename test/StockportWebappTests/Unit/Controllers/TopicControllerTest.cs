@@ -105,6 +105,53 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
+        public void GivenTopicHasAdvertisement()
+        {
+            var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+
+            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
+                DateTime.MinValue, true, "image-url", "image");
+
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
+                new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
+
+            const string slug = "healthy-living";
+            _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+
+            var indexPage = AsyncTestHelper.Resolve(_controller.Index("healthy-living")) as ViewResult;
+            var viewModel = indexPage.ViewData.Model as TopicViewModel;
+            var result = viewModel.Topic;
+
+            result.Advertisement.Isadvertisement.Should().Be(true);
+            result.Advertisement.Title.Should().Be("ad-title");
+            result.Advertisement.Teaser.Should().Be("ad-teaser");
+            result.Advertisement.Image.Should().Be("image");
+            result.Advertisement.Slug.Should().Be("ad-slug");
+            result.Advertisement.NavigationUrl.Should().Be("image-url");
+        }
+
+        [Fact]
+        public void GivenTopicHasNoAdvertisementWhenIsAdvertisementIsFalse()
+        {
+            var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
+
+            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
+                DateTime.MinValue, false, "image-url", "image");
+
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
+                new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
+
+            const string slug = "healthy-living";
+            _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+
+            var indexPage = AsyncTestHelper.Resolve(_controller.Index("healthy-living")) as ViewResult;
+            var viewModel = indexPage.ViewData.Model as TopicViewModel;
+            var result = viewModel.Topic;
+
+            result.Advertisement.Isadvertisement.Should().Be(false);
+        }
+
+        [Fact]
         public void GivesNotFoundOnRequestForNonExistentTopic()
         {
             const string nonExistentTopic = "doesnt-exist";
