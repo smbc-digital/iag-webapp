@@ -75,7 +75,7 @@
                             <h1>
                                 <span>@Model.Title</span>
                             </h1>
-                            <div class="clearfix"><hr class="hero-image-divider" /> </div>
+                            <div class="clearfix hero-image-divider-container"><hr class="hero-image-divider" /> </div>
                             <h2>
                                 <span>@Model.Teaser</span>
                             </h2>
@@ -100,9 +100,9 @@
 
             if (Model.FeaturedItems.Any())
             {
-                <div class="alt-container-row featured-items-wrapper matchbox-parent-4-4-5">
-                    <h2>@Model.Subheading</h2>
+                <div class="alt-container-rowx showcase-news-events white featured-items-wrapper matchbox-parent-4-4-5">
                     <div class="featured-topic-list">
+                        <h2>@Model.Subheading</h2>
                         @foreach (var item in Model.FeaturedItems)
                         {
                             <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
@@ -137,7 +137,7 @@
 
             if (Model.Consultations.Any())
             {
-                <div class="@titleHack alt-container-row">
+                <div class="@titleHack showcase-news-events">
                     @Html.Partial("Consultations", Model.Consultations)
                 </div>
             }
@@ -148,7 +148,7 @@
 
             if (Model.KeyFacts != null && Model.KeyFacts.Any())
             {
-                <div class="@titleHack alt-container-row">
+                <div class="@titleHack showcase-news-events white">
                     @Html.Partial("Showcase/KeyFacts", Model.KeyFacts)
                 </div>
             }
@@ -159,7 +159,7 @@
 
             if (Model.NewsArticle != null)
             {
-                <div class="@titleHack showcase-news alt-container-row">
+                <div class="@titleHack showcase-news showcase-news-events">
                     @Html.Partial("ShowcaseNewsArticle", Model)
                 </div>
             }
@@ -170,7 +170,7 @@
 
             if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any())
             {
-                <div class="@titleHack showcase-events alt-container-row">
+                <div class="@titleHack showcase-events showcase-news-events">
                     @Html.Partial("ShowcaseEventCards", Model)
                 </div>
             }
@@ -181,7 +181,7 @@
 
             if (Model.Profile != null)
             {
-                <div class="@titleHack showcase-events showcase-profile alt-container-row">
+                <div class="@titleHack showcase-profile showcase-news-events white">
                     <div class="grid-container">
                         <div class="grid-parent grid-100">
                             @Html.Partial("Profile", Model.Profile)
@@ -196,7 +196,7 @@
 
             if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
             {
-                <div class="@titleHack alt-container-row">
+                <div class="@titleHack showcase-news-events">
                     @Html.Partial("ShowcaseSocialMediaLinks", Model.SocialMediaLinks)
                 </div>
             }
@@ -207,14 +207,12 @@
 
             if (!string.IsNullOrWhiteSpace(Model.Body) && !string.Equals("<p></p>\n", Model.Body))
             {
-                <div class="@titleHack alt-container-row">
+                <div class="@titleHack showcase-news-events white">
                     <div class="grid-container showcase-body">
-                        <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
+                        <div class="l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
                             @if (!string.IsNullOrWhiteSpace(Model.BodySubheading))
                             {
-                                <div class="grid-100">
-                                    <h2 class="text-centre">@Model.BodySubheading</h2>
-                                </div>
+                                    <h2>@Model.BodySubheading</h2>
                             }
                             <div class="grid-100 grid-parent">
                                 <article>
@@ -235,7 +233,7 @@
 
 @if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
 {
-    <div class="@titleHack alt-container-row showcase-email-banner">
+    <div class="@titleHack showcase-news-events showcase-email-banner">
         <div class="email-banner grid-container">
             <div class="email-banner-container mobile-grid-100 grid-parent">
                 <div class="email-banner-icon-container hide-on-mobile hide-on-tablet">

@@ -10,7 +10,7 @@
   "newsArticle": null,
   "eventSubheading": "event subheading",
   "bodySubheading": "body subheading",
-  "body": "body", 
+  "body": "body",
   "heroImageUrl": "heroImageUrl.jpg",
   "featuredItems": [
     {
@@ -44,7 +44,10 @@
       "icon": "icon"
     }
   ],
-  "events": []
+  "events": [],
+  "fieldOrder": {
+    "items": [ "Primary Items", "Featured Items", "Consultations"]
+  }
 }
 
  
