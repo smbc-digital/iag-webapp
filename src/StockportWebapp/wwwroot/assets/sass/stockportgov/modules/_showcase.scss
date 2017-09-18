@@ -650,6 +650,14 @@
         .profile-image-mask {
             padding-top: 0;
             padding-bottom: 0;
+
+            @media #{$mobile} {
+                text-align: center;
+
+                img {
+                    width: 50%;
+                }
+            }
         }
     }
 }
