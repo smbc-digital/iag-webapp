@@ -85,7 +85,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenArticleHasAdvertisementWhenIsAdvertisementIsFalse()
+        public void GivenArticleHasNoAdvertisementWhenIsAdvertisementIsFalse()
         {
             const string articleSlug = "physical-activity";
 
