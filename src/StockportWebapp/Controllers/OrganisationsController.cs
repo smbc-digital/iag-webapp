@@ -8,7 +8,6 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.ProcessedModels;
 using Microsoft.AspNetCore.NodeServices;
-using StockportWebapp.Utils;
 using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Controllers
@@ -28,7 +27,7 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _configuration = configuration;
         }
-
+        [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/organisations/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {

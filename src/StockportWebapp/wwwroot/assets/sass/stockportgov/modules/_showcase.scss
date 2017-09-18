@@ -100,6 +100,12 @@
                 padding-top: 35px;
                 height: 100%;
                 border-radius: 3px;
+                transition-duration: .5s;
+
+                &:hover {
+                    box-shadow: 0 10px 20px rgba(0,0,0,.2);
+                }
+
 
                 @media #{$tablet, $mobile} {
                     display: flex;
@@ -234,6 +240,10 @@
 
     .title-card.showcase-redesign-title-card {
         display: inline-block;
+
+        @media #{$desktop} {
+            height: 555px;
+        }
 
         @media #{$mobile} {
             padding-top: 0;
@@ -692,5 +702,29 @@
     .closing-quote {
         position: relative;
         top: -60px;
+    }
+}
+
+.showcase-profile {
+    .profile-success-story-new {
+        border: 0px solid #ebebeb;
+        box-shadow: none;
+
+        h2 {
+            text-align: left;
+        }
+
+        .profile-image-mask {
+            padding-top: 0;
+            padding-bottom: 0;
+
+            @media #{$mobile} {
+                text-align: center;
+
+                img {
+                    width: 50%;
+                }
+            }
+        }
     }
 }

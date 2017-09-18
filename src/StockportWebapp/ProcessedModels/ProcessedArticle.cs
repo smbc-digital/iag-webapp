@@ -27,10 +27,11 @@ namespace StockportWebapp.ProcessedModels
         public bool LiveChatVisible { get; set; }
         public LiveChat LiveChat { get; set; }
         public readonly IEnumerable<Alert> AlertsInline;
-
+        public Advertisement Advertisement;
+        
         public ProcessedArticle(string title, string slug, string body, string teaser,
             IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, IEnumerable<Crumb> breadcrumbs, 
-            IEnumerable<Alert> alerts, Topic topic, bool liveChatVisible, LiveChat liveChat, IEnumerable<Alert> alertsInline)
+            IEnumerable<Alert> alerts, Topic topic, bool liveChatVisible, LiveChat liveChat, IEnumerable<Alert> alertsInline, Advertisement advertisement)
         {
             Title = title;
             NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -46,6 +47,7 @@ namespace StockportWebapp.ProcessedModels
             LiveChatVisible = liveChatVisible;
             LiveChat = liveChat;
             AlertsInline = alertsInline;
+            Advertisement = advertisement;
         }
 
         public void AddContactUsMessage(string message, string slug = "")
