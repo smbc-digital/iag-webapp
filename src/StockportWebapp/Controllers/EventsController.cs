@@ -49,7 +49,6 @@ namespace StockportWebapp.Controllers
             IFilteredUrl filteredUrl,
             CalendarHelper helper,
             ITimeProvider timeProvider,
-            FeatureToggles featureToggle, 
             IDateCalculator dateCalculator)
         {
             _repository = repository;
@@ -61,24 +60,20 @@ namespace StockportWebapp.Controllers
             _businessId = businessId;
             _filteredUrl = filteredUrl;
             _helper = helper;
-            _featureToggle = featureToggle;
             _dateCalculator = dateCalculator;
         }
 
         [Route("/events")]
         public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
         {
-            if (_featureToggle.DisplayNewEventPageFeatures || eventsCalendar.DateFrom == null && eventsCalendar.DateTo == null && string.IsNullOrEmpty(eventsCalendar.DateRange))
+            if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
             {
-                if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
-                {
-                    ModelState["DateTo"].Errors.Clear();
-                }
+                ModelState["DateTo"].Errors.Clear();
+            }
 
-                if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0)
-                {
-                    ModelState["DateFrom"].Errors.Clear();
-                }
+            if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0)
+            {
+                ModelState["DateFrom"].Errors.Clear();
             }
 
             if (!string.IsNullOrEmpty(eventsCalendar.Tag)) { eventsCalendar.KeepTag = eventsCalendar.Tag; }
@@ -113,16 +108,14 @@ namespace StockportWebapp.Controllers
                 eventsCalendar.AddEvents(eventResponse.Events);
                 eventsCalendar.AddCategories(eventResponse.Categories);
             }
-            if (_featureToggle.DisplayNewEventPageFeatures)
-            {
-                var httpHomeResponse = await _repository.Get<EventHomepage>();
 
-                if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
+            var httpHomeResponse = await _repository.Get<EventHomepage>();
 
-                var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+            if (!httpHomeResponse.IsSuccessful()) return httpHomeResponse;
 
-                eventsCalendar.Homepage = eventHomeResponse;
-            }
+            var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+
+            eventsCalendar.Homepage = eventHomeResponse;
 
             return View(eventsCalendar);
         }

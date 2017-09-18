@@ -45,7 +45,8 @@ namespace StockportWebapp.ContentFactory
                 showcase.EmailAlertsText,
                 showcase.Alerts,
                 showcase.PrimaryItems,
-                showcase.KeyFacts
+                showcase.KeyFacts,
+                showcase.Profile
             );
         }
     }

@@ -115,7 +115,7 @@ module.exports = {
         articleContainer: '#uitest-page-has-loaded',
         paginationNext: '.pagination-next',
         profile: '.profile',
-        profileSubtitle: '.profile-subtitle',
+        profileSubtitle: '.summary',
         butoDiv: '#buto_kQl5D',
         baseVideoTitle: '.base-video-title',
         tableTag: 'table',

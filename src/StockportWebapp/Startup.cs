@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Http;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
+using StockportWebapp.Configuration;
 
 namespace StockportWebapp
 {
@@ -50,6 +51,26 @@ namespace StockportWebapp
                 .Enrich.FromLogContext()
                 .Enrich.WithProperty("Application", "IAG Web App")
                 .WriteTo.LiterateConsole();
+
+            // elastic search
+            var esConfig = new ElasticSearch();
+            Configuration.GetSection("ElasticSearch").Bind(esConfig);
+
+            if (esConfig.Enabled && !string.IsNullOrEmpty(esConfig.Url) && !string.IsNullOrEmpty(esConfig.Authorization))
+            {
+                loggerConfig.WriteTo.Elasticsearch(
+                    new ElasticsearchSinkOptions(new Uri(esConfig.Url))
+                    {
+                        AutoRegisterTemplate = true,
+                        MinimumLogEventLevel = esConfig.LogLevel,
+                        CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true),
+                        IndexFormat = esConfig.LogFormat,
+                        ModifyConnectionSettings = (c) => c.GlobalHeaders(new NameValueCollection
+                        {
+                            {"Authorization", esConfig.Authorization}
+                        })
+                    });
+            }
 
             Log.Logger = loggerConfig.CreateLogger();
         }

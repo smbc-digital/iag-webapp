@@ -1,16 +1,14 @@
 ﻿---
 prod: &prod
-  NewHomepageLayout: true
-  PrimaryItems: true
-  DisplayNewEventPageFeatures: true
   SmartAnswers : true
   GroupFavourites : true
-  GroupFilterBar : false
-  GroupHomepage : false
+  GroupFilterBar : true
+  GroupHomepage : true
   ShowcaseRedesign: false
 
 stage: &stage
   << : *prod
+  ShowcaseRedesign: true
 
 qa: &qa
   << : *prod
@@ -20,9 +18,6 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
-  GroupFilterBar : true
-  GroupHomepage : true
-  ShowcaseRedesign: true
 
 local: &local
   << : *prod
