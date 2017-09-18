@@ -9,11 +9,11 @@
 }
 
 <div class="grid-container">
-    <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
-
-        <div class="grid-100">
-            <h2 class="text-centre">@header</h2>
-        </div>
+    <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">       
+        <div class="view-more">
+            <h2>@header</h2>
+            <a class="hide-on-mobile" href="@Url.Action("Index", "News")?@querystring">View more</a>
+        </div>       
 
         <div class="card-news grid-100 grid-parent">
             <div class="grid-100 grid-parent">
@@ -28,7 +28,7 @@
                                 <i class="fa fa-clock-o"></i>@Html.Partial("FormattedDate", Model.NewsArticle.SunriseDate)
                             </div>
 
-                            <h2 class="nav-card-news-title" style="margin: 0">@Model.NewsArticle.Title</h2>
+                            <h2 class="nav-card-news-title">@Model.NewsArticle.Title</h2>
 
                             <p class="nav-card-news-teaser">@Model.NewsArticle.Teaser</p>                          
                         </div>
@@ -37,7 +37,7 @@
             </div>
         </div>
 
-        <div class="text-centre view-more-news-container">
+        <div class="text-centre view-more-news-container hide-on-desktop hide-on-tablet">
             <stock-button as-link="true" class="white" href="@Url.Action("Index", "News")?@querystring">View more news</stock-button>
         </div>
 

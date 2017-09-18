@@ -2,11 +2,22 @@
 
 <div class="grid-container">
     <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
-        <div class="grid-100">
+        <div class="grid-100 showcase-event-content">
+            <div class="view-more">
+                <h2>@ViewData["EventSubheading"].ToString()</h2>
+                @if (Model.EventsCategoryOrTag == "T")
+                {
+                    <a class="hide-on-mobile" title="View more upcoming events" href="@Url.Action("Index", "Events")?tag=@ViewData["EventCategory"]">View more</a>
+                }
+                else
+                {
+                    <a class="hide-on-mobile" title="View more upcoming events" href="@Url.Action("Index", "Events")?category=@ViewData["EventCategory"]">View more</a>
+                }
+            </div>                             
             <section>
-                @Html.Partial("Events/EventCards", Model.Events.Take(3).ToList())
+                @Html.Partial("Events/EventCards", Model.Events.Take(4).ToList())
             </section>
-            <div class="text-centre view-more-events-container">
+            <div class="text-centre view-more-events-container hide-on-desktop hide-on-tablet">
                 @if (Model.EventsCategoryOrTag == "T")
                 {
                     <stock-button as-link="true" class="white" href="@Url.Action("Index", "Events")?tag=@ViewData["EventCategory"]">View more events</stock-button>

@@ -69,7 +69,7 @@ else
                 <h1>
                     <span>@Model.Title</span>
                 </h1>
-                <div class="clearfix"><hr class="hero-image-divider" /> </div>
+                <div class="clearfix hero-image-divider-container"><hr class="hero-image-divider" /> </div>
                 <h2>
                     <span>@Model.Teaser</span>
                 </h2>
@@ -100,8 +100,8 @@ else
 @if (Model.FeaturedItems.Any())
 {
     <div class="alt-container-row featured-items-wrapper matchbox-parent-4-4-5">
-        <h2>@Model.Subheading</h2>
         <div class="featured-topic-list">
+            <h2>@Model.Subheading</h2>
             @foreach (var item in Model.FeaturedItems)
             {
             <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
@@ -132,7 +132,7 @@ else
 
 @if (Model.NewsArticle != null)
 {
-    <div class="@titleHack showcase-news alt-container-row">
+    <div class="@titleHack showcase-news alt-container-row showcase-news-events">
         @Html.Partial("ShowcaseNewsArticle", Model)
     </div>
     titleHack = string.Empty;
@@ -140,7 +140,7 @@ else
 
 @if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any() && Model.NewsArticle == null)
 {
-    <div class="@titleHack showcase-events alt-container-row">
+    <div class="@titleHack showcase-events alt-container-row showcase-news-events">
         @Html.Partial("ShowcaseEventCards", Model)
     </div>
     titleHack = string.Empty;
@@ -164,7 +164,7 @@ else
 
 @if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any() && Model.NewsArticle != null)
 {
-    <div class="@titleHack showcase-events alt-container-row">
+    <div class="@titleHack showcase-events alt-container-row showcase-news-events">
         @Html.Partial("ShowcaseEventCards", Model)
     </div>
     titleHack = string.Empty;
@@ -177,9 +177,7 @@ else
             <div class="l-body-section-filled l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
                 @if (!string.IsNullOrWhiteSpace(Model.BodySubheading))
                 {
-                    <div class="grid-100">
-                        <h2 class="text-centre">@Model.BodySubheading</h2>
-                    </div>
+                    <h2>@Model.BodySubheading</h2>
                 }
                 <div class="grid-100 grid-parent">
                     <article>
