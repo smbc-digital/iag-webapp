@@ -30,11 +30,12 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<Alert> Alerts;
         public readonly IEnumerable<KeyFact> KeyFacts;
         public readonly Profile Profile;
+        public readonly FieldOrder FieldOrder;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, Profile profile)
+        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, Profile profile, FieldOrder fieldOrder)
         {
             Title = title;
             Slug = slug;
@@ -61,6 +62,7 @@ namespace StockportWebapp.ProcessedModels
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
             Profile = profile;
+            FieldOrder = fieldOrder;
         }
     }
 }
