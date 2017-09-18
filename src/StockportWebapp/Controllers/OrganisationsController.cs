@@ -8,7 +8,6 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.ProcessedModels;
 using Microsoft.AspNetCore.NodeServices;
-using StockportWebapp.Utils;
 using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Controllers

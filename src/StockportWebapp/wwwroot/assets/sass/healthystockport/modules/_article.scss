@@ -56,3 +56,75 @@
         }
     }
 }
+
+.profile-success-story-new {
+    background-color: #fff;
+    padding: 20px 20px 0 20px;
+    border-radius: 4px;
+    box-shadow: 0 10px 20px rgba(0,0,0,.05);
+    transition-duration: .5s;
+    display: block;
+    border: 1px solid #ebebeb;
+
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,.2);
+    }
+
+    @media #{$mobile} {
+
+        .headings {
+            padding-left: 10px;
+            margin-top: 20px;
+        }
+
+        i.open {
+            position: relative;
+            left: -20px;
+        }
+    }
+
+    .profile-image-mask {
+
+        @media #{$desktop,$tablet} {
+            padding-bottom: 50px;
+            padding-top: 50px;
+        }
+
+        img {
+            border-radius: 50%;
+            width: 100%;
+        }
+    }
+
+    h2 {
+        margin: 0;
+        line-height: 1em;
+    }
+
+    p {
+        margin-bottom: 10px;
+    }
+
+    .summary {
+        color: #757575;
+        font-style: italic;
+        font-size: .9em;
+    }
+
+    .body {
+        padding-top: 10px;
+
+        .main-body {
+            text-align: left;
+        }
+    }
+
+    i {
+        color: #055c58;
+    }
+
+    .closing-quote {
+        position: relative;
+        top: -60px;
+    }
+}
