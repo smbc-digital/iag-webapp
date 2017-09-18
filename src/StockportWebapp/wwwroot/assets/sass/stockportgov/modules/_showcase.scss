@@ -350,7 +350,7 @@
 
     &.white {
         background-color: #fff;
-        border-top: solid 1px #ebebeb;
+        border-top: solid 1px #fff;
     }
 
     .l-body-section-filled {
@@ -681,9 +681,14 @@
             padding-top: 50px;
         }
 
+        @media #{$mobile} {
+            text-align: center;
+        }
+
         img {
             border-radius: 50%;
-            width: 100%;
+            width: 125px;
+            height: 125px;
         }
     }
 
@@ -733,12 +738,19 @@
             padding-top: 0;
             padding-bottom: 0;
 
+            img {
+                width: 220px;
+                height: 220px;
+                max-width: none;
+
+                @media #{$tablet} {
+                    width: 150px;
+                    height: 150px;
+                }
+            }
+
             @media #{$mobile} {
                 text-align: center;
-
-                img {
-                    width: 50%;
-                }
             }
         }
     }
