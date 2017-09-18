@@ -27,7 +27,7 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _configuration = configuration;
         }
-
+        [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/organisations/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
