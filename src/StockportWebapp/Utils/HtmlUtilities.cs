@@ -24,6 +24,7 @@ namespace StockportWebapp.Utils
 
             var relativeHyperlinks = document.All.Where(l => l.HasAttribute("href"));
             var relativeSrcs = document.All.Where(l => l.HasAttribute("src"));
+            var relativeDataMain = document.All.Where(l => l.HasAttribute("data-main"));
             foreach (var link in relativeHyperlinks)
             {
                 var href = link.Attributes["href"].Value;
@@ -35,6 +36,12 @@ namespace StockportWebapp.Utils
                 var srcVal = src.Attributes["src"].Value;
                 if (srcVal.StartsWith("/") && !srcVal.StartsWith("//"))
                     src.Attributes["src"].Value = site + srcVal;
+            }
+            foreach (var data in relativeDataMain)
+            {
+                var dataVal = data.Attributes["data-main"].Value;
+                if (dataVal.StartsWith("/") && !dataVal.StartsWith("//"))
+                    data.Attributes["data-main"].Value = site + dataVal;
             }
 
             return document.ToHtml();

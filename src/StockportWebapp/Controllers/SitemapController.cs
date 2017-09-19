@@ -122,7 +122,10 @@ namespace StockportWebapp.Controllers
                         priority = "0.5"
                     };
 
-                    xml = SerializeObject(sitemapHomepage);
+                    var list = new List<SitemapGoogle>();
+                    list.Add(sitemapHomepage);
+
+                    xml = SerializeObject(list);
                     break;
 
                 case "groups":

@@ -10,6 +10,8 @@ namespace StockportWebappTests.Unit.Utils
         private readonly HtmlUtilities _htmlUtilities;
         private const string HtmlStart = "<html><head></head><body>";
         private const string HtmlEnd = "</body></html>";
+        private const string ScriptHtmlStart = "<html><head>";
+        private const string ScriptHtmlEnd = "</head><body></body></html>";
 
         public HtmlUtilitiesTest()
         {
@@ -47,6 +49,14 @@ namespace StockportWebappTests.Unit.Utils
             var result = _htmlUtilities.ConvertRelativeUrltoAbsolute("<img src=\"http://absolute.url/img/test.jpg\">", "http://unittestlink.xy");
 
             result.Should().Be(string.Concat(HtmlStart, "<img src=\"http://absolute.url/img/test.jpg\">", HtmlEnd));
+        }
+
+        [Fact]
+        public void ItShouldConvertRelativeUrltoAbsoluteForDataMainWithAbsoluteLinks()
+        {
+            var result = _htmlUtilities.ConvertRelativeUrltoAbsolute("<script data-main=\"/url/file.js\">", "http://unittestlink.xy");
+
+            result.Should().Be(string.Concat(ScriptHtmlStart, "<script data-main=\"http://unittestlink.xy/url/file.js\"></script>", ScriptHtmlEnd));
         }
     }
 }
