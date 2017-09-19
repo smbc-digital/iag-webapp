@@ -59,8 +59,8 @@ namespace StockportWebapp.Services
             Healthcheck healthcheck;
             try
             {
-                _httpMaker.DefaultRequestHeaders.Remove("AuthenticationKey");
-                _httpMaker.DefaultRequestHeaders.Add("AuthenticationKey", authenticationKey);
+                _httpMaker.DefaultRequestHeaders.Remove("Authorization");
+                _httpMaker.DefaultRequestHeaders.Add("Authorization",  authenticationKey);
                 var httpResponse = await _httpMaker.GetAsync(_urlGenerator.HealthcheckUrl());
                 healthcheck = await BuildDependencyHealthcheck(httpResponse);
             }
