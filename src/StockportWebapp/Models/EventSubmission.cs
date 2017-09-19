@@ -59,6 +59,7 @@ namespace StockportWebapp.Models
         public string Fee { get; set; }
 
         public List<string> AvailableCategories { get; set; }
+        [Required(ErrorMessage = "You must select at least one category")]
         public string CategoriesList { get; set; }
 
         [Required]

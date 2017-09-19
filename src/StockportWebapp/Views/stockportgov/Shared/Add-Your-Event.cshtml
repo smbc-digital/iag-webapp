@@ -145,6 +145,7 @@
                                         <div class="grid-100 grid-parent category-div">
                                             <input type="hidden" asp-for="@Model.CategoriesList" />
                                             @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.BuildCategoryList() })
+                                            <span asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
                                         <label asp-for="@Model.Image"></label>
                                         <i>

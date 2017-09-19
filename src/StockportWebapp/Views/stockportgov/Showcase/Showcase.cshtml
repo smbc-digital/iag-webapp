@@ -75,16 +75,18 @@
                             <h1>
                                 <span>@Model.Title</span>
                             </h1>
-                            <div class="clearfix hero-image-divider-container"><hr class="hero-image-divider" /> </div>
-                            <h2>
-                                <span>@Model.Teaser</span>
-                            </h2>
+                            <div class="clearfix hero-image-divider-container">
+                                <hr class="hero-image-divider" /> 
+                                <div><h2>
+                                    <span>@Model.Teaser</span>
+                                </h2></div>
+                            </div>                            
                         </div>
                     </div>
                 }
                 else
                 {
-                    <div class="full-width-title">
+                    <div class="full-width-title title-only">
                         <div class="grid-container grid-parent grid-100">
                             <div class="grid-100 tablet-grid-100 mobile-grid-100">
                                 <h1 class="full-width-title-with-button">@Model.Title</h1>

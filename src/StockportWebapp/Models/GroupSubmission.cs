@@ -30,8 +30,9 @@ namespace StockportWebapp.Models
         [Required]
         public string Description { get; set; }
 
-        [Display(Name="Categories")]
+        [Display(Name="Categories")]        
         public List<string> Categories { get; set; }
+        [Required(ErrorMessage = "You must select at least one category")]
         public string CategoriesList { get; set; }
         public List<string> AvailableCategories { get; set; }
 
