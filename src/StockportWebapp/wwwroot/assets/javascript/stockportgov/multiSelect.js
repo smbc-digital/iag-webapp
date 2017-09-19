@@ -6,11 +6,19 @@
     var categoriesList;
     var categories;
 
+    if ($('#categoryListError').css('display') == 'block') {
+        $('.CategoriesList-select').addClass("input-validation-error");
+        $('.CategoriesList-select').css("margin-bottom", "0px");      
+    }
+
     var selectDropdown = function (select) {
         var links = $('.' + className + '-add', '.' + className + '-div:visible');
         var link = links[links.length - 1];
         if (allHaveValues()) {
             $(link).show();
+            $("#categoryListError").hide();
+            $('.CategoriesList-select').removeClass("input-validation-error");
+            $('.CategoriesList-select').css("margin-bottom", "10px");
         }
         else {
             $(link).hide();
