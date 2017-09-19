@@ -49,14 +49,14 @@ module.exports = {
     breadcrumb:'.breadcrumb',
     heroImage: '.showcase-hero-image',
     title: '.title-card>h1>span',
-    teaser: '.title-card>h2>span',
-    subheading: '.featured-items-wrapper>h2',
+    teaser: '.title-card>div>div>h2>span',
+    subheading: '.featured-items-wrapper>div>h2',
     featuredtopics:'.featured-topic-list',
-    consultaionSection:'.l-content-container.grid-100.tablet-grid-100.mobile-grid-100.group-margin',
+    consultaionSection:'.grid-100.tablet-grid-100.mobile-grid-100.group-margin',
     consulationHeading: '.grid-100.sk-table-cell>h3',
     consultaionTable: '.grid-100.sk-table-row',
-    newsSection: '.showcase-news.alt-container-row',
-    eventsSection:'.showcase-events.alt-container-row'
+    newsSection: '.showcase-news.showcase-news-events',
+    eventsSection:'.showcase-events.showcase-news-events'
 
 
 

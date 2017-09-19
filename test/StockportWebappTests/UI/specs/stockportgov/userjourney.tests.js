@@ -165,7 +165,7 @@ module.exports = {
             "Too much for this box. This is a lot of text. Too much for this box. This is a lot of text. Too much for this box. " +
             "This is a lot of text. Too much for this box. This is a lot of text. This is the end of the test.");
     },
-    'Navigate to showcase and validate details  ': function (browser) {
+    'Navigate to showcase and validate details': function (browser) {
         var showcasePage = browser.page.stockportgov.showcase();
         showcasePage.navigate();
         showcasePage.assertBreadcrumbIsVisible();
