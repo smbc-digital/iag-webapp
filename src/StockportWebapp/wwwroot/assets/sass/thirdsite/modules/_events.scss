@@ -857,6 +857,7 @@ ul.nav-card-events-list {
         height: 30px;
         align-items: center;
         justify-content: center;
-        display: flex;
+        display: inline-block;
+        text-align: center;
     }
 }
