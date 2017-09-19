@@ -49,7 +49,7 @@ module.exports = {
     breadcrumb:'.breadcrumb',
     heroImage: '.showcase-hero-image',
     title: '.title-card>h1>span',
-    teaser: '.title-card>h2>span',
+    teaser: '.title-card>div>div>h2>span',
     subheading: '.featured-topic-list>h2',
     featuredtopics:'.featured-topic-list',
     consultationSection:'.l-content-container.grid-100.tablet-grid-100.mobile-grid-100.group-margin',
