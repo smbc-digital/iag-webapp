@@ -49,17 +49,13 @@ module.exports = {
     breadcrumb:'.breadcrumb',
     heroImage: '.showcase-hero-image',
     title: '.title-card>h1>span',
-    teaser: '.title-card>h2>span',
+    teaser: '.title-card>div>div>h2>span',
     subheading: '.featured-topic-list>h2',
     featuredtopics:'.featured-topic-list',
     consultationSection:'.l-content-container.grid-100.tablet-grid-100.mobile-grid-100.group-margin',
     consulationHeading: '.grid-100.sk-table-cell>h3',
     consultaionTable: '.grid-100.sk-table-row',
-    newsSection: '.full-width-title-margin-fix.showcase-news.showcase-news-events',
-    eventsSection:'.full-width-title-margin-fix.showcase-events.showcase-news-events'
-
-
-
-
+    newsSection: '.showcase-news.showcase-news-events',
+    eventsSection:'.showcase-events.showcase-news-events'
   }
 };
