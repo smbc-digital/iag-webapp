@@ -21,7 +21,7 @@ namespace StockportWebapp.Repositories
             _urlGenerator = urlGenerator;
             _httpClient = httpClient;
             _config = config;
-            authenticationKey = new Dictionary<string, string> { { "AuthenticationKey", _config.GetContentApiAuthenticationKey() } };
+            authenticationKey = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() } };
         }
 
         public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)

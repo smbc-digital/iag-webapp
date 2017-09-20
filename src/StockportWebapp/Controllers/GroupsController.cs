@@ -1006,7 +1006,7 @@ namespace StockportWebapp.Controllers
             var model = new Favourites
             {
                 Type = "groups",
-                Crumbs = new List<Crumb> { new Crumb("Our Stockport Local", "groups", "groups") },
+                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") },
                 FavouritesUrl = "/groups/favourites"
             };
 

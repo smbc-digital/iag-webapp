@@ -37,18 +37,18 @@ namespace StockportWebapp.Utils
             {typeof(EventHomepage), "eventhomepage"},
             {typeof(GroupHomepage), "grouphomepage"},
             {typeof(EventResponse), "events"},
-            {typeof(Group), "group/"},
-            {typeof(List<Group>), "group/"},
+            {typeof(Group), "groups/"},
+            {typeof(List<Group>), "groups/"},
             {typeof(Payment), "payment/"},
             {typeof(List<Payment>), "payment/"},
             {typeof(Section), "section/"},
             {typeof(List<Section>), "section/"},
             {typeof(Showcase), "showcase/"},
             {typeof(List<Showcase>), "showcase/"},
-            {typeof(List<GroupCategory>), "groupCategory/"},
-            {typeof(List<EventCategory>), "eventCategory/"},
-            {typeof(GroupResults), "groupResults/"},
-            {typeof(ContactUsId), "ContactUsId/"},
+            {typeof(List<GroupCategory>), "group-categories/"},
+            {typeof(List<EventCategory>), "event-categories/"},
+            {typeof(GroupResults), "group-results/"},
+            {typeof(ContactUsId), "contact-us-id/"},
             {typeof(List<ArticleSiteMap>), "articleSiteMap"},
             {typeof(List<SectionSiteMap>), "sectionSiteMap"},
             {typeof(SmartAnswers), "smart/"},
@@ -92,7 +92,7 @@ namespace StockportWebapp.Utils
 
         public string AdministratorsGroups(string email)
         {
-            return $"{_config.GetContentApiUri()}{_businessId}/group/administrators/{email}";
+            return $"{_config.GetContentApiUri()}{_businessId}/groups/administrators/{email}";
         }
 
         public string ArticlesForSiteMap(string slug = "", List<Query> queries = null)

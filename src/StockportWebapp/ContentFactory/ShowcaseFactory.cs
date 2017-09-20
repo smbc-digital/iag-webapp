@@ -29,7 +29,7 @@ namespace StockportWebapp.ContentFactory
             {
                 fields.Items.Add("Primary Items");
                 fields.Items.Add("Featured Items");
-                fields.Items.Add("Consul  tations");
+                fields.Items.Add("Consultations");
                 fields.Items.Add("Key Facts");
                 fields.Items.Add("News");
                 fields.Items.Add("Events");
