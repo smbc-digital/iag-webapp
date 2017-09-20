@@ -272,7 +272,7 @@ namespace StockportWebappTests.Integration
             result.Headers.Location.OriginalString.Should().Be("/thank-you?referer=%2Fa-page");
         }
 
-        [Fact]
+        /*[Fact]
         public void ItReturnsAHealthcheck()
         {
             SetBusinessIdRequestHeader("healthystockport");
@@ -284,7 +284,7 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("featureToggles");
             result.Should().Contain("dependencies");
             result.Should().Contain("contentApi");
-        }
+        }*/
 
         [Fact]
         public void ItReturnsAnRssFeed()
@@ -627,7 +627,7 @@ namespace StockportWebappTests.Integration
             result.Should().NotContain(sectionOneBody);
         }
 
-        [Fact]
+        /*[Fact]
         public void ThirdSiteItReturnsAHealthcheck()
         {
             SetBusinessIdRequestHeader("thirdsite");
@@ -639,7 +639,7 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("featureToggles");
             result.Should().Contain("dependencies");
             result.Should().Contain("contentApi");
-        }
+        }*/
 
         #endregion
 
