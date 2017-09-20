@@ -4,11 +4,10 @@ prod: &prod
   GroupFavourites : true
   GroupFilterBar : true
   GroupHomepage : true
-  ShowcaseRedesign: false
+  ShowcaseRedesign: true
 
 stage: &stage
   << : *prod
-  ShowcaseRedesign: true
 
 qa: &qa
   << : *prod

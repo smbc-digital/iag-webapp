@@ -28,6 +28,7 @@ namespace StockportWebapp.Services
         private readonly string _environment;
         private readonly IApplicationConfiguration _config;
         private readonly string authenticationKey;
+        private readonly string webAppClientId;
 
         public HealthcheckService(string appVersionPath, string shaPath, IFileWrapper fileWrapper,
             FeatureToggles featureToggles, HttpClient httpMaker, IStubToUrlConverter urlGenerator, string environment, IApplicationConfiguration config)
@@ -41,6 +42,7 @@ namespace StockportWebapp.Services
             _sha = GetFirstFileLineOrDefault(shaPath, string.Empty);
             _environment = environment;
             authenticationKey = _config.GetContentApiAuthenticationKey();
+            webAppClientId = _config.GetWebAppClientId();
         }
 
         private string GetFirstFileLineOrDefault(string filePath, string defaultValue)
@@ -61,6 +63,8 @@ namespace StockportWebapp.Services
             {
                 _httpMaker.DefaultRequestHeaders.Remove("Authorization");
                 _httpMaker.DefaultRequestHeaders.Add("Authorization",  authenticationKey);
+                _httpMaker.DefaultRequestHeaders.Remove("X-ClientId");
+                _httpMaker.DefaultRequestHeaders.Add("X-ClientId",  webAppClientId);
                 var httpResponse = await _httpMaker.GetAsync(_urlGenerator.HealthcheckUrl());
                 healthcheck = await BuildDependencyHealthcheck(httpResponse);
             }

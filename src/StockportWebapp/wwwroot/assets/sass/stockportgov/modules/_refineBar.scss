@@ -314,19 +314,23 @@
     }
 }
 
-    .badge {
-        display: inline-block;
+.badge {
+    display: inline-block;
 
-        span {
-            border-radius: 50%;
-            font-size: 14px;
-            color: #ffffff;
-            background-color: #055C58;
-            width: 30px;
-            height: 30px;
-            align-items: center;
-            justify-content: center;
+    span {
+        border-radius: 50%;
+        font-size: 14px;
+        color: #ffffff;
+        background-color: #055C58;
+        width: 30px;
+        height: 30px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+
+        @media #{$tablet,$desktop} {
             display: inline-block;
             text-align: center;
         }
     }
+}
