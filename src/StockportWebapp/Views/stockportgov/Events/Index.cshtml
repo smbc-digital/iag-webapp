@@ -4,13 +4,22 @@
 @model EventCalendar
 @{
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
-    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "All Categories" : category == null ? Model.Category : category.Name;
+    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "What's on in Stockport" : category == null ? Model.Category : category.Name;
     ViewData["Title"] = ViewData["og:title"];
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("What's on in Stockport", "events", "event") })
+@if (string.IsNullOrWhiteSpace(Model.Category))
+{
+    @section Breadcrumbs {
+       @Html.Partial("Breadcrumb", new List<Crumb>())
+    }
+}
+else
+{
+    @section Breadcrumbs {
+       @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("What's on in Stockport", "events", "event") })
+    }
 }
 
 <div class="l-page-content">
