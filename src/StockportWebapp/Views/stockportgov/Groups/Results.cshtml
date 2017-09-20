@@ -7,8 +7,8 @@
 @model GroupResults
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
-    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - Our Stockport Local");
-    ViewData["Description"] = "Our Stockport Local results page";
+    ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - Stockport Local");
+    ViewData["Description"] = "Stockport Local results page";
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
@@ -16,14 +16,14 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Our Stockport Local", "groups", "Group") })
+    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") })
 }
 
 <div class="l-page-content group-result-page" id="content-no-margin-bottom-mainpage">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-70 tablet-grid-60 mobile-grid-100">
-                <h1 class="full-width-title-with-button">Our Stockport Local</h1>
+                <h1 class="full-width-title-with-button">Stockport Local</h1>
             </div>
             <div class="header-right-button grid-30 tablet-grid-40 hide-on-mobile">
                 <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
