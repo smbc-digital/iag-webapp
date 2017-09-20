@@ -33,6 +33,7 @@ namespace StockportWebapp.Config
         int GetConsultationsDefaultPageSize(string businessId);
         int GetGroupsDefaultPageSize(string businessId);
         string GetContentApiAuthenticationKey();
+        string GetWebAppClientId();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -194,6 +195,10 @@ namespace StockportWebapp.Config
         public string GetContentApiAuthenticationKey()
         {
             return _appsettings["ContentApiAuthenticationKey"];
+        }
+        public string GetWebAppClientId()
+        {
+            return _appsettings["WebAppClientId"];
         }
     }
 }

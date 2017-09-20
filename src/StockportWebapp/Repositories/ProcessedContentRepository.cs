@@ -14,7 +14,7 @@ namespace StockportWebapp.Repositories
         private readonly IHttpClient _httpClient;
         private readonly IStubToUrlConverter _urlGenerator;
         private readonly IApplicationConfiguration _config;
-        private Dictionary<string, string> authenticationKey;
+        private readonly Dictionary<string, string> authenticationHeaders;
 
         public ProcessedContentRepository(IStubToUrlConverter urlGenerator, IHttpClient httpClient, ContentTypeFactory contentTypeFactory, IApplicationConfiguration config)
         {
@@ -22,13 +22,13 @@ namespace StockportWebapp.Repositories
             _httpClient = httpClient;
             _contentTypeFactory = contentTypeFactory;
             _config = config;
-            authenticationKey = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() } };
+            authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
         }
 
         public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
         {
             var url = _urlGenerator.UrlFor<T>(slug, queries);
-            var httpResponse = await _httpClient.Get(url, authenticationKey);
+            var httpResponse = await _httpClient.Get(url, authenticationHeaders);
 
             if (!httpResponse.IsSuccessful())
             {
