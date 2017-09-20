@@ -50,9 +50,8 @@ namespace StockportWebappTests.Unit.Controllers
             _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
                 .ReturnsAsync(response);
 
-            var result = AsyncTestHelper.Resolve(_controller.Index("v")) as RedirectToActionResult;
-            result.ControllerName.Should().Be("Error");
-            result.ActionName.Should().Be("500");
+            var result = AsyncTestHelper.Resolve(_controller.Index("v")) as HttpResponse;
+            result.StatusCode.Should().Be(500);
         }
 
         [Fact]

@@ -25,10 +25,9 @@ namespace StockportWebapp.Controllers
 
             var httpResponse = await _repository.Get<List<AtoZ>>(letter);
 
+
             if (httpResponse.IsNotAuthorised())
-            {
-                return RedirectToAction("500", "Error");
-            }
+                return new HttpResponse(500,"","Error");
 
             var response = new List<AtoZ>();
 
