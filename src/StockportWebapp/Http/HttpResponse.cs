@@ -52,5 +52,10 @@ namespace StockportWebapp.Http
         {
             return result.StatusCode == 404;
         }
+
+        internal static bool IsNotAuthorised(this StatusCodeResult result)
+        {
+            return result.StatusCode == 401;
+        }
     }
 }
