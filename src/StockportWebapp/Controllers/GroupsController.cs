@@ -43,8 +43,10 @@ namespace StockportWebapp.Controllers
         private readonly ViewHelpers _viewHelpers;
         private readonly IDateCalculator _dateCalculator;
         private readonly FavouritesHelper favouritesHelper;
+        private readonly HostHelper _host;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, 
+            ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor, [FromServices] CurrentEnvironment environment)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -59,6 +61,7 @@ namespace StockportWebapp.Controllers
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
             favouritesHelper = new FavouritesHelper(httpContextAccessor);
+            _host = new HostHelper(environment);
         }
 
         [Route("/groups")]
@@ -109,7 +112,7 @@ namespace StockportWebapp.Controllers
                 group
             });
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetUri();       
 
             return View(group);
         }
@@ -303,12 +306,15 @@ namespace StockportWebapp.Controllers
             _logger.LogInformation(string.Concat("Exporting group ", slug, " to pdf"));
 
             ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.Url = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
             var response = await _processedContentRepository.Get<Group>(slug);
 
             if (!response.IsSuccessful()) return response;
 
             var group = response.Content as ProcessedGroup;
+
+            group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
             var printScript = print ? _viewRender.Render("Shared/ExportPrint", group) : string.Empty;

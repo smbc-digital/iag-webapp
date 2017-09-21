@@ -9,6 +9,7 @@
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
     string twitter = string.Empty;
+    var test = string.Empty;
 
     if (!string.IsNullOrEmpty(Model.Facebook))
     {
@@ -18,16 +19,21 @@
     {
         twitter = socialLinksExtension.GetSubstring(Model.Twitter);
     }
+
+    if (!string.IsNullOrEmpty(ViewBag.Url))
+    {
+        test = ViewBag.Url;
+    }
+
 }
 
 <div class="grid-container-full-width">
     <div class="grid-container remove-edges-for-pdf grid-100">
-
-        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="@Model.Name content">
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">            
+            <section aria-label="@Model.Name content">  
+                <a class="hidden display-on-pdf" href="@Model.Slug">@Model.Slug</a>
                 <div class="l-content-container grid-100 group-margin">
                     <h1 class="group-article-title">@Model.Name</h1>
-
                     <div class="grid-100 tablet-grid-100 mobile-grid-100 group-calender-container">
                         @if (!string.IsNullOrEmpty(Model.ImageUrl))
                         {
@@ -164,11 +170,13 @@
                                             {
                                                 if (Model.Facebook.ToLower().StartsWith("http://") || Model.Facebook.ToLower().StartsWith("https://"))
                                                 {
-                                                    <a href="@Model.Facebook">@facebook</a>
+                                                    <a class="hide-on-pdf" href="@Model.Facebook">@facebook</a>
+                                                    <a class="hidden display-on-pdf" href="@Model.Facebook">@Model.Facebook</a>
                                                 }
                                                 else
                                                 {
-                                                    <a href="http://@Model.Facebook">@facebook</a>
+                                                    <a class="hide-on-pdf" href="http://@Model.Facebook">@facebook</a>
+                                                    <a class="hidden display-on-pdf" href="http://@Model.Facebook">http://@Model.Facebook</a>
                                                 }
                                             }
                                             else
@@ -195,11 +203,13 @@
                                             {
                                                 if (Model.Twitter.ToLower().StartsWith("http://") || Model.Twitter.ToLower().StartsWith("https://"))
                                                 {
-                                                    <a href="@Model.Twitter">@twitter</a>
+                                                    <a class="hide-on-pdf" href="@Model.Twitter">@twitter</a>
+                                                    <a class="hidden display-on-pdf" href="@Model.Twitter">@twitter</a>
                                                 }
                                                 else
                                                 {
-                                                    <a href="http://@Model.Twitter">@twitter</a>
+                                                    <a class="hide-on-pdf" href="http://@Model.Twitter">@twitter</a>
+                                                    <a class="hidden display-on-pdf" href="http://@Model.Twitter">http://@Model.Twitter</a>
                                                 }
                                             }
                                             else

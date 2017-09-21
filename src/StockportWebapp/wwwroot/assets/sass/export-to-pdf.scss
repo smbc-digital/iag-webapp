@@ -6,8 +6,86 @@
 .add-favourite,
 .remove-favourite,
 .mobile-show-more,
+.group-calender-container-image,
+.view-more-mobile,
 .directions-list {
     display: none !important;
+}
+
+.group-calender-container {
+    overflow: hidden !important;
+
+    .group-calender-container-description {
+        width: 100% !important;
+        float: left !important;
+        height: inherit !important;      
+
+        .group-ul li:last-child {
+            display: none !important;
+        }
+    }
+
+    .group-calender-container-image.hide-on-desktop {
+        display: block !important;
+        height: 350px !important;
+        background-repeat: no-repeat !important;
+        padding-bottom: 10px !important;
+    }
+}
+
+.hide-on-pdf {
+    display: none !important;
+}
+
+.display-on-pdf {
+    display: block !important;
+}
+
+
+.group-listing-container {
+    .group-li {
+        width: 100% !important;
+
+        .group-card {
+            height: 250px !important;
+
+            .group-card-main {
+                .group-image {
+                    width: 45%;
+                }
+
+                .group-card-information {
+                    width: 50%;
+                    float:right;
+                    height:auto !important;               
+
+                }
+            }
+        }
+    }
+}
+
+.upcoming-events-container {
+    .event-listing-container {
+        .event-li {
+            width: 100% !important;
+            height: 250px !important;
+            overflow-y: hidden;
+
+            .event-card {
+                height: inherit !important;
+
+                .event-image {
+                    width: 45% !important;                   
+                }
+
+                .event-card-information {
+                    width: 50% !important;
+                    float: right !important;                   
+                }
+            }
+        }
+    }
 }
 
 .group-map-container {
@@ -65,3 +143,5 @@ body{
 .organisation-detail img {
     width: 30%;
 }
+
+
