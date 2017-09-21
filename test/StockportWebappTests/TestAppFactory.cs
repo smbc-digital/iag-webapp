@@ -95,9 +95,9 @@ namespace StockportWebappTests
             #region stockportgov
             Client.For("http://localhost:5001/api/stockportgov/homepage")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.HomepageStockportGov.json")));
-            Client.For("http://localhost:5001/api/stockportgov/topic/test-topic")
+            Client.For("http://localhost:5001/api/stockportgov/topics/test-topic")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAlerts.json")));
-            Client.For("http://localhost:5001/api/stockportgov/article/physical-activity")
+            Client.For("http://localhost:5001/api/stockportgov/articles/physical-activity")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Article.json")));
             Client.For("http://localhost:5001/api/stockportgov/start-page/start-page")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StartPage.json")));
@@ -113,7 +113,7 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListing.json")));
             Client.For("http://localhost:5001/api/stockportgov/events/latest/2?featured=true")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListingFeatured.json")));
-            Client.For("http://localhost:5001/api/stockportgov/profile/test-profile")
+            Client.For("http://localhost:5001/api/stockportgov/profiles/test-profile")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Profile.json")));
             Client.For("http://localhost:5001/api/stockportgov/footer")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Footer.json")));
@@ -127,7 +127,7 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json")));
             Client.For("http://localhost:5001/api/stockportgov/atoz/a")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.AtoZ.json")));
-            Client.For("http://localhost:5001/api/stockportgov/showcase/a-showcase")
+            Client.For("http://localhost:5001/api/stockportgov/showcases/a-showcase")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Showcase.json")));
             Client.For("http://localhost:5001/api/stockportgov/groups/test-zumba-slug")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Group.json")));
@@ -148,9 +148,9 @@ namespace StockportWebappTests
             #region healthystockport
             Client.For("http://localhost:5001/api/healthystockport/start-page/start-page")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StartPage.json")));
-            Client.For("http://localhost:5001/api/healthystockport/topic/test-topic")
+            Client.For("http://localhost:5001/api/healthystockport/topics/test-topic")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAlerts.json")));
-            Client.For("http://localhost:5001/api/healthystockport/article/physical-activity")
+            Client.For("http://localhost:5001/api/healthystockport/articles/physical-activity")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Article.json")));
             Client.For("http://localhost:5001/api/healthystockport/homepage")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.HomepageHealthyStockport.json")));
@@ -162,11 +162,11 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListingFeatured.json")));
             Client.For("http://localhost:5001/api/healthystockport/news")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json")));
-            Client.For("http://localhost:5001/api/healthystockport/profile/test-profile")
+            Client.For("http://localhost:5001/api/healthystockport/profiles/test-profile")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Profile.json")));
-            Client.For("http://localhost:5001/api/healthystockport/article/contact-us")
+            Client.For("http://localhost:5001/api/healthystockport/articles/contact-us")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.ContactUsArticle.json")));
-            Client.For("http://localhost:5001/api/healthystockport/article/about")
+            Client.For("http://localhost:5001/api/healthystockport/articles/about")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StandaloneArticleWithProfile.json")));
             Client.For("http://localhost:5001/api/healthystockport/contact-us-id/test-email")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.ContactUsId.json")));
@@ -179,14 +179,14 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.NewsListing.json")));
             Client.For("http://localhost:5001/api/thirdsite/events/latest/2?featured=true")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListingFeatured.json")));
-            Client.For("http://localhost:5001/api/thirdsite/article/physical-activity")
+            Client.For("http://localhost:5001/api/thirdsite/articles/physical-activity")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Article.json")));
             #endregion
 
             #region misc
-            Client.For("http://localhost:5001/api/unittest/article/non-existent-url")
+            Client.For("http://localhost:5001/api/unittest/articles/non-existent-url")
                 .Return(HttpResponse.Failure(404, "does not exist"));
-            Client.For("http://localhost:5001/api/unittest/article/this-is-a-redirect-from")
+            Client.For("http://localhost:5001/api/unittest/articles/this-is-a-redirect-from")
                 .Return(HttpResponse.Failure(404, "does not exist"));
             Client.For("http://localhost:5001/api/redirects")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Redirects.json")));

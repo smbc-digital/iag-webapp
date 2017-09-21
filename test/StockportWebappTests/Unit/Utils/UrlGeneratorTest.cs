@@ -34,7 +34,7 @@ namespace StockportWebappTests.Unit.Utils
             var topicSlug = "topic-slug";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/topic/{topicSlug}");
+            url.Should().Be($"http://localhost.com/api/test-id/topics/{topicSlug}");
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace StockportWebappTests.Unit.Utils
             const string articleSlug = "topic-slug";
             var url = _urlGenerator.UrlFor<Article>(articleSlug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/article/{articleSlug}");
+            url.Should().Be($"http://localhost.com/api/test-id/articles/{articleSlug}");
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace StockportWebappTests.Unit.Utils
             const string profileSlug = "topic-slug";
             var url = _urlGenerator.UrlFor<Profile>(profileSlug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/profile/{profileSlug}");
+            url.Should().Be($"http://localhost.com/api/test-id/profiles/{profileSlug}");
         }
 
         [Fact]
@@ -134,7 +134,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<Showcase>("slug");
 
-            url.Should().Be("http://localhost.com/api/test-id/showcase/slug");
+            url.Should().Be("http://localhost.com/api/test-id/showcases/slug");
         }
 
         [Fact]
