@@ -151,7 +151,12 @@
             if (Model.KeyFacts != null && Model.KeyFacts.Any())
             {
                 <div class="@titleHack showcase-news-events white">
-                    @Html.Partial("Showcase/KeyFacts", Model.KeyFacts)
+                    <div class="grid-container showcase-body key-facts">
+                        <div class="grid-100 grid-parent l-article-content">
+                            <h2>@Model.KeyFactSubheading</h2>
+                            @Html.Partial("Showcase/KeyFacts", Model.KeyFacts)
+                        </div>
+                    </div>                   
                 </div>
             }
 

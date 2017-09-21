@@ -35,7 +35,7 @@ namespace StockportWebappTests.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))};
             var showcase = new ProcessedShowcase("Test showcase", showcaseSlug, "showcase teaser",
                                                  "showcase subheading", "event category", "events Category Or Tag", "event subheading", "news subheading", "news category", "news type", "body subheading", "body", null, "af981b9771822643da7a03a9ae95886f/picture.jpg",
-                                                 new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") }, new List<Consultation>(), new List<SocialMediaLink>(), new List<Event>(), "", "", alerts, new List<SubItem>(), null, null, new FieldOrder());
+                                                 new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") }, new List<Consultation>(), new List<SocialMediaLink>(), new List<Event>(), "", "", alerts, new List<SubItem>(), null, null, new FieldOrder(),"Key Fact Subheading");
 
             _fakeRepository.Set(new HttpResponse(200, showcase, string.Empty));
 
@@ -51,6 +51,7 @@ namespace StockportWebappTests.Unit.Controllers
             processedShowcase.Breadcrumbs.Count().Should().Be(1);
             processedShowcase.FeaturedItems.Count().Should().Be(1);
             processedShowcase.Alerts.Count().Should().Be(1);
+            processedShowcase.KeyFactSubheading.Should().Be("Key Fact Subheading");
         }
 
         [Fact]

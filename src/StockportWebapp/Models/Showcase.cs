@@ -27,11 +27,12 @@ namespace StockportWebapp.Models
         public string EmailAlertsTopicId { get; set; }
         public string EmailAlertsText { get; set; }
         public IEnumerable<Alert> Alerts { get; }
+        public string KeyFactSubheading { get; }
         public IEnumerable<KeyFact> KeyFacts { get; }
         public Profile Profile { get; }
         public FieldOrder FieldOrder { get; }
 
-        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, Profile profile, FieldOrder fieldOrder)
+        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, Profile profile, FieldOrder fieldOrder, string keyFactSubheading)
         {
             Title = title;
             Slug = slug;
@@ -59,6 +60,7 @@ namespace StockportWebapp.Models
             PrimaryItems = primaryItems;
             Profile = profile;
             FieldOrder = fieldOrder;
+            KeyFactSubheading = keyFactSubheading;
         }
     }
 }

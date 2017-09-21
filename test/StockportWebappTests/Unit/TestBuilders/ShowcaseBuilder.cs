@@ -20,6 +20,7 @@ namespace StockportWebappTests.Unit.TestBuilders
         private string _heroImageUrl = "image-url.jpg";
         private string _emailAlertsTopicId { get; set; } = "alertId";
         private string _emailAlertsText { get; set; } = "alertText";
+        private string _keyFactSubheading { get; set; } = "Key Fact Subheading";
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
         private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
@@ -34,7 +35,7 @@ namespace StockportWebappTests.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventCategoryOrtag, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events, _emailAlertsTopicId, _emailAlertsText, alerts, new List<SubItem>(), null, null, new FieldOrder());
+            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventCategoryOrtag, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events, _emailAlertsTopicId, _emailAlertsText, alerts, new List<SubItem>(), null, null, new FieldOrder(), _keyFactSubheading);
         }
 
         public ShowcaseBuilder Title(string title)

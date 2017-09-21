@@ -262,6 +262,22 @@
     }
 }
 
+.showcase-news-events {
+    .email-banner {
+        @media #{$mobile} {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .email-banner-container {
+            @media #{$desktop,$tablet} {
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+        }
+    }
+}
+
 .showcase-primary-item-container:nth-last-child(2) {
     .colour-icon {
         color: $softBlue;

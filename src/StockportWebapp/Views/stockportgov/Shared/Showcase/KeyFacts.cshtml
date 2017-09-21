@@ -1,25 +1,20 @@
 ﻿@using StockportWebapp.Models;
 @model List<KeyFact>
-<div class="grid-container showcase-body key-facts">
-    <div class="grid-100 grid-parent l-article-content">
-        <h2>Why choose Stockport?</h2>
-        @{
+@{
             var i = 0;
             var number = Model.Count();
-        }
-        <div class="matchbox-parent-1-2-2">
-            @foreach (var fact in Model)
+}
+<div class="matchbox-parent-1-2-2">
+    @foreach (var fact in Model)
             {
                 var bottomrow = i == number - 1 || (i == number - 2 && i % 2 == 0) ? "bottomrow" : "";
                 var href = string.IsNullOrWhiteSpace(fact.Link) ? string.Empty : $"href=\"{fact.Link}\"";
-                <div class="grid-50 tablet-grid-50 mobile-grid-100 grid-parent fact">
-                    <a @Html.Raw(href) class="grid-100 grid-parent @bottomrow matchbox-child">
-                        <div class="grid-20 mobile-grid-25 tablet-grid-20 icon-holder"><i class="fa @fact.Icon"></i></div>
-                        <div class="grid-80 mobile-grid-75 tablet-grid-80">@fact.Text</div>
-                    </a>
-                </div>
-                i++;
-            }
+        <div class="grid-50 tablet-grid-50 mobile-grid-100 grid-parent fact">
+            <a @Html.Raw(href) class="grid-100 grid-parent @bottomrow matchbox-child">
+                <div class="grid-20 mobile-grid-25 tablet-grid-20 icon-holder"><i class="fa @fact.Icon"></i></div>
+                <div class="grid-80 mobile-grid-75 tablet-grid-80">@fact.Text</div>
+            </a>
         </div>
-    </div>
+        i++;
+    }
 </div>
