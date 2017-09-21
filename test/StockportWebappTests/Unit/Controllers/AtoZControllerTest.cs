@@ -43,6 +43,18 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
+        public void RedirectsTo500ErrorIfUnauthorised()
+        {
+            var response = new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty);
+
+            _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
+                .ReturnsAsync(response);
+
+            var result = AsyncTestHelper.Resolve(_controller.Index("v")) as HttpResponse;
+            result.StatusCode.Should().Be(500);
+        }
+
+        [Fact]
         public void GetsABlankAtoZWhenNotFoundAtoZListing()
         {
             _repository.Setup(o => o.Get<List<AtoZ>>("a", null))

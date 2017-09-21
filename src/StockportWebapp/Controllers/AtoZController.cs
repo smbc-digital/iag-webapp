@@ -24,6 +24,11 @@ namespace StockportWebapp.Controllers
             if (IsNotInTheAlphabet(letter)) return NotFound();
 
             var httpResponse = await _repository.Get<List<AtoZ>>(letter);
+
+
+            if (httpResponse.IsNotAuthorised())
+                return new HttpResponse(500,"","Error");
+
             var response = new List<AtoZ>();
 
             if (!httpResponse.IsSuccessful())
