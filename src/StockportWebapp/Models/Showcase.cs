@@ -31,8 +31,13 @@ namespace StockportWebapp.Models
         public IEnumerable<KeyFact> KeyFacts { get; }
         public Profile Profile { get; }
         public FieldOrder FieldOrder { get; }
+        public string Icon { get; set; }
 
-        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, Profile profile, FieldOrder fieldOrder, string keyFactSubheading)
+        public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading,
+            string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
+            IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts,
+            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon)
         {
             Title = title;
             Slug = slug;
@@ -61,6 +66,7 @@ namespace StockportWebapp.Models
             Profile = profile;
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
+            Icon = icon;
         }
     }
 }

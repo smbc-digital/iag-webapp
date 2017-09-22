@@ -65,7 +65,8 @@ namespace StockportWebapp.ContentFactory
                 showcase.KeyFacts,
                 showcase.Profile,
                 fields,
-                showcase.KeyFactSubheading
+                showcase.KeyFactSubheading,
+                showcase.Icon
             );
         }
     }
