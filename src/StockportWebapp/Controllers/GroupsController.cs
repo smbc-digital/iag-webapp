@@ -305,30 +305,38 @@ namespace StockportWebapp.Controllers
         {
             _logger.LogInformation(string.Concat("Exporting group ", slug, " to pdf"));
 
-            ViewBag.CurrentUrl = Request?.GetUri();
-            ViewBag.Url = string.Concat(_host.GetHost(Request), "/groups/", slug);
+            try
+            {
+                ViewBag.CurrentUrl = Request?.GetUri();
+                ViewBag.Url = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+                var response = await _processedContentRepository.Get<Group>(slug);
 
-            if (!response.IsSuccessful()) return response;
+                if (!response.IsSuccessful()) return response;
 
-            var group = response.Content as ProcessedGroup;
+                var group = response.Content as ProcessedGroup;
 
-            group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
+                group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-            var printScript = print ? _viewRender.Render("Shared/ExportPrint", group) : string.Empty;
-            var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
-            var joinedHtml = string.Concat(renderedExportStyles, printScript, renderedHtml);
+                var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
+                var printScript = print ? _viewRender.Render("Shared/ExportPrint", group) : string.Empty;
+                var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
+                var joinedHtml = string.Concat(renderedExportStyles, printScript, renderedHtml);
 
-            // if raw html is requested, simply return the html instead
-            if (returnHtml || print) return Content(joinedHtml, "text/html");
+                // if raw html is requested, simply return the html instead
+                if (returnHtml || print) return Content(joinedHtml, "text/html");
 
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
+                var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
 
-            if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
+                if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
 
-            return new FileContentResult(result, "application/pdf");
+                return new FileContentResult(result, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error exporting {slug} to pdf, exception: {ex.Message}");
+                return null;
+            }
         }
 
         [Route("/groups/manage/{slug}/users")]
