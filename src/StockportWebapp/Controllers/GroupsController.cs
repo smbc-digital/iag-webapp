@@ -307,8 +307,7 @@ namespace StockportWebapp.Controllers
 
             try
             {
-                ViewBag.CurrentUrl = Request?.GetUri();
-                ViewBag.Url = string.Concat(_host.GetHost(Request), "/groups/", slug);
+                ViewBag.CurrentUrl = Request?.GetUri();                
 
                 var response = await _processedContentRepository.Get<Group>(slug);
 
@@ -319,7 +318,7 @@ namespace StockportWebapp.Controllers
                 group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
                 var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-                var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
+                var renderedHtml = _viewRender.Render("Views/stockportgov/Shared/GroupDetail", group);
                 var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 
                 // if raw html is requested, simply return the html instead
