@@ -34,13 +34,14 @@ namespace StockportWebapp.Models
         public Organisation Organisation { get; set; }
         public List<Group> LinkedGroups { get; private set; }
         public bool Donations { get; set; }
+        public string AccessibleTransportLink { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl,
             string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories, List<Crumb> breadcrumbs,
             MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, 
             DateTime? dateHiddenTo, string status, string cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
-            Organisation organisation, List<Group> linkedGroups, bool donations)
+            Organisation organisation, List<Group> linkedGroups, bool donations, String accessibleTransportLink)
         {
             Name = name;
             Slug = slug;
@@ -71,6 +72,7 @@ namespace StockportWebapp.Models
             Organisation = organisation;
             LinkedGroups = linkedGroups;
             Donations = donations;
+            AccessibleTransportLink = accessibleTransportLink;
         }
     }
 }

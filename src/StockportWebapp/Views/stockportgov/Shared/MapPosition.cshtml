@@ -1,10 +1,13 @@
-﻿@model StockportWebapp.Models.MapPosition
+﻿@model StockportWebapp.Models.MapDetails
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles featureToggles
+
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&callback=initMap"></script>
 <div id="map" class="grid-100 map-container"></div>
 <script>
     function initMap() {
-        var eventLocation = { lat: @Model.Lat, lng: @Model.Lon };
+        var eventLocation = { lat: @Model.MapPosition.Lat, lng: @Model.MapPosition.Lon };
         var map = new google.maps.Map(document.getElementById('map'),
         {
             zoom: 18,
@@ -19,20 +22,29 @@
 </script>
 
 <div class="embed-map-container">
-    <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.Lat,@Model.Lon&zoom=17&size=1024x250&scale=2&markers=@Model.Lat,@Model.Lon&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg"/>
-    
+    <img src="https://maps.googleapis.com/maps/api/staticmap?center=@Model.MapPosition.Lon,@Model.MapPosition.Lat&zoom=17&size=1024x250&scale=2&markers=@Model.MapPosition.Lon,@Model.MapPosition.Lat&key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg" />
+
 </div>
 <div class="grid-100 grid-parent directions-list">
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.Lat,@Model.Lon&travelmode=walking"><i class="fa fa-male" aria-hidden="true"></i>Walking<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=walking"><i class="fa fa-male" aria-hidden="true"></i>Walking<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.Lat,@Model.Lon&travelmode=driving"><i class="fa fa-car" aria-hidden="true"></i>Driving<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=driving"><i class="fa fa-car" aria-hidden="true"></i>Driving<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.Lat,@Model.Lon&travelmode=transit"><i class="fa fa-train" aria-hidden="true"></i>Public transport<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=transit"><i class="fa fa-train" aria-hidden="true"></i>Public transport<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.Lat,@Model.Lon&travelmode=bicycling"><i class="fa fa-bicycle" aria-hidden="true"></i>Cycling<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=bicycling"><i class="fa fa-bicycle" aria-hidden="true"></i>Cycling<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
+    @if (featureToggles.AccessibleTransport)
+    {
+        @if (!string.IsNullOrEmpty(Model.AccessibleTransportLink))
+        {
+            <div class="grid-parent grid-100 accessibleLink ">
+                For accessible transport options visit our <a href="@Model.AccessibleTransportLink"> accessible transport page.</a>
+            </div>
+        }
+    }
 </div>

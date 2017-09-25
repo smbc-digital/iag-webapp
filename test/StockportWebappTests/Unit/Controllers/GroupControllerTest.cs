@@ -94,8 +94,8 @@ namespace StockportWebappTests.Unit.Controllers
         {
             var processedGroup = new ProcessedGroup("testname", "testslug", Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null,  null, null, DateTime.MinValue, DateTime.MinValue,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, false, null, null, null, null);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null,  null, null, DateTime.MinValue, DateTime.MinValue,
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, false, null, null, null, null,new MapDetails());
 
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
@@ -107,7 +107,8 @@ namespace StockportWebappTests.Unit.Controllers
             model.Slug.Should().Be(processedGroup.Slug);
             model.Address.Should().Be(processedGroup.Address);
             model.Email.Should().Be(processedGroup.Email);
-
+         
+            model.MapDetails.AccessibleTransportLink.Should().Be(processedGroup.MapDetails.AccessibleTransportLink);
         }
 
         [Fact]
@@ -182,8 +183,8 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, 
-               DateTime.MinValue, DateTime.MaxValue, string.Empty, string.Empty, string.Empty, false, null, null, null, null);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, 
+               DateTime.MinValue, DateTime.MaxValue, string.Empty, string.Empty, string.Empty, false, null, null, null, null,null);
             _repository.Setup(r => r.Delete<Group>(slug))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
 
@@ -200,8 +201,8 @@ namespace StockportWebappTests.Unit.Controllers
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
             var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } },
-               DateTime.MinValue, DateTime.MinValue, string.Empty, string.Empty, string.Empty, false, null, null, null, null);
+               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } },
+               DateTime.MinValue, DateTime.MinValue, string.Empty, string.Empty, string.Empty, false, null, null, null, null,null);
             _repository.Setup(r => r.Archive<Group>(It.IsAny<HttpContent>(), slug))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
@@ -353,9 +354,12 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnLocationIfOneIsSelected()
         {
-            var location = new MapPosition() { Lat = 1, Lon = 1 };
+            var location = new MapDetails(){
+                MapPosition = new MapPosition() { Lat = 1, Lon = 1 },
+                AccessibleTransportLink = ""
+            };
 
-            var group = new ProcessedGroup() { MapPosition = location, Slug = "test" };
+            var group = new ProcessedGroup() { MapDetails = location, Slug = "test" };
 
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
@@ -363,7 +367,7 @@ namespace StockportWebappTests.Unit.Controllers
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
 
-            model.MapPosition.Should().Be(location);
+            model.MapDetails.Should().Be(location);
         }
 
         [Fact]
@@ -414,7 +418,7 @@ namespace StockportWebappTests.Unit.Controllers
                     new List<GroupCategory>()
                     {
                         new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, null, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", string.Empty, string.Empty, string.Empty, false, "", null, null, false);
+                    }, null, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", string.Empty, string.Empty, string.Empty, false, "", null, null, false,null);
 
                 listOfGroups.Add(group);
             }

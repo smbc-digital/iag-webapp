@@ -20,15 +20,16 @@ namespace StockportWebapp.ProcessedModels
         public string EndTime { get; }
         public List<Crumb> Breadcrumbs { get; }
         public List<string> Categories { get; }
-        public MapPosition MapPosition { get; }
         public string BookingInformation { get; set; }
         public readonly List<Alert> Alerts;
+        public MapDetails MapDetails { get; set; }
+
 
         public Group Group { get; set; }
 
-        public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description, 
-                               string fee, string location,string submittedBy, DateTime eventDate, string startTime, string endTime, 
-                               List<Crumb> breadcrumbs, List<string> categories, MapPosition mapPosition, string bookingInformation, Group group, List<Alert> alerts)
+        public ProcessedEvents(string title, string slug, string teaser, string imageUrl, string thumbnailImageUrl, string description,
+                               string fee, string location, string submittedBy, DateTime eventDate, string startTime, string endTime,
+                               List<Crumb> breadcrumbs, List<string> categories, MapDetails mapDetails, string bookingInformation, Group group, List<Alert> alerts, string accessibleTransportLink)
         {
             Title = title;
             Slug = slug;
@@ -44,10 +45,10 @@ namespace StockportWebapp.ProcessedModels
             EndTime = endTime;
             Breadcrumbs = breadcrumbs;
             Categories = categories;
-            MapPosition = mapPosition;
             BookingInformation = bookingInformation;
             Group = group;
             Alerts = alerts;
+            MapDetails = mapDetails;
         }
 
         public bool IsAlertDisplayed(Alert alert)

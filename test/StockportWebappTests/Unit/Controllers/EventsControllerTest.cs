@@ -42,8 +42,8 @@ namespace StockportWebappTests.Unit.Controllers
 
         private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
             twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
-            address: "", categoriesReference: null, subCategories: null, breadcrumbs:null, mapPosition:null, volunteering: false, events: new List<Event>(), groupAdministrators: new GroupAdministrators(), dateHiddenFrom: DateTime.MinValue,
-                dateHiddenTo: DateTime.MinValue, status: "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: "", organisation: null, linkedGroups:null, donations: false);
+            address: "", categoriesReference: null, subCategories: null, breadcrumbs: null, mapPosition: null, volunteering: false, events: new List<Event>(), groupAdministrators: new GroupAdministrators(), dateHiddenFrom: DateTime.MinValue,
+                dateHiddenTo: DateTime.MinValue, status: "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: "", organisation: null, linkedGroups: null, donations: false , accessibleTransportLink : string.Empty);
 
         private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
                                                                  "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -62,7 +62,7 @@ namespace StockportWebappTests.Unit.Controllers
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
                 "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
-                new List<Crumb>(), _categories, new MapPosition(), "booking information",_group, _alerts);
+                new List<Crumb>(), _categories, new MapDetails(), "booking information",_group, _alerts,string.Empty);
 
             var eventHomepage = new EventHomepage { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
 

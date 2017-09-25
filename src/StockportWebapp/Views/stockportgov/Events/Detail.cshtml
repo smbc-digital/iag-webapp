@@ -142,12 +142,14 @@
                             @Html.Raw(Model.Description)
                         </article>
                     </div>
-                    @if (Model.MapPosition != null && Model.MapPosition.Lat != 0.0 && Model.MapPosition.Lon != 0.0)
+                    @if (Model.MapDetails.MapPosition != null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
                     {
-                        <div class="event-map-container">                           
-                            @Html.Partial("MapPosition", Model.MapPosition)
+                        <div class="event-map-container">     
+                            <br />
+                            @Html.Partial("MapPosition", Model.MapDetails)
                         </div>
                     }
+
                 </div>
                 <div class="l-content-container grid-100">
                     <div class="share border top-border">

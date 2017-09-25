@@ -20,7 +20,6 @@ namespace StockportWebapp.ProcessedModels
         public List<GroupCategory> CategoriesReference { get; set; }
         public List<GroupSubCategory> SubCategories { get; set; }
         public List<Crumb> Breadcrumbs { get; set; }
-        public MapPosition MapPosition { get; set; }
         public List<Event> Events { get; set; }
         public GroupAdministrators GroupAdministrators { get; set; }
         public DateTime? DateHiddenFrom { get; set; }
@@ -33,6 +32,7 @@ namespace StockportWebapp.ProcessedModels
         public Organisation Organisation { get; set; }
         public List<Group> LinkedGroups { get; private set; }
         public Donations Donations { get; set; }
+        public MapDetails MapDetails { get; set; }
 
         public ProcessedGroup()
         {
@@ -40,8 +40,9 @@ namespace StockportWebapp.ProcessedModels
 
         public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories,
-                      List<Crumb> breadcrumbs, MapPosition mapPosition, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, 
-                      string cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, List<Group> linkedGroups, Donations donations)
+                      List<Crumb> breadcrumbs, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, 
+                      string cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, List<Group> linkedGroups, Donations donations,
+                     MapDetails mapDetails )
         {
             Name = name;
             Slug = slug;
@@ -57,7 +58,7 @@ namespace StockportWebapp.ProcessedModels
             CategoriesReference = categoriesReference;
             SubCategories = subCategories;
             Breadcrumbs = breadcrumbs;
-            MapPosition = mapPosition;
+            MapDetails = mapDetails;
             Volunteering = volunteering;
             Events = events;
             GroupAdministrators = groupAdministrators;

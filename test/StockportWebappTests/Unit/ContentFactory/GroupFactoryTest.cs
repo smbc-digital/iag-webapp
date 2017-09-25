@@ -62,10 +62,10 @@ namespace StockportWebappTests.Unit.ContentFactory
                 breadcrumbs: _breadcrumbs,
                 categoriesReference: CategoriesReference,
                 subCategories: null,
-                facebook : Facebook,
-                twitter : Twitter,
-                mapPosition:_mapPosition,
-                volunteering:_volunteering,
+                facebook: Facebook,
+                twitter: Twitter,
+                mapPosition: _mapPosition,
+                volunteering: _volunteering,
                 events: Events,
                 groupAdministrators: _groupAdministrators,
                 dateHiddenFrom: DateTime.MinValue,
@@ -77,8 +77,9 @@ namespace StockportWebappTests.Unit.ContentFactory
                 favourite: false,
                 volunteeringText: "text",
                 organisation: null,
-                linkedGroups: null,                
-                donations: false
+                linkedGroups: null,
+                donations: false,
+                accessibleTransportLink : null
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
@@ -97,8 +98,8 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.Email.Should().Be("email");
             result.PhoneNumber.Should().Be("phonenumber");
             result.ImageUrl.Should().Be("image.jpg");
-            result.MapPosition.Lat.Should().Be(39.0);
-            result.MapPosition.Lon.Should().Be(2.0);
+            result.MapDetails.MapPosition.Lat.Should().Be(39.0);
+            result.MapDetails.MapPosition.Lon.Should().Be(2.0);
             result.ThumbnailImageUrl.Should().Be("thumbnail.jpg");
             result.Twitter.Should().Be("twitter");
             result.Facebook.Should().Be("facebook");

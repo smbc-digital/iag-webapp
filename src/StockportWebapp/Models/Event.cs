@@ -30,5 +30,8 @@ namespace StockportWebapp.Models
         public EventFrequency EventFrequency { get; set;  }
         public int Occurences { get; set; }
         public List<EventCategory> EventCategories { get; set;}
+        public string AccessibleTransportLink { get; set; }
+
+
     }
 }

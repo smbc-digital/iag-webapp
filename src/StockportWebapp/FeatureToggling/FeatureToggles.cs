@@ -7,5 +7,6 @@ namespace StockportWebapp.FeatureToggling
         public bool GroupFilterBar { get; set; } = false;
         public bool GroupHomepage { get; set; } = false;
         public bool ShowcaseRedesign { get; set; } = false;
+        public bool AccessibleTransport { get; set; } = false;
     }
 }
