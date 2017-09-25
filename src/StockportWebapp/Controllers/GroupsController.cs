@@ -319,9 +319,8 @@ namespace StockportWebapp.Controllers
                 group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
                 var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-                var printScript = print ? _viewRender.Render("Shared/ExportPrint", group) : string.Empty;
                 var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
-                var joinedHtml = string.Concat(renderedExportStyles, printScript, renderedHtml);
+                var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 
                 // if raw html is requested, simply return the html instead
                 if (returnHtml || print) return Content(joinedHtml, "text/html");
@@ -1070,14 +1069,9 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            favouritesHelper.PopulateFavourites(model.Groups);
-
-            //Temporarily removed pagination
-            //DoPagination(model, page, pageSize);
-
             if (pageSize == -1)
             {
-                return View("FavouriteGroupsPrint", model);
+                return View("FavouriteGroupsPrint", model.Groups);
             }
             else
             {
