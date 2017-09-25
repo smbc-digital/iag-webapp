@@ -334,7 +334,7 @@ namespace StockportWebapp.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error exporting {slug} to pdf, exception: {ex.Message}");
-                return null;
+                return new ContentResult() { Content = "There was a problem exporting this group to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError};
             }
         }
 
@@ -1093,9 +1093,6 @@ namespace StockportWebapp.Controllers
             var model = response.Content as GroupResults;
 
             var groupList = model.Groups;
-
-            //Temporarily removed pagination
-            //DoPagination(model, 0, -1);
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
             var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
