@@ -305,30 +305,36 @@ namespace StockportWebapp.Controllers
         {
             _logger.LogInformation(string.Concat("Exporting group ", slug, " to pdf"));
 
-            ViewBag.CurrentUrl = Request?.GetUri();
-            ViewBag.Url = string.Concat(_host.GetHost(Request), "/groups/", slug);
+            try
+            {
+                ViewBag.CurrentUrl = Request?.GetUri();                
 
-            var response = await _processedContentRepository.Get<Group>(slug);
+                var response = await _processedContentRepository.Get<Group>(slug);
 
-            if (!response.IsSuccessful()) return response;
+                if (!response.IsSuccessful()) return response;
 
-            var group = response.Content as ProcessedGroup;
+                var group = response.Content as ProcessedGroup;
 
-            group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
+                group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-            var printScript = print ? _viewRender.Render("Shared/ExportPrint", group) : string.Empty;
-            var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
-            var joinedHtml = string.Concat(renderedExportStyles, printScript, renderedHtml);
+                var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
+                var renderedHtml = _viewRender.Render("Views/stockportgov/Shared/GroupDetail", group);
+                var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 
-            // if raw html is requested, simply return the html instead
-            if (returnHtml || print) return Content(joinedHtml, "text/html");
+                // if raw html is requested, simply return the html instead
+                if (returnHtml || print) return Content(joinedHtml, "text/html");
 
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
+                var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
 
-            if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
+                if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
 
-            return new FileContentResult(result, "application/pdf");
+                return new FileContentResult(result, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error exporting {slug} to pdf, exception: {ex.Message}");
+                return new ContentResult() { Content = "There was a problem exporting this group to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError};
+            }
         }
 
         [Route("/groups/manage/{slug}/users")]
@@ -1062,14 +1068,9 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            favouritesHelper.PopulateFavourites(model.Groups);
-
-            //Temporarily removed pagination
-            //DoPagination(model, page, pageSize);
-
             if (pageSize == -1)
             {
-                return View("FavouriteGroupsPrint", model);
+                return View("FavouriteGroupsPrint", model.Groups);
             }
             else
             {
@@ -1091,9 +1092,6 @@ namespace StockportWebapp.Controllers
             var model = response.Content as GroupResults;
 
             var groupList = model.Groups;
-
-            //Temporarily removed pagination
-            //DoPagination(model, 0, -1);
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
             var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
