@@ -16,6 +16,8 @@
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "Group") })
 }
 
+<link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-favourites.min.css" />
+
 <div class="grid-container-full-width" id="group-favourites">
     <div class="grid-container grid-100">
 
@@ -26,12 +28,12 @@
                     <div class="grid-container grid-parent">
                         <div id="favourites-list" class="@(Model.Groups.Any() ? "" : "hidden")">
                             @Html.Partial("Groups/GroupCardList", Model.Groups)
+                            @Html.Partial("Groups/FavouriteGroupsPrint", Model.Groups)
                             <div class="l-content-container grid-100 favourite-share-container">
                                 <div class="share border top-border">
                                     <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">                                        
                                         <a href="javascript:;" class="print-this">
                                             <i class="fa fa-print" aria-hidden="true"></i><b>Print favourites</b>
-                                            <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-favourites.min.css" />
                                         </a>
                                     </div>
                                     <div class="grid-20 tablet-grid-100 mobile-grid-100 favourite-share">

@@ -318,7 +318,7 @@ namespace StockportWebapp.Controllers
                 group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
 
                 var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-                var renderedHtml = _viewRender.Render("Views/stockportgov/Shared/GroupDetail", group);
+                var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
                 var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
 
                 // if raw html is requested, simply return the html instead
@@ -1067,6 +1067,8 @@ namespace StockportWebapp.Controllers
             model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
+
+            favouritesHelper.PopulateFavourites(model.Groups);
 
             if (pageSize == -1)
             {
