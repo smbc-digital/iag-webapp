@@ -30,6 +30,7 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
         private readonly Mock<IApplicationConfiguration> appConfig;
         private readonly Mock<IHttpContextAccessor> httpContextAccessor;
+        private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
 
         public ProcessedContentRepositoryTest()
         {
@@ -42,8 +43,9 @@ namespace StockportWebappTests.Unit.Repositories
             appConfig = new Mock<IApplicationConfiguration>();
             httpContextAccessor = new Mock<IHttpContextAccessor>();
             _mockHttpClient = new Mock<IHttpClient>();
+            _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
 
-            var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, httpContextAccessor.Object);
+            var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, httpContextAccessor.Object, _s3BucketParser.Object);
             _repository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, contentFactory, appConfig.Object);
         }
 
@@ -67,6 +69,7 @@ namespace StockportWebappTests.Unit.Repositories
             _markdownWrapper.Setup(o => o.ConvertToHtml(It.IsAny<string>())).Returns(body);
             _documentTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>())).Returns(body);
             _alertsInlineTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>())).Returns(body);
+            _s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(body);
 
             var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Article>(articleSlug));
             var article = httpResponse.Content as ProcessedArticle;

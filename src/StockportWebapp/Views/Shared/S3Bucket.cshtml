@@ -1,0 +1,28 @@
+﻿@model StockportWebapp.Models.S3BucketSearch
+
+@ViewBag.FileInfo
+
+@if (Model.Files.Count > 0)
+    {
+        foreach (var element in Model.Files)
+            {        
+                < p > @Html.DisplayFor(m => element) </ p >
+                < a href = "http:// @Model." ></ a >
+                }
+    }
+
+<form method="post" role="form" action="/@Model.Slug">
+        <div class="form">
+                <div class="form-section">
+                        <fieldset>
+                                <label name="slug" style="display:none">brian-blessed-to-vistit-hatworks</label>
+                                <label asp-for="SearchTerm"></label>
+                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="SearchTerm" />
+                                <span asp-validation-for="SearchTerm" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                @Html.HiddenFor(e => e.SearchFolder)
+                                <stock-button id="uitest-contact-form-submit"
+                                                class="button-contact-us">Filter</stock-button>                
+            </fieldset>            
+        </div>        
+    </div>    
+</form>

@@ -12,6 +12,11 @@ using StockportWebapp.ProcessedModels;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.QuestionBuilder.Maps;
 using System;
+using System.Collections.Generic;
+using Amazon.S3;
+using Amazon.S3.Model;
+using StockportWebapp.ContentFactory;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Controllers
 {
@@ -19,14 +24,16 @@ namespace StockportWebapp.Controllers
     public class ArticleController : Controller
     {
         private readonly IProcessedContentRepository _repository;
+        private readonly IArticleRepository _articlerepository;
         private readonly ILogger<ArticleController> _logger;
         private readonly IContactUsMessageTagParser _contactUsMessageParser;
 
-        public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser)
+        public ArticleController(IProcessedContentRepository repository, ILogger<ArticleController> logger, IContactUsMessageTagParser contactUsMessageParser, IArticleRepository articlerepository)
         {
             _repository = repository;
             _logger = logger;
             _contactUsMessageParser = contactUsMessageParser;
+            _articlerepository = articlerepository;
         }
 
         [Route("/map")]
@@ -36,9 +43,9 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/{articleSlug}")]
-        public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message)
-        { 
-            var articleHttpResponse = await _repository.Get<Article>(articleSlug);
+        public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
+        {
+            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder);
 
             if (!articleHttpResponse.IsSuccessful())
                 return articleHttpResponse;

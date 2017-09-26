@@ -14,8 +14,10 @@ namespace StockportWebapp.ContentFactory
         private readonly ISectionFactory _sectionFactory;
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly IDynamicTagParser<Document> _documentTagParser;
+        private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
 
-        public ArticleFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser)
+        public ArticleFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, 
+            IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<S3BucketSearch> searchTagParser)
         {
             _tagParserContainer = tagParserContainer;
             _sectionFactory = sectionFactory;
@@ -23,6 +25,7 @@ namespace StockportWebapp.ContentFactory
             _profileTagParser = profileTagParser;
             _documentTagParser = documentTagParser;
             _alertsInlineTagParser = alertsInlineTagParser;
+            _searchTagParser = searchTagParser;
         }
 
         public virtual ProcessedArticle Build(Article article)
@@ -33,6 +36,11 @@ namespace StockportWebapp.ContentFactory
                 processedSections.Add(_sectionFactory.Build(section, article.Title));
             }
 
+            article.S3Bucket = new S3BucketSearch();
+            article.S3Bucket.Files = new List<string>();
+            article.S3Bucket.Folders = new List<string>();
+            article.S3Bucket.Slug = article.Slug;
+
             var body = _tagParserContainer.ParseAll(article.Body, article.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");
             if (article.LiveChat != null)
@@ -42,6 +50,7 @@ namespace StockportWebapp.ContentFactory
             body = _profileTagParser.Parse(body, article.Profiles);
             body = _documentTagParser.Parse(body, article.Documents);
             body = _alertsInlineTagParser.Parse(body, article.AlertsInline);
+            body = _searchTagParser.Parse(body, new List<S3BucketSearch> { article.S3Bucket });
 
             return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, 
                 processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline, article.Advertisement);

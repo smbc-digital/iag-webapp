@@ -15,6 +15,7 @@ using Helper = StockportWebappTests.TestHelper;
 using static StockportWebapp.Models.LiveChat;
 using System;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -23,6 +24,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly ArticleController _controller;
         private readonly FakeProcessedContentRepository _fakeRepository;
         private readonly Mock<IContactUsMessageTagParser> _contactUsMessageParser;
+        private readonly Mock<IArticleRepository> _articleRepository;
 
         private const string DefaultMessage = "A default message";
 
@@ -32,7 +34,9 @@ namespace StockportWebappTests.Unit.Controllers
 
             _contactUsMessageParser = new Mock<IContactUsMessageTagParser>();
 
-            _controller = new ArticleController(_fakeRepository, new Mock<ILogger<ArticleController>>().Object, _contactUsMessageParser.Object);
+            _articleRepository = new Mock<IArticleRepository>();
+
+            _controller = new ArticleController(_fakeRepository, new Mock<ILogger<ArticleController>>().Object, _contactUsMessageParser.Object, _articleRepository.Object);
         }
 
         [Fact]
@@ -44,9 +48,9 @@ namespace StockportWebappTests.Unit.Controllers
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg", 
                 new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement());
 
-            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var viewModel = articlePage.ViewData.Model as ArticleViewModel;
 
             viewModel.Article.Title.Should().Contain("Physical Activity");
@@ -72,9 +76,9 @@ namespace StockportWebappTests.Unit.Controllers
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
                 new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), advertisement);
 
-            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var viewModel = articlePage.ViewData.Model as ArticleViewModel;
 
             viewModel.Article.Advertisement.Isadvertisement.Should().Be(true);
@@ -92,15 +96,15 @@ namespace StockportWebappTests.Unit.Controllers
             var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
                 DateTime.MinValue, false, "image-url", "image");
 
-
             var article = new ProcessedArticle("Physical Activity", "physical-activity",
                 "Being active is great for your body", "teaser", new List<ProcessedSection>() { DummySection() },
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
                 new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), advertisement);
 
-            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+
+            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var viewModel = articlePage.ViewData.Model as ArticleViewModel;
 
             viewModel.Article.Advertisement.Isadvertisement.Should().Be(false);
@@ -118,9 +122,10 @@ namespace StockportWebappTests.Unit.Controllers
                 new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement());
 
             var response = new HttpResponse(200, article, string.Empty);
-            _fakeRepository.Set(response);
 
-            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
+
+            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var displayedArticle = view.ViewData.Model as ArticleViewModel;
 
             displayedArticle.DisplayedSection.Title.Should().Contain("Overview");
@@ -140,9 +145,9 @@ namespace StockportWebappTests.Unit.Controllers
 
             var response = new HttpResponse(200, article, string.Empty);
 
-            _fakeRepository.Set(response);
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
 
-            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage)) as ViewResult;
+            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
 
             view.ViewData["CanonicalUrl"].Should().BeNull();
         }
@@ -224,7 +229,9 @@ namespace StockportWebappTests.Unit.Controllers
 
             _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
+
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.Alerts.Should().HaveCount(1);
@@ -237,9 +244,9 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItInvokesArticleFactoryToBuildArticleForView()
         {
-            _fakeRepository.Set(new HttpResponse(200, DummyProcessedArticle(), string.Empty));
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, DummyProcessedArticle(), string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.Should().BeOfType(typeof(ProcessedArticle));
@@ -252,9 +259,9 @@ namespace StockportWebappTests.Unit.Controllers
             var processedArticle = DummyProcessedArticle();
             var slug = "healthy-living";
 
-            _fakeRepository.Set(new HttpResponse(200, processedArticle, string.Empty));
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
 
-            AsyncTestHelper.Resolve(_controller.Article(slug, DefaultMessage));
+            AsyncTestHelper.Resolve(_controller.Article(slug, DefaultMessage, string.Empty, string.Empty));
 
             _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, ""), Times.Once);
         }
@@ -284,9 +291,9 @@ namespace StockportWebappTests.Unit.Controllers
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), alertsInline, new NullAdvertisement());
 
-            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.AlertsInline.Should().HaveCount(1);
@@ -310,9 +317,9 @@ namespace StockportWebappTests.Unit.Controllers
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), alertsInline, new NullAdvertisement());
 
-            _fakeRepository.Set(new HttpResponse(200, article, string.Empty));
+            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage)) as ViewResult;
+            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.Sections.FirstOrDefault().AlertsInline.Should().HaveCount(1);

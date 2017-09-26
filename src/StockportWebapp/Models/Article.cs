@@ -21,7 +21,8 @@ namespace StockportWebapp.Models
         public LiveChat LiveChat { get; set; }
         public IEnumerable<Alert> AlertsInline { get; set; }
         public Advertisement Advertisement { get; set; }
-        
+        public S3BucketSearch S3Bucket { get; set; }
+
         public Article(string title, string slug, string body, string teaser, IEnumerable<Section> sections, string icon, string backgroundImage, string image,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, bool liveChatVisible, LiveChat liveChat, IEnumerable<Alert> alertsInline, Advertisement advertisement)
         {
