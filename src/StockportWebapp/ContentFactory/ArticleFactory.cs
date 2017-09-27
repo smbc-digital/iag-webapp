@@ -35,11 +35,11 @@ namespace StockportWebapp.ContentFactory
             {
                 processedSections.Add(_sectionFactory.Build(section, article.Title));
             }
-
-            article.S3Bucket = new S3BucketSearch();
-            article.S3Bucket.Files = new List<string>();
-            article.S3Bucket.Folders = new List<string>();
-            article.S3Bucket.Slug = article.Slug;
+            
+            //article.S3Bucket.Files = new List<string>();
+            //article.S3Bucket.Folders = new List<string>();
+            //article.S3Bucket.Slug = article.Slug;
+            //article.S3Bucket.S3Bucket = article.S3Bucket.SearchTerm;           
 
             var body = _tagParserContainer.ParseAll(article.Body, article.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");
@@ -53,7 +53,7 @@ namespace StockportWebapp.ContentFactory
             body = _searchTagParser.Parse(body, new List<S3BucketSearch> { article.S3Bucket });
 
             return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, 
-                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline, article.Advertisement);
+                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline, article.Advertisement, article.S3Bucket);
         }
     }
 }

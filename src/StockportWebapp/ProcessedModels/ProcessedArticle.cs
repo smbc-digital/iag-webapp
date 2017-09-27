@@ -28,10 +28,11 @@ namespace StockportWebapp.ProcessedModels
         public LiveChat LiveChat { get; set; }
         public readonly IEnumerable<Alert> AlertsInline;
         public Advertisement Advertisement;
-        
+        public S3BucketSearch S3BucketSearch; 
+
         public ProcessedArticle(string title, string slug, string body, string teaser,
             IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, IEnumerable<Crumb> breadcrumbs, 
-            IEnumerable<Alert> alerts, Topic topic, bool liveChatVisible, LiveChat liveChat, IEnumerable<Alert> alertsInline, Advertisement advertisement)
+            IEnumerable<Alert> alerts, Topic topic, bool liveChatVisible, LiveChat liveChat, IEnumerable<Alert> alertsInline, Advertisement advertisement, S3BucketSearch s3BucketSearch)
         {
             Title = title;
             NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -48,6 +49,7 @@ namespace StockportWebapp.ProcessedModels
             LiveChat = liveChat;
             AlertsInline = alertsInline;
             Advertisement = advertisement;
+            S3BucketSearch = s3BucketSearch;
         }
 
         public void AddContactUsMessage(string message, string slug = "")

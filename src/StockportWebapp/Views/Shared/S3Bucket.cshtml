@@ -2,17 +2,16 @@
 
 @ViewBag.FileInfo
 
-@{   
-    var url = @ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
+@{ 
+    var ServiceURL = "https://"+Model.AWSLink+"/"+Model.S3Bucket;
 }
 
 @if (Model.Files.Count > 0)
-    {
+    {       
         foreach (var element in Model.Files)
-            {        
-                < p > @Html.DisplayFor(m => element) </ p >
-                < a href = "http:// @Model." ></ a >
-                }
+        {                    
+          <a target="_blank" href ="@ServiceURL/@element"><p>@Html.DisplayFor(m => element)</p></a>
+        }
     }
 
 <form method="post" role="form" action="/@Model.Slug">
@@ -24,7 +23,7 @@
                     <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="SearchTerm" />
                     <span asp-validation-for="SearchTerm" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                     @Html.HiddenFor(e => e.SearchFolder)
-                    <stock-button id="uitest-contact-form-submit" href="@url" class="button-contact-us">Filter</stock-button>                
+                    <stock-button id="uitest-contact-form-submit" class="button-contact-us">Filter</stock-button>                
             </fieldset>            
         </div>        
     </div>    

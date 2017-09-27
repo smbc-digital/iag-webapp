@@ -55,8 +55,10 @@ namespace StockportWebapp.Repositories
             bucket.Files = new List<string>();
             bucket.Folders = new List<string>();
             bucket.Slug = slug;
-            //SearchTerm = "pdf";
-            //SearchFolder = "areaA";
+            bucket.SearchTerm = SearchTerm;
+            bucket.SearchFolder = SearchFolder;
+            bucket.AWSLink = ServiceUrl;
+            bucket.S3Bucket = BucketName;
             if (!string.IsNullOrEmpty(SearchTerm) && !string.IsNullOrEmpty(SearchFolder))
             {
                 bucket.Files = await ListFilesIn(SearchFolder, SearchTerm);
@@ -103,7 +105,7 @@ namespace StockportWebapp.Repositories
                         foreach (var item in files)
                         {
                             var tempSplit = item.Split('/');
-                            if (tempSplit.Last().Contains(searchTerm))
+                            if (tempSplit.Last().ToLower().Contains(searchTerm.ToLower()))
                             {
                                 temp.Add(item);
                             }
