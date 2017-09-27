@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
@@ -44,12 +45,33 @@ namespace StockportWebappTests.Unit.Middleware
         }
 
         [Fact]
-        public void ShouldLogErrorIfNoBusinessIdIsSet()
+        public void ShouldLogWarningIfNoBusinessIdIsSet()
         {
             var context = new DefaultHttpContext();
+            context.Request.Path = "/";
             _businessIdMiddleware.Invoke(context, _businessId);
 
-            LogTesting.Assert(_logger, LogLevel.Error, "BUSINESS-ID has not been set");
+            LogTesting.Assert(_logger, LogLevel.Warning, "BUSINESS-ID has not been set, setting to default");
+        }
+
+        [Fact]
+        public void ShouldNotLogIfNoBusinessIdIsSetAndIsAsset()
+        {
+            var context = new DefaultHttpContext();
+            context.Request.Path = "/assets/test.js";
+            _businessIdMiddleware.Invoke(context, _businessId);
+
+            LogTesting.DoesNotContain(_logger, LogLevel.Warning, "BUSINESS-ID has not been set, setting to default");
+        }
+
+        [Fact]
+        public void ShouldNotLogIfNoBusinessIdIsSetAndIsHealthCheck()
+        {
+            var context = new DefaultHttpContext();
+            context.Request.Path = "/_healthcheck";
+            _businessIdMiddleware.Invoke(context, _businessId);
+
+            LogTesting.DoesNotContain(_logger, LogLevel.Warning, "BUSINESS-ID has not been set, setting to default");
         }
 
         [Fact]

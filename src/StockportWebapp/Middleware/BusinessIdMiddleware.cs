@@ -19,18 +19,20 @@ namespace StockportWebapp.Middleware
 
         public Task Invoke(HttpContext context, BusinessId businessId)
         {
-            StringValues idFromHeader;
-
-            if (context.Request.Headers.TryGetValue("BUSINESS-ID", out idFromHeader))
+            if (context.Request.Headers.TryGetValue("BUSINESS-ID", out StringValues idFromHeader))
             {
                 businessId.SetId(idFromHeader);
                 _logger.LogInformation($"BUSINESS-ID has been set to: {idFromHeader}");
             }
             else
             {
+                // default to stockportgov if no businessid
                 businessId.SetId(new StringValues("stockportgov"));
                 context.Request.Headers.Add("BUSINESS-ID", businessId.ToString());
-                _logger.LogError("BUSINESS-ID has not been set");
+
+                if (context.Request.Path.HasValue 
+                    && !context.Request.Path.Value.ToLower().Contains("/assets/")
+                    && !context.Request.Path.Value.ToLower().Contains("healthcheck")) _logger.LogWarning("BUSINESS-ID has not been set, setting to default");
             }
 
             return _next(context);
