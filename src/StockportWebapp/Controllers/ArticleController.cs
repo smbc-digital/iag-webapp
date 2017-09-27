@@ -17,6 +17,7 @@ using Amazon.S3;
 using Amazon.S3.Model;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Utils;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 
 namespace StockportWebapp.Controllers
 {
@@ -55,6 +56,8 @@ namespace StockportWebapp.Controllers
             _contactUsMessageParser.Parse(article, message, "");
             
             var viewModel = new ArticleViewModel(article);
+
+            ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(viewModel);
         }
