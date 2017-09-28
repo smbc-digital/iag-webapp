@@ -18,7 +18,7 @@
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="@(Model.Topic.EmailAlerts ? "grid-70 tablet-grid-70" : "grid-100 tablet-grid-100") mobile-grid-100">
-                <h1>@topic.Name</h1>
+                <h1 id="content">@topic.Name</h1>
                 @if (topic.Summary != null)
                 {
                 @Html.Raw(@topic.Summary)
