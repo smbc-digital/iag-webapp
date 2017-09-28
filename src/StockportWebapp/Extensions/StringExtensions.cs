@@ -11,7 +11,7 @@ namespace StockportWebapp.Extensions
 
         public static string StripEmojis(this string input)
         {
-            return Regex.Replace(input, @"[^\u0000-\u007F]+", "");
+            return Regex.Replace(input, @"(?![\u00A3])[^\u0000-\u007F]+", "");
         }
 
         private static string TrimStart(this string target, string trimString)
