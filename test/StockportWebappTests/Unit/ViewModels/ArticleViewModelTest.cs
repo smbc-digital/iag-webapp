@@ -192,7 +192,7 @@ namespace StockportWebappTests.Unit.ViewModels
 
             var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
             var article = new ProcessedArticle(Helper.AnyString,Helper.AnyString, Helper.AnyString, Helper.AnyString,new List<ProcessedSection>(),
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -219,7 +219,7 @@ namespace StockportWebappTests.Unit.ViewModels
 
             var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
             var article = new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<ProcessedSection>(),
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement);
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -251,7 +251,7 @@ namespace StockportWebappTests.Unit.ViewModels
             var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
             var article = new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<ProcessedSection>(), Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement());
+                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -277,7 +277,7 @@ namespace StockportWebappTests.Unit.ViewModels
             var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
                 new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
             return new ProcessedArticle(Helper.AnyString, slug, Helper.AnyString, Helper.AnyString, sections,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
         }
 
 

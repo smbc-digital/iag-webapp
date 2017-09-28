@@ -7,12 +7,16 @@
 }
 
 @if (Model.Files.Count > 0)
-    {       
-        foreach (var element in Model.Files)
-        {                    
-          <a target="_blank" href ="@ServiceURL/@element"><p>@Html.DisplayFor(m => element)</p></a>
-        }
+{       
+    foreach (var element in Model.Files)
+    {                    
+        <a target="_blank" href ="@ServiceURL/@element"><p>@Html.DisplayFor(m => element)</p></a>
     }
+}
+else
+{
+    <p>No Results found</p>
+}
 
 <form method="post" role="form" action="/@Model.Slug">
      <div class="form">
