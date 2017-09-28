@@ -13,10 +13,6 @@
         <a target="_blank" href ="@ServiceURL/@element"><p>@Html.DisplayFor(m => element)</p></a>
     }
 }
-else
-{
-    <p>No Results found</p>
-}
 
 <form method="post" role="form" action="/@Model.Slug">
      <div class="form">
@@ -27,7 +23,7 @@ else
                     <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="SearchTerm" />
                     <span asp-validation-for="SearchTerm" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                     @Html.HiddenFor(e => e.SearchFolder)
-                    <stock-button id="uitest-contact-form-submit" class="button-contact-us">Filter</stock-button>                
+                    <stock-button id="uitest-contact-form-submit" class="button-contact-us">Search</stock-button>                
             </fieldset>            
         </div>        
     </div>    
