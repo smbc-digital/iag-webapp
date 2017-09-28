@@ -97,6 +97,7 @@ namespace StockportWebapp.Extensions
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
             services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
+            services.AddSingleton<IDynamicTagParser<S3BucketSearch>, S3BucketSearchTagParser>();
             services.AddSingleton(
                 p =>
                     new List<ISimpleTagParser>()
@@ -124,6 +125,9 @@ namespace StockportWebapp.Extensions
             services.AddSingleton<IRssFeedFactory, RssFeedFactory>();
             services.AddTransient<ArticleFactory>();
             services.AddTransient<SectionFactory>();
+            services.AddTransient(p => new ArticleFactory(p.GetService<ISimpleTagParserContainer>(),
+            p.GetService<IDynamicTagParser<Profile>>(), p.GetService<SectionFactory>(), p.GetService<MarkdownWrapper>(),
+            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IDynamicTagParser<S3BucketSearch>>()));
 
             return services;
         }
@@ -147,7 +151,7 @@ namespace StockportWebapp.Extensions
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(p.GetService<ISimpleTagParserContainer>(),
                             p.GetService<IDynamicTagParser<Profile>>(), p.GetService<MarkdownWrapper>(),
-                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IHttpContextAccessor>()), p.GetService<IApplicationConfiguration>()));
+                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IHttpContextAccessor>(), p.GetService<IDynamicTagParser<S3BucketSearch>>()), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IPaymentRepository, PaymentRepository>();
 
@@ -185,6 +189,10 @@ namespace StockportWebapp.Extensions
             services.AddSingleton(p => new CalendarHelper(p.GetService<ITimeProvider>()));
             services.AddSingleton<ParisHashHelper>();
             services.AddSingleton(p => new FavouritesHelper(p.GetService<IHttpContextAccessor>()));
+            services.AddTransient<IArticleRepository>(
+                p =>
+                    new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
+                        p.GetService<ArticleFactory>(), p.GetService<IApplicationConfiguration>()));
 
             return services;
         }

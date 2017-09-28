@@ -21,7 +21,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
         private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
         private readonly List<Profile> _emptyProfiles = new List<Profile>();
-        private readonly List<Document> _emptyDocuments = new List<Document>();
+        private readonly List<Document> _emptyDocuments = new List<Document>();      
         private const string Title = "title";
         private const string Slug = "slug";
         private const string Body = "body";
@@ -39,6 +39,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private const bool _liveChatVisible = true;
         private readonly LiveChat _liveChat = new LiveChat("Title","text");
         private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
+        private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
 
         public ArticleFactoryTest()
         {
@@ -48,7 +49,8 @@ namespace StockportWebappTests.Unit.ContentFactory
             _sectionFactory = new Mock<ISectionFactory>();
             _documentTagParser= new Mock<IDynamicTagParser<Document>>();
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
-            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object);
+            _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
+            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object);
 
             _sectionOne = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
             _processedSectionOne = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
@@ -70,6 +72,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
             _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
+            _s3BucketParser.Setup(o => o.Parse(Body, It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(Body);
         }
 
         [Fact]
