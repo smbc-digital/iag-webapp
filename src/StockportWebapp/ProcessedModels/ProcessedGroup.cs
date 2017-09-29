@@ -33,6 +33,7 @@ namespace StockportWebapp.ProcessedModels
         public List<Group> LinkedGroups { get; private set; }
         public Donations Donations { get; set; }
         public MapDetails MapDetails { get; set; }
+        public string CurrentUrl { get; private set; }
 
         public ProcessedGroup()
         {
@@ -71,6 +72,11 @@ namespace StockportWebapp.ProcessedModels
             Organisation = organisation;
             LinkedGroups = linkedGroups;
             Donations = donations;
+        }
+
+        public void SetCurrentUrl(string url)
+        {
+            this.CurrentUrl = url;
         }
     }
 }

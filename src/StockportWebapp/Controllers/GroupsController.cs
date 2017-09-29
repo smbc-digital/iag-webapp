@@ -44,9 +44,12 @@ namespace StockportWebapp.Controllers
         private readonly IDateCalculator _dateCalculator;
         private readonly FavouritesHelper favouritesHelper;
         private readonly HostHelper _host;
+        private readonly IHtmlUtilities _htmlUtilities;
+        private readonly HostHelper _hostHelper;
 
         public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, 
-            ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor, [FromServices] CurrentEnvironment environment)
+            ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor, [FromServices] CurrentEnvironment environment,
+            IHtmlUtilities htmlUtilities, HostHelper hostHelper)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -62,6 +65,8 @@ namespace StockportWebapp.Controllers
             _dateCalculator = dateCalculator;
             favouritesHelper = new FavouritesHelper(httpContextAccessor);
             _host = new HostHelper(environment);
+            _hostHelper = hostHelper;
+            _htmlUtilities = htmlUtilities;
         }
 
         [Route("/groups")]
@@ -307,19 +312,21 @@ namespace StockportWebapp.Controllers
 
             try
             {
-                ViewBag.CurrentUrl = Request?.GetUri();                
-
                 var response = await _processedContentRepository.Get<Group>(slug);
 
                 if (!response.IsSuccessful()) return response;
 
                 var group = response.Content as ProcessedGroup;
 
-                group.Slug = string.Concat(_host.GetHost(Request), "/groups/", slug);
+                // Set the current url
+                group.SetCurrentUrl(_host.GetHost(Request));
 
                 var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
                 var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
-                var joinedHtml = string.Concat(renderedExportStyles, renderedHtml);
+
+                var renderedHtmlAbsoluteLinks = _htmlUtilities.ConvertRelativeUrltoAbsolute(renderedHtml, _hostHelper.GetHost(Request));
+
+                var joinedHtml = string.Concat(renderedExportStyles, renderedHtmlAbsoluteLinks);
 
                 // if raw html is requested, simply return the html instead
                 if (returnHtml || print) return Content(joinedHtml, "text/html");

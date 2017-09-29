@@ -26,7 +26,7 @@
     <div class="grid-container remove-edges-for-pdf grid-100">
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">            
             <section aria-label="@Model.Name content">  
-                <a class="hidden display-on-pdf" href="@Model.Slug">@Model.Slug</a>
+                <a class="hidden display-on-pdf" href="@Model.Slug">@string.Concat(Model.CurrentUrl, "/groups/", Model.Slug)</a>
                 <div class="l-content-container grid-100 group-margin">
                     <h1 class="group-article-title">@Model.Name</h1>
                     <div class="grid-100 tablet-grid-100 mobile-grid-100 group-calender-container">
@@ -297,6 +297,7 @@
                         }
                         @if (Model.LinkedGroups != null && Model.LinkedGroups.Any())
                         {
+                            <div style='page-break-before: always;'></div>
                             <div class="group-details-heading-border linked-group-container">
                                 <h3 class="group-details-heading">You may also like</h3>
                                 @if (Model.LinkedGroups.Count() > 3)
