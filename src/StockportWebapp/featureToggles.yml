@@ -5,7 +5,7 @@ prod: &prod
   GroupFilterBar : true
   GroupHomepage : true
   ShowcaseRedesign: true
-  AccessibleTransport: false
+  AccessibleTransport: true
 
 stage: &stage
   << : *prod
@@ -18,12 +18,9 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
-  AccessibleTransport: true
 
 local: &local
   << : *prod
   << : *stage
   << : *qa
   << : *int
-
-

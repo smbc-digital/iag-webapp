@@ -85,8 +85,31 @@ define(["jquery"], function ($) {
                     $(".info-drop-down-up").addClass("fa-angle-down");
                     $(".info-drop-down-up").removeClass("fa-angle-up");
                 }
+            }); 
+        });
+
+        $(document).ready(function () {
+            $(".radio-image").click(function() {
+                $(".radio-button-smart", $(this).parent()).click();
             });
-        });   
+        });
+        
+        $(document).ready(function () {
+            $(".radio-button-smart").change(function() {
+                $(".radio-button-smart").each(function (index, button) {
+                    var ischecked = $(button).is(':checked');
+                    if(ischecked) 
+                    {
+                        $(button).parent().parent().parent().addClass('checked');
+                    }
+                    else
+                    {
+                        $(button).parent().parent().parent().removeClass('checked');
+                    }
+                    
+                });                    
+            });
+        });
     };
 
     return {
