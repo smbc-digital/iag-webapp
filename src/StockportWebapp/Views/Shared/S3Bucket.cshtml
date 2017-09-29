@@ -10,7 +10,7 @@
 {       
     foreach (var element in Model.Files)
     {                    
-        <a target="_blank" href ="@ServiceURL/@element"><p>@Html.DisplayFor(m => element)</p></a>
+        <a target="_blank" href ="@ServiceURL/@element"><p class="word-wrap-break-word">@Html.DisplayFor(m => element)</p></a>
     }
 }
 
