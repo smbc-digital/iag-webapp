@@ -33,13 +33,9 @@ namespace StockportWebapp.ContentFactory
             var processedSections = new List<ProcessedSection>();
             foreach (var section in article.Sections)
             {
+                section.S3Bucket = article.S3Bucket;
                 processedSections.Add(_sectionFactory.Build(section, article.Title));
-            }
-            
-            //article.S3Bucket.Files = new List<string>();
-            //article.S3Bucket.Folders = new List<string>();
-            //article.S3Bucket.Slug = article.Slug;
-            //article.S3Bucket.S3Bucket = article.S3Bucket.SearchTerm;           
+            }                  
 
             var body = _tagParserContainer.ParseAll(article.Body, article.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");

@@ -46,7 +46,7 @@ namespace StockportWebapp.Controllers
         [Route("/{articleSlug}")]
         public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
         {
-            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder);
+            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetUri().ToString());
 
             if (!articleHttpResponse.IsSuccessful())
                 return articleHttpResponse;
@@ -63,9 +63,9 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/{articleSlug}/{sectionSlug}")]
-        public async Task<IActionResult> ArticleWithSection(string articleSlug, string sectionSlug, [FromQuery] string message)
+        public async Task<IActionResult> ArticleWithSection(string articleSlug, string sectionSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
         {
-            var articleHttpResponse = await _repository.Get<Article>(articleSlug);
+            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetUri().ToString());
 
             if (!articleHttpResponse.IsSuccessful())
                 return articleHttpResponse;
