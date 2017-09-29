@@ -16,5 +16,6 @@ namespace StockportWebapp.Models
         public string S3Bucket { get; set; }
         public string AWSLink { get; set; }
         public string SearchFolder { get; set; }
+        public string CurrentUrl { get; set; }
     }
 }

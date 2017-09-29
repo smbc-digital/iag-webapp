@@ -13,7 +13,7 @@ namespace StockportWebapp.Repositories
 {
     public interface IArticleRepository
     {
-        Task<HttpResponse> Get(string slug = "", string SearchTerm = "", string SearchFolder = "");
+        Task<HttpResponse> Get(string slug = "", string SearchTerm = "", string SearchFolder = "", string currentUrl = "");
     }
 
     public class ArticleRepository : IArticleRepository
@@ -39,7 +39,7 @@ namespace StockportWebapp.Repositories
             authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
         }
 
-        public async Task<HttpResponse> Get(string slug = "", string SearchTerm = "", string SearchFolder = "")
+        public async Task<HttpResponse> Get(string slug = "", string searchTerm = "", string searchFolder = "", string currentUrl= "")
         {
             var url = _urlGenerator.UrlFor<Article>(slug);
             var httpResponse = await _httpClient.Get(url, authenticationHeaders);
@@ -55,16 +55,16 @@ namespace StockportWebapp.Repositories
             bucket.Files = new List<string>();
             bucket.Folders = new List<string>();
             bucket.Slug = slug;
-            bucket.SearchTerm = SearchTerm;
-            bucket.SearchFolder = SearchFolder;
+            bucket.SearchTerm = searchTerm;
+            bucket.SearchFolder = searchFolder;
             bucket.AWSLink = ServiceUrl;
             bucket.S3Bucket = BucketName;
-            if (!string.IsNullOrEmpty(SearchTerm) && !string.IsNullOrEmpty(SearchFolder))
+            bucket.CurrentUrl = currentUrl;
+            if (!string.IsNullOrEmpty(searchTerm) && !string.IsNullOrEmpty(searchFolder))
             {
-                bucket.Files = await ListFilesIn(SearchFolder, SearchTerm);
+                bucket.Files = await ListFilesIn(searchFolder, searchTerm);
             }
-            article.S3Bucket = bucket;
-            
+            article.S3Bucket = bucket;            
 
             var processedModel = _articleFactory.Build(article);
 

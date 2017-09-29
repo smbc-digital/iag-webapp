@@ -4,10 +4,6 @@
     margin-right: auto;
     max-width: 1140px;
 
-    @media #{$desktop, $tablet} {
-        padding-left: 30px;
-    }
-
     h1 {
         padding: 20px 0;
         font-size: 40px;
