@@ -47,7 +47,12 @@
         width: 100% !important;
 
         .group-card {
-            height: 250px !important;
+            box-shadow: none;
+            padding-bottom: 0px;
+
+            &:hover {
+                box-shadow: none;
+            }
 
             .group-card-main {
                 .group-image {
@@ -56,9 +61,8 @@
 
                 .group-card-information {
                     width: 50%;
-                    float:right;
-                    height:auto !important;               
-
+                    float: right;
+                    height: auto !important;
                 }
             }
         }
@@ -69,19 +73,20 @@
     .event-listing-container {
         .event-li {
             width: 100% !important;
-            height: 250px !important;
             overflow-y: hidden;
 
             .event-card {
                 height: inherit !important;
+                box-shadow: none;
+                padding-bottom: 0px;
 
                 .event-image {
-                    width: 45% !important;                   
+                    width: 45% !important;
                 }
 
                 .event-card-information {
                     width: 50% !important;
-                    float: right !important;                   
+                    float: right !important;
                 }
             }
         }
@@ -110,13 +115,11 @@ body{
     -webkit-print-color-adjust: exact;
     margin-bottom: 30px;
     page-break-inside: avoid !important;
-    width: 33%;
     display: inline-block;
     vertical-align: top;
 
     a {
         display: inline-block;
-        min-height: 330px;
     }
 
     .event-card-text {
@@ -130,6 +133,10 @@ body{
     .event-title h3 {
         font-size: 1.1em;
     }
+
+    .more-information-link {
+        text-align: right;
+    }
 }
 
 .embed-map-container {
@@ -142,6 +149,11 @@ body{
 
 .organisation-detail img {
     width: 30%;
+}
+
+.link-inside-text {
+    text-decoration: underline;
+    color: #055c58;
 }
 
 
