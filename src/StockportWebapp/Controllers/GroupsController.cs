@@ -1094,22 +1094,32 @@ namespace StockportWebapp.Controllers
         {
             _logger.LogInformation("Exporting group favourites to pdf");
 
-            var response = await GetFavouriteGroupResults();
+            try
+            {
+                var response = await GetFavouriteGroupResults();
 
-            if (response.IsNotFound()) return NotFound();
+                if (response.IsNotFound()) return NotFound();
 
-            var model = response.Content as GroupResults;
+                var model = response.Content as GroupResults;
 
-            var groupList = model.Groups;
+                var groupList = model.Groups;
 
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-            var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
+                var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
+                var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
 
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 1000 });
+                var renderedHtmlAbsoluteLinks = _htmlUtilities.ConvertRelativeUrltoAbsolute(renderedHtml, _hostHelper.GetHost(Request));
 
-            if (result == null) _logger.LogError("Failed to export group favourites to pdf");
+                var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtmlAbsoluteLinks), delay = 1000 });
 
-            return new FileContentResult(result, "application/pdf");
+                if (result == null) _logger.LogError("Failed to export group favourites to pdf");
+
+                return new FileContentResult(result, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error exporting favourites to pdf, exception: {ex.Message}");
+                return new ContentResult() { Content = "There was a problem exporting favourites to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError };
+            }
         }
 
         [HttpGet]
