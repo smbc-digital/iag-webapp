@@ -16,7 +16,7 @@
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
-        <div class="l-body-section-filled l-article-content @(latestNews.Any()
+        <div id="content" class="l-body-section-filled l-article-content @(latestNews.Any()
                                                                   ? "mobile-grid-100 tablet-grid-100 grid-70"
                                                                   : "mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.NewsItem.Title content" class="grid-100 mobile-grid-100">
