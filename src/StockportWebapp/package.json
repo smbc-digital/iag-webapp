@@ -1,6 +1,6 @@
 {
-  "name": "StockportWebapp",
-  "version": "0.0.0",
+  "name": "stockportwebapp",
+  "version": "1.0.0",
   "devDependencies": {
     "gulp": "3.8.11",
     "gulp-sass": "*",
@@ -21,8 +21,8 @@
     "gulp-cached": "1.1.1"
   },
   "dependencies": {
-    "jsreport-core": "^1.2.2",
-    "jsreport-jsrender": "^1.0.1",
-    "jsreport-phantom-pdf": "^1.4.3"
+    "jsreport-core": "^1.4.0",
+    "jsreport-jsrender": "^1.0.2",
+    "jsreport-phantom-pdf": "^1.4.6"
   }
 }

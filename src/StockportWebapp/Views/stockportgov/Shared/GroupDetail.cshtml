@@ -53,17 +53,15 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
-                                @if (!string.IsNullOrEmpty(Model.Cost))
+                                @if (Model.Cost.Any())
                                 {
-                                    var cost = Model.Cost;
-                                    cost = cost == "Paid" && !string.IsNullOrEmpty(Model.CostText) ? Model.CostText : cost;
                                     <li class="group-details">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
                                             <i class="fa fa-gbp fa-2x group-details-symbol"></i>
                                         </div>
                                         <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
                                             <div class="group-details-heading">Cost</div>
-                                            @cost
+                                            @string.Join(", ", Model.Cost.ToArray())
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
