@@ -26,7 +26,7 @@ namespace StockportWebapp.Models
         public DateTime? DateHiddenFrom { get; set; }
         public DateTime? DateHiddenTo { get; set; }
         public string Status { get; set; }
-        public string Cost { get; set; }
+        public List<string> Cost { get; set; }
         public string CostText { get; set; }
         public string AbilityLevel { get; set; }
         public bool Favourite { get; set; }
@@ -40,7 +40,7 @@ namespace StockportWebapp.Models
             string twitter, string facebook, string address, string description, string imageUrl,
             string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories, List<Crumb> breadcrumbs,
             MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, 
-            DateTime? dateHiddenTo, string status, string cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
+            DateTime? dateHiddenTo, string status, List<string> cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
             Organisation organisation, List<Group> linkedGroups, bool donations, String accessibleTransportLink)
         {
             Name = name;

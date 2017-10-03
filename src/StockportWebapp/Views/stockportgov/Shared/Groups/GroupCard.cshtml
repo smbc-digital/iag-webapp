@@ -3,10 +3,7 @@
 @using StockportWebapp.Utils
 @inject FeatureToggles FeatureToggles
 @model Group
-@{
-    var cost = Model.Cost;
-    cost = cost == "Paid" && !string.IsNullOrEmpty(Model.CostText) ? Model.CostText : cost;
-}
+
 <li id="item-card-@Model.Slug" class="group-li grid-33 tablet-grid-50 mobile-grid-100">
     <div class="group-card grid-100 grid-parent matchbox-child">
         <a href="/groups/@Model.Slug" class="group-card-main remove-from-pdf">
@@ -15,12 +12,12 @@
                 <div class="grid-100 group-title">
                     <h3>@Model.Name</h3>
                 </div>
-                @if (!string.IsNullOrWhiteSpace(cost))
+                @if (Model.Cost.Any())
                 {
                     <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
                         <i class="fa fa-gbp" aria-hidden="true"></i>
                     </div>
-                    <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@cost</div>
+                    <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@string.Join(", ", Model.Cost.ToArray())</div>
                 }
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
                     <i class="fa fa-map-marker" aria-hidden="true"></i>

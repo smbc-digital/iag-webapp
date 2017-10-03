@@ -16,7 +16,6 @@ using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
-using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 using StockportWebapp.FeatureToggling;
@@ -35,7 +34,6 @@ namespace StockportWebapp.Controllers
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
         private readonly CalendarHelper _helper;
-        private readonly FeatureToggles _featureToggle;
         private readonly IDateCalculator _dateCalculator;
 
         public EventsController(

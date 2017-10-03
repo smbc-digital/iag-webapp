@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using FluentAssertions;
 using StockportWebapp.Controllers;
 using StockportWebapp.Models;
-using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Helper = StockportWebappTests.TestHelper;
 using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
@@ -19,6 +16,7 @@ using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using StockportWebapp.AmazonSES;
 using Microsoft.AspNetCore.Http;
+using StockportWebappTests.Builders;
 using StockportWebappTests.Unit.Utils;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -32,7 +30,6 @@ namespace StockportWebappTests.Unit.Controllers
         private Mock<EventEmailBuilder> _eventEmailBuilder;
         public const int MaxNumberOfItemsPerPage = 9;
         private readonly Mock<IFilteredUrl> _filteredUrl;
-        private MapPosition _location = new MapPosition() { Lat = 1, Lon = 1 };
         private Mock<ILogger<GroupsController>> _logger;
         private Mock<IApplicationConfiguration> _configuration = new Mock<IApplicationConfiguration>();
         private MarkdownWrapper markdownWrapper = new MarkdownWrapper();
@@ -95,22 +92,22 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItReturnsAGroupWithProcessedBody()
         {
-            var processedGroup = new ProcessedGroup("testname", "testslug", Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, 
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null,  null, null, DateTime.MinValue, DateTime.MinValue,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, false, null, null, null, null,new MapDetails());
+            // Arrange
+            var processedGroup = new ProcessedGroupBuilder().Build();
 
+            // Mocks
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
+            // Act
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
 
+            // Assert
             model.Name.Should().Be(processedGroup.Name);
             model.Slug.Should().Be(processedGroup.Slug);
             model.Address.Should().Be(processedGroup.Address);
             model.Email.Should().Be(processedGroup.Email);
-         
             model.MapDetails.AccessibleTransportLink.Should().Be(processedGroup.MapDetails.AccessibleTransportLink);
         }
 
@@ -182,36 +179,42 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItShouldGetARedirectResultForDelete()
         {
+            // Arrange
             var slug = "deleteSlug";
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
-            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, new GroupAdministrators { Items = new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A" } } }, 
-               DateTime.MinValue, DateTime.MaxValue, string.Empty, string.Empty, string.Empty, false, null, null, null, null,null);
+            var processedGroup = new ProcessedGroupBuilder().Build();
+
+            // Mocks
             _repository.Setup(r => r.Delete<Group>(slug))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
 
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
+            // Act
             var actionResponse = AsyncTestHelper.Resolve(_groupController.DeleteGroup(slug, loggedInPerson)) as RedirectToActionResult;
+
+            // Assert
             actionResponse.ActionName.Should().Be("DeleteConfirmation");
         }
 
         [Fact]
         public void ItShouldGetARedirectResultForArchive()
         {
+            // Arrange
             var slug = "archiveSlug";
             var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
-            var processedGroup = new ProcessedGroup(Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-               Helper.AnyString, Helper.AnyString, Helper.AnyString, null, null, null, null, new GroupAdministrators { Items =  new List<GroupAdministratorItems> { new GroupAdministratorItems { Email = "email@email.com", Permission = "A"} } },
-               DateTime.MinValue, DateTime.MinValue, string.Empty, string.Empty, string.Empty, false, null, null, null, null,null);
+            var group = new GroupBuilder().Build();
+
+            // Mocks
             _repository.Setup(r => r.Archive<Group>(It.IsAny<HttpContent>(), slug))
-                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
 
-            _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
 
+            // Act
             var actionResponse = AsyncTestHelper.Resolve(_groupController.ArchiveGroup(slug, loggedInPerson)) as RedirectToActionResult;
+
+            // Assert
             actionResponse.ActionName.Should().Be("ArchiveConfirmation");
         }
 
@@ -362,10 +365,10 @@ namespace StockportWebappTests.Unit.Controllers
                 AccessibleTransportLink = ""
             };
 
-            var group = new ProcessedGroup() { MapDetails = location, Slug = "test" };
+            var processedGroup = new ProcessedGroupBuilder().MapDetails(location).Build();
 
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
+                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as ProcessedGroup;
@@ -389,7 +392,6 @@ namespace StockportWebappTests.Unit.Controllers
 
             model.Events.FirstOrDefault().Should().Be(linkedEvent);
         }
-
 
         private GroupsController SetUpController(int numGroups)
         {
@@ -416,18 +418,10 @@ namespace StockportWebappTests.Unit.Controllers
 
             for (var i = 0; i < numberOfItems; i++)
             {
-                var group = new Group("name", "slug" + i, "phoneNumber", "email", "website", "twitter", "facebook",
-                    "address", "description", "imageUrl", "thumbnailImageUrl",
-                    new List<GroupCategory>()
-                    {
-                        new GroupCategory() {Icon = "icon", ImageUrl = "imageUrl", Slug = "slug" + (i + 100)}
-                    }, null, new List<Crumb>(), _location, false, null, new GroupAdministrators(), DateTime.MinValue, DateTime.MinValue, "published", string.Empty, string.Empty, string.Empty, false, "", null, null, false,null);
-
-                listOfGroups.Add(group);
+                listOfGroups.Add(new GroupBuilder().Build());
             }
 
             return listOfGroups;
         }
     }
-
 }
