@@ -3,7 +3,11 @@
 <p>Get the latest news and information about your council services straight to your inbox</p>
 
 <form asp-controller="Home" asp-action="EmailSubscribe" method="get" role="form">
-    <input class="light-on-dark-field" type="text" name="emailAddress" placeholder="Enter your email address" />
-
-    <stock-button type="submit" id="test-subscribe">Subscribe</stock-button>
+    <div>
+        <label class="visuallyhidden" for="Email Address">
+          Email input box
+        </label>
+        <input class="light-on-dark-field" type="text" name="emailAddress" placeholder="Enter your email address" />
+        <stock-button type="submit" id="test-subscribe">Subscribe</stock-button>
+    </div>
 </form>
