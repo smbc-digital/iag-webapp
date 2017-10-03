@@ -3,6 +3,10 @@
 
 
 <form action="" method="get" role="form" id="@Model.Item1" class="cludo-search_autocomplete">
+    <label class="visuallyhidden" for="Search bar">
+        search input box  
+    </label>
     <input class="grid-100 tablet-grid-100 mobile-grid-100 search-input" type="text" name="query" placeholder="@Model.Item2" autocomplete="off">
-    <button class="search-button" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+    <button for="search-button" class="search-button" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+
 </form>
