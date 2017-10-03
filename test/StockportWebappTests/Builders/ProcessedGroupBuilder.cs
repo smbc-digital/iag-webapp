@@ -1,10 +1,11 @@
-﻿using StockportWebapp.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebappTests.Builders
 {
-    internal class GroupBuilder
+    internal class ProcessedGroupBuilder
     {
         private string _name = "name";
         private string _slug = "slug";
@@ -20,8 +21,8 @@ namespace StockportWebappTests.Builders
         private List<GroupCategory> _categoriesReference = new List<GroupCategory>();
         private List<GroupSubCategory> _subCategories = new List<GroupSubCategory>();
         private List<Crumb> _breadcrumbs = new List<Crumb>();
-        private MapPosition _mapPosition = new MapPosition();
-        private bool _volunteering = false;
+        private MapDetails _mapDetails = new MapDetails();
+        private Volunteering _volunteering = new Volunteering();
         private List<Event> _events = new List<Event>();
         private GroupAdministrators _groupAdministrators = new GroupAdministrators
         {
@@ -37,53 +38,56 @@ namespace StockportWebappTests.Builders
         private string _volunteeringText = "volunteering text";
         private Organisation _organisation = new Organisation();
         private List<Group> _linkedGroups = new List<Group>();
-        private bool _donations = false;
+        private Donations _donations = new Donations();
         private string _accessibleTransportLink = "http://www.link.link.link";
 
-        public Group Build()
+        public ProcessedGroup Build()
         {
-            return new Group(_name,
-                    _slug,
-                    _phoneNumber,
-                    _email,
-                    _website,
-                    _twitter,
-                    _facebook,
-                    _address,
-                    _description,
-                    _imageUrl,
-                    _thumbnailImageUrl,
-                    _categoriesReference,
-                    _subCategories,
-                    _breadcrumbs,
-                    _mapPosition,
-                    _volunteering,
-                    _events,
-                    _groupAdministrators,
-                    _dateHiddenFrom,
-                    _dateHiddenTo,
-                    _status,
-                    _cost,
-                    _costText,
-                    _abilityLevel,
-                    _favourite,
-                    _volunteeringText,
-                    _organisation,
-                    _linkedGroups,
-                    _donations,
-                    _accessibleTransportLink
-                );
+            return new ProcessedGroup(_name,
+                _slug,
+                _phoneNumber,
+                _email,
+                _website,
+                _twitter,
+                _facebook,
+                _address,
+                _description,
+                _imageUrl,
+                _thumbnailImageUrl,
+                _categoriesReference,
+                _subCategories,
+                _breadcrumbs,
+                _events,
+                _groupAdministrators,
+                _dateHiddenFrom,
+                _dateHiddenTo,
+                _cost,
+                _costText,
+                _abilityLevel,
+                _favourite,
+                _volunteering,
+                _organisation,
+                _linkedGroups,
+                _donations,
+                _mapDetails
+            );
         }
 
-        public GroupBuilder Email(string value)
+        public ProcessedGroupBuilder Email(string value)
         {
             _email = value;
             return this;
         }
 
-        public GroupBuilder GroupAdministrators(GroupAdministrators value)
+        public ProcessedGroupBuilder GroupAdministrators(GroupAdministrators value)
         {
             _groupAdministrators = value;
+            return this;
+        }
+
+        public ProcessedGroupBuilder MapDetails(MapDetails value)
+        {
+            _mapDetails = value;
             return this;
         }
     }

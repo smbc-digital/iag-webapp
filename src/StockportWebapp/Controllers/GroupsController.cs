@@ -816,7 +816,7 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
+                throw new ContentfulUpdateException($"There was an error updating the group {group.Name}");
             }
         }
 
