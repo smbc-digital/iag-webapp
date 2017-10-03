@@ -14,7 +14,7 @@
     }
     <div class="alert alert-@Model.Severity.ToLowerInvariant()">
         <div class="alert-icon">
-                <i class="fa @icon fa-3x"></i>
+            <i class="fa @icon fa-3x"></i>
         </div>
         <div class="alert-content">
             <h3>@Model.Title</h3>
@@ -25,7 +25,10 @@
             @Html.Raw(Model.Body)
         </div>
         <div class="alert-close">
-            <a href="#"><i class="fa fa-times fa-2x" aria-hidden="true"></i></a>
+            <a href="#">
+                <span class="visuallyhidden"> Close Alert</span>
+                <i class="fa fa-times fa-2x" aria-hidden="true"></i>
+            </a>
         </div>
     </div>
 </div>
