@@ -1,14 +1,14 @@
 ﻿/* ------ Breadcrumbs ------- */
 .breadcrumb-container {
-    background-color: #086964;
+    background-color: #09656C;
     width: 100%;
-    min-height:40px;
+    min-height: 40px;
 
     .breadcrumb {
-        max-width:1200px;
+        max-width: 1200px;
         margin-bottom: 0;
         color: $white;
-        padding-bottom:0px;
+        padding-bottom: 0px;
         padding-top: 3px;
 
         @media #{$mobile} {
@@ -25,8 +25,8 @@
 
         li a {
             color: $white;
-            text-transform:none;
-            font-weight:normal;
+            text-transform: none;
+            font-weight: normal;
 
             &:hover {
                 color: $colorPrimaryPale;
@@ -38,7 +38,7 @@
         }
 
         li.current a {
-            text-decoration:none;
+            text-decoration: none;
 
             &:hover {
                 color: $white;

@@ -20,21 +20,23 @@
     <div class="grid-100 l-background-hs-image">
     </div>  
 } 
-
+  
 <section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">   
-    <div class="grid-100 topic-container-holder">      
-        <div class="topic-container-holder-alert">
-            @{
-                if (topic.Alerts != null)
-                {
-                    foreach (var alert in topic.Alerts)
+    <div class="grid-100 topic-container-holder">   
+        
+            <div id="content" class="topic-container-holder-alert">
+                @{
+                    if (topic.Alerts != null)
                     {
-                        @Html.Partial("DisplayTemplates/Alert", alert)
+                        foreach (var alert in topic.Alerts)
+                        {
+                            @Html.Partial("DisplayTemplates/Alert", alert)
+                        }
                     }
                 }
-            }
+
         </div>
-        <div class="topic-container-holder-item">
+        <div  class="topic-container-holder-item">
             <h2>@topic.Name</h2>
             <hr>
             @Html.Raw(topic.Summary)

@@ -1,7 +1,5 @@
-﻿@using StockportWebapp.Config
-@using StockportWebapp.Models
-@using StockportWebapp.ViewModels
-@model StockportWebapp.ProcessedModels.ProcessedGroup
+﻿@using StockportWebapp.Models
+@model Group
 
 @{
     ViewData["Title"] = "Archive " + Model.Name;
@@ -25,7 +23,7 @@
                         <h1 class="group-article-title">@ViewData["Title"]</h1>
                     </div>
                     <div class="grid-100">
-                        <h3>Hide this group until a later date</h3>
+                        <h3 id="content" >Hide this group until a later date</h3>
                         <div class="group-confirmation-body">
                             <p>Archiving your group means that it won’t appear on our website until you decide to republish it.</p>
                             <p>This is useful if your group is taking a break, or if it is seasonal.</p>

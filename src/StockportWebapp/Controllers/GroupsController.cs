@@ -24,6 +24,7 @@ using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 using ReverseMarkdown;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Net.Http.Headers;
 
 namespace StockportWebapp.Controllers
 {
@@ -335,7 +336,7 @@ namespace StockportWebapp.Controllers
 
                 if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
 
-                return new FileContentResult(result, "application/pdf");
+                return new FileContentResult(result, new MediaTypeHeaderValue("application/pdf") { Encoding = Encoding.UTF8, Charset = "utf-8" });
             }
             catch (Exception ex)
             {
@@ -768,11 +769,11 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Archive(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+            var response = await _repository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
-            var group = response.Content as ProcessedGroup;
+            var group = response.Content as Group;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
@@ -789,10 +790,11 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> ArchiveGroup(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+            var response = await _repository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
-            var group = response.Content as ProcessedGroup;
+
+            var group = response.Content as Group;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
@@ -814,7 +816,7 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                throw new ContentfulUpdateException($"There was an error updating the group{group.Name}");
+                throw new ContentfulUpdateException($"There was an error updating the group {group.Name}");
             }
         }
 
@@ -822,11 +824,11 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> ArchiveConfirmation(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+            var response = await _repository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
-            var group = response.Content as ProcessedGroup;
+            var group = response.Content as Group;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
@@ -842,11 +844,11 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Publish(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+            var response = await _repository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
 
-            var group = response.Content as ProcessedGroup;
+            var group = response.Content as Group;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
@@ -863,10 +865,10 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> PublishGroup(string slug, LoggedInPerson loggedInPerson)
         {
-            var response = await _processedContentRepository.Get<Group>(slug, _managementQuery);
+            var response = await _repository.Get<Group>(slug, _managementQuery);
 
             if (!response.IsSuccessful()) return response;
-            var group = response.Content as ProcessedGroup;
+            var group = response.Content as Group;
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
@@ -977,9 +979,6 @@ namespace StockportWebapp.Controllers
             group.Volunteering = model.Volunteering;
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
             group.Volunteering = model.Volunteering;
-
-           
-
             group.VolunteeringText = GetVolunteeringText(model.VolunteeringText);
 
             group.CategoriesReference = new List<GroupCategory>();
@@ -1094,22 +1093,32 @@ namespace StockportWebapp.Controllers
         {
             _logger.LogInformation("Exporting group favourites to pdf");
 
-            var response = await GetFavouriteGroupResults();
+            try
+            {
+                var response = await GetFavouriteGroupResults();
 
-            if (response.IsNotFound()) return NotFound();
+                if (response.IsNotFound()) return NotFound();
 
-            var model = response.Content as GroupResults;
+                var model = response.Content as GroupResults;
 
-            var groupList = model.Groups;
+                var groupList = model.Groups;
 
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-            var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
+                var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
+                var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
 
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 1000 });
+                var renderedHtmlAbsoluteLinks = _htmlUtilities.ConvertRelativeUrltoAbsolute(renderedHtml, _hostHelper.GetHost(Request));
 
-            if (result == null) _logger.LogError("Failed to export group favourites to pdf");
+                var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtmlAbsoluteLinks), delay = 1000 });
 
-            return new FileContentResult(result, "application/pdf");
+                if (result == null) _logger.LogError("Failed to export group favourites to pdf");
+
+                return new FileContentResult(result, "application/pdf");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Error exporting favourites to pdf, exception: {ex.Message}");
+                return new ContentResult() { Content = "There was a problem exporting favourites to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError };
+            }
         }
 
         [HttpGet]

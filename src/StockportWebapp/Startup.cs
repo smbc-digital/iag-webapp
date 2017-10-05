@@ -50,7 +50,7 @@ namespace StockportWebapp
             var loggerConfig = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .Enrich.WithProperty("Application", "IAG Web App")
-                .WriteTo.LiterateConsole();
+                .WriteTo.Console();
 
             // elastic search
             var esConfig = new ElasticSearch();

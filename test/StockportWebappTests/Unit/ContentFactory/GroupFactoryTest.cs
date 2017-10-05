@@ -31,7 +31,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private const string Facebook = "facebook";
         private const string Twitter = "twitter";
 
-        private const string Cost = "free";
+        private List<string> Cost = new List<string>() { "free" };
         private const string CostText = "cost";
         private const string AbilityLevel = "level";
 

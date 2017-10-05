@@ -3,7 +3,7 @@ module.exports = {
         var homepage = browser.page.stockportgov.homepage();
         homepage.navigate();
         browser.maximizeWindow();
-        homepage.closeCookieBanner(browser);
+    //    homepage.closeCookieBanner(browser);
         browser.setCookie({
             name: "int_jwtCookie",
             value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
@@ -217,6 +217,15 @@ module.exports = {
         groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemThreeIsVisible("What's near me?");
         groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemFourIsVisible("Find where to volunteer");
     },
+    'Navigate to the Democracy Template and validate details': function (browser) {
+      var democracypage = browser.page.stockportgov.democracy();
+      democracypage.navigate();
+       democracypage.assertTitleIsVisible(browser);
+      democracypage.assertBreadcrumbVisible(browser);
+      democracypage.asserSideMenuVisible(browser);
+
+    },
+
     after: function (browser, done) {
         setTimeout(function () {
             done();

@@ -107,7 +107,7 @@ namespace StockportWebapp.Utils
             }
         }
 
-        public virtual void SendEmailArchive(ProcessedGroup group)
+        public virtual void SendEmailArchive(Group group)
         {
             var messageSubject = $"Archive {group.Name}";
 
@@ -124,7 +124,7 @@ namespace StockportWebapp.Utils
             }
         }
 
-        public virtual void SendEmailPublish(ProcessedGroup group)
+        public virtual void SendEmailPublish(Group group)
         {
             var messageSubject = $"Publish {group.Name}";
 

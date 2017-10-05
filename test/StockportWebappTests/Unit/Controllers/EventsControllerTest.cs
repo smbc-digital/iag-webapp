@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -16,7 +15,7 @@ using StockportWebapp.ViewModels;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.AmazonSES;
-using StockportWebapp.FeatureToggling;
+using StockportWebappTests.Builders;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -39,17 +38,14 @@ namespace StockportWebappTests.Unit.Controllers
         private const string BusinessId = "businessId";
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private readonly DateCalculator _datetimeCalculator;
-
-        private readonly Group _group = new Group(name: "Test Group", slug: "test group", email: "dasfds", website: "",
-            twitter: "", facebook: "", description: "", imageUrl: "", thumbnailImageUrl: "", phoneNumber: "",
-            address: "", categoriesReference: null, subCategories: null, breadcrumbs: null, mapPosition: null, volunteering: false, events: new List<Event>(), groupAdministrators: new GroupAdministrators(), dateHiddenFrom: DateTime.MinValue,
-                dateHiddenTo: DateTime.MinValue, status: "published", cost: string.Empty, costText: string.Empty, abilityLevel: string.Empty, favourite: false, volunteeringText: "", organisation: null, linkedGroups: null, donations: false , accessibleTransportLink : string.Empty);
+        private readonly Group _group = new GroupBuilder().Build();
 
         private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
                                                                  "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc)) };
 
         public const int MaxNumberOfItemsPerPage = 15;
+
         public EventsControllerTest()
         {
             _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
@@ -161,7 +157,7 @@ namespace StockportWebappTests.Unit.Controllers
             model.StartTime.Should().Be("startTime");
             model.EndTime.Should().Be("endTime");
             model.BookingInformation.Should().Be("booking information");
-            model.Group.Name.Should().Be("Test Group");
+            model.Group.Name.Should().Be(_group.Name);
             model.Alerts[0].Title.Should().Be(_alerts[0].Title);
             model.Alerts[0].Body.Should().Be(_alerts[0].Body);
             model.Alerts[0].Severity.Should().Be(_alerts[0].Severity);

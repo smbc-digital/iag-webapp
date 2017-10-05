@@ -3,21 +3,24 @@
 @inject IStaticAssets StaticAssets
 
 @*This script enables the feedback button.*@
-<script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
+<script>(function () { var qs, js, q, s, d = document, gi = d.getElementById, ce = d.createElement, gt = d.getElementsByTagName, id = 'typef_orm', b = 'https://s3-eu-west-1.amazonaws.com/share.typeform.com/'; if (!gi.call(d, id)) { js = ce.call(d, 'script'); js.id = id; js.src = b + 'share.js'; q = gt.call(d, 'script')[0]; q.parentNode.insertBefore(js, q) } })()</script>
 
 <div class="l-header-container">
+    <div class="skip-to-main-content hide-on-mobile hide-on-tablet">
+        <a href="#content" class="skip-main">Skip to main content</a>
+    </div>
     <header id="header" class="grid-container grid-100">
         <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
-            <a href="/"><img src="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" data-mobile-image="@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")" data-desktop-image="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" alt="Stockport Gov" title="Welcome to Stockport Council" class="logo-main-image"></a>
+            <a href="/"><img src="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" data-mobile-image="@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")" data-desktop-image="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" alt="Stockport Council Logo Homepage Link" title="Welcome to Stockport Council" class="logo-main-image"></a>
         </div>
         <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
             <div class="header-container grid-100 grid-parent">
-                <div class="grid-50 grid-parent header-myaccount">                   
+                <div class="grid-50 grid-parent header-myaccount">
                     <div class="menu">
                         <div class="menu-logged-out pull-right">
                             <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><i class="fa fa-user hide-on-mobile" aria-hidden="true"></i>My Account</a>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
                 <div class="grid-50 grid-parent pull-right header-search-bar">
                     @Html.Partial("HeaderSearchBar")

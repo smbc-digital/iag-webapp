@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.ProcessedModels
@@ -14,6 +15,7 @@ namespace StockportWebapp.ProcessedModels
         public List<Group> Groups { get; }
         public Volunteering Volunteering { get; }
         public Donations Donations { get; }
+        public string CurrentUrl { get; private set; }
 
         public ProcessedOrganisation() { }
 
@@ -29,6 +31,11 @@ namespace StockportWebapp.ProcessedModels
             Volunteering = volunteering;
             Groups = groups;
             Donations = donations;
+        }
+
+        internal void SetCurrentUrl(string host)
+        {
+            CurrentUrl = host;
         }
     }
 }

@@ -3,17 +3,18 @@
 <div class="grid-container-full-width">
     <div class="grid-container organisation-detail">
         <div class="grid-100">
+            <a class="hidden display-on-pdf" href="/organisations/@Model.Slug">@string.Concat(Model.CurrentUrl, "/organisations/", Model.Slug)</a>
             <h1>@Model.Title</h1>
             @if (!string.IsNullOrEmpty(Model.ImageUrl))
             {
-                <img src="@Model.ImageUrl" alt="@Model.ImageUrl" />
-                <hr />   
+                <img src="@Model.ImageUrl" alt="@Model.ImageUrl"/>
+                <hr/>
             }
             <div>
                 <strong>About Us</strong>
                 <div>@Html.Raw(Model.AboutUs)</div>
             </div>
-            <hr />
+            <hr/>
             <div>
                 <div>
                     <strong>Contact Us</strong>
@@ -32,17 +33,18 @@
                     <ul class="group-listing-container grid-container grid-parent matchbox-parent">
                         @foreach (var group in Model.Groups.Take(3))
                         {
-                            @Html.Partial("Groups/GroupCard", group);
+                            @Html.Partial("Groups/GroupCard", group)
+                            ;
                         }
-                        
+
                     </ul>
                     <div class="mobile-show-more">
-                        <a class="show-more-button hide-on-desktop hide-on-tablet button-default white" href="/groups/results?tag=@Model.Slug&Order=Name+A-Z">View more from @Model.Title</a>    
+                        <a class="show-more-button hide-on-desktop hide-on-tablet button-default white" href="/groups/results?tag=@Model.Slug&Order=Name+A-Z">View more from @Model.Title</a>
                     </div>
-                    
+
                 </div>
             }
-            
+
             @Html.Partial("Groups/VolunteeringBar", Model.Volunteering)
             @Html.Partial("Groups/DonationsBar", Model.Donations)
 

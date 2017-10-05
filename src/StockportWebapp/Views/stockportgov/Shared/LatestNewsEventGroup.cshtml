@@ -51,11 +51,9 @@
                             <div class="bullet"><i class="fa fa-tags"></i>@Model.FeaturedGroupItem.CategoriesReference[0].Name</div>
                         }
                         <div class="bullet"><i class="fa fa-map-marker"></i>@Model.FeaturedGroupItem.Address</div>
-                        @if (!string.IsNullOrEmpty(Model.FeaturedGroupItem.Cost))
+                        @if (Model.FeaturedGroupItem.Cost.Any())
                         {
-                            var cost = Model.FeaturedGroupItem.Cost;
-                            cost = cost == "Paid" && !string.IsNullOrEmpty(Model.FeaturedGroupItem.CostText) ? Model.FeaturedGroupItem.CostText : cost;
-                            <div class="bullet"><i class="fa fa-gbp"></i>@cost</div>
+                            <div class="bullet"><i class="fa fa-gbp"></i>@string.Join(", ", Model.FeaturedGroupItem.Cost.ToArray())</div>
                         }
                         @if (!string.IsNullOrEmpty(Model.FeaturedGroupItem.AbilityLevel))
                         {
