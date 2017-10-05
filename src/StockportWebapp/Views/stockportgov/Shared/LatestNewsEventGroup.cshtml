@@ -6,7 +6,7 @@
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
             <span class="latest-nav-card-item matchbox-child">
-                <h2 class="news title"><a href="@Url.Action("Index", "News")">Latest news</a></h2>
+                <h2 class="news title"><a tabindex="-1" href="@Url.Action("Index", "News")">Latest news</a></h2>
                 <div class="body">
                     <a href="/news/@Model.FeaturedNewsItem.Slug">
                         <h3>@Model.FeaturedNewsItem.Title</h3>
@@ -24,7 +24,7 @@
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
             <span class="latest-nav-card-item matchbox-child">
-                <h2 class="event title"><a href="@Url.Action("Index", "Events")">What's on in Stockport</a></h2>
+                <h2 class="event title"><a tabindex="-1" href="@Url.Action("Index", "Events")">What's on in Stockport</a></h2>
                 <div class="body">
                     <a href="/events/@Model.FeaturedEventItem.Slug">
                         <h3>@Model.FeaturedEventItem.Title</h3>
@@ -42,7 +42,7 @@
     {
         <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
             <span class="latest-nav-card-item matchbox-child">
-                <h2 class="group title"><a href="@Url.Action("Index", "Groups")">Stockport Local</a></h2>
+                <h2 class="group title"><a tabindex="-1" href="@Url.Action("Index", "Groups")">Stockport Local</a></h2>
                 <div class="body">
                     <a href="/groups/@Model.FeaturedGroupItem.Slug">
                         <h3>@Model.FeaturedGroupItem.Name</h3>
