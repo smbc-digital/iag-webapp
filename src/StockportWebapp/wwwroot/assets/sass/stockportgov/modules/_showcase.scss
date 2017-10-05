@@ -84,10 +84,6 @@
 
         .showcase-primary-item-container {
 
-            @media #{$desktop} {
-                padding: 0;
-            }
-
             a {
                 text-decoration: none;
                 color: $greyDarkest;
@@ -109,6 +105,8 @@
 
                 @media #{$tablet, $mobile} {
                     display: flex;
+                    height: 90px;
+                    padding-top: 0px;
                 }
 
                 &:after {
@@ -151,6 +149,7 @@
 
                 .primary-item-title {
                     font-weight: 600;
+                    padding-bottom: 10px;
 
                     @media #{$mobile, $tablet} {
                         display: flex;
@@ -163,6 +162,8 @@
                 .primary-item-teaser {
                     font-weight: 400;
                     padding-bottom: 20px;
+                    padding-left: 10px;
+                    padding-right: 10px;
                 }
 
                 .primary-item-icon {
@@ -217,8 +218,8 @@
             }
         }
 
-        .hero-image-divider-container{
-            text-align:center;
+        .hero-image-divider-container {
+            text-align: center;
         }
 
         .hero-image-divider {
@@ -241,6 +242,23 @@
     .title-card.showcase-redesign-title-card {
         display: inline-block;
 
+        .showcase-primary-item {
+            height: 328px;
+            padding-top: 60px;
+
+            @media #{$tablet} {
+                padding-top: 0;
+                height: 90px;
+                padding-bottom: 0;
+            }
+
+            @media #{$mobile} {
+                padding-top: 0;
+                height: 85px;
+                padding-bottom: 0;
+            }
+        }
+
         @media #{$desktop} {
             height: 555px;
         }
@@ -252,9 +270,11 @@
     }
 }
 
+
 .showcase-primary-item-container:nth-last-child(3) {
     .showcase-primary-item {
         margin-left: 0 !important;
+        padding-top: 60px;
 
         .colour-icon {
             color: $purple;
@@ -361,7 +381,7 @@
 
 .full-width-title.title-only {
     margin-bottom: 0;
-} 
+}
 
 .showcase-news-events {
     background-color: #ebebeb;
@@ -482,7 +502,7 @@
     .grid-container {
         padding-left: 0px;
         padding-right: 0px;
-        background-color: #ebebeb;      
+        background-color: #ebebeb;
         max-width: 1215px;
 
         .showcase-event-content {
@@ -650,8 +670,9 @@
 .showcase-news-container {
     transition: all .5s;
     transition-property: opacity,box-shadow;
-    .nav-card-news-title{
-        margin:0px;
+
+    .nav-card-news-title {
+        margin: 0px;
     }
 }
 

@@ -38,7 +38,7 @@
             {
                 <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
                     <div class="title-card showcase-redesign-title-card">
-                        <div class="grid-container tablet-grid-100 grid-100 matchbox-parent-3-3-3 showcase-title">
+                        <div class="grid-container tablet-grid-100 grid-100 showcase-title">
                             <div class="showcase-title-container mobile-grid-100 tablet-grid-100">
                                 <h1 id="content">
                                     <span>@Model.Title</span>
@@ -49,7 +49,7 @@
 
                             @foreach (var item in Model.PrimaryItems)
                             {
-                                <div class="showcase-primary-item-container grid-33 tablet-grid-100 mobile-grid-100 matchbox-child">
+                                <div class="showcase-primary-item-container grid-33 tablet-grid-100 mobile-grid-100">
                                     <a href="@item.NavigationLink">
                                         <div class="showcase-primary-item">
                                             <div class="primary-item-icon colour-icon tablet-grid-15 mobile-grid-25">
