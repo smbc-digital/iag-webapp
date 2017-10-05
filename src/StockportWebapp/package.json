@@ -1,6 +1,7 @@
 {
-  "name": "stockportwebapp",
-  "version": "1.0.0",
+  "name": "StockportWebapp",
+  "version": "0.0.0",
+  "private": true,
   "devDependencies": {
     "gulp": "3.8.11",
     "gulp-sass": "*",
