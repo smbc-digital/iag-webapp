@@ -12,9 +12,12 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-    <None Update="emails\templates\**\*;Views\**\*;app-config\**\*;NLog.config;version.txt;sha.txt;featureToggles.yml;pdf.js;node_modules\**\*">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </None>
+    <None Include="emails\templates\**\*" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="Views\**\*" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="app-config\**\*" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="pdf.js" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.3.11" />
@@ -62,9 +65,5 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="1.0.0" />
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\healthystockport\" />
-    <None Include="Models\RedisValueData.cs" />
   </ItemGroup>
 </Project>

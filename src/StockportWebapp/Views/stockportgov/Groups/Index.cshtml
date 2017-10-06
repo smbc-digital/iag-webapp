@@ -43,12 +43,12 @@
             </div>
         </div>
     }
-    <div class="group-startpage" style="background-color: #fff;">
-        <div class="featured-category-items-wrapper matchbox-parent grid-container">
-            <div class="featured-group-category-list">
-                <h3 class="group-category-list-title">Discover something new in Stockport</h3>
-                @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
+    <div class="home-page-row">
+        <div class="grid-container">
+            <div class="event-header">
+                <h3>Discover something new in Stockport</h3>
             </div>
+            @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
         </div>
     </div>
 

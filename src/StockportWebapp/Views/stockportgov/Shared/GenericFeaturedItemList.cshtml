@@ -9,25 +9,29 @@
 </div>
 @if (!string.IsNullOrEmpty(Model.ButtonText))
 {
-<div class="generic-list-see-more-container">
-    @for (var count = 5; count < Model.Items.Count(); count += 5)
-    {
-        <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-mobile matchbox-parent-4-4-5">
-            @Html.Partial("GenericFeaturedItem", Model.Items.Skip(count).Take(5))
-        </div>
-    }
-    @for (var count = 4; count < Model.Items.Count(); count += 4)
-    {
-        <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-desktop hide-on-tablet matchbox-parent-4-4-5">
-            @Html.Partial("GenericFeaturedItem", Model.Items.Skip(count).Take(4))
-        </div>
-    }
-</div>
-<div>
-    <div class="featured-content-button-wrapper">
-        <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down">@Model.ButtonText</stock-button>
+    <div class="generic-list-see-more-container">
+        @for (var count = 5; count < Model.Items.Count(); count += 5)
+        {
+            <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-mobile matchbox-parent-4-4-5">
+                @Html.Partial("GenericFeaturedItem", Model.Items.Skip(count).Take(5))
+            </div>
+        }
+        @for (var count = 4; count < Model.Items.Count(); count += 4)
+        {
+            <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-desktop hide-on-tablet matchbox-parent-4-4-5">
+                @Html.Partial("GenericFeaturedItem", Model.Items.Skip(count).Take(4))
+            </div>
+        }
     </div>
-</div>
+ if (Model.Items.Count > 5)
+ {
+     <div>
+         <div class="featured-content-button-wrapper">
+             <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down">@Model.ButtonText</stock-button>
+         </div>
+     </div>
+ }
+
 }
 
 
