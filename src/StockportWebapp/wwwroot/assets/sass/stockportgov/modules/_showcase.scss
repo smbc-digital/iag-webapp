@@ -87,6 +87,8 @@
             a {
                 text-decoration: none;
                 color: $greyDarkest;
+                display:block;
+              
             }
 
             .showcase-primary-item {
@@ -797,4 +799,7 @@
             }
         }
     }
+}
+:focus {
+    outline: #ef8a16 solid 3px !important;
 }

@@ -60,6 +60,7 @@
 
     a {
         text-decoration: none;
+        display:block;
     }
 
     i {
@@ -139,7 +140,7 @@
 .featured-topic-content {
     padding: 15px 0 15px 0;
     min-width: 100%;
-    height: inherit;
+    height: inherit; 
 }
 
 .featured-topic-icon {

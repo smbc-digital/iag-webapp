@@ -119,6 +119,7 @@ ul.nav-card-news-list {
     a {
         color: $greyDarkest;
         text-decoration: none;
+        display:block;
 
         &:hover {
             h3 {

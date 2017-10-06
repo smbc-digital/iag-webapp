@@ -157,42 +157,50 @@
             $("#getLocation").toggle();
         });
 
-        if ($('.location-search-input-autoset').length) { 
+        $(".expandable-toggle").keypress(function (event) {
+            event.preventDefault();
+
+            if (event.which == 13) {
+                $(".expandable-box", $(this).parent()).toggle();
+            }
+        });
+
+        if ($('.location-search-input-autoset').length) {
             var addressVal = $('#address').val();
-            if (typeof(addressVal) === 'undefined' || !addressVal.length) {
+            if (typeof (addressVal) === 'undefined' || !addressVal.length) {
                 addressVal = $('#location').val();
             }
-            $('.location-search-input-autoset').val(addressVal); 
+            $('.location-search-input-autoset').val(addressVal);
         }
 
         // get current location
         $("#currentLocation").click(function () {
             navigator.geolocation.getCurrentPosition(
-            function (position) {
-                var geocoder = new google.maps.Geocoder();
-                var latLng = new google.maps.LatLng(
-                    position.coords.latitude,
-                    position.coords.longitude);
-                geocoder.geocode({
-                    'latLng': latLng
-                },
-                function (results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        var jointLocation = buildLocation(results[0].address_components);
+                function (position) {
+                    var geocoder = new google.maps.Geocoder();
+                    var latLng = new google.maps.LatLng(
+                        position.coords.latitude,
+                        position.coords.longitude);
+                    geocoder.geocode({
+                        'latLng': latLng
+                    },
+                        function (results, status) {
+                            if (status === google.maps.GeocoderStatus.OK) {
+                                var jointLocation = buildLocation(results[0].address_components);
 
-                        location.SetLocationInputValue(jointLocation);
-                        location.SetLocation(jointLocation, results[0].geometry.location.lat(), results[0].geometry.location.lng());
-                        location.HideLocationError();
-                    }
-                    else {
-                        location.ShowLocationError(locationDefaults.CurrentLocationError);
-                    }
-                });
-            },
-            function () {
-                location.ShowLocationError(locationDefaults.CurrentLocationError);
-            },
-            { maximumAge: 10000, timeout: 6000, enableHighAccuracy: true });
+                                location.SetLocationInputValue(jointLocation);
+                                location.SetLocation(jointLocation, results[0].geometry.location.lat(), results[0].geometry.location.lng());
+                                location.HideLocationError();
+                            }
+                            else {
+                                location.ShowLocationError(locationDefaults.CurrentLocationError);
+                            }
+                        });
+                },
+                function () {
+                    location.ShowLocationError(locationDefaults.CurrentLocationError);
+                },
+                { maximumAge: 10000, timeout: 6000, enableHighAccuracy: true });
             return false;
         });
 
@@ -214,6 +222,16 @@
 
         // use location click
         $("#btnLocationAutoComplete").click(function (event) {
+            locationAutoComplete(event);
+        });
+
+        $("#btnLocationAutoComplete").keypress(function (event) {
+            if (event.which == 13) {
+                locationAutoComplete(event);
+            } 
+        });
+
+        function locationAutoComplete(event) {
             event.preventDefault();
             var address = location.GetLocationInputValue();
             if (address === "") {
@@ -226,9 +244,9 @@
                 location.HideLocationError();
             } else {
                 // perform a lookup on the location in the textbox
-                locationLookupNonAutocomplete();
+                locationLookupNonAutocomplete(); 
             }
-        });
+        }
 
         if ($('.location-search-input-autoset').length) {
             addValidationErrorToMeetingLocationField();
