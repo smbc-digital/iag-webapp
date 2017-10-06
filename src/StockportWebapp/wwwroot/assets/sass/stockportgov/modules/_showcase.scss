@@ -87,8 +87,7 @@
             a {
                 text-decoration: none;
                 color: $greyDarkest;
-                display:block;
-              
+                display: block;
             }
 
             .showcase-primary-item {
@@ -462,6 +461,10 @@
         margin-bottom: 30px;
         margin-top: 20px;
 
+        a {
+            display: block;
+        }
+
         @media #{$desktop,$tablet} {
             margin-bottom: 10px;
         }
@@ -800,6 +803,7 @@
         }
     }
 }
+
 :focus {
     outline: #ef8a16 solid 3px !important;
 }
