@@ -45,9 +45,10 @@
     </div>
 </div>
 
-
-<div class="home-page-featured-items l-body-section-filled grid-100 grid-parent">
-    @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
+<div class="home-page-row">
+    <div class="grid-container homepage">
+        @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
+    </div>
 </div>
 
 <div class="grid-100 mobile-grid-100 tablet-grid-100 homepage-group-link-container">
