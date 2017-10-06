@@ -18,6 +18,8 @@
     <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
     <None Include="pdf.js" CopyToPublishDirectory="PreserveNewest" />
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="sha.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.3.11" />
