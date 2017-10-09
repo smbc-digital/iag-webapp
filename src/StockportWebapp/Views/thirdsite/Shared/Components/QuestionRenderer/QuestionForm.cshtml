@@ -8,8 +8,8 @@
     {
         @Html.EditorFor(model => Model.Questions)
     }
-    @Html.HiddenFor(model => model.PageId)
-    @Html.HiddenFor(model => model.PreviousAnswersJson)
+    @*@Html.HiddenFor(model => model.PageId)*@
+    @*@Html.HiddenFor(model => model.PreviousAnswersJson)*@
     if (!string.IsNullOrEmpty(Model.Endpoint))
     {
         @Html.HiddenFor(model => model.Endpoint)

@@ -59,7 +59,11 @@
         margin-top: 5px;
     }
 
-    .collapse + input {
+    input#_1 {
+        display: none;
+    }
+
+    /*.collapse + input {
         display: none;
     }
 
@@ -69,7 +73,7 @@
 
     .collapse + input:checked + div {
         display: block;
-    }
+    }*/
 
     .secondary-info-holder {
         border-top: 1px solid #e1e1e1;
@@ -121,9 +125,9 @@
         display: none;
     }
 
-    .collapse + input:checked + div {
+    /*.collapse + input:checked + div {
         display: block;
-    }
+    }*/
 }
 
 .no-js{
@@ -161,4 +165,8 @@
     @media #{$mobile} {
         width: 160px;
     }
+}
+
+.hidden {
+    display: none;
 }

@@ -13,7 +13,7 @@
             {
                 <li class="grid-50 expanding-list-item">
                     <div class="expanding-Link-text-holder">
-                        <div class="expanding-Link-text">
+                        <div tabindex="0" class="expanding-Link-text">
                             <div class="expanding-Link-title expanding-link-box-button"><b>@ExpandingLinkBox.Title</b></div>
                             <div class="expanding-Link-items">
                                 @foreach (var links in ExpandingLinkBox.Links)
@@ -23,7 +23,6 @@
                                             @links.Title
                                         </a>
                                     </div>
-
                                 }
                             </div>
                         </div>

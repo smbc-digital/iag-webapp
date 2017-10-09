@@ -53,6 +53,10 @@ define(["jquery"], function ($) {
             }
         });
 
+        $(document).ready(function () {
+            $(".secondary-info-text").addClass("hidden");
+        })
+
         $(document).keyup(function (e) {
             if (e.keyCode === 13) {
                 $("#next-button").click();
@@ -110,6 +114,23 @@ define(["jquery"], function ($) {
                 });                    
             });
         });
+
+        $(document).ready(function() {
+            $("label.secondary-info-container").keyup(function (event) {
+                if (event.which == 13) {
+                    event.preventDefault();
+                    $("label.secondary-info-container").click();
+                }
+            })
+        });
+
+        $(document).ready(function () {
+            $(".secondary-info-container").click(function () {
+                $(".secondary-info-text").toggleClass("hidden");
+            });
+        })
+
+
     };
 
     return {
