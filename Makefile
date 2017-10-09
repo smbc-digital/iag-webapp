@@ -20,6 +20,10 @@ APP_VERSION ?= $(BUILD_NUMBER)
 .PHONY: build
 build: clean dotnet-restore dotnet-test version publish-app package-app
 
+.PHONY: run
+run:
+	cd src/StockportWebapp; dotnet run
+
 .PHONY: clean
 clean:
 	rm -rf $(APPLICATION_ROOT_PATH)/bin
@@ -45,15 +49,6 @@ version:
 package-app:
 	rm -f iag-webapp.zip
 	cd $(APPLICATION_PUBLISH_PATH); zip -r ../../../iag-webapp.zip ./*
-
-# .PHONY: build
-# build:
-# 	git rev-parse HEAD > src/$(PROJECT_NAME)/sha.txt
-# 	echo $(APP_VERSION) > src/$(PROJECT_NAME)/version.txt
-# 	./docker.sh build \
-# 			$(IMAGE) \
-# 			$(TAG) \
-# 			Dockerfile
 
 .PHONY: start-proxy
 start-proxy:
