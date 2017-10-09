@@ -31,7 +31,7 @@ make start-proxy
 
 To start the application:
 ```
-make run
+make run, this will start the application on http://localhost:5000
 ```
 
 ## Business IDs:
@@ -186,7 +186,7 @@ to test), and the page_objects that represent the specific page types are within
 define the tests within the `specs` folder, and set the page specific interactions in the `page_objects` folder.
 
 ### Prerequisites:
-This app runs using at least .Net Core SDK version 1.0.0-preview2-003121.
+This app runs using at .Net Core SDK version 1.0.4.
 
 ## BrowserStack Selenium cloud testing:
 <a href='https://www.browserstack.com/'><img src='https://www.browserstack.com/images/layout/browserstack-logo-600x315.png'/></a>

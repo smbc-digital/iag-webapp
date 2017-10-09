@@ -298,20 +298,21 @@
             var searchBox = new google.maps.places.Autocomplete(document.getElementById('location-autocomplete'), options);
 
             // Listen for the event fired when the user selects a prediction and retrieve more details for that place.
-            searchBox.addListener('places_changed', function () {
-                var places = searchBox.getPlaces();
+            google.maps.event.addListener(searchBox, 'place_changed', function () {
+                var place = searchBox.getPlace();
 
-                if (places.length === 0) {
+                if (place == null) {
                     return;
                 }
 
-                var autocompleteName = places[0].name;
+                var autocompleteName = place.name;
+
                 if ($('.location-search-input-autoset').length) {
 
-                    if (typeof (places[0].formatted_address) !== 'undefined') {
-                        autocompleteName = places[0].formatted_address.replace(', UK', '').replace(', United Kingdom', '');
-                        if (autocompleteName.indexOf(places[0].name) < 0) {
-                            autocompleteName = places[0].name + ', ' + autocompleteName;
+                    if (typeof (place.formatted_address) !== 'undefined') {
+                        autocompleteName = place.formatted_address.replace(', UK', '').replace(', United Kingdom', '');
+                        if (autocompleteName.indexOf(place.name) < 0) {
+                            autocompleteName = place.name + ', ' + autocompleteName;
                         }
                     }
 
@@ -319,7 +320,7 @@
                     $("[data-valmsg-for='Address']").hide();
                 }
 
-                location.SetLocation(autocompleteName, places[0].geometry.location.lat(), places[0].geometry.location.lng());
+                location.SetLocation(autocompleteName, place.geometry.location.lat(), place.geometry.location.lng());
                 location.HideLocationError();
 
                 if ($('.location-search-input-autoset').length) {
