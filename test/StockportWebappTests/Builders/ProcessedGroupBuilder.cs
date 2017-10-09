@@ -30,16 +30,13 @@ namespace StockportWebappTests.Builders
         };
         private DateTime? _dateHiddenFrom = null;
         private DateTime? _dateHiddenTo = null;
-        private string _status = "status";
         private List<string> _cost = new List<string>();
         private string _costText = "cost text";
         private string _abilityLevel = "ability level";
         private bool _favourite = false;
-        private string _volunteeringText = "volunteering text";
         private Organisation _organisation = new Organisation();
         private List<Group> _linkedGroups = new List<Group>();
         private Donations _donations = new Donations();
-        private string _accessibleTransportLink = "http://www.link.link.link";
 
         public ProcessedGroup Build()
         {
