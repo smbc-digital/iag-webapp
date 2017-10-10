@@ -11,8 +11,9 @@ namespace StockportWebapp.Models
         public string Severity { get; }
         public DateTime SunriseDate { get; }
         public DateTime SunsetDate { get; }
+        public string Slug { get; }
 
-        public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate)
+        public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate,string slug)
         {
             Title = title;
             SubHeading = subHeading;
@@ -20,12 +21,13 @@ namespace StockportWebapp.Models
             Severity = severity;
             SunriseDate = sunriseDate;
             SunsetDate = sunsetDate;
+            Slug = slug;
         }
     }
 
     public class NullAlert : Alert
     {
-        public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue) { }
+        public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,String.Empty) { }
     }
 
     public static class Severity

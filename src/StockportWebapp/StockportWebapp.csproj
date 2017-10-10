@@ -18,6 +18,7 @@
     <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
     <None Include="pdf.js" CopyToPublishDirectory="PreserveNewest" />
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
+    <None Remove="app-config\appsettings.dev-local.json" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
     <None Include="sha.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>

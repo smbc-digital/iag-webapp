@@ -229,7 +229,7 @@ namespace StockportWebappTests.Unit.Controllers
             var alerts = new List<Alert>
             {
                 new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty)
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() {}, string.Empty, string.Empty, string.Empty, new List<Crumb>() {}, alerts, new NullTopic(), false,
@@ -294,7 +294,7 @@ namespace StockportWebappTests.Unit.Controllers
             var alertsInline = new List<Alert>
             {
                 new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty)
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false,
@@ -318,7 +318,7 @@ namespace StockportWebappTests.Unit.Controllers
             var alertsInline = new List<Alert>
             {
                 new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty)
             };
 
             var processedSection = new ProcessedSection("title", "slug", "body", new List<Profile>(), new List<Document>(), alertsInline);

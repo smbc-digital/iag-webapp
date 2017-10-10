@@ -64,7 +64,7 @@ namespace StockportWebapp.Utils
                 favourites.Add(typeof(T).ToString(), new List<string>());
             }
 
-            if (!favourites[typeof(T).ToString()].Any(f => f == slug))
+            if (favourites[typeof(T).ToString()].All(f => f != slug))
             {
                 favourites[typeof(T).ToString()].Add(slug);
             }
@@ -103,7 +103,7 @@ namespace StockportWebapp.Utils
 
         public List<string> GetFavourites<T>()
         {
-            var result = new List<string>();
+            List<string> result;
             var favourites = GetFavouritesAsObject();
             favourites.TryGetValue(typeof(T).ToString(), out result);
             return result;
@@ -112,14 +112,9 @@ namespace StockportWebapp.Utils
         private Dictionary<string, List<string>> GetFavouritesAsObject()
         {
             var favourites = httpContextAccessor.HttpContext.Request.Cookies["favourites"];
-            if (!string.IsNullOrEmpty(favourites))
-            {
-                return JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(favourites);
-            }
-            else
-            {
-                return new Dictionary<string, List<string>>();
-            }
+            return !string.IsNullOrEmpty(favourites) 
+                ? JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(favourites) 
+                : new Dictionary<string, List<string>>();
         }
 
         private void UpdateFavourites(Dictionary<string, List<string>> favourites)

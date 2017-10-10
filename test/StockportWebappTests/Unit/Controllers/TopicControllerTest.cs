@@ -169,7 +169,7 @@ namespace StockportWebappTests.Unit.Controllers
             var alerts = new List<Alert>
             {
                 new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty)
             };
 
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
