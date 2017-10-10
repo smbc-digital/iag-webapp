@@ -43,7 +43,7 @@ namespace StockportWebappTests.Unit.Controllers
                 new SubItem("slug featuredTasks", "featured Tasks","teaser Fetured Tasks", "fa fa-home", "", "image", new List<SubItem>())
             };
             var alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc))};
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty)};
             var carouselContents = new List<CarouselContent>
             {
                 new CarouselContent("Carousel Title", "Carousel Teaser", "Carousel Image", "Carousel Url")
@@ -134,7 +134,7 @@ namespace StockportWebappTests.Unit.Controllers
                 new SubItem("slug featuredTasks", "featured Tasks","teaser Fetured Tasks", "fa fa-home", "", "image", new List<SubItem>())
             };
             var alerts = new List<Alert> { new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc)) };
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty) };
             var carouselContents = new List<CarouselContent>
             {
                 new CarouselContent("Carousel Title", "Carousel Teaser", "Carousel Image", "Carousel Url")

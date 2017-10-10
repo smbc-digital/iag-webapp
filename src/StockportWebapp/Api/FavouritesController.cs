@@ -11,13 +11,13 @@ namespace StockportWebapp.Api
 {
     public class FavouritesController
     {
-        private FavouritesHelper favouritesHelper;
+        private CookiesHelper cookiesHelper;
         private IHttpContextAccessor httpContextAccessor;
         private HostHelper hostHelper;
 
-        public FavouritesController(FavouritesHelper _favouritesHelper, IHttpContextAccessor _httpContextAccessor, HostHelper _hostHelper)
+        public FavouritesController(CookiesHelper _cookiesHelper, IHttpContextAccessor _httpContextAccessor, HostHelper _hostHelper)
         {
-            favouritesHelper = _favouritesHelper;
+            cookiesHelper = _cookiesHelper;
             httpContextAccessor = _httpContextAccessor;
             hostHelper = _hostHelper;
         }
@@ -28,10 +28,10 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    favouritesHelper.AddToFavourites<Group>(slug);
+                    cookiesHelper.AddToCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    favouritesHelper.AddToFavourites<Event>(slug);
+                    cookiesHelper.AddToCookies<Event>(slug, "favourites");
                     break;
             }
 
@@ -44,10 +44,10 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    favouritesHelper.AddToFavourites<Group>(slug);
+                    cookiesHelper.AddToCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    favouritesHelper.AddToFavourites<Event>(slug);
+                    cookiesHelper.AddToCookies<Event>(slug, "favourites");
                     break;
             }
 
@@ -60,10 +60,10 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    favouritesHelper.RemoveFromFavourites<Group>(slug);
+                    cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    favouritesHelper.RemoveFromFavourites<Event>(slug);
+                    cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
                     break;
             }
 
@@ -76,10 +76,10 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    favouritesHelper.RemoveFromFavourites<Group>(slug);
+                    cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    favouritesHelper.RemoveFromFavourites<Event>(slug);
+                    cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
                     break;
             }
 

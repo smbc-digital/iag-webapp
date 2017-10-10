@@ -88,15 +88,15 @@ namespace StockportWebappTests.Unit.Utils
         }
     }
 
-    public class FavouritesHelperTests
+    public class CookiesHelperTests
     {
-        private readonly FavouritesHelper favouritesHelper;
+        private readonly CookiesHelper cookiesHelper;
         private Mock<IHttpContextAccessor> httpContextAccessor;
 
-        public FavouritesHelperTests()
+        public CookiesHelperTests()
         {
             httpContextAccessor = new Mock<IHttpContextAccessor>();
-            favouritesHelper = new FavouritesHelper(httpContextAccessor.Object);
+            cookiesHelper = new CookiesHelper(httpContextAccessor.Object);
         }
 
         [Fact]
@@ -112,7 +112,7 @@ namespace StockportWebappTests.Unit.Utils
             httpContextAccessor.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
 
             // Act
-            groups = favouritesHelper.PopulateFavourites(groups);
+            groups = cookiesHelper.PopulateCookies(groups, "favourites");
 
             // Assert
             groups[0].Favourite.Should().Be(true);
@@ -129,8 +129,8 @@ namespace StockportWebappTests.Unit.Utils
             httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
 
             // Act
-            favouritesHelper.AddToFavourites<Group>("test1");
-            favouritesHelper.AddToFavourites<Event>("test2");
+            cookiesHelper.AddToCookies<Group>("test1", "favourites");
+            cookiesHelper.AddToCookies<Event>("test2", "favourites");
             var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
             // Assert
@@ -148,8 +148,8 @@ namespace StockportWebappTests.Unit.Utils
             httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
 
             // Act
-            favouritesHelper.RemoveFromFavourites<Group>("foo");
-            favouritesHelper.RemoveFromFavourites<Group>("bar");
+            cookiesHelper.RemoveFromCookies<Group>("foo", "favourites");
+            cookiesHelper.RemoveFromCookies<Group>("bar", "favourites");
             var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
             // Assert
@@ -166,7 +166,7 @@ namespace StockportWebappTests.Unit.Utils
             httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
 
             // Act
-            favouritesHelper.RemoveAllFromFavourites<Group>();
+            cookiesHelper.RemoveAllFromCookies<Group>("favourites");
             var result = JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies["favourites"]);
 
             // Assert
@@ -183,7 +183,7 @@ namespace StockportWebappTests.Unit.Utils
             httpContextAccessor.Setup(_ => _.HttpContext.Response.Cookies).Returns(cookies);
 
             // Act
-            var favourites = favouritesHelper.GetFavourites<Group>();
+            var favourites = cookiesHelper.GetCookies<Group>("favourites");
 
             // Assert
             favourites.Should().HaveCount(3);

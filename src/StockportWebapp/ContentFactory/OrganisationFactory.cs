@@ -10,12 +10,12 @@ namespace StockportWebapp.ContentFactory
     public class OrganisationFactory
     {
         private readonly MarkdownWrapper _markdownWrapper;
-        private readonly FavouritesHelper favouritesHelper;
+        private readonly CookiesHelper cookiesHelper;
 
         public OrganisationFactory(MarkdownWrapper markdownWrapper, IHttpContextAccessor httpContextAccessor)
         {
             _markdownWrapper = markdownWrapper;
-            favouritesHelper = new FavouritesHelper(httpContextAccessor);
+            cookiesHelper = new CookiesHelper(httpContextAccessor);
         }
 
         public virtual ProcessedOrganisation Build(Organisation organisation)
@@ -39,7 +39,7 @@ namespace StockportWebapp.ContentFactory
                 Url = $"groups/{organisation.Slug}"
             };
 
-            var groupsWithFavourites = favouritesHelper.PopulateFavourites(organisation.Groups);
+            var groupsWithFavourites = cookiesHelper.PopulateCookies(organisation.Groups, "favourites");
 
             return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone, 
                 organisation.Email, groupsWithFavourites, volunteering, donations);

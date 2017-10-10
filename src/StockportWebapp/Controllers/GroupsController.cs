@@ -43,7 +43,7 @@ namespace StockportWebapp.Controllers
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
         private readonly IDateCalculator _dateCalculator;
-        private readonly FavouritesHelper favouritesHelper;
+        private readonly CookiesHelper cookiesHelper;
         private readonly HostHelper _host;
         private readonly IHtmlUtilities _htmlUtilities;
         private readonly HostHelper _hostHelper;
@@ -64,7 +64,7 @@ namespace StockportWebapp.Controllers
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
-            favouritesHelper = new FavouritesHelper(httpContextAccessor);
+            cookiesHelper = new CookiesHelper(httpContextAccessor);
             _host = new HostHelper(environment);
             _hostHelper = hostHelper;
             _htmlUtilities = htmlUtilities;
@@ -113,10 +113,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            favouritesHelper.PopulateFavourites(new List<ProcessedGroup>
-            {
-                group
-            });
+            cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
 
             ViewBag.CurrentUrl = Request?.GetUri();       
 
@@ -161,7 +158,7 @@ namespace StockportWebapp.Controllers
                 model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
             }
 
-            favouritesHelper.PopulateFavourites(model.Groups);
+            cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             model.PrimaryFilter.Order = groupSearch.Order;
             model.PrimaryFilter.Location = groupSearch.Location;
@@ -1035,7 +1032,7 @@ namespace StockportWebapp.Controllers
         [Route("/groups/favourites/clearall")]
         public IActionResult FavouriteGroupsClearAll(Favourites model)
         {
-            favouritesHelper.RemoveAllFromFavourites<Group>();
+            cookiesHelper.RemoveAllFromCookies<Group>("favourites");
             return RedirectToAction("FavouriteGroups");
         }
 
@@ -1044,11 +1041,11 @@ namespace StockportWebapp.Controllers
             var model = new GroupResults();
             var queries = new List<Query>();
 
-            var favouritesList = favouritesHelper.GetFavourites<Group>();
+            var favouritesList = cookiesHelper.GetCookies<Group>("favourites");
             var favourites = "-NO-FAVOURITES-SET-";
             if (favouritesList != null && favouritesList.Any())
             {
-                favourites = string.Join(",", favouritesHelper.GetFavourites<Group>());
+                favourites = string.Join(",", cookiesHelper.GetCookies<Group>("favourites"));
             }
 
             queries.Add(new Query("slugs", favourites));
@@ -1074,7 +1071,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            favouritesHelper.PopulateFavourites(model.Groups);
+            cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             if (pageSize == -1)
             {

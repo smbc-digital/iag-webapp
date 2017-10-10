@@ -27,7 +27,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly DateTime _sunrise = new DateTime(2015, 9, 19);
         private readonly DateTime _sunset = new DateTime(2015, 9, 25);
         private readonly List<Alert> _alerts = new List<Alert>() { new Alert("Alert", "Sub heading", "The Body", "Error", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc)) };
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty) };
         private readonly List<string> _tags = new List<string> {"Events", "Bramall Hall"};
         private readonly List<Document> _documents = new List<Document>();
 

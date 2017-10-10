@@ -19,7 +19,7 @@ namespace StockportWebappTests.Unit.Model
         public void ShouldBeTrueIsAlertSunsetDateIsNotPassed ()
         {                      
             var isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title", "subHeading", "body",
-                                                                 "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5)));
+                                                                 "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(5), string.Empty));
             isAlertDisplayed.Should().Be(true);
         }
 
@@ -27,7 +27,7 @@ namespace StockportWebappTests.Unit.Model
         public void ShouldBeFalseIsAlertSunsetDateIsPassed()
         {
             var isAlertDisplayed = processedEvent.IsAlertDisplayed(new Alert("title", "subHeading", "body",
-                                                                 "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-1)));
+                                                                 "severity", DateTime.Now.AddDays(-5), DateTime.Now.AddDays(-1), string.Empty));
             isAlertDisplayed.Should().Be(false);
         }
     }
