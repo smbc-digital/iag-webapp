@@ -69,7 +69,7 @@ namespace StockportWebapp.Utils
                 cookiesAsObject[typeof(T).ToString()].Add(slug);
             }
 
-            UpdateCookies(cookiesAsObject);
+            UpdateCookies(cookiesAsObject, cookieType);
         }
 
         public void RemoveFromCookies<T>(string slug, string cookieType)
@@ -86,7 +86,7 @@ namespace StockportWebapp.Utils
                 cookiesAsObject[typeof(T).ToString()].Remove(slug);
             }
 
-            UpdateCookies(cookiesAsObject);
+            UpdateCookies(cookiesAsObject, cookieType);
         }
 
         public void RemoveAllFromCookies<T>(string cookieType)
@@ -98,7 +98,7 @@ namespace StockportWebapp.Utils
                 cookiesAsObject.Remove(typeof(T).ToString());
             }
 
-            UpdateCookies(cookiesAsObject);
+            UpdateCookies(cookiesAsObject, cookieType);
         }
 
         public List<string> GetCookies<T>(string cookieType)
@@ -111,16 +111,16 @@ namespace StockportWebapp.Utils
 
         private Dictionary<string, List<string>> GetCookiesAsObject(string cookieType)
         {
-            var cookies = httpContextAccessor.HttpContext.Request.Cookies["favourites"];
+            var cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
             return !string.IsNullOrEmpty(cookies) 
                 ? JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies) 
                 : new Dictionary<string, List<string>>();
         }
 
-        private void UpdateCookies(Dictionary<string, List<string>> cookies)
+        private void UpdateCookies(Dictionary<string, List<string>> cookies, string cookieType)
         {
             var data = JsonConvert.SerializeObject(cookies);
-            httpContextAccessor.HttpContext.Response.Cookies.Append("favourites", data, new CookieOptions { Expires = DateTime.Now.AddYears(99) });
+            httpContextAccessor.HttpContext.Response.Cookies.Append(cookieType, data, new CookieOptions { Expires = DateTime.Now.AddYears(99) });
         }
     }
 }

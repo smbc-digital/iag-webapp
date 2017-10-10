@@ -17,9 +17,9 @@ namespace StockportWebapp.Controllers
             _cookiesHelper = cookiesHelper;
         }
         
-        public List<string> GetCookies()
+        public List<string> GetCookies(string cookieType)
         {
-            return _cookiesHelper.GetCookies<string>("favourites");
+            return _cookiesHelper.GetCookies<string>(cookieType);
         }
     }
 }

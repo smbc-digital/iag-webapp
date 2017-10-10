@@ -30,7 +30,7 @@ namespace StockportWebappTests.Unit.Controllers
             });
 
             // Act
-            List<string> result = _cookiesController.GetCookies();
+            List<string> result = _cookiesController.GetCookies(string.Empty);
 
             // Assert
             result.Count.Should().Equals(1);
@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.Controllers
             });
 
             // Act
-            var result = _cookiesController.GetCookies();
+            var result = _cookiesController.GetCookies(string.Empty);
 
             // Assert
             _mockFavouritesHelper.Verify(_ => _.GetCookies<string>(It.IsAny<string>()), Times.Once);
