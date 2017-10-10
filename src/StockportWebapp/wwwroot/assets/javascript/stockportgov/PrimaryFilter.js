@@ -246,6 +246,9 @@
                 // perform a lookup on the location in the textbox
                 locationLookupNonAutocomplete(); 
             }
+
+            // after all is done set HasBeenUpdated to false so you can choose a location again
+            location.HasBeenUpdated = false;
         }
 
         if ($('.location-search-input-autoset').length) {
@@ -286,10 +289,6 @@
 
             var options = {
                 bounds: defaultBounds,
-                // the type of location we want to return
-                //types: ['geocode'],
-                //address_components: ['locality', 'postal_code', 'sublocality', 'country', 'administrative_area_level_1', 'administrative_area_level_2'],
-                //  
                 // the country to return results, the bounds above seemed to also be needed and not just this though
                 // this isn't 100% though and is just a suggestion to first look in gb
                 componentRestrictions: { country: 'gb' }
