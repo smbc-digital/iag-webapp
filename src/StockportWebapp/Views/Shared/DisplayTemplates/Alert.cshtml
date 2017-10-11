@@ -1,34 +1,59 @@
-﻿@model StockportWebapp.Models.Alert
-<div class="grid-100 tablet-grid-100 mobile-grid-100">
-    @{
-        var severity = Model.Severity.ToLowerInvariant();
-        var icon = "fa-info-circle";
-        if (severity == "error")
+﻿@using StockportWebapp.Models
+@using StockportWebapp.Utils
+@model StockportWebapp.Models.Alert
+@inject ICookiesHelper CookiesHelper
+
+@{
+    bool isDismissed = false;
+    if (string.IsNullOrEmpty(Model.Slug))
+    {
+        isDismissed = false;
+    }
+    else
+    {
+        var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+        if (alertCookies != null && alertCookies.Contains(Model.Slug))
         {
-            icon = "fa-exclamation-circle";
-        }
-        if (severity == "warning")
-        {
-            icon = "fa-exclamation-triangle";
+            isDismissed = true;
         }
     }
-    <div class="alert alert-@Model.Severity.ToLowerInvariant()">
-        <div class="alert-icon">
-            <i class="fa @icon fa-3x"></i>
-        </div>
-        <div tabindex="0" class="alert-content">
-            <h3>@Model.Title</h3>
-            @if (!string.IsNullOrEmpty(Model.SubHeading))
+
+
+}
+
+@if (!isDismissed)
+{
+    <div class="grid-100 tablet-grid-100 mobile-grid-100">
+        @{
+            var severity = Model.Severity.ToLowerInvariant();
+            var icon = "fa-info-circle";
+            if (severity == "error")
             {
-                <p class="alert-subheading">@Model.SubHeading</p>
+                icon = "fa-exclamation-circle";
             }
-            @Html.Raw(Model.Body)
-        </div>
-        <div class="alert-close">
-            <a href="#">
-                <span class="visuallyhidden"> Close Alert</span>
-                <i class="fa fa-times fa-2x" aria-hidden="true"></i>
-            </a>
+            if (severity == "warning")
+            {
+                icon = "fa-exclamation-triangle";
+            }
+        }
+        <div class="alert alert-@Model.Severity.ToLowerInvariant()">
+            <div class="alert-icon">
+                <i class="fa @icon fa-3x"></i>
+            </div>
+            <div tabindex="0" class="alert-content">
+                <h3>@Model.Title</h3>
+                @if (!string.IsNullOrEmpty(Model.SubHeading))
+                {
+                    <p class="alert-subheading">@Model.SubHeading</p>
+                }
+                @Html.Raw(Model.Body)
+            </div>
+            <div class="alert-close">
+                <a href="#">
+                    <span class="visuallyhidden"> Close Alert</span>
+                    <i class="fa fa-times fa-2x close-alert" aria-hidden="true" data-slug="@Model.Slug"></i>
+                </a>
+            </div>
         </div>
     </div>
-</div>
+}

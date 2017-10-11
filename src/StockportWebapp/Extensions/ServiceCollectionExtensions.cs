@@ -188,7 +188,9 @@ namespace StockportWebapp.Extensions
         {
             services.AddSingleton(p => new CalendarHelper(p.GetService<ITimeProvider>()));
             services.AddSingleton<ParisHashHelper>();
-            services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
+            //services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
+            //services.AddSingleton<ICookiesHelper>(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
+            services.AddTransient<ICookiesHelper, CookiesHelper>();
             services.AddTransient<IArticleRepository>(
                 p =>
                     new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),

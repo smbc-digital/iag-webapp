@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Controllers
@@ -16,10 +17,29 @@ namespace StockportWebapp.Controllers
         {
             _cookiesHelper = cookiesHelper;
         }
-        
-        public List<string> GetCookies(string cookieType)
+
+        //public List<string> GetCookies(string cookieType)
+        //{
+        //    return _cookiesHelper.GetCookies<string>(cookieType);
+        //}
+
+        [Route("add")]
+        public IActionResult AddCookie(string slug, string cookieType)
         {
-            return _cookiesHelper.GetCookies<string>(cookieType);
+            switch (cookieType)
+            {
+                case "group":
+                    _cookiesHelper.AddToCookies<Group>(slug, "favourites");
+                    break;
+                case "event":
+                    _cookiesHelper.AddToCookies<Event>(slug, "favourites");
+                    break;
+                case "alert":
+                    _cookiesHelper.AddToCookies<Alert>(slug, "alerts");
+                    break;
+            }
+
+            return Ok();
         }
     }
 }
