@@ -34,6 +34,8 @@ namespace StockportWebapp.Config
         int GetGroupsDefaultPageSize(string businessId);
         string GetContentApiAuthenticationKey();
         string GetWebAppClientId();
+        AppSetting GetDemocracyHomeLink();
+        //string GetDemocracyHomeLink();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -100,6 +102,11 @@ namespace StockportWebapp.Config
         public Uri GetContentApiUrlRoot()
         {
             return new Uri(_appsettings["ContentApiUrlRoot"]);
+        }
+
+        public AppSetting GetDemocracyHomeLink()
+        {
+            return AppSetting.GetAppSetting(_appsettings["DemocracyHomeLink"]);
         }
 
         public AppSetting GetEmailHost(string businessId)
