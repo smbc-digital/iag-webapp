@@ -103,7 +103,7 @@ namespace StockportWebapp.Utils
 
         public List<string> GetCookies<T>(string cookieType)
         {
-            List<string> result = new List<string>();
+            var result = new List<string>();
             var cookiesAsObject = GetCookiesAsObject(cookieType);
             cookiesAsObject.TryGetValue(typeof(T).ToString(), out result);
             return result;

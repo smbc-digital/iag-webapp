@@ -41,5 +41,24 @@ namespace StockportWebapp.Controllers
 
             return Ok();
         }
+
+        [Route("/remove")]
+        public IActionResult RemoveGroupsFavourite(string slug, string cookieType)
+        {
+            switch (cookieType)
+            {
+                case "group":
+                    _cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
+                    break;
+                case "event":
+                    _cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
+                    break;
+                case "alert":
+                    _cookiesHelper.AddToCookies<Alert>(slug, "alerts");
+                    break;
+            }
+
+            return new OkResult();
+        }
     }
 }

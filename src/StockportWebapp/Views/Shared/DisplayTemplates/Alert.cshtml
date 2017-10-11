@@ -5,19 +5,12 @@
 
 @{
     bool isDismissed = false;
-    if (string.IsNullOrEmpty(Model.Slug))
-    {
-        isDismissed = false;
-    }
-    else
-    {
-        var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-        if (alertCookies != null && alertCookies.Contains(Model.Slug))
-        {
-            isDismissed = true;
-        }
-    }
 
+    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    if (alertCookies != null && alertCookies.Contains(Model.Slug))
+    {
+        isDismissed = true;
+    }
 
 }
 
@@ -56,4 +49,4 @@
             </div>
         </div>
     </div>
-}
+            }

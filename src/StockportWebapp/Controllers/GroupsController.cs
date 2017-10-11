@@ -70,6 +70,7 @@ namespace StockportWebapp.Controllers
             _htmlUtilities = htmlUtilities;
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/groups")]
         public async Task<IActionResult> Index()
         {
