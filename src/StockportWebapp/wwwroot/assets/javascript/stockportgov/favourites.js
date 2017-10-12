@@ -16,7 +16,6 @@
     };
 
     var removeFavourites = function (slug, type) {
-        debugger;
         $.get("/cookies/remove?slug=" + slug + "&cookieType=" + type,
             function (data, status) {
                 if (favebar) {
