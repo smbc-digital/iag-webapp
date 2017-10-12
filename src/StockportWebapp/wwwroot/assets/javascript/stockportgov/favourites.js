@@ -5,8 +5,8 @@
     var favebar = true;
     var onFavouritesPage = false;
 
-    var addFavourites = function (slug, type) {
-        $.get("/favourites/add?slug=" + slug + "&type=" + type,
+    var addFavourites = function (slug, cookieType) {
+        $.get("/cookies/add?slug=" + slug + "&cookieType=" + cookieType,
             function (data, status) {
                 if (favebar) {
                     favouriteCount++;
@@ -16,7 +16,8 @@
     };
 
     var removeFavourites = function (slug, type) {
-        $.get("/favourites/remove?slug=" + slug + "&type=" + type,
+        debugger;
+        $.get("/cookies/remove?slug=" + slug + "&cookieType=" + type,
             function (data, status) {
                 if (favebar) {
                     favouriteCount--;
@@ -39,8 +40,8 @@
     var handleClicks = function () {
         $(".add-favourite").on("click", function () {
             var slug = $(this).attr("data-slug");
-            var type = $(this).attr("data-type");
-            addFavourites(slug, type);
+            var cookieType = $(this).attr("data-type");
+            addFavourites(slug, cookieType);
             $("#add-favourite-" + slug).addClass("hidden");
             $("#remove-favourite-" + slug).removeClass("hidden");
             $("#print-favourite-group-item-" + slug).removeClass("hidden");

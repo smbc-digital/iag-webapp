@@ -6,14 +6,11 @@
 @{
     bool isDismissed = false;
 
-    if (!string.IsNullOrEmpty(Model.Slug))
+    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    if (alertCookies != null && alertCookies.Contains(Model.Slug))
     {
-        var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-        if (alertCookies != null && alertCookies.Contains(Model.Slug))
-        {
-            isDismissed = true;
-        }  
-    }  
+        isDismissed = true;
+    }
 }
 
 @if (!isDismissed)

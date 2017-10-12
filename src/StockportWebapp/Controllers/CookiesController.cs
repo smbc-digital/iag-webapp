@@ -18,11 +18,6 @@ namespace StockportWebapp.Controllers
             _cookiesHelper = cookiesHelper;
         }
 
-        //public List<string> GetCookies(string cookieType)
-        //{
-        //    return _cookiesHelper.GetCookies<string>(cookieType);
-        //}
-
         [Route("add")]
         public IActionResult AddCookie(string slug, string cookieType)
         {
@@ -42,8 +37,8 @@ namespace StockportWebapp.Controllers
             return Ok();
         }
 
-        [Route("/remove")]
-        public IActionResult RemoveGroupsFavourite(string slug, string cookieType)
+        [Route("remove")]
+        public IActionResult RemoveCookie(string slug, string cookieType)
         {
             switch (cookieType)
             {
@@ -54,11 +49,11 @@ namespace StockportWebapp.Controllers
                     _cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
                     break;
                 case "alert":
-                    _cookiesHelper.AddToCookies<Alert>(slug, "alerts");
+                    _cookiesHelper.RemoveFromCookies<Alert>(slug, "alerts");
                     break;
             }
 
-            return new OkResult();
+            return Ok();
         }
     }
 }
