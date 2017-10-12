@@ -1,17 +1,19 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.Utils
-@model StockportWebapp.Models.Alert
+@model Alert
 @inject ICookiesHelper CookiesHelper
 
 @{
     bool isDismissed = false;
 
-    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    if (alertCookies != null && alertCookies.Contains(Model.Slug))
+    if (!string.IsNullOrEmpty(Model.Slug))
     {
-        isDismissed = true;
-    }
-
+        var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+        if (alertCookies != null && alertCookies.Contains(Model.Slug))
+        {
+            isDismissed = true;
+        }  
+    }  
 }
 
 @if (!isDismissed)
