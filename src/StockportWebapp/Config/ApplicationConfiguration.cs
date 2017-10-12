@@ -35,7 +35,6 @@ namespace StockportWebapp.Config
         string GetContentApiAuthenticationKey();
         string GetWebAppClientId();
         AppSetting GetDemocracyHomeLink();
-        //string GetDemocracyHomeLink();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration

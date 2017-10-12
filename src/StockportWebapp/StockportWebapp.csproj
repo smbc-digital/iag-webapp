@@ -20,7 +20,6 @@
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Remove="app-config\appsettings.dev-local.json" />
     <None Remove="app-config\injected\appsettings.local.secrets.json" />
-    <Content Include="wwwroot\assets\javascript\stockportgov\alerts.js" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
     <None Include="sha.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
