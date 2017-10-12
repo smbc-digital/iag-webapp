@@ -3,7 +3,7 @@
     var take = string.IsNullOrEmpty(Model.ButtonText) ? Model.Items.Count : 5;
 }
 <div class="primary-topics">
-    <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent-4-4-5">
+    <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
         @Html.Partial("GenericFeaturedItem", Model.Items.Take(take))
     </div>
 </div>
@@ -12,13 +12,13 @@
     <div class="generic-list-see-more-container">
         @for (var count = 5; count < Model.Items.Count(); count += 5)
         {
-            <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-mobile matchbox-parent-4-4-5">
+            <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-mobile matchbox-parent">
                 @Html.Partial("GenericFeaturedItem", Model.Items.Skip(count).Take(5))
             </div>
         }
         @for (var count = 4; count < Model.Items.Count(); count += 4)
         {
-            <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-desktop hide-on-tablet matchbox-parent-4-4-5">
+            <div class="featured-topic-list generic-Featured-Items-margin-top hide-on-desktop hide-on-tablet matchbox-parent">
                 @Html.Partial("GenericFeaturedItem", Model.Items.Skip(count).Take(4))
             </div>
         }

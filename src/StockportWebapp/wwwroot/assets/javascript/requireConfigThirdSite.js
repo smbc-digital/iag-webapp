@@ -30,6 +30,7 @@
         "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
         "favourites": "stockportgov/favourites",
         "tracking": "stockportgov/tracking",
+        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min"
     },
     shim: {
         'jquery-ui': {
@@ -53,8 +54,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking'],
-    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking) {
+require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'matchHeight'],
+    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, matchHeight) {
         carousel.Init();
         cludoconfig.Init();
         contactus.Init();

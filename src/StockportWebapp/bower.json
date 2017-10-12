@@ -1,7 +1,8 @@
 {
-  "name": "ASP.NET",
+  "name": "stockportwebapp",
   "private": true,
   "dependencies": {
-    "bootstrap3-wysihtml5-bower": "0.3.3"
+    "bootstrap3-wysihtml5-bower": "0.3.3",
+    "matchHeight": "jquery-match-height#^0.7.2"
   }
 }

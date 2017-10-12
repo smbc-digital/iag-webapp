@@ -35,7 +35,8 @@
         "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
         "favourites": "stockportgov/favourites",
         "tracking": "stockportgov/tracking",
-        "alerts": "stockportgov/alerts"
+        "alerts": "stockportgov/alerts",
+        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min"
     },
     shim: {
         'jquery-ui': {
@@ -59,9 +60,10 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts) {
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight) {
         startup.Init();
+        matchboxconfig.Init();
         refinebybar.Init();
         primaryfilter.Init();
         expandinglinks.Init();
@@ -75,7 +77,6 @@ require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'exp
         events.Init();
         carousel.Init();
         cludoconfig.Init();
-        matchboxconfig.Init();
         customwysiwyg.Init();
         alerts.Init();
     }
