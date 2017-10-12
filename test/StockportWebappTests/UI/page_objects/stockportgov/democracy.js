@@ -6,8 +6,8 @@ var methods = {
     assertBreadcrumbVisible: function(browser) {
       browser.useCss();
         this.waitForElementVisible('.breadcrumb', this.api.globals.timeOut)
-        .expect.element('.breadcrumb').text.to.contain("Home › About your council › Councillors › {breadcrumb}");
-
+          .expect.element('.breadcrumb').text.to.contain("Home");
+      //" › About your council › Councillors › {breadcrumb}");
     },
 
     asserSideMenuVisible: function (browser) {
