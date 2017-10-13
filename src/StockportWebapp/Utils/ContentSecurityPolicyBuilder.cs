@@ -42,7 +42,8 @@ namespace StockportWebapp.Utils
                 .AddSource("http://www.opinionstage.com/polls/")
                 .AddSource("https://www.google.com/recaptcha/api2/anchor")
                 .AddSource("https://www.google.com/recaptcha/api2/bframe")
-                .Finish());
+				.AddSource("https://player.vimeo.com/")
+				.Finish());
         }
 
         private void BuildFontSource()
