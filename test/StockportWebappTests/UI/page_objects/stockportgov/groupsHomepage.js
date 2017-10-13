@@ -26,6 +26,25 @@
         this.waitForElementVisible("@groupsHomepageFeaturedContainerItemFour", this.api.globals.timeOut)
             .expect.element('@groupsHomepageFeaturedContainerItemFour')
             .text.to.equal(itemText);
+    },
+    assertFeaturedGroupsArePresent: function (value, browser) {
+        this.waitForElementVisible("#featured-groups", this.api.globals.timeOut)
+            .expect.element('.group-title h3')
+            .text.to.equal(value);
+
+        // take back to the main /groups/ page for further testing using breadrumb
+        browser.click(".group-card a[href='/groups/uitest-group']");
+    },
+    assertGroupExists: function () {
+        this.waitForElementVisible("h1", this.api.globals.timeOut)
+            .expect.element('h1')
+            .text.to.equal("UITEST: Group");
+        
+        this.expect.element('.add-favourite').to.be.present;
+        this.expect.element('.group-details').to.be.present;
+        this.expect.element('.manage-group-section h3').to.be.present;
+        this.expect.element('.manage-group-section h3').text.to.equal("Manage your group information");
+        this.expect.element('.export-as-pdf').to.be.present;
     }
 };
 

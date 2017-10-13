@@ -202,20 +202,6 @@
                     }
                 }
 
-                input[type=checkbox] {
-                    & + span:before {
-                        font-family: FontAwesome;
-                        display: inline-block;
-                        content: "\f096";
-                        letter-spacing: 15px;
-                    }
-
-                    &:checked + span:before {
-                        content: "\f046";
-                        letter-spacing: 13px;
-                    }
-                }
-
                 a {
                     color: #055C58;
                     display: inline;

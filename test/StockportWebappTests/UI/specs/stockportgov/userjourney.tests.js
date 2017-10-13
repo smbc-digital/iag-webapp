@@ -216,6 +216,8 @@ module.exports = {
         groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemTwoIsVisible("Find help and support");
         groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemThreeIsVisible("What's near me?");
         groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemFourIsVisible("Find where to volunteer");
+        groupsHomepage.assertFeaturedGroupsArePresent("UITEST: Group", browser);
+        groupsHomepage.assertGroupExists();
     },
     'Navigate to the Democracy Template and validate details': function (browser) {
       var democracypage = browser.page.stockportgov.democracy();
