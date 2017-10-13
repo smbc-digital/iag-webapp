@@ -16,3 +16,9 @@ UI Tests:
 
 JS Tests:
   js-tests:           runs the javascript tests
+
+Gulp Tasks:
+  css:                runs the sass to css gulp task
+  js:                 runs the minify all custom js task
+  js-config:          runs the minify the js require config task
+  js-all:             rund both the minify all custom js task and minify the js require config task

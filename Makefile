@@ -93,3 +93,24 @@ ui-test-specific:
 .PHONY: js-tests
 js-tests:
 	cd test/StockportWebappTests/JSTests && npm install && cd node_modules/karma/bin && node karma start ../../../karma.conf.js --single-run
+
+
+# ---------------------------------------------------------------------------------------
+# -- Gulp tasks
+# ---------------------------------------------------------------------------------------
+
+.PHONY: css
+css:
+	cd src/StockportWebapp && gulp css
+
+.PHONY: js
+js:
+	cd src/StockportWebapp && gulp min:js
+
+.PHONY: js-config
+js-config:
+	cd src/StockportWebapp && gulp min:config:all
+
+.PHONY: js-all
+js-all:
+	cd src/StockportWebapp && gulp min:js && gulp min:config:all

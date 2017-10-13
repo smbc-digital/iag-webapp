@@ -203,8 +203,6 @@
                 }
 
                 input[type=checkbox] {
-                    display: none;
-
                     & + span:before {
                         font-family: FontAwesome;
                         display: inline-block;
