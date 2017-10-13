@@ -4,16 +4,16 @@
     @foreach (var carouselContent in Model)
     {
         <a href="@carouselContent.URL">
-            <div class="webcast webcast-@counter">
+            <div class="stockport-carousel webcast-@counter">
 
-                <div class="webcast-text">
+                <div class="stockport-carousel-text">
                     <h2>@carouselContent.Title</h2>
                     <p>
                         @carouselContent.Teaser
                     </p>
                 </div>
 
-                <div class="webcast-gradient"></div>
+                <div class="stockport-carousel-gradient"></div>
             </div>
         </a>
         counter++;
