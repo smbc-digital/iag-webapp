@@ -35,8 +35,8 @@
         // take back to the main /groups/ page for further testing using breadrumb
         browser.click(".group-card a[href='/groups/uitest-group']");
     },
-    assertGroupExists: function () {
-        this.waitForElementVisible("h1", this.api.globals.timeOut)
+    assertGroupExists: function (browser) {
+        browser.waitForElementVisible("h1", this.api.globals.timeOut)
             .expect.element('h1')
             .text.to.equal("UITEST: Group");
         
@@ -45,6 +45,36 @@
         this.expect.element('.manage-group-section h3').to.be.present;
         this.expect.element('.manage-group-section h3').text.to.equal("Manage your group information");
         this.expect.element('.export-as-pdf').to.be.present;
+    },
+    assertCanGetToCategoryResultsPage: function(browser) {
+        this.waitForElementVisible("#see-more-services", this.api.globals.timeOut)
+            .expect.element('#see-more-services')
+            .text.to.equal("View more categories");
+        
+        browser.click("button[id='see-more-services']");
+
+        browser.useXpath();
+        browser.waitForElementVisible(".//*[@class='featured-topic-name'][text()='UITEST: Group Category']", this.api.globals.timeOut);
+        
+        browser.click(".//*[@class='featured-topic-link'][@href='/groups/results?category=uitest-group-category&order=Name+A-Z']");
+
+        browser.useCss();
+        this.expect.element("#hiddenSelectCategory").value.to.equal("UITEST: Group Category");
+
+        browser.useXpath();
+        this.expect.element(".//*[@id='item-card-uitest-a-group-for-ui-testing']/div/a[@href='/groups/uitest-a-group-for-ui-testing']").to.be.present;
+    },
+    assertCanUseRefineByFilter: function(browser) {
+        browser.click(".//div[@class='refine']/a[@class='link']");
+        
+        this.expect.element(".//div[@class='refine-filters']").to.be.visible;
+
+        browser.click(".//input[@type='checkbox'][@name='getinvolved']");
+        browser.click(".//a[@class='apply']");
+
+        this.expect.element(".//*[@id='item-card-uitest-a-group-for-ui-testing']/div/a[@href='/groups/uitest-a-group-for-ui-testing']").to.be.present;
+
+        this.expect.element(".//div[@class='badge']/span[text()='1']").to.be.present;
     }
 };
 
