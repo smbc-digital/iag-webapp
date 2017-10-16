@@ -75,13 +75,56 @@
         this.expect.element(".//*[@id='item-card-uitest-a-group-for-ui-testing']/div/a[@href='/groups/uitest-a-group-for-ui-testing']").to.be.present;
 
         this.expect.element(".//div[@class='badge']/span[text()='1']").to.be.present;
+    },
+    assertCanSearchNearMe: function(browser) {
+        browser.useCss();
+
+        browser.waitForElementVisible("#currentLocationgroup", this.api.globals.timeOut)
+                .expect.element("#currentLocationgroup h5")
+                .text.to.equal("What's near me?");
+        
+        browser.click("#currentLocationgroup");
+
+        // can't rely on this bieng anything specific, so just check it isn't the default
+        browser.waitForElementVisible("#postcode", this.api.globals.timeOut);
+        browser.expect.element("#postcode").value.to.not.equal("Stockport");
+    },
+    assertCanSearchEverything: function(browser) {
+        browser.useXpath();
+
+        browser.waitForElementVisible(".//div[@id='search-everything']", this.api.globals.timeOut)
+            .expect.element(".//div[@id='search-everything']//h5")
+            .text.to.equal("Search everything");
+
+        browser.click(".//div[@id='search-everything']//a");
+
+        this.expect.element(".//*[@id='hiddenSelectCategory']").value.to.equal("All");
+
+        browser.useCss().expect.element(".group-card").to.be.present;
+
+        browser.useXpath().click(".//ul[@class='breadcrumb']//a[@href='/groups']");
+    },
+    assertCanFindHelpAndSupport: function(browser) {
+        browser.useXpath();
+
+        browser.waitForElementVisible(".//div[@id='find-help-and-support']", this.api.globals.timeOut)
+            .expect.element(".//div[@id='find-help-and-support']//h5")
+            .text.to.equal("Find help and support");
+
+        browser.click(".//div[@id='find-help-and-support']//a");
+
+        this.expect.element(".//*[@id='hiddenSelectCategory']").value.to.equal("Help and support");
+
+        browser.useCss().expect.element(".group-card").to.be.present;
+        
+        browser.useXpath().click(".//ul[@class='breadcrumb']//a[@href='/groups']");
     }
 };
 
 module.exports = {
     commands: [methods],
     url: function () {
-        return this.api.globals.testUri + "/groups/";
+        return this.api.globals.testUri + "/groups";
     },
     elements: {
         groupsHomepageFeaturedList: ".group-homepage-list",

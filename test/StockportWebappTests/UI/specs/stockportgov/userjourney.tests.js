@@ -206,26 +206,35 @@ module.exports = {
         manageGroups.assertEventsTitleIsVisible("UITEST: Hats Amazing");
     },
     'Navigate to the groups homepage and validate page': function (browser) {
-        var groupsHomepage = browser.page.stockportgov.groupsHomepage();
-        groupsHomepage.navigate();
+        var page = browser.page.stockportgov.groupsHomepage();
+        page.navigate();
 
         // assertions
-        groupsHomepage.assertGroupHomepageTitleIsVisible("Get involved in your local community with Stockport Local");
-        groupsHomepage.assertGroupsHomepageFeaturedListContainerIsVisible();
-        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemOneIsVisible("Search everything");
-        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemTwoIsVisible("Find help and support");
-        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemThreeIsVisible("What's near me?");
-        groupsHomepage.assertGroupsHomepageFeaturedContainerButtonForItemFourIsVisible("Find where to volunteer");
-        groupsHomepage.assertFeaturedGroupsArePresent("UITEST: Group", browser);
-        groupsHomepage.assertGroupExists(browser);
+        page.assertGroupHomepageTitleIsVisible("Get involved in your local community with Stockport Local");
+        page.assertGroupsHomepageFeaturedListContainerIsVisible();
+        page.assertGroupsHomepageFeaturedContainerButtonForItemOneIsVisible("Search everything");
+        page.assertGroupsHomepageFeaturedContainerButtonForItemTwoIsVisible("Find help and support");
+        page.assertGroupsHomepageFeaturedContainerButtonForItemThreeIsVisible("What's near me?");
+        page.assertGroupsHomepageFeaturedContainerButtonForItemFourIsVisible("Find where to volunteer");
+        page.assertFeaturedGroupsArePresent("UITEST: Group", browser);
+        page.assertGroupExists(browser);
 
         // navigate back to groups homepage
-        groupsHomepage.navigate();
+        page.navigate();
 
         // assertions
-        groupsHomepage.assertCanGetToCategoryResultsPage(browser);
-        groupsHomepage.assertCanUseRefineByFilter(browser);
+        page.assertCanGetToCategoryResultsPage(browser);
+        page.assertCanUseRefineByFilter(browser);
+    },
+    'Navigate to the groups homepage and use primary filters': function (browser) {
+        var page = browser.page.stockportgov.groupsHomepage();
+        page.navigate();
 
+        // assertions
+        // TODO: Find a way to mock geolocation in phantomjs (doesn't work currently, so this has to be commented out)
+        //page.assertCanSearchNearMe(browser);
+        page.assertCanSearchEverything(browser);
+        page.assertCanFindHelpAndSupport(browser);
     },
     'Navigate to the Democracy Template and validate details': function (browser) {
       var democracypage = browser.page.stockportgov.democracy();
