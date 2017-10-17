@@ -91,7 +91,7 @@
 }
 
 .slick-next {
-    right: 5%;
+    right: 3%;
 }
 
 [dir='rtl'] .slick-next {
@@ -123,7 +123,7 @@
 .slick-dots {
     position: relative;
     bottom: 50px;
-    left: 9%;
+    left: 10%;
     display: block;
     width: 100%;
     padding: 0;
@@ -132,20 +132,20 @@
     text-align: left;
 
     @media #{$tablet} {
-        left: 10.7%;
-        bottom: 60px;
+        left: 13%;
+        bottom: 50px;
     }
 
     @media #{$mobile} {
-        left: 11.5%;
-        bottom: 35px;
+        left: 8.5%; 
+        bottom: 45px;
     }
 }
 
 .slick-dots li {
     position: relative;
     display: inline-block;
-    width: 20px;
+    width: 25px;
     height: 20px;
     margin: 0;
     padding: 0;
@@ -256,10 +256,15 @@
         padding-left: 9%;
         padding-bottom: 50px;
         position: absolute;
-        width: 100%;
+        width: 90.5%;
         bottom: 0;
         z-index: 20;
         background-color: rgba(51, 51, 51, 0.8);
+
+        &.article-carousel-text {
+            height: 40px;
+            width: 89.75%;
+        }
 
         h2, p {
             color: $white;
@@ -267,19 +272,34 @@
 
         h2 {
             margin-top: 0;
+            padding-right: 20%;
+            padding-left: 20px;
 
             @media #{$mobile} {
                 font-size: 1.3em;
                 line-height: 1.5em;
+            }
+
+            @media #{$tablet} {
+                padding-right: 20%;
+                padding-left: 5%;
             }
         }
 
         p {
             line-height: 1.2;
             margin-bottom: 0;
+            padding-left: 20px;
 
             @media #{$mobile} {
                 font-size: 0.8em;
+                padding-right: 5px;
+            }
+
+            @media #{$tablet} {
+                font-size: 0.8em;
+                padding-right: 20%;
+                padding-left: 5%;
             }
         }
     }
@@ -287,13 +307,13 @@
 
 article {
     .slick-next {
-        right: 7%;
+        right: 3%;
     }
 
     .slick-dots {
         text-align: center;
         left: auto;
-        bottom: 70px;
+        bottom: 80px;
 
         li button {
             margin: 0 5px;

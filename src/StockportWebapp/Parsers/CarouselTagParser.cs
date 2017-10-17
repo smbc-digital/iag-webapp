@@ -27,7 +27,7 @@ namespace StockportWebapp.Parsers
                 var srcText = srcRegex.Match(item).Groups[1];
                 var altText = altRegex.Match(item).Groups[1];
                 if(!string.IsNullOrEmpty(srcText.Value))
-                    returnCarousel.Append($"<div class=\"carousel-image\" style=\"background-image:url({srcText});\" title=\"{altText}\" /><p class=\"carousel-text\">{altText}</p></div>");
+                    returnCarousel.Append($"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcText});\" title=\"{altText}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altText}</p></div></div>");
 
             }
             return returnCarousel.Append("</div>").ToString();
