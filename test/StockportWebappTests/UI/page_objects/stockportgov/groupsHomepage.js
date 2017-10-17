@@ -65,16 +65,18 @@
         this.expect.element(".//*[@id='item-card-uitest-a-group-for-ui-testing']/div/a[@href='/groups/uitest-a-group-for-ui-testing']").to.be.present;
     },
     assertCanUseRefineByFilter: function(browser) {
-        browser.click(".//div[@class='refine']/a[@class='link']");
+        browser.waitForElementVisible(".//div[@class='refine']/a[@class='link'][contains(text(), 'Get involved')]", this.api.globals.timeOut);
+
+        browser.click(".//div[@class='refine']/a[@class='link'][contains(text(), 'Get involved')]");
         
-        this.expect.element(".//div[@class='refine-filters']").to.be.visible;
+        browser.waitForElementVisible(".//*[@id='refine-slider']//div[contains(@class, 'refine-filters') and contains(.//*, 'Volunteering opportunities')]", this.api.globals.timeOut);
 
         browser.click(".//input[@type='checkbox'][@name='getinvolved']");
         browser.click(".//a[@class='apply']");
 
-        this.expect.element(".//*[@id='item-card-uitest-a-group-for-ui-testing']/div/a[@href='/groups/uitest-a-group-for-ui-testing']").to.be.present;
+        browser.expect.element(".//*[@id='item-card-uitest-a-group-for-ui-testing']/div/a[@href='/groups/uitest-a-group-for-ui-testing']").to.be.present;
 
-        this.expect.element(".//div[@class='badge']/span[text()='1']").to.be.present;
+        browser.expect.element(".//div[@class='badge']/span[text()='1']").to.be.present;
     },
     assertCanSearchNearMe: function(browser) {
         browser.useCss();
@@ -98,7 +100,7 @@
 
         browser.click(".//div[@id='search-everything']//a");
 
-        this.expect.element(".//*[@id='hiddenSelectCategory']").value.to.equal("All");
+        browser.expect.element(".//*[@id='hiddenSelectCategory']").value.to.equal("All");
 
         browser.useCss().expect.element(".group-card").to.be.present;
 
@@ -113,7 +115,7 @@
 
         browser.click(".//div[@id='find-help-and-support']//a");
 
-        this.expect.element(".//*[@id='hiddenSelectCategory']").value.to.equal("Help and support");
+        browser.expect.element(".//*[@id='hiddenSelectCategory']").value.to.equal("Help and support");
 
         browser.useCss().expect.element(".group-card").to.be.present;
         
