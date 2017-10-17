@@ -124,8 +124,8 @@
     position: relative;
     bottom: 50px;
     left: 10%;
-    display: block;
-    width: 100%;
+    display: block; 
+    width: 100%; 
     padding: 0;
     margin: 0 0 -35px 0;
     list-style: none;
@@ -202,6 +202,7 @@
 .carousel {
     overflow: hidden !important;
 }
+
 
 .carousel-image {
     min-height: 500px !important;
