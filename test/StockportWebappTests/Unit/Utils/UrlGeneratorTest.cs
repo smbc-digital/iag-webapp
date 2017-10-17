@@ -16,7 +16,7 @@ namespace StockportWebappTests.Unit.Utils
 
         public UrlGeneratorTest()
         {
-            var contentConfig = new Uri("http://localhost.com:80/api/");
+            var contentConfig = new Uri("http://localhost.com:80/");
 
             var config = new Mock<IApplicationConfiguration>();
             config.Setup(o => o.GetContentApiUri()).Returns(contentConfig);
@@ -34,7 +34,7 @@ namespace StockportWebappTests.Unit.Utils
             var topicSlug = "topic-slug";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/topics/{topicSlug}");
+            url.Should().Be($"http://localhost.com/test-id/topics/{topicSlug}");
         }
 
         [Fact]
@@ -43,7 +43,7 @@ namespace StockportWebappTests.Unit.Utils
             const string articleSlug = "topic-slug";
             var url = _urlGenerator.UrlFor<Article>(articleSlug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/articles/{articleSlug}");
+            url.Should().Be($"http://localhost.com/test-id/articles/{articleSlug}");
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace StockportWebappTests.Unit.Utils
             const string profileSlug = "topic-slug";
             var url = _urlGenerator.UrlFor<Profile>(profileSlug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/profiles/{profileSlug}");
+            url.Should().Be($"http://localhost.com/test-id/profiles/{profileSlug}");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace StockportWebappTests.Unit.Utils
             const string startPageSlug = "topic-slug";
             var url = _urlGenerator.UrlFor<StartPage>(startPageSlug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/start-page/{startPageSlug}");
+            url.Should().Be($"http://localhost.com/test-id/start-page/{startPageSlug}");
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace StockportWebappTests.Unit.Utils
             const string slug = "news-slug";
             var url = _urlGenerator.UrlFor<News>(slug);
 
-            url.Should().Be($"http://localhost.com/api/test-id/news/{slug}");
+            url.Should().Be($"http://localhost.com/test-id/news/{slug}");
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<Newsroom>();
 
-            url.Should().Be("http://localhost.com/api/test-id/news");
+            url.Should().Be("http://localhost.com/test-id/news");
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<Newsroom>(queries: new List<Query>() { new Query("tag", "Events") });
 
-            url.Should().Be("http://localhost.com/api/test-id/news?tag=Events");
+            url.Should().Be("http://localhost.com/test-id/news?tag=Events");
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<List<News>>("2");
 
-            url.Should().Be("http://localhost.com/api/test-id/news/latest/2");
+            url.Should().Be("http://localhost.com/test-id/news/latest/2");
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<Footer>();
 
-            url.Should().Be("http://localhost.com/api/test-id/footer");
+            url.Should().Be("http://localhost.com/test-id/footer");
         }
 
         [Fact]
@@ -110,7 +110,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<EventCalendar>();
 
-            url.Should().Be("http://localhost.com/api/test-id/events");
+            url.Should().Be("http://localhost.com/test-id/events");
         }
 
         [Fact]
@@ -118,7 +118,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<Event>("slug");
 
-            url.Should().Be("http://localhost.com/api/test-id/events/slug");
+            url.Should().Be("http://localhost.com/test-id/events/slug");
         }
 
         [Fact]
@@ -126,7 +126,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlForLimit<EventCalendar>(2);
 
-            url.Should().Be("http://localhost.com/api/test-id/events/latest/2");
+            url.Should().Be("http://localhost.com/test-id/events/latest/2");
         }
 
         [Fact]
@@ -134,7 +134,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.UrlFor<Showcase>("slug");
 
-            url.Should().Be("http://localhost.com/api/test-id/showcases/slug");
+            url.Should().Be("http://localhost.com/test-id/showcases/slug");
         }
 
         [Fact]
@@ -142,7 +142,7 @@ namespace StockportWebappTests.Unit.Utils
         {
             var url = _urlGenerator.HealthcheckUrl();
 
-            url.Should().Be("http://localhost.com/api/_healthcheck");
+            url.Should().Be("http://localhost.com/_healthcheck");
         }
     }
 }

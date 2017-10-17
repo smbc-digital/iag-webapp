@@ -4,6 +4,7 @@ Avaliable commands:
   clean:              deletes the /bin/ commands
   dotnet-restore:     runs dotnet restore
   dotnet-test:        runs dotnet test
+  test:               another way to run the unit tests
   publish-app:        publishes the app into src/StockportWebapp/publish dir in Release configuration
   version:            puts the current version into version.txt file
   package-app:        packages the app into the .zip file

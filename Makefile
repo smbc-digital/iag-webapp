@@ -36,6 +36,10 @@ dotnet-restore:
 dotnet-test:
 	cd test/StockportWebappTests; dotnet test
 
+.PHONY: test
+test:
+	cd test/StockportWebappTests; dotnet test
+
 .PHONY: publish-app
 publish-app:
 	cd src/StockportWebapp; dotnet publish --configuration Release -o publish;

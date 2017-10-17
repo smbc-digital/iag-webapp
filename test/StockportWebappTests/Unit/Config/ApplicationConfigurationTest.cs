@@ -122,7 +122,7 @@ namespace StockportWebappTests.Unit.Config
         {
             var uri = _config.GetContentApiUri();
 
-            var expectedUri = new Uri("http://localhost:80/api/");
+            var expectedUri = new Uri("http://localhost:80/");
 
             uri.Should().Be(expectedUri);
         }
