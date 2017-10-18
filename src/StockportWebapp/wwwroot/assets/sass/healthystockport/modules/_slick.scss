@@ -120,16 +120,36 @@
     margin-bottom: 0px;
 }
 
+.slick-next {
+    right: 3%;
+}
+
+.slick-dots {
+    text-align: center;
+    left: auto;
+    bottom: 80px;
+
+    li button {
+        margin: 0 5px;
+
+        &:before {
+            font-size: 20px;
+        }
+    }
+}
+
 .slick-dots {
     position: relative;
     bottom: 50px;
-    left: 10%;
+    left: 115px;
     display: block;
     width: 100%;
     padding: 0;
     margin: 0 0 -35px 0;
     list-style: none;
     text-align: left;
+
+
 
     @media #{$tablet} {
         left: 13%;
