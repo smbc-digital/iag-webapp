@@ -18,7 +18,7 @@ namespace StockportWebappTests.Unit.Parsers
         {
             var tag = "![Frosty Twigs](Frosty_twigs_2.jpg)";
             var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-            response.Should().Be("<div class='carousel'><div class=\"carousel-image\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><p class=\"carousel-text\">Frosty Twigs</p></div></div>");
+            response.Should().Be("<div class='carousel'><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Frosty Twigs</p></div></div></div>");
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace StockportWebappTests.Unit.Parsers
         {
             var tag = "![Frosty Twigs](Frosty_twigs_2.jpg),![Autumn Leaves](autumn_leaves.jpg)";
             var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-            response.Should().Be("<div class='carousel'><div class=\"carousel-image\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><p class=\"carousel-text\">Frosty Twigs</p></div><div class=\"carousel-image\" style=\"background-image:url(autumn_leaves.jpg);\" title=\"Autumn Leaves\" /><p class=\"carousel-text\">Autumn Leaves</p></div></div>");
+            response.Should().Be("<div class='carousel'><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Frosty Twigs</p></div></div><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(autumn_leaves.jpg);\" title=\"Autumn Leaves\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Autumn Leaves</p></div></div></div>");
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace StockportWebappTests.Unit.Parsers
         {
             var tag = "![Frosty Twigs](Frosty_twigs_2.jpg),![Autumn Leaves](autumn_leaves.jpg)![Hello](hello.jpg)";
             var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-            response.Should().Be("<div class='carousel'><div class=\"carousel-image\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><p class=\"carousel-text\">Frosty Twigs</p></div><div class=\"carousel-image\" style=\"background-image:url(autumn_leaves.jpg);\" title=\"Autumn Leaves\" /><p class=\"carousel-text\">Autumn Leaves</p></div></div>");
+            response.Should().Be("<div class='carousel'><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Frosty Twigs</p></div></div><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(autumn_leaves.jpg);\" title=\"Autumn Leaves\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Autumn Leaves</p></div></div></div>");
         }
 
     }
