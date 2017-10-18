@@ -257,7 +257,8 @@
         padding-left: 9%;
         padding-bottom: 50px;
         position: absolute;
-        width: 90.5%;
+        width: 100%;
+        box-sizing: border-box;
         bottom: 0;
         z-index: 20;
         background-color: rgba(51, 51, 51, 0.8);
