@@ -24,7 +24,7 @@ var methods = {
     // },
 
     checkForWebCastImage: function (browser) {
-        this.waitForElementVisible('.webcast', this.api.globals.timeOut);
+        this.waitForElementVisible('.stockport-carousel', this.api.globals.timeOut);
     },
 
     assertNewsBannerIsVisible: function (browser) {
