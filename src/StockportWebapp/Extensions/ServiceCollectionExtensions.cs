@@ -195,6 +195,8 @@ namespace StockportWebapp.Extensions
                     new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         p.GetService<ArticleFactory>(), p.GetService<IApplicationConfiguration>()));
 
+            services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
+
             return services;
         }
 
@@ -228,7 +230,7 @@ namespace StockportWebapp.Extensions
                 var groupKeys = new GroupAuthenticationKeys { Key = configuration["group:authenticationKey"] };
                 services.AddSingleton(groupKeys);
 
-                services.AddScoped<GroupAuthorisation>(p => new GroupAuthorisation(p.GetService<IApplicationConfiguration>(), p.GetService<IJwtDecoder>(), p.GetService<CurrentEnvironment>(), p.GetService<ILogger<GroupAuthorisation>>()));
+                services.AddScoped(p => new GroupAuthorisation(p.GetService<IApplicationConfiguration>(), p.GetService<ILoggedInHelper>()));
 
                 services.AddSingleton<IJwtDecoder>(p => new JwtDecoder(p.GetService<GroupAuthenticationKeys>(), p.GetService<ILogger<JwtDecoder>>()));
             }

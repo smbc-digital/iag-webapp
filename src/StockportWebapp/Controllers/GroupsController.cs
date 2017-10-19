@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
@@ -47,10 +46,11 @@ namespace StockportWebapp.Controllers
         private readonly HostHelper _host;
         private readonly IHtmlUtilities _htmlUtilities;
         private readonly HostHelper _hostHelper;
+        private readonly ILoggedInHelper _loggedInHelper;
 
         public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, 
             ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor, [FromServices] CurrentEnvironment environment,
-            IHtmlUtilities htmlUtilities, HostHelper hostHelper)
+            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -68,6 +68,7 @@ namespace StockportWebapp.Controllers
             _host = new HostHelper(environment);
             _hostHelper = hostHelper;
             _htmlUtilities = htmlUtilities;
+            _loggedInHelper = loggedInHelper;
         }
 
         [ResponseCache(NoStore = true, Duration = 0)]
@@ -114,11 +115,23 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
+            bool shouldShowAdditionalInformation = false;
+
+            var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
+
+            //var groupAdvisor = _repository.Get<GroupAdvisor>(loggedInPerson.Email);
+
+            var viewModel = new GroupDetailsViewModel
+            {
+                Group = group,
+                ShouldShowAdditionalInformation = shouldShowAdditionalInformation
+            };
+
             cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
 
             ViewBag.CurrentUrl = Request?.GetUri();       
 
-            return View(group);
+            return View(viewModel);
         }
 
         [ResponseCache(NoStore = true, Duration = 0)]

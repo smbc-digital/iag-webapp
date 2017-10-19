@@ -83,14 +83,14 @@ namespace StockportWebapp
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 
             // other
-            services.AddSingleton<CurrentEnvironment>(new CurrentEnvironment(_appEnvironment));
-            services.AddTransient<HostHelper>(p => new HostHelper(p.GetService<CurrentEnvironment>()));
+            services.AddSingleton(new CurrentEnvironment(_appEnvironment));
+            services.AddTransient(p => new HostHelper(p.GetService<CurrentEnvironment>()));
             services.AddSingleton(o => new ViewHelpers(o.GetService<ITimeProvider>()));
             services.AddScoped<BusinessId>();
             services.AddTransient(p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
-            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));
+            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));          
 
             // custom extensions
             services.AddCustomisedAngleSharp();

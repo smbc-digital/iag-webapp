@@ -1,22 +1,22 @@
 ﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.ProcessedModels
-@model StockportWebapp.ProcessedModels.ProcessedGroup
+@model StockportWebapp.ViewModels.GroupDetailsViewModel
 @inject FeatureToggles FeatureToggles
 
 @{
-    ViewData["Title"] = Model.Name;
-    ViewData["og:title"] = Model.Name;
-    ViewData["Description"] = Model.Description;
+    ViewData["Title"] = Model.Group.Name;
+    ViewData["og:title"] = Model.Group.Name;
+    ViewData["Description"] = Model.Group.Description;
     ViewData["Beta"] = true;
     ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
-    ViewData["Location"] = Model.Address;
+    ViewData["Location"] = Model.Group.Address;
     Layout = "../Shared/_Layout.cshtml";
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+    @Html.Partial("Breadcrumb", Model.Group.Breadcrumbs)
 }
 <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css"/>
 
