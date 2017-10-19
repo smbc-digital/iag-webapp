@@ -1,8 +1,7 @@
-﻿@using System.Security.Cryptography.X509Certificates
-@using StockportWebapp.FeatureToggling
+﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Extensions
 @inject FeatureToggles FeatureToggles
-@model StockportWebapp.ProcessedModels.ProcessedGroup
+@model StockportWebapp.ViewModels.GroupDetailsViewModel
 
 
 @{
@@ -11,13 +10,13 @@
     string twitter = string.Empty;
     var test = string.Empty;
 
-    if (!string.IsNullOrEmpty(Model.Facebook))
+    if (!string.IsNullOrEmpty(Model.Group.Facebook))
     {
-        facebook = socialLinksExtension.GetSubstring(Model.Facebook);
+        facebook = socialLinksExtension.GetSubstring(Model.Group.Facebook);
     }
-    if (!string.IsNullOrEmpty(Model.Twitter))
+    if (!string.IsNullOrEmpty(Model.Group.Twitter))
     {
-        twitter = socialLinksExtension.GetSubstring(Model.Twitter);
+        twitter = socialLinksExtension.GetSubstring(Model.Group.Twitter);
     }  
 
 }
@@ -25,15 +24,15 @@
 <div class="grid-container-full-width">
     <div class="grid-container remove-edges-for-pdf grid-100">
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">            
-            <section aria-label="@Model.Name content">  
-                <a class="hidden display-on-pdf" href="@Model.Slug">@string.Concat(Model.CurrentUrl, "/groups/", Model.Slug)</a>
+            <section aria-label="@Model.Group.Name content">  
+                <a class="hidden display-on-pdf" href="@Model.Group.Slug">@string.Concat(Model.Group.CurrentUrl, "/groups/", Model.Group.Slug)</a>
                 <div class="l-content-container grid-100 group-margin">
-                    <h1 class="group-article-title">@Model.Name</h1>
+                    <h1 class="group-article-title">@Model.Group.Name</h1>
                     <div id="content"></div>
                     <div class="grid-100 tablet-grid-100 mobile-grid-100 group-calender-container">
-                        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                        @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
                         {
-                            <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
+                            <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.Group.ImageUrl);"> </div>
                         }
                         <div class="grid-60 tablet-grid-100 mobile-grid-100 group-calender-container-description">
                             <ul class="group-ul">
@@ -43,9 +42,9 @@
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
                                         <div class="group-details-heading">Location</div>
-                                        @if (!string.IsNullOrEmpty(Model.Address))
+                                        @if (!string.IsNullOrEmpty(Model.Group.Address))
                                         {
-                                            @Html.Raw(Model.Address)
+                                            @Html.Raw(Model.Group.Address)
                                         }
                                         else
                                         {
@@ -54,7 +53,7 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
-                                @if (Model.Cost.Any())
+                                @if (Model.Group.Cost.Any())
                                 {
                                     <li class="group-details">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -62,12 +61,12 @@
                                         </div>
                                         <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
                                             <div class="group-details-heading">Cost</div>
-                                            @string.Join(", ", Model.Cost.ToArray())
+                                            @string.Join(", ", Model.Group.Cost.ToArray())
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
                                 }
-                                @if (!string.IsNullOrEmpty(Model.AbilityLevel))
+                                @if (!string.IsNullOrEmpty(Model.Group.AbilityLevel))
                                 {
                                     <li class="group-details">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -75,7 +74,7 @@
                                         </div>
                                         <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
                                             <div class="group-details-heading">Skill</div>
-                                            @Model.AbilityLevel
+                                            @Model.Group.AbilityLevel
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
@@ -89,9 +88,9 @@
                                         <div class="group-details-heading">
                                             Email
                                         </div>
-                                        @if (!string.IsNullOrEmpty(Model.Email))
+                                        @if (!string.IsNullOrEmpty(Model.Group.Email))
                                         {
-                                            <a href="mailto:@Model.Email">@Model.Email</a>
+                                            <a href="mailto:@Model.Group.Email">@Model.Group.Email</a>
                                         }
                                         else
                                         {
@@ -108,9 +107,9 @@
                                         <div class="group-details-heading">
                                             Telephone
                                         </div>
-                                        @if (!string.IsNullOrEmpty(Model.PhoneNumber))
+                                        @if (!string.IsNullOrEmpty(Model.Group.PhoneNumber))
                                         {
-                                            @Model.PhoneNumber
+                                            @Model.Group.PhoneNumber
                                         }
                                         else
                                         {
@@ -129,15 +128,15 @@
                                         </div>
                                         <div class="group-details-heading">
                                         </div>
-                                        @if (!string.IsNullOrEmpty(Model.Website))
+                                        @if (!string.IsNullOrEmpty(Model.Group.Website))
                                         {
-                                            if (Model.Website.StartsWith("http://") || Model.Website.StartsWith("https://"))
+                                            if (Model.Group.Website.StartsWith("http://") || Model.Group.Website.StartsWith("https://"))
                                             {
-                                                <a href="@Model.Website">@Model.Website</a>
+                                                <a href="@Model.Group.Website">@Model.Group.Website</a>
                                             }
                                             else
                                             {
-                                                <a href="http://@Model.Website">@Model.Website</a>
+                                                <a href="http://@Model.Group.Website">@Model.Group.Website</a>
                                             }
 
                                         }
@@ -148,7 +147,7 @@
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
-                                @if (!string.IsNullOrEmpty(Model.Facebook))
+                                @if (!string.IsNullOrEmpty(Model.Group.Facebook))
                                 {
                                     <li class="group-details">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -160,17 +159,17 @@
                                             </div>
                                             <div class="group-details-heading">
                                             </div>
-                                            @if (!string.IsNullOrEmpty(Model.Facebook))
+                                            @if (!string.IsNullOrEmpty(Model.Group.Facebook))
                                             {
-                                                if (Model.Facebook.ToLower().StartsWith("http://") || Model.Facebook.ToLower().StartsWith("https://"))
+                                                if (Model.Group.Facebook.ToLower().StartsWith("http://") || Model.Group.Facebook.ToLower().StartsWith("https://"))
                                                 {
-                                                    <a class="hide-on-pdf" href="@Model.Facebook">@facebook</a>
-                                                    <a class="hidden display-on-pdf" href="@Model.Facebook">@Model.Facebook</a>
+                                                    <a class="hide-on-pdf" href="@Model.Group.Facebook">@facebook</a>
+                                                    <a class="hidden display-on-pdf" href="@Model.Group.Facebook">@Model.Group.Facebook</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="hide-on-pdf" href="http://@Model.Facebook">@facebook</a>
-                                                    <a class="hidden display-on-pdf" href="http://@Model.Facebook">http://@Model.Facebook</a>
+                                                    <a class="hide-on-pdf" href="http://@Model.Group.Facebook">@facebook</a>
+                                                    <a class="hidden display-on-pdf" href="http://@Model.Group.Facebook">http://@Model.Group.Facebook</a>
                                                 }
                                             }
                                             else
@@ -181,7 +180,7 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
-                                @if (!string.IsNullOrEmpty(Model.Twitter))
+                                @if (!string.IsNullOrEmpty(Model.Group.Twitter))
                                 {
                                     <li class="group-details">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -193,17 +192,17 @@
                                             </div>
                                             <div class="group-details-heading">
                                             </div>
-                                            @if (!string.IsNullOrEmpty(Model.Twitter))
+                                            @if (!string.IsNullOrEmpty(Model.Group.Twitter))
                                             {
-                                                if (Model.Twitter.ToLower().StartsWith("http://") || Model.Twitter.ToLower().StartsWith("https://"))
+                                                if (Model.Group.Twitter.ToLower().StartsWith("http://") || Model.Group.Twitter.ToLower().StartsWith("https://"))
                                                 {
-                                                    <a class="hide-on-pdf" href="@Model.Twitter">@twitter</a>
-                                                    <a class="hidden display-on-pdf" href="@Model.Twitter">@twitter</a>
+                                                    <a class="hide-on-pdf" href="@Model.Group.Twitter">@twitter</a>
+                                                    <a class="hidden display-on-pdf" href="@Model.Group.Twitter">@twitter</a>
                                                 }
                                                 else
                                                 {
-                                                    <a class="hide-on-pdf" href="http://@Model.Twitter">@twitter</a>
-                                                    <a class="hidden display-on-pdf" href="http://@Model.Twitter">http://@Model.Twitter</a>
+                                                    <a class="hide-on-pdf" href="http://@Model.Group.Twitter">@twitter</a>
+                                                    <a class="hidden display-on-pdf" href="http://@Model.Group.Twitter">http://@Model.Group.Twitter</a>
                                                 }
                                             }
                                             else
@@ -214,7 +213,7 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
-                                 @if (!string.IsNullOrEmpty(Model.Organisation.Title))
+                                 @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
                                 {
                                     <li class="group-details">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
@@ -225,8 +224,8 @@
                                                 Provided by
                                             </div>
                                             <div class="group-details-heading"></div>
-                                            <a href="/organisations/@Model.Organisation.Slug">
-                                                @Model.Organisation.Title
+                                            <a href="/organisations/@Model.Group.Organisation.Slug">
+                                                @Model.Group.Organisation.Title
                                             </a>
                                         </div>
                                         <div class="clearfix"></div>
@@ -234,7 +233,7 @@
                                 }
                                 @if (FeatureToggles.GroupFavourites)
                                 {
-                                    <li id="remove-favourite-@Model.Slug" class="group-details @(!Model.Favourite ? "hidden" : "")">
+                                    <li id="remove-favourite-@Model.Group.Slug" class="group-details @(!Model.Group.Favourite ? "hidden" : "")">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
                                             <i class="fa fa-star fa-2x group-details-symbol"></i>
                                         </div>
@@ -243,14 +242,14 @@
                                                 Favourites
                                             </div>
                                             <div class="group-details-heading"></div>
-                                            <a data-slug="@Model.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")">
+                                            <a data-slug="@Model.Group.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">
                                                 Remove from favourites
                                             </a>
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
 
-                                    <li id="add-favourite-@Model.Slug" class="group-details @(Model.Favourite ? "hidden" : "")">
+                                    <li id="add-favourite-@Model.Group.Slug" class="group-details @(Model.Group.Favourite ? "hidden" : "")">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter ">
                                             <i class="fa fa-star-o fa-2x group-details-symbol"></i>
                                         </div>
@@ -259,7 +258,7 @@
                                                 Favourites
                                             </div>
                                             <div class="group-details-heading"></div>
-                                            <a data-slug="@Model.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")">
+                                            <a data-slug="@Model.Group.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">
                                                 Add to favourites
                                             </a>
                                         </div>
@@ -269,58 +268,58 @@
 
                             </ul>
                         </div>
-                        <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">
+                        <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.Group.ImageUrl);">
                         </div>
                     </div>
                     <div>
                         <h3 class="group-details-heading">Description</h3>
-                        @Html.Raw(Model.Description.StripEmojis())
+                        @Html.Raw(Model.Group.Description.StripEmojis())
 
-                        @Html.Partial("Groups/VolunteeringBar", Model.Volunteering)
-                        @Html.Partial("Groups/DonationsBar", Model.Donations)
+                        @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
+                        @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
 
 
-                        @if (Model.MapDetails.MapPosition != null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
+                        @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
                         {
                             <hr />
                             <div class="group-map-container group-map-container-padding">
                                 <h3 class="group-details-heading">How to find us</h3>
-                                @Html.Partial("MapPosition", Model.MapDetails)
+                                @Html.Partial("MapPosition", Model.Group.MapDetails)
                             </div>
                         }
-                        @if (Model.Events != null && Model.Events.Any())
+                        @if (Model.Group.Events != null && Model.Group.Events.Any())
                         {
                             <div class="upcoming-events-container">
-                                @Html.Partial("Events/EventCards", Model.Events.Take(3).ToList())
+                                @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
                             </div>                           
                         }
-                        @if (Model.LinkedGroups != null && Model.LinkedGroups.Any())
+                        @if (Model.Group.LinkedGroups != null && Model.Group.LinkedGroups.Any())
                         {
                             <div style='page-break-before: always;'></div>
                             <div class="group-details-heading-border linked-group-container">
                                 <h3 class="group-details-heading">You may also like</h3>
-                                @if (Model.LinkedGroups.Count() > 3)
+                                @if (Model.Group.LinkedGroups.Count() > 3)
                                 {
-                                    <a class="view-more hide-on-mobile" href="/groups/results?category=@Model.CategoriesReference[0].Slug&subcategories=@Model.SubCategories[0].Slug">View more</a>
+                                    <a class="view-more hide-on-mobile" href="/groups/results?category=@Model.Group.CategoriesReference[0].Slug&subcategories=@Model.Group.SubCategories[0].Slug">View more</a>
                                 }
-                                @Html.Partial("groups/GroupCardList", Model.LinkedGroups.OrderBy(_ => Guid.NewGuid()).Take(3).ToList())
-                                @if (Model.LinkedGroups.Count() > 3)
+                                @Html.Partial("groups/GroupCardList", Model.Group.LinkedGroups.OrderBy(_ => Guid.NewGuid()).Take(3).ToList())
+                                @if (Model.Group.LinkedGroups.Count() > 3)
                                 {
                                     <div class="grid-100 hide-on-desktop hide-on-tablet view-more-mobile">
-                                        <a class="button-default" href="/groups/results?category=@Model.CategoriesReference[0].Slug&subcategories=@Model.SubCategories[0].Slug">View more results like this</a>
+                                        <a class="button-default" href="/groups/results?category=@Model.Group.CategoriesReference[0].Slug&subcategories=@Model.Group.SubCategories[0].Slug">View more results like this</a>
                                     </div>
                                 }
                             </div>                           
                         }
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">
-                            @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Slug))
+                            @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
                         </div>
                         <div class="grid-100 tablet-grid-100 mobile-grid-100 manage-group-section">
                             <h3>Manage your group information</h3>
                             <p>Easily keep your group information up to date and promote your group to the people of Stockport and beyond.</p>
                             <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
-                            <p>If you don't run this group, <a href="/groups/@Model.Slug/change-group-info?groupname=@Model.Name">you can still let us know about a change to this group</a>.</p>
+                            <p>If you don't run this group, <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">you can still let us know about a change to this group</a>.</p>
                         </div>
                     </div>
                 </div>
