@@ -263,8 +263,16 @@
         z-index: 20;
         background-color: rgba(51, 51, 51, 0.8);
 
+        @media #{$mobile} {
+            padding-top: 5px;
+        }
+
         &.article-carousel-text {
             height: 115px;
+
+            @media #{$mobile}{
+                height: 75px;
+            }
         }
 
         h2, p {
@@ -277,8 +285,10 @@
             padding-left: 20px;
 
             @media #{$mobile} {
+                margin-bottom: 2px;
                 font-size: 1.3em;
                 line-height: 1.5em;
+                padding-left: 0;
             }
 
             @media #{$tablet} {
@@ -295,6 +305,7 @@
             @media #{$mobile} {
                 font-size: 0.8em;
                 padding-right: 5px;
+                padding-left: 0;
             }
 
             @media #{$tablet} {
@@ -315,6 +326,10 @@ article {
         text-align: center;
         left: auto;
         bottom: 80px;
+
+        @media #{$mobile} {
+            bottom: 60px;
+                         }
 
         li button {
             margin: 0 5px;
