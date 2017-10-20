@@ -115,13 +115,16 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
+            var shouldShowAdditionalInformation = false;
+
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 
+            if (!string.IsNullOrEmpty(loggedInPerson.Email))
+            {
             var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
-
             var groupAdvisor = groupAdvisorResponse.Content as GroupAdvisor;
-
-            var shouldShowAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
+            shouldShowAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
+            }
 
             var viewModel = new GroupDetailsViewModel
             {
