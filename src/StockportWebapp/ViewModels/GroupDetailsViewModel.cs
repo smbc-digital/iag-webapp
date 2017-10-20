@@ -10,5 +10,6 @@ namespace StockportWebapp.ViewModels
     {
         public ProcessedGroup Group { get; set; }
         public bool ShouldShowAdditionalInformation { get; set; }
+        public string MyAccountUrl { get; set; }
     }
 }
