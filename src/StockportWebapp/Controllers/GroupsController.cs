@@ -118,7 +118,7 @@ namespace StockportWebapp.Controllers
             var shouldShowAdditionalInformation = false;
 
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
-
+            
             if (!string.IsNullOrEmpty(loggedInPerson.Email))
             {
             var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
@@ -129,7 +129,8 @@ namespace StockportWebapp.Controllers
             var viewModel = new GroupDetailsViewModel
             {
                 Group = group,
-                ShouldShowAdditionalInformation = shouldShowAdditionalInformation
+                ShouldShowAdditionalInformation = shouldShowAdditionalInformation,
+                MyAccountUrl = _configuration.GetMyAccountUrl() +"?returnUrl=" + Request.GetUri()
             };
 
             cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
@@ -141,7 +142,7 @@ namespace StockportWebapp.Controllers
 
         private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
         {
-            return groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug);
+            return groupAdvisor != null && (groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug));
         }
 
         [ResponseCache(NoStore = true, Duration = 0)]
