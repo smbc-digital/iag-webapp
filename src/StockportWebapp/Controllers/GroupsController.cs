@@ -115,11 +115,13 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            bool shouldShowAdditionalInformation = false;
-
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 
-            //var groupAdvisor = _repository.Get<GroupAdvisor>(loggedInPerson.Email);
+            var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
+
+            var groupAdvisor = groupAdvisorResponse.Content as GroupAdvisor;
+
+            var shouldShowAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
 
             var viewModel = new GroupDetailsViewModel
             {
@@ -132,6 +134,11 @@ namespace StockportWebapp.Controllers
             ViewBag.CurrentUrl = Request?.GetUri();       
 
             return View(viewModel);
+        }
+
+        private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
+        {
+            return groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug);
         }
 
         [ResponseCache(NoStore = true, Duration = 0)]
