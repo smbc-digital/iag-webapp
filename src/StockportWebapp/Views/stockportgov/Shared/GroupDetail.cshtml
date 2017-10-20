@@ -275,7 +275,7 @@
                         <h3 class="group-details-heading">Description</h3>
                         @Html.Raw(Model.Group.Description.StripEmojis())
                         
-                        @if (Model.ShouldShowAdditionalInformation)
+                        @if (Model.ShouldShowAdditionalInformation && Model.UserHasAccessToAdditionalInformation)
                         {
                             <h3 class="group-details-heading">Additional Information</h3>
                         }
@@ -316,18 +316,22 @@
                                 }
                             </div>                           
                         }
-                        <div class="grid-50 tablet-grid-100 mobile-grid-100 group-information-section manage-group-section">
+                        <div class="@(Model.ShouldShowAdditionalInformation ? "grid-50 manage-group-section" : "grid-100") tablet-grid-100 mobile-grid-100 group-information-section">
                             <h3>Manage your group information</h3>
                             <p>Sign up or login to keep this page's information up to date.</p>
                             <p>If you aren't involved in this group or service, you can still let us know about a <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">change to this group or service</a>.</p>
                             <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
 
                         </div>
-                        <div class="grid-50 tablet-grid-100 mobile-grid-100 group-information-section">
-                            <h3>View additional information</h3>
-                            <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
-                            <stock-button class="manage-group-button" as-link="true" href="@Model.MyAccountUrl">View more information</stock-button>
-                        </div>
+                        @if (Model.ShouldShowAdditionalInformation)
+                        {
+                            <div class="grid-50 tablet-grid-100 mobile-grid-100 group-information-section">
+                                <h3>View additional information</h3>
+                                <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
+                                <stock-button class="manage-group-button" as-link="true" href="@Model.MyAccountUrl">View more information</stock-button>
+                            </div>
+                        }
+                        
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">
                             @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
