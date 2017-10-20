@@ -115,27 +115,29 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
+            var userHasAccessToAdditionalInformation = false;
             var shouldShowAdditionalInformation = false;
 
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
             
             if (!string.IsNullOrEmpty(loggedInPerson.Email))
             {
-            var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
-            var groupAdvisor = groupAdvisorResponse.Content as GroupAdvisor;
-            shouldShowAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
+                var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
+                var groupAdvisor = groupAdvisorResponse.Content as GroupAdvisor;
+                userHasAccessToAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
             }
 
             var viewModel = new GroupDetailsViewModel
             {
                 Group = group,
-                ShouldShowAdditionalInformation = shouldShowAdditionalInformation,
-                MyAccountUrl = _configuration.GetMyAccountUrl() +"?returnUrl=" + Request.GetUri()
+                UserHasAccessToAdditionalInformation = userHasAccessToAdditionalInformation,
+                MyAccountUrl = _configuration.GetMyAccountUrl() +"?returnUrl=" + Request.GetUri(),
+                ShouldShowAdditionalInformation = shouldShowAdditionalInformation
             };
 
             cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
 
-            ViewBag.CurrentUrl = Request?.GetUri();       
+            ViewBag.CurrentUrl = Request?.GetUri();
 
             return View(viewModel);
         }
