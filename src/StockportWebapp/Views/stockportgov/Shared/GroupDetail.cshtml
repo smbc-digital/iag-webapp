@@ -1,5 +1,6 @@
 ﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Extensions
+@using StockportWebapp.Models
 @inject FeatureToggles FeatureToggles
 @model StockportWebapp.ViewModels.GroupDetailsViewModel
 
@@ -275,9 +276,14 @@
                         <h3 class="group-details-heading">Description</h3>
                         @Html.Raw(Model.Group.Description.StripEmojis())
                         
-                        @if (Model.ShouldShowAdditionalInformation && Model.UserHasAccessToAdditionalInformation)
+                        @if (Model.ShouldShowAdditionalInformation)
                         {
                             <h3 class="group-details-heading">Additional Information</h3>
+                            @Html.Raw(Model.Group.AdditionalInformation);
+                            foreach (Document document in Model.Group.AdditionalDocuments)
+                             {
+                                 @Html.Partial("Document", document);
+                             }
                         }
 
                         @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
