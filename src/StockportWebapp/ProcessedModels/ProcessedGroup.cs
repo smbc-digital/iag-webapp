@@ -34,6 +34,7 @@ namespace StockportWebapp.ProcessedModels
         public Donations Donations { get; set; }
         public MapDetails MapDetails { get; set; }
         public string CurrentUrl { get; private set; }
+        public string AdditionalInformation { get; set; }
 
         public ProcessedGroup()
         {
@@ -43,7 +44,7 @@ namespace StockportWebapp.ProcessedModels
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories,
                       List<Crumb> breadcrumbs, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo,
                         List<string> cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, List<Group> linkedGroups, Donations donations,
-                     MapDetails mapDetails )
+                     MapDetails mapDetails, string additionalInformation )
         {
             Name = name;
             Slug = slug;
@@ -60,6 +61,7 @@ namespace StockportWebapp.ProcessedModels
             SubCategories = subCategories;
             Breadcrumbs = breadcrumbs;
             MapDetails = mapDetails;
+            AdditionalInformation = additionalInformation;
             Volunteering = volunteering;
             Events = events;
             GroupAdministrators = groupAdministrators;
