@@ -40,6 +40,7 @@ namespace StockportWebappTests.Builders
         private bool _donations = false;
         private string _accessibleTransportLink = "http://www.link.link.link";
         private string _additionalInformation = "additional information";
+        private List<Document> _additionalDocuments = new List<Document>();
 
         public Group Build()
         {
@@ -73,8 +74,15 @@ namespace StockportWebappTests.Builders
                     _linkedGroups,
                     _donations,
                     _accessibleTransportLink,
-                    _additionalInformation
+                    _additionalInformation,
+                    _additionalDocuments
                 );
+        }
+
+        public GroupBuilder Image(string value)
+        {
+            _imageUrl = value;
+            return this;
         }
 
         public GroupBuilder Email(string value)
@@ -88,5 +96,23 @@ namespace StockportWebappTests.Builders
             _groupAdministrators = value;
             return this;
         }
+
+        public GroupBuilder Categories(List<GroupCategory> value)
+        {
+            _categoriesReference = value;
+            return this;
+        }
+
+        public GroupBuilder Favourite(bool value)
+        {
+            _favourite = value;
+            return this;
+        }
+
+        public GroupBuilder Slug(string value)
+        {
+            _slug = value;
+            return this;
+        }
     }
-}
+} 

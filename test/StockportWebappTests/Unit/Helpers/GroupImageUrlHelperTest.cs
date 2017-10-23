@@ -4,51 +4,41 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
 using Xunit;
+using StockportWebappTests.Builders;
 
 namespace StockportWebappTests.Unit.Helpers
 {
     public class GroupImageURLHelperTest
     {
-
-        public GroupImageURLHelperTest()
-        {
-        }
-
         [Fact]
         public void ShouldReturnGroupsImageUrlIfExists()
         {
             // Arrange
-            GroupCategory groupCategory = new GroupCategory()
-            {
-                Icon = "icon",
-                ImageUrl = "categoryImageUrl",
-                Name = "name",
-                Slug = "slug"
-            };
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "groupImageUrl", "thumbnail", new List<GroupCategory>() { groupCategory }, new List<GroupSubCategory>(), new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published", new List<string>(), string.Empty, string.Empty, false, "", null, null, false,null, string.Empty);
+            var groupWithImage = new GroupBuilder().Build();
 
             // Act
             var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
 
             // Assert
-            outputImageUrl.Should().Be("groupImageUrl");
+            outputImageUrl.Should().Be(groupWithImage.ImageUrl);
         }
 
         [Fact]
         public void ShouldReturnFirstCategoryImageUrlIfGroupImageUrlIsEmptyButFirstCategoryImageUrlIsNot()
         {
             // Arrange
-            GroupCategory groupCategory = new GroupCategory()
+            var groupCategory = new GroupCategory()
             {
                 Icon = "icon",
                 ImageUrl = "categoryImageUrl",
                 Name = "name",
                 Slug = "slug"
             };
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>() { groupCategory }, new List<GroupSubCategory>(), new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published", new List<string>(), string.Empty, string.Empty, false, string.Empty, null, null, false,null, string.Empty);
+
+            var group = new GroupBuilder().Image(string.Empty).Categories(new List<GroupCategory> { { groupCategory } }).Build();
 
             // Act
-            var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
+            var outputImageUrl = GroupImageUrlHelper.GetImageUrl(group);
 
             // Assert
             outputImageUrl.Should().Be("categoryImageUrl");
@@ -58,10 +48,10 @@ namespace StockportWebappTests.Unit.Helpers
         public void ShouldReturnEmptyStringIfTheGroupImageUrlisEmptyAndThereAreNoGroupCategories()
         {
             // Arrange
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>(), new List<GroupSubCategory>(), new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published", new List<string>(), string.Empty, string.Empty, false, string.Empty, null, null, false, null, string.Empty);
+            var group = new GroupBuilder().Image(string.Empty).Build();
 
             // Act
-            var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
+            var outputImageUrl = GroupImageUrlHelper.GetImageUrl(group);
 
             // Assert
             outputImageUrl.Should().Be("");
@@ -71,14 +61,14 @@ namespace StockportWebappTests.Unit.Helpers
         public void ShouldReturnSecondCategoryImageUrlIfGroupImageUrlIsEmptyAndFirstCategoryImageUrlIsEmptyButSecondCategoryImageUrlIsNot()
         {
             // Arrange
-            GroupCategory groupCategoryWithOutImageUrl = new GroupCategory()
+            var groupCategoryWithOutImageUrl = new GroupCategory()
             {
                 Icon = "icon",
                 ImageUrl = "",
                 Name = "name",
                 Slug = "slug"
             };
-            GroupCategory groupCategoryWithImageUrl = new GroupCategory()
+            var groupCategoryWithImageUrl = new GroupCategory()
             {
                 Icon = "icon",
                 ImageUrl = "categoryImageUrl",
@@ -86,7 +76,7 @@ namespace StockportWebappTests.Unit.Helpers
                 Slug = "slug"
             };
 
-            Group groupWithImage = new Group("name", "slug", "phoneNumber", "email", "website", "twitter", "facebook", "address", "description", "", "thumbnail", new List<GroupCategory>() { groupCategoryWithOutImageUrl, groupCategoryWithImageUrl }, new List<GroupSubCategory>(), new List<Crumb>(), new MapPosition(), false, null, null, DateTime.MinValue, DateTime.MinValue, "published", new List<string>(), string.Empty, string.Empty, false, string.Empty, null, null, false ,null, null );
+            var groupWithImage = new GroupBuilder().Image(string.Empty).Categories(new List<GroupCategory> { { groupCategoryWithOutImageUrl }, { groupCategoryWithImageUrl } }).Build();
 
             // Act
             var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);

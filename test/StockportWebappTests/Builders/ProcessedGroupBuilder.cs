@@ -38,6 +38,7 @@ namespace StockportWebappTests.Builders
         private List<Group> _linkedGroups = new List<Group>();
         private Donations _donations = new Donations();
         private string _additionalInformation = "additional information";
+        private List<Document> _additionalDocuments = new List<Document>();
 
         public ProcessedGroup Build()
         {
@@ -68,7 +69,8 @@ namespace StockportWebappTests.Builders
                 _linkedGroups,
                 _donations,
                 _mapDetails,
-                _additionalInformation
+                _additionalInformation,
+                _additionalDocuments
             );
         }
 

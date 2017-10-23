@@ -316,14 +316,14 @@
                                 }
                             </div>                           
                         }
-                        <div class="@(Model.ShouldShowAdditionalInformation ? "grid-50 manage-group-section" : "grid-100") tablet-grid-100 mobile-grid-100 group-information-section">
+                        <div class="@(Model.ShouldShowAdditionalInfoLink ? "grid-50 manage-group-section" : "grid-100") tablet-grid-100 mobile-grid-100 group-information-section">
                             <h3>Manage your group information</h3>
                             <p>Sign up or login to keep this page's information up to date.</p>
                             <p>If you aren't involved in this group or service, you can still let us know about a <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">change to this group or service</a>.</p>
                             <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
 
                         </div>
-                        @if (Model.ShouldShowAdditionalInformation)
+                        @if (Model.ShouldShowAdditionalInfoLink)
                         {
                             <div class="grid-50 tablet-grid-100 mobile-grid-100 group-information-section">
                                 <h3>View additional information</h3>

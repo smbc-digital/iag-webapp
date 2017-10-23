@@ -31,7 +31,5 @@ namespace StockportWebapp.Models
         public int Occurences { get; set; }
         public List<EventCategory> EventCategories { get; set;}
         public string AccessibleTransportLink { get; set; }
-
-
     }
 }

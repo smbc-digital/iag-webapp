@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
@@ -10,20 +7,14 @@ namespace StockportWebapp.Utils
     {
         public static string GetImageUrl(Group group)
         {
-            string imageURL;
             if (string.IsNullOrEmpty(group.ImageUrl))
             {
-                if (group.CategoriesReference.Count > 0)
-                    imageURL = GetFirstCategoryThatHasAnImageUrl(group.CategoriesReference);
-                else
-                    imageURL = "";
+                return group.CategoriesReference.Count > 0 ? GetFirstCategoryThatHasAnImageUrl(group.CategoriesReference) : "";
             }
             else
             {
-                imageURL = group.ImageUrl;
+                return group.ImageUrl;
             }
-
-            return imageURL;
         }
 
         private static string GetFirstCategoryThatHasAnImageUrl(List<GroupCategory> groupCategories)
