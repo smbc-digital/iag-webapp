@@ -104,14 +104,14 @@ namespace StockportWebappTests.Unit.Controllers
 
             // Act
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
-            var model = view.ViewData.Model as ProcessedGroup;
+            var model = view.ViewData.Model as GroupDetailsViewModel;
 
             // Assert
-            model.Name.Should().Be(processedGroup.Name);
-            model.Slug.Should().Be(processedGroup.Slug);
-            model.Address.Should().Be(processedGroup.Address);
-            model.Email.Should().Be(processedGroup.Email);
-            model.MapDetails.AccessibleTransportLink.Should().Be(processedGroup.MapDetails.AccessibleTransportLink);
+            model.Group.Name.Should().Be(processedGroup.Name);
+            model.Group.Slug.Should().Be(processedGroup.Slug);
+            model.Group.Address.Should().Be(processedGroup.Address);
+            model.Group.Email.Should().Be(processedGroup.Email);
+            model.Group.MapDetails.AccessibleTransportLink.Should().Be(processedGroup.MapDetails.AccessibleTransportLink);
         }
 
         [Fact]
@@ -363,6 +363,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldReturnLocationIfOneIsSelected()
         {
+            // Arrange
             var location = new MapDetails(){
                 MapPosition = new MapPosition() { Lat = 1, Lon = 1 },
                 AccessibleTransportLink = ""
@@ -370,30 +371,38 @@ namespace StockportWebappTests.Unit.Controllers
 
             var processedGroup = new ProcessedGroupBuilder().MapDetails(location).Build();
 
+            // Mocks
+            _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
+            // Act
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
-            var model = view.ViewData.Model as ProcessedGroup;
+            var model = view.ViewData.Model as GroupDetailsViewModel;
 
-            model.MapDetails.Should().Be(location);
+            // Assert
+            model.Group.MapDetails.Should().Be(location);
         }
 
         [Fact]
         public void ShouldReturnAListOfLinkedEvents()
         {
+            // Arrange
             var linkedEvent = new Event() {Slug = "event-slug"};
             var listOfLinkedEvents = new List<Event> { linkedEvent };
-
             var group = new ProcessedGroup() { Events = listOfLinkedEvents, Slug = "test" };
 
+            // Mocks
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
+            _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
 
+            // Act
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
-            var model = view.ViewData.Model as ProcessedGroup;
+            var model = view.ViewData.Model as GroupDetailsViewModel;
 
-            model.Events.FirstOrDefault().Should().Be(linkedEvent);
+            // Assert
+            model.Group.Events.FirstOrDefault().Should().Be(linkedEvent);
         }
 
         private GroupsController SetUpController(int numGroups)
