@@ -38,7 +38,11 @@ namespace StockportWebappTests.Unit.Utils
             _context.Request.Path = new PathString("/");
             _context.Request.Scheme = "http";
             _context.Request.QueryString = new QueryString("");
+
+            // Mocks
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
+            _loggedInHelper.Setup(o => o.GetLoggedInPerson()).Returns(new LoggedInPerson());
+
             var groupAuthorisation = new GroupAuthorisation(_applicationConfigurationMock.Object, _loggedInHelper.Object);
 
             // Act
@@ -49,7 +53,6 @@ namespace StockportWebappTests.Unit.Utils
             result.Should().NotBeNull();
             result.Url.Should().NotBeNullOrEmpty();
             result.Url.Should().Be("www.loginpage.com?returnUrl=http://" + redirectUrl + "/");
-
         }
 
         [Fact]
@@ -63,9 +66,12 @@ namespace StockportWebappTests.Unit.Utils
             _context.Request.Scheme = "http";
             _context.Request.QueryString = new QueryString("");
             _context.Request.Cookies = new RequestCookieCollection(new Dictionary<string, string>() { { "jwtCookie", "test" } });
+
+            // Mocks
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
-            _decoder.Setup(d => d.Decode(It.IsAny<string>())).Returns(new LoggedInPerson() {Email = "test", Name = "test"});
-            var groupAuthorisation = new GroupAuthorisation( _applicationConfigurationMock.Object,_loggedInHelper.Object);
+            _loggedInHelper.Setup(o => o.GetLoggedInPerson()).Returns(new LoggedInPerson() { Email = "test", Name = "test" });
+
+            var groupAuthorisation = new GroupAuthorisation( _applicationConfigurationMock.Object, _loggedInHelper.Object);
 
             // Act
             groupAuthorisation.OnActionExecuting(_actionExcecutingContext);
