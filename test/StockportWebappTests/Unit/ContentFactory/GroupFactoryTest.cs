@@ -8,7 +8,7 @@ using StockportWebapp.Utils;
 using Xunit;
 using FluentAssertions;
 using Org.BouncyCastle.Security;
-
+using StockportWebappTests.Builders;
 
 namespace StockportWebappTests.Unit.ContentFactory
 {
@@ -19,29 +19,6 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
         private readonly Group _group;
-        private const string Name = "Friends of Stockport";
-        private const string Description = "Description";
-        private const string Slug = "group";
-        private const string Address = "Bramall Hall, Carpark, SK7 6HG";
-        private const string Website = "http://www.fos.org.uk";
-        private const string Email = "email";
-        private const string PhoneNumber = "phonenumber";
-        private const string Image = "image.jpg";
-        private const string ThumbnailImage = "thumbnail.jpg";
-        private const string Facebook = "facebook";
-        private const string Twitter = "twitter";
-
-        private List<string> Cost = new List<string>() { "free" };
-        private const string CostText = "cost";
-        private const string AbilityLevel = "level";
-
-        private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
-        private List<GroupCategory> CategoriesReference = new List<GroupCategory>();
-        private MapPosition _mapPosition = new MapPosition() {Lat=39.0, Lon = 2.0};
-        private bool _volunteering = false;
-        private List<Event> Events = new List<Event>();
-        private GroupAdministrators _groupAdministrators = new GroupAdministrators();
-
 
         public GroupFactoryTest()
         {
@@ -49,65 +26,32 @@ namespace StockportWebappTests.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
-            _group = new Group(
-                name: Name,
-                slug: Slug,
-                description: Description,
-                imageUrl: Image,
-                thumbnailImageUrl: ThumbnailImage,
-                address: Address,
-                website: Website,
-                email: Email,
-                phoneNumber: PhoneNumber,
-                breadcrumbs: _breadcrumbs,
-                categoriesReference: CategoriesReference,
-                subCategories: null,
-                facebook: Facebook,
-                twitter: Twitter,
-                mapPosition: _mapPosition,
-                volunteering: _volunteering,
-                events: Events,
-                groupAdministrators: _groupAdministrators,
-                dateHiddenFrom: DateTime.MinValue,
-                dateHiddenTo: DateTime.MinValue,
-                status: "published",
-                cost: Cost,
-                costText: CostText,
-                abilityLevel: AbilityLevel,
-                favourite: false,
-                volunteeringText: "text",
-                organisation: null,
-                linkedGroups: null,
-                donations: false,
-                accessibleTransportLink : null,
-                additionalInformation: "text"
-            );
+            _group = new GroupBuilder().Build();
 
-            _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
-            _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);            
+            _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>())).Returns(_group.Description);
+            _markdownWrapper.Setup(o => o.ConvertToHtml(_group.Description)).Returns(_group.Description);
+            _markdownWrapper.Setup(o => o.ConvertToHtml(_group.AdditionalInformation)).Returns(_group.AdditionalInformation);
         }
 
         [Fact]
         public void ShouldSetTheCorrespondingFieldsForAProcessedGroup()
         {
             var result = _factory.Build(_group);
-            result.Name.Should().Be("Friends of Stockport");
-            result.Description.Should().Be("Description");
-            result.Slug.Should().Be("group");
-            result.Address.Should().Be("Bramall Hall, Carpark, SK7 6HG");
-            result.Website.Should().Be("http://www.fos.org.uk");
-            result.Email.Should().Be("email");
-            result.PhoneNumber.Should().Be("phonenumber");
-            result.ImageUrl.Should().Be("image.jpg");
-            result.MapDetails.MapPosition.Lat.Should().Be(39.0);
-            result.MapDetails.MapPosition.Lon.Should().Be(2.0);
-            result.ThumbnailImageUrl.Should().Be("thumbnail.jpg");
-            result.Twitter.Should().Be("twitter");
-            result.Facebook.Should().Be("facebook");
-            result.Volunteering.VolunteeringNeeded.Should().Be(false);
-            result.Volunteering.VolunteeringText.Should().Be("text");
-            result.AdditionalInformation.Should().Be("text");
 
+            result.Name.Should().Be(_group.Name);
+            result.Description.Should().Be(_group.Description);
+            result.Slug.Should().Be(_group.Slug);
+            result.Address.Should().Be(_group.Address);
+            result.Website.Should().Be(_group.Website);
+            result.Email.Should().Be(_group.Email);
+            result.PhoneNumber.Should().Be(_group.PhoneNumber);
+            result.ImageUrl.Should().Be(_group.ImageUrl);
+            result.MapDetails.MapPosition.Lat.Should().Be(_group.MapPosition.Lat);
+            result.MapDetails.MapPosition.Lon.Should().Be(_group.MapPosition.Lon);
+            result.ThumbnailImageUrl.Should().Be(_group.ThumbnailImageUrl);
+            result.Twitter.Should().Be(_group.Twitter);
+            result.Facebook.Should().Be(_group.Facebook);
+            result.AdditionalInformation.Should().Be(_group.AdditionalInformation);
         }
 
         [Fact]
@@ -115,7 +59,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         {
             _factory.Build(_group);
 
-            _markdownWrapper.Verify(o => o.ConvertToHtml(Description), Times.Once);
+            _markdownWrapper.Verify(o => o.ConvertToHtml(_group.Description), Times.Once);
         }
 
         [Fact]
@@ -123,7 +67,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         {
             _factory.Build(_group);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Description, _group.Name), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(_group.Description, _group.Name), Times.Once);
         }      
     }
 }

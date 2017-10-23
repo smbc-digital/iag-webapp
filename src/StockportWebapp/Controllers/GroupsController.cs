@@ -116,7 +116,7 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             var userHasAccessToAdditionalInformation = false;
-            var shouldShowAdditionalInformation = !string.IsNullOrEmpty(group.AdditionalInformation);
+            var hasAdditionalInformation = !string.IsNullOrEmpty(group.AdditionalInformation);
             var isLoggedIn = false;
 
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
@@ -132,10 +132,9 @@ namespace StockportWebapp.Controllers
             var viewModel = new GroupDetailsViewModel
             {
                 Group = group,
-                UserHasAccessToAdditionalInformation = userHasAccessToAdditionalInformation,
                 MyAccountUrl = _configuration.GetMyAccountUrl() +"?returnUrl=" + Request?.GetUri(),
-                ShouldShowAdditionalInformation = shouldShowAdditionalInformation,
-                ShouldShowAdditionalInfoLink = shouldShowAdditionalInformation && !isLoggedIn
+                ShouldShowAdditionalInformation = userHasAccessToAdditionalInformation && hasAdditionalInformation,
+                ShouldShowAdditionalInfoLink = hasAdditionalInformation && !isLoggedIn
             };
 
             cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
