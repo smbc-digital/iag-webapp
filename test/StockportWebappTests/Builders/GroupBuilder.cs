@@ -39,6 +39,7 @@ namespace StockportWebappTests.Builders
         private List<Group> _linkedGroups = new List<Group>();
         private bool _donations = false;
         private string _accessibleTransportLink = "http://www.link.link.link";
+        private string _additionalInformation = "additional information";
 
         public Group Build()
         {
@@ -71,7 +72,8 @@ namespace StockportWebappTests.Builders
                     _organisation,
                     _linkedGroups,
                     _donations,
-                    _accessibleTransportLink
+                    _accessibleTransportLink,
+                    _additionalInformation
                 );
         }
 

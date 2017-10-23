@@ -79,7 +79,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 organisation: null,
                 linkedGroups: null,
                 donations: false,
-                accessibleTransportLink : null
+                accessibleTransportLink : null,
+                additionalInformation: "text"
             );
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
@@ -105,6 +106,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.Facebook.Should().Be("facebook");
             result.Volunteering.VolunteeringNeeded.Should().Be(false);
             result.Volunteering.VolunteeringText.Should().Be("text");
+            result.AdditionalInformation.Should().Be("text");
 
         }
 

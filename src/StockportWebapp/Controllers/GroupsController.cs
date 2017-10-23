@@ -116,7 +116,8 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             var userHasAccessToAdditionalInformation = false;
-            var shouldShowAdditionalInformation = false;
+            var shouldShowAdditionalInformation = !string.IsNullOrEmpty(group.AdditionalInformation);
+            var isLoggedIn = false;
 
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
             
@@ -125,20 +126,21 @@ namespace StockportWebapp.Controllers
                 var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
                 var groupAdvisor = groupAdvisorResponse.Content as GroupAdvisor;
                 userHasAccessToAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
+                isLoggedIn = true;
             }
 
             var viewModel = new GroupDetailsViewModel
             {
                 Group = group,
                 UserHasAccessToAdditionalInformation = userHasAccessToAdditionalInformation,
-                MyAccountUrl = _configuration.GetMyAccountUrl() +"?returnUrl=" + Request.GetUri(),
-                ShouldShowAdditionalInformation = shouldShowAdditionalInformation
+                MyAccountUrl = _configuration.GetMyAccountUrl() +"?returnUrl=" + Request?.GetUri(),
+                ShouldShowAdditionalInformation = shouldShowAdditionalInformation,
+                ShouldShowAdditionalInfoLink = shouldShowAdditionalInformation && !isLoggedIn
             };
 
             cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
 
-            ViewBag.CurrentUrl = Request?.GetUri();
-
+            
             return View(viewModel);
         }
 
