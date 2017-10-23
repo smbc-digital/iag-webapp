@@ -11,13 +11,11 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly ISimpleTagParserContainer _parser;
         private readonly MarkdownWrapper _markdownWrapper;
-        private readonly IDynamicTagParser<Document> _documentParser;
 
-        public GroupFactory(ISimpleTagParserContainer parser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentParser)
+        public GroupFactory(ISimpleTagParserContainer parser, MarkdownWrapper markdownWrapper)
         {
             _parser = parser;
             _markdownWrapper = markdownWrapper;
-            _documentParser = documentParser;
         }
 
         public virtual ProcessedGroup Build(Group group)
@@ -26,7 +24,6 @@ namespace StockportWebapp.ContentFactory
             var processedBody = _parser.ParseAll(htmlBody, group.Name);
 
             var additionalInformation = _markdownWrapper.ConvertToHtml(group.AdditionalInformation);
-            additionalInformation = _documentParser.Parse(additionalInformation, group.AdditionalDocuments);
 
             processedBody = Regex.Replace(processedBody, "<script", "<scri-pt", RegexOptions.IgnoreCase);
             processedBody = Regex.Replace(processedBody, "javascript", "javascri-pt", RegexOptions.IgnoreCase);

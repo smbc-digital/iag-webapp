@@ -25,7 +25,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-            _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
+            _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
             _group = new GroupBuilder().Build();
 
             _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>())).Returns(_group.Description);
