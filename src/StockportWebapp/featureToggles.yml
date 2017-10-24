@@ -1,6 +1,5 @@
 ﻿---
 prod: &prod
-  AccessibleTransport: true
   GroupAdditionalInformation : false
 
 stage: &stage

@@ -115,8 +115,6 @@
                                             </textarea>
                                             <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
-                                        @if (FeatureToggles.GroupAdditionalInformation)
-                                        {
                                             <label asp-for="@Model.AdditionalInformation" class="label-for-checkbox"></label>
                                             <div class="switch">
                                                 <label>
@@ -134,7 +132,6 @@
                                             </textarea>
                                                 <span asp-validation-for="@Model.AdditionalInformation" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                             </div>
-                                        }
 
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
