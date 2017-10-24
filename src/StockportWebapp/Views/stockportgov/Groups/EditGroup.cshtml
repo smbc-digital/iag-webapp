@@ -1,6 +1,8 @@
 ﻿@using StockportWebapp.Config
+@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@inject FeatureToggles FeatureToggles
 
 @model GroupSubmission
 @{
@@ -113,28 +115,26 @@
                                             </textarea>
                                             <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
-
-                                        <label asp-for="@Model.AdditionalInformation" class="label-for-checkbox"></label>
-                                        <div class="switch">
-                                            <label>
-                                                <input id="additional-information" type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
-                                        </div>
-                                        <i>
-                                            <ul>
-                                                <li>Explain any additional information about your group or service</li>
-                                            </ul>
-                                        </i>
-                                        <div id="additional-information-text">
-                                            <textarea asp-for="@Model.AdditionalInformation" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                        @if (FeatureToggles.GroupAdditionalInformation)
+                                        {
+                                            <label asp-for="@Model.AdditionalInformation" class="label-for-checkbox"></label>
+                                            <div class="switch">
+                                                <label>
+                                                    <input id="additional-information" type="checkbox">
+                                                    <span class="lever"></span>
+                                                </label>
+                                            </div>
+                                            <i>
+                                                <ul>
+                                                    <li>Explain any additional information about your group or service</li>
+                                                </ul>
+                                            </i>
+                                            <div id="additional-information-text">
+                                                <textarea asp-for="@Model.AdditionalInformation" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                             </textarea>
-                                            <span asp-validation-for="@Model.AdditionalInformation" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                            
-                                            <label asp-for="@Model.AdditionalDocuments" class="label-for-checkbox"></label>
-                                            <p>upload your stuff</p>
-                                        </div>
-                                        
+                                                <span asp-validation-for="@Model.AdditionalInformation" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            </div>
+                                        }
 
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 

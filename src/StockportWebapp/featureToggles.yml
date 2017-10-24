@@ -6,6 +6,7 @@ prod: &prod
   GroupHomepage : true
   ShowcaseRedesign: true
   AccessibleTransport: true
+  GroupAdditionalInformation : false
 
 stage: &stage
   << : *prod
@@ -13,11 +14,13 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
+  
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
+  GroupAdditionalInformation : true
 
 local: &local
   << : *prod
