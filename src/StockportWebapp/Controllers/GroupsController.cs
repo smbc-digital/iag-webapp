@@ -138,8 +138,11 @@ namespace StockportWebapp.Controllers
             };
 
             cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
-            cookiesHelper.PopulateCookies(group.LinkedGroups , "favourites");
 
+            if (group.LinkedGroups != null)
+            {
+                cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
+            }
 
             return View(viewModel);
         }
