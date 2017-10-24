@@ -36,8 +36,6 @@
             </div>
         </a>
     </div>
-    @if (FeatureToggles.GroupFavourites)
-    {
         <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100 event-tracking" data-category="Groups" data-action="Remove from favourites" data-label="@Model.Slug" data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")">
             <div class="grid-10 mobile-grid-10 favourite-icon">
                 <i class="fa fa-star" aria-hidden="true"></i>
@@ -54,6 +52,5 @@
                 <span class="favourite-text">Add to favourites</span>
             </div>
         </a>
-    }
 </li>
 

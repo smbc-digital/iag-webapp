@@ -29,20 +29,9 @@
             </div>
         </div>
     </div>
-    @if (FeatureToggles.GroupHomepage)
-    {
         <div class="group-homepage-image" style="background-image: url(@Model.BackgroundImage)">
             @Html.Partial("../Shared/Groups/GroupHomeFilter")
         </div>
-    }
-    else
-    {
-        <div class="group-startpage-image">
-            <div class="primary-filter-container primary-filter-container-start-page">
-                @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
-            </div>
-        </div>
-    }
     <div class="home-page-row">
         <div class="grid-container">
             <div class="event-header">
@@ -52,7 +41,7 @@
         </div>
     </div>
 
-    @if (Model.FeaturedGroups.Any() && FeatureToggles.GroupHomepage)
+    @if (Model.FeaturedGroups.Any())
     {
         <div id="featured-groups" class="home-page-row">
             <div class="grid-container">
@@ -75,8 +64,6 @@
             </div>
         </div>
     }
-    
-    
     
     <div class="footer-container-box hide-on-desktop hide-on-tablet">
         <div class="footer-container-box-label">

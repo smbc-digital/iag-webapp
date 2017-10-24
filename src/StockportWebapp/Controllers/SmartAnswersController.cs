@@ -19,18 +19,14 @@ namespace StockportWebapp.Controllers
     [Route("smart/{slug}")]
     public class SmartAnswersController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
-        public FeatureToggles _FeatureToggling;
         public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling) : base(HttpContextAccessor, questionLoader)
         {
-            _FeatureToggling = FeatureToggling;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             if (Structure == null) return NotFound();
-
-            if (!_FeatureToggling.SmartAnswers) return NotFound();
 
             var page = GetPage(0);
 

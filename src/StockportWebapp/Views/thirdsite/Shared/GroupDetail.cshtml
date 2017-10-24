@@ -208,8 +208,6 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
-                                @if (FeatureToggles.GroupFavourites)
-                                {
                                     <li id="remove-favourite-@Model.Slug" class="group-details @(!Model.Favourite ? "hidden" : "")">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
                                             <i class="fa fa-star fa-2x group-details-symbol"></i>
@@ -241,8 +239,6 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </li>
-                                }
-
                             </ul>
                         </div>
                         <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);">

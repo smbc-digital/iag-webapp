@@ -1,10 +1,5 @@
 ﻿---
 prod: &prod
-  SmartAnswers : true
-  GroupFavourites : true
-  GroupFilterBar : true
-  GroupHomepage : true
-  ShowcaseRedesign: true
   AccessibleTransport: true
   GroupAdditionalInformation : false
 

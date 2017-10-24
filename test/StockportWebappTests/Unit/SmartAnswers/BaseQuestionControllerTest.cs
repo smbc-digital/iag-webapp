@@ -48,7 +48,6 @@ namespace StockportWebappTests.Unit.SmartAnswers
             _httpContextAccessor = new Mock<IHttpContextAccessor>();
             _questionLoader = new Mock<QuestionLoader>(_repository.Object);
             _featureToggles = new FeatureToggles();
-            _featureToggles.SmartAnswers = true;
             SetFakeQuestionStructure();
             SetFakeResponse();
 
