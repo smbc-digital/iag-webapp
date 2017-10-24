@@ -1005,6 +1005,7 @@ namespace StockportWebapp.Controllers
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
             group.Volunteering = model.Volunteering;
             group.VolunteeringText = GetVolunteeringText(model.VolunteeringText);
+            group.AdditionalInformation = model.AdditionalInformation;
 
             group.CategoriesReference = new List<GroupCategory>();
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));

@@ -11,11 +11,13 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly ISimpleTagParserContainer _parser;
         private readonly MarkdownWrapper _markdownWrapper;
+        private readonly IDynamicTagParser<Document> _documentParser;
 
-        public GroupFactory(ISimpleTagParserContainer parser, MarkdownWrapper markdownWrapper)
+        public GroupFactory(ISimpleTagParserContainer parser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentParser)
         {
             _parser = parser;
             _markdownWrapper = markdownWrapper;
+            _documentParser = documentParser;
         }
 
         public virtual ProcessedGroup Build(Group group)

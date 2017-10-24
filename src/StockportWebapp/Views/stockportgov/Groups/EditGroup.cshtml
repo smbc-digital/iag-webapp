@@ -1,6 +1,8 @@
 ﻿@using StockportWebapp.Config
+@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@inject FeatureToggles FeatureToggles
 
 @model GroupSubmission
 @{
@@ -32,7 +34,7 @@
                                     <i class="fa fa-exclamation fa-3x"></i>
                                 </div>
                                 <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
-                                    <h3>There has been a problem: </h3>      
+                                    <h3>There has been a problem: </h3>
                                     <p>@ViewBag.SubmissionError</p>
                                 </div>
                             </div>
@@ -50,7 +52,7 @@
                                 </div>
                             </div>
                         }
-                        
+
                         <noscript>
                             <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
                                 <div class="alert-icon">
@@ -88,10 +90,10 @@
                                             </i>
                                         </div>
                                         @Html.Partial("WysiwygIncludes")
-                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent">                                           
-                                            <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>                                                                                    
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent">
+                                            <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
                                         </div>
-                                        
+
                                         <label class="label-for-checkbox hide-on-mobile">Do you have any volunteering opportunities?</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
                                         <div class="switch">
@@ -113,7 +115,27 @@
                                             </textarea>
                                             <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
-                                       
+                                        @if (FeatureToggles.GroupAdditionalInformation)
+                                        {
+                                            <label asp-for="@Model.AdditionalInformation" class="label-for-checkbox"></label>
+                                            <div class="switch">
+                                                <label>
+                                                    <input id="additional-information" type="checkbox">
+                                                    <span class="lever"></span>
+                                                </label>
+                                            </div>
+                                            <i>
+                                                <ul>
+                                                    <li>Explain any additional information about your group or service</li>
+                                                </ul>
+                                            </i>
+                                            <div id="additional-information-text">
+                                                <textarea asp-for="@Model.AdditionalInformation" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                            </textarea>
+                                                <span asp-validation-for="@Model.AdditionalInformation" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            </div>
+                                        }
+
                                         <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Categories">Group category</label>
@@ -132,7 +154,7 @@
                                         <label asp-for="@Model.PhoneNumber"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
                                         <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
+
                                         <label asp-for="@Model.Facebook"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
                                         <span asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -142,7 +164,7 @@
                                         <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <stock-button id="uitest-contact-form-submit"
-                                                      class="button-contact-us" >Edit your group</stock-button>
+                                                      class="button-contact-us">Edit your group</stock-button>
                                     </fieldset>
                                 </div>
                             </div>

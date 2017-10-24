@@ -9,6 +9,15 @@
         }
     };
 
+    var handleAdditionalInformation = function (input) {
+        if ($(input).is(':checked') === true) {
+            $("#additional-information-text").show();
+        }
+        else {
+            $("#additional-information-text").hide();
+        }
+    };
+
     var init = function () {
 
         if ($(window).width() <= utils.MobileWidth) {
@@ -38,9 +47,13 @@
         });
 
         handleVolunteering($("#volunteering-needed"));
-
         $("#volunteering-needed").on("change", function () {
             handleVolunteering(this);
+        });
+
+        handleAdditionalInformation($("#additional-information"));
+        $("#additional-information").on("change", function () {
+            handleAdditionalInformation(this);
         });
 
         $(".remove-favourite,.add-favourite").attr("href", "javascript:void(0)");
