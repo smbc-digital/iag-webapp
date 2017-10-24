@@ -1348,9 +1348,9 @@
             }).end();
         }
 
-        // for (var i = _.currentSlide, max = i + _.options.slidesToShow; i < max; i++) {
-        //     _.$slides.eq(i).attr('tabindex', -1);
-        // }
+         for (var i = _.currentSlide, max = i + _.options.slidesToShow; i < max; i++) {
+             _.$slides.eq(i).attr('tabindex', 0);
+         }
 
         _.activateADA();
 
@@ -1698,7 +1698,7 @@
 
                 if (_.options.focusOnChange) {
                     var $currentSlide = $(_.$slides.get(_.currentSlide));
-                    $currentSlide.attr('tabindex', -1).focus();
+                    $currentSlide.attr('tabindex', 0).focus();
                 }
             }
 
@@ -2290,7 +2290,8 @@
 
         _.$slides
             .eq(index)
-            .addClass('slick-current');
+			.addClass('slick-current')
+			.attr({ 'aria-hidden': 'false', 'tabindex': '0' });
 
         if (_.options.centerMode === true) {
 

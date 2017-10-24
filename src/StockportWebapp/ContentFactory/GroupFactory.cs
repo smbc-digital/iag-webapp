@@ -26,7 +26,6 @@ namespace StockportWebapp.ContentFactory
             var processedBody = _parser.ParseAll(htmlBody, group.Name);
 
             var additionalInformation = _markdownWrapper.ConvertToHtml(group.AdditionalInformation);
-            additionalInformation = _documentParser.Parse(additionalInformation, group.AdditionalDocuments);
 
             processedBody = Regex.Replace(processedBody, "<script", "<scri-pt", RegexOptions.IgnoreCase);
             processedBody = Regex.Replace(processedBody, "javascript", "javascri-pt", RegexOptions.IgnoreCase);
