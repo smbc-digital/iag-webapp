@@ -95,7 +95,12 @@ namespace StockportWebapp.Controllers
                 model.Categories = listOfGroupCategories;
                 model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
             }
-            
+
+            if (homepage.FeaturedGroups != null && homepage.FeaturedGroups.Any())
+            {
+                cookiesHelper.PopulateCookies(homepage.FeaturedGroups, "favourites");
+            }
+
             model.BackgroundImage = homepage.BackgroundImage;
             model.FeaturedGroupsHeading = homepage.FeaturedGroupsHeading;
             model.FeaturedGroups = homepage.FeaturedGroups;
