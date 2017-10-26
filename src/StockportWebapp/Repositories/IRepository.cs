@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 
@@ -21,40 +20,5 @@ namespace StockportWebapp.Repositories
         Task<HttpResponse> Delete<T>(string slug = "");
         Task<HttpResponse> Archive<T>(HttpContent content, string slug = "");
         Task<HttpResponse> Publish<T>(HttpContent content, string slug = "");
-    }
-
-    public interface IRepository<T>
-    {
-        Task<IRepositoryResponse<T>> Get(string slug = "");
-    }
-
-    public interface IRepositoryResponse<T>
-    {
-        bool IsError();
-    }
-
-    public class Success<T> : IRepositoryResponse<T>
-    {
-        public readonly T Content;
-
-        public Success(T content)
-        {
-            Content = content;
-        }
-
-        public bool IsError()
-        {
-            return false;
-        }
-    }
-
-    public class Error<T> : StatusCodeResult, IRepositoryResponse<T>
-    {
-        public bool IsError()
-        {
-            return true;
-        }
-
-        public Error(int statusCode) : base(statusCode){}
     }
 }
