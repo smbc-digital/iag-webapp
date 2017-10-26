@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Repositories
 {
-    public interface IDocumentsRepository
+    public interface IDocumentsRepository : IGenericRepository<Document>
     {
        Task<Document> GetSecureDocument(string businessId, string assetId, string groupSlug);
     }
 
-    public class DocumentsRepository : IDocumentsRepository
+    public class DocumentsRepository : GenericRepository<Document>, IDocumentsRepository
     {
+        
         private readonly IHttpClient _httpClient;
         private readonly IApplicationConfiguration _config;
         private readonly Dictionary<string, string> _authenticationHeaders;
 
-
-        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config)
+        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config, UrlGenerator urlGenerator) : base(httpClient, config, urlGenerator)
         {
             _httpClient = httpClient;
             _config = config;

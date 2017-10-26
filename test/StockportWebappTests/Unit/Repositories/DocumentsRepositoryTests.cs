@@ -7,6 +7,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Utils;
 using StockportWebappTests.Builders;
 using Xunit;
 
@@ -20,7 +21,7 @@ namespace StockportWebappTests.Unit.Repositories
             // Arrange
             var mockHttpClient = new Mock<IHttpClient>();
             var mockConfig = new Mock<IApplicationConfiguration>();
-            var documentsRepository = new DocumentsRepository(mockHttpClient.Object, mockConfig.Object);
+            var documentsRepository = new DocumentsRepository(mockHttpClient.Object, mockConfig.Object, new UrlGenerator(mockConfig.Object, new BusinessId("test")));
 
             // Mock
             mockHttpClient.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
