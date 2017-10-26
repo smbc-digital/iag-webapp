@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
-using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebappTests.Builders;
 using Xunit;
+using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.Repositories
 {
@@ -19,19 +17,18 @@ namespace StockportWebappTests.Unit.Repositories
         public async void GetSecureDocument_ShouldCallHttpClient()
         {
             // Arrange
-            var mockHttpClient = new Mock<IHttpClient>();
-            var mockConfig = new Mock<IApplicationConfiguration>();
-            var documentsRepository = new DocumentsRepository(mockHttpClient.Object, mockConfig.Object, new UrlGenerator(mockConfig.Object, new BusinessId("test")));
+            var repository = new Mock<IRepository>();
+            var documentsRepository = new DocumentsRepository(repository.Object);
 
             // Mock
-            mockHttpClient.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+            repository.Setup(o => o.Get<Document>(It.IsAny<string>(), It.IsAny< List<Query>>()))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, new DocumentBuilder().Build(), ""));
 
             // Act
-            await documentsRepository.GetSecureDocument("business id", "asset id", "group-slug");
+            await documentsRepository.GetSecureDocument("asset id", "group-slug");
 
             // Assert
-            mockHttpClient.Verify(o => o.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()), Times.Once());
+            repository.Verify(o => o.Get<Document>(It.IsAny<string>(), It.IsAny<List<Query>>()), Times.Once());
         }
     }
 }

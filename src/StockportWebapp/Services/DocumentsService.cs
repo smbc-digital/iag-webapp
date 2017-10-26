@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using System.Threading.Tasks;
 
 namespace StockportWebapp.Services
 {
     public interface IDocumentsService
     {
-        Document GetSecureDocument(string businessId, string assetId, string groupSlug);
+        Task<Document> GetSecureDocument(string assetId, string groupSlug);
     }
 
     public class DocumentsService : IDocumentsService
@@ -20,10 +17,10 @@ namespace StockportWebapp.Services
         {
             _documentsRepository = documentsRepository;
         }
-        public Document GetSecureDocument(string businessId, string assetId, string groupSlug)
+
+        public async Task<Document> GetSecureDocument(string assetId, string groupSlug)
         {
-            _documentsRepository.GetSecureDocument(businessId, assetId, groupSlug);
-            return null;
+            return await _documentsRepository.GetSecureDocument(assetId, groupSlug);
         }
     }
 }

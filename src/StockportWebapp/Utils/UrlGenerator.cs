@@ -53,7 +53,8 @@ namespace StockportWebapp.Utils
             {typeof(List<SectionSiteMap>), "sectionSiteMap"},
             {typeof(SmartAnswers), "smart/"},
             {typeof(Organisation), "organisations/"},
-            {typeof(GroupAdvisor), "groups/advisors/"}
+            {typeof(GroupAdvisor), "groups/advisors/"},
+            {typeof(Document), "documents/"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)

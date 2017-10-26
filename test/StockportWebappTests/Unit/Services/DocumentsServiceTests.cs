@@ -19,10 +19,10 @@ namespace StockportWebappTests.Unit.Services
             var documentsService = new DocumentsService(mockDocumentsRepository.Object);
 
             // Act
-            documentsService.GetSecureDocument("business id", "asset id", "group-slug");
+            documentsService.GetSecureDocument("asset id", "group-slug");
 
             // Assert
-            mockDocumentsRepository.Verify(o => o.GetSecureDocument(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockDocumentsRepository.Verify(o => o.GetSecureDocument(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
 
         }
 

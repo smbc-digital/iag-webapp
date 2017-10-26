@@ -5,6 +5,7 @@ using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.Services;
 using Xunit;
+using System.Net.Http;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -15,13 +16,13 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var mockDocumentsService = new Mock<IDocumentsService>();
-            var documentsController = new DocumentsController(mockDocumentsService.Object);
+            var documentsController = new DocumentsController(mockDocumentsService.Object, new HttpClient());
 
             // Act
-            documentsController.GetSecureDocument("stockportgov", "asset id", "group-slug");
+            documentsController.GetSecureDocument("asset id", "group-slug");
 
             // Assert
-            mockDocumentsService.Verify(o => o.GetSecureDocument(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mockDocumentsService.Verify(o => o.GetSecureDocument(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
         }
     }
 }

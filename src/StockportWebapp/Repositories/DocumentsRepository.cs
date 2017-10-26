@@ -7,29 +7,23 @@ using StockportWebapp.Utils;
 
 namespace StockportWebapp.Repositories
 {
-    public interface IDocumentsRepository : IGenericRepository<Document>
+    public interface IDocumentsRepository
     {
-       Task<Document> GetSecureDocument(string businessId, string assetId, string groupSlug);
+       Task<Document> GetSecureDocument(string assetId, string groupSlug);
     }
 
-    public class DocumentsRepository : GenericRepository<Document>, IDocumentsRepository
+    public class DocumentsRepository : IDocumentsRepository
     {
-        
-        private readonly IHttpClient _httpClient;
-        private readonly IApplicationConfiguration _config;
-        private readonly Dictionary<string, string> _authenticationHeaders;
+        private readonly IRepository _repository;
 
-        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config, UrlGenerator urlGenerator) : base(httpClient, config, urlGenerator)
+        public DocumentsRepository(IRepository repository)
         {
-            _httpClient = httpClient;
-            _config = config;
-            _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
+            _repository = repository;
         }
 
-        public async Task<Document> GetSecureDocument(string businessId, string assetId, string groupSlug)
+        public async Task<Document> GetSecureDocument(string assetId, string groupSlug)
         {
-           var response =  await _httpClient.Get($"{_config.GetContentApiUri()}/{businessId}/documents/{groupSlug}/{assetId}", _authenticationHeaders);
-
+            var response = await _repository.Get<Document>($"{groupSlug}/{assetId}");
             return response.Content as Document;
         }
     }

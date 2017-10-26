@@ -154,7 +154,7 @@ namespace StockportWebapp.Extensions
                             p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IHttpContextAccessor>(), p.GetService<IDynamicTagParser<S3BucketSearch>>()), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IPaymentRepository, PaymentRepository>();
-            services.AddTransient<IDocumentsRepository>(p => new DocumentsRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<UrlGenerator>()));
+            services.AddTransient<IDocumentsRepository>(p => new DocumentsRepository(p.GetService<IRepository>()));
 
             return services;
         }
@@ -166,7 +166,7 @@ namespace StockportWebapp.Extensions
                     new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<System.Net.Http.HttpClient>(),
                     p.GetService<UrlGenerator>(), appEnvironment, p.GetService<IApplicationConfiguration>()));
 
-            services.AddSingleton<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>()));
+            services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>()));
 
             return services;
         }

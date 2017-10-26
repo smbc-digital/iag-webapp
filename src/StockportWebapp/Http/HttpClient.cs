@@ -31,11 +31,11 @@ namespace StockportWebapp.Http
                 _client.DefaultRequestHeaders.Remove(header.Key);
                 _client.DefaultRequestHeaders.Add(header.Key, header.Value);
             });
-            
+
             var task = await _client.GetAsync(url);
 
             var content = await task.Content.ReadAsStringAsync();
-            
+
             return new HttpResponse((int)task.StatusCode,
                                     content,
                                     task.ReasonPhrase);
