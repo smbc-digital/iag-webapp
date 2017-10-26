@@ -129,6 +129,9 @@ namespace StockportWebapp.Controllers
                 isLoggedIn = true;
             }
 
+            // convert all documents urls to be download links
+            group.AdditionalDocuments?.ForEach(o => o.Url = Url.Action("Documents", new {assetId = o.AssetId, groupSlug = slug}));
+
             var viewModel = new GroupDetailsViewModel
             {
                 Group = group,
