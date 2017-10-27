@@ -1,5 +1,7 @@
-﻿using StockportWebapp.Models;
+﻿using Microsoft.Extensions.Logging;
+using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using System;
 using System.Threading.Tasks;
 
 namespace StockportWebapp.Services
@@ -12,15 +14,25 @@ namespace StockportWebapp.Services
     public class DocumentsService : IDocumentsService
     {
         private readonly IDocumentsRepository _documentsRepository;
+        private readonly ILogger<DocumentsService> _logger;
 
-        public DocumentsService(IDocumentsRepository documentsRepository)
+        public DocumentsService(IDocumentsRepository documentsRepository, ILogger<DocumentsService> logger)
         {
             _documentsRepository = documentsRepository;
+            _logger = logger;
         }
 
         public async Task<Document> GetSecureDocument(string assetId, string groupSlug)
         {
-            return await _documentsRepository.GetSecureDocument(assetId, groupSlug);
+            try
+            {
+                return await _documentsRepository.GetSecureDocument(assetId, groupSlug);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new EventId(0), ex, $"There was a problem getting document with assetId: {assetId} for group {groupSlug}");
+                throw;
+            }
         }
     }
 }

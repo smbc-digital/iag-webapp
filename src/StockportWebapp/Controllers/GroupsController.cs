@@ -135,7 +135,7 @@ namespace StockportWebapp.Controllers
             }
 
             // convert all documents urls to be download links
-            group.AdditionalDocuments?.ForEach(o => o.Url = Url.Action("Documents", new {assetId = o.AssetId, groupSlug = slug}));
+            group.AdditionalDocuments?.ForEach(o => o.Url = $"/documents/{slug}/{o.AssetId}");
 
             var viewModel = new GroupDetailsViewModel
             {

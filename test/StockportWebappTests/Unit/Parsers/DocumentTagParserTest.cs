@@ -27,7 +27,7 @@ namespace StockportWebappTests.Unit.Parsers
         public void ShouldReplaceDocumentTagWithDocumentView()
         {
             var content = "this is some test {{PDF:fileName1.jpg}}";
-            var document = new Document("title", 2434, DateTime.Now, "url", "fileName1.jpg", string.Empty);
+            var document = new Document("title", 2434, DateTime.Now, "url", "fileName1.jpg", string.Empty, "media");
             var documents = new List<Document>() { document };
             var renderResult = "RENDERED DOCUMENT CONTENT";
 
@@ -55,7 +55,7 @@ namespace StockportWebappTests.Unit.Parsers
         {
             const string content = "this is some test {{PDF:some-pdf.pdf}}";
 
-            _documentTagParser.Parse(content, new List<Document> { new Document("title", 2434, DateTime.Now, "url", "not-found.jpg", string.Empty) });
+            _documentTagParser.Parse(content, new List<Document> { new Document("title", 2434, DateTime.Now, "url", "not-found.jpg", string.Empty, "media") });
 
             LogTesting.Assert(_mockLogger, LogLevel.Warning,
             "The document some-pdf.pdf could not be found and will be removed");

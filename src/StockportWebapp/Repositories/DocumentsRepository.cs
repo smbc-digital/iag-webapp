@@ -1,30 +1,42 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using StockportWebapp.Config;
-using StockportWebapp.Http;
+﻿using System.Threading.Tasks;
 using StockportWebapp.Models;
+using StockportWebapp.Http;
+using StockportWebapp.Config;
 using StockportWebapp.Utils;
+using StockportWebapp.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Repositories
 {
-    public interface IDocumentsRepository
+    public interface IDocumentsRepository : IGenericRepository<Document>
     {
        Task<Document> GetSecureDocument(string assetId, string groupSlug);
     }
 
-    public class DocumentsRepository : IDocumentsRepository
+    public class DocumentsRepository : GenericRepository<Document>, IDocumentsRepository
     {
-        private readonly IRepository _repository;
+        private readonly IHttpClient _httpClient;
+        private readonly IApplicationConfiguration _config;
+        private readonly IUrlGeneratorSimple<Document> _urlGeneratorSimple;
+        private readonly ILoggedInHelper _loggedInHelper;
 
-        public DocumentsRepository(IRepository repository)
+        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple<Document> urlGeneratorSimple, ILoggedInHelper loggedInHelper, ILogger<GenericRepository<Document>> logger) : base (httpClient, config, logger)
         {
-            _repository = repository;
+            _httpClient = httpClient;
+            _config = config;
+            _urlGeneratorSimple = urlGeneratorSimple;
+            _loggedInHelper = loggedInHelper;
         }
 
         public async Task<Document> GetSecureDocument(string assetId, string groupSlug)
         {
-            var response = await _repository.Get<Document>($"{groupSlug}/{assetId}");
-            return response.Content as Document;
+            var url = _urlGeneratorSimple.BaseContentApiUrl().AddSlug($"{assetId}/{groupSlug}");
+
+            var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
+
+            if (!string.IsNullOrEmpty(loggedInPerson.Email)) AddHeader("jwtCookie", loggedInPerson.rawCookie);
+
+            return await GetResponse(url);
         }
     }
 }

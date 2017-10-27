@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Services;
 using System.Net.Http;
@@ -24,10 +21,13 @@ namespace StockportWebapp.Controllers
         {
             var document = await _documentsService.GetSecureDocument(assetId, groupSlug);
 
-            var result = await _httpClient.GetAsync(document.Url);
+            var result = document != null ? await _httpClient.GetAsync($"https:{document.Url}") : null;
+
+            if (result == null) return new NotFoundObjectResult($"No document found for assetId: {assetId}");
+
             var file = await result.Content.ReadAsByteArrayAsync();
 
-            return new FileContentResult(file, "text/document");
+            return new FileContentResult(file, document.MediaType);
         }
     }
 }
