@@ -61,7 +61,7 @@ namespace StockportWebappTests.Unit.Repositories
             // Act
             var documentResponse = await documentsRepository.GetSecureDocument("asset id", "group-slug");
 
-            LogTesting.Assert(logger, LogLevel.Error, $"Error getting response for url url/asset id/group-slug");
+            LogTesting.Assert(logger, LogLevel.Error, $"Error getting response for url url/group-slug/asset id");
             documentResponse.Should().BeNull();
         }
 

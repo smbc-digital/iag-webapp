@@ -32,7 +32,7 @@ namespace StockportWebapp.Repositories
 
         public async Task<Document> GetSecureDocument(string assetId, string groupSlug)
         {
-            var url = _urlGeneratorSimple.BaseContentApiUrl().AddSlug($"{assetId}/{groupSlug}");
+            var url = _urlGeneratorSimple.BaseContentApiUrl().AddSlug($"{groupSlug}/{assetId}");
 
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 

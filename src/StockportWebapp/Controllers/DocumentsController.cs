@@ -8,26 +8,20 @@ namespace StockportWebapp.Controllers
     public class DocumentsController : Controller
     {
         private IDocumentsService _documentsService;
-        private IHttpClientWrapper _httpClient;
 
-        public DocumentsController(IDocumentsService documentsService, IHttpClientWrapper httpClient)
+        public DocumentsController(IDocumentsService documentsService)
         {
             _documentsService = documentsService;
-            _httpClient = httpClient;
         }
 
-        [Route("documents/{assetId}/{groupSlug}")]
-        public async Task<IActionResult> GetSecureDocument(string assetId, string groupSlug)
+        [Route("documents/{groupSlug}/{assetId}")]
+        public async Task<IActionResult> GetSecureDocument(string groupSlug, string assetId)
         {
-            var document = await _documentsService.GetSecureDocument(assetId, groupSlug);
-
-            var result = document != null ? await _httpClient.GetAsync($"https:{document.Url}") : null;
+            var result = await _documentsService.GetSecureDocument(assetId, groupSlug);
 
             if (result == null) return new NotFoundObjectResult($"No document found for assetId: {assetId}");
 
-            var file = await result.Content.ReadAsByteArrayAsync();
-
-            return new FileContentResult(file, document.MediaType);
+            return new FileContentResult(result.FileData, result.MediaType);
         }
     }
 }

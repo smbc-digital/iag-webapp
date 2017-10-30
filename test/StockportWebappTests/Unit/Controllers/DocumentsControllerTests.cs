@@ -10,6 +10,7 @@ using StockportWebapp.Wrappers;
 using StockportWebappTests.Builders;
 using Microsoft.AspNetCore.Mvc;
 using FluentAssertions;
+using StockportWebapp.Models;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -20,23 +21,21 @@ namespace StockportWebappTests.Unit.Controllers
         {
             // Arrange
             var document = new DocumentBuilder().Build();
+            var documentToDownload = new DocumentToDownload() { MediaType = document.MediaType, FileData = new byte[] { } };
             var mockDocumentsService = new Mock<IDocumentsService>();
-            var httpClientWrapper = new Mock<IHttpClientWrapper>();
-            var response = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
-            response.Content = new ByteArrayContent(new byte[] { 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20 });
+            var assetId = "asset-id";
+            var slug = "slug";
 
             // Mock
-            mockDocumentsService.Setup(o => o.GetSecureDocument("asset id", "group-slug")).ReturnsAsync(document);
-            httpClientWrapper.Setup(o => o.GetAsync(It.IsAny<string>())).ReturnsAsync(response);
+            mockDocumentsService.Setup(o => o.GetSecureDocument(assetId, slug)).ReturnsAsync(documentToDownload);
 
-            var documentsController = new DocumentsController(mockDocumentsService.Object, httpClientWrapper.Object);
+            var documentsController = new DocumentsController(mockDocumentsService.Object);
 
             // Act
-            var result = await documentsController.GetSecureDocument("asset id", "group-slug") as FileContentResult;
+            var result = await documentsController.GetSecureDocument(slug, assetId) as FileContentResult;
 
             // Assert
             mockDocumentsService.Verify(o => o.GetSecureDocument(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            httpClientWrapper.Verify(o => o.GetAsync($"https:{document.Url}"), Times.Once);
             result.Should().NotBeNull();
             result.ContentType.Should().Be(document.MediaType);
         }

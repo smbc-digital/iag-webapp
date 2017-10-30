@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Wrappers;
 using System;
 using System.Threading.Tasks;
 
@@ -8,25 +9,41 @@ namespace StockportWebapp.Services
 {
     public interface IDocumentsService
     {
-        Task<Document> GetSecureDocument(string assetId, string groupSlug);
+        Task<DocumentToDownload> GetSecureDocument(string assetId, string groupSlug);
     }
 
     public class DocumentsService : IDocumentsService
     {
         private readonly IDocumentsRepository _documentsRepository;
         private readonly ILogger<DocumentsService> _logger;
+        private readonly IHttpClientWrapper _httpClient;
 
-        public DocumentsService(IDocumentsRepository documentsRepository, ILogger<DocumentsService> logger)
+        public DocumentsService(IDocumentsRepository documentsRepository, IHttpClientWrapper httpClient, ILogger<DocumentsService> logger)
         {
             _documentsRepository = documentsRepository;
             _logger = logger;
+            _httpClient = httpClient;
         }
 
-        public async Task<Document> GetSecureDocument(string assetId, string groupSlug)
+        public async Task<DocumentToDownload> GetSecureDocument(string assetId, string groupSlug)
         {
             try
             {
-                return await _documentsRepository.GetSecureDocument(assetId, groupSlug);
+                var document = await _documentsRepository.GetSecureDocument(assetId, groupSlug);
+
+                if (document == null)
+                {
+                    _logger.LogWarning($"No document was returned for assetId: {assetId}");
+                    return null;
+                }
+
+                var result = await _httpClient.GetAsync($"https:{document.Url}");
+
+                return new DocumentToDownload
+                {
+                    FileData = await result.Content.ReadAsByteArrayAsync(),
+                    MediaType = document.MediaType
+                };
             }
             catch (Exception ex)
             {

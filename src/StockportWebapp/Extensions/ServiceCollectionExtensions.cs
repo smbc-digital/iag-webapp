@@ -31,6 +31,7 @@ using StockportWebapp.RSS;
 using StockportWebapp.Services;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
+using StockportWebapp.Wrappers;
 
 namespace StockportWebapp.Extensions
 {
@@ -166,7 +167,7 @@ namespace StockportWebapp.Extensions
                     new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<System.Net.Http.HttpClient>(),
                     p.GetService<UrlGenerator>(), appEnvironment, p.GetService<IApplicationConfiguration>()));
 
-            services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>(), p.GetService<ILogger<DocumentsService>>()));
+            services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>(), p.GetService<IHttpClientWrapper>(), p.GetService<ILogger<DocumentsService>>()));
 
             return services;
         }
