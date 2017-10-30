@@ -22,6 +22,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
 using StockportWebapp.Configuration;
+using StockportWebapp.Wrappers;
 
 namespace StockportWebapp
 {
@@ -91,7 +92,8 @@ namespace StockportWebapp
             services.AddScoped(typeof(IUrlGeneratorSimple<>), typeof(UrlGeneratorSimple<>));
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
-            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));          
+            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));
+            services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(new System.Net.Http.HttpClient(), provider.GetService<ILogger<HttpClientWrapper>>()));
 
             // custom extensions
             services.AddCustomisedAngleSharp();
