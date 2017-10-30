@@ -10,7 +10,7 @@ namespace StockportWebapp.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {
-        Task<T> GetResponse(string url);
+        Task<T> GetResponseAsync(string url);
         void AddHeader(string key, string value);
     }
 
@@ -29,12 +29,11 @@ namespace StockportWebapp.Repositories
             _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
         }
 
-        public async Task<T> GetResponse(string url)
+        public async Task<T> GetResponseAsync(string url)
         {
-            var response = await _httpClient.Get(url, _authenticationHeaders);
-
             try
             {
+                var response = await _httpClient.Get(url, _authenticationHeaders);
                 return JsonConvert.DeserializeObject<T>(response.Content as string);
             }
             catch (Exception ex)

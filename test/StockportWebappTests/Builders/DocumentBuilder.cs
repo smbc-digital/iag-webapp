@@ -13,7 +13,7 @@ namespace StockportWebappTests.Builders
         private string _url = "url";
         private DateTime _lastUpdated = DateTime.MinValue;
         private string _fileName = "fileName";
-        private string _mediaType = "media";
+        private string _mediaType = "application/pdf";
 
         public Document Build()
         {

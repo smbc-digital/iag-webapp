@@ -1,19 +1,19 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Services;
-using System.Net.Http;
+using StockportWebapp.Wrappers;
 
 namespace StockportWebapp.Controllers
 {
     public class DocumentsController : Controller
     {
         private IDocumentsService _documentsService;
-        private HttpClient _httpClient;
+        private IHttpClientWrapper _httpClient;
 
-        public DocumentsController(IDocumentsService documentsService, HttpClient httpClient)
+        public DocumentsController(IDocumentsService documentsService, IHttpClientWrapper httpClient)
         {
             _documentsService = documentsService;
-            _httpClient = new HttpClient();
+            _httpClient = httpClient;
         }
 
         [Route("documents/{assetId}/{groupSlug}")]

@@ -31,7 +31,7 @@ namespace StockportWebapp.Services
             catch (Exception ex)
             {
                 _logger.LogError(new EventId(0), ex, $"There was a problem getting document with assetId: {assetId} for group {groupSlug}");
-                throw;
+                return null;
             }
         }
     }
