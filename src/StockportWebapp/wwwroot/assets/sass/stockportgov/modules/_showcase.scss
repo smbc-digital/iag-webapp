@@ -697,6 +697,8 @@
 }
 
 .profile-success-story-new {
+    text-decoration: none;
+    color: #333333;
     background-color: #fff;
     padding: 20px 20px 0 20px;
     border-radius: 4px;
@@ -707,6 +709,14 @@
 
     &.profile-link:hover {
         box-shadow: 0 10px 20px rgba(0,0,0,.2);
+    }
+
+    .read-more {
+        @media #{$desktop} {
+            display: none;
+        }
+
+        text-decoration: underline;
     }
 
     @media #{$mobile} {
@@ -769,7 +779,11 @@
 
     .closing-quote {
         position: relative;
-        top: -60px;
+        top: -30px;
+
+        @media #{$mobile} {
+            /*top: -90px;*/
+        }
     }
 }
 
