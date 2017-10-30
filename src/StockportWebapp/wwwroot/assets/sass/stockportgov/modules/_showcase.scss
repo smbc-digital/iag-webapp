@@ -705,7 +705,7 @@
     display: block;
     border: 1px solid #ebebeb;
 
-    &:hover {
+    &.profile-link:hover {
         box-shadow: 0 10px 20px rgba(0,0,0,.2);
     }
 
