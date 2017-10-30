@@ -344,7 +344,7 @@ namespace StockportWebapp.Controllers
         [HttpGet]
         [Route("/groups/exportpdf/{slug}")]
         [Route("/groups/export/{slug}")]
-        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, [FromServices] CurrentEnvironment environment, string slug, [FromQuery] bool returnHtml = false, bool print = false)
+        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug, [FromQuery] bool returnHtml = false, bool print = false)
         {
             _logger.LogInformation(string.Concat("Exporting group ", slug, " to pdf"));
 
@@ -360,7 +360,7 @@ namespace StockportWebapp.Controllers
                 group.SetCurrentUrl(_host.GetHost(Request));
 
                 var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-                var renderedHtml = _viewRender.Render("Shared/GroupDetail", group);
+                var renderedHtml = _viewRender.Render("Shared/GroupDetail", new GroupDetailsViewModel { Group = group });
 
                 var renderedHtmlAbsoluteLinks = _htmlUtilities.ConvertRelativeUrltoAbsolute(renderedHtml, _hostHelper.GetHost(Request));
 
