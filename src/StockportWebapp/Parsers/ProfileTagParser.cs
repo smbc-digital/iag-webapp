@@ -32,7 +32,11 @@ namespace StockportWebapp.Parsers
                 var profile = GetProfileMatchingSlug(profiles, profileSlug);
                 if (profile != null)
                 {
-                    var profileHtml = _viewRenderer.Render("Profile", profile);
+
+                    var profileHtml = string.IsNullOrEmpty(profile.Body)
+                        ? _viewRenderer.Render("ProfileWithoutBody", profile)
+                        : _viewRenderer.Render("Profile", profile);
+
                     content = TagRegex.Replace(content, profileHtml, 1);
                 }
                 else
