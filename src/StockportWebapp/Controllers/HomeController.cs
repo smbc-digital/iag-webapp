@@ -47,6 +47,9 @@ namespace StockportWebapp.Controllers
 
             if (homepage != null && latestEvents != null) homepage.SetLatestEvents(latestEvents.Events);
 
+            // TODO: Get events based on eventCategory tag via the api
+
+
             return View(homepage);
         }
 
