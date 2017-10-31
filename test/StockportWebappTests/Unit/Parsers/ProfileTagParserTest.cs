@@ -47,6 +47,31 @@ namespace StockportWebappTests.Unit.Parsers
         }
 
         [Fact]
+        public void ShouldReplaceProfileTagWithProfileViewWithoutBody_WhenBodyNullOrEmpty()
+        {
+            var content = "this is some test {{PROFILE:some-slug}}";
+            var profile = new Profile
+            {
+                Slug = "some-slug",
+                Title = "some-title",
+                Image = "some-image-url",
+                Subtitle = "some-subtitle",
+                Teaser = "some-teaser",
+                Type = "some-type",
+                Body = ""
+            };
+            var profiles = new List<Profile>() { profile };
+            var renderResult = "RENDERED PROFILE CONTENT";
+
+            _viewRenderer.Setup(o => o.Render("ProfileWithoutBody", profile)).Returns(renderResult);
+
+            var parsedHtml = _profileTagParser.Parse(content, profiles);
+
+            _viewRenderer.Verify(o => o.Render("ProfileWithoutBody", profile), Times.Once);
+            parsedHtml.Should().Contain(renderResult);
+        }
+
+        [Fact]
         public void ShouldRemoveProfileTagsThatDontExist()
         {
             var content = "this is a test{{PROFILE:some-slug}}";

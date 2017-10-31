@@ -711,11 +711,17 @@
         box-shadow: 0 10px 20px rgba(0,0,0,.2);
     }
 
+    &:hover{
+        text-decoration: none;
+        color: #333333;
+    }
+
     .read-more {
         @media #{$desktop} {
             display: none;
         }
-
+        padding-left: 50px;
+        padding-bottom: 25px;
         text-decoration: underline;
     }
 
@@ -736,7 +742,7 @@
 
         @media #{$desktop,$tablet} {
             padding-bottom: 50px;
-            padding-top: 50px;
+            padding-top: 30px;
         }
 
         @media #{$mobile} {
