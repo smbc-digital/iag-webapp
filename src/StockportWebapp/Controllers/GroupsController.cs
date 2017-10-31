@@ -977,6 +977,7 @@ namespace StockportWebapp.Controllers
             model.CategoriesList = string.Join(",", model.Categories);
             model.VolunteeringText = GetVolunteeringText(group.VolunteeringText);
             model.AvailableCategories = await GetAvailableGroupCategories();
+            model.AdditionalInformation = group.AdditionalInformation;
 
            return View(model);
         }
