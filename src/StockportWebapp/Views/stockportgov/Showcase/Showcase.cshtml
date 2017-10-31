@@ -76,17 +76,19 @@
                                 <span>@Model.Title</span>
                             </h1>
                             <div class="clearfix hero-image-divider-container">
-                                <hr class="hero-image-divider" /> 
-                                <div><h2>
-                                    <span>@Model.Teaser</span>
-                                </h2></div>
-                            </div>                            
+                                <hr class="hero-image-divider" />
+                                <div>
+                                    <h2>
+                                        <span>@Model.Teaser</span>
+                                    </h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }
                 else
                 {
-                    <div id="content"class="full-width-title title-only">
+                    <div id="content" class="full-width-title title-only">
                         <div class="grid-container grid-parent grid-100">
                             <div class="grid-100 tablet-grid-100 mobile-grid-100">
                                 <h1 class="full-width-title-with-button">@Model.Title</h1>
@@ -156,7 +158,7 @@
                             <h2>@Model.KeyFactSubheading</h2>
                             @Html.Partial("Showcase/KeyFacts", Model.KeyFacts)
                         </div>
-                    </div>                   
+                    </div>
                 </div>
             }
 
@@ -191,7 +193,15 @@
                 <div class="@titleHack showcase-profile showcase-news-events white">
                     <div class="grid-container">
                         <div class="grid-parent grid-100">
-                            @Html.Partial("Profile", Model.Profile)
+                            @if (string.IsNullOrEmpty(Model.Profile.Body))
+                            {
+                                @Html.Partial("ProfileWithoutBody", Model.Profile)
+                            }
+                            else
+                            {
+                                @Html.Partial("Profile", Model.Profile)  
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -219,7 +229,7 @@
                         <div class="l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
                             @if (!string.IsNullOrWhiteSpace(Model.BodySubheading))
                             {
-                                    <h2>@Model.BodySubheading</h2>
+                                <h2>@Model.BodySubheading</h2>
                             }
                             <div class="grid-100 grid-parent">
                                 <article>
