@@ -1,34 +1,36 @@
 ﻿@model StockportWebapp.Models.Profile
 
-<a href="/profile/@Model.Slug" class="profile profile-success-story-new profile-link">
+<div>
+    <a href="/profile/@Model.Slug" class="profile profile-success-story-new profile-link">
 
-    @{ 
-        var width = "100";
-    }
-    @if (!string.IsNullOrEmpty(Model.Image))
-    {
-        width = "75";
-        <div class="grid-25 tablet-grid-25 mobile-grid-100">
-            <div class="profile-image-mask">
-                <img src="@Model.Image" alt="@Model.Title" />
+        @{
+            var width = "100";
+        }
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            width = "75";
+            <div class="grid-25 tablet-grid-25 mobile-grid-100">
+                <div class="profile-image-mask">
+                    <img src="@Model.Image" alt="@Model.Title" />
+                </div>
+            </div>
+        }
+        <div class="grid-@width tablet-grid-@width mobile-grid-100">
+            <div class="mobile-push-10 headings">
+                <h2>@Model.Title</h2>
+                <span class="summary">@Model.Subtitle</span>
+            </div>
+            <div class="grid-100 grid-parent body">
+                <div class="grid-10 tablet-grid-10 mobile-grid-10"><i class="green open fa fa-2x fa-quote-left" aria-hidden="true"></i></div>
+                <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
+                    <p>@Model.Teaser</p>
+                </div>
+                <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
+            </div>
+            <div class="grid-100 grid-parent closing-quote">
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90"><i class="green fa fa-2x fa-quote-right" aria-hidden="true"></i></div>
             </div>
         </div>
-    }
-    <div class="grid-@width tablet-grid-@width mobile-grid-100">
-        <div class="mobile-push-10 headings">
-            <h2>@Model.Title</h2>
-            <span class="summary">@Model.Subtitle</span>
-        </div>
-        <div class="grid-100 grid-parent body">
-            <div class="grid-10 tablet-grid-10 mobile-grid-10"><i class="green open fa fa-2x fa-quote-left" aria-hidden="true"></i></div>
-            <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
-                <p>@Model.Teaser</p>
-            </div>
-            <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
-        </div>
-        <div class="grid-100 grid-parent closing-quote">
-            <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90"><i class="green fa fa-2x fa-quote-right" aria-hidden="true"></i></div>
-        </div>
-    </div>
-    <p class="read-more">Read more about @Model.Title</p>
-</a>
+        <p class="read-more">Read more about @Model.Title</p>
+    </a>
+</div>
