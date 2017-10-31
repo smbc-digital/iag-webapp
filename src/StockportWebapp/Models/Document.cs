@@ -9,9 +9,10 @@ namespace StockportWebapp.Models
         public readonly DateTime LastUpdated;
         public string Url;
         public readonly string FileName;
-        public string AssetId { get; set; }
+        public string AssetId;
+        public string MediaType;
 
-        public Document(string title, int size, DateTime lastUpdated, string url, string fileName, string assetId)
+        public Document(string title, int size, DateTime lastUpdated, string url, string fileName, string assetId, string mediaType)
         {
             Title = title;
             Size = size;
@@ -19,6 +20,7 @@ namespace StockportWebapp.Models
             Url = url;
             FileName = fileName;
             AssetId = assetId;
+            MediaType = mediaType;
         }
     }
 }

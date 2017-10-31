@@ -34,7 +34,11 @@ namespace StockportWebapp.Utils
             {
                 var token = _httpContextAccessor.HttpContext.Request.Cookies[CookieName()];
 
-                if (!string.IsNullOrEmpty(token)) person = _decoder.Decode(token);
+                if (!string.IsNullOrEmpty(token))
+                {
+                    person = _decoder.Decode(token);
+                    person.rawCookie = token;
+                }
             }
             catch (Exception ex)
             {

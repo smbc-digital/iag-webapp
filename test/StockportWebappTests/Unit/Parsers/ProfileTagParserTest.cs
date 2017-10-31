@@ -33,7 +33,8 @@ namespace StockportWebappTests.Unit.Parsers
                 Image = "some-image-url",
                 Subtitle = "some-subtitle",
                 Teaser = "some-teaser",
-                Type = "some-type"
+                Type = "some-type",
+                Body = "some-body"
             };
             var profiles = new List<Profile>() { profile };
             var renderResult = "RENDERED PROFILE CONTENT";

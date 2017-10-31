@@ -2,21 +2,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Exceptions;
-using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Http;
 using System.Linq;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.QuestionBuilder;
-using StockportWebapp.QuestionBuilder.Maps;
 using System;
-using System.Collections.Generic;
-using Amazon.S3;
-using Amazon.S3.Model;
-using StockportWebapp.ContentFactory;
-using StockportWebapp.Utils;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 
 namespace StockportWebapp.Controllers
