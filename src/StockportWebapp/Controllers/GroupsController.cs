@@ -944,6 +944,7 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
+        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/manage/{slug}/update")]
         [ServiceFilter(typeof(GroupAuthorisation))]
