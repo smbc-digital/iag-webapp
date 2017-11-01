@@ -89,7 +89,7 @@ namespace StockportWebapp
             services.AddSingleton(o => new ViewHelpers(o.GetService<ITimeProvider>()));
             services.AddScoped<BusinessId>();
             services.AddTransient(p => new UrlGenerator(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
-            services.AddScoped(typeof(IUrlGeneratorSimple<>), typeof(UrlGeneratorSimple<>));
+            services.AddTransient<IUrlGeneratorSimple>(p => new UrlGeneratorSimple(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
             services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));
@@ -115,7 +115,7 @@ namespace StockportWebapp
             services.AddGroupConfiguration(Configuration, logger);
             services.AddSesEmailConfiguration(Configuration, logger);
             services.AddRedis(Configuration, _useRedisSession, logger);
-
+            
             // sdk
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddNodeServices();

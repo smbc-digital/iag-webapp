@@ -11,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace StockportWebapp.Repositories
 {
-    public interface INewsRepository : IGenericRepository<News>
+    public interface INewsRepository : IBaseRepository
     {
 
     }
 
-    public class NewsRepository : GenericRepository<News>, INewsRepository
+    public class NewsRepository : BaseRepository, INewsRepository
     {
         private readonly IHttpClient _httpClient;
         private readonly IApplicationConfiguration _config;
-        private readonly IUrlGeneratorSimple<News> _urlGeneratorSimple;
+        private readonly IUrlGeneratorSimple _urlGeneratorSimple;
         private readonly ILoggedInHelper _loggedInHelper;
-        private readonly ILogger<GenericRepository<News>> _logger;
+        private readonly ILogger<BaseRepository> _logger;
 
-        public NewsRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple<News> urlGeneratorSimple, ILoggedInHelper loggedInHelper, ILogger<GenericRepository<News>> logger) : base(httpClient, config, logger)
+        public NewsRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple, ILoggedInHelper loggedInHelper, ILogger<BaseRepository> logger) : base(httpClient, config, logger)
         {
             _httpClient = httpClient;
             _config = config;

@@ -23,12 +23,13 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<INewsService> _newsService = new Mock<INewsService>();
         private readonly Mock<IEventsService> _eventsService = new Mock<IEventsService>();
         private readonly Mock<IHomepageService> _homepageService = new Mock<IHomepageService>();
+        private readonly Mock<IStockportApiEventsService> _stockportApiService = new Mock<IStockportApiEventsService>();
         private const string EmailAlertsUrl = "email_alerts_url=";
         private const string _businessId = "aBusinessId";
 
         public HomeControllerTest()
         {
-            _controller = new HomeController(new BusinessId(_businessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object);
+            _controller = new HomeController(new BusinessId(_businessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object, _stockportApiService.Object);
         }
 
         [Fact]
@@ -51,7 +52,7 @@ namespace StockportWebappTests.Unit.Controllers
             {
                 new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,false, string.Empty, string.Empty))
             };
-            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text", null);
+            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text", null, "");
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
             var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
@@ -123,7 +124,7 @@ namespace StockportWebappTests.Unit.Controllers
             {
                 new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,false, string.Empty, string.Empty))
             };
-            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text", null);
+            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text", null, "");
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
             var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());

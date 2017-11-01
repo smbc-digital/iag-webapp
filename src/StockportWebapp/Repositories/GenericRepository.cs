@@ -8,20 +8,20 @@ using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Repositories
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IBaseRepository
     {
-        Task<T> GetResponseAsync(string url);
+        Task<T> GetResponseAsync<T>(string url);
         void AddHeader(string key, string value);
     }
 
-    public class GenericRepository<T> : IGenericRepository<T> where T : class
+    public class BaseRepository : IBaseRepository
     {
         private readonly IHttpClient _httpClient;
         private readonly IApplicationConfiguration _config;
         private readonly Dictionary<string, string> _authenticationHeaders;
-        private readonly ILogger<GenericRepository<T>> _logger;
+        private readonly ILogger<BaseRepository> _logger;
 
-        public GenericRepository(IHttpClient httpClient, IApplicationConfiguration config, ILogger<GenericRepository<T>> logger)
+        public BaseRepository(IHttpClient httpClient, IApplicationConfiguration config, ILogger<BaseRepository> logger)
         {
             _httpClient = httpClient;
             _config = config;
@@ -29,7 +29,7 @@ namespace StockportWebapp.Repositories
             _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
         }
 
-        public async Task<T> GetResponseAsync(string url)
+        public async Task<T> GetResponseAsync<T>(string url)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace StockportWebapp.Repositories
             catch (Exception ex)
             {
                 _logger.LogError(new EventId(0), ex, $"Error getting response for url {url}");
-                return null;
+                return default(T);
             }
         }
 

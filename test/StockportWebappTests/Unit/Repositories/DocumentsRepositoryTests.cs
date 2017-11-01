@@ -21,15 +21,15 @@ namespace StockportWebappTests.Unit.Repositories
             // Arrange
             var httpClient = new Mock<IHttpClient>();
             var applicationConfiguraiton = new Mock<IApplicationConfiguration>();
-            var simpleUrlGenerator = new Mock<IUrlGeneratorSimple<Document>>();
+            var simpleUrlGenerator = new Mock<IUrlGeneratorSimple>();
             var loggedInHelper = new Mock<ILoggedInHelper>();
-            var logger = new Mock<ILogger<GenericRepository<Document>>>();
+            var logger = new Mock<ILogger<BaseRepository>>();
             var documentsRepository = new DocumentsRepository(httpClient.Object, applicationConfiguraiton.Object, simpleUrlGenerator.Object, loggedInHelper.Object, logger.Object);
             var document = new DocumentBuilder().Build();
             var seralisedDocument = JsonConvert.SerializeObject(document);
 
             // Mock
-            simpleUrlGenerator.Setup(o => o.BaseContentApiUrl()).Returns("url");
+            simpleUrlGenerator.Setup(o => o.BaseContentApiUrl<Document>()).Returns("url");
             loggedInHelper.Setup(o => o.GetLoggedInPerson()).Returns(new LoggedInPerson() { Email = "email" });
             httpClient.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, seralisedDocument, string.Empty));
 
@@ -46,15 +46,15 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var httpClient = new Mock<IHttpClient>();
             var applicationConfiguraiton = new Mock<IApplicationConfiguration>();
-            var simpleUrlGenerator = new Mock<IUrlGeneratorSimple<Document>>();
+            var simpleUrlGenerator = new Mock<IUrlGeneratorSimple>();
             var loggedInHelper = new Mock<ILoggedInHelper>();
-            var logger = new Mock<ILogger<GenericRepository<Document>>>();
+            var logger = new Mock<ILogger<BaseRepository>>();
             var documentsRepository = new DocumentsRepository(httpClient.Object, applicationConfiguraiton.Object, simpleUrlGenerator.Object, loggedInHelper.Object, logger.Object);
             var document = new DocumentBuilder().Build();
             var seralisedDocument = JsonConvert.SerializeObject(document);
 
             // Mock
-            simpleUrlGenerator.Setup(o => o.BaseContentApiUrl()).Returns("url");
+            simpleUrlGenerator.Setup(o => o.BaseContentApiUrl<Document>()).Returns("url");
             loggedInHelper.Setup(o => o.GetLoggedInPerson()).Returns(new LoggedInPerson() { Email = "email" });
             httpClient.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>())).ThrowsAsync(new System.Exception());
 
@@ -70,15 +70,15 @@ namespace StockportWebappTests.Unit.Repositories
         {
             var httpClient = new Mock<IHttpClient>();
             var applicationConfiguraiton = new Mock<IApplicationConfiguration>();
-            var simpleUrlGenerator = new Mock<IUrlGeneratorSimple<Document>>();
+            var simpleUrlGenerator = new Mock<IUrlGeneratorSimple>();
             var loggedInHelper = new Mock<ILoggedInHelper>();
-            var logger = new Mock<ILogger<GenericRepository<Document>>>();
+            var logger = new Mock<ILogger<BaseRepository>>();
             var documentsRepository = new DocumentsRepository(httpClient.Object, applicationConfiguraiton.Object, simpleUrlGenerator.Object, loggedInHelper.Object, logger.Object);
             var document = new DocumentBuilder().Build();
             var seralisedDocument = JsonConvert.SerializeObject(document);
 
             // Mock
-            simpleUrlGenerator.Setup(o => o.BaseContentApiUrl()).Returns("url");
+            simpleUrlGenerator.Setup(o => o.BaseContentApiUrl<Document>()).Returns("url");
             loggedInHelper.Setup(o => o.GetLoggedInPerson()).Returns(new LoggedInPerson());
 
             // Act

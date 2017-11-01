@@ -13,6 +13,7 @@ namespace StockportWebapp.Config
         AppSetting GetRssEmail(string businessId);
         Uri GetContentApiUri();
         Uri GetContentApiUrlRoot();
+        Uri GetStockportApiUri();
         AppSetting GetEmailHost(string businessId);
         AppSetting GetEmailRegion(string businessId);
         AppSetting GetEmailEmailFrom(string businessId);
@@ -101,6 +102,11 @@ namespace StockportWebapp.Config
         public Uri GetContentApiUrlRoot()
         {
             return new Uri(_appsettings["ContentApiUrlRoot"]);
+        }
+
+        public Uri GetStockportApiUri()
+        {
+            return new Uri(_appsettings["StockportApiUrl"]);
         }
 
         public AppSetting GetDemocracyHomeLink()
