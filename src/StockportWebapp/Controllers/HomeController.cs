@@ -7,50 +7,47 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Http;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
+using StockportWebapp.Services;
+using System.Linq;
 
 namespace StockportWebapp.Controllers
 {
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class HomeController : Controller
     {
-        private readonly IRepository _repository;
-        private readonly IProcessedContentRepository _processedContentRepository;
         private readonly BusinessId _businessId;
         private readonly IApplicationConfiguration _config;
+        private readonly INewsService _newsService;
+        private readonly IEventsService _eventsService;
+        private readonly IHomepageService _homepageService;
 
-        public HomeController(IRepository repository, IProcessedContentRepository processedContentRepository,
-            BusinessId businessId, IApplicationConfiguration applicationConfiguration)
+        public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService)
         {
             _config = applicationConfiguration;
             _businessId = businessId;
-            _repository = repository;
-            _processedContentRepository = processedContentRepository;
+            _newsService = newsService;
+            _eventsService = eventsService;
+            _homepageService = homepageService;
         }
 
         [Route("/")]
         public async Task<IActionResult> Index()
         {
-            var httpResponse = await _processedContentRepository.Get<Homepage>();
+            var homepage = await _homepageService.GetHomepage();
 
-            if (!httpResponse.IsSuccessful())
-                return httpResponse;
-
-            var homepage = httpResponse.Content as ProcessedHomepage;
-
-            var latestNewsResponse = await _repository.Get<List<News>>("2");
-            var latestNews = latestNewsResponse.Content as List<News>;
-
-            if (homepage != null && latestNews != null) homepage.SetLatestNews(latestNews);
-
-            var latestEventsResponse = await _repository.GetLatestOrderByFeatured<EventCalendar>(2);
-            var latestEvents = latestEventsResponse.Content as EventCalendar;
-
-            if (homepage != null && latestEvents != null) homepage.SetLatestEvents(latestEvents.Events);
+            if (homepage == null) return new NotFoundResult();
 
             // TODO: Get events based on eventCategory tag via the api
+            // StockportApiService
 
+            var homepageViewModel = new HomepageViewModel
+            {
+                HomepageContent = homepage,
+                FeaturedEvent = await _eventsService.GetLatestEventsItem(),
+                FeaturedNews = await _newsService.GetLatestNewsItem()
+            };
 
-            return View(homepage);
+            return View(homepageViewModel);
         }
 
         [Route("/subscribe")]

@@ -114,7 +114,7 @@ namespace StockportWebapp.Controllers
             {
                 var response = initialResponse.Content as ProcessedNews;
 
-                var latestNewsResponse = await _repository.Get<List<News>>("7");
+                var latestNewsResponse = await _repository.GetLatest<List<News>>(7);
                 var latestNews = latestNewsResponse.Content as List<News>;
                 var newsViewModel = new NewsViewModel(response, latestNews);
 
