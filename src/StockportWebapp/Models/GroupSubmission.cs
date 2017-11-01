@@ -65,7 +65,7 @@ namespace StockportWebapp.Models
         public string VolunteeringText { get; set; } =
             "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible.";
 
-        [Display(Name = "Provide addiitional information that only professionals and advisors can see")]
+        [Display(Name = "Provide additional information that only professionals and advisors can see")]
         public string AdditionalInformation { get; set; }
 
         [Display(Name = "Upload any additional documents")]
