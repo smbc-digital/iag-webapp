@@ -1,6 +1,7 @@
 ﻿---
 prod: &prod
   GroupAdditionalInformation : false
+  HealthyStockportHomepageEvents : false
 
 stage: &stage
   << : *prod
@@ -16,8 +17,10 @@ int: &int
   << : *qa
   GroupAdditionalInformation : true
 
+
 local: &local
   << : *prod
   << : *stage
   << : *qa
   << : *int
+  HealthyStockportHomepageEvents : true

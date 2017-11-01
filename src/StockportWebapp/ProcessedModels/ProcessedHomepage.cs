@@ -6,7 +6,7 @@ namespace StockportWebapp.ProcessedModels
 {
     public class ProcessedHomepage : IProcessedContentType
     {
-        public IEnumerable<string> PopularSearchTerms { get; }
+        public readonly IEnumerable<string> PopularSearchTerms;
         public readonly string FeaturedTasksHeading;
         public readonly string FeaturedTasksSummary;
         public readonly IEnumerable<SubItem> FeaturedTasks;
@@ -15,8 +15,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<CarouselContent> CarouselContents;
         public readonly string BackgroundImage;  
         public readonly string FreeText;
-        private IEnumerable<News> LatestNews { get; set; }
-        private IEnumerable<Event> LatestEvents { get; set; }
+        public readonly Group FeaturedGroupItem;
 
         public GenericFeaturedItemList GenericItemList
         {
@@ -59,35 +58,8 @@ namespace StockportWebapp.ProcessedModels
             Alerts = alerts;
             CarouselContents = carouselContents;
             BackgroundImage = backgroundImage;
-            LatestNews = lastNews;
             FreeText = freeText;
             FeaturedGroupItem = featuredGroup;
-        }
-
-        public News FeaturedNewsItem { get; set; }
-        public Event FeaturedEventItem { get; set; }
-        public Group FeaturedGroupItem { get; set; }
-
-        public List<News> GetLatestNews()
-        {
-            return LatestNews == null ? new List<News>() : LatestNews.ToList();
-        }
-
-        public List<Event> GetLatestEvents()
-        {
-            return LatestEvents == null ? new List<Event>() : LatestEvents.ToList();
-        }
-
-        public void SetLatestNews(List<News> latestNews)
-        {
-            LatestNews = latestNews;
-            FeaturedNewsItem = LatestNews?.First();
-        }
-
-        public void SetLatestEvents(List<Event> latestEvents)
-        {
-            LatestEvents = latestEvents;
-            FeaturedEventItem = LatestEvents?.First();
         }
     }
 }

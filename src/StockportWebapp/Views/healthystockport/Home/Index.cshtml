@@ -1,7 +1,7 @@
-﻿@using System.Threading.Tasks
-@using StockportWebapp.ProcessedModels
-@using StockportWebapp.ViewModels
-@model StockportWebapp.ProcessedModels.ProcessedHomepage
+﻿@using StockportWebapp.ViewModels
+@model HomepageViewModel
+
+@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 
 @{
     ViewData["Title"] = "Welcome to Healthy Stockport";
@@ -11,12 +11,12 @@
 }
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.BackgroundImage))
+    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage))
 }
 @section CarouselBackgroundImage
 {
     @{ int counter = 1; }
-    @foreach (var carouselContent in Model.CarouselContents)
+    @foreach (var carouselContent in Model.HomepageContent.CarouselContents)
     {
         @Html.Partial("ScaleImageByDevice", new Image("webcast-" + counter, carouselContent.Image))
         counter++;
@@ -25,17 +25,17 @@
 <div>
     <div class="grid-100 l-background-hs-image">
         <div class="introduction grid-50"> 
-            @Html.Raw(Model.FreeText)
+            @Html.Raw(Model.HomepageContent.FreeText)
         </div>
     </div>   
 
     <div id="content" class="l-body-section-filled grid-100">
         <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container">
-            <h2>@Model.FeaturedTasksHeading</h2>
+            <h2>@Model.HomepageContent.FeaturedTasksHeading</h2>
             <hr />
-            <p class="feature-tagline feature-tagline-heading">@Model.FeaturedTasksSummary</p>
+            <p class="feature-tagline feature-tagline-heading">@Model.HomepageContent.FeaturedTasksSummary</p>
             <div class="topic-block-list matchbox-parent" id="topicBlockList">
-                @foreach (var subItem in Model.FeaturedTasks)
+                @foreach (var subItem in Model.HomepageContent.FeaturedTasks)
                 {
                     <div class="grid-30 tablet-grid-40 mobile-grid-100 topic-block-container">
                         <a href="@subItem.NavigationLink" class="topic-block matchbox-child">
@@ -57,12 +57,29 @@
                     </div>
                 }    
             </div>
-            @if (Model.CarouselContents.Count() != 0)
+
+            @if (featureToggles.HealthyStockportHomepageEvents && Model.EventsFromApi != null)
+            {
+                <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container">
+                    <h2>Things to do</h2>
+                    <hr />
+                    <p class="feature-tagline feature-tagline-heading">There are lots of things to do in Stockport. Etc</p>
+                    <div class="grid-100 grid-parent event-container-row matchbox-parent">
+                        @foreach (var item in Model.EventsFromApi)
+                        {
+                            <div>
+                                @Html.Partial("EventCard", item)
+                            </div>
+                        }
+                    </div>
+                </section>
+            }
+            @if (Model.HomepageContent.CarouselContents.Count() != 0)
             {
                 <div class="grid-100 grid-parent hs-carousel-container">
-                    @Html.Partial("Carousel", Model.CarouselContents)
+                    @Html.Partial("Carousel", Model.HomepageContent.CarouselContents)
                 </div>
             }
-        </section>
+            </section>
     </div>
 </div>

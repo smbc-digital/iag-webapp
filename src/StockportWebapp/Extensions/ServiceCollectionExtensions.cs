@@ -168,6 +168,9 @@ namespace StockportWebapp.Extensions
                     p.GetService<UrlGenerator>(), appEnvironment, p.GetService<IApplicationConfiguration>()));
 
             services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>(), p.GetService<IHttpClientWrapper>(), p.GetService<ILogger<DocumentsService>>()));
+            services.AddTransient<INewsService>(p => new NewsService(p.GetService<IRepository>()));
+            services.AddTransient<IEventsService>(p => new EventsService(p.GetService<IRepository>()));
+            services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
 
             return services;
         }

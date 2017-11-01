@@ -85,7 +85,7 @@ namespace StockportWebappTests.Unit.Controllers
             _repository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), It.Is<List<Query>>(l => l.Count == 0)))
                 .ReturnsAsync(responseListing);
 
-            _repository.Setup(o => o.Get<List<News>>("7", null))
+            _repository.Setup(o => o.GetLatest<List<News>>(7))
                 .ReturnsAsync(HttpResponse.Successful(200, _listOfNewsItems));
 
             _processedContentRepository.Setup(o => o.Get<News>("another-news-article", null))
@@ -161,7 +161,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ItReturnsANewsPageWithNoLatestNewsItems()
         {
-            _repository.Setup(o => o.Get<List<News>>("7", null)).ReturnsAsync(new HttpResponse(404, null, "not found"));
+            _repository.Setup(o => o.GetLatest<List<News>>(7)).ReturnsAsync(new HttpResponse(404, null, "not found"));
             var controller = new NewsController(
                 _repository.Object,
                 _processedContentRepository.Object,

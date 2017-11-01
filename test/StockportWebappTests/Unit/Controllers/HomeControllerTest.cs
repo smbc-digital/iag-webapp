@@ -8,35 +8,34 @@ using StockportWebapp.Models;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using StockportWebapp.Repositories;
 using System;
 using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
+using StockportWebapp.Services;
 
 namespace StockportWebappTests.Unit.Controllers
 {
     public class HomeControllerTest
     {
         private readonly HomeController _controller;
-        private readonly Mock<IRepository> _repository;
-        private readonly Mock<IProcessedContentRepository> _processedContentRepository;
-        private readonly Mock<IApplicationConfiguration> _config;
+        private readonly Mock<IApplicationConfiguration> _config = new Mock<IApplicationConfiguration>();
+        private readonly Mock<INewsService> _newsService = new Mock<INewsService>();
+        private readonly Mock<IEventsService> _eventsService = new Mock<IEventsService>();
+        private readonly Mock<IHomepageService> _homepageService = new Mock<IHomepageService>();
         private const string EmailAlertsUrl = "email_alerts_url=";
-
-        private readonly string _businessId = "aBusinessId";
+        private const string _businessId = "aBusinessId";
 
         public HomeControllerTest()
         {
-            _config = new Mock<IApplicationConfiguration>();
-            _repository = new Mock<IRepository>();
-            _processedContentRepository = new Mock<IProcessedContentRepository>();
-            _controller = new HomeController(_repository.Object, _processedContentRepository.Object, new BusinessId(_businessId), _config.Object);
+            _controller = new HomeController(new BusinessId(_businessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object);
         }
 
         [Fact]
         public void GivenNavigateToIndexReturnsHomeViewWithFeaturedTopicsAndTasks()
         {
+            // TODO: Tidy up...
+            // Arrange
             var popularSearchTerms = new List<string> {"popular", "search", "terms"};
             var featuredTasks = new List<SubItem>
             {
@@ -55,79 +54,60 @@ namespace StockportWebappTests.Unit.Controllers
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text", null);
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
-            var newsContent = new List<News>
-            {
-                new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(),new List<Document>())
-            };
+            var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
+            var eventsContent = new Event { Title = "title", EventDate = new DateTime(2017, 01, 01), Featured = true };
 
-            _processedContentRepository.Setup(o => o.Get<Homepage>(It.IsAny<string>(), null)).ReturnsAsync(new HttpResponse(200, homePageContent, string.Empty));
+            // Mock
+            _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
+            _newsService.Setup(o => o.GetLatestNewsItem()).ReturnsAsync(newsContent);
+            _eventsService.Setup(o => o.GetLatestEventsItem()).ReturnsAsync(eventsContent);
 
-            _repository.Setup(o => o.Get<List<News>>("2", null))
-                .ReturnsAsync(new HttpResponse(200, newsContent, string.Empty));
-
-            var eventsContent = new List<Event>
-            {
-                new Event { Title = "title", EventDate = new DateTime(2017, 01, 01), Featured = true}
-            };
-
-            var eventCalendar = new EventCalendar(eventsContent, null);
-
-            _repository.Setup(o => o.GetLatestOrderByFeatured<EventCalendar>(2)).ReturnsAsync(new HttpResponse(200, eventCalendar, string.Empty));
-
+            // Act
             var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
-            var page = indexPage.ViewData.Model as ProcessedHomepage;
+            var page = indexPage.ViewData.Model as HomepageViewModel;
 
-            page.PopularSearchTerms.Should().NotBeNullOrEmpty();
-            page.PopularSearchTerms.First().Should().Be("popular");
-            page.PopularSearchTerms.Last().Should().Be("terms");
+            // Assert
+            page.HomepageContent.PopularSearchTerms.Should().NotBeNullOrEmpty();
+            page.HomepageContent.PopularSearchTerms.First().Should().Be("popular");
+            page.HomepageContent.PopularSearchTerms.Last().Should().Be("terms");
+            page.HomepageContent.FeaturedTasksHeading.Should().Be("heading");
+            page.HomepageContent.FeaturedTasksSummary.Should().Be("summary");
+            page.HomepageContent.FeaturedTasks.Should().HaveCount(1);
+            page.HomepageContent.FeaturedTasks.First().Title.Should().Be("featured Tasks");
+            page.HomepageContent.FeaturedTasks.First().NavigationLink.Should().Contain("slug featuredTasks");
+            page.HomepageContent.FeaturedTasks.First().Teaser.Should().Be("teaser Fetured Tasks");
+            page.HomepageContent.FeaturedTasks.First().Icon.Should().Be("fa fa-home");
+            page.HomepageContent.FeaturedTasks.First().Image.Should().Be("image");
+            page.HomepageContent.FeaturedTopics.First().Slug.Should().Be("council-tax");
+            page.HomepageContent.FeaturedTopics.First().Name.Should().Be("Council Tax");
+            page.HomepageContent.FeaturedTopics.First().Teaser.Should().Be("How to pay, discounts");
+            page.HomepageContent.FeaturedTopics.First().SubItems.Should().BeEmpty();
+            page.HomepageContent.Alerts.Should().HaveCount(1);
+            page.HomepageContent.Alerts.First().Title.Should().Be("title");
+            page.HomepageContent.Alerts.First().SubHeading.Should().Be("subHeading");
+            page.HomepageContent.Alerts.First().Body.Should().Contain("body");
+            page.HomepageContent.Alerts.First().Severity.Should().Be(Severity.Information);
+            page.HomepageContent.CarouselContents.Should().HaveCount(1);
+            page.HomepageContent.CarouselContents.First().Title.Should().Be("Carousel Title");
+            page.HomepageContent.CarouselContents.First().Teaser.Should().Be("Carousel Teaser");
+            page.HomepageContent.CarouselContents.First().Image.Should().Be("Carousel Image");
+            page.HomepageContent.CarouselContents.First().URL.Should().Be("Carousel Url");
+            page.HomepageContent.BackgroundImage.Should().Be("image.jpg");
+            page.HomepageContent.FreeText.Should().Be("homepage text");
 
-            page.FeaturedTasksHeading.Should().Be("heading");
-            page.FeaturedTasksSummary.Should().Be("summary");
+            page.FeaturedNews.Title.Should().Be("title");
+            page.FeaturedNews.Slug.Should().Be("slug");
+            page.FeaturedNews.SunriseDate.Should().Be(sunrise);
+            page.FeaturedNews.SunsetDate.Should().Be(sunset);
 
-            page.FeaturedTasks.Should().HaveCount(1);
-            page.FeaturedTasks.First().Title.Should().Be("featured Tasks");
-            page.FeaturedTasks.First().NavigationLink.Should().Contain("slug featuredTasks");
-            page.FeaturedTasks.First().Teaser.Should().Be("teaser Fetured Tasks");
-            page.FeaturedTasks.First().Icon.Should().Be("fa fa-home");
-            page.FeaturedTasks.First().Image.Should().Be("image");
-
-            page.FeaturedTopics.First().Slug.Should().Be("council-tax");
-            page.FeaturedTopics.First().Name.Should().Be("Council Tax");
-            page.FeaturedTopics.First().Teaser.Should().Be("How to pay, discounts");
-            page.FeaturedTopics.First().SubItems.Should().BeEmpty();
-
-            page.Alerts.Should().HaveCount(1);
-            page.Alerts.First().Title.Should().Be("title");
-            page.Alerts.First().SubHeading.Should().Be("subHeading");
-            page.Alerts.First().Body.Should().Contain("body");
-            page.Alerts.First().Severity.Should().Be(Severity.Information);
-
-            page.CarouselContents.Should().HaveCount(1);
-            page.CarouselContents.First().Title.Should().Be("Carousel Title");
-            page.CarouselContents.First().Teaser.Should().Be("Carousel Teaser");
-            page.CarouselContents.First().Image.Should().Be("Carousel Image");
-            page.CarouselContents.First().URL.Should().Be("Carousel Url");
-
-            page.BackgroundImage.Should().Be("image.jpg");
-
-            var latestNews = page.GetLatestNews();
-            latestNews.Should().HaveCount(1);
-            latestNews.First().Title.Should().Be("title");
-            latestNews.First().Slug.Should().Be("slug");
-            latestNews.First().SunriseDate.Should().Be(sunrise);
-            latestNews.First().SunsetDate.Should().Be(sunset);
-
-            page.FreeText.Should().Be("homepage text");
-
-            var latestEvents = page.GetLatestEvents();
-            latestEvents.Should().HaveCount(1);
-            latestEvents[0].Title.Should().Be("title");
-            latestEvents[0].EventDate.Should().Be(new DateTime(2017, 01, 01));
+            page.FeaturedEvent.Title.Should().Be("title");
+            page.FeaturedEvent.EventDate.Should().Be(new DateTime(2017, 01, 01));
         }
 
         [Fact]
-        public void ShouldReturnHomepageWhenThereAreNoEvents()
+        public async void ShouldReturnHomepageWhenThereAreNoEvents()
         {
+            // Arrange
             var popularSearchTerms = new List<string> { "popular", "search", "terms" };
             var featuredTasks = new List<SubItem>
             {
@@ -146,72 +126,30 @@ namespace StockportWebappTests.Unit.Controllers
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text", null);
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
-            var newsContent = new List<News>
-            {
-                new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(),new List<Document>())
-            };
+            var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
 
-            _processedContentRepository.Setup(o => o.Get<Homepage>(It.IsAny<string>(), null)).ReturnsAsync(new HttpResponse(200, homePageContent, string.Empty));
+            // Mock
+            _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
+            _newsService.Setup(o => o.GetLatestNewsItem()).ReturnsAsync(newsContent);
+            _eventsService.Setup(o => o.GetLatestEventsItem()).ReturnsAsync((Event)null);
 
-            _repository.Setup(o => o.Get<List<News>>("2", null))
-                .ReturnsAsync(new HttpResponse(200, newsContent, string.Empty));
+            // Act
+            var indexPage =  await _controller.Index() as ViewResult;
+            var response = indexPage.ViewData.Model as HomepageViewModel;
 
-            _repository.Setup(o => o.GetLatestOrderByFeatured<EventCalendar>(2)).ReturnsAsync(new HttpResponse(404, null, "no events found"));
-
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
-            var page = indexPage.ViewData.Model as ProcessedHomepage;
-
-            page.PopularSearchTerms.Should().NotBeNullOrEmpty();
-            page.PopularSearchTerms.First().Should().Be("popular");
-            page.PopularSearchTerms.Last().Should().Be("terms");
-
-            page.FeaturedTasksHeading.Should().Be("heading");
-            page.FeaturedTasksSummary.Should().Be("summary");
-
-            page.FeaturedTasks.Should().HaveCount(1);
-            page.FeaturedTasks.First().Title.Should().Be("featured Tasks");
-            page.FeaturedTasks.First().NavigationLink.Should().Contain("slug featuredTasks");
-            page.FeaturedTasks.First().Teaser.Should().Be("teaser Fetured Tasks");
-            page.FeaturedTasks.First().Icon.Should().Be("fa fa-home");
-            page.FeaturedTasks.First().Image.Should().Be("image");
-
-            page.FeaturedTopics.First().Slug.Should().Be("council-tax");
-            page.FeaturedTopics.First().Name.Should().Be("Council Tax");
-            page.FeaturedTopics.First().Teaser.Should().Be("How to pay, discounts");
-            page.FeaturedTopics.First().SubItems.Should().BeEmpty();
-
-            page.Alerts.Should().HaveCount(1);
-            page.Alerts.First().Title.Should().Be("title");
-            page.Alerts.First().SubHeading.Should().Be("subHeading");
-            page.Alerts.First().Body.Should().Contain("body");
-            page.Alerts.First().Severity.Should().Be(Severity.Information);
-
-            page.CarouselContents.Should().HaveCount(1);
-            page.CarouselContents.First().Title.Should().Be("Carousel Title");
-            page.CarouselContents.First().Teaser.Should().Be("Carousel Teaser");
-            page.CarouselContents.First().Image.Should().Be("Carousel Image");
-            page.CarouselContents.First().URL.Should().Be("Carousel Url");
-
-            page.BackgroundImage.Should().Be("image.jpg");
-
-            var latestNews = page.GetLatestNews();
-            latestNews.Should().HaveCount(1);
-            latestNews.First().Title.Should().Be("title");
-            latestNews.First().Slug.Should().Be("slug");
-            latestNews.First().SunriseDate.Should().Be(sunrise);
-            latestNews.First().SunsetDate.Should().Be(sunset);
-
-            page.FreeText.Should().Be("homepage text");
+            // aSSERT
+            response.HomepageContent.Should().NotBeNull();
+            response.FeaturedEvent.Should().BeNull();
         }
 
         [Fact]
         public void GetsA404NotFoundOnTheHomepage()
         {
-            _processedContentRepository.Setup(o => o.Get<Homepage>(It.IsAny<string>(), null)).ReturnsAsync(new HttpResponse(404, null, "Not Found"));
+            _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync((ProcessedHomepage)null);
 
-            var response = AsyncTestHelper.Resolve(_controller.Index()) as HttpResponse;
+            var response = AsyncTestHelper.Resolve(_controller.Index()) as NotFoundResult;
 
-            response.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
+            response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
 
         [Fact]

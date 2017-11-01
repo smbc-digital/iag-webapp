@@ -69,13 +69,6 @@ namespace StockportWebappTests.Integration
 
             healthyResult.Should().Contain("Welcome to Healthy Stockport");
             healthyResult.Should().Contain("Eat healthy", "Should render a business-specific piece of content");
-
-            SetBusinessIdRequestHeader("thirdsite");
-
-            var thirdsiteResult = AsyncTestHelper.Resolve(_fakeClient.GetStringAsync("/"));
-
-            thirdsiteResult.Should().Contain("Want to know more?");
-
         }
         #endregion
 

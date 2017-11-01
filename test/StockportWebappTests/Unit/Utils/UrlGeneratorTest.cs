@@ -92,7 +92,7 @@ namespace StockportWebappTests.Unit.Utils
         [Fact]
         public void ItReturnsUrlForNewsLatestRequest()
         {
-            var url = _urlGenerator.UrlFor<List<News>>("2");
+            var url = _urlGenerator.UrlForLimit<List<News>>(2);
 
             url.Should().Be("http://localhost.com/test-id/news/latest/2");
         }
