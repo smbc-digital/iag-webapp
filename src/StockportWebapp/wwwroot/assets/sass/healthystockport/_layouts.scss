@@ -392,12 +392,6 @@ footer .l-dashed-list {
     margin-bottom: 30px;
 }
 
-.type-home {
-    .skip-to-main-content {
-        display: none;
-    }
-}
-
 .skip-to-main-content {
     display: block;
 
@@ -511,4 +505,8 @@ footer .l-dashed-list {
             padding-left: 22px;
         }
     }
+}
+
+:focus {
+    outline: #ef8a16 solid 3px !important;
 }

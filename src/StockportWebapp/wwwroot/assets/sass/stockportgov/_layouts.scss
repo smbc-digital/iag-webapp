@@ -16,12 +16,6 @@
     margin-bottom:30px;
 }
 
-.type-home {
-    .skip-to-main-content {
-        display: none;
-    }
-}
-
 .visuallyhidden {
     position: absolute;
     width: 1px;
@@ -98,4 +92,8 @@
 }
 .text-align-right {
     text-align: right;
+}
+
+:focus {
+    outline: #ef8a16 solid 3px !important;
 }
