@@ -23,7 +23,6 @@ namespace StockportWebapp.Repositories
         private readonly IHttpClient _httpClient;
         private readonly IApplicationConfiguration _config;
         private readonly IUrlGeneratorSimple _urlGeneratorSimple;
-        private readonly ILoggedInHelper _loggedInHelper;
         private readonly ILogger<BaseRepository> _logger;
 
         public StockportApiRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple, ILogger<BaseRepository> logger) : base(httpClient, config, logger)

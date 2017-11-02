@@ -2,6 +2,7 @@
 @model HomepageViewModel
 
 @inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
+@inject StockportWebapp.Config.IApplicationConfiguration appConfig
 
 @{
     ViewData["Title"] = "Welcome to Healthy Stockport";
@@ -10,11 +11,11 @@
 
 }
 @section BackgroundImage
-{
+    {
     @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage))
 }
 @section CarouselBackgroundImage
-{
+    {
     @{ int counter = 1; }
     @foreach (var carouselContent in Model.HomepageContent.CarouselContents)
     {
@@ -24,10 +25,10 @@
 }
 <div>
     <div class="grid-100 l-background-hs-image">
-        <div class="introduction grid-50"> 
+        <div class="introduction grid-50">
             @Html.Raw(Model.HomepageContent.FreeText)
         </div>
-    </div>   
+    </div>
 
     <div class="l-body-section-filled grid-100">
         <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container">
@@ -44,7 +45,7 @@
                                 <i class="fa @subItem.Icon fa-3x default-icon hide-on-mobile"></i>
                                 <div class="hide-on-tablet hide-on-desktop topic-block-icon-container">
                                     <i class="fa @subItem.Icon fa-2x default-icon article-chevron-i"></i>
-                                </div>                              
+                                </div>
                                 <h4>@subItem.Title</h4>
 
                                 <div class="topic-block-content-divider hide-on-mobile"></div>
@@ -55,31 +56,40 @@
                             </div>
                         </a>
                     </div>
-                }    
+                }
             </div>
 
             @if (featureToggles.HealthyStockportHomepageEvents && Model.EventsFromApi != null)
             {
-                <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container">
+                <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container" id="event-listing-container">
                     <h2>Things to do</h2>
                     <hr />
-                    <p class="feature-tagline feature-tagline-heading">There are lots of things to do in Stockport. Etc</p>
-                    <div class="grid-100 grid-parent event-container-row matchbox-parent">
+                    <p class="feature-tagline feature-tagline-heading">There are lots of things to do in Stockport, which can help to keep you fit and active. You'll also be able to meet like minded people.</p>
+                    <div class="grid-100 event-container-row matchbox-parent">
+                        @{int count = 0;}
                         @foreach (var item in Model.EventsFromApi)
                         {
-                            <div>
+                            count++;
+                            <div @(count==3?"class=hide-on-tablet":"")>
+                                
                                 @Html.Partial("EventCard", item)
                             </div>
                         }
                     </div>
+                    <div style="text-align:center; margin-bottom:25px" class="grid-100">
+                        <a class="button-default button button-outline button-partialrounded button-call-to-action" href="@appConfig.GetStockportHomeLink()/events/?categories=@Model.HomepageContent.EventCategory">More things to do</a>
+                    </div>
                 </section>
             }
+
+
+
             @if (Model.HomepageContent.CarouselContents.Count() != 0)
             {
                 <div class="grid-100 grid-parent hs-carousel-container">
                     @Html.Partial("Carousel", Model.HomepageContent.CarouselContents)
                 </div>
             }
-            </section>
+        </section>
     </div>
 </div>

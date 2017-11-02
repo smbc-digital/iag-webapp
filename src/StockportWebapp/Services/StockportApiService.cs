@@ -13,19 +13,19 @@ namespace StockportWebapp.Services
 
     public class StockportApiEventsService : IStockportApiEventsService
     {
-        readonly IStockportApiRepository _stockportApiGateway;
+        readonly IStockportApiRepository _stockportApiRepository;
         readonly IUrlGeneratorSimple _urlGeneratorSimple;
 
-        public StockportApiEventsService(IStockportApiRepository stockportApiGateway, IUrlGeneratorSimple urlGeneratorSimple)
+        public StockportApiEventsService(IStockportApiRepository stockportApiRepository, IUrlGeneratorSimple urlGeneratorSimple)
         {
-            _stockportApiGateway = stockportApiGateway;
+            _stockportApiRepository = stockportApiRepository;
             _urlGeneratorSimple = urlGeneratorSimple;
         }
 
         public async Task<List<Event>> GetEventsByCategory(string category)
         {
             // TODO: Change the name of without-categories to something that makes more sense...
-            return await _stockportApiGateway.GetResponse<List<Event>>("without-categories", new List<Query> { new Query("category", category) });
+            return await _stockportApiRepository.GetResponse<List<Event>>("without-categories", new List<Query> { new Query("category", category) });
         }
     }
 }

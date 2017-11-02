@@ -36,6 +36,7 @@ namespace StockportWebapp.Config
         string GetContentApiAuthenticationKey();
         string GetWebAppClientId();
         AppSetting GetDemocracyHomeLink();
+        string GetStockportHomeLink();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -112,6 +113,11 @@ namespace StockportWebapp.Config
         public AppSetting GetDemocracyHomeLink()
         {
             return AppSetting.GetAppSetting(_appsettings["DemocracyHomeLink"]);
+        }
+
+        public string GetStockportHomeLink()
+        {
+            return _appsettings["StockportGovHomeLink"];
         }
 
         public AppSetting GetEmailHost(string businessId)
