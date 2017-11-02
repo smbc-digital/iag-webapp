@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StockportWebapp.Dtos;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Models;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.QuestionBuilder.Entities;
 using StockportWebapp.QuestionBuilder.Maps;
+using StockportWebapp.Services;
 using StockportWebapp.ViewModels;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
@@ -19,8 +21,11 @@ namespace StockportWebapp.Controllers
     [Route("smart/{slug}")]
     public class SmartAnswersController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
-        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling) : base(HttpContextAccessor, questionLoader)
+        private readonly ISmartResultService _service;
+
+        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling, ISmartResultService service) : base(HttpContextAccessor, questionLoader)
         {
+            _service = service;
         }
 
         [HttpGet]
@@ -46,6 +51,24 @@ namespace StockportWebapp.Controllers
             var model = new SmartAnswerSummaryViewModel();
             ViewBag.Title = "test";
             return View(model);
+        }
+        
+        [Route("{resultSlug}")]
+        public async Task<IActionResult> Result(string resultSlug)
+        {
+            var entity = await _service.GetSmartResult(resultSlug);
+            var model = new ConfirmationViewModel()
+            {
+                ButtonLink = entity.ButtonLink,
+                Icon = entity.IconClass,
+                IconColour = entity.IconColour,
+                ButtonText = entity.ButtonText,
+                Title = entity.Title,
+                SubTitle = entity.Subheading,
+                ConfirmationText = entity.Body,
+                Crumbs = new List<Crumb>()  
+            };
+            return View("Confirmation", model);
         }
 
         public override async Task<IActionResult> ProcessResults(GenericSmartAnswersModel result, string endpointName)

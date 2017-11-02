@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.ViewModels;
+using StockportWebapp.Entities;
 
 namespace StockportWebapp.Utils
 {
@@ -55,7 +56,8 @@ namespace StockportWebapp.Utils
             {typeof(SmartAnswers), "smart/"},
             {typeof(Organisation), "organisations/"},
             {typeof(GroupAdvisor), "groups/advisors/"},
-            {typeof(Document), "documents/"}
+            {typeof(Document), "documents/"},
+            {typeof(SmartResult), "smart-result/"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)

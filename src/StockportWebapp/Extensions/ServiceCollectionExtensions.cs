@@ -153,8 +153,13 @@ namespace StockportWebapp.Extensions
                             p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IHttpContextAccessor>(), p.GetService<IDynamicTagParser<S3BucketSearch>>()), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IPaymentRepository, PaymentRepository>();
+<<<<<<< HEAD
             services.AddTransient<IDocumentsRepository>(p => new DocumentsRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILoggedInHelper>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
+=======
+            services.AddTransient<ISmartResultRepository, SmartResultRepository>();
+            services.AddTransient<IDocumentsRepository>(p => new DocumentsRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple<Document>>(), p.GetService<ILoggedInHelper>(), p.GetService<ILogger<GenericRepository<Document>>>()));
+>>>>>>> David/Lukasz #83 - Adding smart result confirmation page
 
             return services;
         }
@@ -169,6 +174,7 @@ namespace StockportWebapp.Extensions
             services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>(), p.GetService<IHttpClientWrapper>(), p.GetService<ILogger<DocumentsService>>()));
             services.AddTransient<INewsService>(p => new NewsService(p.GetService<IRepository>()));
             services.AddTransient<IEventsService>(p => new EventsService(p.GetService<IRepository>()));
+            services.AddTransient<ISmartResultService>(p => new SmartResultService(p.GetService<ISmartResultRepository>(), p.GetService<ILogger<SmartResultService>>(), p.GetService<IHttpClientWrapper>()));
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>()));
             

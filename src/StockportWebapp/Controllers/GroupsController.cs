@@ -337,7 +337,20 @@ namespace StockportWebapp.Controllers
             ViewBag.Slug = slug;
             ViewBag.GroupName = groupName;
 
-            return View();
+
+            var viewmodel = new ConfirmationViewModel()
+            {
+                Title = "Changes to a group's information",
+                SubTitle = $"You've successfully submitted a change for {groupName}",
+                ConfirmationText = "We will take a look at the changes you have suggested so that we can make sure that they are correct.",
+                ButtonText = "Go back to manage your events",
+                ButtonLink = Url.Action("ViewGroupsEvents", "Groups", new { slug = ViewBag.GroupSlug }),
+                Icon = "check",
+                IconColour = "green",
+                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
+            };
+
+            return View("Confirmation", viewmodel);
         }
 
         [ResponseCache(NoStore = true, Duration = 0)]
@@ -751,7 +764,20 @@ namespace StockportWebapp.Controllers
             if (!deleteResponse.IsSuccessful()) return deleteResponse;
 
             _emailBuilder.SendEmailEventDelete(eventItem, group);
-            return RedirectToAction("DeleteEventConfirmation", new { eventName = eventItem.Title, eventSlug = eventItem.Slug, groupSlug = group.Slug, groupName = group.Name  });
+
+            var viewmodel = new ConfirmationViewModel()
+            {
+                Title = $"Delete {eventItem.Title}",
+                SubTitle = "Your event has been successfully deleted",
+                ConfirmationText = "The event will be removed from the events calendar shortly.",
+                ButtonText = "Go back to manage your events",
+                ButtonLink = Url.Action("ViewGroupsEvents", "Groups", new { slug = ViewBag.GroupSlug }),
+                Icon = "check",
+                IconColour = "green",
+                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(group.Name, "manage/" + group.Slug, "groups"), new Crumb("Manage your events", "manage/" + group.Slug + "/events/", "groups"), new Crumb(eventItem.Title, "manage/" + group.Slug + "/events/" + eventItem.Slug, "groups") }
+            };
+
+            return View("Confirmation", viewmodel);
         }
 
         [HttpPost]
@@ -774,32 +800,20 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             _emailBuilder.SendEmailDelete(group);
-           return RedirectToAction("DeleteConfirmation", new { group = group.Name });
-        }
 
-        [Route("/groups/manage/deleteconfirmation")]
-        public IActionResult DeleteConfirmation(string group)
-        {
-            if (string.IsNullOrWhiteSpace(group))
-                return NotFound();
+            var viewmodel = new ConfirmationViewModel()
+            {
+                Title = $"Delete {group.Name}",
+                SubTitle = "Your group has been successfully deleted",
+                ConfirmationText = "The group will be removed from the website shortly.",
+                ButtonText = "Go back to manage your groups",
+                ButtonLink = Url.Action("Manage", "Groups"),
+                Icon = "check",
+                IconColour = "green",
+                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups") }
+            };
 
-            ViewBag.GroupName = group;
-
-            return View();
-        }
-
-        [Route("/groups/manage/deleteeventconfirmation")]
-        public IActionResult DeleteEventConfirmation(string eventName, string eventSlug, string groupSlug, string groupName)
-        {
-            if (string.IsNullOrWhiteSpace(eventName))
-                return NotFound();
-
-            ViewBag.EventName = eventName;
-            ViewBag.GroupName = groupName;
-            ViewBag.GroupSlug = groupSlug;
-            ViewBag.EventSlug = eventSlug;
-
-            return View();
+            return View("Confirmation", viewmodel);
         }
 
         [Route("/groups/manage/{slug}/archive")]
@@ -849,32 +863,27 @@ namespace StockportWebapp.Controllers
             if (putResponse.StatusCode == (int)HttpStatusCode.OK)
             {
                 _emailBuilder.SendEmailArchive(group);
-                return RedirectToAction("ArchiveConfirmation", new { group = group.Slug });
+
+                var viewmodel = new ConfirmationViewModel()
+                {
+                    Title = $"Archive {group.Name}",
+                    SubTitle = "We've received your request to archive your group",
+                    ConfirmationText = "Your group will be unpublished and will be removed from the website. <br/>" +
+                                       "Any events your group have published will also be archived.<br/>" +
+                                       "When you want your group to appear again, you can republish the group at any time.",
+                    ButtonText = "Go back to manage your groups",
+                    ButtonLink = @Url.Action("Manage", "Groups"),
+                    Icon = "check",
+                    IconColour = "green",
+                    Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(group.Name, "manage/" + group.Slug, "groups") }
+                };
+
+                return View("Confirmation", viewmodel);
             }
             else
             {
                 throw new ContentfulUpdateException($"There was an error updating the group {group.Name}");
             }
-        }
-
-        [Route("/groups/manage/{slug}/archiveconfirmation")]
-        [ServiceFilter(typeof(GroupAuthorisation))]
-        public async Task<IActionResult> ArchiveConfirmation(string slug, LoggedInPerson loggedInPerson)
-        {
-            var response = await _repository.Get<Group>(slug, _managementQuery);
-
-            if (!response.IsSuccessful()) return response;
-
-            var group = response.Content as Group;
-
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
-            {
-                return NotFound();
-            }
-
-            ViewBag.CurrentUrl = Request?.GetUri();
-
-            return View(group);
         }
 
         [Route("/groups/manage/{slug}/publish")]

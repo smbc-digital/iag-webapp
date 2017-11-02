@@ -1,0 +1,43 @@
+﻿@using StockportWebapp.ViewModels
+@model ConfirmationViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["og:title"] = Model.Title;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@if (Model.Crumbs.Any())
+{
+    @section Breadcrumbs {
+        @Html.Partial("Breadcrumb", Model.Crumbs)
+    }
+}
+
+
+<div class="grid-container grid-100">
+    <section role="region" aria-label="main body content" class="l-content-container l-body-section-filled l-article-container grid-100 mobile-grid-100 grid-parent content">
+        <h1 class="centered">@Model.Title</h1>
+        <div class="grid-container container-heading">
+            <div class="grid-100 notification">
+                <div class="icon-bordered icon-bordered-fixed @Model.IconColour">
+                    <i class="fa fa-5x fa-@Model.Icon" aria-hidden="true"></i>
+                </div>
+                <h2>@Model.SubTitle</h2>
+                <p class="centered"></p>
+                <p>@Html.Raw(Model.ConfirmationText)</p>
+                <p></p>
+            </div><div class="grid-100">
+                <div class="grid-100 info-block">
+                    <div class="grid-100 centered">
+                        <div class="grid-100 info-block">
+                            <div class="info-block-actions">
+                                <a class="button button-default button-outline button-partialrounded button-bold button-call-to-action" href="@Model.ButtonLink">@Model.ButtonText</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

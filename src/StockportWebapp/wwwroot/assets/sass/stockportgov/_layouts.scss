@@ -94,6 +94,26 @@
     text-align: right;
 }
 
+h1.centered {
+    text-align: center;
+    color: $colorPrimary;
+    font-size: 50px;
+}
+
 :focus {
     outline: #ef8a16 solid 3px !important;
+}
+
+.notification {
+    text-align: center;
+
+    .icon-bordered{
+        width: 80px;
+        &.red{
+            color:$red;
+        }
+        &.green{
+            color:$green;
+        }
+    }
 }
