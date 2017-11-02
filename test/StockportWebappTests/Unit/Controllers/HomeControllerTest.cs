@@ -13,6 +13,7 @@ using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Services;
+using StockportWebappTests.Builders;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -178,6 +179,43 @@ namespace StockportWebappTests.Unit.Controllers
             var response = AsyncTestHelper.Resolve(_controller.EmailSubscribe(emailAddress, "")) as StatusCodeResult;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
+        }
+
+        [Fact]
+        public void ShouldReturnEventsFromTheApi()
+        {
+            // Arrange
+            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<Topic>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest");
+
+            // Mock
+            _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
+            _stockportApiService.Setup(o => o.GetEventsByCategory("unittest")).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
+
+            // Act
+            var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
+            var page = indexPage.ViewData.Model as HomepageViewModel;
+
+            // Assert
+            page.EventsFromApi.Should().NotBeNull();
+            page.EventsFromApi.Count.Should().Be(1);
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyEventsIfCategoryIsNotSet()
+        {
+            // Arrange
+            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<Topic>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "");
+
+            // Mock
+            _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
+
+            // Act
+            var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
+            var page = indexPage.ViewData.Model as HomepageViewModel;
+
+            // Assert
+            page.EventsFromApi.Should().NotBeNull();
+            page.EventsFromApi.Count.Should().Be(0);
         }
     }
 }
