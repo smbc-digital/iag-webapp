@@ -41,8 +41,8 @@ namespace StockportWebapp.Controllers
             var homepageViewModel = new HomepageViewModel
             {
                 HomepageContent = homepage,
-                FeaturedEvent = _businessId.ToString() == "stockportgov" ? await _eventsService.GetLatestEventsItem() : null,
-                FeaturedNews = _businessId.ToString() == "stockportgov" ? await _newsService.GetLatestNewsItem() : null,
+                FeaturedEvent = _businessId.ToString() != "healthystockport" ? await _eventsService.GetLatestEventsItem() : null,
+                FeaturedNews = _businessId.ToString() != "healthystockport" ? await _newsService.GetLatestNewsItem() : null,
                 EventsFromApi = eventsFromApi.Take(3).ToList()
             };
 
