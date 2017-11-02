@@ -954,55 +954,55 @@
 }
 
 .group-information-section {
-	border-top: 1px solid $greyLighter;
-	margin-top: 20px;
-	padding-left: 0px;
-	text-align: center;
+    border-top: 1px solid $greyLighter;
+    margin-top: 20px;
+    padding-left: 0px;
+    text-align: center;
 
-	&.manage-group-section {
-		position: relative;
-	}
+    &.manage-group-section {
+        position: relative;
+    }
 
-	&.manage-group-section::after {
-		content: "";
-		background-color: #ccc;
-		position: absolute;
-		bottom: 10%;
-		right: 0;
-		height: 80%;
-		width: 0.5px;
-		visibility: visible;
-	}
+    &.manage-group-section::after {
+        content: "";
+        background-color: #ccc;
+        position: absolute;
+        bottom: 10%;
+        right: 0;
+        height: 80%;
+        width: 0.5px;
+        visibility: visible;
 
-	@media #{$mobile, $tablet} {
-		visibility: hidden;
-	}
+        @media #{$mobile, $tablet} {
+            visibility: hidden;
+        }
+    }
 
-	h3 {
-		color: $greyDark;
-	}
+    h3 {
+        color: $greyDark;
+    }
 
-	p {
-		margin-bottom: 6px;
-		line-height: 1.5;
-	}
+    p {
+        margin-bottom: 6px;
+        line-height: 1.5;
+    }
 
-	.manage-group-button {
-		border-color: $greyMiddle;
-		background-color: $white;
-		color: $greyDarkest;
-		font-weight: 600;
-		margin-top: 10px;
-		margin-bottom: 10px;
+    .manage-group-button {
+        border-color: $greyMiddle;
+        background-color: $white;
+        color: $greyDarkest;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 10px;
 
-		&:hover {
-			box-shadow: 5px 5px 10px $greyLighter;
-		}
+        &:hover {
+            box-shadow: 5px 5px 10px $greyLighter;
+        }
 
-		span {
-			margin-left: 8px;
-		}
-	}
+        span {
+            margin-left: 8px;
+        }
+    }
 }
 
 .form-section {
