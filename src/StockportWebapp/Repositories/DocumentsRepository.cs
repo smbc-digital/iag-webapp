@@ -8,20 +8,20 @@ using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Repositories
 {
-    public interface IDocumentsRepository : IGenericRepository<Document>
+    public interface IDocumentsRepository : IBaseRepository
     {
        Task<Document> GetSecureDocument(string assetId, string groupSlug);
     }
 
-    public class DocumentsRepository : GenericRepository<Document>, IDocumentsRepository
+    public class DocumentsRepository : BaseRepository, IDocumentsRepository
     {
         private readonly IHttpClient _httpClient;
         private readonly IApplicationConfiguration _config;
-        private readonly IUrlGeneratorSimple<Document> _urlGeneratorSimple;
+        private readonly IUrlGeneratorSimple _urlGeneratorSimple;
         private readonly ILoggedInHelper _loggedInHelper;
-        private readonly ILogger<GenericRepository<Document>> _logger;
+        private readonly ILogger<BaseRepository> _logger;
 
-        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple<Document> urlGeneratorSimple, ILoggedInHelper loggedInHelper, ILogger<GenericRepository<Document>> logger) : base (httpClient, config, logger)
+        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple, ILoggedInHelper loggedInHelper, ILogger<BaseRepository> logger) : base (httpClient, config, logger)
         {
             _httpClient = httpClient;
             _config = config;
@@ -32,7 +32,7 @@ namespace StockportWebapp.Repositories
 
         public async Task<Document> GetSecureDocument(string assetId, string groupSlug)
         {
-            var url = _urlGeneratorSimple.BaseContentApiUrl().AddSlug($"{groupSlug}/{assetId}");
+            var url = _urlGeneratorSimple.BaseContentApiUrl<Document>().AddSlug($"{groupSlug}/{assetId}");
 
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 
@@ -43,7 +43,7 @@ namespace StockportWebapp.Repositories
             }
             
             AddHeader("jwtCookie", loggedInPerson.rawCookie);
-            return await GetResponseAsync(url);
+            return await GetResponseAsync<Document>(url);
         }
     }
 }

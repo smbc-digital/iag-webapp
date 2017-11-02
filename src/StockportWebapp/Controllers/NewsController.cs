@@ -82,28 +82,6 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-        private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber ,int pageSize)
-        {
-            if (newsRoom != null && newsRoom.News.Any())
-            {
-                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                    newsRoom.News, 
-                    currentPageNumber, 
-                    "news articles",
-                    pageSize,
-                    _config.GetNewsDefaultPageSize("stockportgov"));
-
-                newsRoom.News = paginatedNews.Items;
-                model.Pagination = paginatedNews.Pagination;
-                model.Pagination.CurrentUrl = model.CurrentUrl;
-            }
-            else
-            {
-                model.Pagination = new Pagination();
-            }
-        }
-
-
         [Route("/news/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
@@ -145,6 +123,27 @@ namespace StockportWebapp.Controllers
 
             _logger.LogDebug("Rss: Creating News Feed");
             return await Task.FromResult(Content(_rssFeedFactory.BuildRssFeed(response.News, host, email), "application/rss+xml"));
+        }
+
+        private void DoPagination(Newsroom newsRoom, NewsroomViewModel model, int currentPageNumber, int pageSize)
+        {
+            if (newsRoom != null && newsRoom.News.Any())
+            {
+                var paginatedNews = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    newsRoom.News,
+                    currentPageNumber,
+                    "news articles",
+                    pageSize,
+                    _config.GetNewsDefaultPageSize("stockportgov"));
+
+                newsRoom.News = paginatedNews.Items;
+                model.Pagination = paginatedNews.Pagination;
+                model.Pagination.CurrentUrl = model.CurrentUrl;
+            }
+            else
+            {
+                model.Pagination = new Pagination();
+            }
         }
     }
 }

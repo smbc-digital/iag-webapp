@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace StockportWebapp.Wrappers
     public interface IHttpClientWrapper
     {
         Task<HttpResponseMessage> GetAsync(string url);
+        Task<T> GetAsync<T>(string url);
     }
 
     /// <summary>
@@ -34,6 +36,23 @@ namespace StockportWebapp.Wrappers
             {
                 _logger.LogError(new EventId(0), ex, $"There was an error calling url: {url} using GetAsync");
                 return null;
+            }
+        }
+
+        public async Task<T> GetAsync<T>(string url)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync(url);
+                if (response.IsSuccessStatusCode) return JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
+
+                _logger.LogError($"There was an error calling url: {url} using GetAsync for type: {GetType().Name} returned status code: {response.StatusCode}");
+                return default(T);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new EventId(0), ex, $"There was an error calling url: {url} using GetAsync for type: {GetType().Name}");
+                return default(T);
             }
         }
     }

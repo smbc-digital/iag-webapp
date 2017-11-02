@@ -1,13 +1,10 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.Http;
-using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Services;
+using System.Collections.Generic;
+using StockportWebapp.Models;
 using System.Linq;
 
 namespace StockportWebapp.Controllers
@@ -20,14 +17,16 @@ namespace StockportWebapp.Controllers
         private readonly INewsService _newsService;
         private readonly IEventsService _eventsService;
         private readonly IHomepageService _homepageService;
+        private readonly IStockportApiEventsService _stockportApiEventsService;
 
-        public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService)
+        public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService)
         {
             _config = applicationConfiguration;
             _businessId = businessId;
             _newsService = newsService;
             _eventsService = eventsService;
             _homepageService = homepageService;
+            _stockportApiEventsService = stockportApiService;
         }
 
         [Route("/")]
@@ -37,14 +36,14 @@ namespace StockportWebapp.Controllers
 
             if (homepage == null) return new NotFoundResult();
 
-            // TODO: Get events based on eventCategory tag via the api
-            // StockportApiService
+            var eventsFromApi = !string.IsNullOrEmpty(homepage.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(homepage.EventCategory) : new List<Event>();
 
             var homepageViewModel = new HomepageViewModel
             {
                 HomepageContent = homepage,
                 FeaturedEvent = await _eventsService.GetLatestEventsItem(),
-                FeaturedNews = await _newsService.GetLatestNewsItem()
+                FeaturedNews = await _newsService.GetLatestNewsItem(),
+                EventsFromApi = eventsFromApi.Take(3).ToList()
             };
 
             return View(homepageViewModel);

@@ -13,6 +13,7 @@ namespace StockportWebapp.Config
         AppSetting GetRssEmail(string businessId);
         Uri GetContentApiUri();
         Uri GetContentApiUrlRoot();
+        Uri GetStockportApiUri();
         AppSetting GetEmailHost(string businessId);
         AppSetting GetEmailRegion(string businessId);
         AppSetting GetEmailEmailFrom(string businessId);
@@ -35,6 +36,7 @@ namespace StockportWebapp.Config
         string GetContentApiAuthenticationKey();
         string GetWebAppClientId();
         AppSetting GetDemocracyHomeLink();
+        string GetStockportHomeLink();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -103,9 +105,19 @@ namespace StockportWebapp.Config
             return new Uri(_appsettings["ContentApiUrlRoot"]);
         }
 
+        public Uri GetStockportApiUri()
+        {
+            return new Uri(_appsettings["StockportApiUrl"]);
+        }
+
         public AppSetting GetDemocracyHomeLink()
         {
             return AppSetting.GetAppSetting(_appsettings["DemocracyHomeLink"]);
+        }
+
+        public string GetStockportHomeLink()
+        {
+            return _appsettings["StockportGovHomeLink"];
         }
 
         public AppSetting GetEmailHost(string businessId)

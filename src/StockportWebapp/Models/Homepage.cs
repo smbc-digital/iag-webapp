@@ -16,8 +16,9 @@ namespace StockportWebapp.Models
         public IEnumerable<News> LastNews { get; set; }
         public string FreeText { get; }
         public Group FeaturedGroup { get; }
+        public string EventCategory { get; }
 
-        public Homepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string freeText, Group featuredGroup)
+        public Homepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, string freeText, Group featuredGroup, string eventCategory)
         {
             PopularSearchTerms = popularSearchTerms;
             FeaturedTasksHeading = featuredTasksHeading;
@@ -29,11 +30,12 @@ namespace StockportWebapp.Models
             BackgroundImage = backgroundImage;
             FreeText = freeText;
             FeaturedGroup = featuredGroup;
+            EventCategory = eventCategory;
         }
     }
 
     public class NullHomepage : Homepage
     {
-        public NullHomepage() : base(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<Topic>(), new List<Alert>(), new List<CarouselContent>(), "", string.Empty, null) { }
+        public NullHomepage() : base(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<Topic>(), new List<Alert>(), new List<CarouselContent>(), "", string.Empty, null, string.Empty) { }
     }
 }
