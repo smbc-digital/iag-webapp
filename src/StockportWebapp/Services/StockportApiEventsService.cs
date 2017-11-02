@@ -24,8 +24,7 @@ namespace StockportWebapp.Services
 
         public async Task<List<Event>> GetEventsByCategory(string category)
         {
-            // TODO: Change the name of without-categories to something that makes more sense...
-            return await _stockportApiRepository.GetResponse<List<Event>>("without-categories", new List<Query> { new Query("category", category) });
+            return await _stockportApiRepository.GetResponse<List<Event>>("by-category", new List<Query> { new Query("category", category) });
         }
     }
 }

@@ -59,7 +59,7 @@
                 }
             </div>
 
-            @if (featureToggles.HealthyStockportHomepageEvents && Model.EventsFromApi != null)
+            @if (featureToggles.HealthyStockportHomepageEvents && Model.EventsFromApi.Any())
             {
                 <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container" id="event-listing-container">
                     <h2>Things to do</h2>
