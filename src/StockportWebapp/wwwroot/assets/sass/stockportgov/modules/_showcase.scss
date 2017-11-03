@@ -717,10 +717,10 @@
     }
 
     .read-more {
-        @media #{$desktop} {
-            display: none;
+        @media #{$mobile} {
+            padding-left: 25px;
         }
-        padding-left: 50px;
+        color: $colorPrimary;
         padding-bottom: 25px;
         text-decoration: underline;
     }

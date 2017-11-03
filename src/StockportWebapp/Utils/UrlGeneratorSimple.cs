@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Utils
 {
@@ -18,10 +19,6 @@ namespace StockportWebapp.Utils
 
         private readonly Dictionary<Type, string> _urls = new Dictionary<Type, string>()
         {
-<<<<<<< HEAD
-            {typeof(List<Event>), "events"},
-            {typeof(Document), "documents"}
-=======
             {typeof(Topic), "topics/"},
             {typeof(List<TopicSitemap>), "topics/"},
             {typeof(Article), "articles/"},
@@ -58,8 +55,8 @@ namespace StockportWebapp.Utils
             {typeof(Organisation), "organisations/"},
             {typeof(GroupAdvisor), "groups/advisors/"},
             {typeof(Document), "documents/"},
+            {typeof(List<Event>), "events"},
             {typeof(SmartResult), "smart-result/"}
->>>>>>> David/Lukasz #83 - Adding smart result confirmation page
         };
 
         public UrlGeneratorSimple(IApplicationConfiguration config, BusinessId businessId)

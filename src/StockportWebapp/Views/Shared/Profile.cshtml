@@ -1,7 +1,7 @@
 ﻿@model StockportWebapp.Models.Profile
 
 <div>
-    <a href="/profile/@Model.Slug" class="profile profile-success-story-new profile-link">
+    <a href="/profile/@Model.Slug" class="profile profile-success-story-new profile-link" alt="Read more about @Model.Title">
 
         @{
             var width = "100";
@@ -30,7 +30,7 @@
             <div class="grid-100 grid-parent closing-quote">
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90"><i class="green fa fa-2x fa-quote-right" aria-hidden="true"></i></div>
             </div>
+            <p class="read-more">Read more</p>
         </div>
-        <p class="read-more">Read more about @Model.Title</p>
     </a>
 </div>
