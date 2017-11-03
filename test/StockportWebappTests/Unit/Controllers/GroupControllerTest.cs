@@ -180,48 +180,6 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItShouldGetARedirectResultForDelete()
-        {
-            // Arrange
-            var slug = "deleteSlug";
-            var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
-            var processedGroup = new ProcessedGroupBuilder().Build();
-
-            // Mocks
-            _repository.Setup(r => r.Delete<Group>(slug))
-                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int) HttpStatusCode.OK, processedGroup, string.Empty));
-
-            _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(_groupController.DeleteGroup(slug, loggedInPerson)) as RedirectToActionResult;
-
-            // Assert
-            actionResponse.ActionName.Should().Be("DeleteConfirmation");
-        }
-
-        [Fact]
-        public void ItShouldGetARedirectResultForArchive()
-        {
-            // Arrange
-            var slug = "archiveSlug";
-            var loggedInPerson = new LoggedInPerson { Name = "name", Email = "email@email.com" };
-            var group = new GroupBuilder().Build();
-
-            // Mocks
-            _repository.Setup(r => r.Archive<Group>(It.IsAny<HttpContent>(), slug))
-                .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
-
-            _repository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(_groupController.ArchiveGroup(slug, loggedInPerson)) as RedirectToActionResult;
-
-            // Assert
-            actionResponse.ActionName.Should().Be("ArchiveConfirmation");
-        }
-
-        [Fact]
         public void ShouldReturnEmptyPaginationForNoGroups()
         {
             var emptyRepository = new Mock<IRepository>();

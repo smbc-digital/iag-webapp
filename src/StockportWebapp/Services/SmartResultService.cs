@@ -50,7 +50,7 @@ namespace StockportWebapp.Services
 
         private static string GetIconClass(string icon)
         {
-            switch (icon.ToUpper())
+            switch (icon?.ToUpper())
             {
                 case "EXCLAMATION MARK":
                     return "exclamation";
@@ -65,7 +65,7 @@ namespace StockportWebapp.Services
 
         private static string GetIconColour(string icon)
         {
-            switch (icon.ToUpper())
+            switch (icon?.ToUpper())
             {
                 case "EXCLAMATION MARK":
                     return "red";
