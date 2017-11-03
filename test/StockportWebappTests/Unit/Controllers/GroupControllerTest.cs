@@ -18,6 +18,7 @@ using StockportWebapp.AmazonSES;
 using Microsoft.AspNetCore.Http;
 using StockportWebappTests.Builders;
 using StockportWebappTests.Unit.Utils;
+using StockportWebapp.Services;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -38,6 +39,7 @@ namespace StockportWebappTests.Unit.Controllers
         Mock<IHtmlUtilities> htmlUtilities = new Mock<IHtmlUtilities>();
         HostHelper hostHelper = new HostHelper(new CurrentEnvironment("local"));
         private Mock<ILoggedInHelper> _loggedInHelper = new Mock<ILoggedInHelper>();
+        private Mock<IGroupsService> _groupsService = new Mock<IGroupsService>();
 
         private readonly List<GroupCategory> groupCategories = new List<GroupCategory>
         {
@@ -78,16 +80,11 @@ namespace StockportWebappTests.Unit.Controllers
             var cookies = new FakeCookie(true);
             http.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
 
-            
-
-            _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object, null, htmlUtilities.Object, hostHelper, _loggedInHelper.Object);
+            _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object, null, htmlUtilities.Object, hostHelper, _loggedInHelper.Object, _groupsService.Object);
             
             // setup mocks
-            _repository.Setup(o => o.Get<List<GroupCategory>>("", null))
-                .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful(200, groupCategories));
-
-            _repository.Setup(o => o.Get<GroupHomepage>("", null))
-                .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful(200, groupHomepage));
+            _groupsService.Setup(o => o.GetGroupCategories()).ReturnsAsync(groupCategories);
+            _groupsService.Setup(o => o.GetGroupHomepage()).ReturnsAsync(groupHomepage);
         }
 
         [Fact]
@@ -128,8 +125,11 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public void ShouldGetListOfGroupCategories()
         {
+            // Act
             var view = AsyncTestHelper.Resolve(_groupController.Index()) as ViewResult;
             var model = view.ViewData.Model as GroupStartPage;
+
+            // Assert
             model.Categories.Count.Should().Be(groupCategories.Count);
         }
 
@@ -191,7 +191,8 @@ namespace StockportWebappTests.Unit.Controllers
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_processedRepository.Object, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object, null, htmlUtilities.Object, hostHelper, null);
+
+            var controller = new GroupsController(_processedRepository.Object, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object, null, htmlUtilities.Object, hostHelper, null, _groupsService.Object);
 
             var search = new GroupSearch
             {
@@ -377,7 +378,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            var controller = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object, null, htmlUtilities.Object, hostHelper, null);
+            var controller = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, http.Object, null, htmlUtilities.Object, hostHelper, null, _groupsService.Object);
 
             return controller;
         }

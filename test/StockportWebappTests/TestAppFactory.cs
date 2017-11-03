@@ -137,7 +137,7 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupResults.json")));
             Client.For("http://localhost:5001/stockportgov/group-results/?latitude=53.40581278523235&longitude=-2.158041000366211")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupResults.json")));
-            Client.For("http://localhost:5001/stockportgov/group-categories/")
+            Client.For("http://localhost:5001/stockportgov/group-categories")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupStart.json")));
             Client.For("http://localhost:5001/stockportgov/grouphomepage")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupHomepage.json")));

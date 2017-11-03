@@ -24,6 +24,7 @@ using StockportWebapp.Filters;
 using ReverseMarkdown;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
+using StockportWebapp.Services;
 
 namespace StockportWebapp.Controllers
 {
@@ -47,10 +48,11 @@ namespace StockportWebapp.Controllers
         private readonly IHtmlUtilities _htmlUtilities;
         private readonly HostHelper _hostHelper;
         private readonly ILoggedInHelper _loggedInHelper;
+        private readonly IGroupsService _groupsService;
 
         public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, 
             ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor, [FromServices] CurrentEnvironment environment,
-            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper)
+            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -64,31 +66,31 @@ namespace StockportWebapp.Controllers
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
+            // TODO: Can these not be a new?
             cookiesHelper = new CookiesHelper(httpContextAccessor);
             _host = new HostHelper(environment);
             _hostHelper = hostHelper;
             _htmlUtilities = htmlUtilities;
             _loggedInHelper = loggedInHelper;
+            _groupsService = groupsService;
         }
 
         [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/groups")]
         public async Task<IActionResult> Index()
         {
+            var listOfGroupCategories = await _groupsService.GetGroupCategories();
+            var homepage = await _groupsService.GetGroupHomepage();
+
             var model = new GroupStartPage
             {
                 PrimaryFilter = new PrimaryFilter
                 {
-                    Location = "Stockport",
+                    Location = Defaults.Groups.Location,
                     Latitude = Defaults.Groups.StockportLatitude,
                     Longitude = Defaults.Groups.StockportLongitude
                 }
             };
-            
-            var response = await _repository.Get<List<GroupCategory>>();
-            var listOfGroupCategories = response.Content as List<GroupCategory>;
-            var groupHomepageResponse = await _repository.Get<GroupHomepage>();
-            var homepage = groupHomepageResponse.Content as GroupHomepage;
 
             if (listOfGroupCategories != null)
             {
@@ -271,16 +273,12 @@ namespace StockportWebapp.Controllers
             return View(groupSubmission);
         }
 
+        // TODO: Move into service
         private async Task<List<string>> GetAvailableGroupCategories()
         {
-            var response = await _repository.Get<List<GroupCategory>>();
-            var listOfGroupCategories = response.Content as List<GroupCategory>;
-            if (listOfGroupCategories != null)
-            {
-                return listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList();
-            }
+            var listOfGroupCategories = await _groupsService.GetGroupCategories();
 
-            return null;
+            return listOfGroupCategories != null ? listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList() : null;
         }
 
         private async Task<List<string>> GetAvailableEventCategories()
