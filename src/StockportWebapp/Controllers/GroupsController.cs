@@ -66,9 +66,9 @@ namespace StockportWebapp.Controllers
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
-            // TODO: Can these not be a new?
+            // TODO: Can this not be a new?
             cookiesHelper = new CookiesHelper(httpContextAccessor);
-            _host = new HostHelper(environment);
+            _host = hostHelper;
             _hostHelper = hostHelper;
             _htmlUtilities = htmlUtilities;
             _loggedInHelper = loggedInHelper;

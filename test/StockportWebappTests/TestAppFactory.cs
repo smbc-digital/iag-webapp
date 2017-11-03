@@ -111,7 +111,7 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.News.json")));
             Client.For("http://localhost:5001/stockportgov/events/latest/1")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListing.json")));
-            Client.For("http://localhost:5001/stockportgov/events/latest/2?featured=true")
+            Client.For("http://localhost:5001/stockportgov/events/latest/1?featured=true")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListingFeatured.json")));
             Client.For("http://localhost:5001/stockportgov/profiles/test-profile")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Profile.json")));

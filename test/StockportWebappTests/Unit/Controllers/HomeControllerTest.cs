@@ -62,7 +62,7 @@ namespace StockportWebappTests.Unit.Controllers
             // Mock
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
             _newsService.Setup(o => o.GetLatestNewsItem()).ReturnsAsync(newsContent);
-            _eventsService.Setup(o => o.GetLatestEventsItem()).ReturnsAsync(eventsContent);
+            _eventsService.Setup(o => o.GetLatestFeaturedEventItem()).ReturnsAsync(eventsContent);
 
             // Act
             var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
