@@ -29,7 +29,7 @@ namespace StockportWebappTests.Unit.Controllers
         { 
             var processedProfile = new ProcessedProfile(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, new List<Crumb>());
+                Helper.AnyString, new List<Crumb>(), new List<Alert>());
 
             _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.OK, processedProfile, string.Empty));
 
