@@ -22,7 +22,6 @@ using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 using ReverseMarkdown;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using StockportWebapp.Services;
 
@@ -43,16 +42,18 @@ namespace StockportWebapp.Controllers
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
         private readonly IDateCalculator _dateCalculator;
-        private readonly CookiesHelper cookiesHelper;
-        private readonly HostHelper _host;
+        private readonly ICookiesHelper _cookiesHelper;
         private readonly IHtmlUtilities _htmlUtilities;
         private readonly HostHelper _hostHelper;
         private readonly ILoggedInHelper _loggedInHelper;
         private readonly IGroupsService _groupsService;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, 
-            ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor, [FromServices] CurrentEnvironment environment,
-            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, 
+            GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, 
+            IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, 
+            MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator,
+            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService,
+            ICookiesHelper cookiesHelper)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -66,9 +67,7 @@ namespace StockportWebapp.Controllers
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
-            // TODO: Can this not be a new?
-            cookiesHelper = new CookiesHelper(httpContextAccessor);
-            _host = hostHelper;
+            _cookiesHelper = cookiesHelper;
             _hostHelper = hostHelper;
             _htmlUtilities = htmlUtilities;
             _loggedInHelper = loggedInHelper;
@@ -100,7 +99,7 @@ namespace StockportWebapp.Controllers
 
             if (homepage.FeaturedGroups != null && homepage.FeaturedGroups.Any())
             {
-                cookiesHelper.PopulateCookies(homepage.FeaturedGroups, "favourites");
+                _cookiesHelper.PopulateCookies(homepage.FeaturedGroups, "favourites");
             }
 
             model.BackgroundImage = homepage.BackgroundImage;
@@ -147,11 +146,11 @@ namespace StockportWebapp.Controllers
                 ShouldShowAdditionalInfoLink = hasAdditionalInformation && !isLoggedIn
             };
 
-            cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
+            _cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
 
             if (group.LinkedGroups != null)
             {
-                cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
+                _cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
             }
 
             return View(viewModel);
@@ -200,7 +199,7 @@ namespace StockportWebapp.Controllers
                 model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
             }
 
-            cookiesHelper.PopulateCookies(model.Groups, "favourites");
+            _cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             model.PrimaryFilter.Order = groupSearch.Order;
             model.PrimaryFilter.Location = groupSearch.Location;
@@ -368,7 +367,7 @@ namespace StockportWebapp.Controllers
                 var group = response.Content as ProcessedGroup;
 
                 // Set the current url
-                group.SetCurrentUrl(_host.GetHost(Request));
+                group.SetCurrentUrl(_hostHelper.GetHost(Request));
 
                 var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
                 var renderedHtml = _viewRender.Render("Shared/GroupDetail", new GroupDetailsViewModel { Group = group });
@@ -1080,7 +1079,7 @@ namespace StockportWebapp.Controllers
         [Route("/groups/favourites/clearall")]
         public IActionResult FavouriteGroupsClearAll(Favourites model)
         {
-            cookiesHelper.RemoveAllFromCookies<Group>("favourites");
+            _cookiesHelper.RemoveAllFromCookies<Group>("favourites");
             return RedirectToAction("FavouriteGroups");
         }
 
@@ -1089,11 +1088,11 @@ namespace StockportWebapp.Controllers
             var model = new GroupResults();
             var queries = new List<Query>();
 
-            var favouritesList = cookiesHelper.GetCookies<Group>("favourites");
+            var favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
             var favourites = "-NO-FAVOURITES-SET-";
             if (favouritesList != null && favouritesList.Any())
             {
-                favourites = string.Join(",", cookiesHelper.GetCookies<Group>("favourites"));
+                favourites = string.Join(",", _cookiesHelper.GetCookies<Group>("favourites"));
             }
 
             queries.Add(new Query("slugs", favourites));
@@ -1119,7 +1118,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            cookiesHelper.PopulateCookies(model.Groups, "favourites");
+            _cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             if (pageSize == -1)
             {
