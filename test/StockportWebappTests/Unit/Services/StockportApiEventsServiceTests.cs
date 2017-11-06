@@ -19,15 +19,11 @@ namespace StockportWebappTests.Unit.Services
     {
         private Mock<IStockportApiRepository> _stockportApiRepository = new Mock<IStockportApiRepository>();
         private Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new Mock<IUrlGeneratorSimple>();
-
         private StockportApiEventsService StockportApiEventsService;
-        
 
         public StockportApiEventsServiceTests()
         {
             StockportApiEventsService = new StockportApiEventsService(_stockportApiRepository.Object, _urlGeneratorSimple.Object);
-
-
         }
 
         [Fact]
@@ -63,7 +59,6 @@ namespace StockportWebappTests.Unit.Services
 
             //Assert
             result.Should().BeNull();
-
         }
     }
 }
