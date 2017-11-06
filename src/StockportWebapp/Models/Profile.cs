@@ -16,9 +16,10 @@ namespace StockportWebapp.Models
         public string BackgroundImage { get; set; }
         public string Icon { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
+        public List<Alert> Alerts { get; set; }
 
         public Profile(string type, string title, string slug, string subtitle, string teaser, string image, 
-            string body, string backgroundImage, string icon, IEnumerable<Crumb> breadcrumbs)
+            string body, string backgroundImage, string icon, IEnumerable<Crumb> breadcrumbs, List<Alert> alerts)
         {
             Type = type;
             Title = title;
@@ -30,6 +31,7 @@ namespace StockportWebapp.Models
             BackgroundImage = backgroundImage;
             Icon = icon;
             Breadcrumbs = breadcrumbs;
+            Alerts = alerts;
         }
     }
 }
