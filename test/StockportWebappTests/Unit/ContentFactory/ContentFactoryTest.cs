@@ -44,7 +44,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         public void ItUsesProfileFactoryToBuildProcessedProfileFromProfile()
         {
             var profile = new Profile(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>());
+                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>());
 
 
             var processedProfile = _factory.Build<Profile>(profile);

@@ -12,13 +12,14 @@ namespace StockportWebappTests.Unit.ContentFactory
     public class ProfileFactoryTest
     {
         private readonly Mock<ISimpleTagParserContainer> _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
         private readonly Mock<MarkdownWrapper> _markdownWrapperMock = new Mock<MarkdownWrapper>();
 
         private readonly ProfileFactory _profileFactory;
 
         public ProfileFactoryTest()
         {
-            _profileFactory = new ProfileFactory(_tagParserContainer.Object, _markdownWrapperMock.Object);
+            _profileFactory = new ProfileFactory(_tagParserContainer.Object, _markdownWrapperMock.Object, _alertsInlineTagParser.Object);
         }
 
         [Fact]
@@ -26,6 +27,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         {
             var body = "body";
             _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
+            _alertsInlineTagParser.Setup(o => o.Parse(body, It.IsAny<List<Alert>>())).Returns(body);
             _markdownWrapperMock.Setup(o => o.ConvertToHtml(body)).Returns(body);
 
             var crumb = new Crumb("title", "slug", "type");
@@ -38,8 +40,9 @@ namespace StockportWebappTests.Unit.ContentFactory
             var image = "image";
             var backgroundImage = "backgroundImage";
             var breacrumbs = new List<Crumb> { crumb, crumb };
+            var alerts = new List<Alert>();
 
-            var profile = new Profile(type, title, slug, subtitle, teaser, image, body, backgroundImage, icon, breacrumbs);
+            var profile = new Profile(type, title, slug, subtitle, teaser, image, body, backgroundImage, icon, breacrumbs, alerts);
 
             var result = _profileFactory.Build(profile);
 
