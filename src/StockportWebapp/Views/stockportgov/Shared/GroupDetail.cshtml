@@ -232,7 +232,7 @@
                                         <div class="clearfix"></div>
                                     </li>
                                 }
-                                    <li id="remove-favourite-@Model.Group.Slug" class="group-details @(!Model.Group.Favourite ? "hidden" : "")">
+                                    <li id="remove-favourite-@Model.Group.Slug" class="group-details add-remove-favourites @(!Model.Group.Favourite ? "hidden" : "")">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
                                             <i class="fa fa-star fa-2x group-details-symbol"></i>
                                         </div>
@@ -248,7 +248,7 @@
                                         <div class="clearfix"></div>
                                     </li>
 
-                                    <li id="add-favourite-@Model.Group.Slug" class="group-details @(Model.Group.Favourite ? "hidden" : "")">
+                                    <li id="add-favourite-@Model.Group.Slug" class="group-details add-remove-favourites @(Model.Group.Favourite ? "hidden" : "")">
                                         <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter ">
                                             <i class="fa fa-star-o fa-2x group-details-symbol"></i>
                                         </div>
