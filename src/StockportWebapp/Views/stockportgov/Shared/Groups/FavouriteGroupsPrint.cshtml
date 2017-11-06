@@ -2,6 +2,7 @@
 @using StockportWebapp.ViewModels
 @using StockportWebapp.Utils
 @model List<Group>
+@inject HostHelper hostHelper
 
 <div class="grid-container-full-width group-favourites-print" id="group-favourites">
     <div class="grid-container grid-100">
@@ -52,7 +53,7 @@
                                             <div class="group-card-text">
                                                 <div class="group-card-icon">
                                                     <i class="fa fa-link" aria-hidden="true"></i>
-                                                    <span class="link-inside-text">groups/@group.Slug</span>
+                                                    <span>@hostHelper.GetHost(this.Context.Request)/groups/@group.Slug</span>
                                                 </div>
                                             </div>
                                         </div>
