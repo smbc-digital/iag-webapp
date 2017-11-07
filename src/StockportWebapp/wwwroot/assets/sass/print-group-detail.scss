@@ -13,6 +13,7 @@
     .volunteering-section,
     .manage-group-section,
     #favourites-bar,
+    .add-remove-favourites,
     .group-information-section {
         display: none !important;
     }
@@ -51,6 +52,35 @@
             border-bottom: none !important;
             border-left: none !important;
             border-right: none !important;
+        }
+    }
+
+    .group-listing-container {
+        .group-li {
+            width: 100% !important;
+
+
+            .group-card {
+                box-shadow: none;
+                padding-bottom: 0px;
+                height: 230px !important;
+
+                &:hover {
+                    box-shadow: none;
+                }
+
+                .group-card-main {
+                    .group-image {
+                        width: 45%;
+                    }
+
+                    .group-card-information {
+                        width: 50%;
+                        float: right;
+                        height: auto !important;
+                    }
+                }
+            }
         }
     }
 }

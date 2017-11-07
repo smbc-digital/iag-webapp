@@ -72,18 +72,47 @@
     }
 
     .event-card {
-            position: relative !important;
-            box-shadow: none !important;
-            page-break-inside: avoid !important;
+        position: relative !important;
+        box-shadow: none !important;
+        page-break-inside: avoid !important;
 
-            .event-image {
-                display: none !important;
-            }
+        .event-image {
+            display: none !important;
+        }
 
-            .event-card-informtion {
-                border-bottom: none !important;
-                border-left: none !important;
-                border-right: none !important;
+        .event-card-informtion {
+            border-bottom: none !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+
+    .group-listing-container {
+        .group-li {
+            width: 100% !important;
+
+
+            .group-card {
+                box-shadow: none;
+                padding-bottom: 0px;
+                height: 230px !important;
+
+                &:hover {
+                    box-shadow: none;
+                }
+
+                .group-card-main {
+                    .group-image {
+                        width: 45%;
+                    }
+
+                    .group-card-information {
+                        width: 50%;
+                        float: right;
+                        height: auto !important;
+                    }
+                }
             }
         }
+    }
     }
