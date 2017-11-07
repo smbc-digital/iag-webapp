@@ -1,5 +1,8 @@
 ﻿@model StockportWebapp.ViewModels.ArticleViewModel
 
+@{
+    var sections = Model.Article.Sections.ToList();
+}
 <header class="article-navigation-header">
     <nav class="l-vertical-list-no-margin article-navigation">
         <ul>
@@ -7,7 +10,14 @@
             @foreach (var sec in Model.Article.Sections)
             {
                 <li class="@(sec.Slug == Model.DisplayedSection.Slug ? "nav-active" : "")">
-                    <a href="@Model.Article.NavigationLink/@sec.Slug#content">@i.ToString(). @sec.Title</a>
+                    @if (sections[i - 1].Slug == Model.DisplayedSection.Slug)
+                    {
+                        <span class="grid-10 tablet-grid-10 mobile-grid-10">@sections[i - 1].Title</span>
+                    }
+                    else
+                    {
+                        <a class="grid-90 tablet-grid-90 mobile-grid-90" href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
+                    }
                 </li>
                 i++;
             }
