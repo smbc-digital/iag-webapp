@@ -1,0 +1,17 @@
+﻿<a id="favourites-bar" class="hide-on-mobile" href="@Url.Action("FavouriteGroups", "Groups")">
+    <div class="grid-container grid-100">
+        <i class="fa fa-star"></i>
+        <span class="favourites-text">
+            <span class="count"></span>
+            <span>favourites</span>
+        </span>
+    </div>
+</a>
+
+<stock-button id="favourites-bar" class="hide-on-tablet hide-on-desktop" as-link="true" href="@Url.Action("FavouriteGroups", "Groups")" >
+    <i class="fa fa-star"></i>
+    <span class="favourites-text">
+        <span class="count"></span>
+        <span>favourites</span>
+    </span>
+</stock-button>

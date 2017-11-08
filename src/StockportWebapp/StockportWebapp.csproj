@@ -33,6 +33,7 @@
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\Shared\ProfileWithoutBody.cshtml" />
+    <None Remove="Views\stockportgov\Groups\FavouritesBar.cshtml" />
     <None Remove="Views\stockportgov\Shared\Confirmation.cshtml" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>

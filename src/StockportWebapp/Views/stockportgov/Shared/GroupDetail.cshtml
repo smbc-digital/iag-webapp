@@ -21,7 +21,9 @@
     }  
 
 }
-
+<div class="hide-on-mobile grid-100 tablet-grid-100 grid-parent favourites-container">
+    @Html.Partial("FavouritesBar")
+</div>
 <div class="grid-container-full-width">
     <div class="grid-container remove-edges-for-pdf grid-100">
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">            
@@ -267,6 +269,9 @@
                         </div>
                         <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.Group.ImageUrl);">
                         </div>
+                    </div>
+                    <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
+                        @Html.Partial("FavouritesBar")
                     </div>
                     <div>
                         <h3 class="group-details-heading">Description</h3>

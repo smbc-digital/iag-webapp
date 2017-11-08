@@ -17,6 +17,10 @@
         display: inline-block;
     }
 
+    .full-width-title{
+        margin-bottom:0;
+    }
+
     .group-header {
         margin: 10px 0 15px 15px;
 
@@ -61,8 +65,6 @@
         }
 
         .filter-sort-bar {
-            padding-left: 5px;
-            padding-bottom: 10px;
 
             .primary-filter-select {
                 border-radius: 3px;
@@ -102,6 +104,7 @@
             padding-right: 0px;
             padding-top: 15px;
             padding-bottom: 15px;
+           
         }
 
         .group-sort-by-filter {
@@ -333,7 +336,6 @@
 
 .group-homepage-image {
     width: 100%;
-    margin-top: -20px;
     position: relative;
     height: auto;
     padding-bottom: 20px;

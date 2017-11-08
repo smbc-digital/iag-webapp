@@ -49,9 +49,12 @@
         <div class="mobile-grid-50 mobile-pull-right group-sort-by-filter grid-parent">
             @Html.Partial("RefineByBar", Model.RefineByBar())
         </div>
-
+ 
         <div class="hide-on-desktop hide-on-tablet mobile-grid-50 mobile-pull-left group-sort-by-order">
             <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
+        </div>
+        <div class="mobile-grid-100 tablet-grid-100 grid-100 grid-parent favourites-container">
+            @Html.Partial("FavouritesBar")
         </div>
     </div>
 
