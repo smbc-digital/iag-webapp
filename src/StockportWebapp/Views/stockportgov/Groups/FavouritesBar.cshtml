@@ -1,4 +1,4 @@
-﻿<a id="favourites-bar" class="hide-on-mobile" href="@Url.Action("FavouriteGroups", "Groups")">
+﻿<a class="favourites-bar hide-on-mobile" href="/groups/favourites">
     <div class="grid-container grid-100">
         <i class="fa fa-star"></i>
         <span class="favourites-text">
@@ -8,10 +8,10 @@
     </div>
 </a>
 
-<stock-button id="favourites-bar" class="hide-on-tablet hide-on-desktop" as-link="true" href="@Url.Action("FavouriteGroups", "Groups")" >
+<stock-button class="favourites-bar hide-on-tablet hide-on-desktop" as-link="true" href="@Url.Action("FavouriteGroups", "Groups")" >
     <i class="fa fa-star"></i>
     <span class="favourites-text">
         <span class="count"></span>
         <span>favourites</span>
     </span>
-</stock-button>
+</stock-button> 

@@ -113,11 +113,11 @@
 
     var updateBar = function () {
         if (favouriteCount == 0) {
-            $('#favourites-bar').hide();
+            $('.favourites-bar').hide();
         }
-        else if ($('#favourites-bar').length > 0) {
-            $('.count', '#favourites-bar').html(favouriteCount);
-            $('#favourites-bar').show();
+        else if ($('.favourites-bar').length > 0) {
+            $('.count', '.favourites-bar').html(favouriteCount);
+            $('.favourites-bar').css('display', 'block');
         }
     };
 
@@ -134,7 +134,7 @@
     };
 
     var init = function () {
-        $('#favourites-bar').show();
+        $('.favourites-bar').css('display', 'block');
         handleClicks();
         initialiseFaveBar();
     };

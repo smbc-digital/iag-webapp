@@ -1,4 +1,4 @@
-﻿#favourites-bar {
+﻿.favourites-bar {
     width: 100%;
     background-color: #8C5573;
     color: #ffffff;
@@ -8,6 +8,7 @@
     display: block;
     min-height: unset;
     box-sizing: border-box;
+    text-decoration: none;
 
     .favourites-text{
         text-decoration: underline; 
@@ -38,6 +39,14 @@
         .favourites-text{
             outline: #ef8a16 solid 3px;
         }
+    }
+
+    &:hover{
+        color: $white;
+    }
+
+    &:active{
+        background-color: #8C5573;
     }
 }
 

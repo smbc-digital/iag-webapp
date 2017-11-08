@@ -85,7 +85,7 @@
 
             .button-default {
                 min-width: 100px;
-                min-height: 62px;
+                
             }
 
             .custom-arrow {
@@ -109,7 +109,11 @@
 
         .group-sort-by-filter {
             padding-left: 0px;
-        }
+        }   
+    }
+
+    .full-width-title{
+        margin-bottom: 0;
     }
 
     @media #{$tablet} {
@@ -505,7 +509,6 @@
 
 .group-startpage-image {
     width: 100%;
-    margin-top: -20px;
     position: relative;
     background-color: $colorPrimary;
 
