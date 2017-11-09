@@ -3,49 +3,51 @@
     background-color: #8C5573;
     color: #ffffff;
     cursor: pointer;
-    padding:5px 0;
+    padding: 5px 0;
     text-align: left;
-    display: block;
+    display: none;
     min-height: unset;
     box-sizing: border-box;
     text-decoration: none;
 
-    .favourites-text{
-        text-decoration: underline; 
+    .favourites-text {
+        text-decoration: underline;
     }
 
-    i{
-      text-decoration: none;
-      padding-right: 10px;
-    } 
+    i {
+        text-decoration: none;
+        padding-right: 10px;
+    }
 
     @media #{$mobile} {
         padding: 15px 0;
         text-align: center;
-        i{
+
+        i {
             float: unset;
-        } 
+        }
     }
 
     .grid-container {
         @media #{$tablet} {
             margin-left: 10px;
         }
-    } 
+    }
 
-    &:focus{
-        outline: none !important; 
+    &:focus {
+        outline: none !important;
 
-        .favourites-text{
+        .favourites-text {
             outline: #ef8a16 solid 3px;
         }
     }
 
-    &:hover{
+    &:hover {
         color: $white;
+        background-color: #8C5573;
     }
 
-    &:active{
+    &:active {
         background-color: #8C5573;
     }
 }

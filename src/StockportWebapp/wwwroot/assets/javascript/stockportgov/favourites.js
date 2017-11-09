@@ -134,7 +134,6 @@
     };
 
     var init = function () {
-        $('.favourites-bar').css('display', 'block');
         handleClicks();
         initialiseFaveBar();
     };
