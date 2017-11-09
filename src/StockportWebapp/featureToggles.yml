@@ -9,7 +9,7 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
-  
+  HealthyStockportHomepageEvents : true
 
 int: &int
   << : *prod
@@ -17,10 +17,8 @@ int: &int
   << : *qa
   GroupAdditionalInformation : true
 
-
 local: &local
   << : *prod
   << : *stage
   << : *qa
   << : *int
-  HealthyStockportHomepageEvents : true
