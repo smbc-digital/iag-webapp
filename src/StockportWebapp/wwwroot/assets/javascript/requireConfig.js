@@ -36,9 +36,14 @@
         "favourites": "stockportgov/favourites",
         "tracking": "stockportgov/tracking",
         "alerts": "stockportgov/alerts",
-        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min"
+        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min",
+        "jquery.steps": "/assets/javascript/vendor/jquery.steps.min",
+        "multiStepForm": "stockportgov/multistep-form"
     },
     shim: {
+        'jquery.steps': {
+            deps: ['jquery']
+        },
         'jquery-ui': {
             deps: ['jquery']
         },
@@ -60,8 +65,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight) {
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, jQuery, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps) {
         startup.Init();
         matchboxconfig.Init();
         refinebybar.Init();
@@ -79,6 +84,7 @@ require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'exp
         cludoconfig.Init();
         customwysiwyg.Init();
         alerts.Init();
+        multiStepForm.Init();
     }
 );
 
