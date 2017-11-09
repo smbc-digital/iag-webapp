@@ -49,9 +49,9 @@ namespace StockportWebappTests.Unit.Controllers
             {
                 new CarouselContent("Carousel Title", "Carousel Teaser", "Carousel Image", "Carousel Url")
             };
-            var featuredTopics = new List<Topic>
+            var featuredTopics = new List<SubItem>
             {
-                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,false, string.Empty, string.Empty))
+                new SubItem("Council Tax", "council-tax", "How to pay, discounts", "", "", "", new List<SubItem>())
             };
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text", null, "");
             var sunrise = new DateTime(2015, 9, 10);
@@ -80,8 +80,7 @@ namespace StockportWebappTests.Unit.Controllers
             page.HomepageContent.FeaturedTasks.First().Teaser.Should().Be("teaser Fetured Tasks");
             page.HomepageContent.FeaturedTasks.First().Icon.Should().Be("fa fa-home");
             page.HomepageContent.FeaturedTasks.First().Image.Should().Be("image");
-            page.HomepageContent.FeaturedTopics.First().Slug.Should().Be("council-tax");
-            page.HomepageContent.FeaturedTopics.First().Name.Should().Be("Council Tax");
+            page.HomepageContent.FeaturedTopics.First().Title.Should().Be("council-tax");
             page.HomepageContent.FeaturedTopics.First().Teaser.Should().Be("How to pay, discounts");
             page.HomepageContent.FeaturedTopics.First().SubItems.Should().BeEmpty();
             page.HomepageContent.Alerts.Should().HaveCount(1);
@@ -121,9 +120,9 @@ namespace StockportWebappTests.Unit.Controllers
             {
                 new CarouselContent("Carousel Title", "Carousel Teaser", "Carousel Image", "Carousel Url")
             };
-            var featuredTopics = new List<Topic>
+            var featuredTopics = new List<SubItem>
             {
-                new Topic("Council Tax", "council-tax", "", "How to pay, discounts", "", "", "", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,false, string.Empty, string.Empty))
+                new SubItem("Council Tax", "council-tax", "", "How to pay, discounts", "", "", new List<SubItem>())
             };
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text", null, "");
             var sunrise = new DateTime(2015, 9, 10);
@@ -185,7 +184,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void ShouldReturnEventsFromTheApi()
         {
             // Arrange
-            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<Topic>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest");
+            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest");
 
             // Mock
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
@@ -204,7 +203,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void ShouldReturnEmptyEventsIfCategoryIsNotSet()
         {
             // Arrange
-            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<Topic>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "");
+            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "");
 
             // Mock
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);

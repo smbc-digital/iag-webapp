@@ -10,7 +10,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string FeaturedTasksHeading;
         public readonly string FeaturedTasksSummary;
         public readonly IEnumerable<SubItem> FeaturedTasks;
-        public readonly IEnumerable<Topic> FeaturedTopics;
+        public readonly IEnumerable<SubItem> FeaturedTopics;
         public readonly IEnumerable<Alert> Alerts;
         public readonly IEnumerable<CarouselContent> CarouselContents;
         public readonly string BackgroundImage;  
@@ -30,7 +30,7 @@ namespace StockportWebapp.ProcessedModels
                     {
                         Icon = topic.Icon,
                         Title = topic.Title,
-                        Url = $"/topic/{topic.Slug}",
+                        Url = topic.NavigationLink,
                         SubItems = new List<GenericFeaturedItem>()
                     };
 
@@ -49,7 +49,7 @@ namespace StockportWebapp.ProcessedModels
             }
         }
 
-        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<Topic> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory)
+        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory)
         {
             PopularSearchTerms = popularSearchTerms;
             FeaturedTasksHeading = featuredTasksHeading;

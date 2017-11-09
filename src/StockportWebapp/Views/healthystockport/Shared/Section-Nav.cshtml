@@ -6,7 +6,7 @@
             @{var i = 1;}
             @foreach (var sec in Model.Article.Sections)
             {
-                <li class="@(sec.Slug == Model.DisplayedSection.Slug ? "nav-active" : "")">
+                <li class="@(sec.Slug == Model.DisplayedSection.Slug ? "nav-active"  : "") @(sec.Slug == Model.DisplayedSection.Slug ? "tabindex= -1" : "" )">
                     <a href="@Model.Article.NavigationLink/@sec.Slug#content">@i.ToString(). @sec.Title</a>
                 </li>
                 i++;
