@@ -16,19 +16,12 @@
                     <div class="grid-10 tablet-grid-10 mobile-grid-10">@i.ToString().</div>
                     @if (sections[i - 1].Slug == Model.DisplayedSection.Slug)
                     {
-<<<<<<< HEAD
-                        <p>@sections[i - 1].Title</p>
-                    }
-                    <a class="grid-90 tablet-grid-90 mobile-grid-90" @(sections[i - 1].Slug == Model.DisplayedSection.Slug ? "tabindex=\"-1\"" : "" ) href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
-=======
                         <span class="grid-90 tablet-grid-90 mobile-grid-90">@sections[i - 1].Title</span>
                     }
                     else
                     {
                         <a class="grid-90 tablet-grid-90 mobile-grid-90" href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
                     }
-
->>>>>>> df478f9d84ca0bb182e81741617c04f6b36a5672
                 </li>               
             }
         </ul>    
