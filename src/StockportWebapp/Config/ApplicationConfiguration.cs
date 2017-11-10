@@ -37,6 +37,7 @@ namespace StockportWebapp.Config
         string GetWebAppClientId();
         AppSetting GetDemocracyHomeLink();
         string GetStockportHomeLink();
+        string GetDigitalStockportLink();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -217,6 +218,11 @@ namespace StockportWebapp.Config
         public string GetWebAppClientId()
         {
             return _appsettings["WebAppClientId"];
+        }
+
+        public string GetDigitalStockportLink()
+        {
+            return _appsettings["stockportgov:DigitalStockportLink"];
         }
     }
 }
