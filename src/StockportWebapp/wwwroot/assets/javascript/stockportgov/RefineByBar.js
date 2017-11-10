@@ -40,7 +40,7 @@
 
         $(parent).removeClass('open');
         if (favouritesVisible) {
-            $('#favourites-bar').show();
+            $('.favourites-bar').show();
         }
 
         setBadges();
@@ -167,8 +167,8 @@
 
     var revealSlider = function () {
 
-        favouritesVisible = $('#favourites-bar:visible').length;
-        $('#favourites-bar').hide();
+        favouritesVisible = $('.favourites-bar:visible').length;
+        $('.favourites-bar').hide();
 
         $('#refine-slider').removeClass('hide-on-mobile').animate({ 'left': 0 }, 250);
 

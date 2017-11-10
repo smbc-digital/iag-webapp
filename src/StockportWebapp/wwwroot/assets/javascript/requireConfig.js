@@ -73,7 +73,7 @@ require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'exp
         livechat.Init();
         viewmoreslider.Init();
         favourites.Init();
-        tracking.Init();
+        tracking.Init(); 
         events.Init();
         carousel.Init();
         cludoconfig.Init();

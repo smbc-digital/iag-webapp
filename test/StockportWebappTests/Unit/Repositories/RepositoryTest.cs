@@ -22,6 +22,7 @@ namespace StockportWebappTests.Unit.Repositories
         private readonly Repository _repository;
         private readonly Mock<IHttpClient> _httpClientMock = new Mock<IHttpClient>();
         private readonly UrlGenerator _urlGenerator;
+        private readonly Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new Mock<IUrlGeneratorSimple>();
 
         public RepositoryTest()
         {
@@ -29,7 +30,9 @@ namespace StockportWebappTests.Unit.Repositories
             appConfig.Setup(o => o.GetContentApiUri()).Returns(new Uri("http://localhost:5000/"));
 
             _urlGenerator = new UrlGenerator(appConfig.Object, new BusinessId(""));
-            _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object);
+            _urlGeneratorSimple.Setup(o => o.BaseContentApiUrl<Event>()).Returns("url");
+
+            _repository = new Repository(_urlGenerator, _httpClientMock.Object, appConfig.Object, _urlGeneratorSimple.Object);
         }
 
         [Fact]

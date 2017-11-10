@@ -5,21 +5,24 @@ using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
+using StockportWebapp.Extensions;
 
 namespace StockportWebapp.Repositories
 {
     public class Repository : IRepository
     {
         private readonly UrlGenerator _urlGenerator;
+        private readonly IUrlGeneratorSimple _urlGeneratorSimple;
         private readonly IHttpClient _httpClient;
         private readonly IApplicationConfiguration _config;
         private Dictionary<string, string> _authenticationHeaders;
 
-        public Repository(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config)
+        public Repository(UrlGenerator urlGenerator, IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple)
         {
             _urlGenerator = urlGenerator;
             _httpClient = httpClient;
             _config = config;
+            _urlGeneratorSimple = urlGeneratorSimple;
             _authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
         }
 
@@ -81,7 +84,7 @@ namespace StockportWebapp.Repositories
 
         public async Task<HttpResponse> GetLatestOrderByFeatured<T>(int limit)
         {
-            var url = _urlGenerator.UrlForLimitAndFeatured<T>(limit, true);
+            var url = _urlGeneratorSimple.BaseContentApiUrl<T>().AddExtraToUrl($"latest/{limit}").AddQueryStrings(new Query("featured", "true"));
             var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
             return HttpResponse.Build<T>(httpResponse);
         }

@@ -17,6 +17,10 @@
         display: inline-block;
     }
 
+    .full-width-title{
+        margin-bottom:0;
+    }
+
     .group-header {
         margin: 10px 0 15px 15px;
 
@@ -61,8 +65,6 @@
         }
 
         .filter-sort-bar {
-            padding-left: 5px;
-            padding-bottom: 10px;
 
             .primary-filter-select {
                 border-radius: 3px;
@@ -83,7 +85,7 @@
 
             .button-default {
                 min-width: 100px;
-                min-height: 62px;
+                
             }
 
             .custom-arrow {
@@ -102,11 +104,16 @@
             padding-right: 0px;
             padding-top: 15px;
             padding-bottom: 15px;
+           
         }
 
         .group-sort-by-filter {
             padding-left: 0px;
-        }
+        }   
+    }
+
+    .full-width-title{
+        margin-bottom: 0;
     }
 
     @media #{$tablet} {
@@ -318,7 +325,7 @@
 }
 
 .sharethis {
-    overflow: auto;
+    clear: both;
     border-top: 1px solid $greyLighter;
 }
 
@@ -333,7 +340,6 @@
 
 .group-homepage-image {
     width: 100%;
-    margin-top: -20px;
     position: relative;
     height: auto;
     padding-bottom: 20px;
@@ -503,7 +509,6 @@
 
 .group-startpage-image {
     width: 100%;
-    margin-top: -20px;
     position: relative;
     background-color: $colorPrimary;
 

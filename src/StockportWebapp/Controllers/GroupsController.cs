@@ -22,7 +22,6 @@ using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 using ReverseMarkdown;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using StockportWebapp.Services;
 
@@ -43,16 +42,18 @@ namespace StockportWebapp.Controllers
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ViewHelpers _viewHelpers;
         private readonly IDateCalculator _dateCalculator;
-        private readonly CookiesHelper cookiesHelper;
-        private readonly HostHelper _host;
+        private readonly ICookiesHelper _cookiesHelper;
         private readonly IHtmlUtilities _htmlUtilities;
         private readonly HostHelper _hostHelper;
         private readonly ILoggedInHelper _loggedInHelper;
         private readonly IGroupsService _groupsService;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, MarkdownWrapper markdownWrapper, 
-            ViewHelpers viewHelpers, IDateCalculator dateCalculator, IHttpContextAccessor httpContextAccessor, [FromServices] CurrentEnvironment environment,
-            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService)
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, 
+            GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, 
+            IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, 
+            MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator,
+            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService,
+            ICookiesHelper cookiesHelper)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -66,9 +67,7 @@ namespace StockportWebapp.Controllers
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
-            // TODO: Can these not be a new?
-            cookiesHelper = new CookiesHelper(httpContextAccessor);
-            _host = new HostHelper(environment);
+            _cookiesHelper = cookiesHelper;
             _hostHelper = hostHelper;
             _htmlUtilities = htmlUtilities;
             _loggedInHelper = loggedInHelper;
@@ -100,7 +99,7 @@ namespace StockportWebapp.Controllers
 
             if (homepage.FeaturedGroups != null && homepage.FeaturedGroups.Any())
             {
-                cookiesHelper.PopulateCookies(homepage.FeaturedGroups, "favourites");
+                _cookiesHelper.PopulateCookies(homepage.FeaturedGroups, "favourites");
             }
 
             model.BackgroundImage = homepage.BackgroundImage;
@@ -147,11 +146,11 @@ namespace StockportWebapp.Controllers
                 ShouldShowAdditionalInfoLink = hasAdditionalInformation && !isLoggedIn
             };
 
-            cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
+            _cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
 
             if (group.LinkedGroups != null)
             {
-                cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
+                _cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
             }
 
             return View(viewModel);
@@ -200,7 +199,7 @@ namespace StockportWebapp.Controllers
                 model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
             }
 
-            cookiesHelper.PopulateCookies(model.Groups, "favourites");
+            _cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             model.PrimaryFilter.Order = groupSearch.Order;
             model.PrimaryFilter.Location = groupSearch.Location;
@@ -368,7 +367,7 @@ namespace StockportWebapp.Controllers
                 var group = response.Content as ProcessedGroup;
 
                 // Set the current url
-                group.SetCurrentUrl(_host.GetHost(Request));
+                group.SetCurrentUrl(_hostHelper.GetHost(Request));
 
                 var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
                 var renderedHtml = _viewRender.Render("Shared/GroupDetail", new GroupDetailsViewModel { Group = group });
@@ -467,23 +466,24 @@ namespace StockportWebapp.Controllers
                 response = await _repository.AddAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
                 if (!response.IsSuccessful()) return response;
                 await _emailBuilder.SendEmailNewUser(model);
-                return RedirectToAction("NewUserConfirmation", new { slug = model.Slug, name = model.GroupAdministratorItem.Name, groupName = group.Name });
+
+                var viewmodel = new ConfirmationViewModel()
+                {
+                    Title = $"Add a new user",
+                    SubTitle = $"You've successfully added {model.GroupAdministratorItem.Name} to {group.Name}",
+                    ConfirmationText = "p>The change you've made will happen shortly so you won't have to do anything.</p>" +
+                                       "<p> This user will now be able to manage your group's information.</p>",
+                    ButtonText = "Go back to add or remove users",
+                    ButtonLink = @Url.Action("Users", "Groups", new { slug = model.Slug }),
+                    Icon = "check",
+                    IconColour = "green",
+                    Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(group.Name, "manage/" + model.Slug, "groups"), new Crumb("Users", "manage/" + model.Slug + "/users", "groups") }
+                };
+
+                return View("Confirmation", viewmodel);
             }
 
             return View(model);
-        }
-
-        [Route("/groups/manage/{slug}/newuserconfirmation")]
-        public IActionResult NewUserConfirmation(string slug, string name, string groupName)
-        {
-            if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(name))
-                return NotFound();
-
-            ViewBag.Slug = slug;
-            ViewBag.Name = name;
-            ViewBag.GroupName = groupName;
-
-            return View();
         }
 
         [HttpGet]
@@ -620,25 +620,22 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             await _emailBuilder.SendEmailDeleteUser(model);
-            return RedirectToAction("RemoveUserConfirmation", new { group = model.GroupName, slug = model.Slug, name = model.Name });
-        }
 
-        [Route("/groups/manage/removeconfirmation")]
-        public IActionResult RemoveUserConfirmation(string group, string slug, string name)
-        {
-            if (string.IsNullOrWhiteSpace(group))
+            var viewmodel = new ConfirmationViewModel()
             {
-                return NotFound();
-            }
+                Title = "Remove user",
+                SubTitle = $"You've successfully removed {model.Name} to {group.Name}",
+                ConfirmationText = "<p>The change you've made will happen shortly so you won't have to do anything.</p>" +
+                                   "<p> If you accidently deleted this user," +
+                                   "you can always <a href = " + Url.Action("NewUser", "Groups", new { slug = model.Slug }) + "> add them </a> again to your group.</p> ",
+                ButtonText = "Go back to add or remove users",
+                ButtonLink = Url.Action("NewUser", "Groups", new { slug = model.Slug }),
+                Icon = "check",
+                IconColour = "green",
+                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(model.GroupName, "manage/" + model.Slug, "groups") }
+            };
 
-            var model = new RemoveUserViewModel()
-            {
-                Slug = slug,
-                Name = name,
-                GroupName = group,
-            };           
-
-            return View(model);
+            return View("Confirmation", viewmodel);
         }
 
         [Route("/groups/thank-you-message")]
@@ -1082,7 +1079,7 @@ namespace StockportWebapp.Controllers
         [Route("/groups/favourites/clearall")]
         public IActionResult FavouriteGroupsClearAll(Favourites model)
         {
-            cookiesHelper.RemoveAllFromCookies<Group>("favourites");
+            _cookiesHelper.RemoveAllFromCookies<Group>("favourites");
             return RedirectToAction("FavouriteGroups");
         }
 
@@ -1091,11 +1088,11 @@ namespace StockportWebapp.Controllers
             var model = new GroupResults();
             var queries = new List<Query>();
 
-            var favouritesList = cookiesHelper.GetCookies<Group>("favourites");
+            var favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
             var favourites = "-NO-FAVOURITES-SET-";
             if (favouritesList != null && favouritesList.Any())
             {
-                favourites = string.Join(",", cookiesHelper.GetCookies<Group>("favourites"));
+                favourites = string.Join(",", _cookiesHelper.GetCookies<Group>("favourites"));
             }
 
             queries.Add(new Query("slugs", favourites));
@@ -1121,7 +1118,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            cookiesHelper.PopulateCookies(model.Groups, "favourites");
+            _cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             if (pageSize == -1)
             {

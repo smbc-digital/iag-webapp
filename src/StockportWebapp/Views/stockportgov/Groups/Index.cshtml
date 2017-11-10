@@ -29,9 +29,12 @@
             </div>
         </div>
     </div>
-        <div class="group-homepage-image" style="background-image: url(@Model.BackgroundImage)">
-            @Html.Partial("../Shared/Groups/GroupHomeFilter")
-        </div>
+    <div class="hide-on-mobile tablet-grid-100 grid-100 grid-parent favourites-container">
+        @Html.Partial("FavouritesBar")
+    </div>
+    <div class="group-homepage-image" style="background-image: url(@Model.BackgroundImage)">
+        @Html.Partial("../Shared/Groups/GroupHomeFilter")
+    </div>
     <div class="home-page-row">
         <div class="grid-container">
             <div class="event-header">

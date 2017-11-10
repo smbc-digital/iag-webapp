@@ -113,18 +113,11 @@
 
     var updateBar = function () {
         if (favouriteCount == 0) {
-            $('#favourites-bar').hide();
+            $('.favourites-bar').hide();
         }
-        else if ($('#favourites-bar').length > 0) {
-            $('.count', '#favourites-bar').html(favouriteCount);
-            $('#favourites-bar').show();
-        }
-        else {
-            $('body').append('<div id="favourites-bar"><div class="grid-container grid-100"><i class="fa fa-star"></i><u><span class="count">' + favouriteCount + '</span><span>&nbsp;favourites</span></u></div></div>');
-            $('#favourites-bar').animate({ bottom: 0 }, 500).animate({ bottom: -7 }, 100).animate({ bottom: 0 }, 100);
-            $('#favourites-bar').on('click', function () {
-                window.location.href = '/' + getRootfolder() + '/favourites';
-            });
+        else if ($('.favourites-bar').length > 0) {
+            $('.count', '.favourites-bar').html(favouriteCount);
+            $('.favourites-bar').css('display', 'block');
         }
     };
 

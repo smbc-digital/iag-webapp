@@ -1,5 +1,8 @@
 ﻿@model StockportWebapp.ProcessedModels.ProcessedOrganisation
 
+<div class="hide-on-mobile tablet-grid-100 grid-100 grid-parent favourites-container">
+    @Html.Partial("FavouritesBar")
+</div>
 <div class="grid-container-full-width">
     <div class="grid-container organisation-detail">
         <div class="grid-100">
@@ -28,7 +31,7 @@
             <hr/>
             @if (Model.Groups.Any())
             {
-                <div>
+                <div class="groups-organisation">
                     <strong>What we offer</strong><a class="show-more-button hide-on-mobile" href="/groups/results?keeptag=@Model.Slug&tag=@Model.Slug&Order=Name+A-Z">View more</a>
                     <ul class="group-listing-container grid-container grid-parent matchbox-parent">
                         @foreach (var group in Model.Groups.Take(3))
@@ -41,7 +44,9 @@
                     <div class="mobile-show-more">
                         <a class="show-more-button hide-on-desktop hide-on-tablet button-default white" href="/groups/results?tag=@Model.Slug&Order=Name+A-Z">View more from @Model.Title</a>
                     </div>
-
+                    <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent grid-container favourites-container">
+                        @Html.Partial("FavouritesBar")
+                    </div>
                 </div>
             }
 

@@ -73,7 +73,7 @@ namespace StockportWebapp.Controllers
                 var viewModel = new ArticleViewModel(article, sectionSlug);
                 return View("Article", viewModel);
             }
-            catch (SectionDoesNotExistException)
+            catch (SectionDoesNotExistException ex)
             {
                 _logger.LogWarning("Section does not exist, returning 404.");
                 return NotFound();

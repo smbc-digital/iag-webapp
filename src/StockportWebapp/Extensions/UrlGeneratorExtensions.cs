@@ -21,5 +21,11 @@ namespace StockportWebapp.Extensions
             if (queries == null || queries.Count < 1) return url;
             return $"{url}{"?"}{string.Join("&", queries)}";
         }
+
+        public static string AddQueryStrings(this string url, Query query)
+        {
+            if (string.IsNullOrEmpty(query.Name) || string.IsNullOrEmpty(query.Value)) return url;
+            return $"{url}{"?"}{string.Join("&", query)}";
+        }
     }
 }
