@@ -7,11 +7,11 @@
             <div class="letter @(letter.ToString() == Model ? "active" : "")">
                 @if (letter.ToString() == "A")
                 {
-                    <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="Find services A-Z... A...">@letter</a>
+                    <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="Find services A to Z A service">@letter</a>
                 }
                 else
                 {
-                    <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="@letter ...">@letter</a>
+                    <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="@letter service">@letter</a>
                 }
             </div>
         }
