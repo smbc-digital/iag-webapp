@@ -218,6 +218,28 @@ namespace StockportWebapp.Controllers
             return View(response);
         }
 
+        [Route("/events/details/{slug}")]
+        public async Task<IActionResult> EventDetail(string slug, [FromQuery] DateTime? date = null)
+        {
+            var queries = new List<Query>();
+            if (date.HasValue) queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
+
+            var eventItem = await _stockportApiEventsService.GetProcessedEvent(slug);
+
+            ViewBag.CurrentUrl = Request?.GetUri();
+
+            if (date != null || date == DateTime.MinValue)
+            {
+                ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                ViewBag.Eventdate = eventItem?.EventDate.ToString("yyyy-MM-dd");
+            }
+
+            return View("Detail", eventItem);
+        }
+
         [Route("/events/add-your-event")]
         public async Task<IActionResult> AddYourEvent()
         {
