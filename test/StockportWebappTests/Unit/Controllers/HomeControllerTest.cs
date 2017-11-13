@@ -188,7 +188,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             // Mock
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
-            _stockportApiService.Setup(o => o.GetEventsByCategory("unittest")).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
+            _stockportApiService.Setup(o => o.GetEventsByCategory("unittest", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
 
             // Act
             var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
