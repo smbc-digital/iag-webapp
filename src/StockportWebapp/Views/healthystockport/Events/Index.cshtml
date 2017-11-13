@@ -1,0 +1,64 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.Utils
+@using StockportWebapp.ViewModels
+@inject ViewHelpers viewHelper
+@model EventResultsVIewModel
+
+@{
+    ViewData["og:title"] = Model.Title;
+    ViewData["Title"] = ViewData["og:title"];
+    Layout = "../Shared/_Layout.cshtml";
+    DateTime previousEnteredDate = DateTime.MinValue;
+    var hasEvents = Model.Events.Any();
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb>())
+}
+
+<div class="l-page-content">
+    <div class="grid-parent hs-event-header">
+        <div class="hs-event-title grid-100 tablet-grid-100">
+            <i class="hs-event-icon-container hide-on-mobile fa fa-calendar-check-o"></i>
+            <span class="hs-event-title-container">@($"{Model.Title} events")</span>
+        </div>
+    </div>
+    <div class="grid-container" id="event-listing-container">
+
+        @if (!Model.Events.Any())
+        {
+            <div class="grid-container grid-100 no-results">
+                <h1>There are currently no events matching your search.</h1>
+                <p>Please edit your search and try again.</p>
+            </div>
+        }
+
+        @foreach (var eventItem in Model.Events)
+        {
+            var start = string.Empty;
+            var end = string.Empty;
+            if (previousEnteredDate != eventItem.EventDate)
+            {
+                if (previousEnteredDate != DateTime.MinValue)
+                {
+                    end = "</div>";
+                }
+
+                <h2>@viewHelper.FormatEventDate(eventItem.EventDate)</h2>
+                start = "<div class=\"event-container-row matchbox-parent\">";
+            }
+
+            @Html.Raw(end);
+            @Html.Raw(start);
+
+            @Html.Partial("EventCard", eventItem)
+
+            previousEnteredDate = eventItem.EventDate.Date;
+        }
+        @if (hasEvents)
+        {
+            @Html.Raw("</div>")
+            @Html.Partial("Pagination", Model.Pagination)
+        }
+    </div>
+</div>

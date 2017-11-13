@@ -19,6 +19,7 @@ using StockportWebapp.RSS;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Services;
 
 namespace StockportWebapp.Controllers
 {
@@ -35,6 +36,7 @@ namespace StockportWebapp.Controllers
         private readonly IFilteredUrl _filteredUrl;
         private readonly CalendarHelper _helper;
         private readonly IDateCalculator _dateCalculator;
+        private readonly IStockportApiEventsService _stockportApiEventsService;
 
         public EventsController(
             IRepository repository,
@@ -47,7 +49,8 @@ namespace StockportWebapp.Controllers
             IFilteredUrl filteredUrl,
             CalendarHelper helper,
             ITimeProvider timeProvider,
-            IDateCalculator dateCalculator)
+            IDateCalculator dateCalculator,
+            IStockportApiEventsService stockportApiEventsService)
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
@@ -59,6 +62,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl = filteredUrl;
             _helper = helper;
             _dateCalculator = dateCalculator;
+            _stockportApiEventsService = stockportApiEventsService;
         }
 
         [Route("/events")]
@@ -118,6 +122,29 @@ namespace StockportWebapp.Controllers
             return View(eventsCalendar);
         }
 
+        [Route("/events/category/{category}")]
+        public async Task<IActionResult> Index(string category, [FromQuery] int page, [FromQuery] int pageSize)
+        {
+            var events = await _stockportApiEventsService.GetEventsByCategory(category, false);
+
+            if (!events.Any()) return View();
+
+            var eventCategory = events.FirstOrDefault().EventCategories.FirstOrDefault(c => c.Slug == category);
+            var viewModel = new EventResultsVIewModel()
+            {
+                Title = eventCategory.Name,
+                Events = events
+            };
+
+            viewModel.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
+            _filteredUrl.SetQueryUrl(viewModel.CurrentUrl);
+            viewModel.AddFilteredUrl(_filteredUrl);
+
+            DoPagination(viewModel, page, pageSize);
+
+            return View(viewModel);
+        }
+
         private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
         {
             if (eventResponse != null && eventResponse.Events.Any())
@@ -130,6 +157,27 @@ namespace StockportWebapp.Controllers
                     _config.GetEventsDefaultPageSize("stockportgov"));
 
                 eventResponse.Events = paginatedEvents.Items;
+                model.Pagination = paginatedEvents.Pagination;
+                model.Pagination.CurrentUrl = model.CurrentUrl;
+            }
+            else
+            {
+                model.Pagination = new Pagination();
+            }
+        }
+
+        private void DoPagination(EventResultsVIewModel model, int currentPageNumber, int pageSize)
+        {
+            if (model != null && model.Events.Any())
+            {
+                var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    model.Events,
+                    currentPageNumber,
+                    "events",
+                    pageSize,
+                    _config.GetEventsDefaultPageSize("stockportgov"));
+
+                model.Events = paginatedEvents.Items;
                 model.Pagination = paginatedEvents.Pagination;
                 model.Pagination.CurrentUrl = model.CurrentUrl;
             }
