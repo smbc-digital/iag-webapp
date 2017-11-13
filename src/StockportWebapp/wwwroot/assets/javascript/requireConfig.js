@@ -67,6 +67,9 @@
 
 require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps'],
     function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps) {
+        // multiStepForm (jquery.steps) needs to be first
+        multiStepForm.Init();
+
         startup.Init();
         matchboxconfig.Init();
         refinebybar.Init();
@@ -84,7 +87,6 @@ require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'exp
         cludoconfig.Init();
         customwysiwyg.Init();
         alerts.Init();
-        multiStepForm.Init();
     }
 );
 
