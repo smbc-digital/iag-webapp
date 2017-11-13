@@ -8,14 +8,22 @@
     ViewData["Title"] = "Stockport Local";
     ViewData["og:title"] = "Stockport Local";
     ViewData["Description"] = "Stockport Local";
-    ViewData["Beta"] = true;
-    ViewData["BetaForm"] = "https://stockportcouncil.typeform.com/to/kEAxqh";
     ViewData["Type"] = "Group";
     Layout = "../Shared/_Layout.cshtml";
 }
 
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", new List<Crumb>())
+}
+
+@if (Model.Alerts != null)
+{
+    foreach (var alert in Model.Alerts)
+    {
+        <div>
+            @Html.Partial("GlobalAlert", alert)
+        </div>
+    }
 }
 
 <div class="l-page-content" id="group-homepage">

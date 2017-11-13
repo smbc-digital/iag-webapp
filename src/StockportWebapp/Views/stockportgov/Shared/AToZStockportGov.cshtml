@@ -2,10 +2,17 @@
 <div class="atoz">
     <h2> Find services A-Z </h2>
     <div class="alphabet">
-        @foreach (char letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-            {
+        @foreach (var letter in "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        {
             <div class="letter @(letter.ToString() == Model ? "active" : "")">
-                <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new { letter = letter.ToString().ToLower() })">@letter</a>
+                @if (letter.ToString() == "A")
+                {
+                    <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="Find services A to Z A service">@letter</a>
+                }
+                else
+                {
+                    <a class="letter-bordered" href="@Url.Action("Index", "AtoZ", new {letter = letter.ToString().ToLower()})" aria-label="@letter service">@letter</a>
+                }
             </div>
         }
     </div>
