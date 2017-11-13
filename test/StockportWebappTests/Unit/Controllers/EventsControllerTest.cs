@@ -109,7 +109,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _filteredUrl.Object,
                 null,
                 null,
-                _datetimeCalculator
+                _datetimeCalculator,
+                null
                 );
         }
 
@@ -285,7 +286,8 @@ namespace StockportWebappTests.Unit.Controllers
                 _filteredUrl.Object,
                 null,
                 null,
-                _datetimeCalculator
+                _datetimeCalculator,
+                null
             );
 
             return controller;

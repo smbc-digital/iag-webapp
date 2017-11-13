@@ -107,6 +107,7 @@ namespace StockportWebapp.Controllers
             model.FeaturedGroups = homepage.FeaturedGroups;
             model.FeaturedGroupsCategory = homepage.FeaturedGroupsCategory;
             model.FeaturedGroupsSubCategory = homepage.FeaturedGroupsSubCategory;
+            model.Alerts = homepage.Alerts;
                 
             return View(model);
         }

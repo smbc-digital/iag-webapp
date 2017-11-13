@@ -1,4 +1,5 @@
-﻿using StockportWebapp.Utils;
+﻿using System;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {
@@ -35,6 +36,11 @@ namespace StockportWebapp.Models
                 : (totalNumItems / MaxItemsPerPage) + 1;
 
             return pageCount;
+        }
+
+        public static implicit operator Pagination(QueryUrl v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -30,7 +30,11 @@
     <!--[if (lt IE 9) & (!IEMobile)]>
         <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
     <![endif]-->
-    @RenderSection("BackgroundImage")
+    @if (IsSectionDefined("BackgroundImage"))
+    {
+        @RenderSection("BackgroundImage")
+    }
+    
     @Html.Partial("CookieBanner")
     @await Component.InvokeAsync("GoogleAnalytics")
 </head>

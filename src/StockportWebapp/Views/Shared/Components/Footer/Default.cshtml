@@ -2,6 +2,7 @@
 @using StockportWebapp.Models
 @model Footer
 @inject IStaticAssets StaticAssets
+@inject IApplicationConfiguration appConfig
 @inject BusinessId BusinessId
 <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
 <footer>
@@ -9,7 +10,7 @@
     {
         @Html.Partial("AToZStockportGov", "")
     }
-        <div class="l-container-footer grid-container">
+    <div class="l-container-footer grid-container">
         <div class="grid-container grid-parent">
             <div class="grid-100 grid-parent">
                 <div class="grid-30 tablet-grid-35 tablet-push-65 push-65 footer-social-container">
@@ -19,7 +20,7 @@
                     }
                 </div>
                 <div class="grid-25 tablet-grid-25 tablet-pull-35 pull-30 mobile-grid-100">
-                   <div class="footer-stockport-logo">
+                    <div class="footer-stockport-logo">
                         @if (BusinessId.ToString() == "healthystockport")
                         {
                             <h6>Funded By</h6>
@@ -44,12 +45,23 @@
             </div>
         </div>
     </div>
-    <div class="grid-100 footer-bottom">
-        <p>
-            @if (Model.CopyrightSection != null)
-            {
-                @Model.CopyrightSection
-            }
-        </p>
+    <div class="footer-bottom">
+        <div class="grid-container ">
+            <div class="grid-50 copyright">
+                <p>
+                    @if (Model.CopyrightSection != null)
+                    {
+                        @Model.CopyrightSection
+                    }
+                </p>
+            </div>
+            <div class="grid-50 digital-link">
+                <p>
+                    <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
+                </p>
+            </div>    
+        </div>
     </div>
+    
+    
 </footer>

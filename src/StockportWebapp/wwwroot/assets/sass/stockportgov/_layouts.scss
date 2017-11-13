@@ -117,3 +117,23 @@ h1.centered {
         }
     }
 }
+
+.digital-link {
+    text-align: right;
+
+    @media #{$mobile} {
+        text-align: center;
+    }
+
+    p {
+
+        a {
+            font-weight: unset;
+            text-decoration-line: underline;
+        }
+    }
+}
+
+.copyright {
+    text-align: left;
+}

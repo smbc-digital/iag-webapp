@@ -8,7 +8,7 @@ namespace StockportWebapp.Services
 {
     public interface IStockportApiEventsService
     {
-        Task<List<Event>> GetEventsByCategory(string category);
+        Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true);
     }
 
     public class StockportApiEventsService : IStockportApiEventsService
@@ -22,9 +22,9 @@ namespace StockportWebapp.Services
             _urlGeneratorSimple = urlGeneratorSimple;
         }
 
-        public async Task<List<Event>> GetEventsByCategory(string category)
+        public async Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true)
         {
-            return await _stockportApiRepository.GetResponse<List<Event>>("by-category", new List<Query> { new Query("category", category) });
+            return await _stockportApiRepository.GetResponse<List<Event>>("by-category", new List<Query> { new Query("category", category), new Query("onlyNextOccurrence", onlyNextOccurrence.ToString() ) });
         }
     }
 }

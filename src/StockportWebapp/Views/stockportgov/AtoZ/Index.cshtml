@@ -12,13 +12,10 @@
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
-        <div class="no-bottom-atoz">            
-            @Html.Partial("../Shared/AToZStockportGov", Model.CurrentLetter)
-        </div>
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="A to Z Listing" class="grid-100 mobile-grid-100">
                 <div class="l-content-container l-article-container">
-                    <h1>@Model.CurrentLetter</h1>
+                    <h1 id="content">@Model.CurrentLetter</h1>
                     @if (ViewBag.Error != null)
                     {
                         <p>@ViewBag.Error</p>
