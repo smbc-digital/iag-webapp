@@ -1,1 +1,141 @@
-﻿
+﻿@mixin button-default {
+ 
+        background-color: #06b79b;
+        border: 1px solid rgba(0,0,0,.1);
+        border-radius: 3px;
+        color: #fff;
+        display: inline-block;
+        font-family: 'Source Sans Pro';
+        font-size: 1.125em;
+        letter-spacing: 0;
+        line-height: 20px;
+        min-width: 300px;
+        padding: 15px 25px 15px 15px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        transition: all .5s;
+        transition-property: opacity,box-shadow;
+        width: auto;
+
+        i {
+            float: left;
+            top: 50%;
+        }
+    
+
+    &:before {
+        text-rendering: auto;
+        float: right;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\f105";
+        font: normal normal normal 14px/1 FontAwesome;
+        font-size: 20px;
+        text-align: right;
+        padding-left: 10px;
+        height: 20px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        margin-top: -10px;
+    }
+
+    &:hover {
+        background-color: #07d0b0;
+        color: #fff;
+        cursor: pointer;
+        -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+        box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+        text-decoration: none;
+    }
+
+    &:active {
+        background-color: #059e86;
+    }
+
+    @media only screen and (max-width: 767px) {
+
+            display: block;
+            min-width: unset;
+        
+    }
+}
+
+
+.steps {
+    //display: none;
+}
+
+#multistep-form {
+    .title {
+        display: none;
+
+        &.current {
+            display: block;
+        }
+    }
+
+    ul[role='menu'] {
+        list-style: none;
+
+        li {
+            display: inline-block;
+
+            a[href='#next'] {
+                @include button-default;
+            }
+
+            a[href='#finish'] {
+                display: none;
+            }
+        }
+
+        li:first-child {
+            margin-left: 0;
+        }
+    }
+
+    ul[role='tablist'] {
+        list-style: none;
+        text-align: center;
+
+        li {
+            display: inline-flex;
+            background-color: #b7e4dd;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            width: 300px;
+            height: 70px;
+
+            a {
+                text-decoration: none;
+
+                .current-info {
+                    display: none;
+                }
+
+                .number {
+                    display: none;
+                }
+            }
+
+            &.current {
+                background-color: #00b79b;
+                color: white;
+
+                a {
+                    color: #ffffff;
+                }
+            }
+
+            &.done {
+                background-color: grey;
+            }
+        }
+
+        li:first-child {
+            margin-left: 0;
+        }
+    }
+}
