@@ -55,7 +55,7 @@
                                         <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Address"></label>
-                                        <i>Enter a postcode or place name</i>
+                                        <p>Enter a postcode or place name</p>
                                         <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
                                         <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
                                         <input type="hidden" id="longitude" asp-for="@Model.Longitude" />

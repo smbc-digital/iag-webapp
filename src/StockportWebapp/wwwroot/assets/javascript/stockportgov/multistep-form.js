@@ -27,6 +27,10 @@
                 onStepChanged: function (event, currentIndex, newIndex) {
                     // you can use currentIndex property to display what step you are on
                     return true;
+                },
+                labels: {
+                    next: "Next step",
+                    previous: "Back"
                 }
             });
         }
