@@ -19,9 +19,6 @@
 
                         <p>@sections[i - 1].Title</p>
                     }
-                    <a class="grid-90 tablet-grid-90 mobile-grid-90" @(sections[i - 1].Slug == Model.DisplayedSection.Slug ? "tabindex=\"-1\"" : "" ) href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
-                        <span class="grid-90 tablet-grid-90 mobile-grid-90">@sections[i - 1].Title</span>
-                    }
                     else
                     {
                         <a class="grid-90 tablet-grid-90 mobile-grid-90" href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
