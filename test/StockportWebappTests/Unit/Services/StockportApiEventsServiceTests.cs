@@ -12,6 +12,7 @@ using StockportWebapp.Utils;
 using System.Collections.Generic;
 using StockportWebapp.Models;
 using System.Linq;
+using StockportWebapp.ContentFactory;
 
 namespace StockportWebappTests.Unit.Services
 {
@@ -20,10 +21,11 @@ namespace StockportWebappTests.Unit.Services
         private Mock<IStockportApiRepository> _stockportApiRepository = new Mock<IStockportApiRepository>();
         private Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new Mock<IUrlGeneratorSimple>();
         private StockportApiEventsService StockportApiEventsService;
+        private Mock<IEventFactory> _eventFactory = new Mock<IEventFactory>();
 
         public StockportApiEventsServiceTests()
         {
-            StockportApiEventsService = new StockportApiEventsService(_stockportApiRepository.Object, _urlGeneratorSimple.Object);
+            StockportApiEventsService = new StockportApiEventsService(_stockportApiRepository.Object, _urlGeneratorSimple.Object, _eventFactory.Object);
         }
 
         [Fact]
