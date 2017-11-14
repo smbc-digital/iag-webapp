@@ -32,7 +32,7 @@ namespace StockportWebapp.Utils
             {typeof(List<News>), "news/latest/"},
             {typeof(List<AtoZ>), "atoz/"},
             {typeof(Footer), "footer"},
-            {typeof(Event), "events/"},
+            {typeof(Event), "events"},
             {typeof(EventCalendar), "events"},
             {typeof(EventHomepage), "eventhomepage"},
             {typeof(GroupHomepage), "grouphomepage"},

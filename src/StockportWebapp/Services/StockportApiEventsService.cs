@@ -1,4 +1,5 @@
-﻿using StockportWebapp.Utils;
+﻿using System;
+using StockportWebapp.Utils;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using StockportWebapp.ContentFactory;
@@ -12,7 +13,7 @@ namespace StockportWebapp.Services
     {
         Task<List<EventCategory>> GetEventCategories();
         Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true);
-        Task<ProcessedEvents> GetProcessedEvent(string slug);
+        Task<ProcessedEvents> GetProcessedEvent(string slug, DateTime? date);
     }
 
     public class StockportApiEventsService : IStockportApiEventsService
@@ -38,9 +39,12 @@ namespace StockportWebapp.Services
             return await _stockportApiRepository.GetResponse<List<EventCategory>>();
         }
 
-        public async Task<ProcessedEvents> GetProcessedEvent(string slug)
+        public async Task<ProcessedEvents> GetProcessedEvent(string slug, DateTime? date)
         {
-            var eventItem = await _stockportApiRepository.GetResponse<Event>(slug);
+            var queries = new List<Query>();
+            if (date.HasValue) queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
+
+            var eventItem = await _stockportApiRepository.GetResponse<Event>(slug, queries);
             var processedEvent = _eventFactory.Build(eventItem);
             return processedEvent;
         }

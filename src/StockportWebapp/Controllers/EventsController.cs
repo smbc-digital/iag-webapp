@@ -221,10 +221,7 @@ namespace StockportWebapp.Controllers
         [Route("/events/details/{slug}")]
         public async Task<IActionResult> EventDetail(string slug, [FromQuery] DateTime? date = null)
         {
-            var queries = new List<Query>();
-            if (date.HasValue) queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
-
-            var eventItem = await _stockportApiEventsService.GetProcessedEvent(slug);
+            var eventItem = await _stockportApiEventsService.GetProcessedEvent(slug, date);
 
             ViewBag.CurrentUrl = Request?.GetUri();
 

@@ -33,7 +33,9 @@
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\healthystockport\Events\Index.cshtml" />
+    <None Remove="Views\healthystockport\Shared\MapPosition.cshtml" />
     <None Remove="Views\healthystockport\Shared\Pagination.cshtml" />
+    <None Remove="Views\healthystockport\Shared\Share.cshtml" />
     <None Remove="Views\Shared\ProfileWithoutBody.cshtml" />
     <None Remove="Views\stockportgov\Groups\FavouritesBar.cshtml" />
     <None Remove="Views\stockportgov\Shared\Confirmation.cshtml" />
