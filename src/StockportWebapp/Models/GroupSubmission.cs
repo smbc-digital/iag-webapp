@@ -38,12 +38,12 @@ namespace StockportWebapp.Models
 
         [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
         [Display(Name="Enter an email address")]
-        [EmailAddress(ErrorMessage = "Should be a valid email address")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
         public string Email { get; set; }
 
         [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
         [Display(Name="Enter a phone number")]
-        [Phone]
+        [Phone(ErrorMessage = "Please enter a valid phone number")]
         public string PhoneNumber { get; set; }
 
         [Display(Name="Enter a website address")]       

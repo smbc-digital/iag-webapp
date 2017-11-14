@@ -1,7 +1,16 @@
-﻿define(["jquery"], function ($) {
+﻿define(["jquery", "jquery.cookie"], function ($) {
     return {
         Init: function () {
             var form = $("#multistep-form");
+
+            if (!$(".contact-validation-error").length)
+            {
+                // delete cookie if no validation error message
+                // TODO: Make this work
+                $.removeCookie('jQu3ry_5teps_St%40te_multistep-form-sections-wrapper', { path: '/groups' });
+                $.cookie("jQu3ry_5teps_St%40te_multistep-form-sections-wrapper", null);
+            }
+
             $("#multistep-form-sections-wrapper").steps({
                 headerTag: "h3",
                 bodyTag: "section",
@@ -31,7 +40,8 @@
                 labels: {
                     next: "Next step",
                     previous: "Back"
-                }
+                },
+                saveState: true
             });
         }
     }

@@ -38,10 +38,14 @@
         "alerts": "stockportgov/alerts",
         "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min",
         "jquery.steps": "/assets/javascript/vendor/jquery.steps.min",
-        "multiStepForm": "stockportgov/multistep-form"
+        "multiStepForm": "stockportgov/multistep-form",
+        "jquery.cookie": "/assets/javascript/vendor/jquery.cookie"
     },
     shim: {
         'jquery.steps': {
+            deps: ['jquery', 'jquery.cookie']
+        },
+        'jquery.cookie': {
             deps: ['jquery']
         },
         'jquery-ui': {
@@ -65,8 +69,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps) {
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie) {
         // multiStepForm (jquery.steps) needs to be first
         multiStepForm.Init();
 
