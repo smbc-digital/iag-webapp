@@ -173,7 +173,7 @@ namespace StockportWebapp.Extensions
             services.AddTransient<IEventsService>(p => new EventsService(p.GetService<IRepository>()));
             services.AddTransient<ISmartResultService>(p => new SmartResultService(p.GetService<ISmartResultRepository>(), p.GetService<ILogger<SmartResultService>>(), p.GetService<IHttpClientWrapper>()));
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
-            services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>()));
+            services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
             services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>()));
 
             return services;
@@ -205,6 +205,7 @@ namespace StockportWebapp.Extensions
                 p =>
                     new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         p.GetService<ArticleFactory>(), p.GetService<IApplicationConfiguration>()));
+            services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ISimpleTagParserContainer>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Document>>()));
 
             services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
 

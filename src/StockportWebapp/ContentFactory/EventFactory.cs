@@ -5,7 +5,12 @@ using StockportWebapp.Utils;
 
 namespace StockportWebapp.ContentFactory
 {
-    public class EventFactory
+    public interface IEventFactory
+    {
+        ProcessedEvents Build(Event eventItem);
+    }
+
+    public class EventFactory : IEventFactory
     {
         private readonly ISimpleTagParserContainer _simpleTagParserContainer;
         private readonly MarkdownWrapper _markdownWrapper;
@@ -17,8 +22,6 @@ namespace StockportWebapp.ContentFactory
             _markdownWrapper = markdownWrapper;
             _documentTagParser = documentTagParser;
         }
-
-
 
         public virtual ProcessedEvents Build(Event eventItem)
         {

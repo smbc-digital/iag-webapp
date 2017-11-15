@@ -125,14 +125,18 @@ namespace StockportWebapp.Controllers
         [Route("/events/category/{category}")]
         public async Task<IActionResult> Index(string category, [FromQuery] int page, [FromQuery] int pageSize)
         {
-            var events = await _stockportApiEventsService.GetEventsByCategory(category, false);
+            var categories = await _stockportApiEventsService.GetEventCategories();
+            if (!categories.Any() && categories.Any(c => c.Slug == category)) return View();
 
+            var events = await _stockportApiEventsService.GetEventsByCategory(category, false);
+            
             if (!events.Any()) return View();
 
-            var eventCategory = events.FirstOrDefault().EventCategories.FirstOrDefault(c => c.Slug == category);
+            var eventCategory = categories.FirstOrDefault(c => c.Slug == category);
+
             var viewModel = new EventResultsVIewModel()
             {
-                Title = eventCategory.Name,
+                Title = eventCategory != null ? eventCategory.Name : category, 
                 Events = events
             };
 
@@ -212,6 +216,25 @@ namespace StockportWebapp.Controllers
 
 
             return View(response);
+        }
+
+        [Route("/events/details/{slug}")]
+        public async Task<IActionResult> EventDetail(string slug, [FromQuery] DateTime? date = null)
+        {
+            var eventItem = await _stockportApiEventsService.GetProcessedEvent(slug, date);
+
+            ViewBag.CurrentUrl = Request?.GetUri();
+
+            if (date != null || date == DateTime.MinValue)
+            {
+                ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
+            }
+            else
+            {
+                ViewBag.Eventdate = eventItem?.EventDate.ToString("yyyy-MM-dd");
+            }
+
+            return View("Detail", eventItem);
         }
 
         [Route("/events/add-your-event")]
