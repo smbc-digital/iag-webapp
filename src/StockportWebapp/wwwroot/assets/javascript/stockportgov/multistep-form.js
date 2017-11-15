@@ -1,4 +1,4 @@
-﻿define(["jquery", "jquery.cookie"], function ($) {
+﻿define(["jquery"], function ($) {
     return {
         Init: function () {
             var form = $("#multistep-form");
@@ -7,8 +7,8 @@
             {
                 // delete cookie if no validation error message
                 // TODO: Make this work
-                $.removeCookie('jQu3ry_5teps_St%40te_multistep-form-sections-wrapper', { path: '/groups' });
-                $.cookie("jQu3ry_5teps_St%40te_multistep-form-sections-wrapper", null);
+                document.cookie =
+                    "jQu3ry_5teps_St%40te_multistep-form-sections-wrapper=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
             }
 
             $("#multistep-form-sections-wrapper").steps({
@@ -29,7 +29,8 @@
                         form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
                     }
 
-                    // validate if the inputs are valid
+                    // validate
+                    //if the inputs are valid
                     form.validate().settings.ignore = ":disabled,:hidden";
                     return form.valid();
                 },
