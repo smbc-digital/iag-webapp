@@ -747,6 +747,23 @@ ul.nav-card-events-list {
             }
         }
     }
+
+    .directions-button {
+        border-color: $greyMiddle;
+        background-color: $white;
+        color: #666666;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 10px;    
+
+        &:hover {
+            box-shadow: 5px 5px 10px #e1e1e1;
+        }
+
+        span {
+            margin-left: 8px;
+        }
+    }
 }
 
 .embed-map-container {

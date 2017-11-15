@@ -15,7 +15,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("What's on in Stockport", "events", "event") })
+    @Html.Partial("Breadcrumb", new List<Crumb>())
 }
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
@@ -87,11 +87,7 @@
                                         <div class="events-details-heading">
                                             Submitted by
                                         </div>
-                                        @if (Model.Group.Name != string.Empty)
-                                        {
-                                            <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
-                                        }
-                                        else if (Model.SubmittedBy != string.Empty)
+                                        @if (!string.IsNullOrEmpty(Model.SubmittedBy))
                                         {
                                             @Model.SubmittedBy
                                         }

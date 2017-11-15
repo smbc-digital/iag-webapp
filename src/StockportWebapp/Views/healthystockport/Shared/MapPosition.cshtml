@@ -27,16 +27,16 @@
 </div>
 <div class="grid-100 grid-parent directions-list">
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=walking"><i class="fa fa-male" aria-hidden="true"></i>Walking<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="directions-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=walking"><i class="fa fa-male" aria-hidden="true"></i>Walking<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=driving"><i class="fa fa-car" aria-hidden="true"></i>Driving<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="directions-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=driving"><i class="fa fa-car" aria-hidden="true"></i>Driving<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=transit"><i class="fa fa-train" aria-hidden="true"></i>Public transport<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="directions-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=transit"><i class="fa fa-train" aria-hidden="true"></i>Public transport<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
     <div class="grid-25 grid-parent direction">
-        <stock-button class="manage-group-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=bicycling"><i class="fa fa-bicycle" aria-hidden="true"></i>Cycling<span class="hide-on-desktop"> directions</span></stock-button>
+        <stock-button class="directions-button" as-link="true" target="_blank" href="https://www.google.com/maps/dir/?api=1&origin=current+location&destination=@Model.MapPosition.Lat,@Model.MapPosition.Lon&travelmode=bicycling"><i class="fa fa-bicycle" aria-hidden="true"></i>Cycling<span class="hide-on-desktop"> directions</span></stock-button>
     </div>
         @if (!string.IsNullOrEmpty(Model.AccessibleTransportLink))
         {
