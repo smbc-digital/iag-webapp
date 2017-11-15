@@ -23,7 +23,7 @@ namespace StockportWebapp.Models
 
         [ImageFileExtensionValidation]
         [FileSizeValidation]
-        [Display(Name = "Group image (optional)")]
+        [Display(Name = "Upload a profile image (optional)")]
         public IFormFile Image { get; set; }
 
         [Display(Name ="Group description")]
@@ -36,23 +36,22 @@ namespace StockportWebapp.Models
         public string CategoriesList { get; set; }
         public List<string> AvailableCategories { get; set; }
 
-        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
         [Display(Name="Enter an email address")]
         [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        [Required]
         public string Email { get; set; }
 
-        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
-        [Display(Name="Enter a phone number")]
+        [Display(Name= "Enter a phone number (optional)")]
         [Phone(ErrorMessage = "Please enter a valid phone number")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name="Enter a website address")]       
+        [Display(Name="Enter a website address (optional)")]       
         public string Website { get; set; }
 
-        [Display(Name = "Twitter")]
+        [Display(Name = "Twitter (optional)")]
         public string Twitter { get; set; }
 
-        [Display(Name = "Facebook")]
+        [Display(Name = "Facebook (optional)")]
         public string Facebook { get; set; }    
         
         [Display(Name="Do you have any volunteering opportunities?")]
