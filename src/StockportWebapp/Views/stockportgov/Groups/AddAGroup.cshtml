@@ -48,7 +48,7 @@
                         <form id="multistep-form" asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
                                 <div id="multistep-form-sections-wrapper" class="form-section">
-                                    <h3>Tell us about your group or service</h3>
+                                    <h2>About your group or service</h2>
                                     <section>
                                         <label asp-for="@Model.Name"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name" />
@@ -78,7 +78,7 @@
 
 
                                     </section>
-                                    <h3>Let people know how to get in touch with your group or service</h3>
+                                    <h2>Contact details</h2>
                                     <section>
                                         <label asp-for="@Model.Email"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
@@ -102,7 +102,7 @@
 
                                     </section>
 
-                                    <h3>Provide some additional details about your group or service</h3>
+                                    <h2>Additional information</h2>
                                     <section>
                                         <label asp-for="@Model.Image"></label>
                                         <p>

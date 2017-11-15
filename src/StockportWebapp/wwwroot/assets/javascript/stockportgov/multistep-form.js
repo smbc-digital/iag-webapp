@@ -12,7 +12,7 @@
             }
 
             $("#multistep-form-sections-wrapper").steps({
-                headerTag: "h3",
+                headerTag: "h2",
                 bodyTag: "section",
                 transitionEffect: "slideLeft",
                 autoFocus: true,
@@ -42,7 +42,8 @@
                     next: "Next step",
                     previous: "Back"
                 },
-                saveState: true
+                saveState: true,
+                titleTemplate: "<span class=\"number\">#index#. </span>#title#",
             });
         }
     }
