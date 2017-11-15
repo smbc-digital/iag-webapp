@@ -123,7 +123,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events/category/{category}")]
-        public async Task<IActionResult> Index(string category, [FromQuery] int page, [FromQuery] int pageSize)
+        public async Task<IActionResult> IndexWithCategory(string category, [FromQuery] int page, [FromQuery] int pageSize)
         {
             var categories = await _stockportApiEventsService.GetEventCategories();
             if (!categories.Any() && categories.Any(c => c.Slug == category)) return View();
@@ -146,7 +146,7 @@ namespace StockportWebapp.Controllers
 
             DoPagination(viewModel, page, pageSize);
 
-            return View(viewModel);
+            return View("Index", viewModel);
         }
 
         private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
