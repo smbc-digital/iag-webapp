@@ -43,7 +43,7 @@
                     previous: "Back"
                 },
                 saveState: true,
-                titleTemplate: "<span class=\"number\">#index#. </span>#title#",
+                titleTemplate: "<span class=\"number\">#index#. </span>#title#"
             });
         }
     }

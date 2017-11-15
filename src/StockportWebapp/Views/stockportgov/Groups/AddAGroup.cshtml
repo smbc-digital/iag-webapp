@@ -2,6 +2,8 @@
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @model GroupSubmission
+@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
+
 @{
     ViewData["Title"] = "Add your group or service";
     ViewData["og:title"] = "Add your group or service";
@@ -45,9 +47,13 @@
                                 </div>
                             </div>
                         </noscript>
-                        <form id="multistep-form" asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
+                        @{
+                            var id = featureToggles.MultiStepForm ? "multistep-form" : "";
+                            var wrapperId = featureToggles.MultiStepForm ? "multistep-form-sections-wrapper" : "";
+                        }
+                        <form id="@id" asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
-                                <div id="multistep-form-sections-wrapper" class="form-section">
+                                <div id="@wrapperId" class="form-section">
                                     <h2>About your group or service</h2>
                                     <section>
                                         <label asp-for="@Model.Name"></label>
