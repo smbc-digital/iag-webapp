@@ -1509,7 +1509,7 @@ namespace StockportWebapp.Controllers
             {
                 if (state.Value.Errors.Count > 0 && state.Key != "Email")
                 {
-                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
+                    message.Append($"{state.Value.Errors.First().ErrorMessage}<br />");
                 }
             }
             return message.ToString();
