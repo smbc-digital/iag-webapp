@@ -67,6 +67,11 @@
 }
 
 #multistep-form {
+    section {
+        margin-bottom: 20px;
+        overflow: auto;
+    }
+
     .title {
         display: none;
 
@@ -79,14 +84,27 @@
         list-style: none;
 
         li {
-            display: inline-block;
+            display: block;
+            margin-left: 0;
 
             a[href='#next'] {
                 @include button-default;
             }
 
+            a[href='#previous'] {
+                margin-top: 10px;
+            }
+
             a[href='#finish'] {
                 display: none;
+            }
+
+            &.disabled {
+                display: none;
+            }
+
+            &:nth-child(2) {
+                margin-top: 10px
             }
         }
 

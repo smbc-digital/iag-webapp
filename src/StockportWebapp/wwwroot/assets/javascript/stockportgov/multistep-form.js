@@ -35,7 +35,17 @@
                     return form.valid();
                 },
                 onStepChanged: function (event, currentIndex, newIndex) {
-                    // you can use currentIndex property to display what step you are on
+                    if ($('.last').hasClass('current')) {
+                        $('#multistep-form section').css('margin-bottom', '0');
+                    }
+
+                     return true;
+                },
+                onInit: function (event, currentIndex) {
+                    if ($('.last').hasClass('current')) {
+                        $('#multistep-form section').css('margin-bottom', '0');
+                    }
+
                     return true;
                 },
                 labels: {
@@ -43,6 +53,7 @@
                     previous: "Back"
                 },
                 saveState: true,
+                enableFinishButton: false,
                 titleTemplate: "<span class=\"number\">#index#. </span>#title#"
             });
         }
