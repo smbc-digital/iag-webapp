@@ -2,6 +2,7 @@
 prod: &prod
   GroupAdditionalInformation : false
   HealthyStockportHomepageEvents : false
+  MultiStepForm: false
 
 stage: &stage
   << : *prod
@@ -16,6 +17,7 @@ int: &int
   << : *stage
   << : *qa
   GroupAdditionalInformation : true
+  MultiStepForm: true
 
 local: &local
   << : *prod

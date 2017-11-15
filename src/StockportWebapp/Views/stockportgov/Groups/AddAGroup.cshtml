@@ -2,6 +2,8 @@
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @model GroupSubmission
+@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
+
 @{
     ViewData["Title"] = "Add your group or service";
     ViewData["og:title"] = "Add your group or service";
@@ -30,7 +32,7 @@
                                 </div>
                                 <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
                                     <h3>There has been a problem: </h3>
-                                    <p>@ViewBag.SubmissionError</p>
+                                    <p>@Html.Raw(ViewBag.SubmissionError)</p>
                                 </div>
                             </div>
                         }
@@ -45,44 +47,78 @@
                                 </div>
                             </div>
                         </noscript>
-                        <form asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
+                        @{
+                            var id = featureToggles.MultiStepForm ? "multistep-form" : "";
+                            var wrapperId = featureToggles.MultiStepForm ? "multistep-form-sections-wrapper" : "";
+                        }
+                        <form id="@id" asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
-                                <div class="form-section">
-                                    <fieldset>
+                                <div id="@wrapperId" class="form-section">
+                                    <h2>About your group or service</h2>
+                                    <section>
                                         <label asp-for="@Model.Name"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name" />
                                         <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Address"></label>
-                                        <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i><br />
-                                        <i>If your group does not have a specific meeting place, enter 'Stockport'</i>
+                                        <p>Enter a postcode or place name</p>
                                         <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
                                         <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
                                         <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
                                         <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <div class="grid-100">
+                                        <input type="hidden" id="address" value="@Model.Address" />
 
-                                        </div>
+                                        <label asp-for="@Model.Description"></label>
+                                        <p>
+                                            Let people know what your group or service does and why they should get in touch with you.<br />
+                                            This is a great way to sell your group or service to people.
+                                        </p>
+                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
+                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Categories"></label>
+                                        <input type="hidden" asp-for="@Model.CategoriesList" />
+                                        @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories })
+                                        <span asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+
+                                    </section>
+                                    <h2>Contact details</h2>
+                                    <section>
+                                        <label asp-for="@Model.Email"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
+                                        <span asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.PhoneNumber"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
+                                        <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Website"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Website" />
+                                        <span asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Facebook"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
+                                        <span asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Twitter"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
+                                        <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                    </section>
+
+                                    <h2>Additional information</h2>
+                                    <section>
                                         <label asp-for="@Model.Image"></label>
-                                        <i>
+                                        <p>
                                             Choose an image that captures your group
                                             <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
                                             <br />Accepted file types: jpg, jpeg, gif and png
-                                        </i>
+                                        </p>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
                                         <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <label asp-for="@Model.Description"></label>
-                                        <i class="small">
-                                            <ul>
-                                                <li>Let people know why they should visit your group</li>
-                                                <li>Let people know how to get in touch</li>
-                                            </ul>
-                                        </i>
-                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
-                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
                                         <label class="label-for-checkbox hide-on-mobile">Do you have any volunteering opportunities?</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
                                         <div class="switch">
@@ -99,43 +135,20 @@
                                         </i>
                                         <div id="volunteering-text">
                                             <i>You can edit the text below to customise this message</i>
-                                            <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" >
+                                            <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
                                             <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
-                                        <label asp-for="@Model.Categories">Group category</label>
-                                        <input type="hidden" asp-for="@Model.CategoriesList" />                                        
-                                        @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories })
-                                        <span asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <label asp-for="@Model.Email"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
-                                        <span asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <label asp-for="@Model.Website"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Website" />
-                                        <span asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <label asp-for="@Model.PhoneNumber"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
-                                        <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
-                                        <label asp-for="@Model.Facebook"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
-                                        <span asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <label asp-for="@Model.Twitter"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
-                                        <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
                                         <div Class="clearfix"></div>
 
                                         <stock-button id="uitest-contact-form-submit"
                                                       class="button-contact-us">Add your group or service</stock-button>
-                                    </fieldset>
+                                    </section>
+
                                 </div>
                             </div>
                         </form>
