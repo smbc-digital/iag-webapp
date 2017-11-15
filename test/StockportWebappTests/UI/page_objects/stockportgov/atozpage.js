@@ -10,7 +10,7 @@ assertArticlelistedVisible: function (browser, articlename){
     goToLetter: function(browser, letter) {
         this.waitForElementVisible('@atozList', this.api.globals.timeOut);
         browser.useXpath()
-            .click("(//a[contains(@href,'/atoz/" + letter + "')])[2]");
+            .click("(//a[contains(@href,'/atoz/" + letter + "')])[1]");
     }
 
 };
