@@ -142,6 +142,9 @@ namespace StockportWebapp
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
             await scheduler.Start();
 
+            var groupArchiveScheduler = new GroupArchiveScheduler(serviceProvider.GetService<IContentApiRepository>());
+            await groupArchiveScheduler.Start();
+
             app.UseMiddleware<BusinessIdMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
