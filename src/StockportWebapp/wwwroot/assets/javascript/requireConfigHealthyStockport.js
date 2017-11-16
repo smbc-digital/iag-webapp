@@ -34,5 +34,12 @@ require(['carousel', 'cludoconfig', 'healthystockport', 'matchboxconfig', 'valid
     }
 );
 
+if (typeof (globalButoIds) !== "undefined") {
+    require(globalButoIds,
+        function () {
+        }
+    );
+}
+
 
 
