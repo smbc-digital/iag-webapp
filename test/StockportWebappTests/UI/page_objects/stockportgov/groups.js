@@ -19,7 +19,7 @@
     assertCanSubmitFormAndGetValidationErrors: function (browser) {
         browser.useCss();
 
-        this.waitForElementVisible("#uitest-contact-form-submit", this.api.globals.timeOut).click("#uitest-contact-form-submit");
+        this.waitForElementVisible("a[href='#next']", this.api.globals.timeOut).click("#uitest-contact-form-submit");
 
         this.waitForElementVisible(
             "@addGroupFormValidationDiv",
