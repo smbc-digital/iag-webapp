@@ -11,42 +11,41 @@ namespace StockportWebapp.Models
     {
         public string Slug { get; set; }
  
-        [Display(Name = "Group name")]
+        [Display(Name = "Enter the name of your group or service")]
         [Required]
         [StringLength(250, ErrorMessage = "Group name must be 250 characters or less in length.")]
         public string Name { get; set; }
 
-        [Display(Name = "Group meeting location")]
-        [Required(ErrorMessage = "Your meeting place was not recognised. Make sure you choose an address from the dropdown.")]
+        [Display(Name = "Enter the location of your group or service")]
+        [Required(ErrorMessage = "Your location was not recognised. Make sure you choose an address from the dropdown.")]
         [StringLength(500, ErrorMessage = "Location must be 500 characters or less in length.")]
         public string Address { get; set; }
 
         [ImageFileExtensionValidation]
         [FileSizeValidation]
-        [Display(Name = "Group image (optional)")]
+        [Display(Name = "Upload a profile image (optional)")]
         public IFormFile Image { get; set; }
 
         [Display(Name ="Group description")]
         [Required]
         public string Description { get; set; }
 
-        [Display(Name="Categories")]        
+        [Display(Name="Choose one or more categories that best describe your group or service")]        
         public List<string> Categories { get; set; }
         [Required(ErrorMessage = "You must select at least one category")]
         public string CategoriesList { get; set; }
         public List<string> AvailableCategories { get; set; }
 
-        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
-        [Display(Name="Group email address")]
-        [EmailAddress(ErrorMessage = "Should be a valid Email Address")]
+        [Display(Name="Enter an email address")]
+        [EmailAddress(ErrorMessage = "Please enter a valid email address")]
+        [Required]
         public string Email { get; set; }
 
-        [OneOutOfTwoFieldValidation(propertyName1: "Email", propertyName2: "PhoneNumber", ErrorMessage = "The group email address or group phone number field is required")]
-        [Display(Name="Group phone number")]
-        [Phone]
+        [Display(Name= "Enter a phone number (optional)")]
+        [Phone(ErrorMessage = "Please enter a valid phone number")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name="Group website")]       
+        [Display(Name="Enter a website address (optional)")]       
         public string Website { get; set; }
 
         [Display(Name = "Twitter (optional)")]

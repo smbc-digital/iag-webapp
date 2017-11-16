@@ -36,9 +36,18 @@
         "favourites": "stockportgov/favourites",
         "tracking": "stockportgov/tracking",
         "alerts": "stockportgov/alerts",
-        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min"
+        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min",
+        "jquery.steps": "/assets/javascript/vendor/jquery.steps.min",
+        "multiStepForm": "stockportgov/multistep-form",
+        "jquery.cookie": "/assets/javascript/vendor/jquery.cookie"
     },
     shim: {
+        'jquery.steps': {
+            deps: ['jquery', 'jquery.cookie']
+        },
+        'jquery.cookie': {
+            deps: ['jquery']
+        },
         'jquery-ui': {
             deps: ['jquery']
         },
@@ -60,8 +69,11 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight) {
+require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie'],
+    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie) {
+        // multiStepForm (jquery.steps) needs to be first
+        multiStepForm.Init();
+
         startup.Init();
         matchboxconfig.Init();
         refinebybar.Init();
