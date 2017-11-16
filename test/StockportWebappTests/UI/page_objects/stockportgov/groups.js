@@ -19,20 +19,11 @@
     assertCanSubmitFormAndGetValidationErrors: function (browser) {
         browser.useCss();
 
-        this.waitForElementVisible("#uitest-contact-form-submit", this.api.globals.timeOut).click("#uitest-contact-form-submit");
-
-        this.waitForElementVisible(
-            "@addGroupFormValidationDiv",
-            this.api.globals.timeOut);
-
+        this.waitForElementVisible("a[href='#next']", this.api.globals.timeOut).click("a[href='#next']");
+        
         this.expect.element(
                 "@addGroupFormValidationDiv")
-            .text.to.equal("The Group name field is required.");
-
-        this.setValue("#Name", "a name").click('#uitest-contact-form-submit');
-
-        this.waitForElementNotPresent(
-            "@addGroupFormValidationDiv", this.api.globals.timeOut);
+            .text.to.equal("The Enter the name of your group or service field is required.");
 
         // take back to the main /groups/ page for further testing using breadrumb
         browser.click(".breadcrumb>li>a[href='/groups/']");
