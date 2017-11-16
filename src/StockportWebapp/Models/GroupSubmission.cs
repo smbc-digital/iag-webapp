@@ -69,5 +69,13 @@ namespace StockportWebapp.Models
 
         [Display(Name = "Upload any additional documents")]
         public List<Document> AdditionalDocuments { get; set; }
+
+        public List<Boolean> SelectedSuitabilities { get; set; }
+
+        public List<string> Suitabilities = new List<string> { "Autism", "Deaf or hard of hearing", "Dementia", "Learning disabilities", "Mental health conditions" , "Physical disabilities" , "Visual impairments", "Wheelchair users" };
+
+        public List<Boolean> SelectedAgeRanges { get; set; }
+
+        public List<string> AgeRanges = new List<string> { "0-2 Babies", "3-5 Toddlers", "6-11 Young children", "12-18 Teenagers", "19-30 Young adults", "31-50 Adults", "51-65 Middle aged", "66-80 Retirees", "80+ Elderly" };
     }
 }

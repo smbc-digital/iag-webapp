@@ -84,6 +84,38 @@
 
 
                                     </section>
+                                    <h2>Tell us who your group is suitable for</h2>
+                                    <section>
+                                        <label>Select who your group is suitable for (Optional)</label>
+                                        <p>Don't worry if you are not sure suitability, you can leave this blank</p>
+                                        <div class="checkboxes">
+                                            <a href="javascript:;" class="select-all-checkboxes">Select all</a>
+
+                                            @foreach (var item in Model.Suitabilities)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="SelectedSuitabilities" type="checkbox" value="@item" />
+                                                        <span>@item</span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <label>Select which age ranges your group or service is for</label>
+                                        <div class="checkboxes">
+                                            <a href="javascript:;" class="select-all-checkboxes">Select all</a>
+                                            @foreach (var item in Model.AgeRanges)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input name="SelectedAgeRanges" type="checkbox" value="@item" />
+                                                        <span>@item</span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </section>
                                     <h2>Contact details</h2>
                                     <section>
                                         <label asp-for="@Model.Email"></label>
