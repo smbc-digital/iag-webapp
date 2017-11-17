@@ -73,6 +73,16 @@ namespace StockportWebappTests.Unit.Utils
             response.Should().Contain("IMAGE: " + emailBody.Image);
         }
 
+        [Fact]
+        public void ItShouldBuildAEmailBodyWithListOfStringsFormContent()
+        {
+            var emailBody = new GroupAdd() { Suitabilities = new List<string> { "Suitability 1" }, AgeRanges = new List<string> { "Age range 1" } };
+
+            var response = _groupEmailBuilder.GenerateEmailBodyFromHtml(emailBody);
+
+            response.Should().Contain("Suitability 1");
+            response.Should().Contain("Age range 1");
+        }
 
         [Fact]
         public async void ItShouldSendAnEmailAndReturnAStatusCodeOf200()

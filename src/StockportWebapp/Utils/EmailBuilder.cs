@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
 using System.Reflection;
 
 namespace StockportWebapp.Utils
@@ -14,13 +14,21 @@ namespace StockportWebapp.Utils
             var layout = GetEmailTemplateForLayout();
             var body = GetEmailTemplateForBody(template);
 
-            PropertyInfo[] properties = typeof(T).GetProperties();
-            foreach (var property in properties)
+            foreach (var property in typeof(T).GetProperties())
             {
                 var tag = $"{{{{ {property.Name.ToLower()} }}}}";
                 tag = tag.Replace("\r\n", "<br />").Replace("\r", "<br />").Replace("\n", "<br />");
                 var value = property.GetValue(details, null) == null ? string.Empty : property.GetValue(details, null);
-                value = value.ToString().Replace("\r\n", "<br />");
+
+                if (property.PropertyType == typeof(List<string>))
+                {
+                    if (value is List<string> items) value = string.Join(", ", items.ToArray()).Trim().TrimEnd(',');
+                }
+                else
+                {
+                    value = value.ToString().Replace("\r\n", "<br />");
+                }
+               
                 body = body.Replace(tag, value.ToString());
             }
 

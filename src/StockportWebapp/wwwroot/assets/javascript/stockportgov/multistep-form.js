@@ -56,6 +56,11 @@
                 enableFinishButton: false,
                 titleTemplate: "<span class=\"number\">#index#. </span>#title#"
             });
+
+            $('.select-all-checkboxes').click(function () {
+                $(this).text() === "Select all" ? $(this).text("Deselect all") : $(this).text("Select all");
+                $(this).text() === "Select all" ? $("input[type='checkbox']", $(this).parent()).prop('checked', false) : $("input[type='checkbox']", $(this).parent()).prop('checked', true);
+            });
         }
     }
 });
