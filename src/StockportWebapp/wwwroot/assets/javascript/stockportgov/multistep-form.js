@@ -61,6 +61,14 @@
                 $(this).text() === "Select all" ? $(this).text("Deselect all") : $(this).text("Select all");
                 $(this).text() === "Select all" ? $("input[type='checkbox']", $(this).parent()).prop('checked', false) : $("input[type='checkbox']", $(this).parent()).prop('checked', true);
             });
+
+            $("input", form).on('keyup keypress', function (e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13 && !$('.last').hasClass('current')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
         }
     }
 });
