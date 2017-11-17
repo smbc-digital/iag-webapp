@@ -91,12 +91,13 @@
                                         <div class="checkboxes">
                                             <a href="javascript:;" class="select-all-checkboxes">Select all</a>
 
-                                            @foreach (var item in Model.Suitabilities)
+                                            @for(var i = 0; i < Model.Suitabilities.Count; i++) 
                                             {
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input name="SelectedSuitabilities" type="checkbox" value="@item" />
-                                                        <span>@item</span>
+                                                        <input type="checkbox" asp-for="@Model.Suitabilities[i].IsSelected" />
+                                                        <input type="hidden" asp-for="@Model.Suitabilities[i].Name" />
+                                                        <span>@Model.Suitabilities[i].Name</span>
                                                     </label>
                                                 </div>
                                             }
@@ -105,12 +106,14 @@
                                         <label>Select which age ranges your group or service is for</label>
                                         <div class="checkboxes">
                                             <a href="javascript:;" class="select-all-checkboxes">Select all</a>
-                                            @foreach (var item in Model.AgeRanges)
+
+                                            @for (var i = 0; i < Model.AgeRanges.Count; i++)
                                             {
                                                 <div class="checkbox">
                                                     <label>
-                                                        <input name="SelectedAgeRanges" type="checkbox" value="@item" />
-                                                        <span>@item</span>
+                                                        <input type="checkbox" asp-for="@Model.AgeRanges[i].IsSelected" />
+                                                        <input type="hidden" asp-for="@Model.AgeRanges[i].Name" />
+                                                        <span>@Model.AgeRanges[i].Name</span>
                                                     </label>
                                                 </div>
                                             }

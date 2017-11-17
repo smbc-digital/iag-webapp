@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
@@ -9,6 +7,12 @@ namespace StockportWebapp.Models
 {
     public class GroupSubmission
     {
+        public GroupSubmission()
+        {
+            Suitabilities = new List<CheckBoxItem> { new CheckBoxItem { Name = "Autism", IsSelected = false }, new CheckBoxItem { Name= "Deaf or hard of hearing", IsSelected = false }, new CheckBoxItem { Name = "Dementia", IsSelected = false }, new CheckBoxItem { Name = "Learning disabilities", IsSelected =  false }, new CheckBoxItem { Name = "Mental health conditions", IsSelected = false }, new CheckBoxItem { Name = "Physical disabilities", IsSelected = false }, new CheckBoxItem  { Name =  "Visual impairments", IsSelected = false }, new CheckBoxItem { Name = "Wheelchair users", IsSelected = false } };
+            AgeRanges = new List<CheckBoxItem> { new CheckBoxItem { Name = "0-2 Babies", IsSelected = false }, new CheckBoxItem { Name = "3-5 Toddlers", IsSelected = false }, new CheckBoxItem { Name = "6-11 Young children", IsSelected = false }, new CheckBoxItem { Name = "12-18 Teenagers", IsSelected = false }, new CheckBoxItem { Name = "19-30 Young adults", IsSelected = false }, new CheckBoxItem { Name = "31-50 Adults", IsSelected = false }, new CheckBoxItem { Name = "51-65 Middle aged", IsSelected = false }, new CheckBoxItem { Name = "66-80 Retirees", IsSelected = false }, new CheckBoxItem { Name = "80+ Elderly", IsSelected = false } };
+        }
+
         public string Slug { get; set; }
  
         [Display(Name = "Enter the name of your group or service")]
@@ -70,12 +74,8 @@ namespace StockportWebapp.Models
         [Display(Name = "Upload any additional documents")]
         public List<Document> AdditionalDocuments { get; set; }
 
-        public List<Boolean> SelectedSuitabilities { get; set; }
+        public List<CheckBoxItem> Suitabilities { get; set; }
 
-        public List<string> Suitabilities = new List<string> { "Autism", "Deaf or hard of hearing", "Dementia", "Learning disabilities", "Mental health conditions" , "Physical disabilities" , "Visual impairments", "Wheelchair users" };
-
-        public List<Boolean> SelectedAgeRanges { get; set; }
-
-        public List<string> AgeRanges = new List<string> { "0-2 Babies", "3-5 Toddlers", "6-11 Young children", "12-18 Teenagers", "19-30 Young adults", "31-50 Adults", "51-65 Middle aged", "66-80 Retirees", "80+ Elderly" };
+        public List<CheckBoxItem> AgeRanges { get; set; }
     }
 }

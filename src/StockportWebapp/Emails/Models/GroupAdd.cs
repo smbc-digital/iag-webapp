@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Emails.Models
+﻿using System.Collections.Generic;
+
+namespace StockportWebapp.Emails.Models
 {
     public class GroupAdd
     {
@@ -14,5 +16,7 @@
         public string VolunteeringText { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
+        public List<string> Suitabilities { get; set; }
+        public List<string> AgeRanges { get; set; }
     }
 }
