@@ -22,6 +22,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
 using StockportWebapp.Configuration;
+using StockportWebapp.Services;
 using StockportWebapp.Wrappers;
 
 namespace StockportWebapp
@@ -142,7 +143,7 @@ namespace StockportWebapp
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
             await scheduler.Start();
 
-            var groupArchiveScheduler = new GroupArchiveScheduler(serviceProvider.GetService<IContentApiRepository>());
+            var groupArchiveScheduler = new GroupArchiveScheduler(serviceProvider.GetService<IGroupsService>());
             await groupArchiveScheduler.Start();
 
             app.UseMiddleware<BusinessIdMiddleware>();

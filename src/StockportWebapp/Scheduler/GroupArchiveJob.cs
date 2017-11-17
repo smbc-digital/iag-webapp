@@ -1,23 +1,32 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Quartz;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
 
 namespace StockportWebapp.Scheduler
 {
     public class GroupArchiveJob : IJob
     {
-        private readonly IContentApiRepository _repository;
+        private readonly IGroupsService _groupsService;
 
-        public GroupArchiveJob(IContentApiRepository repository)
+        public GroupArchiveJob(IGroupsService groupsService)
         {
-            _repository = repository;
+            _groupsService = groupsService;
         }
 
         public async Task Execute(IJobExecutionContext context)
         {
-
-            var hello = "j";
+            try
+            {
+                await _groupsService.HandleArchivedGroups();
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
     }
 }

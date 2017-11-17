@@ -2,21 +2,22 @@
 using Quartz.Spi;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
 
 namespace StockportWebapp.Scheduler
 {
     public class GroupArchiveJobFactory : IJobFactory
     {
-        private readonly IContentApiRepository _repository;
+        private readonly IGroupsService _groupsService;
 
-        public GroupArchiveJobFactory(IContentApiRepository repository)
+        public GroupArchiveJobFactory(IGroupsService groupsService)
         {
-            _repository = repository;
+            _groupsService = groupsService;
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return new GroupArchiveJob( _repository);
+            return new GroupArchiveJob(_groupsService);
         }
 
         public void ReturnJob(IJob job)

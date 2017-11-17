@@ -4,16 +4,17 @@ using Quartz;
 using Quartz.Impl;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
 
 namespace StockportWebapp.Scheduler
 {
     public class GroupArchiveScheduler
     {
-        private readonly IContentApiRepository _rcontentApiRpository;
+        private readonly IGroupsService _groupsService;
 
-        public GroupArchiveScheduler(IContentApiRepository rcontentApiRpository)
+        public GroupArchiveScheduler(IGroupsService groupsService)
         {
-            _rcontentApiRpository = rcontentApiRpository;
+            _groupsService = groupsService;
         }
 
         public async Task Start()
@@ -21,7 +22,7 @@ namespace StockportWebapp.Scheduler
             var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
             await scheduler.Start();
 
-            scheduler.JobFactory = new GroupArchiveJobFactory(_rcontentApiRpository);
+            scheduler.JobFactory = new GroupArchiveJobFactory(_groupsService);
 
             var job = JobBuilder.Create<GroupArchiveJob>().Build();
 

@@ -38,7 +38,7 @@ namespace StockportWebapp.Utils
             {typeof(GroupHomepage), "grouphomepage"},
             {typeof(EventResponse), "events"},
             {typeof(Group), "groups/"},
-            {typeof(List<Group>), "groups/"},
+            {typeof(List<Group>), "groups"},
             {typeof(Payment), "payments/"},
             {typeof(List<Payment>), "payments/"},
             {typeof(Section), "sections/"},

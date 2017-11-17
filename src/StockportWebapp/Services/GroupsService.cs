@@ -9,6 +9,7 @@ namespace StockportWebapp.Services
     {
         Task<GroupHomepage> GetGroupHomepage();
         Task<List<GroupCategory>> GetGroupCategories();
+        Task HandleArchivedGroups();
     }
 
     public class GroupsService : IGroupsService
@@ -28,6 +29,11 @@ namespace StockportWebapp.Services
         public async Task<List<GroupCategory>> GetGroupCategories()
         {
             return await _contentApiRepository.GetResponse<List<GroupCategory>>();
+        }
+
+        public async Task HandleArchivedGroups()
+        {
+            var allGroups = await _contentApiRepository.GetResponse<List<Group>>();
         }
     }
 }
