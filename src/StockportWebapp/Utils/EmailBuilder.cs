@@ -20,10 +20,9 @@ namespace StockportWebapp.Utils
                 tag = tag.Replace("\r\n", "<br />").Replace("\r", "<br />").Replace("\n", "<br />");
                 var value = property.GetValue(details, null) == null ? string.Empty : property.GetValue(details, null);
 
-                if (property.GetType() == typeof(List<string>))
+                if (property.PropertyType == typeof(List<string>))
                 {
-                    var items = value as List<string>;
-                    value = string.Join(", ", items.ToArray()).Trim().TrimEnd(',');
+                    if (value is List<string> items) value = string.Join(", ", items.ToArray()).Trim().TrimEnd(',');
                 }
                 else
                 {
