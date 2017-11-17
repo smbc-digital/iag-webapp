@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using Microsoft.Extensions.Logging;
+using Quartz;
 using Quartz.Spi;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -9,6 +10,7 @@ namespace StockportWebapp.Scheduler
     public class GroupArchiveJobFactory : IJobFactory
     {
         private readonly IGroupsService _groupsService;
+        private readonly ILogger<GroupArchiveJob> _groupArchiveJobLogger;
 
         public GroupArchiveJobFactory(IGroupsService groupsService)
         {
@@ -17,7 +19,7 @@ namespace StockportWebapp.Scheduler
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return new GroupArchiveJob(_groupsService);
+            return new GroupArchiveJob(_groupsService, _groupArchiveJobLogger);
         }
 
         public void ReturnJob(IJob job)

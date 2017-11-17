@@ -1,15 +1,28 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+using StockportWebapp.Entities;
 
 namespace StockportWebapp.Utils
 {
-    public abstract class EmailBuilder
+    public interface IEmailHandler
     {
-        public string GenerateEmailBodyFromHtml<T>(T details)
-        {
-            var result = string.Empty;
+        void SendEmail(EmailEntity email);
+        string GenerateEmailBodyFromHtml<T>(T details, string templateName = null);
+    }
 
-            var template = typeof(T).Name;
+    public class EmailHandler
+    {
+        public void SendEmail(EmailEntity email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GenerateEmailBodyFromHtml<T>(T details, string templateName = null)
+        {
+            var template = string.IsNullOrEmpty(templateName) ? typeof(T).Name : templateName;
 
             var layout = GetEmailTemplateForLayout();
             var body = GetEmailTemplateForBody(template);
@@ -24,17 +37,17 @@ namespace StockportWebapp.Utils
                 body = body.Replace(tag, value.ToString());
             }
 
-            result = layout.Replace("{{ MAIN_BODY }}", body);
+            var result = layout.Replace("{{ MAIN_BODY }}", body);
 
             return result;
         }
 
-        public virtual string GetEmailTemplateForLayout()
+        private static string GetEmailTemplateForLayout()
         {
             return new FileReader().GetStringResponseFromFile("StockportWebapp.Emails.Templates._Layout.html");
         }
 
-        public virtual string GetEmailTemplateForBody(string template)
+        private static string GetEmailTemplateForBody(string template)
         {
             return new FileReader().GetStringResponseFromFile($"StockportWebapp.Emails.Templates.{template}.html");
         }

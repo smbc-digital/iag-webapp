@@ -15,6 +15,7 @@ namespace StockportWebapp.Repositories
         Task<T> GetResponse<T>(string extra);
         Task<T> GetResponse<T>(List<Query> queries);
         Task<T> GetResponse<T>(string extra, List<Query> queries);
+        Task<T> GetResponseWithBusinessId<T>(string businessId);
     }
 
     // TODO: Test this
@@ -61,6 +62,14 @@ namespace StockportWebapp.Repositories
 
             return await GetResponseAsync<T>(url);
         }
+
+        public async Task<T> GetResponseWithBusinessId<T>(string businessId)
+        {
+            var url = _urlGeneratorSimple.BaseContentApiUrl<T>(businessId);
+
+            return await GetResponseAsync<T>(url);
+        }
+
         #endregion
     }
 }

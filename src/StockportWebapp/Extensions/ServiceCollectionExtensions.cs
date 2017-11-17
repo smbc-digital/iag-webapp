@@ -174,7 +174,9 @@ namespace StockportWebapp.Extensions
             services.AddTransient<ISmartResultService>(p => new SmartResultService(p.GetService<ISmartResultRepository>(), p.GetService<ILogger<SmartResultService>>(), p.GetService<IHttpClientWrapper>()));
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
-            services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>()));
+            services.AddTransient<IEmailSender>(p => new EmailSender());
+            services.AddTransient<IEmailBuilder>(p => new EmailBuilder());
+            services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IEmailSender>(), p.GetService<IEmailBuilder>()));
 
             return services;
         }

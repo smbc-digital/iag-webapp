@@ -10,6 +10,7 @@ namespace StockportWebapp.Utils
     {
         string BaseContentApiUrl<T>();
         string StockportApiUrl<T>();
+        string BaseContentApiUrl<T>(string businessId);
     }
 
     public class UrlGeneratorSimple : IUrlGeneratorSimple
@@ -68,6 +69,11 @@ namespace StockportWebapp.Utils
         public string BaseContentApiUrl<T>()
         {
             return string.Concat(_config.GetContentApiUri(), _businessId, "/", _urls[typeof(T)], "/");
+        }
+
+        public string BaseContentApiUrl<T>(string businessId)
+        {
+            return string.Concat(_config.GetContentApiUri(), businessId, "/", _urls[typeof(T)], "/");
         }
 
         public string StockportApiUrl<T>()
