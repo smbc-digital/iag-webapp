@@ -12,22 +12,24 @@ using System.Linq;
 
 namespace StockportWebapp.Utils
 {
-    public class EventEmailBuilder : EmailBuilder
+    public class EventEmailBuilder
     {
         private readonly ILogger<EventEmailBuilder> _logger;
         private readonly IApplicationConfiguration _configuration;
         private readonly BusinessId _businessId;
         private readonly IHttpEmailClient _emailClient;
         private readonly string _fromEmail;
+        private readonly IEmailHandler _emailHandler;
 
         public EventEmailBuilder(ILogger<EventEmailBuilder> logger,
             IHttpEmailClient emailClient,
             IApplicationConfiguration configuration,
-            BusinessId businessId)
+            BusinessId businessId, IEmailHandler emailHandler)
         {
             _logger = logger;
             _configuration = configuration;
             _businessId = businessId;
+            _emailHandler = emailHandler;
             _emailClient = emailClient;
             _fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
                 ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
@@ -68,7 +70,7 @@ namespace StockportWebapp.Utils
                 Occurrences = eventSubmission.Occurrences == 0 ? string.Empty : $"(occurs {eventSubmission.Occurrences} times)",
             };
 
-            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
                 eventSubmission.SubmitterEmail,
@@ -99,7 +101,7 @@ namespace StockportWebapp.Utils
                 Occurrences = eventDetail.Occurrences == 0 ? string.Empty : $"(occurs {eventDetail.Occurrences} times)",
             };
 
-            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 _configuration.GetEventSubmissionEmail(_businessId.ToString()).ToString(),
                 eventDetail.SubmitterEmail,

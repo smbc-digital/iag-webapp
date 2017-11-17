@@ -16,22 +16,24 @@ using AngleSharp.Dom.Css;
 
 namespace StockportWebapp.Utils
 {
-    public class GroupEmailBuilder : EmailBuilder
+    public class GroupEmailBuilder
     {
         private readonly ILogger<GroupEmailBuilder> _logger;
         private readonly IApplicationConfiguration _configuration;
         private readonly BusinessId _businessId;
         private readonly IHttpEmailClient _emailClient;
         private readonly string _fromEmail;
+        private readonly IEmailHandler _emailHandler;
 
         public GroupEmailBuilder(ILogger<GroupEmailBuilder> logger,
             IHttpEmailClient emailClient,
             IApplicationConfiguration configuration,
-            BusinessId businessId)
+            BusinessId businessId, IEmailHandler emailHandler)
         {
             _logger = logger;
             _configuration = configuration;
             _businessId = businessId;
+            _emailHandler = emailHandler;
             _emailClient = emailClient;
             _fromEmail = _configuration.GetEmailEmailFrom(_businessId.ToString()).IsValid()
                 ? _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString()
@@ -64,7 +66,7 @@ namespace StockportWebapp.Utils
                 Twitter = groupSubmission.Twitter
             };
 
-            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
                 groupSubmission.Email,
@@ -83,7 +85,7 @@ namespace StockportWebapp.Utils
 
             if (!string.IsNullOrEmpty(emailsTosend))
             {
-                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail, emailsTosend, new List<IFormFile>()));
             }
         }
@@ -102,7 +104,7 @@ namespace StockportWebapp.Utils
 
             if (!string.IsNullOrEmpty(emailsTosend))
             {
-                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail, emailsTosend, new List<IFormFile>()));
             }
         }
@@ -119,7 +121,7 @@ namespace StockportWebapp.Utils
 
             if (!string.IsNullOrEmpty(emailsTosend))
             {
-                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail, emailsTosend, new List<IFormFile>()));
             }
         }
@@ -136,7 +138,7 @@ namespace StockportWebapp.Utils
 
             if (!string.IsNullOrEmpty(emailsTosend))
             {
-                _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+                _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail, emailsTosend, new List<IFormFile>()));
             }
         }
@@ -157,7 +159,7 @@ namespace StockportWebapp.Utils
             };
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject,
-                                                                    GenerateEmailBodyFromHtml(emailBody),
+                                                                    _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                                                                     _fromEmail,
                                                                     _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
                                                                     changeGroupInfo.Email,
@@ -174,8 +176,8 @@ namespace StockportWebapp.Utils
                                               Email = group.Email, Location = group.Address, Facebook = group.Facebook, Phone = group.PhoneNumber,
                                               Twitter = group.Twitter, Website = group.Website};
 
-            var message = new EmailMessage(messageSubject, 
-                                           GenerateEmailBodyFromHtml(emailBody),
+            var message = new EmailMessage(messageSubject,
+                                           _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                                            _fromEmail, 
                                            toEmail + "," + _configuration.GetGroupArchiveEmail(_businessId.ToString()),
                                            new List<IFormFile>());
@@ -193,7 +195,7 @@ namespace StockportWebapp.Utils
 
             var emailBody = new EditUser() { Name = model.Name, Role = GetRoleByInitial(model.GroupAdministratorItem.Permission), PreviousRole = GetRoleByInitial(model.Previousrole) };
 
-            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 model.GroupAdministratorItem.Email,
                 attachments));
@@ -209,7 +211,7 @@ namespace StockportWebapp.Utils
 
             var emailBody = new AddUser() { GroupName = model.Name, Role = GetRoleByInitial(model.GroupAdministratorItem.Permission) };
 
-            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 model.GroupAdministratorItem.Email,
                 attachments));
@@ -225,7 +227,7 @@ namespace StockportWebapp.Utils
 
             var emailBody = new DeleteUser() { GroupName = model.GroupName };
 
-            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, GenerateEmailBodyFromHtml(emailBody),
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailHandler.GenerateEmailBodyFromHtml(emailBody),
                 _fromEmail,
                 model.Email,
                 attachments));

@@ -73,7 +73,7 @@ namespace StockportWebappTests.Unit.Services
             // Arrange
             _mockRepository.Setup(_ => _.GetResponseWithBusinessId<List<Group>>(It.IsAny<string>())).ReturnsAsync(new List<Group>
             {
-                new GroupBuilder().Slug("recently-updated")..DateLastModified(DateTime.Now.AddDays(-10)).Build(),
+                new GroupBuilder().Slug("recently-updated").DateLastModified(DateTime.Now.AddDays(-10)).Build(),
                 new GroupBuilder().Slug("still-recently-updated").DateLastModified(DateTime.Now.AddDays(-180)).Build(),
                 new GroupBuilder().Slug("updated-more-than-six-months-ago").DateLastModified(DateTime.Now.AddDays(-180)).Build()
             });            

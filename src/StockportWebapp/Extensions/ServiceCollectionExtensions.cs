@@ -174,9 +174,8 @@ namespace StockportWebapp.Extensions
             services.AddTransient<ISmartResultService>(p => new SmartResultService(p.GetService<ISmartResultRepository>(), p.GetService<ILogger<SmartResultService>>(), p.GetService<IHttpClientWrapper>()));
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
-            services.AddTransient<IEmailSender>(p => new EmailSender());
-            services.AddTransient<IEmailBuilder>(p => new EmailBuilder());
-            services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IEmailSender>(), p.GetService<IEmailBuilder>()));
+            services.AddTransient<IEmailHandler>(p => new EmailHandler());
+            services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IEmailHandler>()));
 
             return services;
         }
@@ -188,11 +187,13 @@ namespace StockportWebapp.Extensions
             services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(),
                 p.GetService<IHttpEmailClient>(),
                 p.GetService<IApplicationConfiguration>(),
-                p.GetService<BusinessId>()));
+                p.GetService<BusinessId>(),
+                p.GetService<IEmailHandler>()));
             services.AddTransient(p => new EventEmailBuilder(p.GetService<ILogger<EventEmailBuilder>>(),
                 p.GetService<IHttpEmailClient>(),
                 p.GetService<IApplicationConfiguration>(),
-                p.GetService<BusinessId>()));
+                p.GetService<BusinessId>(),
+                p.GetService<IEmailHandler>()));
 
             return services;
         }

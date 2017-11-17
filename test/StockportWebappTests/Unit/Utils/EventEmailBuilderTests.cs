@@ -18,7 +18,7 @@ namespace StockportWebappTests.Unit.Utils
         private readonly EventEmailBuilder _eventEmailBuilder;
         private readonly Mock<ILogger<EventEmailBuilder>> _logger;
         private readonly Mock<IHttpEmailClient> _emailClient;
-       
+        private readonly Mock<IEmailHandler> _emailHandler = new Mock<IEmailHandler>();
 
         public EventEmailBuilderTests()
         {
@@ -31,7 +31,7 @@ namespace StockportWebappTests.Unit.Utils
             applicationConfiguration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
                 .Returns(AppSetting.GetAppSetting("EventSubmissionEmail"));
 
-            _eventEmailBuilder = new EventEmailBuilder(_logger.Object, _emailClient.Object, applicationConfiguration.Object, new BusinessId("businessId"));
+            _eventEmailBuilder = new EventEmailBuilder(_logger.Object, _emailClient.Object, applicationConfiguration.Object, new BusinessId("businessId"), _emailHandler.Object);
         }
 
         [Fact]
