@@ -52,10 +52,10 @@ namespace StockportWebapp.Models
         [Display(Name="Enter a website address (optional)")]       
         public string Website { get; set; }
 
-        [Display(Name = "Twitter (optional)")]
+        [Display(Name = "Enter a twitter url (optional)")]
         public string Twitter { get; set; }
 
-        [Display(Name = "Facebook (optional)")]
+        [Display(Name = "Enter a facebook url (optional)")]
         public string Facebook { get; set; }    
         
         [Display(Name="Do you have any volunteering opportunities?")]
