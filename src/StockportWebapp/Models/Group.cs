@@ -45,7 +45,7 @@ namespace StockportWebapp.Models
             string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories, List<Crumb> breadcrumbs,
             MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, 
             DateTime? dateHiddenTo, string status, List<string> cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
-            Organisation organisation, List<Group> linkedGroups, bool donations, String accessibleTransportLink, string additionalInformation, List<Document> additionalDocuments)
+            Organisation organisation, List<Group> linkedGroups, bool donations, String accessibleTransportLink, string additionalInformation, List<Document> additionalDocuments, List<string> suitableFor, List<string> ageRange)
         {
             Name = name;
             Slug = slug;
@@ -79,6 +79,8 @@ namespace StockportWebapp.Models
             AccessibleTransportLink = accessibleTransportLink;
             AdditionalInformation = additionalInformation;
             AdditionalDocuments = additionalDocuments;
+            SuitableFor = suitableFor;
+            AgeRange = ageRange;
         }
     }
 }

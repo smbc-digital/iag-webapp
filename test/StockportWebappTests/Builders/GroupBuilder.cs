@@ -41,6 +41,8 @@ namespace StockportWebappTests.Builders
         private string _accessibleTransportLink = "http://www.link.link.link";
         private string _additionalInformation = "additional information";
         private List<Document> _additionalDocuments = new List<Document>();
+        private List<string> _suitableFor = new List<string>();
+        private List<string> _ageRange = new List<string>();
 
         public Group Build()
         {
@@ -75,7 +77,9 @@ namespace StockportWebappTests.Builders
                     _donations,
                     _accessibleTransportLink,
                     _additionalInformation,
-                    _additionalDocuments
+                    _additionalDocuments,
+                    _suitableFor,
+                    _ageRange
                 );
         }
 
