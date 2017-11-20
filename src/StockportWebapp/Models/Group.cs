@@ -47,7 +47,7 @@ namespace StockportWebapp.Models
             MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, 
             DateTime? dateHiddenTo, string status, List<string> cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
             Organisation organisation, List<Group> linkedGroups, bool donations, String accessibleTransportLink, string additionalInformation, 
-            List<Document> additionalDocuments, DateTime? dateLastModified)
+            List<Document> additionalDocuments, DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange)
         {
             Name = name;
             Slug = slug;
@@ -82,6 +82,8 @@ namespace StockportWebapp.Models
             AdditionalInformation = additionalInformation;
             AdditionalDocuments = additionalDocuments;
             DateLastModified = dateLastModified;
+            SuitableFor = suitableFor;
+            AgeRange = ageRange;
         }
     }
 }

@@ -42,6 +42,8 @@ namespace StockportWebappTests.Builders
         private string _additionalInformation = "additional information";
         private List<Document> _additionalDocuments = new List<Document>();
         private DateTime? _dateLastModified = null;
+        private List<string> _suitableFor = new List<string>();
+        private List<string> _ageRange = new List<string>();
 
         public Group Build()
         {
@@ -77,7 +79,9 @@ namespace StockportWebappTests.Builders
                     _accessibleTransportLink,
                     _additionalInformation,
                     _additionalDocuments,
-                _dateLastModified
+                    _dateLastModified,
+                    _suitableFor,
+                    _ageRange
                 );
         }
 
