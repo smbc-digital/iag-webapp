@@ -84,6 +84,41 @@
 
 
                                     </section>
+                                    <h2>Tell us who your group is suitable for</h2>
+                                    <section>
+                                        <label>Select who your group is suitable for (Optional)</label>
+                                        <p>Don't worry if you are not sure about suitability, you can leave this blank</p>
+                                        <div class="checkboxes">
+                                            <a href="javascript:;" class="select-all-checkboxes">Select all</a>
+
+                                            @for(var i = 0; i < Model.Suitabilities.Count; i++) 
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" asp-for="@Model.Suitabilities[i].IsSelected" />
+                                                        <input type="hidden" asp-for="@Model.Suitabilities[i].Name" />
+                                                        <span>@Model.Suitabilities[i].Name</span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <label>Select which age ranges your group or service is for</label>
+                                        <div class="checkboxes">
+                                            <a href="javascript:;" class="select-all-checkboxes">Select all</a>
+
+                                            @for (var i = 0; i < Model.AgeRanges.Count; i++)
+                                            {
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" asp-for="@Model.AgeRanges[i].IsSelected" />
+                                                        <input type="hidden" asp-for="@Model.AgeRanges[i].Name" />
+                                                        <span>@Model.AgeRanges[i].Name</span>
+                                                    </label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </section>
                                     <h2>Contact details</h2>
                                     <section>
                                         <label asp-for="@Model.Email"></label>

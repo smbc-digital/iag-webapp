@@ -808,3 +808,18 @@ ul.nav-card-events-list {
         }
     }
 }
+
+.group-calender-container-image {
+    flex: 1;
+    padding-left: 0px;
+
+    @media #{$mobile} {
+        flex: none;
+        min-height: 300px;
+    }
+
+    @media #{$tablet} {
+        flex: none;
+        min-height: 400px;
+    }
+}

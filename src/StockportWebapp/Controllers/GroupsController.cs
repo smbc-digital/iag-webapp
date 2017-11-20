@@ -984,8 +984,10 @@ namespace StockportWebapp.Controllers
             model.VolunteeringText = GetVolunteeringText(group.VolunteeringText);
             model.AvailableCategories = await GetAvailableGroupCategories();
             model.AdditionalInformation = group.AdditionalInformation;
+            model.Suitabilities.Where(_ => group.SuitableFor.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
+            model.AgeRanges.Where(_ => group.AgeRange.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
 
-           return View(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -1028,6 +1030,10 @@ namespace StockportWebapp.Controllers
 
             group.CategoriesReference = new List<GroupCategory>();
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));
+
+            group.SuitableFor = model.Suitabilities.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
+            group.AgeRange = model.AgeRanges.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
+            
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {

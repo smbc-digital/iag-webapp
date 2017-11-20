@@ -61,7 +61,9 @@ namespace StockportWebapp.Utils
                 VolunteeringText = groupSubmission.Volunteering ? groupSubmission.VolunteeringText : "-",
                 VolunteeringNeeded = groupSubmission.Volunteering,
                 Facebook = groupSubmission.Facebook,
-                Twitter = groupSubmission.Twitter
+                Twitter = groupSubmission.Twitter,
+                AgeRanges = groupSubmission.AgeRanges.Where(o => o.IsSelected).Select(o => o.Name).ToList(),
+                Suitabilities = groupSubmission.Suitabilities.Where(o => o.IsSelected).Select(o => o.Name).ToList()
             };
 
             return _emailClient.SendEmailToService(new EmailMessage(messageSubject, _emailClient.GenerateEmailBodyFromHtml(emailBody),
