@@ -29,7 +29,7 @@ namespace StockportWebapp.Scheduler
             var trigger = TriggerBuilder.Create()
                 .StartNow()
                 .WithSimpleSchedule(x => x
-                        .WithIntervalInSeconds(10)
+                        .WithIntervalInSeconds(3600)
                         .RepeatForever())
                 .Build();
 
