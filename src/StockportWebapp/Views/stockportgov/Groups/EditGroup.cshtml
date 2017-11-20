@@ -179,7 +179,7 @@
                                         <label asp-for="@Model.AdditionalInformation" class="label-for-checkbox"></label>
                                         <div class="switch">
                                             <label>
-                                                <input id="additional-information" type="checkbox">
+                                                <input id="additional-information" type="checkbox" checked="@(!string.IsNullOrEmpty(Model.AdditionalInformation))" />
                                                 <span class="lever"></span>
                                             </label>
                                         </div>
