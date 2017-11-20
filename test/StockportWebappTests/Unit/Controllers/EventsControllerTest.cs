@@ -39,7 +39,6 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private readonly DateCalculator _datetimeCalculator;
         private readonly Group _group = new GroupBuilder().Build();
-        private readonly Mock<IEmailHandler> _emailHandler = new Mock<IEmailHandler>();
 
         private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
                                                                  "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -90,7 +89,7 @@ namespace StockportWebappTests.Unit.Controllers
             _applicationConfiguration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
                 .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
 
-            _eventEmailBuilder = new EventEmailBuilder(_emaillogger.Object, _emailClient.Object, _applicationConfiguration.Object, new BusinessId("businessId"), _emailHandler.Object);
+            _eventEmailBuilder = new EventEmailBuilder(_emaillogger.Object, _emailClient.Object, _applicationConfiguration.Object, new BusinessId("businessId"));
 
             _mockRssFeedFactory = new Mock<IRssFeedFactory>();
             _config = new Mock<IApplicationConfiguration>();

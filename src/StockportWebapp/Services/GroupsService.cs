@@ -4,6 +4,8 @@ using StockportWebapp.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
 using StockportWebapp.Entities;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Utils;
@@ -14,18 +16,20 @@ namespace StockportWebapp.Services
     {
         Task<GroupHomepage> GetGroupHomepage();
         Task<List<GroupCategory>> GetGroupCategories();
-        Task<IEnumerable<Group>> HandleArchivedGroups();
+        Task HandleArchivedGroups();
     }
 
     public class GroupsService : IGroupsService
     {
         private IContentApiRepository _contentApiRepository;
-        private IEmailHandler _emailHandler;
+        private IHttpEmailClient _emailClient;
+        private IApplicationConfiguration _configuration;
 
-        public GroupsService(IContentApiRepository contentApiRepository, IEmailHandler emailHandler)
+        public GroupsService(IContentApiRepository contentApiRepository, IHttpEmailClient emailClient, IApplicationConfiguration configuration)
         {
             _contentApiRepository = contentApiRepository;
-            _emailHandler = emailHandler;
+            _emailClient = emailClient;
+            _configuration = configuration;
         }
 
         public async Task<GroupHomepage> GetGroupHomepage()
@@ -38,7 +42,7 @@ namespace StockportWebapp.Services
             return await _contentApiRepository.GetResponse<List<GroupCategory>>();
         }
 
-        public async Task<IEnumerable<Group>> HandleArchivedGroups()
+        public async Task HandleArchivedGroups()
         {
             var allGroups = await _contentApiRepository.GetResponseWithBusinessId<List<Group>>("stockportgov");
 
@@ -47,22 +51,34 @@ namespace StockportWebapp.Services
                 throw new GroupsServiceException("No groups were returned from content api");
             }
 
-            var stageOneGroups = FilterGroupsByStage(allGroups, 180);
+            var emailPeriods = _configuration.GetArchiveEmailPeriods();
 
-            foreach (var stageOneGroup in stageOneGroups.ToList())
+            if (emailPeriods == null || !emailPeriods.Any())
+            {
+                throw new GroupsServiceException("No periods returned from the service");
+            }
+
+            var fromAddress = _configuration.GetGroupArchiveEmail("stockportgov");
+
+            emailPeriods.ForEach(period =>
+            {
+                var stagedGroups = FilterGroupsByStage(allGroups, period.NumOfDays);
+
+                SendEmailToGroups(stagedGroups, period.Template, period.Subject, fromAddress.ToString());
+            });
+        }
+
+        private void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress)
+        {
+            var handleArchivedGroups = stageOneGroups as IList<Group> ?? stageOneGroups.ToList();
+            foreach (var stageOneGroup in handleArchivedGroups.ToList())
             {
                 stageOneGroup.GroupAdministrators.Items
                     .Where(_ => _.Permission == "A")
-                    .Select(_ => new EmailEntity
-                        {
-                            Recipient = _.Email,
-                            Body = _emailHandler.GenerateEmailBodyFromHtml(_, "ArchiveGroupScheduler")
-                        })
+                    .Select(_ => new EmailMessage(subject, _emailClient.GenerateEmailBodyFromHtml(_, template), fromAddress, _.Email, null))
                     .ToList()
-                    .ForEach(entity => _emailHandler.SendEmail(entity));
+                    .ForEach(entity => _emailClient.SendEmailToService(entity));
             }
-
-            return stageOneGroups;
         }
 
         private static IEnumerable<Group> FilterGroupsByStage(IEnumerable<Group> allGroups, int numDays)

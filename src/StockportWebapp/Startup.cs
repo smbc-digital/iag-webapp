@@ -22,6 +22,7 @@ using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
 using StockportWebapp.Configuration;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Services;
 using StockportWebapp.Wrappers;
 
@@ -143,8 +144,11 @@ namespace StockportWebapp
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
             await scheduler.Start();
 
-            var groupArchiveScheduler = new GroupArchiveScheduler(serviceProvider.GetService<IGroupsService>());
-            await groupArchiveScheduler.Start();
+            if (serviceProvider.GetService<FeatureToggles>().GroupArchiveEmails)
+            {
+                var groupArchiveScheduler = new GroupArchiveScheduler(serviceProvider.GetService<IGroupsService>());
+                await groupArchiveScheduler.Start();
+            }
 
             app.UseMiddleware<BusinessIdMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();

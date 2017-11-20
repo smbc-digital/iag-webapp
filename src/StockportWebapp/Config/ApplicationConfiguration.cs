@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using StockportWebapp.app_config.ConfigModels;
 
 namespace StockportWebapp.Config
 {
@@ -38,6 +41,7 @@ namespace StockportWebapp.Config
         AppSetting GetDemocracyHomeLink();
         string GetStockportHomeLink();
         string GetDigitalStockportLink();
+        List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -159,6 +163,13 @@ namespace StockportWebapp.Config
         public AppSetting GetReCaptchaKey()
         {
             return AppSetting.GetAppSetting(_appsettings[$"ReCaptcha:SiteKey"]);
+        }
+
+        public List<ArchiveEmailPeriod> GetArchiveEmailPeriods()
+        {
+            var emailPeriods = new List<ArchiveEmailPeriod>();
+            _appsettings.GetSection("stockportgov:GroupArchiveEmailPeriods").Bind(emailPeriods);
+            return emailPeriods;
         }
 
         public int GetFooterCache(string businessId)

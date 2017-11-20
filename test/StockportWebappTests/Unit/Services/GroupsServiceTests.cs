@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Moq;
+using StockportWebapp.app_config.ConfigModels;
+using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
 using StockportWebapp.Entities;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
@@ -19,18 +22,22 @@ namespace StockportWebappTests.Unit.Services
     {
         private readonly Mock<IContentApiRepository> _mockRepository = new Mock<IContentApiRepository>();
         private readonly GroupsService _service;
-        private readonly Mock<IEmailHandler> _emailHandler = new Mock<IEmailHandler>();
+        private readonly Mock<IHttpEmailClient> _emailClient = new Mock<IHttpEmailClient>();
+        private readonly Mock<IApplicationConfiguration> _applicationConfiguration = new Mock<IApplicationConfiguration>();
 
         public GroupsServiceTests()
         {
-            _service = new GroupsService(_mockRepository.Object, _emailHandler.Object);;
+            _service = new GroupsService(_mockRepository.Object, _emailClient.Object, _applicationConfiguration.Object);;
+            _applicationConfiguration.Setup(_ => _.GetGroupArchiveEmail("stockportgov")).Returns(() => AppSetting.GetAppSetting("test"));
         }
 
         [Fact]
         public async void HandleArchivedGroupsShouldCallContentApiRepository()
         {
             // Arrange
-
+            _mockRepository.Setup(_ => _.GetResponseWithBusinessId<List<Group>>(It.IsAny<string>())).ReturnsAsync(new List<Group> {new GroupBuilder().Build()});
+            _applicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(
+                new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { Template = "", NumOfDays = 180 }, new ArchiveEmailPeriod { Template = "", NumOfDays = 270 } });
             // Act
             await _service.HandleArchivedGroups();
 
@@ -45,46 +52,29 @@ namespace StockportWebappTests.Unit.Services
             _mockRepository.Setup(_ => _.GetResponseWithBusinessId<List<Group>>(It.IsAny<string>()))
                 .ReturnsAsync(new List<Group>());
 
-         // Assert
+            // Assert
             await Assert.ThrowsAsync<GroupsServiceException>(() => _service.HandleArchivedGroups());
         }
 
         [Fact]
-        public async void HandleArchivedGroups_ShouldFilterStageOneGroups()
-        {
-            // Arrange
-            _mockRepository.Setup(_ => _.GetResponseWithBusinessId<List<Group>>(It.IsAny<string>())).ReturnsAsync(new List<Group>
-            {
-                new GroupBuilder().Slug("recently-updated").DateLastModified(DateTime.Now.AddDays(-10)).Build(),
-                new GroupBuilder().Slug("still-recently-updated").DateLastModified(DateTime.Now.AddDays(-20)).Build(),
-                new GroupBuilder().Slug("updated-more-than-six-months-ago").DateLastModified(DateTime.Now.AddDays(-180)).Build()
-            });
-
-            // Act
-            var result = await _service.HandleArchivedGroups();
-
-            // Assert
-            result.ToList().Count.Should().Be(1);
-        }
-
-        [Fact]
-        public async void HandleArchivedGroups_ShouldEmailStageOneGroupsAdministrators()
+        public async void HandleArchivedGroups_ShouldEmailStagedGroupsAdministrators()
         {
             // Arrange
             _mockRepository.Setup(_ => _.GetResponseWithBusinessId<List<Group>>(It.IsAny<string>())).ReturnsAsync(new List<Group>
             {
                 new GroupBuilder().Slug("recently-updated").DateLastModified(DateTime.Now.AddDays(-10)).Build(),
                 new GroupBuilder().Slug("still-recently-updated").DateLastModified(DateTime.Now.AddDays(-180)).Build(),
-                new GroupBuilder().Slug("updated-more-than-six-months-ago").DateLastModified(DateTime.Now.AddDays(-180)).Build()
-            });            
+                new GroupBuilder().Slug("updated-more-than-six-months-ago").DateLastModified(DateTime.Now.AddDays(-270)).Build()
+            });
 
+            _applicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(
+                new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { Template = "", NumOfDays = 180 }, new ArchiveEmailPeriod { Template = "", NumOfDays = 270 } });
 
-            
             // Act
             await _service.HandleArchivedGroups();
 
             // Assert
-            _emailHandler.Verify(_ => _.SendEmail(It.IsAny<EmailEntity>()), Times.Exactly(2));
+            _emailClient.Verify(_ => _.SendEmailToService(It.IsAny<EmailMessage>()), Times.Exactly(2));
         }
 
         [Fact]
@@ -101,21 +91,79 @@ namespace StockportWebappTests.Unit.Services
                     {
                         Items = new List<GroupAdministratorItems>
                         {
-                            new GroupAdministratorItems { Email = "correct-recipient@thing.com" }
+                            new GroupAdministratorItems { Email = "correct-recipient@thing.com", Permission = "A"}
                         }
                     })
                  .DateLastModified(DateTime.Now.AddDays(-180)).Build()
             });
 
-            _emailHandler.Setup(_ =>
-                    _.GenerateEmailBodyFromHtml(It.IsAny<GroupAdministratorItems>(), "ArchiveGroupScheduler"))
+            _emailClient.Setup(_ =>
+                    _.GenerateEmailBodyFromHtml(It.IsAny<GroupAdministratorItems>(), ""))
                 .Returns("body");
+
+            _applicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(
+                new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { Template = "", NumOfDays = 180 }, new ArchiveEmailPeriod { Template = "", NumOfDays = 270 } });
 
             // Act
             await _service.HandleArchivedGroups();
 
             // Assert
-            _emailHandler.Verify(_ => _.SendEmail(It.Is<EmailEntity>(entity => entity.Recipient == "correct-recipient@thing.com" && entity.Body == "body")), Times.Once());
+            _emailClient.Verify(_ => _.SendEmailToService(It.Is<EmailMessage>(entity => entity.ToEmail == "correct-recipient@thing.com" && entity.Body == "body")), Times.Once());
+        }
+
+        [Fact]
+        public async void HandleArchivedGroups_ShouldGetEmailPeriodsFromConfig()
+        {
+            // Arrange
+            _mockRepository.Setup(_ => _.GetResponseWithBusinessId<List<Group>>(It.IsAny<string>())).ReturnsAsync(new List<Group>
+            {
+                new GroupBuilder().Slug("recently-updated").DateLastModified(DateTime.Now.AddDays(-10)).Build(),
+                new GroupBuilder().Slug("still-recently-updated").DateLastModified(DateTime.Now.AddDays(-20)).Build(),
+                new GroupBuilder().Slug("updated-more-than-six-months-ago")
+                    .GroupAdministrators(
+                        new GroupAdministrators
+                        {
+                            Items = new List<GroupAdministratorItems>
+                            {
+                                new GroupAdministratorItems { Email = "correct-recipient@thing.com", Permission = "A"}
+                            }
+                        })
+                    .DateLastModified(DateTime.Now.AddDays(-180)).Build()
+            });
+
+            _applicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(
+                new List<ArchiveEmailPeriod> {new ArchiveEmailPeriod {Template = "", NumOfDays = 0}});
+
+            // Act
+            await _service.HandleArchivedGroups();
+
+            // Assert
+            _applicationConfiguration.Verify(_ => _.GetArchiveEmailPeriods(), Times.Once);
+        }
+
+        [Fact]
+        public async void HandleArchivedGroups_ShouldThrowExceptionWhenNoPeriodsReturned()
+        {
+            // Arrange
+            _mockRepository.Setup(_ => _.GetResponseWithBusinessId<List<Group>>(It.IsAny<string>())).ReturnsAsync(new List<Group>
+            {
+                new GroupBuilder().Slug("recently-updated").DateLastModified(DateTime.Now.AddDays(-10)).Build(),
+                new GroupBuilder().Slug("still-recently-updated").DateLastModified(DateTime.Now.AddDays(-20)).Build(),
+                new GroupBuilder().Slug("updated-more-than-six-months-ago")
+                    .GroupAdministrators(
+                        new GroupAdministrators
+                        {
+                            Items = new List<GroupAdministratorItems>
+                            {
+                                new GroupAdministratorItems { Email = "correct-recipient@thing.com", Permission = "A"}
+                            }
+                        })
+                    .DateLastModified(DateTime.Now.AddDays(-180)).Build()
+            });
+
+
+            // Act Assert
+            await Assert.ThrowsAsync<GroupsServiceException>(() => _service.HandleArchivedGroups());
         }
     }
 }

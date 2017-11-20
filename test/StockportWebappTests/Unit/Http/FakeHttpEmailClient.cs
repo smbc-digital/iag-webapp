@@ -11,5 +11,10 @@ namespace StockportWebappTests.Unit.Http
         {
             return Task.FromResult(HttpStatusCode.OK);
         }
+
+        public string GenerateEmailBodyFromHtml<T>(T details, string templateName = null)
+        {
+            return "";
+        }
     }
 }

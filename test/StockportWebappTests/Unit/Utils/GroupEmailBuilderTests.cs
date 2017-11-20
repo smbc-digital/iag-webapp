@@ -38,43 +38,6 @@ namespace StockportWebappTests.Unit.Utils
         }
 
         [Fact]
-        public void ItShouldBuildAEmailBodyFromFormContent()
-        {
-
-            var emailBody = new GroupAdd()
-            {
-                Location = "Address",
-                Categories = "Science, Sport, Music",
-                Name = "Group",
-                Email = "email",
-                Phone = "phone",
-                Website = "http://www.group.org",
-                Description = "Description"
-            };
-
-            var response = _groupEmailBuilder.GenerateEmailBodyFromHtml(emailBody);
-
-            response.Should().Contain("GROUP NAME: Group");
-            response.Should().Contain("LOCATION: Address");
-            response.Should().Contain("WEBSITE: http://www.group.org");
-            response.Should().Contain("DESCRIPTION: Description");
-            response.Should().Contain("EMAIL: email");
-            response.Should().Contain("CATEGORIES: Science, Sport, Music");
-            response.Should().Contain("PHONE: phone");
-        }
-
-        [Fact]
-        public void ItShouldBuildAEmailBodyWithImageFromFormContent()
-        {
-            var emailBody = new GroupAdd() { Image = "filename.jpg" };
-
-            var response = _groupEmailBuilder.GenerateEmailBodyFromHtml(emailBody);
-
-            response.Should().Contain("IMAGE: " + emailBody.Image);
-        }
-
-
-        [Fact]
         public async void ItShouldSendAnEmailAndReturnAStatusCodeOf200()
         {
             _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ToEmail == AppSetting.GetAppSetting("GroupSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
