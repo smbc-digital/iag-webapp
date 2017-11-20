@@ -984,22 +984,8 @@ namespace StockportWebapp.Controllers
             model.VolunteeringText = GetVolunteeringText(group.VolunteeringText);
             model.AvailableCategories = await GetAvailableGroupCategories();
             model.AdditionalInformation = group.AdditionalInformation;
-
-            foreach (var item in model.Suitabilities)
-            {
-                if (group.SuitableFor.Contains(item.Name))
-                {
-                    item.IsSelected = true;
-                }
-            }
-
-            foreach (var item in model.AgeRanges)
-            {
-                if (group.AgeRange.Contains(item.Name))
-                {
-                    item.IsSelected = true;
-                }
-            }
+            model.Suitabilities.Where(_ => group.SuitableFor.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
+            model.AgeRanges.Where(_ => group.AgeRange.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
 
             return View(model);
         }
