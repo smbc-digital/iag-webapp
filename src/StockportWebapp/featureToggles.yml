@@ -6,18 +6,18 @@ prod: &prod
 
 stage: &stage
   << : *prod
+  HealthyStockportHomepageEvents : true
+  MultiStepForm: true
 
 qa: &qa
   << : *prod
   << : *stage
-  HealthyStockportHomepageEvents : true
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
   GroupAdditionalInformation : true
-  MultiStepForm: true
 
 local: &local
   << : *prod
