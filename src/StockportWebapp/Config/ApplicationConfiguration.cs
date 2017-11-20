@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
-using StockportWebapp.app_config.ConfigModels;
+using StockportWebapp.Config;
 
 namespace StockportWebapp.Config
 {

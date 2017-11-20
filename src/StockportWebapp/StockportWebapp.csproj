@@ -32,6 +32,7 @@
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
+    <EmbeddedResource Remove="emails\templates\testTemplate.html" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
