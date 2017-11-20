@@ -37,6 +37,8 @@ namespace StockportWebapp.Models
         public string AccessibleTransportLink { get; set; }
         public string AdditionalInformation { get; set; }
         public List<Document> AdditionalDocuments { get; set; }
+        public List<string> SuitableFor { get; set; }
+        public List<string> AgeRange { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl,

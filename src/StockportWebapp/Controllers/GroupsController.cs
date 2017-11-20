@@ -985,7 +985,23 @@ namespace StockportWebapp.Controllers
             model.AvailableCategories = await GetAvailableGroupCategories();
             model.AdditionalInformation = group.AdditionalInformation;
 
-           return View(model);
+            foreach (var item in model.Suitabilities)
+            {
+                if (group.SuitableFor.Contains(item.Name))
+                {
+                    item.IsSelected = true;
+                }
+            }
+
+            foreach (var item in model.AgeRanges)
+            {
+                if (group.AgeRange.Contains(item.Name))
+                {
+                    item.IsSelected = true;
+                }
+            }
+
+            return View(model);
         }
 
         [HttpPost]
@@ -1028,6 +1044,10 @@ namespace StockportWebapp.Controllers
 
             group.CategoriesReference = new List<GroupCategory>();
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));
+
+            group.SuitableFor = model.Suitabilities.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
+            group.AgeRange = model.AgeRanges.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
+            
 
             if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
