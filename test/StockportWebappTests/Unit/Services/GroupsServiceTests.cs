@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Moq;
-using StockportWebapp.app_config.ConfigModels;
+using StockportWebapp.Config;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Entities;
