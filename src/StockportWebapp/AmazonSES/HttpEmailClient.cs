@@ -48,7 +48,7 @@ namespace StockportWebapp.AmazonSES
 
         public string GenerateEmailBodyFromHtml<T>(T details, string templateName = null)
         {
-            var template = typeof(T).Name;
+            var template = !string.IsNullOrEmpty(templateName) ? templateName : typeof(T).Name;
 
             var layout = GetEmailTemplateForLayout();
             var body = GetEmailTemplateForBody(template);

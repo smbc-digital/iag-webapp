@@ -25,7 +25,7 @@ namespace StockportWebapp.Scheduler
         {
             try
             {
-                await _groupsService.HandleArchivedGroups();
+                await _groupsService.HandleStaleGroups();
             }
             catch (GroupsServiceException e)
             {

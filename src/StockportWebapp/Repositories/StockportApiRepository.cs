@@ -4,6 +4,8 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportWebapp.Extensions;
 
@@ -15,6 +17,8 @@ namespace StockportWebapp.Repositories
         Task<T> GetResponse<T>(string extra);
         Task<T> GetResponse<T>(List<Query> queries);
         Task<T> GetResponse<T>(string extra, List<Query> queries);
+        Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent);
+        Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent, string extra);
     }
     
     // TODO: Test this
@@ -60,5 +64,23 @@ namespace StockportWebapp.Repositories
 
             return await GetResponseAsync<T>(url);
         }
+
+        #region PUT Methods
+
+        public async Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent)
+        {
+            var url = _urlGeneratorSimple.StockportApiUrl<T>();
+            return await PutResponseAsync<T>(url, httpContent);
+        }
+
+
+        public async Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent, string extra)
+        {
+            var url = _urlGeneratorSimple.StockportApiUrl<T>().AddSlug(extra);
+            return await PutResponseAsync<T>(url, httpContent);
+        }
+
+
+        #endregion
     }
 }

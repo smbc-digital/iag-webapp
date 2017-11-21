@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using System;
+using System.Net;
+using System.Net.Http;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 
@@ -40,6 +42,20 @@ namespace StockportWebapp.Repositories
             {
                 _logger.LogError(new EventId(0), ex, $"Error getting response for url {url}");
                 return default(T);
+            }
+        }
+
+        public async Task<HttpStatusCode> PutResponseAsync<T>(string url, HttpContent httpContent)
+        {
+            try
+            {
+                var response = await _httpClient.PutAsync(url, httpContent,_authenticationHeaders);
+                return (HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), response.StatusCode.ToString());
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(new EventId(0), ex, $"Error getting response for url {url}");
+                throw;
             }
         }
 

@@ -5,6 +5,8 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace StockportWebapp.Repositories
@@ -15,23 +17,18 @@ namespace StockportWebapp.Repositories
         Task<T> GetResponse<T>(string extra);
         Task<T> GetResponse<T>(List<Query> queries);
         Task<T> GetResponse<T>(string extra, List<Query> queries);
-        Task<T> GetResponseWithBusinessId<T>(string businessId);
+        Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent);
+        Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent, string extra);
     }
 
     // TODO: Test this
     public class ContentApiRepository : BaseRepository, IContentApiRepository
     {
-        private readonly IHttpClient _httpClient;
-        private readonly IApplicationConfiguration _config;
         private readonly IUrlGeneratorSimple _urlGeneratorSimple;
-        private readonly ILogger<BaseRepository> _logger;
 
         public ContentApiRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple, ILogger<BaseRepository> logger) : base(httpClient, config, logger)
         {
-            _httpClient = httpClient;
-            _config = config;
             _urlGeneratorSimple = urlGeneratorSimple;
-            _logger = logger;
         }
 
         #region GET Methods
@@ -63,12 +60,23 @@ namespace StockportWebapp.Repositories
             return await GetResponseAsync<T>(url);
         }
 
-        public async Task<T> GetResponseWithBusinessId<T>(string businessId)
-        {
-            var url = _urlGeneratorSimple.BaseContentApiUrl<T>(businessId);
+        #endregion
 
-            return await GetResponseAsync<T>(url);
+        #region PUT Methods
+
+        public async Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent)
+        {
+            var url = _urlGeneratorSimple.BaseContentApiUrl<T>();
+            return await PutResponseAsync<T>(url, httpContent);
         }
+
+
+        public async Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent, string extra)
+        {
+            var url = _urlGeneratorSimple.BaseContentApiUrl<T>().AddSlug(extra);
+            return await PutResponseAsync<T>(url, httpContent);
+        }
+        
 
         #endregion
     }
