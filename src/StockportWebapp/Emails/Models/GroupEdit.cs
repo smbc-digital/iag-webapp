@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp.Emails.Models
+﻿using System.Collections.Generic;
+
+namespace StockportWebapp.Emails.Models
 {
     public class GroupEdit
     {
@@ -11,5 +13,7 @@
         public string Phone { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
+        public List<string> Suitabilities { get; set; }
+        public List<string> AgeRanges { get; set; }
     }
 }

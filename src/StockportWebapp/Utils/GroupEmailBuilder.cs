@@ -172,9 +172,19 @@ namespace StockportWebapp.Utils
 
             _logger.LogInformation("Sending edit group email");
 
-            var emailBody = new GroupEdit() { Name = group.Name, Categories = group.CategoriesList, Description = group.Description,
-                                              Email = group.Email, Location = group.Address, Facebook = group.Facebook, Phone = group.PhoneNumber,
-                                              Twitter = group.Twitter, Website = group.Website};
+            var emailBody = new GroupEdit {
+                Name = group.Name,
+                Categories = group.CategoriesList,
+                Description = group.Description,
+                Email = group.Email,
+                Location = group.Address,
+                Facebook = group.Facebook,
+                Phone = group.PhoneNumber,
+                Twitter = group.Twitter,
+                Website = group.Website,
+                AgeRanges = group.AgeRanges.Where(o => o.IsSelected).Select(o => o.Name).ToList(),
+                Suitabilities = group.Suitabilities.Where(o => o.IsSelected).Select(o => o.Name).ToList()
+            };
 
             var message = new EmailMessage(messageSubject,
                                             _emailClient.GenerateEmailBodyFromHtml(emailBody),
