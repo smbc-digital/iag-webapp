@@ -126,19 +126,20 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> IndexWithCategory(string category, [FromQuery] int page, [FromQuery] int pageSize)
         {
             var categories = await _stockportApiEventsService.GetEventCategories();
-            if (!categories.Any() && categories.Any(c => c.Slug == category)) return View();
-
-            var events = await _stockportApiEventsService.GetEventsByCategory(category, false);
-            
-            if (!events.Any()) return View();
-
-            var eventCategory = categories.FirstOrDefault(c => c.Slug == category);
 
             var viewModel = new EventResultsVIewModel()
             {
-                Title = eventCategory != null ? eventCategory.Name : category, 
-                Events = events
+                Title = category
             };
+
+            var events = await _stockportApiEventsService.GetEventsByCategory(category, false);
+
+            if (events == null || !events.Any()) return View("Index", viewModel);
+
+            var eventCategory = categories.FirstOrDefault(c => c.Slug == category);
+
+            viewModel.Title = eventCategory != null ? eventCategory.Name : category;
+            viewModel.Events = events;
 
             viewModel.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(viewModel.CurrentUrl);
@@ -222,6 +223,8 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> EventDetail(string slug, [FromQuery] DateTime? date = null)
         {
             var eventItem = await _stockportApiEventsService.GetProcessedEvent(slug, date);
+
+            if (eventItem == null) return NotFound();
 
             ViewBag.CurrentUrl = Request?.GetUri();
 

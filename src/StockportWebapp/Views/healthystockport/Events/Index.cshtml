@@ -17,12 +17,6 @@
 }
 
 <div class="l-page-content">
-    <div class="grid-parent hs-event-header">
-        <div id="content" class="hs-event-title grid-100 tablet-grid-100">
-            <i class="hs-event-icon-container hide-on-mobile fa fa-calendar-check-o"></i>
-            <span class="hs-event-title-container">@($"{Model.Title} events")</span>
-        </div>
-    </div>
     <div class="grid-container" id="event-listing-container">
 
         @if (Model.Events == null || !Model.Events.Any())
@@ -34,6 +28,13 @@
         }
         else
         {
+            <div class="grid-parent hs-event-header">
+                <div id="content" class="hs-event-title grid-100 tablet-grid-100">
+                    <i class="hs-event-icon-container hide-on-mobile fa fa-calendar-check-o"></i>
+                    <span class="hs-event-title-container">@($"{Model.Title} events")</span>
+                </div>
+            </div>
+
              foreach (var eventItem in Model.Events)
              {
                  var start = string.Empty;
@@ -56,7 +57,7 @@
 
                  previousEnteredDate = eventItem.EventDate.Date;
              }
-            @if (hasEvents)
+             if (hasEvents)
              {
                  @Html.Raw("</div>")
                  @Html.Partial("Pagination", Model.Pagination)

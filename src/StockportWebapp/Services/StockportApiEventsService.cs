@@ -45,6 +45,9 @@ namespace StockportWebapp.Services
             if (date.HasValue) queries.Add(new Query("date", date.Value.ToString("yyyy-MM-dd")));
 
             var eventItem = await _stockportApiRepository.GetResponse<Event>(slug, queries);
+
+            if (eventItem == null) return null;
+
             var processedEvent = _eventFactory.Build(eventItem);
             return processedEvent;
         }

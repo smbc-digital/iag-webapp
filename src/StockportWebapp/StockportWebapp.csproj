@@ -17,16 +17,19 @@
     <None Include="app-config\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
     <None Include="pdf.js" CopyToPublishDirectory="PreserveNewest" />
-    <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
+    <Compile Remove="node_modules\**" />
     <Compile Remove="Views\thirdsite\**" />
     <Compile Remove="wwwroot\assets\javascript\thirdsite\**" />
     <Compile Remove="wwwroot\assets\sass\thirdsite\**" />
+    <Content Remove="node_modules\**" />
     <Content Remove="Views\thirdsite\**" />
     <Content Remove="wwwroot\assets\javascript\thirdsite\**" />
     <Content Remove="wwwroot\assets\sass\thirdsite\**" />
+    <EmbeddedResource Remove="node_modules\**" />
     <EmbeddedResource Remove="Views\thirdsite\**" />
     <EmbeddedResource Remove="wwwroot\assets\javascript\thirdsite\**" />
     <EmbeddedResource Remove="wwwroot\assets\sass\thirdsite\**" />
+    <None Remove="node_modules\**" />
     <None Remove="Views\thirdsite\**" />
     <None Remove="wwwroot\assets\javascript\thirdsite\**" />
     <None Remove="wwwroot\assets\sass\thirdsite\**" />

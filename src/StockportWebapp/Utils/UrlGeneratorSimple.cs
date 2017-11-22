@@ -57,7 +57,7 @@ namespace StockportWebapp.Utils
             {typeof(GroupAdvisor), "groups/advisors/"},
             {typeof(Document), "documents/"},
             {typeof(List<Event>), "events"},
-            {typeof(SmartResult), "smart-result/"}
+            {typeof(SmartResult), "smart-result"}
         };
 
         public UrlGeneratorSimple(IApplicationConfiguration config, BusinessId businessId)

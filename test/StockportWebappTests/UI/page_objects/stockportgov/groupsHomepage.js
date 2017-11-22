@@ -122,7 +122,6 @@
         browser.useXpath().click(".//ul[@class='breadcrumb']//a[@href='/groups']");
     }
 };
-
 module.exports = {
     commands: [methods],
     url: function () {

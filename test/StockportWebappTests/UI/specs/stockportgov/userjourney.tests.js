@@ -245,6 +245,24 @@ module.exports = {
 
     },
 
+    'Change a groups information': function(browser) {
+        var manageGroups = browser.page.stockportgov.manageGroups();
+        manageGroups.navigate();
+        manageGroups.assertManageGroupsHeadingIsVisible("Manage your groups");
+        manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
+        manageGroups.assertEditGroupIsVisibleAndGoToEditGroupPage(browser);
+        manageGroups.assertMultistepFormHeadingIsVisible(browser);
+        manageGroups.clearNameValueFromForm(browser);
+        manageGroups.assertNextIsVisibleButtonAndClick(browser);
+        manageGroups.assertValidationErrors(browser);
+        manageGroups.enterValidName(browser);
+        manageGroups.assertNextIsVisibleButtonAndClick(browser);
+        manageGroups.assertNextIsVisibleButtonAndClick(browser);
+        manageGroups.assertNextIsVisibleButtonAndClick(browser);
+        manageGroups.assertEditGroupButtonAndClick(browser);
+        manageGroups.assertTitleIsVisible("Edit group");
+    },
+
     after: function (browser, done) {
         setTimeout(function () {
             done();
