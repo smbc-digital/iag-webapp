@@ -1,84 +1,88 @@
-﻿<footer>
+﻿@using StockportWebapp.Config
+@inject IApplicationConfiguration ApplicationConfiguration
+
+@{ var democracyHomeLink = ApplicationConfiguration.GetDemocracyHomeLink();}
+<footer>
     <div class="atoz">
         <h2> Find services A-Z </h2>
         <div class="alphabet">
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/a">A</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/a">A</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/b">B</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/b">B</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/c">C</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/c">C</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/d">D</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/d">D</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/e">E</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/e">E</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/f">F</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/f">F</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/g">G</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/g">G</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/h">H</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/h">H</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/i">I</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/i">I</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/j">J</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/j">J</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/k">K</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/k">K</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/l">L</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/l">L</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/m">M</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/m">M</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/n">N</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/n">N</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/o">O</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/o">O</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/p">P</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/p">P</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/q">Q</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/q">Q</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/r">R</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/r">R</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/s">S</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/s">S</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/t">T</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/t">T</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/u">U</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/u">U</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/v">V</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/v">V</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/w">W</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/w">W</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/x">X</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/x">X</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/y">Y</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/y">Y</a>
             </div>
             <div class="letter ">
-                <a class="letter-bordered" href="/atoz/z">Z</a>
+                <a class="letter-bordered" href="@democracyHomeLink/atoz/z">Z</a>
             </div>
         </div>
     </div>
@@ -119,16 +123,16 @@
                         <ul class="footer-nav">
 
                             <li class="grid-50 tablet-grid-50 mobile-grid-100">
-                                <a href="/topic/contact-us">Contact us</a>
+                                <a href="@democracyHomeLink/topic/contact-us">Contact us</a>
                             </li>
                             <li class="grid-50 tablet-grid-50 mobile-grid-100">
-                                <a href="/cookies">Cookies</a>
+                                <a href="@democracyHomeLink/cookies">Cookies</a>
                             </li>
                             <li class="grid-50 tablet-grid-50 mobile-grid-100">
-                                <a href="/topic/data-protection">Data protection</a>
+                                <a href="@democracyHomeLink/topic/data-protection">Data protection</a>
                             </li>
                             <li class="grid-50 tablet-grid-50 mobile-grid-100">
-                                <a href="/freedom-of-information">Freedom of Information</a>
+                                <a href="@democracyHomeLink/freedom-of-information">Freedom of Information</a>
                             </li>
                             <li class="grid-50 tablet-grid-50 mobile-grid-100">
                                 <a class="typeform-share link" data-mode="1" target="_blank" href="https://stockportcouncil.typeform.com/to/dXTax7">Feedback</a>
