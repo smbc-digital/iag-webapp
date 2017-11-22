@@ -143,6 +143,8 @@ namespace StockportWebappTests
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupHomepage.json")));
             Client.For("http://localhost:5001/stockportgov/smart/smart-test")
                 .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Smart.json")));
+            Client.For("http://localhost:5001/stockportgov/groups/")
+                .Return(HttpResponse.Successful(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupListing.json")));
             #endregion
 
             #region healthystockport
