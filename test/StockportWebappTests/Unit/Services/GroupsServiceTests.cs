@@ -9,16 +9,15 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.AmazonSES;
-using StockportWebapp.Config;
-using StockportWebapp.Entities;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
-using StockportWebapp.Utils;
 using StockportWebappTests.Builders;
 using Xunit;
+using StockportWebapp.ViewModels;
+using FluentAssertions;
 
 namespace StockportWebappTests.Unit.Services
 {
@@ -30,6 +29,7 @@ namespace StockportWebappTests.Unit.Services
         private readonly Mock<IHttpEmailClient> _mockEmailClient = new Mock<IHttpEmailClient>();
         private readonly Mock<IApplicationConfiguration> _mockApplicationConfiguration = new Mock<IApplicationConfiguration>();
         private readonly Mock<ILogger<GroupsService>> _mockLogger = new Mock<ILogger<GroupsService>>();
+        private const int MaxNumberOfItemsPerPage = 9;
 
         public GroupsServiceTests()
         {
@@ -213,6 +213,73 @@ namespace StockportWebappTests.Unit.Services
             // Assert
             _mockStockportApiRepository.Verify(_ => _.PutResponse<Group>(It.IsAny<HttpContent>(), "should-be-archived"), Times.Once);
 
+        }
+
+        [Fact]
+        public void ShouldReturnEmptyPaginationForNoGroups()
+        {
+            // Arrange
+            var groupResults = new GroupResults()
+            {
+                Groups = new List<Group>()
+            };
+
+            // Act
+            _service.DoPagination(groupResults, 0, 0);
+
+            // Assert
+            groupResults.Pagination.ShouldBeEquivalentTo(new Pagination());
+        }
+
+        [Theory]
+        [InlineData(1, 1, 1, 1)]
+        [InlineData(2, 1, 2, 1)]
+        [InlineData(MaxNumberOfItemsPerPage, 1, MaxNumberOfItemsPerPage, 1)]
+        [InlineData(MaxNumberOfItemsPerPage * 3, 1, MaxNumberOfItemsPerPage, 3)]
+        [InlineData(MaxNumberOfItemsPerPage + 1, 2, 1, 2)]
+        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+            int totalNumItems,
+            int requestedPageNumber,
+            int expectedNumItemsOnPage,
+            int expectedNumPages)
+        {
+            var groupResults = new GroupResults();
+            var groups = new List<Group>();
+
+            for(var i = 0; i < totalNumItems; i++)
+            {
+                groups.Add(new GroupBuilder().Build());
+            }
+
+            groupResults.Groups = groups;
+
+            _service.DoPagination(groupResults, requestedPageNumber, MaxNumberOfItemsPerPage);
+
+            groupResults.Groups.Count.Should().Be(expectedNumItemsOnPage);
+            groupResults.Pagination.TotalPages.Should().Be(expectedNumPages);
+        }
+
+        [Theory]
+        [InlineData(0, 50, 1)]
+        [InlineData(5, MaxNumberOfItemsPerPage * 3, 3)]
+        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+            int specifiedPageNumber,
+            int numItems,
+            int expectedPageNumber)
+        {
+            var groupResults = new GroupResults();
+            var groups = new List<Group>();
+
+            for (var i = 0; i < numItems; i++)
+            {
+                groups.Add(new GroupBuilder().Build());
+            }
+
+            groupResults.Groups = groups;
+
+            _service.DoPagination(groupResults, specifiedPageNumber, MaxNumberOfItemsPerPage);
+
+            groupResults.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
         }
     }
 }

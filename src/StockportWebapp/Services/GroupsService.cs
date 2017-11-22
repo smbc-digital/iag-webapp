@@ -14,6 +14,9 @@ using StockportWebapp.Emails.Models;
 using StockportWebapp.Entities;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Utils;
+using System.Text;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Services
 {
@@ -22,6 +25,13 @@ namespace StockportWebapp.Services
         Task<GroupHomepage> GetGroupHomepage();
         Task<List<GroupCategory>> GetGroupCategories();
         Task HandleStaleGroups();
+        void DoPagination(GroupResults groupResults, int currentPageNumber, int pageSize);
+        string GetErrorsFromModelState(ModelStateDictionary modelState);
+        bool DateNowIsNotBetweenHiddenRange(DateTime? hiddenFrom, DateTime? hiddenTo);
+        bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E");
+        string GetVolunteeringText(string volunteeringText);
+        void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress);
+        Task<List<string>> GetAvailableGroupCategories();
     }
 
     public class GroupsService : IGroupsService
@@ -119,7 +129,65 @@ namespace StockportWebapp.Services
             
         }
 
-        private void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress)
+        public void DoPagination(GroupResults groupResults, int currentPageNumber, int pageSize)
+        {
+            if ((groupResults != null) && groupResults.Groups.Any())
+            {
+                var paginatedGroups = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
+                    groupResults.Groups,
+                    currentPageNumber,
+                    "groups",
+                    pageSize,
+                    _configuration.GetGroupsDefaultPageSize("stockportgov"));
+
+                groupResults.Groups = paginatedGroups.Items;
+                groupResults.Pagination = paginatedGroups.Pagination;
+                groupResults.Pagination.CurrentUrl = groupResults.CurrentUrl;
+            }
+            else
+            {
+                groupResults.Pagination = new Pagination();
+            }
+        }
+
+        public string GetErrorsFromModelState(ModelStateDictionary modelState)
+        {
+            var message = new StringBuilder();
+
+            foreach (var state in modelState)
+            {
+                if (state.Value.Errors.Count > 0 && state.Key != "Email")
+                {
+                    message.Append($"{state.Value.Errors.First().ErrorMessage}<br />");
+                }
+            }
+            return message.ToString();
+        }
+
+        public bool DateNowIsNotBetweenHiddenRange(DateTime? hiddenFrom, DateTime? hiddenTo)
+        {
+            var now = DateTime.Now;
+            return hiddenFrom > now || (hiddenTo < now && hiddenTo != DateTime.MinValue) || (hiddenFrom == DateTime.MinValue && hiddenTo == DateTime.MinValue) || (hiddenFrom == null && hiddenTo == null);
+        }
+
+        public bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")
+        {
+            var userPermission = groupAdministrators.FirstOrDefault(a => a.Email.ToUpper() == email.ToUpper())?.Permission;
+
+            if ((userPermission == permission) || (userPermission == "A"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public string GetVolunteeringText(string volunteeringText)
+        {
+            return string.IsNullOrEmpty(volunteeringText) ? "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we�ll be in contact as soon as possible." : volunteeringText;
+        }
+
+        public void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress)
         {
             var handleArchivedGroups = stageOneGroups as IList<Group> ?? stageOneGroups.ToList();
             foreach (var stageOneGroup in handleArchivedGroups.ToList())
@@ -131,6 +199,13 @@ namespace StockportWebapp.Services
                     .ToList()
                     .ForEach(entity => _emailClient.SendEmailToService(entity));
             }
+        }
+
+        public async Task<List<string>> GetAvailableGroupCategories()
+        {
+            var listOfGroupCategories = await GetGroupCategories();
+
+            return listOfGroupCategories != null ? listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList() : null;
         }
 
         private static IEnumerable<Group> FilterGroupsByStage(IEnumerable<Group> allGroups, int numDays)

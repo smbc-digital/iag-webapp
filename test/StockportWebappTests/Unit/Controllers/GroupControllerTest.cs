@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using StockportWebappTests.Builders;
 using StockportWebappTests.Unit.Utils;
 using StockportWebapp.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -29,7 +30,6 @@ namespace StockportWebappTests.Unit.Controllers
         private Mock<IProcessedContentRepository> _processedRepository = new Mock<IProcessedContentRepository>();
         private Mock<GroupEmailBuilder> _groupEmailBuilder;
         private Mock<EventEmailBuilder> _eventEmailBuilder;
-        private const int MaxNumberOfItemsPerPage = 9;
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private Mock<ILogger<GroupsController>> _logger;
         private Mock<IApplicationConfiguration> _configuration = new Mock<IApplicationConfiguration>();
@@ -86,6 +86,8 @@ namespace StockportWebappTests.Unit.Controllers
             // setup mocks
             _groupsService.Setup(o => o.GetGroupCategories()).ReturnsAsync(groupCategories);
             _groupsService.Setup(o => o.GetGroupHomepage()).ReturnsAsync(groupHomepage);
+            _groupsService.Setup(o => o.GetAvailableGroupCategories()).ReturnsAsync(new List<string>());
+            _groupsService.Setup(o => o.GetErrorsFromModelState(It.IsAny<ModelStateDictionary>())).Returns("");
         }
 
         [Fact]
@@ -178,146 +180,6 @@ namespace StockportWebappTests.Unit.Controllers
 
             actionResponse.Should().BeOfType<ViewResult>();
             _groupEmailBuilder.Verify(o => o.SendEmailAddNew(groupSubmission), Times.Never);
-        }
-
-        [Fact]
-        public void ShouldReturnEmptyPaginationForNoGroups()
-        {
-            var emptyRepository = new Mock<IRepository>();
-
-            var _emptyGroupResults = new GroupResults() {Groups = new List<Group>()};
-
-            emptyRepository.Setup(o => o.Get<GroupResults>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-              .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, _emptyGroupResults));
-
-            var mockTime = new Mock<ITimeProvider>();
-            var viewHelper = new ViewHelpers(mockTime.Object);
-
-            var controller = new GroupsController(_processedRepository.Object, emptyRepository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, htmlUtilities.Object, hostHelper, null, _groupsService.Object, _cookiesHelper.Object);
-
-            var search = new GroupSearch
-            {
-                Category = "nonsense",
-                Order = "a-z",
-                Latitude = 0,
-                Longitude = 0
-            };
-
-            var actionResponse =
-               AsyncTestHelper.Resolve(
-                   controller.Results(1, MaxNumberOfItemsPerPage, search)) as ViewResult;
-
-            var viewModel = actionResponse.ViewData.Model as GroupResults;
-
-            viewModel.Groups.Count.Should().Be(0);
-            viewModel.Pagination.TotalItems.Should().Be(0);
-        }
-
-        [Theory]
-        [InlineData(1, 1, 1, 1)]
-        [InlineData(2, 1, 2, 1)]
-        [InlineData(MaxNumberOfItemsPerPage, 1, MaxNumberOfItemsPerPage, 1)]
-        [InlineData(MaxNumberOfItemsPerPage * 3, 1, MaxNumberOfItemsPerPage, 3)]
-        [InlineData(MaxNumberOfItemsPerPage + 1, 2, 1, 2)]
-        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
-            int totalNumItems,
-            int requestedPageNumber,
-            int expectedNumItemsOnPage,
-            int expectedNumPages)
-        {
-            // Arrange
-            var controller = SetUpController(totalNumItems);
-
-            var search = new GroupSearch
-            {
-                Category = "category",
-                Order = "a-z",
-                Latitude = 0,
-                Longitude = 0
-            };
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results(requestedPageNumber, MaxNumberOfItemsPerPage, search)) as ViewResult;
-
-            // Assert
-            var groupResult = actionResponse.ViewData.Model as GroupResults;
-
-            groupResult.Groups.Count.Should().Be(expectedNumItemsOnPage);
-            groupResult.Pagination.TotalPages.Should().Be(expectedNumPages);
-        }
-
-        [Theory]
-        [InlineData(0, 50, 1)]
-        [InlineData(5, MaxNumberOfItemsPerPage * 3, 3)]
-        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
-            int specifiedPageNumber,
-            int numItems,
-            int expectedPageNumber)
-        {
-            // Arrange
-            var controller = SetUpController(numItems);
-
-            var search = new GroupSearch
-            {
-                Category = "",
-                Order = "a-z",
-                Latitude = 0,
-                Longitude = 0
-            };
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results(specifiedPageNumber, MaxNumberOfItemsPerPage, search)) as ViewResult;
-
-            var model = actionResponse.ViewData.Model as GroupResults;
-            // Assert
-            model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
-        }
-
-        [Fact]
-        public void ShouldReturnEmptyPaginationObjectIfNoGroupsExist()
-        {
-            // Arrange
-            const int zeroItems = 0;
-            var controller = SetUpController(zeroItems);
-
-            var search = new GroupSearch
-            {
-                Category = "",
-                Order = "a-z",
-                Latitude = 0,
-                Longitude = 0
-            };
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results(0, MaxNumberOfItemsPerPage, search)) as ViewResult;
-
-            var model = actionResponse.ViewData.Model as GroupResults;
-
-            // Assert
-            model.Pagination.Should().NotBeNull();
-        }
-
-        [Fact]
-        public void ShouldReturnCurrentURLForPagination()
-        {
-            // Arrange
-            int numItems = 10;
-            var controller = SetUpController(numItems);
-
-            var search = new GroupSearch
-            {
-                Category = "",
-                Order = "a-z",
-                Latitude = 0,
-                Longitude = 0
-            };
-
-            // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Results(0, MaxNumberOfItemsPerPage, search)) as ViewResult;
-            var model = actionResponse.ViewData.Model as GroupResults;
-
-            // Assert
-            model.Pagination.CurrentUrl.Should().NotBeNull();
         }
 
         [Fact]

@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
@@ -192,7 +191,7 @@ namespace StockportWebapp.Controllers
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            DoPagination(model, page, pageSize);
+            _groupsService.DoPagination(model, page, pageSize);
 
             if ((model.Categories != null) && model.Categories.Any())
             {
@@ -230,10 +229,11 @@ namespace StockportWebapp.Controllers
             
             try
             {
-                ViewBag.AbsoluteUri = Request.GetUri().AbsoluteUri;
+                ViewBag.AbsoluteUri = Request?.GetUri().AbsoluteUri;
             }
             catch
             {
+                // TODO: Find out a better way todo this
                 //This is for unit tests
                 ViewBag.AbsoluteUri = string.Empty;
             }
@@ -247,7 +247,7 @@ namespace StockportWebapp.Controllers
         {
             var groupSubmission = new GroupSubmission();
 
-            groupSubmission.AvailableCategories = await GetAvailableGroupCategories();
+            groupSubmission.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
 
             return View(groupSubmission);
         }
@@ -257,11 +257,11 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> AddAGroup(GroupSubmission groupSubmission)
         {
-            groupSubmission.AvailableCategories = await GetAvailableGroupCategories();
+            groupSubmission.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
 
             if (!ModelState.IsValid)
             {
-                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
                 return View(groupSubmission);
             }
 
@@ -273,14 +273,7 @@ namespace StockportWebapp.Controllers
             return View(groupSubmission);
         }
 
-        // TODO: Move into service
-        private async Task<List<string>> GetAvailableGroupCategories()
-        {
-            var listOfGroupCategories = await _groupsService.GetGroupCategories();
-
-            return listOfGroupCategories != null ? listOfGroupCategories.Select(logc => logc.Name).OrderBy(c => c).ToList() : null;
-        }
-
+        // TODO: Move into events service
         private async Task<List<string>> GetAvailableEventCategories()
         {
             var response = await _repository.Get<List<EventCategory>>();
@@ -313,7 +306,7 @@ namespace StockportWebapp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
                 return View(submission);
             }
             
@@ -403,7 +396,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -422,7 +415,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -447,13 +440,13 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
             else if (!ModelState.IsValid)
             {
-                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
             }
             else if (group.GroupAdministrators.Items.Any(u => u.Email.ToUpper() == model.GroupAdministratorItem.Email.ToUpper()))
             {
@@ -498,7 +491,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -531,13 +524,13 @@ namespace StockportWebapp.Controllers
 
             var administratorItem = group.GroupAdministrators.Items.Where(i => i.Email == model.GroupAdministratorItem.Email);
 
-            if (!administratorItem.Any() || !HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!administratorItem.Any() || !_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
             else if (!ModelState.IsValid)
             {
-                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
             }
             else
             {
@@ -579,7 +572,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -611,7 +604,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -675,7 +668,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
@@ -684,8 +677,8 @@ namespace StockportWebapp.Controllers
             {
                 Name = group.Name,
                 Slug = slug,
-                Administrator = HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"),
-               IsArchived = DateNowIsNotBetweenHiddenRange(group.DateHiddenFrom, group.DateHiddenTo)
+                Administrator = _groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"),
+               IsArchived = _groupsService.DateNowIsNotBetweenHiddenRange(group.DateHiddenFrom, group.DateHiddenTo)
         };
 
             return View(result);
@@ -701,7 +694,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -725,7 +718,7 @@ namespace StockportWebapp.Controllers
             var eventItem = eventResponse.Content as ProcessedEvents;
             var group = groupResponse.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -750,7 +743,7 @@ namespace StockportWebapp.Controllers
             var eventItem = eventResponse.Content as ProcessedEvents;
             var group = groupResponse.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -786,7 +779,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
             var group = response.Content as ProcessedGroup;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -822,7 +815,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -843,7 +836,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -892,7 +885,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -912,7 +905,7 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"))
             {
                 return NotFound();
             }
@@ -961,7 +954,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
@@ -981,8 +974,8 @@ namespace StockportWebapp.Controllers
             model.Volunteering = group.Volunteering;
             model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
             model.CategoriesList = string.Join(",", model.Categories);
-            model.VolunteeringText = GetVolunteeringText(group.VolunteeringText);
-            model.AvailableCategories = await GetAvailableGroupCategories();
+            model.VolunteeringText = _groupsService.GetVolunteeringText(group.VolunteeringText);
+            model.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
             model.AdditionalInformation = group.AdditionalInformation;
             model.Suitabilities.Where(_ => group.SuitableFor.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
             model.AgeRanges.Where(_ => group.AgeRange.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
@@ -1002,7 +995,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            model.AvailableCategories = await GetAvailableGroupCategories();
+            model.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
             model.Slug = group.Slug;
 
             var categoryResponse = await _repository.Get<List<GroupCategory>>();
@@ -1025,7 +1018,7 @@ namespace StockportWebapp.Controllers
             group.Volunteering = model.Volunteering;
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
             group.Volunteering = model.Volunteering;
-            group.VolunteeringText = GetVolunteeringText(model.VolunteeringText);
+            group.VolunteeringText = _groupsService.GetVolunteeringText(model.VolunteeringText);
             group.AdditionalInformation = model.AdditionalInformation;
 
             group.CategoriesReference = new List<GroupCategory>();
@@ -1035,13 +1028,13 @@ namespace StockportWebapp.Controllers
             group.AgeRange = model.AgeRanges.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
             
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
             else if (!ModelState.IsValid)
             {
-                validationErrors.Append(GetErrorsFromModelState(ModelState));
+                validationErrors.Append(_groupsService.GetErrorsFromModelState(ModelState));
             }
             else
             {
@@ -1183,7 +1176,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
@@ -1248,7 +1241,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
@@ -1328,13 +1321,13 @@ namespace StockportWebapp.Controllers
 
             model.AvailableCategories = await GetAvailableEventCategories();
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
             else if (!ModelState.IsValid)
             {
-                validationErrors.Append(GetErrorsFromModelState(ModelState));
+                validationErrors.Append(_groupsService.GetErrorsFromModelState(ModelState));
             }
             else
             {
@@ -1397,7 +1390,7 @@ namespace StockportWebapp.Controllers
 
             var group = response.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
@@ -1420,7 +1413,7 @@ namespace StockportWebapp.Controllers
             var eventItem = responseEvent.Content as Event;
             var group = responseGroup.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
@@ -1440,7 +1433,7 @@ namespace StockportWebapp.Controllers
             if (!responseGroup.IsSuccessful()) return responseGroup;
             var group = responseGroup.Content as Group;
 
-            if (!HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
+            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
                 return NotFound();
             }
@@ -1462,7 +1455,7 @@ namespace StockportWebapp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
+                ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
                 return View("Add-Your-Event", eventSubmission);
             }
 
@@ -1484,64 +1477,6 @@ namespace StockportWebapp.Controllers
         public IActionResult EventsThankYouMessage(EventSubmission eventSubmission)
         {
             return View(eventSubmission);
-        }
-
-        private void DoPagination(GroupResults groupResults, int currentPageNumber ,int pageSize)
-        {
-            if ((groupResults != null) && groupResults.Groups.Any())
-            {
-                var paginatedGroups = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                    groupResults.Groups,
-                    currentPageNumber,
-                    "groups",
-                    pageSize,
-                    _configuration.GetGroupsDefaultPageSize("stockportgov"));
-
-                groupResults.Groups = paginatedGroups.Items;
-                groupResults.Pagination = paginatedGroups.Pagination;
-                groupResults.Pagination.CurrentUrl = groupResults.CurrentUrl;
-            }
-            else
-            {
-                groupResults.Pagination = new Pagination();
-            }
-        }
-        
-        private string GetErrorsFromModelState(ModelStateDictionary modelState)
-        {
-            var message = new StringBuilder();
-
-            foreach (var state in modelState)
-            {
-                if (state.Value.Errors.Count > 0 && state.Key != "Email")
-                {
-                    message.Append($"{state.Value.Errors.First().ErrorMessage}<br />");
-                }
-            }
-            return message.ToString();
-        }
-
-        public bool DateNowIsNotBetweenHiddenRange(DateTime? hiddenFrom, DateTime? hiddenTo)
-        {
-            var now = DateTime.Now;
-            return hiddenFrom > now || (hiddenTo < now && hiddenTo != DateTime.MinValue) || (hiddenFrom == DateTime.MinValue && hiddenTo == DateTime.MinValue) || (hiddenFrom == null && hiddenTo == null);
-        }
-
-        public bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E")
-        {
-            var userPermission = groupAdministrators.FirstOrDefault(a => a.Email.ToUpper() == email.ToUpper())?.Permission;
-
-            if ((userPermission == permission) || (userPermission == "A"))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        private string GetVolunteeringText(string volunteeringText)
-        {
-            return string.IsNullOrEmpty(volunteeringText) ? "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we�ll be in contact as soon as possible." : volunteeringText;
         }
     }
 }

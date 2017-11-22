@@ -160,9 +160,11 @@
     };
 
     var setSliderHeight = function () {
-        var height = $(window).height() - $('.update-cancel-bar', '#listing-refine-bar').height();
-        $('#refine-slider').height(height + 50);
-        $('.scroller', '#refine-slider').height(height + 50);
+        // outerHeight to include padding in the height
+        var buttonBarHeight = $('.update-cancel-bar', '#listing-refine-bar').outerHeight();
+        var theWindowHeight = $(window).height();
+        var height = theWindowHeight - buttonBarHeight;
+        $('.scroller', '#refine-slider').height(height);
     };
 
     var revealSlider = function () {
@@ -186,7 +188,6 @@
 
     var clearHeight = function () {
         $('.scroller', '#refine-slider').height('');
-        $('#refine-slider').height('');
     };
 
     var hideSlider = function () {
@@ -278,9 +279,6 @@
                 clearHeight();
                 if (windowWidth !== $(window).width()) {
                     hideSlider();
-                }
-                else {
-                    setSliderHeight();
                 }
             });
         },
