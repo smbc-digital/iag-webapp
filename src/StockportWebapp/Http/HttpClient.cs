@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -32,13 +33,20 @@ namespace StockportWebapp.Http
                 _client.DefaultRequestHeaders.Add(header.Key, header.Value);
             });
 
-            var task = await _client.GetAsync(url);
+            try
+            {
+                var task = await _client.GetAsync(url);
 
-            var content = await task.Content.ReadAsStringAsync();
+                var content = await task.Content.ReadAsStringAsync();
 
-            return new HttpResponse((int)task.StatusCode,
-                                    content,
-                                    task.ReasonPhrase);
+                return new HttpResponse((int)task.StatusCode,
+                    content,
+                    task.ReasonPhrase);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public Task<HttpResponseMessage> PostRecaptchaAsync(string requestURI, HttpContent content)

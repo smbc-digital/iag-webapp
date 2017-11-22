@@ -10,7 +10,6 @@ namespace StockportWebapp.Scheduler
     public class GroupArchiveJobFactory : IJobFactory
     {
         private readonly IGroupsService _groupsService;
-        private readonly ILogger<GroupArchiveJob> _groupArchiveJobLogger;
 
         public GroupArchiveJobFactory(IGroupsService groupsService)
         {
@@ -19,7 +18,7 @@ namespace StockportWebapp.Scheduler
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return new GroupArchiveJob(_groupsService, _groupArchiveJobLogger);
+            return new GroupArchiveJob(_groupsService);
         }
 
         public void ReturnJob(IJob job)

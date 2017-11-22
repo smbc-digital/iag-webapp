@@ -39,7 +39,7 @@ namespace StockportWebapp.Repositories
 
         public async Task<T> GetResponse<T>()
         {
-            var url = _urlGeneratorSimple.StockportApiUrl<T>();
+            var url = _urlGeneratorSimple.StockportApiUrl<T>().TrimEnd('/');
 
             return await GetResponseAsync<T>(url);
         }
@@ -69,7 +69,7 @@ namespace StockportWebapp.Repositories
 
         public async Task<HttpStatusCode> PutResponse<T>(HttpContent httpContent)
         {
-            var url = _urlGeneratorSimple.StockportApiUrl<T>();
+            var url = _urlGeneratorSimple.StockportApiUrl<T>().TrimEnd('/');
             return await PutResponseAsync<T>(url, httpContent);
         }
 

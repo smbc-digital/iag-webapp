@@ -1,11 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using Amazon.Runtime.Internal.Util;
-using Microsoft.Extensions.Logging;
+﻿using System.Threading.Tasks;
 using Quartz;
 using StockportWebapp.Exceptions;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
 using StockportWebapp.Services;
 
 namespace StockportWebapp.Scheduler
@@ -13,12 +8,10 @@ namespace StockportWebapp.Scheduler
     public class GroupArchiveJob : IJob
     {
         private readonly IGroupsService _groupsService;
-        private readonly ILogger<GroupArchiveJob> _logger;
 
-        public GroupArchiveJob(IGroupsService groupsService, ILogger<GroupArchiveJob> logger)
+        public GroupArchiveJob(IGroupsService groupsService)
         {
             _groupsService = groupsService;
-            _logger = logger;
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -27,11 +20,10 @@ namespace StockportWebapp.Scheduler
             {
                 await _groupsService.HandleStaleGroups();
             }
-            catch (GroupsServiceException e)
+            catch (GroupsServiceException)
             {
-                _logger.LogError(e.Message);
+                // TODO: Add logger
             }
-            
         }
     }
 }
