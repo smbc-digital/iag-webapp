@@ -1,17 +1,23 @@
-﻿@{
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Utils
+@{
     ViewData["Title"] = "{pagetitle}";
     ViewData["og:title"] = "{pagetitle}";
 
     Layout = "/Views/stockportgov/Shared/_LayoutExternal.cshtml";
 }
+@inject IApplicationConfiguration appConfig;
+
+@{ var democracyHomeLink = appConfig.GetDemocracyHomeLink();}
+
 <div class="breadcrumb-container">
     <div class="grid-container grid-100">
         <ul class="breadcrumb">
-            <li><a href="/">Home</a></li>
+            <li><a href="@democracyHomeLink/">Home</a></li>
             <li class="chevron">&rsaquo;</li>
-            <li><a href="/topic/about-your-council">About your council</a></li>
+            <li><a href="@democracyHomeLink/topic/about-your-council">About your council</a></li>
             <li class="chevron">&rsaquo;</li>
-            <li><a href="/councillors">Councillors</a></li>
+            <li><a href="@democracyHomeLink/councillors">Councillors</a></li>
             <li class="chevron">&rsaquo;</li>
             {breadcrumb}
         </ul>
