@@ -24,11 +24,11 @@ namespace StockportWebappTests.Integration
         }
 
         [Fact]
-        public void ItReturnsCorrectHeadersForRedirects()
+        public async void ItReturnsCorrectHeadersForRedirects()
         {
             SetBusinessIdRequestHeader("unittest");
 
-            var result = AsyncTestHelper.Resolve(_fakeClient.GetAsync("/this-is-another-article"));
+            var result = await _fakeClient.GetAsync("/this-is-another-article");
 
             result.Headers.CacheControl.MaxAge.Value.Should().Be(TimeSpan.FromSeconds(21600));
         }
@@ -44,11 +44,11 @@ namespace StockportWebappTests.Integration
         }
 
         [Fact]
-        public void ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
+        public async void ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
         {
             SetBusinessIdRequestHeader("unittest");
  
-            var result = AsyncTestHelper.Resolve(_fakeClient.GetAsync("/this-is-a-redirect-from"));
+            var result = await _fakeClient.GetAsync("/this-is-a-redirect-from");
  
             result.StatusCode.Should().Be(HttpStatusCode.MovedPermanently);
             result.Headers.Location.ToString().Should().Be("this-is-a-redirect-to");

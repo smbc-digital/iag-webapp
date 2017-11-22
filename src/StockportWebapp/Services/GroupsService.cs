@@ -70,6 +70,8 @@ namespace StockportWebapp.Services
                 throw new GroupsServiceException("No groups were returned from content api");
             }
 
+            _logger.LogInformation($"Returned {allGroups.Count} groups");
+
             var emailPeriods = _configuration.GetArchiveEmailPeriods();
 
             if (emailPeriods == null || !emailPeriods.Any())
@@ -82,7 +84,7 @@ namespace StockportWebapp.Services
             foreach (var period in emailPeriods)
             {
                 var stagedGroups = FilterGroupsByStage(allGroups, period.NumOfDays);
-                
+
                 if (period.NumOfDays == emailPeriods.Select(p => p.NumOfDays).Max())
                 {
                     var loopExceptions = new List<Exception>();
@@ -96,7 +98,7 @@ namespace StockportWebapp.Services
                         {
                             loopExceptions.Add(e);
                         }
-                        
+
                     }
 
                     foreach (var exception in loopExceptions)
@@ -126,7 +128,7 @@ namespace StockportWebapp.Services
             {
                 throw new Exception($"Failed to archive group {group.Name}");
             }
-            
+
         }
 
         public void DoPagination(GroupResults groupResults, int currentPageNumber, int pageSize)
@@ -214,5 +216,5 @@ namespace StockportWebapp.Services
                             _.DateLastModified.HasValue && _.DateLastModified.Value.AddDays(numDays).Date == DateTime.Today);
         }
 
-    }   
+    }
 }
