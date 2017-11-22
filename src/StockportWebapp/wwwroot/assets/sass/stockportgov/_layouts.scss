@@ -13,7 +13,7 @@
 }
 
 .l-page-content {
-    margin-bottom:30px;
+    margin-bottom: 30px;
 }
 
 .visuallyhidden {
@@ -63,18 +63,18 @@
 }
 
 .grid-container-full-width {
-    max-width:none;
+    max-width: none;
 
     .l-container {
-        margin:0;   
+        margin: 0;
     }
 
     .l-content-container {
-        border:none;
+        border: none;
         padding-bottom: 50px;
 
         h1 {
-            padding:20px 0;
+            padding: 20px 0;
             font-size: 50px;
             margin-bottom: 0;
             color: $colorPrimary;
@@ -83,13 +83,13 @@
                 font-size: 30px;
             }
         }
-       
+
         h1.centered {
-            text-align:center;
+            text-align: center;
         }
-        
     }
 }
+
 .text-align-right {
     text-align: right;
 }
@@ -100,20 +100,29 @@ h1.centered {
     font-size: 50px;
 }
 
-:focus {
+a:focus, button:focus, input:focus ,textarea:focus {
     outline: #ef8a16 solid 3px !important;
 }
+
+.focusable {
+    &:focus {
+        outline: #ef8a16 solid 3px !important;
+    }
+}
+
 
 .notification {
     text-align: center;
 
-    .icon-bordered{
+    .icon-bordered {
         width: 80px;
-        &.red{
-            color:$red;
+
+        &.red {
+            color: $red;
         }
-        &.green{
-            color:$green;
+
+        &.green {
+            color: $green;
         }
     }
 }
