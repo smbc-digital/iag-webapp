@@ -91,8 +91,7 @@ namespace StockportWebappTests.Unit.Services
             {
                 new GroupBuilder().Slug("recently-updated").DateLastModified(DateTime.Now.AddDays(-10)).Build(),
                 new GroupBuilder().Slug("still-recently-updated").DateLastModified(DateTime.Now.AddDays(-20)).Build(),
-                new GroupBuilder().Slug("updated-more-than-six-months-ago")
-                .GroupAdministrators(
+                new GroupBuilder().Slug("updated-more-than-six-months-ago").GroupAdministrators(
                     new GroupAdministrators
                     {
                         Items = new List<GroupAdministratorItems>
@@ -104,7 +103,7 @@ namespace StockportWebappTests.Unit.Services
             });
 
             _mockEmailClient.Setup(_ =>
-                    _.GenerateEmailBodyFromHtml(It.IsAny<GroupAdministratorItems>(), ""))
+                    _.GenerateEmailBodyFromHtml(It.IsAny<GroupAdministratorItems>(), It.IsAny<string>()))
                 .Returns("body");
 
             _mockApplicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(
@@ -114,7 +113,7 @@ namespace StockportWebappTests.Unit.Services
             await _service.HandleStaleGroups();
 
             // Assert
-            _mockEmailClient.Verify(_ => _.SendEmailToService(It.Is<EmailMessage>(entity => entity.ToEmail == "correct-recipient@thing.com" && entity.Body == "body")), Times.Once());
+            _mockEmailClient.Verify(_ => _.SendEmailToService(It.Is<EmailMessage>(entity => entity.ToEmail == "correct-recipient@thing.com")), Times.Once());
         }
 
         [Fact]
