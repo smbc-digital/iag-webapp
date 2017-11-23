@@ -1,14 +1,12 @@
 ﻿---
 prod: &prod
-  GroupAdditionalInformation : false
-  HealthyStockportHomepageEvents : false
-  MultiStepForm: false
+  GroupAdditionalInformation : true
+  HealthyStockportHomepageEvents : true
+  MultiStepForm: true
   GroupArchiveEmails: false
 
 stage: &stage
   << : *prod
-  HealthyStockportHomepageEvents : true
-  MultiStepForm: true
 
 qa: &qa
   << : *prod
@@ -18,8 +16,6 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
-  GroupAdditionalInformation : true
-  MultiStepForm: true
   GroupArchiveEmails: true
 
 local: &local
