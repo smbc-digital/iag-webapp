@@ -4,30 +4,35 @@ using Quartz;
 using Quartz.Impl;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Scheduler
 {
-    public class RedirectScheduler
+    public class QuartzScheduler
     {
         private readonly ShortUrlRedirects _shortShortUrlRedirects;
         private readonly LegacyUrlRedirects _legacyUrlRedirects;
         private readonly IRepository _repository;
+        private readonly IGroupsService _groupsService;
+        private readonly ITimeProvider _timeProvider;
 
-        public RedirectScheduler(ShortUrlRedirects shortShortUrlRedirects, LegacyUrlRedirects legacyUrlRedirects, IRepository repository)
+        public QuartzScheduler(ShortUrlRedirects shortShortUrlRedirects, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, ITimeProvider timeProvider)
         {
             _shortShortUrlRedirects = shortShortUrlRedirects;
             _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
+            _timeProvider = timeProvider;
         }
 
         public async Task Start()
         {
+
             var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
             await scheduler.Start();
 
-            scheduler.JobFactory = new RedirectJobFactory(_shortShortUrlRedirects, _legacyUrlRedirects, _repository);
-
-            var job = JobBuilder.Create<RedirectJob>().Build();
+            scheduler.JobFactory = new QuartzJobFactory(_shortShortUrlRedirects, _legacyUrlRedirects, _repository, _groupsService, _timeProvider);
+            var job = JobBuilder.Create<QuartzJob>().Build();
 
             var trigger = TriggerBuilder.Create()
                 .StartNow()

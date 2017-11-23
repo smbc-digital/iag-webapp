@@ -18,6 +18,8 @@ using ILogger = Microsoft.Extensions.Logging.ILogger;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
 using Microsoft.AspNetCore.Http;
+using Quartz;
+using Quartz.Impl;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.Elasticsearch;
@@ -140,15 +142,13 @@ namespace StockportWebapp
                 app.UseDeveloperExceptionPage();
             }
 
-            var scheduler = new RedirectScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
-                serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>());
+            //Quartz stuff
+
+            var scheduler = new QuartzScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
+                serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ITimeProvider>());
             await scheduler.Start();
 
-            if (serviceProvider.GetService<FeatureToggles>().GroupArchiveEmails)
-            {
-                var groupArchiveScheduler = new GroupArchiveScheduler(serviceProvider.GetService<IGroupsService>());
-                await groupArchiveScheduler.Start();
-            }
+
 
             app.UseMiddleware<BusinessIdMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();

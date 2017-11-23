@@ -2,25 +2,31 @@
 using Quartz.Spi;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Scheduler
 {
-    public class RedirectJobFactory : IJobFactory
+    public class QuartzJobFactory : IJobFactory
     {
         private readonly ShortUrlRedirects _shortShortUrlRedirectses;
         private readonly LegacyUrlRedirects _legacyUrlRedirects;
         private readonly IRepository _repository;
+        private readonly IGroupsService _groupsService;
+        private readonly ITimeProvider _timeProvider;
 
-        public RedirectJobFactory(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository)
+        public QuartzJobFactory(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, IGroupsService groupsService, ITimeProvider timeProvider)
         {
             _shortShortUrlRedirectses = shortShortUrlRedirectses;
             _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
+            _groupsService = groupsService;
+            _timeProvider = timeProvider;
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return new RedirectJob(_shortShortUrlRedirectses, _legacyUrlRedirects, _repository);
+            return new QuartzJob(_shortShortUrlRedirectses, _legacyUrlRedirects, _repository, _groupsService, _timeProvider);
         }
 
         public void ReturnJob(IJob job)
