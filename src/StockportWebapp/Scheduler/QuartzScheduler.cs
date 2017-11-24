@@ -17,12 +17,13 @@ namespace StockportWebapp.Scheduler
         private readonly IGroupsService _groupsService;
         private readonly ITimeProvider _timeProvider;
 
-        public QuartzScheduler(ShortUrlRedirects shortShortUrlRedirects, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, ITimeProvider timeProvider)
+        public QuartzScheduler(ShortUrlRedirects shortShortUrlRedirects, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, ITimeProvider timeProvider, IGroupsService groupsService)
         {
             _shortShortUrlRedirects = shortShortUrlRedirects;
             _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
             _timeProvider = timeProvider;
+            _groupsService = groupsService;
         }
 
         public async Task Start()
