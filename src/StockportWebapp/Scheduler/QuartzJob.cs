@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Quartz;
 using StockportWebapp.Exceptions;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
@@ -16,14 +17,16 @@ namespace StockportWebapp.Scheduler
         private readonly IRepository _repository;
         private readonly IGroupsService _groupsService;
         private readonly ITimeProvider _timeProvider;
+        private readonly FeatureToggles _featureToggles;
 
-        public QuartzJob(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, IGroupsService groupsService, ITimeProvider timeProvider)
+        public QuartzJob(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, IGroupsService groupsService, ITimeProvider timeProvider, FeatureToggles featureToggles)
         {
             _shortShortUrlRedirectses = shortShortUrlRedirectses;
             _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
             _groupsService = groupsService;
             _timeProvider = timeProvider;
+            _featureToggles = featureToggles;
         }
 
         public async Task Execute(IJobExecutionContext context)
@@ -34,22 +37,26 @@ namespace StockportWebapp.Scheduler
 
             _shortShortUrlRedirectses.Redirects = redirects.ShortUrlRedirects;
             _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
-            var handleStaleGroupsFirstPossibleStartTime = new TimeSpan(0, 11, 0, 0);
-            var handleStaleGroupsLastPossibleStartTime = new TimeSpan(0, 11, 30, RedirectTimeout.RedirectsTimeout);
 
-            if (_timeProvider.Now().TimeOfDay >= handleStaleGroupsFirstPossibleStartTime &&
-                _timeProvider.Now().TimeOfDay <= handleStaleGroupsLastPossibleStartTime)
+            if (_featureToggles.GroupArchiveEmails)
             {
-                try
+                var handleStaleGroupsFirstPossibleStartTime = new TimeSpan(0, 12, 0, 0);
+                var handleStaleGroupsLastPossibleStartTime = new TimeSpan(0, 12, 30, RedirectTimeout.RedirectsTimeout);
+
+
+                if (_timeProvider.Now().TimeOfDay >= handleStaleGroupsFirstPossibleStartTime &&
+                    _timeProvider.Now().TimeOfDay <= handleStaleGroupsLastPossibleStartTime)
                 {
-                    await _groupsService.HandleStaleGroups();
-                }
-                catch (GroupsServiceException)
-                {
-                    // TODO: Add logger
+                    try
+                    {
+                        await _groupsService.HandleStaleGroups();
+                    }
+                    catch (GroupsServiceException)
+                    {
+                        // TODO: Add logger
+                    }
                 }
             }
-            
         }
     }
 }

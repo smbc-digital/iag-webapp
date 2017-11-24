@@ -65,11 +65,14 @@ namespace StockportWebapp.Builders
                 body.TextBody = plaintext;
             }
 
-            foreach (var file in attachments)
+            if (attachments != null)
             {
-                body.Attachments.Add(FileHelper.GetFileNameFromPath(file), file.OpenReadStream());
+                foreach (var file in attachments)
+                {
+                    body.Attachments.Add(FileHelper.GetFileNameFromPath(file), file.OpenReadStream());
+                }
             }
-
+            
             return body;
         }
     }

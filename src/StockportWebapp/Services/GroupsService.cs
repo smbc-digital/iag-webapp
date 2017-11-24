@@ -194,6 +194,8 @@ namespace StockportWebapp.Services
             var handleArchivedGroups = stageOneGroups as IList<Group> ?? stageOneGroups.ToList();
             foreach (var stageOneGroup in handleArchivedGroups.ToList())
             {
+                if (stageOneGroup.GroupAdministrators.Items.Any(admin => admin.Permission == "A")) _logger.LogInformation($"Sending stale group email for group: {stageOneGroup.Name}");
+
                 stageOneGroup.GroupAdministrators.Items
                     .Where(admin => admin.Permission == "A")
                     .Select(admin => new GroupArchiveWarningEmailViewModel(admin.Name, stageOneGroup.Name, admin.Email))
