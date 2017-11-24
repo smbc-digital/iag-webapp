@@ -40,8 +40,8 @@ namespace StockportWebapp.Scheduler
 
             if (_featureToggles.GroupArchiveEmails)
             {
-                var handleStaleGroupsFirstPossibleStartTime = new TimeSpan(0, 13, 0, 0);
-                var handleStaleGroupsLastPossibleStartTime = new TimeSpan(0, 13, 30, RedirectTimeout.RedirectsTimeout);
+                var handleStaleGroupsFirstPossibleStartTime = new TimeSpan(0, 8, 0, 0);
+                var handleStaleGroupsLastPossibleStartTime = new TimeSpan(0, 8, 0, RedirectTimeout.RedirectsTimeout);
 
 
                 if (_timeProvider.Now().TimeOfDay >= handleStaleGroupsFirstPossibleStartTime &&
