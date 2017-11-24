@@ -1165,6 +1165,7 @@ namespace StockportWebapp.Controllers
             }
         }
 
+        // TODO: Move this and all links pointing towards it to events controller
         [HttpGet]
         [Route("/groups/manage/{groupslug}/events/{eventslug}/update")]
         [ServiceFilter(typeof(GroupAuthorisation))]
@@ -1230,6 +1231,7 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
+        // TODO: Move this and all links pointing towards it to events controller
         [HttpPost]
         [Route("/groups/manage/{slug}/events/{eventslug}/update")]
         [ServiceFilter(typeof(GroupAuthorisation))]
@@ -1365,6 +1367,7 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
+        // TODO: Move this and all links pointing towards it to events controller
         [Route("/groups/manage/{groupslug}/events/{eventslug}/updateconfirmation")]
         public IActionResult EditEventConfirmation(string groupslug, string eventslug, string groupName, string eventName)
         {
@@ -1468,6 +1471,7 @@ namespace StockportWebapp.Controllers
             return new UnauthorizedResult();
         }
 
+        // TODO: Move this and all links pointing towards it to events controller
         [HttpPost]
         [Route("/groups/manage/{groupSlug}/events/add-your-event")]
         [ServiceFilter(typeof(GroupAuthorisation))]
@@ -1494,6 +1498,7 @@ namespace StockportWebapp.Controllers
             return View("Add-Your-Event", eventSubmission);
         }
 
+        // TODO: Move this and all links pointing towards it to events controller
         [Route("/groups/events-thank-you-message")]
         public IActionResult EventsThankYouMessage(EventSubmission eventSubmission)
         {
