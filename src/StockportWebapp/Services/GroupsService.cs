@@ -79,7 +79,7 @@ namespace StockportWebapp.Services
                 throw new GroupsServiceException("No periods returned from the service");
             }
 
-            var fromAddress = _configuration.GetGroupArchiveEmail("stockportgov");
+            var fromAddress = _configuration.GetEmailEmailFrom("stockportgov");
 
             foreach (var period in emailPeriods)
             {

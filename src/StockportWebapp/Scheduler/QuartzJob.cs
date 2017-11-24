@@ -34,8 +34,8 @@ namespace StockportWebapp.Scheduler
 
             _shortShortUrlRedirectses.Redirects = redirects.ShortUrlRedirects;
             _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
-            var handleStaleGroupsFirstPossibleStartTime = new TimeSpan(0, 10, 0, 0);
-            var handleStaleGroupsLastPossibleStartTime = new TimeSpan(0, 10, 30, RedirectTimeout.RedirectsTimeout);
+            var handleStaleGroupsFirstPossibleStartTime = new TimeSpan(0, 11, 0, 0);
+            var handleStaleGroupsLastPossibleStartTime = new TimeSpan(0, 11, 30, RedirectTimeout.RedirectsTimeout);
 
             if (_timeProvider.Now().TimeOfDay >= handleStaleGroupsFirstPossibleStartTime &&
                 _timeProvider.Now().TimeOfDay <= handleStaleGroupsLastPossibleStartTime)
