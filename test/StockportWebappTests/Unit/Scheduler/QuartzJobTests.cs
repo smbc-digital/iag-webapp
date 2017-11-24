@@ -2,6 +2,7 @@
 using FluentAssertions;
 using Moq;
 using Quartz;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -19,13 +20,14 @@ namespace StockportWebappTests.Unit.Scheduler
         private readonly ShortUrlRedirects _shortUrlRedirects = new ShortUrlRedirects(new BusinessIdRedirectDictionary());
         private readonly LegacyUrlRedirects _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary());
         private readonly Mock<ITimeProvider> _mockTimeProvider = new Mock<ITimeProvider>();
+        private readonly FeatureToggles _featureToggles = new FeatureToggles { GroupArchiveEmails = true };
         private readonly QuartzJob _quartzJob;
         const string businessId = "unittest";
         public QuartzJobTests()
         {
             _mockRepository = new Mock<IRepository>();
             _mockGroupsService = new Mock<IGroupsService>();
-            _quartzJob = new QuartzJob(_shortUrlRedirects, _legacyUrlRedirects, _mockRepository.Object, _mockGroupsService.Object, _mockTimeProvider.Object);
+            _quartzJob = new QuartzJob(_shortUrlRedirects, _legacyUrlRedirects, _mockRepository.Object, _mockGroupsService.Object, _mockTimeProvider.Object, _featureToggles);
 
             
             var shortUrlRedirectDictionary = new BusinessIdRedirectDictionary { {businessId, new RedirectDictionary { {"test1", "value1"} } }};

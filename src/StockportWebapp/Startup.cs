@@ -145,7 +145,7 @@ namespace StockportWebapp
             //Quartz stuff
 
             var scheduler = new QuartzScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
-                serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ITimeProvider>(), serviceProvider.GetService<IGroupsService>());
+                serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ITimeProvider>(), serviceProvider.GetService<IGroupsService>(), serviceProvider.GetService<FeatureToggles>());
             await scheduler.Start();
 
 

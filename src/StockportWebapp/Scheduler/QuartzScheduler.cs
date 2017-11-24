@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Quartz;
 using Quartz.Impl;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
@@ -16,14 +17,16 @@ namespace StockportWebapp.Scheduler
         private readonly IRepository _repository;
         private readonly IGroupsService _groupsService;
         private readonly ITimeProvider _timeProvider;
+        private readonly FeatureToggles _featureToggles;
 
-        public QuartzScheduler(ShortUrlRedirects shortShortUrlRedirects, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, ITimeProvider timeProvider, IGroupsService groupsService)
+        public QuartzScheduler(ShortUrlRedirects shortShortUrlRedirects, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, ITimeProvider timeProvider, IGroupsService groupsService, FeatureToggles featureToggles)
         {
             _shortShortUrlRedirects = shortShortUrlRedirects;
             _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
             _timeProvider = timeProvider;
             _groupsService = groupsService;
+            _featureToggles = featureToggles;
         }
 
         public async Task Start()
@@ -32,7 +35,7 @@ namespace StockportWebapp.Scheduler
             var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
             await scheduler.Start();
 
-            scheduler.JobFactory = new QuartzJobFactory(_shortShortUrlRedirects, _legacyUrlRedirects, _repository, _groupsService, _timeProvider);
+            scheduler.JobFactory = new QuartzJobFactory(_shortShortUrlRedirects, _legacyUrlRedirects, _repository, _groupsService, _timeProvider, _featureToggles);
             var job = JobBuilder.Create<QuartzJob>().Build();
 
             var trigger = TriggerBuilder.Create()
