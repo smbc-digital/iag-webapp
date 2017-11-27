@@ -52,29 +52,20 @@ namespace StockportWebapp
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
 
-            var loggerConfig = new LoggerConfiguration()
-                .Enrich.FromLogContext()
-                .Enrich.WithProperty("Application", "IAG Web App")
-                .WriteTo.Console();
+            var loggerConfig = new LoggerConfiguration();
 
-            // elastic search
+            // when this "feature toggle" has been removed, this can be deleted
             var esConfig = new ElasticSearch();
             Configuration.GetSection("ElasticSearch").Bind(esConfig);
 
-            if (esConfig.Enabled && !string.IsNullOrEmpty(esConfig.Url) && !string.IsNullOrEmpty(esConfig.Authorization))
+            if (esConfig.Enabled)
             {
-                loggerConfig.WriteTo.Elasticsearch(
-                    new ElasticsearchSinkOptions(new Uri(esConfig.Url))
-                    {
-                        AutoRegisterTemplate = true,
-                        MinimumLogEventLevel = esConfig.LogLevel,
-                        CustomFormatter = new ExceptionAsObjectJsonFormatter(renderMessage: true),
-                        IndexFormat = esConfig.LogFormat,
-                        ModifyConnectionSettings = (c) => c.GlobalHeaders(new NameValueCollection
-                        {
-                            {"Authorization", esConfig.Authorization}
-                        })
-                    });
+                // elastic search and logging to the console in one
+                loggerConfig.Enrich.FromLogContext().ReadFrom.Configuration(Configuration);
+            }
+            else
+            {
+                loggerConfig.Enrich.FromLogContext().WriteTo.Console();
             }
 
             Log.Logger = loggerConfig.CreateLogger();
