@@ -1,0 +1,23 @@
+﻿@model StockportWebapp.QuestionBuilder.Entities.Question
+
+<div id="checkbox-list" class="form-section question-section">
+    @Model.Label
+    <div class="clearfix"></div>
+    @foreach (var option in Model.Options)
+    {
+        <div class="checkbox-section">
+            @Html.HiddenFor(x => option.Value, new { id = "question-option-value" })
+            <input id="@option.Value" name="@option.Value" type="checkbox" />
+            <label for="@option.Value">@option.Label</label>
+
+            <div class="clearfix"></div>
+        </div>
+    }
+
+    @Html.HiddenFor(_ => _.Response, new { id = "checkbox-response" })
+
+    @Html.Partial("_ValidationError.cshtml", Model)
+
+    <span id="tertiary-Information-value"></span>
+
+</div>

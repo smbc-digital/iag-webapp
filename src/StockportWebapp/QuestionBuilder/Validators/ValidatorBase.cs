@@ -6,11 +6,14 @@ namespace StockportWebapp.QuestionBuilder.Validators
     {
         private readonly IQuestion _question;
         private readonly string _validationMessage;
-        
-        protected ValidatorBase(IQuestion question, string validationMessage)
+        private readonly string _validationValue;
+
+        protected ValidatorBase(IQuestion question, string validationMessage, string validationValue)
         {
             _question = question;
             _validationMessage = validationMessage;
+            _validationValue = validationValue;
+
         }
 
         protected ValidatorBase(IQuestion question)
@@ -20,8 +23,8 @@ namespace StockportWebapp.QuestionBuilder.Validators
 
         public abstract string DefaultValidationMessage { get; }
 
-        public abstract bool IsValid(string input);
-        
+        public abstract bool IsValid(string input, string validationValue);
+
         public ValidationResult Validate(string input)
         {
             if (input == null)
@@ -29,13 +32,13 @@ namespace StockportWebapp.QuestionBuilder.Validators
                 return ValidationResult.Invalid(GetValidationMessage(), _question.QuestionId);
             }
 
-            return IsValid(input) ? ValidationResult.Valid(_question.QuestionId) : ValidationResult.Invalid(GetValidationMessage(), _question.QuestionId);
+            return IsValid(input, _validationValue) ? ValidationResult.Valid(_question.QuestionId) : ValidationResult.Invalid(GetValidationMessage(), _question.QuestionId);
         }
 
         private string GetValidationMessage()
         {
             return string.IsNullOrEmpty(_validationMessage) ? DefaultValidationMessage : _validationMessage;
         }
-        
+
     }
 }
