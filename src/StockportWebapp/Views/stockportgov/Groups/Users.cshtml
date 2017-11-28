@@ -59,7 +59,7 @@
                                             <span>@GroupPermissionHelper.GetPermisison(user.Permission)</span>
                                         </div>
                                         <div class="sk-table-cell grid-10 tablet-grid-15 mobile-grid-100">
-                                            <span class="link"><a href="@Url.Action("EditUser", "Groups", new { slug = Model.Slug, email = user.Email })">Edit user</a></span>
+                                            <span class="link"><a class="edit-user" href="@Url.Action("EditUser", "Groups", new { slug = Model.Slug, email = user.Email })">Edit user</a></span>
                                         </div>
                                     </div>
                                  }

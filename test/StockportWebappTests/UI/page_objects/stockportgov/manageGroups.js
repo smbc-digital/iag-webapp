@@ -1,8 +1,16 @@
 ﻿var methods = {
  
-    assertTitleIsVisible: function (title) {
+    assertTitleIsVisible: function (browser, title) {
+        browser.useCss();
         this.waitForElementVisible('h1', this.api.globals.timeOut)
             .expect.element('h1').text.to.equal(title);
+    },
+
+    assertElementIsVisibleAndClickIt: function (browser, id) {
+        browser.useCss();
+        scrollToElement(browser, "#" + id);
+        browser.useXpath().waitForElementVisible(".//*[@id='" + id + "']", this.api.globals.timeOut);
+        browser.useXpath().click(".//*[@id='" + id + "']");
     },
 
     assertGroupIsVisibleAndGoToManagePage: function(browser) {
@@ -56,6 +64,17 @@
         browser.useXpath().click(".//*[@id='edit-group']");
     },
 
+    assertAddOrRemoveUsersIsVisibleAndGoToAddOrRemoveUsers: function (browser) {
+        browser.useXpath().waitForElementVisible(".//*[@id='add-or-remove-users']", this.api.globals.timeOut);
+        browser.useXpath().click(".//*[@id='add-or-remove-users']");
+    },
+
+    assertUserIsVisibleOnManageUsersPage: function (browser) {
+        browser.useCss();
+        browser.waitForElementVisible("a[href='/groups/manage/uitest-a-group-for-ui-testing/edituser?email=ui@testestestest.com']", this.api.globals.timeOut);
+        browser.click("a[href='/groups/manage/uitest-a-group-for-ui-testing/edituser?email=ui@testestestest.com']");
+    },
+
     clearNameValueFromForm: function(browser) {
         browser.useCss();
         browser.clearValue('input[name="Name"]');   
@@ -71,17 +90,22 @@
         this.waitForElementVisible("a[href='#next']", this.api.globals.timeOut).click("a[href='#next']");
     },
 
-    assertValidationErrors: function(browser) {
+    assertValidationErrors: function(browser, validationDiv, validationText) {
         browser.useCss();
-        this.waitForElementVisible("@editGroupFormValidationDiv", this.api.globals.timeOut);
-        this.expect.element("@editGroupFormValidationDiv").text.to.equal("The Enter the name of your group or service field is required.");
+        this.waitForElementVisible(validationDiv, this.api.globals.timeOut);
+        this.expect.element(validationDiv).text.to.equal(validationText);
     },
 
     assertEditGroupButtonAndClick: function(browser) {
         browser.useCss();
         this.waitForElementVisible("@uiTestContactFormSubmit", this.api.globals.timeOut);
         this.click("@uiTestContactFormSubmit");
-    }
+    },
+    assertEventIsVisibleAndClickIt: function (browser) {
+        browser.useCss();
+        browser.waitForElementVisible("a[href='/groups/manage/uitest-a-group-for-ui-testing/events/uitest-event']", this.api.globals.timeOut);
+        browser.click("a[href='/groups/manage/uitest-a-group-for-ui-testing/events/uitest-event']");
+    },
 };
 
 function scrollToElement(browser, css) {
@@ -104,6 +128,7 @@ module.exports = {
         manageGroupPageHeading: "#manage-groups-heading",
         editGroupFormValidationDiv: "span[for='Name']",
         multistepFormHeading: "#multistep-form-sections-wrapper-t-0",
-        uiTestContactFormSubmit: "#uitest-contact-form-submit"
+        uiTestContactFormSubmit: "#uitest-contact-form-submit",
+        addEventFormValidationDiv: "span[for='Title']"
     }
 };

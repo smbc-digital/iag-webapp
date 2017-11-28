@@ -180,11 +180,9 @@ module.exports = {
 
     },
     'Navigate to groups from homepage and validate details': function (browser) {
-        // get the groups page
         var groups = browser.page.stockportgov.groups();
         // navaigate to home page
         groups.navigate();
-        // assertions
         groups.goToGroupsHomePage(browser);
         groups.assertTitleIsVisible("Stockport Local");
         groups.assertAddAGroupButtonIsVisibleAndGotToPage(browser);
@@ -192,12 +190,9 @@ module.exports = {
 
     },
     'Navigate to a groups upcoming events page from the groups management page': function (browser) {
-        // get the groups page
         var manageGroups = browser.page.stockportgov.manageGroups();
-        // navaigate to home page
         manageGroups.navigate();
-        // assertions
-        manageGroups.assertTitleIsVisible("Manage your groups");
+        manageGroups.assertTitleIsVisible(browser, "Manage your groups");
         manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
         manageGroups.assertManageGroupsTitleIsVisible("UITEST: A group for ui testing");
         manageGroups.assertViewEventsButtonIsVisibleAndClickIt(browser);
@@ -239,7 +234,7 @@ module.exports = {
     'Navigate to the Democracy Template and validate details': function (browser) {
       var democracypage = browser.page.stockportgov.democracy();
       democracypage.navigate();
-       democracypage.assertTitleIsVisible(browser);
+      democracypage.assertTitleIsVisible(browser, "");
       democracypage.assertBreadcrumbVisible(browser);
       democracypage.asserSideMenuVisible(browser);
 
@@ -254,13 +249,76 @@ module.exports = {
         manageGroups.assertMultistepFormHeadingIsVisible(browser);
         manageGroups.clearNameValueFromForm(browser);
         manageGroups.assertNextIsVisibleButtonAndClick(browser);
-        manageGroups.assertValidationErrors(browser);
+        manageGroups.assertValidationErrors(browser, "@editGroupFormValidationDiv", "The Enter the name of your group or service field is required.");
         manageGroups.enterValidName(browser);
         manageGroups.assertNextIsVisibleButtonAndClick(browser);
         manageGroups.assertNextIsVisibleButtonAndClick(browser);
         manageGroups.assertNextIsVisibleButtonAndClick(browser);
         manageGroups.assertEditGroupButtonAndClick(browser);
-        manageGroups.assertTitleIsVisible("Edit group");
+        manageGroups.assertTitleIsVisible(browser, "Edit group");
+    },
+
+    'Add/Remove users from a group': function (browser) {
+        var manageGroups = browser.page.stockportgov.manageGroups();
+        manageGroups.navigate();
+        manageGroups.assertManageGroupsHeadingIsVisible("Manage your groups");
+        manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
+        manageGroups.assertAddOrRemoveUsersIsVisibleAndGoToAddOrRemoveUsers(browser);
+        manageGroups.assertTitleIsVisible(browser, "Add or remove users");
+        manageGroups.assertUserIsVisibleOnManageUsersPage(browser);
+        manageGroups.assertTitleIsVisible(browser, "Edit user");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "remove-user");
+        manageGroups.assertTitleIsVisible(browser, "Remove user");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "keep-user");
+        manageGroups.assertTitleIsVisible(browser, "Edit user");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "save-user");
+        manageGroups.assertTitleIsVisible(browser, "Edit user");
+    },
+
+    'Archive your group': function(browser) {
+        var manageGroups = browser.page.stockportgov.manageGroups();
+        manageGroups.navigate();
+        manageGroups.assertManageGroupsHeadingIsVisible("Manage your groups");
+        manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
+        manageGroups.assertTitleIsVisible(browser, "UITEST: A group for ui testing");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "archive-group");
+        manageGroups.assertTitleIsVisible(browser, "Archive UITEST: A group for ui testing");
+    },
+
+    'Delete your group': function (browser) {
+        var manageGroups = browser.page.stockportgov.manageGroups();
+        manageGroups.navigate();
+        manageGroups.assertManageGroupsHeadingIsVisible("Manage your groups");
+        manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
+        manageGroups.assertTitleIsVisible(browser, "UITEST: A group for ui testing");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "delete-group");
+        manageGroups.assertTitleIsVisible(browser, "Delete UITEST: A group for ui testing");
+    },
+
+    'Add your event': function(browser) {
+        var manageGroups = browser.page.stockportgov.manageGroups();
+        manageGroups.navigate();
+        manageGroups.assertManageGroupsHeadingIsVisible("Manage your groups");
+        manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
+        manageGroups.assertTitleIsVisible(browser, "UITEST: A group for ui testing");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "view-group-events");
+        manageGroups.assertTitleIsVisible(browser, "Manage your events");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "add-event");
+        manageGroups.assertTitleIsVisible(browser, "Add your event");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "uitest-contact-form-submit");
+        manageGroups.assertValidationErrors(browser, "@addEventFormValidationDiv", "The Event name field is required.");
+    },
+
+    'Edit your event': function (browser) {
+        var manageGroups = browser.page.stockportgov.manageGroups();
+        manageGroups.navigate();
+        manageGroups.assertManageGroupsHeadingIsVisible("Manage your groups");
+        manageGroups.assertGroupIsVisibleAndGoToManagePage(browser);
+        manageGroups.assertTitleIsVisible(browser, "UITEST: A group for ui testing");
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "view-group-events");
+        manageGroups.assertTitleIsVisible(browser, "Manage your events");
+        manageGroups.assertEventIsVisibleAndClickIt(browser);
+        manageGroups.assertElementIsVisibleAndClickIt(browser, "edit-event");
     },
 
     after: function (browser, done) {
