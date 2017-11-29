@@ -20,7 +20,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
         {
             // Arrange
             var question = new Mock<IQuestion>();
-            var validator = new EmailValidator(question.Object, "This message will not be used");
+            var validator = new EmailValidator(question.Object, "This message will not be used", null);
 
             // Act
             var actual = validator.Validate(data);
@@ -40,7 +40,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
             // Arrange
             const string errorMessage = "First Name cannot be empty";
             var question = new Mock<IQuestion>();
-            var validator = new EmailValidator(question.Object, errorMessage);
+            var validator = new EmailValidator(question.Object, errorMessage, null);
 
             // Act
             var validationResult = validator.Validate(data);
@@ -59,7 +59,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
                 QuestionId = questionId,
                 QuestionType = "Test"
             };
-            var validator = new EmailValidator(question, "This message will not be used");
+            var validator = new EmailValidator(question, "This message will not be used", null);
 
             var actual = validator.Validate("simon@test.com");
 

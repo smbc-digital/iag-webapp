@@ -8,7 +8,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
     public class EmailValidator : ValidatorBase
     {
   
-        public EmailValidator(IQuestion question, string validationMessage) : base(question, validationMessage)
+        public EmailValidator(IQuestion question, string validationMessage, string validationValue) : base(question, validationMessage, validationValue)
         {
         }
 
@@ -16,7 +16,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         {
         }
 
-        public override bool IsValid(string input)
+        public override bool IsValid(string input, string validationValue)
         {
             Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$");
             return emailRegex.IsMatch(input);

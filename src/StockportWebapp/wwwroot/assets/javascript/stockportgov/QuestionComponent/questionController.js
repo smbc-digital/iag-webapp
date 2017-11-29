@@ -7,13 +7,22 @@ define(["jquery", "questionview", "questionvalidator"], function ($, view, valid
         return route.lastIndexOf("/") === (route.length - 1) ? '/' + route + validateAction : '/' + route + '/' + validateAction;
     }
 
+    function updateCheckboxes() {
+        var listOfAnswers = "";
+        $("#checkbox-list input[type='checkbox']:checked").each(function () {
+            listOfAnswers = listOfAnswers + "," + $(this).parent().find("#question-option-value").val();
+        });
+        $("#checkbox-response").val(listOfAnswers);
+    }
+
     var validateQuestions = function (form, selectedInput, bypassShowValidation) {
+        updateCheckboxes();
         var deferredResult = $.Deferred();
         var validationRoute = getValidationRoute();
         $.post(validationRoute,
-            form.serialize(),
-            function () {
-            })
+                form.serialize(),
+                function () {
+                })
             .done(function (response) {
                 var isValid = validator.processValidation(response, selectedInput, view.showValidationForQuestion, bypassShowValidation);
                 isValid ? view.enableNextButton() : view.disableNextButton();
@@ -36,4 +45,3 @@ define(["jquery", "questionview", "questionvalidator"], function ($, view, valid
         validateQuestions: validateQuestions
     };
 });
-

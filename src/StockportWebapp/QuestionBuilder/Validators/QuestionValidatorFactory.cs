@@ -15,7 +15,8 @@ namespace StockportWebapp.QuestionBuilder.Validators
                 .GetTypes().Where(t => typeof(ValidatorBase).IsAssignableFrom(t)).Select(t => new
                 {
                     Type = t,
-                    ValidatorType = t.GetTypeInfo().GetCustomAttributes<QuestionValidatorTypeAttribute>().FirstOrDefault()
+                    ValidatorType = t.GetTypeInfo().GetCustomAttributes<QuestionValidatorTypeAttribute>().FirstOrDefault(),
+                    Value = validatorData
                 })
                 .FirstOrDefault(_ => _.ValidatorType != null && _.ValidatorType.Name == validatorData.Type);
 
@@ -23,8 +24,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
             {
                 throw new ArgumentException(string.Format("Validator type ({0}) is not supported.", validatorData.Type));
             }
-
-            return Activator.CreateInstance(validatorType.Type, question, validatorData.Message) as ValidatorBase;
+            return Activator.CreateInstance(validatorType.Type, question, validatorData.Message, validatorData.Value) as ValidatorBase;
         }
     }
 }

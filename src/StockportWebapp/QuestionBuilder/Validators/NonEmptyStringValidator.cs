@@ -6,7 +6,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
     [QuestionValidatorType(QuestionValidatorTypes.NonEmpty)]
     public class NonEmptyStringValidator : ValidatorBase
     {
-        public NonEmptyStringValidator(IQuestion question, string validationMessage) : base(question, validationMessage)
+        public NonEmptyStringValidator(IQuestion question, string validationMessage, string validationValue) : base(question, validationMessage, validationValue)
         {
         }
 
@@ -14,7 +14,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         {
         }
 
-        public override bool IsValid(string input)
+        public override bool IsValid(string input, string validationValue)
         {
             var inputWithoutWhitespace = input.Trim();
             return !string.IsNullOrEmpty(inputWithoutWhitespace);

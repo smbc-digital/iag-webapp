@@ -62,19 +62,15 @@
     input#_1 {
         display: none;
     }
-
     /*.collapse + input {
         display: none;
     }
-
     .collapse + input + div {
         display: none;
     }
-
     .collapse + input:checked + div {
         display: block;
     }*/
-
     .secondary-info-holder {
         border-top: 1px solid #e1e1e1;
         border-bottom: 1px solid #e1e1e1;
@@ -124,16 +120,15 @@
     .atoz {
         display: none;
     }
-
     /*.collapse + input:checked + div {
         display: block;
     }*/
 }
 
-.no-js{
-   .question-button-next-script{
-       display: none;
-   }
+.no-js {
+    .question-button-next-script {
+        display: none;
+    }
 }
 
 .question-button-next-container {
@@ -143,7 +138,6 @@
 
 .info-image {
     /*margin-right: 20px;*/
-
     i {
         font-size: 28px;
         color: #207eab;
@@ -169,4 +163,41 @@
 
 .hidden {
     display: none;
+}
+
+#checkbox-list {
+    .checkbox-section {
+        margin-left: 0;
+        display: block;
+        margin-bottom: 15px;
+        font-size: 18px;
+        position: relative;
+
+        label {
+            display: inline-block;
+            background-color: #ebebeb;
+            border-radius: 3px;
+            padding: 10px 20px 10px 55px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 1em;
+            font-weight: 400;
+        }
+
+        input[type=checkbox] {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            height: 30px;
+            width: 30px;
+            margin-top: -15px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        input[type=checkbox]:checked + label {
+            background-color: #333333;
+            color: $white;
+        }
+    }
 }

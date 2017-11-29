@@ -28,7 +28,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
         public void Validate_ShouldPassTelephoneValidationWhenStringContainsFiveOrMoreDigits(string data)
         {
             var question = new Mock<IQuestion>();
-            var validator = new TelephoneValidator(question.Object, "This message will not be used");
+            var validator = new TelephoneValidator(question.Object, "This message will not be used", null);
 
             // Act
             var actual = validator.Validate(data);
@@ -51,7 +51,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
             // Arrange
             const string errorMessage = "Must be a telephone number";
             var question = new Mock<IQuestion>();
-            var validator = new TelephoneValidator(question.Object, errorMessage);
+            var validator = new TelephoneValidator(question.Object, errorMessage, null);
 
             // Act
             var validationResult = validator.Validate(data);
@@ -70,7 +70,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
                 QuestionId = questionId,
                 QuestionType = "Test"
             };
-            var validator = new TelephoneValidator(question, "This message will not be used");
+            var validator = new TelephoneValidator(question, "This message will not be used", null);
 
             var actual = validator.Validate("0123467567567");
 
