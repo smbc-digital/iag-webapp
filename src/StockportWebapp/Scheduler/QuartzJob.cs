@@ -38,25 +38,6 @@ namespace StockportWebapp.Scheduler
             _shortShortUrlRedirectses.Redirects = redirects.ShortUrlRedirects;
             _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
 
-            if (_featureToggles.GroupArchiveEmails)
-            {
-                var handleStaleGroupsFirstPossibleStartTime = new TimeSpan(0, 8, 0, 0);
-                var handleStaleGroupsLastPossibleStartTime = new TimeSpan(0, 8, 0, RedirectTimeout.RedirectsTimeout);
-
-
-                if (_timeProvider.Now().TimeOfDay >= handleStaleGroupsFirstPossibleStartTime &&
-                    _timeProvider.Now().TimeOfDay <= handleStaleGroupsLastPossibleStartTime)
-                {
-                    try
-                    {
-                        await _groupsService.HandleStaleGroups();
-                    }
-                    catch (GroupsServiceException)
-                    {
-                        // TODO: Add logger
-                    }
-                }
-            }
         }
     }
 }
