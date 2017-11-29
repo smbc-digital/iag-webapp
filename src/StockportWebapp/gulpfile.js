@@ -18,7 +18,27 @@ var gulp = require("gulp"),
     replace = require('gulp-replace'),
     cached = require('gulp-cached');
 
+var postcss     = require('gulp-postcss');
+var reporter    = require('postcss-reporter');
+var syntax_scss = require('postcss-scss');
+var stylelint   = require('stylelint');
+
 var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
+
+
+var stylelintConfig = {
+    "plugins": [
+        "stylelint-declaration-use-variable",
+        "stylelint-scss"
+    ],
+    "rules": {
+    "sh-waqar/declaration-use-variable": [["color", "background-color"]],
+    "scss/selector-no-redundant-nesting-selector": true,
+    "scss/operator-no-unspaced": true,
+    "unit-no-unknown": true,
+    "block-no-empty": true
+    }
+}
 
 // paths
 var paths = {
@@ -162,5 +182,49 @@ gulp.task('watch', function () {
     gulp.watch([paths.jsProject, '!' + paths.minJs], ['min:js']);
     gulp.watch(paths.jsConfig, ['min:config:sg']);
     gulp.watch(paths.jsConfigHS, ['min:config:hs']);
-    gulp.watch(paths.sass, ['css']);
+    gulp.watch(paths.sass, ['css']).on('change', lintCss);
 });
+
+function lintCss(file){
+
+    console.log("FILE CHANGED: " + file.path);
+
+    var processors = [
+        stylelint(stylelintConfig),
+        reporter({
+            clearReportedMessages: true
+        })
+    ];
+
+    return gulp.src(
+        [file.path]
+        )
+        .pipe(postcss(processors, {syntax: syntax_scss}));
+    }
+
+    gulp.task("scss-lint", function() {
+    
+      
+});
+
+gulp.task("scss-lint-all", function() {
+      var processors = [
+        stylelint(stylelintConfig),
+        reporter({
+            clearReportedMessages: true
+        })
+      ];
+    
+      return gulp.src(
+          ['wwwroot/assets/sass/**/*.scss',
+          // Ignore linting vendor assets
+          // Useful if you have bower components
+          '!wwwroot/assets/sass/site-hs.scss', 
+          '!wwwroot/assets/sass/site-sg.scss', 
+          '!wwwroot/assets/sass/site-ts.scss', 
+          '!wwwroot/assets/sass/export-to-pdf.scss',
+          '!wwwroot/assets/sass/thirdsite/**/*.scss',
+          '!wwwroot/assets/sass/stockportgov/modules/_wysiwyg.scss']
+        )
+        .pipe(postcss(processors, {syntax: syntax_scss}));
+    });
