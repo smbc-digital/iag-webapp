@@ -8,11 +8,11 @@ define(["jquery", "questionview", "questionvalidator"], function ($, view, valid
     }
 
     function updateCheckboxes() {
-        var listOfAnswers = "";
+        var listOfAnswers = [];
         $("#checkbox-list input[type='checkbox']:checked").each(function () {
-            listOfAnswers = listOfAnswers + "," + $(this).parent().find("#question-option-value").val();
+            listOfAnswers.push($(this).parent().find("#question-option-value").val());
         });
-        $("#checkbox-response").val(listOfAnswers);
+        $("#checkbox-response").val(listOfAnswers.join());
     }
 
     var validateQuestions = function (form, selectedInput, bypassShowValidation) {

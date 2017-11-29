@@ -19,8 +19,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         public override bool IsValid(string input, string value)
         {
             int.TryParse(value, out var checkboxValidationCount);
-            var trimStartingComma = input.TrimStart(',');
-            var checkedBoxes = trimStartingComma.Split(',').Length;
+            var checkedBoxes = input.Split(',').Length;
 
             return checkboxValidationCount == checkedBoxes;
         }

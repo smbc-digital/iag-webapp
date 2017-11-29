@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StockportWebapp.ViewModels;
@@ -123,10 +124,7 @@ namespace StockportWebapp.QuestionBuilder
             if (page.Behaviours != null)
             {
                 // Find the behaviour that should trigger, if any...
-                behaviour = page.Behaviours.FirstOrDefault(b =>
-                {
-                    return b.ShouldTrigger(allAnswers);
-                });
+                behaviour = page.Behaviours.FirstOrDefault(b => b.ShouldTrigger(allAnswers));
             }
 
             if (behaviour != null)
@@ -134,28 +132,25 @@ namespace StockportWebapp.QuestionBuilder
                 page.AddAnswers(allAnswers);
                 page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
-                if (behaviour.BehaviourType == EQuestionType.Redirect)
+                switch (behaviour.BehaviourType)
                 {
-                    return Redirect(behaviour.Value);
+                    case EQuestionType.Redirect:
+                        return Redirect(behaviour.Value);
+                    case EQuestionType.RedirectToActionController:
+                        return RedirectToAction("Article", "Article", new { articleSlug = behaviour.Value });
+                    case EQuestionType.RedirectToAction:
+                        return RedirectToAction(behaviour.Value);
+                    case EQuestionType.GoToSummary:
+                        ViewData["page"] = page;
+                        ViewData["pageTitle"] = Title;
+                        return View("Summary");
+                    case EQuestionType.GoToPage:
+                        page = GetPage(Convert.ToInt32(behaviour.Value));
+                        page.AddAnswers(allAnswers);
+                        break;
+                    case EQuestionType.HandOffData:
+                        return Redirect(behaviour.Value + "?json=" + page.PreviousAnswersJson);
                 }
-                if (behaviour.BehaviourType == EQuestionType.RedirectToActionController)
-                {
-                    return RedirectToAction("Article", "Article", new { articleSlug = behaviour.Value });
-                }
-                if (behaviour.BehaviourType == EQuestionType.RedirectToAction)
-                {
-                    return RedirectToAction(behaviour.Value);
-                }
-                if (behaviour.BehaviourType == EQuestionType.GoToSummary)
-                {
-                    ViewData["page"] = page;
-                    ViewData["pageTitle"] = Title;
-                    return View("Summary");
-                }
-
-                page = GetPage(Convert.ToInt32(behaviour.Value));
-                page.AddAnswers(allAnswers);
-
             }
             else
             {

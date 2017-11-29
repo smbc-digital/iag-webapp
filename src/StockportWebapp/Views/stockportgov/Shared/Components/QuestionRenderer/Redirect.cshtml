@@ -1,0 +1,7 @@
+﻿@model Tuple<string,string>
+
+<div onload='document.forms["form"].submit()'>
+    <form name='form' action='@Model.Item1' method='post'>
+        <input type='hidden' name='id' value='@Model.Item2'>
+    </form>
+</div>

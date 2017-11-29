@@ -200,12 +200,7 @@ function lintCss(file){
         [file.path]
         )
         .pipe(postcss(processors, {syntax: syntax_scss}));
-    }
-
-    gulp.task("scss-lint", function() {
-    
-      
-});
+}
 
 gulp.task("scss-lint-all", function() {
       var processors = [

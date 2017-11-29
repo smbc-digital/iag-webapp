@@ -20,16 +20,8 @@ namespace StockportWebapp.QuestionBuilder.Entities
         }
 
         [JsonConstructor]
-        public Page(
-                int pageId,
-                string analyticsEvent = "",
-                string description = "",
-                IList<Question> questions = null,
-                IList<Behaviour> behaviours = null,
-                bool isLastPage = false,
-                bool shouldCache = true,
-                bool hideBackButton = false)
-
+        public Page(int pageId, string analyticsEvent = "", string description = "", IList<Question> questions = null, 
+            IList<Behaviour> behaviours = null, bool isLastPage = false, bool shouldCache = true, bool hideBackButton = false)
         {
             PageId = pageId;
             AnalyticsEvent = analyticsEvent;
@@ -52,7 +44,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
                 _questions = _questions ?? new List<Question>();
                 return _questions;
             }
-            set { _questions = value; }
+            set => _questions = value;
         }
 
         private IList<Answer> _previousAnswers;
