@@ -12,8 +12,8 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
     public class CheckboxValidatorTests
     {
         [Theory]
-        [InlineData(",test1,test2,test3", "1", false)]
-        [InlineData(",test1,test2,test3", "3", true)]
+        [InlineData("test1,test2,test3", "1", false)]
+        [InlineData("test1,test2,test3", "3", true)]
         public void Validate_ShouldPassWhenNumberOfCheckedBoxesIsEqualToValidationValue(string data, string validationValue, bool shouldPass)
         {
             // Arrange
