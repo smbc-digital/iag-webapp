@@ -183,7 +183,10 @@ namespace StockportWebapp.Utils
                 Twitter = group.Twitter,
                 Website = group.Website,
                 AgeRanges = group.AgeRanges.Where(o => o.IsSelected).Select(o => o.Name).ToList(),
-                Suitabilities = group.Suitabilities.Where(o => o.IsSelected).Select(o => o.Name).ToList()
+                Suitabilities = group.Suitabilities.Where(o => o.IsSelected).Select(o => o.Name).ToList(),
+                Volunteering = group.Volunteering ? "Yes" : "No",
+                VolunteeringText = group.VolunteeringText,
+                AdditionalInformation = group.AdditionalInformation
             };
 
             var message = new EmailMessage(messageSubject,

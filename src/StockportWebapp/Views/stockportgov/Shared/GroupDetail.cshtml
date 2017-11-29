@@ -279,6 +279,7 @@
                         
                         @if (Model.ShouldShowAdditionalInformation)
                         {
+                            <a name="info"></a>
                             <h3 class="group-details-heading">Additional Information</h3>
                             @Html.Raw(Model.Group.AdditionalInformation);
                             foreach (Document document in Model.Group.AdditionalDocuments)
@@ -335,7 +336,7 @@
                             <div class="grid-50 tablet-grid-100 mobile-grid-100 group-information-section">
                                 <h3>View additional information</h3>
                                 <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
-                                <stock-button class="manage-group-button" as-link="true" href="@Model.MyAccountUrl">View more information</stock-button>
+                                <stock-button class="manage-group-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
                             </div>
                         }
                         

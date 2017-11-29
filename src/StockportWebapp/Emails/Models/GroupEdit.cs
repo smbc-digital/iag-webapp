@@ -15,5 +15,8 @@ namespace StockportWebapp.Emails.Models
         public string Twitter { get; set; }
         public List<string> Suitabilities { get; set; }
         public List<string> AgeRanges { get; set; }
+        public string Volunteering { get; set; }
+        public string VolunteeringText { get; set; }
+        public string AdditionalInformation { get; set; }
     }
 }

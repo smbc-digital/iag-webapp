@@ -8,7 +8,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
     [QuestionValidatorType(QuestionValidatorTypes.Name)]
     public class NameValidator : ValidatorBase
     {
-        public NameValidator(IQuestion question, string validationMessage) : base(question, validationMessage)
+        public NameValidator(IQuestion question, string validationMessage, string validationValue) : base(question, validationMessage, validationValue)
         {
         }
 
@@ -16,7 +16,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         {
         }
 
-        public override bool IsValid(string input)
+        public override bool IsValid(string input, string validationValue)
         {
             Regex regex = new Regex(ValidationConstants.ValidNameCharacters);
             return regex.IsMatch(input);

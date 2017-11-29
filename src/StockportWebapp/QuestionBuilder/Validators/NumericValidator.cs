@@ -7,7 +7,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
     [QuestionValidatorType(QuestionValidatorTypes.Numeric)]
     public class NumericValidator : ValidatorBase
     {
-        public NumericValidator(IQuestion question, string validationMessage) : base(question, validationMessage)
+        public NumericValidator(IQuestion question, string validationMessage, string validationValue) : base(question, validationMessage, validationValue)
         {
         }
 
@@ -15,7 +15,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         {
         }
 
-        public override bool IsValid(string input)
+        public override bool IsValid(string input, string validationValue)
         {
             Regex numericRegex = new Regex(@"^([0-9])+$");
             return numericRegex.IsMatch(input);

@@ -7,7 +7,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
     [QuestionValidatorType(QuestionValidatorTypes.Telephone)]
     public class TelephoneValidator : ValidatorBase
     {
-        public TelephoneValidator(IQuestion question, string validationMessage) : base(question, validationMessage)
+        public TelephoneValidator(IQuestion question, string validationMessage, string validationValue) : base(question, validationMessage, validationValue)
         {
         }
 
@@ -15,7 +15,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         {
         }
 
-        public override bool IsValid(string input)
+        public override bool IsValid(string input, string validationValue)
         {
             Regex numericRegex = new Regex(@"\D*(?:\d\D*){5}$");
             return numericRegex.IsMatch(input);
