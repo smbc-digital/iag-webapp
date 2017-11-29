@@ -1451,21 +1451,18 @@ namespace StockportWebapp.Controllers
         [Route("/groups/stale")]
         public async Task<IActionResult> HandeStaleGroups([FromQuery] string password)
         {
-            if (password == "elephants")
-            {
-                try
-                {
-                    await _groupsService.HandleStaleGroups();
-                    return new OkObjectResult("Succesfully called HandleStaleGroups");
-                }
-                catch (Exception)
-                {
-                    return new StatusCodeResult(500);
-                }
-                
-            }
+            if (password != _configuration.GetStaleGroupsSecret()) return new UnauthorizedResult();
 
-            return new UnauthorizedResult();
+            try
+            {
+                await _groupsService.HandleStaleGroups();
+                return new OkObjectResult("Succesfully called HandleStaleGroups");
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(500);
+            }
+            
         }
 
         [HttpPost]

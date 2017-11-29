@@ -42,6 +42,7 @@ namespace StockportWebapp.Config
         string GetStockportHomeLink();
         string GetDigitalStockportLink();
         List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
+        string GetStaleGroupsSecret();
     }
 
     public class ApplicationConfiguration : IApplicationConfiguration
@@ -196,6 +197,11 @@ namespace StockportWebapp.Config
         public string GetMyAccountUrl()
         {
             return _appsettings["myAccountUrl"];
+        }
+
+        public string GetStaleGroupsSecret()
+        {
+            return _appsettings["staleGroupsSecret"];
         }
 
         public int GetNewsDefaultPageSize(string businessId)
