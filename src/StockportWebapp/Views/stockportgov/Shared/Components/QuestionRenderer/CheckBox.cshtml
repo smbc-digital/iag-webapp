@@ -6,7 +6,7 @@
     @foreach (var option in Model.Options)
     {
         <div class="checkbox-section">
-            @Html.HiddenFor(x => option.Value, new { "class" = "question-option-value" })
+            @Html.HiddenFor(x => option.Value, new { @class = "question-option-value" })
             <input id="@option.Value" name="@option.Value" type="checkbox" />
             <label for="@option.Value">@option.Label</label>
 
