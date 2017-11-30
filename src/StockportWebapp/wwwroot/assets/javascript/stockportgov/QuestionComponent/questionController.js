@@ -10,7 +10,7 @@ define(["jquery", "questionview", "questionvalidator"], function ($, view, valid
     function updateCheckboxes() {
         var listOfAnswers = [];
         $("#checkbox-list input[type='checkbox']:checked").each(function () {
-            listOfAnswers.push($(this).parent().find("#question-option-value").val());
+            listOfAnswers.push($(this).parent().find(".question-option-value").val());
         });
         $("#checkbox-response").val(listOfAnswers.join());
     }
