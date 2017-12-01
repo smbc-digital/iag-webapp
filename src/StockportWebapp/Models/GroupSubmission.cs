@@ -53,7 +53,7 @@ namespace StockportWebapp.Models
         [Display(Name="Enter a website address (optional)")]       
         public string Website { get; set; }
 
-        [Display(Name = "Enter a twitter url (optional)")]
+        [Display(Name = "Enter a twitter handle (optional)")]
         [RegularExpression(@"(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9]+)", ErrorMessage = "Enter twitter name ")]
         public string Twitter { get; set; }
 
@@ -82,4 +82,3 @@ namespace StockportWebapp.Models
         public List<CheckBoxItem> AgeRanges { get; set; }
     }
 }
-t
