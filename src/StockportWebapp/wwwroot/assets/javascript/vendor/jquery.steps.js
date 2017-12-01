@@ -614,15 +614,18 @@ define(["jquery"], function (jQuery) {
                 return false;
             }
 
-            var keyCodes = { left: 37, right: 39 };
-            if (event.keyCode === keyCodes.left) {
-                event.preventDefault();
-                goToPreviousStep(wizard, options, state);
-            }
-            else if (event.keyCode === keyCodes.right) {
-                event.preventDefault();
-                goToNextStep(wizard, options, state);
-            }
+            // NOTE: I've removed these because they were letting you navigate the form via keys in the wysiwyg editor on left and right keys
+            // only commented out so they can be put back in eaislly if needed
+
+            //var keyCodes = { left: 37, right: 39 };
+            //if (event.keyCode === keyCodes.left) {
+            //    event.preventDefault();
+            //    goToPreviousStep(wizard, options, state);
+            //}
+            //else if (event.keyCode === keyCodes.right) {
+            //    event.preventDefault();
+            //    goToNextStep(wizard, options, state);
+            //}
         }
 
         /**
