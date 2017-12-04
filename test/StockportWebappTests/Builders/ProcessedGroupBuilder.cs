@@ -17,6 +17,8 @@ namespace StockportWebappTests.Builders
         private string _address = "address";
         private string _description = "description";
         private string _imageUrl = "imageurl";
+        private string _donationsText = "_donationsText";
+        private string _donationsUrl = "_donationsUrl";
         private string _thumbnailImageUrl = "thumbnail-image-url";
         private List<GroupCategory> _categoriesReference = new List<GroupCategory>();
         private List<GroupSubCategory> _subCategories = new List<GroupSubCategory>();
@@ -70,7 +72,9 @@ namespace StockportWebappTests.Builders
                 _donations,
                 _mapDetails,
                 _additionalInformation,
-                _additionalDocuments
+                _additionalDocuments,
+                _donationsText,
+                _donationsUrl
             );
         }
 

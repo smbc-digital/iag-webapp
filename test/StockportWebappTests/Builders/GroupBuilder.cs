@@ -17,6 +17,8 @@ namespace StockportWebappTests.Builders
         private string _description = "description";
         private string _imageUrl = "imageurl";
         private string _thumbnailImageUrl = "thumbnail-image-url";
+        private string _donationsText = "_donationsText";
+        private string _donationsUrl = "_donationsUrl";
         private List<GroupCategory> _categoriesReference = new List<GroupCategory>();
         private List<GroupSubCategory> _subCategories = new List<GroupSubCategory>();
         private List<Crumb> _breadcrumbs = new List<Crumb>();
@@ -44,7 +46,7 @@ namespace StockportWebappTests.Builders
         private DateTime? _dateLastModified = null;
         private List<string> _suitableFor = new List<string>();
         private List<string> _ageRange = new List<string>();
-
+    
         public Group Build()
         {
             return new Group(_name,
@@ -81,7 +83,11 @@ namespace StockportWebappTests.Builders
                     _additionalDocuments,
                     _dateLastModified,
                     _suitableFor,
-                    _ageRange
+                    _ageRange,
+                    _donationsText,
+                    _donationsUrl
+
+                    
                 );
         }
 
@@ -126,6 +132,19 @@ namespace StockportWebappTests.Builders
             _dateLastModified = value;
             return this;
         }
+
+        public GroupBuilder DonationsText(string donationsText)
+        {
+            _donationsText = donationsText;
+            return this;
+        }
+
+        public GroupBuilder DonationsUrl(string donationsUrl)
+        {
+            _donationsUrl = donationsUrl;
+            return this;
+        }
+
 
     }
 }
