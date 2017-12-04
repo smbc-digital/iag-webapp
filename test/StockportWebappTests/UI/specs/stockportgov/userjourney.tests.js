@@ -205,7 +205,7 @@ module.exports = {
         page.navigate();
 
         // assertions
-        page.assertGroupHomepageTitleIsVisible("Get involved in your local community with Stockport Local");
+        page.assertGroupHomepageTitleIsVisible("Find local support, activities and volunteering opportunities in Stockport");
         page.assertGroupsHomepageFeaturedListContainerIsVisible();
         page.assertGroupsHomepageFeaturedContainerButtonForItemOneIsVisible("Search everything");
         page.assertGroupsHomepageFeaturedContainerButtonForItemTwoIsVisible("Find help and support");
