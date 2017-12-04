@@ -1,0 +1,26 @@
+﻿@model IEnumerable<StockportWebapp.Models.Photo>
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+
+<div class="container-header grid-container" id="smart-answers-container">
+    <div class="grid-100">
+        <article>
+
+            @foreach (var item in Model)
+            {
+                <p>
+                    @Html.DisplayFor(modelItem => item.title)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.description)
+                    <br />
+                    @Html.DisplayFor(modelItem => item.AccessionNo)
+                    <br />
+                    <img src="@item.imgSrc" width="200px" />
+
+                </p>
+            }
+        </article>
+    </div>
+</div>

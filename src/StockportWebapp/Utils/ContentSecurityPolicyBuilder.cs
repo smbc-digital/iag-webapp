@@ -79,6 +79,7 @@ namespace StockportWebapp.Utils
                 .AddSource("stats.g.doubleclick.net/r/collect")
                 .AddSource("https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/")
                 .AddSource("maps.stockport.gov.uk/")
+                .AddSource("interactive.stockport.gov.uk/")
                 .AddSource("*.ads.astuntechnology.com/")
                 .AddSource("s3-eu-west-1.amazonaws.com/")
                 .AddSource("share.typeform.com/")
