@@ -160,7 +160,7 @@
 }
 
 .group-article-grid {
-    background-color: white;
+    background-color: $white;
 
     @media #{$mobile, $tablet} {
         margin-top: 15px;
@@ -313,7 +313,7 @@
             padding-right: 5px;
         }
 
-        .button-default {
+        .button-default { 
             color: #333;
             background-color: #FFF !important;
         }
@@ -1025,3 +1025,4 @@
         }
     }
 }
+ 
