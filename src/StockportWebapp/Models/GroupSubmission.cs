@@ -53,11 +53,11 @@ namespace StockportWebapp.Models
         public string Website { get; set; }
 
         [Display(Name = "Enter a twitter handle (optional)")]
-        [RegularExpression(@"(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9]+)", ErrorMessage = "Enter twitter name ")]
+        [RegularExpression(@"(?=.)@([A-Za-z]+[A-Za-z0-9]+)", ErrorMessage = "Enter twitter name ")]
         public string Twitter { get; set; }
 
         [Display(Name = "Enter a facebook url (optional)")]
-        [RegularExpression(@"(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/?.*", ErrorMessage="Please enter the full facebook url ")]
+        [RegularExpression(@"(?=.(?:http|https):\/\/)?(?:www.)?facebook.com\/?.*", ErrorMessage="Please enter the full facebook url ")]
         public string Facebook { get; set; }    
         
         [Display(Name="Do you have any volunteering opportunities?")]
