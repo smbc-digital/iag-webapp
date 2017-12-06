@@ -100,11 +100,12 @@ h1.centered {
     font-size: 50px;
 }
 
-a:focus, button:focus, input:focus ,textarea:focus {
+a:focus, button:focus, input:focus ,textarea:focus, select:focus {
     outline: #ef8a16 solid 3px !important;
 }
 
-.focusable {
+// trumbowyg-editor is the wysiwyg editor
+.focusable, .trumbowyg-editor {
     &:focus {
         outline: #ef8a16 solid 3px !important;
     }
