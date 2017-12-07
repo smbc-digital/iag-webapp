@@ -53,11 +53,13 @@ namespace StockportWebapp.Models
         public string Website { get; set; }
 
         [Display(Name = "Enter a twitter handle (optional)")]
-        [RegularExpression(@"(?=.)@([A-Za-z]+[A-Za-z0-9]+)", ErrorMessage = "Enter twitter name ")]
+        [RegularExpression("(?=.)@([A-Za-z]+[A-Za-z0-9]+)", ErrorMessage = "Enter twitter name e.g. @TwitterHandle")]
         public string Twitter { get; set; }
 
+        // js regex attribute validation doens't seem to allow "/i" for case insensitive, this is why e.g. [fF][aA] etc.
+        // TODO: Find a better way of doing this if possible
         [Display(Name = "Enter a facebook url (optional)")]
-        [RegularExpression(@"(?=.(?:http|https):\/\/)?(?:www.)?facebook.com\/?.*", ErrorMessage="Please enter the full facebook url ")]
+        [RegularExpression(@"(((?:[hH][tT][tT][pP])(?:[sS])?(:\/\/))?(?:[wW][wW][wW].)?(([fF][aA][cC][eE][bB][oO][oO][kK].[cC][oO][mM])\/[A-Za-z0-9]+))", ErrorMessage="Please enter the full facebook url e.g. www.facebook.com/yourpage")]
         public string Facebook { get; set; }    
         
         [Display(Name="Do you have any volunteering opportunities?")]
