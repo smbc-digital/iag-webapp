@@ -1,8 +1,5 @@
 ﻿---
 prod: &prod
-  GroupAdditionalInformation : false
-  HealthyStockportHomepageEvents : true
-  MultiStepForm: true
   GroupArchiveEmails: false
 
 stage: &stage

@@ -1,7 +1,6 @@
 ﻿@using StockportWebapp.ViewModels
 @model HomepageViewModel
 
-@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 @inject StockportWebapp.Config.IApplicationConfiguration appConfig
 
 @{
@@ -59,7 +58,7 @@
                 }
             </div>
 
-            @if (featureToggles.HealthyStockportHomepageEvents && Model.EventsFromApi != null && Model.EventsFromApi.Any())
+            @if (Model.EventsFromApi != null && Model.EventsFromApi.Any())
             {
                 <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container" id="event-listing-container">
                     <h2>Things to do</h2>
