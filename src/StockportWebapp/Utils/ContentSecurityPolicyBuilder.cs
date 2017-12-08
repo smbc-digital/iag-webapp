@@ -44,7 +44,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.google.com/recaptcha/api2/bframe")
 				.AddSource("https://player.vimeo.com/")
                 .AddSource("http://stage.midas-pps.tractivity.co.uk/")
-				.Finish());
+                .Finish());
         }
 
         private void BuildFontSource()
@@ -157,6 +157,7 @@ namespace StockportWebapp.Utils
 				.AddSource("cdn.syndication.twimg.com/timeline/")
 				.AddSource("platform.twitter.com/css/")
                 .AddSource("local.tractivity.co.uk/wp-includes/js/")
+                .AddSource("stage.midas-pps.tractivity.co.uk/")
                 .AddSource("")
 				.Finish());
         }
