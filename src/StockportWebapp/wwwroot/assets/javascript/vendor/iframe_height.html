@@ -1,0 +1,29 @@
+<script type="text/javascript">
+
+    function getParamFromLocation(nr) {
+        var pair = window.location.search.substring(1);
+        var parts = pair.split('=');
+        return parts[nr];
+    }
+    var nHeight = getParamFromLocation(1);
+  
+  
+    if (nHeight != undefined) {
+        try {
+            var id = getParamFromLocation(3);
+            var nWidth = getParamFromLocation(2); 
+            if (id != undefined) {
+                var iHeight = parseInt(nHeight);
+                var iWidth = parseInt(nWidth);
+                window.parent.parent.aiResizeIframeHeightId(iHeight,iWidth, id);
+                window.parent.parent.aiShowIframeId( '#' + id);
+            } else {
+                alert("Please update the ai_external.js to the current version.");
+            }  
+        } catch(e) {
+            if (console && console.log) {
+                console.log(e);
+            }
+        }
+    }
+</script>

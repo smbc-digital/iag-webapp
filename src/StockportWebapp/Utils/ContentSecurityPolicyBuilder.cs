@@ -43,6 +43,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.google.com/recaptcha/api2/anchor")
                 .AddSource("https://www.google.com/recaptcha/api2/bframe")
 				.AddSource("https://player.vimeo.com/")
+                .AddSource("http://stage.midas-pps.tractivity.co.uk/")
 				.Finish());
         }
 
@@ -155,6 +156,8 @@ namespace StockportWebapp.Utils
 				.AddSource("platform.twitter.com/")
 				.AddSource("cdn.syndication.twimg.com/timeline/")
 				.AddSource("platform.twitter.com/css/")
+                .AddSource("local.tractivity.co.uk/wp-includes/js/")
+                .AddSource("")
 				.Finish());
         }
 
