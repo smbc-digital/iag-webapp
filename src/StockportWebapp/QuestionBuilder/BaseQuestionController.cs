@@ -27,9 +27,9 @@ namespace StockportWebapp.QuestionBuilder
         protected string Title;
         private readonly IHttpClient _client;
         private readonly IConfiguration _config;
-        private readonly ILogger _logger;
+        private readonly ILogger<BaseQuestionController<T,M>> _logger;
 
-        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, IHttpClient client, IConfiguration config, ILogger logger)
+        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
         {
             var slug = string.Empty;
             var url = httpContextAccessor.HttpContext.Request.Path.ToString();

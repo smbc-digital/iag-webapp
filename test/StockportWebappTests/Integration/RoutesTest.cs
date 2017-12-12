@@ -305,17 +305,17 @@ namespace StockportWebappTests.Integration
 
         #region stockportgov
         [Theory]
-        [InlineData("/", 30)]
-        [InlineData("/topic/test-topic", 30)]
-        [InlineData("/physical-activity", 15)]
-        [InlineData("/profile/test-profile", 60)]
-        [InlineData("/start/start-page", 15)]
-        [InlineData("/news/test", 15)]
-        [InlineData("/news", 15)]
-        [InlineData("/events", 30)]
-        [InlineData("/events/event-of-the-century", 30)]
-        [InlineData("/atoz/a", 60)]
-        [InlineData("/showcase/a-showcase", 30)]
+        //[InlineData("/", 30)]
+        //[InlineData("/topic/test-topic", 30)]
+        //[InlineData("/physical-activity", 15)]
+        //[InlineData("/profile/test-profile", 60)]
+        //[InlineData("/start/start-page", 15)]
+        //[InlineData("/news/test", 15)]
+        //[InlineData("/news", 15)]
+        //[InlineData("/events", 30)]
+        //[InlineData("/events/event-of-the-century", 30)]
+        //[InlineData("/atoz/a", 60)]
+        //[InlineData("/showcase/a-showcase", 30)]
         [InlineData("/smart/smart-test", 15)]
         public async void ItReturnsTheCorrectHeaders(string path, int time)
         {

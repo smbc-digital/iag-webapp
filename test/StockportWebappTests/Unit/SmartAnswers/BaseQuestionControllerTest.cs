@@ -24,7 +24,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
 {
     internal class TestQuestionController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
-        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle, IHttpClient _client, IConfiguration _config, ILogger logger) : base(httpContextAccessor, questionLoader, _client, _config, logger)
+        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(httpContextAccessor, questionLoader, _client, _config, logger)
         {
         }
 
@@ -44,7 +44,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         private FeatureToggles _featureToggles;
         private readonly Mock<IHttpClient> _client;
         private readonly Mock<IConfiguration> _config;
-        private readonly Mock<ILogger> _logger;
+        private readonly Mock<ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>>> _logger;
 
         public BaseQuestionControllerTests()
         {
@@ -55,7 +55,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
             _featureToggles = new FeatureToggles();
             _client = new Mock<IHttpClient>();
             _config = new Mock<IConfiguration>();
-            _logger = new Mock<ILogger>();
+            _logger = new Mock<ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>>>();
             SetFakeQuestionStructure();
             SetFakeResponse();
 
