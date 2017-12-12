@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportWebapp.Http;
 using StockportWebapp.ViewModels;
@@ -26,8 +27,9 @@ namespace StockportWebapp.QuestionBuilder
         protected string Title;
         private readonly IHttpClient _client;
         private readonly IConfiguration _config;
+        private readonly ILogger<BaseQuestionController<T, M>> _logger;
 
-        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, IHttpClient client, IConfiguration config)
+        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
         {
             var slug = string.Empty;
             var url = httpContextAccessor.HttpContext.Request.Path.ToString();
@@ -46,6 +48,7 @@ namespace StockportWebapp.QuestionBuilder
             HttpContextAccessor = httpContextAccessor;
             _client = client;
             _config = config;
+            _logger = logger;
             Structure = questionLoader.LoadQuestions<GenericSmartAnswersQuestions>(slug, ref Title).Structure;
             Slug = slug;
         }
@@ -158,7 +161,15 @@ namespace StockportWebapp.QuestionBuilder
                     case EQuestionType.HandOffData:
                         var authenticationKey = _config["DTSHandOffAuthenticationKey"];
                         var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string>{{"DTSHandOffAuthenticationKey", authenticationKey} });
-                        return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                        if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
+                        {
+                            _logger.LogInformation($"Guid not set");
+                        }
+                        else
+                        {
+                            return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                        }
+                        break;
                 }
             }
             else
