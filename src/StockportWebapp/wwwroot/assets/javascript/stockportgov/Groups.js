@@ -9,6 +9,17 @@
         }
     };
 
+
+    var handleDonations = function (input) {
+        if ($(input).is(':checked') === true) {
+            $("#donations-text").show();
+        }
+        else {
+            $("#donations-text").hide();
+        }
+    };
+
+
     var handleAdditionalInformation = function (input) {
         if ($(input).is(':checked') === true) {
             $("#additional-information-text").show();
@@ -49,6 +60,11 @@
         handleVolunteering($("#volunteering-needed"));
         $("#volunteering-needed").on("change", function () {
             handleVolunteering(this);
+        });
+
+        handleDonations($("#donations-needed"));
+        $("#donations-needed").on("change", function () {
+            handleDonations(this);
         });
 
         handleAdditionalInformation($("#additional-information"));

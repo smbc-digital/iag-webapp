@@ -62,8 +62,14 @@ namespace StockportWebapp.Models
         [RegularExpression(@"(((?:[hH][tT][tT][pP])(?:[sS])?(:\/\/))?(?:[wW][wW][wW].)?(([fF][aA][cC][eE][bB][oO][oO][kK].[cC][oO][mM])\/[A-Za-z0-9]+))", ErrorMessage="Please enter the full facebook url e.g. www.facebook.com/yourpage")]
         public string Facebook { get; set; }    
         
-        [Display(Name="Do you have any volunteering opportunities?")]
+        [Display(Name="Let people know you are looking for volunteering opportunities ?")]
         public bool Volunteering { get; set; }
+
+        [Display(Name = "Let people know you are looking for donations ?")]
+        public bool Donations { get; set; }
+
+        [Display(Name = "Donations url ")]
+        public string DonationsUrl { get; set; }                      
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
@@ -71,6 +77,10 @@ namespace StockportWebapp.Models
         [StringLength(250, ErrorMessage = "Volunteering text must be 250 characters or less in length.")]
         public string VolunteeringText { get; set; } =
             "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible.";
+
+        [StringLength(250, ErrorMessage = "Volunteering text must be 250 characters or less in length.")]
+        public string DonationsText { get; set; } =
+            "Use the button below to find out about making a donation to support our group.";
 
         [Display(Name = "Provide additional information that only professionals and advisors can see")]
         public string AdditionalInformation { get; set; }

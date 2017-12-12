@@ -979,7 +979,7 @@ namespace StockportWebapp.Controllers
             model.AdditionalInformation = group.AdditionalInformation;
             model.Suitabilities.Where(_ => group.SuitableFor.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
             model.AgeRanges.Where(_ => group.AgeRange.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
-
+          
             return View(model);
         }
 
@@ -1016,10 +1016,14 @@ namespace StockportWebapp.Controllers
             group.Twitter = model.Twitter;
             group.Website = model.Website;
             group.Volunteering = model.Volunteering;
+            group.Donations = model.Donations;
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
             group.Volunteering = model.Volunteering;
+            group.Donations = group.Donations;
+            group.DonationsText = _groupsService.GetDoantionsText(model.DonationsText);
             group.VolunteeringText = _groupsService.GetVolunteeringText(model.VolunteeringText);
             group.AdditionalInformation = model.AdditionalInformation;
+            group.DonationsUrl = model.DonationsUrl;
 
             group.CategoriesReference = new List<GroupCategory>();
             group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));

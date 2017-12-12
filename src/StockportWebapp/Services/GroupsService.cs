@@ -30,6 +30,7 @@ namespace StockportWebapp.Services
         bool DateNowIsNotBetweenHiddenRange(DateTime? hiddenFrom, DateTime? hiddenTo);
         bool HasGroupPermission(string email, List<GroupAdministratorItems> groupAdministrators, string permission = "E");
         string GetVolunteeringText(string volunteeringText);
+        string GetDoantionsText(string DonationsText);
         void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress);
         Task<List<string>> GetAvailableGroupCategories();
     }
@@ -218,5 +219,9 @@ namespace StockportWebapp.Services
                             _.DateLastModified.HasValue && _.DateLastModified.Value.AddDays(numDays).Date == DateTime.Today);
         }
 
+        public string GetDoantionsText(string DonationsText)
+        {
+            return string.IsNullOrEmpty(DonationsText) ? "if you would like to find out more about donating to this group." : DonationsText;
+        }
     }
 }

@@ -86,7 +86,7 @@
                                         <div class="checkboxes">
                                             <a href="javascript:;" class="select-all-checkboxes">Select all</a>
 
-                                            @for(var i = 0; i < Model.Suitabilities.Count; i++) 
+                                            @for (var i = 0; i < Model.Suitabilities.Count; i++)
                                             {
                                                 <div class="checkbox">
                                                     <label>
@@ -151,7 +151,7 @@
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
                                         <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
-                                        <label class="label-for-checkbox hide-on-mobile">Do you have any volunteering opportunities?</label>
+                                        <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for volunteers</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
                                         <div class="switch">
                                             <label>
@@ -165,15 +165,42 @@
                                                 <li>Let people know that your group is looking for volunteers</li>
                                             </ul>
                                         </i>
+
                                         <div id="volunteering-text">
                                             <i>You can edit the text below to customise this message</i>
                                             <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
-                                            <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span asp-validation-for="@Model.Volunteering" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
-
+                                        <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for donations</label>
+                                        <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Donations</label>
+                                        <div class="switch">
+                                            <label>
+                                                <input asp-for="@Model.Donations" id="donations-needed" type="checkbox">
+                                                <span class="lever"></span>
+                                            </label>
+                                        </div>
+                                        <i class="small">
+                                            <ul>
+                                                <li>Let people get in touch with you about donations </li>
+                                                <li>Let people know that your group is looking for donations</li>
+                                            </ul>
+                                        </i>
+                                        <div id="donations-text">
+                                            <i>You can edit the text below to customise this message</i>
+                                            <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                                Use the button below to find out about making a donation to support our group.
+                                            </textarea>
+                                            <span asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <div>
+                                                <label asp-for="@Model.DonationsUrl"></label>
+                                                <i>For example: https://www.donations.com/StockportMBC</i><br />
+                                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.DonationsUrl" />
+                                                <span asp-validation-for="@Model.DonationsUrl" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            </div>
+                                        </div>
                                         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
                                         <div Class="clearfix"></div>
 
