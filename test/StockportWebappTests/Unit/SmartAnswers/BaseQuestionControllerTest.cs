@@ -6,6 +6,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json.Linq;
 using StockportWebapp.Dtos;
@@ -23,7 +24,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
 {
     internal class TestQuestionController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
-        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle, IHttpClient _client, IConfiguration _config) : base(httpContextAccessor, questionLoader, _client, _config)
+        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle, IHttpClient _client, IConfiguration _config, ILogger logger) : base(httpContextAccessor, questionLoader, _client, _config, logger)
         {
         }
 
@@ -43,6 +44,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         private FeatureToggles _featureToggles;
         private readonly Mock<IHttpClient> _client;
         private readonly Mock<IConfiguration> _config;
+        private readonly Mock<ILogger> _logger;
 
         public BaseQuestionControllerTests()
         {
@@ -53,6 +55,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
             _featureToggles = new FeatureToggles();
             _client = new Mock<IHttpClient>();
             _config = new Mock<IConfiguration>();
+            _logger = new Mock<ILogger>();
             SetFakeQuestionStructure();
             SetFakeResponse();
 
@@ -65,7 +68,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public void GetPageForId_ShouldReturnFirstPage()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
 
             var page = navigator.GetPage(0);
 
@@ -77,7 +80,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public void GetAllDetails_ForFirstPage_AndAreAllValid()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
 
             var page = navigator.GetPage(0);
 
@@ -99,7 +102,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public void RunBehaviours_ShouldRunDefaultBehaviourIfNoBehavioursAreDefined()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             const int currentPage = 203;
             var actual = navigator.DefaultBehaviour(currentPage);
 
@@ -117,7 +120,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public async void RunBehaviours_ShouldRunBehaviourForRedirect()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             Page currentPage = navigator.GetPage(204);
 
             var actual = await navigator.RunBehaviours(currentPage);
@@ -129,7 +132,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public async void RunBehaviours_ShouldRunBehaviourForRedirectToAction()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             Page currentPage = navigator.GetPage(101);
 
             var actual = await navigator.RunBehaviours(currentPage);
@@ -144,7 +147,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         {
             var httpContext = new DefaultHttpContext();
             _httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             var page = new Page { ShouldCache = true };
 
             var result = navigator.Index(page);
@@ -159,7 +162,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
             var httpContext = new DefaultHttpContext();         
             _httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
 
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             var page = new Page { ShouldCache = false };
 
             var result = navigator.Index(page);

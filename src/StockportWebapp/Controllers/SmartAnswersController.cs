@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportWebapp.Dtos;
 using StockportWebapp.FeatureToggling;
@@ -25,7 +26,7 @@ namespace StockportWebapp.Controllers
     {
         private readonly ISmartResultService _service;
 
-        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling, ISmartResultService service, IHttpClient _client, IConfiguration _config) : base(HttpContextAccessor, questionLoader, _client, _config)
+        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling, ISmartResultService service, IHttpClient _client, IConfiguration _config, ILogger logger) : base(HttpContextAccessor, questionLoader, _client, _config, logger)
         {
             _service = service;
         }
