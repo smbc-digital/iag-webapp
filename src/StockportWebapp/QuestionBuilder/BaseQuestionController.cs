@@ -167,6 +167,7 @@ namespace StockportWebapp.QuestionBuilder
                         }
                         else
                         {
+                            _logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                             return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                         }
                         break;
