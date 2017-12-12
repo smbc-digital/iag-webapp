@@ -164,16 +164,24 @@ namespace StockportWebapp.QuestionBuilder
                         _logger.LogInformation($"------Authentication key: {authenticationKey}");
 
                         _logger.LogInformation($"------{behaviour.Value}hand-off-data");
-                        var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string>{{"DTSHandOffAuthenticationKey", authenticationKey} });
-                        _logger.LogInformation($"------{guid??null}");
-                        if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
+                        try
                         {
-                            _logger.LogInformation($"Guid not set");
+                            var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
+                            _logger.LogInformation($"------{guid ?? null}");
+                            if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
+                            {
+                                _logger.LogInformation($"Guid not set");
+                            }
+                            else
+                            {
+                                _logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            _logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                            return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                            _logger.LogInformation($"------{e}");
+                            throw;
                         }
                         break;
                 }
