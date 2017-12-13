@@ -66,8 +66,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie', 'trumbowyginit'],
-    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie, trumbowyginit) {
+require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie', 'trumbowyginit', 'utils'],
+    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie, trumbowyginit, utils) {
         // multiStepForm (jquery.steps) needs to be first
         multiStepForm.Init();
 
@@ -88,6 +88,7 @@ require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'fi
         cludoconfig.Init();
         alerts.Init();
         trumbowyginit.Init();
+        utils.Init();
     }
 );
 

@@ -1,6 +1,7 @@
 ﻿---
 prod: &prod
   GroupArchiveEmails: false
+  NameInHeader: false
 
 stage: &stage
   << : *prod
@@ -14,6 +15,7 @@ int: &int
   << : *stage
   << : *qa
   GroupArchiveEmails: true
+  NameInHeader: true
 
 local: &local
   << : *prod
