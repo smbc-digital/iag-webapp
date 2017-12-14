@@ -12,7 +12,6 @@
     }
 
     var selectDropdown = function (select) {
-        debugger;
         var links = $('.' + className + '-add', '.' + className + '-div:visible');
         var link = links[links.length - 1];
         if (allHaveValues()) {
@@ -105,7 +104,6 @@
     }
 
     var populate = function () {
-        debugger;
         categoriesList = $('#' + className).val();
         categories = categoriesList.split('|');
 

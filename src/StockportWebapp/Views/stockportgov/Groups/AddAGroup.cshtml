@@ -17,7 +17,7 @@
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="" class="grid-100 mobile-grid-100">
+            <section aria-label="add a group form" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
                         <h1 tabindex="-1" id="content">Add your group or service</h1>
@@ -51,17 +51,17 @@
                                 <div id="multistep-form-sections-wrapper" class="form-section">
                                     <h2>About your group or service</h2>
                                     <section>
-                                        <label asp-for="@Model.Name"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name" />
+                                        <label  for="@Model.Name"  asp-for="@Model.Name"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" id="@Model.Name" name="@Model.Name" asp-for="@Model.Name" />
                                         <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Address"></label>
                                         <p>Enter a postcode or place name</p>
-                                        <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
+                                        <input type="text" name="@Model.Address"id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
                                         <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
                                         <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
                                         <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
+                                        
                                         <input type="hidden" id="address" value="@Model.Address" />
 
                                         <label asp-for="@Model.Description"></label>
@@ -90,6 +90,9 @@
                                             {
                                                 <div class="checkbox">
                                                     <label>
+                                                        <label class="visuallyhidden" for="@Model.Suitabilities[i].Name">
+                                                            Select who your group is suitable for (Optional)
+                                                        </label>
                                                         <input type="checkbox" asp-for="@Model.Suitabilities[i].IsSelected" />
                                                         <input type="hidden" asp-for="@Model.Suitabilities[i].Name" />
                                                         <span>@Model.Suitabilities[i].Name</span>
