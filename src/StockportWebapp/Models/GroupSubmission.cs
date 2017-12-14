@@ -69,7 +69,9 @@ namespace StockportWebapp.Models
         public bool Donations { get; set; }
 
         [Display(Name = "Donations url ")]
-        public string DonationsUrl { get; set; }                      
+        [RegularExpression(@"((?:[hH][tT][tT][pP])(?:[sS])?(:\/\/))(?:[wW][wW][wW].*)?.*", ErrorMessage = "Enter a valid url")]
+        public string DonationsUrl { get; set; } 
+        
 
         public double Latitude { get; set; }
         public double Longitude { get; set; }
