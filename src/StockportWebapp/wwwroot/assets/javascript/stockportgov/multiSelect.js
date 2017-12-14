@@ -12,6 +12,7 @@
     }
 
     var selectDropdown = function (select) {
+        debugger;
         var links = $('.' + className + '-add', '.' + className + '-div:visible');
         var link = links[links.length - 1];
         if (allHaveValues()) {
@@ -35,7 +36,7 @@
     }
 
     var addDropdown = function (link) {
-        var newValue = $('#' + className).val() + ',';
+        var newValue = $('#' + className).val() + '|';
         $('#' + className).val(newValue);
         populate();
     }
@@ -86,7 +87,7 @@
         var arrayList = '';
         var comma = '';
         for (var i = 0; i < shownCategories.length; i++) {
-            if (i > 0) arrayList += ',';
+            if (i > 0) arrayList += '|';
             var select = $('select', $(shownCategories)[i]);
             arrayList += $(select).val();
         }
@@ -104,8 +105,9 @@
     }
 
     var populate = function () {
+        debugger;
         categoriesList = $('#' + className).val();
-        categories = categoriesList.split(',');
+        categories = categoriesList.split('|');
 
         var max = categoriesList.length > limit ? limit : categoriesList.length;
         max = max === 0 ? max = 1 : max;

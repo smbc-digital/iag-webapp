@@ -604,15 +604,15 @@ define(["jquery"], function (jQuery) {
          * @event keyup
          * @param event {Object} An event object
          */
-        function keyUpHandler(event) {
-            var wizard = $(this),
-                options = getOptions(wizard),
-                state = getState(wizard);
+        //function keyUpHandler(event) {
+        //    var wizard = $(this),
+        //        options = getOptions(wizard),
+        //        state = getState(wizard);
 
-            if (options.suppressPaginationOnFocus && wizard.find(":focus").is(":input")) {
-                event.preventDefault();
-                return false;
-            }
+            //if (options.suppressPaginationOnFocus && wizard.find(":focus").is(":input")) {
+            //    event.preventDefault();
+            //    return false;
+            //}
 
             // NOTE: I've removed these because they were letting you navigate the form via keys in the wysiwyg editor on left and right keys
             // only commented out so they can be put back in eaislly if needed
@@ -626,7 +626,7 @@ define(["jquery"], function (jQuery) {
             //    event.preventDefault();
             //    goToNextStep(wizard, options, state);
             //}
-        }
+     //   }
 
         /**
          * Loads and includes async content.
@@ -837,9 +837,7 @@ define(["jquery"], function (jQuery) {
             wizard.bind("stepChanging" + eventNamespace, options.onStepChanging);
             wizard.bind("stepChanged" + eventNamespace, options.onStepChanged);
 
-            if (options.enableKeyNavigation) {
-                wizard.bind("keyup" + eventNamespace, keyUpHandler);
-            }
+       
 
             wizard.find(".actions a").bind("click" + eventNamespace, paginationClickHandler);
         }

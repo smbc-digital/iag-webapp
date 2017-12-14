@@ -93,7 +93,7 @@
                                     <section>
                                         <label>Select who your group is suitable for (Optional)</label>
                                         <p>Don't worry if you are not sure about suitability, you can leave this blank</p>
-                                        
+
                                         <div class="checkboxes">
                                             <a href="javascript:;" class="select-all-checkboxes">Select all</a>
 
@@ -152,19 +152,21 @@
                                     <section>
                                         <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for Volunteers</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
-                                        <div class="switch">
-                                            <label>
-                                                <input asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
+                                        <div class="checkboxes">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input class="test" asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
+                                                    <span>Yes, we’re looking for volunteers</span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <i class="small">
-                                            <ul>
-                                                <li>Let people get in touch with you about volunteering opportunities</li>
-                                                <li>Let people know that your group is looking for volunteers</li>
-                                            </ul>
-                                        </i>
                                         <div id="volunteering-text">
+                                            <i class="small">
+                                                <ul>
+                                                    <li>Let people get in touch with you about volunteering opportunities</li>
+                                                    <li>Let people know that your group is looking for volunteers</li>
+                                                </ul>
+                                            </i>
                                             <i>You can edit the text below to customise this message</i>
                                             <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
@@ -174,25 +176,27 @@
 
                                         <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for donations</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Donations</label>
-                                        <div class="switch">
-                                            <label>
-                                                <input asp-for="@Model.Donations" id="donations-needed" type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
+                                        <div class="checkboxes">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input class="test" asp-for="@Model.Volunteering" id="donations-needed" type="checkbox">
+                                                    <span>Yes, people can make donations</span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <i class="small">
-                                            <ul>
-                                                <li>Let people get in touch with you about donations </li>
-                                                <li>Let people know that your group is looking for donations</li>
-                                            </ul>
-                                        </i>
                                         <div id="donations-text">
+                                            <i class="small">
+                                                <ul>
+                                                    <li>Let people get in touch with you about donations </li>
+                                                    <li>Let people know that your group is looking for donations</li>
+                                                </ul>
+                                            </i>
                                             <i>You can edit the text below to customise this message</i>
                                             <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                              use the button below to find out about making a donation to support our group.
                                             </textarea>
                                             <span asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                            
+
                                             <div>
                                                 <label asp-for="@Model.DonationsUrl"></label>
                                                 <i>For example: https://www.donations.com/StockportMBC</i><br />
