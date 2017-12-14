@@ -21,8 +21,8 @@ define(["jquery"], function (jQuery) {
 
             _enableAria: function (enable) {
                 return (enable == null || enable) ?
-                    this.removeClass("disabled")._aria("disabled", "false") :
-                    this.addClass("disabled")._aria("disabled", "true");
+                    this.removeClass("disabled")._aria("disabled", "false").find("a").attr("tabindex", 0) :
+                    this.addClass("disabled")._aria("disabled", "true").find("a").attr("tabindex", -1);
             },
 
             _showAria: function (show) {

@@ -69,7 +69,7 @@ namespace StockportWebapp.Models
         public bool Donations { get; set; }
 
         [Display(Name = "Donations url ")]
-        [RegularExpression(@"((?:[hH][tT][tT][pP])(?:[sS])?(:\/\/))(?:[wW][wW][wW].*)?.*", ErrorMessage = "Enter a valid url")]
+        [RegularExpression(@"((?:[hH][tT][tT][pP])(?:[sS])?(:\/\/))(?:[wW][wW][wW].*)?.*", ErrorMessage = "The link must start with either https:// or http:// ")]
         public string DonationsUrl { get; set; } 
         
 

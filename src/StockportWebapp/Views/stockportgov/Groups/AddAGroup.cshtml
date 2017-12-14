@@ -89,10 +89,7 @@
                                             @for (var i = 0; i < Model.Suitabilities.Count; i++)
                                             {
                                                 <div class="checkbox">
-                                                    <label>
-                                                        <label class="visuallyhidden" for="@Model.Suitabilities[i].Name">
-                                                            Select who your group is suitable for (Optional)
-                                                        </label>
+                                                    <label>                                                       
                                                         <input type="checkbox" asp-for="@Model.Suitabilities[i].IsSelected" />
                                                         <input type="hidden" asp-for="@Model.Suitabilities[i].Name" />
                                                         <span>@Model.Suitabilities[i].Name</span>
