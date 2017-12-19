@@ -47,9 +47,9 @@ namespace StockportWebapp.Controllers
         private readonly ILoggedInHelper _loggedInHelper;
         private readonly IGroupsService _groupsService;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository, 
-            GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl, 
-            IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration, 
+        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository,
+            GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl,
+            IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration,
             MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator,
             IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService,
             ICookiesHelper cookiesHelper)
@@ -107,7 +107,7 @@ namespace StockportWebapp.Controllers
             model.FeaturedGroupsCategory = homepage.FeaturedGroupsCategory;
             model.FeaturedGroupsSubCategory = homepage.FeaturedGroupsSubCategory;
             model.Alerts = homepage.Alerts;
-                
+
             return View(model);
         }
 
@@ -126,7 +126,7 @@ namespace StockportWebapp.Controllers
             var isLoggedIn = false;
 
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
-            
+
             if (!string.IsNullOrEmpty(loggedInPerson.Email))
             {
                 var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
@@ -141,12 +141,12 @@ namespace StockportWebapp.Controllers
             var viewModel = new GroupDetailsViewModel
             {
                 Group = group,
-                MyAccountUrl = _configuration.GetMyAccountUrl() +"?returnUrl=" + Request?.GetUri(),
+                MyAccountUrl = _configuration.GetMyAccountUrl() + "?returnUrl=" + Request?.GetUri(),
                 ShouldShowAdditionalInformation = userHasAccessToAdditionalInformation && hasAdditionalInformation,
                 ShouldShowAdditionalInfoLink = hasAdditionalInformation && !isLoggedIn
             };
 
-            _cookiesHelper.PopulateCookies(new List<ProcessedGroup>{group}, "favourites");
+            _cookiesHelper.PopulateCookies(new List<ProcessedGroup> { group }, "favourites");
 
             if (group.LinkedGroups != null)
             {
@@ -226,7 +226,7 @@ namespace StockportWebapp.Controllers
                     model.OrganisationName = organisationFilter.Title;
                 }
             }
-            
+
             try
             {
                 ViewBag.AbsoluteUri = Request?.GetUri().AbsoluteUri;
@@ -237,7 +237,7 @@ namespace StockportWebapp.Controllers
                 //This is for unit tests
                 ViewBag.AbsoluteUri = string.Empty;
             }
-            
+
 
             return View(model);
         }
@@ -302,14 +302,14 @@ namespace StockportWebapp.Controllers
         [HttpPost]
         [Route("/groups/{slug}/change-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
-        public  IActionResult ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
+        public IActionResult ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
                 return View(submission);
             }
-            
+
             var successCode = _emailBuilder.SendEmailChangeGroupInfo(submission).Result;
             if (successCode == HttpStatusCode.OK)
                 return RedirectToAction("ChangeGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
@@ -382,7 +382,7 @@ namespace StockportWebapp.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error exporting {slug} to pdf, exception: {ex.Message}");
-                return new ContentResult() { Content = "There was a problem exporting this group to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError};
+                return new ContentResult() { Content = "There was a problem exporting this group to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError };
             }
         }
 
@@ -536,18 +536,18 @@ namespace StockportWebapp.Controllers
             {
                 var jsonContent = JsonConvert.SerializeObject(model.GroupAdministratorItem);
                 var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-                
+
                 response = await _repository.UpdateAdministrator(httpContent, model.Slug, model.GroupAdministratorItem.Email);
                 if (!response.IsSuccessful()) return response;
                 await _emailBuilder.SendEmailEditUser(model);
                 return RedirectToAction("EditUserConfirmation", new { slug = model.Slug, name = model.GroupAdministratorItem.Name, groupName = group.Name });
             }
-            
+
             return View(model);
         }
 
         [Route("/groups/manage/{slug}/edituserconfirmation")]
-        public  IActionResult EditUserConfirmation(string slug, string name, string groupName)
+        public IActionResult EditUserConfirmation(string slug, string name, string groupName)
         {
             if (string.IsNullOrWhiteSpace(groupName) || string.IsNullOrWhiteSpace(name))
             {
@@ -673,13 +673,13 @@ namespace StockportWebapp.Controllers
                 return NotFound();
             }
 
-           var result = new ManageGroupViewModel
+            var result = new ManageGroupViewModel
             {
                 Name = group.Name,
                 Slug = slug,
                 Administrator = _groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "A"),
-               IsArchived = _groupsService.DateNowIsNotBetweenHiddenRange(group.DateHiddenFrom, group.DateHiddenTo)
-        };
+                IsArchived = _groupsService.DateNowIsNotBetweenHiddenRange(group.DateHiddenFrom, group.DateHiddenTo)
+            };
 
             return View(result);
         }
@@ -979,7 +979,7 @@ namespace StockportWebapp.Controllers
             model.AdditionalInformation = group.AdditionalInformation;
             model.Suitabilities.Where(_ => group.SuitableFor.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
             model.AgeRanges.Where(_ => group.AgeRange.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
-          
+
             return View(model);
         }
 
@@ -1030,7 +1030,7 @@ namespace StockportWebapp.Controllers
 
             group.SuitableFor = model.Suitabilities.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
             group.AgeRange = model.AgeRanges.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
-            
+
 
             if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
             {
@@ -1050,7 +1050,7 @@ namespace StockportWebapp.Controllers
                 if (putResponse.StatusCode == (int)HttpStatusCode.OK)
                 {
                     _emailBuilder.SendEmailEditGroup(model, loggedInPerson.Email);
-                    return RedirectToAction("EditGroupConfirmation", new {slug = slug, groupName = group.Name});
+                    return RedirectToAction("EditGroupConfirmation", new { slug = slug, groupName = group.Name });
                 }
                 else
                 {
@@ -1103,6 +1103,32 @@ namespace StockportWebapp.Controllers
 
             return await _repository.Get<GroupResults>(queries: queries);
         }
+
+        [ResponseCache(NoStore = true, Duration = 0)]
+        [HttpGet]
+        [Route("/groups/favourites/get-count")]
+        public async Task<int> GetCount()
+        {
+            var queries = new List<Query>();
+
+            var favouritesList = _cookiesHelper.GetCookies<Group>("favourites");
+            var favourites = "-NO-FAVOURITES-SET-";
+            if (favouritesList != null && favouritesList.Any())
+            {
+                favourites = string.Join(",", _cookiesHelper.GetCookies<Group>("favourites"));
+            }
+
+            queries.Add(new Query("slugs", favourites));
+            var response = await _repository.Get<GroupResults>(queries: queries);
+
+            if (response.StatusCode != (int)HttpStatusCode.OK) return 0;
+
+            var groupResults = response.Content as GroupResults;
+
+            return groupResults.Groups.ToList().Count(a => a.Status != "Archived");
+        }
+
+
 
         [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
@@ -1444,7 +1470,7 @@ namespace StockportWebapp.Controllers
             {
                 return NotFound();
             }
-                       
+
             var eventSubmission = new EventSubmission();
             eventSubmission.GroupName = group.Name;
             eventSubmission.GroupSlug = group.Slug;
@@ -1469,7 +1495,7 @@ namespace StockportWebapp.Controllers
             {
                 return new StatusCodeResult(500);
             }
-            
+
         }
 
         // TODO: Move this and all links pointing towards it to events controller
