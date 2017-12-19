@@ -1125,7 +1125,7 @@ namespace StockportWebapp.Controllers
 
             var groupResults = response.Content as GroupResults;
 
-            return groupResults.Groups.ToList().Count(a => a.Status != "Archived");
+            return groupResults.Groups.ToList().Count(a => a.Status != "Archived"); 
         }
 
 

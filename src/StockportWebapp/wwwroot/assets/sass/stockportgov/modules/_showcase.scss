@@ -27,6 +27,7 @@
         text-align: center;
 
         .showcase-title {
+            text-align: center;
 
             .showcase-title-container {
                 padding: 0;
@@ -40,6 +41,7 @@
                 @media #{$mobile} {
                     padding-left: 0;
                     padding-bottom: 0;
+                    text-align: center;
                 }
 
                 @media #{$mobile, $tablet} {
@@ -50,7 +52,10 @@
 
         @media #{$mobile} {
             padding-top: 50px;
-            text-align: left;
+            text-align: center;
+            h1{
+                text-align:center;
+            }
         }
 
         @media #{$tablet, $mobile} {
