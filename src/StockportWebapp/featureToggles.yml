@@ -2,6 +2,7 @@
 prod: &prod
   GroupArchiveEmails: false
   NameInHeader: false
+  EditGroupUploadImage: false
 
 stage: &stage
   << : *prod
@@ -16,6 +17,7 @@ int: &int
   << : *qa
   GroupArchiveEmails: true
   NameInHeader: true
+  EditGroupUploadImage: true
 
 local: &local
   << : *prod

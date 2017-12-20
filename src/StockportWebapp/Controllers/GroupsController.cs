@@ -23,6 +23,7 @@ using StockportWebapp.Filters;
 using ReverseMarkdown;
 using Microsoft.Net.Http.Headers;
 using StockportWebapp.Services;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
 {
@@ -46,13 +47,14 @@ namespace StockportWebapp.Controllers
         private readonly HostHelper _hostHelper;
         private readonly ILoggedInHelper _loggedInHelper;
         private readonly IGroupsService _groupsService;
+        private readonly FeatureToggles _featureToggles;
 
         public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository,
             GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl,
             IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration,
             MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator,
             IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService,
-            ICookiesHelper cookiesHelper)
+            ICookiesHelper cookiesHelper, FeatureToggles featureToggles)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -71,6 +73,7 @@ namespace StockportWebapp.Controllers
             _htmlUtilities = htmlUtilities;
             _loggedInHelper = loggedInHelper;
             _groupsService = groupsService;
+            _featureToggles = featureToggles;
         }
 
         [ResponseCache(NoStore = true, Duration = 0)]
@@ -1050,6 +1053,13 @@ namespace StockportWebapp.Controllers
                 if (putResponse.StatusCode == (int)HttpStatusCode.OK)
                 {
                     _emailBuilder.SendEmailEditGroup(model, loggedInPerson.Email);
+
+                    // if there is an image, send this in an email
+                    if (_featureToggles.EditGroupUploadImage && model.Image != null && !string.IsNullOrEmpty(model.Image.FileName))
+                    {
+                        _groupsService.SendImageViaEmail(model.Image, model.Name);
+                    }
+
                     return RedirectToAction("EditGroupConfirmation", new { slug = slug, groupName = group.Name });
                 }
                 else

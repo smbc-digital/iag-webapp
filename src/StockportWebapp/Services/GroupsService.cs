@@ -17,6 +17,8 @@ using StockportWebapp.Utils;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using StockportWebapp.ViewModels;
+using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace StockportWebapp.Services
 {
@@ -33,6 +35,7 @@ namespace StockportWebapp.Services
         string GetDoantionsText(string DonationsText);
         void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress);
         Task<List<string>> GetAvailableGroupCategories();
+        Task<HttpStatusCode> SendImageViaEmail(IFormFile file, string groupName);
     }
 
     public class GroupsService : IGroupsService
@@ -42,14 +45,24 @@ namespace StockportWebapp.Services
         private readonly IHttpEmailClient _emailClient;
         private readonly IApplicationConfiguration _configuration;
         private readonly ILogger<GroupsService> _logger;
+        private readonly BusinessId _businessId;
 
-        public GroupsService(IContentApiRepository contentApiRepository, IHttpEmailClient emailClient, IApplicationConfiguration configuration, ILogger<GroupsService> logger, IStockportApiRepository stockportApiRepository)
+        public GroupsService
+        (
+            IContentApiRepository contentApiRepository, 
+            IHttpEmailClient emailClient, 
+            IApplicationConfiguration configuration, 
+            ILogger<GroupsService> logger, 
+            IStockportApiRepository stockportApiRepository,
+            BusinessId businessId
+        )
         {
             _contentApiRepository = contentApiRepository;
             _emailClient = emailClient;
             _configuration = configuration;
             _logger = logger;
             _stockportApiRepository = stockportApiRepository;
+            _businessId = businessId;
         }
 
         public async Task<GroupHomepage> GetGroupHomepage()
@@ -222,6 +235,19 @@ namespace StockportWebapp.Services
         public string GetDoantionsText(string DonationsText)
         {
             return string.IsNullOrEmpty(DonationsText) ? "if you would like to find out more about donating to this group." : DonationsText;
+        }
+
+        public Task<HttpStatusCode> SendImageViaEmail(IFormFile file, string groupName)
+        {
+            return _emailClient.SendEmailToService(
+                new EmailMessage(
+                    $"A new image has been uploaded for the group {groupName} for approval", 
+                    $"A new image has been uploaded for the group {groupName} and is waiting for approval",
+                    _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString(), 
+                    _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(), 
+                    new List<IFormFile> { file }
+                    )
+            );
         }
     }
 }
