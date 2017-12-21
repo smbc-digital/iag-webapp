@@ -1057,7 +1057,7 @@ namespace StockportWebapp.Controllers
                     // if there is an image, send this in an email
                     if (_featureToggles.EditGroupUploadImage && model.Image != null && !string.IsNullOrEmpty(model.Image.FileName))
                     {
-                        _groupsService.SendImageViaEmail(model.Image, model.Name);
+                        _groupsService.SendImageViaEmail(model.Image, model.Name, model.Slug);
                     }
 
                     return RedirectToAction("EditGroupConfirmation", new { slug = slug, groupName = group.Name });
