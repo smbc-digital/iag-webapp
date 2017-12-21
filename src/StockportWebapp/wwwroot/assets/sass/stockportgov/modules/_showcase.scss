@@ -26,6 +26,12 @@
         height: 100%;
         text-align: center;
 
+        @media #{$tablet, $mobile} {
+            padding-bottom: 5%;
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+
         .showcase-title {
             text-align: center;
 
@@ -52,14 +58,10 @@
 
         @media #{$mobile} {
             padding-top: 50px;
-            text-align: center;
-            h1{
-                text-align:center;
-            }
-        }
+            text-align: left;
 
-        @media #{$tablet, $mobile} {
-            padding-bottom: 5%;
+            h1 {
+            }
         }
 
         h2 {
@@ -215,12 +217,13 @@
             @media #{$tablet} {
                 word-wrap: break-word;
                 font-size: 50px;
+                width:100%;
             }
 
             @media #{$mobile} {
+                text-align: center;
                 font-size: 40px;
-                padding-left: 10%;
-                padding-right: 10%;
+                width:100%;
             }
         }
 
