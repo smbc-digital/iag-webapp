@@ -35,7 +35,7 @@ namespace StockportWebapp.Services
         string GetDoantionsText(string DonationsText);
         void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress);
         Task<List<string>> GetAvailableGroupCategories();
-        Task<HttpStatusCode> SendImageViaEmail(IFormFile file, string groupName);
+        Task<HttpStatusCode> SendImageViaEmail(IFormFile file, string groupName, string slug);
     }
 
     public class GroupsService : IGroupsService
@@ -237,12 +237,12 @@ namespace StockportWebapp.Services
             return string.IsNullOrEmpty(DonationsText) ? "if you would like to find out more about donating to this group." : DonationsText;
         }
 
-        public Task<HttpStatusCode> SendImageViaEmail(IFormFile file, string groupName)
+        public Task<HttpStatusCode> SendImageViaEmail(IFormFile file, string groupName, string slug)
         {
             return _emailClient.SendEmailToService(
                 new EmailMessage(
-                    $"A new image has been uploaded for the group {groupName} for approval", 
-                    $"A new image has been uploaded for the group {groupName} and is waiting for approval",
+                    $"A new image has been uploaded for the group {groupName} for approval",
+                    $"A new image has been uploaded for the group {groupName} and is waiting for approval. <br /><br /> <a href='http://www.stockport.gov.uk/groups/{slug}'>Link to {groupName}</a>",
                     _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString(), 
                     _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(), 
                     new List<IFormFile> { file }
