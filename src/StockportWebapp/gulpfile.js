@@ -32,13 +32,13 @@ var stylelintConfig = {
         "stylelint-scss"
     ],
     "rules": {
-    "sh-waqar/declaration-use-variable": [["color", "background-color"]],
-    "scss/selector-no-redundant-nesting-selector": true,
-    "scss/operator-no-unspaced": true,
-    "unit-no-unknown": true,
-    "block-no-empty": true
+        "sh-waqar/declaration-use-variable": [["color", "background-color"]],
+        "scss/selector-no-redundant-nesting-selector": true,
+        "scss/operator-no-unspaced": true,
+        "unit-no-unknown": true,
+        "block-no-empty": true
     }
-}
+};
 
 // paths
 var paths = {

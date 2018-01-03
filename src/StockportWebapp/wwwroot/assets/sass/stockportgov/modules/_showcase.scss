@@ -251,6 +251,8 @@
 
     .title-card.showcase-redesign-title-card {
         display: inline-block;
+        padding-left: 0;
+        padding-right: 0;
 
         .showcase-primary-item {
             height: 328px;
@@ -279,7 +281,6 @@
         }
     }
 }
-
 
 .showcase-primary-item-container:nth-last-child(3) {
     .showcase-primary-item {
@@ -351,7 +352,7 @@
     padding-right: 10px;
 
     h2 {
-        text-align: left;
+        text-align:left;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -377,6 +378,24 @@
             }
         }
     }
+}
+
+.featured-topic-name {
+    h3 {
+        font-size: unset;
+        letter-spacing: unset;
+        font-weight: unset;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.consultation {
+        margin: 0;
+        font-size: 1.375em;
+        letter-spacing: unset;
+        font-weight: 800;
 }
 
 .showcase-container {
@@ -720,7 +739,7 @@
         box-shadow: 0 10px 20px rgba(0,0,0,.2);
     }
 
-    &:hover{
+    &:hover {
         text-decoration: none;
         color: #333333;
     }
@@ -729,6 +748,7 @@
         @media #{$mobile} {
             padding-left: 25px;
         }
+
         color: $colorPrimary;
         padding-bottom: 25px;
         text-decoration: underline;
