@@ -46,21 +46,24 @@
                             </div>
 
                             <div class="clearfix"></div>
-
-                            @foreach (var item in Model.PrimaryItems)
+                            <section>
+                                <h2 class="visuallyhidden">Featured Topics</h2>
+                            </section>
+                                @foreach (var item in Model.PrimaryItems)
                             {
-                                <div class="showcase-primary-item-container grid-33 tablet-grid-100 mobile-grid-100">
-                                    <a href="@item.NavigationLink">
-                                        <div class="showcase-primary-item">
-                                            <div class="primary-item-icon colour-icon tablet-grid-15 mobile-grid-25">
-                                                <i class="si @item.Icon"></i>
+                                    <div class="showcase-primary-item-container grid-33 tablet-grid-100 mobile-grid-100">
+                                        <a href="@item.NavigationLink">
+                                            <div class="showcase-primary-item">
+                                                <div class="primary-item-icon colour-icon tablet-grid-15 mobile-grid-25">
+                                                    <i class="si @item.Icon"></i>
+                                                </div>
+                                                <h3 class="primary-item-title tablet-grid-75 mobile-grid-65">@item.Title</h3>
+                                                <div class="primary-item-teaser hide-on-tablet hide-on-mobile">@item.Teaser</div>
                                             </div>
-                                            <h3 class="primary-item-title tablet-grid-75 mobile-grid-65">@item.Title</h3>
-                                            <div class="primary-item-teaser hide-on-tablet hide-on-mobile">@item.Teaser</div>
-                                        </div>
-                                    </a>
-                                </div>
-                            }
+                                        </a>
+                                    </div>
+                                }
+
                         </div>
                     </div>
                </div>
@@ -106,6 +109,7 @@
             {
                 <div class="alt-container-rowx showcase-news-events white featured-items-wrapper matchbox-parent">
                     <div class="featured-topic-list">
+                        <h2 class="visuallyhidden">Popular Services</h2>
                         <h2>@Model.Subheading</h2>
                         @foreach (var item in Model.FeaturedItems)
                         {
@@ -115,7 +119,7 @@
                                         <div class="featured-topic-icon">
                                             <i class="@item.Icon si-default"></i>
                                         </div>
-                                        <div class="featured-topic-name">@item.Title</div>
+                                        <div class="featured-topic-name"><h3>@item.Title</h3></div>
                                     </a>
                                     <p class="hide-on-mobile hide-on-tablet featured-topic-description">
                                         @if (item.SubItems.Any())
