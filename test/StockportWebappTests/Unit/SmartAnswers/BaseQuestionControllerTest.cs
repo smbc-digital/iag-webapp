@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Newtonsoft.Json.Linq;
 using StockportWebapp.Dtos;
@@ -22,7 +24,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
 {
     internal class TestQuestionController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
-        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle) : base(httpContextAccessor, questionLoader)
+        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(httpContextAccessor, questionLoader, _client, _config, logger)
         {
         }
 
@@ -39,7 +41,10 @@ namespace StockportWebappTests.Unit.SmartAnswers
         private Mock<IHttpContextAccessor> _httpContextAccessor;
         private Mock<QuestionLoader> _questionLoader;
         private Mock<IRepository> _repository; 
-        private FeatureToggles _featureToggles; 
+        private FeatureToggles _featureToggles;
+        private readonly Mock<IHttpClient> _client;
+        private readonly Mock<IConfiguration> _config;
+        private readonly Mock<ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>>> _logger;
 
         public BaseQuestionControllerTests()
         {
@@ -48,6 +53,9 @@ namespace StockportWebappTests.Unit.SmartAnswers
             _httpContextAccessor = new Mock<IHttpContextAccessor>();
             _questionLoader = new Mock<QuestionLoader>(_repository.Object);
             _featureToggles = new FeatureToggles();
+            _client = new Mock<IHttpClient>();
+            _config = new Mock<IConfiguration>();
+            _logger = new Mock<ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>>>();
             SetFakeQuestionStructure();
             SetFakeResponse();
 
@@ -60,7 +68,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public void GetPageForId_ShouldReturnFirstPage()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
 
             var page = navigator.GetPage(0);
 
@@ -72,7 +80,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public void GetAllDetails_ForFirstPage_AndAreAllValid()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
 
             var page = navigator.GetPage(0);
 
@@ -94,7 +102,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         [Fact]
         public void RunBehaviours_ShouldRunDefaultBehaviourIfNoBehavioursAreDefined()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             const int currentPage = 203;
             var actual = navigator.DefaultBehaviour(currentPage);
 
@@ -110,24 +118,24 @@ namespace StockportWebappTests.Unit.SmartAnswers
         }
 
         [Fact]
-        public void RunBehaviours_ShouldRunBehaviourForRedirect()
+        public async void RunBehaviours_ShouldRunBehaviourForRedirect()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             Page currentPage = navigator.GetPage(204);
 
-            var actual = navigator.RunBehaviours(currentPage);
+            var actual = await navigator.RunBehaviours(currentPage);
             actual.Should().BeOfType<RedirectResult>();
             var model = (RedirectResult) actual;
             currentPage.Behaviours[0].Value.Should().Be(model.Url);
         }
 
         [Fact]
-        public void RunBehaviours_ShouldRunBehaviourForRedirectToAction()
+        public async void RunBehaviours_ShouldRunBehaviourForRedirectToAction()
         {
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             Page currentPage = navigator.GetPage(101);
 
-            var actual = navigator.RunBehaviours(currentPage);
+            var actual = await navigator.RunBehaviours(currentPage);
             actual.Should().BeOfType<RedirectToActionResult>();
             var model = (RedirectToActionResult) actual;
             currentPage.Behaviours[0].Value.Should().Be(model.ActionName);
@@ -139,7 +147,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         {
             var httpContext = new DefaultHttpContext();
             _httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             var page = new Page { ShouldCache = true };
 
             var result = navigator.Index(page);
@@ -154,7 +162,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
             var httpContext = new DefaultHttpContext();         
             _httpContextAccessor.SetupGet(_ => _.HttpContext).Returns(httpContext);
 
-            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles);
+            var navigator = new TestQuestionController(_structure, _questionLoader.Object, _httpContextAccessor.Object, _featureToggles, _client.Object, _config.Object, _logger.Object);
             var page = new Page { ShouldCache = false };
 
             var result = navigator.Index(page);

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using StockportWebapp.QuestionBuilder.Entities;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,6 @@ namespace StockportWebapp.QuestionBuilder
     {
         Page GetPage(int pageId);
         Page GetNextPage(int currentPageId);
-        IActionResult RunBehaviours(Page page);
+        Task<IActionResult> RunBehaviours(Page page);
     }
 }

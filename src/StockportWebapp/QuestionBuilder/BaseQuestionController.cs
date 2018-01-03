@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using StockportWebapp.Http;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.QuestionBuilder
@@ -21,8 +25,11 @@ namespace StockportWebapp.QuestionBuilder
         protected IHttpContextAccessor HttpContextAccessor;
         protected string Slug;
         protected string Title;
+        private readonly IHttpClient _client;
+        private readonly IConfiguration _config;
+        private readonly ILogger<BaseQuestionController<T,M>> _logger;
 
-        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader)
+        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
         {
             var slug = string.Empty;
             var url = httpContextAccessor.HttpContext.Request.Path.ToString();
@@ -39,12 +46,15 @@ namespace StockportWebapp.QuestionBuilder
             }
 
             HttpContextAccessor = httpContextAccessor;
+            _client = client;
+            _config = config;
+            _logger = logger;
             Structure = questionLoader.LoadQuestions<GenericSmartAnswersQuestions>(slug, ref Title).Structure;
             Slug = slug;
         }
 
         [HttpPost]
-        public IActionResult Index(Page page)
+        public async Task<IActionResult> Index(Page page)
         {
             if (page.Questions.Count > 0)
             {
@@ -72,7 +82,7 @@ namespace StockportWebapp.QuestionBuilder
                 }
             }
 
-            var action = RunBehaviours(page);             
+            var action = await RunBehaviours(page);             
                   
             if(!page.ShouldCache)
             {
@@ -104,7 +114,7 @@ namespace StockportWebapp.QuestionBuilder
         {
             var results = GetMappedResult(page.GetCombinedAnswers());            
             return ProcessResults(results, page.Endpoint);
-        }
+        } 
 
         public abstract Task<IActionResult> ProcessResults(T result, string endpointName);
 
@@ -114,7 +124,7 @@ namespace StockportWebapp.QuestionBuilder
             return View(nextPage);
         }
 
-        public IActionResult RunBehaviours(Page page)
+        public async Task<IActionResult> RunBehaviours(Page page)
         {
 
             var allAnswers = page.GetCombinedAnswers();
@@ -149,7 +159,31 @@ namespace StockportWebapp.QuestionBuilder
                         page.AddAnswers(allAnswers);
                         break;
                     case EQuestionType.HandOffData:
-                        return Redirect(behaviour.Value + "?json=" + page.PreviousAnswersJson);
+                        _logger.LogInformation("------Before config");
+                        var authenticationKey = _config["DTSHandOffAuthenticationKey"];
+                        _logger.LogInformation($"------Authentication key: {authenticationKey}");
+
+                        _logger.LogInformation($"------{behaviour.Value}hand-off-data");
+                        try
+                        {
+                            var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
+                            _logger.LogInformation($"------{guid ?? null}");
+                            if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
+                            {
+                                _logger.LogInformation($"Guid not set");
+                            }
+                            else
+                            {
+                                _logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            _logger.LogInformation($"------{e}");
+                            throw;
+                        }
+                        break;
                 }
             }
             else

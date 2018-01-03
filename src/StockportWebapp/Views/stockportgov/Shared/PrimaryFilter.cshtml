@@ -24,7 +24,7 @@
             <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select custom-arrow" id="selectOrder"></select>
         </div>
         <div class="primary-filter-form-section-button">
-            <button type="submit" class="button-default primary-filter-button" id="filterButton">Search Stockport Local</button>
+            <button type="submit" class="button-default primary-filter-button" data-category="Groups" data-action="Search Stockport Local"  id="filterButton">Search Stockport Local</button>
         </div>
     </div>
     @* HIDDEN - Used for auto-resizing selects *@

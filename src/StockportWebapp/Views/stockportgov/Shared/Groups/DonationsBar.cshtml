@@ -4,12 +4,31 @@
     <div class="donations-section">
         <div class="grid-100">
             <h3>Donations</h3>
-            <p>If you would like to support the work we do, make a donation and help to support the work we do in the future.</p>
-                                    
-            <p><a class="donations-button" href="mailto:@Model.Email?subject=Donations&body=Hello%0A%0AI%20am%20interested%20in%20making%20a%20donation.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/@Model.Url%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20explain%20how%20I%20can%20make%20a%20donation.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you."><span style="color: #fff;">Make a donation</span></a></p>
+            @if (string.IsNullOrEmpty(Model.DonationsText))
+            {
+                <p>If you would like to support the work we do, make a donation and help to support the work we do in the future.</p>
+
+            }
+            else
+            {
+                <p>@Model.DonationsText</p>
+
+            }
+            @if (string.IsNullOrEmpty(Model.DonationsUrl))
+            {
+                <p><a class="donations-button" href="mailto:@Model.Email?subject=Donations&body=Hello%0A%0AI%20am%20interested%20in%20making%20a%20donation.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/@Model.Url%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20explain%20how%20I%20can%20make%20a%20donation.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you."><span style="color: #fff;">Get in touch</span></a></p>
+            }
+            else
+            { 
+
+                <p><a target="_blank" class="donations-button"  href="@Model.DonationsUrl"><span style="color: #fff;">Make a donation</span></a></p>
+            }
+
         </div>
-    </div>    
+    </div>
+
 }
+
 
 
 

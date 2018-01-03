@@ -37,10 +37,21 @@
         return result;
     };
 
+    var init = function () {
+        $("*").on("focus", function (e) {
+            if ($(event.target).parent().hasClass('menu-account-button')) {
+                $(".menu-tooltip").show();
+            } else if (!$(event.target).parent().hasClass('menu-links')) {
+                $('.menu-tooltip').attr('style', '');
+            }
+        });
+    }
+
     return {
         StripParamFromQueryString: stripParamFromQueryString,
         SwapLogo: swapLogo,
         MobileWidth: mobileWidth,
-        TabletWidth: tabletWidth
+        TabletWidth: tabletWidth,
+        Init: init
     };
 });

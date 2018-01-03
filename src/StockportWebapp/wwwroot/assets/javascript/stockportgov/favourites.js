@@ -6,6 +6,7 @@
     var onFavouritesPage = false;
 
     var addFavourites = function (slug, cookieType) {
+
         $.get("/cookies/add?slug=" + slug + "&cookieType=" + cookieType,
             function (data, status) {
                 if (favebar) {
@@ -98,15 +99,20 @@
     };
 
     var initialiseFaveBar = function () {
-        
         var siteArea = getSiteArea();
 
         if (siteArea !== '' && readCookie('favourites')) {
             var favourites = $.parseJSON(unescape(readCookie('favourites')));
             var thisFaves = favourites[siteArea];
             if (typeof (thisFaves) !== 'undefined') {
-                favouriteCount = thisFaves.length;
-                updateBar();
+                // get cookie from route
+                $.get("/groups/favourites/get-count",
+                    function (data) {
+                        if (favebar) {
+                            favouriteCount = data;
+                            updateBar();
+                        }
+                    });
             }
         }
     };

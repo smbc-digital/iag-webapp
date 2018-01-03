@@ -73,6 +73,8 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
         public void AddAnswers(List<Answer> answers)
         {
+            var answersList = new List<Answer>();
+           
             answers.ToList().ForEach(a =>
             {
                 var existingAnswer = PreviousAnswers.FirstOrDefault(p => p.QuestionId == a.QuestionId);
@@ -89,12 +91,35 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
         public List<Answer> GetCurrentAnswers()
         {
-            return Questions.Select(q => new Answer
+            var answersList = new List<Answer>();
+
+            foreach (var question in Questions)
             {
-                QuestionId = q.QuestionId,
-                Response = q.Response,
-                QuestionText = q.Label
-            }).ToList();
+                if (question.QuestionType == "checkbox")
+                {
+                    var checkboxResponses = question.Response.Split(',');
+                    foreach (var response in checkboxResponses)
+                    {
+                        answersList.Add(new Answer
+                        {
+                            QuestionId = response,
+                            Response = "true",
+                            QuestionText = response
+                        });
+                    }
+                }
+                else
+                {
+                    answersList.Add(new Answer
+                    {
+                        QuestionId = question.QuestionId,
+                        Response = question.Response,
+                        QuestionText = question.Label
+                    });
+                }
+            }
+
+            return answersList;
         }
 
         /// <summary>

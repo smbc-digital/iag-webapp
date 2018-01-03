@@ -18,6 +18,7 @@ using StockportWebappTests.Builders;
 using Xunit;
 using StockportWebapp.ViewModels;
 using FluentAssertions;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Services
 {
@@ -30,10 +31,11 @@ namespace StockportWebappTests.Unit.Services
         private readonly Mock<IApplicationConfiguration> _mockApplicationConfiguration = new Mock<IApplicationConfiguration>();
         private readonly Mock<ILogger<GroupsService>> _mockLogger = new Mock<ILogger<GroupsService>>();
         private const int MaxNumberOfItemsPerPage = 9;
+        private readonly BusinessId businessId = new BusinessId();
 
         public GroupsServiceTests()
         {
-            _service = new GroupsService(_mockContentApiRepository.Object, _mockEmailClient.Object, _mockApplicationConfiguration.Object, _mockLogger.Object, _mockStockportApiRepository.Object);
+            _service = new GroupsService(_mockContentApiRepository.Object, _mockEmailClient.Object, _mockApplicationConfiguration.Object, _mockLogger.Object, _mockStockportApiRepository.Object, businessId);
             _mockApplicationConfiguration.Setup(_ => _.GetEmailEmailFrom("stockportgov")).Returns(() => AppSetting.GetAppSetting("test"));
         }
 

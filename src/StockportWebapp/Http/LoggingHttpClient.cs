@@ -130,5 +130,28 @@ namespace StockportWebapp.Http
 
             return await Task.FromResult(new HttpResponse((int)HttpStatusCode.OK, null, string.Empty));
         }
+
+        public async Task<HttpResponseMessage> PostAsyncMessage(string requestURI, HttpContent content, Dictionary<string, string> headers)
+        {
+            _logger.LogInformation("Posting: " + requestURI);
+
+            try
+            {
+                var response = await _inner.PostAsyncMessage(requestURI, content, headers);
+                _logger.LogDebug("Response: " + response);
+                return response;
+            }
+            catch (AggregateException ae)
+            {
+                ae.Handle(ex => {
+                    bool handle = ex is HttpRequestException;
+                    if (handle)
+                        _logger.LogError(0, ex, "Failed to post the requested resource: ");
+                    return handle;
+                });
+            }
+
+            return await Task.FromResult(new HttpResponseMessage());
+        }
     }
 }

@@ -2,7 +2,7 @@
 @using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
-@inject FeatureToggles featureToggles
+@inject FeatureToggles featureToggles;
 
 @model GroupSubmission
 @{
@@ -22,7 +22,7 @@
             <section aria-label="" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
-                        <h1 id="content">Edit your group</h1>
+                        <h1 tabindex="-1" id="content">Edit your group</h1>
 
                         @if (ViewBag.SubmissionError != null && ViewBag.DisplayContentapiUpdateError == false)
                         {
@@ -51,13 +51,9 @@
                             </div>
                         }
 
-                        @{
-                            var id = featureToggles.MultiStepForm ? "multistep-form" : "";
-                            var wrapperId = featureToggles.MultiStepForm ? "multistep-form-sections-wrapper" : "";
-                        }
-                        <form id="@id" asp-controller="Groups" asp-action="EditGroup" method="post" role="form" enctype="multipart/form-data">
+                        <form id="multistep-form" asp-controller="Groups" asp-action="EditGroup" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
-                                <div id="@wrapperId" class="form-section">
+                                <div id="multistep-form-sections-wrapper" class="form-section">
                                     <h2>About your group or service</h2>
                                     <section>
                                         <label asp-for="@Model.Name"></label>
@@ -81,7 +77,6 @@
                                                 </ul>
                                             </i>
                                         </div>
-                                        @Html.Partial("WysiwygIncludes")
                                         <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent">
                                             <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
                                         </div>
@@ -99,6 +94,7 @@
                                     <section>
                                         <label>Select who your group is suitable for (Optional)</label>
                                         <p>Don't worry if you are not sure about suitability, you can leave this blank</p>
+
                                         <div class="checkboxes">
                                             <a href="javascript:;" class="select-all-checkboxes">Select all</a>
 
@@ -155,27 +151,74 @@
                                     </section>
                                     <h2>Additional information</h2>
                                     <section>
-                                        <label class="label-for-checkbox hide-on-mobile">Do you have any volunteering opportunities?</label>
+                                        @{
+                                            if (featureToggles.EditGroupUploadImage)
+                                            {
+                                                <label asp-for="@Model.Image"></label>
+                                                <p>
+                                                    Choose an image that captures your group
+                                                    <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
+                                                    <br />Accepted file types: jpg, jpeg, gif and png
+                                                </p>
+                                                <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
+                                                <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            }
+                                        }
+                                        <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for Volunteers</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
-                                        <div class="switch">
-                                            <label>
-                                                <input asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
+                                        <div class="checkboxes">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input class="test" asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
+                                                    <span>Yes, we’re looking for volunteers</span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <i class="small">
-                                            <ul>
-                                                <li>Let people get in touch with you about volunteering opportunities</li>
-                                                <li>Let people know that your group is looking for volunteers</li>
-                                            </ul>
-                                        </i>
                                         <div id="volunteering-text">
+                                            <i class="small">
+                                                <ul>
+                                                    <li>Let people get in touch with you about volunteering opportunities</li>
+                                                    <li>Let people know that your group is looking for volunteers</li>
+                                                </ul>
+                                            </i>
                                             <i>You can edit the text below to customise this message</i>
                                             <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
                                             <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
+
+                                        <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for donations</label>
+                                        <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Donations</label>
+                                        <div class="checkboxes">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input class="test" asp-for="@Model.Volunteering" id="donations-needed" type="checkbox">
+                                                    <span>Yes, people can make donations</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div id="donations-text">
+                                            <i class="small">
+                                                <ul>
+                                                    <li>Let people get in touch with you about donations </li>
+                                                    <li>Let people know that your group is looking for donations</li>
+                                                </ul>
+                                            </i>
+                                            <i>You can edit the text below to customise this message</i>
+                                            <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                             use the button below to find out about making a donation to support our group.
+                                            </textarea>
+                                            <span asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                            <div>
+                                                <label asp-for="@Model.DonationsUrl"></label>
+                                                <i>For example: https://www.donations.com/StockportMBC</i><br />
+                                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.DonationsUrl" />
+                                                <span asp-validation-for="@Model.DonationsUrl" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            </div>
+                                        </div>
+
                                         <label asp-for="@Model.AdditionalInformation" class="label-for-checkbox"></label>
                                         <div class="switch">
                                             <label>

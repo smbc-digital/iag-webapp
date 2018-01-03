@@ -21,8 +21,8 @@ define(["jquery"], function (jQuery) {
 
             _enableAria: function (enable) {
                 return (enable == null || enable) ?
-                    this.removeClass("disabled")._aria("disabled", "false") :
-                    this.addClass("disabled")._aria("disabled", "true");
+                    this.removeClass("disabled")._aria("disabled", "false").find("a").attr("tabindex", 0) :
+                    this.addClass("disabled")._aria("disabled", "true").find("a").attr("tabindex", -1);
             },
 
             _showAria: function (show) {
@@ -604,26 +604,29 @@ define(["jquery"], function (jQuery) {
          * @event keyup
          * @param event {Object} An event object
          */
-        function keyUpHandler(event) {
-            var wizard = $(this),
-                options = getOptions(wizard),
-                state = getState(wizard);
+        //function keyUpHandler(event) {
+        //    var wizard = $(this),
+        //        options = getOptions(wizard),
+        //        state = getState(wizard);
 
-            if (options.suppressPaginationOnFocus && wizard.find(":focus").is(":input")) {
-                event.preventDefault();
-                return false;
-            }
+            //if (options.suppressPaginationOnFocus && wizard.find(":focus").is(":input")) {
+            //    event.preventDefault();
+            //    return false;
+            //}
 
-            var keyCodes = { left: 37, right: 39 };
-            if (event.keyCode === keyCodes.left) {
-                event.preventDefault();
-                goToPreviousStep(wizard, options, state);
-            }
-            else if (event.keyCode === keyCodes.right) {
-                event.preventDefault();
-                goToNextStep(wizard, options, state);
-            }
-        }
+            // NOTE: I've removed these because they were letting you navigate the form via keys in the wysiwyg editor on left and right keys
+            // only commented out so they can be put back in eaislly if needed
+
+            //var keyCodes = { left: 37, right: 39 };
+            //if (event.keyCode === keyCodes.left) {
+            //    event.preventDefault();
+            //    goToPreviousStep(wizard, options, state);
+            //}
+            //else if (event.keyCode === keyCodes.right) {
+            //    event.preventDefault();
+            //    goToNextStep(wizard, options, state);
+            //}
+     //   }
 
         /**
          * Loads and includes async content.
@@ -834,9 +837,7 @@ define(["jquery"], function (jQuery) {
             wizard.bind("stepChanging" + eventNamespace, options.onStepChanging);
             wizard.bind("stepChanged" + eventNamespace, options.onStepChanged);
 
-            if (options.enableKeyNavigation) {
-                wizard.bind("keyup" + eventNamespace, keyUpHandler);
-            }
+       
 
             wizard.find(".actions a").bind("click" + eventNamespace, paginationClickHandler);
         }

@@ -120,6 +120,14 @@ namespace StockportWebapp.Config
         {
             return AppSetting.GetAppSetting(_appsettings["DemocracyHomeLink"]);
         }
+        public AppSetting GetTermsAndConditions()
+        {
+            return AppSetting.GetAppSetting(_appsettings["TermsAndConditions"]);
+        }
+        public AppSetting GetAboutOurWebsite()
+        {
+            return AppSetting.GetAppSetting(_appsettings["AboutOurWebsite"]);
+        }
 
         public string GetStockportHomeLink()
         {

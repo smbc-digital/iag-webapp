@@ -40,7 +40,7 @@
                     <div class="title-card showcase-redesign-title-card">
                         <div class="grid-container tablet-grid-100 grid-100 showcase-title">
                             <div class="showcase-title-container mobile-grid-100 tablet-grid-100">
-                                <h1 id="content">
+                                <h1 tabindex="-1" id="content">
                                     <span>@Model.Title</span>
                                 </h1>
                             </div>
@@ -63,7 +63,7 @@
                             }
                         </div>
                     </div>
-                </div>
+               </div>
             }
             else
             {
@@ -88,7 +88,7 @@
                 }
                 else
                 {
-                    <div id="content" class="full-width-title title-only">
+                    <div tabindex="-1" id="content" class="full-width-title title-only">
                         <div class="grid-container grid-parent grid-100">
                             <div class="grid-100 tablet-grid-100 mobile-grid-100">
                                 <h1 class="full-width-title-with-button">@Model.Title</h1>

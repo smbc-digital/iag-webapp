@@ -18,7 +18,7 @@
         <div class="l-body-section-filled grid-100">
             <section aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
                 <div class="l-content-container l-article-container">
-                    <h1 id="content">@Model.Title</h1>
+                    <h1 tabindex="-1" id="content">@Model.Title</h1>
                     <p class="subtitle">@Model.Subtitle</p>
                     <article>
                         @Html.Raw(Model.Body)

@@ -40,6 +40,8 @@ namespace StockportWebapp.Models
         public DateTime? DateLastModified { get; set; }
         public List<string> SuitableFor { get; set; }
         public List<string> AgeRange { get; set; }
+        public string DonationsText { get; set; }
+        public string DonationsUrl { get; set; }
 
         public Group(string name, string slug, string phoneNumber, string email, string website,
             string twitter, string facebook, string address, string description, string imageUrl,
@@ -47,7 +49,7 @@ namespace StockportWebapp.Models
             MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, 
             DateTime? dateHiddenTo, string status, List<string> cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
             Organisation organisation, List<Group> linkedGroups, bool donations, String accessibleTransportLink, string additionalInformation, 
-            List<Document> additionalDocuments, DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange)
+            List<Document> additionalDocuments, DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange,string donationsText,string donationsUrl)
         {
             Name = name;
             Slug = slug;
@@ -84,6 +86,8 @@ namespace StockportWebapp.Models
             DateLastModified = dateLastModified;
             SuitableFor = suitableFor;
             AgeRange = ageRange;
+            DonationsText = donationsText;
+            DonationsUrl = donationsUrl;
         }
     }
 }

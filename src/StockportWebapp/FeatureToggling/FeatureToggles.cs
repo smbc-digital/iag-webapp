@@ -2,9 +2,8 @@ namespace StockportWebapp.FeatureToggling
 {
     public class FeatureToggles
     {                 
-        public bool GroupAdditionalInformation { get; set; } = false;
-        public bool HealthyStockportHomepageEvents { get; set; } = false;
-        public bool MultiStepForm { get; set; } = false;
         public bool GroupArchiveEmails { get; set; } = false;
+        public bool NameInHeader { get; set; } = false;
+        public bool EditGroupUploadImage { get; set; } = false;
     }
 }

@@ -7,14 +7,12 @@
         "bootstrap": "/lib/bootstrap/dist/js/bootstrap.min",
         "handlebars": "/lib/handlebars/handlebars.runtime.min",
         "rangy": "/lib/rangy-1.3/rangy-core",
-        "wysiwygtoolbar": "/lib/wysihtml5x/dist/wysihtml5x-toolbar.min",
         "validate": "vendor/jquery.validate.min",
         "unobtrusive": "vendor/jquery.validate.unobtrusive.min",
         "slick": "vendor/slick",
         "carousel": "stockportgov/carousel",
         "cludoconfig": "stockportgov/cludo",
         "contactus": "stockportgov/contactus",
-        "customwysiwyg": "stockportgov/customwysiwyg",
         "events": "stockportgov/events",
         "expandinglinks": "stockportgov/expandinglinks",
         "filters": "stockportgov/filters",
@@ -39,7 +37,9 @@
         "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min",
         "jquery.steps": "/assets/javascript/vendor/jquery.steps.min",
         "multiStepForm": "stockportgov/multistep-form",
-        "jquery.cookie": "/assets/javascript/vendor/jquery.cookie"
+        "jquery.cookie": "/assets/javascript/vendor/jquery.cookie",
+        "trumbowyg": "/lib/trumbowyg/trumbowyg.min",
+        "trumbowyginit": "stockportgov/trumbowyginit"
     },
     shim: {
         'jquery.steps': {
@@ -54,23 +54,20 @@
         bootstrap: {
             deps: ['jquery', 'jquery-ui']
         },
-        wysiwygtoolbar: {
-            deps: ['jquery', 'jquery-ui', 'bootstrap', 'rangy']
-        },
-        customwysiwyg: {
-            deps: ['wysiwygtoolbar']
-        },
         unobtrusive: {
             deps: ['validate']
         },
         validate: {
             deps: ['jquery']
         },
+        trumbowyg: {
+            deps: ['jquery']
+        }
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie'],
-    function (carousel, cludoconfig, contactus, customwysiwyg, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie) {
+require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie', 'trumbowyginit', 'utils'],
+    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie, trumbowyginit, utils) {
         // multiStepForm (jquery.steps) needs to be first
         multiStepForm.Init();
 
@@ -89,8 +86,9 @@ require(['carousel', 'cludoconfig', 'contactus', 'customwysiwyg', 'events', 'exp
         events.Init();
         carousel.Init();
         cludoconfig.Init();
-        customwysiwyg.Init();
         alerts.Init();
+        trumbowyginit.Init();
+        utils.Init();
     }
 );
 

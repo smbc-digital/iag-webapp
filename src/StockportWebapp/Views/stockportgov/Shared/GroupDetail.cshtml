@@ -31,7 +31,7 @@
                 <a class="hidden display-on-pdf" href="@Model.Group.Slug">@string.Concat(Model.Group.CurrentUrl, "/groups/", Model.Group.Slug)</a>
                 <div class="l-content-container grid-100 group-margin">
                     <h1 class="group-article-title">@Model.Group.Name</h1>
-                    <div id="content"></div>
+                    <div  tabindex="-1" id="content"></div>
                     <div class="grid-100 tablet-grid-100 mobile-grid-100 group-calender-container">
                         @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
                         {

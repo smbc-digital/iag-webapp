@@ -2,7 +2,6 @@
 @using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @model GroupSubmission
-@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 
 @{
     ViewData["Title"] = "Add your group or service";
@@ -18,10 +17,10 @@
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="" class="grid-100 mobile-grid-100">
+            <section aria-label="add a group form" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
-                        <h1 id="content">Add your group or service</h1>
+                        <h1 tabindex="-1" id="content">Add your group or service</h1>
 
                         @if (ViewBag.SubmissionError != null)
                         {
@@ -47,26 +46,22 @@
                                 </div>
                             </div>
                         </noscript>
-                        @{
-                            var id = featureToggles.MultiStepForm ? "multistep-form" : "";
-                            var wrapperId = featureToggles.MultiStepForm ? "multistep-form-sections-wrapper" : "";
-                        }
-                        <form id="@id" asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
+                        <form id="multistep-form" asp-controller="Groups" asp-action="AddAGroup" method="post" role="form" enctype="multipart/form-data">
                             <div class="form">
-                                <div id="@wrapperId" class="form-section">
+                                <div id="multistep-form-sections-wrapper" class="form-section">
                                     <h2>About your group or service</h2>
                                     <section>
-                                        <label asp-for="@Model.Name"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name" />
+                                        <label  for="@Model.Name"  asp-for="@Model.Name"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" id="@Model.Name" name="@Model.Name" asp-for="@Model.Name" />
                                         <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Address"></label>
                                         <p>Enter a postcode or place name</p>
-                                        <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
+                                        <input type="text" name="@Model.Address"id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
                                         <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
                                         <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
                                         <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
+                                        
                                         <input type="hidden" id="address" value="@Model.Address" />
 
                                         <label asp-for="@Model.Description"></label>
@@ -91,10 +86,10 @@
                                         <div class="checkboxes">
                                             <a href="javascript:;" class="select-all-checkboxes">Select all</a>
 
-                                            @for(var i = 0; i < Model.Suitabilities.Count; i++) 
+                                            @for (var i = 0; i < Model.Suitabilities.Count; i++)
                                             {
                                                 <div class="checkbox">
-                                                    <label>
+                                                    <label>                                                       
                                                         <input type="checkbox" asp-for="@Model.Suitabilities[i].IsSelected" />
                                                         <input type="hidden" asp-for="@Model.Suitabilities[i].Name" />
                                                         <span>@Model.Suitabilities[i].Name</span>
@@ -134,10 +129,12 @@
                                         <span asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Facebook"></label>
+                                        <i>For example: www.facebook.com/StockportMBC</i><br />
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
                                         <span asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Twitter"></label>
+                                        <i>For example: @@StockportMBC </i>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
                                         <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
@@ -153,30 +150,63 @@
                                         </p>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
                                         <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-                                        <label class="label-for-checkbox hide-on-mobile">Do you have any volunteering opportunities?</label>
-                                        <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
-                                        <div class="switch">
-                                            <label>
-                                                <input asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
-                                                <span class="lever"></span>
-                                            </label>
+                                        <div>
+                                            <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for volunteers</label>
+                                            <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
                                         </div>
-                                        <i class="small">
-                                            <ul>
-                                                <li>Let people get in touch with you about volunteering opportunities</li>
-                                                <li>Let people know that your group is looking for volunteers</li>
-                                            </ul>
-                                        </i>
+                                        <div class="checkboxes">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input class="test" asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
+                                                        <span>Yes, we’re looking for volunteers</span>
+                                                    </label>
+                                                </div>
+                                        </div>
+
                                         <div id="volunteering-text">
+                                            <i class="small">
+                                                <ul>
+                                                    <li>Let people get in touch with you about volunteering opportunities</li>
+                                                    <li>Let people know that your group is looking for volunteers</li>
+                                                </ul>
+                                            </i>
                                             <i>You can edit the text below to customise this message</i>
                                             <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
-                                            <span asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span asp-validation-for="@Model.Volunteering" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
-
+                                        <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for donations</label>
+                                        <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Donations</label>
+                                        <div class="checkboxes">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input class="test" asp-for="@Model.Volunteering" id="donations-needed" type="checkbox">
+                                                    <span>Yes, people can make donations</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                     
+                                        <div id="donations-text">
+                                            <i class="small">
+                                                <ul>
+                                                    <li>Let people get in touch with you about donations </li>
+                                                    <li>Let people know that your group is looking for donations</li>
+                                                </ul>
+                                            </i>
+                                            <i>You can edit the text below to customise this message</i>
+                                            <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                                Use the button below to find out about making a donation to support our group.
+                                            </textarea>
+                                            <span asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <div>
+                                                <label asp-for="@Model.DonationsUrl"></label>
+                                                <i>For example: https://www.donations.com/StockportMBC</i><br />
+                                                <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.DonationsUrl" />
+                                                <span asp-validation-for="@Model.DonationsUrl" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            </div>
+                                        </div>
                                         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
                                         <div Class="clearfix"></div>
 

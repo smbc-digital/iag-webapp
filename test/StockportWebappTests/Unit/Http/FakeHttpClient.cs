@@ -104,5 +104,10 @@ namespace StockportWebappTests.Unit.Http
         {
             throw new NotImplementedException();
         }
+
+        public Task<HttpResponseMessage> PostAsyncMessage(string requestURI, HttpContent content, Dictionary<string, string> headers)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -142,31 +142,31 @@ $switch-radius: 15px !default;
 
 .switch,
 .switch * {
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  display:inline-block;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    display: inline-block;
 }
 
 .switch label {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .switch label input[type=checkbox] {
-  opacity: 0;
-  width: 0;
-  height: 0;
+    opacity: 0;
+    width: 0;
+    height: 0;
 
-  &:checked + .lever {
-    background-color: $switch-checked-lever-bg;
+    &:checked + .lever {
+        background-color: $switch-checked-lever-bg;
 
-    &:before, &:after {
-      left: 18px;
+        &:before, &:after {
+            left: 18px;
+        }
+
+        &:after {
+            background-color: $switch-bg-color;
+        }
     }
-
-    &:after {
-      background-color: $switch-bg-color;
-    }
-  }
 }
 
 .switch label .lever {
@@ -207,23 +207,23 @@ $switch-radius: 15px !default;
 // Switch active style
 input[type=checkbox]:checked:not(:disabled) ~ .lever:active::before,
 input[type=checkbox]:checked:not(:disabled).tabbed:focus ~ .lever::before {
-  transform: scale(2.4);
-  background-color: transparentize($switch-bg-color, .85);
+    transform: scale(2.4);
+    background-color: transparentize($switch-bg-color, .85);
 }
 
 input[type=checkbox]:not(:disabled) ~ .lever:active:before,
 input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::before {
-  transform: scale(2.4);
-  background-color: rgba(0,0,0,.08);
+    transform: scale(2.4);
+    background-color: rgba(0,0,0,.08);
 }
 
 // Disabled Styles
 .switch input[type=checkbox][disabled] + .lever {
-  cursor: default;
-  background-color: rgba(0,0,0,.12);
+    cursor: default;
+    background-color: rgba(0,0,0,.12);
 }
 
 .switch label input[type=checkbox][disabled] + .lever:after,
 .switch label input[type=checkbox][disabled]:checked + .lever:after {
-  background-color: $input-disabled-solid-color;
+    background-color: $input-disabled-solid-color;
 }
