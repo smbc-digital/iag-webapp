@@ -5,11 +5,10 @@ var gulp = require("gulp"),
     rimraf = require("rimraf"),
     concat = require("gulp-concat"),
     sass = require("gulp-sass"),
-    cssmin = require("gulp-cssmin"),
+    cleancss = require("gulp-clean-css"),
     uglify = require("gulp-uglify"),
     rename = require('gulp-rename'),
     request = require('request'),
-    source = require('vinyl-source-stream'),
     fs = require('fs'),
     colors = require('colors'),
     plumber = require('gulp-plumber'),
@@ -93,7 +92,7 @@ gulp.task('css', function () {
     return gulp.src(paths.sass)
         .pipe(plumber())
         .pipe(sass())
-        .pipe(cssmin())
+        .pipe(cleancss())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(paths.cssDest))
         .pipe(plumber.stop())
