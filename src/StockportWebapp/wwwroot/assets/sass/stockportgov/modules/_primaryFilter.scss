@@ -1,6 +1,6 @@
 ﻿// containers
 .primary-filter-container {
-    background-color: rgba(5, 92, 88, 0.68);
+    background-color: $colorPrimary;
     bottom: 0;
     width: 100%;
 
@@ -242,7 +242,6 @@
         margin-top: 15px;
     }
 }
-
 
 // this is used outside of the parent selector, so need to be placed outside of nesting
 .primary-filter-select {
