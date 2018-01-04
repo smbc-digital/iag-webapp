@@ -41,14 +41,14 @@
                 </div>
             }
 
-            <div id="remove-favourite-@Model.Group.Slug" class="add-remove-favourite hide-on-desktop @(Model.Group.Favourite ? "hidden" : "")">
-                <i class="fa fa-star fa-2x"></i>
-                <a data-slug="@Model.Group.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">Remove from favourites</a>
+            <div class="add-favourite hide-on-desktop @(Model.Group.Favourite ? "hidden" : "")">
+                <i class=" fa fa-star-o fa-2x"></i>
+                <a data-slug="@Model.Group.Slug" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">Add to favourites </a>
             </div>
 
-            <div id="add-favourite-@Model.Group.Slug" class="add-remove-favourite hide-on-desktop @(!Model.Group.Favourite ? "hidden" : "")">
-                <i class=" fa fa-star-o fa-2x"></i>
-                <a data-slug="@Model.Group.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">Add to favourites </a>
+            <div class="remove-favourite hide-on-desktop @(Model.Group.Favourite ? "" : "hidden")">
+                <i class="fa fa-star fa-2x"></i>
+                <a data-slug="@Model.Group.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">Remove from favourites</a>
             </div>
 
             <h2>About us</h2>
@@ -189,8 +189,8 @@
 
         @if (Model.Group.Events != null && Model.Group.Events.Any())
         {
-            <section class="upcoming-events-container hide-on-mobile hide-on-mobile">    
-            @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
+            <section class="upcoming-events-container hide-on-mobile hide-on-mobile">
+                @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
             </section>
 
             <section id="shareThis" class="sharethis">
@@ -199,4 +199,45 @@
             </section>
         }
     </div>
+    <aside class="grid-25">
+        <h2>More about this group</h2>
+        <section>
+            <div class="add-favourite hide-on-mobile @(Model.Group.Favourite ? "hidden" : "")">
+                <i class=" fa fa-star-o fa-lg"></i>
+                <a data-slug="@Model.Group.Slug"  data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">Add to favourites </a>
+            </div>
+
+            <div class="remove-favourite hide-on-mobile @(Model.Group.Favourite ? "" : "hidden")">
+                <i class="fa fa-star fa-lg"></i>
+                <a data-slug="@Model.Group.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">Remove from favourites</a>
+            </div>
+
+
+
+
+
+
+            <div class="add-remove-favourite hide-on-mobile)">
+                <i class="fa fa-flag-o fa-lg"></i>
+                <a data-slug="@Model.Group.Slug"   href="">  Report this page as inappropriate</a>
+            </div>
+        </section>
+        <section>
+            <div class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
+                <h3>Manage your group information</h3>
+                <p>Sign up or login to keep this page's information up to date.</p>
+                <p>If you aren't involved in this group or service, you can still let us know about a <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">change to this group or service</a>.</p>
+                <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
+
+            </div>
+
+            @*// @if (Model.ShouldShowAdditionalInfoLink)*@
+
+            <div class=" grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
+                <h3>View additional information</h3>
+                <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
+                <stock-button class="manage-group-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
+            </div>
+        </section>
+    </aside>
 </article>

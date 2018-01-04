@@ -38,22 +38,22 @@
     };
 
     var handleClicks = function () {
-        $(".add-favourite").on("click", function () {
+        $(".add-favourite a").on("click", function () {
             var slug = $(this).attr("data-slug");
             var cookieType = $(this).attr("data-type");
             addFavourites(slug, cookieType);
-            $("#add-favourite-" + slug).addClass("hidden");
-            $("#remove-favourite-" + slug).removeClass("hidden");
-            $("#print-favourite-group-item-" + slug).removeClass("hidden");
+            $(".add-favourite").addClass("hidden");
+            $(".remove-favourite").removeClass("hidden");
+            $(".print-favourite-group-item").removeClass("hidden");
         });
 
-        $(".remove-favourite").on("click", function () {
+        $(".remove-favourite a").on("click", function () {
             var slug = $(this).attr("data-slug");
             var type = $(this).attr("data-type");
             removeFavourites(slug, type);
-            $("#add-favourite-" + slug).removeClass("hidden");
-            $("#remove-favourite-" + slug).addClass("hidden");
-            $("#print-favourite-group-item-" + slug).addClass("hidden");
+            $(".add-favourite").removeClass("hidden");
+            $(".remove-favourite").addClass("hidden");
+            $(".print-favourite-group-item").addClass("hidden");
         });
     };
 

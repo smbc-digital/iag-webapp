@@ -12,6 +12,9 @@ article.group-detail {
     ul {
         margin-bottom: 10px;
     }
+    aside{
+        padding-left: 10px;
+    }
 
     h1 {
         color: $colorPrimary;
@@ -109,15 +112,29 @@ article.group-detail {
     font-size: 1.5em;
 }
 
-.add-remove-favourite {
+.add-favourite,
+.remove-favourite {
     list-style: none;
     margin-left: 0;
     width: 100%;
     padding-bottom: 17px;
-    border-bottom: #D3D3D3 solid 1px;
+
+    @media #{$desktop } {
+        padding-bottom: unset;
+    }
+
+    @media #{$mobile } {
+        border-bottom: #D3D3D3 solid 1px;
+    }
+
 
     i {
         padding-right: 8px;
+
+        @media #{$desktop } {
+            padding-right: 2px;
+            vertical-align: text-top;
+        }
     }
 
     a {

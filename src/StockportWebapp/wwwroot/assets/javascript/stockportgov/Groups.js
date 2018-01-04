@@ -72,7 +72,7 @@
             handleAdditionalInformation(this);
         });
 
-        $(".remove-favourite,.add-favourite").attr("href", "javascript:void(0)");
+        $(".remove-favourite a,.add-favourite a").attr("href", "javascript:void(0)");
     };
 
     $("#currentLocationgroup").click(function () {
