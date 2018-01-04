@@ -6,8 +6,8 @@
     "colors": "^1.1.2",
     "gulp": "^3.9.1",
     "gulp-cached": "^1.1.1",
-    "gulp-concat": "^2.6.1",
     "gulp-clean-css": "^3.9.2",
+    "gulp-concat": "^2.6.1",
     "gulp-line-ending-corrector": "^1.0.2",
     "gulp-plumber": "^1.1.0",
     "gulp-postcss": "^7.0.1",
@@ -16,23 +16,19 @@
     "gulp-replace": "^0.6.1",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
-    "postcss-reporter": "^5.0.0",
-    "postcss-scss": "^1.0.2",
-    "request": "2.83.0",
-    "requirejs": "2.3.5",
-    "rimraf": "2.6.2",
-    "stylelint": "^8.4.0",
-    "sugarss": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0"
-  },
-  "dependencies": {
-    "gulp-clean-css": "^3.9.2",
     "jsreport-core": "^1.5.1",
     "jsreport-jsrender": "^1.0.2",
-    "jsreport-phantom-pdf": "^1.4.6",
     "node-sass": "^4.7.2",
+    "postcss-reporter": "^5.0.0",
+    "postcss-scss": "^1.0.2",
     "randomatic": "^3.0.0",
+    "request": "^2.83.0",
+    "requirejs": "^2.3.5",
+    "rimraf": "^2.6.2",
+    "stylelint": "^8.4.0",
     "stylelint-declaration-use-variable": "^1.6.0",
-    "stylelint-scss": "^2.2.0"
+    "stylelint-scss": "^2.2.0",
+    "sugarss": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
