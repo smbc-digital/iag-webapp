@@ -155,14 +155,20 @@ namespace StockportWebapp.Controllers
             {
                 _cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
             }
-
-            return View(viewModel);
+            if (_featureToggles.GroupDetailsPage)
+            {
+                return View("GroupDetail", viewModel);
+            } else
+            {
+                return View("GroupDetailOld", viewModel);
+            }
         }
+           
 
-        private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
-        {
-            return groupAdvisor != null && (groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug));
-        }
+            private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
+            {
+                return groupAdvisor != null && (groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug));
+            }
 
         [ResponseCache(NoStore = true, Duration = 0)]
         [Route("groups/results")]
@@ -1135,7 +1141,7 @@ namespace StockportWebapp.Controllers
 
             var groupResults = response.Content as GroupResults;
 
-            return groupResults.Groups.ToList().Count(a => a.Status != "Archived"); 
+            return groupResults.Groups.ToList().Count(a => a.Status != "Archived");
         }
 
 

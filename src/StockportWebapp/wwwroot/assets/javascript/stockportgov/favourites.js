@@ -62,7 +62,7 @@
         var folders = path.split('/');
         if (folders.length > 1) {
             var rootFolder = folders[1];
-            if(rootFolder === "organisations"){
+            if (rootFolder === "organisations") {
                 return "groups";
             }
             return rootFolder;
@@ -89,10 +89,10 @@
         }
 
         switch (root) {
-        case 'groups':
-            return 'StockportWebapp.Models.Group';
-        case 'organisations':
-            return 'StockportWebapp.Models.Group';
+            case 'groups':
+                return 'StockportWebapp.Models.Group';
+            case 'organisations':
+                return 'StockportWebapp.Models.Group';
         }
 
         return '';

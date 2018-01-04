@@ -4,8 +4,11 @@
 @inject FeatureToggles FeatureToggles
 @model StockportWebapp.ViewModels.GroupDetailsViewModel
 
-
 @{
+    ViewData["Title"] = @Model.Group.Name;
+    ViewData["og:title"] = @Model.Group.Name;
+    Layout = "../Shared/_Layout.cshtml";
+
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
     string twitter = string.Empty;
@@ -18,335 +21,182 @@
     if (!string.IsNullOrEmpty(Model.Group.Twitter))
     {
         twitter = socialLinksExtension.GetSubstring(Model.Group.Twitter);
-    }  
-
+    }
 }
+
 <div class="hide-on-mobile grid-100 tablet-grid-100 grid-parent favourites-container">
     @Html.Partial("FavouritesBar")
 </div>
-<div class="grid-container-full-width">
-    <div class="grid-container remove-edges-for-pdf grid-100">
-        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">            
-            <section aria-label="@Model.Group.Name content">  
-                <a class="hidden display-on-pdf" href="@Model.Group.Slug">@string.Concat(Model.Group.CurrentUrl, "/groups/", Model.Group.Slug)</a>
-                <div class="l-content-container grid-100 group-margin">
-                    <h1 class="group-article-title">@Model.Group.Name</h1>
-                    <div  tabindex="-1" id="content"></div>
-                    <div class="grid-100 tablet-grid-100 mobile-grid-100 group-calender-container">
-                        @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
-                        {
-                            <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.Group.ImageUrl);"> </div>
-                        }
-                        <div class="grid-60 tablet-grid-100 mobile-grid-100 group-calender-container-description">
-                            <ul class="group-ul">
-                                <li class="group-details">
-                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                        <i class="fa fa-map-marker fa-2x group-details-symbol"></i>
-                                    </div>
-                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                        <div class="group-details-heading">Location</div>
-                                        @if (!string.IsNullOrEmpty(Model.Group.Address))
-                                        {
-                                            @Html.Raw(Model.Group.Address)
-                                        }
-                                        else
-                                        {
-                                            <text>&nbsp;</text>
-                                        }
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                @if (Model.Group.Cost.Any())
-                                {
-                                    <li class="group-details">
-                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                            <i class="fa fa-gbp fa-2x group-details-symbol"></i>
-                                        </div>
-                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                            <div class="group-details-heading">Cost</div>
-                                            @string.Join(", ", Model.Group.Cost.ToArray())
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                }
-                                @if (!string.IsNullOrEmpty(Model.Group.AbilityLevel))
-                                {
-                                    <li class="group-details">
-                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                            <i class="fa fa-star fa-2x group-details-symbol"></i>
-                                        </div>
-                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                            <div class="group-details-heading">Skill</div>
-                                            @Model.Group.AbilityLevel
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                }
-
-                                <li class="group-details">
-                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                        <i class="fa fa-envelope fa-2x group-details-symbol"></i>
-                                    </div>
-                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                        <div class="group-details-heading">
-                                            Email
-                                        </div>
-                                        @if (!string.IsNullOrEmpty(Model.Group.Email))
-                                        {
-                                            <a href="mailto:@Model.Group.Email">@Model.Group.Email</a>
-                                        }
-                                        else
-                                        {
-                                            <text>&nbsp;</text>
-                                        }
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                <li class="group-details">
-                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                        <i class="fa fa-phone fa-2x group-details-symbol"></i>
-                                    </div>
-                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                        <div class="group-details-heading">
-                                            Telephone
-                                        </div>
-                                        @if (!string.IsNullOrEmpty(Model.Group.PhoneNumber))
-                                        {
-                                            @Model.Group.PhoneNumber
-                                        }
-                                        else
-                                        {
-                                            <text>&nbsp;</text>
-                                        }
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                <li class="group-details">
-                                    <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                        <i class="fa fa-laptop fa-2x group-details-symbol"></i>
-                                    </div>
-                                    <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                        <div class="group-details-heading">
-                                            Website
-                                        </div>
-                                        <div class="group-details-heading">
-                                        </div>
-                                        @if (!string.IsNullOrEmpty(Model.Group.Website))
-                                        {
-                                            if (Model.Group.Website.StartsWith("http://") || Model.Group.Website.StartsWith("https://"))
-                                            {
-                                                <a href="@Model.Group.Website">@Model.Group.Website</a>
-                                            }
-                                            else
-                                            {
-                                                <a href="http://@Model.Group.Website">@Model.Group.Website</a>
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            <text>&nbsp;</text>
-                                        }
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </li>
-                                @if (!string.IsNullOrEmpty(Model.Group.Facebook))
-                                {
-                                    <li class="group-details">
-                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                            <i class="fa fa-facebook fa-2x group-details-symbol"></i>
-                                        </div>
-                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                            <div class="group-details-heading">
-                                                Facebook
-                                            </div>
-                                            <div class="group-details-heading">
-                                            </div>
-                                            @if (!string.IsNullOrEmpty(Model.Group.Facebook))
-                                            {
-                                                if (Model.Group.Facebook.ToLower().StartsWith("http://") || Model.Group.Facebook.ToLower().StartsWith("https://"))
-                                                {
-                                                    <a class="hide-on-pdf" href="@Model.Group.Facebook">@facebook</a>
-                                                    <a class="hidden display-on-pdf" href="@Model.Group.Facebook">@Model.Group.Facebook</a>
-                                                }
-                                                else
-                                                {
-                                                    <a class="hide-on-pdf" href="http://@Model.Group.Facebook">@facebook</a>
-                                                    <a class="hidden display-on-pdf" href="http://@Model.Group.Facebook">http://@Model.Group.Facebook</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <text>&nbsp;</text>
-                                            }
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                }
-                                @if (!string.IsNullOrEmpty(Model.Group.Twitter))
-                                {
-                                    <li class="group-details">
-                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                            <i class="fa fa-twitter fa-2x group-details-symbol"></i>
-                                        </div>
-                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                            <div class="group-details-heading">
-                                                Twitter
-                                            </div>
-                                            <div class="group-details-heading">
-                                            </div>
-                                            @if (!string.IsNullOrEmpty(Model.Group.Twitter))
-                                            {
-                                                if (Model.Group.Twitter.ToLower().StartsWith("http://") || Model.Group.Twitter.ToLower().StartsWith("https://"))
-                                                {
-                                                    <a class="hide-on-pdf" href="@Model.Group.Twitter">@twitter</a>
-                                                    <a class="hidden display-on-pdf" href="@Model.Group.Twitter">@twitter</a>
-                                                }
-                                                else
-                                                {
-                                                    <a class="hide-on-pdf" href="http://@Model.Group.Twitter">@twitter</a>
-                                                    <a class="hidden display-on-pdf" href="http://@Model.Group.Twitter">http://@Model.Group.Twitter</a>
-                                                }
-                                            }
-                                            else
-                                            {
-                                                <text>&nbsp;</text>
-                                            }
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                }
-                                 @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
-                                {
-                                    <li class="group-details">
-                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                            <i class="fa  fa-heart fa-2x group-details-symbol"></i>
-                                        </div>
-                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                            <div class="group-details-heading">
-                                                Supported by
-                                            </div>
-                                            <div class="group-details-heading"></div>
-                                            <a href="/organisations/@Model.Group.Organisation.Slug">
-                                                @Model.Group.Organisation.Title
-                                            </a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                                }
-                                    <li id="remove-favourite-@Model.Group.Slug" class="group-details add-remove-favourites @(!Model.Group.Favourite ? "hidden" : "")">
-                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter">
-                                            <i class="fa fa-star fa-2x group-details-symbol"></i>
-                                        </div>
-                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                            <div class="group-details-heading">
-                                                Favourites
-                                            </div>
-                                            <div class="group-details-heading"></div>
-                                            <a data-slug="@Model.Group.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">
-                                                Remove from favourites
-                                            </a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-
-                                    <li id="add-favourite-@Model.Group.Slug" class="group-details add-remove-favourites @(Model.Group.Favourite ? "hidden" : "")">
-                                        <div class="grid-10 mobile-grid-15 tablet-grid-10 group-details-symbol-containter ">
-                                            <i class="fa fa-star-o fa-2x group-details-symbol"></i>
-                                        </div>
-                                        <div class="grid-90 mobile-grid-85 tablet-grid-90 group-details-content">
-                                            <div class="group-details-heading">
-                                                Favourites
-                                            </div>
-                                            <div class="group-details-heading"></div>
-                                            <a data-slug="@Model.Group.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">
-                                                Add to favourites
-                                            </a>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </li>
-                            </ul>
-                        </div>
-                        <div class="grid-40 hide-on-mobile hide-on-tablet group-calender-container-image" style="background-size: cover; background-position: center; background-image: url(@Model.Group.ImageUrl);">
-                        </div>
-                    </div>
-                    <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
-                        @Html.Partial("FavouritesBar")
-                    </div>
-                    <div>
-                        <h3 class="group-details-heading">Description</h3>
-                        @Html.Raw(Model.Group.Description.StripEmojis())
-                        
-                        @if (Model.ShouldShowAdditionalInformation)
-                        {
-                            <a name="info"></a>
-                            <h3 class="group-details-heading">Additional Information</h3>
-                            @Html.Raw(Model.Group.AdditionalInformation);
-                            foreach (Document document in Model.Group.AdditionalDocuments)
-                             {
-                                 @Html.Partial("Document", document);
-                             }
-                        }
-
-                        @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
-                        @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
-
-
-                        @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
-                        {
-                            <hr />
-                            <div class="group-map-container group-map-container-padding">
-                                <h3 class="group-details-heading">How to find us</h3>
-                                @Html.Partial("MapPosition", Model.Group.MapDetails)
-                            </div>
-                        }
-                        @if (Model.Group.Events != null && Model.Group.Events.Any())
-                        {
-                            <div class="upcoming-events-container">
-                                @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
-                            </div>                           
-                        }
-                        @if (Model.Group.LinkedGroups != null && Model.Group.LinkedGroups.Any())
-                        {
-                            <div style='page-break-before: always;'></div>
-                            <div class="group-details-heading-border linked-group-container">
-                                <h3 class="group-details-heading">You may also like</h3>
-                                @if (Model.Group.LinkedGroups.Count() > 3)
-                                {
-                                    <a class="view-more hide-on-mobile" href="/groups/results?category=@Model.Group.CategoriesReference[0].Slug&subcategories=@Model.Group.SubCategories[0].Slug">View more</a>
-                                }
-                                @Html.Partial("groups/GroupCardList", Model.Group.LinkedGroups.OrderBy(_ => Guid.NewGuid()).Take(3).ToList())
-                                @if (Model.Group.LinkedGroups.Count() > 3)
-                                {
-                                    <div class="grid-100 hide-on-desktop hide-on-tablet view-more-mobile">
-                                        <a class="button-default" href="/groups/results?category=@Model.Group.CategoriesReference[0].Slug&subcategories=@Model.Group.SubCategories[0].Slug">View more results like this</a>
-                                    </div>
-                                }
-                            </div>                           
-                        }
-                        <div class="@(Model.ShouldShowAdditionalInfoLink ? "grid-50 manage-group-section" : "grid-100") tablet-grid-100 mobile-grid-100 group-information-section">
-                            <h3>Manage your group information</h3>
-                            <p>Sign up or login to keep this page's information up to date.</p>
-                            <p>If you aren't involved in this group or service, you can still let us know about a <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">change to this group or service</a>.</p>
-                            <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
-
-                        </div>
-                        @if (Model.ShouldShowAdditionalInfoLink)
-                        {
-                            <div class="grid-50 tablet-grid-100 mobile-grid-100 group-information-section">
-                                <h3>View additional information</h3>
-                                <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
-                                <stock-button class="manage-group-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
-                            </div>
-                        }
-                        
-                        <div class="clearfix"></div>
-                        <div id="shareThis" class="sharethis">
-                            @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </div>
+<div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
+    @Html.Partial("FavouritesBar")
 </div>
+<article aria-label="@Model.Group.Name content" class="grid-container group-detail">
+    <div class="grid-75 tablet-grid-100 mobile-grid-100">
+        <h1 tabindex="-1" id="content" class="group-article-title">@Model.Group.Name</h1>
+        <section>
+            @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
+            {
+                <div class="group-image">
+                    <img src="@Model.Group.ImageUrl" alt="Group image">
+                </div>
+            }
+
+            <div id="remove-favourite-@Model.Group.Slug" class="add-remove-favourite hide-on-desktop @(Model.Group.Favourite ? "hidden" : "")">
+                <i class="fa fa-star fa-2x"></i>
+                <a data-slug="@Model.Group.Slug" class="remove-favourite" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">Remove from favourites</a>
+            </div>
+
+            <div id="add-favourite-@Model.Group.Slug" class="add-remove-favourite hide-on-desktop @(!Model.Group.Favourite ? "hidden" : "")">
+                <i class=" fa fa-star-o fa-2x"></i>
+                <a data-slug="@Model.Group.Slug" class="add-favourite" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">Add to favourites </a>
+            </div>
+
+            <h2>About us</h2>
+            <ul class="group-information">
+                @if (!string.IsNullOrEmpty(Model.Group.Address))
+                {
+                    <li>
+                        <i class="fa fa-map-marker fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Location</b></p>
+                            @if (!string.IsNullOrEmpty(Model.Group.Address))
+                            {
+                                <p>@Html.Raw(Model.Group.Address)</p>
+                            }
+                            else
+                            {
+                                <text>&nbsp;</text>
+                            }
+                        </div>
+
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Group.CostText))
+                {
+                    <li>
+                        <i class="fa fa-gbp fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Cost</b></p>
+                            @if (!string.IsNullOrEmpty(Model.Group.CostText))
+                            {
+                                <p>@string.Join(", ", Model.Group.Cost.ToArray())</p>
+                            }
+
+                        </div>
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
+                {
+                    <li>
+                        <i class="fa  fa-heart fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Supported by</b></p>
+                            @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
+                            {
+                                <p><a href="/organisations/@Model.Group.Organisation.Slug">@Model.Group.Organisation.Title</a> </p>
+                            }
+                        </div>
+                    </li>
+                }
+            </ul>
+        </section>
+        <section>
+            <h2 class="group-details-heading">What we do</h2>
+            @Html.Raw(Model.Group.Description.StripEmojis())
+
+            @if (Model.ShouldShowAdditionalInformation)
+            {
+                <a name="info"></a>
+                <h3 class="group-details-heading">Additional Information</h3>
+                @Html.Raw(Model.Group.AdditionalInformation);
+                foreach (Document document in Model.Group.AdditionalDocuments)
+                {
+                    @Html.Partial("Document", document);
+                }
+            }
+
+            @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
+            @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
+            <hr />
+        </section>
+        <section>
+            <h2>Contact us</h2>
+            <ul class="group-information">
+                @if (!string.IsNullOrEmpty(Model.Group.Website))
+                {
+                    <li>
+                        <i class="fa fa-laptop fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Website</b></p>
+                            <a href="@Model.Group.Website"> @Model.Group.Website</a>
+                        </div>
+
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Group.Email))
+                {
+                    <li>
+                        <i class="fa fa-envelope fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Email</b></p>
+                            <a href="mailto:@Model.Group.Email">@Model.Group.Email</a>
+                        </div>
+
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Group.PhoneNumber))
+                {
+                    <li>
+                        <i class="fa fa-phone-square fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Telephone</b></p>
+                            <a href="@Model.Group.PhoneNumber">@Model.Group.PhoneNumber</a>
+                        </div>
+
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Group.Facebook))
+                {
+                    <li>
+                        <i class="fa fa-facebook-square fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Facebook</b></p>
+                            <a class="hide-on-pdf" href="@Model.Group.Facebook">@facebook</a>
+                        </div>
+
+                    </li>
+                }
+                @if (!string.IsNullOrEmpty(Model.Group.Twitter))
+                {
+                    <li>
+                        <i class="fa fa-twitter-square fa-2x group-details-symbol"></i>
+                        <div>
+                            <p><b>Twitter</b></p>
+                            <a class="hide-on-pdf" href="http://@Model.Group.Twitter">@twitter</a>
+                        </div>
+
+                    </li>
+                }
+            </ul>
+        </section>
+        @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
+        {
+            <section class="group-map-container group-map-container-padding">
+                <h2 class="group-details-heading">How to find us</h2>
+                @Html.Partial("MapPosition", Model.Group.MapDetails)
+            </section>
+        }
+
+        @if (Model.Group.Events != null && Model.Group.Events.Any())
+        {
+            <section class="upcoming-events-container hide-on-mobile hide-on-mobile">    
+            @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
+            </section>
+
+            <section id="shareThis" class="sharethis">
+                @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
+                <p> <b>Disclaimer :</b> The content on this page has been not created by Stockport Council. for more information read thefull. <a href="www.google.com">Stockport local disclaimer </a></p>
+            </section>
+        }
+    </div>
+</article>

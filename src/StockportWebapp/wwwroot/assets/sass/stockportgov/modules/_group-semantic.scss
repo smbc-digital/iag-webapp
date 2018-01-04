@@ -1,0 +1,128 @@
+﻿
+@media #{$mobile} {
+    body {
+        background-color: $white
+    }
+}
+
+article.group-detail {
+    padding-bottom: 0px;
+
+
+    ul {
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        color: $colorPrimary;
+        font-size: 4.250em;
+        font-weight: 600;
+
+        @media #{$mobile } {
+            font-size: 2.25em;
+        }
+    }
+
+    .group-image {
+        margin-bottom: 15px;
+        position: relative;
+        width: 100%;
+        height: 225px;
+
+        img {
+            position: absolute;
+            clip: rect(0px,1000px,226px,0px);
+        }
+    }
+
+    h2 {
+        margin-bottom: 0;
+        line-height: 40px;
+        font-size: 1.625em;
+    }
+
+    section {
+        display: inline-block;
+    }
+
+    > div {
+        background-color: $white;
+
+        > section {
+            width: 100%;
+
+            hr {
+                color: #D3D3D3;
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    .group-information li {
+        list-style: none;
+        display: table;
+        margin-left: 0;
+        width: 100%;
+        border-bottom: #D3D3D3 solid 1px;
+        padding: 8px 0;
+
+        i {
+            padding: 15px 15px 15px 0;
+            width: 32px;
+            text-align: center;
+        }
+
+        div, i {
+            display: table-cell;
+            vertical-align: middle;
+
+
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .sharethis {
+        clear: both;
+        border-top: 1px solid;
+        color: black;
+        font-weight: 600;
+        background-color: white;
+
+        p {
+            font-weight: 100;
+            margin-top: 22px;
+        }
+    }
+
+    .group-map-container-padding {
+        padding-bottom: 0;
+    }
+}
+
+.volunteering-btn {
+    margin-bottom: 14px;
+    background-color: #1a8c7a;
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+.add-remove-favourite {
+    list-style: none;
+    margin-left: 0;
+    width: 100%;
+    padding-bottom: 17px;
+    border-bottom: #D3D3D3 solid 1px;
+
+    i {
+        padding-right: 8px;
+    }
+
+    a {
+        display: inline-block;
+        vertical-align: super;
+        margin-top: 10px;
+    }
+}

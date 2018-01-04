@@ -24,7 +24,6 @@
         
 
         $('#filterButton').on('click', function () {
-            
 
             var category = $(this)[0].dataset['category'];
             var action = $(this)[0].dataset['action'];
