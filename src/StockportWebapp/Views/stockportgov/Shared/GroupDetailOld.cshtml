@@ -8,7 +8,12 @@
     ViewData["Title"] = @Model.Group.Name;
     ViewData["og:title"] = @Model.Group.Name;
     Layout = "../Shared/_Layout.cshtml";
+}
 
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") })
+}
+@{  
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
     string twitter = string.Empty;

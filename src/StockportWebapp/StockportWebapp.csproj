@@ -35,6 +35,8 @@
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
+    <None Remove="Views\stockportgov\Shared\ContentDisclaimerCard.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>

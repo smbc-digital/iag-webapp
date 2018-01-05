@@ -1,5 +1,4 @@
-﻿
-@media #{$mobile} {
+﻿@media #{$mobile} {
     body {
         background-color: $white
     }
@@ -8,12 +7,8 @@
 article.group-detail {
     padding-bottom: 0px;
 
-
     ul {
         margin-bottom: 10px;
-    }
-    aside{
-        padding-left: 10px;
     }
 
     h1 {
@@ -87,59 +82,70 @@ article.group-detail {
         }
     }
 
-    .sharethis {
-        clear: both;
-        border-top: 1px solid;
-        color: black;
-        font-weight: 600;
-        background-color: white;
+    aside {
+        padding-left: unset;
 
-        p {
-            font-weight: 100;
-            margin-top: 22px;
+        hr {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        @media #{$mobile} {
+            padding-left: 10px;
+            background-color: #EBEBEB;
+
+            hr {
+                display: none;
+            }
+        }
+
+        @media #{$desktop} {
+            h2 {
+                padding-left: 30px;
+            }
+
+            .sidebar-section {
+                padding-left: 30px;
+            }
+        }
+
+        .sidebar-button {
+            min-width: 0px;
+            display: block;
+        }
+
+        .group-information-section {
+            border-top: unset;
+            margin-top: unset;
         }
     }
 
-    .group-map-container-padding {
-        padding-bottom: 0;
-    }
-}
+        .sharethis {
+            clear: both;
+            border-top: 1px solid;
+            color: black;
+            font-weight: 600;
+            background-color: white;
 
-.volunteering-btn {
-    margin-bottom: 14px;
-    background-color: #1a8c7a;
-    font-weight: 600;
-    font-size: 1.5em;
-}
+            .share {
+                padding-top: 20px;
+            }
 
-.add-favourite,
-.remove-favourite {
-    list-style: none;
-    margin-left: 0;
-    width: 100%;
-    padding-bottom: 17px;
+            div {
+                margin-top: 5px;
+            }
 
-    @media #{$desktop } {
-        padding-bottom: unset;
-    }
+            p {
+                font-weight: 100;
+                margin-top: 22px;
+            }
+        }
 
-    @media #{$mobile } {
-        border-bottom: #D3D3D3 solid 1px;
-    }
-
-
-    i {
-        padding-right: 8px;
-
-        @media #{$desktop } {
-            padding-right: 2px;
-            vertical-align: text-top;
+        .group-map-container-padding {
+            padding-bottom: 0;
         }
     }
 
-    a {
-        display: inline-block;
-        vertical-align: super;
-        margin-top: 10px;
-    }
-}
+
+
+

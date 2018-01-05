@@ -1,0 +1,12 @@
+﻿@model StockportWebapp.ProcessedModels.ProcessedGroup
+<section>
+    <div class="add-favourite sidebar-links @(Model.Favourite ? "hidden" : "")">
+        <i class=" fa fa-star-o fa-lg"></i>
+        <a data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")">Add to favourites </a>
+    </div>
+
+    <div class="remove-favourite sidebar-links @(Model.Favourite ? "" : "hidden")">
+        <i class="fa fa-star fa-lg"></i>
+        <a data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")">Remove from favourites</a>
+    </div>
+</section>

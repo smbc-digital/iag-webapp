@@ -177,4 +177,23 @@
            padding-left: 35px;
         }
     }
+
 }
+
+.sidebar-links {
+    list-style: none;
+    margin-left: 0;
+    width: 100%;
+
+    i {
+        padding-right: 5px;
+        vertical-align: text-top;
+    }
+
+    a {
+        display: inline-block;
+        vertical-align: super;
+        margin-top: 10px;
+    }
+}
+
