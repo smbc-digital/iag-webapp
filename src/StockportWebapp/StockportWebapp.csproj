@@ -36,10 +36,6 @@
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
-    <Content Include="wwwroot\assets\sass\stockportgov\modules\_group - Copy.scss">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="wwwroot\assets\sass\stockportgov\modules\_group-semantic.scss" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>

@@ -15,7 +15,7 @@ var gulp = require("gulp"),
     print = require('gulp-print'),
     lec = require('gulp-line-ending-corrector'),
     replace = require('gulp-replace'),
-    cached = require('gulp-cached'),;
+    cached = require('gulp-cached');
 
 var postcss     = require('gulp-postcss');
 var reporter    = require('postcss-reporter');

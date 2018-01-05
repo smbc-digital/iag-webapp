@@ -157,7 +157,7 @@ namespace StockportWebapp.Controllers
             }
             if (_featureToggles.GroupDetailsPage)
             {
-                return View("GroupDetail", viewModel);
+              return View("GroupDetail", viewModel);
             } else
             {
                 return View("GroupDetailOld", viewModel);
