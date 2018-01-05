@@ -8,12 +8,7 @@
     ViewData["Title"] = @Model.Group.Name;
     ViewData["og:title"] = @Model.Group.Name;
     Layout = "../Shared/_Layout.cshtml";
-}
 
-@section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") })
-}
-@{
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
     string twitter = string.Empty;
@@ -36,8 +31,7 @@
     @Html.Partial("FavouritesBar")
 </div>
 <article aria-label="@Model.Group.Name content" class="grid-container group-detail">
-    <div class="grid-75 tablet-grid-100 mobile-grid-100 main-content">
-
+    <div class="grid-75 tablet-grid-100 mobile-grid-100">
         <h1 tabindex="-1" id="content" class="group-article-title">@Model.Group.Name</h1>
         <section>
             @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
@@ -46,9 +40,16 @@
                     <img src="@Model.Group.ImageUrl" alt="Group image">
                 </div>
             }
-            <section class="hide-on-desktop">
-                @Html.Partial("Events/ManageFavouritesCard", Model.Group)
-            </section>
+
+            <div class="add-favourite hide-on-desktop @(Model.Group.Favourite ? "hidden" : "")">
+                <i class=" fa fa-star-o fa-2x"></i>
+                <a data-slug="@Model.Group.Slug" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">Add to favourites </a>
+            </div>
+
+            <div class="remove-favourite hide-on-desktop @(Model.Group.Favourite ? "" : "hidden")">
+                <i class="fa fa-star fa-2x"></i>
+                <a data-slug="@Model.Group.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">Remove from favourites</a>
+            </div>
 
             <h2>About us</h2>
             <ul class="group-information">
@@ -99,25 +100,22 @@
                 }
             </ul>
         </section>
-       
-            @if (Model.ShouldShowAdditionalInformation)
-            {
-                <section class="bordered-group-section">
-                <a name="info"></a>
-                <h2 class="group-details-heading">Additional Information</h2>
-                @Html.Raw(Model.Group.AdditionalInformation)
-                @foreach (Document document in Model.Group.AdditionalDocuments)
-                {
-                    @Html.Partial("Document", document);
-                }
-                </section>
-            }
-        
         <section>
             <h2 class="group-details-heading">What we do</h2>
             @Html.Raw(Model.Group.Description.StripEmojis())
 
-           @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
+            @if (Model.ShouldShowAdditionalInformation)
+            {
+                <a name="info"></a>
+                <h3 class="group-details-heading">Additional Information</h3>
+                @Html.Raw(Model.Group.AdditionalInformation);
+                foreach (Document document in Model.Group.AdditionalDocuments)
+                {
+                    @Html.Partial("Document", document);
+                }
+            }
+
+            @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
             @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
             <hr />
         </section>
@@ -194,47 +192,50 @@
             <section class="upcoming-events-container hide-on-mobile hide-on-mobile">
                 @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
             </section>
+
+            <section id="shareThis" class="sharethis">
+                @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
+                <p> <b>Disclaimer :</b> The content on this page has been not created by Stockport Council. for more information read thefull. <a href="www.google.com">Stockport local disclaimer </a></p>
+            </section>
         }
-
-        <section id="shareThis" class="sharethis">
-            @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
-            <div class="ContentDisclaimerCard">
-                @Html.Partial("ContentDisclaimerCard")
-            </div>
-        </section>
     </div>
-    <aside class="grid-30">
+    <aside class="grid-25">
         <h2>More about this group</h2>
-        <hr />
-        <section class="sidebar-section">
-            <h3 class="sr-only">Group actions</h3>
-
-            <div class="hide-on-mobile">
-                @Html.Partial("Events/ManageFavouritesCard", Model.Group)
+        <section>
+            <div class="add-favourite hide-on-mobile @(Model.Group.Favourite ? "hidden" : "")">
+                <i class=" fa fa-star-o fa-lg"></i>
+                <a data-slug="@Model.Group.Slug" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Group.Slug}&type=group")">Add to favourites </a>
             </div>
 
-            <div class="sidebar-links hide-on-mobile)">
+            <div class="remove-favourite hide-on-mobile @(Model.Group.Favourite ? "" : "hidden")">
+                <i class="fa fa-star fa-lg"></i>
+                <a data-slug="@Model.Group.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Group.Slug}&type=group")">Remove from favourites</a>
+            </div>
+
+
+            <div class="add-remove-favourite hide-on-mobile)">
                 <i class="fa fa-flag-o fa-lg"></i>
                 <a data-slug="@Model.Group.Slug" href="">  Report this page as inappropriate</a>
             </div>
         </section>
-        <section class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section sidebar-section">
-            <h3>Manage your group information</h3>
-            <hr />
-            <p>Sign up or login to keep this page's information up to date.</p>
-            <p>If you aren't involved in this group or service, you can still let us know about a <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">change to this group or service</a>.</p>
-            <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
+        <section>
+            <div class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
+                <h3>Manage your group information</h3>
+                <p>Sign up or login to keep this page's information up to date.</p>
+                <p>If you aren't involved in this group or service, you can still let us know about a <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">change to this group or service</a>.</p>
+                <stock-button class="manage-group-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
 
+            </div>
+
+            @if (Model.ShouldShowAdditionalInfoLink)
+            {
+
+                <div class=" grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
+                    <h3>View additional information</h3>
+                    <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
+                    <stock-button class="manage-group-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
+                </div>
+            }
         </section>
-
-        @if (Model.ShouldShowAdditionalInfoLink)
-        {
-            <section class=" grid-100 tablet-grid-100 mobile-grid-100 group-information-section sidebar-section">
-                <h3>View additional information</h3>
-                <hr />
-                <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
-            </section>
-        }
     </aside>
 </article>
