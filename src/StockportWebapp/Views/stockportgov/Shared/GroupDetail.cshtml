@@ -36,7 +36,8 @@
     @Html.Partial("FavouritesBar")
 </div>
 <article aria-label="@Model.Group.Name content" class="grid-container group-detail">
-    <div class="grid-70 tablet-grid-100 mobile-grid-100">
+    <div class="grid-75 tablet-grid-100 mobile-grid-100 main-content">
+
         <h1 tabindex="-1" id="content" class="group-article-title">@Model.Group.Name</h1>
         <section>
             @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
@@ -98,22 +99,25 @@
                 }
             </ul>
         </section>
+       
+            @if (Model.ShouldShowAdditionalInformation)
+            {
+                <section class="bordered-group-section">
+                <a name="info"></a>
+                <h2 class="group-details-heading">Additional Information</h2>
+                @Html.Raw(Model.Group.AdditionalInformation)
+                @foreach (Document document in Model.Group.AdditionalDocuments)
+                {
+                    @Html.Partial("Document", document);
+                }
+                </section>
+            }
+        
         <section>
             <h2 class="group-details-heading">What we do</h2>
             @Html.Raw(Model.Group.Description.StripEmojis())
 
-            @if (Model.ShouldShowAdditionalInformation)
-            {
-                <a name="info"></a>
-                <h3 class="group-details-heading">Additional Information</h3>
-                @Html.Raw(Model.Group.AdditionalInformation);
-                foreach (Document document in Model.Group.AdditionalDocuments)
-                {
-                    @Html.Partial("Document", document);
-                }
-            }
-
-            @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
+           @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
             @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
             <hr />
         </section>
