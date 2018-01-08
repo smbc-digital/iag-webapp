@@ -24,6 +24,10 @@
     }
 }
 
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") })
+}
+
 <div class="hide-on-mobile grid-100 tablet-grid-100 grid-parent favourites-container">
     @Html.Partial("FavouritesBar")
 </div>
