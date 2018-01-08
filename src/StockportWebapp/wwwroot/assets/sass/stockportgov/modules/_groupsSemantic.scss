@@ -1,33 +1,29 @@
 ﻿@media #{$mobile} {
     body {
-        background-color: $white
+        background-color: $white;
     }
 }
 
 article.group-detail {
-    padding-bottom: 0px;
 
+    @media #{$mobile} {
+        padding: 0px;
+    }
+
+    padding-bottom: 0px;
 
     ul {
         margin-bottom: 10px;
     }
+
     .main-content {
         padding-right: 20px;
         padding-left: 20px;
     }
 
-
-
-
-
-    ul {
-        margin-bottom: 10px;
+    .content-disclaimer {
+        margin-top: 15px;
     }
-
-    aside {
-        padding-left: 10px;
-    }
-
 
     h1 {
         color: $colorPrimary;
@@ -44,7 +40,6 @@ article.group-detail {
         border-radius: 3px;
         box-sizing: border-box;
         padding: 0 20px 10px 20px;
-
     }
 
     .group-image {
@@ -63,7 +58,12 @@ article.group-detail {
         margin-bottom: 0;
         line-height: 40px;
         font-size: 1.625em;
+
+        @media #{$mobile } {
+            padding-bottom: 10px;
+        }
     }
+
 
     section {
         display: inline-block;
@@ -78,6 +78,10 @@ article.group-detail {
             hr {
                 color: #D3D3D3;
                 margin-bottom: 0px;
+
+                @media #{$mobile } {
+                    margin-top: 14px;
+                }
             }
         }
     }
@@ -109,7 +113,6 @@ article.group-detail {
     }
 
     aside {
-        padding-left: unset;
 
         hr {
             margin-top: 15px;
@@ -119,16 +122,13 @@ article.group-detail {
         @media #{$mobile} {
             padding-left: 10px;
             background-color: #EBEBEB;
-
-            hr {
-                display: none;
-            }
         }
 
         @media #{$desktop} {
             h2 {
-                padding-left: 30px;
+                padding-left: 25px;
             }
+
 
             .sidebar-section {
                 padding-left: 30px;
@@ -143,8 +143,15 @@ article.group-detail {
         .group-information-section {
             border-top: unset;
             margin-top: unset;
+            padding-left: 25px;
+            padding-right: 0px;
+            margin-bottom: 10px;
+
+            @media #{$mobile} {
+                padding-left: unset;
+                margin-bottom: unset;
+            }
         }
-    }
 
         .sharethis {
             clear: both;
@@ -166,12 +173,5 @@ article.group-detail {
                 margin-top: 22px;
             }
         }
-
-        .group-map-container-padding {
-            padding-bottom: 0;
-        }
     }
-
-
-
-
+}
