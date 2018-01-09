@@ -16,6 +16,14 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", Model.Group.Breadcrumbs)
 }
-<link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css"/>
 
-@Html.Partial("GroupDetail", Model)
+@if (FeatureToggles.GroupDetailsPage)
+{
+    <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail-new.min.css" />
+    @Html.Partial("GroupDetail", Model)
+}
+else
+{ 
+    <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css" />
+    @Html.Partial("GroupDetailOld", Model)
+}

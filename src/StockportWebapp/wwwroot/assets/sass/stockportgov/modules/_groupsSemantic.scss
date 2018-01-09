@@ -21,7 +21,7 @@ article.group-detail {
         padding-left: 20px;
     }
 
-    .content-disclaimer {
+    .content-disclaimers {
         margin-top: 15px;
     }
 
@@ -64,10 +64,10 @@ article.group-detail {
         }
     }
 
-
     section {
         display: inline-block;
     }
+  
 
     > div {
         background-color: $white;
@@ -85,6 +85,8 @@ article.group-detail {
             }
         }
     }
+
+    
 
     .group-information li {
         list-style: none;
@@ -113,6 +115,7 @@ article.group-detail {
     }
 
     aside {
+        padding-left: 0;
 
         hr {
             margin-top: 15px;
@@ -146,6 +149,7 @@ article.group-detail {
             padding-left: 25px;
             padding-right: 0px;
             margin-bottom: 10px;
+            text-align: initial;
 
             @media #{$mobile} {
                 padding-left: unset;

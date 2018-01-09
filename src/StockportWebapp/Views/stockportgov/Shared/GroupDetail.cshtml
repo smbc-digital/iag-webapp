@@ -5,9 +5,9 @@
 @model StockportWebapp.ViewModels.GroupDetailsViewModel
 
 @{
-    ViewData["Title"] = @Model.Group.Name;
-    ViewData["og:title"] = @Model.Group.Name;
-    Layout = "../Shared/_Layout.cshtml";
+    //ViewData["Title"] = @Model.Group.Name;
+    //ViewData["og:title"] = @Model.Group.Name;
+   // Layout = "_Layout.cshtml";
 
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
@@ -27,6 +27,7 @@
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") })
 }
+
 
 <div class="hide-on-mobile grid-100 tablet-grid-100 grid-parent favourites-container">
     @Html.Partial("FavouritesBar")
@@ -179,26 +180,27 @@
         </section>
         @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
         {
-            <section class="group-map-container group-map-container-padding">
+            
+            <div class="group-map-container group-map-container-padding">
                 <h2 class="group-details-heading">How to find us</h2>
                 @Html.Partial("MapPosition", Model.Group.MapDetails)
-            </section>
+            </div>
         }
 
         @if (Model.Group.Events != null && Model.Group.Events.Any())
         {
-            <section class="upcoming-events-container hide-on-mobile ">
+            <div class="upcoming-events-container hide-on-mobile ">
                 @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
-            </section>
+            </div>
 
-            <section id="shareThis" class="sharethis">
+            <div id="shareThis" class="sharethis">
                 @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
-            </section>
+            </div>
             @Html.Partial("ContentDisclaimerCard")
         }
     </div>
-    <aside class="grid-30">
-        <h2>More about this group</h2>
+    <aside class="grid-30 hide-on-print">
+        <h2 >More about this group</h2>
         <hr class="hide-on-mobile" />
         <section class="group-information-section">
             <div class="hide-on-mobile">

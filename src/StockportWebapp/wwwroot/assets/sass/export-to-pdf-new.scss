@@ -1,4 +1,12 @@
-﻿.manage-group-section,
+﻿aside{
+    display: none;
+}
+
+.hide-on-mobile{
+    display: block !important;
+}
+
+.manage-group-section,
 .map-container,
 .volunteering-section,
 .donations-section,
@@ -9,7 +17,8 @@
 .group-calender-container-image,
 .view-more-mobile,
 .directions-list,
-.favourites-bar{
+.favourites-bar,
+.group-information-section {
     display: none !important;
 }
 
@@ -71,7 +80,7 @@
 }
 
 .upcoming-events-container {
- 
+    
     .event-listing-container {
         .event-li {
             width: 100% !important;
@@ -84,6 +93,7 @@
 
                 .event-image {
                     width: 45% !important;
+                    display: inline-block !important;
                 }
 
                 .event-card-information {
@@ -95,10 +105,6 @@
     }
 }
 
-.group-map-container {
-    page-break-inside: avoid;
-    margin-bottom: 160px;
-}
 
 .remove-edges-for-pdf {
     max-width: 100%;
@@ -139,6 +145,10 @@ body {
     .more-information-link {
         text-align: right;
     }
+}
+
+.content-disclaimers{
+    display:none !important;
 }
 
 .embed-map-container {

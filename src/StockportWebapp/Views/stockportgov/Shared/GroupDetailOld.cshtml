@@ -4,12 +4,6 @@
 @inject FeatureToggles FeatureToggles
 @model StockportWebapp.ViewModels.GroupDetailsViewModel
 
-@{
-    ViewData["Title"] = @Model.Group.Name;
-    ViewData["og:title"] = @Model.Group.Name;
-    Layout = "../Shared/_Layout.cshtml";
-}
-
 @section Breadcrumbs {
     @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") })
 }
@@ -307,6 +301,7 @@
                                 <h3 class="group-details-heading">How to find us</h3>
                                 @Html.Partial("MapPosition", Model.Group.MapDetails)
                             </div>
+
                         }
                         @if (Model.Group.Events != null && Model.Group.Events.Any())
                         {

@@ -155,13 +155,7 @@ namespace StockportWebapp.Controllers
             {
                 _cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
             }
-            if (_featureToggles.GroupDetailsPage)
-            {
-              return View("GroupDetail", viewModel);
-            } else
-            {
-                return View("GroupDetailOld", viewModel);
-            }
+              return View(viewModel);
         }
            
 

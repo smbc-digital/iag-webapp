@@ -1,0 +1,30 @@
+﻿@media only print {
+    .group-article-title {
+        font-size: 1.8em !important;
+        color: #000000 !important;
+    }
+
+    .l-header-container,
+    .banner-header-container,
+    .favourites-container,
+    .breadcrumb-container,
+    footer, #shareThis,
+    .group-image,
+    .favourites-bar,
+    .donations-section,
+    .volunteering-section,
+    .add-remove-favourites,
+    .sidebar-links,
+    group-information-section,
+    .content-disclaimers,
+    .hide-on-print,
+    .group-calender-container-image,
+    .event-image,
+    .video-container,
+    iframe,
+    .button,
+    .group-map-container,
+    .upcoming-events-container {
+        display: none !important;
+    }
+}
