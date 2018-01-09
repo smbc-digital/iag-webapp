@@ -41,10 +41,10 @@
             .text.to.equal("UITEST: Group");
         
         this.expect.element('.add-favourite').to.be.present;
-        this.expect.element('.group-details').to.be.present;
+        this.expect.element('.group-details-heading').to.be.present;
         this.expect.element('.group-information-section h3').to.be.present;
         this.expect.element('.group-information-section h3').text.to.equal("Manage your group information");
-        this.expect.element('.export-as-pdf').to.be.present;
+        //this.expect.element('.export-as-pdf').to.be.present;
     },
     assertCanGetToCategoryResultsPage: function(browser) {
         this.waitForElementVisible("#see-more-services", this.api.globals.timeOut)
