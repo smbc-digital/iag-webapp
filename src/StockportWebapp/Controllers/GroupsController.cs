@@ -385,7 +385,7 @@ namespace StockportWebapp.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error exporting {slug} to pdf, exception: {ex.Message}");
-                return new ContentResult() { Content = "There was a problem exporting this group to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError };
+                return new ContentResult() { Content = "There was a problem exporting this group to pdf"+ex.Message, ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError };
             }
         }
 
