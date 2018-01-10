@@ -189,12 +189,13 @@
             <section class="upcoming-events-container hide-on-mobile ">
                 @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
             </section>
+        }
 
             <div id="shareThis" class="sharethis">
                 @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
             </div>
             @Html.Partial("ContentDisclaimerCard")
-        }
+        
     </div>
     <aside class="grid-30 hide-on-print">
         <h2 >More about this group</h2>

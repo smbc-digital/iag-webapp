@@ -1,0 +1,26 @@
+﻿.content-disclaimer {
+    background-color: $greyDarkest;
+    color: $white;
+    padding: 10px 0 10px 0;
+
+
+
+    p {
+        margin-bottom: 0;
+        text-align: left;
+    }
+
+    a {
+        color: $white;
+    }
+
+
+    @media #{$mobile} {
+        background-color: $white;
+        color: unset;
+
+        a {
+            color: unset;
+        }
+    }
+}
