@@ -1,0 +1,87 @@
+﻿@using System.Threading.Tasks
+@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model ReportGroupViewModel
+@{
+    ViewData["Title"] = "Changes to a group's information";
+    ViewData["og:title"] = "Changes to a group's information";
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "groups"), new Crumb(Model.GroupName, Model.Slug, "groups") })
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="" class="grid-100 mobile-grid-100">
+                <div class="l-content-container">
+                    <div class="grid-100">
+                        <h1>Report a group</h1>
+                        
+                        <div>
+                            <p>In your view, if you feel that a group or service has breached our terms and conditions then please let us know by using the email contact form below and provide as much information as possible</p>
+                            <p>If you do not need to send us any updates and want to see more groups information please visit the <a href="/groups">groups page.</a></p>
+                        </div>
+
+                        @if (ViewBag.SubmissionError != null)
+                        {
+                            <div id="error-message-anchor"></div>
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                <div class="alert-icon">
+                                    <i class="fa fa-exclamation fa-3x"></i>
+                                </div>
+                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                    <h3>There has been a problem: </h3>
+                                    <p>@ViewBag.SubmissionError</p>
+                                </div>
+                            </div>
+                        }
+                        <noscript>
+                            <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+                                <div class="alert-icon">
+                                    <i class="fa fa-exclamation fa-3x"></i>
+                                </div>
+                                <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+                                    <h3>There has been a problem: </h3>
+                                    <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
+                                </div>
+                            </div>
+                        </noscript>
+                        <form asp-controller="Groups" asp-action="ReportGroupInfo" method="post" role="form">
+                            <input type="hidden" asp-for="@Model.GroupName"/>
+                            <div class="form">
+                                <div class="form-section">
+                                    <fieldset>
+                                        <label asp-for="@Model.Name"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name"/>
+                                        <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Email"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email"/>
+                                        <span asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Subject"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Subject"/>
+                                        <span asp-validation-for="@Model.Subject" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <label asp-for="@Model.Message"></label>
+                                        <textarea asp-for="@Model.Message" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
+                                        <span asp-validation-for="@Model.Message" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+
+                                        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+                                        <div Class="clearfix"></div>
+
+                                        <stock-button id="uitest-contact-form-submit"
+                                                      class="button-contact-us">Send your enquiry</stock-button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

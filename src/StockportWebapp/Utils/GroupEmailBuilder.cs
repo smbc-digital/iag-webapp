@@ -169,6 +169,29 @@ namespace StockportWebapp.Utils
                                                                     new List<IFormFile>()));
         }
 
+        public virtual Task<HttpStatusCode> SendEmailReportGroup(ReportGroupViewModel reportGroupInfo)
+        {
+            var messageSubject = $"Changes to a group's information - {reportGroupInfo.GroupName}";
+
+            _logger.LogInformation("Sending group submission form email");
+
+            var emailBody = new ReportGroupInfoConfirmation
+            {
+                Email = reportGroupInfo.Email,
+                Name = reportGroupInfo.Name,
+                Subject = reportGroupInfo.Subject,
+                Message = reportGroupInfo.Message,
+                Slug = reportGroupInfo.Slug
+            };
+
+            return _emailClient.SendEmailToService(new EmailMessage(messageSubject,
+                                                                    _emailClient.GenerateEmailBodyFromHtml(emailBody),
+                                                                    _fromEmail,
+                                                                    _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
+                                                                    reportGroupInfo.Email,
+                                                                    new List<IFormFile>()));
+        }
+
         public virtual void SendEmailEditGroup(GroupSubmission group, string toEmail)
         {
             var messageSubject = $"Edit group {group.Name}";

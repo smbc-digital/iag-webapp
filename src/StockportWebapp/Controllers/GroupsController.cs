@@ -302,6 +302,7 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         [Route("/groups/{slug}/change-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
@@ -320,6 +321,67 @@ namespace StockportWebapp.Controllers
             ViewBag.SubmissionError = "There was a problem submitting the group, please try again.";
 
             return View(submission);
+        }
+
+        [HttpGet]
+        [Route("/groups/{slug}/report-group-info")]
+        public ActionResult ReportGroupInfo(string slug, string groupname)
+        {
+            var model = new ReportGroupViewModel
+            {
+                GroupName = groupname,
+                Slug = slug
+            };
+
+            return View(model);
+        }
+
+
+
+        [HttpPost]
+        [Route("/groups/{slug}/report-group-info")]
+        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        public IActionResult ReportGroupInfo(string slug, ReportGroupViewModel submission)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
+                return View(submission);
+            }
+
+            var successCode = _emailBuilder.SendEmailReportGroup(submission).Result;
+            if (successCode == HttpStatusCode.OK)
+            
+                return RedirectToAction("ReportGroupInfoConfirmation", new { slug, groupName = submission.GroupName });
+                ViewBag.SubmissionError = "There was a problem submitting the report, please try again.";
+                return View(submission);
+            
+        }
+
+
+        [Route("/groups/{slug}/report-group-info-confirmation")]
+        public IActionResult ReportGroupInfoConfirmation(string slug, string groupName)
+        {
+            if (string.IsNullOrWhiteSpace(groupName))
+                return NotFound();
+
+            ViewBag.Slug = slug;
+            ViewBag.GroupName = groupName;
+
+
+            var viewmodel = new ConfirmationViewModel()
+            {
+                Title = "Report a group's information",
+                SubTitle = $"You've successfully submitted a report for {groupName}",
+                ConfirmationText = "We will take a look at the report you have submitted so that we can make sure that it is correct.",
+                ButtonText = "Go back to Stockport Local",
+                ButtonLink = Url.Action(""),
+                Icon = "check",
+                IconColour = "green",
+                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
+            };
+
+            return View("Confirmation", viewmodel);
         }
 
         [Route("/groups/{slug}/change-group-info-confirmation")]
