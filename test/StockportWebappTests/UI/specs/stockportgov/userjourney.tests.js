@@ -124,7 +124,6 @@ module.exports = {
         eventcalendar.assertPrimaryFilter(browser);
         eventcalendar.selectDropdownCategoryAndSearch(browser, "ui-test");
         eventcalendar.goToFirstEvent(browser);
-
         var events = browser.page.stockportgov.events();
         events.assertEventHasTitle(browser);
         events.assertHeadingStampPresent();
@@ -173,7 +172,7 @@ module.exports = {
         showcasePage.assertTitleIsVisible("UITEST: showcase page");
         showcasePage.assertTeaserIsVisible(browser, "this is a spotlight page for ui-test");
         showcasePage.assertCurrentConsulationsIsVisible(browser);
-        showcasePage.assertSubheadingIsVisible(browser, "spotlight subheading");
+        showcasePage.assertSubheadingIsVisible(browser, "Popular Services");
         showcasePage.assertFeaturedTopicsAreVisible();
         showcasePage.assertNewsSectionVisible();
         showcasePage.assertEventsSectionVisible();

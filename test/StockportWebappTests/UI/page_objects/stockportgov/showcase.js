@@ -53,7 +53,7 @@ module.exports = {
     subheading: '.featured-topic-list>h2',
     featuredtopics:'.featured-topic-list',
     consultationSection:'.l-content-container.grid-100.tablet-grid-100.mobile-grid-100.group-margin',
-    consulationHeading: '.grid-100.sk-table-cell>h3',
+    consulationHeading: '.grid-100.sk-table-cell>h2',
     consultaionTable: '.grid-100.sk-table-row',
     newsSection: '.showcase-news.showcase-news-events',
     eventsSection:'.showcase-events.showcase-news-events'
