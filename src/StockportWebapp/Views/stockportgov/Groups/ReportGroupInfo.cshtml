@@ -3,8 +3,8 @@
 @using StockportWebapp.ViewModels
 @model ReportGroupViewModel
 @{
-    ViewData["Title"] = "Changes to a group's information";
-    ViewData["og:title"] = "Changes to a group's information";
+    ViewData["Title"] = "Report this page as inappropriate";
+    ViewData["og:title"] = "Report this page as inappropriate";
     Layout = "../Shared/_Layout.cshtml";
 }
 
@@ -18,11 +18,11 @@
             <section aria-label="" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
-                        <h1>Report a group</h1>
+                        <h1>Report this page as inappropriate</h1>
                         
                         <div>
+                            <p>All information provided on Stockport Local is subject to our <a target="_blank" href="https://www.stockport.gov.uk/terms-and-conditions">Terms and Conditions </a>
                             <p>In your view, if you feel that a group or service has breached our terms and conditions then please let us know by using the email contact form below and provide as much information as possible</p>
-                            <p>If you do not need to send us any updates and want to see more groups information please visit the <a href="/groups">groups page.</a></p>
                         </div>
 
                         @if (ViewBag.SubmissionError != null)

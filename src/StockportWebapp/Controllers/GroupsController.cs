@@ -367,13 +367,14 @@ namespace StockportWebapp.Controllers
 
             ViewBag.Slug = slug;
             ViewBag.GroupName = groupName;
+            
 
 
             var viewmodel = new ConfirmationViewModel()
             {
-                Title = "Report a group's information",
+                Title = "Report this page as inappropriate",
                 SubTitle = $"You've successfully submitted a report for {groupName}",
-                ConfirmationText = "We will take a look at the report you have submitted so that we can make sure that it is correct.",
+                ConfirmationText = $"We will take a look at the report you have submitted in line with our <a target='_blank' href = " + Url.Content("https://www.stockport.gov.uk/terms-and-conditions") + ">Terms and Conditions</a> and reply to you within 10 working days",
                 ButtonText = "Go back to Stockport Local",
                 ButtonLink = Url.Action(""),
                 Icon = "check",
