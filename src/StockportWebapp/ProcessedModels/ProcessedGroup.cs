@@ -24,6 +24,7 @@ namespace StockportWebapp.ProcessedModels
         public GroupAdministrators GroupAdministrators { get; set; }
         public DateTime? DateHiddenFrom { get; set; }
         public DateTime? DateHiddenTo { get; set; }
+        public DateTime? DateLastModified { get; set; }
         public List<string> Cost { get; set; }
         public string CostText { get; set; }
         public string AbilityLevel { get; set; }
@@ -48,7 +49,7 @@ namespace StockportWebapp.ProcessedModels
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories,
                       List<Crumb> breadcrumbs, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo,
                         List<string> cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, List<Group> linkedGroups, Donations donations,
-                     MapDetails mapDetails, string additionalInformation, List<Document> additionalDocuments, string donationsText, string donationsUrl)
+                     MapDetails mapDetails, string additionalInformation, List<Document> additionalDocuments, string donationsText, string donationsUrl, DateTime? dateLastModified)
         {
             Name = name;
             Slug = slug;
@@ -82,6 +83,7 @@ namespace StockportWebapp.ProcessedModels
             AdditionalDocuments = additionalDocuments;
             DonationsText = donationsText;
             DonationsUrl = donationsUrl;
+            DateLastModified = dateLastModified;
         }
 
         public void SetCurrentUrl(string url)
