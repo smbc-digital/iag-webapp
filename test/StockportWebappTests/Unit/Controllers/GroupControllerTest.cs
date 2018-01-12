@@ -102,6 +102,9 @@ namespace StockportWebappTests.Unit.Controllers
             
             _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
 
+            _configuration.Setup(_ => _.GetArchiveEmailPeriods())
+                .Returns(new List<ArchiveEmailPeriod> {new ArchiveEmailPeriod {NumOfDays = 1}});
+
             // Act
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as GroupDetailsViewModel;
@@ -198,6 +201,9 @@ namespace StockportWebappTests.Unit.Controllers
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
+            _configuration.Setup(_ => _.GetArchiveEmailPeriods())
+                .Returns(new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { NumOfDays = 1 } });
+
             // Act
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
             var model = view.ViewData.Model as GroupDetailsViewModel;
@@ -218,6 +224,9 @@ namespace StockportWebappTests.Unit.Controllers
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
             _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
+
+            _configuration.Setup(_ => _.GetArchiveEmailPeriods())
+                .Returns(new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { NumOfDays = 1 } });
 
             // Act
             var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
