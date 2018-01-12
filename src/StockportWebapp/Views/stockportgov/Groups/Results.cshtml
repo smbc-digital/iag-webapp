@@ -37,6 +37,7 @@
     <div class="group-startpage-image group-results">
         <div class="mobile-grid-100 group-result-label-container hide-on-desktop hide-on-tablet"><label>Showing <strong>@ViewBag.SelectedCategory</strong> groups near <strong>@Model.PrimaryFilter.Location</strong></label></div>
         <div class="primary-filter-outer-container-results-page">
+            <h2 class="visuallyhidden">Search category</h2>
             <div id="edit-search" class="primary-filter-container primary-filter-container-results-page">
                 @Html.Partial("PrimaryFilter", Model.PrimaryFilter)
             </div>
@@ -77,6 +78,7 @@
 
     @if (Model.Groups.Any())
     {
+        <h2 class="visuallyhidden">Displayed results</h2>
         <ul class="group-listing-container grid-container matchbox-parent">
             @foreach (var group in Model.Groups)
             {

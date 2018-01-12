@@ -1,10 +1,6 @@
 ﻿.share {
     padding-top: 10px;
 
-    &.border {
-       
-    }
-
     &.top-border {
         border-top: 1px solid #ccc;
     }
@@ -19,13 +15,12 @@
         padding-right:0.4em;
     }
 
-    h6 {
+    h2 {
         text-transform: none;
-        margin-bottom: 0px;
-    }
-
-    .addthis_button_facebook {
-        
+        font-size: 0.875em;
+        margin: 0;
+        font-weight: 600;
+        letter-spacing: 0;
     }
 
     .events-to-calendar {

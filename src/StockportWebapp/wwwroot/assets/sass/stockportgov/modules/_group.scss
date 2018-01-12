@@ -13,10 +13,6 @@
 #group-homepage {
     margin-bottom: 0;
 
-    h3 {
-        display: inline-block;
-    }
-
     .full-width-title {
         margin-bottom: 0;
     }
@@ -28,8 +24,15 @@
             margin: 10px 0px 15px 10px;
         }
 
+        h2{
+            font-size: 1.375em;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: 0;
+        }
+
         h3 {
-            margin-top: 0px;
+            margin-top: 0;
         }
 
         a {
@@ -448,11 +451,20 @@
                         color: #333333;
                     }
                 }
+                 
+                h3 {
 
-                @media #{$mobile, $tablet} {
-                    h5 {
+                    display: block;
+
+                    @media #{$mobile, $tablet} {
                         display: inline-block;
                         vertical-align: middle;
+                    }
+
+                    @media #{$mobile} {
+                        width: 70%;
+                        line-height: initial;
+                        margin-bottom: 30px;
                     }
                 }
 
@@ -467,11 +479,6 @@
                     height: 75px;
                     margin-bottom: 20px;
                     padding-top: 0px;
-
-                    h5 {
-                        width: 70%;
-                        line-height: initial;
-                    }
                 }
 
                 .group-block-icon-container {

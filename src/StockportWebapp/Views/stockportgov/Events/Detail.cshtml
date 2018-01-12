@@ -41,6 +41,8 @@
                         {
                             <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
                         }
+                        
+                        <h2 class="visuallyhidden">Details box</h2>
                         <div class="grid-50 events-calender-container-description">
                             <ul class="events-ul">
                                 <li class="events-details">
@@ -48,7 +50,7 @@
                                         <i class="fa fa-clock-o fa-2x events-details-symbol"></i>
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
-                                        <div class="events-details-heading">Date and time</div>
+                                        <div class="events-details-heading"><h3>Date and time</h3></div>
                                         @Model.EventDate.ToString("dddd dd MMMM yyyy") @Model.StartTime - @Model.EndTime
                                     </div>
                                     <div class="clearfix"></div>
@@ -60,7 +62,7 @@
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
-                                            Price
+                                            <h3>Price</h3>
                                         </div>
                                         @Model.Fee
                                     </div>
@@ -72,8 +74,8 @@
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
-                                            Location
-                                        </div>
+                                            <h3>Location</h3>
+</div>
                                         @Html.Raw(Model.Location)
                                     </div>
                                     <div class="clearfix"></div>
@@ -84,8 +86,8 @@
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
-                                            Submitted by
-                                        </div>
+                                            <h3>Submitted by</h3>
+</div>
                                         @if (Model.Group.Name != string.Empty)
                                         {
                                             <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
@@ -137,11 +139,11 @@
                         </div>
                     </div>
                     <div>
-                        <h3 class="group-details-heading">Description</h3>
+                        <h2 class="events-section-details-heading">Description</h2>
                         <article>
                             @Html.Raw(Model.Description)
                         </article>
-                    </div>
+                    </div><h2 class="visuallyhidden">Map</h2>
                     @if (Model.MapDetails.MapPosition != null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
                     {
                         <div class="event-map-container">     
@@ -157,7 +159,7 @@
                             @Html.Partial("Share")
                         </div>
                         <div class="grid-20 events-to-calendar">
-                            <h6>Add to calendar</h6>
+                            <h2>Add to calendar</h2>
                             <!-- Go to www.addthis.com/dashboard to customize your tools -->
                             <div class="addthis_toolbox">
                                 <div class="custom_images">

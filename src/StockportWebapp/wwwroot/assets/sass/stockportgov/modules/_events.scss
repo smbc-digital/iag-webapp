@@ -274,12 +274,26 @@ ul.nav-card-events-list {
 }
 
 .events-details-symbol {
-    color: #666666;
+    color: $greyDark;
+}
+
+.events-section-details-heading {
+    font-size: 1.375em;
+    font-weight: 800;
+    margin-bottom: 0;
+    letter-spacing: 0;
 }
 
 .events-details-heading {
-    color: #666666;
+    color: $greyDark;
     margin-bottom: 0px;
+
+    h3 {
+        font-weight: 400;
+        font-size: 1em;
+        margin-top: 0;
+        color: $greyDark;
+    }
 }
 
 .events-details-content {
@@ -394,6 +408,19 @@ ul.nav-card-events-list {
         clear: both;
         margin: 0 0 10px 10px;
         font-size: 1.6em;
+    }
+
+    .event-header {
+        h2 {
+                margin: 0;
+                font-size: 1.375em;
+                font-weight: 800;
+                letter-spacing: 0;
+
+                &.inline-heading{
+                    display:inline;
+                }
+        }
     }
 
     .group-li {

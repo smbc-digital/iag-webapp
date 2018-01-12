@@ -10,7 +10,7 @@
 
             <div class="grid-container">
                 <div class="event-header">
-                    <h3>Discover something new in Stockport</h3>
+                    <h2>Discover something new in Stockport</h2>
                 </div>
                 @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
             </div>
@@ -23,7 +23,7 @@
         <div class="home-page-row">
             <div class="grid-container">
                 <div class="event-header">
-                    <h3>@(row.IsLatest ? "Upcoming events" : row.Tag)</h3>
+                    <h2 class="inline-heading">@(row.IsLatest ? "Upcoming events" : row.Tag)</h2>
                     @if (row.IsLatest)
                     {
                         <a class="view-more hide-on-mobile" title="View more upcoming events" href="/events?datefrom=@DateTime.Now.Date">View more</a>

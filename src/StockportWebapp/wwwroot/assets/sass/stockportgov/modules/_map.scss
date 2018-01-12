@@ -23,6 +23,13 @@
 
         > i, a {
             vertical-align: middle;
+
+            > h3{
+                display: inline;
+                font-size:1em;
+                color: $colorPrimary;
+                font-weight: 400;
+            }
         }
     }
 }
