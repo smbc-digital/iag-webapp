@@ -36,200 +36,237 @@
     @Html.Partial("FavouritesBar")
 </div>
 <article aria-label="@Model.Group.Name content" class="grid-container group-detail">
-    <div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
-        <h1 tabindex="-1" id="content" class="group-article-title">@Model.Group.Name</h1>
-        <section>
-            @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
-            {
-                <div class="group-image">
-                    <img src="@Model.Group.ImageUrl" alt="Group image">
-                </div>
-            }
-            <section class="hide-on-desktop">
-                @Html.Partial("Events/ManageFavouritesCard", Model.Group)
-            </section>
-
-            <hr class="hide-on-desktop">
-            <h2>About us</h2>
-            <ul class="group-information">
-                @if (!string.IsNullOrEmpty(Model.Group.Address))
-                {
-                    <li>
-                        <i class="fa fa-map-marker fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Location</b></p>
-                            @if (!string.IsNullOrEmpty(Model.Group.Address))
-                            {
-                                <p>@Html.Raw(Model.Group.Address)</p>
-                            }
-                            else
-                            {
-                                <text>&nbsp;</text>
-                            }
-                        </div>
-
-                    </li>
-                }
-                @if (!string.IsNullOrEmpty(Model.Group.CostText))
-                {
-                    <li>
-                        <i class="fa fa-gbp fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Cost</b></p>
-                            @if (!string.IsNullOrEmpty(Model.Group.CostText))
-                            {
-                                <p>@string.Join(", ", Model.Group.Cost.ToArray())</p>
-                            }
-
-                        </div>
-                    </li>
-                }
-                @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
-                {
-                    <li>
-                        <i class="fa  fa-heart fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Supported by</b></p>
-                            @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
-                            {
-                                <p><a href="/organisations/@Model.Group.Organisation.Slug">@Model.Group.Organisation.Title</a> </p>
-                            }
-                        </div>
-                    </li>
-                }
-            </ul>
-        </section>
-        <section>
-            <h2 class="group-details-heading">What we do</h2>
-            @Html.Raw(Model.Group.Description.StripEmojis())
-
-            @if (Model.ShouldShowAdditionalInformation)
-            {
-                <a name="info"></a>
-                <h3 class="group-details-heading">Additional Information</h3>
-                @Html.Raw(Model.Group.AdditionalInformation);
-                foreach (Document document in Model.Group.AdditionalDocuments)
-                {
-                    @Html.Partial("Document", document);
-                }
-            }
-
-            @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
-            @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
-            <hr />
-        </section>
-        <section>
-            <h2>Contact us</h2>
-            <ul class="group-information">
-                @if (!string.IsNullOrEmpty(Model.Group.Website))
-                {
-                    <li>
-                        <i class="fa fa-laptop fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Website</b></p>
-                            <a href="@Model.Group.Website"> @Model.Group.Website</a>
-                        </div>
-
-                    </li>
-                }
-                @if (!string.IsNullOrEmpty(Model.Group.Email))
-                {
-                    <li>
-                        <i class="fa fa-envelope fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Email</b></p>
-                            <a href="mailto:@Model.Group.Email">@Model.Group.Email</a>
-                        </div>
-
-                    </li>
-                }
-                @if (!string.IsNullOrEmpty(Model.Group.PhoneNumber))
-                {
-                    <li>
-                        <i class="fa fa-phone-square fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Telephone</b></p>
-                            @Model.Group.PhoneNumber
-                        </div>
-
-                    </li>
-                }
-                @if (!string.IsNullOrEmpty(Model.Group.Facebook))
-                {
-                    <li>
-                        <i class="fa fa-facebook-square fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Facebook</b></p>
-                            <a class="hide-on-pdf" href="@Model.Group.Facebook">@facebook</a>
-                        </div>
-
-                    </li>
-                }
-                @if (!string.IsNullOrEmpty(Model.Group.Twitter))
-                {
-                    <li>
-                        <i class="fa fa-twitter-square fa-2x group-details-symbol"></i>
-                        <div>
-                            <p><b>Twitter</b></p>
-                            <a class="hide-on-pdf" href="http://@Model.Group.Twitter">@twitter</a>
-                        </div>
-
-                    </li>
-                }
-            </ul>
-        </section>
-        @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
+<div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
+    <h1 tabindex="-1" id="content" class="group-article-title">@Model.Group.Name</h1>
+    <section>
+        @if (!string.IsNullOrEmpty(Model.Group.ImageUrl))
         {
+            <div class="group-image">
+                <img src="@Model.Group.ImageUrl" alt="Group image">
+            </div>
+        }
+        <section class="hide-on-desktop">
+            @Html.Partial("Events/ManageFavouritesCard", Model.Group)
+        </section>
+
+        <hr class="hide-on-desktop">
+        <h2>About us</h2>
+        <ul class="group-information">
+            @if (!string.IsNullOrEmpty(Model.Group.Address))
+            {
+                <li>
+                    <i class="fa fa-map-marker fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Location</b></p>
+                        @if (!string.IsNullOrEmpty(Model.Group.Address))
+                        {
+                            <p>@Html.Raw(Model.Group.Address)</p>
+                        }
+                        else
+                        {
+                            <text>&nbsp;</text>
+                        }
+                    </div>
+
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Group.CostText))
+            {
+                <li>
+                    <i class="fa fa-gbp fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Cost</b></p>
+                        @if (!string.IsNullOrEmpty(Model.Group.CostText))
+                        {
+                            <p>@string.Join(", ", Model.Group.Cost.ToArray())</p>
+                        }
+
+                    </div>
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
+            {
+                <li>
+                    <i class="fa  fa-heart fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Supported by</b></p>
+                        @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
+                        {
+                            <p><a href="/organisations/@Model.Group.Organisation.Slug">@Model.Group.Organisation.Title</a> </p>
+                        }
+                    </div>
+                </li>
+            }
+        </ul>
+    </section>
+    <section>
+        <h2 class="group-details-heading">What we do</h2>
+        @Html.Raw(Model.Group.Description.StripEmojis())
+
+        @if (Model.ShouldShowAdditionalInformation)
+        {
+            <a name="info"></a>
+            <h3 class="group-details-heading">Additional Information</h3>
+            @Html.Raw(Model.Group.AdditionalInformation);
+            foreach (Document document in Model.Group.AdditionalDocuments)
+            {
+                @Html.Partial("Document", document);
+            }
+        }
+
+        @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
+        @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
+        <hr />
+    </section>
+    <section>
+        <h2>Contact us</h2>
+        <ul class="group-information">
+            @if (!string.IsNullOrEmpty(Model.Group.Website))
+            {
+                <li>
+                    <i class="fa fa-laptop fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Website</b></p>
+                        <a href="@Model.Group.Website"> @Model.Group.Website</a>
+                    </div>
+
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Group.Email))
+            {
+                <li>
+                    <i class="fa fa-envelope fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Email</b></p>
+                        <a href="mailto:@Model.Group.Email">@Model.Group.Email</a>
+                    </div>
+
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Group.PhoneNumber))
+            {
+                <li>
+                    <i class="fa fa-phone-square fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Telephone</b></p>
+                        @Model.Group.PhoneNumber
+                    </div>
+
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Group.Facebook))
+            {
+                <li>
+                    <i class="fa fa-facebook-square fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Facebook</b></p>
+                        <a class="hide-on-pdf" href="@Model.Group.Facebook">@facebook</a>
+                    </div>
+
+                </li>
+            }
+            @if (!string.IsNullOrEmpty(Model.Group.Twitter))
+            {
+                <li>
+                    <i class="fa fa-twitter-square fa-2x group-details-symbol"></i>
+                    <div>
+                        <p><b>Twitter</b></p>
+                        <a class="hide-on-pdf" href="http://@Model.Group.Twitter">@twitter</a>
+                    </div>
+
+                </li>
+            }
+        </ul>
+    </section>
+    @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
+    {
             
-            <div class="group-map-container group-map-container-padding">
-                <h2 class="group-details-heading">How to find us</h2>
-                @Html.Partial("MapPosition", Model.Group.MapDetails)
-            </div>
-        }
+        <div class="group-map-container group-map-container-padding">
+            <h2 class="group-details-heading">How to find us</h2>
+            @Html.Partial("MapPosition", Model.Group.MapDetails)
+        </div>
+    }
 
-        @if (Model.Group.Events != null && Model.Group.Events.Any())
-        {
-            <div class="upcoming-events-container hide-on-mobile ">
-                @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
-            </div>
+    @if (Model.Group.Events != null && Model.Group.Events.Any())
+    {
+        <div class="upcoming-events-container hide-on-mobile ">
+            @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
+        </div>
 
-            <div id="shareThis" class="sharethis">
-                @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
-            </div>
-            @Html.Partial("ContentDisclaimerCard")
-        }
-    </div>
-    <aside class="grid-30 hide-on-print">
-        <h2 >More about this group</h2>
-        <hr class="hide-on-mobile" />
-        <section class="group-information-section">
-            <div class="hide-on-mobile">
-                @Html.Partial("Events/ManageFavouritesCard", Model.Group)
-            </div>
-            <div class="add-remove-favourite sidebar-links">
-                <i class="fa fa-flag-o fa-lg"></i>
-                <a data-slug="@Model.Group.Slug" href="">  Report this page as inappropriate</a>
-            </div>
-        </section>
-        <section>
-            <div class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
+        <div id="shareThis" class="sharethis">
+            @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
+        </div>
+        @Html.Partial("ContentDisclaimerCard")
+    }
+</div>
+<aside class="grid-30 hide-on-print">
+    <h2 >More about this group</h2>
+    <hr class="hide-on-mobile" />
+    <section class="group-information-section">
+        <div class="hide-on-mobile">
+            @Html.Partial("Events/ManageFavouritesCard", Model.Group)
+        </div>
+        <div class="add-remove-favourite sidebar-links">
+            <i class="fa fa-flag-o fa-lg"></i>
+            <a data-slug="@Model.Group.Slug" href="">  Report this page as inappropriate</a>
+        </div>
+    </section>
+       
+            <section class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
                 <h3>Manage your group information</h3>
-                <hr />
-                <p>Sign up or login to keep this page's information up to date.</p>
-                <p>If you aren't involved in this group or service, you can still let us know about a <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">change to this group or service</a>.</p>
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
-
-            </div>
-
-            @if (Model.ShouldShowAdditionalInfoLink)
+                <hr/>
+            @if (Model.ShouldShowAdminOptions)
             {
-                <div class=" grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
-                    <h3>View additional information</h3>
-                    <hr />
-                    <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
-                    <stock-button class="manage-group-button sidebar-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
-                </div>
+                if (DateTimeOffset.Now.AddDays(-Model.DaysTillStale) >= Model.Group.DateLastModified)
+                 {
+                     <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
+
+                     using (Html.BeginForm("GroupUpToDate", "Groups", new {slug = Model.Group.Slug}))
+                     {
+                         <stock-button id="upToDateButton" class="manage-group-button sidebar-button">It's up to date</stock-button>
+                     }
+
+                     <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                 }
+                 else if (Model.ConfirmedUpToDate)
+                 {
+                     <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
+                     <div class="thank-you-message">
+                         <i class="fa fa-check events-details-symbol"></i>
+                         Thanks for letting us know
+                     </div>
+                     <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+
+                 }
+                 else
+                 {
+                     <p>If any of this group's information has changed then make sure you let people know by updating this page. </p>
+                     <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                     
+                     <p>If you have other groups, you can make changes to your information, events and more.</p>
+                     <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
+                 }
             }
-        </section>
-    </aside>
+            else if (Model.IsLoggedIn)
+            {
+                <p>Make changes to your information, events and more.</p>
+                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Manage your groups</stock-button>
+            }
+            else
+            {
+                <p>Sign up or login to keep this page's information up to date.</p>
+                <p>If you aren't involved in this group or service, you can still <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">let us know about a change</a> to this group or service.</p>
+                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Sign up or login</stock-button>
+            }
+            </section>
+        @if (Model.ShouldShowAdditionalInfoLink)
+        {
+            <section class=" grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
+                <h3>View additional information</h3>
+                <hr/>
+                <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
+                <stock-button class="manage-group-button sidebar-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
+            </section>
+        }
+</aside>
 </article>

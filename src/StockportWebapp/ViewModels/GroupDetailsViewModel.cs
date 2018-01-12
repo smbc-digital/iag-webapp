@@ -9,5 +9,9 @@ namespace StockportWebapp.ViewModels
         public bool ShouldShowAdditionalInfoLink { get; set; }
         public bool UserHasAccessToAdditionalInformation { get; set; }
         public string MyAccountUrl { get; set; }
+        public bool ConfirmedUpToDate { get; set; }
+        public bool ShouldShowAdminOptions { get; set; }
+        public bool IsLoggedIn { get; set; }
+        public int DaysTillStale { get; set; }
     }
 }

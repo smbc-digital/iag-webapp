@@ -116,7 +116,7 @@ namespace StockportWebapp.Controllers
 
         [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/groups/{slug}")]
-        public async Task<IActionResult> Detail(string slug)
+        public async Task<IActionResult> Detail(string slug, bool confirmedUpToDate = false)
         {
             var response = await _processedContentRepository.Get<Group>(slug);
 
@@ -125,6 +125,7 @@ namespace StockportWebapp.Controllers
             var group = response.Content as ProcessedGroup;
 
             var userHasAccessToAdditionalInformation = false;
+            var userIsAdministrator = false;
             var hasAdditionalInformation = !string.IsNullOrEmpty(group.AdditionalInformation);
             var isLoggedIn = false;
 
@@ -135,8 +136,11 @@ namespace StockportWebapp.Controllers
                 var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
                 var groupAdvisor = groupAdvisorResponse.Content as GroupAdvisor;
                 userHasAccessToAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
+                userIsAdministrator = IsUserAdministrator(loggedInPerson.Email, group);
                 isLoggedIn = true;
             }
+
+            var daysTillStale = _configuration.GetArchiveEmailPeriods().First().NumOfDays;
 
             // convert all documents urls to be download links
             group.AdditionalDocuments?.ForEach(o => o.Url = $"/documents/{slug}/{o.AssetId}");
@@ -146,7 +150,11 @@ namespace StockportWebapp.Controllers
                 Group = group,
                 MyAccountUrl = _configuration.GetMyAccountUrl() + "?returnUrl=" + Request?.GetUri(),
                 ShouldShowAdditionalInformation = userHasAccessToAdditionalInformation && hasAdditionalInformation,
-                ShouldShowAdditionalInfoLink = hasAdditionalInformation && !isLoggedIn
+                ShouldShowAdditionalInfoLink = hasAdditionalInformation && !isLoggedIn,
+                ShouldShowAdminOptions = userIsAdministrator,
+                ConfirmedUpToDate = confirmedUpToDate,
+                IsLoggedIn = isLoggedIn,
+                DaysTillStale = daysTillStale
             };
 
             _cookiesHelper.PopulateCookies(new List<ProcessedGroup> { group }, "favourites");
@@ -159,10 +167,15 @@ namespace StockportWebapp.Controllers
         }
            
 
-            private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
-            {
-                return groupAdvisor != null && (groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug));
-            }
+        private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
+        {
+            return groupAdvisor != null && (groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug));
+        }
+
+        private bool IsUserAdministrator(string email, ProcessedGroup group)
+        {
+            return group.GroupAdministrators.Items.Any(_ => _.Email == email);
+        }
 
         [ResponseCache(NoStore = true, Duration = 0)]
         [Route("groups/results")]
@@ -1074,6 +1087,27 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Route("/groups/{slug}/up-to-date")]
+        public async Task<IActionResult> GroupUpToDate(string slug)
+        {
+            var response = await _repository.Get<Group>(slug);
+            if (!response.IsSuccessful()) return response;
+
+            var group = response.Content as Group;
+
+            var jsonContent = JsonConvert.SerializeObject(group);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            var putResponse = await _repository.Put<Group>(httpContent, slug);
+            
+            if (putResponse.StatusCode == (int) HttpStatusCode.OK)
+            {
+                return RedirectToAction("Detail", "Groups", new { slug = slug, confirmedUpToDate = true});
+            }
+
+            return RedirectToAction("Detail", slug, false);
+        }
 
         [HttpGet]
         [Route("/groups/favourites/clearall")]
