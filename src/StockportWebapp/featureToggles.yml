@@ -7,6 +7,10 @@ prod: &prod
 
 stage: &stage
   << : *prod
+  GroupArchiveEmails: true
+  NameInHeader: true
+  EditGroupUploadImage: true
+  GroupDetailsPage: true
 
 qa: &qa
   << : *prod
@@ -16,10 +20,6 @@ int: &int
   << : *prod
   << : *stage
   << : *qa
-  GroupArchiveEmails: true
-  NameInHeader: true
-  EditGroupUploadImage: true
-  GroupDetailsPage: true
 
 local: &local
   << : *prod
