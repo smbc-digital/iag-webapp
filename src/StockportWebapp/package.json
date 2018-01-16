@@ -2,9 +2,6 @@
   "name": "StockportWebapp",
   "version": "0.0.0",
   "private": true,
-  "dependencies": {
-    "jsreport-core": "^1.5.1"
-  },
   "devDependencies": {
     "colors": "^1.1.2",
     "gulp": "^3.9.1",
@@ -19,7 +16,6 @@
     "gulp-replace": "^0.6.1",
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^3.0.0",
-    "jsreport-jsrender": "^1.0.2",
     "node-sass": "^4.7.2",
     "postcss-reporter": "^5.0.0",
     "postcss-scss": "^1.0.2",
@@ -32,5 +28,10 @@
     "stylelint-scss": "^2.2.0",
     "sugarss": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "jsreport-core": "^1.5.1",
+    "jsreport-jsrender": "^1.0.2",
+    "jsreport-phantom-pdf": "^1.4.6"
   }
 }

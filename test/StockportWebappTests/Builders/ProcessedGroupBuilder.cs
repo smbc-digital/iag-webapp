@@ -32,6 +32,7 @@ namespace StockportWebappTests.Builders
         };
         private DateTime? _dateHiddenFrom = null;
         private DateTime? _dateHiddenTo = null;
+        private DateTime? _dateLastModified = null;
         private List<string> _cost = new List<string>();
         private string _costText = "cost text";
         private string _abilityLevel = "ability level";
@@ -74,7 +75,8 @@ namespace StockportWebappTests.Builders
                 _additionalInformation,
                 _additionalDocuments,
                 _donationsText,
-                _donationsUrl
+                _donationsUrl,
+                _dateLastModified
             );
         }
 

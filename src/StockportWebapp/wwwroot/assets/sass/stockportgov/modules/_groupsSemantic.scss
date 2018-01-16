@@ -67,7 +67,7 @@ article.group-detail {
     section {
         display: inline-block;
     }
-  
+
 
     > div {
         background-color: $white;
@@ -86,7 +86,7 @@ article.group-detail {
         }
     }
 
-    
+
 
     .group-information li {
         list-style: none;
@@ -133,7 +133,6 @@ article.group-detail {
                 padding-top: 35px;
             }
 
-
             .sidebar-section {
                 padding-left: 30px;
             }
@@ -144,6 +143,27 @@ article.group-detail {
             display: block;
         }
 
+        .thank-you-message {
+            padding-top: 15px;
+            padding-left: 15px;
+            padding-bottom: 15px;
+            padding-right: 25px;
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #999;
+            font-weight: 600;
+            font-family: 'Source Sans Pro';
+            font-size: 1.125em;
+            letter-spacing: 0;
+            line-height: 20px;
+
+            .fa-check {
+                color: $green;
+                padding-left: 5px;
+                padding-right: 10px;
+            }
+        }
+
         .group-information-section {
             border-top: unset;
             margin-top: unset;
@@ -151,6 +171,29 @@ article.group-detail {
             padding-right: 0px;
             margin-bottom: 10px;
             text-align: initial;
+
+            .manage-group-button {
+                border-color: $greyMiddle;
+                background-color: $white;
+                color: $greyDarkest;
+                font-weight: 600;
+                margin-top: 10px;
+                margin-bottom: 10px;
+
+                &:hover {
+                    box-shadow: 5px 5px 10px $greyLighter;
+                }
+
+                span {
+                    margin-left: 8px;
+                }
+            }
+
+            form {
+                button {
+                    width: 100%;
+                }
+            }
 
             @media #{$mobile} {
                 padding-left: unset;
