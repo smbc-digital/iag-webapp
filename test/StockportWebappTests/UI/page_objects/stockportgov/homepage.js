@@ -2,8 +2,8 @@ var methods = {
     goToTopicListBlockPage: function (browser, title) {
         this.waitForElementVisible('@topicList', this.api.globals.timeOut);
         browser.useXpath()
-            .assert.visible("//div[@class='featured-topic-name' and text()='" + title + "']")
-            .click("//div[@class='featured-topic-name' and text()='" + title + "']");
+            .assert.visible("//h3[@class='featured-topic-name' and text()='" + title + "']")
+            .click("//h3[@class='featured-topic-name' and text()='" + title + "']");
     },
 
     goToTopTasksBlockPage: function(browser, title, link) {

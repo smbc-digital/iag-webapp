@@ -82,7 +82,7 @@
         browser.useCss();
 
         browser.waitForElementVisible("#currentLocationgroup", this.api.globals.timeOut)
-                .expect.element("#currentLocationgroup h5")
+                .expect.element("#currentLocationgroup h3")
                 .text.to.equal("What's near me?");
         
         browser.click("#currentLocationgroup");
@@ -95,7 +95,7 @@
         browser.useXpath();
 
         browser.waitForElementVisible(".//div[@id='search-everything']", this.api.globals.timeOut)
-            .expect.element(".//div[@id='search-everything']//h5")
+            .expect.element(".//div[@id='search-everything']//h3")
             .text.to.equal("Search everything");
 
         browser.click(".//div[@id='search-everything']//a");
@@ -110,7 +110,7 @@
         browser.useXpath();
 
         browser.waitForElementVisible(".//div[@id='find-help-and-support']", this.api.globals.timeOut)
-            .expect.element(".//div[@id='find-help-and-support']//h5")
+            .expect.element(".//div[@id='find-help-and-support']//h3")
             .text.to.equal("Find help and support");
 
         browser.click(".//div[@id='find-help-and-support']//a");
