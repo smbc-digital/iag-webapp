@@ -389,7 +389,7 @@ namespace StockportWebapp.Controllers
                 SubTitle = $"You've successfully submitted a report for {groupName}",
                 ConfirmationText = $"We will take a look at the report you have submitted in line with our <a target='_blank' href = " + Url.Content("https://www.stockport.gov.uk/terms-and-conditions") + ">Terms and Conditions</a> and reply to you within 10 working days",
                 ButtonText = "Go back to Stockport Local",
-                ButtonLink = Url.Action(""),
+                ButtonLink = Url.Action("").ToLower(),
                 Icon = "check",
                 IconColour = "green",
                 Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
@@ -413,8 +413,8 @@ namespace StockportWebapp.Controllers
                 Title = "Changes to a group's information",
                 SubTitle = $"You've successfully submitted a change for {groupName}",
                 ConfirmationText = "We will take a look at the changes you have suggested so that we can make sure that they are correct.",
-                ButtonText = "Go back to manage your events",
-                ButtonLink = Url.Action("ViewGroupsEvents", "Groups", new { slug = ViewBag.GroupSlug }),
+                ButtonText = "Go back to manage your groups",
+                ButtonLink = Url.Action("manage"),
                 Icon = "check",
                 IconColour = "green",
                 Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
