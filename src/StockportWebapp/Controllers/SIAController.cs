@@ -4,8 +4,10 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using StockportWebapp.Models;
+using StockportWebapp.ViewModels;
 using StockportWebapp.Wrappers;
 
 //using StockportWebapp.Http;
@@ -15,12 +17,16 @@ namespace StockportWebapp.Controllers
     public class SIAController : Controller
     {
         //http://scnportwebdev2.stockport.gov.uk/siarestipa/api/values/?term=lorry
-        string Baseurl = "http://scnportwebdev2.stockport.gov.uk/siarestipa/";
+        //string Baseurl = "http://scnportwebdev2.stockport.gov.uk/siarestipa/";
+        string Baseurl = "http://localhost:59356/";
+
         [Route("/sia")]
-        public async Task<ActionResult> Index(string term)
+        public async Task<ActionResult> Index(string term, string selectedArea, string SearchDepth)
         {
 
-            List<Photo> EmpInfo = new List<Photo>();
+            SIAViewModel viewModel = new SIAViewModel();
+            viewModel.Photos = new List<Photo>();
+            
 
             using (var client = new HttpClient())
             {
@@ -31,9 +37,54 @@ namespace StockportWebapp.Controllers
                 //Define request data format  
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                //Sending request to find web api REST service resource GetAllEmployees using HttpClient  
-                HttpResponseMessage Res = await client.GetAsync("api/values/?term=" + term);
 
+                //areas
+                HttpResponseMessage areas = await client.GetAsync("v1/GetAreas/");
+                var areaResponse = areas.Content.ReadAsStringAsync().Result;
+                viewModel.Areas = JsonConvert.DeserializeObject<List<SIAArea>>(areaResponse);
+                viewModel.AreaList = new SelectList(viewModel.Areas, "ID", "Area1");
+
+
+                //albums
+                HttpResponseMessage albums = await client.GetAsync("v1/GetAlbumInfo/");
+                var albumResponse = albums.Content.ReadAsStringAsync().Result;
+                viewModel.Albums = JsonConvert.DeserializeObject<List<AlbumInfo>>(albumResponse);
+
+                foreach (var item in viewModel.Albums)
+                {
+                    HttpResponseMessage albumsphotos = await client.GetAsync("v1/GetAlbumPhoto/?id=" + item.albumidno);
+                    var albumphotosResponse = albumsphotos.Content.ReadAsStringAsync().Result;
+                    item.AlbumPhotos = JsonConvert.DeserializeObject<List<AlbumPhoto>>(albumphotosResponse);
+
+                    foreach (var photoItem in item.AlbumPhotos)
+                    {
+                        photoItem.photoPath = "http://interactive.stockport.gov.uk/stockportimagearchive/SIA/" +
+                                       photoItem.photograph.Trim() + ".jpg";
+                    }
+                }
+
+                HttpResponseMessage Res;
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
+
+                if (selectedArea != "All")
+                {
+                    if (SearchDepth != "Title only")
+                    { Res = await client.GetAsync("v1/GetPhotosByTermArea/?term=" + term + "&area=" + selectedArea);}
+                    else
+                    {
+                        Res = await client.GetAsync("v1/GetPhotosByTitleArea/?term=" + term + "&area=" + selectedArea);
+                    }
+
+                }
+                else
+                {
+                    if (SearchDepth != "Title only")
+                    { Res = await client.GetAsync("v1/GetPhotosByTerm/?term=" + term);}
+                    else
+                    {
+                        Res = await client.GetAsync("v1/GetPhotosByTitle/?term=" + term);
+                    }
+                }
                 //Checking the response is successful or not which is sent using HttpClient  
                 if (Res.IsSuccessStatusCode)
                 {
@@ -41,21 +92,38 @@ namespace StockportWebapp.Controllers
                     var EmpResponse = Res.Content.ReadAsStringAsync().Result;
 
                     //Deserializing the response recieved from web api and storing into the Employee list  
-                    EmpInfo = JsonConvert.DeserializeObject<List<Photo>>(EmpResponse);
+                    viewModel.Photos = JsonConvert.DeserializeObject<List<Photo>>(EmpResponse);
 
-                    foreach (var photo in EmpInfo)
+                    if (viewModel.Photos != null)
                     {
-                        photo.imgSrc = "http://interactive.stockport.gov.uk/stockportimagearchive/SIA/" +
-                                       photo.AccessionNo.Trim() + ".jpg";
+                        foreach (var photo in viewModel.Photos)
+                        {
+                            photo.imgSrc = "http://interactive.stockport.gov.uk/stockportimagearchive/SIA/" +
+                                           photo.AccessionNo.Trim() + ".jpg";
+
+                            //comments
+                            HttpResponseMessage Coms = await client.GetAsync("v1/GetComments/?id=" + photo.AccessionNo.Trim());
+                            var blah = Coms.Content.ReadAsStringAsync().Result;
+                            photo.Comments = JsonConvert.DeserializeObject<List<PhotoComment>>(blah);
+
+
+
+                        }
                     }
+
+
 
                 }
                 //returning the employee list to view  
-                return View(EmpInfo);
+                return View(viewModel);
             }
         }
     }
 
     
 }
+
+
+
+
 

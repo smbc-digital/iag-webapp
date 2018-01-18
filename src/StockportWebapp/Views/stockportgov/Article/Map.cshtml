@@ -139,7 +139,7 @@
 
                 // Determine the dimensions of the dialog to suit the window
                 var maxHeight = 600;
-                var maxWidth = 400;
+                var maxWidth = 800; //400
                 var minPadding = 10;
                 var height = winH - (2 * minPadding);
                 var width = winW - (2 * minPadding);
@@ -181,7 +181,7 @@
             }
 
             Event.observe($(loader.mapID), 'astun:sourceLoad', function (evt) {
-                var allowedPanels = '@Model.Item2';
+                var allowedPanels = 0; //'@Model.Item2';
 
                 var panels = [];
 

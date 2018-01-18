@@ -84,5 +84,32 @@ namespace StockportWebapp.Models
         public decimal idno { get; set; }
 
         public string imgSrc { get; set; }
+
+        public IEnumerable<PhotoComment> Comments { get; set;}
+
     }
+
+
+    public class PhotoComment
+    {
+        [Column(TypeName = "numeric")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public decimal commentid { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string accessionno { get; set; }
+
+        [Column("comment")]
+        [Required]
+        [StringLength(255)]
+        public string comment1 { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string commentname { get; set; }
+
+        public DateTime commentdate { get; set; }
+    }
+
 }
