@@ -198,26 +198,36 @@
                 margin-bottom: 0;
             }
         }
+    }
 
-        .sharethis {
-            clear: both;
-            border-top: 1px solid;
-            color: black;
-            font-weight: 600;
-            background-color: white;
+    .sharethis {
+        clear: both;
+        border-top: 1px solid;
+        color: #cccccc;
+        font-weight: 600;
+        background-color: white;
 
-            .share {
-                padding-top: 20px;
+        .share {
+            padding-top: 10px;
+
+            &.border {
+                margin: 0;
             }
 
-            div {
-                margin-top: 5px;
+            h2 {
+                font-size: 0.875em;
+                font-family: "Noto Sans", sans-serif;
+                line-height: 1.75em;
             }
+        }
 
-            p {
-                font-weight: 100;
-                margin-top: 22px;
-            }
+        div {
+            margin-top: 5px;
+        }
+
+        p {
+            font-weight: 100;
+            margin-top: 22px;
         }
     }
 }
