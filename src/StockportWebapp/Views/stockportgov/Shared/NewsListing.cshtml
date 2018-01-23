@@ -8,7 +8,7 @@
 
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="news-filters">
-        <p class="filters-heading">Refine by</p>
+        <h2 class="filters-heading">Refine by</h2>
 
         <ul class="filters-list" id="displayRefineBy">
             <li class="filters-active">
@@ -30,7 +30,7 @@
             @if (Model.Categories.Any())
             {
                 <li class="filter collapsible" id="category-filter">
-                    <p class="filter-title">Category</p>
+                    <h3 class="filter-title">Category</h3>
                     <ul class="filters-list">
                         <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : "")>
                             <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
@@ -45,7 +45,7 @@
                 </li>
             }
             <li class="filter collapsible" id="news-archive">
-                <p class="filter-title">News archive</p>
+                <h3 class="filter-title">News archive</h3>
                 <ul class="filters-list filters-outer-list" id="uitest-news-archive">
                     <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : "")>
                         <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())">All recent news</a>
