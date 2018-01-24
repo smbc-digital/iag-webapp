@@ -1355,7 +1355,7 @@ namespace StockportWebapp.Controllers
             model.Fee = eventDetail.Fee;
             model.Frequency = eventDetail.EventFrequency.ToString();
             model.Location = eventDetail.Location;
-            model.RecurringEventYn = eventDetail.EventFrequency == EventFrequency.None ? "No" : "Yes";
+            model.IsRecurring = eventDetail.EventFrequency == EventFrequency.None;
             model.StartTime = DateTime.ParseExact(eventDetail.StartTime, "HH:mm", null);
             model.Title = eventDetail.Title;
             model.SubmittedBy = eventDetail.SubmittedBy;
@@ -1407,7 +1407,7 @@ namespace StockportWebapp.Controllers
             eventDetail.Location = model.Location;
             eventDetail.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
 
-            if (model.RecurringEventYn == "Yes")
+            if (model.IsRecurring)
             {
                 switch (model.Frequency)
                 {
