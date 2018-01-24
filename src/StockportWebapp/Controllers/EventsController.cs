@@ -258,10 +258,13 @@ namespace StockportWebapp.Controllers
                 return View("Add-Your-Event", eventSubmission);
             }
 
-            Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
-            if (frequency != EventFrequency.None)
+            if (eventSubmission.IsRecurring)
             {
-                eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
+                Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
+                if (frequency != EventFrequency.None)
+                {
+                    eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
+                }
             }
 
             var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
@@ -280,7 +283,7 @@ namespace StockportWebapp.Controllers
             {
                 if (state.Value.Errors.Count > 0)
                 {
-                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine);
+                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine + "<br />");
                 }
             }
             return message.ToString();

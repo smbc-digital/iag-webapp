@@ -54,7 +54,7 @@
         setDatePickers();
         $(".schedule_multiple_events").show();
 
-        if ($("#RecurringEventYnNo[value='No']:checked").val()) {
+        if ($("#RecurringEventYnNo:checked").val()) {
             $(".schedule_multiple_events_inputs").hide();
         }
         else {
