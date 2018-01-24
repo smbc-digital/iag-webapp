@@ -59,7 +59,7 @@ var methods = {
 
     assertLiveChatIsVisible: function(browser) {
       this.waitForElementVisible('.l-right-side-bar-section.side-bar-section-live-chat', this.api.globals.timeOut);
-      browser.expect.element(".l-right-side-bar-section.side-bar-section-live-chat>h3").text.to.equal("UITEST: Live Chat");
+      browser.expect.element(".l-right-side-bar-section.side-bar-section-live-chat>h2").text.to.equal("UITEST: Live Chat");
       browser.useXpath().expect.element("//div[@class='l-right-side-bar-section side-bar-section-live-chat']/p[2]").text.to.contain("this is a live chat text");
 
     },

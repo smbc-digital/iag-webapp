@@ -2,12 +2,17 @@
     assertTitleIsVisible: function (title) {
         this.waitForElementVisible('@topicTitle', this.api.globals.timeOut)
             .expect.element('@topicTitle').text.to.equal(title);
-    },
+	},
+
+	//assertSubItemTitleIsVisible: function (title) {
+	//	this.waitForElementVisible('@subItemTitle', this.api.globals.timeOut)
+	//		.expect.element('@subItemTitle').text.to.equal(title);
+	//},
 
     goToTopicListBlockPage: function (browser, title, link) {
         this.waitForElementVisible('@topicBody', this.api.globals.timeOut);
-        browser.useXpath().assert.visible("//div[strong='" + title + "']")
-            .click("//div[strong='" + title + "']");
+        browser.useXpath().assert.visible("//h3[@class='sub-item-title' and text()='" + title + "']")
+			.click("//h3[@class='sub-item-title' and text()='" + title + "']");
     },
 
     assertSecondaryItemIsVisible: function(browser,title) {
@@ -24,7 +29,8 @@ module.exports = {
         return this.api.globals.testUri + 'topic';
     },
     elements: {
-        topicTitle: "h1",
+		topicTitle: "h1",
+		subItemTitle: "h3",
         topicBody: "body",
         secondaryTopicList: "#test-topic-page-secondary-topics-list"
     }
