@@ -79,7 +79,7 @@
                     @if (Model.HasParentTopicWithSubItems())
                     {
                         <div class="l-right-side-bar-section">
-                            <h3>@Model.Article.ParentTopic.Name</h3>
+                            <h2>@Model.Article.ParentTopic.Name</h2>
                             <ul>
                                 @{var showMoreButton = false;}
                                 @foreach (var item in Model.SidebarSubItems(out showMoreButton))

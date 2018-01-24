@@ -4,7 +4,7 @@
 <div class="expanding-link-box">
     <div class="expanding-list">
         <div class="expanding-list-header">
-            <label>@Model.ExpandingLinkTitle</label>
+            <h2>@Model.ExpandingLinkTitle</h2>
         </div>
 
         <hr />
@@ -14,7 +14,7 @@
                 <li class="grid-50 expanding-list-item">
                     <div class="expanding-Link-text-holder">
                         <div tabindex="0"  class=" focusable expanding-Link-text">
-                            <div class="expanding-Link-title expanding-link-box-button"><strong>@ExpandingLinkBox.Title</strong></div>
+                            <div class="expanding-Link-title expanding-link-box-button"><h3>@ExpandingLinkBox.Title</h3></div>
                             <div class="expanding-Link-items">
                                 @foreach (var links in ExpandingLinkBox.Links)
                                 {

@@ -3,6 +3,7 @@
 @if (Model.SubItems.Any(i => string.IsNullOrEmpty(i.Image)))
 {
     <div class="grid-container primary-items-no-margin">
+        <h2 class='visuallyhidden'>Popular topics</h2>
         <div class="sk-table-outer-container">
             <div class="sk-table-body primary-items matchbox-parent">
                 @if (!string.IsNullOrEmpty(Model.PrimaryItemTitle))
@@ -20,7 +21,7 @@
                     <div class="grid-50 tablet-grid-50 mobile-grid-100 padding-mobile">
                         <stock-button class="subitem matchbox-child" as-link="true" href="@subItem.NavigationLink">
                             <div>
-                                <strong class="sub-item-title">@subItem.Title</strong>
+                                <h3 class="sub-item-title">@subItem.Title</h3>
                                 <div class="sub-item-teaser">@subItem.Teaser</div>
                             </div>
                         </stock-button>

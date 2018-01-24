@@ -1,4 +1,17 @@
-﻿.atoz-listing .atoz-listing-item:not(:first-child) {
-    border-top: 1px solid $colorPrimaryLightest;
-    padding-top: 18px;
+﻿.atoz-listing {
+
+    .atoz-listing-item:not(:first-child) {
+        border-top: 1px solid $colorPrimaryLightest;
+        padding-top: 18px;
+    }
+
+    .atoz-listing-item {
+
+        h2 {
+            font-size: 1em;
+            font-family: 'Noto Sans';
+            letter-spacing: initial;
+            font-weight: initial;
+        }
+    }
 }
