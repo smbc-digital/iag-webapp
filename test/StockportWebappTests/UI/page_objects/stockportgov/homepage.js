@@ -8,14 +8,14 @@ var methods = {
 
     goToTopTasksBlockPage: function(browser, title, link) {
         this.waitForElementVisible('@taskList', this.api.globals.timeOut);
-        browser.useXpath().assert.visible("//div[contains(@class,'uitest-task-title') and text()='" + title + "']")
+        browser.useXpath().assert.visible("//h3[contains(@class,'uitest-task-title') and text()='" + title + "']")
             .click("//a[contains(@href,'"+ link + "')]");
     },
 
     searchForBins: function(browser) {
         this.waitForElementVisible('@searchBar', this.api.globals.timeOut);
-        browser.setValue('div.search-bar > form > input[name="query"]', 'bins')
-            .click("div.search-bar > form > button.search-button");
+        browser.setValue('input[name="query"]', 'bins')
+            .click("button.search-button");
     },
 
     // searchForPostCode: function (browser) {

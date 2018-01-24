@@ -42,7 +42,7 @@ module.exports = {
   elements: {
       pageTitle: "h1",
       sideBar: ".l-left-side-bar.grid-30.tablet-grid-100.mobile-grid-100.grid-parent",
-      sideBarTitle:".l-left-side-bar-section>h3",
+	  sideBarTitle:".l-left-side-bar-section>h2",
       timeStamp: ".news-date.news-article-date",
       shareIT:".share",
       shareThis:".share>div>h2",
