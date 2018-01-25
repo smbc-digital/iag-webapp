@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO.Compression;
 using Elasticsearch.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +29,8 @@ using StockportWebapp.Configuration;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Services;
 using StockportWebapp.Wrappers;
+using WebMarkupMin.AspNet.Common.Compressors;
+using WebMarkupMin.AspNetCore1;
 
 namespace StockportWebapp
 {
@@ -78,6 +82,30 @@ namespace StockportWebapp
             var loggerFactory = new LoggerFactory().AddSerilog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 
+            // minify html
+            services.AddWebMarkupMin(
+                    options =>
+                    {
+                        options.AllowMinificationInDevelopmentEnvironment = true;
+                        options.AllowCompressionInDevelopmentEnvironment = true;
+                    })
+                .AddHtmlMinification(
+                    options =>
+                    {
+                        options.MinificationSettings.RemoveRedundantAttributes = true;
+                        options.MinificationSettings.RemoveHttpProtocolFromAttributes = true;
+                        options.MinificationSettings.RemoveHttpsProtocolFromAttributes = true;
+                    })
+                .AddHttpCompression(
+                    options =>
+                    options.CompressorFactories = new List<ICompressorFactory>
+                        {
+                            new GZipCompressorFactory(new GZipCompressionSettings
+                            {
+                                Level = CompressionLevel.Fastest
+                            })
+                        });
+
             // other
             services.AddSingleton(new CurrentEnvironment(_appEnvironment));
             services.AddTransient(p => new HostHelper(p.GetService<CurrentEnvironment>()));
@@ -110,7 +138,7 @@ namespace StockportWebapp
             services.AddGroupConfiguration(Configuration, logger);
             services.AddSesEmailConfiguration(Configuration, logger);
             services.AddRedis(Configuration, _useRedisSession, logger);
-            
+
             // sdk
             services.AddApplicationInsightsTelemetry(Configuration);
             services.AddNodeServices();
@@ -139,8 +167,6 @@ namespace StockportWebapp
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ITimeProvider>(), serviceProvider.GetService<IGroupsService>(), serviceProvider.GetService<FeatureToggles>());
             await scheduler.Start();
 
-
-
             app.UseMiddleware<BusinessIdMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
@@ -154,6 +180,9 @@ namespace StockportWebapp
             // custom extenstions
             app.UseCustomStaticFiles();
             app.UseCustomCulture();
+
+            // minify html
+            app.UseWebMarkupMin();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
