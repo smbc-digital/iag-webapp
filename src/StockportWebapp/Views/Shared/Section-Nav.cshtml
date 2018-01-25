@@ -8,12 +8,12 @@
 } 
 
 <header class="article-navigation-header">    
-    <h2 class="visuallyhidden">Article navigation</h2>
-    <nav class="l-vertical-list-no-margin article-navigation @(sections.Count > 3 ? "split-article-into-columns" : "single-column")" >
+    <nav class="l-vertical-list-no-margin article-navigation @(sections.Count > 3 ? "split-article-into-columns" : "single-column")">
+        <h2 class="visuallyhidden">Article navigation</h2>
         <ul>
             @for (int i = 1; i <= actualCount; i++)
             {
-                <li class="@(sections[i - 1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "" ) grid-100 tablet-grid-100 mobile-grid-100">
+                <li class="@(sections[i - 1].Slug == Model.DisplayedSection.Slug ? "nav-active" : "") grid-100 tablet-grid-100 mobile-grid-100">
                     <div class="grid-10 tablet-grid-10 mobile-grid-10">@i.ToString().</div>
                     @if (sections[i - 1].Slug == Model.DisplayedSection.Slug)
                     {
@@ -23,9 +23,9 @@
                     {
                         <a class="grid-90 tablet-grid-90 mobile-grid-90" href="@Model.Article.NavigationLink/@sections[i - 1].Slug">@sections[i - 1].Title</a>
                     }
-                </li>               
+                </li>
             }
-        </ul>    
+        </ul>
     </nav> 
 </header>
 
