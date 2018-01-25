@@ -12,6 +12,8 @@
         font-weight: 600;
         margin: 0;
         font-size: 1.1em;
+        font-family: 'Noto Sans';
+        letter-spacing: initial;
 
         @media #{$mobile, $tablet} {
             display: none;
@@ -70,6 +72,9 @@
     .filter-title {
         font-weight: 600;
         padding: 10px 0;
+        font-size: 1em;
+        font-family: 'Noto Sans';
+
         @media #{$desktop} {
             margin-bottom: 10px;
         }

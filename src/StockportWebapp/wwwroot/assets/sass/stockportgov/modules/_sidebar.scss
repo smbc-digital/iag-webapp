@@ -42,13 +42,17 @@
 }
 
 .l-left-side-bar-section {
-    margin-bottom:50px;
+    margin-bottom: 50px;
 
     @media #{$mobile, $tablet} {
         margin-left: 10px;
     }
 
-    h3 {
+    h2 {
+        font-size: 1.375em;
+        margin-bottom: 0px;
+        font-weight: 800;
+        letter-spacing: initial;
         padding-left: 10px;
         padding-right: 10px;
         padding-bottom: 10px;
@@ -125,24 +129,28 @@
 }
 
 .l-right-side-bar-section {
-    margin-bottom:50px;
+    margin-bottom: 50px;
 
     @media #{$mobile, $tablet} {
         margin-left: 10px;
     }
 
-    h3 {
+    h3, h2 {
         padding-right: 10px;
         padding-bottom: 10px;
         border-bottom: 1px solid $greyLighter;
+        font-size: 1.325em;
+        font-weight: 800;
+        letter-spacing: initial;
+        margin-bottom: 0;
 
         @media #{$desktop} {
-           padding-left: 38px;
+            padding-left: 38px;
         }
 
         @media #{$mobile, $tablet} {
-           padding-left: 10px;
-        }        
+            padding-left: 10px;
+        }
     }
 }
 

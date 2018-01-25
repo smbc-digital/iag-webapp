@@ -33,12 +33,14 @@ namespace StockportWebapp.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "End date")]
+        [RequiredIf(otherPropertyName: "IsRecurring", errorMessage: "Your events need an end date")]
         [EndDateLaterThanStartDateValidation(otherPropertyName: "EventDate", errorMessage: "End Date should be after Start Date")]
         [EndDateGreaterThanStartDateFrequencyPeriodValidation(otherPropertyName: "EventDate", frequencyPropertyName: "Frequency", errorMessage: "End Date should be after Start Date")]
         public DateTime? EndDate { get; set; }
 
-        public string RecurringEventYn { get; set; }
+        public bool IsRecurring { get; set; }
         public int Occurrences { get; set; }
+        
 
         public Dictionary<string, string> Frequencylist = new Dictionary<string, string>()
         {
@@ -50,6 +52,7 @@ namespace StockportWebapp.Models
             { "Yearly",""}
         };
 
+        [RequiredIf(otherPropertyName: "IsRecurring", errorMessage: "The event frequency is required")]
         [Display(Name = "How often does your event occur?")]
         public string Frequency { get; set; }
 

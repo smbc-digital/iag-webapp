@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<StockportWebapp.Models.SubItem>
 
-<div tabindex="-1" id="content" class="task-block-list uitest-task-block-list-loaded">
+<section tabindex="-1" id="content" class="task-block-list uitest-task-block-list-loaded">
+    <h2 class="visuallyhidden">Popular services</h2>
     <div class="grid-container tablet-grid-100 mobile-grid-100 grid-parent">
 
             @{
@@ -15,7 +16,7 @@
                                     <i class="@subItem.Icon si-default"></i>
                                 </div>
                                 <div class="title">
-                                    <div class="task-title uitest-task-title">@subItem.Title</div>
+                                    <h3 class="task-title uitest-task-title">@subItem.Title</h3>
                                 </div>
                             </a>
                             count++;
@@ -25,4 +26,4 @@
             }
 
     </div>
-</div>
+</section>

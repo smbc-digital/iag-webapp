@@ -1,12 +1,18 @@
-﻿.expanding-link-box-button { 
+﻿.expanding-link-box-button {
     border-radius: 5px;
     text-align: center;
     width: auto;
-    color:$greyDarkest;
+    color: $greyDarkest;
     padding: 10px 0;
-    text-decoration:none;
+    text-decoration: none;
     font-weight: bold;
     font-weight: 600;
+
+    h3 {
+        margin: 0;
+        font-family: 'Noto Sans';
+        font-size: 1em;
+    }
 
     &.button {
         box-shadow: none;
@@ -22,10 +28,12 @@
         float: right;
         margin-top: 7px;
         padding-right: 10px;
-    }   
+    }
 
     &.is-collapsed-toggle {
-        &:before {content: "\f106";}
+        &:before {
+            content: "\f106";
+        }
     }
 }
 
@@ -42,10 +50,14 @@
         background-color: #fff;
 
         .expanding-list-header {
-            padding: 10px;
+            padding: 15px;
 
-            label {
-                font-weight: bold
+            h2 {
+                font-size: 1em;
+                font-family: 'Noto Sans';
+                font-weight: bold;
+                letter-spacing: initial;
+                margin: 0;
             }
         }
     }
