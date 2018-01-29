@@ -208,7 +208,7 @@
 <aside class="grid-30 hide-on-print">
     <h2 >More about this group</h2>
     <hr class="hide-on-mobile" />
-    <section class="group-information-section">
+    <section class="group-information-section grid-100 mobile-grid-100">
         <div class="hide-on-mobile">
             @Html.Partial("Events/ManageFavouritesCard", Model.Group)
         </div>
@@ -216,6 +216,13 @@
             <i class="fa fa-flag-o fa-lg"></i>
             <a href="/groups/@Model.Group.Slug/report-group-info?groupname=@Model.Group.Name">Report this page as inappropriate</a>
         </div>
+        @if (!Model.ShouldShowAdminOptions && Model.IsLoggedIn)
+        {
+            <div class="sidebar-links">
+                <i class="fa fa-pencil-square-o fa-lg"></i>
+                <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">Let us know about a change to this group or service.</a>
+            </div>
+        }
     </section>
        
             <section class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
@@ -265,7 +272,7 @@
                 <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Sign up or login</stock-button>
             }
             </section>
-        @if (Model.ShouldShowAdditionalInfoLink)
+        @*@if (Model.ShouldShowAdditionalInfoLink)
         {
             <section class=" grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
                 <h3>View additional information</h3>
@@ -273,6 +280,6 @@
                 <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
                 <stock-button class="manage-group-button sidebar-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
             </section>
-        }
+        }*@
 </aside>
 </article>
