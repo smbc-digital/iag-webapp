@@ -26,7 +26,7 @@ namespace StockportWebapp.Controllers
 
             SIAViewModel viewModel = new SIAViewModel();
             viewModel.Photos = new List<Photo>();
-            
+
 
             using (var client = new HttpClient())
             {
@@ -46,22 +46,22 @@ namespace StockportWebapp.Controllers
 
 
                 //albums
-                HttpResponseMessage albums = await client.GetAsync("v1/GetAlbumInfo/");
-                var albumResponse = albums.Content.ReadAsStringAsync().Result;
-                viewModel.Albums = JsonConvert.DeserializeObject<List<AlbumInfo>>(albumResponse);
+                //HttpResponseMessage albums = await client.GetAsync("v1/GetAlbumInfo/");
+                //var albumResponse = albums.Content.ReadAsStringAsync().Result;
+                //viewModel.Albums = JsonConvert.DeserializeObject<List<AlbumInfo>>(albumResponse);
 
-                foreach (var item in viewModel.Albums)
-                {
-                    HttpResponseMessage albumsphotos = await client.GetAsync("v1/GetAlbumPhoto/?id=" + item.albumidno);
-                    var albumphotosResponse = albumsphotos.Content.ReadAsStringAsync().Result;
-                    item.AlbumPhotos = JsonConvert.DeserializeObject<List<AlbumPhoto>>(albumphotosResponse);
+                //foreach (var item in viewModel.Albums)
+                //{
+                //    HttpResponseMessage albumsphotos = await client.GetAsync("v1/GetAlbumPhoto/?id=" + item.albumidno);
+                //    var albumphotosResponse = albumsphotos.Content.ReadAsStringAsync().Result;
+                //    item.AlbumPhotos = JsonConvert.DeserializeObject<List<AlbumPhoto>>(albumphotosResponse);
 
-                    foreach (var photoItem in item.AlbumPhotos)
-                    {
-                        photoItem.photoPath = "http://interactive.stockport.gov.uk/stockportimagearchive/SIA/" +
-                                       photoItem.photograph.Trim() + ".jpg";
-                    }
-                }
+                //    foreach (var photoItem in item.AlbumPhotos)
+                //    {
+                //        photoItem.photoPath = "http://interactive.stockport.gov.uk/stockportimagearchive/SIA/" +
+                //                              photoItem.photograph.Trim() + ".jpg";
+                //    }
+                //}
 
                 HttpResponseMessage Res;
                 //Sending request to find web api REST service resource GetAllEmployees using HttpClient
@@ -69,7 +69,9 @@ namespace StockportWebapp.Controllers
                 if (selectedArea != "All")
                 {
                     if (SearchDepth != "Title only")
-                    { Res = await client.GetAsync("v1/GetPhotosByTermArea/?term=" + term + "&area=" + selectedArea);}
+                    {
+                        Res = await client.GetAsync("v1/GetPhotosByTermArea/?term=" + term + "&area=" + selectedArea);
+                    }
                     else
                     {
                         Res = await client.GetAsync("v1/GetPhotosByTitleArea/?term=" + term + "&area=" + selectedArea);
@@ -79,7 +81,9 @@ namespace StockportWebapp.Controllers
                 else
                 {
                     if (SearchDepth != "Title only")
-                    { Res = await client.GetAsync("v1/GetPhotosByTerm/?term=" + term);}
+                    {
+                        Res = await client.GetAsync("v1/GetPhotosByTerm/?term=" + term);
+                    }
                     else
                     {
                         Res = await client.GetAsync("v1/GetPhotosByTitle/?term=" + term);
@@ -102,7 +106,8 @@ namespace StockportWebapp.Controllers
                                            photo.AccessionNo.Trim() + ".jpg";
 
                             //comments
-                            HttpResponseMessage Coms = await client.GetAsync("v1/GetComments/?id=" + photo.AccessionNo.Trim());
+                            HttpResponseMessage Coms =
+                                await client.GetAsync("v1/GetComments/?id=" + photo.AccessionNo.Trim());
                             var blah = Coms.Content.ReadAsStringAsync().Result;
                             photo.Comments = JsonConvert.DeserializeObject<List<PhotoComment>>(blah);
 
@@ -118,9 +123,112 @@ namespace StockportWebapp.Controllers
                 return View(viewModel);
             }
         }
-    }
 
-    
+        [Route("/sia/details/")]
+        public async Task<ActionResult> Details(string accessionNo)
+        {
+
+            //SIAViewModel viewModel = new SIAViewModel();
+            //viewModel.Photos = new List<Photo>();
+            Photo photoDetails = new Photo();
+
+            using (var client = new HttpClient())
+            {
+                //Passing service base url  
+                client.BaseAddress = new Uri(Baseurl);
+
+                client.DefaultRequestHeaders.Clear();
+                //Define request data format  
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+                HttpResponseMessage Res;
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
+
+                Res = await client.GetAsync("v1/GetPhotosByID/?id=" + accessionNo);
+
+
+
+                //Checking the response is successful or not which is sent using HttpClient  
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api   
+                    var EmpResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    photoDetails = JsonConvert.DeserializeObject<Photo>(EmpResponse);
+
+                    if (photoDetails != null)
+                    {
+                        photoDetails.imgSrc = "http://interactive.stockport.gov.uk/stockportimagearchive/SIA/" +
+                                              photoDetails.AccessionNo.Trim() + ".jpg";
+
+                        //comments
+                        HttpResponseMessage Coms =
+                            await client.GetAsync("v1/GetComments/?id=" + photoDetails.AccessionNo.Trim());
+                        var blah = Coms.Content.ReadAsStringAsync().Result;
+                        photoDetails.Comments = JsonConvert.DeserializeObject<List<PhotoComment>>(blah);
+
+
+
+                    }
+                }
+
+
+
+            }
+            //returning the employee list to view  
+            return View(photoDetails);
+        }
+
+
+
+        [Route("/sia/albums")]
+        public async Task<ActionResult> Albums()
+        {
+
+            SIAViewModel viewModel = new SIAViewModel();
+
+
+            using (var client = new HttpClient())
+            {
+                //Passing service base url  
+                client.BaseAddress = new Uri(Baseurl);
+
+                client.DefaultRequestHeaders.Clear();
+                //Define request data format  
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+
+
+
+
+                //albums
+                HttpResponseMessage albums = await client.GetAsync("v1/GetAlbumInfo/");
+                var albumResponse = albums.Content.ReadAsStringAsync().Result;
+                viewModel.Albums = JsonConvert.DeserializeObject<List<AlbumInfo>>(albumResponse);
+
+                foreach (var item in viewModel.Albums)
+                {
+                    HttpResponseMessage albumsphotos = await client.GetAsync("v1/GetAlbumPhoto/?id=" + item.albumidno);
+                    var albumphotosResponse = albumsphotos.Content.ReadAsStringAsync().Result;
+                    item.AlbumPhotos = JsonConvert.DeserializeObject<List<AlbumPhoto>>(albumphotosResponse);
+
+                    foreach (var photoItem in item.AlbumPhotos)
+                    {
+                        photoItem.photoPath = "http://interactive.stockport.gov.uk/stockportimagearchive/SIA/" +
+                                              photoItem.photograph.Trim() + ".jpg";
+                    }
+                }
+
+
+                //returning the employee list to view  
+                return View(viewModel);
+            }
+        }
+
+    }
 }
 
 

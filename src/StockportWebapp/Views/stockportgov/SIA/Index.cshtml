@@ -3,6 +3,12 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
+<style>
+    img {
+        width: 200px;
+    }
+
+</style>
 
 <div class="container-header grid-container" id="smart-answers-container">
     <article class="grid-100">
@@ -18,22 +24,26 @@
             </select>
             <input type="submit" value="Search" />
         </form>
+        
+        <a href="/sia/albums">Albums</a>
 
-        @if (Model != null)
+        @if (Model.Photos != null)
         {
             <section>
                 @foreach (var item in Model.Photos)
                 {
                     <p>
-                        @Html.DisplayFor(modelItem => item.title)
-                        <br />
-                        @Html.DisplayFor(modelItem => item.description)
+                        <a href="/sia/details/?accessionno=@item.AccessionNo">
+                            @Html.DisplayFor(modelItem => item.title)
+                            <br/>
+                            @*@Html.DisplayFor(modelItem => item.description)
                         <br />
                         @Html.DisplayFor(modelItem => item.AccessionNo)
-                        <br />
-                        <img src="@item.imgSrc" width="200" />
+                        <br />*@
+                            <img src="@item.imgSrc"/>
+                        </a>
                     </p>
-                    <p>
+                    @*<p>
                         @if (item.Comments.Count() > 0)
                         {
                             <h3>Comments</h3>
@@ -43,13 +53,19 @@
                                 <br />
                             }
                         }
-                    </p>
+                    </p>*@
                 }
+            </section>
+        }
+        else
+        {
+            <section>
+                No results for that search term.
             </section>
         }
 
 
-        <aside>
+        @*<aside>
             <h2>Albums</h2>
             @if (Model.Albums != null)
             {
@@ -79,7 +95,7 @@
 
 
 
-        </aside>
+        </aside>*@
 
     </article>
 </div>

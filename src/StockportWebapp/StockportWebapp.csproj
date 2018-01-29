@@ -35,6 +35,7 @@
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
+    <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
