@@ -2,52 +2,57 @@
     padding-bottom: 5px;
     margin-bottom: 20px;
 
-    .document-icon {        
+    .document-icon {
         vertical-align: top;
-        float:left;
+        float: left;
         opacity: .5;
         transition: opacity 0.3s;
-        padding-right:0px;
-        width:65px;
+        padding-right: 0px;
+        width: 65px;
 
-        &:hover {opacity: 1;} 
+        &:hover {
+            opacity: 1;
+        }
 
         @media #{$mobile} {
             width: 15%;
         }
 
-        a {text-decoration:none} 
+        a {
+            text-decoration: none
+        }
 
         i {
             color: $colorPrimary;
             padding-left: 00px;
-            
             font-size: 3em;
+
             @media #{$mobile} {
-               font-size: 2.2em;
-            }    
+                font-size: 2.2em;
+            }
         }
     }
 
     .document-detail {
-        border-left: solid 1px #ccc;
+        border-left: solid 2px #ccc;
         vertical-align: top;
         padding-left: 20px;
         border-top: none;
         border-bottom: none;
 
         .document-detail-title {
-            line-height: 1.65em;
             color: $colorPrimary;
-            letter-spacing: -1px;
-            font-weight: 400;
-            font-size: 1.65em;
+            font-size: 1.25em;
+            line-height: initial;
+            font-weight: 600;
+
+            @media #{$mobile} {
+                font-size: 1.125em;
+            }
         }
 
         p {
-            margin-bottom:0px;
+            margin-bottom: 0px;
         }
     }
-
-
 }

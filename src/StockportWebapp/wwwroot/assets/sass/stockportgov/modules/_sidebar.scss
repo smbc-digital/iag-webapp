@@ -203,6 +203,11 @@
         display: inline-block;
         vertical-align: super;
         margin-top: 10px;
+        display: inline-block;
+
+        @media #{$desktop} {
+            width: 90%;
+        }
     }
 }
 

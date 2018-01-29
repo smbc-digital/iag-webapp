@@ -46,6 +46,10 @@
         width: 100%;
         height: 225px;
 
+        @media #{$mobile} {
+            height: 160px;
+        }
+
         img {
             position: absolute;
             clip: rect(0,1000px,226px,0);
@@ -230,4 +234,11 @@
             margin-top: 22px;
         }
     }
+}
+
+.additional-information {
+    border: 1px solid $greyLight;
+    border-radius: 3px;
+    padding: 0px 15px;
+    box-sizing: border-box;
 }

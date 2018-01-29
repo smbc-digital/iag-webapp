@@ -6,10 +6,8 @@
             <i class="si-documents si-default"></i>
         </a>
     </div>
-    <div class="grid-90 tablet-grid-90 mobile-grid-80 document-detail">
-        <div class="document-detail-title">
-            <a href="@Model.Url" target="_blank" class="test-document-detail" rel="nofollow"> @Model.Title</a>
-        </div>
+    <div class="grid-90 tablet-grid-90 mobile-grid-85 document-detail">
+        <a href="@Model.Url" target="_blank" class="document-detail-title" rel="nofollow"> @Model.Title</a>
         @{
             var Megabytes = Model.Size/(1048576.0);
             var Kilobytes = (Model.Size%1048576)/1024;
