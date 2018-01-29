@@ -17,8 +17,8 @@ namespace StockportWebapp.Controllers
     public class SIAController : Controller
     {
         //http://scnportwebdev2.stockport.gov.uk/siarestipa/api/values/?term=lorry
-        //string Baseurl = "http://scnportwebdev2.stockport.gov.uk/siarestipa/";
-        string Baseurl = "http://localhost:59356/";
+        string Baseurl = "http://scnportwebdev2.stockport.gov.uk/siarestipa/";
+        //string Baseurl = "http://localhost:59356/";
 
         [Route("/sia")]
         public async Task<ActionResult> Index(string term, string selectedArea, string SearchDepth)
