@@ -1,0 +1,50 @@
+﻿@model StockportWebapp.Models.Photo
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+
+<div class="container-header grid-container" id="smart-answers-container">
+<article class="grid-100">
+
+    <a href="/sia">New search</a> - 
+    <a href="javascript:history.back()">Back to search results</a>
+
+    @if (Model != null)
+    {
+        <section>
+
+            @Html.DisplayFor(modelItem => @Model.title)
+            <br />
+            @Html.DisplayFor(modelItem => @Model.description)
+            <br />
+            @Html.DisplayFor(modelItem => @Model.AccessionNo)
+            <br />
+            <img src="@Model.imgSrc" />
+            <p>
+                @if (@Model.Comments.Count() > 0)
+                {
+                    <h3>Comments</h3>
+                    foreach (var comm in @Model.Comments)
+                    {
+                        @Html.DisplayFor(modelItem => comm.comment1)
+                        <br />
+                    }
+                }
+            </p>
+
+        </section>
+
+        <aside>
+
+            @Html.DisplayFor(modelItem => @Model.Photographer)
+            <br />
+            @Html.DisplayFor(modelItem => @Model.dateofimage)
+            <br />
+            @Html.DisplayFor(modelItem => @Model.classno)
+        </aside>
+
+    }
+
+</article>
+</div>

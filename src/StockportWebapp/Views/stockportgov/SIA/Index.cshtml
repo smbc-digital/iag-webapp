@@ -1,0 +1,101 @@
+﻿@model StockportWebapp.ViewModels.SIAViewModel
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<style>
+    img {
+        width: 200px;
+    }
+
+</style>
+
+<div class="container-header grid-container" id="smart-answers-container">
+    <article class="grid-100">
+
+        <form action="" method="post">
+            <input type="text" name="term" />
+            <select asp-for="SelectedArea" asp-items="@Model.AreaList">
+                <option>All</option>
+            </select>
+            <select asp-for="SearchDepth">
+                <option>Title only</option>
+                <option>All fields</option>
+            </select>
+            <input type="submit" value="Search" />
+        </form>
+        
+        <a href="/sia/albums">Albums</a>
+
+        @if (Model.Photos != null)
+        {
+            <section>
+                @foreach (var item in Model.Photos)
+                {
+                    <p>
+                        <a href="/sia/details/?accessionno=@item.AccessionNo">
+                            @Html.DisplayFor(modelItem => item.title)
+                            <br/>
+                            @*@Html.DisplayFor(modelItem => item.description)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.AccessionNo)
+                        <br />*@
+                            <img src="@item.imgSrc"/>
+                        </a>
+                    </p>
+                    @*<p>
+                        @if (item.Comments.Count() > 0)
+                        {
+                            <h3>Comments</h3>
+                            foreach (var comm in item.Comments)
+                            {
+                                @Html.DisplayFor(modelItem => comm.comment1)
+                                <br />
+                            }
+                        }
+                    </p>*@
+                }
+            </section>
+        }
+        else
+        {
+            <section>
+                No results for that search term.
+            </section>
+        }
+
+
+        @*<aside>
+            <h2>Albums</h2>
+            @if (Model.Albums != null)
+            {
+
+                @foreach (var item in Model.Albums)
+                {
+                    <section>
+                        @Html.DisplayFor(modelItem => item.albumtitle)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.albumdescription)
+                        <br />
+                        @Html.DisplayFor(modelItem => item.albumcover)
+                      
+                        @foreach (var photoItem in item.AlbumPhotos)
+                        {
+                            <div>
+                                <h3>@photoItem.caption</h3>
+                                <img src="@photoItem.photoPath" width="50" />
+                            </div>
+                        }
+                    </section>
+
+                }
+
+            }
+
+
+
+
+        </aside>*@
+
+    </article>
+</div>

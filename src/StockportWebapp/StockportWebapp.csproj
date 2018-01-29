@@ -36,6 +36,7 @@
     <None Remove="Views\stockportgov\Shared\ContentDisclaimerCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
+    <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
