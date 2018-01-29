@@ -49,6 +49,6 @@ module.exports = {
       addThisIcons: ".addthis_toolbox",
       newsTag: "li.news-tag a",
       documentTag: '.test-documents',
-      documentHeading: '.test-document-detail'
+      documentHeading: '.document-detail-title'
   }
 };

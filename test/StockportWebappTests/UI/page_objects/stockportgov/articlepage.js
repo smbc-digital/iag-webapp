@@ -122,7 +122,7 @@ module.exports = {
         tableHeader: 'th',
         tableCell: 'td',
         documentTag: '.test-documents',
-        documentHeading: '.test-document-detail',
+        documentHeading: '.document-detail-title',
         contactUsForm: '#contactForm',
         Name : '#Name',
         emailField: '#Email',
