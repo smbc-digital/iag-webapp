@@ -82,30 +82,6 @@ namespace StockportWebapp
             var loggerFactory = new LoggerFactory().AddSerilog();
             ILogger logger = loggerFactory.CreateLogger<Startup>();
 
-            // minify html
-            services.AddWebMarkupMin(
-                    options =>
-                    {
-                        options.AllowMinificationInDevelopmentEnvironment = true;
-                        options.AllowCompressionInDevelopmentEnvironment = true;
-                    })
-                .AddHtmlMinification(
-                    options =>
-                    {
-                        options.MinificationSettings.RemoveRedundantAttributes = true;
-                        options.MinificationSettings.RemoveHttpProtocolFromAttributes = true;
-                        options.MinificationSettings.RemoveHttpsProtocolFromAttributes = true;
-                    })
-                .AddHttpCompression(
-                    options =>
-                    options.CompressorFactories = new List<ICompressorFactory>
-                        {
-                            new GZipCompressorFactory(new GZipCompressionSettings
-                            {
-                                Level = CompressionLevel.Fastest
-                            })
-                        });
-
             // other
             services.AddSingleton(new CurrentEnvironment(_appEnvironment));
             services.AddTransient(p => new HostHelper(p.GetService<CurrentEnvironment>()));
@@ -180,9 +156,6 @@ namespace StockportWebapp
             // custom extenstions
             app.UseCustomStaticFiles();
             app.UseCustomCulture();
-
-            // minify html
-            app.UseWebMarkupMin();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
