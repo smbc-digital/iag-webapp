@@ -1,6 +1,6 @@
 ﻿@model List<StockportWebapp.Models.CarouselContent>
-<section class="carousel" role="application">
-    <h2 class="visuallyhidden">Carousel</h2>
+<h2 class="visuallyhidden">Carousel</h2>
+<div class="carousel" role="application">
     @{ int counter = 1; }
     @foreach (var carouselContent in Model)
     {
@@ -13,10 +13,9 @@
                         @carouselContent.Teaser
                     </p>
                 </div>
-
                 <div class="stockport-carousel-gradient"></div>
             </div>
         </a>
         counter++;
     }
-</section>
+</div>
