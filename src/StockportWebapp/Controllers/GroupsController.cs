@@ -388,8 +388,8 @@ namespace StockportWebapp.Controllers
                 Title = "Report this page as inappropriate",
                 SubTitle = $"You've successfully submitted a report for {groupName}",
                 ConfirmationText = $"We will take a look at the report you have submitted in line with our <a target='_blank' href = " + Url.Content("https://www.stockport.gov.uk/terms-and-conditions") + ">Terms and Conditions</a> and reply to you within 10 working days",
-                ButtonText = "Go back to Stockport Local",
-                ButtonLink = Url.Action("").ToLower(),
+                ButtonText = $"Go back to Stockport Local {groupName}",
+                ButtonLink = "/groups/" + slug,
                 Icon = "check",
                 IconColour = "green",
                 Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
