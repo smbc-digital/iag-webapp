@@ -1099,7 +1099,7 @@ namespace StockportWebapp.Controllers
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
             group.Volunteering = model.Volunteering;
             group.Donations = group.Donations;
-            group.DonationsText = _groupsService.GetDoantionsText(model.DonationsText);
+            group.DonationsText = _groupsService.GetDonationsText(model.DonationsText);
             group.VolunteeringText = _groupsService.GetVolunteeringText(model.VolunteeringText);
             group.AdditionalInformation = model.AdditionalInformation;
             group.DonationsUrl = model.DonationsUrl;
