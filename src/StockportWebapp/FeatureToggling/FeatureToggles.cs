@@ -6,5 +6,6 @@ namespace StockportWebapp.FeatureToggling
         public bool NameInHeader { get; set; } = false;
         public bool EditGroupUploadImage { get; set; } = false;
         public bool GroupDetailsPage { get; set; } = false;
+        public bool SiaSystem { get; set; } = false;
     }
 }

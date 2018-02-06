@@ -4,6 +4,7 @@ prod: &prod
   NameInHeader: false
   EditGroupUploadImage: false
   GroupDetailsPage: false
+  SiaSystem: false
 
 stage: &stage
   << : *prod
@@ -11,15 +12,18 @@ stage: &stage
   NameInHeader: true
   EditGroupUploadImage: true
   GroupDetailsPage: true
+  SiaSystem: false
 
 qa: &qa
   << : *prod
   << : *stage
+  SiaSystem: false
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
+  SiaSystem: true
 
 local: &local
   << : *prod
