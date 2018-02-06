@@ -538,7 +538,7 @@
 
 .group-startpage-image.group-results {
     @media #{$desktop, $tablet} {
-        background-color: unset;
+        background-color: transparent;
         height: 100%;
         background-image: none;
     }

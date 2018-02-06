@@ -17,10 +17,10 @@
 
     @media #{$mobile} {
         background-color: $white;
-        color: unset;
+        color: $black;
 
         a {
-            color: unset;
+            color: $black;
         }
     }
 }
