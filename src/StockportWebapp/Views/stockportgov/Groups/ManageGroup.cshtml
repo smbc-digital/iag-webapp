@@ -29,6 +29,16 @@
                                         <span class="main"><strong>Manage @Model.Name</strong></span>
                                     </div>
                                 </div>
+                                <a id="view-group" href="@Url.Action(Model.Slug, "groups")">
+                                    <div class="grid-100 sk-table-row grid-parent">
+                                        <div class="sk-table-cell">
+                                            <i class="row-arrow centre"></i>
+                                        </div>
+                                        <div class="sk-table-cell grid-90">
+                                            <span class="main">View your group page</span>
+                                        </div>
+                                    </div>
+                                </a>
                                 <a id="edit-group" href="@Url.Action("EditGroup", "Groups", new { slug = Model.Slug })">
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell">
