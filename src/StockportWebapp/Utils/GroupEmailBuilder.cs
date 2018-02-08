@@ -61,7 +61,7 @@ namespace StockportWebapp.Utils
                 Categories = groupSubmission.CategoriesList,
                 VolunteeringText = groupSubmission.Volunteering ? groupSubmission.VolunteeringText : "-",
                 VolunteeringNeeded = groupSubmission.Volunteering,
-                DoantionsText = groupSubmission.Donations ? groupSubmission.DonationsText : "-",
+                DonationsText = groupSubmission.Donations ? groupSubmission.DonationsText : "-",
                 DonationUrl = groupSubmission.DonationsUrl,
                 Facebook = groupSubmission.Facebook,
                 Twitter = groupSubmission.Twitter,

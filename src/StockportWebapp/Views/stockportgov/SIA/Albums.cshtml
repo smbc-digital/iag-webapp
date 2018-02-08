@@ -1,44 +1,43 @@
-﻿@model StockportWebapp.ViewModels.SIAViewModel
+﻿@using StockportWebapp.FeatureToggling
+@model StockportWebapp.ViewModels.SIAViewModel
+@inject FeatureToggles FeatureToggles
 @{
     Layout = "../Shared/_Layout.cshtml";
 }
 
+@if (FeatureToggles.SiaSystem)
+{
+    <div class="container-header grid-container" id="smart-answers-container">
+        <article class="grid-100">
+            <a href="/sia">Search</a>
 
-<div class="container-header grid-container" id="smart-answers-container">
-    <article class="grid-100">
-        <a href="/sia">Search</a>
-  
-        <aside>
-            <h2>Albums</h2>
-            @if (Model.Albums != null)
-            {
-
-                foreach (var item in Model.Albums)
+            <aside>
+                <h2>Albums</h2>
+                @if (Model.Albums != null)
                 {
-                    <section>
-                        @Html.DisplayFor(modelItem => item.albumtitle)
-                        <br />
-                        @Html.DisplayFor(modelItem => item.albumdescription)
-                        <br />
-                        @Html.DisplayFor(modelItem => item.albumcover)
-                      
-                        @foreach (var photoItem in item.AlbumPhotos)
-                        {
-                            <div>
-                                <h3>@photoItem.caption</h3>
-                                <img src="@photoItem.photoPath" width="50" />
-                            </div>
-                        }
-                    </section>
+
+                    foreach (var item in Model.Albums)
+                    {
+                        <section>
+                            @Html.DisplayFor(modelItem => item.albumtitle)
+                            <br/>
+                            @Html.DisplayFor(modelItem => item.albumdescription)
+                            <br/>
+                            @Html.DisplayFor(modelItem => item.albumcover)
+
+                            @foreach (var photoItem in item.AlbumPhotos)
+                            {
+                                <div>
+                                    <h3>@photoItem.caption</h3>
+                                    <img src="@photoItem.photoPath" width="50"/>
+                                </div>
+                            }
+                        </section>
+
+                    }
 
                 }
-
-            }
-
-
-
-
-        </aside>
-
-    </article>
-</div>
+            </aside>
+        </article>
+    </div>
+}

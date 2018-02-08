@@ -19,7 +19,7 @@ namespace StockportWebapp.Emails.Models
         public List<string> Suitabilities { get; set; }
         public List<string> AgeRanges { get; set; }
         public bool DonationsNeeded { get; set; }
-        public string  DoantionsText { get; set; }
+        public string  DonationsText { get; set; }
         public string  DonationUrl { get; set; }
     }
 }

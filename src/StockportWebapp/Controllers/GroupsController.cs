@@ -388,8 +388,8 @@ namespace StockportWebapp.Controllers
                 Title = "Report this page as inappropriate",
                 SubTitle = $"You've successfully submitted a report for {groupName}",
                 ConfirmationText = $"We will take a look at the report you have submitted in line with our <a target='_blank' href = " + Url.Content("https://www.stockport.gov.uk/terms-and-conditions") + ">Terms and Conditions</a> and reply to you within 10 working days",
-                ButtonText = "Go back to Stockport Local",
-                ButtonLink = Url.Action("").ToLower(),
+                ButtonText = $"Go back to Stockport Local {groupName}",
+                ButtonLink = "/groups/" + slug,
                 Icon = "check",
                 IconColour = "green",
                 Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
@@ -413,11 +413,11 @@ namespace StockportWebapp.Controllers
                 Title = "Changes to a group's information",
                 SubTitle = $"You've successfully submitted a change for {groupName}",
                 ConfirmationText = "We will take a look at the changes you have suggested so that we can make sure that they are correct.",
-                ButtonText = "Go back to manage your groups",
-                ButtonLink = Url.Action("manage"),
-                Icon = "check",
-                IconColour = "green",
-                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
+				ButtonText = $"Go back to Stockport Local {groupName}",
+				ButtonLink = "/groups/" + slug,
+				Icon = "check",
+				IconColour = "green",
+				Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
             };
 
             return View("Confirmation", viewmodel);
@@ -1099,7 +1099,7 @@ namespace StockportWebapp.Controllers
             group.MapPosition = new MapPosition { Lon = model.Longitude, Lat = model.Latitude };
             group.Volunteering = model.Volunteering;
             group.Donations = group.Donations;
-            group.DonationsText = _groupsService.GetDoantionsText(model.DonationsText);
+            group.DonationsText = _groupsService.GetDonationsText(model.DonationsText);
             group.VolunteeringText = _groupsService.GetVolunteeringText(model.VolunteeringText);
             group.AdditionalInformation = model.AdditionalInformation;
             group.DonationsUrl = model.DonationsUrl;
