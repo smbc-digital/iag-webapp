@@ -1,17 +1,14 @@
 ﻿---
 prod: &prod
   GroupArchiveEmails: false
-  NameInHeader: false
-  EditGroupUploadImage: false
-  GroupDetailsPage: false
+  NameInHeader: true
+  EditGroupUploadImage: true
+  GroupDetailsPage: true
   SiaSystem: false
 
 stage: &stage
   << : *prod
   GroupArchiveEmails: true
-  NameInHeader: true
-  EditGroupUploadImage: true
-  GroupDetailsPage: true
   SiaSystem: false
 
 qa: &qa
