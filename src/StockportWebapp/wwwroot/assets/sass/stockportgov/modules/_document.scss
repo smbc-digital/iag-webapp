@@ -43,7 +43,7 @@
         .document-detail-title {
             color: $colorPrimary;
             font-size: 1.25em;
-            line-height: initial;
+            line-height: normal;
             font-weight: 600;
 
             @media #{$mobile} {
