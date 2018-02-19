@@ -14,7 +14,6 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
-  SiaSystem: false
 
 int: &int
   << : *prod
