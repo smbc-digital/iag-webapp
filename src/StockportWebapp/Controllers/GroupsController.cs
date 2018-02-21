@@ -1058,6 +1058,7 @@ namespace StockportWebapp.Controllers
             model.AdditionalInformation = group.AdditionalInformation;
             model.Suitabilities.Where(_ => group.SuitableFor.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
             model.AgeRanges.Where(_ => group.AgeRange.Contains(_.Name)).ToList().ForEach(item => item.IsSelected = true);
+            model.Donations = group.Donations;
 
             return View(model);
         }
