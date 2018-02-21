@@ -1052,7 +1052,7 @@ namespace StockportWebapp.Controllers
             model.Latitude = group.MapPosition.Lat;
             model.Volunteering = group.Volunteering;
             model.Categories = group.CategoriesReference.Select(g => g.Name).ToList();
-            model.CategoriesList = string.Join(",", model.Categories);
+            model.CategoriesList = string.Join("|", model.Categories);
             model.VolunteeringText = _groupsService.GetVolunteeringText(group.VolunteeringText);
             model.AvailableCategories = await _groupsService.GetAvailableGroupCategories();
             model.AdditionalInformation = group.AdditionalInformation;
@@ -1110,7 +1110,7 @@ namespace StockportWebapp.Controllers
             group.DonationsUrl = model.DonationsUrl;
 
             group.CategoriesReference = new List<GroupCategory>();
-            group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split(',').Contains(c.Name)));
+            group.CategoriesReference.AddRange(listOfGroupCategories.Where(c => model.CategoriesList.Split('|').Contains(c.Name)));
 
             group.SuitableFor = model.Suitabilities.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
             group.AgeRange = model.AgeRanges.Where(_ => _.IsSelected).Select(_ => _.Name).ToList();
