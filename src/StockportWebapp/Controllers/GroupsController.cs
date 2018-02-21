@@ -1086,14 +1086,18 @@ namespace StockportWebapp.Controllers
             }
 
             var converter = new Converter();
-
+            var twitterUser = model.Twitter;
+            if (model.Twitter != null && model.Twitter.StartsWith("@"))
+            {
+                twitterUser = twitterUser.Replace("@", "/");
+                group.Twitter = @"https://www.twitter.com" + twitterUser;
+            }
             group.Address = model.Address;
             group.Description = converter.Convert(_viewHelpers.StripUnwantedHtml(model.Description));
             group.Email = model.Email;
             group.Facebook = model.Facebook;
             group.Name = model.Name;
             group.PhoneNumber = model.PhoneNumber;
-            group.Twitter = model.Twitter;
             group.Website = model.Website;
             group.Volunteering = model.Volunteering;
             group.Donations = model.Donations;
