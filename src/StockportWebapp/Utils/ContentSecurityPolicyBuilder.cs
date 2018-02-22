@@ -95,6 +95,7 @@ namespace StockportWebapp.Utils
 				.AddSource("platform.twitter.com/css/")
 				.AddSource("pbs.twimg.com/")
                 .AddSource("https://1.bp.blogspot.com/-v6yARqgGaBc/WKL2ZtO9lhI/AAAAAAAAEDU/0CJfMgpdnWg0i6-Wd87E1vTtdKk4TeikQCLcB/s1600/Fake-or-Counterfeit-Bathmate-Pumps.png")
+                .AddSource("https://content.govdelivery.com/attachments/fancy_images/UKSMBC/2018/01/1741761/reviewoverlay_original.png")
 				.Finish());
         }
 
@@ -160,6 +161,7 @@ namespace StockportWebapp.Utils
                 .AddSource("local.tractivity.co.uk/wp-includes/js/")
                 .AddSource("stage.midas-pps.tractivity.co.uk/")
                 .AddSource("")
+                .AddSource("https://content.govdelivery.com/overlay/js/4939.js")
 				.Finish());
         }
 
