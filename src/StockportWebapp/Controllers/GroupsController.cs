@@ -1171,7 +1171,8 @@ namespace StockportWebapp.Controllers
 
             if (putResponse.StatusCode == (int)HttpStatusCode.OK)
             {
-                return RedirectToAction("Detail", "Groups", new { slug = slug, confirmedUpToDate = true });
+                
+                return Content(putResponse.StatusCode.ToString());
             }
 
             return RedirectToAction("Detail", slug, false);
