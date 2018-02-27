@@ -1156,6 +1156,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpPost]
+        
         [Route("/groups/{slug}/up-to-date")]
         public async Task<IActionResult> GroupUpToDate(string slug)
         {
@@ -1166,16 +1167,10 @@ namespace StockportWebapp.Controllers
 
             var jsonContent = JsonConvert.SerializeObject(group);
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
             var putResponse = await _repository.Put<Group>(httpContent, slug);
 
-            if (putResponse.StatusCode == (int)HttpStatusCode.OK)
-            {
-                
-                return Content(putResponse.StatusCode.ToString());
-            }
-
-            return RedirectToAction("Detail", slug, false);
+            return Json(putResponse.StatusCode.ToString());
+           
         }
 
         [HttpGet]
