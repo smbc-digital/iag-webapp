@@ -23,21 +23,22 @@
         $('.upToDate').click(function () {
             var $this = $(this);
         var postUrl = window.location.href + "/up-to-date";
-                postUrl = postUrl.replace(/#/g, '');
-                    $.post( postUrl,
-                    function (data)
-                    {
-                        if (data == "200") {
-                            $this.toggleClass('.upToDate');
-                            if ($this.hasClass('.upToDate')) {
-                                $this.text('Thanks for letting us know');
-                            } 
-                        } else {
-                            alert("Failed");
-                        }
+            postUrl = postUrl.replace(/#/g, '');
+                $.post( postUrl,
+                function (data) {
+                    alert(data);
+                    if (data == "200") {
+                        $("#ConfirmedUpToDate").val(true);
+                        $this.toggleClass('.upToDate');
+                        if ($this.hasClass('.upToDate')) {
+                            $this.text('Thanks for letting us know');
+                        } 
+                    } else {
+                        alert("Failed");
+                    }
 
-                    });
-
+                });
+            return false;
         });
 
 
