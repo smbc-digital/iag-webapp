@@ -228,7 +228,7 @@
     <section class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
         <h3>Manage your group information</h3>
         <hr/>
-        @if (Model.ShouldShowAdminOptions)
+        @if (true)
         {
             if (DateTimeOffset.Now.AddDays(-Model.DaysTillStale) >= Model.Group.DateLastModified)
             {
