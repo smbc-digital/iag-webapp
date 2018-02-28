@@ -228,44 +228,44 @@
     <section class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
         <h3>Manage your group information</h3>
         <hr/>
-        @if (true)
+        @if (Model.IsLoggedIn)
         {
-            if (DateTimeOffset.Now.AddDays(-Model.DaysTillStale) >= Model.Group.DateLastModified)
+            if (Model.ShouldShowAdminOptions)
             {
-                <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
-               
-                using (Html.BeginForm("GroupUpToDate", "Groups", new {slug = Model.Group.Slug}))
+                if (DateTimeOffset.Now.AddDays(-Model.DaysTillStale) >= Model.Group.DateLastModified)
                 {
-                    <stock-button  id="upToDateButton" class="manage-group-button sidebar-button upToDate">It's up to date</stock-button>
+                    <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
+               
+                    using (Html.BeginForm("GroupUpToDate", "Groups", new {slug = Model.Group.Slug}))
+                    {
+                        <stock-button  id="upToDateButton" class="manage-group-button sidebar-button upToDate">It's up to date</stock-button>
+                    }
+                    <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
                 }
-
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
-            }
-
-
-            else if (Model.ConfirmedUpToDate)
-            {
-                <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
-                <div class="thank-you-message">
-                    <i class="fa fa-check events-details-symbol"></i>
-                    Thanks for letting us know
-                </div>
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                else if (Model.ConfirmedUpToDate)
+                {
+                    <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
+                    <div class="thank-you-message">
+                        <i class="fa fa-check events-details-symbol"></i>
+                        Thanks for letting us know
+                    </div>
+                    <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                }
+                else
+                {
+                    <p>If any of this group's information has changed then make sure you let people know by updating this page. </p>
+                    <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                     
+                    <p>If you have other groups, you can make changes to your information, events and more.</p>
+                    <stock-button class="manage-group-button sidebar-button"  href="/groups/manage" as-link="true">Manage your groups</stock-button>
+                }
 
             }
             else
-            {
-                <p>If any of this group's information has changed then make sure you let people know by updating this page. </p>
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
-                     
+            {                     
                 <p>If you have other groups, you can make changes to your information, events and more.</p>
                 <stock-button class="manage-group-button sidebar-button"  href="/groups/manage" as-link="true">Manage your groups</stock-button>
             }
-        }
-        else if (Model.IsLoggedIn)
-        {
-            <p>Make changes to your information, events and more.</p>
-            <stock-button  class="manage-group-button sidebar-button disabled" as-link="true" href="/groups/manage" >Manage your groups</stock-button>
         }
         else
         {
