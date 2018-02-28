@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -33,7 +34,7 @@ namespace StockportWebappTests.Unit.Controllers
         private readonly Mock<IFilteredUrl> _filteredUrl;
         private Mock<ILogger<GroupsController>> _logger;
         private Mock<IApplicationConfiguration> _configuration = new Mock<IApplicationConfiguration>();
-        private MarkdownWrapper markdownWrapper = new MarkdownWrapper();
+        private Mock<MarkdownWrapper> _markdownWrapper = new Mock<MarkdownWrapper>();
         private DateCalculator datetimeCalculator;
         private Mock<IHttpContextAccessor> http;
         private Mock<IHtmlUtilities> htmlUtilities = new Mock<IHtmlUtilities>();
@@ -81,7 +82,7 @@ namespace StockportWebappTests.Unit.Controllers
             var cookies = new FakeCookie(true);
             http.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
 
-            _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, htmlUtilities.Object, hostHelper, _loggedInHelper.Object, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
+            _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, htmlUtilities.Object, hostHelper, _loggedInHelper.Object, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
 
             // setup mocks
             _groupsService.Setup(o => o.GetGroupCategories()).ReturnsAsync(groupCategories);
@@ -236,6 +237,42 @@ namespace StockportWebappTests.Unit.Controllers
             model.Group.Events.FirstOrDefault().Should().Be(linkedEvent);
         }
 
+        [Fact]
+        public void EditGroup_ShouldReturnCorrectTwitterHandleFormat()
+        {
+            var groupAdmins = new GroupAdministrators();
+            groupAdmins.Items.Add(new GroupAdministratorItems() {Email= "test@email.com"});
+
+
+            var group = new Group("name", "slug", "010101010", "email@mail.com", "www.website.com",
+                "https://www.twitter.com/testHandle", "www.facebook.com", "address", "description", "image-url",
+                "thumnail-url", new List<GroupCategory>{new GroupCategory {Name = "testCategory" } }, new List<GroupSubCategory>(), new List<Crumb>(),
+                new MapPosition{Lat = 100, Lon = 200}, false, new List<Event>(), new GroupAdministrators(), DateTime.MinValue,
+                DateTime.MinValue, "status", new List<string>(), "£1", "ability", false, "volunteer text",
+                new Organisation(), new List<Group>(), false, "tenaport-link", "aditional-info",
+                new List<Document>(), DateTime.MinValue, new List<string>(), new List<string>(), "donation-text", "donation-url");
+
+            var loggedInPerson = new LoggedInPerson
+            {
+                Email = "test@email.com"
+            };
+            _repository.Setup(_ => _.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, group));
+            _groupsService.Setup(_ =>
+                _.HasGroupPermission(It.IsAny<string>(), It.IsAny<List<GroupAdministratorItems>>(),
+                    It.IsAny<string>())).Returns(true);
+            _markdownWrapper.Setup(_ => _.ConvertToHtml(It.IsAny<string>()));
+            _groupsService.Setup(_ => _.GetVolunteeringText(It.IsAny<string>()));
+            _groupsService.Setup(_ => _.GetAvailableGroupCategories()).ReturnsAsync(new List<string>());
+
+            // Act
+            var view = AsyncTestHelper.Resolve(_groupController.EditGroup("slug", loggedInPerson)) as ViewResult;
+            var model = view.ViewData.Model as GroupSubmission;
+
+            Assert.Equal("@testHandle", model.Twitter);
+        }
+
+
         private GroupsController SetUpController(int numGroups)
         {
             var listOfGroups = BuildGroupList(numGroups);
@@ -250,7 +287,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            return new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, markdownWrapper, viewHelper, datetimeCalculator, htmlUtilities.Object, hostHelper, null, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
+            return new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, htmlUtilities.Object, hostHelper, null, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
         }
 
         private List<Group> BuildGroupList(int numberOfItems)
