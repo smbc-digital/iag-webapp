@@ -1039,13 +1039,18 @@ namespace StockportWebapp.Controllers
             }
 
             var model = new GroupSubmission();
+
+            if (group.Twitter != null && group.Twitter.StartsWith("http"))
+            {
+                model.Twitter = group.Twitter.Replace("https://www.twitter.com/", "@");
+            }
+
             model.Address = group.Address;
             model.Description = _markdownWrapper.ConvertToHtml(group.Description);
             model.Email = group.Email;
             model.Facebook = group.Facebook;
             model.Name = group.Name;
             model.PhoneNumber = group.PhoneNumber;
-            model.Twitter = group.Twitter;
             model.Website = group.Website;
             model.Slug = group.Slug;
             model.Longitude = group.MapPosition.Lon;
