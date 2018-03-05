@@ -1,4 +1,4 @@
-﻿requirejs.config({
+﻿require.config({
     baseUrl: '/assets/javascript',
     paths: {
         "jquery": "vendor/jquery.min",
@@ -16,7 +16,7 @@
         "events": "stockportgov/events",
         "expandinglinks": "stockportgov/expandinglinks",
         "filters": "stockportgov/filters",
-        "groups": "stockportgov/groups",
+        "groups": "stockportgov/Groups",
         "livechat": "stockportgov/livechat",
         "matchboxconfig": "stockportgov/matchbox",
         "multiselect": "stockportgov/multiselect",
@@ -66,31 +66,31 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie', 'trumbowyginit', 'utils'],
-    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie, trumbowyginit, utils) {
-        // multiStepForm (jquery.steps) needs to be first
-        multiStepForm.Init();
+//require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie', 'trumbowyginit', 'utils'],
+//    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie, trumbowyginit, utils) {
+//         multiStepForm (jquery.steps) needs to be first
+//        multiStepForm.Init();
 
-        startup.Init();
-        matchboxconfig.Init();
-        refinebybar.Init();
-        primaryfilter.Init();
-        expandinglinks.Init();
-        contactus.Init();
-        filters.Init();
-        groups.Init();
-        livechat.Init();
-        viewmoreslider.Init();
-        favourites.Init();
-        tracking.Init(); 
-        events.Init();
-        carousel.Init();
-        cludoconfig.Init();
-        alerts.Init();
-        trumbowyginit.Init();
-        utils.Init();
-    }
-);
+//        startup.Init();
+//        matchboxconfig.Init();
+//        refinebybar.Init();
+//        primaryfilter.Init();
+//        expandinglinks.Init();
+//        contactus.Init();
+//        filters.Init();
+//        groups.Init();
+//        livechat.Init();
+//        viewmoreslider.Init();
+//        favourites.Init();
+//        tracking.Init(); 
+//        events.Init();
+//        carousel.Init();
+//        cludoconfig.Init();
+//        alerts.Init();
+//        trumbowyginit.Init();
+//        utils.Init();
+//    }
+//);
 
 if (typeof (globalButoIds) !== "undefined") {
     require(globalButoIds,

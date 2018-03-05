@@ -72,8 +72,6 @@
                 <div class="grid-100 hide-on-desktop hide-on-tablet group-button">
                     <stock-button as-link="true" class="white" title="View more" href="@Url.Action("Results", "Groups", new { category = Model.FeaturedGroupsCategory.Slug, subcategories = Model.FeaturedGroupsSubCategory.Slug })">View more</stock-button>
                 </div>
-
-
             </div>
         </div>
     }
@@ -98,3 +96,17 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
+        function (startup, favourites, expandinglinks, groups, primaryfilter, filters, matchboxconfig, matchHeight, viewmoreslider) {
+            favourites.Init();
+            groups.Init();
+            startup.Init();
+            expandinglinks.Init();          
+            primaryfilter.Init();
+            filters.Init();
+            matchboxconfig.Init();
+            viewmoreslider.Init();
+        })
+</script>

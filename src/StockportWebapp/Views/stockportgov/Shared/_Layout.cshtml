@@ -41,13 +41,16 @@
 
     @Html.Partial("CookieBanner")
     @await Component.InvokeAsync("GoogleAnalytics")
+
+    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+    
     @Html.Partial("Header")
     @RenderSection("Breadcrumbs", false)
     <main>
         @RenderBody()
-
         <div class="hidden" id="envname">@CurrentEnvironment.Name</div>
     </main>
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
@@ -56,14 +59,6 @@
 
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
     
-@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
-{
-    <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-}
-else
-{
-    <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-}
 
 @await Component.InvokeAsync("AddThis")
 

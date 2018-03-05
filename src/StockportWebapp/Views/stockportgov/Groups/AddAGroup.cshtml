@@ -223,3 +223,12 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha', 'multiselect'],
+        function (groups, multiStepForm, jquerysteps, recaptcha, multiselect) {
+            groups.Init();
+            multiStepForm.Init();
+            multiselect.Init();
+        })
+</script>

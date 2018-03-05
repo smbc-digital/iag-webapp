@@ -33,9 +33,7 @@ namespace StockportWebapp.ModelBinders
             bindingContext.ModelState.SetModelValue(bindingContext.ModelName, valueProviderResult);
             if (valueProviderResult != ValueProviderResult.None)
             {
-                DateTime DateProvided;
-
-                DateTime.TryParse(valueProviderResult.FirstValue, out DateProvided);
+                DateTime.TryParse(valueProviderResult.FirstValue, out var DateProvided);
 
                 if (DateProvided != null && DateProvided > DateTime.MinValue)
                     return DateProvided;
@@ -55,9 +53,7 @@ namespace StockportWebapp.ModelBinders
 
             if (valueProviderResult != ValueProviderResult.None)
             {
-                DateTime DateProvided;
-
-                DateTime.TryParse(valueProviderResult.FirstValue, out DateProvided);
+                DateTime.TryParse(valueProviderResult.FirstValue, out var DateProvided);
 
                 if (DateProvided != null && DateProvided > DateTime.MinValue)
                 {

@@ -27,3 +27,12 @@ else
     <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css" />
     @Html.Partial("GroupDetailOld", Model)
 }
+<script type="text/javascript">
+    require(['startup', 'favourites',  'groups',  'matchboxconfig', 'matchHeight', ],
+        function (startup, favourites,  groups, matchboxconfig, matchHeight) {
+            favourites.Init();
+            groups.Init();
+            startup.Init();
+            matchboxconfig.Init();
+        })
+</script>

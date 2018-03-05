@@ -14,14 +14,10 @@
                 $(this).children('.expanding-link-box-button').toggleClass("is-collapsed-toggle");
             });
 
-            $(".expanding-Link-text").keyup(function () {
-                if (event.which == 13) {
+            $(".expanding-Link-text").keyup(function (event) {
+                if (event.which == 32) {
                     event.target.click();
                 }
-            });
-
-            $(".expanding-Link-text").click(function () {
-                console.log("something");
             });
         });
     };

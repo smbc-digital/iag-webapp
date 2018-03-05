@@ -11,6 +11,7 @@
     var handleClicks = function() {
         $(document).ready(function () {
             $(".close-alert").click(function () {
+                console.log($(this))
                 var slug = $(this).attr("data-slug");
                 var cookieType = "alert";
                 addCookie(slug, cookieType);

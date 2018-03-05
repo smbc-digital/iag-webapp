@@ -34,6 +34,8 @@
     @RenderSection("CarouselBackgroundImage")
     @Html.Partial("CookieBanner")
     @await Component.InvokeAsync("GoogleAnalytics")
+    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
 </head>
 <body class="container-layout-free type-home"> 
 @Html.Partial("Header")
@@ -46,14 +48,17 @@
 
 <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
 
-@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
-{
-    <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-}
-else
-{
-    <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-}
+    <script type="text/javascript">
+        require(['cludo'], function () { });
+        require(['startup','carousel', 'cludoconfig', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick'],
+            function (startup, carousel, cludoconfig, viewmoreslider, matchHeight, matchboxconfig, slick) {
+                startup.Init();
+                cludoconfig.Init();
+                viewmoreslider.Init();
+                matchboxconfig.Init();
+                carousel.Init();
+            })
+    </script>
 
 </body>
 </html>
