@@ -177,15 +177,11 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'events', 'primaryfilter', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
-        function (startup, favourites, expandinglinks, events, primaryfilter, filters, matchboxconfig, matchHeight, viewmoreslider) {
+    require(['startup', 'favourites', 'expandinglinks', 'events','carousel'],
+        function (startup, favourites, expandinglinks, events, carousel) {
             startup.Init();
             favourites.Init();
-            events.Init();       
-            expandinglinks.Init();          
-            primaryfilter.Init();
-            filters.Init();
-            matchboxconfig.Init();
-            viewmoreslider.Init();
+            events.Init();
+            carousel.Init();
         })
 </script>
