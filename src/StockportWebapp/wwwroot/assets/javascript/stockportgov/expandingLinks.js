@@ -15,7 +15,7 @@
             });
 
             $(".expanding-Link-text").keyup(function (event) {
-                if (event.which == 32) {
+                if (event.which === 32) {
                     event.target.click();
                 }
             });

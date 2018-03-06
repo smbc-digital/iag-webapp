@@ -33,3 +33,14 @@
     
     @Html.Partial("NewsListing", Model)
 </div>
+<script type="text/javascript">
+    require(['startup', 'favourites', 'expandinglinks','primaryfilter', 'filters', 'viewmoreslider'],
+        function (startup, favourites, expandinglinks, primaryfilter, filters, viewmoreslider) {
+            favourites.Init();         
+            startup.Init();
+            expandinglinks.Init();
+            primaryfilter.Init();
+            filters.Init();            
+            viewmoreslider.Init();
+        })
+</script>

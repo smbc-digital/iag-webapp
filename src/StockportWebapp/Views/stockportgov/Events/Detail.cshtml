@@ -176,3 +176,16 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    require(['startup', 'favourites', 'expandinglinks', 'events', 'primaryfilter', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
+        function (startup, favourites, expandinglinks, events, primaryfilter, filters, matchboxconfig, matchHeight, viewmoreslider) {
+            startup.Init();
+            favourites.Init();
+            events.Init();       
+            expandinglinks.Init();          
+            primaryfilter.Init();
+            filters.Init();
+            matchboxconfig.Init();
+            viewmoreslider.Init();
+        })
+</script>

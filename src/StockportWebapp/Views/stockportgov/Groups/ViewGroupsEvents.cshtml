@@ -83,3 +83,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha'],
+        function (groups, multiStepForm) {
+            multiStepForm.Init();           
+            groups.Init();
+           
+        })
+</script>

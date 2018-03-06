@@ -225,10 +225,11 @@
 </div>
 
 <script type="text/javascript">
-    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha', 'multiselect'],
-        function (groups, multiStepForm, jquerysteps, recaptcha, multiselect) {
+    require(['startup','groups','multiStepForm', 'jquery.steps', 'recaptcha'],
+        function (startup, groups, multiStepForm) {
+            startup.Init();
+            multiStepForm.Init();           
             groups.Init();
-            multiStepForm.Init();
-            multiselect.Init();
+           
         })
 </script>

@@ -1,5 +1,4 @@
 ﻿@model StockportWebapp.ViewDetails.ContactUsDetails
-
 <div id="contactForm" />
 <noscript>
     <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
@@ -48,3 +47,10 @@
         </div>
     </div>
 </form>
+<script type="text/javascript">
+    require(['startup', 'contactus', 'jquery.steps', 'recaptcha', 'utils', 'unobtrusive'],
+        function (startup, contactus) {
+            startup.Init();           
+            contactus.Init();
+        })
+</script>

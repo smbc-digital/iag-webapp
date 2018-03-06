@@ -1,1 +1,1 @@
-module.exports={"testUri":"http://localhost:5000","timeOut":10000};
+module.exports={"testUri":"localhost:5000","timeOut":10000};
