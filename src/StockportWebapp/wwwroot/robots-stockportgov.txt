@@ -2,3 +2,4 @@
 User-agent: *  
 Disallow: /smart/*
 Disallow: /*_hidden
+Disallow: /groups/stale/*

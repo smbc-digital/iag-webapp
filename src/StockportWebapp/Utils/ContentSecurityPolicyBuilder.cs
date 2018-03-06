@@ -75,6 +75,7 @@ namespace StockportWebapp.Utils
                 .AddSource("maps.gstatic.com")
                 .AddSource("maps.googleapis.com")
                 .AddSource("images.contentful.com/")
+                .AddSource("images.ctfassets.net")
                 .AddSource("www.google-analytics.com/r/collect")
                 .AddSource("www.google-analytics.com/collect")
                 .AddSource("stats.g.doubleclick.net/r/collect")
