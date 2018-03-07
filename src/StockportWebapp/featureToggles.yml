@@ -1,6 +1,6 @@
 ﻿---
 prod: &prod
-  GroupArchiveEmails: false
+  GroupArchiveEmails: true
   NameInHeader: true
   EditGroupUploadImage: true
   GroupDetailsPage: true
