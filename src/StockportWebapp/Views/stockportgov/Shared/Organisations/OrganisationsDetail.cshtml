@@ -60,3 +60,11 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    require(['startup', 'favourites', 'matchboxconfig', 'matchHeight'],
+        function (startup, favourites,  matchboxconfig, matchHeight) {
+            startup.Init();
+            favourites.Init();                          
+            matchboxconfig.Init();           
+        })
+</script>
