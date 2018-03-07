@@ -58,7 +58,14 @@
     </distributed-cache>
 
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-    
+    <script>
+        if (typeof (globalButoIds) !== "undefined") {
+            require(globalButoIds,
+                function () {
+                }
+            );
+        }
+    </script>
 
 @await Component.InvokeAsync("AddThis")
 

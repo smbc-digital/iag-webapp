@@ -91,10 +91,3 @@
 //        utils.Init();
 //    }
 //);
-
-if (typeof (globalButoIds) !== "undefined") {
-    require(globalButoIds,
-        function () {
-        }
-    );
-}
