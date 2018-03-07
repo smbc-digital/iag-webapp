@@ -1,7 +1,7 @@
 defaultConfiguration = {
-  testUri : 'https://int-windows-iag-origin.smbcdigital.net',
-  timeOut : 10000
-  // for development environment have a different emailAlertsUrl set
+    testUri: 'http://localhost:5000',
+    timeOut : 10000
+    // for development environment have a different emailAlertsUrl set
 };
 
 var hostRegExp = /host=(.*)/;

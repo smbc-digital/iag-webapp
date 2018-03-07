@@ -129,6 +129,6 @@ module.exports = {
         editGroupFormValidationDiv: "span[for='Name']",
         multistepFormHeading: "#multistep-form-sections-wrapper-t-0",
         uiTestContactFormSubmit: "#uitest-contact-form-submit",
-        addEventFormValidationDiv: "span[for='Title']"
+        addEventFormValidationDiv: "span[data-valmsg-for='Title']"
     }
 };

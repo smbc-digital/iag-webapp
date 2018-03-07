@@ -98,12 +98,13 @@
 </div>
 
 <script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
-        function (startup, favourites, expandinglinks, groups, primaryfilter, filters, matchboxconfig, matchHeight, viewmoreslider) {
+    require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter','refinebybar', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
+        function (startup, favourites, expandinglinks, groups, primaryfilter, refinebybar, filters, matchboxconfig, matchHeight, viewmoreslider) {
             favourites.Init();
             groups.Init();
             startup.Init();
-            expandinglinks.Init();          
+            expandinglinks.Init();
+            refinebybar.Init();
             primaryfilter.Init();
             filters.Init();
             matchboxconfig.Init();
