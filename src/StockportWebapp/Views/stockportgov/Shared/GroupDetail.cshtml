@@ -11,7 +11,8 @@
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
     string twitter = string.Empty;
-    var test = string.Empty;
+    var myAccountUrlWithReturnUrl = _configuration.GetMyAccountUrl() + "?returnUrl=" + Context.Request.Host.ToString() + "" + Context.Request.Path.ToString();
+
 
     if (!string.IsNullOrEmpty(Model.Group.Facebook))
     {
@@ -21,6 +22,7 @@
     {
         twitter = socialLinksExtension.GetSubstring(Model.Group.Twitter);
     }
+
 }
 
 @section Breadcrumbs {
@@ -273,9 +275,8 @@
             {
                 <p>Sign up or login to keep this page's information up to date.</p>
                 <p>If you aren't involved in this group or service, you can still <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">let us know about a change</a> to this group or service.</p>
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="@{_configuration.GetMyAccountUrl() + "?returnUrl=" + Context.Request.Host + "" + Context.Request.Path} ">Sign up or login</stock-button>
+                <stock-button class="manage-group-button sidebar-button" as-link="true" href="@myAccountUrlWithReturnUrl">Sign up or login</stock-button>
         }
-            /**/
         </section>
 
         @*@if (Model.ShouldShowAdditionalInfoLink)
