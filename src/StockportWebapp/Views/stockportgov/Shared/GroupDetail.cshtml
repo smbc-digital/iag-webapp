@@ -2,6 +2,7 @@
 @using StockportWebapp.Extensions
 @using StockportWebapp.Models
 @using StockportWebapp.Config
+@using Microsoft.AspNetCore.Http.Extensions
 @inject FeatureToggles FeatureToggles
 @inject IApplicationConfiguration _configuration
 @model StockportWebapp.ViewModels.GroupDetailsViewModel
@@ -11,8 +12,7 @@
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
     string twitter = string.Empty;
-    var myAccountUrlWithReturnUrl = _configuration.GetMyAccountUrl() + "?returnUrl=" + Context.Request.Host.ToString() + "" + Context.Request.Path.ToString();
-
+    var myAccountUrlWithReturnUrl = $"{_configuration.GetMyAccountUrl()}?returnUrl={Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}";
 
     if (!string.IsNullOrEmpty(Model.Group.Facebook))
     {
@@ -23,9 +23,9 @@
         twitter = socialLinksExtension.GetSubstring(Model.Group.Twitter);
     }
 
-}
+    }
 
-@section Breadcrumbs {
+    @section Breadcrumbs {
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") })
 }
 
@@ -276,7 +276,7 @@
                 <p>Sign up or login to keep this page's information up to date.</p>
                 <p>If you aren't involved in this group or service, you can still <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">let us know about a change</a> to this group or service.</p>
                 <stock-button class="manage-group-button sidebar-button" as-link="true" href="@myAccountUrlWithReturnUrl">Sign up or login</stock-button>
-        }
+            }
         </section>
 
         @*@if (Model.ShouldShowAdditionalInfoLink)
