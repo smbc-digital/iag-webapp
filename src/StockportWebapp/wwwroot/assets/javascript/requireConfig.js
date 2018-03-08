@@ -65,29 +65,3 @@
         }
     }
 });
-
-//require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'alerts', 'matchHeight', 'multiStepForm', 'jquery.steps', 'jquery.cookie', 'trumbowyginit', 'utils'],
-//    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, alerts, matchHeight, multiStepForm, jquerysteps, jquerycookie, trumbowyginit, utils) {
-//         multiStepForm (jquery.steps) needs to be first
-//        multiStepForm.Init();
-
-//        startup.Init();
-//        matchboxconfig.Init();
-//        refinebybar.Init();
-//        primaryfilter.Init();
-//        expandinglinks.Init();
-//        contactus.Init();
-//        filters.Init();
-//        groups.Init();
-//        livechat.Init();
-//        viewmoreslider.Init();
-//        favourites.Init();
-//        tracking.Init(); 
-//        events.Init();
-//        carousel.Init();
-//        cludoconfig.Init();
-//        alerts.Init();
-//        trumbowyginit.Init();
-//        utils.Init();
-//    }
-//);
