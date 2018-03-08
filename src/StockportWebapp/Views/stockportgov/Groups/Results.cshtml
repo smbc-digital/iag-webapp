@@ -118,8 +118,8 @@
 </div>
 
 <script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter','refinebybar', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
-        function (startup, favourites, expandinglinks, groups, primaryfilter, refinebybar, filters, matchboxconfig, matchHeight, viewmoreslider) {
+    require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter', 'refinebybar', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider', 'tracking'],
+        function (startup, favourites, expandinglinks, groups, primaryfilter, refinebybar, filters, matchboxconfig, matchHeight, viewmoreslider, tracking) {
             favourites.Init();
             groups.Init();
             startup.Init();
@@ -129,5 +129,6 @@
             refinebybar.Init();
             matchboxconfig.Init();
             viewmoreslider.Init();
+            tracking.Init();
         })
 </script>
