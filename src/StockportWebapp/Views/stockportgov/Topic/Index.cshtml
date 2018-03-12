@@ -71,9 +71,10 @@
 </div>
 
 <script type="text/javascript">
-    require(['startup', 'expandinglinks'],
-        function (startup, expandinglinks) {
+    require(['startup', 'expandinglinks', 'matchboxconfig', 'matchHeight'],
+        function (startup, expandinglinks, matchboxconfig, matchHeight) {
                 startup.Init();
                 expandinglinks.Init();
-            })
+                matchboxconfig.Init();
+        })
 </script>
