@@ -37,26 +37,30 @@
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
     <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
 </head>
-<body class="container-layout-free type-home"> 
-@Html.Partial("Header")
-<div class="grid-container-full-width">
-    @RenderBody()
-</div>
-<distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
-    @await Component.InvokeAsync("Footer")
-</distributed-cache>
-
-<script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-
+<body class="container-layout-free type-home">
+    @Html.Partial("Header")
+    <div class="grid-container-full-width">
+        @RenderBody()
+    </div>
+    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
+    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
     <script type="text/javascript">
         require(['cludo'], function () { });
-        require(['startup','carousel', 'cludoconfig', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick'],
+        require(['startup', 'carousel', 'cludoconfig', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick'],
             function (startup, carousel, cludoconfig, viewmoreslider, matchHeight, matchboxconfig, slick) {
                 startup.Init();
                 cludoconfig.Init();
                 viewmoreslider.Init();
                 matchboxconfig.Init();
                 carousel.Init();
+            })
+    </script>
+
+    <script type="text/javascript">
+        require(['validate', 'clipboard', 'jquery-ui', 'jquery.cookie'],
+            function (validate, clipboard, jqueryui, jquerycookie) {
             })
     </script>
 
