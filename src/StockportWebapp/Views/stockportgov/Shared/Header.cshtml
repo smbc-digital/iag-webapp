@@ -99,13 +99,10 @@
 </div>
 @Html.Partial("BrowserCheck")
 
-@if ((bool)ViewData["NoCludoHeaderSearch"] == false)
-{
-    <script type="text/javascript">
-        require(['cludo'], function () { });
-        require(['cludoconfig'],
-            function (cludoconfig) {
-                cludoconfig.Init();
-            })
-    </script>
-}
+<script type="text/javascript">
+    require(['cludo'], function () { });
+    require(['cludoconfig'],
+        function (cludoconfig) {
+            cludoconfig.Init();
+        })
+</script>

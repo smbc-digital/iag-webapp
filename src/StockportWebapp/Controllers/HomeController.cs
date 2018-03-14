@@ -38,7 +38,6 @@ namespace StockportWebapp.Controllers
 
             var eventsFromApi = !string.IsNullOrEmpty(homepage.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(homepage.EventCategory) : new List<Event>();
 
-            ViewData["NoCludoHeaderSearch"] = true;
             var homepageViewModel = new HomepageViewModel
             {
                 HomepageContent = homepage,

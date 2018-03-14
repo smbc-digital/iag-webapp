@@ -47,11 +47,9 @@
     </distributed-cache>
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
     <script type="text/javascript">
-        require(['cludo'], function () { });
-        require(['startup', 'carousel', 'cludoconfig', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick'],
-            function (startup, carousel, cludoconfig, viewmoreslider, matchHeight, matchboxconfig, slick) {
+        require(['startup', 'carousel', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick'],
+            function (startup, carousel, viewmoreslider, matchHeight, matchboxconfig, slick) {
                 startup.Init();
-                cludoconfig.Init();
                 viewmoreslider.Init();
                 matchboxconfig.Init();
                 carousel.Init();
