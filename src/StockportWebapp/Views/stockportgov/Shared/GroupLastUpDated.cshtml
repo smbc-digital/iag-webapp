@@ -1,0 +1,11 @@
+﻿@model StockportWebapp.ProcessedModels.ProcessedGroup
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
+
+@{
+    var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
+    var title = ViewData["Title"];
+}
+<div class="groupLastUpdated">
+    <p>Last updated @Html.Partial("FormattedDate", Model.DateLastModified)</p>
+</div>
