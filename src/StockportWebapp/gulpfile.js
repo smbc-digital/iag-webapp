@@ -4,7 +4,7 @@
 var gulp = require("gulp"),
     rimraf = require("rimraf"),
     concat = require("gulp-concat"),
-    //sass = require("gulp-sass"),
+    sass = require("gulp-sass"),
     cleancss = require("gulp-clean-css"),
     uglify = require("gulp-uglify"),
     rename = require('gulp-rename'),
@@ -88,19 +88,18 @@ gulp.task('min:config:hs', function () {
 });
 
 //css
-//gulp.task('css', function () {
-//    return gulp.src(paths.sass)
-//        .pipe(plumber())
-//        .pipe(sass())
-//        .pipe(cleancss())
-//        .pipe(rename({ suffix: '.min' }))
-//        .pipe(gulp.dest(paths.cssDest))
-//        .pipe(plumber.stop())
-//        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
-//        .pipe(print(function (filepath) {
-//            console.log('Processed: '.yellow + filepath.cyan);
-//        }));
-//});
+gulp.task('css', function () {
+    return gulp.src(paths.sass)
+        .pipe(plumber())
+        .pipe(sass())
+       .pipe(cleancss())
+        .pipe(rename({ suffix: '.min' }))
+       .pipe(gulp.dest(paths.cssDest))
+       .pipe(plumber.stop())        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
+        .pipe(print(function (filepath) {
+           console.log('Processed: '.yellow + filepath.cyan);
+       }));
+});
 
 // style guide tasks
 gulp.task('pull-styleguide', function () {
