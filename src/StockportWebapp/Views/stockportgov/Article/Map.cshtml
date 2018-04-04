@@ -55,7 +55,7 @@
         </div> <!-- #atMyMaps -->
     </form>
 
-    <script type="text/javascript">
+	<script type="text/javascript">
         Event.observe(window, 'load', function () {
             pageType = $('atMap') ? 'isharemaps.mymaps' : 'isharemaps.simple';
             Astun.JS.IncludeJS(pageType, function () {
@@ -138,8 +138,11 @@
                 var winW = jQuery(window).width();
 
                 // Determine the dimensions of the dialog to suit the window
-                var maxHeight = 600;
-                var maxWidth = 400; 
+				var maxHeight = 600;
+				var maxWidth = 400;
+	            if ('@Model.Item2'.toUpperCase() === 'Null,Null'.toUpperCase()) {
+					maxWidth = 800;
+				}
                 var minPadding = 10;
                 var height = winH - (2 * minPadding);
                 var width = winW - (2 * minPadding);
@@ -181,7 +184,10 @@
             }
 
             Event.observe($(loader.mapID), 'astun:sourceLoad', function (evt) {
-                var allowedPanels = '@Model.Item2';
+	            var allowedPanels = '@Model.Item2';
+				if ('@Model.Item2'.toUpperCase() === 'Null,Null'.toUpperCase()) {
+		            allowedPanels = 0;
+	            }
 
                 var panels = [];
 
@@ -315,6 +321,6 @@
             //Initialize the address finder
             loader.addressFinder = new Astun.JS.GetData.AddressFinder(loader.map.mapElement, loader.map.dataurl);
         }
-    </script>
+	</script>
 </body>
 </html>
