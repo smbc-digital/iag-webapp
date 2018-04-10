@@ -229,7 +229,7 @@
     <section class="grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
         <h3>Manage your group information</h3>
         <hr/>
-        @if (true)
+        @if (Model.IsLoggedIn && Model.ShouldShowAdminOptions)
         {
             if (DateTimeOffset.Now.AddDays(-Model.DaysTillStale) >= Model.Group.DateLastModified)
             {
@@ -242,7 +242,6 @@
 
                 <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
             }
-
 
             else if (Model.ConfirmedUpToDate)
             {
@@ -275,16 +274,6 @@
             <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Sign up or login</stock-button>
         }
     </section>
-
-    @*@if (Model.ShouldShowAdditionalInfoLink)
-        {
-            <section class=" grid-100 tablet-grid-100 mobile-grid-100 group-information-section">
-                <h3>View additional information</h3>
-                <hr/>
-                <p>If you are a health or social care professional you can sign up or login to view additional information about some groups and services.</p>
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="@Model.MyAccountUrl#info">View more information</stock-button>
-            </section>
-        }*@
 </aside>
 </article>
 
