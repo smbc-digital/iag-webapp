@@ -141,14 +141,14 @@
 				var maxHeight = 600;
 				var maxWidth = 400;
 	            if ('@Model.Item2'.toUpperCase() === 'Null,Null'.toUpperCase()) {
-					maxWidth = 800;
-				}
+	                maxWidth = 800;
+	            }
                 var minPadding = 10;
                 var height = winH - (2 * minPadding);
                 var width = winW - (2 * minPadding);
                 height = (height > maxHeight) ? maxHeight : height;
                 width = (width > maxWidth) ? maxWidth : width;
-
+                
                 // Position the dialog
                 var top = (winH - height) / 2;
                 var left = (winW - width) / 2;
@@ -184,12 +184,22 @@
             }
 
             Event.observe($(loader.mapID), 'astun:sourceLoad', function (evt) {
-	            var allowedPanels = '@Model.Item2';
-				if ('@Model.Item2'.toUpperCase() === 'Null,Null'.toUpperCase()) {
-		            allowedPanels = 0;
-	            }
 
                 var panels = [];
+
+	            var allowedPanels = '@Model.Item2';
+				if ('@Model.Item2'.toUpperCase() === 'Null,Null'.toUpperCase()) {
+		        //    allowedPanels = 0;
+				    panels.push(
+				        {
+				            cssClass: 'atPanelSearch',
+				            title: 'Address Search',
+				            pluginName: 'addresssearch',
+				            pluginData: evt,
+				            pluginOpts: { collapseInStart: true }
+                        });
+				    jQuery.fn.panelswrapper.defaults.hideInStart = true;
+	            }
 
                 if (allowedPanels.indexOf('Address') >= 0) {
                     panels.push(
