@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Models
@@ -11,11 +12,13 @@ namespace StockportWebapp.Models
         public readonly Dictionary<string, Healthcheck> Dependencies;
         public readonly string Environment;
         public readonly List<RedisValueData> RedisValueData;
+        public readonly string BusinessId;
 
-        public Healthcheck(string appVersion, string sha, FeatureToggles featureToggles,
+        public Healthcheck(string appVersion, string businessId, string sha, FeatureToggles featureToggles,
             Dictionary<string, Healthcheck> dependencies, string environment, List<RedisValueData> redisValueData)
         {
             AppVersion = appVersion;
+            BusinessId = businessId;
             SHA = sha;
             FeatureToggles = featureToggles;
             Dependencies = dependencies ?? new Dictionary<string, Healthcheck>();
@@ -27,7 +30,7 @@ namespace StockportWebapp.Models
     public class UnavailableHealthcheck : Healthcheck
     {
         public UnavailableHealthcheck()
-            : base("Not available", "Not available", null, new Dictionary<string, Healthcheck>(), "Not available", new List<RedisValueData>())
+            : base("Not available", "Not available", "Not available", null, new Dictionary<string, Healthcheck>(), "Not available", new List<RedisValueData>())
         {
         }
     }

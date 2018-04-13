@@ -29,9 +29,10 @@ namespace StockportWebapp.Services
         private readonly IApplicationConfiguration _config;
         private readonly string authenticationKey;
         private readonly string webAppClientId;
+        public readonly BusinessId _businessId;
 
         public HealthcheckService(string appVersionPath, string shaPath, IFileWrapper fileWrapper,
-            FeatureToggles featureToggles, HttpClient httpMaker, IStubToUrlConverter urlGenerator, string environment, IApplicationConfiguration config)
+            FeatureToggles featureToggles, HttpClient httpMaker, IStubToUrlConverter urlGenerator, string environment, IApplicationConfiguration config, BusinessId businessId)
         {
             _fileWrapper = fileWrapper;
             _featureToggles = featureToggles;
@@ -43,6 +44,7 @@ namespace StockportWebapp.Services
             _environment = environment;
             authenticationKey = _config.GetContentApiAuthenticationKey();
             webAppClientId = _config.GetWebAppClientId();
+            _businessId = businessId;
         }
 
         private string GetFirstFileLineOrDefault(string filePath, string defaultValue)
@@ -73,7 +75,7 @@ namespace StockportWebapp.Services
                 healthcheck = new UnavailableHealthcheck();
             }
 
-            return new Healthcheck(_appVersion, _sha, _featureToggles,
+            return new Healthcheck(_appVersion, _businessId.ToString(), _sha, _featureToggles,
                 new Dictionary<string, Healthcheck>() {{"contentApi", healthcheck}}, _environment, new List<RedisValueData>());
         }
 
