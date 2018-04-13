@@ -103,8 +103,8 @@
                                         <div class="recurring-event-yn">
                                             <label>Is this a recurring event?</label>
                                             <ul class="radio-list">
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnNo" value="No" @(Model.RecurringEventYn == "No" ? "checked=\"checked\"" : string.Empty)" class="schedule_multiple_events" />No</label></li>
-                                                <li><label><input type="radio" name="RecurringEventYn" id="RecurringEventYnYes" value="Yes" @(Model.RecurringEventYn == "Yes" ? "checked=\"checked\"" : string.Empty)" class="schedule_multiple_events" />Yes</label></li>
+												<li><label>@Html.RadioButtonFor(_ => _.IsRecurring, false, new { @class = "schedule_multiple_events", @id = "RecurringEventYnNo" })No</label></li>
+												<li><label>@Html.RadioButtonFor(_ => _.IsRecurring, true, new { @class = "schedule_multiple_events", @id = "RecurringEventYnNo" })Yes</label></li>
                                             </ul>                                           
                                         </div>
 
