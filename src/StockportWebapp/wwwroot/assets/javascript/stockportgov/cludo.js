@@ -8,7 +8,7 @@
             hideSearchFilters: true,
             initSearchBoxText: '',
             searchInputs: ["cludo-search-form", "cludo-search-mobile-form", "cludo-search-hero-form"],
-            theme: { themeColor: '#055c58', themeBannerColor: { textColor: '#333', backgroundColor: '#f2f2f2' }, borderRadius: 10 },
+            theme: { themeColor: '#055c58', themeBannerColor: { textColor: '#ffffff', backgroundColor: '#055c58' }, borderRadius: 10 },
             language: 'en'
         };
 
