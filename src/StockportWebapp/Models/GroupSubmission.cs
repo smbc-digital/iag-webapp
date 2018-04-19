@@ -59,7 +59,7 @@ namespace StockportWebapp.Models
         // js regex attribute validation doens't seem to allow "/i" for case insensitive, this is why e.g. [fF][aA] etc.
         // TODO: Find a better way of doing this if possible
         [Display(Name = "Enter a facebook url (optional)")]
-        [RegularExpression(@"(((?:[hH][tT][tT][pP])(?:[sS])?(:\/\/))?(?:[wW][wW][wW].)?(([fF][aA][cC][eE][bB][oO][oO][kK].[cC][oO][mM])\/[A-Za-z0-9\.]+))", ErrorMessage="Please enter the full facebook url e.g. www.facebook.com/yourpage")]
+        [RegularExpression(@"(((?:[hH][tT][tT][pP])(?:[sS])?(:\/\/))?(?:[wW][wW][wW].)?(([fF][aA][cC][eE][bB][oO][oO][kK].[cC][oO][mM])\/[A-Za-z0-9\.-]+))", ErrorMessage="Please enter the full facebook url e.g. www.facebook.com/yourpage")]
         public string Facebook { get; set; }    
         
         [Display(Name="Let people know you are looking for volunteering opportunities ?")]
