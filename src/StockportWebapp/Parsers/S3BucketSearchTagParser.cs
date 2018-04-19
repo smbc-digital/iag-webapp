@@ -19,7 +19,7 @@ namespace StockportWebapp.Parsers
             _logger = logger;
         }
 
-        protected Regex TagRegex => new Regex("{{(\\Search:(.*?)\\/)(.*?)\\/}}", RegexOptions.Compiled);
+        protected Regex TagRegex => new Regex("{{(Search:((.*?)\\/)*)}}", RegexOptions.Compiled);
 
         public string Parse(string content, IEnumerable<S3BucketSearch> searches)
         {
@@ -31,8 +31,7 @@ namespace StockportWebapp.Parsers
 
                 if (search != null)
                 {
-                    var path = match.Groups[2].ToString()+ "/" + match.Groups[3].ToString();
-                    search.SearchFolder = path;
+                    search.SearchFolder = match.Groups[0].ToString().Replace("{{Search:", "").Replace("}}", "");
                     var searchHtml = _viewRenderer.Render("S3Bucket", search);
                     content = TagRegex.Replace(content, searchHtml, 1);
                 }
