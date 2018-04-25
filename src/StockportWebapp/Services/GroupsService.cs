@@ -200,7 +200,7 @@ namespace StockportWebapp.Services
 
         public string GetVolunteeringText(string volunteeringText)
         {
-            return string.IsNullOrEmpty(volunteeringText) ? "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we�ll be in contact as soon as possible." : volunteeringText;
+            return string.IsNullOrEmpty(volunteeringText) ? "If you would like to find out more about being a volunteer with us, please email with your interest and we�ll be in contact as soon as possible." : volunteeringText;
         }
 
         public void SendEmailToGroups(IEnumerable<Group> stageOneGroups, string template, string subject, string fromAddress)
