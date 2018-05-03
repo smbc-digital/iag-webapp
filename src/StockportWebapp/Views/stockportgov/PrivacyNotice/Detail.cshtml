@@ -1,0 +1,69 @@
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
+@model StockportWebapp.ProcessedModels.ProcessedPrivacyNotice
+@{
+
+    Layout = "../Shared/_Layout.cshtml";
+}
+@*@section Breadcrumbs {
+        @Html.Partial("Breadcrumb", Model.Payment.Breadcrumbs)
+    }*@
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100">
+        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@Model.Title content">
+                <div class="l-content-container grid-100 events-margin">
+                    <h1 class="events-article-title">@Model.Title</h1>
+                    <div tabindex="-1" id="content"></div>
+                        <h2 class="events-section-details-heading">Directorate</h2>
+                        <section>
+                            @Html.Raw(Model.Directorate)
+                        </section>
+                        <h2 class="events-section-details-heading">ActivitiesAsset</h2>
+                        <section>
+                            @Html.Raw(Model.ActivitiesAsset)
+                        </section>
+                    <h2 class="events-section-details-heading">Conditions</h2>
+                    <section>
+                        @Html.Raw(Model.Conditions)
+                    </section>
+                    <h2 class="events-section-details-heading">Conditions Special</h2>
+                    <section>
+                        @Html.Raw(Model.ConditionsSpecial)
+                    </section>
+                    <h2 class="events-section-details-heading">ExternallyShared</h2>
+                    <section>
+                        @Html.Raw(Model.ExternallyShared)
+                    </section>
+                    <h2 class="events-section-details-heading">Legislation</h2>
+                    <section>
+                        @Html.Raw(Model.Legislation)
+                    </section>
+                    <h2 class="events-section-details-heading">Obtained</h2>
+                    <section>
+                        @Html.Raw(Model.Obtained)
+                    </section>
+                    <h2 class="events-section-details-heading">Purpose</h2>
+                    <section>
+                        @Html.Raw(Model.Purpose)
+                    </section>
+                    <h2 class="events-section-details-heading">RetentionPeriod</h2>
+                    <section>
+                        @Html.Raw(Model.RetentionPeriod)
+                    </section>
+
+                    <h2 class="events-section-details-heading">TransactionsActivity</h2>
+                    <section>
+                        @Html.Raw(Model.TransactionsActivity)
+                    </section>
+                    <h2 class="events-section-details-heading">TypeOfData</h2>
+                    <section>
+                        @Html.Raw(Model.TypeOfData)
+                    </section>
+
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
