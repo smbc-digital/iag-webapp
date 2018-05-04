@@ -27,6 +27,7 @@ namespace StockportWebapp.Controllers
 
             if (!result.IsSuccessful())
                 return result;
+
             var privacyNotice = result.Content as ProcessedPrivacyNotice;
 
             return View(privacyNotice);
