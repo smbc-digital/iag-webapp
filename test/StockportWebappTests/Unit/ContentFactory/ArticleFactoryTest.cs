@@ -8,6 +8,7 @@ using Helper = StockportWebappTests.TestHelper;
 using Moq;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 
 namespace StockportWebappTests.Unit.ContentFactory
@@ -40,6 +41,7 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly LiveChat _liveChat = new LiveChat("Title","text");
         private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
         private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
+        private readonly Mock<IRepository> _repository;
 
         public ArticleFactoryTest()
         {
@@ -50,7 +52,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             _documentTagParser= new Mock<IDynamicTagParser<Document>>();
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
-            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object);
+            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, null, null);
 
             _sectionOne = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
             _processedSectionOne = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);

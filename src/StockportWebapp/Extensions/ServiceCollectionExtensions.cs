@@ -97,6 +97,7 @@ namespace StockportWebapp.Extensions
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
             services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
             services.AddSingleton<IDynamicTagParser<S3BucketSearch>, S3BucketSearchTagParser>();
+            services.AddSingleton<IDynamicTagParser<PrivacyNotice>, PrivacyNoticeTagParser>();
             services.AddSingleton(
                 p =>
                     new List<ISimpleTagParser>()
@@ -126,7 +127,7 @@ namespace StockportWebapp.Extensions
             services.AddTransient<SectionFactory>();
             services.AddTransient(p => new ArticleFactory(p.GetService<ISimpleTagParserContainer>(),
             p.GetService<IDynamicTagParser<Profile>>(), p.GetService<SectionFactory>(), p.GetService<MarkdownWrapper>(),
-            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IDynamicTagParser<S3BucketSearch>>()));
+            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IDynamicTagParser<S3BucketSearch>>(), p.GetService<IDynamicTagParser<PrivacyNotice>>(), p.GetService<IRepository>()));
 
             return services;
         }
@@ -150,7 +151,7 @@ namespace StockportWebapp.Extensions
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(p.GetService<ISimpleTagParserContainer>(),
                             p.GetService<IDynamicTagParser<Profile>>(), p.GetService<MarkdownWrapper>(),
-                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IHttpContextAccessor>(), p.GetService<IDynamicTagParser<S3BucketSearch>>()), p.GetService<IApplicationConfiguration>()));
+                            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IHttpContextAccessor>(), p.GetService<IDynamicTagParser<S3BucketSearch>>(), p.GetService<IDynamicTagParser<PrivacyNotice>>()), p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>()));
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IDocumentsRepository>(p => new DocumentsRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILoggedInHelper>(), p.GetService<ILogger<BaseRepository>>()));
