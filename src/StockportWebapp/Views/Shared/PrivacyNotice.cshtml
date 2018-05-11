@@ -11,7 +11,8 @@
                 @{
                     foreach (var privacyNotice in Model)
                     {
-                        <div><a href="/privacy-notice/@privacyNotice.Slug">@privacyNotice.Title</a></div>
+                        // needs to use the title + category but this hasn't been brought through yet
+                        <div><a href="/privacy-notice/@privacyNotice.Slug">@privacyNotice.Slug </a></div>
                     }
                 }
 

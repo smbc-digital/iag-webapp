@@ -20,7 +20,7 @@ namespace StockportWebapp.Parsers
             _logger = logger;
         }
 
-        protected Regex TagRegex => new Regex("{{PrivacyNotice:(.*?),(.*?)}}", RegexOptions.Compiled);
+        protected Regex TagRegex => new Regex("{{PrivacyNotice:(.*?)}}", RegexOptions.Compiled);
 
         public string Parse(string content, IEnumerable<PrivacyNotice> PrivacyNotices)
         {
@@ -34,7 +34,7 @@ namespace StockportWebapp.Parsers
                 var privacyNoticeSlug1 = match.Groups[tagDataIndex1].Value;
                 var privacyNoticeSlug2 = match.Groups[tagDataIndex2].Value;
 
-                var privacyNotices = PrivacyNotices.Where(s => s.Directorate == privacyNoticeSlug1 && s.ActivitiesAsset == privacyNoticeSlug2);
+                var privacyNotices = PrivacyNotices.Where(s => s.Title.Replace(" ", "") == privacyNoticeSlug1);
                 if (privacyNotices != null)
                 {
                     var privacyNoticeHtml = _viewRenderer.Render("PrivacyNotice", privacyNotices);
