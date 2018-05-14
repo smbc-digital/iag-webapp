@@ -24,7 +24,7 @@ namespace StockportWebapp.ContentFactory
             var externallySharedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.ExternallyShared);
             var obtainedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Obtained);
 
-            var processedPrivacyNotice = new ProcessedPrivacyNotice(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, privacyNotice.Legislation, obtainedHtml, externallySharedHtml, privacyNotice.RetentionPeriod, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.UrlOne, privacyNotice.UrlTwo, privacyNotice.UrlThree);
+            var processedPrivacyNotice = new ProcessedPrivacyNotice(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, privacyNotice.Legislation, obtainedHtml, externallySharedHtml, privacyNotice.RetentionPeriod, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.UrlOne, privacyNotice.UrlTwo, privacyNotice.UrlThree, privacyNotice.Breadcrumbs);
 
             return processedPrivacyNotice;
         }

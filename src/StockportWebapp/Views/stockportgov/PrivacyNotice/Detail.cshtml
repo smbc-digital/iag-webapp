@@ -5,101 +5,91 @@
 
     Layout = "../Shared/_Layout.cshtml";
 }
-@*@section Breadcrumbs {
-        @Html.Partial("Breadcrumb", Model.Payment.Breadcrumbs)
-    }*@
-
+@section Breadcrumbs {
+    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+}
 <div class="grid-container-full-width">
-    <div class="grid-container grid-100">
-        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
-            <main aria-label="@Model.Title content">
-                <div class="l-content-container grid-100 events-margin">
-                    <h1>@Model.Title</h1>
-                    <div tabindex="-1" id="content"></div>
-                    <h2>@Html.Raw(Model.Category) privacy notice</h2>
-                    <section>                  
-                    <h3 class="events-section-details-heading">We collect your information to:</h3>
-                        @Html.Raw(Model.Purpose)
-                    </section>
-                    <hr/>
-                    <section>
-                        <h3 class="events-section-details-heading">What type(s) of information do we use?</h3>
-                        @Html.Raw(Model.TypeOfData)
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">What is the legal basis for using your information?</h3>
-                        @Html.Raw(Model.Legislation)
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">Where do we get your information?</h3>
-                        @Html.Raw(Model.Obtained)
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">Who do we share your information with?</h3>
-                        @Html.Raw(Model.ExternallyShared)
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">How long will we keep your information?</h3>
-                        @Html.Raw(Model.RetentionPeriod)
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">Transferring your information outside of the European Union (EU)</h3>
-                        @if (Model.OutsideEu == false)
+    <div class="grid-container">
+        <article class="privacy-notice mobile-grid-100 grid-container l-body-section-filled">
+            <div class="grid-100">
+                <h1>@Model.Title</h1>
+                <h2>@Html.Raw(Model.Category) privacy notice</h2>
+                <section>
+                    <h3>We collect your information to:</h3>
+                    @Html.Raw(Model.Purpose)
+                </section>
+                <hr />
+                <section>
+                    <h3>What type(s) of information do we use?</h3>
+                    @Html.Raw(Model.TypeOfData)
+                </section>
+                <section>
+                    <h3>What is the legal basis for using your information?</h3>
+                    <p>@Html.Raw(Model.Legislation)</p>
+                </section>
+                <section>
+                    <h3>Where do we get your information?</h3>
+                    @Html.Raw(Model.Obtained)
+                </section>
+                <section>
+                    <h3>Who do we share your information with?</h3>
+                    @Html.Raw(Model.ExternallyShared)
+                </section>
+                <section>
+                    <h3>How long will we keep your information?</h3>
+                    <p>@Html.Raw(Model.RetentionPeriod)</p>
+                </section>
+                <section>
+                    <h3>Transferring your information outside of the European Union (EU)</h3>
+                    @if (!Model.OutsideEu)
+                    {
+                        <p>We will not transfer your information outside of the EU.</p>
+                    }
+                    else
+                    {
+                        <p>We may transfer your information outside of the EU.</p>
+                    }
+                </section>
+                <section>
+                    <h3>Automated decisions using your information?</h3>
+                    <p>For this service:</p>
+                    <ul>
+                        @if (!Model.AutomatedDecision)
                         {
-                            <p>We will not transfer your information outside of the EU.</p>
+                            <li>all the decisions we make about you involve human intervention</li>
                         }
                         else
                         {
-                            <p>We may transfer your information outside of the EU.</p>
+                            <li>some or all of the decisions we make about you do not involve human intervention</li>
                         }
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">Automated decisions using your information?</h3>
-                        <p>For this service:</p>
-                        @if (Model.AutomatedDecision == false)
-                        {
-                            <ul>
-                                <li>all the decisions we make about you involve human intervention</li>
-                            </ul>
-                        }
-                        else
-                        {
-                            <ul>
-                                <li>some or all of the decisions we make about you do not involve human intervention</li>
-                            </ul>
-                        }
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">Your rights</h3>
-                        <p>In our guide on exercising your rights you can find information about how to:</p>
-                        <ul>
-                            <li>exercise your rights</li>
-                            <li>contact our Data Protection Officer</li>
-                            <li>raise a concern with us</li>
-                            <li>make a complaint to the Information Commissioner</li>
-                        </ul>
-                        <p>You can find out what information we hold about you, and ask us not to use any of the information we collect.</p>
-                    </section>
-                    <section>
-                        <h3 class="events-section-details-heading">Further information</h3>
-                        <p>If you would like further information about this privacy notice, please email ............</p>
-                    </section>
-                    <hr/>
-                    <section>
-                        <h3 class="events-section-details-heading">Updates(notice)</h3>
-                        <p>Our core data protection obligations and commitments are set out in our primary privacy notice.</p>
-                        <p>We may update or revise this privacy notice at any time. If you are reading this as a printed copy please refer to <a href="http://www.stockport.gov.uk" alt="Stockport Council Website">www.stockport.gov.uk</a> for the most up to date version.</p>
-                    </section>
-                        
+                    </ul>
 
-
-
-                    
-
-
-
-                </div>
-            </main>
-        </div>
+                </section>
+                <section>
+                    <h3>Your rights</h3>
+                    <p>In our guide on exercising your rights you can find information about how to:</p>
+                    <ul>
+                        <li>exercise your rights</li>
+                        <li>contact our Data Protection Officer</li>
+                        <li>raise a concern with us</li>
+                        <li>make a complaint to the Information Commissioner</li>
+                    </ul>
+                    <p>You can find out what information we hold about you, and ask us not to use any of the information we collect.</p>
+                </section>
+                <section>
+                    <h3>Further information</h3>
+                    <p>If you would like further information about this privacy notice, please email ............</p>
+                </section>
+                <hr />
+                <section>
+                    <h3>Updates(notice)</h3>
+                    <p>Our core data protection obligations and commitments are set out in our primary privacy notice.</p>
+                    <p>
+                        We may update or revise this privacy notice at any time. If you are reading this as a printed copy please refer to <a href="http://www.stockport.gov.uk" alt="Stockport Council Website">www.stockport.gov.uk</a> for the most up to date version.
+                    </p>
+                </section>
+            </div>
+        </article>
     </div>
 </div>
+
