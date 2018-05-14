@@ -31,7 +31,6 @@ namespace StockportWebapp.ContentFactory
             _searchTagParser = searchTagParser;
             _privacyNoticeTagParser = privacyNoticeTagParser;
             _repository = repository;
-
         }
 
         public virtual ProcessedArticle Build(Article article)

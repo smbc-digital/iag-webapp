@@ -11,6 +11,7 @@ namespace StockportWebapp.Models
         public List<Document> Documents { get; set; }
         public IEnumerable<Alert> AlertsInline { get; set; }
         public S3BucketSearch S3Bucket { get; set; }
+        public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
 
         public Section() { }
 

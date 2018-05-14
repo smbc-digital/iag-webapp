@@ -15,7 +15,7 @@ namespace StockportWebapp.ContentFactory
 
         public ContentTypeFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IHttpContextAccessor httpContextAccesor, IDynamicTagParser<S3BucketSearch> s3BucketParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser)
         {
-            var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser);
+            var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null);
 
             _factories.Add(typeof(Section), sectionFactory);
             _factories.Add(typeof(Profile), new ProfileFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
