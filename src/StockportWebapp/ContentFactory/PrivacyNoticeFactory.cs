@@ -20,10 +20,11 @@ namespace StockportWebapp.ContentFactory
         public virtual ProcessedPrivacyNotice Build(PrivacyNotice privacyNotice)
         {
             var typeOfDataHtml = _markdownWrapper.ConvertToHtml(privacyNotice.TypeOfData);
-            var legislationHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Legislation);
+            var purposeHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Purpose);
             var externallySharedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.ExternallyShared);
+            var obtainedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Obtained);
 
-            var processedPrivacyNotice = new ProcessedPrivacyNotice(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Directorate, privacyNotice.ActivitiesAsset, privacyNotice.TransactionsActivity, privacyNotice.Purpose, typeOfDataHtml, legislationHtml, privacyNotice.Obtained, externallySharedHtml, privacyNotice.RetentionPeriod, privacyNotice.Conditions, privacyNotice.ConditionsSpecial, privacyNotice.UrlOne, privacyNotice.UrlTwo, privacyNotice.UrlThree);
+            var processedPrivacyNotice = new ProcessedPrivacyNotice(privacyNotice.Slug, privacyNotice.Title, privacyNotice.Category, purposeHtml, typeOfDataHtml, privacyNotice.Legislation, obtainedHtml, externallySharedHtml, privacyNotice.RetentionPeriod, privacyNotice.OutsideEu, privacyNotice.AutomatedDecision, privacyNotice.UrlOne, privacyNotice.UrlTwo, privacyNotice.UrlThree);
 
             return processedPrivacyNotice;
         }

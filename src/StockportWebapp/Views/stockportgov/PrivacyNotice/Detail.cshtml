@@ -12,58 +12,94 @@
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="@Model.Title content">
+            <main aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
-                    <h1 class="events-article-title">@Model.Title</h1>
+                    <h1>@Model.Title</h1>
                     <div tabindex="-1" id="content"></div>
-                        <h2 class="events-section-details-heading">Directorate</h2>
-                        <section>
-                            @Html.Raw(Model.Directorate)
-                        </section>
-                        <h2 class="events-section-details-heading">ActivitiesAsset</h2>
-                        <section>
-                            @Html.Raw(Model.ActivitiesAsset)
-                        </section>
-                    <h2 class="events-section-details-heading">Conditions</h2>
-                    <section>
-                        @Html.Raw(Model.Conditions)
-                    </section>
-                    <h2 class="events-section-details-heading">Conditions Special</h2>
-                    <section>
-                        @Html.Raw(Model.ConditionsSpecial)
-                    </section>
-                    <h2 class="events-section-details-heading">ExternallyShared</h2>
-                    <section>
-                        @Html.Raw(Model.ExternallyShared)
-                    </section>
-                    <h2 class="events-section-details-heading">Legislation</h2>
-                    <section>
-                        @Html.Raw(Model.Legislation)
-                    </section>
-                    <h2 class="events-section-details-heading">Obtained</h2>
-                    <section>
-                        @Html.Raw(Model.Obtained)
-                    </section>
-                    <h2 class="events-section-details-heading">Purpose</h2>
-                    <section>
+                    <h2>@Html.Raw(Model.Category) privacy notice</h2>
+                    <section>                  
+                    <h3 class="events-section-details-heading">We collect your information to:</h3>
                         @Html.Raw(Model.Purpose)
                     </section>
-                    <h2 class="events-section-details-heading">RetentionPeriod</h2>
+                    <hr/>
                     <section>
-                        @Html.Raw(Model.RetentionPeriod)
-                    </section>
-
-                    <h2 class="events-section-details-heading">TransactionsActivity</h2>
-                    <section>
-                        @Html.Raw(Model.TransactionsActivity)
-                    </section>
-                    <h2 class="events-section-details-heading">TypeOfData</h2>
-                    <section>
+                        <h3 class="events-section-details-heading">What type(s) of information do we use?</h3>
                         @Html.Raw(Model.TypeOfData)
                     </section>
+                    <section>
+                        <h3 class="events-section-details-heading">What is the legal basis for using your information?</h3>
+                        @Html.Raw(Model.Legislation)
+                    </section>
+                    <section>
+                        <h3 class="events-section-details-heading">Where do we get your information?</h3>
+                        @Html.Raw(Model.Obtained)
+                    </section>
+                    <section>
+                        <h3 class="events-section-details-heading">Who do we share your information with?</h3>
+                        @Html.Raw(Model.ExternallyShared)
+                    </section>
+                    <section>
+                        <h3 class="events-section-details-heading">How long will we keep your information?</h3>
+                        @Html.Raw(Model.RetentionPeriod)
+                    </section>
+                    <section>
+                        <h3 class="events-section-details-heading">Transferring your information outside of the European Union (EU)</h3>
+                        @if (Model.OutsideEu == false)
+                        {
+                            <p>We will not transfer your information outside of the EU.</p>
+                        }
+                        else
+                        {
+                            <p>We may transfer your information outside of the EU.</p>
+                        }
+                    </section>
+                    <section>
+                        <h3 class="events-section-details-heading">Automated decisions using your information?</h3>
+                        <p>For this service:</p>
+                        @if (Model.AutomatedDecision == false)
+                        {
+                            <ul>
+                                <li>all the decisions we make about you involve human intervention</li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul>
+                                <li>some or all of the decisions we make about you do not involve human intervention</li>
+                            </ul>
+                        }
+                    </section>
+                    <section>
+                        <h3 class="events-section-details-heading">Your rights</h3>
+                        <p>In our guide on exercising your rights you can find information about how to:</p>
+                        <ul>
+                            <li>exercise your rights</li>
+                            <li>contact our Data Protection Officer</li>
+                            <li>raise a concern with us</li>
+                            <li>make a complaint to the Information Commissioner</li>
+                        </ul>
+                        <p>You can find out what information we hold about you, and ask us not to use any of the information we collect.</p>
+                    </section>
+                    <section>
+                        <h3 class="events-section-details-heading">Further information</h3>
+                        <p>If you would like further information about this privacy notice, please email ............</p>
+                    </section>
+                    <hr/>
+                    <section>
+                        <h3 class="events-section-details-heading">Updates(notice)</h3>
+                        <p>Our core data protection obligations and commitments are set out in our primary privacy notice.</p>
+                        <p>We may update or revise this privacy notice at any time. If you are reading this as a printed copy please refer to <a href="http://www.stockport.gov.uk" alt="Stockport Council Website">www.stockport.gov.uk</a> for the most up to date version.</p>
+                    </section>
+                        
+
+
+
+                    
+
+
 
                 </div>
-            </section>
+            </main>
         </div>
     </div>
 </div>
