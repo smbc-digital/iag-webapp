@@ -42,14 +42,6 @@ namespace StockportWebapp.ContentFactory
 
         public ProcessedSection Build(Section section, string articleTitle = null)
         {
-            
-            
-            //var parsedBody = _privacyNoticeTagParser.Parse(section.Body, section.PrivacyNotices);
-
-            //string body = string.Empty;
-
-            //if (!section.Body.Contains("PrivacyNotice:"))
-            //{
             var parsedBody = _tagParserContainer.ParseAll(section.Body, articleTitle);
             parsedBody = _markdownWrapper.ConvertToHtml(parsedBody);
             parsedBody = _profileTagParser.Parse(parsedBody, section.Profiles);
@@ -63,12 +55,7 @@ namespace StockportWebapp.ContentFactory
                 section.PrivacyNotices = GetPrivacyNotices().Result;
                 parsedBody = _privacyNoticeTagParser.Parse(parsedBody, section.PrivacyNotices);
             }
-
-            //}
-            //if (body == String.Empty)
-            //{
-            //    body = parsedBody;
-            //}
+            
             return new ProcessedSection(
                 section.Title,
                 section.Slug,
