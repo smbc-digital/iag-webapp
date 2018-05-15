@@ -4,6 +4,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Quartz.Impl.Triggers;
 using StockportWebapp.Repositories;
 
@@ -42,39 +43,43 @@ namespace StockportWebapp.ContentFactory
         public ProcessedSection Build(Section section, string articleTitle = null)
         {
             
+            
+            //var parsedBody = _privacyNoticeTagParser.Parse(section.Body, section.PrivacyNotices);
+
+            //string body = string.Empty;
+
+            //if (!section.Body.Contains("PrivacyNotice:"))
+            //{
+            var parsedBody = _tagParserContainer.ParseAll(section.Body, articleTitle);
+            parsedBody = _markdownWrapper.ConvertToHtml(parsedBody);
+            parsedBody = _profileTagParser.Parse(parsedBody, section.Profiles);
+            parsedBody = _documentTagParser.Parse(parsedBody, section.Documents);
+            parsedBody = _alertsInlineTagParser.Parse(parsedBody, section.AlertsInline);
+            parsedBody = _searchTagParser.Parse(parsedBody, new List<S3BucketSearch> { section.S3Bucket });
+
+
             if (section.Body.Contains("PrivacyNotice:"))
             {
-                var test = GetPrivacyNoticesMatchingTitleAsync();
-                section.PrivacyNotices = test.Result;
+                section.PrivacyNotices = GetPrivacyNotices().Result;
+                parsedBody = _privacyNoticeTagParser.Parse(parsedBody, section.PrivacyNotices);
             }
-            var parsedBody = _privacyNoticeTagParser.Parse(section.Body, section.PrivacyNotices);
 
-            string body = string.Empty;
-
-            if (!section.Body.Contains("PrivacyNotice:"))
-            {
-                parsedBody = _tagParserContainer.ParseAll(section.Body, articleTitle);
-                var processedBody = _markdownWrapper.ConvertToHtml(parsedBody);
-                var parsedBodyWithProfiles = _profileTagParser.Parse(processedBody, section.Profiles);
-                var parsedBodyWithDocuments = _documentTagParser.Parse(parsedBodyWithProfiles, section.Documents);
-                var parsedBodyWithAlertsInline = _alertsInlineTagParser.Parse(parsedBodyWithDocuments, section.AlertsInline);
-                body = _searchTagParser.Parse(parsedBodyWithAlertsInline, new List<S3BucketSearch> { section.S3Bucket });
-            }
-            if (body == String.Empty)
-            {
-                body = parsedBody;
-            }
+            //}
+            //if (body == String.Empty)
+            //{
+            //    body = parsedBody;
+            //}
             return new ProcessedSection(
                 section.Title,
                 section.Slug,
-                body,
+                parsedBody,
                 section.Profiles,
                 section.Documents,
                 section.AlertsInline
             );
         }
 
-        private async System.Threading.Tasks.Task<IEnumerable<PrivacyNotice>> GetPrivacyNoticesMatchingTitleAsync()
+        private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
         {
             var response = await _repository.Get<List<PrivacyNotice>>();
             return response.Content as List<PrivacyNotice>;

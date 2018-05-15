@@ -22,25 +22,20 @@ namespace StockportWebapp.Parsers
 
         protected Regex TagRegex => new Regex("{{PrivacyNotice:(.*?)}}", RegexOptions.Compiled);
 
-        public string Parse(string content, IEnumerable<PrivacyNotice> PrivacyNotices)
+        public string Parse(string content, IEnumerable<PrivacyNotice> privacyNotices)
         {
             var matches = TagRegex.Matches(content);
 
             foreach (Match match in matches)
             {
-                var tagDataIndex1 = 1;
+                var privacyNoticeSlug = match.Groups[1].Value;
 
-                var privacyNoticeSlug1 = match.Groups[tagDataIndex1].Value;
+                privacyNotices = privacyNotices.Where(s => s.Title.Replace(" ", "") == privacyNoticeSlug);
 
-                var privacyNotices = PrivacyNotices.Where(s => s.Title.Replace(" ", "") == privacyNoticeSlug1);
-                if (privacyNotices != null)
+                if (privacyNotices.Any())
                 {
                     var privacyNoticeHtml = _viewRenderer.Render("PrivacyNotice", privacyNotices);
                     content = TagRegex.Replace(content, privacyNoticeHtml, 1);
-                }
-                else
-                {
-              //      _logger.LogWarning($"The Alerts Title {AlertsInlineTitle} could not be found and will be removed");
                 }
             }
             return RemoveEmptyTags(content);

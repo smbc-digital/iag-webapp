@@ -52,31 +52,5 @@ namespace StockportWebappTests.Unit.Scheduler
             _legacyUrlRedirects.Redirects.Should().ContainKey(businessId);
             _legacyUrlRedirects.Redirects[businessId].Should().ContainKey("test2");
         }
-
-        [Fact]
-        public void ShouldNotCallGroupsServiceAtWrongTime()
-        {
-            // Arrange
-            _mockTimeProvider.Setup(_ => _.Now()).Returns(new DateTime(2017, 11, 1, 5, 45, 0));
-
-            // Act
-            _quartzJob.Execute(new Mock<IJobExecutionContext>().Object).Wait();
-
-            // Assert
-            _mockGroupsService.Verify(_ => _.HandleStaleGroups(), Times.Never);
-        }
-
-        [Fact(Skip = "Changed time to test on int")]
-        public void ShouldCallGroupsServiceAtRightTime()
-        {
-            // Arrange
-            _mockTimeProvider.Setup(_ => _.Now()).Returns(new DateTime(2017, 11, 1, 8, 15, 0));
-
-            // Act
-            _quartzJob.Execute(new Mock<IJobExecutionContext>().Object).Wait();
-
-            // Assert
-            _mockGroupsService.Verify(_ => _.HandleStaleGroups(), Times.Once);
-        }
     }
 }

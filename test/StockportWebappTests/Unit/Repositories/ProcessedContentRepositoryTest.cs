@@ -47,6 +47,8 @@ namespace StockportWebappTests.Unit.Repositories
             _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
             _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
 
+            _s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("");
+
             var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, httpContextAccessor.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object);
             _repository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, contentFactory, appConfig.Object);
         }

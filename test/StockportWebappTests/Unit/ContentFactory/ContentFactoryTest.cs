@@ -10,6 +10,7 @@ using StockportWebapp.ContentFactory;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
+using System.Collections;
 
 namespace StockportWebappTests.Unit.ContentFactory
 {
@@ -26,7 +27,8 @@ namespace StockportWebappTests.Unit.ContentFactory
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
             var privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
-        tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns("");
+            tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns("");
+            s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("");
 
             _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, s3BucketParser.Object, privacyNoticeTagParser.Object);
         }

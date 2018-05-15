@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
@@ -52,21 +53,17 @@ namespace StockportWebapp.ContentFactory
             body = _documentTagParser.Parse(body, article.Documents);
             body = _alertsInlineTagParser.Parse(body, article.AlertsInline);
             body = _searchTagParser.Parse(body, new List<S3BucketSearch> { article.S3Bucket });
-            if (body != null)
+            if (body.Contains("PrivacyNotice:"))
             {
-                if (body.Contains("PrivacyNotice:"))
-                {
-                    var test = GetPrivacyNoticesMatchingTitleAsync();
-                    article.PrivacyNotices = test.Result;
-                }
+                article.PrivacyNotices = GetPrivacyNotices().Result;
+                body = _privacyNoticeTagParser.Parse(body, article.PrivacyNotices);
             }
-            body = _privacyNoticeTagParser.Parse(body, article.PrivacyNotices);
 
             return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser,
                 processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline, article.Advertisement, article.S3Bucket);
         }
 
-        private async System.Threading.Tasks.Task<IEnumerable<PrivacyNotice>> GetPrivacyNoticesMatchingTitleAsync()
+        private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()
         {
             var response = await _repository.Get<List<PrivacyNotice>>();
             return response.Content as List<PrivacyNotice>;
