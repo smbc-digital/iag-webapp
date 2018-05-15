@@ -26,6 +26,8 @@ namespace StockportWebappTests.Unit.ContentFactory
         private readonly string _articleTitle = "Article Title";
         private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
         private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
+        private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
+
 
         public SectionFactoryTest()
         {
@@ -35,8 +37,9 @@ namespace StockportWebappTests.Unit.ContentFactory
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
+            _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
 
-            _factory = new SectionFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object);
+            _factory = new SectionFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object, null);
 
             _section = new Section(Title, Slug, Body, _profiles, _documents, _emptyAlertsInline);
 
@@ -46,7 +49,6 @@ namespace StockportWebappTests.Unit.ContentFactory
             _documentTagParser.Setup(o => o.Parse(Body, _section.Documents)).Returns(Body);
             _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
             _s3BucketParser.Setup(o => o.Parse(Body, It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(Body);
-
         }
 
         [Fact]

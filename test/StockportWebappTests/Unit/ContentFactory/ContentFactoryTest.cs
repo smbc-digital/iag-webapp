@@ -25,9 +25,10 @@ namespace StockportWebappTests.Unit.ContentFactory
             var alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             var httpContextAccessor = new Mock<IHttpContextAccessor>();
             var s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
+            var privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
         tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns("");
 
-            _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, s3BucketParser.Object);
+            _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, s3BucketParser.Object, privacyNoticeTagParser.Object);
         }
 
         [Fact]

@@ -29,10 +29,8 @@ namespace StockportWebapp.Parsers
             foreach (Match match in matches)
             {
                 var tagDataIndex1 = 1;
-                var tagDataIndex2 = 2;
 
                 var privacyNoticeSlug1 = match.Groups[tagDataIndex1].Value;
-                var privacyNoticeSlug2 = match.Groups[tagDataIndex2].Value;
 
                 var privacyNotices = PrivacyNotices.Where(s => s.Title.Replace(" ", "") == privacyNoticeSlug1);
                 if (privacyNotices != null)
@@ -52,7 +50,5 @@ namespace StockportWebapp.Parsers
         {
             return TagRegex.Replace(content, string.Empty);
         }
-
-        
     }
 }

@@ -19,7 +19,7 @@ namespace StockportWebapp.ContentFactory
         private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
         private readonly IRepository _repository;
 
-        public ArticleFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper, 
+        public ArticleFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper,
             IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<S3BucketSearch> searchTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
         {
             _tagParserContainer = tagParserContainer;
@@ -40,7 +40,7 @@ namespace StockportWebapp.ContentFactory
             {
                 section.S3Bucket = article.S3Bucket;
                 processedSections.Add(_sectionFactory.Build(section, article.Title));
-            }                  
+            }
 
             var body = _tagParserContainer.ParseAll(article.Body, article.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");
@@ -52,14 +52,17 @@ namespace StockportWebapp.ContentFactory
             body = _documentTagParser.Parse(body, article.Documents);
             body = _alertsInlineTagParser.Parse(body, article.AlertsInline);
             body = _searchTagParser.Parse(body, new List<S3BucketSearch> { article.S3Bucket });
-            if (body.Contains("PrivacyNotice:"))
+            if (body != null)
             {
-                var test = GetPrivacyNoticesMatchingTitleAsync();
-                article.PrivacyNotices = test.Result;
+                if (body.Contains("PrivacyNotice:"))
+                {
+                    var test = GetPrivacyNoticesMatchingTitleAsync();
+                    article.PrivacyNotices = test.Result;
+                }
             }
             body = _privacyNoticeTagParser.Parse(body, article.PrivacyNotices);
 
-            return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, 
+            return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser,
                 processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline, article.Advertisement, article.S3Bucket);
         }
 
