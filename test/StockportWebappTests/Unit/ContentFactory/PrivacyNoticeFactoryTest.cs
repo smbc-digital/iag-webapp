@@ -41,30 +41,32 @@ namespace StockportWebappTests.Unit.ContentFactory
             var typeOfData = "test-type-of-data";
             _markdownWrapper.Setup(_ => _.ConvertToHtml(typeOfData)).Returns("test-type-of-data-html");
 
-            var legislation = "test-legislation";
-            _markdownWrapper.Setup(_ => _.ConvertToHtml(legislation)).Returns("test-legislation-html");
+            var purpose = "test-purpose";
+            _markdownWrapper.Setup(_ => _.ConvertToHtml(purpose)).Returns("test-purpose-html");
 
             var externallyShared = "test-externally-shared";
             _markdownWrapper.Setup(_ => _.ConvertToHtml(externallyShared)).Returns("test-externally-shared-html");
+
+            var obtained = "test-obtained";
+            _markdownWrapper.Setup(_ => _.ConvertToHtml(obtained)).Returns("test-obtained-html");
 
             var privacyNotice = new PrivacyNotice()
             {
                 Slug = "test-slug",
                 Title = "test-title",
-                Directorate = "test-directorate",
-                ActivitiesAsset = "test-activities-asset",
-                TransactionsActivity = "test-transactions-activity",
+                Category = "test-categories",
                 Purpose = "test-purpose",
-                TypeOfData = typeOfData,
-                Legislation = legislation,
+                TypeOfData = "test-type-of-data",
+                Legislation = "test-legislation",
                 Obtained = "test-obtained",
-                ExternallyShared = externallyShared,
+                ExternallyShared = "test-externally-shared",
                 RetentionPeriod = "test-retention-period",
-                Conditions = "test-conditions",
-                ConditionsSpecial = "test-conditions-special",
+                OutsideEu = false,
+                AutomatedDecision = false,
                 UrlOne = "test-url-1",
                 UrlTwo = "test-url-2",
-                UrlThree = "test-url-3"
+                UrlThree = "test-url-3",
+                Breadcrumbs = new List<Crumb>()
             };
 
             //Act
@@ -73,17 +75,15 @@ namespace StockportWebappTests.Unit.ContentFactory
             //Assert
             processedPrivacyNotice.Slug.Should().Be("test-slug");
             processedPrivacyNotice.Title.Should().Be("test-title");
-            processedPrivacyNotice.Directorate.Should().Be("test-directorate");
-            processedPrivacyNotice.ActivitiesAsset.Should().Be("test-activities-asset");
-            processedPrivacyNotice.TransactionsActivity.Should().Be("test-transactions-activity");
-            processedPrivacyNotice.Purpose.Should().Be("test-purpose");
+            processedPrivacyNotice.Category.Should().Be("test-categories");
+            processedPrivacyNotice.Purpose.Should().Be("test-purpose-html");
             processedPrivacyNotice.TypeOfData.Should().Be("test-type-of-data-html");
-            processedPrivacyNotice.Legislation.Should().Be("test-legislation-html");
-            processedPrivacyNotice.Obtained.Should().Be("test-obtained");
+            processedPrivacyNotice.Legislation.Should().Be("test-legislation");
+            processedPrivacyNotice.Obtained.Should().Be("test-obtained-html");
             processedPrivacyNotice.ExternallyShared.Should().Be("test-externally-shared-html");
             processedPrivacyNotice.RetentionPeriod.Should().Be("test-retention-period");
-            processedPrivacyNotice.Conditions.Should().Be("test-conditions");
-            processedPrivacyNotice.ConditionsSpecial.Should().Be("test-conditions-special");
+            processedPrivacyNotice.OutsideEu.Should().Be(false);
+            processedPrivacyNotice.AutomatedDecision.Should().Be(false);
             processedPrivacyNotice.UrlOne.Should().Be("test-url-1");
             processedPrivacyNotice.UrlTwo.Should().Be("test-url-2");
             processedPrivacyNotice.UrlThree.Should().Be("test-url-3");
