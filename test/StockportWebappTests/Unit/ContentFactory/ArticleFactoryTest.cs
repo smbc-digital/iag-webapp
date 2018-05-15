@@ -6,6 +6,7 @@ using StockportWebapp.Models;
 using Xunit;
 using Helper = StockportWebappTests.TestHelper;
 using Moq;
+using StockportWebapp.Http;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
@@ -54,7 +55,10 @@ namespace StockportWebappTests.Unit.ContentFactory
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
             _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
-            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object, null);
+            _repository = new Mock<IRepository>();
+
+            _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object, _repository.Object);
+
 
             _sectionOne = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
             _processedSectionOne = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
@@ -69,14 +73,14 @@ namespace StockportWebappTests.Unit.ContentFactory
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
-
+            _repository.Setup(o => o.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(_liveChat.Text)).Returns(_liveChat.Text);
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
             _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
-            _s3BucketParser.Setup(o => o.Parse(Body, It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(Body);
+            _s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(Body);
             _privacyNoticeTagParser.Setup(o => o.Parse(Body, It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(Body);
         }
 
@@ -140,6 +144,16 @@ namespace StockportWebappTests.Unit.ContentFactory
             _articleFactory.Build(_article);
 
             _tagParserContainer.Verify(o => o.ParseAll(Body, _article.Title), Times.Once);
+        }
+
+        [Fact]
+        public void Build_ShouldParseBodyIfPrivacyNoticeTagParserExists()
+        {
+            _s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("{{PrivacyNotice:Births,deathsandmarriages}}");
+            _article.Body = "{{PrivacyNotice:Births,deathsandmarriages}}";
+            _articleFactory.Build(_article);
+
+            _privacyNoticeTagParser.Verify(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>()),Times.Once);
         }
     }
 }
