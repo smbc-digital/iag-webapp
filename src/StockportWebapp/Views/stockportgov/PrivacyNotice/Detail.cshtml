@@ -52,17 +52,14 @@
                 </section>
                 <section>
                     <h3>Automated decisions using your information?</h3>
-                    <p>For this service:</p>
-                    <ul>
-                        @if (!Model.AutomatedDecision)
-                        {
-                            <li>all the decisions we make about you involve human intervention</li>
-                        }
-                        else
-                        {
-                            <li>some or all of the decisions we make about you do not involve human intervention</li>
-                        }
-                    </ul>
+                    @if (!Model.AutomatedDecision)
+                    {
+                        <p>For this service all the decisions we make about you involve human intervention.</p>
+                    }
+                    else
+                    {
+                        <p>For this service some or all of the decisions we make about you do not involve human intervention.</p>
+                    }
 
                 </section>
                 <section>
@@ -82,7 +79,7 @@
                 </section>
                 <hr />
                 <section>
-                    <h3>Updates(notice)</h3>
+                    <h3>Updates (notice)</h3>
                     <p>Our core data protection obligations and commitments are set out in our primary privacy notice.</p>
                     <p>
                         We may update or revise this privacy notice at any time. If you are reading this as a printed copy please refer to <a href="http://www.stockport.gov.uk" alt="Stockport Council Website">www.stockport.gov.uk</a> for the most up to date version.
