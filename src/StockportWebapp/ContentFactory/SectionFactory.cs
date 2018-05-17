@@ -42,20 +42,20 @@ namespace StockportWebapp.ContentFactory
 
         public ProcessedSection Build(Section section, string articleTitle = null)
         {
-            var parsedBody = _tagParserContainer.ParseAll(section.Body, articleTitle);
-            parsedBody = _markdownWrapper.ConvertToHtml(parsedBody);
+            var parsedBody = _markdownWrapper.ConvertToHtml(section.Body);
             parsedBody = _profileTagParser.Parse(parsedBody, section.Profiles);
             parsedBody = _documentTagParser.Parse(parsedBody, section.Documents);
             parsedBody = _alertsInlineTagParser.Parse(parsedBody, section.AlertsInline);
             parsedBody = _searchTagParser.Parse(parsedBody, new List<S3BucketSearch> { section.S3Bucket });
-
 
             if (section.Body.Contains("PrivacyNotice:"))
             {
                 section.PrivacyNotices = GetPrivacyNotices().Result;
                 parsedBody = _privacyNoticeTagParser.Parse(parsedBody, section.PrivacyNotices);
             }
-            
+
+            parsedBody = _tagParserContainer.ParseAll(parsedBody, articleTitle);
+
             return new ProcessedSection(
                 section.Title,
                 section.Slug,
