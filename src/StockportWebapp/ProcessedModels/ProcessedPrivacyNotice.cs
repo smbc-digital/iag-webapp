@@ -1,4 +1,5 @@
 ﻿using StockportWebapp.Models;
+using StockportWebapp.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,12 @@ namespace StockportWebapp.ProcessedModels
         public string UrlTwo { get; set; }
         public string UrlThree { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
+        public Topic ParentTopic { get; set; }
+        public readonly string NavigationLink;
 
         public ProcessedPrivacyNotice() { }
 
-        public ProcessedPrivacyNotice(string slug, string title, string category, string purpose, string typeOfData, string legislation, string obtained, string externallyShared, string retentionPeriod, bool outsideEu, bool automatedDecision, string urlOne, string urlTwo, string urlThree, IEnumerable<Crumb> breadcrumbs)
+        public ProcessedPrivacyNotice(string slug, string title, string category, string purpose, string typeOfData, string legislation, string obtained, string externallyShared, string retentionPeriod, bool outsideEu, bool automatedDecision, string urlOne, string urlTwo, string urlThree, IEnumerable<Crumb> breadcrumbs, Topic parentTopic)
         {
             Slug = slug;
             Title = title;
@@ -43,6 +46,8 @@ namespace StockportWebapp.ProcessedModels
             UrlTwo = urlTwo;
             UrlThree = urlThree;
             Breadcrumbs = breadcrumbs;
+            ParentTopic = parentTopic;
+            NavigationLink = TypeRoutes.GetUrlFor("privacy-notice", slug);
         }
     }
 }

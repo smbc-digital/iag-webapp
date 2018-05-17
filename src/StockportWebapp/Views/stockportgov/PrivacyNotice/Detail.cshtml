@@ -1,47 +1,49 @@
 ﻿@using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
-@model StockportWebapp.ProcessedModels.ProcessedPrivacyNotice
+@model StockportWebapp.ViewModels.PrivacyNoticeViewModel
 @{
 
     Layout = "../Shared/_Layout.cshtml";
 }
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+    @Html.Partial("Breadcrumb", Model.PrivacyNotice.Breadcrumbs)
 }
 <div class="grid-container-full-width">
     <div class="grid-container">
-        <article class="privacy-notice mobile-grid-100 grid-container l-body-section-filled">
+        <article class="privacy-notice mobile-grid-100 grid-container l-body-section-filled article-col l-body-section-filled @(Model.HasParentTopicWithSubItems()
+                                                                      ? "grid-parent mobile-grid-100 tablet-grid-100 grid-70"
+                                                                      : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <div class="grid-100">
-                <h1>@Model.Title</h1>
-                <h2>@Html.Raw(Model.Category) privacy notice</h2>
+                <h1>@Model.PrivacyNotice.Title</h1>
+                <h2>@Html.Raw(Model.PrivacyNotice.Category) privacy notice</h2>
                 <section>
                     <h3>We collect your information to:</h3>
-                    @Html.Raw(Model.Purpose)
+                    @Html.Raw(Model.PrivacyNotice.Purpose)
                 </section>
                 <hr />
                 <section>
                     <h3>What type(s) of information do we use?</h3>
-                    @Html.Raw(Model.TypeOfData)
+                    @Html.Raw(Model.PrivacyNotice.TypeOfData)
                 </section>
                 <section>
                     <h3>What is the legal basis for using your information?</h3>
-                    <p>@Html.Raw(Model.Legislation)</p>
+                    <p>@Html.Raw(Model.PrivacyNotice.Legislation)</p>
                 </section>
                 <section>
                     <h3>Where do we get your information?</h3>
-                    @Html.Raw(Model.Obtained)
+                    @Html.Raw(Model.PrivacyNotice.Obtained)
                 </section>
                 <section>
                     <h3>Who do we share your information with?</h3>
-                    @Html.Raw(Model.ExternallyShared)
+                    @Html.Raw(Model.PrivacyNotice.ExternallyShared)
                 </section>
                 <section>
                     <h3>How long will we keep your information?</h3>
-                    <p>@Html.Raw(Model.RetentionPeriod)</p>
+                    <p>@Html.Raw(Model.PrivacyNotice.RetentionPeriod)</p>
                 </section>
                 <section>
                     <h3>Transferring your information outside of the European Union (EU)</h3>
-                    @if (!Model.OutsideEu)
+                    @if (!Model.PrivacyNotice.OutsideEu)
                     {
                         <p>We will not transfer your information outside of the EU.</p>
                     }
@@ -52,7 +54,7 @@
                 </section>
                 <section>
                     <h3>Automated decisions using your information?</h3>
-                    @if (!Model.AutomatedDecision)
+                    @if (!Model.PrivacyNotice.AutomatedDecision)
                     {
                         <p>For this service all the decisions we make about you involve human intervention.</p>
                     }
@@ -87,6 +89,38 @@
                 </section>
             </div>
         </article>
+
+        @{
+            if (Model.HasParentTopicWithSubItems())
+            {
+                <div class="l-right-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent article-col article-col-sidebar">
+                    @if (Model.HasParentTopicWithSubItems())
+                    {
+                        <div class="l-right-side-bar-section">
+                            <h2>@Model.PrivacyNotice.ParentTopic.Name</h2>
+                            <ul>
+                                @{var showMoreButton = false;}
+                                @foreach (var item in Model.SidebarSubItems(out showMoreButton))
+                                {
+                                    <li class="@(item.NavigationLink == Model.PrivacyNotice.NavigationLink ? "active" : "")">
+                                        <a href="@item.NavigationLink"><span>@item.Title</span></a>
+                                    </li>
+                                }
+
+                                @if (showMoreButton)
+                                {
+                                    <li>
+                                        <a href="@Url.Action("Index", "Topic", new { topicSlug = Model.PrivacyNotice.ParentTopic.Slug })">
+                                            <strong>More</strong>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
+            }
+        }
     </div>
 </div>
 

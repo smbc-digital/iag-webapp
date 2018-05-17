@@ -27,6 +27,8 @@ namespace StockportWebapp.Utils
                     return $"/showcase/{slug}";
                 case "sia":
                     return "/sia";
+                case "privacy-notice":
+                    return $"/privacy-notice/{slug}";
                 default:
                     return $"/{slug}";
             }

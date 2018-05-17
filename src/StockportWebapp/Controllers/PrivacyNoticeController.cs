@@ -7,6 +7,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Http;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
@@ -28,9 +29,9 @@ namespace StockportWebapp.Controllers
             if (!result.IsSuccessful())
                 return result;
 
-            var privacyNotice = result.Content as ProcessedPrivacyNotice;
+            var viewModel = new PrivacyNoticeViewModel(result.Content as ProcessedPrivacyNotice);
 
-            return View(privacyNotice);
+            return View(viewModel);
         }
     }
 }

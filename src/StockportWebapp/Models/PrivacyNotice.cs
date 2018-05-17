@@ -22,6 +22,7 @@ namespace StockportWebapp.Models
         public string UrlTwo { get; set; }
         public string UrlThree { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
+        public Topic ParentTopic { get; set; }
 
         public PrivacyNotice() { }
 
