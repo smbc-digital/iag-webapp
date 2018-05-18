@@ -1,7 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.ApplicationInsights.Extensibility;
+using System.Reflection.Metadata;
+using System.Xml.Linq;
+using HtmlAgilityPack;
 
 namespace StockportWebapp.Parsers
 {
@@ -15,19 +19,19 @@ namespace StockportWebapp.Parsers
             tagData = tagData.Replace("{{CAROUSEL:", "");
             tagData = tagData.Replace("}}", "");
 
-            var altRegex = new Regex(@"\[([^\]]*)\]");
-            var srcRegex = new Regex(@"\(([^\)]*)\)");
             string[] tagArray = tagData.Split(',');
 
             StringBuilder returnCarousel = new StringBuilder("<div class='carousel'>");
 
             foreach (var item in tagArray)
             {
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(item);
+                var srcTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["src"];
+                var altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];
 
-                var srcText = srcRegex.Match(item).Groups[1];
-                var altText = altRegex.Match(item).Groups[1];
-                if(!string.IsNullOrEmpty(srcText.Value))
-                    returnCarousel.Append($"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcText});\" title=\"{altText}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altText}</p></div></div>");
+                if(!string.IsNullOrEmpty(srcTxt.Value))
+                    returnCarousel.Append($"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcTxt.Value});\" title=\"{altTxt.Value}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altTxt.Value}</p></div></div>");
 
             }
             return returnCarousel.Append("</div>").ToString();
