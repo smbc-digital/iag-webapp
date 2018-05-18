@@ -1,0 +1,1116 @@
+                                                                                
+                       === npm audit security report ===                        
+                                                                                
+# Run  npm install --dev gulp@4.0.0  to resolve 15 vulnerabilities
+SEMVER WARNING: Recommended action is a potentially breaking change
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > vinyl-fs > glob-watcher > gaze > globule > lodash      
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         minimatch                                                     
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > vinyl-fs > glob-stream > glob > minimatch              
+                                                                                
+  More info       https://nodesecurity.io/advisories/118                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         minimatch                                                     
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > vinyl-fs > glob-stream > minimatch                     
+                                                                                
+  More info       https://nodesecurity.io/advisories/118                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         minimatch                                                     
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > vinyl-fs > glob-watcher > gaze > globule > glob >      
+                  minimatch                                                     
+                                                                                
+  More info       https://nodesecurity.io/advisories/118                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         minimatch                                                     
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch   
+                                                                                
+  More info       https://nodesecurity.io/advisories/118                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         mixin-deep                                                    
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > braces >          
+                  snapdragon > base > mixin-deep                                
+                                                                                
+  More info       https://nodesecurity.io/advisories/578                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         mixin-deep                                                    
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > extglob >         
+                  expand-brackets > snapdragon > base > mixin-deep              
+                                                                                
+  More info       https://nodesecurity.io/advisories/578                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         mixin-deep                                                    
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > extglob >         
+                  snapdragon > base > mixin-deep                                
+                                                                                
+  More info       https://nodesecurity.io/advisories/578                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         mixin-deep                                                    
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > nanomatch >       
+                  snapdragon > base > mixin-deep                                
+                                                                                
+  More info       https://nodesecurity.io/advisories/578                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         mixin-deep                                                    
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > snapdragon >      
+                  base > mixin-deep                                             
+                                                                                
+  More info       https://nodesecurity.io/advisories/578                        
+                                                                                
+
+
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         atob                                                          
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > braces >          
+                  snapdragon > source-map-resolve > atob                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/646                        
+                                                                                
+
+
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         atob                                                          
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > extglob >         
+                  expand-brackets > snapdragon > source-map-resolve > atob      
+                                                                                
+  More info       https://nodesecurity.io/advisories/646                        
+                                                                                
+
+
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         atob                                                          
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > extglob >         
+                  snapdragon > source-map-resolve > atob                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/646                        
+                                                                                
+
+
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         atob                                                          
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > nanomatch >       
+                  snapdragon > source-map-resolve > atob                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/646                        
+                                                                                
+
+
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         atob                                                          
+                                                                                
+  Dependency of   gulp [dev]                                                    
+                                                                                
+  Path            gulp > liftoff > findup-sync > micromatch > snapdragon >      
+                  source-map-resolve > atob                                     
+                                                                                
+  More info       https://nodesecurity.io/advisories/646                        
+                                                                                
+
+
+# Run  npm install node-sass@4.9.0  to resolve 4 vulnerabilities
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   node-sass                                                     
+                                                                                
+  Path            node-sass > sass-graph > lodash                               
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         sshpk                                                         
+                                                                                
+  Dependency of   node-sass                                                     
+                                                                                
+  Path            node-sass > node-gyp > request > http-signature > sshpk       
+                                                                                
+  More info       https://nodesecurity.io/advisories/606                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         sshpk                                                         
+                                                                                
+  Dependency of   node-sass                                                     
+                                                                                
+  Path            node-sass > request > http-signature > sshpk                  
+                                                                                
+  More info       https://nodesecurity.io/advisories/606                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         minimatch                                                     
+                                                                                
+  Dependency of   node-sass [dev]                                               
+                                                                                
+  Path            node-sass > true-case-path > glob > minimatch                 
+                                                                                
+  More info       https://nodesecurity.io/advisories/118                        
+                                                                                
+
+
+# Run  npm install jsreport-core@2.0.1  to resolve 3 vulnerabilities
+SEMVER WARNING: Recommended action is a potentially breaking change
+                                                                                
+  Moderate        Regular Expression Denial of Service                          
+                                                                                
+  Package         ms                                                            
+                                                                                
+  Dependency of   jsreport-core                                                 
+                                                                                
+  Path            jsreport-core > reap > ms                                     
+                                                                                
+  More info       https://nodesecurity.io/advisories/46                         
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   jsreport-core                                                 
+                                                                                
+  Path            jsreport-core > listener-collection > async > lodash          
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         sshpk                                                         
+                                                                                
+  Dependency of   jsreport-core                                                 
+                                                                                
+  Path            jsreport-core > script-manager > request > http-signature >   
+                  sshpk                                                         
+                                                                                
+  More info       https://nodesecurity.io/advisories/606                        
+                                                                                
+
+
+# Run  npm update lodash --depth 5  to resolve 14 vulnerabilities
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   gulp-sass                                                     
+                                                                                
+  Path            gulp-sass > node-sass > gaze > globule > lodash               
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   gulp-uglify                                                   
+                                                                                
+  Path            gulp-uglify > lodash                                          
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   node-sass                                                     
+                                                                                
+  Path            node-sass > gaze > globule > lodash                           
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   postcss-reporter                                              
+                                                                                
+  Path            postcss-reporter > lodash                                     
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint                                                     
+                                                                                
+  Path            stylelint > lodash                                            
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint                                                     
+                                                                                
+  Path            stylelint > postcss-reporter > lodash                         
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint                                                     
+                                                                                
+  Path            stylelint > table > lodash                                    
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint-declaration-use-variable                            
+                                                                                
+  Path            stylelint-declaration-use-variable > stylelint > colorguard   
+                  > postcss-reporter > lodash                                   
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint-declaration-use-variable                            
+                                                                                
+  Path            stylelint-declaration-use-variable > stylelint > doiuse >     
+                  lodash                                                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint-declaration-use-variable                            
+                                                                                
+  Path            stylelint-declaration-use-variable > stylelint > lodash       
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint-declaration-use-variable                            
+                                                                                
+  Path            stylelint-declaration-use-variable > stylelint >              
+                  postcss-reporter > lodash                                     
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint-declaration-use-variable                            
+                                                                                
+  Path            stylelint-declaration-use-variable > stylelint > stylehacks   
+                  > postcss-reporter > lodash                                   
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint-declaration-use-variable                            
+                                                                                
+  Path            stylelint-declaration-use-variable > stylelint > table >      
+                  lodash                                                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   stylelint-scss                                                
+                                                                                
+  Path            stylelint-scss > lodash                                       
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+# Run  npm update node-sass --depth 2  to resolve 4 vulnerabilities
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Dependency of   gulp-sass                                                     
+                                                                                
+  Path            gulp-sass > node-sass > sass-graph > lodash                   
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         sshpk                                                         
+                                                                                
+  Dependency of   gulp-sass                                                     
+                                                                                
+  Path            gulp-sass > node-sass > request > http-signature > sshpk      
+                                                                                
+  More info       https://nodesecurity.io/advisories/606                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         sshpk                                                         
+                                                                                
+  Dependency of   gulp-sass                                                     
+                                                                                
+  Path            gulp-sass > node-sass > node-gyp > request > http-signature   
+                  > sshpk                                                       
+                                                                                
+  More info       https://nodesecurity.io/advisories/606                        
+                                                                                
+
+
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         minimatch                                                     
+                                                                                
+  Dependency of   gulp-sass [dev]                                               
+                                                                                
+  Path            gulp-sass > node-sass > true-case-path > glob > minimatch     
+                                                                                
+  More info       https://nodesecurity.io/advisories/118                        
+                                                                                
+
+
+# Run  npm update sshpk --depth 3  to resolve 1 vulnerability
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         sshpk                                                         
+                                                                                
+  Dependency of   request                                                       
+                                                                                
+  Path            request > http-signature > sshpk                              
+                                                                                
+  More info       https://nodesecurity.io/advisories/606                        
+                                                                                
+
+
+# Run  npm update concat-with-sourcemaps --depth 2  to resolve 1 vulnerability
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         concat-with-sourcemaps                                        
+                                                                                
+  Dependency of   gulp-concat [dev]                                             
+                                                                                
+  Path            gulp-concat > concat-with-sourcemaps                          
+                                                                                
+  More info       https://nodesecurity.io/advisories/644                        
+                                                                                
+
+
+# Run  npm update fill-range --depth 5  to resolve 1 vulnerability
+                                                                                
+  Low             Cryptographically Weak PRNG                                   
+                                                                                
+  Package         randomatic                                                    
+                                                                                
+  Dependency of   stylelint [dev]                                               
+                                                                                
+  Path            stylelint > micromatch > braces > expand-range > fill-range   
+                  > randomatic                                                  
+                                                                                
+  More info       https://nodesecurity.io/advisories/157                        
+                                                                                
+
+
+                                                                                
+                                 Manual Review                                  
+             Some vulnerabilities require your attention to resolve             
+                                                                                
+          Visit https://go.npm.me/audit-guide for additional guidance           
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > hawk > boom > hoek                    
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > hawk > cryptiles > boom > hoek        
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > hawk > hoek                           
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > hawk > sntp > hoek                    
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > hawk > boom > hoek                                  
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > hawk > cryptiles > boom > hoek                      
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > hawk > hoek                                         
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > hawk > sntp > hoek                                  
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   gulp-sass [dev]                                               
+                                                                                
+  Path            gulp-sass > node-sass > request > hawk > boom > hoek          
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   gulp-sass [dev]                                               
+                                                                                
+  Path            gulp-sass > node-sass > request > hawk > cryptiles > boom >   
+                  hoek                                                          
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   gulp-sass [dev]                                               
+                                                                                
+  Path            gulp-sass > node-sass > request > hawk > hoek                 
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   gulp-sass [dev]                                               
+                                                                                
+  Path            gulp-sass > node-sass > request > hawk > sntp > hoek          
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   node-sass [dev]                                               
+                                                                                
+  Path            node-sass > request > hawk > boom > hoek                      
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   node-sass [dev]                                               
+                                                                                
+  Path            node-sass > request > hawk > cryptiles > boom > hoek          
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   node-sass [dev]                                               
+                                                                                
+  Path            node-sass > request > hawk > hoek                             
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Prototype pollution                                           
+                                                                                
+  Package         hoek                                                          
+                                                                                
+  Patched in      > 4.2.0 < 5.0.0 || >= 5.0.3                                   
+                                                                                
+  Dependency of   node-sass [dev]                                               
+                                                                                
+  Path            node-sass > request > hawk > sntp > hoek                      
+                                                                                
+  More info       https://nodesecurity.io/advisories/566                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   jsreport-core                                                 
+                                                                                
+  Path            jsreport-core > script-manager > request > stringstream       
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > stringstream                          
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > stringstream                                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   gulp-sass                                                     
+                                                                                
+  Path            gulp-sass > node-sass > node-gyp > request > stringstream     
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   gulp-sass                                                     
+                                                                                
+  Path            gulp-sass > node-sass > request > stringstream                
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   node-sass                                                     
+                                                                                
+  Path            node-sass > node-gyp > request > stringstream                 
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   node-sass                                                     
+                                                                                
+  Path            node-sass > request > stringstream                            
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         stringstream                                                  
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   request                                                       
+                                                                                
+  Path            request > stringstream                                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/664                        
+                                                                                
+                                                                                
+  Moderate        Memory Exposure                                               
+                                                                                
+  Package         tunnel-agent                                                  
+                                                                                
+  Patched in      >=0.6.0                                                       
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > tunnel-agent                          
+                                                                                
+  More info       https://nodesecurity.io/advisories/598                        
+                                                                                
+                                                                                
+  Moderate        Memory Exposure                                               
+                                                                                
+  Package         tunnel-agent                                                  
+                                                                                
+  Patched in      >=0.6.0                                                       
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > tunnel-agent                                        
+                                                                                
+  More info       https://nodesecurity.io/advisories/598                        
+                                                                                
+                                                                                
+  Moderate        Memory Exposure                                               
+                                                                                
+  Package         tunnel-agent                                                  
+                                                                                
+  Patched in      >=0.6.0                                                       
+                                                                                
+  Dependency of   gulp-sass                                                     
+                                                                                
+  Path            gulp-sass > node-sass > request > tunnel-agent                
+                                                                                
+  More info       https://nodesecurity.io/advisories/598                        
+                                                                                
+                                                                                
+  Moderate        Memory Exposure                                               
+                                                                                
+  Package         tunnel-agent                                                  
+                                                                                
+  Patched in      >=0.6.0                                                       
+                                                                                
+  Dependency of   node-sass                                                     
+                                                                                
+  Path            node-sass > request > tunnel-agent                            
+                                                                                
+  More info       https://nodesecurity.io/advisories/598                        
+                                                                                
+                                                                                
+  High            Regular Expression Denial of Service                          
+                                                                                
+  Package         string                                                        
+                                                                                
+  Patched in      No patch available                                            
+                                                                                
+  Dependency of   jsreport-core                                                 
+                                                                                
+  Path            jsreport-core > script-manager > string                       
+                                                                                
+  More info       https://nodesecurity.io/advisories/536                        
+                                                                                
+                                                                                
+  Moderate        Remote Memory Exposure                                        
+                                                                                
+  Package         request                                                       
+                                                                                
+  Patched in      >=2.68.0                                                      
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request                                         
+                                                                                
+  More info       https://nodesecurity.io/advisories/309                        
+                                                                                
+                                                                                
+  Moderate        Remote Memory Exposure                                        
+                                                                                
+  Package         request                                                       
+                                                                                
+  Patched in      >=2.68.0                                                      
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request                                                       
+                                                                                
+  More info       https://nodesecurity.io/advisories/309                        
+                                                                                
+                                                                                
+  Moderate        Regular Expression Denial of Service                          
+                                                                                
+  Package         hawk                                                          
+                                                                                
+  Patched in      >=3.1.3 < 4.0.0 || >=4.1.1                                    
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > hawk                                  
+                                                                                
+  More info       https://nodesecurity.io/advisories/77                         
+                                                                                
+                                                                                
+  Moderate        Regular Expression Denial of Service                          
+                                                                                
+  Package         hawk                                                          
+                                                                                
+  Patched in      >=3.1.3 < 4.0.0 || >=4.1.1                                    
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > hawk                                                
+                                                                                
+  More info       https://nodesecurity.io/advisories/77                         
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         npmconf                                                       
+                                                                                
+  Patched in      >=2.1.3                                                       
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > npmconf                                         
+                                                                                
+  More info       https://nodesecurity.io/advisories/653                        
+                                                                                
+                                                                                
+  Moderate        Out-of-bounds Read                                            
+                                                                                
+  Package         npmconf                                                       
+                                                                                
+  Patched in      >=2.1.3                                                       
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  npmconf                                                       
+                                                                                
+  More info       https://nodesecurity.io/advisories/653                        
+                                                                                
+                                                                                
+  Moderate        Regular Expression Denial of Service                          
+                                                                                
+  Package         mime                                                          
+                                                                                
+  Patched in      >= 1.4.1 < 2.0.0 || >= 2.0.3                                  
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantom-workers  
+                  > phantomjs > request > form-data > mime                      
+                                                                                
+  More info       https://nodesecurity.io/advisories/535                        
+                                                                                
+                                                                                
+  Moderate        Regular Expression Denial of Service                          
+                                                                                
+  Package         mime                                                          
+                                                                                
+  Patched in      >= 1.4.1 < 2.0.0 || >= 2.0.3                                  
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > phantomjs >      
+                  request > form-data > mime                                    
+                                                                                
+  More info       https://nodesecurity.io/advisories/535                        
+                                                                                
+                                                                                
+  Low             Prototype Pollution                                           
+                                                                                
+  Package         lodash                                                        
+                                                                                
+  Patched in      >=4.17.5                                                      
+                                                                                
+  Dependency of   jsreport-phantom-pdf                                          
+                                                                                
+  Path            jsreport-phantom-pdf > phantom-html-to-pdf > lodash           
+                                                                                
+  More info       https://nodesecurity.io/advisories/577                        
+                                                                                
+
+[!] 81 vulnerabilities found - Packages audited: 4384 (3916 dev, 198 optional)
+    Severity: 25 Low | 43 Moderate | 13 High
+
