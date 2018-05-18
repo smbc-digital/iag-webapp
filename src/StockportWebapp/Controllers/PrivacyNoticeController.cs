@@ -21,7 +21,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/privacy-notice/{slug}")]
+        [Route("/privacy-notices/{slug}")]
         public async Task<IActionResult> Detail(string slug)
         {
             var result = await _repository.Get<PrivacyNotice>(slug);

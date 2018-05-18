@@ -23,16 +23,20 @@ namespace StockportWebapp.Parsers
 
             StringBuilder returnCarousel = new StringBuilder("<div class='carousel'>");
 
-            foreach (var item in tagArray)
+            if (tagArray[0] != "")
             {
-                var doc = new HtmlAgilityPack.HtmlDocument();
-                doc.LoadHtml(item);
-                var srcTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["src"];
-                var altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];
+                foreach (var item in tagArray)
+                {
+                    var doc = new HtmlAgilityPack.HtmlDocument();
+                    doc.LoadHtml(item);
+                    var srcTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["src"];
+                    var altTxt = doc.DocumentNode.SelectSingleNode("//img").Attributes["alt"];
 
-                if(!string.IsNullOrEmpty(srcTxt.Value))
-                    returnCarousel.Append($"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcTxt.Value});\" title=\"{altTxt.Value}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altTxt.Value}</p></div></div>");
+                    if (!string.IsNullOrEmpty(srcTxt.Value))
+                        returnCarousel.Append(
+                            $"<div class=\"carousel-image stockport-carousel\" style=\"background-image:url({srcTxt.Value});\" title=\"{altTxt.Value}\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">{altTxt.Value}</p></div></div>");
 
+                }
             }
             return returnCarousel.Append("</div>").ToString();
         }
