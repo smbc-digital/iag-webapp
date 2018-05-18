@@ -254,7 +254,7 @@ module.exports = {
         manageGroups.assertNextIsVisibleButtonAndClick(browser);
         manageGroups.assertNextIsVisibleButtonAndClick(browser);
         manageGroups.assertEditGroupButtonAndClick(browser);
-        manageGroups.assertTitleIsVisible(browser, "Edit group");
+        manageGroups.assertTitleIsVisible(browser, "Edit your group");
     },
 
     'Add/Remove users from a group': function (browser) {
