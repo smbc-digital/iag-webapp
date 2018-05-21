@@ -50,6 +50,9 @@ namespace StockportWebappTests.Unit.ContentFactory
             var obtained = "test-obtained";
             _markdownWrapper.Setup(_ => _.ConvertToHtml(obtained)).Returns("test-obtained-html");
 
+            var retentionPeriod = "test-retention";
+            _markdownWrapper.Setup(_ => _.ConvertToHtml(retentionPeriod)).Returns("test-retention-html");
+
             var privacyNotice = new PrivacyNotice()
             {
                 Slug = "test-slug",
@@ -60,7 +63,7 @@ namespace StockportWebappTests.Unit.ContentFactory
                 Legislation = "test-legislation",
                 Obtained = "test-obtained",
                 ExternallyShared = "test-externally-shared",
-                RetentionPeriod = "test-retention-period",
+                RetentionPeriod = "test-retention",
                 OutsideEu = false,
                 AutomatedDecision = false,
                 UrlOne = "test-url-1",
@@ -81,7 +84,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             processedPrivacyNotice.Legislation.Should().Be("test-legislation");
             processedPrivacyNotice.Obtained.Should().Be("test-obtained-html");
             processedPrivacyNotice.ExternallyShared.Should().Be("test-externally-shared-html");
-            processedPrivacyNotice.RetentionPeriod.Should().Be("test-retention-period");
+            processedPrivacyNotice.RetentionPeriod.Should().Be("test-retention-html");
             processedPrivacyNotice.OutsideEu.Should().Be(false);
             processedPrivacyNotice.AutomatedDecision.Should().Be(false);
             processedPrivacyNotice.UrlOne.Should().Be("test-url-1");
