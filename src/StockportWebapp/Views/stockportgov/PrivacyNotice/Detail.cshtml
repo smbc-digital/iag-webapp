@@ -2,7 +2,7 @@
 @using StockportWebapp.Models
 @model StockportWebapp.ViewModels.PrivacyNoticeViewModel
 @{
-
+    ViewData["Title"] = Model.PrivacyNotice.Category + " privacy notice";
     Layout = "../Shared/_Layout.cshtml";
 }
 @section Breadcrumbs {
