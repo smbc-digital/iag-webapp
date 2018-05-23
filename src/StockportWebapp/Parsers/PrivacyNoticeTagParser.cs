@@ -30,7 +30,7 @@ namespace StockportWebapp.Parsers
             {
                 var privacyNoticeSlug = match.Groups[1].Value;
 
-                privacyNotices = privacyNotices.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug);
+                privacyNotices = privacyNotices.Where(s => s.Title.Replace(" ", string.Empty) == privacyNoticeSlug).OrderBy(x => x.Category);
 
                 if (privacyNotices.Any())
                 {
