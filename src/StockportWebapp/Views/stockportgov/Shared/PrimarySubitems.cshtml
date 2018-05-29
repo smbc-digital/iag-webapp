@@ -46,15 +46,15 @@ else
                         @{
                             if (!string.IsNullOrEmpty(subItem.Image))
                             {
+                                <h2 class="visuallyhidden">@subItem.Title</h2>
                                 <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
                                     <div class="nav-card-background-image-dark">
-                                        <h2 class="hide-on-desktop">
-                                            <span>@subItem.Title</span>
-                                                
-                                        </h2>
+                                        <span class="hide-on-desktop">
+                                            <span>@subItem.Title</span> 
+                                        </span>
                                     </div>
                                 </div>
-                                <h2 class="hide-on-mobile hide-on-tablet">@subItem.Title</h2>
+                                <span class="hide-on-mobile hide-on-tablet">@subItem.Title</span>
                             }
                             else
                             {
