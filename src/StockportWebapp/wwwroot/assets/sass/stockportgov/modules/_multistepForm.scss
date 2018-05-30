@@ -1,28 +1,27 @@
 ﻿@mixin button-default {
- 
-        background-color: #06b79b;
-        border: 1px solid rgba(0,0,0,.1);
-        border-radius: 3px;
-        color: #fff;
-        display: inline-block;
-        font-family: 'Source Sans Pro';
-        font-size: 1.125em;
-        letter-spacing: 0;
-        line-height: 20px;
-        min-width: 300px;
-        padding: 15px 25px 15px 15px;
-        position: relative;
-        text-align: center;
-        text-decoration: none;
-        transition: all .5s;
-        transition-property: opacity,box-shadow;
-        width: auto;
+    background-color: $accessibleTeal;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: 3px;
+    color: #fff;
+    display: inline-block;
+    font-family: 'Source Sans Pro';
+    font-size: 1.125em;
+    letter-spacing: 0;
+    line-height: 20px;
+    min-width: 300px;
+    padding: 15px 25px 15px 15px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .5s;
+    transition-property: opacity,box-shadow;
+    width: auto;
 
-        i {
-            float: left;
-            top: 50%;
-        }
-    
+    i {
+        float: left;
+        top: 50%;
+    }
+
 
     &:before {
         text-rendering: auto;
@@ -41,7 +40,7 @@
     }
 
     &:hover {
-        background-color: #07d0b0;
+        background-color: $accessibleTealHover;
         color: #fff;
         cursor: pointer;
         -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
@@ -54,10 +53,8 @@
     }
 
     @media only screen and (max-width: 767px) {
-
-            display: block;
-            min-width: 0;
-        
+        display: block;
+        min-width: 0;
     }
 }
 

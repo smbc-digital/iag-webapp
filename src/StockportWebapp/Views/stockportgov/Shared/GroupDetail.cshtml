@@ -5,16 +5,16 @@
 @model StockportWebapp.ViewModels.GroupDetailsViewModel
 
 @{
-  
+
     var socialLinksExtension = new SocialLinksExtension();
     string facebook = string.Empty;
     string twitter = string.Empty;
     var test = string.Empty;
 
-    if (!string.IsNullOrEmpty(Model.Group.Facebook))
-    {
-        facebook = socialLinksExtension.GetSubstring(Model.Group.Facebook);
-    }
+    //if (!string.IsNullOrEmpty(Model.Group.Facebook))
+    //{
+    //    facebook = socialLinksExtension.GetSubstring(Model.Group.Facebook);
+    //}
     if (!string.IsNullOrEmpty(Model.Group.Twitter))
     {
         twitter = socialLinksExtension.GetSubstring(Model.Group.Twitter);
@@ -164,7 +164,7 @@
                     <i class="fa fa-facebook-square fa-2x group-details-symbol"></i>
                     <div>
                         <p><b>Facebook</b></p>
-                        <a class="hide-on-pdf" href="@Model.Group.Facebook">@facebook</a>
+                        <a class="hide-on-pdf" href="@Model.Group.Facebook">facebook</a>
                     </div>
 
                 </li>

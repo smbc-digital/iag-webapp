@@ -507,12 +507,12 @@ ul.nav-card-events-list {
             box-sizing: border-box;
             width: 100%;
             box-shadow: 0 10px 20px rgba(0,0,0,.05);
-            background-color: #06b79b;
-            border-color: #06b79b;
+            background-color: $accessibleTeal;
+            border-color: $accessibleTeal;
 
             &:hover {
-                background-color: #07d0b0;
-                color: #fff;
+                background-color: $accessibleTealHover;
+                color: #fff; 
                 cursor: pointer;
                 -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
                 box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
@@ -578,7 +578,7 @@ ul.nav-card-events-list {
     }
 
     .edit-search {
-        border-top: 1px solid #00937c;
+        border-top: 1px solid $tealDark;
         margin-top: 10px;
         text-align: center;
         padding-top: 10px;
