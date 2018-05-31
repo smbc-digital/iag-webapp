@@ -1,5 +1,5 @@
 ﻿@mixin button-default {
-    background-color: $accessibleTeal;
+    background-color: $teal-darker;
     border: 1px solid rgba(0,0,0,.1);
     border-radius: 3px;
     color: #fff;
@@ -40,7 +40,7 @@
     }
 
     &:hover {
-        background-color: $accessibleTealHover;
+        background-color: lighten($teal-darker, 5%);
         color: #fff;
         cursor: pointer;
         -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);

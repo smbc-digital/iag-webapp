@@ -28,7 +28,7 @@
 </head>
 <body class="container-layout-free type-error">
     @Html.Partial("Header")
-    <div class="background-image" style="background-image: url('/assets/images/content/bg-sg-home.jpg')">
+    <div class="background-image" style="background-image: url('https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/bg-sg-home.jpg')">
         @RenderBody()
     </div>
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">

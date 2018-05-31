@@ -360,21 +360,21 @@
 }
 
 .button-default.green {
-    background-color: $accessibleTeal;
+    background-color: $teal-darker;
 
     &:active {
         background-color: #059e86;
     }
 
     &:hover {
-        background-color: $accessibleTealHover;
+        background-color: lighten($teal-darker, 5%);
     }
 
     &:focus {
-        background-color: $accessibleTeal;
+        background-color: $teal-darker;
 
         &:hover {
-            background-color: $accessibleTealHover;
+            background-color: lighten($teal-darker, 5%);
         }
     }
 }

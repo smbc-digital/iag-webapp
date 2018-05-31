@@ -507,11 +507,11 @@ ul.nav-card-events-list {
             box-sizing: border-box;
             width: 100%;
             box-shadow: 0 10px 20px rgba(0,0,0,.05);
-            background-color: $accessibleTeal;
-            border-color: $accessibleTeal;
+            background-color: $teal-darker;
+            border-color: $teal-darker;
 
             &:hover {
-                background-color: $accessibleTealHover;
+                background-color: lighten($teal-darker, 5%);
                 color: #fff; 
                 cursor: pointer;
                 -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
