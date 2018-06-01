@@ -30,6 +30,8 @@ using StockportWebapp.RSS;
 using StockportWebapp.Services;
 using StockportWebapp.Validation;
 using StockportWebapp.Wrappers;
+using Serilog;
+using ILogger = Serilog.ILogger;
 
 namespace StockportWebapp.Extensions
 {
@@ -229,7 +231,7 @@ namespace StockportWebapp.Extensions
             }
             else
             {
-                logger.LogInformation("Paris secrets not found.");
+                logger.Information("Paris secrets not found.");
             }
 
             return services;
@@ -248,7 +250,7 @@ namespace StockportWebapp.Extensions
             }
             else
             {
-                logger.LogInformation("Group authenticationKey not found.");
+                logger.Information("Group authenticationKey not found.");
             }
 
             return services;
@@ -267,7 +269,7 @@ namespace StockportWebapp.Extensions
             }
             else
             {
-                logger.LogInformation("Secrets not found.");
+                logger.Information("Secrets not found.");
             }
 
             return services;
@@ -279,12 +281,12 @@ namespace StockportWebapp.Extensions
             {
                 var redisUrl = configuration["TokenStoreUrl"];
                 var redisIp = GetHostEntryForUrl(redisUrl, logger);
-                logger.LogInformation($"Using redis for session management - url {redisUrl}, ip {redisIp}");
+                logger.Information($"Using redis for session management - url {redisUrl}, ip {redisIp}");
                 services.AddDataProtection().PersistKeysToRedis(redisIp);
             }
             else
             {
-                logger.LogInformation("Not using redis for session management!");
+                logger.Information("Not using redis for session management!");
             }
 
             return services;
@@ -305,13 +307,13 @@ namespace StockportWebapp.Extensions
 
             if (!addresses.Any())
             {
-                logger.LogError($"Could not resolve IP address for redis instance : {host}");
+                logger.Error($"Could not resolve IP address for redis instance : {host}");
                 throw new Exception($"No redis instance could be found for host {host}");
             }
 
             if (addresses.Length > 1)
             {
-                logger.LogWarning($"Multple IP address for redis instance : {host} attempting to use first");
+                logger.Warning($"Multple IP address for redis instance : {host} attempting to use first");
             }
 
             return addresses.First().ToString();
