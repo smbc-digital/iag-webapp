@@ -19,11 +19,9 @@ Values that should be in the config file
   "myAccountUrl": "xx", 
   "ContentApiAuthenticationKey": "xx",
   "WebAppClientId": "xx",
-  "ElasticSearch": {
-    "Url": "xx",
-    "LogFormat": "xx",
-    "Authorization": "xx",
-    "LogLevel": "xx"
+  "ElasticSearchAwsSecretsConfiguration": {
+    "Accesskey": "xx",
+    "Secretkey": "xx"
   }
 }
 ```

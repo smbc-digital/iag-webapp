@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO.Compression;
-using Elasticsearch.Net;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -11,26 +7,18 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
-using NLog.Extensions.Logging;
 using StockportWebapp.Config;
 using StockportWebapp.Middleware;
 using StockportWebapp.Scheduler;
 using StockportWebapp.ModelBinders;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
+using ILogger = Serilog.ILogger;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
 using Microsoft.AspNetCore.Http;
-using Quartz;
-using Quartz.Impl;
 using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.Elasticsearch;
-using StockportWebapp.Configuration;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Services;
 using StockportWebapp.Wrappers;
-using WebMarkupMin.AspNet.Common.Compressors;
-using WebMarkupMin.AspNetCore1;
 
 namespace StockportWebapp
 {
@@ -55,32 +43,15 @@ namespace StockportWebapp
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
-
-            var loggerConfig = new LoggerConfiguration();
-
-            // when this "feature toggle" has been removed, this can be deleted
-            var esConfig = new ElasticSearch();
-            Configuration.GetSection("ElasticSearch").Bind(esConfig);
-
-            if (esConfig.Enabled)
-            {
-                // elastic search and logging to the console in one
-                loggerConfig.Enrich.FromLogContext().ReadFrom.Configuration(Configuration);
-            }
-            else
-            {
-                loggerConfig.Enrich.FromLogContext().WriteTo.Console();
-            }
-
-            Log.Logger = loggerConfig.CreateLogger();
         }
+
+        private ILogger StartupLogger { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
             // logging
-            var loggerFactory = new LoggerFactory().AddSerilog();
-            ILogger logger = loggerFactory.CreateLogger<Startup>();
+            ConfigureSerilog();
 
             // other
             services.AddSingleton(new CurrentEnvironment(_appEnvironment));
@@ -110,10 +81,10 @@ namespace StockportWebapp
             services.AddCustomServices(_contentRootPath, _appEnvironment);
             services.AddBuilders();
             services.AddHelpers();
-            services.AddParisConfiguration(Configuration, logger);
-            services.AddGroupConfiguration(Configuration, logger);
-            services.AddSesEmailConfiguration(Configuration, logger);
-            services.AddRedis(Configuration, _useRedisSession, logger);
+            services.AddParisConfiguration(Configuration, StartupLogger);
+            services.AddGroupConfiguration(Configuration, StartupLogger);
+            services.AddSesEmailConfiguration(Configuration, StartupLogger);
+            services.AddRedis(Configuration, _useRedisSession, StartupLogger);
 
             // sdk
             services.AddApplicationInsightsTelemetry(Configuration);
@@ -137,7 +108,7 @@ namespace StockportWebapp
                 app.UseDeveloperExceptionPage();
             }
 
-            //Quartz stuff
+            // Quartz stuff
 
             var scheduler = new QuartzScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ITimeProvider>(), serviceProvider.GetService<IGroupsService>(), serviceProvider.GetService<FeatureToggles>());
@@ -163,8 +134,23 @@ namespace StockportWebapp
             app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
             app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
 
-            // close logger
+            // Close logger
             appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
+        }
+
+        private void ConfigureSerilog()
+        {
+            var logConfig = new LoggerConfiguration()
+                .ReadFrom
+                .Configuration(Configuration);
+
+            var esLogConfig = new ElasticSearchLogConfigurator(Configuration);
+            esLogConfig.Configure(logConfig);
+
+            Log.Logger = logConfig.CreateLogger();
+
+            StartupLogger = Log.Logger;
+            Log.Logger.Warning("Completed logging configuration...");
         }
     }
 }
