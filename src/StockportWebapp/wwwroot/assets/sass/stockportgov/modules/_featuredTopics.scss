@@ -165,7 +165,7 @@
     margin-bottom:20px;
 
     .generic-list-see-more {
-        background-color: #999;
+        background-color: $greyDark;
 
         @media #{$mobile} {
             width: 100%;
