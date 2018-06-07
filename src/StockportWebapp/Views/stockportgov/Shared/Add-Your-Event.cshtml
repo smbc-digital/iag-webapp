@@ -64,7 +64,7 @@
                                     <fieldset>
                                         <label asp-for="@Model.Title"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Title" />
-                                        <span asp-validation-for="@Model.Title" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Title" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Description"></label>
                                         <i class="small">
@@ -74,7 +74,7 @@
                                             </ul>
                                         </i>
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
-                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Location"></label>
                                         <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
@@ -84,24 +84,24 @@
                                             <input type="text" id="longitude" asp-for="@Model.Longitude" />
                                         </div>
 
-                                        <span asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
 
                                         <label asp-for="@Model.EventDate"></label>
                                         <input type="date" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control datepicker" asp-for="@Model.EventDate" />
-                                        <span asp-validation-for="@Model.EventDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.EventDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.StartTime"></label>
                                         <i>Format: hh:mm (24 hour clock)</i>
                                         <div class="clearfix"></div>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.StartTime" />
-                                        <span asp-validation-for="@Model.StartTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.StartTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label asp-for="@Model.EndTime"></label>
 
                                         <i>Format: hh:mm (24 hour clock)</i>
                                         <div class="clearfix"></div>
                                         <input type="time" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.EndTime" />
-                                        <span asp-validation-for="@Model.EndTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.EndTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div class="clearfix"></div>
 
                                         <div class="recurring-event-yn">
@@ -139,21 +139,21 @@
                                                     }
                                                 }
                                             </ul>
-                                            <span asp-validation-for="@Model.Frequency" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Frequency" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                             <label asp-for="@Model.EndDate"></label>
                                             <input type="date" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control datepicker" asp-for="@Model.EndDate" novalidate />
-                                            <span asp-validation-for="@Model.EndDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.EndDate" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
                                         <label asp-for="@Model.Fee"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Fee" />
-                                        <span asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label>Event categories</label>                                      
                                         <div class="grid-100 grid-parent category-div">
                                             <input type="hidden" asp-for="@Model.CategoriesList" />
                                             @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.BuildCategoryList() })
-                                            <span asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
                                         <label asp-for="@Model.Image"></label>
                                         <i>
@@ -162,7 +162,7 @@
                                             <br />Accepted file types: jpg, jpeg, gif and png
                                         </i>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
-                                        <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Attachment"></label>
                                         <i>
@@ -170,15 +170,15 @@
                                             <br />Accepted file types: doc, docx, pdf and odt
                                         </i>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Attachment" />
-                                        <span asp-validation-for="@Model.Attachment" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Attachment" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.SubmittedBy"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.SubmittedBy" />
-                                        <span asp-validation-for="@Model.SubmittedBy" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.SubmittedBy" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.SubmitterEmail"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.SubmitterEmail" />
-                                        <span asp-validation-for="@Model.SubmitterEmail" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.SubmitterEmail" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
                                         <div class="clearfix" ></div>
                                         

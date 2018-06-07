@@ -52,15 +52,15 @@
                                     <h2>About your group or service</h2>
                                     <section>
                                         <label  for="@Model.Name"  asp-for="@Model.Name"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" id="@Model.Name" name="@Model.Name" asp-for="@Model.Name" />
-                                        <span asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" id="@Model.Name" name="@Model.Name" asp-for="@Model.Name" role="alert" aria-atomic="true"/>
+                                        <span aria-atomic="true" role="alert" asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Address"></label>
                                         <p>Enter a postcode or place name</p>
                                         <input type="text" name="@Model.Address"id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" />
                                         <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
                                         <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
-                                        <span asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <input type="hidden" id="address" value="@Model.Address" />
 
@@ -70,12 +70,12 @@
                                             This is a great way to sell your group or service to people.
                                         </p>
                                         <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
-                                        <span asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Categories"></label>
                                         <input type="hidden" asp-for="@Model.CategoriesList" />
                                         @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories })
-                                        <span asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
 
                                     </section>
@@ -118,25 +118,25 @@
                                     <section>
                                         <label asp-for="@Model.Email"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
-                                        <span asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.PhoneNumber"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.PhoneNumber" />
-                                        <span asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" inputmode="numeric" asp-for="@Model.PhoneNumber" />
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.PhoneNumber" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Website"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Website" />
-                                        <span asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Facebook"></label>
                                         <i>For example: www.facebook.com/StockportMBC</i><br />
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
-                                        <span asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Twitter"></label>
                                         <i>For example: @@StockportMBC </i>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
-                                        <span asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                     </section>
 
@@ -149,7 +149,7 @@
                                             <br />Accepted file types: jpg, jpeg, gif and png
                                         </p>
                                         <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
-                                        <span asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div>
                                             <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for volunteers</label>
                                             <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
@@ -174,7 +174,7 @@
                                             <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
-                                            <span asp-validation-for="@Model.Volunteering" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Volunteering" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
                                         <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for donations</label>
@@ -199,12 +199,12 @@
                                             <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 Use the button below to find out about making a donation to support our group.
                                             </textarea>
-                                            <span asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                             <div>
                                                 <label asp-for="@Model.DonationsUrl"></label>
                                                 <i>For example: https://www.donations.com/StockportMBC</i><br />
                                                 <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.DonationsUrl" />
-                                                <span asp-validation-for="@Model.DonationsUrl" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                                <span role="alert" aria-atomic="true" asp-validation-for="@Model.DonationsUrl" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                             </div>
                                         </div>
                                         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>

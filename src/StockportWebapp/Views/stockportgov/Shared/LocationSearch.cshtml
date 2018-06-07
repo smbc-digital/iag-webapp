@@ -13,7 +13,7 @@
     <input type="text" readonly="readonly" id="postcode" value="@Model.Default" class="primary-filter-select custom-arrow expandable-toggle" />
     <div id="getLocation" class="getLocation-width-mobile expandable-box">
         <label class="location-search-label">Enter postcode or place name</label>
-        <input type="text" id="location-autocomplete" class="location-search-input input-validation-error" />
+        <input type="text" id="location-autocomplete" class="location-search-input input-validation-error" aria-atomic = "true" />
         <div id="locationError" class="form-field-validation-error grid-100 tablet-grid-100 mobile-grid-100 grid-parent"></div>
         <div class="search-link">
             <a id="currentLocation" class="current-location" href="javascript:void(0);"><i class="fa fa-crosshairs"></i><span>Find my current location</span></a>

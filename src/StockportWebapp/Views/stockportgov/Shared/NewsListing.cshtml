@@ -78,12 +78,12 @@
                                         <div class="date-from">
                                             <label asp-for="@Model.DateFrom"></label>
                                             <input class="datepicker" type="date" asp-for="@Model.DateFrom" />
-                                            <span asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                         </div>
                                         <div class="date-to">
                                             <label asp-for="@Model.DateTo"></label>
                                             <input class="datepicker" type="date" asp-for="@Model.DateTo" />
-                                            <span id="inputvalidation" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
+                                            <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
                                         </div>
                                         <div class="update-button">
                                             <stock-button class="button-customdate">Update</stock-button>

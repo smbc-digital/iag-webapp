@@ -47,7 +47,7 @@
                                 <div class="grid-100 grid-parent">
                                     <label asp-for="@Model.GroupAdministratorItem.Name">Change their name</label>
                                     <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.GroupAdministratorItem.Name" />
-                                    <span asp-validation-for="@Model.GroupAdministratorItem.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                    <span role="alert" aria-atomic="true" asp-validation-for="@Model.GroupAdministratorItem.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                 </div>
                                 <div class="grid-100 grid-parent">
                                     <label asp-for="@Model.GroupAdministratorItem.Permission" class="clearfix top-gap">Change their role</label>
@@ -57,7 +57,7 @@
                                             <option value="@item.Value">@item.Text</option>
                                         }
                                     </select>
-                                    <span asp-validation-for="@Model.GroupAdministratorItem.Permission" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                    <span role="alert" aria-atomic="true" asp-validation-for="@Model.GroupAdministratorItem.Permission" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                     <div class="remove-user"><a id="remove-user" href="@Url.Action("RemoveUser", "Groups", new { slug = Model.Slug, email = Model.GroupAdministratorItem.Email })">Remove User</a></div>
                                 </div>
                                 <div class="grid-100 grid-parent">
