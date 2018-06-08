@@ -28,7 +28,7 @@
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="" class="grid-100 mobile-grid-100">
+            <section aria-label="Add your event" role="contentinfo" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
                         <h1 tabindex="-1" id="content"> Add your event</h1>
@@ -78,10 +78,10 @@
 
                                         <label asp-for="@Model.Location"></label>
                                         <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
-                                        <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Location" />
+                                        <input aria-labelledby="Location" type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Location" />
                                         <div style="visibility: hidden; position: absolute; top: -100px; left: -100px;">
-                                            <input type="text" id="latitude" asp-for="@Model.Latitude" />
-                                            <input type="text" id="longitude" asp-for="@Model.Longitude" />
+                                            <input aria-labelledby="latitude" type="text" id="latitude" asp-for="@Model.Latitude" />
+                                            <input aria-labelledby="longitude" type="text" id="longitude" asp-for="@Model.Longitude" />
                                         </div>
 
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Location" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -104,7 +104,7 @@
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.EndTime" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <div class="clearfix"></div>
 
-                                        <div class="recurring-event-yn">
+                                        <div class="recurring-event-yn" role="radiogroup" aria-label="is this a recurring event?">
                                             <label>Is this a recurring event?</label>
                                             <ul class="radio-list">
                                                 <li>
@@ -122,13 +122,13 @@
                                             </ul>
                                         </div>
 
-                                        <div class="schedule_multiple_events_inputs">
+                                        <div class="schedule_multiple_events_inputs" role="radiogroup" aria-label="how often does your event occur?">
                                             <label asp-for="@Model.Frequency"></label>
                                             <ul class="radio-list">
                                                 @foreach (var item in Model.Frequencylist.Keys)
                                                 {
                                                     <li>
-                                                        <label><input type="radio" value="@item" asp-for="Frequency"> @item</label>
+                                                        <label><input type="radio" value="@item" id=@item.Replace(" ", "") name="Frequency"> @item</label>
 
                                                     </li>
                                                     if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
@@ -151,7 +151,7 @@
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Fee" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label>Event categories</label>                                      
                                         <div class="grid-100 grid-parent category-div">
-                                            <input type="hidden" asp-for="@Model.CategoriesList" />
+                                            <input aria-labelledby="categories" type="hidden" asp-for="@Model.CategoriesList" />
                                             @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.BuildCategoryList() })
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
