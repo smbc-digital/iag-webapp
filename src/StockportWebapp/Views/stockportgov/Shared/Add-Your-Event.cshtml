@@ -28,7 +28,7 @@
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="Add your event" role="region" class="grid-100 mobile-grid-100">
+            <section aria-label="Add your event" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
                         <h1 tabindex="-1" id="content"> Add your event</h1>
@@ -61,7 +61,7 @@
                     </noscript>
                         
 
-                        <form asp-controller=@controllerType asp-action="AddYourEvent" method="post" role="form" enctype="multipart/form-data">
+                        <form asp-controller=@controllerType asp-action="AddYourEvent" method="post" enctype="multipart/form-data">
                             <div class="form">
                                 <div class="form-section">
                                         <label asp-for="@Model.Title"></label>
@@ -195,7 +195,8 @@
                                         @Html.HiddenFor(x => x.GroupSlug)
 
                                         <stock-button id="uitest-contact-form-submit"
-                                                      class="button-contact-us">Add your event</stock-button>
+                                                      class="button-contact-us"
+                                                      type="submit">Add your event</stock-button>
                                 </div>
                             </div>
                         </form>
