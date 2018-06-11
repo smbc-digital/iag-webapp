@@ -49,7 +49,7 @@
     
     @Html.Partial("Header")
     @RenderSection("Breadcrumbs", false)
-    <main>
+    <main role="main">
         @RenderBody()
         <div class="hidden" id="envname">@CurrentEnvironment.Name</div>
     </main>

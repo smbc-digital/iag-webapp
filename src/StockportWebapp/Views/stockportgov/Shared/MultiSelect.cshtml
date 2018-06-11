@@ -5,9 +5,9 @@
 <input type="hidden" class="multi-select-control" value="@Model.ValueControlId" />
 @for (var i = 1; i <= Model.Limit; i++)
 {
-    <div class="grid-100 grid-parent @Model.ValueControlId-div" id="@Model.ValueControlId-div">
+    <div class="grid-100 grid-parent @Model.ValueControlId-div" id="(@Model.ValueControlId)_(@i)">
         <div class="grid-50 tablet-grid-80 mobile-grid-90 grid-parent">
-            <select class="form-control grid-100 tablet-grid-100 mobile-grid-100 @Model.ValueControlId-select">
+            <select class="form-control grid-100 tablet-grid-100 mobile-grid-100 @Model.ValueControlId-select" aria-labelledby="(@Model.ValueControlId)_(@i)">
                 <option value="">
                     Select @Model.Label.ToLower()
                 </option>
