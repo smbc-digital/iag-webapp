@@ -70,8 +70,8 @@
                                             Let people know what your group or service does and why they should get in touch with you.<br />
                                             This is a great way to sell your group or service to people.
                                         </p>
-                                        <label class="sr-only">Group description</label>
-                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
+                                        <label class="sr-only" for="Description">Group description</label>
+                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep"></textarea>
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label>Choose one or more categories that best describe your group or service</label>
@@ -132,13 +132,13 @@
                                         
                                         <h3>Enter a facebook url (optional)</h3>
                                         <i>For example: www.facebook.com/StockportMBC</i><br />
-                                        <label class="sr-only">Enter a facebook url (optional)</label>
+                                        <label class="sr-only" for="Facebook">Enter a facebook url (optional)</label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         
                                         <h3>Enter a twitter handle (optional)</h3>
                                         <i>For example: @@StockportMBC </i>
-                                        <label class="sr-only">Enter a twitter handle (optional)</label>
+                                        <label class="sr-only" for="Twitter">Enter a twitter handle (optional)</label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Twitter" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
