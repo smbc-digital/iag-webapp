@@ -11,6 +11,8 @@ namespace StockportWebapp.ViewModels
 
         public string ValueControlId { get; set; }
 
+        public string InputName { get; set; }
+
         public List<string> AvailableValues { get; set; }
     }
 }
