@@ -1,4 +1,5 @@
-﻿@using StockportWebapp.Config
+﻿@using System.Runtime.InteropServices.ComTypes
+@using StockportWebapp.Config
 @using StockportWebapp.Utils
 @using StockportWebapp.Models
 @using StockportWebapp.ProcessedModels
@@ -13,13 +14,15 @@
     @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Slug, "groups") })
 }
 
+@{ var heading = "Add or remove users";}
+
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
-            <section aria-label="@Model.Name content">
+            <section aria-label="@Model.Name @heading">
                 <div class="l-content-container grid-100 group-margin" id="group-padding">
-                    <h1 class="group-article-title">Add or remove users</h1>
+                    <h1 class="group-article-title">@heading</h1>
                     <div class="grid-container grid-parent">
 
 
@@ -27,7 +30,7 @@
                             <div class="sk-table-body">
                                 <div class="grid-100 sk-table-row grid-parent">
                                     <div class="grid-75 tablet-grid-60 mobile-grid-100 sk-table-cell">
-                                        <h3>Current users</h3>
+                                        <h2>Current users</h2>
                                     </div>
                                     <div class="grid-25 tablet-grid-40 hide-on-mobile sk-table-cell">
                                         <div class="header-right-button">

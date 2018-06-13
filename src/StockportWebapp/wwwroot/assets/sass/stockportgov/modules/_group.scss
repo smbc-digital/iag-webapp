@@ -24,7 +24,7 @@
             margin: 10px 0px 15px 10px;
         }
 
-        h2{
+        h2 {
             font-size: 1.375em;
             font-weight: 800;
             margin: 0;
@@ -453,9 +453,8 @@
                         color: #333333;
                     }
                 }
-                 
-                h3 {
 
+                h3 {
                     display: block;
 
                     @media #{$mobile, $tablet} {
@@ -776,6 +775,11 @@
         color: $white;
         background-color: #7d7d7d;
     }
+    
+    &.grey-button {
+        color: $white;
+        background-color: $greyDark;
+    }
 }
 
 .group-form {
@@ -988,7 +992,7 @@
         }
     }
 
-   
+
 
     p {
         margin-bottom: 6px;

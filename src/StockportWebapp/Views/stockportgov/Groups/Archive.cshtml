@@ -2,7 +2,7 @@
 @model Group
 
 @{
-    ViewData["Title"] = "Archive " + Model.Name;
+    ViewData["Title"] = "Archive '" +Model.Name+ "'";
     ViewData["og:title"] = "Archive " + Model.Name;
     Layout = "../Shared/_Layout.cshtml";
 }
@@ -30,9 +30,6 @@
                         <h3>Your group's events</h3>
                         <div class="group-confirmation-body">
                             <p>If your groups has published events, they will also be archived along with your group.</p>
-                            <p>
-                                <h3>Are you sure you want to archive your group?</h3>
-                            </p>
                         </div>
                     </div>
                     <div class="grid-30 mixed-buttons">
