@@ -201,15 +201,15 @@
                 border-radius: 4px;
 
                 &.red {
-                    background-color: #c83725;
+                    background-color: $red;
                 }
 
                 &.yellow {
-                    background-color: #ef8a17;
+                    background-color: $orange;
                 }
 
                 &.green {
-                    background-color: #15914c;
+                    background-color: $green;
                 }
             }
 
@@ -236,9 +236,9 @@
                 }
 
                 &.grey {
-                    border: solid 1px #7d7d7d;
+                    border: solid 1px $greyDark;
                     color: #fff;
-                    background-color: #7d7d7d;
+                    background-color: $greyDark;
                 }
             }
 

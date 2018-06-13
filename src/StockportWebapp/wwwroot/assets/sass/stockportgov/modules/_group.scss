@@ -771,12 +771,7 @@
     }
 
     &.grey {
-        border: solid 1px #7d7d7d;
-        color: $white;
-        background-color: #7d7d7d;
-    }
-    
-    &.grey-button {
+        border: solid 1px $greyDark;
         color: $white;
         background-color: $greyDark;
     }
