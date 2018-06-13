@@ -44,9 +44,12 @@
                                 <stock-button>Delete your group</stock-button>
                             }
                         </div>
-                        <div>
-                            <stock-button as-link="true" class="grey" href="@Url.Action("Archive", "Groups", new { slug = Model.Slug })">Archive your group</stock-button>
-                        </div>
+                        @if (!(Model.DateHiddenFrom < DateTime.Now && Model.DateHiddenTo > DateTime.Now))
+                        {
+                            <div>
+                                <stock-button as-link="true" class="grey" href="@Url.Action("Archive", "Groups", new { slug = Model.Slug })">Archive your group</stock-button>
+                            </div>
+                        }
                     </div>
                 </div>
             </section>
