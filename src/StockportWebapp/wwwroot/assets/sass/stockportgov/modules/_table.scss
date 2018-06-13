@@ -1,6 +1,13 @@
 ﻿
 .sk-table-outer-container {
 
+    h2 {
+        font-weight: 800;
+        font-size: 1.375em;
+        letter-spacing: 0px;
+        margin: 0;
+    }
+
     a {
         text-decoration: none;
     }
@@ -75,7 +82,7 @@
 
                     .sub-item-title {
                         line-height: 30px;
-                        font-size:19px;
+                        font-size: 19px;
                     }
 
                     .sub-item-teaser {
@@ -129,7 +136,7 @@
     }
 
     a:hover .sk-table-cell .main, .sk-table-cell .link {
-        text-decoration: underline;        
+        text-decoration: underline;
     }
 
     .sk-table-row {
@@ -194,15 +201,15 @@
                 border-radius: 4px;
 
                 &.red {
-                    background-color: #c83725;
+                    background-color: $red;
                 }
 
                 &.yellow {
-                    background-color: #ef8a17;
+                    background-color: $orange;
                 }
 
                 &.green {
-                    background-color: #15914c;
+                    background-color: $green;
                 }
             }
 
@@ -229,9 +236,9 @@
                 }
 
                 &.grey {
-                    border: solid 1px #7d7d7d;
+                    border: solid 1px $greyDark;
                     color: #fff;
-                    background-color: #7d7d7d;
+                    background-color: $greyDark;
                 }
             }
 
@@ -239,8 +246,6 @@
                 border-top-width: 0;
                 margin-bottom: 0;
             }
-
-            
         }
 
         .row-arrow:hover {

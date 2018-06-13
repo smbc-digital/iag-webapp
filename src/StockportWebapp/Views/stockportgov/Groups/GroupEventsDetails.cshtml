@@ -12,7 +12,7 @@
 <div class="grid-container grid-100 event-details">
     <div class="event-details-content">
         <h1 id="event-title">@Model.Title </h1>
-        <h3>Event summary</h3>
+        <h2>Event summary</h2>
         @if (Model.EventFrequency != EventFrequency.None)
         {
             <p class="recurring-event">
@@ -22,7 +22,7 @@
             <p><strong>Event date: </strong>@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
             <p><strong>Start time: </strong> @Model.StartTime</p>
             <p><strong>End time: </strong>@Model.EndTime</p>
-            <p><strong>Price: </strong>@Model.Fee</p>
+            <p><strong>Price: </strong>&pound;@Model.Fee</p>
             <p><strong>Location: </strong>@Model.Location</p>
             <p><strong>Organiser name: </strong>@Model.SubmittedBy</p>
             <p><strong>Description: </strong>@Model.Description</p>
@@ -33,7 +33,7 @@
             <stock-button id="edit-event" as-link="true" href="@Url.Action("EditEvent", "Groups")">Edit your event</stock-button>
         </div>
         <div class="grid-100 grid-parent details-button">
-            <stock-button as-link="true" class="grey" href="@Url.Action("DeleteEvent", "Groups")">Delete your event</stock-button>
+            <stock-button as-link="true" class="grey-button" href="@Url.Action("DeleteEvent", "Groups")">Delete your event</stock-button>
         </div>
 
     </div>

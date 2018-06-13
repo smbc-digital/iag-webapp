@@ -20,7 +20,7 @@
                     <div class="grid-100">
                         <h1 class="group-article-title">@ViewData["Title"]</h1>
                     </div>
-                    <div  tabindex="-1" id="content" class="grid-100">
+                    <div tabindex="-1" id="content" class="grid-100">
                         <h3>Make sure your group's information is up-to date</h3>
                         <div>
                             <p>It's really important that your group's information is up-to date.</p>
@@ -47,10 +47,10 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha'],
+    require(['groups', 'multiStepForm', 'jquery.steps', 'recaptcha'],
         function (groups, multiStepForm) {
-            multiStepForm.Init();           
+            multiStepForm.Init();
             groups.Init();
-           
+
         })
 </script>
