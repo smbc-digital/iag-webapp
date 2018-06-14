@@ -20,24 +20,8 @@ var gulp = require("gulp"),
 var postcss     = require('gulp-postcss');
 var reporter    = require('postcss-reporter');
 var syntax_scss = require('postcss-scss');
-var stylelint   = require('stylelint');
 
 var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
-
-
-var stylelintConfig = {
-    "plugins": [
-        "stylelint-declaration-use-variable",
-        "stylelint-scss"
-    ],
-    "rules": {
-        "sh-waqar/declaration-use-variable": [["color", "background-color"]],
-        "scss/selector-no-redundant-nesting-selector": true,
-        "scss/operator-no-unspaced": true,
-        "unit-no-unknown": true,
-        "block-no-empty": true
-    }
-};
 
 // paths
 var paths = {
@@ -188,7 +172,6 @@ function lintCss(file){
     console.log("FILE CHANGED: " + file.path);
 
     var processors = [
-        stylelint(stylelintConfig),
         reporter({
             clearReportedMessages: true
         })
@@ -202,7 +185,6 @@ function lintCss(file){
 
 gulp.task("scss-lint-all", function() {
       var processors = [
-        stylelint(stylelintConfig),
         reporter({
             clearReportedMessages: true
         })
