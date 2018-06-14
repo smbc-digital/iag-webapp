@@ -25,6 +25,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous"> 
     @Html.Partial("CookieBanner")
     @await Component.InvokeAsync("GoogleAnalytics")
+    
+    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
+    
+    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+
 </head>
 <body class="container-layout-free type-error">
     @Html.Partial("Header")
@@ -34,17 +40,6 @@
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
-
-    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-
-@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
-{
-    <script data-main="/assets/javascript/requireConfig.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-}
-else
-{
-    <script data-main="/assets/javascript/requireConfig" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-}
 
 </body>
 </html>
