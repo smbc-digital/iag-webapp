@@ -12,7 +12,7 @@ var gulp = require("gulp"),
     fs = require('fs'),
     colors = require('colors'),
     plumber = require('gulp-plumber'),
-    print = require('gulp-print'),
+    print = require('gulp-print').default,
     lec = require('gulp-line-ending-corrector'),
     replace = require('gulp-replace'),
     cached = require('gulp-cached');
@@ -95,7 +95,7 @@ gulp.task('css', function () {
        .pipe(cleancss())
         .pipe(rename({ suffix: '.min' }))
        .pipe(gulp.dest(paths.cssDest))
-       .pipe(plumber.stop())        .pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
+       .pipe(plumber.stop()).pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
         .pipe(print(function (filepath) {
            console.log('Processed: '.yellow + filepath.cyan);
        }));
