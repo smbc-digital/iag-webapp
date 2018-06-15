@@ -51,7 +51,7 @@ namespace StockportWebappTests.Unit.Middleware
             context.Request.Path = "/";
             _businessIdMiddleware.Invoke(context, _businessId);
 
-            LogTesting.Assert(_logger, LogLevel.Warning, "BUSINESS-ID has not been set, setting to default");
+            LogTesting.Assert(_logger, LogLevel.Information, "BUSINESS-ID has not been set, setting to default");
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace StockportWebappTests.Unit.Middleware
             context.Request.Path = "/assets/test.js";
             _businessIdMiddleware.Invoke(context, _businessId);
 
-            LogTesting.DoesNotContain(_logger, LogLevel.Warning, "BUSINESS-ID has not been set, setting to default");
+            LogTesting.DoesNotContain(_logger, LogLevel.Information, "BUSINESS-ID has not been set, setting to default");
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace StockportWebappTests.Unit.Middleware
             context.Request.Path = "/_healthcheck";
             _businessIdMiddleware.Invoke(context, _businessId);
 
-            LogTesting.DoesNotContain(_logger, LogLevel.Warning, "BUSINESS-ID has not been set, setting to default");
+            LogTesting.DoesNotContain(_logger, LogLevel.Information, "BUSINESS-ID has not been set, setting to default");
         }
 
         [Fact]
