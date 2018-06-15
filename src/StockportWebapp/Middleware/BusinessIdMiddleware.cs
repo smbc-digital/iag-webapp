@@ -32,7 +32,7 @@ namespace StockportWebapp.Middleware
 
                 if (context.Request.Path.HasValue 
                     && !context.Request.Path.Value.ToLower().Contains("/assets/")
-                    && !context.Request.Path.Value.ToLower().Contains("healthcheck")) _logger.LogWarning("BUSINESS-ID has not been set, setting to default");
+                    && !context.Request.Path.Value.ToLower().Contains("healthcheck")) _logger.LogInformation("BUSINESS-ID has not been set, setting to default");
             }
 
             return _next(context);
