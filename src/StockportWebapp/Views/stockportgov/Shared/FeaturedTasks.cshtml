@@ -13,7 +13,7 @@
                         {
                             <a href="@subItem.NavigationLink" class="task-block @(count == 1 ? "first" : "") @(count == Model.Count() ? "last" : "")" id="task-block-@count">
                                 <div class="icon">
-                                    <i class="@subItem.Icon si-default"></i>
+                                    <i class="@subItem.Icon si-default" aria-hidden="true"></i>
                                 </div>
                                 <div class="title">
                                     <h3 class="task-title uitest-task-title">@subItem.Title</h3>

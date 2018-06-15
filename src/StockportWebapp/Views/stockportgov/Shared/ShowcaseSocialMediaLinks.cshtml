@@ -11,7 +11,7 @@
                     @foreach (var link in Model)
                     {
                         <stock-button as-link="true" class="socialMedia" href="@link.Url">
-                            <i class="@link.Icon fa"></i>
+                            <i class="@link.Icon fa" aria-hidden="true"></i>
                             @link.Title
                         </stock-button>
                     }

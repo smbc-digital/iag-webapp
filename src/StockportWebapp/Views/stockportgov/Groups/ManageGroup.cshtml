@@ -36,7 +36,7 @@
                                     <a id="view-group" href="@Url.Action(Model.Slug, "groups")">
                                         <div class="grid-100 sk-table-row grid-parent">
                                             <div class="sk-table-cell">
-                                                <i class="row-arrow centre"></i>
+                                                <i class="row-arrow centre" aria-hidden="true"></i>
                                             </div>
                                             <div class="sk-table-cell grid-90">
                                                 <span class="main">View your group page</span>
@@ -58,7 +58,7 @@
                                 <a id="view-group-events" href="@Url.Action("ViewGroupsEvents", "Groups", new { slug = Model.Slug })">
                                     <div class="grid-100 sk-table-row grid-parent">
                                         <div class="sk-table-cell">
-                                            <i class="row-arrow centre"></i>
+                                            <i class="row-arrow centre" aria-hidden="true"></i>
                                         </div>
                                         <div class="sk-table-cell grid-90">
                                             <span class="main">Manage your upcoming events</span>
@@ -70,7 +70,7 @@
                                     <a id="add-or-remove-users" href="@Url.Action("Users", "Groups", new {slug = Model.Slug})">
                                         <div class="grid-100 sk-table-row grid-parent">
                                             <div class="sk-table-cell">
-                                                <i class="row-arrow centre"></i>
+                                                <i class="row-arrow centre" aria-hidden="true"></i>
                                             </div>
                                             <div class="sk-table-cell grid-90">
                                                 <span class="main">Add or remove users</span>

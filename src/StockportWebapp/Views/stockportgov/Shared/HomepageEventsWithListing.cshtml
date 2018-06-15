@@ -16,7 +16,7 @@
             <div class="@(Model.Count() > 1 ? "grid-50" : "grid-100") mobile-grid-100 homepage-latest-item">
                 <h3>@item.Title</h3>
                 <p class="news-date">
-                    <i class="fa fa-clock-o"></i>@item.EventDate.ToString("dd MMMM yyyy")
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>@item.EventDate.ToString("dd MMMM yyyy")
                 </p>
                 <p>@item.Teaser</p>
             </div>

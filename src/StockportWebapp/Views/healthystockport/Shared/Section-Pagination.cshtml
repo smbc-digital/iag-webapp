@@ -6,7 +6,7 @@
         {
             <a href="@Model.Article.NavigationLink/@Model.PreviousSection().Slug">
                 <div class="article-chevron l-left-align">
-                    <i class="fa fa-angle-left fa-3x"></i>
+                    <i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>
                 </div>
                 <div>
                     <h4>Previous</h4>
@@ -24,7 +24,7 @@
                     <p>@Model.NextSection().Title</p>
                 </div>
                 <div class="article-chevron l-right-align">
-                    <i class="fa fa-angle-right fa-3x"></i>
+                    <i class="fa fa-angle-right fa-3x" aria-hidden="true"></i>
                 </div>
             </a>
         }

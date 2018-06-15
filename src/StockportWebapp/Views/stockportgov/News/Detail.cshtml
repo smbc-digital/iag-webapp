@@ -31,7 +31,7 @@
                         }
                     }
                     <p class="news-date news-article-date">
-                        <i class="fa fa-clock-o"></i>Last updated @Html.Partial("FormattedDate", Model.NewsItem.SunriseDate)
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>Last updated @Html.Partial("FormattedDate", Model.NewsItem.SunriseDate)
                     </p>
                     <h1 class="news-article-title">@Model.NewsItem.Title</h1>
                     <h3 class="news-teaser">@Model.NewsItem.Teaser</h3>

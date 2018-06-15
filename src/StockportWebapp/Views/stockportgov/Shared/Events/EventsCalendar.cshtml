@@ -135,7 +135,7 @@
                                     <h2 class="nav-card-events-title">@subItem.Title</h2>
 
                                     <div class="events-date hide-on-mobile">
-                                        <i class="fa fa-clock-o"></i>@subItem.EventDate.ToString("dddd dd MMMM") @subItem.StartTime
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i>@subItem.EventDate.ToString("dddd dd MMMM") @subItem.StartTime
                                     </div>
                                     <p class="hide-on-mobile nav-card-events-location">@Html.Raw(subItem.Location)</p>
                                     <p class="nav-card-events-fee">@subItem.Fee</p>

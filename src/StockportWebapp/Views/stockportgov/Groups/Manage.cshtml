@@ -19,7 +19,7 @@
                 <h1 id="manage-groups-heading" class="full-width-title-with-button">Manage your groups</h1>
             </div>
             <div class="header-right-button grid-30 tablet-grid-30 mobile-grid-100">
-                @*<stock-button as-link="true" class="button-outline-white-transparent" href="https://myaccount.stockport.gov.uk/"><i class="fa fa-cog account"></i>Account Settings</stock-button>*@
+                @*<stock-button as-link="true" class="button-outline-white-transparent" href="https://myaccount.stockport.gov.uk/"><i class="fa fa-cog account" aria-hidden="true"></i>Account Settings</stock-button>*@
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                                     <a id="@("group-item-" + group.Slug)" href="@Url.Action("ManageGroup", "Groups", new {slug = group.Slug})">
                                         <div class="grid-100 sk-table-row grid-parent">
                                             <div class="sk-table-cell">
-                                                <i class="row-arrow centre"></i>
+                                                <i class="row-arrow centre" aria-hidden="true"></i>
                                             </div>
                                             <div class="sk-table-cell grid-50 tablet-grid-60 mobile-grid-90">
                                                 <span class="main">@group.Name</span>

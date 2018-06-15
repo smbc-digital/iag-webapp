@@ -66,7 +66,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.Address))
             {
                 <li>
-                    <i class="fa fa-map-marker fa-2x group-details-symbol"></i>
+                    <i class="fa fa-map-marker fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Location</b></p>
                         @if (!string.IsNullOrEmpty(Model.Group.Address))
@@ -84,7 +84,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.CostText))
             {
                 <li>
-                    <i class="fa fa-gbp fa-2x group-details-symbol"></i>
+                    <i class="fa fa-gbp fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Cost</b></p>
                         @if (!string.IsNullOrEmpty(Model.Group.CostText))
@@ -98,7 +98,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
             {
                 <li>
-                    <i class="fa  fa-heart fa-2x group-details-symbol"></i>
+                    <i class="fa  fa-heart fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Supported by</b></p>
                         @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
@@ -128,7 +128,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.Website))
             {
                 <li>
-                    <i class="fa fa-laptop fa-2x group-details-symbol"></i>
+                    <i class="fa fa-laptop fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Website</b></p>
                         <a href="@Model.Group.Website"> @Model.Group.Website</a>
@@ -139,7 +139,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.Email))
             {
                 <li>
-                    <i class="fa fa-envelope fa-2x group-details-symbol"></i>
+                    <i class="fa fa-envelope fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Email</b></p>
                         <a href="mailto:@Model.Group.Email">@Model.Group.Email</a>
@@ -150,7 +150,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.PhoneNumber))
             {
                 <li>
-                    <i class="fa fa-phone-square fa-2x group-details-symbol"></i>
+                    <i class="fa fa-phone-square fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Telephone</b></p>
                         @Model.Group.PhoneNumber
@@ -161,7 +161,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.Facebook))
             {
                 <li>
-                    <i class="fa fa-facebook-square fa-2x group-details-symbol"></i>
+                    <i class="fa fa-facebook-square fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Facebook</b></p>
                         <a class="hide-on-pdf" href="@Model.Group.Facebook">facebook</a>
@@ -172,7 +172,7 @@
             @if (!string.IsNullOrEmpty(Model.Group.Twitter))
             {
                 <li>
-                    <i class="fa fa-twitter-square fa-2x group-details-symbol"></i>
+                    <i class="fa fa-twitter-square fa-2x group-details-symbol" aria-hidden="true"></i>
                     <div>
                         <p><b>Twitter</b></p>
                         <a class="hide-on-pdf" href="http://@Model.Group.Twitter">@twitter</a>
@@ -214,13 +214,13 @@
             @Html.Partial("Events/ManageFavouritesCard", Model.Group)
         </div>
         <div class="add-remove-favourite sidebar-links">
-            <i class="fa fa-flag-o fa-lg"></i>
+            <i class="fa fa-flag-o fa-lg" aria-hidden="true"></i>
             <a href="/groups/@Model.Group.Slug/report-group-info?groupname=@Model.Group.Name">Report this page as inappropriate</a>
         </div>
         @if (!Model.ShouldShowAdminOptions && Model.IsLoggedIn)
         {
             <div class="sidebar-links">
-                <i class="fa fa-pencil-square-o fa-lg"></i>
+                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                 <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">Let us know about a change to this group or service.</a>
             </div>
         }
@@ -247,7 +247,7 @@
             {
                 <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
                 <div class="thank-you-message">
-                    <i class="fa fa-check events-details-symbol"></i>
+                    <i class="fa fa-check events-details-symbol" aria-hidden="true"></i>
                     Thanks for letting us know
                 </div>
                 <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
