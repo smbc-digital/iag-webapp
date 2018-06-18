@@ -160,7 +160,7 @@
         $(".expandable-toggle").keypress(function (event) {
             event.preventDefault();
 
-            if (event.which == 13) {
+            if (event.which === 13 ||event.which === 32) {
                 $(".expandable-box", $(this).parent()).toggle();
             }
         });
