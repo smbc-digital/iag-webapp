@@ -2,10 +2,14 @@
 
     var init = function () {
         $(document).ready(function () {
-            $(".l-filters .filter-title, .l-filters .filter-inner-title, .expanding-Link-text").click(function () {
-                $(this).siblings("ul").slideToggle(100, function () {
-                    $(this).parent("li").toggleClass("is-collapsed");
-                });
+            $(".l-filters .filter-title, .l-filters .filter-inner-title, .expanding-Link-text").on("keypress click", function (e) {
+                e.preventDefault();
+
+                if (e.type === "click" || (e.type === "keypress" && e.which === 32)) {
+                    $(this).siblings("ul").slideToggle(100, function () {
+                        $(this).parent("li").toggleClass("is-collapsed");
+                    });    
+                }
             });
 
             if ($(window).width() <= utils.TabletWidth) {
