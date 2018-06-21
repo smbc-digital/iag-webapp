@@ -502,6 +502,12 @@ footer .l-dashed-list {
     .introduction {
         padding-top: 115px;
 
+        h2 {
+            color: #fff;
+            font-size: 1.375em;
+            margin: 0; 
+        }
+
         @media #{$mobile} {
             padding-top: 15px;
         }
