@@ -23,21 +23,37 @@
 }
 
 .feature {
-  >h2 { 
-      text-align:center;
-      margin-bottom:5px;
-  }
+    > h2 {
+        text-align: center;
+        margin-bottom: 5px;
+    }
 
-  >hr {
-      width: 10%;
-      margin: 0px auto 10px auto;
-      border-color: $easternBlue;
-      border-width: 2px;
-  }
+    > hr {
+        width: 10%;
+        margin: 0px auto 10px auto;
+        border-color: $easternBlue;
+        border-width: 2px;
+    }
 
-  .feature-tagline {
-       text-align:center;
-  }
+    .feature-tagline {
+        text-align: center;
+    }
+
+    .topic-block-list {
+        .topic-block {
+            .topic-block-content {
+                h3 {
+                    font-size: 1em;
+                    margin-bottom: 0;
+                    margin-top: 0;
+
+                    &:hover{
+                        text-decoration:underline;
+                    }
+                }
+            }
+        }
+    }
 }
 
 .hs-carousel-container {
