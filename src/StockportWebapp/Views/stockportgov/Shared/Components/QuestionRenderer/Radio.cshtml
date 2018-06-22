@@ -1,7 +1,7 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
 
 <div class="form-section question-section">
-    <label for="Response">@Model.Label</label>    
+    <label for="radio-list">@Model.Label</label>    
     @if (!String.IsNullOrEmpty(Model.SecondaryInfo))
     {
         <div class="grid-100" style="padding-left:0px;">
@@ -11,12 +11,12 @@
         </div>
     }
     <span>Select from the list</span>
-    <ul class="radio-list question-list">
+    <ul id="radio-list" class="radio-list question-list">
         @foreach (var item in @Model.Options)
         {
             <li>
-                @Html.RadioButton("Response", @item.Value, new { id = string.Concat(@Model.QuestionId, @item.Value), data_questionid = Model.QuestionId })
-                <label for="@string.Concat(@Model.QuestionId, @item.Value)">@item.Label</label>
+                <input role="radiogroup" type="radio" name="Questions[0].Response" id="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")" aria-labelledby="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" data-questionid="@Model.QuestionId" value="@item.Value" />
+                <label id="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" for="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")">@item.Label</label>
                 <span class="tertiary-Information hidden">@item.TertiaryInformation</span>
             </li>
         }
