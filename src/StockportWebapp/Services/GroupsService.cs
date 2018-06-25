@@ -234,7 +234,7 @@ namespace StockportWebapp.Services
 
         public string GetDonationsText(string DonationsText)
         {
-            return string.IsNullOrEmpty(DonationsText) ? "if you would like to find out more about donating to this group." : DonationsText;
+            return string.IsNullOrEmpty(DonationsText) ? "Use the button below to find out about making a donation to support our group." : DonationsText;
         }
 
         public Task<HttpStatusCode> SendImageViaEmail(IFormFile file, string groupName, string slug)

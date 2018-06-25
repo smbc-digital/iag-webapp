@@ -77,10 +77,14 @@ namespace StockportWebapp.Models
         public double Longitude { get; set; }
 
         [StringLength(250, ErrorMessage = "Volunteering text must be 250 characters or less in length.")]
+        [Display(Name = "volunteering text")]
+        [Required]
         public string VolunteeringText { get; set; } =
             "If you would like to find out more about being a volunteer with us, please email with your interest and we’ll be in contact as soon as possible.";
 
         [StringLength(250, ErrorMessage = "Volunteering text must be 250 characters or less in length.")]
+        [Display(Name = "donations text")]
+        [Required]
         public string DonationsText { get; set; } =
             "Use the button below to find out about making a donation to support our group.";
 
