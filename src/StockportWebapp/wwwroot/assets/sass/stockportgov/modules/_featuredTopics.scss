@@ -74,6 +74,7 @@
 
     .featured-topic-link {
         display: block;
+
         &:hover {
             text-decoration: none;
 
@@ -101,12 +102,13 @@
     }
 
     .featured-topic-description {
-        color: $greyDark;
+        color: $greyDarkest;
         font-size: 13px;
         line-height: 1.5;
 
         a {
             font-size: 14px;
+            color: $colorPrimarySuperDark;
         }
     }
 }
