@@ -26,14 +26,14 @@
 
         @media #{$mobile, $tablet} {
             li:first-child {
-                padding-top:10px;
+                padding-top: 10px;
             }
         }
 
         a {
             padding: 0;
         }
-    }   
+    }
 
     .filters-list {
         list-style: outside none none;
@@ -48,12 +48,12 @@
         border-bottom: 1px solid $greyLight;
 
         &.custom-date-title {
-        border-bottom-width: 0px; 
-        margin-bottom: 0px; 
-        font-weight: normal; 
-        padding-top: 0px; 
-        padding-bottom: 10px;
-       }
+            border-bottom-width: 0px;
+            margin-bottom: 0px;
+            font-weight: normal;
+            padding-top: 0px;
+            padding-bottom: 10px;
+        }
 
         &:after {
             padding-left: 10px;
@@ -82,10 +82,11 @@
 
     .filter-inner-title {
         color: $colorPrimary;
+
         @media #{$mobile, $tablet} {
             padding-top: 10px;
             padding-bottom: 10px;
-        }  
+        }
     }
 
     .mobile-filter-heading {
@@ -154,33 +155,37 @@
 
     li.active {
         a {
-            color: $paleRed;
+            color: $greyDarkest;
+            font-weight: bold;
 
             &:after {
                 padding-left: 10px;
-                color: $paleRed;
+                color: $greyDarkest;
                 content: "\f105";
                 font: normal normal normal 14px/1 FontAwesome;
                 font-size: 18px;
                 text-decoration: none;
-                display: inline-block;              
+                display: inline-block;
+                font-weight: bold;
             }
-        }                              
+        }
     }
 
     li.customdateactive {
         a {
-            color: $paleRed;
+            color: $greyDarkest;
+            font-weight: bold;
 
             &:after {
                 padding-left: 10px;
-                color: $paleRed;
+                color: $greyDarkest;
                 font: normal normal normal 14px/1 FontAwesome;
                 font-size: 18px;
                 text-decoration: none;
-                display: inline-block;              
+                display: inline-block;
+                font-weight: bold;
             }
-        }                                   
+        }
     }
 
     .filter li:not(:first-child) {
@@ -194,13 +199,13 @@
     }
 
     .filters-inner-list {
-        margin-left:40px;
+        margin-left: 40px;
 
         @media #{$desktop} {
             li {
                 margin-right: 0;
             }
-        }  
+        }
     }
 }
 
