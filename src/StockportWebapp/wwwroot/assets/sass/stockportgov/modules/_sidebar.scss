@@ -68,64 +68,66 @@
         padding: 0px;
 
         li {
-            border-bottom: 1px solid $greyLighter;  
-                      
+            border-bottom: 1px solid $greyLighter;
+
             @media #{$desktop} {
-               margin-left: 20px;
-               margin-right: 0px;
+                margin-left: 20px;
+                margin-right: 0px;
             }
 
             @media #{$mobile, $tablet} {
-               margin-left: 0px;
-               margin-right: 10px;
-            }          
-        
+                margin-left: 0px;
+                margin-right: 10px;
+            }
+
             a {
-                display:block;  
-                              
+                display: block;
+
                 @media #{$desktop} {
-                  padding: 10px 0px 10px 18px;
+                    padding: 10px 0px 10px 18px;
                 }
 
                 @media #{$mobile, $tablet} {
-                  padding: 10px;
-                }       
+                    padding: 10px;
+                }
             }
-        }       
+        }
 
         li.active {
             background-color: $white;
-            margin-left:0px;
-            margin-right:0px;
+            margin-left: 0px;
+            margin-right: 0px;
 
             a {
-                color: $paleRed;
+                color: $greyDarkest;
+                font-weight: bold;
 
-                 @media #{$desktop} {
-                    padding: 10px 0px 10px 22px;  
-                    display:table;
-                    
+                @media #{$desktop} {
+                    padding: 10px 0px 10px 22px;
+                    display: table;
+
                     span {
                         display: table-cell;
-                    }                                                                             
-                   }  
+                    }
+                }
 
-                 &:before {    
-                     padding-right: 10px;
-                     content: "\f104";                
-                     color: $paleRed;
-                     font: normal normal normal 14px/1 FontAwesome;
-                     font-size: 18px;
-                     text-decoration: none;
-                     display: inline-block; 
-                      
-                     @media #{$mobile, $tablet} {
-                         display:none;  
-                     }                  
-                }                    
-        }       
+                &:before {
+                    padding-right: 10px;
+                    content: "\f104";
+                    color: $greyDarkest;
+                    font: normal normal normal 14px/1 FontAwesome;
+                    font-size: 18px;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-weight: bold;
+
+                    @media #{$mobile, $tablet} {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
-  }
 }
 
 .l-right-side-bar-section {
