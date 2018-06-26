@@ -1,15 +1,15 @@
 ﻿.pagination-previous, .pagination-next {
 
-    p:first-of-type{
+    p:first-of-type {
         font-size: 1.375em;
         margin-top: 10px;
         margin-bottom: 0;
-        color: $teal;
+        color: $teal-darker;
     }
- 
-    &:hover{
-        p:first-of-type{
-                text-decoration: underline;
-         }
+
+    &:hover {
+        p:first-of-type {
+            text-decoration: underline;
+        }
     }
 }
