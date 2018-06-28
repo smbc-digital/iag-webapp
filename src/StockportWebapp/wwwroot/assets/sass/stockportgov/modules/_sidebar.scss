@@ -9,31 +9,33 @@
             border-bottom: 1px solid $greyLighter;
             margin-left: 0px;
             margin-right: 10px;
-        
+
             a {
-                display:block;
+                display: block;
                 padding: 10px;
             }
         }
 
         li.active {
             background-color: $white;
-            margin-right:0px;
+            margin-right: 0px;
 
             a {
-                color: $paleRed;
+                color: $greyDarkest;
+                font-weight: bold;
 
                 &:after {
                     padding-left: 10px;
-                    color: $paleRed;
+                    color: $greyDarkest;
                     content: "\f105";
                     font: normal normal normal 14px/1 FontAwesome;
                     font-size: 18px;
+                    font-weight: bold;
                     text-decoration: none;
                     display: inline-block;
-                    
+
                     @media #{$mobile, $tablet} {
-                        display:none;
+                        display: none;
                     }
                 }
             }
