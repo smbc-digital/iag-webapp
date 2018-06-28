@@ -31,6 +31,7 @@ namespace StockportWebapp.Config
             {
                 elasticSearchLogConfigurationSection.Bind(_elasticSearchLogConfiguration);
                 elasticSearchLogSecretConfigurationSection.Bind(_elasticSearchLogSecretConfiguration);
+                Logger.LogInformation("ElasticSearch is configured");
             }
             else
             {
@@ -52,7 +53,6 @@ namespace StockportWebapp.Config
             {
                 loggerConfiguration.WriteTo.Elasticsearch(options);   
             }
-            
         }
 
         public static ElasticsearchSinkOptions CreateElasticsearchSinkOptions(ElasticSearchLogConfiguration elasticSearchLogConfiguration, ElasticSearchLogSecretConfiguration elasticSearchLogSecretConfiguration)
