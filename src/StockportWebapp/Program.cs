@@ -1,5 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace StockportWebapp
 {
@@ -11,6 +13,7 @@ namespace StockportWebapp
                 .UseUrls("http://0.0.0.0:5000")
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .ConfigureLogging(logger => logger.AddConsole())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();

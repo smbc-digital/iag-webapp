@@ -2,6 +2,7 @@
 using Xunit;
 using Microsoft.AspNetCore.Hosting.Internal;
 using System.IO;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 
 namespace StockportWebappTests.Unit.Startup
@@ -17,7 +18,7 @@ namespace StockportWebappTests.Unit.Startup
                 "..", "..", ".."));
 
             var env = new HostingEnvironment {EnvironmentName = environment, ContentRootPath = path };
-            var startup = new StockportWebapp.Startup(env);
+            var startup = new StockportWebapp.Startup(env, new LoggerFactory());
 
             var googleTag  = startup.Configuration["TestConfigSetting"];
 

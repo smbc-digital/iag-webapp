@@ -30,21 +30,23 @@ namespace StockportWebapp
         public readonly string ConfigDir = "app-config";
         private readonly bool _useRedisSession;
         private readonly bool _sendAmazonEmails;
+        private ILogger<Startup> Logger;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            Logger = loggerFactory.CreateLogger<Startup>();
+            Logger.LogInformation("Startup Hosting Environment : {0}", env);
+
             _contentRootPath = env.ContentRootPath;
 
             var configBuilder = new ConfigurationBuilder();
-            var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
-
-            Log.Logger.Information("Startup Hosting Environment : {0}", env);
+            var configLoader = new ConfigurationLoader(configBuilder, ConfigDir, Logger);
 
             Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
             
             _appEnvironment = configLoader.EnvironmentName(env);
-
-            Log.Logger.Information("Application Environment : {0}", _appEnvironment);
+            
+            Logger.LogInformation("Application Environment : {0}", _appEnvironment);
 
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
@@ -145,11 +147,12 @@ namespace StockportWebapp
 
         private void ConfigureSerilog()
         {
+
             var logConfig = new LoggerConfiguration()
                 .ReadFrom
                 .Configuration(Configuration);
 
-            var esLogConfig = new ElasticSearchLogConfigurator(Configuration);
+            var esLogConfig = new ElasticSearchLogConfigurator(Configuration, Logger);
             esLogConfig.Configure(logConfig);
 
             Log.Logger = logConfig.CreateLogger();

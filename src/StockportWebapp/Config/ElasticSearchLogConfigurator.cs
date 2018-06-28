@@ -3,6 +3,7 @@ using System.Linq;
 using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
@@ -15,9 +16,12 @@ namespace StockportWebapp.Config
         private readonly IConfigurationRoot _configuration;
         private ElasticSearchLogConfiguration _elasticSearchLogConfiguration = new ElasticSearchLogConfiguration();
         private ElasticSearchLogSecretConfiguration _elasticSearchLogSecretConfiguration = new ElasticSearchLogSecretConfiguration();
+        private Microsoft.Extensions.Logging.ILogger Logger { get; set; }
 
-        public ElasticSearchLogConfigurator(IConfigurationRoot configurationRoot)
+        public ElasticSearchLogConfigurator(IConfigurationRoot configurationRoot, Microsoft.Extensions.Logging.ILogger logger)
         {
+            Logger = logger;
+
             _configuration = configurationRoot;
 
             var elasticSearchLogConfigurationSection = _configuration.GetSection(ElasticsearchConfigurationKey);
@@ -31,7 +35,7 @@ namespace StockportWebapp.Config
             else
             {
                 _elasticSearchLogConfiguration.Enabled = false;
-                Log.Logger.Warning("ElasticSearch is not configured");
+                Logger.LogWarning("ElasticSearch is not configured");
             }
         }
 
@@ -39,7 +43,7 @@ namespace StockportWebapp.Config
         { 
             if(!_elasticSearchLogConfiguration.Enabled)
             {
-                Log.Logger.Warning("ElasticSearch logging is not enabled");
+                Logger.LogWarning("ElasticSearch logging is not enabled");
                 return;
             }
             
