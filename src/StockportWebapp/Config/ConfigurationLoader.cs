@@ -74,7 +74,7 @@ namespace StockportWebapp.Config
             ConfigBuilder.SetBasePath(contentRootPath);
             ConfigBuilder.AddJsonFile(appConfig);
             ConfigBuilder.AddJsonFile(envConfig);
-            ConfigBuilder.AddJsonFile(secretConfig, true);
+            ConfigBuilder.AddJsonFile(secretConfig);
             ConfigBuilder.AddEnvironmentVariables();
 
             return ConfigBuilder.Build();

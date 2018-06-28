@@ -38,9 +38,11 @@ namespace StockportWebapp
             var configBuilder = new ConfigurationBuilder();
             var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
 
-            Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
-            _appEnvironment = configLoader.EnvironmentName(env);
+            Log.Logger.Information("Startup Hosting Environment : {0}", env);
 
+            Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
+            
+            _appEnvironment = configLoader.EnvironmentName(env);
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }

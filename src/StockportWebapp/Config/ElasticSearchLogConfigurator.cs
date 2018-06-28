@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
 using Microsoft.Extensions.Configuration;
@@ -22,27 +23,32 @@ namespace StockportWebapp.Config
             var elasticSearchLogConfigurationSection = _configuration.GetSection(ElasticsearchConfigurationKey);
             var elasticSearchLogSecretConfigurationSection = _configuration.GetSection(ElasticsearchSecretsConfigurationKey);
 
-            if (elasticSearchLogConfigurationSection != null && elasticSearchLogSecretConfigurationSection != null)
+            if (elasticSearchLogConfigurationSection.AsEnumerable().Any() && elasticSearchLogSecretConfigurationSection.AsEnumerable().Any())
             {
                 elasticSearchLogConfigurationSection.Bind(_elasticSearchLogConfiguration);
                 elasticSearchLogSecretConfigurationSection.Bind(_elasticSearchLogSecretConfiguration);
             }
+            else
+            {
+                _elasticSearchLogConfiguration.Enabled = false;
+                Log.Logger.Warning("ElasticSearch is not configured");
+            }
         }
 
         public void Configure(LoggerConfiguration loggerConfiguration)
-        {
-            if (_elasticSearchLogConfiguration != null
-                && _elasticSearchLogSecretConfiguration != null
-                && _elasticSearchLogConfiguration.Enabled)
+        { 
+            if(!_elasticSearchLogConfiguration.Enabled)
             {
-                var options = ElasticSearchLogConfigurator.CreateElasticsearchSinkOptions(_elasticSearchLogConfiguration, _elasticSearchLogSecretConfiguration);
-
-                if (options != null)
-                {
-                    loggerConfiguration.WriteTo.Elasticsearch(options);
-                    Log.Logger.Warning("ElasticSearch logging configuration added");
-                }
+                Log.Logger.Warning("ElasticSearch logging is not enabled");
+                return;
             }
+            
+            var options = ElasticSearchLogConfigurator.CreateElasticsearchSinkOptions(_elasticSearchLogConfiguration, _elasticSearchLogSecretConfiguration);
+            if (options != null)
+            {
+                loggerConfiguration.WriteTo.Elasticsearch(options);   
+            }
+            
         }
 
         public static ElasticsearchSinkOptions CreateElasticsearchSinkOptions(ElasticSearchLogConfiguration elasticSearchLogConfiguration, ElasticSearchLogSecretConfiguration elasticSearchLogSecretConfiguration)
