@@ -43,6 +43,9 @@ namespace StockportWebapp
             Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
             
             _appEnvironment = configLoader.EnvironmentName(env);
+
+            Log.Logger.Information("Application Environment : {0}", _appEnvironment);
+
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }
