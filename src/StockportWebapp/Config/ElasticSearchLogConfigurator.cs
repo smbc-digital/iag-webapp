@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
@@ -14,34 +16,42 @@ namespace StockportWebapp.Config
         private readonly IConfigurationRoot _configuration;
         private ElasticSearchLogConfiguration _elasticSearchLogConfiguration = new ElasticSearchLogConfiguration();
         private ElasticSearchLogSecretConfiguration _elasticSearchLogSecretConfiguration = new ElasticSearchLogSecretConfiguration();
+        private Microsoft.Extensions.Logging.ILogger Logger { get; set; }
 
-        public ElasticSearchLogConfigurator(IConfigurationRoot configurationRoot)
+        public ElasticSearchLogConfigurator(IConfigurationRoot configurationRoot, Microsoft.Extensions.Logging.ILogger logger)
         {
+            Logger = logger;
+
             _configuration = configurationRoot;
 
             var elasticSearchLogConfigurationSection = _configuration.GetSection(ElasticsearchConfigurationKey);
             var elasticSearchLogSecretConfigurationSection = _configuration.GetSection(ElasticsearchSecretsConfigurationKey);
 
-            if (elasticSearchLogConfigurationSection != null && elasticSearchLogSecretConfigurationSection != null)
+            if (elasticSearchLogConfigurationSection.AsEnumerable().Any() && elasticSearchLogSecretConfigurationSection.AsEnumerable().Any())
             {
                 elasticSearchLogConfigurationSection.Bind(_elasticSearchLogConfiguration);
                 elasticSearchLogSecretConfigurationSection.Bind(_elasticSearchLogSecretConfiguration);
+                Logger.LogInformation("ElasticSearch is configured");
+            }
+            else
+            {
+                _elasticSearchLogConfiguration.Enabled = false;
+                Logger.LogWarning("ElasticSearch is not configured");
             }
         }
 
         public void Configure(LoggerConfiguration loggerConfiguration)
-        {
-            if (_elasticSearchLogConfiguration != null
-                && _elasticSearchLogSecretConfiguration != null
-                && _elasticSearchLogConfiguration.Enabled)
+        { 
+            if(!_elasticSearchLogConfiguration.Enabled)
             {
-                var options = ElasticSearchLogConfigurator.CreateElasticsearchSinkOptions(_elasticSearchLogConfiguration, _elasticSearchLogSecretConfiguration);
-
-                if (options != null)
-                {
-                    loggerConfiguration.WriteTo.Elasticsearch(options);
-                    Log.Logger.Warning("ElasticSearch logging configuration added");
-                }
+                Logger.LogWarning("ElasticSearch logging is not enabled");
+                return;
+            }
+            
+            var options = ElasticSearchLogConfigurator.CreateElasticsearchSinkOptions(_elasticSearchLogConfiguration, _elasticSearchLogSecretConfiguration);
+            if (options != null)
+            {
+                loggerConfiguration.WriteTo.Elasticsearch(options);   
             }
         }
 

@@ -5,19 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Config
 {
     public class ConfigurationLoader
     {
-        public ConfigurationLoader(IConfigurationBuilder configBuilder, string configPath)
+        public ConfigurationLoader(IConfigurationBuilder configBuilder, string configPath, ILogger logger)
         {
             ConfigPath = configPath;
             ConfigBuilder = configBuilder;
+            Logger = logger;
         }
 
         public string ConfigPath { get; }
         public readonly IConfigurationBuilder ConfigBuilder;
+        public ILogger Logger { get; set; }
 
         /**
          * NOTE: There is an issue in AWS ElasticBeanstalk that means our environment variables aren't set.
@@ -70,6 +73,10 @@ namespace StockportWebapp.Config
             var secretConfig = Path.Combine(secretsLocation, $"appsettings.{envName}.secrets.json");
             var appConfig = Path.Combine(ConfigPath, "appsettings.json");
             var envConfig = Path.Combine(ConfigPath, $"appsettings.{envName}.json");
+
+            Logger.LogInformation("Secrets: {0}", secretConfig);
+            Logger.LogInformation("App Config: {0}", appConfig);
+            Logger.LogInformation("Environment: {0}", envConfig);
 
             ConfigBuilder.SetBasePath(contentRootPath);
             ConfigBuilder.AddJsonFile(appConfig);

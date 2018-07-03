@@ -3,6 +3,7 @@ using System.IO;
 using FluentAssertions;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Moq;
 using StockportWebapp.Config;
@@ -23,7 +24,7 @@ namespace StockportWebappTests.Unit.Config
             {
                 EnvironmentName = "test",
                 ContentRootPath = path
-            });
+            }, new LoggerFactory());
 
             var appSettings = startup.Configuration;
             _config = new ApplicationConfiguration(appSettings);
