@@ -17,10 +17,11 @@
         });
         
         var ie = (!!window.ActiveXObject && +(/msie\s(\d+)/i.exec(navigator.userAgent)[1])) || NaN;
-        console.log(ie); 
-
         if (ie === 9 || ie === 10) {
-            document.getElementById("browser-check").style.display = "block";
+            $("#browser-check").removeClass("hidden");
+
+            var element = document.getElementById("browser-check");
+            element.className = element.className.replace(/\bhidden\b/g, "");
         }
     };
 
