@@ -15,6 +15,13 @@
             $("#mobileSearchInput").slideToggle(220);
             $(".show-search-button").toggleClass("arrow");
         });
+        
+        var ie = (!!window.ActiveXObject && +(/msie\s(\d+)/i.exec(navigator.userAgent)[1])) || NaN;
+        console.log(ie); 
+
+        if (ie === 9 || ie === 10) {
+            document.getElementById("browser-check").style.display = "block";
+        }
     };
 
     var documentResize = function () {
