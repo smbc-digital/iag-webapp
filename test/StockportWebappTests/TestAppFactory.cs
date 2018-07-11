@@ -37,7 +37,7 @@ namespace StockportWebappTests
 
     public class FakeStartup : Startup
     {
-        public FakeStartup(IHostingEnvironment env) : base(env, new LoggerFactory())
+        public FakeStartup(IHostingEnvironment env) : base(env)
         {
             
         }

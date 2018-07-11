@@ -30,24 +30,17 @@ namespace StockportWebapp
         public readonly string ConfigDir = "app-config";
         private readonly bool _useRedisSession;
         private readonly bool _sendAmazonEmails;
-        private ILogger<Startup> Logger;
 
-        public Startup(IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public Startup(IHostingEnvironment env)
         {
-            Logger = loggerFactory.CreateLogger<Startup>();
-            Logger.LogInformation("Startup Hosting Environment : {0}", env);
-
             _contentRootPath = env.ContentRootPath;
 
             var configBuilder = new ConfigurationBuilder();
-            var configLoader = new ConfigurationLoader(configBuilder, ConfigDir, Logger);
+            var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
 
             Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
             
             _appEnvironment = configLoader.EnvironmentName(env);
-            
-            Logger.LogInformation("Application Environment : {0}", _appEnvironment);
-
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }
@@ -152,14 +145,13 @@ namespace StockportWebapp
                 .ReadFrom
                 .Configuration(Configuration);
 
-            var esLogConfig = new ElasticSearchLogConfigurator(Configuration, Logger);
+            var esLogConfig = new ElasticSearchLogConfigurator(Configuration);
             esLogConfig.Configure(logConfig);
 
             Log.Logger = logConfig.CreateLogger();
-
             StartupLogger = Log.Logger;
-            Logger.LogInformation("Completed logging configuration...");
-            Log.Logger.Warning("Completed logging configuration...");
+
+            StartupLogger.Warning("Completed logging configuration...");
         }
     }
 }

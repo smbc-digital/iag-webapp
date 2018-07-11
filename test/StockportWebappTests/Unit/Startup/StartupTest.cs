@@ -18,7 +18,7 @@ namespace StockportWebappTests.Unit.Startup
                 "..", "..", ".."));
 
             var env = new HostingEnvironment {EnvironmentName = environment, ContentRootPath = path };
-            var startup = new StockportWebapp.Startup(env, new LoggerFactory());
+            var startup = new StockportWebapp.Startup(env);
 
             var googleTag  = startup.Configuration["TestConfigSetting"];
 

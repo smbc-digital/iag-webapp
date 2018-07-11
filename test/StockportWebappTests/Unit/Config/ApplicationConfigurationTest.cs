@@ -24,7 +24,7 @@ namespace StockportWebappTests.Unit.Config
             {
                 EnvironmentName = "test",
                 ContentRootPath = path
-            }, new LoggerFactory());
+            });
 
             var appSettings = startup.Configuration;
             _config = new ApplicationConfiguration(appSettings);
