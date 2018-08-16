@@ -24,11 +24,6 @@ namespace StockportWebapp.ContentFactory
         {
             var body = _parser.ParseAll(homepage.Body);
             homepage.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
-
-            return new ProcessedGroupHomepage
-            {
-
-            }
         }
 
         public virtual ProcessedGroup Build(Group group)
