@@ -1,4 +1,5 @@
-﻿@using StockportWebapp.Models
+﻿@using Quartz.Util
+@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @using StockportWebapp.FeatureToggling
 @inject FeatureToggles FeatureToggles
@@ -11,92 +12,101 @@
     ViewData["Type"] = "Group";
     Layout = "../Shared/_Layout.cshtml";
 }
-
-@section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>())
-}
-
-@if (Model.Alerts != null)
-{
-    foreach (var alert in Model.Alerts)
-    {
-        <div>
-            @Html.Partial("GlobalAlert", alert)
-        </div>
-    }
-}
-
-<div class="l-page-content" id="group-homepage">
-    <div class="full-width-title">
-        <div class="grid-container grid-parent grid-100">
-            <div class="grid-70 tablet-grid-60 mobile-grid-100">
-                <h1 tabindex="-1" id="content" class="full-width-title-with-button">Stockport Local</h1>
-            </div>
-            <div class="header-right-button grid-30 tablet-grid-40 hide-on-mobile">
-                <stock-button as-link="true" id="add-group-button" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
-            </div>
-        </div>
-    </div>
-    <div class="hide-on-mobile tablet-grid-100 grid-100 grid-parent favourites-container">
-        @Html.Partial("FavouritesBar")
-    </div>
-    <div class="group-homepage-image" style="background-image: url(@Model.BackgroundImage)">
-        @Html.Partial("../Shared/Groups/GroupHomeFilter")
-    </div>
-    <div class="home-page-row">
-        <div class="grid-container">
-            <div class="group-header">
-                <h2>Discover something new in Stockport</h2>
-            </div>
-            @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
-        </div>
-    </div>
-
-    @if (Model.FeaturedGroups.Any())
-    {
-        <div id="featured-groups" class="home-page-row">
-            <div class="grid-container">
-                <div class="group-header">
-                    <h2>@Model.FeaturedGroupsHeading</h2>
-                    <a class="view-more hide-on-mobile" title="View more" href="@Url.Action("Results", "Groups", new { category = Model.FeaturedGroupsCategory.Slug, subcategories = Model.FeaturedGroupsSubCategory.Slug })">View more</a>
-                </div>
-                <div class="grid-100 grid-parent">
-                    <ul class="group-listing-container grid-container matchbox-parent">
-
-                        @foreach (var item in Model.FeaturedGroups)
-                        {
-                            @Html.Partial("Groups/GroupCard", item)
-                        }
-                    </ul>
-                </div>
-                <div class="grid-100 hide-on-desktop hide-on-tablet group-button">
-                    <stock-button as-link="true" class="white" title="View more" href="@Url.Action("Results", "Groups", new { category = Model.FeaturedGroupsCategory.Slug, subcategories = Model.FeaturedGroupsSubCategory.Slug })">View more</stock-button>
-                </div>
-            </div>
-        </div>
+<body>
+    @section Breadcrumbs {
+        @Html.Partial("Breadcrumb", new List<Crumb>())
     }
 
-
-    <div class="footer-container-box hide-on-desktop hide-on-tablet">
-        <div class="footer-container-box-label">
-            <h3>Add your group or service</h3>
-            <label>Complete our form to add your group or service to Stockport Local.</label>
-        </div>
-        <div class="grid-container grid-parent grid-100 add-group-mobile">
-            <div class="header-right-button mobile-grid-100">
-                <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
+    @if (Model.Alerts != null)
+    {
+        foreach (var alert in Model.Alerts)
+        {
+            <div>
+                @Html.Partial("GlobalAlert", alert)
             </div>
-        </div>
-    </div>
+        }
+    }
 
-    <div class="content-disclaimer">
-        <div class="grid-container">
-            @Html.Partial("ContentDisclaimerCard")
-        </div>
-    </div>
+            <div class="l-page-content" id="group-homepage">
+                <div class="full-width-title">
+                    <div class="grid-container grid-parent grid-100">
+                        <div class="grid-70 tablet-grid-60 mobile-grid-100">
+                            <h1 tabindex="-1" id="content" class="full-width-title-with-button">Stockport Local</h1>
+                        </div>
+                        <div class="header-right-button grid-30 tablet-grid-40 hide-on-mobile">
+                            <stock-button as-link="true" id="add-group-button" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="hide-on-mobile tablet-grid-100 grid-100 grid-parent favourites-container">
+                    @Html.Partial("FavouritesBar")
+                </div>
+                <div class="group-homepage-image" style="background-image: url(@Model.BackgroundImage)">
+                    @Html.Partial("../Shared/Groups/GroupHomeFilter")
+                </div>
+                <div class="home-page-row">
+                    <div class="grid-container">
+                        <div class="group-header">
+                            <h2>Discover something new in Stockport</h2>
+                        </div>
+                        @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
+                    </div>
+                </div>
 
-</div>
+                @if (Model.FeaturedGroups.Any())
+                {
+                    <div id="featured-groups" class="home-page-row">
+                        <div class="grid-container">
+                            <div class="group-header">
+                                <h2>@Model.FeaturedGroupsHeading</h2>
+                                <a class="view-more hide-on-mobile" title="View more" href="@Url.Action("Results", "Groups", new { category = Model.FeaturedGroupsCategory.Slug, subcategories = Model.FeaturedGroupsSubCategory.Slug })">View more</a>
+                            </div>
+                            <div class="grid-100 grid-parent">
+                                <ul class="group-listing-container grid-container matchbox-parent">
 
+                                    @foreach (var item in Model.FeaturedGroups)
+                                    {
+                                        @Html.Partial("Groups/GroupCard", item)
+                                    }
+                                </ul>
+                            </div>
+                            <div class="grid-100 hide-on-desktop hide-on-tablet group-button">
+                                <stock-button as-link="true" class="white" title="View more" href="@Url.Action("Results", "Groups", new { category = Model.FeaturedGroupsCategory.Slug, subcategories = Model.FeaturedGroupsSubCategory.Slug })">View more</stock-button>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (!Model.Body.IsNullOrWhiteSpace())
+                {
+                    <div class="home-page-row"><article>@Html.Raw(Model.Body)</article></div>
+                }
+                
+                @if (!Model.SecondaryBody.IsNullOrWhiteSpace())
+                {
+                    <div class="home-page-row"><p>@Model.SecondaryBody</p></div>
+
+                }
+
+                <div class="footer-container-box hide-on-desktop hide-on-tablet">
+                    <div class="footer-container-box-label">
+                        <h3>Add your group or service</h3>
+                        <label>Complete our form to add your group or service to Stockport Local.</label>
+                    </div>
+                    <div class="grid-container grid-parent grid-100 add-group-mobile">
+                        <div class="header-right-button mobile-grid-100">
+                            <stock-button as-link="true" class="button-outline-white-transparent" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-disclaimer">
+                    <div class="grid-container">
+                        @Html.Partial("ContentDisclaimerCard")
+                    </div>
+                </div>
+            </div>
+</body>
 <script type="text/javascript">
     require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter','refinebybar', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
         function (startup, favourites, expandinglinks, groups, primaryfilter, refinebybar, filters, matchboxconfig, matchHeight, viewmoreslider) {

@@ -20,6 +20,17 @@ namespace StockportWebapp.ContentFactory
             _documentParser = documentParser;
         }
 
+        public virtual ProcessedGroupHomepage Build(GroupHomepage homepage)
+        {
+            var body = _parser.ParseAll(homepage.Body);
+            homepage.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
+
+            return new ProcessedGroupHomepage
+            {
+
+            }
+        }
+
         public virtual ProcessedGroup Build(Group group)
         {
             var htmlBody = _markdownWrapper.ConvertToHtml(group.Description);
@@ -42,7 +53,7 @@ namespace StockportWebapp.ContentFactory
 
             var donations = new Donations()
             {
-           
+
                 GetDonations = group.Donations,
                 Url = $"groups/{group.Slug}",
                 Email = group.Email,
@@ -58,9 +69,9 @@ namespace StockportWebapp.ContentFactory
 
             return new ProcessedGroup(group.Name, group.Slug, group.PhoneNumber, group.Email, group.Website, group.Twitter,
                 group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, group.SubCategories,
-                group.Breadcrumbs, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo, 
-                group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation, 
-                group.LinkedGroups, donations, mapDetails, parsedAdditionalInformation, group.AdditionalDocuments, group.DonationsText,group.DonationsUrl, 
+                group.Breadcrumbs, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo,
+                group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation,
+                group.LinkedGroups, donations, mapDetails, parsedAdditionalInformation, group.AdditionalDocuments, group.DonationsText, group.DonationsUrl,
                 group.DateLastModified);
         }
     }

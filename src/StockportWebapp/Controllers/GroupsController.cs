@@ -110,6 +110,8 @@ namespace StockportWebapp.Controllers
             model.FeaturedGroupsCategory = homepage.FeaturedGroupsCategory;
             model.FeaturedGroupsSubCategory = homepage.FeaturedGroupsSubCategory;
             model.Alerts = homepage.Alerts;
+            model.Body = homepage.Body;
+            model.SecondaryBody = homepage.SecondaryBody;
 
             return View(model);
         }
