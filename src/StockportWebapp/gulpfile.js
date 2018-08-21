@@ -17,8 +17,8 @@ var gulp = require("gulp"),
     replace = require('gulp-replace'),
     cached = require('gulp-cached');
 
-var postcss     = require('gulp-postcss');
-var reporter    = require('postcss-reporter');
+var postcss = require('gulp-postcss');
+var reporter = require('postcss-reporter');
 var syntax_scss = require('postcss-scss');
 
 var styleguideGitUrl = process.env.STYLEGUIDE_GIT_URL;
@@ -33,7 +33,6 @@ var paths = {
     jsConfigHS: "./wwwroot/assets/javascript/requireConfigHealthyStockport.js"
 };
 
-gulp.task("min:config:all", ['min:config:sg', 'min:config:hs']);
 
 gulp.task('min:js', function () {
     return gulp.src([paths.jsProject, '!' + paths.minJs, '!' + paths.jsConfig, '!' + paths.jsConfigHS])
@@ -71,18 +70,21 @@ gulp.task('min:config:hs', function () {
         .pipe(gulp.dest('./wwwroot/assets/javascript'));
 });
 
+
+gulp.task('min:config:all', gulp.series('min:config:sg', 'min:config:hs'));
+
 //css
 gulp.task('css', function () {
     return gulp.src(paths.sass)
         .pipe(plumber())
         .pipe(sass())
-       .pipe(cleancss())
+        .pipe(cleancss())
         .pipe(rename({ suffix: '.min' }))
-       .pipe(gulp.dest(paths.cssDest))
-       .pipe(plumber.stop()).pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
+        .pipe(gulp.dest(paths.cssDest))
+        .pipe(plumber.stop()).pipe(lec({ verbose: true, eolc: 'CRLF', encoding: 'utf8' }))
         .pipe(print(function (filepath) {
-           console.log('Processed: '.yellow + filepath.cyan);
-       }));
+            console.log('Processed: '.yellow + filepath.cyan);
+        }));
 });
 
 // style guide tasks
@@ -159,15 +161,7 @@ function swallowError(error) {
     this.emit('end');
 }
 
-//watch
-gulp.task('watch', function () {
-    gulp.watch([paths.jsProject, '!' + paths.minJs], ['min:js']);
-    gulp.watch(paths.jsConfig, ['min:config:sg']);
-    gulp.watch(paths.jsConfigHS, ['min:config:hs']);
-    gulp.watch(paths.sass, ['css']).on('change', lintCss);
-});
-
-function lintCss(file){
+function lintCss(file) {
 
     console.log("FILE CHANGED: " + file.path);
 
@@ -179,27 +173,49 @@ function lintCss(file){
 
     return gulp.src(
         [file.path]
-        )
-        .pipe(postcss(processors, {syntax: syntax_scss}));
+    )
+        .pipe(postcss(processors, { syntax: syntax_scss }));
 }
 
-gulp.task("scss-lint-all", function() {
-      var processors = [
+gulp.task('watch:js',
+    function () {
+        gulp.watch([paths.jsProject, '!' + paths.minJs], gulp.series('min:js'));
+    });
+
+gulp.task('watch:config:sg',
+    function () {
+        gulp.watch(paths.jsConfig, gulp.series('min:config:sg'));
+    });
+
+gulp.task('watch:config:hs',
+    function () {
+        gulp.watch(paths.jsConfigHS, gulp.series('min:config:hs'));
+    });
+
+gulp.task('watch:css',
+    function () {
+        gulp.watch(paths.sass, gulp.parallel('css'));
+    });
+
+gulp.task("scss-lint-all", function () {
+    var processors = [
         reporter({
             clearReportedMessages: true
         })
-      ];
-    
-      return gulp.src(
-          ['wwwroot/assets/sass/**/*.scss',
-          // Ignore linting vendor assets
-          // Useful if you have bower components
-          '!wwwroot/assets/sass/site-hs.scss', 
-          '!wwwroot/assets/sass/site-sg.scss', 
-          '!wwwroot/assets/sass/site-ts.scss', 
-          '!wwwroot/assets/sass/export-to-pdf.scss',
-          '!wwwroot/assets/sass/thirdsite/**/*.scss',
-          '!wwwroot/assets/sass/stockportgov/modules/_wysiwyg.scss']
-        )
-        .pipe(postcss(processors, {syntax: syntax_scss}));
+    ];
+
+    return gulp.src(
+        ['wwwroot/assets/sass/**/*.scss',
+            // Ignore linting vendor assets
+            // Useful if you have bower components
+            '!wwwroot/assets/sass/site-hs.scss',
+            '!wwwroot/assets/sass/site-sg.scss',
+            '!wwwroot/assets/sass/site-ts.scss',
+            '!wwwroot/assets/sass/export-to-pdf.scss',
+            '!wwwroot/assets/sass/thirdsite/**/*.scss',
+            '!wwwroot/assets/sass/stockportgov/modules/_wysiwyg.scss']
+    )
+        .pipe(postcss(processors, { syntax: syntax_scss }));
 });
+
+gulp.task('watch', gulp.parallel('watch:js', 'watch:config:sg', 'watch:config:hs', 'watch:css', 'scss-lint-all'));

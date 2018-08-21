@@ -161,8 +161,8 @@ namespace StockportWebapp.Utils
 				.AddSource("platform.twitter.com/css/")
                 .AddSource("local.tractivity.co.uk/wp-includes/js/")
                 .AddSource("stage.midas-pps.tractivity.co.uk/")
-                .AddSource("")
                 .AddSource("https://content.govdelivery.com/overlay/js/4939.js")
+                .AddSource("https://core-api-eu1.cludo.com/")
 				.Finish());
         }
 
@@ -178,6 +178,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://kinesis.eu-west-1.amazonaws.com/")
                 .AddSource("https://zldiarvaya.execute-api.eu-west-1.amazonaws.com/prod/")
                 .AddSource("https://13bg9nmobj.execute-api.eu-west-1.amazonaws.com/production/player-analytics")
+                .AddSource("https://core-api-eu1.cludo.com/")
                 .Finish());
         }
 
