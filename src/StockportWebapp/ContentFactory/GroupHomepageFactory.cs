@@ -20,7 +20,10 @@ namespace StockportWebapp.ContentFactory
         public virtual ProcessedGroupHomepage Build(GroupHomepage groupHomepage)
         {
             var body = _tagParserContainer.ParseAll(groupHomepage.Body);
-            groupHomepage.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
+            var bodyHtml = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
+
+            var secondaryBody = _tagParserContainer.ParseAll(groupHomepage.SecondaryBody);
+            var secondaryBodyHtml = _markdownWrapper.ConvertToHtml(secondaryBody ?? string.Empty);
 
             return new ProcessedGroupHomepage(
             groupHomepage.Title,
@@ -30,8 +33,8 @@ namespace StockportWebapp.ContentFactory
             groupHomepage.FeaturedGroupsCategory,
             groupHomepage.FeaturedGroupsSubCategory,
             groupHomepage.Alerts,
-            groupHomepage.Body,
-            groupHomepage.SecondaryBody
+            bodyHtml,
+            secondaryBodyHtml
             );
         }
     }
