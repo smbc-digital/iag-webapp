@@ -9,6 +9,7 @@ namespace StockportWebapp.ProcessedModels
 {
     public class ProcessedGroupHomepage : IProcessedContentType
     {
+        public readonly string Title;       
         public readonly List<GroupCategory> Categories = new List<GroupCategory>();
         public readonly PrimaryFilter PrimaryFilter;
         public readonly string BackgroundImage;
@@ -39,13 +40,11 @@ namespace StockportWebapp.ProcessedModels
             }
         }
 
-        public ProcessedGroupHomepage(List<GroupCategory> categories, PrimaryFilter primaryFilter,
-            string backgroundImage, string featuredGroupsHeading, List<Group> featuredGroups,
+        public ProcessedGroupHomepage(string title,string backgroundImage, string featuredGroupsHeading, List<Group> featuredGroups,
             GroupCategory featuredGroupsCategory, GroupSubCategory featuredGroupsSubCategory, List<Alert> alerts,
             string body, string secondaryBody)
         {
-            Categories = categories;
-            PrimaryFilter = primaryFilter;
+            Title = title;
             BackgroundImage = backgroundImage;
             FeaturedGroupsHeading = featuredGroupsHeading;
             FeaturedGroups = featuredGroups;

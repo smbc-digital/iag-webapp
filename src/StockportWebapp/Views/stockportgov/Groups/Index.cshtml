@@ -79,12 +79,12 @@
 
                 @if (!Model.Body.IsNullOrWhiteSpace())
                 {
-                    <div class="home-page-row"><article>@Html.Raw(Model.Body)</article></div>
+                    <div class="home-page-row"><div class="grid-container">@Html.Raw(Model.Body)</div></div>
                 }
                 
                 @if (!Model.SecondaryBody.IsNullOrWhiteSpace())
                 {
-                    <div class="home-page-row"><p>@Model.SecondaryBody</p></div>
+                    <div class="home-page-row"><div class="grid-container">@Html.Raw(Model.SecondaryBody)</div></div>
 
                 }
 

@@ -25,6 +25,7 @@ namespace StockportWebappTests.Unit.Services
     public class GroupsServiceTests
     {
         private readonly Mock<IContentApiRepository> _mockContentApiRepository = new Mock<IContentApiRepository>();
+        private readonly Mock<IProcessedContentRepository> _mockProcessedContentRepository = new Mock<IProcessedContentRepository>();
         private readonly Mock<IStockportApiRepository> _mockStockportApiRepository = new Mock<IStockportApiRepository>();
         private readonly GroupsService _service;
         private readonly Mock<IHttpEmailClient> _mockEmailClient = new Mock<IHttpEmailClient>();
@@ -35,7 +36,7 @@ namespace StockportWebappTests.Unit.Services
 
         public GroupsServiceTests()
         {
-            _service = new GroupsService(_mockContentApiRepository.Object, _mockEmailClient.Object, _mockApplicationConfiguration.Object, _mockLogger.Object, _mockStockportApiRepository.Object, businessId);
+            _service = new GroupsService(_mockContentApiRepository.Object,_mockProcessedContentRepository.Object, _mockEmailClient.Object, _mockApplicationConfiguration.Object, _mockLogger.Object, _mockStockportApiRepository.Object, businessId);
             _mockApplicationConfiguration.Setup(_ => _.GetEmailEmailFrom("stockportgov")).Returns(() => AppSetting.GetAppSetting("test"));
         }
 

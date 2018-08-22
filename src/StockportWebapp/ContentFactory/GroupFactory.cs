@@ -20,12 +20,6 @@ namespace StockportWebapp.ContentFactory
             _documentParser = documentParser;
         }
 
-        public virtual ProcessedGroupHomepage Build(GroupHomepage homepage)
-        {
-            var body = _parser.ParseAll(homepage.Body);
-            homepage.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
-        }
-
         public virtual ProcessedGroup Build(Group group)
         {
             var htmlBody = _markdownWrapper.ConvertToHtml(group.Description);
