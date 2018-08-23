@@ -33,7 +33,9 @@ namespace StockportWebapp.ContentFactory
             groupHomepage.FeaturedGroupsCategory,
             groupHomepage.FeaturedGroupsSubCategory,
             groupHomepage.Alerts,
+            groupHomepage.BodyHeading,
             bodyHtml,
+            groupHomepage.SecondaryBodyHeading,
             secondaryBodyHtml
             );
         }

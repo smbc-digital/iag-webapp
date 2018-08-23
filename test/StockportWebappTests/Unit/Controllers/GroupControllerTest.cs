@@ -59,7 +59,9 @@ namespace StockportWebappTests.Unit.Controllers
            new GroupCategory(),
            new GroupSubCategory(),
            new List<Alert>(),
+           "bodyHeading",
            "body",
+           "secondaryBodyHeading",
            "secondary body"
            );
 

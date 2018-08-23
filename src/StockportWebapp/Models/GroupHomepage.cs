@@ -15,7 +15,9 @@ namespace StockportWebapp.Models
         public GroupCategory FeaturedGroupsCategory { get; set; }
         public GroupSubCategory FeaturedGroupsSubCategory { get; set; }
         public List<Alert> Alerts { get; set; }
+        public string BodyHeading { get; set; }
         public string Body { get; set; }
+        public string SecondaryBodyHeading { get; set; }
         public string SecondaryBody { get; set; }
 
         public GroupHomepage() { }
