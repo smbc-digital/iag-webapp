@@ -19,6 +19,7 @@ namespace StockportWebapp.Models
         public string Body { get; set; }
         public string SecondaryBodyHeading { get; set; }
         public string SecondaryBody { get; set; }
+        public EventBanner EventBanner { get; set; }
 
         public GroupHomepage() { }
         

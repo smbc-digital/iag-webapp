@@ -1,6 +1,5 @@
 ﻿using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
-using System.Linq;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Models;
 
@@ -36,7 +35,8 @@ namespace StockportWebapp.ContentFactory
             groupHomepage.BodyHeading,
             bodyHtml,
             groupHomepage.SecondaryBodyHeading,
-            secondaryBodyHtml
+            secondaryBodyHtml,
+            groupHomepage.EventBanner
             );
         }
     }

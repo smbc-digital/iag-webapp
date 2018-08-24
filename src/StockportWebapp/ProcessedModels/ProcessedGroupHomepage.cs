@@ -21,6 +21,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Body;
         public readonly string SecondaryBodyHeading;
         public readonly string SecondaryBody;
+        public readonly EventBanner EventBanner;
 
         public ProcessedGroupHomepage() { }
 
@@ -42,7 +43,7 @@ namespace StockportWebapp.ProcessedModels
         }
 
         public ProcessedGroupHomepage(string title,string backgroundImage, string featuredGroupsHeading, List<Group> featuredGroups,
-            GroupCategory featuredGroupsCategory, GroupSubCategory featuredGroupsSubCategory, List<Alert> alerts, string bodyHeading, string body, string secondaryBodyHeading, string secondaryBody)
+            GroupCategory featuredGroupsCategory, GroupSubCategory featuredGroupsSubCategory, List<Alert> alerts, string bodyHeading, string body, string secondaryBodyHeading, string secondaryBody, EventBanner eventBanner)
         {
             Title = title;
             BackgroundImage = backgroundImage;
@@ -55,6 +56,7 @@ namespace StockportWebapp.ProcessedModels
             Body = body;
             SecondaryBodyHeading = secondaryBodyHeading;
             SecondaryBody = secondaryBody;
+            EventBanner = eventBanner;
         }
     }
 }
