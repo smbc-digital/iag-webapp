@@ -129,5 +129,10 @@
 div .home-page-row {
     .event-banner{
         padding-top: 20px;
+        margin-bottom: 0px;
+
+        @media #{$mobile}{
+            margin-top: 0;
+        }
     }
 }
