@@ -50,11 +50,20 @@ namespace StockportWebappTests.Unit.Controllers
             new GroupCategory() {Name = "name 3", Slug = "name3", Icon = "icon3", ImageUrl = "imageUrl3"},
         };
 
-        private readonly GroupHomepage groupHomepage = new GroupHomepage
-        {
-            Title = "Group Homepage Title",
-            BackgroundImage = "background-image.jpg"
-        };
+        private readonly ProcessedGroupHomepage groupHomepage = new ProcessedGroupHomepage
+        (
+           "title",
+           "background-image.jpg",
+           "featured group heading",
+           new List<Group>(),
+           new GroupCategory(),
+           new GroupSubCategory(),
+           new List<Alert>(),
+           "bodyHeading",
+           "body",
+           "secondaryBodyHeading",
+           "secondary body"
+           );
 
         public GroupControllerTest()
         {

@@ -49,7 +49,7 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary AddMonthFilter(DateTime startDate)
         {
-            var dateto = startDate.Month == _timeProvider.Now().Month ? _timeProvider.Now() : startDate.AddMonths(1).AddDays(-1);
+            var dateto = startDate.Month == _timeProvider.Now().Month && startDate.Year == _timeProvider.Now().Year ? _timeProvider.Now() : startDate.AddMonths(1).AddDays(-1);
 
             return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string>
             {

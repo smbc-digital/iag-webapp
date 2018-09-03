@@ -1,0 +1,2292 @@
+﻿#cludo-search-results .cludo-hidden {
+    display: none
+}
+
+#cludo-search-results .cludo-opacity0 {
+    opacity: 0
+}
+
+#cludo-search-results .cludo-opacity1 {
+    opacity: 1
+}
+
+.transition {
+    transition: all .3s ease-in-out
+}
+
+#cludo-search-form, #cludo-search-form-content, #cludo-search-results, .cludo-search_autocomplete {
+    box-sizing: border-box;
+    text-shadow: none
+}
+
+    #cludo-search-form *, #cludo-search-form-content *, #cludo-search-results *, .cludo-search_autocomplete * {
+        box-sizing: border-box;
+        text-align: left;
+        text-shadow: none
+    }
+
+    #cludo-search-form ul, #cludo-search-form-content ul, .cludo-search-form ul, .cludo-search-modal-body ul, .cludo-search-modal-footer ul, .cludo-search-modal-header ul {
+        list-style: none;
+        margin: 0;
+        padding: 0
+    }
+
+        #cludo-search-form ul li, #cludo-search-form-content ul li, .cludo-search-form ul li, .cludo-search-modal-body ul li, .cludo-search-modal-footer ul li, .cludo-search-modal-header ul li {
+            margin: 0;
+            padding: 0;
+            border: 0
+        }
+
+            #cludo-search-form ul li:hover, #cludo-search-form-content ul li:hover, .cludo-search-form ul li:hover, .cludo-search-modal-body ul li:hover, .cludo-search-modal-footer ul li:hover, .cludo-search-modal-header ul li:hover {
+                background-color: transparent;
+                border: 0
+            }
+
+    #cludo-search-form a, #cludo-search-form a:link, #cludo-search-form-content a, #cludo-search-form-content a:link, .cludo-search-form a, .cludo-search-form a:link, .cludo-search-modal-body a, .cludo-search-modal-body a:link, .cludo-search-modal-footer a, .cludo-search-modal-footer a:link, .cludo-search-modal-header a, .cludo-search-modal-header a:link {
+        color: #5da1ce;
+        transition: all .3s ease-in-out;
+        text-decoration: none
+    }
+
+        #cludo-search-form a:hover, #cludo-search-form a:link:hover, #cludo-search-form-content a:hover, #cludo-search-form-content a:link:hover, .cludo-search-form a:hover, .cludo-search-form a:link:hover, .cludo-search-modal-body a:hover, .cludo-search-modal-body a:link:hover, .cludo-search-modal-footer a:hover, .cludo-search-modal-footer a:link:hover, .cludo-search-modal-header a:hover, .cludo-search-modal-header a:link:hover {
+            color: #3a8abe;
+            text-decoration: none
+        }
+
+        #cludo-search-form a:focus, #cludo-search-form a:link:focus, #cludo-search-form-content a:focus, #cludo-search-form-content a:link:focus, .cludo-search-form a:focus, .cludo-search-form a:link:focus, .cludo-search-modal-body a:focus, .cludo-search-modal-body a:link:focus, .cludo-search-modal-footer a:focus, .cludo-search-modal-footer a:link:focus, .cludo-search-modal-header a:focus, .cludo-search-modal-header a:link:focus {
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 0;
+            outline: 0
+        }
+
+    #cludo-search-form h2, #cludo-search-form h3, #cludo-search-form p, #cludo-search-form-content h2, #cludo-search-form-content h3, #cludo-search-form-content p, .cludo-search-form h2, .cludo-search-form h3, .cludo-search-form p, .cludo-search-modal-body h2, .cludo-search-modal-body h3, .cludo-search-modal-body p, .cludo-search-modal-footer h2, .cludo-search-modal-footer h3, .cludo-search-modal-footer p, .cludo-search-modal-header h2, .cludo-search-modal-header h3, .cludo-search-modal-header p {
+        margin: 0;
+        padding: 0;
+        white-space: normal
+    }
+
+#cludo-search-form, .cludo-search-form {
+    display: block
+}
+
+    #cludo-search-form .search-input, #cludo-search-form input[type=search], .cludo-search-form .search-input, .cludo-search-form input[type=search] {
+        border: 1px solid transparent;
+        background-color: #f2f2f2;
+        color: #4d4d4d;
+        padding: 0 40px 0 10px;
+        height: 40px;
+        line-height: 40px;
+        width: 250px;
+        font-size: 14px;
+        -webkit-appearance: none
+    }
+
+    #cludo-search-form .search-button, #cludo-search-form button, #cludo-search-form-content button, .cludo-search-form .search-button, .cludo-search-form button {
+        background-color: #f2f2f2;
+        background-image: url(https://customer.cludo.com/img/search.svg);
+        background-position: center center;
+        text-indent: -999px;
+        padding: 4px;
+        right: 2px;
+        overflow: hidden;
+        float: none;
+        transition: all .3s ease-in-out
+    }
+
+    #cludo-search-form .search-input:focus, #cludo-search-form input[type=search]:focus, .cludo-search-form .search-input:focus, .cludo-search-form input[type=search]:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+    #cludo-search-form .search-button, #cludo-search-form button, .cludo-search-form .search-button, .cludo-search-form button {
+        color: #4d4d4d;
+        background-repeat: no-repeat;
+        border: 1px solid transparent;
+        width: 40px;
+        height: 36px;
+        position: absolute;
+        top: 2px;
+        z-index: 9999;
+        -webkit-filter: none;
+        filter: none
+    }
+
+        #cludo-search-form .search-button:hover, #cludo-search-form button:hover, #cludo-search-form-content button:hover, .cludo-search-form .search-button:hover, .cludo-search-form button:hover {
+            color: grey
+        }
+
+        #cludo-search-form .search-button:focus, #cludo-search-form button:focus, .cludo-search-form .search-button:focus, .cludo-search-form button:focus {
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 0;
+            outline: 0
+        }
+
+    #cludo-search-form label, .cludo-search-form label {
+        position: absolute;
+        left: -9999px;
+        top: -9999px
+    }
+
+#cludo-search-form, .cludo-search-form, .cludo-search_autocomplete {
+    position: relative;
+    margin: 0;
+    z-index: 9999999
+}
+
+#cludo-search-form-content {
+    position: relative;
+    width: 100%;
+    z-index: 99;
+    display: block;
+    padding: 0;
+    border: 0
+}
+
+    #cludo-search-form-content input[type=search] {
+        background-image: none;
+        background-color: #f2f2f2;
+        border-top: 1px solid #5da1ce;
+        border-bottom: 1px solid #5da1ce;
+        border-left: 0;
+        border-right: 0;
+        color: #4d4d4d;
+        position: relative;
+        width: 100% !important;
+        margin: 0 auto;
+        font-size: 22px;
+        padding: 0 100px 0 40px;
+        height: 64px;
+        line-height: 64px;
+        border-radius: 0;
+        -webkit-appearance: none
+    }
+
+        #cludo-search-form-content button:focus, #cludo-search-form-content input[type=search]:focus {
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 0;
+            outline: 0
+        }
+
+    #cludo-search-form-content button {
+        color: #4d4d4d;
+        background-repeat: no-repeat;
+        position: absolute;
+        z-index: 9999;
+        border: 0;
+        top: 2px;
+        width: 96px;
+        height: 60px;
+        border-radius: 0;
+        -webkit-filter: none;
+        filter: none
+    }
+
+@media (max-width:767px) {
+    #cludo-search-form-content input[type=search] {
+        height: 44px;
+        line-height: 44px;
+        padding: 0 60px 0 10px
+    }
+
+    #cludo-search-form-content button {
+        right: 1px;
+        top: 2px;
+        height: 38px;
+        width: 60px
+    }
+
+    .cludo-search-modal-active {
+        margin: 0
+    }
+}
+
+#cludo-search-form-content label {
+    position: absolute;
+    left: -9999px;
+    top: -9999px
+}
+
+#cludo-search-form .search_autocomplete, #cludo-search-form-content .search_autocomplete, .cludo-search-form .search_autocomplete, .cludo-search_autocomplete .search_autocomplete {
+    position: absolute;
+    top: 40px;
+    background-color: rgba(242,242,242,.95);
+    border: 1px solid transparent;
+    width: 100%;
+    z-index: 99999;
+    margin: 0;
+    padding: 0
+}
+
+    #cludo-search-form .search_autocomplete h3, #cludo-search-form-content .search_autocomplete h3, .cludo-search-form .search_autocomplete h3, .cludo-search_autocomplete .search_autocomplete h3 {
+        font-size: 12px;
+        color: #fff;
+        background-color: #4d4d4d;
+        padding: 7px;
+        text-transform: uppercase;
+        font-weight: 700
+    }
+
+        #cludo-search-form .search_autocomplete h3:after, #cludo-search-form-content .search_autocomplete h3:after, .cludo-search-form .search_autocomplete h3:after, .cludo-search_autocomplete .search_autocomplete h3:after {
+            content: ":"
+        }
+
+    #cludo-search-form .search_autocomplete li, #cludo-search-form-content .search_autocomplete li, .cludo-search-form .search_autocomplete li, .cludo-search_autocomplete .search_autocomplete li {
+        border-bottom: 1px solid transparent;
+        color: #4d4d4d;
+        padding: 7px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        transition: all .3s ease-in-out;
+        background-image: none;
+        text-shadow: none
+    }
+
+        #cludo-search-form .search_autocomplete li a, #cludo-search-form-content .search_autocomplete li a, .cludo-search-form .search_autocomplete li a, .cludo-search_autocomplete .search_autocomplete li a {
+            color: #4d4d4d
+        }
+
+        #cludo-search-form .search_autocomplete li.active, #cludo-search-form .search_autocomplete li:hover, #cludo-search-form-content .search_autocomplete li.active, #cludo-search-form-content .search_autocomplete li:hover, .cludo-search-form .search_autocomplete li.active, .cludo-search-form .search_autocomplete li:hover, .cludo-search_autocomplete .search_autocomplete li.active, .cludo-search_autocomplete .search_autocomplete li:hover {
+            background-color: #5da1ce;
+            color: #fff;
+            background-image: none
+        }
+
+            #cludo-search-form .search_autocomplete li.active a, #cludo-search-form .search_autocomplete li:hover a, #cludo-search-form-content .search_autocomplete li.active a, #cludo-search-form-content .search_autocomplete li:hover a, .cludo-search-form .search_autocomplete li.active a, .cludo-search-form .search_autocomplete li:hover a, .cludo-search_autocomplete .search_autocomplete li.active a, .cludo-search_autocomplete .search_autocomplete li:hover a {
+                color: #fff
+            }
+
+        #cludo-search-form .search_autocomplete li:last-child, #cludo-search-form-content .search_autocomplete li:last-child, .cludo-search-form .search_autocomplete li:last-child, .cludo-search_autocomplete .search_autocomplete li:last-child {
+            border-bottom: 0
+        }
+
+#cludo-search-form-content .search_autocomplete {
+    top: 63px;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    background-color: transparent
+}
+
+@media (max-width:940px) {
+    #cludo-search-form-content .search_autocomplete {
+        padding: 0;
+        top: 43px
+    }
+}
+
+#cludo-search-form-content .search_autocomplete h3 {
+    padding: 12px 10px 7px 7px
+}
+
+#cludo-search-form-content .search_autocomplete li {
+    font-size: 18px;
+    padding: 7px 20px;
+    background-color: rgba(242,242,242,.95)
+}
+
+.cludo-search-modal-overlay-inactive {
+    display: none
+}
+
+.cludo-search-modal-active {
+    position: fixed;
+    overflow: hidden;
+    left: 0;
+    right: 0
+}
+
+.cludo-search-modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(31,31,31,.6);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#99313131', endColorstr='#99313131');
+    z-index: 9999999999999
+}
+
+#cludo-search-modal-inner {
+    position: relative;
+    height: 100%;
+    width: 100%
+}
+
+#cludo-search-results .cludo-search-modal-header {
+    position: fixed;
+    left: 50%;
+    top: 30px;
+    margin: 0 0 0 -470px;
+    width: 940px;
+    background-color: #fff;
+    z-index: 9999999
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-header {
+        width: 766px;
+        margin-left: -383px
+    }
+}
+
+@media (max-width:767px) {
+    .cludo-search-modal {
+        background-color: #fff;
+        -webkit-filter: none;
+        filter: none
+    }
+
+    #cludo-search-results .cludo-search-modal-header {
+        width: 100%;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        border-radius: 0 !important;
+        z-index: 1
+    }
+
+        #cludo-search-results .cludo-search-modal-header #cludo-close {
+            border-radius: 0 !important
+        }
+}
+
+#cludo-search-results .cludo-search-modal-header #cludo-close {
+    position: relative;
+    top: 0;
+    right: 0;
+    height: 39px;
+    margin-left: auto;
+    width: 150px;
+    float: none;
+    background-image: url(https://customer.cludo.com/img/cross.svg);
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    padding: 10px 0;
+    cursor: pointer;
+    text-align: right;
+    display: block
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-header #cludo-close {
+        color: #fff;
+        height: 34px;
+        width: 40px
+    }
+
+        #cludo-search-results .cludo-search-modal-header #cludo-close button {
+            text-indent: -9999px;
+            overflow: hidden;
+            position: absolute;
+            height: 35px;
+            top: 0
+        }
+}
+
+#cludo-search-results .cludo-search-modal-header #cludo-close button {
+    background: 0 0;
+    text-shadow: none;
+    border: 0;
+    cursor: pointer;
+    color: #4d4d4d;
+    text-transform: uppercase;
+    padding: 0 40px 0 0;
+    -webkit-filter: none;
+    filter: none;
+    float: none
+}
+
+    #cludo-search-results .cludo-search-modal-header #cludo-close button:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body {
+    position: fixed;
+    top: 128px;
+    left: 50%;
+    margin: 0 0 0 -470px;
+    z-index: 0;
+    height: 470px;
+    padding: 30px 20px 0 40px;
+    width: 880px;
+    background-color: #fff;
+    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-size: 14px;
+    line-height: 21px;
+    box-sizing: content-box
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-body {
+        width: 766px;
+        margin-left: -383px
+    }
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body {
+        width: 100%;
+        height: auto;
+        top: 82px;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        border-radius: 0 !important;
+        z-index: 0
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body:after {
+    content: "";
+    display: table;
+    clear: both;
+    height: 20px;
+    width: 100%
+}
+
+#cludo-search-results .cludo-search-modal-body::-webkit-scrollbar {
+    width: 12px
+}
+
+#cludo-search-results .cludo-search-modal-body::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,.1);
+    border-radius: 10px
+}
+
+#cludo-search-results .cludo-search-modal-body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    padding-right: 25px;
+    background-color: rgba(0,0,0,.2)
+}
+
+#cludo-search-results .cludo-search-modal-body #cludo-loading {
+    position: relative;
+    margin: 20px auto;
+    width: 83px;
+    height: 30px
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-loading .loading {
+        position: absolute;
+        top: 0;
+        height: auto;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: Arial;
+        background-color: transparent
+    }
+
+    #cludo-search-results .cludo-search-modal-body #cludo-loading #loading_1 {
+        color: #383838;
+        width: 0;
+        height: 22px;
+        overflow: hidden;
+        border-right: 2px solid #824fd3;
+        -webkit-animation-name: loading;
+        animation-name: loading;
+        -webkit-animation-duration: 1.5s;
+        animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+        z-index: 1
+    }
+
+    #cludo-search-results .cludo-search-modal-body #cludo-loading #loading_2 {
+        color: #cbcbcb;
+        -webkit-animation-name: loading2;
+        animation-name: loading2;
+        -webkit-animation-duration: 1.5s;
+        animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+        -webkit-animation-delay: .75s;
+        animation-delay: .75s;
+        width: 83px;
+        z-index: 0
+    }
+
+@-webkit-keyframes loading {
+    0% {
+        width: 0
+    }
+
+    100% {
+        width: 83px
+    }
+}
+
+@keyframes loading {
+    0% {
+        width: 0
+    }
+
+    100% {
+        width: 83px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-results {
+    float: left;
+    padding: 0 40px 0 0;
+    margin: 0;
+    border: 0
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body .search-results {
+        width: 100%;
+        padding: 0 10px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-results .search-results-item {
+    transition: all .3s ease-in-out;
+    margin: 0 -10px;
+    padding: 0;
+    min-height: 95px;
+    border: 0;
+    float: none;
+    width: 100%
+}
+
+    #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a {
+        padding: 10px;
+        margin: 0;
+        display: block;
+        color: #333;
+        text-shadow: none;
+        background-image: none;
+        border: 2px solid transparent
+    }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h2, #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h3 {
+            padding: 0;
+            margin: 0 0 7px;
+            border: 0;
+            font-size: 22px;
+            line-height: 27.5px;
+            font-weight: 400;
+            color: #333;
+            display: block;
+            white-space: normal;
+            text-shadow: none
+        }
+
+            #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h2 b, #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h3 b {
+                font-size: 22px;
+                text-shadow: none
+            }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a p {
+            font-size: 14px !important;
+            line-height: 21px !important;
+            margin-bottom: 5px;
+            color: #4d4d4d;
+            white-space: normal;
+            text-shadow: none
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a b {
+            font-weight: 700;
+            text-shadow: none
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a .path {
+            font-size: 12px;
+            word-break: break-all;
+            color: #ccc;
+            text-shadow: none
+        }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover {
+        background-color: #f2f2f2;
+        background-image: none
+    }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover h2, #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover h3 {
+            text-decoration: underline;
+            color: #333
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover p {
+            color: #4d4d4d
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover .path {
+            text-decoration: underline
+        }
+
+#cludo-search-results .cludo-search-modal-body .search-results .file-type {
+    position: relative;
+    line-height: 24px;
+    padding-left: 24px;
+    color: #4d4d4d;
+    text-shadow: none;
+    font-size: 14px
+}
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type:before {
+        display: inline-block;
+        position: absolute;
+        top: -2px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        content: '';
+        background-image: url(https://customer.cludo.com/img/cludo-overlay-search-icons.png);
+        background-repeat: no-repeat
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.adobepdf:before {
+        background-position: 0 0
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.microsoftword:before {
+        background-position: -20px -20px
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.microsoftexcel:before {
+        background-position: -20px 0
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.microsoftpowerpoint:before {
+        background-position: 0 -20px
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-load-more {
+    margin: 20px 0 50px;
+    float: left;
+    background-color: #5da1ce;
+    transition: all .3s ease-in-out
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-load-more:hover {
+        background-color: #9e9e9e
+    }
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-load-more {
+        width: 100%
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body #cludo-load-more button {
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px 0;
+    background: 0 0;
+    text-shadow: none;
+    border: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    -webkit-filter: none;
+    filter: none;
+    float: none
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-load-more button:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-back-to-top {
+    position: fixed;
+    top: 560px;
+    left: 50%;
+    width: 840px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 0 0 -420px;
+    text-align: right;
+    z-index: 999;
+    float: none;
+    transition: opacity .5s linear
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top {
+        width: 680px;
+        margin-left: -340px
+    }
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top {
+        width: auto;
+        height: 35px;
+        line-height: 35px;
+        margin: 0;
+        padding-left: 10px;
+        bottom: 20px;
+        right: 37px;
+        top: auto;
+        left: auto;
+        color: #fff;
+        background-color: rgba(50,50,50,.6)
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body #cludo-back-to-top button {
+    text-align: right;
+    text-transform: uppercase;
+    color: #9e9e9e;
+    font-size: 12px;
+    cursor: pointer;
+    background: 0 0;
+    text-shadow: none;
+    border: 0;
+    padding: 0 25px 0 0;
+    -webkit-filter: none;
+    filter: none;
+    float: none;
+    line-height: 30px;
+    height: 100%
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top button:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-back-to-top:after {
+    content: "";
+    background-image: url(https://customer.cludo.com/img/arrow-up.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 30px
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top button {
+        color: #fff
+    }
+
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top:after {
+        background-image: url(https://customer.cludo.com/img/arrow-up-white.svg);
+        background-color: transparent;
+        height: 35px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .cludo-banner {
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #055c58;
+    color: #4d4d4d;
+    float: none !important;
+    text-shadow: none
+}
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner * {
+        text-shadow: none
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner ul {
+        margin-left: 20px
+    }
+
+        #cludo-search-results .cludo-search-modal-body .cludo-banner ul li {
+            list-style: disc
+        }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner a {
+        color: #5da1ce;
+        text-decoration: underline
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner p {
+        font-size: 18px;
+        line-height: 21px !important
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h2 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h5 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner:after {
+        visibility: hidden;
+        display: block;
+        content: "";
+        clear: both;
+        height: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body .search-result-count, #cludo-search-results .cludo-search-modal-body .search-result-count * {
+    font-size: 18px;
+    padding: 15px 0
+}
+
+#cludo-search-results .cludo-search-modal-body .search-result-count {
+    float: left;
+    width: 75%;
+    color: #4d4d4d
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body .search-result-count {
+        width: 100%;
+        margin-top: 20px;
+        padding: 0 0 10px 10px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-did-you-mean {
+    cursor: pointer;
+    font-size: 18px;
+    float: left;
+    width: 75%;
+    color: #4d4d4d
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body .search-did-you-mean {
+        width: 100%;
+        padding: 0 0 0 10px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-did-you-mean b {
+    text-decoration: underline;
+    color: #5da1ce;
+    font-size: 18px
+}
+
+#cludo-search-results .cludo-search-modal-footer {
+    position: fixed;
+    top: 600px;
+    left: 50%;
+    width: 940px;
+    height: 21px;
+    margin: 0 0 0 -470px;
+    display: block
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-footer {
+        width: 766px;
+        margin-left: -383px
+    }
+
+    #cludo-search-results .cludo-search-modal-body {
+        -webkit-overflow-scrolling: touch
+    }
+
+        #cludo-search-results .cludo-search-modal-body > * {
+            -webkit-transform: translateZ(0)
+        }
+}
+
+#cludo-search-results .search-filters ul {
+    border: 1px solid #ccc
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-footer {
+        display: none
+    }
+
+    #cludo-search-results .search-filters ul {
+        display: none;
+        border: 0;
+        box-shadow: 2px 2px 5px #d9d9d9;
+        border-radius: 0 !important;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        position: fixed;
+        top: 36px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(255,255,255,.8)
+    }
+
+        #cludo-search-results .search-filters ul li {
+            background-color: #fff
+        }
+}
+
+#cludo-search-results .search-filters ul li {
+    width: 100%;
+    border: 0;
+    text-shadow: none;
+    padding: 0;
+    margin: 0;
+    float: none;
+    border-bottom: 1px solid #ccc
+}
+
+    #cludo-search-results .search-filters ul li:last-child {
+        border-bottom: 0
+    }
+
+@media (max-width:767px) {
+    #cludo-search-results .search-filters ul li:last-child {
+        border-bottom: 1px solid #ccc
+    }
+}
+
+#cludo-search-results .search-filters ul li:hover {
+    background-image: none
+}
+
+#cludo-search-results .search-filters ul a {
+    padding: 12px 10px;
+    display: block;
+    color: #4d4d4d;
+    cursor: pointer;
+    float: none;
+    margin: 0;
+    text-shadow: none;
+    border: 2px solid transparent;
+    transition: all .3s ease-in-out
+}
+
+    #cludo-search-results .search-filters ul a:hover {
+        background-color: #f2f2f2;
+        color: grey;
+        background-image: none
+    }
+
+    #cludo-search-results .search-filters ul a.active {
+        background-color: #5da1ce;
+        color: #fff
+    }
+
+#cludo-search-results .cludo-search-modal-body .search-filters {
+    position: relative;
+    width: 25%;
+    float: right;
+    margin-top: -40px;
+    display: block
+}
+
+    #cludo-search-results .cludo-search-modal-body .search-filters .search-filters-mobile-button, #cludo-search-results .cludo-search-modal-header .search-filters {
+        display: none
+    }
+
+@media (max-width:767px) {
+    #cludo-search-results .search-filters ul a {
+        border-radius: 0 !important
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-filters {
+        display: none
+    }
+
+    #cludo-search-results .cludo-search-modal-header .search-filters {
+        display: block;
+        width: 100%;
+        margin-top: 0;
+        position: fixed;
+        top: 36px;
+        background-color: #fff;
+        z-index: 999
+    }
+}
+
+#cludo-search-results .cludo-search-modal-header .search-filters .search-filters-mobile-button {
+    display: block;
+    position: fixed;
+    background-image: url(https://customer.cludo.com/img/ellipsis.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    top: 0;
+    left: 0;
+    height: 36px;
+    width: 40px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    text-indent: -9999px;
+    overflow: hidden
+}
+
+    #cludo-search-results .cludo-search-modal-header .search-filters .search-filters-mobile-button.open {
+        background-color: #5da1ce;
+        background-image: url(https://customer.cludo.com/img/ellipsis-active.svg)
+    }
+
+#cludo-search-results .cludo-search-modal-header .search-filters li:first-child {
+    border-top: 1px solid #ccc
+}
+
+#cludo-search-results .cludo-poweredby {
+    position: relative;
+    top: 26px;
+    right: 0;
+    margin-left: auto;
+    width: 120px;
+    height: 21px;
+    background-image: url(https://customer.cludo.com/img/cludo-overlay-search-powered-by-Cludo-light.png);
+    background-position: center right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: none;
+    display: block
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-poweredby {
+        display: none
+    }
+}
+
+#cludo-search-results .cludo-poweredby a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: transparent !important;
+    text-indent: -999px;
+    overflow: hidden
+}
+
+#cludo-search-results .cludo-poweredby-mobile {
+    display: none
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-poweredby-mobile {
+        display: block;
+        width: 100%;
+        height: 35px;
+        margin-left: 10px;
+        background-image: url(https://customer.cludo.com/img/cludo-overlay-search-powered-by-Cludo.png);
+        background-position: center left;
+        background-repeat: no-repeat;
+        float: left;
+        cursor: pointer
+    }
+}
+
+#cludo-search-results .cludo-poweredby-mobile a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: transparent !important
+}
+
+.cludo-no-search-term {
+    background-image: url(https://customer.cludo.com/img/search-here.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-top: 24px;
+    margin: -50px 0 50px -5px;
+    padding-left: 33px;
+    font-size: 18px;
+    color: #4d4d4d#cludo-search-results .cludo-hidden
+
+{
+    display: none
+}
+
+#cludo-search-results .cludo-opacity0 {
+    opacity: 0
+}
+
+#cludo-search-results .cludo-opacity1 {
+    opacity: 1
+}
+
+.transition {
+    transition: all .3s ease-in-out
+}
+
+#cludo-search-form, #cludo-search-form-content, #cludo-search-results, .cludo-search_autocomplete {
+    box-sizing: border-box;
+    text-shadow: none
+}
+
+    #cludo-search-form *, #cludo-search-form-content *, #cludo-search-results *, .cludo-search_autocomplete * {
+        box-sizing: border-box;
+        text-align: left;
+        text-shadow: none
+    }
+
+    #cludo-search-form ul, #cludo-search-form-content ul, .cludo-search-form ul, .cludo-search-modal-body ul, .cludo-search-modal-footer ul, .cludo-search-modal-header ul {
+        list-style: none;
+        margin: 0;
+        padding: 0
+    }
+
+        #cludo-search-form ul li, #cludo-search-form-content ul li, .cludo-search-form ul li, .cludo-search-modal-body ul li, .cludo-search-modal-footer ul li, .cludo-search-modal-header ul li {
+            margin: 0;
+            padding: 0;
+            border: 0
+        }
+
+            #cludo-search-form ul li:hover, #cludo-search-form-content ul li:hover, .cludo-search-form ul li:hover, .cludo-search-modal-body ul li:hover, .cludo-search-modal-footer ul li:hover, .cludo-search-modal-header ul li:hover {
+                background-color: transparent;
+                border: 0
+            }
+
+    #cludo-search-form a, #cludo-search-form a:link, #cludo-search-form-content a, #cludo-search-form-content a:link, .cludo-search-form a, .cludo-search-form a:link, .cludo-search-modal-body a, .cludo-search-modal-body a:link, .cludo-search-modal-footer a, .cludo-search-modal-footer a:link, .cludo-search-modal-header a, .cludo-search-modal-header a:link {
+        color: #5da1ce;
+        transition: all .3s ease-in-out;
+        text-decoration: none
+    }
+
+        #cludo-search-form a:hover, #cludo-search-form a:link:hover, #cludo-search-form-content a:hover, #cludo-search-form-content a:link:hover, .cludo-search-form a:hover, .cludo-search-form a:link:hover, .cludo-search-modal-body a:hover, .cludo-search-modal-body a:link:hover, .cludo-search-modal-footer a:hover, .cludo-search-modal-footer a:link:hover, .cludo-search-modal-header a:hover, .cludo-search-modal-header a:link:hover {
+            color: #3a8abe;
+            text-decoration: none
+        }
+
+        #cludo-search-form a:focus, #cludo-search-form a:link:focus, #cludo-search-form-content a:focus, #cludo-search-form-content a:link:focus, .cludo-search-form a:focus, .cludo-search-form a:link:focus, .cludo-search-modal-body a:focus, .cludo-search-modal-body a:link:focus, .cludo-search-modal-footer a:focus, .cludo-search-modal-footer a:link:focus, .cludo-search-modal-header a:focus, .cludo-search-modal-header a:link:focus {
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 0;
+            outline: 0
+        }
+
+    #cludo-search-form h2, #cludo-search-form h3, #cludo-search-form p, #cludo-search-form-content h2, #cludo-search-form-content h3, #cludo-search-form-content p, .cludo-search-form h2, .cludo-search-form h3, .cludo-search-form p, .cludo-search-modal-body h2, .cludo-search-modal-body h3, .cludo-search-modal-body p, .cludo-search-modal-footer h2, .cludo-search-modal-footer h3, .cludo-search-modal-footer p, .cludo-search-modal-header h2, .cludo-search-modal-header h3, .cludo-search-modal-header p {
+        margin: 0;
+        padding: 0;
+        white-space: normal
+    }
+
+#cludo-search-form, .cludo-search-form {
+    display: block
+}
+
+    #cludo-search-form .search-input, #cludo-search-form input[type=search], .cludo-search-form .search-input, .cludo-search-form input[type=search] {
+        border: 1px solid transparent;
+        background-color: #f2f2f2;
+        color: #4d4d4d;
+        padding: 0 40px 0 10px;
+        height: 40px;
+        line-height: 40px;
+        width: 250px;
+        font-size: 14px;
+        -webkit-appearance: none
+    }
+
+    #cludo-search-form .search-button, #cludo-search-form button, #cludo-search-form-content button, .cludo-search-form .search-button, .cludo-search-form button {
+        background-color: #f2f2f2;
+        background-image: url(https://customer.cludo.com/img/search.svg);
+        background-position: center center;
+        text-indent: -999px;
+        padding: 4px;
+        right: 2px;
+        overflow: hidden;
+        float: none;
+        transition: all .3s ease-in-out
+    }
+
+    #cludo-search-form .search-input:focus, #cludo-search-form input[type=search]:focus, .cludo-search-form .search-input:focus, .cludo-search-form input[type=search]:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+    #cludo-search-form .search-button, #cludo-search-form button, .cludo-search-form .search-button, .cludo-search-form button {
+        color: #4d4d4d;
+        background-repeat: no-repeat;
+        border: 1px solid transparent;
+        width: 40px;
+        height: 36px;
+        position: absolute;
+        top: 2px;
+        z-index: 9999;
+        -webkit-filter: none;
+        filter: none
+    }
+
+        #cludo-search-form .search-button:hover, #cludo-search-form button:hover, #cludo-search-form-content button:hover, .cludo-search-form .search-button:hover, .cludo-search-form button:hover {
+            color: grey
+        }
+
+        #cludo-search-form .search-button:focus, #cludo-search-form button:focus, .cludo-search-form .search-button:focus, .cludo-search-form button:focus {
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 0;
+            outline: 0
+        }
+
+    #cludo-search-form label, .cludo-search-form label {
+        position: absolute;
+        left: -9999px;
+        top: -9999px
+    }
+
+#cludo-search-form, .cludo-search-form, .cludo-search_autocomplete {
+    position: relative;
+    margin: 0;
+    z-index: 9999999
+}
+
+#cludo-search-form-content {
+    position: relative;
+    width: 100%;
+    z-index: 99;
+    display: block;
+    padding: 0;
+    border: 0
+}
+
+    #cludo-search-form-content input[type=search] {
+        background-image: none;
+        background-color: #f2f2f2;
+        border-top: 1px solid #5da1ce;
+        border-bottom: 1px solid #5da1ce;
+        border-left: 0;
+        border-right: 0;
+        color: #4d4d4d;
+        position: relative;
+        width: 100% !important;
+        margin: 0 auto;
+        font-size: 22px;
+        padding: 0 100px 0 40px;
+        height: 64px;
+        line-height: 64px;
+        border-radius: 0;
+        -webkit-appearance: none
+    }
+
+        #cludo-search-form-content button:focus, #cludo-search-form-content input[type=search]:focus {
+            border-width: 2px;
+            border-style: solid;
+            border-radius: 0;
+            outline: 0
+        }
+
+    #cludo-search-form-content button {
+        color: #4d4d4d;
+        background-repeat: no-repeat;
+        position: absolute;
+        z-index: 9999;
+        border: 0;
+        top: 2px;
+        width: 96px;
+        height: 60px;
+        border-radius: 0;
+        -webkit-filter: none;
+        filter: none
+    }
+
+@media (max-width:767px) {
+    #cludo-search-form-content input[type=search] {
+        height: 44px;
+        line-height: 44px;
+        padding: 0 60px 0 10px
+    }
+
+    #cludo-search-form-content button {
+        right: 1px;
+        top: 2px;
+        height: 38px;
+        width: 60px
+    }
+
+    .cludo-search-modal-active {
+        margin: 0
+    }
+}
+
+#cludo-search-form-content label {
+    position: absolute;
+    left: -9999px;
+    top: -9999px
+}
+
+#cludo-search-form .search_autocomplete, #cludo-search-form-content .search_autocomplete, .cludo-search-form .search_autocomplete, .cludo-search_autocomplete .search_autocomplete {
+    position: absolute;
+    top: 40px;
+    background-color: rgba(242,242,242,.95);
+    border: 1px solid transparent;
+    width: 100%;
+    z-index: 99999;
+    margin: 0;
+    padding: 0
+}
+
+    #cludo-search-form .search_autocomplete h3, #cludo-search-form-content .search_autocomplete h3, .cludo-search-form .search_autocomplete h3, .cludo-search_autocomplete .search_autocomplete h3 {
+        font-size: 12px;
+        color: #fff;
+        background-color: #4d4d4d;
+        padding: 7px;
+        text-transform: uppercase;
+        font-weight: 700
+    }
+
+        #cludo-search-form .search_autocomplete h3:after, #cludo-search-form-content .search_autocomplete h3:after, .cludo-search-form .search_autocomplete h3:after, .cludo-search_autocomplete .search_autocomplete h3:after {
+            content: ":"
+        }
+
+    #cludo-search-form .search_autocomplete li, #cludo-search-form-content .search_autocomplete li, .cludo-search-form .search_autocomplete li, .cludo-search_autocomplete .search_autocomplete li {
+        border-bottom: 1px solid transparent;
+        color: #4d4d4d;
+        padding: 7px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        transition: all .3s ease-in-out;
+        background-image: none;
+        text-shadow: none
+    }
+
+        #cludo-search-form .search_autocomplete li a, #cludo-search-form-content .search_autocomplete li a, .cludo-search-form .search_autocomplete li a, .cludo-search_autocomplete .search_autocomplete li a {
+            color: #4d4d4d
+        }
+
+        #cludo-search-form .search_autocomplete li.active, #cludo-search-form .search_autocomplete li:hover, #cludo-search-form-content .search_autocomplete li.active, #cludo-search-form-content .search_autocomplete li:hover, .cludo-search-form .search_autocomplete li.active, .cludo-search-form .search_autocomplete li:hover, .cludo-search_autocomplete .search_autocomplete li.active, .cludo-search_autocomplete .search_autocomplete li:hover {
+            background-color: #5da1ce;
+            color: #fff;
+            background-image: none
+        }
+
+            #cludo-search-form .search_autocomplete li.active a, #cludo-search-form .search_autocomplete li:hover a, #cludo-search-form-content .search_autocomplete li.active a, #cludo-search-form-content .search_autocomplete li:hover a, .cludo-search-form .search_autocomplete li.active a, .cludo-search-form .search_autocomplete li:hover a, .cludo-search_autocomplete .search_autocomplete li.active a, .cludo-search_autocomplete .search_autocomplete li:hover a {
+                color: #fff
+            }
+
+        #cludo-search-form .search_autocomplete li:last-child, #cludo-search-form-content .search_autocomplete li:last-child, .cludo-search-form .search_autocomplete li:last-child, .cludo-search_autocomplete .search_autocomplete li:last-child {
+            border-bottom: 0
+        }
+
+#cludo-search-form-content .search_autocomplete {
+    top: 63px;
+    margin: 0;
+    width: 100%;
+    padding: 0;
+    background-color: transparent
+}
+
+@media (max-width:940px) {
+    #cludo-search-form-content .search_autocomplete {
+        padding: 0;
+        top: 43px
+    }
+}
+
+#cludo-search-form-content .search_autocomplete h3 {
+    padding: 12px 10px 7px 7px
+}
+
+#cludo-search-form-content .search_autocomplete li {
+    font-size: 18px;
+    padding: 7px 20px;
+    background-color: rgba(242,242,242,.95)
+}
+
+.cludo-search-modal-overlay-inactive {
+    display: none
+}
+
+.cludo-search-modal-active {
+    position: fixed;
+    overflow: hidden;
+    left: 0;
+    right: 0
+}
+
+.cludo-search-modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(31,31,31,.6);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#99313131', endColorstr='#99313131');
+    z-index: 9999999999999
+}
+
+#cludo-search-modal-inner {
+    position: relative;
+    height: 100%;
+    width: 100%
+}
+
+#cludo-search-results .cludo-search-modal-header {
+    position: fixed;
+    left: 50%;
+    top: 30px;
+    margin: 0 0 0 -470px;
+    width: 940px;
+    background-color: #fff;
+    z-index: 9999999
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-header {
+        width: 766px;
+        margin-left: -383px
+    }
+}
+
+@media (max-width:767px) {
+    .cludo-search-modal {
+        background-color: #fff;
+        -webkit-filter: none;
+        filter: none
+    }
+
+    #cludo-search-results .cludo-search-modal-header {
+        width: 100%;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        border-radius: 0 !important;
+        z-index: 1
+    }
+
+        #cludo-search-results .cludo-search-modal-header #cludo-close {
+            border-radius: 0 !important
+        }
+}
+
+#cludo-search-results .cludo-search-modal-header #cludo-close {
+    position: relative;
+    top: 0;
+    right: 0;
+    height: 39px;
+    margin-left: auto;
+    width: 150px;
+    float: none;
+    background-image: url(https://customer.cludo.com/img/cross.svg);
+    background-repeat: no-repeat;
+    background-position: center right 10px;
+    padding: 10px 0;
+    cursor: pointer;
+    text-align: right;
+    display: block
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-header #cludo-close {
+        color: #fff;
+        height: 34px;
+        width: 40px
+    }
+
+        #cludo-search-results .cludo-search-modal-header #cludo-close button {
+            text-indent: -9999px;
+            overflow: hidden;
+            position: absolute;
+            height: 35px;
+            top: 0
+        }
+}
+
+#cludo-search-results .cludo-search-modal-header #cludo-close button {
+    background: 0 0;
+    text-shadow: none;
+    border: 0;
+    cursor: pointer;
+    color: #4d4d4d;
+    text-transform: uppercase;
+    padding: 0 40px 0 0;
+    -webkit-filter: none;
+    filter: none;
+    float: none
+}
+
+    #cludo-search-results .cludo-search-modal-header #cludo-close button:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body {
+    position: fixed;
+    top: 128px;
+    left: 50%;
+    margin: 0 0 0 -470px;
+    z-index: 0;
+    height: 470px;
+    padding: 30px 20px 0 40px;
+    width: 880px;
+    background-color: #fff;
+    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-size: 14px;
+    line-height: 21px;
+    box-sizing: content-box
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-body {
+        width: 766px;
+        margin-left: -383px
+    }
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body {
+        width: 100%;
+        height: auto;
+        top: 82px;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        border-radius: 0 !important;
+        z-index: 0
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body:after {
+    content: "";
+    display: table;
+    clear: both;
+    height: 20px;
+    width: 100%
+}
+
+#cludo-search-results .cludo-search-modal-body::-webkit-scrollbar {
+    width: 12px
+}
+
+#cludo-search-results .cludo-search-modal-body::-webkit-scrollbar-track {
+    background-color: rgba(0,0,0,.1);
+    border-radius: 10px
+}
+
+#cludo-search-results .cludo-search-modal-body::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    padding-right: 25px;
+    background-color: rgba(0,0,0,.2)
+}
+
+#cludo-search-results .cludo-search-modal-body #cludo-loading {
+    position: relative;
+    margin: 20px auto;
+    width: 83px;
+    height: 30px
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-loading .loading {
+        position: absolute;
+        top: 0;
+        height: auto;
+        font-size: 20px;
+        font-weight: 700;
+        font-family: Arial;
+        background-color: transparent
+    }
+
+    #cludo-search-results .cludo-search-modal-body #cludo-loading #loading_1 {
+        color: #383838;
+        width: 0;
+        height: 22px;
+        overflow: hidden;
+        border-right: 2px solid #824fd3;
+        -webkit-animation-name: loading;
+        animation-name: loading;
+        -webkit-animation-duration: 1.5s;
+        animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+        z-index: 1
+    }
+
+    #cludo-search-results .cludo-search-modal-body #cludo-loading #loading_2 {
+        color: #cbcbcb;
+        -webkit-animation-name: loading2;
+        animation-name: loading2;
+        -webkit-animation-duration: 1.5s;
+        animation-duration: 1.5s;
+        -webkit-animation-iteration-count: infinite;
+        animation-iteration-count: infinite;
+        -webkit-animation-direction: normal;
+        animation-direction: normal;
+        -webkit-animation-delay: .75s;
+        animation-delay: .75s;
+        width: 83px;
+        z-index: 0
+    }
+
+@-webkit-keyframes loading {
+    0% {
+        width: 0
+    }
+
+    100% {
+        width: 83px
+    }
+}
+
+@keyframes loading {
+    0% {
+        width: 0
+    }
+
+    100% {
+        width: 83px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-results {
+    float: left;
+    padding: 0 40px 0 0;
+    margin: 0;
+    border: 0
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body .search-results {
+        width: 100%;
+        padding: 0 10px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-results .search-results-item {
+    transition: all .3s ease-in-out;
+    margin: 0 -10px;
+    padding: 0;
+    min-height: 95px;
+    border: 0;
+    float: none;
+    width: 100%
+}
+
+    #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a {
+        padding: 10px;
+        margin: 0;
+        display: block;
+        color: #333;
+        text-shadow: none;
+        background-image: none;
+        border: 2px solid transparent
+    }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h2, #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h3 {
+            padding: 0;
+            margin: 0 0 7px;
+            border: 0;
+            font-size: 22px;
+            line-height: 27.5px;
+            font-weight: 400;
+            color: #333;
+            display: block;
+            white-space: normal;
+            text-shadow: none
+        }
+
+            #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h2 b, #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a h3 b {
+                font-size: 22px;
+                text-shadow: none
+            }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a p {
+            font-size: 14px !important;
+            line-height: 21px !important;
+            margin-bottom: 5px;
+            color: #4d4d4d;
+            white-space: normal;
+            text-shadow: none
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a b {
+            font-weight: 700;
+            text-shadow: none
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item a .path {
+            font-size: 12px;
+            word-break: break-all;
+            color: #ccc;
+            text-shadow: none
+        }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover {
+        background-color: #f2f2f2;
+        background-image: none
+    }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover h2, #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover h3 {
+            text-decoration: underline;
+            color: #333
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover p {
+            color: #4d4d4d
+        }
+
+        #cludo-search-results .cludo-search-modal-body .search-results .search-results-item:hover .path {
+            text-decoration: underline
+        }
+
+#cludo-search-results .cludo-search-modal-body .search-results .file-type {
+    position: relative;
+    line-height: 24px;
+    padding-left: 24px;
+    color: #4d4d4d;
+    text-shadow: none;
+    font-size: 14px
+}
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type:before {
+        display: inline-block;
+        position: absolute;
+        top: -2px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        content: '';
+        background-image: url(https://customer.cludo.com/img/cludo-overlay-search-icons.png);
+        background-repeat: no-repeat
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.adobepdf:before {
+        background-position: 0 0
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.microsoftword:before {
+        background-position: -20px -20px
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.microsoftexcel:before {
+        background-position: -20px 0
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-results .file-type.microsoftpowerpoint:before {
+        background-position: 0 -20px
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-load-more {
+    margin: 20px 0 50px;
+    float: left;
+    background-color: #5da1ce;
+    transition: all .3s ease-in-out
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-load-more:hover {
+        background-color: #9e9e9e
+    }
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-load-more {
+        width: 100%
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body #cludo-load-more button {
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px 0;
+    background: 0 0;
+    text-shadow: none;
+    border: 0;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    -webkit-filter: none;
+    filter: none;
+    float: none
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-load-more button:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-back-to-top {
+    position: fixed;
+    top: 560px;
+    left: 50%;
+    width: 840px;
+    height: 30px;
+    line-height: 30px;
+    margin: 0 0 0 -420px;
+    text-align: right;
+    z-index: 999;
+    float: none;
+    transition: opacity .5s linear
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top {
+        width: 680px;
+        margin-left: -340px
+    }
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top {
+        width: auto;
+        height: 35px;
+        line-height: 35px;
+        margin: 0;
+        padding-left: 10px;
+        bottom: 20px;
+        right: 37px;
+        top: auto;
+        left: auto;
+        color: #fff;
+        background-color: rgba(50,50,50,.6)
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body #cludo-back-to-top button {
+    text-align: right;
+    text-transform: uppercase;
+    color: #9e9e9e;
+    font-size: 12px;
+    cursor: pointer;
+    background: 0 0;
+    text-shadow: none;
+    border: 0;
+    padding: 0 25px 0 0;
+    -webkit-filter: none;
+    filter: none;
+    float: none;
+    line-height: 30px;
+    height: 100%
+}
+
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top button:focus {
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 0;
+        outline: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-back-to-top:after {
+    content: "";
+    background-image: url(https://customer.cludo.com/img/arrow-up.svg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 30px
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top button {
+        color: #fff
+    }
+
+    #cludo-search-results .cludo-search-modal-body #cludo-back-to-top:after {
+        background-image: url(https://customer.cludo.com/img/arrow-up-white.svg);
+        background-color: transparent;
+        height: 35px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .cludo-banner {
+    padding: 15px;
+    margin: 15px 0;
+    background-color: #055c58;
+    color: #4d4d4d;
+    float: none !important;
+    text-shadow: none
+}
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner * {
+        text-shadow: none
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner ul {
+        margin-left: 20px
+    }
+
+        #cludo-search-results .cludo-search-modal-body .cludo-banner ul li {
+            list-style: disc
+        }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner a {
+        color: #5da1ce;
+        text-decoration: underline
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner p {
+        font-size: 18px;
+        line-height: 21px !important
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h2 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h4 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner h5 {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 5px;
+        line-height: normal
+    }
+
+    #cludo-search-results .cludo-search-modal-body .cludo-banner:after {
+        visibility: hidden;
+        display: block;
+        content: "";
+        clear: both;
+        height: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body .search-result-count, #cludo-search-results .cludo-search-modal-body .search-result-count * {
+    font-size: 18px;
+    padding: 15px 0
+}
+
+#cludo-search-results .cludo-search-modal-body .search-result-count {
+    float: left;
+    width: 75%;
+    color: #4d4d4d
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body .search-result-count {
+        width: 100%;
+        margin-top: 20px;
+        padding: 0 0 10px 10px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-did-you-mean {
+    cursor: pointer;
+    font-size: 18px;
+    float: left;
+    width: 75%;
+    color: #4d4d4d
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-body .search-did-you-mean {
+        width: 100%;
+        padding: 0 0 0 10px
+    }
+}
+
+#cludo-search-results .cludo-search-modal-body .search-did-you-mean b {
+    text-decoration: underline;
+    color: #5da1ce;
+    font-size: 18px
+}
+
+#cludo-search-results .cludo-search-modal-footer {
+    position: fixed;
+    top: 600px;
+    left: 50%;
+    width: 940px;
+    height: 21px;
+    margin: 0 0 0 -470px;
+    display: block
+}
+
+@media (max-width:940px) {
+    #cludo-search-results .cludo-search-modal-footer {
+        width: 766px;
+        margin-left: -383px
+    }
+
+    #cludo-search-results .cludo-search-modal-body {
+        -webkit-overflow-scrolling: touch
+    }
+
+        #cludo-search-results .cludo-search-modal-body > * {
+            -webkit-transform: translateZ(0)
+        }
+}
+
+#cludo-search-results .search-filters ul {
+    border: 1px solid #ccc
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-search-modal-footer {
+        display: none
+    }
+
+    #cludo-search-results .search-filters ul {
+        display: none;
+        border: 0;
+        box-shadow: 2px 2px 5px #d9d9d9;
+        border-radius: 0 !important;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        position: fixed;
+        top: 36px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(255,255,255,.8)
+    }
+
+        #cludo-search-results .search-filters ul li {
+            background-color: #fff
+        }
+}
+
+#cludo-search-results .search-filters ul li {
+    width: 100%;
+    border: 0;
+    text-shadow: none;
+    padding: 0;
+    margin: 0;
+    float: none;
+    border-bottom: 1px solid #ccc
+}
+
+    #cludo-search-results .search-filters ul li:last-child {
+        border-bottom: 0
+    }
+
+@media (max-width:767px) {
+    #cludo-search-results .search-filters ul li:last-child {
+        border-bottom: 1px solid #ccc
+    }
+}
+
+#cludo-search-results .search-filters ul li:hover {
+    background-image: none
+}
+
+#cludo-search-results .search-filters ul a {
+    padding: 12px 10px;
+    display: block;
+    color: #4d4d4d;
+    cursor: pointer;
+    float: none;
+    margin: 0;
+    text-shadow: none;
+    border: 2px solid transparent;
+    transition: all .3s ease-in-out
+}
+
+    #cludo-search-results .search-filters ul a:hover {
+        background-color: #f2f2f2;
+        color: grey;
+        background-image: none
+    }
+
+    #cludo-search-results .search-filters ul a.active {
+        background-color: #5da1ce;
+        color: #fff
+    }
+
+#cludo-search-results .cludo-search-modal-body .search-filters {
+    position: relative;
+    width: 25%;
+    float: right;
+    margin-top: -40px;
+    display: block
+}
+
+    #cludo-search-results .cludo-search-modal-body .search-filters .search-filters-mobile-button, #cludo-search-results .cludo-search-modal-header .search-filters {
+        display: none
+    }
+
+@media (max-width:767px) {
+    #cludo-search-results .search-filters ul a {
+        border-radius: 0 !important
+    }
+
+    #cludo-search-results .cludo-search-modal-body .search-filters {
+        display: none
+    }
+
+    #cludo-search-results .cludo-search-modal-header .search-filters {
+        display: block;
+        width: 100%;
+        margin-top: 0;
+        position: fixed;
+        top: 36px;
+        background-color: #fff;
+        z-index: 999
+    }
+}
+
+#cludo-search-results .cludo-search-modal-header .search-filters .search-filters-mobile-button {
+    display: block;
+    position: fixed;
+    background-image: url(https://customer.cludo.com/img/ellipsis.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    top: 0;
+    left: 0;
+    height: 36px;
+    width: 40px;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    text-indent: -9999px;
+    overflow: hidden
+}
+
+    #cludo-search-results .cludo-search-modal-header .search-filters .search-filters-mobile-button.open {
+        background-color: #5da1ce;
+        background-image: url(https://customer.cludo.com/img/ellipsis-active.svg)
+    }
+
+#cludo-search-results .cludo-search-modal-header .search-filters li:first-child {
+    border-top: 1px solid #ccc
+}
+
+#cludo-search-results .cludo-poweredby {
+    position: relative;
+    top: 26px;
+    right: 0;
+    margin-left: auto;
+    width: 120px;
+    height: 21px;
+    background-image: url(https://customer.cludo.com/img/cludo-overlay-search-powered-by-Cludo-light.png);
+    background-position: center right;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    float: none;
+    display: block
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-poweredby {
+        display: none
+    }
+}
+
+#cludo-search-results .cludo-poweredby a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: transparent !important;
+    text-indent: -999px;
+    overflow: hidden
+}
+
+#cludo-search-results .cludo-poweredby-mobile {
+    display: none
+}
+
+@media (max-width:767px) {
+    #cludo-search-results .cludo-poweredby-mobile {
+        display: block;
+        width: 100%;
+        height: 35px;
+        margin-left: 10px;
+        background-image: url(https://customer.cludo.com/img/cludo-overlay-search-powered-by-Cludo.png);
+        background-position: center left;
+        background-repeat: no-repeat;
+        float: left;
+        cursor: pointer
+    }
+}
+
+#cludo-search-results .cludo-poweredby-mobile a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: transparent !important
+}
+
+.cludo-no-search-term {
+    background-image: url(https://customer.cludo.com/img/search-here.svg);
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-top: 24px;
+    margin: -50px 0 50px -5px;
+    padding-left: 33px;
+    font-size: 18px;
+    color: #4d4d4d
+}
+
+@media (max-width:767px) {
+    .cludo-no-search-term {
+        margin-top: -26px
+    }
+}
+
+#search_autocomplete {
+    top: 60px
+}
+
+    #search_autocomplete li {
+        margin-left: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-load-more, #cludo-search-results .cludo-search-modal-body .search-results {
+    width: 100%
+}
+
+}
+
+@media (max-width:767px) {
+    .cludo-no-search-term {
+        margin-top: -26px
+    }
+}
+
+#search_autocomplete {
+    top: 60px
+}
+
+    #search_autocomplete li {
+        margin-left: 0
+    }
+
+#cludo-search-results .cludo-search-modal-body #cludo-load-more, #cludo-search-results .cludo-search-modal-body .search-results {
+    width: 100%
+}

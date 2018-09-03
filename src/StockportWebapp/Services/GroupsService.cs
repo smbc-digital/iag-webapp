@@ -13,18 +13,20 @@ using StockportWebapp.Config;
 using StockportWebapp.Emails.Models;
 using StockportWebapp.Entities;
 using StockportWebapp.Exceptions;
-using StockportWebapp.Utils;
 using System.Text;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using StockportWebapp.ProcessedModels;
+using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+
 
 namespace StockportWebapp.Services
 {
     public interface IGroupsService
     {
-        Task<GroupHomepage> GetGroupHomepage();
+        Task<ProcessedGroupHomepage> GetGroupHomepage();
         Task<List<GroupCategory>> GetGroupCategories();
         Task HandleStaleGroups();
         void DoPagination(GroupResults groupResults, int currentPageNumber, int pageSize);
@@ -41,6 +43,7 @@ namespace StockportWebapp.Services
     public class GroupsService : IGroupsService
     {
         private readonly IContentApiRepository _contentApiRepository;
+        private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IStockportApiRepository _stockportApiRepository;
         private readonly IHttpEmailClient _emailClient;
         private readonly IApplicationConfiguration _configuration;
@@ -49,7 +52,8 @@ namespace StockportWebapp.Services
 
         public GroupsService
         (
-            IContentApiRepository contentApiRepository, 
+            IContentApiRepository contentApiRepository,
+            IProcessedContentRepository processedContentRepository,
             IHttpEmailClient emailClient, 
             IApplicationConfiguration configuration, 
             ILogger<GroupsService> logger, 
@@ -63,11 +67,13 @@ namespace StockportWebapp.Services
             _logger = logger;
             _stockportApiRepository = stockportApiRepository;
             _businessId = businessId;
+            _processedContentRepository = processedContentRepository;
         }
 
-        public async Task<GroupHomepage> GetGroupHomepage()
+        public async Task<ProcessedGroupHomepage> GetGroupHomepage()
         {
-            return await _contentApiRepository.GetResponse<GroupHomepage>();
+            var response = await _processedContentRepository.Get<GroupHomepage>();
+            return response.Content as ProcessedGroupHomepage;
         }
 
         public async Task<List<GroupCategory>> GetGroupCategories()
@@ -213,9 +219,10 @@ namespace StockportWebapp.Services
                 stageOneGroup.GroupAdministrators.Items
                     .Where(admin => admin.Permission == "A")
                     .Select(admin => new GroupArchiveWarningEmailViewModel(admin.Name, stageOneGroup.Name, admin.Email))
-                    .Select(viewModel => new EmailMessage(subject, _emailClient.GenerateEmailBodyFromHtml(viewModel, template), fromAddress, viewModel.EmailAddress, null))
+                    .Select(viewModel => new EmailMessage(subject, _emailClient.GenerateEmailBodyFromHtml(viewModel, template), fromAddress, viewModel.EmailAddress, "website.updates@stockport.gov.uk", null))
                     .ToList()
                     .ForEach(entity => _emailClient.SendEmailToService(entity));
+    
             }
         }
 

@@ -4,6 +4,10 @@
   "backgroundImage": "image-url.jpg",
   "featuredGroupsHeading": "",
   "featuredGroups": [],
+  "bodyHeading":  "bodyHeading",
+  "body": "body",
+  "secondaryBodyHeading": "secondaryBodyHeading",
+  "secondaryBody":  "secondaryBody",
   "featuredGroupsCategory": {
     "name": "",
     "slug": "",
