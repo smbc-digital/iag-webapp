@@ -2,6 +2,7 @@
 using System.Linq;
 using FluentAssertions;
 using Moq;
+using StockportTagHelpers;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
@@ -35,7 +36,8 @@ namespace StockportWebappTests.Unit.ContentFactory
                 FeaturedGroupsSubCategory = new GroupSubCategory(),
                 Alerts = new List<Alert>(),
                 Body = "body",
-                SecondaryBody = "secondary body"
+                SecondaryBody = "secondary body",
+                EventBanner = new EventBanner("title", "teaser", "icon", "link")
             };
 
             _markdownWrapperMock.Setup(o => o.ConvertToHtml(Body)).Returns(Body);

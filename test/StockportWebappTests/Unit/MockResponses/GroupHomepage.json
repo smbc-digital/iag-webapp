@@ -7,7 +7,13 @@
   "bodyHeading":  "bodyHeading",
   "body": "body",
   "secondaryBodyHeading": "secondaryBodyHeading",
-  "secondaryBody":  "secondaryBody",
+  "secondaryBody": "secondaryBody",
+  "eventBanner": {
+    "title": "",
+    "teaser": "",
+    "icon": "",
+    "link": "" 
+  }, 
   "featuredGroupsCategory": {
     "name": "",
     "slug": "",
