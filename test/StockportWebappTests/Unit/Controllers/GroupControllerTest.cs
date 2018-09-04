@@ -62,7 +62,8 @@ namespace StockportWebappTests.Unit.Controllers
            "bodyHeading",
            "body",
            "secondaryBodyHeading",
-           "secondary body"
+           "secondary body",
+            new EventBanner.NullEventBanner()
            );
 
         public GroupControllerTest()
