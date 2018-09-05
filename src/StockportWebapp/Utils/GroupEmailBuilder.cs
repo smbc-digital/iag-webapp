@@ -211,11 +211,9 @@ namespace StockportWebapp.Utils
                 AgeRanges = group.AgeRanges.Where(o => o.IsSelected).Select(o => o.Name).ToList(),
                 Suitabilities = group.Suitabilities.Where(o => o.IsSelected).Select(o => o.Name).ToList(),
                 Volunteering = group.Volunteering ? "Yes" : "No",
+                VolunteeringText = group.Volunteering ? group.VolunteeringText : "N/A",
                 AdditionalInformation = group.AdditionalInformation
             };
-
-
-            if (group.Volunteering) emailBody.VolunteeringText = group.VolunteeringText;
 
             var message = new EmailMessage(messageSubject,
                                             _emailClient.GenerateEmailBodyFromHtml(emailBody),
