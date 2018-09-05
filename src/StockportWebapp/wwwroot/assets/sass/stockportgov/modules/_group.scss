@@ -42,6 +42,15 @@
         }
     }
 
+    .group-body-header {
+        @extend .group-header;
+
+        h2 {
+              padding-top:10px;
+              padding-bottom:20px;
+          }
+    }
+
     .group-listing-container {
         margin-top: 0;
 
