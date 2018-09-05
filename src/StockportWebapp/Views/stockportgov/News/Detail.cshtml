@@ -34,7 +34,7 @@
                         <i class="fa fa-clock-o" aria-hidden="true"></i>Last updated @Html.Partial("FormattedDate", Model.NewsItem.SunriseDate)
                     </p>
                     <h1 class="news-article-title">@Model.NewsItem.Title</h1>
-                    <h3 class="news-teaser">@Model.NewsItem.Teaser</h3>
+                    <h2 class="news-teaser">@Model.NewsItem.Teaser</h2>
                     @if (!string.IsNullOrEmpty(Model.NewsItem.Image))
                     {
                         <img src="@Model.NewsItem.Image" class="news-title-image" alt="@Model.NewsItem.Title" />
