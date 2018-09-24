@@ -1,0 +1,22 @@
+﻿@using dts_frontend.Models
+@model IEnumerable<Crumb>
+@{
+    string title = ViewData["Title"] != null ? ViewData["Title"].ToString() : "";
+}
+
+<nav id="breadcrumb" class="@((bool?)ViewData["Form"] ?? false ? "breadcrumb hidden" : "breadcrumb")">
+    <h2 class="sr-only">Breadcrumb navigation</h2>
+    <ul class="center-wrapper">
+        <li><a href="https://www.stockport.gov.uk/">Home</a></li>
+        @if (Model != null)
+        {
+            foreach (var crumb in Model)
+            {
+                <li><a href="@crumb.GetUrl(Url)">@crumb.Label</a></li>
+            }
+        }
+        <li class="current">
+            <span>@title</span>
+        </li>
+    </ul>
+</nav>

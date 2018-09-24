@@ -25,10 +25,12 @@ namespace StockportWebapp.Controllers
     public class SmartAnswersController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
         private readonly ISmartResultService _service;
+        private readonly FeatureToggles _featuretogles;
 
-        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggling, ISmartResultService service, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(HttpContextAccessor, questionLoader, _client, _config, logger)
+        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggles, ISmartResultService service, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(HttpContextAccessor, questionLoader, _client, _config, logger)
         {
             _service = service;
+            _featuretogles = FeatureToggles;
         }
 
         [HttpGet]
@@ -39,6 +41,12 @@ namespace StockportWebapp.Controllers
             var page = GetPage(0);
 
             var result = new SmartAnswerViewModel { Page = page, Slug = Slug, Title = Title };
+
+            if (_featuretogles.SemanticLayout)
+            {
+                return View("Semantic/Index", result);
+            }
+
             return View(result);
         }
 

@@ -42,6 +42,7 @@ namespace StockportWebapp.Config
         string GetStockportHomeLink();
         string GetDigitalStockportLink();
         List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
+        StylesheetsConfiguration GetStylesheetConfig();
         string GetStaleGroupsSecret();
     }
 
@@ -179,6 +180,13 @@ namespace StockportWebapp.Config
             var emailPeriods = new List<ArchiveEmailPeriod>();
             _appsettings.GetSection("stockportgov:GroupArchiveEmailPeriods").Bind(emailPeriods);
             return emailPeriods;
+        }
+
+        public StylesheetsConfiguration GetStylesheetConfig()
+        {
+            var stylesheetConfig = new StylesheetsConfiguration();
+            _appsettings.GetSection("StylesheetsConfiguration").Bind(stylesheetConfig);
+            return stylesheetConfig;
         }
 
         public int GetFooterCache(string businessId)

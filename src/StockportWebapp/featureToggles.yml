@@ -5,6 +5,7 @@ prod: &prod
   EditGroupUploadImage: true
   GroupDetailsPage: true
   SiaSystem: false
+  SemanticLayout: false
 
 stage: &stage
   << : *prod
@@ -20,6 +21,7 @@ int: &int
   << : *stage
   << : *qa
   SiaSystem: true
+  SemanticLayout: true
 
 local: &local
   << : *prod

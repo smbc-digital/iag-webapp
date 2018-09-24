@@ -40,6 +40,7 @@
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
     <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
+    <None Remove="Views\stockportgov\SmartAnswers\Index - Copy.cshtml" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +95,9 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Views\stockportgov\SmartAnswers\Semantic\Index.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="wwwroot\assets\stylesheets\styleguide-sg.min.css">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>

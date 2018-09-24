@@ -1,0 +1,60 @@
+﻿@using StockportWebapp.Config
+@inject IApplicationConfiguration ApplicationConfiguration
+
+@{
+    var bannerTypeformUrl = ViewData["BannerTypeformUrl"];
+    var stylesheet = ApplicationConfiguration.GetStylesheetConfig();
+}
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1, user-scalable=yes" />
+    <link rel="shortcut icon" type="image/png" href="~/assets/images/ui-images/favicon-sg.png" />
+    <title>@ViewData["Title"] - Stockport Council</title>
+    <link rel="stylesheet" type="text/css" href="@stylesheet.GoogleFonts" />
+    <link rel="stylesheet" type="text/css" href="@stylesheet.FontAwesome" />
+    <link rel="stylesheet" type="text/css" href="@stylesheet.CludoSearch" />
+    <link rel="stylesheet" type="text/css" href="@stylesheet.JqueryUi" />
+    <link rel="stylesheet" type="text/css" href="@stylesheet.StyleguideSemantic" />
+    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+    @*@Html.Partial("TagManagerDataLayer")
+    @Html.Partial("TagManager")
+    @RenderSection("ViewSpecificHeadContent", false)
+    @Html.Partial("CookieBanner")*@
+</head>
+<body>
+    @*@Html.Partial("TagManagerNoScript")*@
+    <header>
+        <div class="skip-to-main-content">
+            <a href="#content">Skip to main content</a>
+        </div>
+        @Html.Partial("SemanticHeader")
+        @*@Html.Partial("BrowserCheckSemantic")
+            @if (bannerTypeformUrl != null)
+            {
+                @Html.Partial("TypeFormBannerHeader", bannerTypeformUrl)
+            }
+
+            @RenderSection("Breadcrumb", false)*@
+    </header>
+    <main id="content">
+        @RenderBody()
+    </main>
+    @Html.Partial("SemanticFooter")
+
+
+    <script type="text/javascript">
+            require(['common/stockport-nojquery', 'common/stockportgov'],
+                function (stockportNoJquery, stockportGov) {
+                    stockportNoJquery.init();
+                    stockportGov.init();
+                }
+            );
+        </script>
+    @Html.Partial("CludoSearch")
+        @*@Html.Partial("Analytics")*@
+</body>
+</html>

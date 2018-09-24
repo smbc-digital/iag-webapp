@@ -1,0 +1,27 @@
+﻿@{
+    //var isForm = (bool?)ViewData["Form"] ?? false;
+}
+<div class="center-wrapper">
+    <div id="header-logo">
+        <a href="http://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
+    </div>
+    <div id="header-my-account">
+        <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><i class="fa fa-user" aria-hidden="true"></i>My Account</a>
+    </div>
+    @if (true)
+    {
+        <form method="get" role="search" id="cludo-search-form" class="cludo-search_autocomplete">
+            <fieldset class="input-group"></fieldset>
+            <label for="search" class="sr-only">Search Stockport council website</label>
+            <input id="search" class="search-input" name="query" placeholder="Search" autoComplete="off" type="text" />
+            <button type="submit" title="Search Stockport Gov website"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+    }
+</div>
+<script type="text/javascript">
+    require(['cludo'], function () { });
+    require(['cludoconfig'],
+        function (cludoconfig) {
+            cludoconfig.Init();
+        })
+</script>
