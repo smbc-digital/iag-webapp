@@ -6,6 +6,8 @@ prod: &prod
   GroupDetailsPage: true
   SiaSystem: false
   SemanticLayout: false
+  SemanticSmartAnswer: 
+    - 
 
 stage: &stage
   << : *prod
@@ -22,6 +24,8 @@ int: &int
   << : *qa
   SiaSystem: true
   SemanticLayout: true
+  SemanticSmartAnswer: 
+    - enforcement-referral
 
 local: &local
   << : *prod

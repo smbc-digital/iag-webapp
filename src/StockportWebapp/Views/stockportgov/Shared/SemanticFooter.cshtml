@@ -1,16 +1,21 @@
-﻿<footer>
+﻿@inject StockportWebapp.Config.IApplicationConfiguration config
+
+@{
+    var urlConfig = config.GetUrlConfig();
+}
+<footer>
     <div class="center-wrapper">
         <div id="footer-logo">
             <a href="http://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
         </div>
         <ul class="footer-links">
-            <li><a href="#">Contact us</a></li>
-            <li><a href="#">About our website</a></li>
-            <li><a href="#">Cookies</a></li>
-            <li><a href="#">Data protection</a></li>
-            <li><a href="#">Freedom of information</a></li>
-            <li><a href="#">Terms and conditions</a></li>
-            <li><a href="#">Feedback</a></li>
+            <li><a href="@urlConfig.Contacts">Contact us</a></li>
+            <li><a href="@urlConfig.AboutUsUrl">About our website</a></li>
+            <li><a href="@urlConfig.CookiePolicy">Cookies</a></li>
+            <li><a href="@urlConfig.DataProtection">Data protection</a></li>
+            <li><a href="@urlConfig.FreedomOfInformation">Freedom of information</a></li>
+            <li><a href="@urlConfig.TermsAndConditions">Terms and conditions</a></li>
+            <li><a href="@urlConfig.FeedbackForm">Feedback</a></li>
             @if (User.Identity.IsAuthenticated)
             {
                 <li>@Html.ActionLink("Sign out", "Logout", "Account", null, new { @class = "sign-out" })</li>

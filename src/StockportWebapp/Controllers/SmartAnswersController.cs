@@ -42,7 +42,7 @@ namespace StockportWebapp.Controllers
 
             var result = new SmartAnswerViewModel { Page = page, Slug = Slug, Title = Title };
 
-            if (_featuretogles.SemanticLayout)
+            if (_featuretogles.SemanticLayout && _featuretogles.SemanticSmartAnswer.Contains(result.Slug))
             {
                 return View("Semantic/Index", result);
             }

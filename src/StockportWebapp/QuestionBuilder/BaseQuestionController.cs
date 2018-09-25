@@ -207,7 +207,7 @@ namespace StockportWebapp.QuestionBuilder
             
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
-            if (_featureToggles.SemanticLayout)
+            if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(result.Slug))
             {
                 return View("Semantic/Index", result);
             }
