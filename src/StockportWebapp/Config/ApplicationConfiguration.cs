@@ -43,7 +43,6 @@ namespace StockportWebapp.Config
         string GetDigitalStockportLink();
         List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
         StylesheetsConfiguration GetStylesheetConfig();
-        UrlConfiguration GetUrlConfig();
         string GetStaleGroupsSecret();
     }
 
@@ -187,13 +186,6 @@ namespace StockportWebapp.Config
         {
             var stylesheetConfig = new StylesheetsConfiguration();
             _appsettings.GetSection("stockportgov:StylesheetsConfiguration").Bind(stylesheetConfig);
-            return stylesheetConfig;
-        }
-
-        public UrlConfiguration GetUrlConfig()
-        {
-            var stylesheetConfig = new UrlConfiguration();
-            _appsettings.GetSection("stockportgov:UrlConfiguration").Bind(stylesheetConfig);
             return stylesheetConfig;
         }
 

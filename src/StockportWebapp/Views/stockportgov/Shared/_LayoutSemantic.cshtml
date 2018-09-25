@@ -1,5 +1,6 @@
 ﻿@using StockportWebapp.Config
 @inject IApplicationConfiguration ApplicationConfiguration
+@inject BusinessId BusinessId
 @{
     var bannerTypeformUrl = ViewData["BannerTypeformUrl"];
     var stylesheet = ApplicationConfiguration.GetStylesheetConfig();
@@ -32,15 +33,14 @@
         {
             @Html.Partial("TypeFormBannerHeader", bannerTypeformUrl)
         }
-
         @RenderSection("Breadcrumb", false)
     </header>
     <main id="content">
         @RenderBody()
     </main>
-
     @RenderSection("Scripts", false)
-
-    @Html.Partial("SemanticFooter")
+    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+        @await Component.InvokeAsync("SemanticFooter")
+    </distributed-cache>
 </body>
 </html>

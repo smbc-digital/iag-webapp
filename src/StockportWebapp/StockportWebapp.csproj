@@ -35,6 +35,7 @@
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
+    <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml" />
@@ -99,6 +100,9 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Views\Shared\Components\SemanticFooter\Semantic.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

@@ -1,0 +1,30 @@
+﻿@using StockportWebapp.Config
+@using StockportWebapp.Models
+@model Footer
+@inject IStaticAssets StaticAssets
+@inject IApplicationConfiguration appConfig
+@inject BusinessId BusinessId
+<footer>
+    <div class="center-wrapper">
+        <div id="footer-logo">
+            <a href="http://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
+        </div>
+            @if (Model.Links != null)
+            {
+            <ul class="footer-links">
+                @foreach (var link in Model.Links)
+                {
+                <li><a href="@link.NavigationLink">@link.Title</a></li>
+                }
+                <li>
+                    <a target="_blank" href="https://stockportcouncil.typeform.com/to/dXTax7">Feedback</a>
+                </li>
+            </ul>
+            }
+    </div>
+    <div class="footer-copyright">
+        <div class="center-wrapper">
+            <p><i class="fa fa-copyright" aria-hidden="true"></i>&nbsp;@DateTime.Now.Year Stockport Metropolitan Borough Council</p>
+        </div>
+    </div>
+</footer>
