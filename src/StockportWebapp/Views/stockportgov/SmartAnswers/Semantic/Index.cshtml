@@ -1,25 +1,21 @@
-﻿@{
+﻿@using StockportWebapp.Models
+@{
     ViewData["Title"] = Model.Title;
-    ViewData["Form"] = "true";
+    ViewData["Form"] = true;
     Layout = "../Shared/_LayoutSemantic";
 }
 
 @model StockportWebapp.ViewModels.SmartAnswerViewModel
-
 <div class="page-container" id="smart-answers-container">
-    <div class="grid-100">
-        <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
-
-        @Html.Partial("Components/QuestionRenderer/QuestionForm", Model.Page)
-    </div>
+    <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
+    @Html.Partial("Components/QuestionRenderer/Semantic/QuestionForm", Model.Page)
 </div>
-
-@*@section Scripts
-{
+@section Scripts
+    {
     <script type="text/javascript">
-        require(["stockportgov/questioncomponent/questionmodule"],
-            function(module) {
-                module.Init("smart/@Model.Slug");
-            });
+            require(["stockportgov/questioncomponent/questionmodule"],
+                function(module) {
+                    module.Init("smart/@Model.Slug");
+                });
     </script>
-}*@
+}

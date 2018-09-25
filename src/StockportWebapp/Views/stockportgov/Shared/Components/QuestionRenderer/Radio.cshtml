@@ -1,4 +1,5 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
+
 <div class="form-section question-section">
     <label for="radio-list">@Model.Label</label>
     @if (!String.IsNullOrEmpty(Model.SecondaryInfo))
@@ -9,16 +10,20 @@
             </div>
         </div>
     }
-    @foreach (var item in @Model.Options)
-    {
-        <div class="input-radio-container">
-            <input data-questionid="@Model.QuestionId" aria-labelledby="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" id="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")" type="radio" name="Questions[0].Response" value="@item.Value">
-            <label id="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" for="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")">@item.Label</label>
-            <span class="tertiary-Information hidden">@item.TertiaryInformation</span>
-        </div>
-    }
+    <span>Select from the list</span>
+    <ul id="radio-list" class="radio-list question-list">
+        @foreach (var item in @Model.Options)
+        {
+            <li>
+                <input role="radiogroup" type="radio" name="Questions[0].Response" id="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")" aria-labelledby="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" data-questionid="@Model.QuestionId" value="@item.Value" />
+                <label id="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" for="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")">@item.Label</label>
+                <span class="tertiary-Information hidden">@item.TertiaryInformation</span>
+            </li>
+        }
+    </ul>
 
     @Html.Partial("_ValidationError.cshtml", Model)
 
     <span id="tertiary-Information-value"></span>
+
 </div>

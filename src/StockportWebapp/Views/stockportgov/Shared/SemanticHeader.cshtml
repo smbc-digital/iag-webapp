@@ -1,14 +1,66 @@
-﻿@{
-    //var isForm = (bool?)ViewData["Form"] ?? false;
+﻿@inject StockportWebapp.Utils.ILoggedInHelper loggedInHelper
+@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
+
+@{
+    var user = loggedInHelper.GetLoggedInPerson();
+    var isForm = (bool?)ViewData["Form"] ?? false;
+    var headerClass = string.Empty;
+    headerClass += isForm ? "form-header" : string.Empty;
+    // Extra space needed to concat class strings correctly
+    headerClass += !string.IsNullOrEmpty(user.Email) ? " logged-in" : string.Empty;
 }
 <div class="center-wrapper">
     <div id="header-logo">
         <a href="http://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
     </div>
-    <div id="header-my-account">
-        <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><i class="fa fa-user" aria-hidden="true"></i>My Account</a>
+    <div class="@headerClass" id="header-my-account">
+        @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
+        {
+            <div class="menu-container">
+                <div class="menu">
+                    <p>Welcome @user.Name</p>
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <a href="/dashboard">My Account</a>
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                </div>
+                <nav class="menu-tooltip">
+                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    @Html.ActionLink("My Account", "Index", "Dashboard")
+                    @Html.ActionLink("Account settings", "Settings", "Account")
+                    <a class="typeform-share link" data-mode="1" target="_blank" href="https://public.govdelivery.com/accounts/UKSMBC/subscriber/new">Email alerts</a>
+                    @Html.ActionLink("Sign out", "Logout", "Account", null, new { @class = "sign-out" })
+                </nav>
+            </div>
+            <div class="modal">
+                <input id="modal" type="checkbox" name="modal" tabIndex="1" />
+                <label for="modal">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="hidden">Open account menu</span>
+                </label>
+                <div class="modal-overlay">
+                    <label for="modal" class="button button-outline button-close button-overlay">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Close
+                    </label>
+                    <nav class="mobile-menu">
+                        <ul>
+                            <li>@Html.ActionLink("My Account", "Index", "Dashboard")</li>
+                            <li>@Html.ActionLink("Account settings", "Settings", "Account")</li>
+                            <li>
+                                <a class="typeform-share link" data-mode="1" target="_blank" href="https://public.govdelivery.com/accounts/UKSMBC/subscriber/new">Email alerts</a>
+                            </li>
+                            <li>@Html.ActionLink("Sign out", "Logout", "Account", null, new { @class = "sign-out" })</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        }
+        else
+        {
+            <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><i class="fa fa-user" aria-hidden="true"></i>My Account</a>
+        }
     </div>
-    @if (true)
+    @if (!isForm)
     {
         <form method="get" role="search" id="cludo-search-form" class="cludo-search_autocomplete">
             <fieldset class="input-group"></fieldset>

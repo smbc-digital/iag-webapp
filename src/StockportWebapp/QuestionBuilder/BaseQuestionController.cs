@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportWebapp.Http;
 using StockportWebapp.ViewModels;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.QuestionBuilder
 {
@@ -26,10 +27,11 @@ namespace StockportWebapp.QuestionBuilder
         protected string Slug;
         protected string Title;
         private readonly IHttpClient _client;
+        private readonly FeatureToggles _featureToggles;
         private readonly IConfiguration _config;
         private readonly ILogger<BaseQuestionController<T,M>> _logger;
 
-        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
+        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, FeatureToggles featureToggles, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
         {
             var slug = string.Empty;
             var url = httpContextAccessor.HttpContext.Request.Path.ToString();
@@ -47,6 +49,7 @@ namespace StockportWebapp.QuestionBuilder
 
             HttpContextAccessor = httpContextAccessor;
             _client = client;
+            _featureToggles = featureToggles;
             _config = config;
             _logger = logger;
             Structure = questionLoader.LoadQuestions<GenericSmartAnswersQuestions>(slug, ref Title).Structure;
@@ -204,6 +207,10 @@ namespace StockportWebapp.QuestionBuilder
             
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
+            if (_featureToggles.SemanticLayout)
+            {
+                return View("Semantic/Index", result);
+            }
             return View(result);
         }
 

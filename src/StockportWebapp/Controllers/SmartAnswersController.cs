@@ -27,7 +27,7 @@ namespace StockportWebapp.Controllers
         private readonly ISmartResultService _service;
         private readonly FeatureToggles _featuretogles;
 
-        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggles, ISmartResultService service, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(HttpContextAccessor, questionLoader, _client, _config, logger)
+        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggles, ISmartResultService service, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(HttpContextAccessor, questionLoader, FeatureToggles, _client, _config, logger)
         {
             _service = service;
             _featuretogles = FeatureToggles;

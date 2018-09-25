@@ -185,7 +185,7 @@ namespace StockportWebapp.Config
         public StylesheetsConfiguration GetStylesheetConfig()
         {
             var stylesheetConfig = new StylesheetsConfiguration();
-            _appsettings.GetSection("StylesheetsConfiguration").Bind(stylesheetConfig);
+            _appsettings.GetSection("stockportgov:StylesheetsConfiguration").Bind(stylesheetConfig);
             return stylesheetConfig;
         }
 

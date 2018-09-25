@@ -32,9 +32,13 @@
     <None Remove="wwwroot\assets\javascript\thirdsite\**" />
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
     <Content Remove="app-config\appsettings.test.json" />
+    <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml" />
     <None Remove="Views\stockportgov\Shared\ContentDisclaimerCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
@@ -95,6 +99,15 @@
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\stockportgov\SmartAnswers\Semantic\Index.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

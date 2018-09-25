@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace StockportWebapp.Config
+﻿namespace StockportWebapp.Config
 {
     public class StylesheetsConfiguration
     {
@@ -20,7 +15,5 @@ namespace StockportWebapp.Config
         public string JqueryUi { get; set; }
 
         public string GoogleFonts { get; set; }
-
-        public string SemanticStyles { get; set; }
     }
 }
