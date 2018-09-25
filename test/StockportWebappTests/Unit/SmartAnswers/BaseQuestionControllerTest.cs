@@ -24,7 +24,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
 {
     internal class TestQuestionController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {
-        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(httpContextAccessor, questionLoader, _client, _config, logger)
+        public TestQuestionController(IDictionary<int, Page> structure, QuestionLoader questionLoader, IHttpContextAccessor httpContextAccessor, FeatureToggles featuretoggle, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(httpContextAccessor, questionLoader, featuretoggle, _client, _config, logger)
         {
         }
 
