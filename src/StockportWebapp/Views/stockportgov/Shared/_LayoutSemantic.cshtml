@@ -39,7 +39,7 @@
         @RenderBody()
     </main>
     @RenderSection("Scripts", false)
-    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+    <distributed-cache name="semanticFooter" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("SemanticFooter")
     </distributed-cache>
 </body>
