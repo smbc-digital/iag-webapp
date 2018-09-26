@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.ViewComponents
             var result = AsyncTestHelper.Resolve(_semanticFooterViewComponent.InvokeAsync()) as ViewViewComponentResult;
 
             result.ViewData.Model.Should().BeNull();
-
+            Assert.Equal("NoFooterFound", result.ViewName);
             LogTesting.Assert(_logger, LogLevel.Information, "Call to retrieve the footer");
         }
     }
