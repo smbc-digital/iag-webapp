@@ -9,22 +9,36 @@
         <div id="footer-logo">
             <a href="http://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
         </div>
-            @if (Model.Links != null)
-            {
+        @if (Model.Links != null)
+        {
             <ul class="footer-links">
                 @foreach (var link in Model.Links)
                 {
-                <li><a href="@link.NavigationLink">@link.Title</a></li>
+                    <li><a href="@link.NavigationLink">@link.Title</a></li>
                 }
                 <li>
                     <a target="_blank" href="https://stockportcouncil.typeform.com/to/dXTax7">Feedback</a>
                 </li>
             </ul>
-            }
+        }
+        @if (Model.SocialMediaLinks != null)
+        {
+            <ul class="social-links">
+                @foreach(var socLink in Model.SocialMediaLinks)
+                {
+                    <li>
+                     <a href="@socLink.Url">
+                        <i class="fa @socLink.Icon"></i>
+                      </a>
+                    </li>
+                }
+            </ul>
+        }
     </div>
     <div class="footer-copyright">
         <div class="center-wrapper">
             <p><i class="fa fa-copyright" aria-hidden="true"></i>&nbsp;@DateTime.Now.Year Stockport Metropolitan Borough Council</p>
+            <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
         </div>
     </div>
 </footer>
