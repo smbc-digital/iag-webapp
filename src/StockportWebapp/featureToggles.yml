@@ -26,6 +26,7 @@ int: &int
   SemanticLayout: true
   SemanticSmartAnswer: 
     - enforcement-referral
+    - education-penalty-notice
 
 local: &local
   << : *prod
