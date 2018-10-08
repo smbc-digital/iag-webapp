@@ -78,7 +78,7 @@ namespace StockportWebapp.Models
 
         [StringLength(250, ErrorMessage = "Volunteering text must be 250 characters or less in length.")]
         [Display(Name = "volunteering text")]
-        [Required]
+        [RequiredIfVolunteeringCheckedOnEditGroup]
         public string VolunteeringText { get; set; }
 
         [StringLength(250, ErrorMessage = "Donation text must be 250 characters or less in length.")]
