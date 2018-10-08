@@ -490,7 +490,7 @@ namespace StockportWebappTests.Integration
 
             var result = AsyncTestHelper.Resolve(_fakeClient.SendAsync(request));
 
-            result.StatusCode.Should().Be(HttpStatusCode.OK);
+            result.StatusCode.Should().Be(HttpStatusCode.Redirect);
         }
 
         [Fact]
