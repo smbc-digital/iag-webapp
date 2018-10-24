@@ -120,7 +120,8 @@ namespace StockportWebapp.Utils
                 .AddSource("static.tacdn.com")
                 .AddSource("data:")
 				.AddSource("platform.twitter.com/css/")
-				.Finish());
+                .AddSource("stockportb.logo-net.co.uk/Delivery/")
+                .Finish());
         }
 
         private void BuildScriptSource()
