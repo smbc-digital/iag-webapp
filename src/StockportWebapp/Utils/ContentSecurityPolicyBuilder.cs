@@ -131,6 +131,7 @@ namespace StockportWebapp.Utils
                 .AddSource("'unsafe-inline'")
                 .AddSource("'unsafe-eval'")
                 .AddSource("https://ajax.googleapis.com/ajax/libs/jquery/")
+                .AddSource("https://code.jquery.com/")
                 .AddSource("maps.googleapis.com")
                 .AddSource("m.addthisedge.com/live/boost/")
                 .AddSource("www.google-analytics.com/analytics.js")
