@@ -5,9 +5,10 @@ prod: &prod
   EditGroupUploadImage: true
   GroupDetailsPage: true
   SiaSystem: false
-  SemanticLayout: false
+  SemanticLayout: true
   SemanticSmartAnswer: 
-    - 
+    - enforcement-referral
+    - education-penalty-notice
 
 stage: &stage
   << : *prod
@@ -24,9 +25,6 @@ int: &int
   << : *qa
   SiaSystem: true
   SemanticLayout: true
-  SemanticSmartAnswer: 
-    - enforcement-referral
-    - education-penalty-notice
 
 local: &local
   << : *prod
