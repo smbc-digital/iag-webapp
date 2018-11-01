@@ -6,11 +6,11 @@ module.exports = {
     //    homepage.closeCookieBanner(browser);
         browser.setCookie({
             name: "int_jwtCookie",
-            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
+			value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVUlURVNUIiwiZW1haWwiOiJzY24udWl0ZXN0QGdtYWlsLmNvbSJ9.Znc48t_ZwS2gcrsOm8zDfwFfNV63uVtNWWRyMY1SLE4"
         });
         browser.setCookie({
             name: "jwtCookie",
-            value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InVpQHRlc3Rlc3Rlc3Rlc3QuY29tIiwiTmFtZSI6IlVJIFRlc3QifQ.ykkUVEm9qT0tGEali9dab6m_xwTztsQ5ztGpLlIhqT0"
+			value: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVUlURVNUIiwiZW1haWwiOiJzY24udWl0ZXN0QGdtYWlsLmNvbSJ9.Znc48t_ZwS2gcrsOm8zDfwFfNV63uVtNWWRyMY1SLE4"
         });
     },
 

@@ -71,8 +71,8 @@
 
     assertUserIsVisibleOnManageUsersPage: function (browser) {
         browser.useCss();
-        browser.waitForElementVisible("a[href='/groups/manage/uitest-a-group-for-ui-testing/edituser?email=ui@testestestest.com']", this.api.globals.timeOut);
-        browser.click("a[href='/groups/manage/uitest-a-group-for-ui-testing/edituser?email=ui@testestestest.com']");
+        browser.waitForElementVisible("a[href='/groups/manage/uitest-a-group-for-ui-testing/edituser?email=scn.uitest@gmail.com']", this.api.globals.timeOut);
+		browser.click("a[href='/groups/manage/uitest-a-group-for-ui-testing/edituser?email=scn.uitest@gmail.com']");
     },
 
     clearNameValueFromForm: function(browser) {
