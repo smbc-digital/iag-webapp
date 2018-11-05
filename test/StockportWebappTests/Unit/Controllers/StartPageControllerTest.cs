@@ -5,6 +5,7 @@ using FluentAssertions;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -17,25 +18,29 @@ namespace StockportWebappTests.Unit.Controllers
     public class StartPageControllerTest
     {
         private readonly StartPageController _controller;
-        private readonly Mock<IRepository> _repository;
+        private readonly Mock<IProcessedContentRepository> _repository;
 
         public StartPageControllerTest()
         {
             // declarations
-            _repository = new Mock<IRepository>();
+            _repository = new Mock<IProcessedContentRepository>();
 
             // data
             var alerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty) };
-            var startPage = new StartPage(
+            // data
+            var inlineAlerts = new List<Alert> { new Alert("title", "subHeading", "body", "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty) };
+
+            var startPage = new ProcessedStartPage(
                 "start-page",
                 "Start Page",
                 "this is a teaser",
                 "This is a summary",
-                "An upper body",
+                "<p>An upper body</p>\n",
                 "Start now",
                 "http://start.com",
-                "Lower body",
+                "<p>Lower body</p>\n",
                 new List<Crumb>
                 {
                     new Crumb("title", "slug", "type")
@@ -57,7 +62,7 @@ namespace StockportWebappTests.Unit.Controllers
         public void GetAStartPage()
         {
             var indexPage = AsyncTestHelper.Resolve(_controller.Index("start-page")) as ViewResult;
-            var result = indexPage.ViewData.Model as StartPage;
+            var result = indexPage.ViewData.Model as ProcessedStartPage;
 
             result.Title.Should().Be("Start Page");
             result.Slug.Should().Be("start-page");

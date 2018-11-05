@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Http;
 
@@ -9,23 +10,24 @@ namespace StockportWebapp.Controllers
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class StartPageController : Controller
     {
-        private readonly IRepository _repository;
+      
+        private readonly IProcessedContentRepository _processedContentRepository;
 
-        public StartPageController(IRepository repository)
+        public StartPageController(IProcessedContentRepository processedContnentRepository)
         {
-            _repository = repository;
+            _processedContentRepository = processedContnentRepository;
         }
 
         [HttpGet]
         [Route("/start/{slug}")]
         public async Task<IActionResult> Index(string slug)
         {
-            var response = await _repository.Get<StartPage>(slug);
+            var response = await _processedContentRepository.Get<StartPage>(slug);
 
             if (!response.IsSuccessful()) return response;
 
-            var startPage = response.Content as StartPage;
-
+            var startPage = response.Content as ProcessedStartPage;
+            
             return View(startPage);
         }
     }

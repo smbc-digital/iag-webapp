@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.Utils;
+﻿using StockportWebapp.Models;
+using System.Collections.Generic;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ProcessedModels
 {
-    public class StartPage
+    public class ProcessedStartPage : IProcessedContentType
     {
         public string Slug { get; }
         public string Title { get; }
@@ -17,25 +17,37 @@ namespace StockportWebapp.Models
         public string BackgroundImage { get; }
         public string Icon { get; }
         public List<Alert> Alerts { get; private set; }
-        public IEnumerable<Alert> AlertsInline { get; set; }
 
-        public StartPage(string slug, string title, string teaser, string summary, string upperBody, string formLinkLabel,
-            string formLink, string lowerBody, IEnumerable<Crumb> breadcrumbs, string backgroundImage,
-            string icon, List<Alert> alerts, IEnumerable<Alert> inlineAlerts)
+
+        public ProcessedStartPage(
+            string slug,
+            string title,
+            string teaser,
+            string summary,
+            string upperBody,
+            string formLinkLabel,
+            string formLink,
+            string lowerBody,
+            IEnumerable<Crumb> breadcrumbs,
+            string backgroundImage,
+            string icon,
+            List<Alert> alerts
+            )
         {
             Slug = slug;
             Title = title;
             Teaser = teaser;
             Summary = summary;
-            UpperBody = MarkdownWrapper.ToHtml(upperBody);
+            UpperBody = upperBody;
             FormLinkLabel = formLinkLabel;
             FormLink = formLink;
-            LowerBody = MarkdownWrapper.ToHtml(lowerBody);
+            LowerBody = lowerBody;
             Breadcrumbs = breadcrumbs;
             BackgroundImage = backgroundImage;
             Icon = icon;
             Alerts = alerts;
-            AlertsInline = inlineAlerts;
         }
+
+
     }
 }
