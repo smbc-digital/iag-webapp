@@ -25,6 +25,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1, user-scalable=yes" />
     @Html.Partial("Favicon")
+
     <title>@ViewData["Title"] - Stockport Council</title>
     @if (ViewData["Description"] != null)
     {
@@ -40,42 +41,38 @@
     <link rel="stylesheet" href="@democracyHomeLink/assets/stylesheets/site-sg.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
     @await Component.InvokeAsync("GoogleAnalytics")
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
 </head>
 <body class="container-layout-free">
     @Html.Partial("Header")
-<main>
-    @RenderBody()
-</main>
-    @Html.Partial("StaticFooter")    
- 
+    <main>
+        @RenderBody()
+    </main>
+    @Html.Partial("StaticFooter")
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
     <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
     <script>
-        $(document).ready(
-            function () {
-                var mobileWidth = 767;
-                var tabletWidth = (1024 - 17);
-                var windowHeight = $(window).height();
+        var mobileWidth = 767;
+        var tabletWidth = (1024 - 17);
+        var windowHeight = $(window).height();
 
-                document.documentElement.className = document.documentElement.className.replace("no-js", "js");
-                var CludoSearch;
-                (function () {
-                    var cludoSettings = {
-                        customerId: 112,
-                        engineId: 1144,
-                        type: 'standardOverlay',
-                        hideSearchFilters: true,
-                        initSearchBoxText: '',
-                        searchInputs: ["cludo-search-form", "cludo-search-mobile-form", "cludo-search-hero-form"],
-                        theme: { themeColor: '#055c58', themeBannerColor: { textColor: '#333', backgroundColor: '#f2f2f2' }, borderRadius: 10 },
-                        language: 'en'
-                    };
-                    CludoSearch = new Cludo(cludoSettings);
-                    CludoSearch.init();
-                })();
-            });
+        document.documentElement.className = document.documentElement.className.replace("no-js", "js");
+        var CludoSearch;
+        (function () {
+            var cludoSettings = {
+                customerId: 112,
+                engineId: 1144,
+                type: 'standardOverlay',
+                hideSearchFilters: true,
+                initSearchBoxText: '',
+                searchInputs: ["cludo-search-form", "cludo-search-mobile-form", "cludo-search-hero-form"],
+                theme: { themeColor: '#055c58', themeBannerColor: { textColor: '#333', backgroundColor: '#f2f2f2' }, borderRadius: 10 },
+                language: 'en'
+            };
+            CludoSearch = new Cludo(cludoSettings);
+            CludoSearch.init();
+        })();
 
         $(".show-search-button").click(function () {
             $("#mobileSearchInput").slideToggle(220);

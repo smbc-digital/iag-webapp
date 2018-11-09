@@ -34,8 +34,9 @@
     </div>
 </div>
 <script type="text/javascript">
-    require(['alerts'],
-    function (alerts) {
-    alerts.Init();
+    require(['alerts', 'startup'],
+    function (alerts, startup) {
+        alerts.Init();
+        startup.Init();
     });
 </script>
