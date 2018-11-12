@@ -28,6 +28,10 @@ run:
 clean:
 	rm -rf $(APPLICATION_ROOT_PATH)/bin
 
+.PHONY: build-and-run 
+build-and-run:         
+	cd src/StockportWebapp; dotnet build; dotnet run
+
 .PHONY: dotnet-restore
 dotnet-restore:
 	dotnet restore
