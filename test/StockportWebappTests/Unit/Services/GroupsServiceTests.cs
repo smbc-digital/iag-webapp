@@ -1,24 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Exceptions;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
 using StockportWebappTests.Builders;
 using Xunit;
 using StockportWebapp.ViewModels;
-using FluentAssertions;
-using StockportWebapp.FeatureToggling;
 
 namespace StockportWebappTests.Unit.Services
 {

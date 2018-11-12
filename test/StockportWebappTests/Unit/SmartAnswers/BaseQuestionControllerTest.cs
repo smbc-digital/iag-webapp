@@ -28,7 +28,7 @@ namespace StockportWebappTests.Unit.SmartAnswers
         {
         }
 
-        public override Task<IActionResult> ProcessResults(GenericSmartAnswersModel result, string endpointName)
+        public override IActionResult ProcessResults(GenericSmartAnswersModel result, string endpointName)
         {
             return null;
         }

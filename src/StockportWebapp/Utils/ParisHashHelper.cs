@@ -6,7 +6,6 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
-using System;
 using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Utils

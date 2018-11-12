@@ -16,7 +16,7 @@ namespace StockportWebappTests.Unit.Utils
             var elementString = cspElement.Finish();
 
             // Assert
-            Assert.Equal(true, elementString.Contains(specifiedSourceType));
+            Assert.Contains(specifiedSourceType, elementString);
         }
 
         [Fact]
@@ -29,7 +29,7 @@ namespace StockportWebappTests.Unit.Utils
             var elementString = cspElement.Finish();
 
             // Assert
-            Assert.Equal(true, elementString.Contains(" 'self'"));
+            Assert.Contains(" 'self'", elementString);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace StockportWebappTests.Unit.Utils
             var elementString = cspElement.Finish();
 
             // Assert
-            Assert.Equal(false, elementString.Contains(" 'self'"));
+            Assert.DoesNotContain(" 'self'", elementString);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true, elementString.Contains(specifiedSource));
+            Assert.Contains(specifiedSource, elementString);
         }
 
         [Fact]
@@ -76,8 +76,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true, 
-                elementString.Contains(specifiedSourceWithHttp)
+            Assert.True(elementString.Contains(specifiedSourceWithHttp)
                 && elementString.Contains(specifiedSourceWithHttps));
         }
 
@@ -96,8 +95,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(unsafeInline)
+            Assert.True(elementString.Contains(unsafeInline)
                 && !elementString.Contains(unsafeInlineWithHttp)
                 && !elementString.Contains(unsafeInlineWithHttps));
         }
@@ -117,8 +115,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(unsafeEval)
+            Assert.True(elementString.Contains(unsafeEval)
                 && !elementString.Contains(unsafeEvalWithHttp)
                 && !elementString.Contains(unsafeEvalWithHttps));
         }
@@ -138,8 +135,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(data)
+            Assert.True(elementString.Contains(data)
                 && !elementString.Contains(dataWithHttp)
                 && !elementString.Contains(dataWithHttps));
         }
@@ -159,8 +155,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(wildcardSource)
+            Assert.True(elementString.Contains(wildcardSource)
                 && !elementString.Contains(wildcardSourceWithHttp)
                 && !elementString.Contains(wildcardSourceWithHttps));
         }
@@ -180,8 +175,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(https)
+            Assert.True(elementString.Contains(https)
                 && !elementString.Contains(httpsWithHttp)
                 && !elementString.Contains(httpsWithHttps));
         }
@@ -200,8 +194,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(specifiedSource)
+            Assert.True(elementString.Contains(specifiedSource)
                 && !elementString.Contains(specifiedSourceWithExtraHttp));
         }
 
@@ -219,8 +212,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(specifiedSource)
+            Assert.True(elementString.Contains(specifiedSource)
                 && !elementString.Contains(specifiedSourceWithExtraHttps));
         }
 
@@ -239,8 +231,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(specifiedSource)
+            Assert.True(elementString.Contains(specifiedSource)
                 && elementString.Contains(specifiedSourceWithHttpsInsteadOfHttp));
         }
 
@@ -259,8 +250,7 @@ namespace StockportWebappTests.Unit.Utils
                 .Finish();
 
             // Assert
-            Assert.Equal(true,
-                elementString.Contains(specifiedSource)
+            Assert.True(elementString.Contains(specifiedSource)
                 && elementString.Contains(specifiedSourceWithHttpInsteadOfHttps));
         }
 
@@ -274,7 +264,7 @@ namespace StockportWebappTests.Unit.Utils
             var elementString = cspElement.Finish();
 
             // Assert
-            Assert.Equal(true, elementString.EndsWith("; "));
+            Assert.EndsWith("; ", elementString);
         }
 
         [Fact]
