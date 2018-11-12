@@ -57,7 +57,7 @@ namespace StockportWebappTests.Unit.ContentFactory
             result.SunriseDate.Should().Be(_sunrise);
             result.SunsetDate.Should().Be(_sunset);
             result.Alerts.Should().BeEquivalentTo(_alerts);
-            result.Tags.ShouldBeEquivalentTo(_tags);
+            result.Tags.Should().BeEquivalentTo(_tags);
         }
 
         [Fact]

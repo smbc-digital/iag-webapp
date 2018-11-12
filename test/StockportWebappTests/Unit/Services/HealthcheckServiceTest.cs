@@ -151,7 +151,7 @@ namespace StockportWebappTests.Unit.Services
             var check = AsyncTestHelper.Resolve(healthCheckServiceWithNotFoundVersion.Get());
 
             check.FeatureToggles.Should().NotBeNull();
-            check.FeatureToggles.ShouldBeEquivalentTo(featureToggles);
+            check.FeatureToggles.Should().BeEquivalentTo(featureToggles);
         }
 
         [Fact]

@@ -231,7 +231,7 @@ namespace StockportWebappTests.Unit.Services
             _service.DoPagination(groupResults, 0, 0);
 
             // Assert
-            groupResults.Pagination.ShouldBeEquivalentTo(new Pagination());
+            groupResults.Pagination.Should().BeEquivalentTo(new Pagination());
         }
 
         [Theory]

@@ -38,7 +38,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             // Assert
             documentResponse.Should().NotBeNull();
-            documentResponse.ShouldBeEquivalentTo(document);
+            documentResponse.Should().BeEquivalentTo(document);
         }
 
         [Fact]

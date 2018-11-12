@@ -174,7 +174,7 @@ namespace StockportWebappTests.Unit.ViewModels
 
             Action act = () => new ArticleViewModel(article, _sectionThree.Slug);
 
-            act.ShouldThrow<SectionDoesNotExistException>()
+            act.Should().Throw<SectionDoesNotExistException>()
                 .WithMessage($"Section with slug: {_sectionThree.Slug} does not exist");
         }
 

@@ -47,7 +47,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             // Assert
             apiResponse.Should().NotBeNull();
-            apiResponse.ShouldBeEquivalentTo(builtEvents);
+            apiResponse.Should().BeEquivalentTo(builtEvents);
         }
 
         [Fact]
@@ -69,7 +69,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             // Assert
             apiResponse.Should().NotBeNull();
-            apiResponse.ShouldBeEquivalentTo(builtEvents);
+            apiResponse.Should().BeEquivalentTo(builtEvents);
         }
 
         [Fact]

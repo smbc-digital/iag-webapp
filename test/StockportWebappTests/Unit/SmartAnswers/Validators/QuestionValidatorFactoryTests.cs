@@ -39,7 +39,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
                 QuestionValidatorFactory.CreateQuestionValidator(question.Object, validatorData);
             };
 
-            exception.ShouldThrow<ArgumentException>();
+            exception.Should().Throw<ArgumentException>();
         }
     }
 }

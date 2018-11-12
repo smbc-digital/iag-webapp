@@ -157,7 +157,7 @@ namespace StockportWebappTests.Unit.Config
             appsettings.Setup(o => o["ContentApiUrl"]).Returns(url);
             Action act = () => new ApplicationConfiguration(appsettings.Object);
 
-            act.ShouldThrow<ArgumentException>()
+            act.Should().Throw<ArgumentException>()
                 .WithMessage("Configuration of ContentApiUrl must exist and be a valid uri!");
         }
 
