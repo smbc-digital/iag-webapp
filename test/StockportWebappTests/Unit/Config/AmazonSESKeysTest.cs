@@ -18,6 +18,7 @@ namespace StockportWebappTests.Unit.Config
             keys.IsValid().Should().BeFalse();
         }
 
+        [Fact(Skip = "To be fixed")]
         public void ShouldBeValidIfParametersAreSet()
         {
             var keys = new AmazonSESKeys("accessKey", "secretKey");

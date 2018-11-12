@@ -45,7 +45,7 @@ namespace StockportWebapp.Http
                     content,
                     task.ReasonPhrase);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

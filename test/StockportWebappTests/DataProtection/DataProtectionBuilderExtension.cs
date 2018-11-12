@@ -38,7 +38,7 @@ namespace StockportWebappTests.Unit.DataProtection
 
             // A lambda factory gets registered for the repo so we can't test the type without actually
             // trying to connect to Redis.
-            Assert.Equal(1, builder.Services.Where(s => s.ServiceType == typeof(IXmlRepository)).Count());
+            Assert.Single(builder.Services.Where(s => s.ServiceType == typeof(IXmlRepository)));
         }
 
         [Fact]
@@ -64,7 +64,7 @@ namespace StockportWebappTests.Unit.DataProtection
             services.Add(new ServiceDescriptor(typeof(string), "b"));
             var builder = new DataProtectionBuilder(services);
             builder.Use(descriptor);
-            Assert.Equal(1, services.Where(s => s.ServiceType == typeof(string)).Count());
+            Assert.Single(services.Where(s => s.ServiceType == typeof(string)));
             Assert.Equal("c", services[0].ImplementationInstance);
         }
     }

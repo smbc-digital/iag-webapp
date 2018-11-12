@@ -70,7 +70,6 @@ namespace StockportWebappTests.Unit.Controllers
         [InlineData(null)]
         [InlineData("abc")]
         [InlineData("$")]
-        [InlineData("abc")]
         [InlineData("not a letter")]
         [InlineData("$Not a letter")]
         public void ShouldReturnANotFoundPageIfTheSearchTermIsNotInTheAlphabet(string searchTerm)

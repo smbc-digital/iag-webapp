@@ -119,9 +119,6 @@ namespace StockportWebapp
             app.UseMiddleware<RobotsTxtMiddleware>();
             app.UseMiddleware<BetaToWwwMiddleware>();
             app.UseMiddleware<SecurityHeaderMiddleware>();
-
-            app.UseApplicationInsightsRequestTelemetry();
-            app.UseApplicationInsightsExceptionTelemetry();
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
 
             // custom extenstions

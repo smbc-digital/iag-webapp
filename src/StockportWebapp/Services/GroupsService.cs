@@ -11,9 +11,7 @@ using Newtonsoft.Json;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Emails.Models;
-using StockportWebapp.Entities;
 using StockportWebapp.Exceptions;
-using System.Text;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
@@ -144,7 +142,7 @@ namespace StockportWebapp.Services
             {
                 var putResponse = await _stockportApiRepository.PutResponse<Group>(httpContent, group.Slug);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception($"Failed to archive group {group.Name}");
             }

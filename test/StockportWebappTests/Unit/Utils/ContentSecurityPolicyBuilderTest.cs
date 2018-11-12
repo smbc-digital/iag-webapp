@@ -20,7 +20,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
 			// Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("child-src"));
+            Assert.Contains("child-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("child-src"));
+            Assert.Contains("child-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("font-src"));
+            Assert.Contains("font-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("img-src"));
+            Assert.Contains("img-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -72,7 +72,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("style-src"));
+            Assert.Contains("style-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -85,7 +85,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("script-src"));
+            Assert.Contains("script-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("connect-src"));
+            Assert.Contains("connect-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -111,7 +111,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("media-src"));
+            Assert.Contains("media-src", contentSecurityPolicy);
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace StockportWebappTests.Unit.Utils
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
             // Assert
-            Assert.Equal(true, contentSecurityPolicy.Contains("object-src"));
+            Assert.Contains("object-src", contentSecurityPolicy);
         }
     }
 }

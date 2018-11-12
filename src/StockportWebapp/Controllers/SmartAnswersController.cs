@@ -82,7 +82,7 @@ namespace StockportWebapp.Controllers
             return View("Confirmation", model);
         }
 
-        public override async Task<IActionResult> ProcessResults(GenericSmartAnswersModel result, string endpointName)
+        public override IActionResult ProcessResults(GenericSmartAnswersModel result, string endpointName)
         {
             return RedirectToAction("FriendlyError");
         }

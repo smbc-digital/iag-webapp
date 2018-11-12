@@ -410,6 +410,7 @@ namespace StockportWebappTests.Integration
             result.Should().Contain("This is the event");
         }
 
+        [Fact]
         public void ReverseCmsTemplateShouldBeServedForDemocracyWebsiteWithAbsoluteLinks()
         {
             SetBusinessIdRequestHeader("stockportgov");
@@ -458,6 +459,7 @@ namespace StockportWebappTests.Integration
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
+        [Fact]
         public void ItReturnsAGroupSubmissionPage()
         {
             SetBusinessIdRequestHeader("stockportgov");

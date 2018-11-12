@@ -15,7 +15,6 @@ namespace StockportWebappTests.Unit.ContentFactory
     {
         private readonly PrivacyNoticeFactory _factory;
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
-        private readonly PrivacyNotice _privacyNotice;
 
         public PrivacyNoticeFactoryTest()
         {

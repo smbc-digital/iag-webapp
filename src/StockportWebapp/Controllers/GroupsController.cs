@@ -1149,7 +1149,7 @@ namespace StockportWebapp.Controllers
                     // if there is an image, send this in an email
                     if (_featureToggles.EditGroupUploadImage && model.Image != null && !string.IsNullOrEmpty(model.Image.FileName))
                     {
-                        _groupsService.SendImageViaEmail(model.Image, model.Name, model.Slug);
+                        await _groupsService.SendImageViaEmail(model.Image, model.Name, model.Slug);
                     }
 
                     return RedirectToAction("EditGroupConfirmation", new { slug = slug, groupName = group.Name });
@@ -1489,7 +1489,7 @@ namespace StockportWebapp.Controllers
 
                 if (putResponse.StatusCode == (int)HttpStatusCode.OK)
                 {
-                    _eventEmailBuilder.SendEmailEditEvent(model, loggedInPerson.Email);
+                    await _eventEmailBuilder.SendEmailEditEvent(model, loggedInPerson.Email);
                     return RedirectToAction("EditEventConfirmation", new { groupslug = group.Slug, groupName = group.Name, eventslug = eventDetail.Slug, eventname = eventDetail.Title });
                 }
                 else

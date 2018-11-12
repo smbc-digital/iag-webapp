@@ -18,7 +18,6 @@ namespace StockportWebapp.Validation
         public const string ReCaptchaModelErrorKey = "ReCaptcha";
         private const string RecaptchaResponseTokenKey = "g-recaptcha-response";
         private const string ApiVerificationEndpoint = "https://www.google.com/recaptcha/api/siteverify";
-        private readonly IApplicationConfiguration m_configuration;
         private readonly string _reCaptchaSecret;
         private readonly IHttpClient _httpClient;
 

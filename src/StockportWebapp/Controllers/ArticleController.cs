@@ -30,7 +30,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/map")]
-        public async Task<IActionResult> Map([FromQuery] string source, [FromQuery] string panels, [FromQuery] string layers)
+        public IActionResult Map([FromQuery] string source, [FromQuery] string panels, [FromQuery] string layers)
         {
             return View(new Tuple<string, string, string>(source, panels, layers));
         }
@@ -73,7 +73,7 @@ namespace StockportWebapp.Controllers
                 var viewModel = new ArticleViewModel(article, sectionSlug);
                 return View("Article", viewModel);
             }
-            catch (SectionDoesNotExistException ex)
+            catch (SectionDoesNotExistException)
             {
                 _logger.LogWarning("Section does not exist, returning 404.");
                 return NotFound();
