@@ -1,1 +1,1 @@
-module.exports={"testUri":"http://localhost:5000","timeOut":10000};
+module.exports={"testUri":"$(UI_TEST_HOST)","timeOut":10000};
