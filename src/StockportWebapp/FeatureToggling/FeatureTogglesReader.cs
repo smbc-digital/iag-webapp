@@ -32,7 +32,7 @@ namespace StockportWebapp.FeatureToggling
             Dictionary<string, T> featureToggles;
             try
             {
-                featureToggles = new Deserializer(ignoreUnmatched: true).Deserialize<Dictionary<string, T>>(ReadYaml());
+                featureToggles = new DeserializerBuilder().IgnoreUnmatchedProperties().Build().Deserialize<Dictionary<string, T>>(ReadYaml());
             }
             catch (SemanticErrorException)
             {
@@ -72,12 +72,11 @@ namespace StockportWebapp.FeatureToggling
             _logger?.LogInformation($"Feature Toggles for: {_appEnvironment}\n{featureTogglesDescription}");
         }
 
-        private EventReader ReadYaml()
+        private IParser ReadYaml()
         {
             var yaml = File.ReadAllText(_path);
             var innerParser = new Parser(new StringReader(yaml));
-            var mergingParser = new MergingParser(innerParser);
-            return new EventReader(mergingParser);
+            return new MergingParser(innerParser);
         }
     }
 }
