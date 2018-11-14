@@ -6,7 +6,7 @@
 <ul class="group-listing-container grid-container matchbox-parent">
     @foreach (var group in Model)
     {
-        @Html.Partial("Groups/GroupCard", group)
+        <partial name="Groups/GroupCard" model='group'/>
     }
 </ul>
 

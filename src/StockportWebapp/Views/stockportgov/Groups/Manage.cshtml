@@ -9,7 +9,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") })
+    <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") }'/>
 }
 
 <div class="l-page-content" id="content-no-margin-bottom-mainpage">

@@ -23,11 +23,11 @@
         <link rel="stylesheet" href="/assets/stylesheets/ie.css" />
     <![endif]-->
     
-    @Html.Partial("CookieBanner")
+    <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
 </head>
 <body class="@(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
-    @Html.Partial("Header")
+    <partial name="Header" />
     @RenderBody()
 <div id="error-footer">
     <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">

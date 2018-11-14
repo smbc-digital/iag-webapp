@@ -9,11 +9,11 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Article.Breadcrumbs)
+    <partial name="Breadcrumb" model='Model.Article.Breadcrumbs'/>
 }
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.Article.BackgroundImage))
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Article.BackgroundImage)'/>
 }
 
 @if (!string.IsNullOrEmpty(Model.Article.BackgroundImage))
@@ -34,7 +34,7 @@
                     <div class="alert-wrapper">
                         @foreach (var alert in Model.Article.Alerts)
                         {
-                            @Html.Partial("DisplayTemplates/Alert", alert)
+                            <partial name="DisplayTemplates/Alert" model='alert'/>
                         }
                     </div>
                 }
@@ -56,9 +56,9 @@
 
         @if (Model.DisplayedSection != null)
         {
-            @Html.Partial("../../Shared/Section-Nav")
-            @Html.Partial("../Shared/Article-Single-Section", Model)
-            @Html.Partial("../Shared/Section-Pagination")
+            <partial name="../../Shared/Section-Nav" />
+            <partial name="../Shared/Article-Single-Section" model='Model'/>
+            <partial name="../Shared/Section-Pagination" />
         }
     </div>
 </section>

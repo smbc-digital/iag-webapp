@@ -6,7 +6,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.PrivacyNotice.Breadcrumbs)
+    <partial name="Breadcrumb" model='Model.PrivacyNotice.Breadcrumbs'/>
 }
 <div class="grid-container-full-width">
     <div class="grid-container">

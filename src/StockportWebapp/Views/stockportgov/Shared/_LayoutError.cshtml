@@ -8,14 +8,14 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
-    @Html.Partial("SecurityHeaders")
+    <partial name="SecurityHeaders" />
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1, user-scalable=yes" />
 
-    @Html.Partial("OwnershipVerificationCodes")
+    <partial name="OwnershipVerificationCodes" />
 
-    @Html.Partial("Favicon")
+    <partial name="Favicon" />
 
     <title>Error - Stockport Council</title>
     <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
-    @Html.Partial("CookieBanner")
+    <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
 
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
@@ -33,7 +33,7 @@
 
 </head>
 <body class="container-layout-free type-error">
-    @Html.Partial("Header")
+    <partial name="Header" />
     <div class="background-image" style="background-image: url('https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/bg-sg-home.jpg')">
         @RenderBody()
     </div>

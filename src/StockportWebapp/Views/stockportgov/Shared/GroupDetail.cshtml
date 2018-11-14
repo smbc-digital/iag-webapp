@@ -22,15 +22,15 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") })
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }'/>
 }
 
 @Html.HiddenFor(_ => _.ConfirmedUpToDate)
 <div class="hide-on-mobile grid-100 tablet-grid-100 grid-parent favourites-container">
-    @Html.Partial("FavouritesBar")
+    <partial name="FavouritesBar" />
 </div>
 <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
-    @Html.Partial("FavouritesBar")
+    <partial name="FavouritesBar" />
 </div>
 <article aria-label="@Model.Group.Name content" class="grid-container group-detail">
 <div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
@@ -45,7 +45,7 @@
             </div>
         }
         <section class="hide-on-desktop mobile-grid-100 tablet-grid-100">
-            @Html.Partial("Events/ManageFavouritesCard", Model.Group)
+            <partial name="Events/ManageFavouritesCard" model='Model.Group'/>
         </section>
     </section>
     @if (Model.ShouldShowAdditionalInformation)
@@ -55,7 +55,7 @@
             @Html.Raw(Model.Group.AdditionalInformation)
             @foreach (Document document in Model.Group.AdditionalDocuments)
             {
-                @Html.Partial("Document", document)
+                <partial name="Document" model='document'/>
             }
         </section>
     }
@@ -118,8 +118,8 @@
 
         
 
-        @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
-        @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
+        <partial name="Groups/VolunteeringBar" model='Model.Group.Volunteering'/>
+        <partial name="Groups/DonationsBar" model='Model.Group.Donations'/>
         <hr />
     </section>
     <section>
@@ -187,23 +187,23 @@
             
         <div class="group-map-container group-map-container-padding">
             <h2 class="group-details-heading">How to find us</h2>
-            @Html.Partial("MapPosition", Model.Group.MapDetails)
+            <partial name="MapPosition" model='Model.Group.MapDetails'/>
         </div>
     }
 
     @if (Model.Group.Events != null && Model.Group.Events.Any())
     {
         <div class="upcoming-events-container hide-on-mobile ">
-            @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
+            <partial name="Events/EventCards" model='Model.Group.Events.Take(3).ToList()'/>
         </div>
 
         
     }
     <div id="shareThis" class="sharethis">
-        @Html.Partial("GroupLastUpdated", Model.Group)
-        @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
+        <partial name="GroupLastUpdated" model='Model.Group'/>
+        <partial name="SharePrintThis" model='new Tuple<string, string>("groups", Model.Group.Slug)'/>
     </div>
-    @Html.Partial("ContentDisclaimerCard")
+    <partial name="ContentDisclaimerCard" />
 
 </div>
 <aside class="grid-30 hide-on-print">
@@ -211,7 +211,7 @@
     <hr class="hide-on-mobile" />
     <section class="group-information-section grid-100 mobile-grid-100">
         <div class="hide-on-mobile">
-            @Html.Partial("Events/ManageFavouritesCard", Model.Group)
+            <partial name="Events/ManageFavouritesCard" model='Model.Group'/>
         </div>
         <div class="add-remove-favourite sidebar-links">
             <i class="fa fa-flag-o fa-lg" aria-hidden="true"></i>

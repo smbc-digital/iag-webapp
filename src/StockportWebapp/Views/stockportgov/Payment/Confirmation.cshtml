@@ -11,7 +11,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Payment", "Detail", "Payment") })
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Payment", "Detail", "Payment") }'/>
 }
 
 <div class="grid-container-full-width">
@@ -19,7 +19,7 @@
         <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@ViewData["Title"] content">
                 <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
-                    @Html.Partial("PaymentConfirmationBody", Model)
+                    <partial name="PaymentConfirmationBody" model='Model'/>
                     <div class="grid-100 centre mixed-buttons">
                         <stock-button as-link="true" href="@Url.Action("Index", "Home")">Go back to the homepage</stock-button>
                     </div>

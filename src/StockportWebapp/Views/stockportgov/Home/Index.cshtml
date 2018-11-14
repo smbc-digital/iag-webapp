@@ -13,7 +13,7 @@
     foreach (var alert in Model.HomepageContent.Alerts)
     {
         <div>
-            @Html.Partial("GlobalAlert", alert)
+            <partial name="GlobalAlert" model='alert'/>
         </div>
     }
 }
@@ -22,14 +22,14 @@
 
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice",new Image("homepage-hero", Model.HomepageContent.BackgroundImage))
+    <partial name="ScaleImageByDevice" model='new Image("homepage-hero", Model.HomepageContent.BackgroundImage)'/>
 }
 @section CarouselBackgroundImage
 {
     @{ int counter = 1; }
     @foreach (var carouselContent in Model.HomepageContent.CarouselContents)
     {
-        @Html.Partial("ScaleImageByDevice", new Image("webcast-"+counter, carouselContent.Image))
+        <partial name="ScaleImageByDevice" model='new Image("webcast-"+counter, carouselContent.Image)'/>
         counter++;
     }
 }
@@ -38,17 +38,17 @@
     <div class="grid-container l-max-width-950">
         <section class="search-bar">
             <h1 class="visuallyhidden">Search bar</h1>
-            @Html.Partial("Search", new Tuple<string, string, string>("cludo-search-hero-form", "Hi there! What are you looking for?", "cludo-search-bar"))
+            <partial name="Search" model='new Tuple<string, string, string>("cludo-search-hero-form", "Hi there! What are you looking for?", "cludo-search-bar")'/>
         </section>
 
-        @Html.Partial("FeaturedTasks", Model.HomepageContent.FeaturedTasks)
+        <partial name="FeaturedTasks" model='Model.HomepageContent.FeaturedTasks'/>
     </div>
 </div>
 
 <div class="home-page-row">
     <section class="grid-container homepage">
         <h2 class="visuallyhidden">All other services</h2>
-        @Html.Partial("GenericFeaturedItemList", Model.HomepageContent.GenericItemList)
+        <partial name="GenericFeaturedItemList" model='Model.HomepageContent.GenericItemList'/>
     </section>
 </div>
 
@@ -72,7 +72,7 @@
                         <div class="body">
                             <a href="/news/@Model.FeaturedNews.Slug">
                                 <h3>@Model.FeaturedNews.Title</h3>
-                                <p class="bullet"><i class="fa fa-clock-o" aria-hidden="true"></i>@Html.Partial("FormattedDate", Model.FeaturedNews.SunriseDate)</p>
+                                <p class="bullet"><i class="fa fa-clock-o" aria-hidden="true"></i><partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/></p>
                                 <p>@Model.FeaturedNews.Teaser</p>
                                 <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
@@ -133,7 +133,7 @@
 </div>
 
 <div class="grid-100 grid-parent">
-    @Html.Partial("Carousel", Model.HomepageContent.CarouselContents)
+    <partial name="Carousel" model='Model.HomepageContent.CarouselContents'/>
 </div>
 
 
@@ -141,7 +141,7 @@
     <h2 class="visuallyhidden">Subscription </h2>
     <div class="grid-container">
         <div class="grid-100 enhanced_service" id="test-email-alerts">
-            @Html.Partial("EmailSubscribe")
+            <partial name="EmailSubscribe" />
         </div>
     </div>
 </section>

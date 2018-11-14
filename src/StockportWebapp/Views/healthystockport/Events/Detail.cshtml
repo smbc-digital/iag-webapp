@@ -15,7 +15,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>())
+    <partial name="Breadcrumb" model='new List<Crumb>()'/>
 }
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
@@ -30,7 +30,7 @@
                             {
                                 if(Model.IsAlertDisplayed(alert))
                                 {
-                                    @Html.Partial("DisplayTemplates/Alert", alert)
+                                    <partial name="DisplayTemplates/Alert" model='alert'/>
                                 }                               
                             }
                         }
@@ -143,7 +143,7 @@
                     {
                         <div class="event-map-container">     
                             <br />
-                            @Html.Partial("MapPosition", Model.MapDetails)
+                            <partial name="MapPosition" model='Model.MapDetails'/>
                         </div>
                     }
 
@@ -151,7 +151,7 @@
                 <div class="l-content-container grid-100">
                     <div class="share border top-border">
                         <div class="grid-20">
-                            @Html.Partial("Share")
+                            <partial name="Share" />
                         </div>
                         <div class="grid-20 events-to-calendar">
                             <p>Add to calendar</p>

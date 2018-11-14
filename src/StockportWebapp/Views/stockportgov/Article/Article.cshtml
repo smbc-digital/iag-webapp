@@ -42,13 +42,13 @@
                                 <div class="alert-container">
                                     @foreach (var alert in Model.Article.Alerts)
                                     {
-                                        @Html.Partial("DisplayTemplates/Alert", alert)
+                                        <partial name="DisplayTemplates/Alert" model='alert'/>
                                     }
                                 </div>
                             }
                         }
                         
-                        @Html.Partial("Advertisement", Model.Article.Advertisement)
+                        <partial name="Advertisement" model='Model.Article.Advertisement'/>
 
                         <div class="grid-100">
 
@@ -61,9 +61,9 @@
 
                             @if (Model.DisplayedSection != null)
                             {
-                                @Html.Partial("../Shared/Section-Nav")
-                                @Html.Partial("../Shared/Article-Single-Section", Model)
-                                @Html.Partial("DisplayTemplates/Section-Pagination")
+                                <partial name="../Shared/Section-Nav" />
+                                <partial name="../Shared/Article-Single-Section" model='Model'/>
+                                <partial name="DisplayTemplates/Section-Pagination" />
                             }
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                                     }
                     @if (Model.Article.LiveChatVisible)
                     {
-                        @Html.Partial("LiveChat", Model.Article.LiveChat)
+                        <partial name="LiveChat" model='Model.Article.LiveChat'/>
                     }
                 </div>
                 }

@@ -7,7 +7,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+    <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
 }
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
@@ -19,7 +19,7 @@
                         {
                             foreach (var alert in Model.Alerts)
                             {
-                                @Html.Partial("DisplayTemplates/Alert", alert)
+                                <partial name="DisplayTemplates/Alert" model='alert'/>
                             }
                         }
                     }

@@ -20,18 +20,18 @@
     <link rel="stylesheet" type="text/css" href="@stylesheet.StyleguideSemantic" />
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
     <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
-    @*@Html.Partial("CookieBanner")*@
+    @*<partial name="CookieBanner" />*@
 </head>
 <body>
     <header>
         <div class="skip-to-main-content">
             <a href="#content">Skip to main content</a>
         </div>
-        @Html.Partial("SemanticHeader")
-        @Html.Partial("BrowserCheckSemantic")
+        <partial name="SemanticHeader" />
+        <partial name="BrowserCheckSemantic" />
         @if (bannerTypeformUrl != null)
         {
-            @Html.Partial("TypeFormBannerHeader", bannerTypeformUrl)
+            <partial name="TypeFormBannerHeader" model='bannerTypeformUrl'/>
         }
         @RenderSection("Breadcrumb", false)
     </header>

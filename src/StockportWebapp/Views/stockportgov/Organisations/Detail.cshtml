@@ -11,9 +11,9 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Stockport Local", "groups", "groups") })
+    <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("Stockport Local", "groups", "groups") }'/>
 }
 
 <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-organisation-detail.min.css" />
 
-@Html.Partial("Organisations/OrganisationsDetail", Model)
+<partial name="Organisations/OrganisationsDetail" model='Model'/>
