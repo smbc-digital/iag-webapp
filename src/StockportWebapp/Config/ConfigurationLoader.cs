@@ -62,7 +62,7 @@ namespace StockportWebapp.Config
 
             var configuration = LoadAppSettings(envName, contentRootPath);
             var secretsLocation = configuration["secrets-location"];
-            
+
             return LoadConfigurationWithSecrets(envName, secretsLocation, contentRootPath);
         }
 

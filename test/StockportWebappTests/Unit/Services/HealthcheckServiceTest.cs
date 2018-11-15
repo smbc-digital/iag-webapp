@@ -13,10 +13,12 @@ using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebappTests.Unit.Fake;
 using HttpClient = System.Net.Http.HttpClient;
+using System.Threading.Tasks;
+using StockportWebappTests.Helpers;
 
 namespace StockportWebappTests.Unit.Services
 {
-    public class HealthcheckServiceTest : TestingBaseClass
+    public class HealthcheckServiceTest
     {
         private readonly HealthcheckService _healthcheckService;
         private readonly string _shaPath;
@@ -41,7 +43,7 @@ namespace StockportWebappTests.Unit.Services
 
             var httpResponseMessage = new HttpResponseMessage
             {
-                Content = new StringContent(GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Healthcheck.json"))
+                Content = new StringContent(JsonFileHelper.GetStringResponseFromFile("Healthcheck.json"))
             };
             _fakeHandler = new FakeResponseHandler();
             _fakeHandler.AddFakeResponse(new Uri(healthcheckUrl), httpResponseMessage);
@@ -72,36 +74,36 @@ namespace StockportWebappTests.Unit.Services
         }
 
         [Fact]
-        public void ShouldContainTheAppVersionInTheResponse()
+        public async Task ShouldContainTheAppVersionInTheResponse()
         {
-            var check = AsyncTestHelper.Resolve(_healthcheckService.Get());
+            var check = await _healthcheckService.Get();
 
             check.AppVersion.Should().Be("0.0.3");
         }
 
         [Fact]
-        public void ShouldContainTheGitShaInTheResponse()
+        public async Task ShouldContainTheGitShaInTheResponse()
         {
-            var check = AsyncTestHelper.Resolve(_healthcheckService.Get());
+            var check = await _healthcheckService.Get();
 
             check.SHA.Should().Be("d8213ee84c7d8c119c401b7ddd0adef923692188");
         }
 
         [Fact]
-        public void ShouldSetAppVersionToDevIfFileNotFound()
+        public async Task ShouldSetAppVersionToDevIfFileNotFound()
         {
             var notFoundVersionPath = "notfound";
             _fileWrapperMock.Setup(x => x.Exists(notFoundVersionPath)).Returns(false);
 
             var healthCheckServiceWithNotFoundVersion =
                 CreateHealthcheckServiceWithDefaultFeatureToggles(notFoundVersionPath, _shaPath);
-            var check = AsyncTestHelper.Resolve(healthCheckServiceWithNotFoundVersion.Get());
+            var check = await healthCheckServiceWithNotFoundVersion.Get();
 
             check.AppVersion.Should().Be("dev");
         }
 
         [Fact]
-        public void ShouldSetAppVersionToDevIfFileEmpty()
+        public async Task ShouldSetAppVersionToDevIfFileEmpty()
         {
             string newFile = "newFile";
             _fileWrapperMock.Setup(x => x.Exists(newFile)).Returns(true);
@@ -109,13 +111,13 @@ namespace StockportWebappTests.Unit.Services
 
             var healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles(newFile,
                 _shaPath);
-            var check = AsyncTestHelper.Resolve(healthCheckServiceWithNotFoundVersion.Get());
+            var check = await healthCheckServiceWithNotFoundVersion.Get();
 
             check.AppVersion.Should().Be("dev");
         }
 
         [Fact]
-        public void ShouldSetAppVersionToDevIfFileHasAnEmptyAString()
+        public async Task ShouldSetAppVersionToDevIfFileHasAnEmptyAString()
         {
             string newFile = "newFile";
             _fileWrapperMock.Setup(x => x.Exists(newFile)).Returns(true);
@@ -123,41 +125,41 @@ namespace StockportWebappTests.Unit.Services
 
             var healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles(newFile,
                 _shaPath);
-            var check = AsyncTestHelper.Resolve(healthCheckServiceWithNotFoundVersion.Get());
+            var check = await healthCheckServiceWithNotFoundVersion.Get();
 
             check.AppVersion.Should().Be("dev");
         }
 
         [Fact]
-        public void ShouldSetSHAToEmptyIfFileNotFound()
+        public async Task ShouldSetSHAToEmptyIfFileNotFound()
         {
             var notFoundShaPath = "notfound";
             _fileWrapperMock.Setup(x => x.Exists(notFoundShaPath)).Returns(false);
 
             var healthCheckServiceWithNotFoundVersion =
                 CreateHealthcheckServiceWithDefaultFeatureToggles(_appVersionPath, notFoundShaPath);
-            var check = AsyncTestHelper.Resolve(healthCheckServiceWithNotFoundVersion.Get());
+            var check = await healthCheckServiceWithNotFoundVersion.Get();
 
             check.SHA.Should().Be("");
         }
 
         [Fact]
-        public void ShouldIncludeFeatureTogglesInHealthcheck()
+        public async Task ShouldIncludeFeatureTogglesInHealthcheck()
         {
             var featureToggles = new FeatureToggles();
 
             var healthCheckServiceWithNotFoundVersion = CreateHealthcheckService(_appVersionPath, _shaPath,
                 featureToggles);
-            var check = AsyncTestHelper.Resolve(healthCheckServiceWithNotFoundVersion.Get());
+            var check = await healthCheckServiceWithNotFoundVersion.Get();
 
             check.FeatureToggles.Should().NotBeNull();
             check.FeatureToggles.Should().BeEquivalentTo(featureToggles);
         }
 
         [Fact]
-        public void ShouldSetAppDependenciesGotFromTheContentApi()
+        public async Task ShouldSetAppDependenciesGotFromTheContentApi()
         {
-            var check = AsyncTestHelper.Resolve(_healthcheckService.Get());
+            var check = await _healthcheckService.Get();
 
             check.Dependencies.Should().NotBeNull();
             check.Dependencies.Should().ContainKey("contentApi");
@@ -168,7 +170,7 @@ namespace StockportWebappTests.Unit.Services
         }
 
         [Fact]
-        public void ShouldSetAppDependenciesToNullIfNoResponseGotFromContentApi()
+        public async Task ShouldSetAppDependenciesToNullIfNoResponseGotFromContentApi()
         {
             var NoneSuccessfulResponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
             var fakeHandler = new FakeResponseHandler();
@@ -177,7 +179,7 @@ namespace StockportWebappTests.Unit.Services
             var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
                 new FeatureToggles(), new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
 
-            var check = AsyncTestHelper.Resolve(healthcheckService.Get());
+            var check = await healthcheckService.Get();
 
             check.Dependencies.Should().NotBeNull();
             check.Dependencies.Should().ContainKey("contentApi");
@@ -189,7 +191,7 @@ namespace StockportWebappTests.Unit.Services
         }
 
         [Fact]
-        public void ShouldSetAppDependenciesToNullIfRequestToContentApi()
+        public async Task ShouldSetAppDependenciesToNullIfRequestToContentApi()
         {
             var fakeHandler = new FakeResponseHandler();
             fakeHandler.ThrowException(new Uri(healthcheckUrl), new HttpRequestException());
@@ -197,7 +199,7 @@ namespace StockportWebappTests.Unit.Services
             var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
                 new FeatureToggles(), new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
 
-            var check = AsyncTestHelper.Resolve(healthcheckService.Get());
+            var check = await healthcheckService.Get();
 
             check.Dependencies.Should().NotBeNull();
             check.Dependencies.Should().ContainKey("contentApi");
@@ -209,9 +211,9 @@ namespace StockportWebappTests.Unit.Services
         }
 
         [Fact]
-        public void ShouldContainTheBusinessIdInTheResponse()
+        public async Task ShouldContainTheBusinessIdInTheResponse()
         {
-            var check = AsyncTestHelper.Resolve(_healthcheckService.Get());
+            var check = await _healthcheckService.Get();
 
             check.BusinessId.Should().Be("businessId");
         }

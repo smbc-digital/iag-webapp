@@ -1,6 +1,7 @@
 ﻿using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.Services;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Controllers
@@ -15,11 +16,11 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldGetRepositoryToReturnHealth()
+        public async Task ShouldGetRepositoryToReturnHealth()
         {
             var healthcheckController = new HealthcheckController(_healthCheckRepository.Object);
 
-            AsyncTestHelper.Resolve(healthcheckController.Index());
+            await healthcheckController.Index();
 
             _healthCheckRepository.Verify(x=>x.Get(),Times.Once);
         }

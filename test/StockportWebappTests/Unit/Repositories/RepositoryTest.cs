@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
@@ -13,11 +14,12 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
+using StockportWebappTests.Helpers;
 using Xunit;
 
 namespace StockportWebappTests.Unit.Repositories
 {
-    public class RepositoryTest : TestingBaseClass
+    public class RepositoryTest
     {
         private readonly Repository _repository;
         private readonly Mock<IHttpClient> _httpClientMock = new Mock<IHttpClient>();
@@ -36,7 +38,7 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsNotFoundForTopicNotFound()
+        public async Task GetsNotFoundForTopicNotFound()
         {
             const string unrecognizedTopic = "not found";
             const string topicNotFoundError = "No topic found for not found";
@@ -44,14 +46,14 @@ namespace StockportWebappTests.Unit.Repositories
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(HttpResponse.Failure(404, topicNotFoundError));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Topic>(unrecognizedTopic));
+            var httpResponse = await _repository.Get<Topic>(unrecognizedTopic);
 
             httpResponse.StatusCode.Should().Be(404);
             httpResponse.Error.Should().Be("No topic found for not found");
         }
 
         [Fact]
-        public void GetsGroupsThatAnEmailAdministrors()
+        public async Task GetsGroupsThatAnEmailAdministrors()
         {
             const string email = "buggs@loonytunes.com";
             var url = _urlGenerator.AdministratorsGroups(email);
@@ -59,17 +61,17 @@ namespace StockportWebappTests.Unit.Repositories
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
-                    GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.GroupListing.json"),
+                    JsonFileHelper.GetStringResponseFromFile("GroupListing.json"),
                     string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.GetAdministratorsGroups(email));
+            var httpResponse = await _repository.GetAdministratorsGroups(email);
             var groups = httpResponse.Content as List<Group>;
 
             groups.Count(x => x.GroupAdministrators.Items.Any(item => item.Email == email)).Should().Be(1);
         }
 
         [Fact]
-        public void GetsTopicByTopicSlug()
+        public async Task GetsTopicByTopicSlug()
         {
             const string topicSlug = "healthy-living";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
@@ -77,10 +79,10 @@ namespace StockportWebappTests.Unit.Repositories
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
-                    GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Topic.json"),
+                    JsonFileHelper.GetStringResponseFromFile("Topic.json"),
                     string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Topic>(topicSlug));
+            var httpResponse = await _repository.Get<Topic>(topicSlug);
             var topic = httpResponse.Content as Topic;
 
             topic.Name.Should().Be("Healthy Living");
@@ -96,7 +98,7 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void ShouldGetTopicWithSevenSubItemsAndOneSecondaryItem()
+        public async Task ShouldGetTopicWithSevenSubItemsAndOneSecondaryItem()
         {
             const string topicSlug = "healthy-living";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
@@ -104,10 +106,10 @@ namespace StockportWebappTests.Unit.Repositories
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
-                    GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithSubItemsAndSecondaryItems.json"),
+                    JsonFileHelper.GetStringResponseFromFile("TopicWithSubItemsAndSecondaryItems.json"),
                     string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Topic>(topicSlug));
+            var httpResponse = await _repository.Get<Topic>(topicSlug);
             var topic = httpResponse.Content as Topic;
 
             topic.SubItems.Should().HaveCount(7);
@@ -118,7 +120,7 @@ namespace StockportWebappTests.Unit.Repositories
 
 
         [Fact]
-        public void GetsTopigBySlugWithAlertsAndSubItems()
+        public async Task GetsTopigBySlugWithAlertsAndSubItems()
         {
             const string topicSlug = "healthy-living";
             var url = _urlGenerator.UrlFor<Topic>(topicSlug);
@@ -126,10 +128,10 @@ namespace StockportWebappTests.Unit.Repositories
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(
                     200,
-                    GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.TopicWithAlerts.json"),
+                    JsonFileHelper.GetStringResponseFromFile("TopicWithAlerts.json"),
                     string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Topic>(topicSlug));
+            var httpResponse = await _repository.Get<Topic>(topicSlug);
             var topic = httpResponse.Content as Topic;
 
             topic.SubItems.Should().HaveCount(1);
@@ -148,15 +150,15 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void ShouldGetStartPage()
+        public async Task ShouldGetStartPage()
         {
             var startPageSlug = "slug";
             var url = _urlGenerator.UrlFor<StartPage>(startPageSlug);
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.StartPage.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("StartPage.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<StartPage>(startPageSlug));
+            var httpResponse = await _repository.Get<StartPage>(startPageSlug);
             var startPage = httpResponse.Content as StartPage;
 
             startPage.Title.Should().Be("Start Page");
@@ -179,7 +181,7 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsNotFoundForStartPageNotFound()
+        public async Task GetsNotFoundForStartPageNotFound()
         {
             var nonExistentStartPage = "startPageNotFound";
             var articleNotFoundError = "No start-page found for startPageNotFound";
@@ -188,7 +190,7 @@ namespace StockportWebappTests.Unit.Repositories
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(HttpResponse.Failure(404, articleNotFoundError));
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<StartPage>(nonExistentStartPage));
+            var httpResponse = await _repository.Get<StartPage>(nonExistentStartPage);
 
            httpResponse.StatusCode.Should().Be(404);
            httpResponse.Error.Should().Be("No start-page found for startPageNotFound");
@@ -198,15 +200,15 @@ namespace StockportWebappTests.Unit.Repositories
          * Homepage
          */
         [Fact]
-        public void GetsHomepage()
+        public async Task GetsHomepage()
         {
             var url = _urlGenerator.UrlFor<Homepage>();
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.HomepageStockportGov.json"),
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("HomepageStockportGov.json"),
                     string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Homepage>());
+            var httpResponse = await _repository.Get<Homepage>();
             var homepage = httpResponse.Content as Homepage;
 
             homepage.FeaturedTasksHeading.Should().Be("Featured tasks heading");
@@ -236,14 +238,14 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsNewsListing()
+        public async Task GetsNewsListing()
         {
             var url = _urlGenerator.UrlFor<Newsroom>();
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Newsroom.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Newsroom>());
+            var httpResponse = await _repository.Get<Newsroom>();
             var news = httpResponse.Content as Newsroom;
 
             news.News.Count.Should().Be(2);
@@ -290,14 +292,14 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsAtoZListingForTheLetterV()
+        public async Task GetsAtoZListingForTheLetterV()
         {
             var url = _urlGenerator.UrlFor<List<AtoZ>>();
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.AtoZ.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("AtoZ.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<List<AtoZ>>());
+            var httpResponse = await _repository.Get<List<AtoZ>>();
             var atozListing = httpResponse.Content as List<AtoZ>;
 
             atozListing.Count.Should().Be(1);
@@ -309,14 +311,14 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsLatestNewsListing()
+        public async Task GetsLatestNewsListing()
         {
             var url = _urlGenerator.UrlFor<Newsroom>("2");
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Newsroom.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Newsroom>("2"));
+            var httpResponse = await _repository.Get<Newsroom>("2");
             var news = httpResponse.Content as Newsroom;
 
             news.News.Count.Should().Be(2);
@@ -326,14 +328,14 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsLatestNewsListingForTag()
+        public async Task GetsLatestNewsListingForTag()
         {
             var url = _urlGenerator.UrlFor<Newsroom>("/tag/Tag1");
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Newsroom.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Newsroom.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Newsroom>("/tag/Tag1"));
+            var httpResponse = await _repository.Get<Newsroom>("/tag/Tag1");
             var news = httpResponse.Content as Newsroom;
 
             news.News.Count.Should().Be(2);
@@ -349,14 +351,14 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsRedirects()
+        public async Task GetsRedirects()
         {
             var url = _urlGenerator.RedirectUrl();
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Redirects.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Redirects.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.GetRedirects());
+            var httpResponse = await _repository.GetRedirects();
             var redirects = httpResponse.Content as Redirects;
 
             const string businessId = "unittest";
@@ -375,14 +377,14 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsEventCalendar()
+        public async Task GetsEventCalendar()
         {
             var url = _urlGenerator.UrlFor<EventCalendar>();
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventsCalendar.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("EventsCalendar.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<EventCalendar>());
+            var httpResponse = await _repository.Get<EventCalendar>();
             var events = httpResponse.Content as EventCalendar;
 
             events.Events.Count.Should().Be(3);
@@ -392,14 +394,14 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsEventCalendarBySlug()
+        public async Task GetsEventCalendarBySlug()
         {
             var url = _urlGenerator.UrlFor<Event>("event-of-the-century");
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Event.json"), string.Empty));
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Event.json"), string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Get<Event>("event-of-the-century"));
+            var httpResponse = await _repository.Get<Event>("event-of-the-century");
             var eventList = httpResponse.Content as Event;
 
             eventList.Title.Should().Be("This is the event");
@@ -408,15 +410,15 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void GetsLatestEventsByLimit()
+        public async Task GetsLatestEventsByLimit()
         {
             var url = _urlGenerator.UrlForLimit<EventCalendar>(2);
 
             _httpClientMock.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-                .ReturnsAsync(new HttpResponse(200, GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.EventListing.json"),
+                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("EventListing.json"),
                     string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.GetLatest<EventCalendar>(2));
+            var httpResponse = await _repository.GetLatest<EventCalendar>(2);
             var eventList = httpResponse.Content as EventCalendar;
 
             eventList.Events.Should().HaveCount(2);
@@ -426,36 +428,36 @@ namespace StockportWebappTests.Unit.Repositories
         }
 
         [Fact]
-        public void UpdatesGroup()
+        public async Task UpdatesGroup()
         {
             var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}";
 
-            var jsonContent = GetStringResponseFromFile("StockportWebappTests.Unit.MockResponses.Group.json");
+            var jsonContent = JsonFileHelper.GetStringResponseFromFile("Group.json");
             var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
             _httpClientMock.Setup(o => o.PutAsync(url, httpContent, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.Put<Group>(httpContent, "test_slug"));
+            var httpResponse = await _repository.Put<Group>(httpContent, "test_slug");
 
             httpResponse.StatusCode.Should().Be(200);
         }
 
         [Fact]
-        public void DeletesGroupAdministrator()
+        public async Task DeletesGroupAdministrator()
         {
             var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}/administrators/test@test.com";
 
             _httpClientMock.Setup(o => o.DeleteAsync(url, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.RemoveAdministrator("test_slug", "test@test.com"));
+            var httpResponse = await _repository.RemoveAdministrator("test_slug", "test@test.com");
 
             httpResponse.StatusCode.Should().Be(200);
         }
 
         [Fact]
-        public void AddsGroupAdministrator()
+        public async Task AddsGroupAdministrator()
         {
             var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}/administrators/test@test.com";
 
@@ -465,13 +467,13 @@ namespace StockportWebappTests.Unit.Repositories
             _httpClientMock.Setup(o => o.PostAsync(url, httpContent, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.AddAdministrator(httpContent, "test_slug", "test@test.com"));
+            var httpResponse = await _repository.AddAdministrator(httpContent, "test_slug", "test@test.com");
 
             httpResponse.StatusCode.Should().Be(200);
         }
 
         [Fact]
-        public void UpdatesGroupAdministrator()
+        public async Task UpdatesGroupAdministrator()
         {
             var url = $"{_urlGenerator.UrlFor<Group>("test_slug")}/administrators/test@test.com";
 
@@ -481,7 +483,7 @@ namespace StockportWebappTests.Unit.Repositories
             _httpClientMock.Setup(o => o.PutAsync(url, httpContent, It.IsAny<Dictionary<string, string>>()))
                 .ReturnsAsync(new HttpResponse(200, null, string.Empty));
 
-            var httpResponse = AsyncTestHelper.Resolve(_repository.UpdateAdministrator(httpContent, "test_slug", "test@test.com"));
+            var httpResponse = await _repository.UpdateAdministrator(httpContent, "test_slug", "test@test.com");
 
             httpResponse.StatusCode.Should().Be(200);
         }

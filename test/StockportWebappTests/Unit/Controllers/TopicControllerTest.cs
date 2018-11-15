@@ -12,6 +12,7 @@ using StockportWebapp.FeatureToggling;
 using StockportWebapp.Repositories;
 using System;
 using StockportWebapp.ViewModels;
+using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -39,7 +40,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
     
         [Fact]
-        public void GivenNavigateToTopicReturnsTopicWithExpectedProperties()
+        public async Task GivenNavigateToTopicReturnsTopicWithExpectedProperties()
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
@@ -54,7 +55,7 @@ namespace StockportWebappTests.Unit.Controllers
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index(slug)) as ViewResult;
+            var indexPage = await _controller.Index(slug) as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
             var result = viewModel.Topic;
 
@@ -77,7 +78,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenNavigateToTopicReturnsListOfSubItemsByTopic()
+        public async Task GivenNavigateToTopicReturnsListOfSubItemsByTopic()
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
@@ -90,7 +91,7 @@ namespace StockportWebappTests.Unit.Controllers
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index("healthy-living")) as ViewResult;
+            var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
             var result = viewModel.Topic;
 
@@ -105,7 +106,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenTopicHasAdvertisement()
+        public async Task GivenTopicHasAdvertisement()
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
@@ -118,7 +119,7 @@ namespace StockportWebappTests.Unit.Controllers
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index("healthy-living")) as ViewResult;
+            var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
             var result = viewModel.Topic;
 
@@ -131,7 +132,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenTopicHasNoAdvertisementWhenIsAdvertisementIsFalse()
+        public async Task GivenTopicHasNoAdvertisementWhenIsAdvertisementIsFalse()
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
@@ -144,7 +145,7 @@ namespace StockportWebappTests.Unit.Controllers
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index("healthy-living")) as ViewResult;
+            var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
             var result = viewModel.Topic;
 
@@ -152,19 +153,19 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivesNotFoundOnRequestForNonExistentTopic()
+        public async Task GivesNotFoundOnRequestForNonExistentTopic()
         {
             const string nonExistentTopic = "doesnt-exist";
 
             _repository.Setup(o => o.Get<Topic>(nonExistentTopic, null)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
 
-            var result = AsyncTestHelper.Resolve(_controller.Index(nonExistentTopic)) as StatusCodeResult;
+            var result = await _controller.Index(nonExistentTopic) as StatusCodeResult;
 
             Assert.Equal(404, result.StatusCode);
         }
 
         [Fact]
-        public void GetsAlertsForTopic()
+        public async Task GetsAlertsForTopic()
         {
             var alerts = new List<Alert>
             {
@@ -181,7 +182,7 @@ namespace StockportWebappTests.Unit.Controllers
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index("healthy-living")) as ViewResult;
+            var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
             var result = viewModel.Topic;
 

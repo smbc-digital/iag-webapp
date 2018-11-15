@@ -9,6 +9,7 @@ using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.ProcessedModels;
 using Helper = StockportWebappTests.TestHelper;
+using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -25,7 +26,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsAProfileWithProcessedBody()
+        public async Task ItReturnsAProfileWithProcessedBody()
         { 
             var processedProfile = new ProcessedProfile(Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
@@ -33,18 +34,18 @@ namespace StockportWebappTests.Unit.Controllers
 
             _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.OK, processedProfile, string.Empty));
 
-            var view = AsyncTestHelper.Resolve(_profileController.Index("slug")) as ViewResult;
+            var view = await _profileController.Index("slug") as ViewResult;;
             var model = view.ViewData.Model as ProcessedProfile;
 
             model.Should().Be(processedProfile);
         }
 
         [Fact]
-        public void GetsA404NotFoundProfile()
+        public async Task GetsA404NotFoundProfile()
         {
             _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_profileController.Index("not-found-slug")) as HttpResponse;
+            var response = await _profileController.Index("not-found-slug") as HttpResponse;;
 
             response.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
         }

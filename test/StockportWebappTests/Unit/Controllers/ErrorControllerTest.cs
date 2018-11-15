@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -29,55 +30,55 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldTellUsSomethingsMissingIfAPageWasNotFound()
+        public async Task ShouldTellUsSomethingsMissingIfAPageWasNotFound()
         {
             const string url = "/a-url";
             SetUpUrl(_httpContextAccessor, url);
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(string.Empty);
-            var result = AsyncTestHelper.Resolve(_controller.Error("404")) as ViewResult;
+            var result = await _controller.Error("404") as ViewResult;;
             result.ViewData[@"ErrorHeading"].Should().Be("Something's missing");
         }
     
         [Fact]
-        public void ShouldTellUsSomethingIsWrongIfADifferentErrorOccurred()
+        public async Task ShouldTellUsSomethingIsWrongIfADifferentErrorOccurred()
         {
-            var result = AsyncTestHelper.Resolve(_controller.Error("500")) as ViewResult;
+            var result = await _controller.Error("500") as ViewResult;;
 
             result.ViewData[@"ErrorHeading"].Should().Be("Something went wrong");
         }
 
         [Fact]
-        public void ShouldRedirectIfPageNotFoundButMatchedALegacyRedirect()
+        public async Task ShouldRedirectIfPageNotFoundButMatchedALegacyRedirect()
         {
             const string url = "/a-url";
             SetUpUrl(_httpContextAccessor, url);
             var redirectedToLocation = @"/redirected-to-location-from-the-rule";
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(redirectedToLocation);
-            var result = AsyncTestHelper.Resolve(_controller.Error("404")) as RedirectResult;
+            var result = await _controller.Error("404") as RedirectResult;;
             result.Url.Should().Be(redirectedToLocation);
             result.Permanent.Should().BeTrue();
         }
 
         [Fact]
-        public void ShouldLogInformationIfLegacyUrlNotfound()
+        public async Task ShouldLogInformationIfLegacyUrlNotfound()
         {
             const string url = "/a-url";
             SetUpUrl(_httpContextAccessor, url);
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(string.Empty);
-            AsyncTestHelper.Resolve(_controller.Error("404"));
+            await _controller.Error("404");
             LogTesting.Assert(_logger, LogLevel.Information,
                 $"No legacy url matching current url ({url}) found");
         }
 
         [Fact]
-        public void ShouldLogInformationIfLegacyUrlfound()
+        public async Task ShouldLogInformationIfLegacyUrlfound()
         {
             const string url = "/a-url";
             SetUpUrl(_httpContextAccessor, url);
             var redirectedToLocation = @"/redirected-to-location-from-the-rule";
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(redirectedToLocation);
 
-            AsyncTestHelper.Resolve(_controller.Error("404"));
+            await _controller.Error("404");
 
             LogTesting.Assert(_logger, LogLevel.Information,
                 $"A legacy redirect was found - redirecting to {redirectedToLocation}");

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.ViewComponents;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace StockportWebappTests.Unit.ViewComponents
@@ -10,7 +11,7 @@ namespace StockportWebappTests.Unit.ViewComponents
     public class AddThisViewComponentTest
     {
         [Fact]
-        public void ShouldReturnTheAddThisShareId()
+        public async Task ShouldReturnTheAddThisShareId()
         {
             var businessId = "businessID";
             var sharedIdSetting = AppSetting.GetAppSetting("an id");
@@ -19,7 +20,7 @@ namespace StockportWebappTests.Unit.ViewComponents
 
             var addThisViewComponent = new AddThisViewComponent(config.Object, new BusinessId(businessId));
 
-            var result = AsyncTestHelper.Resolve(addThisViewComponent.InvokeAsync()) as ViewViewComponentResult;
+            var result = await addThisViewComponent.InvokeAsync() as ViewViewComponentResult;
 
             result.ViewData.Model.Should().BeOfType<AppSetting>();
 

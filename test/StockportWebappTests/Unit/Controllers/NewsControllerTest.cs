@@ -18,6 +18,7 @@ using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
+using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -116,9 +117,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsANewsListingPageWithTwoItems()
+        public async Task ItReturnsANewsListingPageWithTwoItems()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage)) as ViewResult;
+            var actionResponse = await _controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -136,9 +137,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsANewsPageWithImageDocumentssAndLatestNews()
+        public async Task ItReturnsANewsPageWithImageDocumentssAndLatestNews()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("another-news-article")) as ViewResult;
+            var actionResponse = await _controller.Detail("another-news-article") as ViewResult;
 
             var news = actionResponse.ViewData.Model as NewsViewModel;
 
@@ -159,7 +160,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsANewsPageWithNoLatestNewsItems()
+        public async Task ItReturnsANewsPageWithNoLatestNewsItems()
         {
             _repository.Setup(o => o.GetLatest<List<News>>(7)).ReturnsAsync(new HttpResponse(404, null, "not found"));
             var controller = new NewsController(
@@ -170,7 +171,7 @@ namespace StockportWebappTests.Unit.Controllers
                 new BusinessId(BusinessId),
                 _filteredUrl.Object
                 );
-            var response = AsyncTestHelper.Resolve(controller.Detail("another-news-article")) as ViewResult;
+            var response = await controller.Detail("another-news-article") as ViewResult;
 
             var model = response.Model as NewsViewModel;
 
@@ -179,7 +180,7 @@ namespace StockportWebappTests.Unit.Controllers
 
 
         [Fact]
-        public void ItReturnsAListOfNewsArticlesForATagAndACategory()
+        public async Task ItReturnsAListOfNewsArticlesForATagAndACategory()
         {
             _repository.Setup(
                     o =>
@@ -190,8 +191,8 @@ namespace StockportWebappTests.Unit.Controllers
                                     l.Contains(new Query("Category", "A Category")))))
                 .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
             var actionResponse =
-                AsyncTestHelper.Resolve(
-                    _controller.Index(new NewsroomViewModel { Tag = "Events", Category = "A Category" }, 1, MaxNumberOfItemsPerPage)) as ViewResult;
+                await
+                    _controller.Index(new NewsroomViewModel { Tag = "Events", Category = "A Category" }, 1, MaxNumberOfItemsPerPage) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -209,20 +210,20 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturns404ForNoNewsItems()
+        public async Task ItReturns404ForNoNewsItems()
         {
             _repository.Setup(o => o.Get<Newsroom>(string.Empty, It.IsAny<List<Query>>()))
                 .ReturnsAsync(new HttpResponse(404, null, "not found"));
             var controller = new NewsController(_repository.Object, _processedContentRepository.Object,
                 _mockRssFeedFactory.Object, _logger.Object, _config.Object, new BusinessId(BusinessId),
                 _filteredUrl.Object);
-            var response = AsyncTestHelper.Resolve(controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage)) as HttpResponse;
+            var response = await controller.Index(new NewsroomViewModel(), 1, MaxNumberOfItemsPerPage) as HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
 
         [Fact]
-        public void ItReturns404NotFoundForNewsArticleThatdoesNotExist()
+        public async Task ItReturns404NotFoundForNewsArticleThatdoesNotExist()
         {
             // Arrange
             string nonexistentArticleTitle = "this-news-article-does-not-exist";
@@ -230,14 +231,14 @@ namespace StockportWebappTests.Unit.Controllers
                 .ReturnsAsync(new HttpResponse(404, null, "not found"));
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail(nonexistentArticleTitle)) as HttpResponse;
+            var actionResponse = await _controller.Detail(nonexistentArticleTitle) as HttpResponse;
 
             // Assert
             actionResponse.StatusCode.Should().Be(404);
         }
 
         [Fact]
-        public void CreatesRssFeedFromFactory()
+        public async Task CreatesRssFeedFromFactory()
         {
             var repository = new Mock<IRepository>();
 
@@ -254,7 +255,7 @@ namespace StockportWebappTests.Unit.Controllers
                _filteredUrl.Object
            );          
 
-            var response = AsyncTestHelper.Resolve(_controller.Rss()) as ContentResult;
+            var response = await _controller.Rss() as ContentResult;
 
             response.ContentType.Should().Be("application/rss+xml");
             response.Content.Should().Be("rss fun");
@@ -264,7 +265,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnNewsItemsForADateFilter()
+        public async Task ShouldReturnNewsItemsForADateFilter()
         {
             _repository.Setup(o =>
                     o.Get<Newsroom>("",It.Is<List<Query>>(l =>l.Contains(new Query("DateFrom", "2016-10-01")) && l.Contains(new Query("DateTo", "2016-11-01"))
@@ -273,13 +274,13 @@ namespace StockportWebappTests.Unit.Controllers
             ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
 
             var actionResponse =
-                AsyncTestHelper.Resolve(
+                await
                     _controller.Index(
                         new NewsroomViewModel
                         {
                             DateFrom = new DateTime(2016, 10, 01),
                             DateTo = new DateTime(2016, 11, 01)
-                        }, 1, MaxNumberOfItemsPerPage)) as ViewResult;
+                        }, 1, MaxNumberOfItemsPerPage) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var news = viewModel.Newsroom;
@@ -288,7 +289,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnEmptyPaginationForNoNewsItems()
+        public async Task ShouldReturnEmptyPaginationForNoNewsItems()
         {
              var emptyRepository = new Mock<IRepository>();
 
@@ -306,13 +307,13 @@ namespace StockportWebappTests.Unit.Controllers
            );
 
             var actionResponse =
-               AsyncTestHelper.Resolve(
+               await
                    controller.Index(
                        new NewsroomViewModel
                        {
                            DateFrom = null,
                            DateTo = null
-                       }, 1, MaxNumberOfItemsPerPage)) as ViewResult;
+                       }, 1, MaxNumberOfItemsPerPage) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             
@@ -326,7 +327,7 @@ namespace StockportWebappTests.Unit.Controllers
         [InlineData(MaxNumberOfItemsPerPage, 1, MaxNumberOfItemsPerPage, 1)]
         [InlineData(MaxNumberOfItemsPerPage * 3, 1, MaxNumberOfItemsPerPage, 3)]
         [InlineData(MaxNumberOfItemsPerPage + 1, 2, 1, 2)]
-        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+        public async Task PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
             int totalNumItems,
             int requestedPageNumber,
             int expectedNumItemsOnPage,
@@ -337,7 +338,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage)) as ViewResult;
+            var actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult;
             
             // Assert
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
@@ -349,7 +350,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Theory]
         [InlineData(0, 50, 1)]
         [InlineData(5, MaxNumberOfItemsPerPage * 3, 3)]
-        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+        public async Task IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
             int specifiedPageNumber,
             int numItems,
             int expectedPageNumber)
@@ -359,14 +360,14 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage));
+            await controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage);
 
             // Assert
             model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
         }
 
         [Fact]
-        public void ShouldReturnEmptyPaginationObjectIfNoNewsArticlesExist()
+        public async Task ShouldReturnEmptyPaginationObjectIfNoNewsArticlesExist()
         {
             // Arrange
             const int zeroItems = 0;
@@ -374,14 +375,14 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0, MaxNumberOfItemsPerPage));
+            await controller.Index(model, 0, MaxNumberOfItemsPerPage);
 
             // Assert
             model.Pagination.Should().NotBeNull();
         }
 
         [Fact]
-        public void ShouldReturnCurrentURLForPagination()
+        public async Task ShouldReturnCurrentURLForPagination()
         {
             // Arrange
             int numItems = 10;
@@ -389,7 +390,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new NewsroomViewModel();
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0, MaxNumberOfItemsPerPage));
+            await controller.Index(model, 0, MaxNumberOfItemsPerPage);
 
             // Assert
             model.Pagination.CurrentUrl.Should().NotBeNull();

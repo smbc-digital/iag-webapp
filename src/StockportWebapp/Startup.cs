@@ -126,10 +126,10 @@ namespace StockportWebapp
             app.UseCustomCulture();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
-            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
-            app.UseMvc(routes => { routes.MapRoute("thankyou", "{controller=ContactUs}/{action=ThankYou}/"); });
-            app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
-            app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
+//            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
+//            app.UseMvc(routes => { routes.MapRoute("thankyou", "{controller=ContactUs}/{action=ThankYou}/"); });
+//            app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
+//            app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
 
             // Close logger
             appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);

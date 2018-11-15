@@ -12,6 +12,7 @@ using Moq;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using System;
+using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -59,9 +60,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GetAStartPage()
+        public async Task GetAStartPage()
         {
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index("start-page")) as ViewResult;
+            var indexPage = await _controller.Index("start-page") as ViewResult;
             var result = indexPage.ViewData.Model as ProcessedStartPage;
 
             result.Title.Should().Be("Start Page");
@@ -80,9 +81,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivesNotFoundOnRequestForNonExistentStartPage()
+        public async Task GivesNotFoundOnRequestForNonExistentStartPage()
         {
-            var result = AsyncTestHelper.Resolve(_controller.Index("doesnt-exist")) as StatusCodeResult;
+            var result = await _controller.Index("doesnt-exist") as StatusCodeResult;
 
             result.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }

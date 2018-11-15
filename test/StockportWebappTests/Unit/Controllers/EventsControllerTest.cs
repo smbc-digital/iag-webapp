@@ -16,6 +16,7 @@ using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.AmazonSES;
 using StockportWebappTests.Builders;
+using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -115,9 +116,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnEventsCalendar()
+        public async Task ShouldReturnEventsCalendar()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar() { FromSearch = true }, 1, 12)) as ViewResult;
+            var actionResponse = await _controller.Index(new EventCalendar() { FromSearch = true }, 1, 12) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -126,9 +127,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnEventsCalendarWhenQueryStringIsPassed()
+        public async Task ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Index(new EventCalendar { FromSearch = true, Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12)) as ViewResult;
+            var actionResponse = await _controller.Index(new EventCalendar { FromSearch = true, Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -142,9 +143,9 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnEvent()
+        public async Task ShouldReturnEvent()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("event-of-the-century")) as ViewResult;
+            var actionResponse = await _controller.Detail("event-of-the-century") as ViewResult;;
 
             var model = actionResponse.ViewData.Model as ProcessedEvents;
 
@@ -168,21 +169,21 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnEventWhenDateQueryPassedIn()
+        public async Task ShouldReturnEventWhenDateQueryPassedIn()
         {
             var date = new DateTime();
             const string slug = "event-of-the-century";
             _processedContentRepository.Setup(o => o.Get<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd")))))).ReturnsAsync(_responseDetail);
 
-            AsyncTestHelper.Resolve(_controller.Detail(slug, date));
+            await _controller.Detail(slug, date);
 
             _processedContentRepository.Verify(o => o.Get<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd"))))));
         }
 
         [Fact]
-        public void ItReturns404NotFoundForEvent()
+        public async Task ItReturns404NotFoundForEvent()
         {
-            var actionResponse = AsyncTestHelper.Resolve(_controller.Detail("404-event")) as HttpResponse;
+            var actionResponse = await _controller.Detail("404-event") as HttpResponse;;
 
             actionResponse.StatusCode.Should().Be(404);
         }
@@ -193,7 +194,7 @@ namespace StockportWebappTests.Unit.Controllers
         [InlineData(MaxNumberOfItemsPerPage, 1, MaxNumberOfItemsPerPage, 1)]
         [InlineData(MaxNumberOfItemsPerPage * 3, 1, MaxNumberOfItemsPerPage, 3)]
         [InlineData(MaxNumberOfItemsPerPage + 1, 2, 1, 2)]
-        public void PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
+        public async Task PaginationShouldResultInCorrectNumItemsOnPageAndCorrectNumPages(
             int totalNumItems,
             int requestedPageNumber,
             int expectedNumItemsOnPage,
@@ -204,7 +205,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar() { FromSearch = true };
 
             // Act
-            var actionResponse = AsyncTestHelper.Resolve(controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage)) as ViewResult;
+            var actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult;;
 
             // Assert
             var viewModel = actionResponse.ViewData.Model as EventCalendar;
@@ -215,7 +216,7 @@ namespace StockportWebappTests.Unit.Controllers
         [Theory]
         [InlineData(0, 50, 1)]
         [InlineData(5, MaxNumberOfItemsPerPage * 3, 3)]
-        public void IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
+        public async Task IfSpecifiedPageNumIsImpossibleThenActualPageNumWillBeAdjustedAccordingly(
             int specifiedPageNumber,
             int numItems,
             int expectedPageNumber)
@@ -225,14 +226,14 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar() { FromSearch = true };
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage));
+            await controller.Index(model, specifiedPageNumber, MaxNumberOfItemsPerPage);
 
             // Assert
             model.Pagination.CurrentPageNumber.Should().Be(expectedPageNumber);
         }
 
         [Fact]
-        public void ShouldReturnEmptyPaginationObjectIfNoEventsExist()
+        public async Task ShouldReturnEmptyPaginationObjectIfNoEventsExist()
         {
             // Arrange
             const int zeroItems = 0;
@@ -240,14 +241,14 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar() { FromSearch = true };
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
+            await controller.Index(model, 0, 12);
 
             // Assert
             model.Pagination.Should().NotBeNull();
         }
 
         [Fact]
-        public void ShouldReturnCurrentURLForPagination()
+        public async Task ShouldReturnCurrentURLForPagination()
         {
             // Arrange
             int numItems = 10;
@@ -255,7 +256,7 @@ namespace StockportWebappTests.Unit.Controllers
             var model = new EventCalendar() { FromSearch = true };
 
             // Act
-            AsyncTestHelper.Resolve(controller.Index(model, 0, 12));
+            await controller.Index(model, 0, 12);
 
             // Assert
             model.Pagination.CurrentUrl.Should().NotBeNull();

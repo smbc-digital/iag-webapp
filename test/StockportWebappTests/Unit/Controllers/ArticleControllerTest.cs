@@ -16,6 +16,7 @@ using static StockportWebapp.Models.LiveChat;
 using System;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
+using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -40,7 +41,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenNavigateToArticleReturnsArticleView()
+        public async Task GivenNavigateToArticleReturnsArticleView()
         {
             const string articleSlug = "physical-activity";
             var article = new ProcessedArticle("Physical Activity", "physical-activity",
@@ -50,7 +51,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var articlePage = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var viewModel = articlePage.ViewData.Model as ArticleViewModel;
 
             viewModel.Article.Title.Should().Contain("Physical Activity");
@@ -63,7 +64,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenArticleHasAdvertisement()
+        public async Task GivenArticleHasAdvertisement()
         {
             const string articleSlug = "physical-activity";
 
@@ -78,7 +79,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var articlePage = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var viewModel = articlePage.ViewData.Model as ArticleViewModel;
 
             viewModel.Article.Advertisement.Isadvertisement.Should().Be(true);
@@ -89,7 +90,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenArticleHasNoAdvertisementWhenIsAdvertisementIsFalse()
+        public async Task GivenArticleHasNoAdvertisementWhenIsAdvertisementIsFalse()
         {
             const string articleSlug = "physical-activity";
 
@@ -104,14 +105,14 @@ namespace StockportWebappTests.Unit.Controllers
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
 
-            var articlePage = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var articlePage = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var viewModel = articlePage.ViewData.Model as ArticleViewModel;
 
             viewModel.Article.Advertisement.Isadvertisement.Should().Be(false);
         }
 
         [Fact]
-        public void MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
+        public async Task MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
         {
             const string articleSlug = "physical-activity";
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
@@ -125,7 +126,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
 
-            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var view = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var displayedArticle = view.ViewData.Model as ArticleViewModel;
 
             displayedArticle.DisplayedSection.Title.Should().Contain("Overview");
@@ -134,7 +135,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void MultipleSectionsArticleWithNoSectionSlugViewDataCanonicalUrlShouldBeNull()
+        public async Task MultipleSectionsArticleWithNoSectionSlugViewDataCanonicalUrlShouldBeNull()
         {
             const string articleSlug = "physical-activity";
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
@@ -147,13 +148,13 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
 
-            var view = AsyncTestHelper.Resolve(_controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var view = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult;;
 
             view.ViewData["CanonicalUrl"].Should().BeNull();
         }
 
         [Fact]
-        public void MultipleSectionsArticleWithSectionSlugViewDataCanonicalUrlShouldNotBeNull()
+        public async Task MultipleSectionsArticleWithSectionSlugViewDataCanonicalUrlShouldNotBeNull()
         {
             const string articleSlug = "physical-activity";
             const string sectionSlug = "physical-activity-overview";
@@ -171,7 +172,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
 
-            var view = AsyncTestHelper.Resolve(_controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage, "", "")) as ViewResult;
+            var view = await _controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage, "", "") as ViewResult;;
 
             view.ViewData["CanonicalUrl"].Should().NotBeNull();
 
@@ -182,7 +183,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void MultipleSectionsArticleWithSectionSlugReturnsCorrespondingSection()
+        public async Task MultipleSectionsArticleWithSectionSlugReturnsCorrespondingSection()
         {
             const string articleSlug = "physical-activity";
             const string sectionSlug = "types-of-physical-activity";
@@ -198,7 +199,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
 
-            var view = AsyncTestHelper.Resolve(_controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage, "", "")) as ViewResult;
+            var view = await _controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage, "", "") as ViewResult;;
 
             var displayedArticle = view.ViewData.Model as ArticleViewModel;
 
@@ -208,7 +209,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ReturnNotFoundWhenSectionDoesNotExist()
+        public async Task ReturnNotFoundWhenSectionDoesNotExist()
         {
             const string articleSlug = "physical-activity";
             const string sectionSlug = "I-do-not-exist";
@@ -218,13 +219,13 @@ namespace StockportWebappTests.Unit.Controllers
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(404, "error", string.Empty));
 
             var result =
-                AsyncTestHelper.Resolve(_controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage, "", "")) as StatusCodeResult;
+                await _controller.ArticleWithSection(articleSlug, sectionSlug, DefaultMessage, "", "") as StatusCodeResult;;
 
             result.StatusCode.Should().Be(404);
         }
 
         [Fact]
-        public void GetsAlertsForArticle()
+        public async Task GetsAlertsForArticle()
         {
             var alerts = new List<Alert>
             {
@@ -239,7 +240,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var indexPage = await _controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.Alerts.Should().HaveCount(1);
@@ -250,11 +251,11 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItInvokesArticleFactoryToBuildArticleForView()
+        public async Task ItInvokesArticleFactoryToBuildArticleForView()
         {
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, DummyProcessedArticle(), string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var indexPage = await _controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.Should().BeOfType(typeof(ProcessedArticle));
@@ -262,20 +263,20 @@ namespace StockportWebappTests.Unit.Controllers
 
 
         [Fact]
-        public void ShouldParseForContactUsMessageForArticle()
+        public async Task ShouldParseForContactUsMessageForArticle()
         {
             var processedArticle = DummyProcessedArticle();
             var slug = "healthy-living";
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
 
-            AsyncTestHelper.Resolve(_controller.Article(slug, DefaultMessage, string.Empty, string.Empty));
+            await _controller.Article(slug, DefaultMessage, string.Empty, string.Empty);
 
             _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, ""), Times.Once);
         }
 
         [Fact]
-        public void ShouldParseForContactUsMessageForArticleWithSection()
+        public async Task ShouldParseForContactUsMessageForArticleWithSection()
         {
             var processedArticle = DummyProcessedArticle();
             var slug = "healthy-living";
@@ -283,13 +284,13 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, processedArticle, string.Empty));
 
-            AsyncTestHelper.Resolve(_controller.ArticleWithSection(slug, sectionSlug, DefaultMessage, "", ""));
+            await _controller.ArticleWithSection(slug, sectionSlug, DefaultMessage, "", "");
 
             _contactUsMessageParser.Verify(o => o.Parse(processedArticle, DefaultMessage, sectionSlug), Times.Once);
         }
 
         [Fact]
-        public void GetsAlertsInlineForArticle()
+        public async Task GetsAlertsInlineForArticle()
         {
             var alertsInline = new List<Alert>
             {
@@ -302,7 +303,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var indexPage = await _controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.AlertsInline.Should().HaveCount(1);
@@ -313,7 +314,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GetsAlertsInlineForASectionInAnArticle()
+        public async Task GetsAlertsInlineForASectionInAnArticle()
         {
             var alertsInline = new List<Alert>
             {
@@ -328,7 +329,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
-            var indexPage = AsyncTestHelper.Resolve(_controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty)) as ViewResult;
+            var indexPage = await _controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty) as ViewResult;;
             var result = indexPage.ViewData.Model as ArticleViewModel;
 
             result.Article.Sections.FirstOrDefault().AlertsInline.Should().HaveCount(1);

@@ -13,6 +13,7 @@ using System.Net;
 using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 using System;
+using System.Threading.Tasks;
 
 namespace StockportWebappTests.Unit.Controllers
 {
@@ -28,7 +29,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsShowcaseWithProcessedBody()
+        public async Task ItReturnsShowcaseWithProcessedBody()
         {
             const string showcaseSlug = "showcase-slug";
             var alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -39,7 +40,7 @@ namespace StockportWebappTests.Unit.Controllers
 
             _fakeRepository.Set(new HttpResponse(200, showcase, string.Empty));
 
-            var showcasePage = AsyncTestHelper.Resolve(_controller.Showcase(showcaseSlug)) as ViewResult;
+            var showcasePage = await _controller.Showcase(showcaseSlug) as ViewResult;;
             var processedShowcase = showcasePage.Model as ProcessedShowcase;
 
             processedShowcase.Title.Should().Be("Test showcase");
@@ -56,21 +57,21 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void Returns404WhenShowcaseNotFound()
+        public async Task Returns404WhenShowcaseNotFound()
         {
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_controller.Showcase("not-found-slug")) as HttpResponse;
+            var response = await _controller.Showcase("not-found-slug") as HttpResponse;;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
 
         [Fact]
-        public void ReturnsEmptyListIfAllTopicsExpired()
+        public async Task ReturnsEmptyListIfAllTopicsExpired()
         {
             _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_controller.Showcase("not-found-slug")) as HttpResponse;
+            var response = await _controller.Showcase("not-found-slug") as HttpResponse;;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
