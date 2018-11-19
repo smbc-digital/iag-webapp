@@ -53,9 +53,9 @@ namespace StockportWebapp.Services
             {
                 var firstLine = _fileWrapper.ReadAllLines(filePath).FirstOrDefault();
                 if (!string.IsNullOrEmpty(firstLine))
-                    return firstLine;
+                    return firstLine.Trim();
             }
-            return defaultValue;
+            return defaultValue.Trim();
         }
         
         public async Task<Healthcheck> Get()
