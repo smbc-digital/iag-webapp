@@ -48,9 +48,9 @@ namespace StockportWebapp.Config
 
     public class ApplicationConfiguration : IApplicationConfiguration
     {
-        private readonly IConfigurationRoot _appsettings;
+        private readonly IConfiguration _appsettings;
 
-        public ApplicationConfiguration(IConfigurationRoot appsettings)
+        public ApplicationConfiguration(IConfiguration appsettings)
         {
             _appsettings = appsettings;
 

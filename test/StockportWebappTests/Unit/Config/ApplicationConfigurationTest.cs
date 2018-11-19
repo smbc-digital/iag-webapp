@@ -14,13 +14,18 @@ namespace StockportWebappTests.Unit.Config
     public class ApplicationConfigurationTest
     {
         private readonly ApplicationConfiguration _config;
+        private readonly IConfiguration _configuration;
 
-        public ApplicationConfigurationTest()
+        public ApplicationConfigurationTest(IConfiguration configuration)
         {
+            _configuration = configuration;
+
             var path = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
                 "..", "..", ".."));
 
-            var startup = new StockportWebapp.Startup(new HostingEnvironment
+            var startup = new StockportWebapp.Startup(
+                _configuration, 
+                new HostingEnvironment
             {
                 EnvironmentName = "test",
                 ContentRootPath = path

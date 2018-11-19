@@ -24,23 +24,21 @@ namespace StockportWebapp
 {
     public class Startup
     {
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
         private readonly string _appEnvironment;
         private readonly string _contentRootPath;
         public readonly string ConfigDir = "app-config";
         private readonly bool _useRedisSession;
         private readonly bool _sendAmazonEmails;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
+            //var configBuilder = new ConfigurationBuilder();
+            //var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
+            ////Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
+            Configuration = configuration;
             _contentRootPath = env.ContentRootPath;
-
-            var configBuilder = new ConfigurationBuilder();
-            var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
-
-            Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
-            
-            _appEnvironment = configLoader.EnvironmentName(env);
+            _appEnvironment = env.EnvironmentName;
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }
@@ -126,10 +124,10 @@ namespace StockportWebapp
             app.UseCustomCulture();
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
-//            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
-//            app.UseMvc(routes => { routes.MapRoute("thankyou", "{controller=ContactUs}/{action=ThankYou}/"); });
-//            app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
-//            app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
+            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
+            app.UseMvc(routes => { routes.MapRoute("thankyou", "{controller=ContactUs}/{action=ThankYou}/"); });
+            app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
+            app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
 
             // Close logger
             appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
