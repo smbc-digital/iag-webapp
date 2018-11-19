@@ -1,11 +1,11 @@
 {
   "dependencies": {
     "https": "^1.0.0",
-    "https-proxy-agent": "^1.0.0",
-    "nightwatch": ">=0.9.3",
-    "phantomjs-prebuilt": "=2.1.7",
+    "https-proxy-agent": "^2.2.1",
+    "nightwatch": "^1.0.14",
+    "phantomjs-prebuilt": "^2.1.16",
     "request": "^2.73.0",
     "selenium-server": "=2.53.0",
-    "selenium-webdriver": "~2.53.2"
+    "selenium-webdriver": "^3.6.0"
   }
 }
