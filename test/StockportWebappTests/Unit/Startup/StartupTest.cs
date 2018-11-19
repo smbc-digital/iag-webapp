@@ -4,25 +4,34 @@ using Microsoft.AspNetCore.Hosting.Internal;
 using System.IO;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.Extensions.Configuration;
 
 namespace StockportWebappTests.Unit.Startup
 {
     public class StartupTest
     {
-        //[Theory]
-        //[InlineData("test")]
-        //[InlineData("test2")]
-        //public void CheckAppSettingsForEnvironments(string environment)
-        //{
-        //    var path = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
-        //        "..", "..", ".."));
+        private readonly IConfiguration _configuration;
 
-        //    var env = new HostingEnvironment {EnvironmentName = environment, ContentRootPath = path };
-        //    var startup = new StockportWebapp.Startup(env);
+        public StartupTest(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
-        //    var googleTag  = startup.Configuration["TestConfigSetting"];
+        [Theory(Skip = "redundant - can not pass IConfiguration to startup")]
+        [InlineData("test")]
+        [InlineData("test2")]
+        public void CheckAppSettingsForEnvironments(string environment)
+        {
+            var path = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+                "..", "..", ".."));
 
-        //    googleTag.Should().Be(environment);
-        //}
+            var env = new HostingEnvironment { EnvironmentName = environment, ContentRootPath = path };
+
+            var startup = new StockportWebapp.Startup(_configuration, env);
+
+            var googleTag = startup.Configuration["TestConfigSetting"];
+
+            googleTag.Should().Be(environment);
+        }
     }
 }
