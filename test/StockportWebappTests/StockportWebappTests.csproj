@@ -17,122 +17,26 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="%2a%2a\**" />
-    <Compile Remove="JSTests\node_modules\**" />
-    <Compile Remove="UI\**\*" />
-    <Compile Remove="UI\node_modules\**" />
-    <EmbeddedResource Include="Unit\MockResponses\*.json" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="%2a%2a\**" />
-    <EmbeddedResource Remove="JSTests\node_modules\**" />
-    <EmbeddedResource Remove="UI\node_modules\**" />
-    <None Remove="%2a%2a\**" />
-    <None Remove="JSTests\node_modules\**" />
-    <None Remove="UI\node_modules\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="%2a%2a/%2a.resx" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="%2a%2a/%2a" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="app-config\appsettings.json" />
-    <None Include="app-config\appsettings.test.json" />
-    <None Include="app-config\appsettings.test2.json" />
-    <None Include="app-config\injected\appsettings.test.secrets.json" />
-    <None Include="app-config\injected\appsettings.test2.secrets.json" />
-    <None Include="appsettings.DEV.json" />
-    <None Include="appsettings.json" />
-    <None Include="appsettings.STAGING.json" />
-    <None Include="Emails\Templates\ChangeGroupInfoConfirmation.html" />
-    <None Include="Emails\Templates\EventAdd.html" />
-    <None Include="Emails\Templates\GroupAdd.html" />
-    <None Include="Emails\Templates\GroupArchive.html" />
-    <None Include="Emails\Templates\GroupDelete.html" />
-    <None Include="Emails\Templates\_Layout.html" />
-    <None Include="JSTests\cludo.min.js" />
-    <None Include="JSTests\jasmine-fixture.min.js" />
-    <None Include="JSTests\jquery-2.2.2.min.js" />
-    <None Include="JSTests\karma.conf.js" />
-    <None Include="JSTests\package.json" />
-    <None Include="JSTests\require.2.3.4.min.js" />
-    <None Include="JSTests\StockportgovjsTest.js" />
-    <None Include="JSTests\tests-main.js" />
-    <None Include="TestFiles\test_attachment.txt" />
-    <None Include="TestFiles\test_document.docx" />
-    <None Include="UI\configureGlobals.js" />
-    <None Include="UI\global.js" />
-    <None Include="UI\Makefile" />
-    <None Include="UI\nightwatch.js" />
-    <None Include="UI\nightwatch.json" />
-    <None Include="UI\package.json" />
-    <None Include="UI\page_objects\healthystockport\articlepage.js" />
-    <None Include="UI\page_objects\healthystockport\contactuspage.js" />
-    <None Include="UI\page_objects\healthystockport\homepage.js" />
-    <None Include="UI\page_objects\healthystockport\topicpage.js" />
-    <None Include="UI\page_objects\stockportgov\articlepage.js" />
-    <None Include="UI\page_objects\stockportgov\atozpage.js" />
-    <None Include="UI\page_objects\stockportgov\breadcrumb.js" />
-    <None Include="UI\page_objects\stockportgov\events.js" />
-    <None Include="UI\page_objects\stockportgov\eventscalendar.js" />
-    <None Include="UI\page_objects\stockportgov\groups.js" />
-    <None Include="UI\page_objects\stockportgov\homepage.js" />
-    <None Include="UI\page_objects\stockportgov\manageGroups.js" />
-    <None Include="UI\page_objects\stockportgov\news.js" />
-    <None Include="UI\page_objects\stockportgov\newsroom.js" />
-    <None Include="UI\page_objects\stockportgov\profilepage.js" />
-    <None Include="UI\page_objects\stockportgov\showcase.js" />
-    <None Include="UI\page_objects\stockportgov\startpage.js" />
-    <None Include="UI\page_objects\stockportgov\topicpage.js" />
-    <None Include="UI\reports\stockportgov\PHANTOMJS_2.1.1_XP_userjourney.tests.xml" />
-    <None Include="UI\screenshots\stockportgov\userjourney.tests\Find-article-for-About-the-Hat-Works_FAILED_Aug-04-2017-083407-GMT+0100-%28GMT-Summer.png" />
-    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-Contact-Us-form-and-enter-invalid-data-into-the-form_ERROR_Aug-04-2017-083622-GMT+0100-%28GMT-Summer.png" />
-    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-Contact-Us-form-and-enter-invalid-data-into-the-form_FAILED_Aug-04-2017-083622-GMT+0100-%28GMT-Summer.png" />
-    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-groups-upcoming-events-page-from-the-groups-management-page_FAILED_Aug-04-2017-090305-GMT+0100-%28GMT-Summer.png" />
-    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-a-groups-upcoming-events-page-from-the-groups-management-page_FAILED_Aug-04-2017-093509-GMT+0100-%28GMT-Summer.png" />
-    <None Include="UI\screenshots\stockportgov\userjourney.tests\Navigate-to-showcase-and-validate-details--_FAILED_Aug-07-2017-143600-GMT+0100-%28GMT-Summer.png" />
-    <None Include="UI\selenium-server-standalone-2.53.0.jar" />
-    <None Include="UI\specs\healthystockport\userjourney.tests.js" />
-    <None Include="UI\specs\stockportgov\userjourney.tests.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\StockportWebapp\StockportWebapp.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="netstandard" />
   </ItemGroup>
   
   <ItemGroup>
+    <Reference Include="netstandard" />
+    <PackageReference Include="AngleSharp" Version="0.9.10" />
     <PackageReference Include="AWSSDK.S3" Version="3.3.26.10" />
+    <PackageReference Include="FluentAssertions" Version="5.5.0" />
+    <PackageReference Include="jose-jwt" Version="2.4.0" />
     <PackageReference Include="Markdig" Version="0.15.4" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="2.1.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="FluentAssertions" Version="5.5.0" />
-    <PackageReference Include="xunit" Version="2.4.1" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
     <PackageReference Include="Moq" Version="4.10.0" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
     <PackageReference Include="WilderMinds.RssSyndication" Version="1.3.2" />
-    <PackageReference Include="AngleSharp" Version="0.9.10" />
-    <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.1" />
-    <PackageReference Include="jose-jwt" Version="2.4.0" /><Reference Include="netstandard" />
-	<PackageReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Service Include="{82a7f48d-3b50-4b1e-b82e-3ada8210c358}" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
+    <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
 
 </Project>
