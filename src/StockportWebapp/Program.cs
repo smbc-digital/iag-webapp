@@ -21,12 +21,11 @@ namespace StockportWebapp
                     config.Sources.Clear();
                     config.SetBasePath(Directory.GetCurrentDirectory() + "/app-config");
                     config
-                        .AddJsonFile("appsettings.json", true)
-                        .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", true);
+                        .AddJsonFile("appsettings.json")
+                        .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json");
                     var tempConfig = config.Build();
                     config.AddJsonFile(
-                        $"{tempConfig["secrets-location"]}/appsettings.{hostContext.HostingEnvironment.EnvironmentName}.secrets.json",
-                        true);
+                        $"{tempConfig["secrets-location"]}/appsettings.{hostContext.HostingEnvironment.EnvironmentName}.secrets.json");
                 });
 
     }
