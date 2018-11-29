@@ -1,5 +1,7 @@
 ﻿@using StockportWebapp.Config
+@using StockportWebapp.Config
 @inject IApplicationConfiguration ApplicationConfiguration
+@inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
 @{
     var bannerTypeformUrl = ViewData["BannerTypeformUrl"];
@@ -19,7 +21,14 @@
     <link rel="stylesheet" type="text/css" href="@stylesheet.JqueryUi" />
     <link rel="stylesheet" type="text/css" href="@stylesheet.StyleguideSemantic" />
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+    @if (CurrentEnvironment.Name == "uitest")
+    {
+        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+    }
     @*@Html.Partial("CookieBanner")*@
 </head>
 <body>

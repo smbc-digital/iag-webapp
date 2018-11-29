@@ -18,15 +18,15 @@
     <title>@ViewData["Title"] - Stockport Council</title>
     @if (ViewData["Description"] != null)
     {
-    <meta name="Description" content="@ViewData[" Description"]" />
+        <meta name="Description" content="@ViewData[" Description"]" />
     }
     @if (ViewData["CanonicalUrl"] != null)
     {
-    @Html.Partial("Canonical-Link")
+        @Html.Partial("Canonical-Link")
     }
     @if (ViewData["og:title"] != null)
     {
-    <meta property="og:title" content="@ViewData[" og:title"]" />
+        <meta property="og:title" content="@ViewData[" og:title"]" />
     }
     <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
@@ -43,7 +43,14 @@
     @await Component.InvokeAsync("GoogleAnalytics")
 
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+    @if (CurrentEnvironment.Name == "uitest")
+    {
+        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+    }
 </head>
 <body class="container-layout-free @(string.Concat(" type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
 

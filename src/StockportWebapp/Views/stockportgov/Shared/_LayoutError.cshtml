@@ -29,7 +29,14 @@
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
 
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+    @if (CurrentEnvironment.Name == "uitest")
+    {
+        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
+    }
 
 </head>
 <body class="container-layout-free type-error">
