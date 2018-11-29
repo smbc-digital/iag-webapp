@@ -8,61 +8,67 @@ using StockportWebapp.Http;
 using StockportWebappTests.Unit.Http;
 using System.IO;
 using System.Net.Http;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 using StockportWebapp.AmazonSES;
 using StockportWebappTests.Unit.Fake;
 using StockportWebappTests.Extensions;
 using Microsoft.Extensions.Configuration;
+using Xunit;
+using HttpClient = System.Net.Http.HttpClient;
 
 namespace StockportWebappTests
 {
-    public class TestAppFactory
+    public class TestAppFactory : IClassFixture<WebApplicationFactory<StockportWebapp.Startup>>
     {
-        public static TestServer MakeFakeApp(string businessId, string environment)
+        public readonly WebApplicationFactory<StockportWebapp.Startup> _factory;
+        private readonly HttpClient _client;
+
+        public TestAppFactory(WebApplicationFactory<StockportWebapp.Startup> factory)
         {
             Environment.SetEnvironmentVariable("SES_ACCESS_KEY", "access-key");
             Environment.SetEnvironmentVariable("SES_SECRET_KEY", "secret-key");
 
-            var hostBuilder = new WebHostBuilder()
-                .UseStartup<FakeStartup>()
-                .UseKestrel()
-                .UseEnvironment(environment)
-                .ConfigureTestServices()
-                .UseContentRoot(Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
-                    "..", "..", "..", "..", "..", "src", "StockportWebapp")));
+            _factory = factory.WithWebHostBuilder(builder =>
+            {
+                builder
+                    .UseEnvironment("test")
+                    .UseContentRoot(Path.GetFullPath(Path.Combine(
+                        PlatformServices.Default.Application.ApplicationBasePath,
+                        "..", "..", "..", "..", "..", "src", "StockportWebapp")))
+                    .ConfigureTestServices(services =>
+                    {
+                        services.AddSingleton<IHttpClient>(p => GetHttpClient(p.GetService<ILoggerFactory>()));
+                        services.AddSingleton<Func<System.Net.Http.HttpClient>>(p => () =>
+                            new System.Net.Http.HttpClient(new FakeResponseHandlerFactory().ResponseHandler));
+                        services.AddSingleton<IHttpEmailClient, FakeHttpEmailClient>();
+                        services.AddMvc(options =>
+                        {
+                            for (var i = 0; i < options.Filters.Count; i++)
+                            {
+                                options.Filters.RemoveAt(i);
+                            }
+                        });
+                    });
+            });
 
-            return new TestServer(hostBuilder);
+            _client = _factory.CreateDefaultClient();
         }
-    }
 
-    public class FakeStartup : Startup
-    {
-        public FakeStartup(IConfiguration config, IHostingEnvironment env) : base(config,env)
+        public HttpClient Client => _client;
+
+        public void SetBusinessIdRequestHeader(string business)
         {
-            
+            _client.DefaultRequestHeaders.Remove("BUSINESS-ID");
+            _client.DefaultRequestHeaders.Add("BUSINESS-ID", business);
         }
 
         public LoggingHttpClient GetHttpClient(ILoggerFactory loggerFactory)
         {
             var fakeHttpClient = new FakeHttpClientFactory().Client;
-            
-            return new LoggingHttpClient(fakeHttpClient, loggerFactory.CreateLogger<LoggingHttpClient>());
-        }
 
-        public override void ConfigureServices(IServiceCollection services)
-        {
-            base.ConfigureServices(services);
-            services.AddSingleton<IHttpClient>(p => GetHttpClient(p.GetService<ILoggerFactory>()));
-            services.AddSingleton<Func<System.Net.Http.HttpClient>>(p => () => new System.Net.Http.HttpClient(new FakeResponseHandlerFactory().ResponseHandler));
-            services.AddSingleton<IHttpEmailClient, FakeHttpEmailClient>();
-            services.AddMvc(options => 
-            {
-                for (var i = 0; i < options.Filters.Count; i++)
-                {
-                    options.Filters.RemoveAt(i);
-                }
-            });
+            return new LoggingHttpClient(fakeHttpClient, loggerFactory.CreateLogger<LoggingHttpClient>());
         }
     }
 

@@ -6,21 +6,21 @@ using Moq;
 using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace StockportWebappTests.Integration
 {
-    public class RoutesTest : IClassFixture<RoutesTestServerFixture>
+    public class RoutesTest : TestAppFactory
     {
         // All requests made using this fake client will instantiate the actual controllers, but
         // when the controllers make requests to ContentApi, the responses will be fake json files from the Unit/MockResponses folder.
         // The routing which maps urls to fake responses is done in FakeHttpClientFactory.FakeHttpClientFactory() (currently in TestAppFactory.cs).
         private readonly HttpClient _fakeClient;
-        private readonly RoutesTestServerFixture _testServerFixture;
-       
-        public RoutesTest(RoutesTestServerFixture testServerFixture)
+
+        public RoutesTest(WebApplicationFactory<StockportWebapp.Startup> factory)
+            : base(factory)
         {
-            _testServerFixture = testServerFixture;
-            _fakeClient = _testServerFixture.Client;          
+            _fakeClient = Client;
         }
 
         [Fact]
@@ -304,29 +304,6 @@ namespace StockportWebappTests.Integration
         #endregion
 
         #region stockportgov
-        [Theory]
-        //[InlineData("/", 30)]
-        //[InlineData("/topic/test-topic", 30)]
-        //[InlineData("/physical-activity", 15)]
-        //[InlineData("/profile/test-profile", 60)]
-        //[InlineData("/start/start-page", 15)]
-        //[InlineData("/news/test", 15)]
-        //[InlineData("/news", 15)]
-        //[InlineData("/events", 30)]
-        //[InlineData("/events/event-of-the-century", 30)]
-        //[InlineData("/atoz/a", 60)]
-        //[InlineData("/showcase/a-showcase", 30)]
-        [InlineData("/smart/smart-test", 15)]
-        public async void ItReturnsTheCorrectHeaders(string path, int time)
-        {
-            SetBusinessIdRequestHeader("stockportgov");
-
-            var result = await _fakeClient.GetAsync(path);
-
-            result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(time));
-            result.Headers.CacheControl.Public.Should().Be(true);
-        }
-
         [Fact]
         public void ItReturnsRedirectResponseOnPostcodeSearch()
         {
@@ -556,10 +533,5 @@ namespace StockportWebappTests.Integration
         }
 
         #endregion
-
-        private void SetBusinessIdRequestHeader(string businessId)
-        {
-            _testServerFixture.SetBusinessIdRequestHeader(businessId);
-        }
     }
 }

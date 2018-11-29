@@ -17,6 +17,88 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Unit\MockResponses\Article.json" />
+    <Content Remove="Unit\MockResponses\ArticleWithAlerts.json" />
+    <Content Remove="Unit\MockResponses\ArticleWithoutBackgroundImage.json" />
+    <Content Remove="Unit\MockResponses\AtoZ.json" />
+    <Content Remove="Unit\MockResponses\ContactUsArticle.json" />
+    <Content Remove="Unit\MockResponses\ContactUsId.json" />
+    <Content Remove="Unit\MockResponses\Event.json" />
+    <Content Remove="Unit\MockResponses\EventHomepage.json" />
+    <Content Remove="Unit\MockResponses\EventListing.json" />
+    <Content Remove="Unit\MockResponses\EventListingFeatured.json" />
+    <Content Remove="Unit\MockResponses\EventsCalendar.json" />
+    <Content Remove="Unit\MockResponses\Footer.json" />
+    <Content Remove="Unit\MockResponses\Group.json" />
+    <Content Remove="Unit\MockResponses\GroupHomepage.json" />
+    <Content Remove="Unit\MockResponses\GroupListing.json" />
+    <Content Remove="Unit\MockResponses\GroupResults.json" />
+    <Content Remove="Unit\MockResponses\GroupStart.json" />
+    <Content Remove="Unit\MockResponses\Healthcheck.json" />
+    <Content Remove="Unit\MockResponses\HomepageHealthyStockport.json" />
+    <Content Remove="Unit\MockResponses\HomepageStockportGov.json" />
+    <Content Remove="Unit\MockResponses\HomepageThirdSite.json" />
+    <Content Remove="Unit\MockResponses\ListOfTopics.json" />
+    <Content Remove="Unit\MockResponses\News.json" />
+    <Content Remove="Unit\MockResponses\NewsListing.json" />
+    <Content Remove="Unit\MockResponses\Newsroom.json" />
+    <Content Remove="Unit\MockResponses\Payment.json" />
+    <Content Remove="Unit\MockResponses\Profile.json" />
+    <Content Remove="Unit\MockResponses\Redirects.json" />
+    <Content Remove="Unit\MockResponses\Showcase.json" />
+    <Content Remove="Unit\MockResponses\Smart.json" />
+    <Content Remove="Unit\MockResponses\StandaloneArticleWithProfile.json" />
+    <Content Remove="Unit\MockResponses\StartPage.json" />
+    <Content Remove="Unit\MockResponses\Topic.json" />
+    <Content Remove="Unit\MockResponses\TopicWithAlerts.json" />
+    <Content Remove="Unit\MockResponses\TopicWithAllItems.json" />
+    <Content Remove="Unit\MockResponses\TopicWithSecondaryItems.json" />
+    <Content Remove="Unit\MockResponses\TopicWithSubItemsAndSecondaryItems.json" />
+    <Content Remove="Unit\MockResponses\TopicWithTertiaryItems.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Unit\MockResponses\Article.json" />
+    <EmbeddedResource Include="Unit\MockResponses\ArticleWithAlerts.json" />
+    <EmbeddedResource Include="Unit\MockResponses\ArticleWithoutBackgroundImage.json" />
+    <EmbeddedResource Include="Unit\MockResponses\AtoZ.json" />
+    <EmbeddedResource Include="Unit\MockResponses\ContactUsArticle.json" />
+    <EmbeddedResource Include="Unit\MockResponses\ContactUsId.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Event.json" />
+    <EmbeddedResource Include="Unit\MockResponses\EventHomepage.json" />
+    <EmbeddedResource Include="Unit\MockResponses\EventListing.json" />
+    <EmbeddedResource Include="Unit\MockResponses\EventListingFeatured.json" />
+    <EmbeddedResource Include="Unit\MockResponses\EventsCalendar.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Footer.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Group.json" />
+    <EmbeddedResource Include="Unit\MockResponses\GroupHomepage.json" />
+    <EmbeddedResource Include="Unit\MockResponses\GroupListing.json" />
+    <EmbeddedResource Include="Unit\MockResponses\GroupResults.json" />
+    <EmbeddedResource Include="Unit\MockResponses\GroupStart.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Healthcheck.json" />
+    <EmbeddedResource Include="Unit\MockResponses\HomepageHealthyStockport.json" />
+    <EmbeddedResource Include="Unit\MockResponses\HomepageStockportGov.json" />
+    <EmbeddedResource Include="Unit\MockResponses\HomepageThirdSite.json" />
+    <EmbeddedResource Include="Unit\MockResponses\ListOfTopics.json" />
+    <EmbeddedResource Include="Unit\MockResponses\News.json" />
+    <EmbeddedResource Include="Unit\MockResponses\NewsListing.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Newsroom.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Payment.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Profile.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Redirects.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Showcase.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Smart.json" />
+    <EmbeddedResource Include="Unit\MockResponses\StandaloneArticleWithProfile.json" />
+    <EmbeddedResource Include="Unit\MockResponses\StartPage.json" />
+    <EmbeddedResource Include="Unit\MockResponses\Topic.json" />
+    <EmbeddedResource Include="Unit\MockResponses\TopicWithAlerts.json" />
+    <EmbeddedResource Include="Unit\MockResponses\TopicWithAllItems.json" />
+    <EmbeddedResource Include="Unit\MockResponses\TopicWithSecondaryItems.json" />
+    <EmbeddedResource Include="Unit\MockResponses\TopicWithSubItemsAndSecondaryItems.json" />
+    <EmbeddedResource Include="Unit\MockResponses\TopicWithTertiaryItems.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\StockportWebapp\StockportWebapp.csproj" />
   </ItemGroup>
   
@@ -27,7 +109,7 @@
     <PackageReference Include="FluentAssertions" Version="5.5.0" />
     <PackageReference Include="jose-jwt" Version="2.4.0" />
     <PackageReference Include="Markdig" Version="0.15.4" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="2.1.3" />

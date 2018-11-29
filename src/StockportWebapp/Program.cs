@@ -19,7 +19,7 @@ namespace StockportWebapp
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {
                     config.Sources.Clear();
-                    config.SetBasePath(Directory.GetCurrentDirectory() + "/app-config");
+                    config.SetBasePath(hostContext.HostingEnvironment.ContentRootPath + "/app-config");
                     config
                         .AddJsonFile("appsettings.json")
                         .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json");
