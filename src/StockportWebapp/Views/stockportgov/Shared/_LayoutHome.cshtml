@@ -32,7 +32,7 @@
     @await Component.InvokeAsync("GoogleAnalytics")
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
 
-    @if (CurrentEnvironment.Name == "uitest")
+    @if (CurrentEnvironment.Name == "test")
     {
         <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
     }

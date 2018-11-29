@@ -13,7 +13,7 @@ namespace StockportWebappTests.Integration
     {
         private readonly HttpClient _client;
         private readonly TestServer _server;
-        private const string IntEnvironment = "uitest";
+        private const string IntEnvironment = "test";
 
         public RoutesTestServerFixture()
         {
