@@ -20,6 +20,13 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "local"
       }
+    },
+    "test": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "test"
+      },
+      "applicationUrl": "http://localhost:5000/"
     }
   }
 }
