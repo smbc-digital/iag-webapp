@@ -109,7 +109,7 @@
     <PackageReference Include="FluentAssertions" Version="5.5.0" />
     <PackageReference Include="jose-jwt" Version="2.4.0" />
     <PackageReference Include="Markdig" Version="0.15.4" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
     <PackageReference Include="Microsoft.AspNetCore.NodeServices" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="2.1.3" />

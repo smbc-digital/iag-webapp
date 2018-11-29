@@ -54,7 +54,7 @@
     <PackageReference Include="AWSSDK.S3" Version="3.3.26.10" />
     <PackageReference Include="Elasticsearch.Net.Aws" Version="6.0.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
-    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.6" />
     <PackageReference Include="Markdig" Version="0.15.4" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
