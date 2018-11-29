@@ -44,6 +44,9 @@ dotnet-test:
 test:
 	cd test/StockportWebappTests; dotnet test
 
+.PHONY: test-all
+test-all: test js-tests
+
 .PHONY: publish-app
 publish-app:
 	cd src/StockportWebapp; dotnet publish --configuration Release -o publish;
