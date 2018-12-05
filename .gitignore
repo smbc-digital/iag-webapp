@@ -37,3 +37,5 @@ src/StockportWebapp/bin/
 test/StockportWebappTests/obj/
 test/StockportWebappTests/bin/
 global.js
+/TestResults
+/packages

@@ -1,0 +1,201 @@
+{
+  "Guid": "4cdaeb35-b2ac-4614-b5e3-fff6604abee5",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/events/latest/1",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Params": [
+      {
+        "Name": "featured",
+        "Matchers": [
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "true"
+          }
+        ]
+      }
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "events": [
+        {
+          "title": "map test",
+          "slug": "map-test",
+          "teaser": "map test",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/4WFgrPBFbi8ys2EEi4iAU8/299a32f588dbadab43fce91a53e925db/pexels-photo-302810.jpeg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/4WFgrPBFbi8ys2EEi4iAU8/299a32f588dbadab43fce91a53e925db/pexels-photo-302810.jpeg?h=250",
+          "description": "Dummy Group",
+          "fee": "0",
+          "location": "Stockport Art Gallery",
+          "submittedBy": "Gary",
+          "eventDate": "2018-12-05T00:00:00",
+          "startTime": "09:00",
+          "endTime": "10:00",
+          "occurences": 0,
+          "eventFrequency": "None",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "documents": [],
+          "categories": [
+            "Arts and Crafts",
+            "Council"
+          ],
+          "mapPosition": {
+            "lon": -2.1588931999999659,
+            "lat": 53.4048475
+          },
+          "bookingInformation": "+44 0343-435-34543",
+          "featured": true,
+          "updatedAt": "2017-12-29T12:44:04.582Z",
+          "tags": [
+            "bramall hall",
+            "hat museum",
+            "brewery",
+            "testtag",
+            "brewery",
+            "brewery"
+          ],
+          "group": {
+            "name": "",
+            "slug": "",
+            "phoneNumber": "",
+            "email": "",
+            "website": "",
+            "twitter": "",
+            "facebook": "",
+            "address": "",
+            "description": "",
+            "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/7m27ec2YOAeQWKYi0MqK6c/7298490f6e815ec97f00e6283bb4b1a9/dog_and_human.jpeg",
+            "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/7m27ec2YOAeQWKYi0MqK6c/7298490f6e815ec97f00e6283bb4b1a9/dog_and_human.jpeg?h=250",
+            "categoriesReference": [],
+            "subCategories": [
+              {
+                "name": "Fushia",
+                "slug": "fushia"
+              },
+              {
+                "name": "Mucky Brown",
+                "slug": "mucky-brown"
+              }
+            ],
+            "breadcrumbs": [
+              {
+                "title": "Stockport Local",
+                "slug": "",
+                "type": "groups"
+              }
+            ],
+            "mapPosition": {
+              "lon": 0.0,
+              "lat": 0.0
+            },
+            "volunteering": false,
+            "events": null,
+            "groupAdministrators": {
+              "items": []
+            },
+            "dateHiddenFrom": "9999-12-31T23:59:59",
+            "dateHiddenTo": "9999-12-31T23:59:59",
+            "status": "Published",
+            "cost": [],
+            "costText": null,
+            "abilityLevel": null,
+            "volunteeringText": null,
+            "organisation": {
+              "title": "",
+              "slug": "",
+              "imageUrl": "",
+              "aboutUs": "",
+              "phone": "",
+              "email": "",
+              "volunteering": false,
+              "volunteeringText": null,
+              "donationsText": null,
+              "donationsUrl": null,
+              "groups": [],
+              "donations": false
+            },
+            "linkedGroups": null,
+            "donations": false,
+            "donationsText": null,
+            "donationsUrl": null,
+            "accessibleTransportLink": "/accessibleTransport",
+            "additionalInformation": "",
+            "additionalDocuments": [],
+            "dateLastModified": "2018-05-17T08:51:48.289Z",
+            "suitableFor": [],
+            "ageRange": []
+          },
+          "alerts": [],
+          "eventCategories": [],
+          "free": null,
+          "paid": null,
+          "coord": {
+            "latitude": 53.4048475,
+            "longitude": -2.1588931999999659,
+            "horizontalAccuracy": "NaN",
+            "verticalAccuracy": "NaN",
+            "speed": "NaN",
+            "course": "NaN",
+            "isUnknown": false,
+            "altitude": "NaN"
+          },
+          "accessibleTransportLink": "/accessibleTransport"
+        }
+      ],
+      "categories": [
+        "Arts and Crafts",
+        "Business Events",
+        "Sports",
+        "Museums",
+        "Charity",
+        "Council",
+        "Christmas",
+        "Dance",
+        "Education",
+        "Chadkirk Chapel",
+        "Community Group",
+        "Public Health",
+        "Fayre",
+        "Talk",
+        "Environment",
+        "Comedy",
+        "Family",
+        "Armed Forces",
+        "Antiques and Collectors",
+        "Excercise and Fitness",
+        "Fair",
+        "Emergency Services",
+        "Bonfire",
+        "Remembrence Service",
+        "new cache category",
+        "Breakfast"
+      ]
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Wed, 05 Dec 2018 14:17:44 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}
