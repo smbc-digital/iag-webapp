@@ -20,9 +20,9 @@ namespace StockportWebappTests_UI.StepDefinitions
         }
 
         [When(@"I click the ""(.*)"" button")]
-        public void WhenIClickTheButton(string id)
+        public void WhenIClickTheButton(string name)
         {
-            BrowserSession.ClickButton(id);
+            BrowserSession.ClickButton(name);
         }
         
         [Then(@"I should see the ""(.*)"" element")]
@@ -32,9 +32,9 @@ namespace StockportWebappTests_UI.StepDefinitions
         }
         
         [Then(@"I should see the ""(.*)"" button")]
-        public void ThenIShouldSeeTheButton(string id)
+        public void ThenIShouldSeeTheButton(string name)
         {
-            Assert.True(BrowserSession.FindButton(id).Exists());
+            Assert.True(BrowserSession.FindButton(name).Exists());
         }
     }
 }

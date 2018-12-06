@@ -3,17 +3,20 @@
 	As a website user
 	I want to be able to see all available UI elements
 
-Scenario: Go to homepage
+Scenario: User navigates to stockport.gov.uk
 	Given I navigate to "/"
 	Then I should see the "myaccount.stockport.gov.uk/" link
-	Then I should see the 5th task block with title UITEST: Article with Section for Contact Us form
-	When I click the "see-more-services" button
-	Then I should see the ".generic-list-see-more-container" element
-	Then I should see the ".button-default.do-it-online" element
-	Then I should see the ".news" element
-	Then I should see the ".event" element
-	Then I should see the ".group" element
-	Then I should see the "test-subscribe" button
-	Then I should see the ".atoz" element
-	Then I should see the ".l-container-footer" element
-	Then I should see the ".cc_banner.cc_container.cc_container--open" element
+	And I should see the "Popular services" section
+	And I should see the "Do it online" button
+	And I should see the "latest news" section
+	And I should see the "whats on in stockport" section
+	And I should see the "stockport local" section
+	And I should see the "Subscribe" button
+	And I should see the "find services A-Z" section
+	And I should see the footer
+	And I should see the cookies banner
+
+Scenario: User clicks view more services
+	Given I navigate to "/"
+	When I click the "View more services" button
+	Then I should see the "additional topics" section

@@ -63,10 +63,10 @@ namespace StockportWebappTests_UI.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Go to homepage", SourceLine=5)]
-        public virtual void GoToHomepage()
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to stockport.gov.uk", SourceLine=5)]
+        public virtual void UserNavigatesToStockport_Gov_Uk()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Go to homepage", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to stockport.gov.uk", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
@@ -74,28 +74,39 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Then("I should see the \"myaccount.stockport.gov.uk/\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 9
- testRunner.Then("I should see the 5th task block with title UITEST: Article with Section for Conta" +
-                    "ct Us form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the \"Popular services\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.When("I click the \"see-more-services\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I should see the \"Do it online\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
- testRunner.Then("I should see the \".generic-list-see-more-container\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the \"latest news\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
- testRunner.Then("I should see the \".button-default.do-it-online\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the \"whats on in stockport\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
- testRunner.Then("I should see the \".news\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the \"stockport local\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 14
- testRunner.Then("I should see the \".event\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the \"Subscribe\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15
- testRunner.Then("I should see the \".group\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the \"find services A-Z\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
- testRunner.Then("I should see the \"test-subscribe\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
- testRunner.Then("I should see the \".atoz\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 18
- testRunner.Then("I should see the \".l-container-footer\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I should see the cookies banner", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User clicks view more services", SourceLine=18)]
+        public virtual void UserClicksViewMoreServices()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User clicks view more services", ((string[])(null)));
 #line 19
- testRunner.Then("I should see the \".cc_banner.cc_container.cc_container--open\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioSetup(scenarioInfo);
+#line 20
+ testRunner.Given("I navigate to \"/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 21
+ testRunner.When("I click the \"View more services\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 22
+ testRunner.Then("I should see the \"additional topics\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

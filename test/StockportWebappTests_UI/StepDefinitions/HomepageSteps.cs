@@ -1,8 +1,5 @@
-﻿using System;
-using Newtonsoft.Json.Linq;
+﻿using System.Linq;
 using TechTalk.SpecFlow;
-using WireMock.RequestBuilders;
-using WireMock.ResponseBuilders;
 using Xunit;
 
 namespace StockportWebappTests_UI.StepDefinitions
@@ -10,11 +7,45 @@ namespace StockportWebappTests_UI.StepDefinitions
     [Binding]
     public class HomepageSteps : UiTestBase
     {
-        [Then("I should see the 5th task block with title UITEST: Article with Section for Contact Us form")]
-        public void ThenIShouldSee5thTaskBlock()
+        [Then(@"I should see the ""(.*)"" section")]
+        public void ThenIShouldSeeSection(string sectionName)
         {
-            var result = BrowserSession.FindCss("#task-block-5:last-child h3");
-            Assert.Equal("UITEST: Article with Section for Contact Us form", result.Text);
+            bool result = false;
+            switch (sectionName)
+            {
+                case "Popular services":
+                    result = BrowserSession.FindAllCss(".task-block-container .task-block").Any();
+                    break;
+                case "latest news":
+                    result = BrowserSession.FindCss(".news").Exists();
+                    break;
+                case "whats on in stockport":
+                    result = BrowserSession.FindCss(".event").Exists();
+                    break;
+                case "stockport local":
+                    result = BrowserSession.FindCss(".group").Exists();
+                    break;
+                case "find services A-Z":
+                    result = BrowserSession.FindCss(".atoz").Exists();
+                    break;
+                case "additional topics":
+                    result = BrowserSession.FindCss(".generic-list-see-more-container").Exists();
+                    break;
+            }
+
+            Assert.True(result);
+        }
+
+        [Then("I should see the footer")]
+        public void ThenIShouldSeeFooter()
+        {
+            Assert.True(BrowserSession.FindCss(".l-container-footer").Exists());
+        }
+
+        [Then("I should see the cookies banner")]
+        public void ThenIShouldSeeCookies()
+        {
+            Assert.True(BrowserSession.FindCss(".cc_banner.cc_container.cc_container--open").Exists());
         }
     }
 }
