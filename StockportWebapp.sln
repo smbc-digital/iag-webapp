@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockportWebapp", "src\Stoc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockportWebappTests", "test\StockportWebappTests\StockportWebappTests.csproj", "{A7CF79BF-5D84-4C23-8C6B-89A8FCB9D2E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockportWebappTests-UI", "test\StockportWebappTests-UI\StockportWebappTests-UI.csproj", "{A419C846-0FF7-41AD-A0AF-BC793F8B8F8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockportWebappTests_UI", "test\StockportWebappTests_UI\StockportWebappTests_UI.csproj", "{A419C846-0FF7-41AD-A0AF-BC793F8B8F8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
