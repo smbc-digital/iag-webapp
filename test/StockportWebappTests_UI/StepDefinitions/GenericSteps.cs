@@ -25,12 +25,6 @@ namespace StockportWebappTests_UI.StepDefinitions
             BrowserSession.ClickButton(name);
         }
         
-        [Then(@"I should see the ""(.*)"" element")]
-        public void ThenIShouldSeeTheElement(string selector)
-        {
-            Assert.True(BrowserSession.FindCss(selector).Exists());
-        }
-        
         [Then(@"I should see the ""(.*)"" button")]
         public void ThenIShouldSeeTheButton(string name)
         {

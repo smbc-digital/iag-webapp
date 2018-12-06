@@ -1,5 +1,6 @@
 ﻿using System;
 using Newtonsoft.Json.Linq;
+using WireMock.Handlers;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
@@ -31,7 +32,8 @@ namespace StockportWebappTests_UI
                     ProxyAndRecordSettings = new ProxyAndRecordSettings
                     {
                         Url = "http://localhost:5001/",
-                        SaveMapping = true
+                        SaveMapping = true,
+                        BlackListedHeaders = new[] {"X-ClientId", "Request-Id", "Authorization", "Host"},
                     },
                     Port = 8080
                 });
