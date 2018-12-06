@@ -16,31 +16,25 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see the ""(.*)"" link")]
         public void ThenIShouldSeeTheLink(string href)
         {
-            Assert.True(BrowserSession.FindCss(string.Format("a[href='{0}']", href)).Exists());
+            Assert.True(BrowserSession.FindCss(string.Format("a[href*='{0}']", href)).Exists());
         }
 
         [When(@"I click the ""(.*)"" button")]
-        public void WhenIClickTheButton(string p0)
+        public void WhenIClickTheButton(string id)
         {
-            ScenarioContext.Current.Pending();
+            BrowserSession.ClickButton(id);
         }
         
         [Then(@"I should see the ""(.*)"" element")]
-        public void ThenIShouldSeeTheElement(string p0)
+        public void ThenIShouldSeeTheElement(string selector)
         {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"I should see the ""(.*)"" element with child link ""(.*)""")]
-        public void ThenIShouldSeeTheElementWithChildLink(string p0, string p1)
-        {
-            ScenarioContext.Current.Pending();
+            Assert.True(BrowserSession.FindCss(selector).Exists());
         }
         
         [Then(@"I should see the ""(.*)"" button")]
-        public void ThenIShouldSeeTheButton(string p0)
+        public void ThenIShouldSeeTheButton(string id)
         {
-            ScenarioContext.Current.Pending();
+            Assert.True(BrowserSession.FindButton(id).Exists());
         }
     }
 }

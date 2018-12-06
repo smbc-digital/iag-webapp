@@ -77,19 +77,19 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.Then("I should see the 5th task block with title UITEST: Article with Section for Conta" +
                     "ct Us form", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10
- testRunner.When("I click the \"View more services\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I click the \"see-more-services\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 11
  testRunner.Then("I should see the \".generic-list-see-more-container\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 12
- testRunner.Then("I should see the \"/topic/do-it-online\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the \".button-default.do-it-online\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 13
- testRunner.Then("I should see the \".news\" element with child link \"/news\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the \".news\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 14
- testRunner.Then("I should see the \".event\" element with child link \"/events\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the \".event\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 15
- testRunner.Then("I should see the \".group\" element with child link \"/groups\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the \".group\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 16
- testRunner.Then("I should see the \"#test-subscribe\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the \"test-subscribe\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 17
  testRunner.Then("I should see the \".atoz\" element", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 18
