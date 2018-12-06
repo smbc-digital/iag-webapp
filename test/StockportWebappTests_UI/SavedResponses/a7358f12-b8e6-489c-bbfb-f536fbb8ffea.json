@@ -1,0 +1,34 @@
+{
+  "Guid": "a7358f12-b8e6-489c-bbfb-f536fbb8ffea",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/api/v3/asset-reports/lit-sign"
+        }
+      ]
+    },
+    "Methods": [
+      "post"
+    ]
+  },
+  "Response": {
+    "StatusCode": 200,
+    "Body": "{\"Reference\": \"LSF001291\"}",
+    "BodyEncoding": {
+      "CodePage": 65001,
+      "EncodingName": "Unicode (UTF-8)",
+      "WebName": "utf-8"
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "X-Powered-By": "ASP.NET",
+      "Date": "Fri, 20 Oct 2017 12:11:28 GMT",
+      "X-SourceFiles": "=?UTF-8?B?QzpcY29kZVxkdHNcZHRzLWludGh1YlxJbnRlZ3JhdGlvbkh1YkFwaVxhcGlcdjJccHJvcGVydGllc1wxMDAwOTY3MzM4MQ==?=",
+      "Server": "Microsoft-IIS/10.0"
+    }
+  }
+}
