@@ -1,0 +1,320 @@
+{
+  "Guid": "d2c0fc1c-de47-4155-9d18-e8bfb8f659fb",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/articles/uitest-testarticle",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "body": "This is a test article made for the ui tests to test an article with a profile, video and a table. Please don't delete or edit the content.",
+      "slug": "uitest-testarticle",
+      "title": "UITEST: Article with profile, video and table",
+      "teaser": "Teaser for a test article for ui tests (don't edit or delete)",
+      "icon": "",
+      "backgroundImage": "",
+      "image": "",
+      "sections": [
+        {
+          "title": "UITEST: Test Video and Profile Section",
+          "slug": "uitest-test-video-and-profile-section",
+          "body": "## First video\n{{VIDEO:kQl5D}}\n\n## Second video \n{{VIDEO:G3HqZ}}\n\n## Youtube video\n<iframe width=\"640\" height=\"360\" src=\"https://www.youtube.com/embed/lOMjIT1sAhE\" frameborder=\"0\" allowfullscreen></iframe>\n\n## Small table\n| Header     | Header     | Header     | Header     | Header     |\n| ---------- | ---------- | ---------- | ---------- | ---------- |\n| Cell 1      | Cell 2      | Cell 3      | Cell 4      | Cell  5     |\n| Cell       | Cell       | Cell       | Cell       | Cell       |\n| Cell       | Cell       | Cell       | Cell       | Cell       |\n\n## Profile\n{{PROFILE:uitest-kirsten}}",
+          "profiles": [
+            {
+              "type": "Success Story",
+              "title": "UITEST: Kirsten",
+              "slug": "uitest-kirsten",
+              "subtitle": "Graduate Development Officer",
+              "teaser": "Kirsten is working in the education department of Stockport Council as a Graduate Development Officer.",
+              "image": "//images.ctfassets.net/6cfgzlmcakf7/1Kd8BpOksc884wkyEcKuk2/8c1ed30717188cd1f6967208e640e1a9/its-not-okay-boy.png",
+              "body": "Kirsten is working in the education department of Stockport Council as a Graduate Development Officer.\n\n\"I have recently started working in the education department of Stockport Council on a 12-month Graduate Development Officer placement, where I will have the chance to gain a further insight into working in education, whilst building on the skills I have developed at university.\n\nI graduated from the University of Leeds in July 2015 and whilst I was excited about the prospect of working, the thought of applying for jobs seemed extremely daunting. I did a year abroad as part of my course, so lots of my friends had graduated the year before me and I was aware of how difficult it had been for them to find employment. I was looking for a role where I would be able to further my enthusiasm for education, which is why I looked on the council’s job website.\n\nWhat attracted me to this position was that, unlike other graduate schemes I’d seen, it provided the opportunity to sample different roles, whilst learning how the organisation functions and developing my knowledge in three different teams.  I was aware that it would be very competitive but I knew that my previous work experience was relevant and would add great merit to my application.\n\nAfter completing my A Levels in German, Music and Maths, I studied German and Music at university and spent a year in Austria as an English language assistant. Teaching English made me realise how much I value education, which led to me working part-time for the Education Engagement department of my university alongside the final year of my degree.\n\nI delivered presentations and workshops in schools to promote language learning and music, which allowed me to do something I genuinely cared about whilst seeing a side of education that wasn’t teaching.\n\nNot only did my previous work experience give me examples to draw upon in my interview, but it meant that I was familiar with the job application process. I knew how important it was to tailor my answers to the job specification to show how my skills fulfil the role requirements, and to be able to provide an example for each desired quality in my interview.\n\nDeveloping your interview skills is an important step towards landing a job, as it’s not only about what you say but the way you say it and present yourself. Gaining advice directly from employers can be an invaluable way of developing these employability skills, especially if your degree programme, like mine, doesn’t lead to a particular career.\n\nThe People, Education, Employers’ Brokerage Service can connect you with employers, who actively want to help local graduates gain these skills. You can take advantage of the offers of work experience, careers advice and interview mentoring to equip you with the skills to find a job that’s right for you.\n\nUndertaking work experience such as that offered by Stockport Council’s Graduate Work Experience Scheme can also provide you with the opportunity to gain sector specific knowledge and the chance to apply the skills you developed through your degree into experience to boost your CV and further applications.\"",
+              "icon": "",
+              "backgroundImage": "//images.ctfassets.net/6cfgzlmcakf7/1Kd8BpOksc884wkyEcKuk2/8c1ed30717188cd1f6967208e640e1a9/its-not-okay-boy.png",
+              "breadcrumbs": [],
+              "alerts": []
+            }
+          ],
+          "alertsInline": [],
+          "documents": [],
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z"
+        },
+        {
+          "title": "UITEST: Section With PDF",
+          "slug": "uitest-section-with-pdf",
+          "body": "This is a link to a document\n\n{{PDF:Stockport-Metroshuttle.pdf}}\n{{PDF:Stockport-Metroshuttle.pdf}}\n\n",
+          "profiles": [],
+          "alertsInline": [],
+          "documents": [
+            {
+              "title": "Cocka Doodle Moo Menu",
+              "size": 6099968,
+              "url": "//assets.ctfassets.net/6cfgzlmcakf7/54M4vn6jrOmyEiC2YI0s00/21afef7a90c9614ce6a3c2c65aee8049/MENU_WEB.pdf",
+              "lastUpdated": "2017-06-05T14:40:03.267Z",
+              "fileName": "MENU_WEB.pdf",
+              "assetId": "54M4vn6jrOmyEiC2YI0s00",
+              "mediaType": "application/pdf"
+            },
+            {
+              "title": "UITEST: Document",
+              "size": 674192,
+              "url": "//assets.ctfassets.net/6cfgzlmcakf7/2b5KTfbuiYcyYuquEa2g2i/1771a961ddfcde0c0b17a2129caacdfd/Stockport-Metroshuttle.pdf",
+              "lastUpdated": "2016-10-12T14:49:01.998Z",
+              "fileName": "Stockport-Metroshuttle.pdf",
+              "assetId": "2b5KTfbuiYcyYuquEa2g2i",
+              "mediaType": "application/pdf"
+            }
+          ],
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z"
+        },
+        {
+          "title": "testingone",
+          "slug": "testingone",
+          "body": "testing one",
+          "profiles": [],
+          "alertsInline": [],
+          "documents": [],
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z"
+        }
+      ],
+      "breadcrumbs": [
+        {
+          "title": "UITEST: Hat Works",
+          "slug": "uitest-hat-works",
+          "type": "topic"
+        }
+      ],
+      "alerts": [],
+      "alertsInline": [],
+      "profiles": [
+        {
+          "type": "Success Story",
+          "title": "UITEST: Kirsten",
+          "slug": "uitest-kirsten",
+          "subtitle": "Graduate Development Officer",
+          "teaser": "Kirsten is working in the education department of Stockport Council as a Graduate Development Officer.",
+          "image": "//images.ctfassets.net/6cfgzlmcakf7/1Kd8BpOksc884wkyEcKuk2/8c1ed30717188cd1f6967208e640e1a9/its-not-okay-boy.png",
+          "body": "Kirsten is working in the education department of Stockport Council as a Graduate Development Officer.\n\n\"I have recently started working in the education department of Stockport Council on a 12-month Graduate Development Officer placement, where I will have the chance to gain a further insight into working in education, whilst building on the skills I have developed at university.\n\nI graduated from the University of Leeds in July 2015 and whilst I was excited about the prospect of working, the thought of applying for jobs seemed extremely daunting. I did a year abroad as part of my course, so lots of my friends had graduated the year before me and I was aware of how difficult it had been for them to find employment. I was looking for a role where I would be able to further my enthusiasm for education, which is why I looked on the council’s job website.\n\nWhat attracted me to this position was that, unlike other graduate schemes I’d seen, it provided the opportunity to sample different roles, whilst learning how the organisation functions and developing my knowledge in three different teams.  I was aware that it would be very competitive but I knew that my previous work experience was relevant and would add great merit to my application.\n\nAfter completing my A Levels in German, Music and Maths, I studied German and Music at university and spent a year in Austria as an English language assistant. Teaching English made me realise how much I value education, which led to me working part-time for the Education Engagement department of my university alongside the final year of my degree.\n\nI delivered presentations and workshops in schools to promote language learning and music, which allowed me to do something I genuinely cared about whilst seeing a side of education that wasn’t teaching.\n\nNot only did my previous work experience give me examples to draw upon in my interview, but it meant that I was familiar with the job application process. I knew how important it was to tailor my answers to the job specification to show how my skills fulfil the role requirements, and to be able to provide an example for each desired quality in my interview.\n\nDeveloping your interview skills is an important step towards landing a job, as it’s not only about what you say but the way you say it and present yourself. Gaining advice directly from employers can be an invaluable way of developing these employability skills, especially if your degree programme, like mine, doesn’t lead to a particular career.\n\nThe People, Education, Employers’ Brokerage Service can connect you with employers, who actively want to help local graduates gain these skills. You can take advantage of the offers of work experience, careers advice and interview mentoring to equip you with the skills to find a job that’s right for you.\n\nUndertaking work experience such as that offered by Stockport Council’s Graduate Work Experience Scheme can also provide you with the opportunity to gain sector specific knowledge and the chance to apply the skills you developed through your degree into experience to boost your CV and further applications.\"",
+          "icon": "",
+          "backgroundImage": "//images.ctfassets.net/6cfgzlmcakf7/1Kd8BpOksc884wkyEcKuk2/8c1ed30717188cd1f6967208e640e1a9/its-not-okay-boy.png",
+          "breadcrumbs": [],
+          "alerts": []
+        },
+        {
+          "type": "My Story",
+          "title": "System Test",
+          "slug": "test",
+          "subtitle": "test",
+          "teaser": "test",
+          "image": "",
+          "body": "test",
+          "icon": "",
+          "backgroundImage": "",
+          "breadcrumbs": [],
+          "alerts": []
+        }
+      ],
+      "parentTopic": {
+        "slug": "uitest-hat-works",
+        "name": "UITEST: Hat Works",
+        "teaser": null,
+        "summary": null,
+        "icon": null,
+        "backgroundImage": null,
+        "image": null,
+        "subItems": [
+          {
+            "slug": "uitest-about-the-hat-works",
+            "title": "UITEST: About the Hat Works",
+            "teaser": "The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.  The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": [
+              {
+                "slug": "uitest-about-the-hat-works/uitest-overview",
+                "title": "UITEST: Overview",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-about-the-hat-works/uitest-gallery-floor",
+                "title": "UITEST: Gallery floor",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-about-the-hat-works/in-line-alert-test",
+                "title": "in line alert test",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              }
+            ]
+          },
+          {
+            "slug": "uitest-testarticle",
+            "title": "UITEST: Article with profile, video and table",
+            "teaser": "Teaser for a test article for ui tests (don't edit or delete)",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": []
+          },
+          {
+            "slug": "testing-alert-5",
+            "title": "testing alert 5",
+            "teaser": "test",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": []
+          }
+        ],
+        "secondaryItems": [
+          {
+            "slug": "uitest-secondary-item",
+            "title": "UITEST: Secondary Item",
+            "teaser": "This is is Ui Test Secondary Item ",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": [
+              {
+                "slug": "uitest-secondary-item/testoneone",
+                "title": "testone",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testtwotwo",
+                "title": "testtwotwo",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testthreethree",
+                "title": "testthree",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testfourfour",
+                "title": "testfourfour",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testfivefive",
+                "title": "testfivefive",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              }
+            ]
+          }
+        ],
+        "tertiaryItems": [],
+        "breadcrumbs": null,
+        "alerts": null,
+        "sunriseDate": "0001-01-01T00:00:00",
+        "sunsetDate": "0001-01-01T00:00:00",
+        "emailAlerts": false,
+        "emailAlertsTopicId": null,
+        "eventBanner": null,
+        "expandingLinkTitle": null,
+        "expandingLinkBoxes": null,
+        "primaryItemTitle": null,
+        "advertisement": null
+      },
+      "documents": [
+        {
+          "title": "UITEST: Document",
+          "size": 674192,
+          "url": "//assets.ctfassets.net/6cfgzlmcakf7/2b5KTfbuiYcyYuquEa2g2i/1771a961ddfcde0c0b17a2129caacdfd/Stockport-Metroshuttle.pdf",
+          "lastUpdated": "2016-10-12T14:49:01.998Z",
+          "fileName": "Stockport-Metroshuttle.pdf",
+          "assetId": "2b5KTfbuiYcyYuquEa2g2i",
+          "mediaType": "application/pdf"
+        }
+      ],
+      "sunriseDate": "0001-01-01T00:00:00Z",
+      "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+      "liveChatVisible": false,
+      "liveChat": {
+        "title": "",
+        "text": "",
+        "sys": null
+      },
+      "advertisement": null
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Thu, 06 Dec 2018 14:29:09 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

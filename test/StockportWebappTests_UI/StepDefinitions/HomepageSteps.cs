@@ -4,7 +4,7 @@ using Xunit;
 
 namespace StockportWebappTests_UI.StepDefinitions
 {
-    [Binding]
+    [Binding, Scope(Tag = "homepage")]
     public class HomepageSteps : UiTestBase
     {
         [Then(@"I should see the ""(.*)"" section")]
@@ -25,27 +25,11 @@ namespace StockportWebappTests_UI.StepDefinitions
                 case "stockport local":
                     result = BrowserSession.FindCss(".group").Exists();
                     break;
-                case "find services A-Z":
-                    result = BrowserSession.FindCss(".atoz").Exists();
-                    break;
                 case "additional topics":
                     result = BrowserSession.FindCss(".generic-list-see-more-container").Exists();
                     break;
             }
-
             Assert.True(result);
-        }
-
-        [Then("I should see the footer")]
-        public void ThenIShouldSeeFooter()
-        {
-            Assert.True(BrowserSession.FindCss(".l-container-footer").Exists());
-        }
-
-        [Then("I should see the cookies banner")]
-        public void ThenIShouldSeeCookies()
-        {
-            Assert.True(BrowserSession.FindCss(".cc_banner.cc_container.cc_container--open").Exists());
         }
     }
 }

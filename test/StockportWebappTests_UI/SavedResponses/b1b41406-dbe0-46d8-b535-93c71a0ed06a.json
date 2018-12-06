@@ -1,5 +1,5 @@
 {
-  "Guid": "7b9d79f3-4b40-4985-958a-0e6c8290117d",
+  "Guid": "b1b41406-dbe0-46d8-b535-93c71a0ed06a",
   "Title": "",
   "Priority": 0,
   "Request": {
@@ -14,7 +14,8 @@
     },
     "Methods": [
       "GET"
-    ]
+    ],
+    "Body": {}
   },
   "Response": {
     "StatusCode": 200,
@@ -87,7 +88,7 @@
     "Headers": {
       "Content-Type": "application/json; charset=utf-8",
       "Transfer-Encoding": "chunked",
-      "Date": "Wed, 05 Dec 2018 14:17:45 GMT",
+      "Date": "Thu, 06 Dec 2018 14:29:21 GMT",
       "Server": "Kestrel"
     }
   }
