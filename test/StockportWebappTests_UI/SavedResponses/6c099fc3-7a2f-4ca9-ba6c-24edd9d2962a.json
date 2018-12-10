@@ -1,5 +1,5 @@
 {
-  "Guid": "7c3be4f3-b0aa-4a14-90a1-c612e5222e2e",
+  "Guid": "6c099fc3-7a2f-4ca9-ba6c-24edd9d2962a",
   "Title": "",
   "Priority": 0,
   "Request": {
@@ -212,6 +212,17 @@
               "slug": "uitest-secondary-item",
               "title": "UITEST: Secondary Item",
               "teaser": "This is is Ui Test Secondary Item ",
+              "icon": "",
+              "type": "article",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-about-the-hat-works",
+              "title": "UITEST: About the Hat Works",
+              "teaser": "The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.  The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.",
               "icon": "",
               "type": "article",
               "sunriseDate": "0001-01-01T00:00:00Z",
@@ -2508,7 +2519,7 @@
     "Headers": {
       "Content-Type": "application/json; charset=utf-8",
       "Transfer-Encoding": "chunked",
-      "Date": "Thu, 06 Dec 2018 14:29:17 GMT",
+      "Date": "Mon, 10 Dec 2018 11:44:48 GMT",
       "Server": "Kestrel"
     }
   }
