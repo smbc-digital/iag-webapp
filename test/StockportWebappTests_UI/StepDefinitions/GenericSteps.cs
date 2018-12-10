@@ -34,6 +34,12 @@ namespace StockportWebappTests_UI.StepDefinitions
             Assert.True(BrowserSession.FindCss(".l-container-footer").Exists());
             Assert.True(BrowserSession.FindCss(".cc_banner.cc_container.cc_container--open").Exists());
         }
+    
+        [Then("I should see the pagination section")]
+        public void ThenIShouldSeeThePagination()
+        {
+            Assert.True(BrowserSession.FindAllCss(".pagination-section").Any());
+        }
 
         [Then(@"I should see the ""(.*)"" link")]
         public void ThenIShouldSeeTheLink(string href)
@@ -46,7 +52,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         {
             BrowserSession.ClickButton(name);
         }
-        
+
         [Then(@"I should see the ""(.*)"" button")]
         public void ThenIShouldSeeTheButton(string name)
         {

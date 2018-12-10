@@ -164,11 +164,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Homepage.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\News.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>News.feature</DependentUpon>
+    </Compile>
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
     <Compile Include="StepDefinitions\HomepageSteps.cs" />
+    <Compile Include="StepDefinitions\NewsSteps.cs" />
     <Compile Include="StepDefinitions\UITestBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +191,10 @@
     <None Include="Features\Homepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Homepage.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\News.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>News.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
