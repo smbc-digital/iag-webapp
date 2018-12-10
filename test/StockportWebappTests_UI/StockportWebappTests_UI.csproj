@@ -169,10 +169,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Homepage.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\News.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>News.feature</DependentUpon>
+	<Compile Include="Features\News.feature.cs">
+		<AutoGen>True</AutoGen>
+		<DesignTime>True</DesignTime>
+		<DependentUpon>News.feature</DependentUpon>
+	</Compile>
     <Compile Include="Features\Topic.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -207,15 +208,13 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Homepage.feature.cs</LastGenOutput>
     </None>
-<<<<<<< HEAD
     <None Include="Features\News.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>News.feature.cs</LastGenOutput>
-=======
+	</None>
     <None Include="Features\Topic.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Topic.feature.cs</LastGenOutput>
->>>>>>> b422ca4210f4acd510308459572e9fbae7800926
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
