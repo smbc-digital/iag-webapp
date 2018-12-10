@@ -169,12 +169,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Homepage.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Topic.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Topic.feature</DependentUpon>
+    </Compile>
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\HomepageSteps.cs" />
+    <Compile Include="StepDefinitions\TopicSteps.cs" />
     <Compile Include="StepDefinitions\UITestBase.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,12 +202,20 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Homepage.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Topic.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Topic.feature.cs</LastGenOutput>
+    </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
-    <None Include="SavedResponses\3eaf163e-bd6b-4215-9f31-3e5601274176.json" />
-    <None Include="SavedResponses\483577a5-bbb4-44c0-8878-8337342992a4.json" />
-    <None Include="SavedResponses\4cdaeb35-b2ac-4614-b5e3-fff6604abee5.json" />
-    <None Include="SavedResponses\7b9d79f3-4b40-4985-958a-0e6c8290117d.json" />
+    <None Include="SavedResponses\13f0da4d-6cd5-4a49-a9d8-28fd115fb8b8.json" />
+    <None Include="SavedResponses\21b40dfc-dc9a-44fa-bea7-17596ae1f9b7.json" />
+    <None Include="SavedResponses\2c6e03ed-dd09-4525-a455-f8abc567bddc.json" />
+    <None Include="SavedResponses\61af234a-3b5d-4416-9fcb-f5770c47fbfd.json" />
+    <None Include="SavedResponses\6c099fc3-7a2f-4ca9-ba6c-24edd9d2962a.json" />
+    <None Include="SavedResponses\6c1b1913-1af4-4404-85bc-c8ae182ad6b4.json" />
+    <None Include="SavedResponses\95f7f068-3418-4c24-bccc-124db46fb6c5.json" />
+    <None Include="SavedResponses\9dfde43b-5c0d-4c24-b6bc-47aac538f694.json" />
     <None Include="SpecRunTestProfile.xsd">
       <SubType>Designer</SubType>
     </None>
