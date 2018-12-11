@@ -26,7 +26,7 @@ Scenario: User should see an events link
 	Given I navigate to "/topic/uitest-hat-works"
 	Then I should see an events banner
 
-Scenario: User should be able dismiss an alert
+Scenario: User should be able to dismiss an alert
 	Given I navigate to "/topic/uitest-hat-works"
 	When I click the close alert button
 	Then The alert should no longer be visible
