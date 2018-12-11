@@ -17,8 +17,9 @@ namespace StockportWebappTests_UI.Features
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.2.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [TechTalk.SpecRun.FeatureAttribute("Topic", Description="\tIn order to access information about Stockport Council\r\n\tAs a resident of Stockp" +
-        "ort\r\n\tI want to be directed to the correct locations within the website", SourceFile="Features\\Topic.feature", SourceLine=0)]
+    [TechTalk.SpecRun.FeatureAttribute("Topic", new string[] {
+            "topic"}, Description="\tIn order to access information about Stockport Council\r\n\tAs a resident of Stockp" +
+        "ort\r\n\tI want to be directed to the correct locations within the website", SourceFile="Features\\Topic.feature", SourceLine=1)]
     public partial class TopicFeature
     {
         
@@ -32,7 +33,8 @@ namespace StockportWebappTests_UI.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Topic", "\tIn order to access information about Stockport Council\r\n\tAs a resident of Stockp" +
-                    "ort\r\n\tI want to be directed to the correct locations within the website", ProgrammingLanguage.CSharp, ((string[])(null)));
+                    "ort\r\n\tI want to be directed to the correct locations within the website", ProgrammingLanguage.CSharp, new string[] {
+                        "topic"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -63,76 +65,92 @@ namespace StockportWebappTests_UI.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User should see primary, secondary and tertiary links", SourceLine=5)]
+        [TechTalk.SpecRun.ScenarioAttribute("User should see primary, secondary and tertiary links", SourceLine=6)]
         public virtual void UserShouldSeePrimarySecondaryAndTertiaryLinks()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should see primary, secondary and tertiary links", ((string[])(null)));
-#line 6
-this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Then("I should see Primary links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
- testRunner.And("I should see Secondary links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I should see Primary links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10
+ testRunner.And("I should see Secondary links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 11
  testRunner.And("I should see Tertiary links", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User should see an alert relevant to the content they are seeking", SourceLine=11)]
+        [TechTalk.SpecRun.ScenarioAttribute("User should see an alert relevant to the content they are seeking", SourceLine=12)]
         public virtual void UserShouldSeeAnAlertRelevantToTheContentTheyAreSeeking()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should see an alert relevant to the content they are seeking", ((string[])(null)));
-#line 12
-this.ScenarioSetup(scenarioInfo);
 #line 13
- testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 14
+ testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
  testRunner.Then("I should see a topic page alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User should see an advertisment related to the content they are seeking", SourceLine=15)]
+        [TechTalk.SpecRun.ScenarioAttribute("User should see an advertisment related to the content they are seeking", SourceLine=16)]
         public virtual void UserShouldSeeAnAdvertismentRelatedToTheContentTheyAreSeeking()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should see an advertisment related to the content they are seeking", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
 #line 17
- testRunner.Given("I navigate to \"topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 18
+ testRunner.Given("I navigate to \"topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 19
  testRunner.Then("I should see an advertisment banner", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User should see a link to sign up for email alerts", SourceLine=19)]
+        [TechTalk.SpecRun.ScenarioAttribute("User should see a link to sign up for email alerts", SourceLine=20)]
         public virtual void UserShouldSeeALinkToSignUpForEmailAlerts()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should see a link to sign up for email alerts", ((string[])(null)));
-#line 20
-this.ScenarioSetup(scenarioInfo);
 #line 21
- testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 22
+ testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 23
  testRunner.Then("I should see an email alerts link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User should see an events link", SourceLine=23)]
+        [TechTalk.SpecRun.ScenarioAttribute("User should see an events link", SourceLine=24)]
         public virtual void UserShouldSeeAnEventsLink()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should see an events link", ((string[])(null)));
-#line 24
-this.ScenarioSetup(scenarioInfo);
 #line 25
- testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 26
+ testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 27
  testRunner.Then("I should see an events banner", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User should be able to dismiss an alert", SourceLine=28)]
+        public virtual void UserShouldBeAbleToDismissAnAlert()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should be able to dismiss an alert", ((string[])(null)));
+#line 29
+this.ScenarioSetup(scenarioInfo);
+#line 30
+ testRunner.Given("I navigate to \"/topic/uitest-hat-works\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 31
+ testRunner.When("I click the close alert button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 32
+ testRunner.Then("The alert should no longer be visible", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
