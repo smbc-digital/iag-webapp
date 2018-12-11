@@ -16,5 +16,6 @@ Scenario: User navigates to stockport.gov.uk/uitest-testarticle
 	And I should see the "/uitest-testarticle/uitest-section-with-pdf" link
 	And I should see the "youtube video" section
 	And I should see the "table" section
+	And I should see the "profile" section
 	And I should see the footer
 

@@ -1,0 +1,2668 @@
+{
+  "Guid": "c5970fdb-bfe4-4d0b-9edd-22931ec38661",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/group-results/",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Params": [
+      {
+        "Name": "location",
+        "Matchers": [
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "Stockport"
+          }
+        ]
+      }
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "groups": [
+        {
+          "name": "1Time for Dance",
+          "slug": "time-for-dance",
+          "phoneNumber": null,
+          "email": "thisis@email.com",
+          "website": null,
+          "twitter": null,
+          "facebook": null,
+          "address": "90 o'clock, clockley, clockshire ",
+          "description": "\r\n\r\n**Clock**\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Help and support",
+              "slug": "help-and-support",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Black",
+              "slug": "black"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.1492138999999497,
+            "lat": 53.408706
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "brant.oglevie@stockport.gov.uk",
+                "permission": "A",
+                "name": "brant"
+              },
+              {
+                "email": "harsha.reddy1@hotmail.com",
+                "permission": "E",
+                "name": "harsha"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we?ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": null,
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-07T14:45:38.516Z",
+          "suitableFor": [
+            "Deaf or hard of hearing"
+          ],
+          "ageRange": []
+        },
+        {
+          "name": "1Time for Dance1",
+          "slug": "time-for-dance1",
+          "phoneNumber": "",
+          "email": "thisis@email.com",
+          "website": "",
+          "twitter": "",
+          "facebook": "",
+          "address": "90 o'clock, clockley, clockshire ",
+          "description": "__Clock__",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Help and support",
+              "slug": "help-and-support",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+            },
+            {
+              "name": "Outdoors and adventure",
+              "slug": "outdoors-and-adventure",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-10T09:41:41.554Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "All Categories/No Coords",
+          "slug": "all-categories-no-coords",
+          "phoneNumber": "",
+          "email": "",
+          "website": "",
+          "twitter": "",
+          "facebook": "",
+          "address": "No Coords",
+          "description": "ACNC",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "0utdoors and adventure and an",
+              "slug": "outdoors-and-adventure-and-nothing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            },
+            {
+              "name": "Arts and crafts",
+              "slug": "arts-and-crafts",
+              "icon": "si-house",
+              "imageUrl": ""
+            },
+            {
+              "name": "Children and family",
+              "slug": "children-and-family",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+            },
+            {
+              "name": "Comma, Test",
+              "slug": "comma-test",
+              "icon": "si-pitch",
+              "imageUrl": ""
+            },
+            {
+              "name": "Culture",
+              "slug": "culture",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Dancing",
+              "slug": "dancing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2zuDiI9PoUk8Mc6S2qOU8E/20fed7926b74ebdd49fb771464e51a9f/iStock_95406809_MEDIUM.jpg"
+            },
+            {
+              "name": "Education and learning",
+              "slug": "education-and-learning",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+            },
+            {
+              "name": "Health and wellbeing",
+              "slug": "health-and-wellbeing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Help and support",
+              "slug": "help-and-support",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+            },
+            {
+              "name": "Music",
+              "slug": "music",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+            },
+            {
+              "name": "Outdoors and adventure",
+              "slug": "outdoors-and-adventure",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+            },
+            {
+              "name": "Religion",
+              "slug": "religion",
+              "icon": "si-file",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/33s1i45B9eeqS8sC26QyAK/a98eeaa7174d40dfb6f129f2b355d984/maxresdefault.jpg"
+            },
+            {
+              "name": "Sports and fitness",
+              "slug": "sports-and-fitness",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/4ZaddM6s5a24UuQOEiGQWq/59253529ca20a43d1a78f5d8d3d1d00f/Sarah_s_Story.jpg"
+            },
+            {
+              "name": "test test",
+              "slug": "test-test",
+              "icon": "fa-icon",
+              "imageUrl": ""
+            },
+            {
+              "name": "Theatre, music and performance",
+              "slug": "theatre-music-and-performance",
+              "icon": "si-drums",
+              "imageUrl": ""
+            },
+            {
+              "name": "this category name is verrrrrrrrrrrrrrrrrrry loooooooooooooooooong",
+              "slug": "very-long",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+            },
+            {
+              "name": "this category name is very loooong",
+              "slug": "very-long1",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+            },
+            {
+              "name": "UITEST: Group Category",
+              "slug": "uitest-group-category",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+            },
+            {
+              "name": "young people",
+              "slug": "young-people",
+              "icon": "si-house",
+              "imageUrl": ""
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": null,
+          "dateHiddenTo": null,
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-21T08:07:42.983Z",
+          "suitableFor": [
+            "Autism",
+            "Deaf or hard of hearing",
+            "Dementia",
+            "Learning disabilities",
+            "Mental health conditions",
+            "Physical disabilities",
+            "Visual impairments",
+            "Wheelchair users"
+          ],
+          "ageRange": [
+            "0-2 Babies",
+            "3-5 Toddlers",
+            "6-11 Young children",
+            "12-18 Teenagers",
+            "19-30 Young adults",
+            "31-50 Adults",
+            "51-65 Middle aged",
+            "66-80 Retirees",
+            "80+ Elderly"
+          ]
+        },
+        {
+          "name": "Better Naked",
+          "slug": "better-naked",
+          "phoneNumber": "07931 771783",
+          "email": "zico.harris@stockport.gov.uk",
+          "website": "http://www.betternaked.co.uk",
+          "twitter": "",
+          "facebook": null,
+          "address": "What we do This link will execute a script.[linkrefjs]: javascri-pt:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+          "description": "\r\n\r\nBetter Naked is a weekly weight management class which offers a weekly food taster, themed discussion topic, group support, motivation and lots of laughs along the way to you reaching your personal target weight.\r\n\r\n\r\n\r\nAnd most importantly, we educate members in how to maintain that weight and put an end to yoyo dieting which is so damaging to your health.\r\n\r\n\r\n\r\nBetter Naked will help you to keep track of your progress, avoid pitfalls and record your achievements.\r\n\r\n\r\n\r\nWe will support and motivate you and we will focus on all the things you've worked for and achieved, and share in your excitement and celebrate with you.\r\n\r\n\r\n\r\nWeight loss, motivation and support, weekly taster, weekly discussion topic, lots of laughter.  Refreshingly different. You make the choices.\r\n\r\n\r\n\r\nMonday, Wednesday and Thursday every week from 6:30pm to 7:30pm.\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Health and wellbeing",
+              "slug": "health-and-wellbeing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Help and support",
+              "slug": "help-and-support",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.158046,
+            "lat": 53.405817
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "aidan.moseley@stockport.gov.uk",
+                "permission": "A",
+                "name": "Aidan"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Z"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": null,
+          "additionalDocuments": [],
+          "dateLastModified": "2018-12-06T12:08:26.252Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "Dig Discover Enjoy",
+          "slug": "dig-discover-enjoy",
+          "phoneNumber": "",
+          "email": "",
+          "website": "",
+          "twitter": "",
+          "facebook": "",
+          "address": "76 Secret Secret Secret REDACTED",
+          "description": "REDACTED",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Culture",
+              "slug": "culture",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Music",
+              "slug": "music",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.1589100360870361,
+            "lat": 53.405758419834527
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T10:36:18.273Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "Emoji test group",
+          "slug": "emoji-test-group",
+          "phoneNumber": "23232",
+          "email": "dsfsdgf@Gdsgdg.dfggg",
+          "website": "http://www.google.com",
+          "twitter": "",
+          "facebook": "",
+          "address": "test address",
+          "description": "testing, is this the only text that will appear?\n!\"｣$%^&*(){}[]@'~#<>,.?/ｬ`ｦ ???????????????\n\nEmoji start.......\n\n????????????????????????????????????\n??????????????????????????????????????????\n\nEmoji end.........",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "0utdoors and adventure and an",
+              "slug": "outdoors-and-adventure-and-nothing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+            },
+            {
+              "name": "Arts and crafts",
+              "slug": "arts-and-crafts",
+              "icon": "si-house",
+              "imageUrl": ""
+            },
+            {
+              "name": "Children and family",
+              "slug": "children-and-family",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            },
+            {
+              "name": "Fushia",
+              "slug": "fushia"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "notanemai.sfsgsdg@fsdgfdsgdgd.fgdgfdgdfg",
+                "permission": "A",
+                "name": "another name"
+              }
+            ]
+          },
+          "dateHiddenFrom": "2118-02-28T23:00:00+00:00",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-06-13T09:18:55.856Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "Mellor Archaeological Trust",
+          "slug": "mellor-archaeological-trust",
+          "phoneNumber": "1",
+          "email": "1@1.c",
+          "website": "https://www.stockport.gov.uk/",
+          "twitter": "https://www.twitter.com/stockportzumba",
+          "facebook": "",
+          "address": "65 TRUST ISSUES HELP ME",
+          "description": "\n\nHelping people with their trust issues through the medium of interpretive archaeology\n\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2kSINTokss4kw0IqK66asK/9ecd62994271a1459c20efc762cb3cee/have_your_say.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2kSINTokss4kw0IqK66asK/9ecd62994271a1459c20efc762cb3cee/have_your_say.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.17185974121094,
+            "lat": 53.3955492856696
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "josh.hiles@stockport.gov.uk",
+                "permission": "A",
+                "name": "josh h"
+              },
+              {
+                "email": "1@1.com",
+                "permission": "A",
+                "name": "1"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "E",
+                "name": "Test Dude 2000"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "if you would like to find out more about donating to this group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": null,
+          "additionalDocuments": [],
+          "dateLastModified": "2018-06-25T12:55:14.707Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "Pest Control",
+          "slug": "pest-control",
+          "phoneNumber": "",
+          "email": "post-control@stockport.gov.uk",
+          "website": "https://www.stockport.gov.uk/topic/pest-control",
+          "twitter": "",
+          "facebook": "",
+          "address": "1 West Brown Street,\nStockport",
+          "description": "__Domestic Charges (including VAT)__\nrats - ｣66 (includes 2 revisits which must be no more than 28 days between each visit)\nmice - ｣66 (includes 2 revisits which must be no more than 28 days between each visit)\nbedbugs - ｣180 (includes 1 revisit within 28 days of initial treatment)\ncockroaches - ｣108 (includes 1 revisit within 28 days of initial treatment)\nwasps - ｣60 plus an additional ｣24 to remove the nest (includes 1 revisit within 28 days of initial treatment if required)\nfleas - ｣114 (includes 1 revisit within 28 days of initial treatment)\nants - ｣60 (revisit within 28 days of the initial treatment - ｣24)\npest identification ｣36\nother insects upon identification - ｣60 (revisit within 28 days of the initial treatment - ｣24)\nsquirrels - ｣192 (includes 3 visits within 10 days between each visit)\nbird pests - by quotation only\nPrices correct for the period 1 April 2018 to 31 March 2019.\n\n50% discount is available on production of valid housing benefit, income support or low income related benefit or Leisure Key Band A Holders (there is no discount for a second wasp nest).\n\n__Please note: If you book a treatment and our officer visits, but cannot carry out a treatment, you will still be charged. This is because you are paying for an officer to visit your property.__",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Music",
+              "slug": "music",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -78.020267699999977,
+            "lat": 33.921563
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T10:38:44.71Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "Pumpkin Hill",
+          "slug": "pumpkin",
+          "phoneNumber": "07969 777 835 ",
+          "email": "movieland_brinnington@mail.com",
+          "website": "",
+          "twitter": "",
+          "facebook": "",
+          "address": "St Luke's Parish Centre, Northumberland Rd, Stockport, SK5 8LS",
+          "description": "Bringing the full cinema experience for a fraction of the cost.\n\nFamily friendly film showing every month throughout summer on the 2nd Saturday at St Luke痴 Parish Centre. Doors open 5pm. The film starts at 5.30pm.\n\nDuring winter, doors open 4pm. The film starts 4.30pm.\n\nThere are seasonal visits from __Father Christmas__ and the __Easter Bunny__.\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Children and family",
+              "slug": "children-and-family",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.1380842999999459,
+            "lat": 53.4306919
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "test@test.com",
+                "permission": "A",
+                "name": "Test"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T10:42:14.92Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "TEST TITLE HELLO",
+          "slug": "march-test-group",
+          "phoneNumber": "00000000000",
+          "email": "zico.harris@stockport.gov.uk",
+          "website": null,
+          "twitter": "https://www.twitter.com/stockportzumba",
+          "facebook": null,
+          "address": "Stockport, UK",
+          "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Culture",
+              "slug": "culture",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Music",
+              "slug": "music",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.15753319999999,
+            "lat": 53.4106316
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "josh.adesoba@stockport.gov.uk",
+                "permission": "A",
+                "name": "Josh"
+              },
+              {
+                "email": "priya.ganger@stockport.gov.uk",
+                "permission": "A",
+                "name": "Priya"
+              },
+              {
+                "email": "ui@testestestest.com",
+                "permission": "A",
+                "name": "UI Test"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Z"
+              },
+              {
+                "email": "craig.callaghan@stockport.gov.uk",
+                "permission": "A",
+                "name": "Craig"
+              },
+              {
+                "email": "gary.holland@exponential-e.com",
+                "permission": "A",
+                "name": "Traitor"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "1111111111111111111111111111110",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "Use the button below to find out about making a donation to support our group. HI",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "This link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-06-14T09:47:41.069Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "test-group-1-don't-edit",
+          "slug": "test-group-1-dont-edit",
+          "phoneNumber": "00000000000",
+          "email": "new@lollipop.com",
+          "website": "www.bbc.co.uk",
+          "twitter": "https://www.twitter.com/MOHAMMED",
+          "facebook": "www.facebook.com/StockportMBC2",
+          "address": "Stockport, United Kingdom",
+          "description": "\r\n\r\nEMOJI START: ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ????? ?? ?? ?? ?? ????? ?? ????? ?? ????? ?? ????? ?? ?????? ??? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ????? ?? ?? ?? ?? ?? ?? ?? ?? ????? ?? ?? ????? ?? ????? ?? ????? ?? ????? ????? ????? ????? ????? ?? ????? ?? ????? ?? ????? ?? ????? ?? ?? ?? ?? ????? ????? ?? ????? ?? ?? ?? ?? ?? ???????? ???????? ?? ??????????? ??????????? ?? ???????? ??????????? ??????????? ??????????? ???????? ???????? ??????????? ??????????? ??????????? ???????? ???????? ??????????? ??????????? ??????????? ????? ????? ???????? ???????? ???????? ????? ????? ???????? ???????? ???????? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ? ?? ?? ?? ?? ?? ?? ?? ?? ?? :EMOJI END !\"｣$%^&\\*(){}[]@'~#,.?/ｬ`ｦ ｣｣｣｣｣｣｣｣｣｣｣｣｣｣｣｣｣｣｣\r\n\r\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "Arts and crafts",
+              "slug": "arts-and-crafts",
+              "icon": "si-house",
+              "imageUrl": ""
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            },
+            {
+              "name": "Blue",
+              "slug": "blue"
+            },
+            {
+              "name": "Fushia",
+              "slug": "fushia"
+            },
+            {
+              "name": "Cyan",
+              "slug": "cyan"
+            },
+            {
+              "name": "Purple",
+              "slug": "purple"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.16244259999996,
+            "lat": 53.4057937
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "mohammed.ntambiye@stockport.gov.uk",
+                "permission": "A",
+                "name": "Mohammed Ntambiye"
+              },
+              {
+                "email": "jon.chiles@stockport.gov.uk",
+                "permission": "A",
+                "name": "Jon Chiles"
+              },
+              {
+                "email": "gary.holland@stockport.gov.uk",
+                "permission": "A",
+                "name": "Gary Holland"
+              },
+              {
+                "email": "neil.redfern@stockport.gov.uk",
+                "permission": "A",
+                "name": "neil redfern"
+              },
+              {
+                "email": "david.meek@stockport.gov.uk",
+                "permission": "A",
+                "name": "david meek"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Zico Harris"
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "A",
+                "name": "Harsha Reddy"
+              },
+              {
+                "email": "test@test.test",
+                "permission": "A",
+                "name": "Test"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [
+            "Paid"
+          ],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we値l be in contact as soon as possible. EDIT",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "Section 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC\r\n\r\n\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. \r\n\r\nNeque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?\r\n\r\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T10:35:13.777Z",
+          "suitableFor": [
+            "Mental health conditions",
+            "Physical disabilities",
+            "Visual impairments",
+            "Wheelchair users"
+          ],
+          "ageRange": [
+            "31-50 Adults",
+            "51-65 Middle aged",
+            "66-80 Retirees",
+            "80+ Elderly"
+          ]
+        },
+        {
+          "name": "test-group-2-don't-edit",
+          "slug": "test-group-2",
+          "phoneNumber": "12345",
+          "email": "new@lollipop.com",
+          "website": "http://lollipop.com",
+          "twitter": null,
+          "facebook": null,
+          "address": "Market St, Manchester M1 1WR",
+          "description": "Lollipops.",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Health and wellbeing",
+              "slug": "health-and-wellbeing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Blue",
+              "slug": "blue"
+            },
+            {
+              "name": "Yellow",
+              "slug": "yellow"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.16325650312501,
+            "lat": 53.4094333981978
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "gary.holland@stockport.gov.uk",
+                "permission": "A",
+                "name": "Gary Holland"
+              },
+              {
+                "email": "mohammed.ntambiye@stockport.gov.uk",
+                "permission": "A",
+                "name": "Mohammed Ntambiye"
+              },
+              {
+                "email": "neil.redfern@stockport.gov.uk",
+                "permission": "A",
+                "name": "Neil Redern"
+              },
+              {
+                "email": "muhammad.khan@stockport.gov.uk",
+                "permission": "A",
+                "name": "Muhammad Khan"
+              },
+              {
+                "email": "khn479@talktalk.net",
+                "permission": "A",
+                "name": "Mister Khan"
+              },
+              {
+                "email": "raj.paili@stockport.gov.uk",
+                "permission": "A",
+                "name": "raj "
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "E",
+                "name": "Harsha"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we?ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "wertwterterwertewr",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "The standard Lorem Ipsum passage, used since the 1500s\n\n\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"\n\nSection 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC\n\n\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. \nNeque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T10:34:24.094Z",
+          "suitableFor": [
+            "Dementia"
+          ],
+          "ageRange": [
+            "6-11 Young children",
+            "80+ Elderly"
+          ]
+        },
+        {
+          "name": "test-group-3-don't-edit",
+          "slug": "test-group3",
+          "phoneNumber": "00000000000",
+          "email": "new@lollipop.com",
+          "website": "www.bbc.co.uk",
+          "twitter": "www.twitter.com/stockportzumba",
+          "facebook": "https://www.Facebook.com/stockportzumba",
+          "address": "Stockport, United Kingdom",
+          "description": "｣33\n1. OverviewMake sure your recycling container is left outbefore 7am on collection day, at the front edge of your property or nominated collection point.We will provide an assisted collection service ｣33.00 if there is no one in the household who is able to put recycling or refuse out for collection (for example, because of a mobility problem). Please see our[assisted collection page](https://www.stockport.gov.uk/assisted-collection-request)for more details.If you are a tenant and have just moved into a Stockport Homes property and your property is suitable for wheelie bins, please contact[Stockport Homes](http://www.stockporthomes.org/contact/).Please read our[recycling and refuse collections policy (PDF 326Kb)](https://assets.contentful.com/ii3xdrqc6nfw/4LAFl3eE8EM6aW0QEC0Maa/0ada6c6ec0427b030d2d7542e2fdfe83/Recycling_and_refuse_collections_policy.pdf)for information on how we deal with recycling and refuse collections ｣33.00.\n\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "0utdoors and adventure and an",
+              "slug": "outdoors-and-adventure-and-nothing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+            },
+            {
+              "name": "UITEST: Group Category",
+              "slug": "uitest-group-category",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+            },
+            {
+              "name": "Education and learning",
+              "slug": "education-and-learning",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            },
+            {
+              "name": "Blue",
+              "slug": "blue"
+            },
+            {
+              "name": "Fushia",
+              "slug": "fushia"
+            },
+            {
+              "name": "Cyan",
+              "slug": "cyan"
+            },
+            {
+              "name": "Purple",
+              "slug": "purple"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.158046,
+            "lat": 53.405817
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "oglevie.freelancing@gmail.com",
+                "permission": "A",
+                "name": "Brant"
+              },
+              {
+                "email": "raj.paili@stockport.gov.uk",
+                "permission": "E",
+                "name": "Raj Paili"
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "A",
+                "name": "Harsha Reddy"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Zico Harris"
+              },
+              {
+                "email": "mohammed.ntambiye@stockport.gov.uk",
+                "permission": "A",
+                "name": "mohammed ntambiye"
+              },
+              {
+                "email": "thesun@gmail.com",
+                "permission": "E",
+                "name": "Praise"
+              },
+              {
+                "email": "zico.harris@dasfasasfasr.com",
+                "permission": "E",
+                "name": "Test Test"
+              },
+              {
+                "email": "rinto.cyriac@stockport.gov.uk",
+                "permission": "A",
+                "name": "Rinto"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we値l be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "Additional\nInformation\nIs\nHere",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-12-04T12:03:15.639Z",
+          "suitableFor": [
+            "Visual impairments"
+          ],
+          "ageRange": [
+            "31-50 Adults"
+          ]
+        },
+        {
+          "name": "Trinity Tots Toddler Group",
+          "slug": "trinity-tots-toddler-group",
+          "phoneNumber": "",
+          "email": "",
+          "website": "",
+          "twitter": "",
+          "facebook": "",
+          "address": "10 tot avenue, tottingly, tottingshire",
+          "description": "Tots.",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Children and family",
+              "slug": "children-and-family",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            },
+            {
+              "name": "Religion",
+              "slug": "religion",
+              "icon": "si-file",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/33s1i45B9eeqS8sC26QyAK/a98eeaa7174d40dfb6f129f2b355d984/maxresdefault.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 2.1266,
+            "lat": 53.3933
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "jonchiles@yahoo.com",
+                "permission": "A",
+                "name": "Jon Chiles"
+              },
+              {
+                "email": "intranet@stockport.gov.uk",
+                "permission": "A",
+                "name": "Intranet"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. \n\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-19T09:55:25.492Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "UITEST: A group for ui testing",
+          "slug": "uitest-a-group-for-ui-testing",
+          "phoneNumber": "0123456789",
+          "email": "scn.uitest@gmail.com",
+          "website": "http://www.stockport.gov.uk",
+          "twitter": null,
+          "facebook": null,
+          "address": "dance club",
+          "description": "\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec feugiat nulla, non consectetur enim. Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec sit amet libero placerat, semper augue quis, bibendum lorem. Duis dapibus ac dolor eget accumsan. Nam pellentesque faucibus neque, quis fermentum sem laoreet at. Duis id augue id dui accumsan facilisis scelerisque a tortor. Proin aliquam metus massa, eget rutrum nulla fringilla a. Fusce in sollicitudin dui. Nulla lobortis imperdiet eros, ultricies facilisis velit semper in. Donec venenatis, lorem sed suscipit consequat, augue lacus fringilla quam, ac vehicula neque ex at nunc. Morbi ornare justo in quam rhoncus, nec ultrices turpis eleifend. Nunc vel leo leo. Vivamus suscipit, est et rutrum pretium, tortor eros tincidunt enim, quis feugiat orci ipsum vel magna. Sed elementum sit amet ipsum ac gravida.Duis vel erat massa. Integer ac nisl sed elit ultrices aliquam sed id urna. Aenean commodo nisi at ipsum molestie suscipit. Nulla sed risus eget quam scelerisque consequat. Phasellus dictum tortor a lobortis congue. Pellentesque sem tortor, malesuada sit amet est a, feugiat malesuada ligula. Duis mattis in diam maximus lobortis. Nulla efficitur enim id ligula placerat ullamcorper. Nulla egestas hendrerit nisi nec dapibus. Integer enim nibh, lobortis in finibus in, varius a velit. Nunc quis ullamcorper turpis. Aenean euismod mauris ex, ac dignissim justo vulputate quis. Donec tempor at orci vel euismod. Cras congue dapibus efficitur. Duis vitae sapien ligula. Aliquam ornare blandit diam eget varius.\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "UITEST: Group Category",
+              "slug": "uitest-group-category",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.12380600000006,
+            "lat": 53.382031
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "scn.uitest@gmail.com",
+                "permission": "A",
+                "name": "Ui Test"
+              }
+            ]
+          },
+          "dateHiddenFrom": "2108-05-09T11:00:00+01:00",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we値l be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": null,
+          "additionalDocuments": [],
+          "dateLastModified": "2018-12-04T10:35:34.679Z",
+          "suitableFor": [
+            "Autism",
+            "Dementia"
+          ],
+          "ageRange": []
+        },
+        {
+          "name": "UITEST: Group",
+          "slug": "uitest-group",
+          "phoneNumber": "11111111111111",
+          "email": "email@email.com",
+          "website": "website.com",
+          "twitter": "http://www.twitter.com/whatever",
+          "facebook": "http://www.facebook.com/thefacebookpage",
+          "address": "1 the street,\nthe town,\na city,\nAA1 1AA",
+          "description": "This is a description for a group\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": "2022-12-01T10:00:00+00:00",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "Hello, this is very secret intel.\n\n",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T10:40:38.957Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "WYSIWYG Editor test group",
+          "slug": "wysiwyg",
+          "phoneNumber": "1234567",
+          "email": "harsha.reddy@stockport.gov.uk",
+          "website": "https://www.stockport.gov.uk/",
+          "twitter": null,
+          "facebook": null,
+          "address": "52-54 Great Underbank, Stockport SK1 1PD, UK",
+          "description": "h11. OverviewMake sure your recycling container is left out before 7am on collection day, at the front edge of your property or nominated collectionpoint.We will provide an assisted collection service if there is no one inthe household who is able to put recycling or refuse out for collection(for example, because of a mobility problem). Please see our [assisted collection page](https://www.stockport.gov.uk/assisted-collection-request)for more details.If you are a tenant and have just moved into a Stockport Homes propertyand your property is suitable for wheelie bins, please **contact** [StockportHomes](http://www.stockporthomes.org/contact/).Please read our [recycling and refuse collections policy (PDF 326Kb)](https://assets.contentful.com/ii3xdrqc6nfw/4LAFl3eE8EM6aW0QEC0Maa/0ada6c6ec0427b030d2d7542e2fdfe83/Recycling_and_refuse_collections_policy.pdf)forinformation on how we deal with recycling and refuse collections.HeaderHeaderCellCellCellCel  \n??????????????**Please use this form if you are:**\n- Moving into Stockport area\n- Current Stockport council tax payer moving from one address to another with in the Stockport area\n- Current Stockport council tax payer, moving out of the Stockport area\n- Current Stockport resident not liable for Council Tax, for example living with parents and moving into their own property.\n\n\\*\\*If you are a landlord or owner notifying the council of a change to the occupier of a property you own or are a managing agent for, please email council.tax@stockport.gov.uk  with the details.\\*\\*We will automatically send your details to Council Tax and Electoral Registration and you can choose which other services you would like to notify.If you wish to change your address for a Library membership you can do this via the [Online Library System](https://stockport.spydus.co.uk/cgi-bin/spydus.exe/MSGTRN/OPAC/HOME?HOMEPRMS=HOMEPARAMS).\n\n{{BUTTON:/start/change-of-address-form, Tell us about your change of address}}",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.15948230000004,
+            "lat": 53.4111123
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "nick.lewis@stockport.gov.uk",
+                "permission": "A",
+                "name": "nick lewis"
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "A",
+                "name": "harsha.reddy"
+              },
+              {
+                "email": "raj.paili@stockport.gov.uk",
+                "permission": "A",
+                "name": "Raj Paili1"
+              },
+              {
+                "email": "david.meek@stockport.gov.uk",
+                "permission": "A",
+                "name": "David meek"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "test test",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "THIS IS ADDITIONAL INFORMATION\n\n\n{{BUTTON:/start/report-a-street-light-fault, Report a streetlight fault}}\n{{VIDEO:P8gSX}}\n{{PDF:testing file name}}\n{{CAROUSEL: Image 1, Image 2, Image 3}}\n{{CONTACT-US: brownfield-site}}\n",
+          "additionalDocuments": [
+            {
+              "title": "testing description",
+              "size": 674192,
+              "url": "//assets.ctfassets.net/6cfgzlmcakf7/5QG8oheTlKW2GSA80YgaYU/414a4fb2058abee58bef3364fc562237/Stockport-Metroshuttle.pdf",
+              "lastUpdated": "2017-06-05T14:38:52.718Z",
+              "fileName": "Stockport-Metroshuttle.pdf",
+              "assetId": "5QG8oheTlKW2GSA80YgaYU",
+              "mediaType": "application/pdf"
+            }
+          ],
+          "dateLastModified": "2018-06-18T10:03:55.099Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "ZAFT",
+          "slug": "zaft",
+          "phoneNumber": "00000000000",
+          "email": "zico.harris@stockport.gov.uk",
+          "website": null,
+          "twitter": "https://www.twitter.com/stockportzumba",
+          "facebook": "https://www.facEbook.com/yourpage/groups",
+          "address": "Stockport, UK\n\n<h3>Apply</h3>\n",
+          "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Culture",
+              "slug": "culture",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Music",
+              "slug": "music",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.15753319999999,
+            "lat": 53.4106316
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "lydia.gray@stockport.gov.uk",
+                "permission": "A",
+                "name": "Lydia"
+              },
+              {
+                "email": "intranet@stockport.gov.uk",
+                "permission": "A",
+                "name": "Intranet"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Z"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "__This is a non-public area__\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-12-04T11:56:21.169Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "ZAFT1",
+          "slug": "zaft1",
+          "phoneNumber": "00000000000",
+          "email": "zico.harris@stockport.gov.uk",
+          "website": null,
+          "twitter": null,
+          "facebook": null,
+          "address": "Juniusstraat, Delft, Netherlands",
+          "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Arts and crafts",
+              "slug": "arts-and-crafts",
+              "icon": "si-house",
+              "imageUrl": ""
+            },
+            {
+              "name": "Children and family",
+              "slug": "children-and-family",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+            },
+            {
+              "name": "Culture",
+              "slug": "culture",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 4.3464626,
+            "lat": 51.9987263
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Z"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "This [link](javascript:alert\\(window\\))\r\n[linkrefjs]: javascript:alert(\"gotcha\")\r\n<javascript:alert(window)>\r\n<a href=\"\" onclick=\"alert('uh-oh')\">click me</a>\r\n<script>alert(\"yes this ran\");</script>\r\n<style>body { margin: 5em; }</style>",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "This [link](javascript:alert\\(window\\))\r\n[linkrefjs]: javascript:alert(\"gotcha\")\r\n<javascript:alert(window)>\r\n<a href=\"\" onclick=\"alert('uh-oh')\">click me</a>\r\n<script>alert(\"yes this ran\");</script>\r\n<style>body { margin: 5em; }</style>",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "This [link](javascript:alert\\(window\\))\r\n[linkrefjs]: javascript:alert(\"gotcha\")\r\n<javascript:alert(window)>\r\n<a href=\"\" onclick=\"alert('uh-oh')\">click me</a>\r\n<script>alert(\"yes this ran\");</script>\r\n<style>body { margin: 5em; }</style>",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-06T09:31:15.852Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "Zumba",
+          "slug": "zumba",
+          "phoneNumber": "00000000000",
+          "email": "new@lollipop.com",
+          "website": "www.bbc.co.uk",
+          "twitter": null,
+          "facebook": null,
+          "address": "Stockport, United Kingdom",
+          "description": "\r\n\r\n｣｣testing  ｣｣ . {{VIDEO:kQl5D}}\r\n\r\n\r\n\r\n{{PROFILE:TEST1}}\r\n\r\n\r\n\r\n**testing**\r\n\r\n\r\n- one\r\n- two\r\n- three\r\n\r\n\r\n1. one\r\n2. two\r\n3. three\r\n\r\n\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Proin [dapibus](https://www.google.com) dapibus tellus, vel pretium nisl. Maecenas quis lacus ac magna interdum suscipit. Donec ac orci suscipit, vulputate nisi consectetur, varius ligula. Nulla rutrum leo id elit ornare sagittis. Praesent a quam dictum, commodo lorem vitae, tincidunt orci.Nulla in ante mattis neque rhoncus mollis. Vestibulum pretium, mauris eget ullamcorper efficitur, sapien dui venenatis ipsum, at varius mauris lacus nec odio. Vivamus euismod libero quis orci porta, quis dictum nibh pharetra. Aenean dolor eros, dictum venenatis mi vitae, ullamcorper porttitor magna. Proin faucibus nisl nec magna dignissim vehicula. Pellentesque laoreet neque purus. Suspendisse vitae ullamcorper dolor.Suspendisse sagittis, ex sit amet rhoncus facilisis, ipsum lorem vehicula sem, nec venenatis lacus diam quis quam. Sed sit amet nisl nulla. Fusce eu lorem venenatis, pharetra nulla vel, ornare diam. Etiam consequat massa velit, ut blandit nisl aliquam ut. Mauris feugiat dolor diam, vel suscipit ex lacinia consequat.Ut bibendum accumsan diam, eu elementum dolor varius nec. Maecenas sed dapibus arcu, nec condimentum nunc. Curabitur sollicitudin sollicitudin dictum. Cras in sapien sed erat pharetra ullamcorper ac vitae est. Vivamus laoreet in urna at vestibulum. Proin vel mauris dignissim quam viverra aliquet a sed ex. In hac habitasse platea dictumst.\r\n\r\n\r\n\r\n{{}}\r\n\r\n\r\n\r\njkkjkkj\r\n\r\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            },
+            {
+              "name": "Blue",
+              "slug": "blue"
+            },
+            {
+              "name": "Fushia",
+              "slug": "fushia"
+            },
+            {
+              "name": "Cyan",
+              "slug": "cyan"
+            },
+            {
+              "name": "Purple",
+              "slug": "purple"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.16244259999996,
+            "lat": 53.4057937
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "jon.chiles@stockport.gov.uk",
+                "permission": "A",
+                "name": "Jon Chiles"
+              },
+              {
+                "email": "gary.holland@stockport.gov.uk",
+                "permission": "A",
+                "name": "Gary Holland"
+              },
+              {
+                "email": "neil.redfern@stockport.gov.uk",
+                "permission": "A",
+                "name": "neil redfern"
+              },
+              {
+                "email": "david.meek@stockport.gov.uk",
+                "permission": "A",
+                "name": "david meek"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Zico Harris"
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "A",
+                "name": "Harsha Reddy"
+              },
+              {
+                "email": "test@test.test",
+                "permission": "A",
+                "name": "Test"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [
+            "Paid"
+          ],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we値l be in contact as soon as possible. EDIT\r\n\r\n",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "Section 1.10.32 of \"de Finibus Bonorum et Malorum\", written by Cicero in 45 BC\r\n\r\n\"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. \r\n\r\nNeque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?\r\n\r\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?\"\r\n![xmas](//images.contentful.com/6cfgzlmcakf7/2ShmX3nQzY6mI8gMKqOwS/f7ea754be9aa19803a82ddd734e33705/xmas.jpg)\r\n\r\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/H6iblZtDnnY\" frameborder=\"0\" allowfullscreen></iframe>\r\n<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2378.486137814008!2d-2.160848234177104!3d53.406131479991615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bb37cf4896ad1%3A0x991f0951eb123e0d!2sStockport+SK1+3XE!5e0!3m2!1sen!2suk!4v1512379518561\" width=\"600\" height=\"450\" frameborder=\"0\" style=\"border:0\" allowfullscreen></iframe>\r\n",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-06-28T14:41:53.955Z",
+          "suitableFor": [
+            "Autism",
+            "Deaf or hard of hearing",
+            "Dementia"
+          ],
+          "ageRange": [
+            "6-11 Young children",
+            "12-18 Teenagers",
+            "51-65 Middle aged",
+            "66-80 Retirees",
+            "80+ Elderly"
+          ]
+        },
+        {
+          "name": "Zumba2",
+          "slug": "zumba2",
+          "phoneNumber": "00000000000",
+          "email": "new@lollipop.com",
+          "website": "www.bbc.co.uk",
+          "twitter": "https://www.twitter.com/stockportzumba",
+          "facebook": "https://www.facebook.com/stockportzumba",
+          "address": "Bredbury SK6 2BP",
+          "description": "\r\n\r\n｣33\r\n\r\n\r\n\r\ngjsadhfdslk\r\n\r\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "young people",
+              "slug": "young-people",
+              "icon": "si-house",
+              "imageUrl": ""
+            },
+            {
+              "name": "Music",
+              "slug": "music",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            },
+            {
+              "name": "Blue",
+              "slug": "blue"
+            },
+            {
+              "name": "Fushia",
+              "slug": "fushia"
+            },
+            {
+              "name": "Cyan",
+              "slug": "cyan"
+            },
+            {
+              "name": "Purple",
+              "slug": "purple"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.158046,
+            "lat": 53.405817
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "simon.estill@stockport.gov.uk",
+                "permission": "A",
+                "name": "Simon Estill"
+              },
+              {
+                "email": "oglevie.freelancing@gmail.com",
+                "permission": "A",
+                "name": "Brant"
+              },
+              {
+                "email": "raj.paili@stockport.gov.uk",
+                "permission": "E",
+                "name": "Raj Paili"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Zico Harris"
+              },
+              {
+                "email": "mohammed.ntambiye@stockport.gov.uk",
+                "permission": "A",
+                "name": "mohammed ntambiye"
+              },
+              {
+                "email": "thesun@gmail.com",
+                "permission": "E",
+                "name": "Praise"
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "E",
+                "name": "Harsha Reddy"
+              },
+              {
+                "email": "stephen.lally@stockport.gov.uk",
+                "permission": "A",
+                "name": "Stephen Lally"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we値l be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "{{BUTTON:/start/report-a-street-light-fault, Report a streetlight fault}}\r\n{{VIDEO:P8gSX}}\r\n{{PDF:filename}}\r\n{{CAROUSEL: Image 1, Image 2, Image 3}}\r\n{{CONTACT-US: brownfield-site}}",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-05T12:41:50.663Z",
+          "suitableFor": [],
+          "ageRange": [
+            "0-2 Babies",
+            "3-5 Toddlers"
+          ]
+        },
+        {
+          "name": "Zumba3",
+          "slug": "zumba3",
+          "phoneNumber": "00000000000",
+          "email": "new@lollipop.com",
+          "website": "www.bbc.co.uk",
+          "twitter": "https://www.twitter.com/chickendipper_",
+          "facebook": "https://www.facebook.com/test",
+          "address": "Stockport, United Kingdom",
+          "description": "\n\n｣33\n\n\n1. OverviewMake sure your recycling container is left outbefore 7am on collection day, at the front edge of your property or nominated collection point.We will **provide** an assisted collection service ｣33.00 if there is no one in the household who is able to put recycling or refuse out for collection (for example, because of a mobility problem). Please see our[assisted collection page](https://www.stockport.gov.uk/assisted-collection-request)for more details.If you are a tenant and have just moved into a Stockport Homes property and your property is suitable for wheelie bins, please contact[Stockport Homes](http://www.stockporthomes.org/contact/).Please read our[recycling and refuse collections policy (PDF 326Kb)](https://assets.contentful.com/ii3xdrqc6nfw/4LAFl3eE8EM6aW0QEC0Maa/0ada6c6ec0427b030d2d7542e2fdfe83/Recycling_and_refuse_collections_policy.pdf)for information on how we deal with recycling and refuse collections ｣33.00.\n\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "0utdoors and adventure and an",
+              "slug": "outdoors-and-adventure-and-nothing",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+            },
+            {
+              "name": "UITEST: Group Category",
+              "slug": "uitest-group-category",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+            },
+            {
+              "name": "Education and learning",
+              "slug": "education-and-learning",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            },
+            {
+              "name": "Blue",
+              "slug": "blue"
+            },
+            {
+              "name": "Fushia",
+              "slug": "fushia"
+            },
+            {
+              "name": "Cyan",
+              "slug": "cyan"
+            },
+            {
+              "name": "Purple",
+              "slug": "purple"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "raj.paili@stockport.gov.uk",
+                "permission": "E",
+                "name": "Raj Paili"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Zico Harris"
+              },
+              {
+                "email": "mohammed.ntambiye@stockport.gov.uk",
+                "permission": "A",
+                "name": "mohammed ntambiye"
+              },
+              {
+                "email": "thesun@gmail.com",
+                "permission": "E",
+                "name": "Praise"
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "A",
+                "name": "Harsha Reddy"
+              },
+              {
+                "email": "brant.oglevie@stockport.gov.uk",
+                "permission": "A",
+                "name": "Brant"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we値l be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": "if you would like to find out more about donating to this group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "Additional\nInformation\nIs\nHere",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-10T08:26:08.895Z",
+          "suitableFor": [
+            "Autism",
+            "Deaf or hard of hearing",
+            "Dementia",
+            "Learning disabilities",
+            "Mental health conditions",
+            "Visual impairments"
+          ],
+          "ageRange": [
+            "3-5 Toddlers",
+            "6-11 Young children",
+            "31-50 Adults"
+          ]
+        }
+      ],
+      "categories": [
+        {
+          "name": "",
+          "slug": "untitled-entry-2018-02-21-at-02-31-19",
+          "icon": "",
+          "imageUrl": ""
+        },
+        {
+          "name": "",
+          "slug": "untitled-entry-2018-01-03-at-08-14-29",
+          "icon": "",
+          "imageUrl": ""
+        },
+        {
+          "name": "0utdoors and adventure and an",
+          "slug": "outdoors-and-adventure-and-nothing",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+        },
+        {
+          "name": "Armed forces",
+          "slug": "armed-forces",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+        },
+        {
+          "name": "Arts and crafts",
+          "slug": "arts-and-crafts",
+          "icon": "si-house",
+          "imageUrl": ""
+        },
+        {
+          "name": "Children and family",
+          "slug": "children-and-family",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+        },
+        {
+          "name": "Comma, Test",
+          "slug": "comma-test",
+          "icon": "si-pitch",
+          "imageUrl": ""
+        },
+        {
+          "name": "Culture",
+          "slug": "culture",
+          "icon": "si-book",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+        },
+        {
+          "name": "Dancing",
+          "slug": "dancing",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2zuDiI9PoUk8Mc6S2qOU8E/20fed7926b74ebdd49fb771464e51a9f/iStock_95406809_MEDIUM.jpg"
+        },
+        {
+          "name": "Education and learning",
+          "slug": "education-and-learning",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+        },
+        {
+          "name": "Health and wellbeing",
+          "slug": "health-and-wellbeing",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+        },
+        {
+          "name": "Help and support",
+          "slug": "help-and-support",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+        },
+        {
+          "name": "Music",
+          "slug": "music",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+        },
+        {
+          "name": "Outdoors and adventure",
+          "slug": "outdoors-and-adventure",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+        },
+        {
+          "name": "Religion",
+          "slug": "religion",
+          "icon": "si-file",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/33s1i45B9eeqS8sC26QyAK/a98eeaa7174d40dfb6f129f2b355d984/maxresdefault.jpg"
+        },
+        {
+          "name": "Sports and fitness",
+          "slug": "sports-and-fitness",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/4ZaddM6s5a24UuQOEiGQWq/59253529ca20a43d1a78f5d8d3d1d00f/Sarah_s_Story.jpg"
+        },
+        {
+          "name": "test test",
+          "slug": "test-test",
+          "icon": "fa-icon",
+          "imageUrl": ""
+        },
+        {
+          "name": "Theatre, music and performance",
+          "slug": "theatre-music-and-performance",
+          "icon": "si-drums",
+          "imageUrl": ""
+        },
+        {
+          "name": "this category name is verrrrrrrrrrrrrrrrrrry loooooooooooooooooong",
+          "slug": "very-long",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+        },
+        {
+          "name": "this category name is very loooong",
+          "slug": "very-long1",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+        },
+        {
+          "name": "UITEST: Group Category",
+          "slug": "uitest-group-category",
+          "icon": "si-book",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+        },
+        {
+          "name": "Un-cached Group",
+          "slug": "un-cached-group",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+        },
+        {
+          "name": "young people",
+          "slug": "young-people",
+          "icon": "si-house",
+          "imageUrl": ""
+        }
+      ],
+      "availableSubCategories": [
+        {
+          "name": "Black",
+          "slug": "black"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Fushia",
+          "slug": "fushia"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue"
+        },
+        {
+          "name": "Fushia",
+          "slug": "fushia"
+        },
+        {
+          "name": "Cyan",
+          "slug": "cyan"
+        },
+        {
+          "name": "Purple",
+          "slug": "purple"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue"
+        },
+        {
+          "name": "Yellow",
+          "slug": "yellow"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue"
+        },
+        {
+          "name": "Fushia",
+          "slug": "fushia"
+        },
+        {
+          "name": "Cyan",
+          "slug": "cyan"
+        },
+        {
+          "name": "Purple",
+          "slug": "purple"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue"
+        },
+        {
+          "name": "Fushia",
+          "slug": "fushia"
+        },
+        {
+          "name": "Cyan",
+          "slug": "cyan"
+        },
+        {
+          "name": "Purple",
+          "slug": "purple"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue"
+        },
+        {
+          "name": "Fushia",
+          "slug": "fushia"
+        },
+        {
+          "name": "Cyan",
+          "slug": "cyan"
+        },
+        {
+          "name": "Purple",
+          "slug": "purple"
+        },
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        },
+        {
+          "name": "Blue",
+          "slug": "blue"
+        },
+        {
+          "name": "Fushia",
+          "slug": "fushia"
+        },
+        {
+          "name": "Cyan",
+          "slug": "cyan"
+        },
+        {
+          "name": "Purple",
+          "slug": "purple"
+        }
+      ]
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Mon, 10 Dec 2018 15:38:11 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}
