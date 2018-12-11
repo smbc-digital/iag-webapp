@@ -1,0 +1,31 @@
+{
+  "Guid": "395049c6-8c79-4f29-af63-11c0b0ce6df1",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/atoz/z",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 404,
+    "Body": "No results found",
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Tue, 11 Dec 2018 14:38:15 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}
