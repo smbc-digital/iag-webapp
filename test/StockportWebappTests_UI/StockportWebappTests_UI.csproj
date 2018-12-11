@@ -159,6 +159,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Article.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Events.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Events.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\GroupsHomepage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -187,6 +192,7 @@
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
+    <Compile Include="StepDefinitions\EventsSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
@@ -205,6 +211,10 @@
     <None Include="Features\Article.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Article.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Events.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Events.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

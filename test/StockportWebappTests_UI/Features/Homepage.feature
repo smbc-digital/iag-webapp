@@ -12,6 +12,7 @@ Scenario: User navigates to stockport.gov.uk
 	And I should see the "Do it online" button
 	And I should see the "latest news" section
 	And I should see the "whats on in stockport" section
+	And I should not see the additional categories section
 	And I should see the "stockport local" section
 	And I should see the "Subscribe" button
 	And I should see the footer

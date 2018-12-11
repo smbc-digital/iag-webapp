@@ -7,6 +7,12 @@ namespace StockportWebappTests_UI.StepDefinitions
     [Binding, Scope(Tag = "homepage")]
     public class HomepageSteps : UiTestBase
     {
+        [Then("I should not see the additional categories section")]
+        public void ThenIShouldNotSeeSection()
+        {
+            Assert.False(BrowserSession.FindAllCss(".generic-list-see-more-container:not([style*='display:none'])").Any());
+        }
+
         [Then(@"I should see the ""(.*)"" section")]
         public void ThenIShouldSeeSection(string sectionName)
         {

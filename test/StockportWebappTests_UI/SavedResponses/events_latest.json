@@ -1,0 +1,203 @@
+{
+  "Guid": "aa6fa760-8d8b-4fa7-8f47-bd4b171b240e",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/events/latest/1",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Params": [
+      {
+        "Name": "featured",
+        "Matchers": [
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "true"
+          }
+        ]
+      }
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "events": [
+        {
+          "title": "UITest Event BROKEN",
+          "slug": "uitest-event-BROKEN",
+          "teaser": "Don't change or delete this event",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3YpXWLwYLeAmsWs2Oy0YCI/48c8e5200eaebd4075eb4632b3ba9534/sunset-poppy-backlight-66274.jpeg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3YpXWLwYLeAmsWs2Oy0YCI/48c8e5200eaebd4075eb4632b3ba9534/sunset-poppy-backlight-66274.jpeg?h=250",
+          "description": "__Lorem i__psum dolor sit amet, consectetur adipiscing elit. Mauris aliquam, felis sit amet porta fermentum, ante nibh ornare odio, lobortis luctus dui tellus in odio. Nam neque felis, rhoncus a facilisis nec, pulvinar a dolor. Proin ac dapibus ipsum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer sodales, nisl nec porta tristique, magna sapien tempus ante, ac feugiat lorem lorem venenatis augue. Proin vehicula mattis urna sollicitudin lacinia. Morbi mollis mauris vitae velit rhoncus aliquam. Duis vehicula consectetur placerat. Fusce sit amet consequat mi.\n\nMaecenas vel leo feugiat, congue urna sed, imperdiet lacus. Aenean a neque eget ex faucibus blandit sit amet eu diam. Quisque interdum augue sed gravida facilisis. Suspendisse eget augue suscipit, interdum massa at, tristique sapien. Quisque at velit non nisi rutrum pharetra. Vestibulum semper risus et lobortis aliquet. Nulla egestas vulputate turpis eget condimentum. Praesent posuere arcu non lacus ornare aliquam. In volutpat lorem eget quam congue consequat et sed nulla. Suspendisse ut erat eget orci vestibulum vulputate. Pellentesque suscipit libero ac arcu mattis, eget vehicula lectus tempor. Nunc nec semper erat, nec aliquam ante. Cras a facilisis lacus, facilisis condimentum turpis. Vivamus eleifend neque et dolor malesuada egestas.\n£10.00\n\n{{CAROUSEL:![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)}}\n/////\n\n{{VIDEO:kQl5D}}\n",
+          "fee": "30",
+          "location": "Stopford House, Stockport SK1, UK",
+          "submittedBy": "Harsha",
+          "eventDate": "2018-12-14T00:00:00",
+          "startTime": "10:00",
+          "endTime": "20:00",
+          "occurences": 100,
+          "eventFrequency": "Weekly",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "documents": [],
+          "categories": [
+            "Excercise and Fitness"
+          ],
+          "mapPosition": {
+            "lon": -2.1575189000000137,
+            "lat": 53.4067442
+          },
+          "bookingInformation": "",
+          "featured": false,
+          "updatedAt": "2018-04-26T08:52:25.554Z",
+          "tags": [
+            "uitest"
+          ],
+          "group": {
+            "name": "",
+            "slug": "",
+            "phoneNumber": "",
+            "email": "",
+            "website": "",
+            "twitter": "",
+            "facebook": "",
+            "address": "",
+            "description": "",
+            "imageUrl": "",
+            "thumbnailImageUrl": "",
+            "categoriesReference": [],
+            "subCategories": [],
+            "breadcrumbs": [
+              {
+                "title": "Stockport Local",
+                "slug": "",
+                "type": "groups"
+              }
+            ],
+            "mapPosition": {
+              "lon": 0.0,
+              "lat": 0.0
+            },
+            "volunteering": false,
+            "events": null,
+            "groupAdministrators": {
+              "items": []
+            },
+            "dateHiddenFrom": null,
+            "dateHiddenTo": null,
+            "status": "Published",
+            "cost": [],
+            "costText": null,
+            "abilityLevel": null,
+            "volunteeringText": null,
+            "organisation": {
+              "title": "",
+              "slug": "",
+              "imageUrl": "",
+              "aboutUs": "",
+              "phone": "",
+              "email": "",
+              "volunteering": false,
+              "volunteeringText": null,
+              "donationsText": null,
+              "donationsUrl": null,
+              "groups": [],
+              "donations": false
+            },
+            "linkedGroups": null,
+            "donations": false,
+            "donationsText": null,
+            "donationsUrl": null,
+            "accessibleTransportLink": "/accessibleTransport",
+            "additionalInformation": "",
+            "additionalDocuments": [],
+            "dateLastModified": null,
+            "suitableFor": [],
+            "ageRange": []
+          },
+          "alerts": [
+            {
+              "title": "A6 Closure",
+              "subHeading": "",
+              "body": "The A6 has now reopened.",
+              "severity": "Information",
+              "sunriseDate": "2017-08-03T00:00:00+01:00",
+              "sunsetDate": "2019-08-31T00:00:00+01:00",
+              "slug": "a6-closure"
+            }
+          ],
+          "eventCategories": [
+            {
+              "name": "UI Test",
+              "slug": "ui-test",
+              "icon": "si-fair"
+            }
+          ],
+          "free": true,
+          "paid": true,
+          "coord": {
+            "latitude": 53.4067442,
+            "longitude": -2.1575189000000137,
+            "horizontalAccuracy": "NaN",
+            "verticalAccuracy": "NaN",
+            "speed": "NaN",
+            "course": "NaN",
+            "isUnknown": false,
+            "altitude": "NaN"
+          },
+          "accessibleTransportLink": "/accessibleTransport"
+        }
+      ],
+      "categories": [
+        "Arts and Crafts",
+        "Business Events",
+        "Sports",
+        "Museums",
+        "Charity",
+        "Council",
+        "Christmas",
+        "Dance",
+        "Education",
+        "Chadkirk Chapel",
+        "Community Group",
+        "Public Health",
+        "Fayre",
+        "Talk",
+        "Environment",
+        "Comedy",
+        "Family",
+        "Armed Forces",
+        "Antiques and Collectors",
+        "Excercise and Fitness",
+        "Fair",
+        "Emergency Services",
+        "Bonfire",
+        "Remembrence Service",
+        "new cache category",
+        "Breakfast"
+      ]
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Mon, 10 Dec 2018 13:52:18 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}
