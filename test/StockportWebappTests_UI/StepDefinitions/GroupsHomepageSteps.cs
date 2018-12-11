@@ -41,7 +41,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         }
 
         [Then(@"I should see additional categories")]
-        public void ThenIShouldSeeAdditionalCategories(string sectionName)
+        public void ThenIShouldSeeAdditionalCategories()
         {
             Assert.False(BrowserSession.FindAllCss(".generic-list-see-more-container:not([style*='display:none'])").Any());
         }
