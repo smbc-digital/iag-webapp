@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using Xunit;
 
@@ -11,6 +13,15 @@ namespace StockportWebappTests_UI.StepDefinitions
         public void GivenINavigateTo(string url)
         {
             BrowserSession.Visit(url);
+        }
+
+        [Given("I have signed in as UiTest")]
+        public static void IHaveSignedIn()
+        {
+            BrowserSession.Visit("/this-is-a-invalid-url-to-allow-adding-a-cookie");
+            var webDriver = BrowserSession.Native as IWebDriver;
+
+            webDriver.Manage().Cookies.AddCookie(new Cookie("jwtCookie", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVUkgVGVzdCIsImVtYWlsIjoic2NuLnVpdGVzdEBnbWFpbC5jb20ifQ.-LHnC83W_1jEC9PZALbQBYifzNLYwryUgi0GimD8SWY", "127.0.0.1", "/", DateTime.Now.AddDays(1)));
         }
 
         [Then("I should see the header")]

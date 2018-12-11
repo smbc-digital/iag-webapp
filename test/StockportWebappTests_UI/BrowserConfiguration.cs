@@ -18,7 +18,7 @@ namespace StockportWebappTests_UI
         {
             var sessionConfiguration = new SessionConfiguration
             {
-                AppHost = "http://localhost/",
+                AppHost = "http://127.0.0.1",
                 Browser = Browser.PhantomJS,
                 Port = 5000,
                 Timeout = TimeSpan.FromSeconds(4),
