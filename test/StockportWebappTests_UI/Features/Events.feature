@@ -11,7 +11,7 @@ Scenario: User navigates to stockport.gov.uk/events
 	And I should see the "events header" section
 	And I should see the "whats on form" section
 	And I should see the "event listings" section
-	And I should see the "generic event listings" section
+	And I should not see the generic event listings section
 	And I should see the footer
 
 Scenario: User clicks View more categories drop down button

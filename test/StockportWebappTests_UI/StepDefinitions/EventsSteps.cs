@@ -7,6 +7,12 @@ namespace StockportWebappTests_UI.StepDefinitions
     [Binding, Scope(Tag = "events")]
     class EventsSteps : UiTestBase
     {
+        [Then("I should not see the generic event listings section")]
+        public void ThenIShouldNotSeeSection()
+        {
+            Assert.False(BrowserSession.FindAllCss(".generic-list-see-more-container:not([style*='display:none'])").Any());
+        }
+
         [Then(@"I should see the ""(.*)"" section")]
         public void ThenIShouldSeeSection(string sectionName)
         {
@@ -23,9 +29,7 @@ namespace StockportWebappTests_UI.StepDefinitions
                     result = BrowserSession.FindCss("#event-listing-container").Exists() && BrowserSession.FindAllCss(".primary-topics .featured-topic-list .featured-topic").Any();
                     break;
                 case "generic event listings":
-                    result = BrowserSession.FindCss(".generic-list-see-more-container").Exists()
-                             && BrowserSession.FindAllCss(".primary-topics .featured-topic-list .featured-topic").Any()
-                             && BrowserSession.FindAllCss(".generic-list-see-more-container:not[style*='display:none']").Any();
+                    result = BrowserSession.FindAllCss(".generic-list-see-more-container:not([style*='display:none'])").Any();
                     break;
             }
             Assert.True(result);
