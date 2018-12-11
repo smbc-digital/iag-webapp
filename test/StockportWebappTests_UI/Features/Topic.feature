@@ -1,4 +1,5 @@
-﻿Feature: Topic
+﻿@topic
+Feature: Topic
 	In order to access information about Stockport Council
 	As a resident of Stockport
 	I want to be directed to the correct locations within the website
@@ -24,3 +25,8 @@ Scenario: User should see a link to sign up for email alerts
 Scenario: User should see an events link
 	Given I navigate to "/topic/uitest-hat-works"
 	Then I should see an events banner
+
+Scenario: User should be able dismiss an alert
+	Given I navigate to "/topic/uitest-hat-works"
+	When I click the close alert button
+	Then The alert should no longer be visible

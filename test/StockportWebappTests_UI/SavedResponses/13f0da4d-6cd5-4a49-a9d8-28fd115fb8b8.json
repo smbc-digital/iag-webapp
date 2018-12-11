@@ -20,7 +20,7 @@
   "Response": {
     "StatusCode": 200,
     "BodyAsJson": {
-      "title": "Stockport Locall",
+      "title": "Stockport Local",
       "slug": "test-group-homepage",
       "backgroundImage": "//images.ctfassets.net/6cfgzlmcakf7/MKVLECmZsiGGeeAe8akGq/8d1660558a7b066aaf2aec5a57cae34c/Our_Stockport_Local_hero_image.jpg",
       "featuredGroupsHeading": "Some good groups we've found",

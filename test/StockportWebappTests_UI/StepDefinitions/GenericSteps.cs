@@ -58,5 +58,11 @@ namespace StockportWebappTests_UI.StepDefinitions
         {
             Assert.True(BrowserSession.FindButton(name).Exists());
         }
+
+        [When("I click the close alert button")]
+        public void WhenIClickTheCloseAlertButton()
+        {
+            BrowserSession.FindAllCss(".alert-close a").FirstOrDefault().Click();
+        }
     }
 }
