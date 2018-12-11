@@ -94,6 +94,8 @@ this.ScenarioSetup(scenarioInfo);
 #line 18
  testRunner.And("I should see the \"table\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19
+ testRunner.And("I should see the \"profile\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 20
  testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
