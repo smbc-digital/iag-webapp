@@ -14,6 +14,7 @@ Scenario: User navigates to stockport.gov.uk/groups
 	And I should see the "Find where to volunteer" section
 	And I should see the "View more categories" button
 	And I should see the "Find events and activities in Stockport" section
+	And I should see additional categories
 	And I should see the footer
 
 Scenario: User clicks view more categories

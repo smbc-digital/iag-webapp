@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using TechTalk.SpecFlow;
 using Xunit;
 
@@ -35,7 +36,14 @@ namespace StockportWebappTests_UI.StepDefinitions
                     result = BrowserSession.FindCss(".generic-list-see-more-container").Exists();
                     break;
             }
+
             Assert.True(result);
-        }   
+        }
+
+        [Then(@"I should see additional categories")]
+        public void ThenIShouldSeeAdditionalCategories(string sectionName)
+        {
+            Assert.False(BrowserSession.FindAllCss(".generic-list-see-more-container:not([style*='display:none'])").Any());
+        }
     }
 }

@@ -71,31 +71,11 @@ start-proxy:
 
 
 # ---------------------------------------------------------------------------------------
-# -- ui-test-all
-# -- USAGE: UI_TEST_HOST=http://localhost:5000 Make ui-test-all
-# ---------------------------------------------------------------------------------------
-.PHONY: ui-test-all
-ui-test-all:
-	cd test/StockportWebappTests/UI && make ui-test-all
-
-
-# ---------------------------------------------------------------------------------------
 # -- ui-test
-# -- USAGE: BUSINESS_ID=stockportgov UI_TEST_HOST=http://stockportgov.local:5555 Make ui-test
 # ---------------------------------------------------------------------------------------
 .PHONY: ui-test
 ui-test:
-	cd test/StockportWebappTests/UI && make ui-test
-
-
-# ---------------------------------------------------------------------------------------
-# -- ui-test
-# -- USAGE: BUSINESS_ID=stockportgov UI_TEST_HOST=http://stockportgov.local:5555 Make ui-test-specific testname="Find article for About the Hat Works"
-# ---------------------------------------------------------------------------------------
-.PHONY: ui-test-specific
-ui-test-specific:
-	cd test/StockportWebappTests/UI && make ui-test-specific testname="$(testname)"
-
+	cd test/StockportWebappTests_UI/ && ./runtests.cmd
 
 # ---------------------------------------------------------------------------------------
 # -- js-tests
