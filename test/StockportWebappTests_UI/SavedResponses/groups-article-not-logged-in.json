@@ -1,0 +1,990 @@
+{
+  "Guid": "41b521a1-7cc2-444e-a1d1-74ad5dd27d99",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/groups/zaft",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "name": "ZAFT",
+      "slug": "zaft",
+      "phoneNumber": "00000000000",
+      "email": "zico.harris@stockport.gov.uk",
+      "website": null,
+      "twitter": "https://www.twitter.com/stockportzumba",
+      "facebook": "https://www.facEbook.com/yourpage/groups",
+      "address": "Stockport, UK\n\n<h3>Apply</h3>\n",
+      "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+      "imageUrl": "",
+      "thumbnailImageUrl": "",
+      "categoriesReference": [
+        {
+          "name": "Culture",
+          "slug": "culture",
+          "icon": "si-book",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+        },
+        {
+          "name": "Music",
+          "slug": "music",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+        },
+        {
+          "name": "Armed forces",
+          "slug": "armed-forces",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+        }
+      ],
+      "subCategories": [
+        {
+          "name": "Mucky Brown",
+          "slug": "mucky-brown"
+        }
+      ],
+      "breadcrumbs": [
+        {
+          "title": "Stockport Local",
+          "slug": "",
+          "type": "groups"
+        }
+      ],
+      "mapPosition": {
+        "lon": -2.15753319999999,
+        "lat": 53.4106316
+      },
+      "volunteering": false,
+      "events": [
+        {
+          "title": "Daily Drei",
+          "slug": "Daily3",
+          "teaser": "1",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg?h=250",
+          "description": "this is description...",
+          "fee": "1",
+          "location": "1",
+          "submittedBy": "",
+          "eventDate": "2026-12-03T00:00:00",
+          "startTime": "13:01",
+          "endTime": "14:00",
+          "occurences": 1,
+          "eventFrequency": "Daily",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "documents": [],
+          "categories": [
+            "Emergency Services",
+            "Bonfire"
+          ],
+          "mapPosition": {
+            "lon": -2.1266325000000279,
+            "lat": 53.393310199999988
+          },
+          "bookingInformation": "",
+          "featured": false,
+          "updatedAt": "2018-01-15T10:12:10.366Z",
+          "tags": [],
+          "group": {
+            "name": "ZAFT",
+            "slug": "zaft",
+            "phoneNumber": "00000000000",
+            "email": "zico.harris@stockport.gov.uk",
+            "website": null,
+            "twitter": "https://www.twitter.com/stockportzumba",
+            "facebook": "https://www.facEbook.com/yourpage/groups",
+            "address": "Stockport, UK\n\n<h3>Apply</h3>\n",
+            "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+            "imageUrl": "",
+            "thumbnailImageUrl": "",
+            "categoriesReference": [
+              {
+                "name": "Culture",
+                "slug": "culture",
+                "icon": "si-book",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+              },
+              {
+                "name": "Music",
+                "slug": "music",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+              },
+              {
+                "name": "Armed forces",
+                "slug": "armed-forces",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+              }
+            ],
+            "subCategories": [
+              {
+                "name": "Mucky Brown",
+                "slug": "mucky-brown"
+              }
+            ],
+            "breadcrumbs": [
+              {
+                "title": "Stockport Local",
+                "slug": "",
+                "type": "groups"
+              }
+            ],
+            "mapPosition": {
+              "lon": -2.15753319999999,
+              "lat": 53.4106316
+            },
+            "volunteering": false,
+            "events": null,
+            "groupAdministrators": {
+              "items": [
+                {
+                  "email": "lydia.gray@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Lydia"
+                },
+                {
+                  "email": "intranet@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Intranet"
+                },
+                {
+                  "email": "zico.harris@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Z"
+                }
+              ]
+            },
+            "dateHiddenFrom": "9999-12-31T23:59:59",
+            "dateHiddenTo": "9999-12-31T23:59:59",
+            "status": "Published",
+            "cost": [],
+            "costText": null,
+            "abilityLevel": null,
+            "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+            "organisation": {
+              "title": "",
+              "slug": "",
+              "imageUrl": "",
+              "aboutUs": "",
+              "phone": "",
+              "email": "",
+              "volunteering": false,
+              "volunteeringText": null,
+              "donationsText": null,
+              "donationsUrl": null,
+              "groups": [],
+              "donations": false
+            },
+            "linkedGroups": null,
+            "donations": false,
+            "donationsText": "Use the button below to find out about making a donation to support our group.",
+            "donationsUrl": null,
+            "accessibleTransportLink": "/accessibleTransport",
+            "additionalInformation": "__This is a non-public area__\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+            "additionalDocuments": [],
+            "dateLastModified": "2018-12-04T11:56:21.169Z",
+            "suitableFor": [],
+            "ageRange": []
+          },
+          "alerts": [],
+          "eventCategories": [
+            {
+              "name": "Fayre",
+              "slug": "fayre",
+              "icon": "si-tree"
+            }
+          ],
+          "free": null,
+          "paid": null,
+          "coord": {
+            "latitude": 53.393310199999988,
+            "longitude": -2.1266325000000279,
+            "horizontalAccuracy": "NaN",
+            "verticalAccuracy": "NaN",
+            "speed": "NaN",
+            "course": "NaN",
+            "isUnknown": false,
+            "altitude": "NaN"
+          },
+          "accessibleTransportLink": "/accessibleTransport"
+        },
+        {
+          "title": "Daily Eins",
+          "slug": "Daily",
+          "teaser": "1",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg?h=250",
+          "description": "this is description...",
+          "fee": "1",
+          "location": "1",
+          "submittedBy": "",
+          "eventDate": "2026-12-03T00:00:00",
+          "startTime": "13:01",
+          "endTime": "14:00",
+          "occurences": 1,
+          "eventFrequency": "Daily",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "documents": [],
+          "categories": [
+            "Emergency Services",
+            "Bonfire"
+          ],
+          "mapPosition": {
+            "lon": -2.1266325000000279,
+            "lat": 53.393310199999988
+          },
+          "bookingInformation": "",
+          "featured": false,
+          "updatedAt": "2018-12-12T14:19:47.161Z",
+          "tags": [],
+          "group": {
+            "name": "ZAFT",
+            "slug": "zaft",
+            "phoneNumber": "00000000000",
+            "email": "zico.harris@stockport.gov.uk",
+            "website": null,
+            "twitter": "https://www.twitter.com/stockportzumba",
+            "facebook": "https://www.facEbook.com/yourpage/groups",
+            "address": "Stockport, UK\n\n<h3>Apply</h3>\n",
+            "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+            "imageUrl": "",
+            "thumbnailImageUrl": "",
+            "categoriesReference": [
+              {
+                "name": "Culture",
+                "slug": "culture",
+                "icon": "si-book",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+              },
+              {
+                "name": "Music",
+                "slug": "music",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+              },
+              {
+                "name": "Armed forces",
+                "slug": "armed-forces",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+              }
+            ],
+            "subCategories": [
+              {
+                "name": "Mucky Brown",
+                "slug": "mucky-brown"
+              }
+            ],
+            "breadcrumbs": [
+              {
+                "title": "Stockport Local",
+                "slug": "",
+                "type": "groups"
+              }
+            ],
+            "mapPosition": {
+              "lon": -2.15753319999999,
+              "lat": 53.4106316
+            },
+            "volunteering": false,
+            "events": null,
+            "groupAdministrators": {
+              "items": [
+                {
+                  "email": "lydia.gray@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Lydia"
+                },
+                {
+                  "email": "intranet@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Intranet"
+                },
+                {
+                  "email": "zico.harris@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Z"
+                }
+              ]
+            },
+            "dateHiddenFrom": "9999-12-31T23:59:59",
+            "dateHiddenTo": "9999-12-31T23:59:59",
+            "status": "Published",
+            "cost": [],
+            "costText": null,
+            "abilityLevel": null,
+            "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+            "organisation": {
+              "title": "",
+              "slug": "",
+              "imageUrl": "",
+              "aboutUs": "",
+              "phone": "",
+              "email": "",
+              "volunteering": false,
+              "volunteeringText": null,
+              "donationsText": null,
+              "donationsUrl": null,
+              "groups": [],
+              "donations": false
+            },
+            "linkedGroups": null,
+            "donations": false,
+            "donationsText": "Use the button below to find out about making a donation to support our group.",
+            "donationsUrl": null,
+            "accessibleTransportLink": "/accessibleTransport",
+            "additionalInformation": "__This is a non-public area__\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+            "additionalDocuments": [],
+            "dateLastModified": "2018-12-04T11:56:21.169Z",
+            "suitableFor": [],
+            "ageRange": []
+          },
+          "alerts": [],
+          "eventCategories": [
+            {
+              "name": "Fayre",
+              "slug": "fayre",
+              "icon": "si-tree"
+            },
+            {
+              "name": "Armed Forces",
+              "slug": "armed-forces",
+              "icon": ""
+            }
+          ],
+          "free": null,
+          "paid": null,
+          "coord": {
+            "latitude": 53.393310199999988,
+            "longitude": -2.1266325000000279,
+            "horizontalAccuracy": "NaN",
+            "verticalAccuracy": "NaN",
+            "speed": "NaN",
+            "course": "NaN",
+            "isUnknown": false,
+            "altitude": "NaN"
+          },
+          "accessibleTransportLink": "/accessibleTransport"
+        },
+        {
+          "title": "Daily Vier",
+          "slug": "Daily4",
+          "teaser": "1",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg?h=250",
+          "description": "this is description...",
+          "fee": "1",
+          "location": "1",
+          "submittedBy": "",
+          "eventDate": "2026-12-03T00:00:00",
+          "startTime": "13:01",
+          "endTime": "14:00",
+          "occurences": 1,
+          "eventFrequency": "Daily",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "documents": [],
+          "categories": [
+            "Emergency Services",
+            "Bonfire"
+          ],
+          "mapPosition": {
+            "lon": -2.1266325000000279,
+            "lat": 53.393310199999988
+          },
+          "bookingInformation": "",
+          "featured": false,
+          "updatedAt": "2018-01-15T10:12:37.306Z",
+          "tags": [],
+          "group": {
+            "name": "ZAFT",
+            "slug": "zaft",
+            "phoneNumber": "00000000000",
+            "email": "zico.harris@stockport.gov.uk",
+            "website": null,
+            "twitter": "https://www.twitter.com/stockportzumba",
+            "facebook": "https://www.facEbook.com/yourpage/groups",
+            "address": "Stockport, UK\n\n<h3>Apply</h3>\n",
+            "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+            "imageUrl": "",
+            "thumbnailImageUrl": "",
+            "categoriesReference": [
+              {
+                "name": "Culture",
+                "slug": "culture",
+                "icon": "si-book",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+              },
+              {
+                "name": "Music",
+                "slug": "music",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+              },
+              {
+                "name": "Armed forces",
+                "slug": "armed-forces",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+              }
+            ],
+            "subCategories": [
+              {
+                "name": "Mucky Brown",
+                "slug": "mucky-brown"
+              }
+            ],
+            "breadcrumbs": [
+              {
+                "title": "Stockport Local",
+                "slug": "",
+                "type": "groups"
+              }
+            ],
+            "mapPosition": {
+              "lon": -2.15753319999999,
+              "lat": 53.4106316
+            },
+            "volunteering": false,
+            "events": null,
+            "groupAdministrators": {
+              "items": [
+                {
+                  "email": "lydia.gray@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Lydia"
+                },
+                {
+                  "email": "intranet@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Intranet"
+                },
+                {
+                  "email": "zico.harris@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Z"
+                }
+              ]
+            },
+            "dateHiddenFrom": "9999-12-31T23:59:59",
+            "dateHiddenTo": "9999-12-31T23:59:59",
+            "status": "Published",
+            "cost": [],
+            "costText": null,
+            "abilityLevel": null,
+            "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+            "organisation": {
+              "title": "",
+              "slug": "",
+              "imageUrl": "",
+              "aboutUs": "",
+              "phone": "",
+              "email": "",
+              "volunteering": false,
+              "volunteeringText": null,
+              "donationsText": null,
+              "donationsUrl": null,
+              "groups": [],
+              "donations": false
+            },
+            "linkedGroups": null,
+            "donations": false,
+            "donationsText": "Use the button below to find out about making a donation to support our group.",
+            "donationsUrl": null,
+            "accessibleTransportLink": "/accessibleTransport",
+            "additionalInformation": "__This is a non-public area__\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+            "additionalDocuments": [],
+            "dateLastModified": "2018-12-04T11:56:21.169Z",
+            "suitableFor": [],
+            "ageRange": []
+          },
+          "alerts": [],
+          "eventCategories": [
+            {
+              "name": "Fayre",
+              "slug": "fayre",
+              "icon": "si-tree"
+            }
+          ],
+          "free": null,
+          "paid": null,
+          "coord": {
+            "latitude": 53.393310199999988,
+            "longitude": -2.1266325000000279,
+            "horizontalAccuracy": "NaN",
+            "verticalAccuracy": "NaN",
+            "speed": "NaN",
+            "course": "NaN",
+            "isUnknown": false,
+            "altitude": "NaN"
+          },
+          "accessibleTransportLink": "/accessibleTransport"
+        },
+        {
+          "title": "Daily Zwei",
+          "slug": "Daily2",
+          "teaser": "1",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3Gy2WnRY0Uy6EIKgSsOeQ8/ca81dd8cd98204f479bbbfd12febe8dd/agile.jpg?h=250",
+          "description": "this is description...",
+          "fee": "1",
+          "location": "1",
+          "submittedBy": "",
+          "eventDate": "2026-12-03T00:00:00",
+          "startTime": "13:01",
+          "endTime": "14:00",
+          "occurences": 1,
+          "eventFrequency": "Daily",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "documents": [],
+          "categories": [
+            "Emergency Services",
+            "Bonfire"
+          ],
+          "mapPosition": {
+            "lon": -2.1266325000000279,
+            "lat": 53.393310199999988
+          },
+          "bookingInformation": "",
+          "featured": false,
+          "updatedAt": "2018-01-15T10:11:53.583Z",
+          "tags": [],
+          "group": {
+            "name": "ZAFT",
+            "slug": "zaft",
+            "phoneNumber": "00000000000",
+            "email": "zico.harris@stockport.gov.uk",
+            "website": null,
+            "twitter": "https://www.twitter.com/stockportzumba",
+            "facebook": "https://www.facEbook.com/yourpage/groups",
+            "address": "Stockport, UK\n\n<h3>Apply</h3>\n",
+            "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+            "imageUrl": "",
+            "thumbnailImageUrl": "",
+            "categoriesReference": [
+              {
+                "name": "Culture",
+                "slug": "culture",
+                "icon": "si-book",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+              },
+              {
+                "name": "Music",
+                "slug": "music",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+              },
+              {
+                "name": "Armed forces",
+                "slug": "armed-forces",
+                "icon": "si-house",
+                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+              }
+            ],
+            "subCategories": [
+              {
+                "name": "Mucky Brown",
+                "slug": "mucky-brown"
+              }
+            ],
+            "breadcrumbs": [
+              {
+                "title": "Stockport Local",
+                "slug": "",
+                "type": "groups"
+              }
+            ],
+            "mapPosition": {
+              "lon": -2.15753319999999,
+              "lat": 53.4106316
+            },
+            "volunteering": false,
+            "events": null,
+            "groupAdministrators": {
+              "items": [
+                {
+                  "email": "lydia.gray@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Lydia"
+                },
+                {
+                  "email": "intranet@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Intranet"
+                },
+                {
+                  "email": "zico.harris@stockport.gov.uk",
+                  "permission": "A",
+                  "name": "Z"
+                }
+              ]
+            },
+            "dateHiddenFrom": "9999-12-31T23:59:59",
+            "dateHiddenTo": "9999-12-31T23:59:59",
+            "status": "Published",
+            "cost": [],
+            "costText": null,
+            "abilityLevel": null,
+            "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+            "organisation": {
+              "title": "",
+              "slug": "",
+              "imageUrl": "",
+              "aboutUs": "",
+              "phone": "",
+              "email": "",
+              "volunteering": false,
+              "volunteeringText": null,
+              "donationsText": null,
+              "donationsUrl": null,
+              "groups": [],
+              "donations": false
+            },
+            "linkedGroups": null,
+            "donations": false,
+            "donationsText": "Use the button below to find out about making a donation to support our group.",
+            "donationsUrl": null,
+            "accessibleTransportLink": "/accessibleTransport",
+            "additionalInformation": "__This is a non-public area__\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+            "additionalDocuments": [],
+            "dateLastModified": "2018-12-04T11:56:21.169Z",
+            "suitableFor": [],
+            "ageRange": []
+          },
+          "alerts": [],
+          "eventCategories": [
+            {
+              "name": "Fayre",
+              "slug": "fayre",
+              "icon": "si-tree"
+            }
+          ],
+          "free": null,
+          "paid": null,
+          "coord": {
+            "latitude": 53.393310199999988,
+            "longitude": -2.1266325000000279,
+            "horizontalAccuracy": "NaN",
+            "verticalAccuracy": "NaN",
+            "speed": "NaN",
+            "course": "NaN",
+            "isUnknown": false,
+            "altitude": "NaN"
+          },
+          "accessibleTransportLink": "/accessibleTransport"
+        }
+      ],
+      "groupAdministrators": {
+        "items": [
+          {
+            "email": "lydia.gray@stockport.gov.uk",
+            "permission": "A",
+            "name": "Lydia"
+          },
+          {
+            "email": "intranet@stockport.gov.uk",
+            "permission": "A",
+            "name": "Intranet"
+          },
+          {
+            "email": "zico.harris@stockport.gov.uk",
+            "permission": "A",
+            "name": "Z"
+          }
+        ]
+      },
+      "dateHiddenFrom": "9999-12-31T23:59:59",
+      "dateHiddenTo": "9999-12-31T23:59:59",
+      "status": "Published",
+      "cost": [],
+      "costText": null,
+      "abilityLevel": null,
+      "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we?ll be in contact as soon as possible.",
+      "organisation": {
+        "title": "",
+        "slug": "",
+        "imageUrl": "",
+        "aboutUs": "",
+        "phone": "",
+        "email": "",
+        "volunteering": false,
+        "volunteeringText": null,
+        "donationsText": null,
+        "donationsUrl": null,
+        "groups": [],
+        "donations": false
+      },
+      "linkedGroups": [
+        {
+          "name": "TEST TITLE HELLO",
+          "slug": "march-test-group",
+          "phoneNumber": "00000000000",
+          "email": "zico.harris@stockport.gov.uk",
+          "website": null,
+          "twitter": "https://www.twitter.com/stockportzumba",
+          "facebook": null,
+          "address": "Stockport, UK",
+          "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Culture",
+              "slug": "culture",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Music",
+              "slug": "music",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.15753319999999,
+            "lat": 53.4106316
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "josh.adesoba@stockport.gov.uk",
+                "permission": "A",
+                "name": "Josh"
+              },
+              {
+                "email": "priya.ganger@stockport.gov.uk",
+                "permission": "A",
+                "name": "Priya"
+              },
+              {
+                "email": "ui@testestestest.com",
+                "permission": "A",
+                "name": "UI Test"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Z"
+              },
+              {
+                "email": "craig.callaghan@stockport.gov.uk",
+                "permission": "A",
+                "name": "Craig"
+              },
+              {
+                "email": "gary.holland@exponential-e.com",
+                "permission": "A",
+                "name": "Traitor"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "1111111111111111111111111111110",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "Use the button below to find out about making a donation to support our group. HI",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "This link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-06-14T09:47:41.069Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "ZAFT1",
+          "slug": "zaft1",
+          "phoneNumber": "00000000000",
+          "email": "zico.harris@stockport.gov.uk",
+          "website": null,
+          "twitter": null,
+          "facebook": null,
+          "address": "Juniusstraat, Delft, Netherlands",
+          "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Arts and crafts",
+              "slug": "arts-and-crafts",
+              "icon": "si-house",
+              "imageUrl": ""
+            },
+            {
+              "name": "Children and family",
+              "slug": "children-and-family",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+            },
+            {
+              "name": "Culture",
+              "slug": "culture",
+              "icon": "si-book",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Mucky Brown",
+              "slug": "mucky-brown"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 4.3464626,
+            "lat": 51.9987263
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Z"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "This [link](javascript:alert\\(window\\))\r\n[linkrefjs]: javascript:alert(\"gotcha\")\r\n<javascript:alert(window)>\r\n<a href=\"\" onclick=\"alert('uh-oh')\">click me</a>\r\n<script>alert(\"yes this ran\");</script>\r\n<style>body { margin: 5em; }</style>",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": true,
+          "donationsText": "This [link](javascript:alert\\(window\\))\r\n[linkrefjs]: javascript:alert(\"gotcha\")\r\n<javascript:alert(window)>\r\n<a href=\"\" onclick=\"alert('uh-oh')\">click me</a>\r\n<script>alert(\"yes this ran\");</script>\r\n<style>body { margin: 5em; }</style>",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "This [link](javascript:alert\\(window\\))\r\n[linkrefjs]: javascript:alert(\"gotcha\")\r\n<javascript:alert(window)>\r\n<a href=\"\" onclick=\"alert('uh-oh')\">click me</a>\r\n<script>alert(\"yes this ran\");</script>\r\n<style>body { margin: 5em; }</style>",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-06T09:31:15.852Z",
+          "suitableFor": [],
+          "ageRange": []
+        }
+      ],
+      "donations": false,
+      "donationsText": "Use the button below to find out about making a donation to support our group.",
+      "donationsUrl": null,
+      "accessibleTransportLink": "/accessibleTransport",
+      "additionalInformation": "__This is a non-public area__\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+      "additionalDocuments": [],
+      "dateLastModified": "2018-12-04T11:56:21.169Z",
+      "suitableFor": [],
+      "ageRange": []
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Wed, 12 Dec 2018 15:37:30 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

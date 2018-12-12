@@ -164,6 +164,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Events.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\GroupsArticleNotLoggedIn.feature.cs">
+      <DependentUpon>GroupsArticleNotLoggedIn.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Features\GroupsHomepage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,6 +204,9 @@
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
     <Compile Include="StepDefinitions\EventsSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
+    <Compile Include="StepDefinitions\GroupsArticleNotLoggedInSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
@@ -221,6 +229,10 @@
     <None Include="Features\Events.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Events.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsArticleNotLoggedIn.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsArticleNotLoggedIn.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -257,9 +269,10 @@
     <None Include="SavedResponses\6c1b1913-1af4-4404-85bc-c8ae182ad6b4.json" />
     <None Include="SavedResponses\95f7f068-3418-4c24-bccc-124db46fb6c5.json" />
     <None Include="SavedResponses\9dfde43b-5c0d-4c24-b6bc-47aac538f694.json" />
+    <None Include="SavedResponses\groups-article-not-logged-in.json" />
     <None Include="SavedResponses\groups_search.json" />
     <None Include="SavedResponses\news.json" />
-    <None Include="SavedResponses\news_latest.json" />    
+    <None Include="SavedResponses\news_latest.json" />
     <None Include="SavedResponses\groups_manage_overview.json" />
     <None Include="SavedResponses\groups_manage_uitest.json" />
     <None Include="SpecRunTestProfile.xsd">

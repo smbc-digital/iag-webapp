@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
 using Xunit;
@@ -13,6 +14,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         public void GivenINavigateTo(string url)
         {
             BrowserSession.Visit(url);
+            Thread.Sleep(500);
         }
 
         [Given("I have signed in as UiTest")]

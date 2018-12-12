@@ -59,7 +59,7 @@
             }
         </section>
     }
-    <section>
+    <section id="about-us">
         <hr class="hide-on-desktop">
         <h2>About us</h2>
         <ul class="group-information">
@@ -112,7 +112,7 @@
     </section>
     
 
-    <section>
+    <section id="what-we-do">
         <h2 class="group-details-heading">What we do</h2>
         @Html.Raw(Model.Group.Description.StripEmojis())
 
@@ -122,7 +122,7 @@
         <partial name="Groups/DonationsBar" model='Model.Group.Donations'/>
         <hr />
     </section>
-    <section>
+    <section id="contact-us">
         <h2>Contact us</h2>
         <ul class="group-information">
             @if (!string.IsNullOrEmpty(Model.Group.Website))
@@ -213,7 +213,7 @@
         <div class="hide-on-mobile">
             <partial name="Events/ManageFavouritesCard" model='Model.Group'/>
         </div>
-        <div class="add-remove-favourite sidebar-links">
+        <div class="add-remove-favourite sidebar-links" id="report-page">
             <i class="fa fa-flag-o fa-lg" aria-hidden="true"></i>
             <a href="/groups/@Model.Group.Slug/report-group-info?groupname=@Model.Group.Name">Report this page as inappropriate</a>
         </div>
