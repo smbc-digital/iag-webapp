@@ -31,6 +31,9 @@ namespace StockportWebappTests_UI.StepDefinitions
                 case "generic event listings":
                     result = BrowserSession.FindAllCss(".generic-list-see-more-container:not([style*='display:none'])").Any();
                     break;
+                case "upcoming events":
+                    result = BrowserSession.FindAllCss(".home-page-row").Any() && BrowserSession.FindAllCss(".event-container-row").Any();
+                    break;
             }
             Assert.True(result);
         }
