@@ -139,10 +139,10 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User should be able dismiss an alert", SourceLine=28)]
-        public virtual void UserShouldBeAbleDismissAnAlert()
+        [TechTalk.SpecRun.ScenarioAttribute("User should be able to dismiss an alert", SourceLine=28)]
+        public virtual void UserShouldBeAbleToDismissAnAlert()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should be able dismiss an alert", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User should be able to dismiss an alert", ((string[])(null)));
 #line 29
 this.ScenarioSetup(scenarioInfo);
 #line 30
