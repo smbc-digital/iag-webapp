@@ -180,6 +180,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\GroupsFavourites.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GroupsFavourites.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\GroupsHomepage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -221,6 +226,7 @@
     </Compile>
     <Compile Include="StepDefinitions\GroupsArticleLoggedInSteps.cs" />
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
+    <Compile Include="StepDefinitions\GroupsFavouritesSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
     <Compile Include="StepDefinitions\HomepageSteps.cs" />
@@ -258,6 +264,10 @@
     <None Include="Features\GroupsArticleLoggedIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsFavourites.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsFavourites.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

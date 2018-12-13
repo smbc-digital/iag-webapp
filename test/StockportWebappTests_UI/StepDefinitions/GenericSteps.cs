@@ -11,6 +11,7 @@ namespace StockportWebappTests_UI.StepDefinitions
     public class GenericSteps: UiTestBase
     {
         [Given(@"I navigate to ""(.*)""")]
+        [When(@"I navigate to ""(.*)""")]
         public void GivenINavigateTo(string url)
         {
             BrowserSession.Visit(url);
