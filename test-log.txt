@@ -1,0 +1,452 @@
+cd test/StockportWebappTests_UI/ && ./runtests.cmd
+
+C:\code\iag-webapp\test\StockportWebappTests_UI>C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe "StockportWebappTests_UI.csproj" 
+Microsoft (R) Build Engine version 4.6.1590.0
+[Microsoft .NET Framework, version 4.0.30319.42000]
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Build started 12/12/2018 14:19:22.
+Project "C:\code\iag-webapp\test\StockportWebappTests_UI\StockportWebappTests_UI.csproj" on node 1 (default targets).
+Project file contains ToolsVersion="15.0". This toolset may be unknown or missing, in which case you may be able to resolve this by installing the appropriate version of MSBuild, or the build may have been forced to a particular ToolsVersion for policy reasons. Treating the project as if it had ToolsVersion="4.0". For more information, please see http://go.microsoft.com/fwlink/?LinkId=291333.
+GenerateTargetFrameworkMonikerAttribute:
+Skipping target "GenerateTargetFrameworkMonikerAttribute" because all output files are up-to-date with respect to the input files.
+CoreCompile:
+Skipping target "CoreCompile" because all output files are up-to-date with respect to the input files.
+_CopyOutOfDateSourceItemsToOutputDirectory:
+Skipping target "_CopyOutOfDateSourceItemsToOutputDirectory" because all output files are up-to-date with respect to the input files.
+_CopyAppConfigFile:
+Skipping target "_CopyAppConfigFile" because all output files are up-to-date with respect to the input files.
+CopyFilesToOutputDirectory:
+  StockportWebappTests_UI -> C:\code\iag-webapp\test\StockportWebappTests_UI\bin\Debug\StockportWebappTests_UI.dll
+Done Building Project "C:\code\iag-webapp\test\StockportWebappTests_UI\StockportWebappTests_UI.csproj" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:00.21
+
+C:\code\iag-webapp\packages\SpecRun.Runner.1.6.1\tools>SpecRun.exe run Default.srprofile "/baseFolder:C:\code\iag-webapp\test\StockportWebappTests_UI\\bin\Debug" /log:specrun.log /toolIntegration:TeamCity 
+SpecRun v1.6.1. Copyright (c) TechTalk 2011 - 2017
+http://www.specflow.org/plus
+
+*** Evaluation mode ***
+
+This version can be used for evaluation purposes only. 
+For obtaining a registered license please visit http://www.specflow.org/plus
+
+Evaluation mode: test execution starts in 13 seconds...
+(this delay is removed in the registered version)
+##teamcity[testSuiteStarted name='StockportWebappTests_UI/Default']
+##teamcity[testStarted name='User navigates to stockport.gov.uk/uitest-testarticle (in Article)']
+[INFO  - 2018-12-12T14:19:38.346Z] GhostDriver - Main - running on port 49874
+[INFO  - 2018-12-12T14:19:38.790Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.settings - {"XSSAuditingEnabled":false,"javascriptCanCloseWindows":true,"javascriptCanOpenWindows":true,"javascriptEnabled":true,"loadImages":true,"localToRemoteUrlAccessEnabled":false,"userAgent":"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1","webSecurityEnabled":true}
+[INFO  - 2018-12-12T14:19:38.790Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.customHeaders:  - {}
+[INFO  - 2018-12-12T14:19:38.790Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - Session.negotiatedCapabilities - {"browserName":"phantomjs","version":"2.1.1","driverName":"ghostdriver","driverVersion":"1.2.0","platform":"windows-10-32bit","javascriptEnabled":true,"takesScreenshot":true,"handlesAlerts":false,"databaseEnabled":false,"locationContextEnabled":false,"applicationCacheEnabled":false,"browserConnectionEnabled":false,"cssSelectorsEnabled":true,"webStorageEnabled":false,"rotatable":false,"acceptSslCerts":false,"nativeEvents":true,"proxy":{"proxyType":"direct"}}
+[INFO  - 2018-12-12T14:19:38.790Z] SessionManagerReqHand - _postNewSessionCommand - New Session Created: f5980110-fe18-11e8-846b-a360f5db695a
+[ERROR - 2018-12-12T14:19:41.705Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:41.705Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:41.742Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: TypeError: undefined is not an object (evaluating 'Akita.log')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:41.743Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  (anonymous function) (http://js.buto.tv/video/%7B%22object_id%22:%22G3HqZ%22%7D:859)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:41.806Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: TypeError: undefined is not an object (evaluating 'Akita.log')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:41.806Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  (anonymous function) (http://js.buto.tv/video/%7B%22object_id%22:%22kQl5D%22%7D:859)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User navigates to stockport.gov.uk/uitest-testarticle (in Article)'  duration='7078']
+##teamcity[testStarted name='User navigates to B section of A To Z (in AToZ)']
+[ERROR - 2018-12-12T14:19:43.345Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:43.346Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User navigates to B section of A To Z (in AToZ)'  duration='814']
+##teamcity[testStarted name='User navigates to Z section of A To Z, which has no articles (in AToZ)']
+[ERROR - 2018-12-12T14:19:44.112Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:44.113Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User navigates to Z section of A To Z, which has no articles (in AToZ)'  duration='771']
+##teamcity[testStarted name='User navigates to stockport.gov.uk/events (in Events)']
+[ERROR - 2018-12-12T14:19:44.914Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:44.914Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User navigates to stockport.gov.uk/events (in Events)'  duration='1364']
+##teamcity[testStarted name='User clicks View more categories drop down button (in Events)']
+[ERROR - 2018-12-12T14:19:46.346Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:46.346Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User clicks View more categories drop down button (in Events)'  duration='815']
+##teamcity[testStarted name='User navigates to stockport.gov.uk/groups (in GroupsHomepage)']
+[ERROR - 2018-12-12T14:19:47.073Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:47.073Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:48.133Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: TypeError: undefined is not an object (evaluating 'Akita.log')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:48.133Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  (anonymous function) (http://js.buto.tv/video/%7B%22object_id%22:%22FtpRl%22%7D:859)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User navigates to stockport.gov.uk/groups (in GroupsHomepage)'  duration='2324']
+##teamcity[testStarted name='User clicks view more categories (in GroupsHomepage)']
+[ERROR - 2018-12-12T14:19:50.003Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: TypeError: undefined is not an object (evaluating 'Akita.log')
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:50.003Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  (anonymous function) (http://js.buto.tv/video/%7B%22object_id%22:%22FtpRl%22%7D:859)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User clicks view more categories (in GroupsHomepage)'  duration='999']
+##teamcity[testStarted name='User navigates to stockport.gov.uk/groups/results (in GroupsSearch)']
+##teamcity[testFinished name='User navigates to stockport.gov.uk/groups/results (in GroupsSearch)'  duration='1462']
+##teamcity[testStarted name='User clicks edit search (in GroupsSearch)']
+##teamcity[testFinished name='User clicks edit search (in GroupsSearch)'  duration='789']
+##teamcity[testStarted name='User clicks enter a location (in GroupsSearch)']
+##teamcity[testFinished name='User clicks enter a location (in GroupsSearch)'  duration='899']
+##teamcity[testStarted name='User clicks nearest (in GroupsSearch)']
+[ERROR - 2018-12-12T14:19:53.520Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:53.520Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User clicks nearest (in GroupsSearch)'  duration='1236']
+##teamcity[testStarted name='User clicks filter (in GroupsSearch)']
+##teamcity[testFinished name='User clicks filter (in GroupsSearch)'  duration='1403']
+##teamcity[testStarted name='User navigates to groups management portal (in GroupManagement)']
+[ERROR - 2018-12-12T14:19:56.242Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:19:56.242Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFailed name='User navigates to groups management portal (in GroupManagement)' message='Assert.True() Failure|r|nExpected: True|r|nActual:   False' details='Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|nXunit.Sdk.TrueException: Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|n   at Xunit.Assert.True(Nullable`1 condition, String userMessage)|r|n   at StockportWebappTests_UI.StepDefinitions.GroupManagementSteps.ThenIShouldSeeTheUiTestGroup() in C:\code\iag-webapp\test\StockportWebappTests_UI\StepDefinitions\GroupManagementSteps.cs:line 14|r|n   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object|[|] arguments, ITestTracer testTracer, TimeSpan& duration)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object|[|] arguments)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.ScenarioCleanup()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.UserNavigatesToGroupsManagementPortal() in C:\code\iag-webapp\test\StockportWebappTests_UI\Features\GroupManagement.feature:line 13|r|n   at TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)|r|n   at TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)|r|n------- Trace -------|r|nGiven I have signed in as UiTest|r|n-> done: GenericSteps.IHaveSignedIn() (0.4s)|r|n|r|nAnd I navigate to "/groups/manage"|r|n-> done: GenericSteps.GivenINavigateTo("/groups/manage") (1.6s)|r|n|r|nThen I should see the UITest group|r|n-> error: Assert.True() Failure|r|n-> Expected: True|r|n-> Actual:   False|r|n|r|nAnd I should see the "/groups/add-a-group" link|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the header|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the footer|r|n-> skipped because of previous errors|r|n']
+##teamcity[testFinished name='User navigates to groups management portal (in GroupManagement)'  duration='6232']
+##teamcity[testStarted name='User navigates to groups management portal retry #1 (in GroupManagement)']
+[ERROR - 2018-12-12T14:20:02.288Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:20:02.288Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFailed name='User navigates to groups management portal retry #1 (in GroupManagement)' message='Assert.True() Failure|r|nExpected: True|r|nActual:   False' details='Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|nXunit.Sdk.TrueException: Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|n   at Xunit.Assert.True(Nullable`1 condition, String userMessage)|r|n   at StockportWebappTests_UI.StepDefinitions.GroupManagementSteps.ThenIShouldSeeTheUiTestGroup() in C:\code\iag-webapp\test\StockportWebappTests_UI\StepDefinitions\GroupManagementSteps.cs:line 14|r|n   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object|[|] arguments, ITestTracer testTracer, TimeSpan& duration)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object|[|] arguments)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.ScenarioCleanup()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.UserNavigatesToGroupsManagementPortal() in C:\code\iag-webapp\test\StockportWebappTests_UI\Features\GroupManagement.feature:line 13|r|n   at TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)|r|n   at TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)|r|n------- Trace -------|r|nGiven I have signed in as UiTest|r|n-> done: GenericSteps.IHaveSignedIn() (0.0s)|r|n|r|nAnd I navigate to "/groups/manage"|r|n-> done: GenericSteps.GivenINavigateTo("/groups/manage") (60.0s)|r|n|r|nThen I should see the UITest group|r|n-> error: Assert.True() Failure|r|n-> Expected: True|r|n-> Actual:   False|r|n|r|nAnd I should see the "/groups/add-a-group" link|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the header|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the footer|r|n-> skipped because of previous errors|r|n']
+##teamcity[testFinished name='User navigates to groups management portal retry #1 (in GroupManagement)'  duration='64186']
+##teamcity[testStarted name='User navigates to groups management portal retry #2 (in GroupManagement)']
+[ERROR - 2018-12-12T14:21:21.237Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:21:21.238Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFailed name='User navigates to groups management portal retry #2 (in GroupManagement)' message='Assert.True() Failure|r|nExpected: True|r|nActual:   False' details='Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|nXunit.Sdk.TrueException: Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|n   at Xunit.Assert.True(Nullable`1 condition, String userMessage)|r|n   at StockportWebappTests_UI.StepDefinitions.GroupManagementSteps.ThenIShouldSeeTheUiTestGroup() in C:\code\iag-webapp\test\StockportWebappTests_UI\StepDefinitions\GroupManagementSteps.cs:line 14|r|n   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object|[|] arguments, ITestTracer testTracer, TimeSpan& duration)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object|[|] arguments)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.ScenarioCleanup()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.UserNavigatesToGroupsManagementPortal() in C:\code\iag-webapp\test\StockportWebappTests_UI\Features\GroupManagement.feature:line 13|r|n   at TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)|r|n   at TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)|r|n------- Trace -------|r|nGiven I have signed in as UiTest|r|n-> done: GenericSteps.IHaveSignedIn() (14.9s)|r|n|r|nAnd I navigate to "/groups/manage"|r|n-> done: GenericSteps.GivenINavigateTo("/groups/manage") (0.7s)|r|n|r|nThen I should see the UITest group|r|n-> error: Assert.True() Failure|r|n-> Expected: True|r|n-> Actual:   False|r|n|r|nAnd I should see the "/groups/add-a-group" link|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the header|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the footer|r|n-> skipped because of previous errors|r|n']
+##teamcity[testFinished name='User navigates to groups management portal retry #2 (in GroupManagement)'  duration='19890']
+##teamcity[testStarted name='User navigates to manage uitest group (in GroupManagement)']
+[ERROR - 2018-12-12T14:21:26.382Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:21:26.382Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFailed name='User navigates to manage uitest group (in GroupManagement)' message='Assert.True() Failure|r|nExpected: True|r|nActual:   False' details='Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|nXunit.Sdk.TrueException: Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|n   at Xunit.Assert.True(Nullable`1 condition, String userMessage)|r|n   at StockportWebappTests_UI.StepDefinitions.GroupManagementSteps.ThenIShouldSeeSection(String rowName) in C:\code\iag-webapp\test\StockportWebappTests_UI\StepDefinitions\GroupManagementSteps.cs:line 53|r|n   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object|[|] arguments, ITestTracer testTracer, TimeSpan& duration)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object|[|] arguments)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.ScenarioCleanup()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.UserNavigatesToManageUitestGroup() in C:\code\iag-webapp\test\StockportWebappTests_UI\Features\GroupManagement.feature:line 25|r|n   at TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)|r|n   at TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)|r|n------- Trace -------|r|nGiven I have signed in as UiTest|r|n-> done: GenericSteps.IHaveSignedIn() (0.1s)|r|n|r|nAnd I navigate to "/groups/manage/uitest-a-group-for-ui-testing"|r|n-> done: GenericSteps.GivenINavigateTo("/groups/manage/ui...") (60.0s)|r|n|r|nThen I should see the "View your group page" table row|r|n-> error: Assert.True() Failure|r|n-> Expected: True|r|n-> Actual:   False|r|n|r|nAnd I should see the "Change your group information" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Manage your upcoming events" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Add or remove users" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Delete your group" button|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Archive your group" button|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the header|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the footer|r|n-> skipped because of previous errors|r|n']
+##teamcity[testFinished name='User navigates to manage uitest group (in GroupManagement)'  duration='63786']
+##teamcity[testStarted name='User navigates to manage uitest group retry #1 (in GroupManagement)']
+[ERROR - 2018-12-12T14:22:56.509Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:22:56.509Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFailed name='User navigates to manage uitest group retry #1 (in GroupManagement)' message='Assert.True() Failure|r|nExpected: True|r|nActual:   False' details='Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|nXunit.Sdk.TrueException: Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|n   at Xunit.Assert.True(Nullable`1 condition, String userMessage)|r|n   at StockportWebappTests_UI.StepDefinitions.GroupManagementSteps.ThenIShouldSeeSection(String rowName) in C:\code\iag-webapp\test\StockportWebappTests_UI\StepDefinitions\GroupManagementSteps.cs:line 53|r|n   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object|[|] arguments, ITestTracer testTracer, TimeSpan& duration)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object|[|] arguments)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.ScenarioCleanup()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.UserNavigatesToManageUitestGroup() in C:\code\iag-webapp\test\StockportWebappTests_UI\Features\GroupManagement.feature:line 25|r|n   at TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)|r|n   at TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)|r|n------- Trace -------|r|nGiven I have signed in as UiTest|r|n-> done: GenericSteps.IHaveSignedIn() (26.5s)|r|n|r|nAnd I navigate to "/groups/manage/uitest-a-group-for-ui-testing"|r|n-> done: GenericSteps.GivenINavigateTo("/groups/manage/ui...") (0.8s)|r|n|r|nThen I should see the "View your group page" table row|r|n-> error: Assert.True() Failure|r|n-> Expected: True|r|n-> Actual:   False|r|n|r|nAnd I should see the "Change your group information" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Manage your upcoming events" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Add or remove users" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Delete your group" button|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Archive your group" button|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the header|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the footer|r|n-> skipped because of previous errors|r|n']
+##teamcity[testFinished name='User navigates to manage uitest group retry #1 (in GroupManagement)'  duration='31557']
+##teamcity[testStarted name='User navigates to manage uitest group retry #2 (in GroupManagement)']
+[ERROR - 2018-12-12T14:23:01.712Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:23:01.713Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFailed name='User navigates to manage uitest group retry #2 (in GroupManagement)' message='Assert.True() Failure|r|nExpected: True|r|nActual:   False' details='Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|nXunit.Sdk.TrueException: Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|n   at Xunit.Assert.True(Nullable`1 condition, String userMessage)|r|n   at StockportWebappTests_UI.StepDefinitions.GroupManagementSteps.ThenIShouldSeeSection(String rowName) in C:\code\iag-webapp\test\StockportWebappTests_UI\StepDefinitions\GroupManagementSteps.cs:line 53|r|n   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object|[|] arguments, ITestTracer testTracer, TimeSpan& duration)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object|[|] arguments)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.ScenarioCleanup()|r|n   at StockportWebappTests_UI.Features.GroupManagementFeature.UserNavigatesToManageUitestGroup() in C:\code\iag-webapp\test\StockportWebappTests_UI\Features\GroupManagement.feature:line 25|r|n   at TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)|r|n   at TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)|r|n------- Trace -------|r|nGiven I have signed in as UiTest|r|n-> done: GenericSteps.IHaveSignedIn() (0.0s)|r|n|r|nAnd I navigate to "/groups/manage/uitest-a-group-for-ui-testing"|r|n-> done: GenericSteps.GivenINavigateTo("/groups/manage/ui...") (0.5s)|r|n|r|nThen I should see the "View your group page" table row|r|n-> error: Assert.True() Failure|r|n-> Expected: True|r|n-> Actual:   False|r|n|r|nAnd I should see the "Change your group information" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Manage your upcoming events" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Add or remove users" table row|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Delete your group" button|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Archive your group" button|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the header|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the footer|r|n-> skipped because of previous errors|r|n']
+##teamcity[testFinished name='User navigates to manage uitest group retry #2 (in GroupManagement)'  duration='4748']
+##teamcity[testStarted name='User navigates to stockport.gov.uk (in Homepage)']
+[ERROR - 2018-12-12T14:23:07.937Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:23:07.937Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User navigates to stockport.gov.uk (in Homepage)'  duration='3256']
+##teamcity[testStarted name='User clicks view more services (in Homepage)']
+[ERROR - 2018-12-12T14:23:09.751Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - msg: ReferenceError: Can't find variable: WeakMap
+
+  phantomjs://platform/console++.js:263 in error
+[ERROR - 2018-12-12T14:23:09.751Z] Session [f5980110-fe18-11e8-846b-a360f5db695a] - page.onError - stack:
+  default (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  n (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+  (anonymous function) (https://s3-eu-west-1.amazonaws.com/share.typeform.com/share.js:1)
+
+  phantomjs://platform/console++.js:263 in error
+##teamcity[testFinished name='User clicks view more services (in Homepage)'  duration='549']
+##teamcity[testStarted name='User navigates to stockport.gov.uk/news (in News)']
+[ERROR - 2018-12-12T14:23:31.534Z] RouterReqHand - _handle.error - {"name":"Invalid Command Method","message":"{\"headers\":{\"Accept\":\"application/json, image/png\",\"Connection\":\"Close\",\"Host\":\"localhost:49874\"},\"httpVersion\":\"1.1\",\"method\":\"GET\",\"url\":\"/alert_text\",\"urlParsed\":{\"anchor\":\"\",\"query\":\"\",\"file\":\"alert_text\",\"directory\":\"/\",\"path\":\"/alert_text\",\"relative\":\"/alert_text\",\"port\":\"\",\"host\":\"\",\"password\":\"\",\"user\":\"\",\"userInfo\":\"\",\"authority\":\"\",\"protocol\":\"\",\"source\":\"/alert_text\",\"queryKey\":{},\"chunks\":[\"alert_text\"]},\"urlOriginal\":\"/session/f5980110-fe18-11e8-846b-a360f5db695a/alert_text\"}","line":202,"sourceURL":"phantomjs://code/session_request_handler.js","stack":"_handle@phantomjs://code/session_request_handler.js:202:66\n_reroute@phantomjs://code/request_handler.js:61:20\n_handle@phantomjs://code/router_request_handler.js:78:46"}
+
+  phantomjs://platform/console++.js:263 in error
+[INFO  - 2018-12-12T14:23:31.550Z] ShutdownReqHand - _handle - About to shutdown
+##teamcity[testFailed name='User navigates to stockport.gov.uk/news (in News)' message='Assert.True() Failure|r|nExpected: True|r|nActual:   False' details='Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|nXunit.Sdk.TrueException: Assert.True() Failure|r|nExpected: True|r|nActual:   False|r|n   at Xunit.Assert.True(Nullable`1 condition, String userMessage)|r|n   at StockportWebappTests_UI.StepDefinitions.GenericSteps.ThenIShouldSeeBreadcrumbs() in C:\code\iag-webapp\test\StockportWebappTests_UI\StepDefinitions\GenericSteps.cs:line 38|r|n   at TechTalk.SpecFlow.Bindings.BindingInvoker.InvokeBinding(IBinding binding, IContextManager contextManager, Object|[|] arguments, ITestTracer testTracer, TimeSpan& duration)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object|[|] arguments)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(IContextManager contextManager, StepInstance stepInstance)|r|n   at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()|r|n   at StockportWebappTests_UI.Features.NewsFeature.ScenarioCleanup()|r|n   at StockportWebappTests_UI.Features.NewsFeature.UserNavigatesToStockport_Gov_UkNews() in C:\code\iag-webapp\test\StockportWebappTests_UI\Features\News.feature:line 20|r|n   at TechTalk.SpecRun.Framework.TaskExecutors.StaticOrInstanceMethodExecutor.ExecuteInternal(ITestThreadExecutionContext testThreadExecutionContext)|r|n   at TechTalk.SpecRun.Framework.TestAssemblyExecutor.ExecuteTestNodeTask(TestNode testNode, ITaskExecutor task, TraceEventType eventType)|r|n------- Trace -------|r|nGiven I navigate to "/news"|r|n-> done: GenericSteps.GivenINavigateTo("/news") (17.0s)|r|n|r|nThen I should see the header|r|n-> done: GenericSteps.ThenIShouldSeeTheHeaderSection() (0.2s)|r|n|r|nAnd I should see the breadcrumbs|r|n-> error: Assert.True() Failure|r|n-> Expected: True|r|n-> Actual:   False|r|n|r|nAnd I should see the "news header" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "alert infomation" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "alert warning" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "alert error" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "refine by category" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "refine by news archive" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "Email alerts" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the "news articles" section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the pagination section|r|n-> skipped because of previous errors|r|n|r|nAnd I should see the footer|r|n-> skipped because of previous errors|r|n']
+##teamcity[testFinished name='User navigates to stockport.gov.uk/news (in News)'  duration='21576']
+##teamcity[testStarted name='User clicks Category drop down (in News)']
+##teamcity[testIgnored name='User clicks Category drop down (in News)' message='Test Skipped']
+##teamcity[testFinished name='User clicks Category drop down (in News)'  duration='0']
+##teamcity[testStarted name='User clicks archive drop down (in News)']
+##teamcity[testIgnored name='User clicks archive drop down (in News)' message='Test Skipped']
+##teamcity[testFinished name='User clicks archive drop down (in News)'  duration='0']
+##teamcity[testStarted name='User clicks custome date (in News)']
+##teamcity[testIgnored name='User clicks custome date (in News)' message='Test Skipped']
+##teamcity[testFinished name='User clicks custome date (in News)'  duration='0']
+##teamcity[testStarted name='User clicks close warning alert (in News)']
+##teamcity[testIgnored name='User clicks close warning alert (in News)' message='Test Skipped']
+##teamcity[testFinished name='User clicks close warning alert (in News)'  duration='0']
+##teamcity[testStarted name='User should see primary, secondary and tertiary links (in Topic)']
+##teamcity[testIgnored name='User should see primary, secondary and tertiary links (in Topic)' message='Test Skipped']
+##teamcity[testFinished name='User should see primary, secondary and tertiary links (in Topic)'  duration='0']
+##teamcity[testStarted name='User should see an alert relevant to the content they are seeking (in Topic)']
+##teamcity[testIgnored name='User should see an alert relevant to the content they are seeking (in Topic)' message='Test Skipped']
+##teamcity[testFinished name='User should see an alert relevant to the content they are seeking (in Topic)'  duration='0']
+##teamcity[testStarted name='User should see an advertisment related to the content they are seeking (in Topic)']
+##teamcity[testIgnored name='User should see an advertisment related to the content they are seeking (in Topic)' message='Test Skipped']
+##teamcity[testFinished name='User should see an advertisment related to the content they are seeking (in Topic)'  duration='0']
+##teamcity[testStarted name='User should see a link to sign up for email alerts (in Topic)']
+##teamcity[testIgnored name='User should see a link to sign up for email alerts (in Topic)' message='Test Skipped']
+##teamcity[testFinished name='User should see a link to sign up for email alerts (in Topic)'  duration='0']
+##teamcity[testStarted name='User should see an events link (in Topic)']
+##teamcity[testIgnored name='User should see an events link (in Topic)' message='Test Skipped']
+##teamcity[testFinished name='User should see an events link (in Topic)'  duration='0']
+##teamcity[testStarted name='User should be able to dismiss an alert (in Topic)']
+##teamcity[testIgnored name='User should be able to dismiss an alert (in Topic)' message='Test Skipped']
+##teamcity[testFinished name='User should be able to dismiss an alert (in Topic)'  duration='0']
+##teamcity[testSuiteFinished name='StockportWebappTests_UI/Default']
+Result: 3 failed
+  Total: 27 (test executions: 31)
+  Succeeded: 14
+  Ignored: 0
+  Pending: 0
+  Skipped: 10
+  Failed: 3
+
+  Execution Time: 00:03:55.9781862
+Report file: file:///C:\code\iag-webapp\test\StockportWebappTests_UI\bin\Debug\StockportWebappTests_UI_Default_2018-12-12T141922.html

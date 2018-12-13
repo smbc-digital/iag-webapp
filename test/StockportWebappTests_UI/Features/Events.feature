@@ -18,3 +18,7 @@ Scenario: User clicks View more categories drop down button
 	Given I navigate to "/events"
 	When I click the "View more categories" button
 	Then I should see the "generic event listings" section
+
+Scenario: Assert that Upcomcing events section is visible
+	Given I navigate to "/events"
+	Then I should see the "upcoming events" section
