@@ -14,7 +14,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         public void GivenINavigateTo(string url)
         {
             BrowserSession.Visit(url);
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
         }
 
         [Given("I have signed in as UiTest")]
