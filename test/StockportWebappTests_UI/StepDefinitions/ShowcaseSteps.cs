@@ -7,6 +7,12 @@ namespace StockportWebappTests_UI.StepDefinitions
     [Binding]
     public class ShowcaseSteps : UiTestBase
     {
+        [Then(@"I should see the alerts section")]
+        public void ThenIShouldSeeTheAlertsSection()
+        {
+            Assert.True(BrowserSession.FindAllCss(".global-alert-information").Any());
+        }
+
         [Then(@"I should see the primary items section")]
         public void ThenIShouldSeeThePrimaryItemsSection()
         {
@@ -36,7 +42,6 @@ namespace StockportWebappTests_UI.StepDefinitions
         {
             Assert.True(BrowserSession.FindCss(".showcase-event-content").Exists());
         }
-
 
         [Then(@"I should see the profile section")]
         public void ThenIShouldSeeTheProfileSection()
