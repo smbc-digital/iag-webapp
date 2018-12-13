@@ -304,6 +304,7 @@
     <None Include="SavedResponses\groups-article-not-logged-in.json" />
     <None Include="SavedResponses\atozb.json" />
     <None Include="SavedResponses\atozz.json" />
+    <None Include="SavedResponses\groups_advisor.json" />
     <None Include="SavedResponses\groups_search.json" />
     <None Include="SavedResponses\groups_wysiwyg.json" />
     <None Include="SavedResponses\groups_zumba.json" />

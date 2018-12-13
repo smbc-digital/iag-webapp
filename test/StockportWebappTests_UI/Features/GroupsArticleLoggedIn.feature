@@ -15,7 +15,6 @@ Scenario: User navigates to a group they manage that hasn't changed in more than
 	And I should see a "summary" section
 	And I should see a "contact us" section
 	And I should see a map with directions
-	And I should see events
 	And I should see sharing buttons
 
 Scenario: User navigates to a group they manage that hasn changed less than 3 months ago
@@ -29,7 +28,6 @@ Scenario: User navigates to a group they manage that hasn changed less than 3 mo
 	And I should see a "summary" section
 	And I should see a "contact us" section
 	And I should see a map with directions
-	And I should see events
 	And I should see sharing buttons
 
 Scenario: Group advisor navigates to a group they manage
