@@ -1,0 +1,115 @@
+{
+  "Guid": "68b858f2-d443-4556-8009-1868805b933c",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/groups/wysiwyg",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "name": "WYSIWYG Editor test group",
+      "slug": "wysiwyg",
+      "phoneNumber": "1234567",
+      "email": "harsha.reddy@stockport.gov.uk",
+      "website": "https://www.stockport.gov.uk/",
+      "twitter": null,
+      "facebook": null,
+      "address": "52-54 Great Underbank, Stockport SK1 1PD, UK",
+      "description": "h11. OverviewMake sure your recycling container is left out before 7am on collection day, at the front edge of your property or nominated collectionpoint. We will provide an assisted collection service if there is no one inthe household who is able to put recycling or refuse out for collection(for example, because of a mobility problem). Please see our [assisted collection page](https://www.stockport.gov.uk/assisted-collection-request) for more details.If you are a tenant and have just moved into a Stockport Homes propertyand your property is suitable for wheelie bins, please **contact** [StockportHomes](http://www.stockporthomes.org/contact/).Please read our [recycling and refuse collections policy (PDF 326Kb)](https://assets.contentful.com/ii3xdrqc6nfw/4LAFl3eE8EM6aW0QEC0Maa/0ada6c6ec0427b030d2d7542e2fdfe83/Recycling_and_refuse_collections_policy.pdf) forinformation on how we deal with recycling and refuse collections.HeaderHeaderCellCellCellCel   \n😀😀😀😀😀😁😁**Please use this form if you are:**\n- Moving into Stockport area\n- Current Stockport council tax payer moving from one address to another with in the Stockport area\n- Current Stockport council tax payer, moving out of the Stockport area\n- Current Stockport resident not liable for Council Tax, for example living with parents and moving into their own property.\n\n\\*\\*If you are a landlord or owner notifying the council of a change to the occupier of a property you own or are a managing agent for, please email council.tax@stockport.gov.uk  with the details.\\*\\*We will automatically send your details to Council Tax and Electoral Registration and you can choose which other services you would like to notify.If you wish to change your address for a Library membership you can do this via the [Online Library System](https://stockport.spydus.co.uk/cgi-bin/spydus.exe/MSGTRN/OPAC/HOME?HOMEPRMS=HOMEPARAMS).\n\n{{BUTTON:/start/change-of-address-form, Tell us about your change of address}}",
+      "imageUrl": "",
+      "thumbnailImageUrl": "",
+      "categoriesReference": [
+        {
+          "name": "Armed forces",
+          "slug": "armed-forces",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+        }
+      ],
+      "subCategories": [],
+      "breadcrumbs": [
+        {
+          "title": "Stockport Local",
+          "slug": "",
+          "type": "groups"
+        }
+      ],
+      "mapPosition": {
+        "lon": -2.15948230000004,
+        "lat": 53.4111123
+      },
+      "volunteering": false,
+      "events": [],
+      "groupAdministrators": {
+        "items": [
+          {
+            "email": "scn.uitest@gmail.com",
+            "permission": "A",
+            "name": "UI Test"
+          }
+        ]
+      },
+      "dateHiddenFrom": "9999-12-31T23:59:59",
+      "dateHiddenTo": "9999-12-31T23:59:59",
+      "status": "Published",
+      "cost": [],
+      "costText": null,
+      "abilityLevel": null,
+      "volunteeringText": "test test",
+      "organisation": {
+        "title": "",
+        "slug": "",
+        "imageUrl": "",
+        "aboutUs": "",
+        "phone": "",
+        "email": "",
+        "volunteering": false,
+        "volunteeringText": null,
+        "donationsText": null,
+        "donationsUrl": null,
+        "groups": [],
+        "donations": false
+      },
+      "linkedGroups": null,
+      "donations": false,
+      "donationsText": null,
+      "donationsUrl": null,
+      "accessibleTransportLink": "/accessibleTransport",
+      "additionalInformation": "THIS IS ADDITIONAL INFORMATION\n\n\n{{BUTTON:/start/report-a-street-light-fault, Report a streetlight fault}}\n{{VIDEO:P8gSX}}\n{{PDF:testing file name}}\n{{CAROUSEL: Image 1, Image 2, Image 3}}\n{{CONTACT-US: brownfield-site}}\n",
+      "additionalDocuments": [
+        {
+          "title": "testing description",
+          "size": 674192,
+          "url": "//assets.ctfassets.net/6cfgzlmcakf7/5QG8oheTlKW2GSA80YgaYU/414a4fb2058abee58bef3364fc562237/Stockport-Metroshuttle.pdf",
+          "lastUpdated": "2017-06-05T14:38:52.704Z",
+          "fileName": "Stockport-Metroshuttle.pdf",
+          "assetId": "5QG8oheTlKW2GSA80YgaYU",
+          "mediaType": "application/pdf"
+        }
+      ],
+      "dateLastModified": "2018-06-18T10:03:55.099Z",
+      "suitableFor": [],
+      "ageRange": []
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Wed, 12 Dec 2018 15:35:34 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}
