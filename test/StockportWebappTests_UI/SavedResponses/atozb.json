@@ -1,0 +1,68 @@
+{
+  "Guid": "92129f74-1870-47f0-a820-c26c117dfc27",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/atoz/b",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "title": "Benefits & Support",
+        "slug": "benefits-and-support",
+        "teaser": "Benefits & Support",
+        "type": "topic"
+      },
+      {
+        "title": "Bins & Recycling",
+        "slug": "bins-and-recycling",
+        "teaser": "Collection days, bulky items",
+        "type": "topic"
+      },
+      {
+        "title": "Births, deaths and marriages",
+        "slug": "births-deaths-and-marriages",
+        "teaser": "Including register a birth, ceremonies and copy certificates.",
+        "type": "topic"
+      },
+      {
+        "title": "Blue Article",
+        "slug": "new-article",
+        "teaser": "required",
+        "type": "article"
+      },
+      {
+        "title": "Blue Article 2",
+        "slug": "new-article-2",
+        "teaser": "required",
+        "type": "article"
+      },
+      {
+        "title": "Brian Blessed to demolish Hatworks",
+        "slug": "brian-blessed-to-vistit-hatworks",
+        "teaser": "He's coming to knock down the chimney",
+        "type": "article"
+      }
+    ],
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Tue, 11 Dec 2018 13:50:38 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

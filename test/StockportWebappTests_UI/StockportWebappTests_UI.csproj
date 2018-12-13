@@ -159,6 +159,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Article.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\AToZ.feature.cs" />
     <Compile Include="Features\Events.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -202,6 +203,7 @@
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
+    <Compile Include="StepDefinitions\AToZSteps.cs" />
     <Compile Include="StepDefinitions\EventsSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
     <Compile Include="StepDefinitions\GroupsArticleNotLoggedInSteps.cs">
@@ -225,6 +227,10 @@
     <None Include="Features\Article.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Article.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\AToZ.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>AToZ1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Events.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -262,14 +268,13 @@
     <None Include="runtests.cmd" />
     <None Include="SavedResponses\13f0da4d-6cd5-4a49-a9d8-28fd115fb8b8.json" />
     <None Include="SavedResponses\21b40dfc-dc9a-44fa-bea7-17596ae1f9b7.json" />
-    <None Include="SavedResponses\21f5132a-57e4-42b8-86b2-0c973bbb9d54.json" />
     <None Include="SavedResponses\2c6e03ed-dd09-4525-a455-f8abc567bddc.json" />
     <None Include="SavedResponses\61af234a-3b5d-4416-9fcb-f5770c47fbfd.json" />
     <None Include="SavedResponses\6c099fc3-7a2f-4ca9-ba6c-24edd9d2962a.json" />
-    <None Include="SavedResponses\6c1b1913-1af4-4404-85bc-c8ae182ad6b4.json" />
-    <None Include="SavedResponses\95f7f068-3418-4c24-bccc-124db46fb6c5.json" />
     <None Include="SavedResponses\9dfde43b-5c0d-4c24-b6bc-47aac538f694.json" />
     <None Include="SavedResponses\groups-article-not-logged-in.json" />
+    <None Include="SavedResponses\atozb.json" />
+    <None Include="SavedResponses\atozz.json" />
     <None Include="SavedResponses\groups_search.json" />
     <None Include="SavedResponses\news.json" />
     <None Include="SavedResponses\news_latest.json" />
