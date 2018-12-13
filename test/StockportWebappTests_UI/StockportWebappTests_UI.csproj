@@ -180,6 +180,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\GroupsAddEdit.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GroupsAddEdit.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\GroupsHomepage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -225,6 +230,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StepDefinitions\GroupsArticleLoggedInSteps.cs" />
+    <Compile Include="StepDefinitions\GroupsAddEditSteps.cs" />
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
@@ -264,6 +270,10 @@
     <None Include="Features\GroupsArticleLoggedIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
+    </None> 
+    <None Include="Features\GroupsAddEdit.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -305,6 +315,7 @@
     <None Include="SavedResponses\atozb.json" />
     <None Include="SavedResponses\atozz.json" />
     <None Include="SavedResponses\groups_advisor.json" />
+    <None Include="SavedResponses\groups_categories.json" />
     <None Include="SavedResponses\groups_search.json" />
     <None Include="SavedResponses\groups_wysiwyg.json" />
     <None Include="SavedResponses\groups_zumba.json" />
@@ -312,6 +323,8 @@
     <None Include="SavedResponses\news_latest.json" />
     <None Include="SavedResponses\groups_manage_overview.json" />
     <None Include="SavedResponses\groups_manage_uitest.json" />
+    <None Include="SavedResponses\groups_uitest_admin.json" />
+    <None Include="SavedResponses\groups_uitest.json" />
     <None Include="SpecRunTestProfile.xsd">
       <SubType>Designer</SubType>
     </None>

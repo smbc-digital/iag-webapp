@@ -63,85 +63,99 @@ namespace StockportWebappTests_UI.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see primary items", SourceLine=5)]
-        public virtual void UserLoadsShowcaseShouldSeePrimaryItems()
+        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see alerts section", SourceLine=5)]
+        public virtual void UserLoadsShowcaseShouldSeeAlertsSection()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see primary items", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see alerts section", ((string[])(null)));
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.Then("I should see the primary items section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the alerts section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see features items", SourceLine=9)]
-        public virtual void UserLoadsShowcaseShouldSeeFeaturesItems()
+        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see primary items", SourceLine=9)]
+        public virtual void UserLoadsShowcaseShouldSeePrimaryItems()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see features items", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see primary items", ((string[])(null)));
 #line 10
 this.ScenarioSetup(scenarioInfo);
 #line 11
  testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 12
- testRunner.Then("I should see the featured items section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the primary items section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see consultations", SourceLine=13)]
-        public virtual void UserLoadsShowcaseShouldSeeConsultations()
+        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see features items", SourceLine=13)]
+        public virtual void UserLoadsShowcaseShouldSeeFeaturesItems()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see consultations", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see features items", ((string[])(null)));
 #line 14
 this.ScenarioSetup(scenarioInfo);
 #line 15
  testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
- testRunner.Then("I should see the consultations section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the featured items section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see social media links", SourceLine=17)]
-        public virtual void UserLoadsShowcaseShouldSeeSocialMediaLinks()
+        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see consultations", SourceLine=17)]
+        public virtual void UserLoadsShowcaseShouldSeeConsultations()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see social media links", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see consultations", ((string[])(null)));
 #line 18
 this.ScenarioSetup(scenarioInfo);
 #line 19
  testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 20
- testRunner.Then("I should see the social media links section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the consultations section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see the profile section", SourceLine=21)]
-        public virtual void UserLoadsShowcaseShouldSeeTheProfileSection()
+        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see social media links", SourceLine=21)]
+        public virtual void UserLoadsShowcaseShouldSeeSocialMediaLinks()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see the profile section", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see social media links", ((string[])(null)));
 #line 22
 this.ScenarioSetup(scenarioInfo);
 #line 23
  testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 24
- testRunner.Then("I should see the profile section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should see the social media links section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see the events section", SourceLine=25)]
-        public virtual void UserLoadsShowcaseShouldSeeTheEventsSection()
+        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see the profile section", SourceLine=25)]
+        public virtual void UserLoadsShowcaseShouldSeeTheProfileSection()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see the events section", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see the profile section", ((string[])(null)));
 #line 26
 this.ScenarioSetup(scenarioInfo);
 #line 27
  testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 28
+ testRunner.Then("I should see the profile section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User loads showcase should see the events section", SourceLine=29)]
+        public virtual void UserLoadsShowcaseShouldSeeTheEventsSection()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User loads showcase should see the events section", ((string[])(null)));
+#line 30
+this.ScenarioSetup(scenarioInfo);
+#line 31
+ testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 32
  testRunner.Then("I should see the events section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
