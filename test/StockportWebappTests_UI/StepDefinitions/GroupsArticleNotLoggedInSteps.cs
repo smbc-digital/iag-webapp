@@ -55,5 +55,12 @@ namespace StockportWebappTests_UI.StepDefinitions
         {
             Assert.True(BrowserSession.FindId("map").Exists());
         }
+
+        [Then(@"I should not see an ""(.*)"" button")]
+        [Then(@"I should not see a ""(.*)"" button")]
+        public void ThenIShouldNotSeeAButton(string buttonText)
+        {
+            Assert.False(BrowserSession.FindButton(buttonText).Exists());
+        }
     }
 }

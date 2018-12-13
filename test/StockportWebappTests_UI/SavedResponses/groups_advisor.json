@@ -1,0 +1,38 @@
+{
+  "Guid": "2efa9f27-2ed9-4901-b334-1a1a72cf3136",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/groups/advisors/scn.uitest@gmail.com",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "name": "UI Test",
+      "emailAddress": "scn.uitest@gmail.com",
+      "groups": [
+        "zumba"
+      ],
+      "hasGlobalAccess": true
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Thu, 13 Dec 2018 15:36:21 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}
