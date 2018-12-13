@@ -164,6 +164,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Events.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\GroupsAddEdit.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GroupsAddEdit.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\GroupsHomepage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,6 +204,7 @@
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
     <Compile Include="StepDefinitions\EventsSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
+    <Compile Include="StepDefinitions\GroupsAddEditSteps.cs" />
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
@@ -221,6 +227,10 @@
     <None Include="Features\Events.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Events.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsAddEdit.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -257,11 +267,27 @@
     <None Include="SavedResponses\6c1b1913-1af4-4404-85bc-c8ae182ad6b4.json" />
     <None Include="SavedResponses\95f7f068-3418-4c24-bccc-124db46fb6c5.json" />
     <None Include="SavedResponses\9dfde43b-5c0d-4c24-b6bc-47aac538f694.json" />
+    <None Include="SavedResponses\groups_categories.json" />
     <None Include="SavedResponses\groups_search.json" />
     <None Include="SavedResponses\news.json" />
-    <None Include="SavedResponses\news_latest.json" />    
-    <None Include="SavedResponses\groups_manage_overview.json" />
-    <None Include="SavedResponses\groups_manage_uitest.json" />
+    <None Include="SavedResponses\news_latest.json" />
+    <None Include="SavedResponses\groups_uitest_admin.json" />
+    <None Include="SavedResponses\groups_uitest.json" />
+    <None Include="SavedResponses\test %281%29.json" />
+    <None Include="SavedResponses\test %2810%29.json" />
+    <None Include="SavedResponses\test %2811%29.json" />
+    <None Include="SavedResponses\test %2812%29.json" />
+    <None Include="SavedResponses\test %2813%29.json" />
+    <None Include="SavedResponses\test %2814%29.json" />
+    <None Include="SavedResponses\test %2815%29.json" />
+    <None Include="SavedResponses\test %282%29.json" />
+    <None Include="SavedResponses\test %283%29.json" />
+    <None Include="SavedResponses\test %284%29.json" />
+    <None Include="SavedResponses\test %285%29.json" />
+    <None Include="SavedResponses\test %286%29.json" />
+    <None Include="SavedResponses\test %287%29.json" />
+    <None Include="SavedResponses\test %288%29.json" />
+    <None Include="SavedResponses\test %289%29.json" />
     <None Include="SpecRunTestProfile.xsd">
       <SubType>Designer</SubType>
     </None>

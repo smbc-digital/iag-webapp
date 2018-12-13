@@ -75,5 +75,30 @@ namespace StockportWebappTests_UI.StepDefinitions
         {
             BrowserSession.FindAllCss(".alert-close a").FirstOrDefault().Click();
         }
+
+        [Then(@"I should see the ""(.*)"" input")]
+        public void ThenIShouldSeeTheInput(string inputName)
+        {
+            Assert.True(BrowserSession.FindField(inputName).Exists());
+        }
+
+        [Then(@"I should see a validation message for ""(.*)"" input")]
+        public void ThenIShouldSeeValidationMessageForInput(string inputName)
+        {
+            Assert.True(BrowserSession.FindCss(string.Format(".form-field-validation-error[data-valmsg-for={0}]", inputName)).Exists());
+        }
+
+        [When(@"I enter ""(.*)"" in ""(.*)""")]
+        public void WhenIEnter(string value, string fieldName)
+        {
+            BrowserSession.FillIn(fieldName).With(value);
+        }
+
+        [When(@"I select ""(.*)"" in ""(.*)""")]
+        [Then(@"I select ""(.*)"" in ""(.*)""")]
+        public void ThenISelect(string value, string fieldName)
+        {
+            BrowserSession.Select(value).From(fieldName);
+        }
     }
 }
