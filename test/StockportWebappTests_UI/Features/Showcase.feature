@@ -3,6 +3,10 @@
 	As a resident of Stockport
 	I want the showcase page to render correctly
 
+Scenario: User loads showcase should see alerts section
+	Given I navigate to "/showcase/test-showcase"
+	Then I should see the alerts section
+
 Scenario: User loads showcase should see primary items
 	Given I navigate to "/showcase/test-showcase"
 	Then I should see the primary items section
@@ -26,10 +30,6 @@ Scenario: User loads showcase should see the profile section
 Scenario: User loads showcase should see the events section
 	Given I navigate to "/showcase/test-showcase"
 	Then I should see the events section
-#
-#Scenario: User loads showcase should see the news section
-#	Given I navigate to "/showcase/test-showcase"
-#	Then I should see the news section
 
 Scenario: User loads showcase should see the key facts section
 	Given I navigate to "/showcase/test-showcase"
