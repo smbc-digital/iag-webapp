@@ -170,6 +170,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Features\GroupsArticleLoggedIn.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\GroupsHomepage.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -209,6 +214,7 @@
     <Compile Include="StepDefinitions\GroupsArticleNotLoggedInSteps.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="StepDefinitions\GroupsArticleLoggedInSteps.cs" />
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
@@ -239,6 +245,10 @@
     <None Include="Features\GroupsArticleNotLoggedIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupsArticleNotLoggedIn.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsArticleLoggedIn.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -276,6 +286,8 @@
     <None Include="SavedResponses\atozb.json" />
     <None Include="SavedResponses\atozz.json" />
     <None Include="SavedResponses\groups_search.json" />
+    <None Include="SavedResponses\groups_wysiwyg.json" />
+    <None Include="SavedResponses\groups_zumba.json" />
     <None Include="SavedResponses\news.json" />
     <None Include="SavedResponses\news_latest.json" />
     <None Include="SavedResponses\groups_manage_overview.json" />
