@@ -205,6 +205,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>News.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Showcase.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Showcase.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Topic.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -225,6 +230,7 @@
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
     <Compile Include="StepDefinitions\HomepageSteps.cs" />
     <Compile Include="StepDefinitions\NewsSteps.cs" />
+    <Compile Include="StepDefinitions\ShowcaseSteps.cs" />
     <Compile Include="StepDefinitions\TopicSteps.cs" />
     <Compile Include="StepDefinitions\UITestBase.cs" />
   </ItemGroup>
@@ -278,6 +284,10 @@
     <None Include="Features\News.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>News.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Showcase.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Showcase.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Topic.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
