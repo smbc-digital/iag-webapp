@@ -6,7 +6,7 @@ namespace StockportWebappTests_UI.StepDefinitions
     {
         public static BrowserSession BrowserSession = BrowserConfiguration.BrowserSession;
         public static MockConfiguration MockConfiguration;
-        public const bool IsRecordMode = true;
+        public const bool IsRecordMode = false;
 
         protected UiTestBase()
         {

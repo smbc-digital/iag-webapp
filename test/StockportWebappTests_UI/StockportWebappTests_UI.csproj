@@ -304,7 +304,11 @@
     <None Include="SavedResponses\groups-article-not-logged-in.json" />
     <None Include="SavedResponses\atozb.json" />
     <None Include="SavedResponses\atozz.json" />
+    <None Include="SavedResponses\groups_no_favourites.json" />
     <None Include="SavedResponses\groups_search.json" />
+    <None Include="SavedResponses\groups_search_one_favourite.json" />
+    <None Include="SavedResponses\groups_search_two_favourites.json" />
+    <None Include="SavedResponses\groups_time_for_dance.json" />
     <None Include="SavedResponses\groups_wysiwyg.json" />
     <None Include="SavedResponses\groups_zumba.json" />
     <None Include="SavedResponses\news.json" />
