@@ -14,23 +14,6 @@ namespace StockportWebappTests_UI.StepDefinitions
             Assert.True(BrowserSession.FindId("group-item-uitest-a-group-for-ui-testing").Exists()); 
         }
 
-        [Given(@"I click the ""(.*)"" tab")]
-        public void GivenIClickTheTab(string tabName)
-        {
-            switch (tabName)
-            {
-                case "Tell us who your group is suitable for":
-                    BrowserSession.FindId("multistep-form-sections-wrapper-t-1").Click();
-                    break;
-                case "Contact details":
-                    BrowserSession.FindId("multistep-form-sections-wrapper-t-2").Click();
-                    break;
-                case "Additional information":
-                    BrowserSession.FindId("multistep-form-sections-wrapper-t-3").Click();
-                    break;
-            }
-        }
-        
         [Then(@"I should see the ""(.*)"" table row")]
         public void ThenIShouldSeeSection(string rowName)
         {

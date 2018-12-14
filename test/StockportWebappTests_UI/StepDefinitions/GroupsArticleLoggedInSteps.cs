@@ -18,7 +18,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see a ""(.*)"" link")]
         public void ThenIShouldSeeAnLink(string linkText)
         {
-            Assert.True(BrowserSession.FindButton(linkText).Exists());
+            Assert.True(BrowserSession.FindLink(linkText).Exists());
         }
         
         [Then(@"I should see an ""(.*)"" section")]
@@ -49,12 +49,6 @@ namespace StockportWebappTests_UI.StepDefinitions
 
             Assert.True(mapContainer.FindId("map").Exists());
             Assert.True(mapContainer.FindCss(".directions-list").Exists());
-        }
-        
-        [Then(@"I should see events")]
-        public void ThenIShouldSeeEvents()
-        {
-            ScenarioContext.Current.Pending();
         }
         
         [Then(@"I should see sharing buttons")]

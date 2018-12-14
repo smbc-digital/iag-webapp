@@ -184,6 +184,10 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GroupsFavourites.feature</DependentUpon>
+    <Compile Include="Features\GroupsAddEdit.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GroupsAddEdit.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\GroupsHomepage.feature.cs">
       <AutoGen>True</AutoGen>
@@ -210,6 +214,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>News.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Showcase.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Showcase.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Topic.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -225,12 +234,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StepDefinitions\GroupsArticleLoggedInSteps.cs" />
+    <Compile Include="StepDefinitions\GroupsAddEditSteps.cs" />
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
     <Compile Include="StepDefinitions\GroupsFavouritesSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
     <Compile Include="StepDefinitions\HomepageSteps.cs" />
     <Compile Include="StepDefinitions\NewsSteps.cs" />
+    <Compile Include="StepDefinitions\ShowcaseSteps.cs" />
     <Compile Include="StepDefinitions\TopicSteps.cs" />
     <Compile Include="StepDefinitions\UITestBase.cs" />
   </ItemGroup>
@@ -264,6 +275,10 @@
     <None Include="Features\GroupsArticleLoggedIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
+    </None> 
+    <None Include="Features\GroupsAddEdit.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsFavourites.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -289,6 +304,10 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>News.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Showcase.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Showcase.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Topic.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Topic.feature.cs</LastGenOutput>
@@ -304,7 +323,12 @@
     <None Include="SavedResponses\groups-article-not-logged-in.json" />
     <None Include="SavedResponses\atozb.json" />
     <None Include="SavedResponses\atozz.json" />
+<<<<<<< HEAD
     <None Include="SavedResponses\groups_no_favourites.json" />
+=======
+    <None Include="SavedResponses\groups_advisor.json" />
+    <None Include="SavedResponses\groups_categories.json" />
+>>>>>>> dot-net-core-upgrade
     <None Include="SavedResponses\groups_search.json" />
     <None Include="SavedResponses\groups_search_one_favourite.json" />
     <None Include="SavedResponses\groups_search_two_favourites.json" />
@@ -315,6 +339,8 @@
     <None Include="SavedResponses\news_latest.json" />
     <None Include="SavedResponses\groups_manage_overview.json" />
     <None Include="SavedResponses\groups_manage_uitest.json" />
+    <None Include="SavedResponses\groups_uitest_admin.json" />
+    <None Include="SavedResponses\groups_uitest.json" />
     <None Include="SpecRunTestProfile.xsd">
       <SubType>Designer</SubType>
     </None>
