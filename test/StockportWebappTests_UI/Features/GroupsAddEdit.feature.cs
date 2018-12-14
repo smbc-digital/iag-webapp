@@ -152,397 +152,407 @@ this.ScenarioSetup(scenarioInfo);
 #line 43
  testRunner.And("I should see checkboxes for \"Age ranges\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 44
- testRunner.And("I should see a select all option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see both select all option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 45
  testRunner.And("I should see the \"next step\" link button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 46
  testRunner.And("I should see the \"back\" link button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+ testRunner.When("I click the select all option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 48
+ testRunner.Then("I should see a deselect all option", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab one from tab two using tabs bar", SourceLine=47)]
+        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab one from tab two using tabs bar", SourceLine=49)]
         public virtual void UserTriesToNavigateToTabOneFromTabTwoUsingTabsBar()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User tries to navigate to tab one from tab two using tabs bar", ((string[])(null)));
-#line 48
-this.ScenarioSetup(scenarioInfo);
-#line 49
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 50
- testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 51
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 52
- testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 53
- testRunner.When("I click the \"About your group or service\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 54
+ testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 55
+ testRunner.When("I click the \"About your group or service\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 56
  testRunner.Then("I should see the \"First\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab three from tab two using tabs bar", SourceLine=55)]
+        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab three from tab two using tabs bar", SourceLine=57)]
         public virtual void UserTriesToNavigateToTabThreeFromTabTwoUsingTabsBar()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User tries to navigate to tab three from tab two using tabs bar", ((string[])(null)));
-#line 56
-this.ScenarioSetup(scenarioInfo);
-#line 57
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 58
- testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 59
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 60
- testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 61
- testRunner.When("I click the \"Contact details\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 62
+ testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 63
+ testRunner.When("I click the \"Contact details\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 64
  testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User navigates to tab three and should see correct inputs and buttons", SourceLine=63)]
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to tab three and should see correct inputs and buttons", SourceLine=65)]
         public virtual void UserNavigatesToTabThreeAndShouldSeeCorrectInputsAndButtons()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to tab three and should see correct inputs and buttons", ((string[])(null)));
-#line 64
-this.ScenarioSetup(scenarioInfo);
-#line 65
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 66
- testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 67
- testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 68
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 69
- testRunner.Then("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 70
- testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 71
- testRunner.And("I should see the \"About your group or service\" tab enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 72
- testRunner.And("I should see the \"Tell us who your group is suitable for\" tab enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 73
- testRunner.And("I should see the \"Contact details\" tab enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"About your group or service\" tab enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 74
- testRunner.And("I should see the \"Additional information\" tab disabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Tell us who your group is suitable for\" tab enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 75
- testRunner.And("I should see the \"Email\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Contact details\" tab enabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 76
- testRunner.And("I should see the \"PhoneNumber\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Additional information\" tab disabled", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 77
- testRunner.And("I should see the \"Website\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Email\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 78
- testRunner.And("I should see the \"Facebook\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"PhoneNumber\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 79
- testRunner.And("I should see the \"Twitter\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Website\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 80
- testRunner.And("I should see the \"next step\" link button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Facebook\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 81
+ testRunner.And("I should see the \"Twitter\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 82
+ testRunner.And("I should see the \"next step\" link button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 83
  testRunner.And("I should see the \"back\" link button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab two from tab three using tabs bar", SourceLine=82)]
+        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab two from tab three using tabs bar", SourceLine=84)]
         public virtual void UserTriesToNavigateToTabTwoFromTabThreeUsingTabsBar()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User tries to navigate to tab two from tab three using tabs bar", ((string[])(null)));
-#line 83
-this.ScenarioSetup(scenarioInfo);
-#line 84
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 85
- testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 86
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 87
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 88
- testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 89
- testRunner.When("I click the \"Tell us who your group is suitable for\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 90
+ testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 91
+ testRunner.When("I click the \"Tell us who your group is suitable for\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 92
  testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab four from tab three using tabs bar", SourceLine=91)]
+        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab four from tab three using tabs bar", SourceLine=93)]
         public virtual void UserTriesToNavigateToTabFourFromTabThreeUsingTabsBar()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User tries to navigate to tab four from tab three using tabs bar", ((string[])(null)));
-#line 92
-this.ScenarioSetup(scenarioInfo);
-#line 93
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 94
- testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 95
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 96
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 97
- testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 98
- testRunner.When("I click the \"Additional information\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 99
+ testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 100
+ testRunner.When("I click the \"Additional information\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 101
  testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User navigates to tab four and should see correct inputs and buttons", SourceLine=100)]
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to tab four and should see correct inputs and buttons", SourceLine=102)]
         public virtual void UserNavigatesToTabFourAndShouldSeeCorrectInputsAndButtons()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to tab four and should see correct inputs and buttons", ((string[])(null)));
-#line 101
-this.ScenarioSetup(scenarioInfo);
-#line 102
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 103
- testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 104
- testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 105
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 106
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 107
- testRunner.Then("I should see the \"Image\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 108
- testRunner.And("I should see the \"Volunteering\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 109
- testRunner.And("I should see the \"VolunteeringText\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("I should see the \"Image\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 110
- testRunner.And("I should see the \"Donations\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Volunteering\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 111
- testRunner.And("I should see the \"DonationsText\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"VolunteeringText\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 112
- testRunner.And("I should see the provide additional information toggle", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Donations\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 113
- testRunner.And("I should see the \"Edit your group\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"DonationsText\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 114
- testRunner.And("I should see the \"back\" link button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the provide additional information toggle", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 115
- testRunner.When("I check the \"Additional information\" checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I should see the \"Edit your group\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 116
+ testRunner.And("I should see the \"back\" link button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 117
+ testRunner.When("I check the \"Additional information\" checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 118
  testRunner.Then("I should see the \"AdditionalInformation\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab three from tab four using tabs bar", SourceLine=117)]
+        [TechTalk.SpecRun.ScenarioAttribute("User tries to navigate to tab three from tab four using tabs bar", SourceLine=119)]
         public virtual void UserTriesToNavigateToTabThreeFromTabFourUsingTabsBar()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User tries to navigate to tab three from tab four using tabs bar", ((string[])(null)));
-#line 118
-this.ScenarioSetup(scenarioInfo);
-#line 119
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 120
- testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+this.ScenarioSetup(scenarioInfo);
 #line 121
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 122
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/update\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 123
  testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 124
- testRunner.Then("I should see the \"Fourth\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 125
- testRunner.When("I click the \"Contact details\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 126
+ testRunner.Then("I should see the \"Fourth\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 127
+ testRunner.When("I click the \"Contact details\" tab", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 128
  testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User fills in all fields", SourceLine=129)]
+        [TechTalk.SpecRun.ScenarioAttribute("User fills in all fields", SourceLine=131)]
         public virtual void UserFillsInAllFields()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User fills in all fields", ((string[])(null)));
-#line 130
-this.ScenarioSetup(scenarioInfo);
-#line 131
- testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 132
- testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 133
- testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 134
- testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 135
- testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 136
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 137
- testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 138
- testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 139
- testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 140
- testRunner.When("I enter \"test@test.com\" in \"Email\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 141
  testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 139
+ testRunner.Then("I should see the \"Second\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 140
+ testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 141
+ testRunner.Then("I should see the \"Third\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 142
+ testRunner.When("I enter \"test@test.com\" in \"Email\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 143
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 144
  testRunner.Then("I should see the \"Fourth\" page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User clicks to add another category on tab one", SourceLine=143)]
+        [TechTalk.SpecRun.ScenarioAttribute("User clicks to add another category on tab one", SourceLine=145)]
         public virtual void UserClicksToAddAnotherCategoryOnTabOne()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User clicks to add another category on tab one", ((string[])(null)));
-#line 144
-this.ScenarioSetup(scenarioInfo);
-#line 145
- testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 146
- testRunner.When("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 147
- testRunner.And("I click the add another category button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 148
- testRunner.Then("I should see \"2\" group category drop down list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 149
- testRunner.And("I should see the remove category button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I click the add another category button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 150
- testRunner.When("I click the remove category button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Then("I should see \"2\" group category drop down list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 151
+ testRunner.And("I should see the remove category button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 152
+ testRunner.When("I click the remove category button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 153
  testRunner.Then("I should see \"1\" group category drop down list", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User enters nothing in tab one fields", SourceLine=152)]
+        [TechTalk.SpecRun.ScenarioAttribute("User enters nothing in tab one fields", SourceLine=154)]
         public virtual void UserEntersNothingInTabOneFields()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User enters nothing in tab one fields", ((string[])(null)));
-#line 153
-this.ScenarioSetup(scenarioInfo);
-#line 154
- testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 155
- testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 156
- testRunner.Then("I should see a validation message for \"Name\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 157
- testRunner.And("I should see a validation message for \"Address\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 158
+ testRunner.Then("I should see a validation message for \"Name\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 159
+ testRunner.And("I should see a validation message for \"Address\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 160
  testRunner.And("I should see a validation message for \"Description\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User enters nothing in tab three fields", SourceLine=159)]
+        [TechTalk.SpecRun.ScenarioAttribute("User enters nothing in tab three fields", SourceLine=161)]
         public virtual void UserEntersNothingInTabThreeFields()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User enters nothing in tab three fields", ((string[])(null)));
-#line 160
-this.ScenarioSetup(scenarioInfo);
-#line 161
- testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 162
- testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 163
- testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 164
- testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 165
- testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 166
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 167
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 168
  testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 169
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 170
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 171
  testRunner.Then("I should see a validation message for \"Email\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("User navigates to tab three and enters invalid data into email, facebook and twit" +
-            "ter inputs", SourceLine=170)]
+            "ter inputs", SourceLine=172)]
         public virtual void UserNavigatesToTabThreeAndEntersInvalidDataIntoEmailFacebookAndTwitterInputs()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to tab three and enters invalid data into email, facebook and twit" +
                     "ter inputs", ((string[])(null)));
-#line 171
-this.ScenarioSetup(scenarioInfo);
-#line 172
- testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 173
- testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 174
- testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 175
- testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 176
- testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 177
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 178
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 179
- testRunner.And("I enter \"invalid\" in \"Email\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 180
- testRunner.And("I enter \"invalid\" in \"Facebook\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 181
- testRunner.And("I enter \"invalid\" in \"Twitter\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 182
  testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 180
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 181
+ testRunner.And("I enter \"invalid\" in \"Email\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 182
+ testRunner.And("I enter \"invalid\" in \"Facebook\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 183
- testRunner.Then("I should see a validation message for \"Email\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I enter \"invalid\" in \"Twitter\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 184
- testRunner.Then("I should see a validation message for \"Facebook\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 185
+ testRunner.Then("I should see a validation message for \"Email\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 186
+ testRunner.Then("I should see a validation message for \"Facebook\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 187
  testRunner.And("I should see a validation message for \"Twitter\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [TechTalk.SpecRun.ScenarioAttribute("User navigates to tab four and checks volunteering, donations and additional info" +
-            "rmation", SourceLine=186)]
+            "rmation", SourceLine=188)]
         public virtual void UserNavigatesToTabFourAndChecksVolunteeringDonationsAndAdditionalInformation()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to tab four and checks volunteering, donations and additional info" +
                     "rmation", ((string[])(null)));
-#line 187
-this.ScenarioSetup(scenarioInfo);
-#line 188
- testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 189
- testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 190
- testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("I navigate to \"/groups/add-a-group\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 191
- testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("I enter \"Test\" in \"Name\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 192
- testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Address\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 193
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"Test\" in \"Description\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 194
- testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I select \"Culture\" in \"Categories\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 195
- testRunner.And("I enter \"test@test.com\" in \"Email\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 196
  testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 197
- testRunner.And("I check the \"Volunteering\" checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I enter \"test@test.com\" in \"Email\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 198
- testRunner.And("I check the \"Donations\" checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I click the next step button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 199
- testRunner.Then("I should see the \"VolunteeringText\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And("I check the \"Volunteering\" checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 200
+ testRunner.And("I check the \"Donations\" checkbox", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 201
+ testRunner.Then("I should see the \"VolunteeringText\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 202
  testRunner.And("I should see the \"DonationsText\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 203
+ testRunner.When("I enter \"invalid\" in \"DonationsUrl\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 204
+ testRunner.And("I click the \"Add your group or service\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 205
+ testRunner.Then("I should see a validation message for \"DonationsUrl\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

@@ -135,12 +135,6 @@ this.ScenarioSetup(scenarioInfo);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Group advisor navigates to a group they manage", ((string[])(null)));
 #line 33
 this.ScenarioSetup(scenarioInfo);
-#line 34
- testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 35
- testRunner.And("I navigate to \"/groups/zumba\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 36
- testRunner.Then("I should see an \"additional information\" section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

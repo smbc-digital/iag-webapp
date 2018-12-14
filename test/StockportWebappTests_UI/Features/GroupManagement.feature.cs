@@ -78,7 +78,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 10
  testRunner.Then("I should see the UITest group", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 11
- testRunner.And("I should see the \"/groups/add-a-group\" link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Add your group or service\" link styled as button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 12
  testRunner.And("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
@@ -106,12 +106,137 @@ this.ScenarioSetup(scenarioInfo);
 #line 21
  testRunner.And("I should see the \"Add or remove users\" table row", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 22
- testRunner.And("I should see the \"Delete your group\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Delete your group\" link styled as button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
- testRunner.And("I should see the \"Archive your group\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I should see the \"Archive your group\" link styled as button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
  testRunner.And("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 25
+ testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to manage uitest events", SourceLine=26)]
+        public virtual void UserNavigatesToManageUitestEvents()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to manage uitest events", ((string[])(null)));
+#line 27
+this.ScenarioSetup(scenarioInfo);
+#line 28
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 29
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/events\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 30
+ testRunner.Then("I should see the \"Add your event\" link styled as button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 31
+ testRunner.And("I should see the \"UITEST: Hats Amazing\" event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 32
+ testRunner.And("I should see the \"UITest Event\" event", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 33
+ testRunner.And("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 34
+ testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to manage uitest users", SourceLine=35)]
+        public virtual void UserNavigatesToManageUitestUsers()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to manage uitest users", ((string[])(null)));
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line 37
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 38
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/users\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+ testRunner.Then("I should see the \"Add new user\" link styled as button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 40
+ testRunner.And("I should see the \"Edit user\" link styled as button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 41
+ testRunner.And("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 42
+ testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to add user to uitest", SourceLine=43)]
+        public virtual void UserNavigatesToAddUserToUitest()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to add user to uitest", ((string[])(null)));
+#line 44
+this.ScenarioSetup(scenarioInfo);
+#line 45
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 46
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/newuser\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 47
+ testRunner.Then("I should see the \"GroupAdministratorItem.Name\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 48
+ testRunner.And("I should see the \"GroupAdministratorItem.Email\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 49
+ testRunner.And("I should see the \"GroupAdministratorItem.Permission\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 50
+ testRunner.And("I should see the \"Add new user\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 51
+ testRunner.And("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 52
+ testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User enters nothing into add new user", SourceLine=53)]
+        public virtual void UserEntersNothingIntoAddNewUser()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User enters nothing into add new user", ((string[])(null)));
+#line 54
+this.ScenarioSetup(scenarioInfo);
+#line 55
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 56
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/newuser\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 57
+ testRunner.When("I click the \"Add new user\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 58
+ testRunner.Then("I should see the validation message section at the top", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 59
+ testRunner.And("I should see a validation message for \"GroupAdministratorItem.Name\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 60
+ testRunner.And("I should see a validation message for \"GroupAdministratorItem.Email\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 61
+ testRunner.And("I should see a validation message for \"GroupAdministratorItem.Permission\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to edit user for uitest", SourceLine=62)]
+        public virtual void UserNavigatesToEditUserForUitest()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to edit user for uitest", ((string[])(null)));
+#line 63
+this.ScenarioSetup(scenarioInfo);
+#line 64
+ testRunner.Given("I have signed in as UiTest", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 65
+ testRunner.And("I navigate to \"/groups/manage/uitest-a-group-for-ui-testing/edituser?email=scn.ui" +
+                    "test@gmail.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 66
+ testRunner.Then("I should see the \"GroupAdministratorItem.Name\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 67
+ testRunner.And("I should see the \"GroupAdministratorItem.Permission\" input", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 68
+ testRunner.And("I should see the remove user link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 69
+ testRunner.And("I should see the \"Save changes\" button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 70
+ testRunner.And("I should see the \"Cancel\" link styled as button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 71
+ testRunner.And("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 72
  testRunner.And("I should see the footer", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

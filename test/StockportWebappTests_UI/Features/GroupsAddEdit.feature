@@ -41,9 +41,11 @@ Scenario: User navigates to tab two and should see correct inputs and buttons
 	And I should see the "Additional information" tab disabled
 	And I should see checkboxes for "Suitability"
 	And I should see checkboxes for "Age ranges"
-	And I should see a select all option
+	And I should see both select all option
 	And I should see the "next step" link button
 	And I should see the "back" link button
+	When I click the select all option
+	Then I should see a deselect all option
 
 Scenario: User tries to navigate to tab one from tab two using tabs bar
 	Given I have signed in as UiTest
@@ -198,3 +200,6 @@ Scenario: User navigates to tab four and checks volunteering, donations and addi
 	And I check the "Donations" checkbox
 	Then I should see the "VolunteeringText" input
 	And I should see the "DonationsText" input
+	When I enter "invalid" in "DonationsUrl" 
+	And I click the "Add your group or service" button
+	Then I should see a validation message for "DonationsUrl" input
