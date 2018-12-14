@@ -7,6 +7,10 @@ Scenario: User loads showcase should see alerts section
 	Given I navigate to "/showcase/test-showcase"
 	Then I should see the alerts section
 
+Scenario: User loads showcase should see a hero image
+	Given I navigate to "/showcase/test-showcase"
+	Then I should see the hero image
+
 Scenario: User loads showcase should see primary items
 	Given I navigate to "/showcase/test-showcase"
 	Then I should see the primary items section

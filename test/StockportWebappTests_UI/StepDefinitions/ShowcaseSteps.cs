@@ -13,6 +13,12 @@ namespace StockportWebappTests_UI.StepDefinitions
             Assert.True(BrowserSession.FindAllCss(".global-alert-information").Any());
         }
 
+        [Then(@"I should see the hero image")]
+        public void ThenIShouldSeeTheHeroImage()
+        {
+            Assert.True(BrowserSession.FindCss(".showcase-hero-image").Exists());
+        }
+
         [Then(@"I should see the primary items section")]
         public void ThenIShouldSeeThePrimaryItemsSection()
         {

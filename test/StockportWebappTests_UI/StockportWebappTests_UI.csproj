@@ -160,6 +160,11 @@
       <DependentUpon>Article.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\AToZ.feature.cs" />
+    <Compile Include="Features\Breadcrumb.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Breadcrumb.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Events.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -228,6 +233,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
     <Compile Include="StepDefinitions\AToZSteps.cs" />
+    <Compile Include="StepDefinitions\BreadcrumbSteps.cs" />
     <Compile Include="StepDefinitions\EventsSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
     <Compile Include="StepDefinitions\GroupsArticleNotLoggedInSteps.cs">
@@ -259,6 +265,10 @@
     <None Include="Features\AToZ.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AToZ1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Breadcrumb.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Breadcrumb.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Events.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
