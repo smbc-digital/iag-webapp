@@ -154,7 +154,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BrowserConfiguration.cs" />
+    <Compile Include="Features\Article.feature.cs">
+      <DependentUpon>Article.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Features\AToZ.feature.cs" />
+    <Compile Include="Features\Breadcrumb.feature.cs">
+      <DependentUpon>Breadcrumb.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\Events.feature.cs">
+      <DependentUpon>Events.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Features\GroupsAddEdit.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -164,6 +179,51 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GroupManagement.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\GroupsArticleLoggedIn.feature.cs">
+      <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsArticleLoggedInNotAdmin.feature.cs">
+      <DependentUpon>GroupsArticleLoggedInNotAdmin.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsArticleNotLoggedIn.feature.cs">
+      <DependentUpon>GroupsArticleNotLoggedIn.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsFavourites.feature.cs">
+      <DependentUpon>GroupsFavourites.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsHomepage.feature.cs">
+      <DependentUpon>GroupsHomepage.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\Homepage.feature.cs">
+      <DependentUpon>Homepage.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\News.feature.cs">
+      <DependentUpon>News.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\Showcase.feature.cs">
+      <DependentUpon>Showcase.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\Topic.feature.cs">
+      <DependentUpon>Topic.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,9 +254,21 @@
     <None Include="Default.srprofile">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Features\Article.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Article.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\AToZ.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AToZ1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Breadcrumb.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Breadcrumb.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Events.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Events.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsAddEdit.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -205,6 +277,42 @@
     <None Include="Features\GroupManagement.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupManagement.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsArticleLoggedIn.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsArticleLoggedInNotAdmin.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsArticleLoggedInNotAdmin.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsArticleNotLoggedIn.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsArticleNotLoggedIn.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsFavourites.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsFavourites.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsHomepage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsHomepage.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Homepage.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Homepage.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\News.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>News.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Showcase.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Showcase.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Topic.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Topic.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
