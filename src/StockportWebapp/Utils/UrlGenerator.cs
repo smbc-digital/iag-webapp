@@ -59,7 +59,8 @@ namespace StockportWebapp.Utils
             {typeof(Document), "documents/"},
             {typeof(SmartResult), "smart-result/"},
             {typeof(PrivacyNotice), "privacy-notices/"},
-            {typeof(List<PrivacyNotice>), "privacy-notices/"}
+            {typeof(List<PrivacyNotice>), "privacy-notices/"},
+            {typeof(ContactUsArea), "contactusarea"}
         };
 
         public UrlGenerator(IApplicationConfiguration config, BusinessId businessId)
