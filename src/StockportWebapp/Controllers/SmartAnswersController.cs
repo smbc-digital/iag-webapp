@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using StockportWebapp.Dtos;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.QuestionBuilder;
-using StockportWebapp.QuestionBuilder.Entities;
 using StockportWebapp.QuestionBuilder.Maps;
 using StockportWebapp.Services;
 using StockportWebapp.ViewModels;

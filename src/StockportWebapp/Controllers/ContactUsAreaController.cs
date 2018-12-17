@@ -5,11 +5,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Http;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.ViewModels;
-using System.Linq;
-using StockportWebapp.Utils;
-using System;
-using StockportWebapp.Config;
+using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
 {
@@ -17,27 +13,34 @@ namespace StockportWebapp.Controllers
     public class ContactUsAreaController : Controller
     {
         private readonly IProcessedContentRepository _repository;
-        private readonly ILogger<ShowcaseController> _logger;
-        private readonly IApplicationConfiguration _config;
+        private readonly ILogger<ContactUsAreaController> _logger;
+        private readonly FeatureToggles _featureToggles;
 
-        public ContactUsAreaController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger, IApplicationConfiguration config)
+        public ContactUsAreaController(IProcessedContentRepository repository, FeatureToggles featureToggles, ILogger<ContactUsAreaController> logger)
         {
             _repository = repository;
             _logger = logger;
-            _config = config;
+            _featureToggles = featureToggles;
         }
 
         [Route("/contactusarea")]
         public async Task<IActionResult> Index()
-        { 
-            var contactUsAreaHttpResponse = await _repository.Get<ContactUsArea>();
+        {
+            if (_featureToggles.ContactUsArea)
+            {
 
-            if (!contactUsAreaHttpResponse.IsSuccessful())
-                return contactUsAreaHttpResponse;
+                var contactUsAreaHttpResponse = await _repository.Get<ContactUsArea>();
 
-            var contactUsArea = contactUsAreaHttpResponse.Content as ProcessedContactUsArea;
+                if (!contactUsAreaHttpResponse.IsSuccessful())
+                    return contactUsAreaHttpResponse;
 
-            return View(contactUsArea);
+                var contactUsArea = contactUsAreaHttpResponse.Content as ProcessedContactUsArea;
+
+                return View(contactUsArea);
+            }
+
+            _logger.LogInformation("Contact us area, feature toggle false, returning Not Found");
+            return NotFound();
         }
     }
 }
