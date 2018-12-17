@@ -50,12 +50,7 @@ test-all: test js-tests
 .PHONY: publish-app
 publish-app:
 	@echo Publishing application
-	cd ./src/StockportWebapp && dotnet publish -c Release -o publish
-
-.PHONY: version
-version:
-	git rev-parse HEAD > src/$(PROJECT_NAME)/sha.txt
-	echo $(APP_VERSION) > src/$(PROJECT_NAME)/version.txt
+	cd $(APPLICATION_ROOT_PATH) && dotnet publish -c Release -o publish
 
 .PHONY: package-app
 package-app:
@@ -86,6 +81,12 @@ ui-test:
 js-tests:
 	cd test/StockportWebappTests/JSTests && npm install && cd node_modules/karma/bin && node karma start ../../../karma.conf.js --single-run
 
+.PHONY: js-build
+js-build:
+	@echo Installing, cleaning and building JavaScript files
+	make npm-install
+	cd ./src/StockportWebapp && npm run js:clean 
+	cd ./src/StockportWebapp && npm run js:compile
 
 # ---------------------------------------------------------------------------------------
 # -- Gulp tasks

@@ -48,7 +48,6 @@
     <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
     <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
     <None Remove="Views\stockportgov\SmartAnswers\Index - Copy.cshtml" />
-    <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.3.26.12" />
