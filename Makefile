@@ -49,7 +49,8 @@ test-all: test js-tests
 
 .PHONY: publish-app
 publish-app:
-	cd src/StockportWebapp; dotnet publish --configuration Release -o publish;
+	@echo Publishing application
+	cd ./src/StockportWebapp && dotnet publish -c Release -o publish
 
 .PHONY: version
 version:
