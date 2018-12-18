@@ -19,6 +19,10 @@
     }
 }
 
+a:hover {
+    text-decoration: none !important;
+}
+
 .section-link {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -44,10 +48,15 @@
         text-align: center;
     }
 
+    > a:hover {
+        text-decoration: none !important;
+    }
+
     .icon-container {
         @media #{$mobile} {
             display: flex;
             justify-content: center;
+            padding: 10px 0px 10px 0px; 
         }
     }
 
@@ -62,6 +71,10 @@
         -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
         box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
         color: black;
+
+        .primaryItemText {
+            text-decoration: underline;
+        }
     }
 
     i {
