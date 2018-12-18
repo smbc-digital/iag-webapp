@@ -49,6 +49,15 @@ namespace StockportWebappTests_UI
                 path = path.Remove(path.IndexOf("bin", StringComparison.Ordinal));
 
                 Server.ReadStaticMappings(path + "SavedResponses");
+                Server.ReadStaticMappings(path + "SavedResponses/Articles");
+                Server.ReadStaticMappings(path + "SavedResponses/Atoz");
+                Server.ReadStaticMappings(path + "SavedResponses/Events");
+                Server.ReadStaticMappings(path + "SavedResponses/Footer");
+                Server.ReadStaticMappings(path + "SavedResponses/Groups");
+                Server.ReadStaticMappings(path + "SavedResponses/Homepage");
+                Server.ReadStaticMappings(path + "SavedResponses/News");
+                Server.ReadStaticMappings(path + "SavedResponses/Showcase");
+                Server.ReadStaticMappings(path + "SavedResponses/Topics");
             }
         }
     }
