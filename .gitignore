@@ -28,6 +28,7 @@ test/StockportWebappTests/UI/screenshots/**
 node_modules
 performanceTest/ab-reports/*
 src/StockportWebapp/app-config/injected/*.secrets.json
+!src/StockportWebapp/app-config/injected/*.uitest.secrets.json
 src/StockportWebapp/app-config/injected/*.secrets.json.encrypted
 src/StockportWebapp/app-config/appsettings.dev-local.json
 src/StockportWebapp/publish/
