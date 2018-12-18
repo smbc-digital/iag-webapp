@@ -9,49 +9,73 @@
     a {
         text-align: center;
     }
+
+    @media #{$mobile} {
+        i {
+            padding-bottom: 0
+        }
+
+        flex-wrap: wrap;
+    }
 }
 
 .section-link {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
     border-radius: 3px;
-    background-color: #fff;
+    width: 33%;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 15px 20px 0;
     padding: 20px;
-    border: 1px solid #ccc;
-    color: #000;
-    font-weight: 600;
+    border: 1px solid $greyLighter;
+    color: black;
+    font-weight: 700;
     text-decoration: none;
-    -webkit-box-shadow: 0 10px 13px 0 rgba(0,0,0,.1);
-    box-shadow: 0 10px 13px 0 rgba(0,0,0,.1);
-    float: left;
-    width: 33%;
+    -webkit-box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #00b79b;
 
-    i {
-        font-size: 3.25em;
-    }
-
-    i:hover {
-        text-decoration: none;
-    }
-
-    @media #{$mobile,$tablet} {
-        display: table;
+    @media #{$mobile} {
         width: 100%;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-        transition: all .5s;
-        transition-property: opacity, box-shadow;
+        display: block;
+        text-align: center;
     }
 
-    .section-link:hover {
-        box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+    .icon-container {
+        @media #{$mobile} {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    @media #{$tablet} {
+        width: 100%;
+    }
+
+    &:hover {
         cursor: pointer;
         transition-duration: .5s;
         transition-property: box-shadow;
-        text-decoration: underline;
+        -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
+        box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
         color: black;
+    }
+
+    i {
+        font-size: 3.5em;
+    }
+
+    @media #{$mobile} {
+        flex-direction: row;
+        margin: 0 0 20px 0;
+        padding: 10px 20px;
+        position: relative;
+
+        &:last-of-type {
+            margin: 0 0 20px 0;
+        }
     }
 }

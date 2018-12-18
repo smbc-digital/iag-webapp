@@ -27,7 +27,9 @@
                 var url = primaryItem.NavigationLink;
 
                 <a href="@url" class="section-link">
-                    <i class="@primaryItem.Icon" aria-hidden="true"></i>
+                    <div class="icon-container">
+                        <i class="@primaryItem.Icon" aria-hidden="true"></i>
+                    </div>
                     @primaryItem.Title
                 </a>
             }
