@@ -18,14 +18,9 @@ namespace StockportWebapp.ContentFactory
 
         public virtual ProcessedContactUsArea Build(ContactUsArea contactUsArea)
         {
-            var body = _tagParserContainer.ParseAll(contactUsArea.Body);
-            contactUsArea.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
-
             return new ProcessedContactUsArea(
                 contactUsArea.Title,
                 contactUsArea.Slug,
-                contactUsArea.Teaser,
-                contactUsArea.Body,
                 contactUsArea.Breadcrumbs,
                 contactUsArea.PrimaryItems,
                 contactUsArea.Alerts
