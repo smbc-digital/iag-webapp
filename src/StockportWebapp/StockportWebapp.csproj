@@ -32,6 +32,7 @@
     <None Remove="wwwroot\assets\javascript\thirdsite\**" />
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
     <Content Remove="app-config\appsettings.test.json" />
+    <Content Remove="Views\stockportgov\ContactUsArea\Index - Copy.cshtml" />
     <Content Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
