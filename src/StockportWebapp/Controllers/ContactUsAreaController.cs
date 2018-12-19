@@ -28,7 +28,6 @@ namespace StockportWebapp.Controllers
         {
             if (_featureToggles.ContactUsArea)
             {
-
                 var contactUsAreaHttpResponse = await _repository.Get<ContactUsArea>();
 
                 if (!contactUsAreaHttpResponse.IsSuccessful())

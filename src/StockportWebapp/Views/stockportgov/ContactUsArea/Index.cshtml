@@ -1,5 +1,4 @@
-﻿
-@using StockportWebapp.ProcessedModels
+﻿@using StockportWebapp.ProcessedModels
 
 @model ProcessedContactUsArea
 @{
@@ -20,6 +19,35 @@
             </div>
         </div>
     </div>
+    
+    <div class="grid-container">
+    @{
+        if (Model.Alerts != null)
+        {
+            <div class="alert-container">
+                @foreach (var alert in Model.Alerts)
+                {
+                    @Html.Partial("DisplayTemplates/Alert", alert)
+                }
+            </div>
+        }
+    }
+
+    @{
+        if (Model.InsetTexts != null)
+        {
+            <div class="alert-container">
+                @foreach (var insetText in Model.InsetTexts)
+                {
+                    @Html.Partial("DisplayTemplates/InsetText", insetText)
+                }
+            </div>
+        }
+    }
+    </div>
+
+
+
     <div class="grid-container">
         <div class="dashboard-button-container">
             @foreach (var primaryItem in Model.PrimaryItems)
@@ -35,6 +63,6 @@
             }
 
         </div>
-        <hr/>
+        <hr />
     </div>
 </div>
