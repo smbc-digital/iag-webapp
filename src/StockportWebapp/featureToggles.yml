@@ -6,6 +6,7 @@ prod: &prod
   GroupDetailsPage: true
   SiaSystem: false
   SemanticLayout: true
+  ContactUsArea: false
   SemanticSmartAnswer: 
     - enforcement-referral
     - education-penalty-notice
@@ -16,6 +17,7 @@ stage: &stage
   SiaSystem: false
 
 qa: &qa
+  ContactUsArea: true
   << : *prod
   << : *stage
 

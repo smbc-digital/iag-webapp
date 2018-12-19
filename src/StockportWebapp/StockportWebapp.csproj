@@ -33,6 +33,7 @@
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
     <Content Remove="app-config\appsettings.uitest.json" />
     <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
+    <Content Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
