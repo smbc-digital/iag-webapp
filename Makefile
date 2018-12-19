@@ -23,6 +23,11 @@ dotnet-restore:
 .PHONY: test
 test:
 	cd test/StockportWebappTests; dotnet test
+
+.PHONY: publish
+publish:
+	@echo Publishing application
+	cd ./src/StockportWebapp && dotnet publish -c Release -o publish
 	
 # ---------------------------------------------------------------------------------------
 # -- Ui-test
