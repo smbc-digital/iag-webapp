@@ -31,7 +31,9 @@
     <None Remove="Views\thirdsite\**" />
     <None Remove="wwwroot\assets\javascript\thirdsite\**" />
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
+    <Content Remove="app-config\appsettings.integrationtest.json" />
     <Content Remove="app-config\appsettings.uitest.json" />
+    <Content Remove="app-config\injected\appsettings.integrationtest.secrets.json" />
     <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
     <Content Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />

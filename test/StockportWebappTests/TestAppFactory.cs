@@ -33,7 +33,7 @@ namespace StockportWebappTests
             _factory = factory.WithWebHostBuilder(builder =>
             {
                 builder
-                    .UseEnvironment("test")
+                    .UseEnvironment("integrationtest")
                     .UseContentRoot(Path.GetFullPath(Path.Combine(
                         PlatformServices.Default.Application.ApplicationBasePath,
                         "..", "..", "..", "..", "..", "src", "StockportWebapp")))
