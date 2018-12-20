@@ -23,7 +23,8 @@ namespace StockportWebapp.ContentFactory
                 contactUsArea.Slug,
                 contactUsArea.Breadcrumbs,
                 contactUsArea.PrimaryItems,
-                contactUsArea.Alerts
+                contactUsArea.Alerts,
+                contactUsArea.InsetTexts
             );
         }
     }

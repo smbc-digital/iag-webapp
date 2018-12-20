@@ -1,4 +1,4 @@
-﻿
+﻿@using StockportWebapp.Models
 @using StockportWebapp.ProcessedModels
 
 @model ProcessedContactUsArea
@@ -12,7 +12,7 @@
     @Html.Partial("Breadcrumb", Model.Breadcrumbs)
 }
 
-<div class="l-page-content white">
+<div class="l-page-content white" id="topic-page-content">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div class="grid-100 tablet-grid-100 mobile-grid-100">
@@ -20,7 +20,32 @@
             </div>
         </div>
     </div>
-    <div class="grid-container">
+
+    <div tabindex="-1" id="content" class="grid-container grid-parent">
+        @{
+            if (Model.Alerts != null)
+            {
+                <div class="alert-container">
+                    @foreach (var alert in Model.Alerts)
+                    {
+                        @Html.Partial("DisplayTemplates/Alert", alert)
+                    }
+                </div>
+            }
+        }
+
+        @{
+            if (Model.InsetTexts != null)
+            {
+                <div class="alert-container">
+                    @foreach (var insetText in Model.InsetTexts)
+                    {
+                        @Html.Partial("DisplayTemplates/InsetText", insetText)
+                    }
+                </div>
+            }
+        }
+
         <div class="dashboard-button-container">
             @foreach (var primaryItem in Model.PrimaryItems)
             {
@@ -35,6 +60,13 @@
             }
 
         </div>
-        <hr/>
+        <hr />
     </div>
 </div>
+
+<script type="text/javascript">
+    require(['startup'],
+        function (startup) {
+            startup.Init();
+        })
+</script>
