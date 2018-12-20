@@ -94,9 +94,14 @@ a:hover {
 }
 
 .alert-insetText {
-    background-color: rgba(235, 235, 235, 1);
-    border-left: #d3d3d3 5px solid;
+    background-color: #d3d3d3;
     border-radius: 0px;
     line-height: 20px;
     box-shadow: none;
+    margin-bottom:30px;
+}
+
+.alert-insetText-overlap {
+    background-color: #F0F0F0;
+    margin-left: 5px;
 }
