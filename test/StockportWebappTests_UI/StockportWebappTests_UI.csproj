@@ -155,75 +155,81 @@
   <ItemGroup>
     <Compile Include="BrowserConfiguration.cs" />
     <Compile Include="Features\Article.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Article.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\AToZ.feature.cs" />
+    <Compile Include="Features\Breadcrumb.feature.cs">
+      <DependentUpon>Breadcrumb.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Features\Events.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Events.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\GroupsArticleLoggedInNotAdmin.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GroupsArticleLoggedInNotAdmin.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\GroupsArticleNotLoggedIn.feature.cs">
-      <DependentUpon>GroupsArticleNotLoggedIn.feature</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Features\GroupsArticleLoggedIn.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\GroupsAddEdit.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GroupsAddEdit.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\GroupsHomepage.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GroupsHomepage.feature</DependentUpon>
-    </Compile>
-    <Compile Include="Features\GroupsSearch.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GroupsSearch.feature</DependentUpon>
-    </Compile>
     <Compile Include="Features\GroupManagement.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GroupManagement.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Homepage.feature.cs">
-      <AutoGen>True</AutoGen>
+    <Compile Include="Features\GroupsArticleLoggedIn.feature.cs">
+      <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
       <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsArticleLoggedInNotAdmin.feature.cs">
+      <DependentUpon>GroupsArticleLoggedInNotAdmin.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsArticleNotLoggedIn.feature.cs">
+      <DependentUpon>GroupsArticleNotLoggedIn.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsFavourites.feature.cs">
+      <DependentUpon>GroupsFavourites.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsHomepage.feature.cs">
+      <DependentUpon>GroupsHomepage.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\Homepage.feature.cs">
       <DependentUpon>Homepage.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\News.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>News.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Showcase.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Showcase.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Topic.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Topic.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
     <Compile Include="StepDefinitions\AToZSteps.cs" />
+    <Compile Include="StepDefinitions\BreadcrumbSteps.cs" />
     <Compile Include="StepDefinitions\EventsSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
     <Compile Include="StepDefinitions\GroupsArticleNotLoggedInSteps.cs">
@@ -232,6 +238,7 @@
     <Compile Include="StepDefinitions\GroupsArticleLoggedInSteps.cs" />
     <Compile Include="StepDefinitions\GroupsAddEditSteps.cs" />
     <Compile Include="StepDefinitions\GroupSearchSteps.cs" />
+    <Compile Include="StepDefinitions\GroupsFavouritesSteps.cs" />
     <Compile Include="StepDefinitions\GroupsHomepageSteps.cs" />
     <Compile Include="StepDefinitions\GroupManagementSteps.cs" />
     <Compile Include="StepDefinitions\HomepageSteps.cs" />
@@ -255,9 +262,25 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>AToZ1.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\Breadcrumb.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Breadcrumb.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Events.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Events.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsAddEdit.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupManagement.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupManagement.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsArticleLoggedIn.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsArticleLoggedInNotAdmin.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -267,25 +290,13 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupsArticleNotLoggedIn.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\GroupsArticleLoggedIn.feature">
+    <None Include="Features\GroupsFavourites.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
-    </None> 
-    <None Include="Features\GroupsAddEdit.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupsFavourites.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupsHomepage.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\GroupsSearch.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsSearch.feature.cs</LastGenOutput>
-    </None>
-    <None Include="Features\GroupManagement.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupManagement.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Homepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -305,26 +316,31 @@
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
-    <None Include="SavedResponses\13f0da4d-6cd5-4a49-a9d8-28fd115fb8b8.json" />
-    <None Include="SavedResponses\21b40dfc-dc9a-44fa-bea7-17596ae1f9b7.json" />
-    <None Include="SavedResponses\2c6e03ed-dd09-4525-a455-f8abc567bddc.json" />
-    <None Include="SavedResponses\61af234a-3b5d-4416-9fcb-f5770c47fbfd.json" />
-    <None Include="SavedResponses\6c099fc3-7a2f-4ca9-ba6c-24edd9d2962a.json" />
-    <None Include="SavedResponses\9dfde43b-5c0d-4c24-b6bc-47aac538f694.json" />
-    <None Include="SavedResponses\groups-article-not-logged-in.json" />
-    <None Include="SavedResponses\atozb.json" />
-    <None Include="SavedResponses\atozz.json" />
-    <None Include="SavedResponses\groups_advisor.json" />
-    <None Include="SavedResponses\groups_categories.json" />
-    <None Include="SavedResponses\groups_search.json" />
-    <None Include="SavedResponses\groups_wysiwyg.json" />
-    <None Include="SavedResponses\groups_zumba.json" />
-    <None Include="SavedResponses\news.json" />
-    <None Include="SavedResponses\news_latest.json" />
-    <None Include="SavedResponses\groups_manage_overview.json" />
-    <None Include="SavedResponses\groups_manage_uitest.json" />
-    <None Include="SavedResponses\groups_uitest_admin.json" />
-    <None Include="SavedResponses\groups_uitest.json" />
+    <None Include="SavedResponses\Events\events.json" />
+    <None Include="SavedResponses\Events\homepage.json" />
+    <None Include="SavedResponses\Events\latest.json" />
+    <None Include="SavedResponses\Groups\homepage.json" />
+    <None Include="SavedResponses\Articles\uitest-test-article.json" />
+    <None Include="SavedResponses\Showcase\showcase.json" />
+    <None Include="SavedResponses\Topics\uitest-hat-works.json" />
+    <None Include="SavedResponses\Footer\footer.json" />
+    <None Include="SavedResponses\Homepage\homepage.json" />
+    <None Include="SavedResponses\Groups\article_not_logged_in.json" />
+    <None Include="SavedResponses\Atoz\atoz_b.json" />
+    <None Include="SavedResponses\Atoz\atoz_z.json" />
+    <None Include="SavedResponses\Groups\no_favourites.json" />
+    <None Include="SavedResponses\Groups\advisor.json" />
+    <None Include="SavedResponses\Groups\categories.json" />
+    <None Include="SavedResponses\Groups\search.json" />
+    <None Include="SavedResponses\Groups\search_one_favourite.json" />
+    <None Include="SavedResponses\Groups\search_two_favourites.json" />
+    <None Include="SavedResponses\Groups\time_for_dance.json" />
+    <None Include="SavedResponses\Groups\wysiwyg.json" />
+    <None Include="SavedResponses\Groups\zumba.json" />
+    <None Include="SavedResponses\News\news.json" />
+    <None Include="SavedResponses\News\latest.json" />
+    <None Include="SavedResponses\Groups\uitest_admin.json" />
+    <None Include="SavedResponses\Groups\uitest.json" />
     <None Include="SpecRunTestProfile.xsd">
       <SubType>Designer</SubType>
     </None>

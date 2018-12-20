@@ -21,10 +21,10 @@
         "ASPNETCORE_ENVIRONMENT": "local"
       }
     },
-    "test": {
+    "uitest": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "test"
+        "ASPNETCORE_ENVIRONMENT": "uitest"
       },
       "applicationUrl": "http://localhost:5000/"
     }

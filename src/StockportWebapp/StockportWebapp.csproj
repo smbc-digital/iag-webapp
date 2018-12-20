@@ -31,8 +31,11 @@
     <None Remove="Views\thirdsite\**" />
     <None Remove="wwwroot\assets\javascript\thirdsite\**" />
     <None Remove="wwwroot\assets\sass\thirdsite\**" />
-    <Content Remove="app-config\appsettings.test.json" />
-    <Content Remove="app-config\injected\appsettings.test.secrets.json" />
+    <Content Remove="app-config\appsettings.integrationtest.json" />
+    <Content Remove="app-config\appsettings.uitest.json" />
+    <Content Remove="app-config\injected\appsettings.integrationtest.secrets.json" />
+    <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
+    <Content Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
@@ -48,7 +51,6 @@
     <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
     <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
     <None Remove="Views\stockportgov\SmartAnswers\Index - Copy.cshtml" />
-    <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.3.26.12" />

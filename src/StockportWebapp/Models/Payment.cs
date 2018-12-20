@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace StockportWebapp.Models
 {
@@ -13,7 +12,8 @@ namespace StockportWebapp.Models
         public string ReferenceLabel { get; set; }
         public string ParisReference { get; set; }
         public string Fund { get; set; }
-        public string GlCodeCostCentreNumber { get; set; } 
+        public string GlCodeCostCentreNumber { get; set; }
+        public string Icon { get; set; }
         public List<Crumb> BreadCrumbs { get; set; }
     }
 }

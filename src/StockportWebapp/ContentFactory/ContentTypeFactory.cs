@@ -30,6 +30,8 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccesor));
             _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
             _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
+            _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(tagParserContainer, markdownWrapper));
+
         }
 
         public IProcessedContentType Build<T>(T content)

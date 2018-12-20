@@ -30,7 +30,14 @@ Scenario: User navigates to a group they manage that has changed yesterday
 	And I should see a map with directions
 	And I should see sharing buttons
 
+<<<<<<< HEAD
 Scenario: Group advisor navigates to a group they have advisor rights for
 	Given I have signed in as UiTest
 	And I navigate to "/groups/zumba"
 	Then I should see an "additional information" section
+=======
+Scenario: Group advisor navigates to a group they manage
+	#Given I have signed in as UiTest
+	#And I navigate to "/groups/zumba"
+	#Then I should see an "additional information" section
+>>>>>>> 660b485afde0ab34a2adbbfbd6da2c5f8720cc82

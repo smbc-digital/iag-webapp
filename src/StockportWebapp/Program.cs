@@ -22,7 +22,8 @@ namespace StockportWebapp
                     config.SetBasePath(hostContext.HostingEnvironment.ContentRootPath + "/app-config");
                     config
                         .AddJsonFile("appsettings.json")
-                        .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json");
+                        .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json")
+                        .AddJsonFile("appversion.json", true);
                     var tempConfig = config.Build();
                     config.AddJsonFile(
                         $"{tempConfig["secrets-location"]}/appsettings.{hostContext.HostingEnvironment.EnvironmentName}.secrets.json");

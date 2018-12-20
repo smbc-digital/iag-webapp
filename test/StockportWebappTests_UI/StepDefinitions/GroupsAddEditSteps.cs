@@ -17,19 +17,19 @@ namespace StockportWebappTests_UI.StepDefinitions
             {
                 case "About your group or service":
                     BrowserSession.FindId("multistep-form-sections-wrapper-t-0").Click();
-                    Thread.Sleep(500);
+                    Thread.Sleep(1200);
                     break;
                 case "Tell us who your group is suitable for":
                     BrowserSession.FindId("multistep-form-sections-wrapper-t-1").Click();
-                    Thread.Sleep(500);
+                    Thread.Sleep(1200);
                     break;
                 case "Contact details":
                     BrowserSession.FindId("multistep-form-sections-wrapper-t-2").Click();
-                    Thread.Sleep(500);
+                    Thread.Sleep(1200);
                     break;
                 case "Additional information":
                     BrowserSession.FindId("multistep-form-sections-wrapper-t-3").Click();
-                    Thread.Sleep(500);
+                    Thread.Sleep(1200);
                     break;
             }
         }
@@ -131,7 +131,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         public void ThenIClickTheNextStepButton()
         {
             BrowserSession.FindCss("a[href='#next']").Click();
-            Thread.Sleep(500);
+            Thread.Sleep(1200);
         }
 
         [Then(@"I should see ""(.*)"" group category drop down list")]
@@ -180,10 +180,22 @@ namespace StockportWebappTests_UI.StepDefinitions
             Assert.True(result);
         }
 
-        [Then("I should see a select all option")]
+        [Then("I should see both select all option")]
         public void ThenIShouldSeeSelectAllOption()
         {
-            Assert.True(BrowserSession.FindAllCss(".select-all-checkboxes").Any());
+            Assert.True(BrowserSession.FindAllCss(".select-all-checkboxes").Count() == 2);
+        }
+
+        [When("I click the select all option")]
+        public void WhenIClickTheSelectAllOption()
+        {
+            BrowserSession.FindAllCss(".select-all-checkboxes").FirstOrDefault().Click();
+        }
+
+        [Then("I should see a deselect all option")]
+        public void ThenIShouldSeeDeselectAllOption()
+        {
+            Assert.True(BrowserSession.HasContent("Deselect all"));
         }
 
         [Then("I should see the provide additional information toggle")]
