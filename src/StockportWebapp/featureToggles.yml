@@ -17,9 +17,9 @@ stage: &stage
   SiaSystem: false
 
 qa: &qa
-  ContactUsArea: true
   << : *prod
   << : *stage
+  ContactUsArea: true
 
 int: &int
   << : *prod
