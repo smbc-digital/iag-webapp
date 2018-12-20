@@ -97,10 +97,10 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User navigates to a group they manage that hasn changed less than 3 months ago", SourceLine=19)]
-        public virtual void UserNavigatesToAGroupTheyManageThatHasnChangedLessThan3MonthsAgo()
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to a group they manage that has changed yesterday", SourceLine=19)]
+        public virtual void UserNavigatesToAGroupTheyManageThatHasChangedYesterday()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to a group they manage that hasn changed less than 3 months ago", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to a group they manage that has changed yesterday", ((string[])(null)));
 #line 20
 this.ScenarioSetup(scenarioInfo);
 #line 21
@@ -129,10 +129,10 @@ this.ScenarioSetup(scenarioInfo);
             this.ScenarioCleanup();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("Group advisor navigates to a group they manage", SourceLine=32)]
-        public virtual void GroupAdvisorNavigatesToAGroupTheyManage()
+        [TechTalk.SpecRun.ScenarioAttribute("Group advisor navigates to a group they have advisor rights for", SourceLine=32)]
+        public virtual void GroupAdvisorNavigatesToAGroupTheyHaveAdvisorRightsFor()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Group advisor navigates to a group they manage", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Group advisor navigates to a group they have advisor rights for", ((string[])(null)));
 #line 33
 this.ScenarioSetup(scenarioInfo);
 #line 34
