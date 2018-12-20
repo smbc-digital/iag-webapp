@@ -43,7 +43,7 @@ a:hover {
     border-top: 5px solid #00b79b;
 
     @media #{$mobile} {
-        width: 100%;
+        width: 84.5%;
         display: block;
         text-align: center;
     }
@@ -61,7 +61,7 @@ a:hover {
     }
 
     @media #{$tablet} {
-        width: 100%;
+        width: 90%;
     }
 
     &:hover {
@@ -105,3 +105,12 @@ a:hover {
     background-color: #F0F0F0;
     margin-left: 5px;
 }
+
+.contact-us-area-primary {
+    padding-left: 10px;
+    margin-right: -5px;
+
+    @media #{$mobile} {
+        margin-right: -25px;
+    }
+    }
