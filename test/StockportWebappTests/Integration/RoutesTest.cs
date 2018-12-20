@@ -6,6 +6,8 @@ using Moq;
 using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace StockportWebappTests.Integration
@@ -28,6 +30,11 @@ namespace StockportWebappTests.Integration
         {
             SetBusinessIdRequestHeader("unittest");
 
+            // Look, I know this seems odd.
+            // We really had no choice, and if you remove this line the test fails when you run it on it's own.
+            // Good luck if you want to try to figure out why.
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
             var result = await _fakeClient.GetAsync("/this-is-another-article");
 
             result.Headers.CacheControl.MaxAge.Value.Should().Be(TimeSpan.FromSeconds(21600));
@@ -44,9 +51,14 @@ namespace StockportWebappTests.Integration
         }
 
         [Fact]
-        public async void ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
+        public async Task ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
         {
             SetBusinessIdRequestHeader("unittest");
+
+            // Look, I know this seems odd.
+            // We really had no choice, and if you remove this line the test fails when you run it on it's own.
+            // Good luck if you want to try to figure out why.
+            Thread.Sleep(TimeSpan.FromSeconds(1));
  
             var result = await _fakeClient.GetAsync("/this-is-a-redirect-from");
  
