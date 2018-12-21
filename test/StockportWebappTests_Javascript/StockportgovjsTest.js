@@ -1,11 +1,5 @@
 define(['utils', 'events', 'modernizr'], function (utils, events, modernizr) {
 
-    describe("Very simple test", function () {
-        it("is a simple test", function () {
-            expect("A").toEqual("A");
-        });
-    });
-
     describe("Date tests", function () {
         // inject the HTML fixture for the tests
         beforeEach(function () {

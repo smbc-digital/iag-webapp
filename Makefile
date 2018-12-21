@@ -26,11 +26,7 @@ publish:
 	cd ./src/StockportWebapp && dotnet publish -c Release -o publish
 
 .PHONY: test
-test:
-	@echo Starting test suits
-	make unit-test
-	cd ../../
-	make integration-test
+test: unit-test integration-test
 
 # ---------------------------------------------------------------------------------------
 # -- Unit-test
