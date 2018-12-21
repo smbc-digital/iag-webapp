@@ -51,6 +51,7 @@ namespace StockportWebapp.Controllers
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
+
             return View(viewModel);
         }
 

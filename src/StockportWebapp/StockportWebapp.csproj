@@ -41,6 +41,7 @@
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />
     <None Remove="Views\Shared\Components\SemanticFooter\NoFooterFound.cshtml" />
+    <None Remove="Views\Shared\DisplayTemplates\InsetText.cshtml" />
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml" />
