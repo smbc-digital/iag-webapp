@@ -68,7 +68,7 @@ js-tests: js-test
 
 .PHONY: js-test
 js-test:
-	cd test/StockportWebappTests/JSTests && npm install && cd node_modules/karma/bin && node karma start ../../../karma.conf.js --single-run
+	cd test/StockportWebappTests_Javascript/JSTests && npm install && cd node_modules/karma/bin && node karma start ../../../karma.conf.js --single-run
 
 # ---------------------------------------------------------------------------------------
 # -- Gulp tasks - Are these needed?
