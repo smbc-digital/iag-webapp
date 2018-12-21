@@ -7,7 +7,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Parsers
+namespace StockportWebappTests_Unit.Unit.Parsers
 {
     public class AlertsInlineTagParserTest
     {

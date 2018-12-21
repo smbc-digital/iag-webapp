@@ -6,7 +6,7 @@ using StockportWebapp.ViewComponents;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ViewComponents
+namespace StockportWebappTests_Unit.Unit.ViewComponents
 {
     public class GoogleAnalyticsViewComponentTest
     {

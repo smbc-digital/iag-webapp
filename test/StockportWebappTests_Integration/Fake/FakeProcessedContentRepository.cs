@@ -4,7 +4,7 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
-namespace StockportWebappTests.Unit.Fake
+namespace StockportWebappTests_Integration.Fake
 {
     public class FakeProcessedContentRepository : IProcessedContentRepository
     {

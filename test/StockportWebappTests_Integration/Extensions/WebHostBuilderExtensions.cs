@@ -8,7 +8,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace StockportWebappTests.Extensions
+namespace StockportWebappTests_Integration.Extensions
 {
     internal static class WebHostBuilderExtensions
     {

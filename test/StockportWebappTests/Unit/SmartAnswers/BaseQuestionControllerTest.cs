@@ -20,7 +20,7 @@ using StockportWebapp.Repositories;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 
-namespace StockportWebappTests.Unit.SmartAnswers
+namespace StockportWebappTests_Unit.Unit.SmartAnswers
 {
     internal class TestQuestionController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {

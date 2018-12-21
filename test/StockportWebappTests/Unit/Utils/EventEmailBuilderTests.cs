@@ -11,7 +11,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using StockportWebapp.Emails.Models;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class EventEmailBuilderTests
     {

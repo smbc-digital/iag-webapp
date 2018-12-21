@@ -8,7 +8,7 @@ using StockportWebapp.QuestionBuilder.Entities;
 using StockportWebapp.QuestionBuilder.Validators;
 using Xunit;
 
-namespace StockportWebappTests.Unit.SmartAnswers.Validators
+namespace StockportWebappTests_Unit.Unit.SmartAnswers.Validators
 {
     public class TelephoneValidatorTests
     {

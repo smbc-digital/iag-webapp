@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using StockportWebapp.Models;
 using Xunit;
-using Helper = StockportWebappTests.TestHelper;
+using Helper = StockportWebappTests_Unit.TestHelper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -12,7 +12,7 @@ using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using System.Collections;
 
-namespace StockportWebappTests.Unit.ContentFactory
+namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
     public class ContentFactoryTest
     {

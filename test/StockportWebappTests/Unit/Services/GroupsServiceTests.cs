@@ -11,11 +11,11 @@ using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 using Xunit;
 using StockportWebapp.ViewModels;
 
-namespace StockportWebappTests.Unit.Services
+namespace StockportWebappTests_Unit.Unit.Services
 {
     public class GroupsServiceTests
     {

@@ -7,7 +7,7 @@ using FluentAssertions;
 using Xunit;
 using Moq;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class ViewHelpersTest
     {

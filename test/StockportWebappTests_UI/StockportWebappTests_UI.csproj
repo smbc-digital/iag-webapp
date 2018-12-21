@@ -159,7 +159,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\AToZ.feature.cs" />
+    <Compile Include="Features\AToZ1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AToZ.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Breadcrumb.feature.cs">
       <DependentUpon>Breadcrumb.feature</DependentUpon>
       <DesignTime>True</DesignTime>

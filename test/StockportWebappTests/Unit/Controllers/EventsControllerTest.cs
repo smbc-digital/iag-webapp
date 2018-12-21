@@ -15,10 +15,10 @@ using StockportWebapp.ViewModels;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.AmazonSES;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class EventsControllerTest
     {

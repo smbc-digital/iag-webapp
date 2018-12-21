@@ -4,11 +4,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Moq;
 using StockportWebapp.FeatureToggling;
-using StockportWebappTests.Unit.Fake;
+using StockportWebappTests_Unit.Unit.Fake;
 using Xunit;
 using Xunit.Sdk;
 
-namespace StockportWebappTests.Unit.FeatureToggling
+namespace StockportWebappTests_Unit.Unit.FeatureToggling
 {
     public class FeatureTogglesReaderTest
     {

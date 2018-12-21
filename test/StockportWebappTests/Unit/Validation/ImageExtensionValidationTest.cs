@@ -3,7 +3,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http.Internal;
 using StockportWebapp.Validation;
 
-namespace StockportWebappTests.Unit.Validation
+namespace StockportWebappTests_Unit.Unit.Validation
 {
     public class ImageExtensionValidationTest
     {

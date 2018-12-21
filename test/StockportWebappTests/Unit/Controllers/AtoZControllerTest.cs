@@ -11,7 +11,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class AtoZControllerTest
     {

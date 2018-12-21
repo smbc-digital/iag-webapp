@@ -5,7 +5,7 @@ using StockportWebapp.Utils;
 using System.Collections.Generic;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Helpers
+namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class StatusColourHelperTest
     {

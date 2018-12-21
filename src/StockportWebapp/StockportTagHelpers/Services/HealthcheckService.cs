@@ -1,13 +1,14 @@
 using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
+using HttpClient = StockportWebapp.Http.HttpClient;
 
 namespace StockportWebapp.Services
 {
@@ -22,7 +23,7 @@ namespace StockportWebapp.Services
         private readonly string _sha;
         private readonly IFileWrapper _fileWrapper;
         private readonly FeatureToggles _featureToggles;
-        private readonly HttpClient _httpMaker;
+        private readonly IHttpClient _httpMaker;
         private readonly IStubToUrlConverter _urlGenerator;
         private readonly string _environment;
         private readonly IApplicationConfiguration _config;
@@ -31,7 +32,7 @@ namespace StockportWebapp.Services
         public readonly BusinessId _businessId;
 
         public HealthcheckService(string appVersionPath, string shaPath, IFileWrapper fileWrapper,
-            FeatureToggles featureToggles, HttpClient httpMaker, IStubToUrlConverter urlGenerator, string environment, IApplicationConfiguration config, BusinessId businessId)
+            FeatureToggles featureToggles, IHttpClient httpMaker, IStubToUrlConverter urlGenerator, string environment, IApplicationConfiguration config, BusinessId businessId)
         {
             _fileWrapper = fileWrapper;
             _featureToggles = featureToggles;
@@ -56,32 +57,32 @@ namespace StockportWebapp.Services
             }
             return defaultValue.Trim();
         }
-        
+
         public async Task<Healthcheck> Get()
         {
             Healthcheck healthcheck;
-            try
+            var httpResponse = await _httpMaker.Get(_urlGenerator.HealthcheckUrl(), new Dictionary<string, string> {
+                { "Authorization",  authenticationKey},
+                { "X-ClientId",  webAppClientId}
+                });
+
+            if (httpResponse != null)
             {
-                _httpMaker.DefaultRequestHeaders.Remove("Authorization");
-                _httpMaker.DefaultRequestHeaders.Add("Authorization",  authenticationKey);
-                _httpMaker.DefaultRequestHeaders.Remove("X-ClientId");
-                _httpMaker.DefaultRequestHeaders.Add("X-ClientId",  webAppClientId);
-                var httpResponse = await _httpMaker.GetAsync(_urlGenerator.HealthcheckUrl());
-                healthcheck = await BuildDependencyHealthcheck(httpResponse);
+                healthcheck = BuildDependencyHealthcheck(httpResponse);
             }
-            catch (HttpRequestException)
+            else
             {
                 healthcheck = new UnavailableHealthcheck();
             }
 
             return new Healthcheck(_appVersion, _businessId.ToString(), _sha, _featureToggles,
-                new Dictionary<string, Healthcheck>() {{"contentApi", healthcheck}}, _environment, new List<RedisValueData>());
+                new Dictionary<string, Healthcheck>() { { "contentApi", healthcheck } }, _environment, new List<RedisValueData>());
         }
 
-        private static async Task<Healthcheck> BuildDependencyHealthcheck(HttpResponseMessage httpResponse)
+        private static Healthcheck BuildDependencyHealthcheck(HttpResponse httpResponse)
         {
-            if (httpResponse.StatusCode != HttpStatusCode.OK) return new UnavailableHealthcheck();
-            var responseString = await httpResponse.Content.ReadAsStringAsync();
+            if (httpResponse.StatusCode != (int)HttpStatusCode.OK) return new UnavailableHealthcheck();
+            var responseString = httpResponse.Content.ToString();
             return JsonConvert.DeserializeObject<Healthcheck>(responseString);
         }
     }

@@ -20,15 +20,32 @@ run:
 dotnet-restore:
 	dotnet restore
 
-.PHONY: test
-test:
-	cd test/StockportWebappTests; dotnet test
-
 .PHONY: publish
 publish:
 	@echo Publishing application
 	cd ./src/StockportWebapp && dotnet publish -c Release -o publish
-	
+
+.PHONY: test
+test:
+	@echo Starting test suits
+	make unit-test
+	cd ../../
+	make integration-test
+
+# ---------------------------------------------------------------------------------------
+# -- Unit-test
+# ---------------------------------------------------------------------------------------
+.PHONY: unit-test
+unit-test:
+	cd test/StockportWebappTests_Unit; dotnet test
+
+# ---------------------------------------------------------------------------------------
+# -- Integration-test
+# ---------------------------------------------------------------------------------------
+.PHONY: integration-test
+integration-test:
+	cd test/StockportWebappTests_Integration; dotnet test
+
 # ---------------------------------------------------------------------------------------
 # -- Ui-test
 # ---------------------------------------------------------------------------------------

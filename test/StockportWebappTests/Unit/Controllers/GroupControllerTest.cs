@@ -17,13 +17,13 @@ using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using StockportWebapp.AmazonSES;
 using Microsoft.AspNetCore.Http;
-using StockportWebappTests.Builders;
-using StockportWebappTests.Unit.Utils;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Unit.Utils;
 using StockportWebapp.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class GroupControllerTest
     {

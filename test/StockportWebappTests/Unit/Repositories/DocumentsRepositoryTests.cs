@@ -8,10 +8,10 @@ using StockportWebapp.Models;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 using Newtonsoft.Json;
 
-namespace StockportWebappTests.Unit.Repositories
+namespace StockportWebappTests_Unit.Unit.Repositories
 {
     public class DocumentsRepositoryTests
     {

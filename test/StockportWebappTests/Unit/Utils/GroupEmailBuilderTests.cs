@@ -13,7 +13,7 @@ using StockportWebapp.Utils;
 using StockportWebapp.Emails.Models;
 using Microsoft.AspNetCore.Hosting.Internal;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class GroupEmailBuilderTests
     {

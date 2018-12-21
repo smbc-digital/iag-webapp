@@ -3,7 +3,7 @@ using FluentAssertions;
 using StockportWebapp.Utils;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class CryptographyTest
     {

@@ -9,7 +9,7 @@ using StockportWebapp.Utils;
 using Xunit;
 using static StockportWebapp.Models.LiveChat;
 
-namespace StockportWebappTests.Unit.Parsers
+namespace StockportWebappTests_Unit.Unit.Parsers
 {
     public class ContactUsMessageTagParserTest
     {

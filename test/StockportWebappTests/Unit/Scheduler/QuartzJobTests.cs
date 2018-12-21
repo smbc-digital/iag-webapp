@@ -11,7 +11,7 @@ using StockportWebapp.Services;
 using StockportWebapp.Utils;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Scheduler
+namespace StockportWebappTests_Unit.Unit.Scheduler
 {
     public class QuartzJobTests
     {

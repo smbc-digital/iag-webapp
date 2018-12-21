@@ -2,7 +2,7 @@
 using StockportWebapp.Models;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Model
+namespace StockportWebappTests_Unit.Unit.Model
 {
     public class QueryTest
     {

@@ -4,7 +4,7 @@ using Moq;
 using StockportWebapp.Middleware;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Middleware
+namespace StockportWebappTests_Unit.Unit.Middleware
 {
     public class SecurityHeaderMiddlewareTest
     {

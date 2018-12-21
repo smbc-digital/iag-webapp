@@ -4,13 +4,13 @@ using FluentAssertions;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using Xunit;
-using Helper = StockportWebappTests.TestHelper;
+using Helper = StockportWebappTests_Unit.TestHelper;
 using Moq;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
-using StockportWebappTests.Unit.TestBuilders;
+using StockportWebappTests_Unit.Unit.TestBuilders;
 
-namespace StockportWebappTests.Unit.ContentFactory
+namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
     public class ShowcaseFactoryTest
     {

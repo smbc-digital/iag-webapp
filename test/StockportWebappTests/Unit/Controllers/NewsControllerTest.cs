@@ -20,7 +20,7 @@ using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class NewsControllerTest
     {

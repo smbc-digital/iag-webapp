@@ -10,7 +10,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.ViewComponents;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ViewComponents
+namespace StockportWebappTests_Unit.Unit.ViewComponents
 {
     public class SemanticFooterViewComponentTest
     {

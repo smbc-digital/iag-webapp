@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StockportWebapp.DataProtection;
 using Xunit;
 
-namespace StockportWebappTests.Unit.DataProtection
+namespace StockportWebappTests_Unit.Unit.DataProtection
 {
     public class DataProtectionBuilderExtension
     {

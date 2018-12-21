@@ -11,7 +11,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ContactUsAreaControllerTests
     {

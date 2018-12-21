@@ -2,7 +2,7 @@
 using StockportWebapp.Config;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Config
+namespace StockportWebappTests_Unit.Unit.Config
 {
     public class AmazonSESKeysTest
     {

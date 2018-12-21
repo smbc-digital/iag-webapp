@@ -4,7 +4,7 @@ using StockportWebapp.Services;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class HealthcheckControllerTest
     {

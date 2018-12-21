@@ -4,25 +4,25 @@ using FluentAssertions;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
-using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.ProcessedModels;
-using Helper = StockportWebappTests.TestHelper;
+using Helper = StockportWebappTests_Unit.TestHelper;
 using System.Threading.Tasks;
+using StockportWebapp.Repositories;
+using Moq;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ProfileControllerTest
     {
-        private readonly FakeProcessedContentRepository _fakeRepository;
+        private readonly Mock<IProcessedContentRepository> _fakeRepository = new Mock<IProcessedContentRepository>();
         private readonly ProfileController _profileController;
 
 
         public ProfileControllerTest()
         {
-            _fakeRepository = new FakeProcessedContentRepository();
-            _profileController = new ProfileController(_fakeRepository);
+            _profileController = new ProfileController(_fakeRepository.Object);
         }
 
         [Fact]
@@ -32,7 +32,9 @@ namespace StockportWebappTests.Unit.Controllers
                 Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
                 Helper.AnyString, new List<Crumb>(), new List<Alert>());
 
-            _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.OK, processedProfile, string.Empty));
+            _fakeRepository
+                .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new HttpResponse((int) HttpStatusCode.OK, processedProfile, string.Empty));
 
             var view = await _profileController.Index("slug") as ViewResult;;
             var model = view.ViewData.Model as ProcessedProfile;
@@ -43,7 +45,9 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public async Task GetsA404NotFoundProfile()
         {
-            _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.NotFound, null, string.Empty));
+            _fakeRepository
+                .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
             var response = await _profileController.Index("not-found-slug") as HttpResponse;;
 

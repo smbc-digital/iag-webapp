@@ -14,7 +14,7 @@ using StockportWebapp.Utils;
 using System;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class StartPageControllerTest
     {

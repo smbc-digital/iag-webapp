@@ -3,7 +3,7 @@ using Xunit;
 using FluentAssertions;
 using StockportWebapp.Utils;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class HtmlUtilitiesTest
     {

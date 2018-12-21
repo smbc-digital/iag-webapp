@@ -8,7 +8,7 @@ using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class SearchControllerTest
     {

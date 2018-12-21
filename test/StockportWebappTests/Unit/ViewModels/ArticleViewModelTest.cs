@@ -7,10 +7,10 @@ using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using Xunit;
-using Helper = StockportWebappTests.TestHelper;
+using Helper = StockportWebappTests_Unit.TestHelper;
 using static StockportWebapp.Models.LiveChat;
 
-namespace StockportWebappTests.Unit.ViewModels
+namespace StockportWebappTests_Unit.Unit.ViewModels
 {
     public class ArticleViewModelTest
     {

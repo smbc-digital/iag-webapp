@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Moq;
 using StockportWebapp.Validation;
 
-namespace StockportWebappTests.Unit.Validation
+namespace StockportWebappTests_Unit.Unit.Validation
 {
     public class FileSizeValidationTest
     {

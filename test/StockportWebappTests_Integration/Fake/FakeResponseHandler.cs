@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Fake
+namespace StockportWebappTests_Integration.Fake
 {
     public class FakeResponseHandler : DelegatingHandler
     {

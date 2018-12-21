@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Builders
+namespace StockportWebappTests_Unit.Builders
 {
     public class DocumentBuilder
     {

@@ -10,7 +10,7 @@ using StockportWebapp.Parsers;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Unit.Parsers
+namespace StockportWebappTests_Unit.Unit.Parsers
 {
     public class PrivacyNoticeTagParserTest
     {

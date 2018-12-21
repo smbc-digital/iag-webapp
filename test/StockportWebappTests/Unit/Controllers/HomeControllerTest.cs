@@ -13,10 +13,10 @@ using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Services;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class HomeControllerTest
     {

@@ -18,7 +18,7 @@ using StockportWebapp.Repositories;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.FeatureToggling;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ContactUsControllerTest
     {

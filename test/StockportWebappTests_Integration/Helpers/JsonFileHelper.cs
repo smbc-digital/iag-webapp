@@ -1,12 +1,12 @@
 ﻿using System.IO;
 
-namespace StockportWebappTests.Helpers
+namespace StockportWebappTests_Integration.Helpers
 {
     public static class JsonFileHelper
     {
         public static string GetStringResponseFromFile(string filePath)
         {
-            return File.ReadAllText($"../../../Unit/MockResponses/{filePath}");
+            return File.ReadAllText($"../../../MockResponses/{filePath}");
         }
     }
 }

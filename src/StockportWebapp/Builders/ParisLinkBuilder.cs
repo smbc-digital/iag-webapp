@@ -9,7 +9,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using StockportWebapp.Config;
 
-namespace StockportWebappTests.Unit.Builders
+namespace StockportWebapp.Builders
 {
     public interface IParisLinkBuilder
     {

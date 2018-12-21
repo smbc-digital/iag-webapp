@@ -22,7 +22,7 @@
     }
     @if (ViewData["CanonicalUrl"] != null)
     {
-        @Html.Partial("Canonical-Link")
+        <partial name="Canonical-Link" />
     }
     @if (ViewData["og:title"] != null)
     {

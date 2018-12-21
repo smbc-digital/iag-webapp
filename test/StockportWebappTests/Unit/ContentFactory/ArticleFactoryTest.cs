@@ -4,7 +4,7 @@ using FluentAssertions;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using Xunit;
-using Helper = StockportWebappTests.TestHelper;
+using Helper = StockportWebappTests_Unit.TestHelper;
 using Moq;
 using StockportWebapp.Http;
 using StockportWebapp.Parsers;
@@ -12,7 +12,7 @@ using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 
-namespace StockportWebappTests.Unit.ContentFactory
+namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
     public class ArticleFactoryTest
     {

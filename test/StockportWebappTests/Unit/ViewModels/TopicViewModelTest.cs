@@ -5,7 +5,7 @@ using Xunit;
 using FluentAssertions;
 using StockportWebapp.ViewModels;
 
-namespace StockportWebappTests.Unit.ViewModels
+namespace StockportWebappTests_Unit.Unit.ViewModels
 {
     public class TopicViewModelTest
     {

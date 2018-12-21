@@ -20,13 +20,13 @@ namespace StockportWebapp.Controllers
             _logger = logger;
         }
 
-        public async Task<IActionResult> Error(string id)
+        public IActionResult Error(string id)
         {
             SetupPageMessage(id);
-            return await RedirectIfLegacyUrl(id);
+            return RedirectIfLegacyUrl(id);
         }
 
-        private async Task<IActionResult> RedirectIfLegacyUrl(string id)
+        private IActionResult RedirectIfLegacyUrl(string id)
         {
             if (id.Equals("404"))
             {
@@ -35,12 +35,12 @@ namespace StockportWebapp.Controllers
                 if (!string.IsNullOrEmpty(urlToRedirectLegacyRequestTo))
                 {
                     _logger.LogInformation($"A legacy redirect was found - redirecting to {urlToRedirectLegacyRequestTo}");
-                    return await Task.FromResult(RedirectPermanent(urlToRedirectLegacyRequestTo));
+                    return RedirectPermanent(urlToRedirectLegacyRequestTo);
                 }
 
                 _logger.LogInformation($"No legacy url matching current url ({currentPath}) found");
             }
-            return await Task.FromResult(View());
+            return View();
         }
 
         private void SetupPageMessage(string id)

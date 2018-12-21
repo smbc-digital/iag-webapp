@@ -5,7 +5,7 @@ using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.ViewModels;
 
-namespace StockportWebappTests.Unit.Model
+namespace StockportWebappTests_Unit.Unit.Model
 {
     public class EventsCalendarTest
     {

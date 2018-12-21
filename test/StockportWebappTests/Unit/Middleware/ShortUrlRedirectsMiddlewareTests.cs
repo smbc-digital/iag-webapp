@@ -7,7 +7,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Scheduler;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Middleware
+namespace StockportWebappTests_Unit.Unit.Middleware
 {
     public class ShortUrlRedirectsMiddlewareTests
     {

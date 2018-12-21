@@ -7,25 +7,24 @@ using System.Linq;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebappTests.Unit.Fake;
 using Xunit;
 using System.Net;
 using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 using System;
 using System.Threading.Tasks;
+using StockportWebapp.Repositories;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ShowcaseControllerTest
     {
         private readonly ShowcaseController _controller;
-        private readonly FakeProcessedContentRepository _fakeRepository;
+        private readonly Mock<IProcessedContentRepository> _mockContentRepository = new Mock<IProcessedContentRepository>();
 
         public ShowcaseControllerTest()
         {
-            _fakeRepository = new FakeProcessedContentRepository();
-            _controller = new ShowcaseController(_fakeRepository, new Mock<ILogger<ShowcaseController>>().Object, new Mock<IApplicationConfiguration>().Object);
+            _controller = new ShowcaseController(_mockContentRepository.Object, new Mock<ILogger<ShowcaseController>>().Object, new Mock<IApplicationConfiguration>().Object);
         }
 
         [Fact]
@@ -38,7 +37,9 @@ namespace StockportWebappTests.Unit.Controllers
                                                  "showcase subheading", "event category", "events Category Or Tag", "event subheading", "news subheading", "news category", "news type", "body subheading", "body", null, "af981b9771822643da7a03a9ae95886f/picture.jpg",
                                                  new List<SubItem> { new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) }, new List<Crumb> { new Crumb("title", "slug", "type") }, new List<Consultation>(), new List<SocialMediaLink>(), new List<Event>(), "", "", alerts, new List<SubItem>(), null, null, new FieldOrder(),"Key Fact Subheading", "fa-icon");
 
-            _fakeRepository.Set(new HttpResponse(200, showcase, string.Empty));
+            _mockContentRepository
+                .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new HttpResponse(200, showcase, string.Empty));
 
             var showcasePage = await _controller.Showcase(showcaseSlug) as ViewResult;;
             var processedShowcase = showcasePage.Model as ProcessedShowcase;
@@ -59,7 +60,9 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public async Task Returns404WhenShowcaseNotFound()
         {
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+            _mockContentRepository
+                .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
             var response = await _controller.Showcase("not-found-slug") as HttpResponse;;
 
@@ -69,7 +72,9 @@ namespace StockportWebappTests.Unit.Controllers
         [Fact]
         public async Task ReturnsEmptyListIfAllTopicsExpired()
         {
-            _fakeRepository.Set(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+            _mockContentRepository
+                .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
             var response = await _controller.Showcase("not-found-slug") as HttpResponse;;
 

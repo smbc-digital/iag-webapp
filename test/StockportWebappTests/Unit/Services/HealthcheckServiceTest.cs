@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Net;
 using System.Net.Http;
 using FluentAssertions;
@@ -10,13 +9,11 @@ using StockportWebapp.Utils;
 using Xunit;
 using StockportWebapp;
 using StockportWebapp.Config;
-using StockportWebapp.Models;
-using StockportWebappTests.Unit.Fake;
-using HttpClient = System.Net.Http.HttpClient;
 using System.Threading.Tasks;
-using StockportWebappTests.Helpers;
+using StockportWebapp.Http;
+using System.Collections.Generic;
 
-namespace StockportWebappTests.Unit.Services
+namespace StockportWebappTests_Unit.Unit.Services
 {
     public class HealthcheckServiceTest
     {
@@ -24,7 +21,7 @@ namespace StockportWebappTests.Unit.Services
         private readonly string _shaPath;
         private readonly string _appVersionPath;
         private readonly Mock<IFileWrapper> _fileWrapperMock;
-        private readonly FakeResponseHandler _fakeHandler;
+        private readonly Mock<IHttpClient> _mockHttpClient = new Mock<IHttpClient>();
         private readonly Mock<IStubToUrlConverter> _mockUrlGenerator;
         private const string healthcheckUrl = "http://localhost:5000/_healthcheck";
         private readonly Mock<IApplicationConfiguration> _configuration;
@@ -40,13 +37,12 @@ namespace StockportWebappTests.Unit.Services
             _mockUrlGenerator.Setup(o => o.HealthcheckUrl()).Returns(healthcheckUrl);
             _configuration = new Mock<IApplicationConfiguration>();
             _configuration.Setup(_ => _.GetContentApiAuthenticationKey()).Returns("AuthKey");
+            
+            var httpResponseMessage = new HttpResponse(200, "{\"appVersion\":\"dev\",\"sha\":\"test-sha\",\"environment\":\"local\",\"redisValueData\":[]}", "");
 
-            var httpResponseMessage = new HttpResponseMessage
-            {
-                Content = new StringContent(JsonFileHelper.GetStringResponseFromFile("Healthcheck.json"))
-            };
-            _fakeHandler = new FakeResponseHandler();
-            _fakeHandler.AddFakeResponse(new Uri(healthcheckUrl), httpResponseMessage);
+            _mockHttpClient
+                .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+                .ReturnsAsync(httpResponseMessage);
 
             SetUpFakeFileSystem();
             _healthcheckService = CreateHealthcheckService(_appVersionPath, _shaPath, new FeatureToggles());
@@ -55,16 +51,16 @@ namespace StockportWebappTests.Unit.Services
         private void SetUpFakeFileSystem()
         {
             _fileWrapperMock.Setup(x => x.Exists(_appVersionPath)).Returns(true);
-            _fileWrapperMock.Setup(x => x.ReadAllLines(_appVersionPath)).Returns(new[] {"0.0.3"});
+            _fileWrapperMock.Setup(x => x.ReadAllLines(_appVersionPath)).Returns(new[] { "0.0.3" });
             _fileWrapperMock.Setup(x => x.Exists(_shaPath)).Returns(true);
             _fileWrapperMock.Setup(x => x.ReadAllLines(_shaPath))
-                .Returns(new[] {"d8213ee84c7d8c119c401b7ddd0adef923692188"});
+                .Returns(new[] { "d8213ee84c7d8c119c401b7ddd0adef923692188" });
         }
 
         private HealthcheckService CreateHealthcheckService(string appVersionPath, string shaPath,
             FeatureToggles featureToggles)
         {
-            return new HealthcheckService(appVersionPath, shaPath, _fileWrapperMock.Object, featureToggles, new HttpClient(_fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+            return new HealthcheckService(appVersionPath, shaPath, _fileWrapperMock.Object, featureToggles, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
         }
 
         private HealthcheckService CreateHealthcheckServiceWithDefaultFeatureToggles(string appVersionPath,
@@ -121,7 +117,7 @@ namespace StockportWebappTests.Unit.Services
         {
             string newFile = "newFile";
             _fileWrapperMock.Setup(x => x.Exists(newFile)).Returns(true);
-            _fileWrapperMock.Setup(x => x.ReadAllLines(newFile)).Returns(new[] {""});
+            _fileWrapperMock.Setup(x => x.ReadAllLines(newFile)).Returns(new[] { "" });
 
             var healthCheckServiceWithNotFoundVersion = CreateHealthcheckServiceWithDefaultFeatureToggles(newFile,
                 _shaPath);
@@ -172,12 +168,14 @@ namespace StockportWebappTests.Unit.Services
         [Fact]
         public async Task ShouldSetAppDependenciesToNullIfNoResponseGotFromContentApi()
         {
-            var NoneSuccessfulResponse = new HttpResponseMessage(HttpStatusCode.BadRequest);
-            var fakeHandler = new FakeResponseHandler();
-            fakeHandler.AddFakeResponse(new Uri(healthcheckUrl), NoneSuccessfulResponse);
+            var httpResponseMessage = new HttpResponse((int)HttpStatusCode.BadRequest, new StringContent(""), null);
+
+            _mockHttpClient
+                .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+                .ReturnsAsync(httpResponseMessage);
 
             var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
-                new FeatureToggles(), new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+                new FeatureToggles(), _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
 
             var check = await healthcheckService.Get();
 
@@ -193,11 +191,12 @@ namespace StockportWebappTests.Unit.Services
         [Fact]
         public async Task ShouldSetAppDependenciesToNullIfRequestToContentApi()
         {
-            var fakeHandler = new FakeResponseHandler();
-            fakeHandler.ThrowException(new Uri(healthcheckUrl), new HttpRequestException());
+            _mockHttpClient
+                .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
+                .ReturnsAsync(default(HttpResponse));
 
             var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
-                new FeatureToggles(), new HttpClient(fakeHandler), _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+                new FeatureToggles(), _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
 
             var check = await healthcheckService.Get();
 

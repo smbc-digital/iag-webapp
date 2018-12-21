@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Internal;
 using Moq;
 
-namespace StockportWebappTests
+namespace StockportWebappTests_Unit
 {
     public static class LogTesting
     {

@@ -2,11 +2,10 @@
 using Xunit;
 using Microsoft.AspNetCore.Hosting.Internal;
 using System.IO;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
 using Microsoft.Extensions.Configuration;
 
-namespace StockportWebappTests.Unit.Startup
+namespace StockportWebappTests_Unit.Unit.Startup
 {
     public class StartupTest
     {

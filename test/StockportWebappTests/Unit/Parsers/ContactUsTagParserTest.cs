@@ -6,7 +6,7 @@ using StockportWebapp.Utils;
 using StockportWebapp.ViewDetails;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Parsers
+namespace StockportWebappTests_Unit.Unit.Parsers
 {
     public class ContactUsTagParserTest
     {

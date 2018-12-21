@@ -15,7 +15,7 @@ using StockportWebapp.Builders;
 using StockportWebapp.Models;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.AmazonSES
+namespace StockportWebappTests_Unit.Unit.AmazonSES
 {
     public class HttpEmailClientTest
     {
