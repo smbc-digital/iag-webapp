@@ -17,7 +17,7 @@ Scenario: User navigates to a group they manage that hasn't changed in more than
 	And I should see a map with directions
 	And I should see sharing buttons
 
-Scenario: User navigates to a group they manage that hasn changed less than 3 months ago
+Scenario: User navigates to a group they manage that has changed yesterday
 	Given I have signed in as UiTest
 	And I navigate to "/groups/zumba"
 	Then I should see a "Manage your groups" button
@@ -30,7 +30,14 @@ Scenario: User navigates to a group they manage that hasn changed less than 3 mo
 	And I should see a map with directions
 	And I should see sharing buttons
 
+<<<<<<< HEAD
+Scenario: Group advisor navigates to a group they have advisor rights for
+	Given I have signed in as UiTest
+	And I navigate to "/groups/zumba"
+	Then I should see an "additional information" section
+=======
 Scenario: Group advisor navigates to a group they manage
 	#Given I have signed in as UiTest
 	#And I navigate to "/groups/zumba"
 	#Then I should see an "additional information" section
+>>>>>>> 660b485afde0ab34a2adbbfbd6da2c5f8720cc82

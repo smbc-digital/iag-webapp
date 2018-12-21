@@ -5,6 +5,8 @@ using Xunit;
 using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,6 +35,11 @@ namespace StockportWebappTests_Integration
             // Good luck if you want to try to figure out why.
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
+            // Look, I know this seems odd.
+            // We really had no choice, and if you remove this line the test fails when you run it on it's own.
+            // Good luck if you want to try to figure out why.
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
             var result = await _fakeClient.GetAsync("/this-is-another-article");
 
             result.Headers.CacheControl.MaxAge.Value.Should().Be(TimeSpan.FromSeconds(21600));
@@ -52,6 +59,7 @@ namespace StockportWebappTests_Integration
         public async Task ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
         {
             SetBusinessIdRequestHeader("unittest");
+            
             // Look, I know this seems odd.
             // We really had no choice, and if you remove this line the test fails when you run it on it's own.
             // Good luck if you want to try to figure out why.
