@@ -62,9 +62,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(o => o.Get<List<AtoZ>>("a", null))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, "error", string.Empty));
 
-            var result = await _controller.Index("a") as HttpResponse;
+            var result = await _controller.Index("a") as ViewResult;
 
-            result.StatusCode.Should().Be(500);
+            result.ViewData["Error"].Should().Be("error");
         }
 
         [Theory]
