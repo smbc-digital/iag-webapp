@@ -7,6 +7,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using Xunit;
 using FluentAssertions;
+using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Parsers
 {

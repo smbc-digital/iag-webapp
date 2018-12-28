@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Middleware;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Middleware

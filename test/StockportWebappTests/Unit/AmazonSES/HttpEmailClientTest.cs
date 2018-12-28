@@ -14,6 +14,7 @@ using Moq;
 using StockportWebapp.Builders;
 using StockportWebapp.Models;
 using System.Threading.Tasks;
+using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.AmazonSES
 {

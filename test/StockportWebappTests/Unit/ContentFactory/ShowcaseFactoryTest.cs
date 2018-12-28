@@ -4,7 +4,6 @@ using FluentAssertions;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using Xunit;
-using Helper = StockportWebappTests_Unit.TestHelper;
 using Moq;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;

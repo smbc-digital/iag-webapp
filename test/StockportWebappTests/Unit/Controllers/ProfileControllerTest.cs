@@ -7,10 +7,11 @@ using StockportWebapp.Models;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.ProcessedModels;
-using Helper = StockportWebappTests_Unit.TestHelper;
 using System.Threading.Tasks;
 using StockportWebapp.Repositories;
 using Moq;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -28,9 +29,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task ItReturnsAProfileWithProcessedBody()
         { 
-            var processedProfile = new ProcessedProfile(Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, new List<Crumb>(), new List<Alert>());
+            var processedProfile = new ProcessedProfile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, new List<Crumb>(), new List<Alert>());
 
             _fakeRepository
                 .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))

@@ -6,63 +6,63 @@ namespace StockportWebappTests_Unit.Builders
 {
     internal class EventBuilder
     {
-        private string _title = "title";
-        private string _slug = "slug";
-        private string _teaser = "teaser";
-        private string _imageUrl = "url";
-        private string _thumbnailImageUrl = "url";
-        private string _description = "description";
-        private string _fee = "fee";
-        private string _location = "location";
-        private string _submittedBy = "person";
-        private DateTime _eventDate = DateTime.MaxValue;
-        private string _startTime = "00:00";
-        private string _endTime = "12:00";
-        private List<Crumb> _breadcrumbs = new List<Crumb>();
-        private List<Document> _documents = new List<Document>();
-        private List<string> _categories = new List<string>();
-        private MapPosition _mapPosition = new MapPosition();
-        private bool _featured = false;
-        private string _bookingInformation = "info";
-        private DateTime _updatedAt = DateTime.MinValue;
-        private List<string> _tags = new List<string>();
-        private Group _group = new GroupBuilder().Build();
-        private List<Alert> _alerts = new List<Alert>();
-        private EventFrequency _eventFrequency = EventFrequency.None;
-        private int _occurences = 0;
-        private List<EventCategory> _eventCategories = new List<EventCategory>();
-        private string _accessibleTransportLink = "link";
+        private const string Title = "title";
+        private const string Slug = "slug";
+        private const string Teaser = "teaser";
+        private const string ImageUrl = "url";
+        private const string ThumbnailImageUrl = "url";
+        private const string Description = "description";
+        private const string Fee = "fee";
+        private const string Location = "location";
+        private const string SubmittedBy = "person";
+        private readonly DateTime _eventDate = DateTime.MaxValue;
+        private const string StartTime = "00:00";
+        private const string EndTime = "12:00";
+        private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
+        private readonly List<Document> _documents = new List<Document>();
+        private readonly List<string> _categories = new List<string>();
+        private readonly MapPosition _mapPosition = new MapPosition();
+        private const bool Featured = false;
+        private const string BookingInformation = "info";
+        private readonly DateTime _updatedAt = DateTime.MinValue;
+        private readonly List<string> _tags = new List<string>();
+        private readonly Group _group = new GroupBuilder().Build();
+        private readonly List<Alert> _alerts = new List<Alert>();
+        private const EventFrequency EventFrequency = StockportWebapp.Models.EventFrequency.None;
+        private const int Occurences = 0;
+        private readonly List<EventCategory> _eventCategories = new List<EventCategory>();
+        private const string AccessibleTransportLink = "link";
 
         public Event Build()
         {
             return new Event
             {
-                Title = _title,
-                Slug = _slug,
-                Teaser = _teaser,
-                ImageUrl = _imageUrl,
-                ThumbnailImageUrl = _thumbnailImageUrl,
-                Description = _description,
-                Fee = _fee,
-                Location = _location,
-                SubmittedBy = _submittedBy,
+                Title = Title,
+                Slug = Slug,
+                Teaser = Teaser,
+                ImageUrl = ImageUrl,
+                ThumbnailImageUrl = ThumbnailImageUrl,
+                Description = Description,
+                Fee = Fee,
+                Location = Location,
+                SubmittedBy = SubmittedBy,
                 EventDate = _eventDate,
-                StartTime = _startTime,
-                EndTime = _endTime,
+                StartTime = StartTime,
+                EndTime = EndTime,
                 Breadcrumbs = _breadcrumbs,
                 Documents = _documents,
                 Categories = _categories,
                 MapPosition = _mapPosition,
-                Featured = _featured,
-                BookingInformation = _bookingInformation,
+                Featured = Featured,
+                BookingInformation = BookingInformation,
                 UpdatedAt = _updatedAt,
                 Tags = _tags,
                 Group = _group,
                 Alerts = _alerts,
-                EventFrequency = _eventFrequency,
-                Occurences = _occurences,
+                EventFrequency = EventFrequency,
+                Occurences = Occurences,
                 EventCategories = _eventCategories,
-                AccessibleTransportLink = _accessibleTransportLink
+                AccessibleTransportLink = AccessibleTransportLink
             };
         }
     }

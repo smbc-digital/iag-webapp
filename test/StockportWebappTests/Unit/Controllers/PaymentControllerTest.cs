@@ -6,13 +6,13 @@ using StockportWebapp.Controllers;
 using StockportWebapp.Models;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
-using Helper = StockportWebappTests_Unit.TestHelper;
 using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using Moq;
 using System.Threading.Tasks;
 using StockportWebapp.Repositories;
+using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -31,8 +31,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task ItReturnsAGroupWithProcessedBody()
         {
-            var processedPayment = new ProcessedPayment(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>());
+            var processedPayment = new ProcessedPayment(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>());
 
             _fakeRepository
                 .Setup(_ => _.Get<Payment>(It.IsAny<string>(), It.IsAny<List<Query>>()))

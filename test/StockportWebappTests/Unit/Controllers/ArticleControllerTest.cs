@@ -10,12 +10,13 @@ using Moq;
 using StockportWebapp.Parsers;
 using StockportWebapp.ViewModels;
 using Xunit;
-using Helper = StockportWebappTests_Unit.TestHelper;
 using static StockportWebapp.Models.LiveChat;
 using System;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using System.Threading.Tasks;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -113,7 +114,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             const string articleSlug = "physical-activity";
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
@@ -136,7 +137,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             const string articleSlug = "physical-activity";
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
                 string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
@@ -157,7 +158,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             const string sectionSlug = "physical-activity-overview";
 
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", Helper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
@@ -331,14 +332,14 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         private ProcessedArticle DummyProcessedArticle()
         {
-            return new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                new List<ProcessedSection>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(),
+            return new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
                 new LinkedList<Alert>(), new NullTopic(), false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
         }
 
         private ProcessedSection DummySection()
         {
-            return new ProcessedSection(Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
+            return new ProcessedSection(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
         }
     }
 }

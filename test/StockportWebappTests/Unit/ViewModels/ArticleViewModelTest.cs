@@ -6,8 +6,9 @@ using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
-using Helper = StockportWebappTests_Unit.TestHelper;
 using static StockportWebapp.Models.LiveChat;
 
 namespace StockportWebappTests_Unit.Unit.ViewModels
@@ -181,18 +182,18 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         [Fact]
         private void ShouldReturnTopicSubItemsListForSideBar()
         {
-            var firstSubitem = new SubItem(Helper.AnyString, "first-subitem", Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, new List<SubItem>());
+            var firstSubitem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
             var subItems = new List<SubItem> { firstSubitem };
-            var firstSecondaryitem = new SubItem(Helper.AnyString, "first-secondaryitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
+            var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
             var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, true, "image-url", string.Empty);
 
-            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
-            var article = new ProcessedArticle(Helper.AnyString,Helper.AnyString, Helper.AnyString, Helper.AnyString,new List<ProcessedSection>(),
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
+            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
+            var article = new ProcessedArticle(TextHelper.AnyString,TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,new List<ProcessedSection>(),
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -208,18 +209,18 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         [Fact]
         private void ShouldReturnTopicWithAdvertisement()
         {
-            var firstSubitem = new SubItem(Helper.AnyString, "first-subitem", Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, new List<SubItem>());
+            var firstSubitem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
             var subItems = new List<SubItem> { firstSubitem };
-            var firstSecondaryitem = new SubItem(Helper.AnyString, "first-secondaryitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
+            var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
             var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
             var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
                 DateTime.MinValue, true, "image-url", string.Empty);
 
-            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
-            var article = new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<ProcessedSection>(),
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
+            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
+            var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(),
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -233,14 +234,14 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         [Fact]
         private void ShouldReturnSixTopicsSubItemsForSideBar()
         {
-            var firstSubItem = new SubItem(Helper.AnyString, "first-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
-            var secondSubItem = new SubItem(Helper.AnyString, "second-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
-            var thirdSubItem = new SubItem(Helper.AnyString, "third-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
-            var fourthSubItem = new SubItem(Helper.AnyString, "fourth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
-            var fifthSubItem = new SubItem(Helper.AnyString, "fifth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
-            var sixthSubItem = new SubItem(Helper.AnyString, "sixth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
-            var seventhSubItem = new SubItem(Helper.AnyString, "seventh-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
-            var eightSubItem = new SubItem(Helper.AnyString, "eigth-subitem", Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<SubItem>());
+            var firstSubItem = new SubItem(TextHelper.AnyString, "first-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            var secondSubItem = new SubItem(TextHelper.AnyString, "second-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            var thirdSubItem = new SubItem(TextHelper.AnyString, "third-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            var fourthSubItem = new SubItem(TextHelper.AnyString, "fourth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            var fifthSubItem = new SubItem(TextHelper.AnyString, "fifth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            var sixthSubItem = new SubItem(TextHelper.AnyString, "sixth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            var seventhSubItem = new SubItem(TextHelper.AnyString, "seventh-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
+            var eightSubItem = new SubItem(TextHelper.AnyString, "eigth-subitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
 
             var subItems = new List<SubItem> { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
             var secondaryItems = new List<SubItem> { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
@@ -248,10 +249,10 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, false, string.Empty, string.Empty);
 
-            var topic = new Topic(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, Helper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
-            var article = new ProcessedArticle(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<ProcessedSection>(), Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
+            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
+            var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(), TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -276,8 +277,8 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
 
             var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
                 new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
-            return new ProcessedArticle(Helper.AnyString, slug, Helper.AnyString, Helper.AnyString, sections,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
+            return new ProcessedArticle(TextHelper.AnyString, slug, TextHelper.AnyString, TextHelper.AnyString, sections,
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
         }
 
 
@@ -287,7 +288,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var documents = new List<Document>();
             var alertsInline = new List<Alert>();
 
-            return new ProcessedSection(Helper.AnyString, slug, Helper.AnyString, profiles, documents, alertsInline);
+            return new ProcessedSection(TextHelper.AnyString, slug, TextHelper.AnyString, profiles, documents, alertsInline);
         }
     }
 }

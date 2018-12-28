@@ -8,6 +8,7 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewComponents;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ViewComponents

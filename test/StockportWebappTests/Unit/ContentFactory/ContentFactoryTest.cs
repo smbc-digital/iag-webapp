@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using StockportWebapp.Models;
 using Xunit;
-using Helper = StockportWebappTests_Unit.TestHelper;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -11,6 +10,8 @@ using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using System.Collections;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
@@ -36,7 +37,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ItUsesSectionFactoryToBuildProcessedSectionFromSection()
         {
-            var section = new Section(Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
+            var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var processedSection = _factory.Build<Section>(section);
 
@@ -46,8 +47,8 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ItUsesProfileFactoryToBuildProcessedProfileFromProfile()
         {
-            var profile = new Profile(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Alert>());
+            var profile = new Profile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>());
 
 
             var processedProfile = _factory.Build<Profile>(profile);
@@ -58,8 +59,8 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
         {
-            var article = new Article(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                new List<Section>(), Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), false, new LiveChat(Helper.AnyString, Helper.AnyString), new List<Alert>(), new Advertisement(Helper.AnyString, Helper.AnyString, Helper.AnyString, DateTime.MinValue, DateTime.MinValue, false, Helper.AnyString, Helper.AnyString));
+            var article = new Article(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                new List<Section>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), false, new LiveChat(TextHelper.AnyString, TextHelper.AnyString), new List<Alert>(), new Advertisement(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, DateTime.MinValue, DateTime.MinValue, false, TextHelper.AnyString, TextHelper.AnyString));
 
             var processedArticle = _factory.Build<Article>(article);
 
@@ -69,7 +70,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ItUsesNewsFactoryToBuildProcessedNewsFromNews()
         {
-            var news = new News(Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, new List<Crumb>(), new DateTime(), new DateTime(), new List<Alert>(), new List<string>(), new List<Document>());
+            var news = new News(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new DateTime(), new DateTime(), new List<Alert>(), new List<string>(), new List<Document>());
 
             var processed = _factory.Build<News>(news);
 

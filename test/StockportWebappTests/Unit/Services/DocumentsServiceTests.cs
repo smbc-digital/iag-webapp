@@ -8,6 +8,7 @@ using StockportWebappTests_Unit.Builders;
 using System;
 using StockportWebapp.Wrappers;
 using System.Net.Http;
+using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {
