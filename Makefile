@@ -16,6 +16,9 @@ build:
 run:
 	cd src/StockportWebapp; dotnet run
 
+.PHONY: dotnet-restore
+dotnet-restore: restore
+
 .PHONY: restore
 restore:
 	dotnet restore
