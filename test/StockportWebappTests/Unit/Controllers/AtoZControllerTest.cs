@@ -46,24 +46,25 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task RedirectsTo500ErrorIfUnauthorised()
         {
-            var response = new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty);
-
-            _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
-                .ReturnsAsync(response);
+            _repository
+                .Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty));
 
             var result = await _controller.Index("v") as HttpResponse;
+
             result.StatusCode.Should().Be(500);
         }
 
         [Fact]
         public async Task GetsABlankAtoZWhenNotFoundAtoZListing()
         {
-            _repository.Setup(o => o.Get<List<AtoZ>>("a", null))
+            _repository
+                .Setup(o => o.Get<List<AtoZ>>("a", null))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, "error", string.Empty));
 
-            var response = await _controller.Index("a") as ViewResult;
+            var result = await _controller.Index("a") as HttpResponse;
 
-            response.ViewData["Error"].Should().Be("error");
+            result.StatusCode.Should().Be(500);
         }
 
         [Theory]

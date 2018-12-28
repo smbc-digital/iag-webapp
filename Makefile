@@ -33,7 +33,7 @@ test: unit-test integration-test
 # ---------------------------------------------------------------------------------------
 .PHONY: unit-test
 unit-test:
-	cd test/StockportWebappTests_Unit; dotnet test
+	cd test/StockportWebappTests; dotnet test
 
 # ---------------------------------------------------------------------------------------
 # -- Integration-test

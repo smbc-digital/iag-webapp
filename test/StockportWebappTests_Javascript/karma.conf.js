@@ -6,7 +6,7 @@ module.exports = function (config) {
     config.set({
 
         // base path that will be used to resolve all patterns (eg. files, exclude)
-        basePath: '../../../',
+        basePath: '../../',
 
 
         // frameworks to use
@@ -22,8 +22,8 @@ module.exports = function (config) {
             { pattern: './src/StockportWebapp/wwwroot/assets/javascript/vendor/modernizr.min.js', included: false },
             { pattern: './src/StockportWebapp/wwwroot/assets/javascript/stockportgov/utils.js', included: false },
             { pattern: './src/StockportWebapp/wwwroot/assets/javascript/stockportgov/events.js', included: false },
-            { pattern: './test/StockportWebappTests/JSTests/StockportgovjsTest.js', included: false },
-            './test/StockportWebappTests/JSTests/tests-main.js'
+            { pattern: './test/StockportWebappTests_Javascript/StockportgovjsTest.js', included: false },
+            './test/StockportWebappTests_Javascript/tests-main.js'
         ],
 
 
