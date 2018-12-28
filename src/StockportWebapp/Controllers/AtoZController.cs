@@ -33,7 +33,7 @@ namespace StockportWebapp.Controllers
 
             if (!httpResponse.IsSuccessful())
             {
-                return new HttpResponse(500, "", "Error");
+                ViewBag.Error = httpResponse.Content;
             }
             else
             {

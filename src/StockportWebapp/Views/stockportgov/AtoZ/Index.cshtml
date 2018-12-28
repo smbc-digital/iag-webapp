@@ -16,6 +16,10 @@
             <section aria-label="A to Z Listing" class="grid-100 mobile-grid-100">
                 <div class="l-content-container l-article-container">
                     <h1 tabindex="-1" id="content">@Model.CurrentLetter</h1>
+                    @if (ViewBag.Error != null)
+                    {
+                        <p>No results found</p>
+                    }
                     <div class="atoz-listing">
                         @foreach (var item in Model.Items)
                         {
