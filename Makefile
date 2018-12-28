@@ -17,7 +17,7 @@ run:
 	cd src/StockportWebapp; dotnet run
 
 .PHONY: restore
-dotnet-restore:
+restore:
 	dotnet restore
 
 .PHONY: publish

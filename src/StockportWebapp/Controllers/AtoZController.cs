@@ -27,13 +27,13 @@ namespace StockportWebapp.Controllers
 
 
             if (httpResponse.IsNotAuthorised())
-                return new HttpResponse(500,"","Error");
+                return new HttpResponse(500, "", "Error");
 
             var response = new List<AtoZ>();
 
             if (!httpResponse.IsSuccessful())
             {
-                ViewBag.Error = httpResponse.Content;
+                return new HttpResponse(500, "", "Error");
             }
             else
             {
