@@ -9,7 +9,6 @@ using StockportWebapp.ViewModels;
 using StockportWebappTests_Unit.Builders;
 using StockportWebappTests_Unit.Helpers;
 using Xunit;
-using static StockportWebapp.Models.LiveChat;
 
 namespace StockportWebappTests_Unit.Unit.ViewModels
 {
@@ -193,7 +192,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
 
             var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
             var article = new ProcessedArticle(TextHelper.AnyString,TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,new List<ProcessedSection>(),
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), advertisement, null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -220,7 +219,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
 
             var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, advertisement);
             var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(),
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), advertisement, null);
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), advertisement, null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -251,8 +250,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
 
             var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
-            var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(), TextHelper.AnyString,
-                TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
+            var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), new NullAdvertisement(), null);
 
             var articleViewModel = new ArticleViewModel(article);
 
@@ -278,7 +276,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
                 new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
             return new ProcessedArticle(TextHelper.AnyString, slug, TextHelper.AnyString, TextHelper.AnyString, sections,
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, false, new NullLiveChat(), new List<Alert>(), new NullAdvertisement(), null);
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), new NullAdvertisement(), null);
         }
 
 

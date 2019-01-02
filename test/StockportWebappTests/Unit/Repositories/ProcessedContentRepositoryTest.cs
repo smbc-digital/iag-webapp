@@ -89,8 +89,6 @@
 //            article.Breadcrumbs.Should().HaveCount(1);
 //            article.Breadcrumbs.First().Title.Should().Be("Test topic");
 //            article.Breadcrumbs.First().NavigationLink.Should().Contain("test-topic");
-//            article.LiveChatVisible.Should().BeTrue();
-//            article.LiveChat.Title.Should().Be("Title");
 
 //            var section = article.Sections.First();
 

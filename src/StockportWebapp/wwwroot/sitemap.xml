@@ -531,11 +531,6 @@
 	<changefreq>weekly</changefreq>
 </url>
 <url>
-	<loc>https://www.stockport.gov.uk/live-chat</loc>
-	<priority>.5</priority>
-	<changefreq>weekly</changefreq>
-</url>
-<url>
 	<loc>https://www.stockport.gov.uk/animal-welfare</loc>
 	<priority>.5</priority>
 	<changefreq>weekly</changefreq>
