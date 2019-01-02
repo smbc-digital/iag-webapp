@@ -93,20 +93,110 @@ a:hover {
     }
 }
 
-.alert-insetText {
-    background-color: #cccccc;
-    border-radius: 0px;
-    line-height: 20px;
-    box-shadow: none;
-    margin-bottom: 30px;
+.contact-us-category {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 0 15px 20px 0;
+    border: 1px solid $greyLighter;
+    color: black;
+    font-weight: 700;
+    text-decoration: none;
+    -webkit-box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #00b79b;
+
+    @media #{$mobile} {
+        width: 84.5%;
+        display: block;
+        text-align: center;
+    }
+
+    .category-header {
+        border-bottom: 1px solid $greyLighter;
+        width: 100%;
+        margin: 0;
+
+        .icon-container {
+            display: inline-block;
+            width: 30px;
+            font-size: 2.5em;
+            padding: 5px 15px;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+
+        .category-title {
+            display: inline-block;
+            font-size: 1.5em;
+            padding: 5px 15px;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+    }
+
+    .category-body {
+
+        .category-body-col {
+            display: inline-block;
+            width: 40%;
+            padding: 5px 20px;
+            font-weight: 600;
+
+            @media #{$mobile} {
+                width: 84.5%;
+                display: block;
+            }
+        }
+
+        .category-body-left {
+            float: left;
+
+            @media #{$mobile} {
+                float: unset;
+            }
+        }
+
+        .category-body-right {
+            float: right;
+
+            @media #{$mobile} {
+                width: 84.5%;
+                display: block;
+            }
+        }
+    }
 }
 
-.alert-insetText-overlap {
-    background-color: #ebebeb;
-    margin-left: 10px;
-}
 
 .contact-us-area-primary {
     padding-left: 10px;
     margin-right: -5px;
+
+    .alert-insetText {
+        background-color: #cccccc;
+        border-radius: 0px;
+        line-height: 20px;
+        box-shadow: none;
+        margin-bottom: 30px;
+    }
+
+    .alert-insetText-overlap {
+        background-color: #ebebeb;
+        margin-left: 10px;
+    }
+
+    .contact-us-area-primary {
+        padding-left: 10px;
+        margin-right: -5px;
+
+        @media #{$mobile} {
+            margin-right: -25px;
+        }
+    }
     }
