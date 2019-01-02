@@ -24,7 +24,7 @@ namespace StockportWebapp.Models
             PrimaryItems = primaryItems;
             InsetTexts = insetTexts;
             ContactUsCategories = contactUsCategories;
-            MetaDescription = metaDescription;
+            MetaDescription = metaDescription;            
         }
     }
 }
