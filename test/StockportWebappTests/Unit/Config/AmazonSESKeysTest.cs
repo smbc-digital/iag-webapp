@@ -2,7 +2,7 @@
 using StockportWebapp.Config;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Config
+namespace StockportWebappTests_Unit.Unit.Config
 {
     public class AmazonSESKeysTest
     {
@@ -18,6 +18,7 @@ namespace StockportWebappTests.Unit.Config
             keys.IsValid().Should().BeFalse();
         }
 
+        [Fact(Skip = "To be fixed")]
         public void ShouldBeValidIfParametersAreSet()
         {
             var keys = new AmazonSESKeys("accessKey", "secretKey");

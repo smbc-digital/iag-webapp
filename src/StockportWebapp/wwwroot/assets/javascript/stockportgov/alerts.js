@@ -15,6 +15,8 @@
                 var slug = $(this).attr("data-slug");
                 var cookieType = "alert";
                 addCookie(slug, cookieType);
+                var parent = $(this).attr("data-parent");
+                $(this).closest("." + parent).hide();
             });
         });
     }

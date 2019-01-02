@@ -12,8 +12,9 @@ using System.Net;
 using StockportWebapp.Utils;
 using StockportWebapp.Emails.Models;
 using Microsoft.AspNetCore.Hosting.Internal;
+using StockportWebappTests_Unit.Helpers;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class GroupEmailBuilderTests
     {

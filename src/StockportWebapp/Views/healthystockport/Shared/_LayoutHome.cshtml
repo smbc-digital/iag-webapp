@@ -25,12 +25,12 @@
     <![endif]-->
     @RenderSection("BackgroundImage")
     @RenderSection("CarouselBackgroundImage")
-    @Html.Partial("CookieBanner")
+    <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
-    @Html.Partial("Header")
-    @Html.Partial("BrowserCheck")
+    <partial name="Header" />
+    <partial name="BrowserCheck" />
     <div class="l-background">
         <div class="grid-container l-background-holder">
             <div class="l-container l-body-container l-body-container-mobile">

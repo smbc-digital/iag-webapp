@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using StockportWebapp.ProcessedModels;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Helpers
+namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class ParisLinkHelperTest
     {

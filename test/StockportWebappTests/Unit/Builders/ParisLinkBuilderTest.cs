@@ -2,8 +2,9 @@
 using FluentAssertions;
 using StockportWebapp.Config;
 using Moq;
+using StockportWebapp.Builders;
 
-namespace StockportWebappTests.Unit.Builders
+namespace StockportWebappTests_Unit.Unit.Builders
 {
     public class ParisLinkBuilderTest
     {

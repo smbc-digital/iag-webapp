@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 
-namespace StockportWebappTests.Builders
+namespace StockportWebappTests_Unit.Builders
 {
     internal class ProcessedGroupBuilder
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -10,7 +11,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class AtoZControllerTest
     {
@@ -24,7 +25,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsAnAtoZListing()
+        public async Task ItReturnsAnAtoZListing()
         {
             var atoz = new List<AtoZ> { new AtoZ("title", "slug", "teaser", "type") };
             var response = new HttpResponse((int)HttpStatusCode.OK, atoz, string.Empty);
@@ -32,7 +33,7 @@ namespace StockportWebappTests.Unit.Controllers
             _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
                 .ReturnsAsync(response);
 
-            var view = AsyncTestHelper.Resolve(_controller.Index("v")) as ViewResult;
+            var view = await _controller.Index("v") as ViewResult;
             var model = view.ViewData.Model as AtoZViewModel;
 
             model.CurrentLetter.Should().Be("V");
@@ -43,26 +44,27 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void RedirectsTo500ErrorIfUnauthorised()
+        public async Task RedirectsTo500ErrorIfUnauthorised()
         {
-            var response = new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty);
+            _repository
+                .Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty));
 
-            _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
-                .ReturnsAsync(response);
+            var result = await _controller.Index("v") as HttpResponse;
 
-            var result = AsyncTestHelper.Resolve(_controller.Index("v")) as HttpResponse;
             result.StatusCode.Should().Be(500);
         }
 
         [Fact]
-        public void GetsABlankAtoZWhenNotFoundAtoZListing()
+        public async Task GetsABlankAtoZWhenNotFoundAtoZListing()
         {
-            _repository.Setup(o => o.Get<List<AtoZ>>("a", null))
+            _repository
+                .Setup(o => o.Get<List<AtoZ>>("a", null))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, "error", string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_controller.Index("a")) as ViewResult;
+            var result = await _controller.Index("a") as ViewResult;
 
-            response.ViewData["Error"].Should().Be("error");
+            result.ViewData["Error"].Should().Be("error");
         }
 
         [Theory]
@@ -70,12 +72,11 @@ namespace StockportWebappTests.Unit.Controllers
         [InlineData(null)]
         [InlineData("abc")]
         [InlineData("$")]
-        [InlineData("abc")]
         [InlineData("not a letter")]
         [InlineData("$Not a letter")]
-        public void ShouldReturnANotFoundPageIfTheSearchTermIsNotInTheAlphabet(string searchTerm)
+        public async Task ShouldReturnANotFoundPageIfTheSearchTermIsNotInTheAlphabet(string searchTerm)
         {
-            var response = AsyncTestHelper.Resolve(_controller.Index(searchTerm));
+            var response = await _controller.Index(searchTerm);
 
             response.Should().BeOfType<NotFoundResult>();
             _repository.Verify(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null), Times.Never);

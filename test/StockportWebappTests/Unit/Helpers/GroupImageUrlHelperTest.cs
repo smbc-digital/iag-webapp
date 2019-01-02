@@ -4,9 +4,9 @@ using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using System.Collections.Generic;
 using Xunit;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 
-namespace StockportWebappTests.Unit.Helpers
+namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class GroupImageURLHelperTest
     {

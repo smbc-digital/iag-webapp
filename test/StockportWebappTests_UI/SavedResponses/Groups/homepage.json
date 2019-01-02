@@ -1,0 +1,475 @@
+{
+  "Guid": "13f0da4d-6cd5-4a49-a9d8-28fd115fb8b8",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/grouphomepage",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "title": "Stockport Local",
+      "slug": "test-group-homepage",
+      "backgroundImage": "//images.ctfassets.net/6cfgzlmcakf7/MKVLECmZsiGGeeAe8akGq/8d1660558a7b066aaf2aec5a57cae34c/Our_Stockport_Local_hero_image.jpg",
+      "featuredGroupsHeading": "Some good groups we've found",
+      "featuredGroups": [
+        {
+          "name": "UITEST: Group",
+          "slug": "uitest-group",
+          "phoneNumber": "11111111111111",
+          "email": "email@email.com",
+          "website": "website.com",
+          "twitter": "http://www.twitter.com/whatever",
+          "facebook": "http://www.facebook.com/thefacebookpage",
+          "address": "1 the street,\nthe town,\na city,\nAA1 1AA",
+          "description": "This is a description for a group\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": "2022-12-01T10:00:00+00:00",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "Hello, this is very secret intel.\n\n",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T10:40:38.957Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "Zumba2",
+          "slug": "zumba2",
+          "phoneNumber": "00000000000",
+          "email": "new@lollipop.com",
+          "website": "www.bbc.co.uk",
+          "twitter": "https://www.twitter.com/stockportzumba",
+          "facebook": "https://www.facebook.com/stockportzumba",
+          "address": "Bredbury SK6 2BP",
+          "description": "\r\n\r\n£33\r\n\r\n\r\n\r\ngjsadhfdslk\r\n\r\n",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/6HcV7g8tMc4IEIyKuy8ywo/be683a12d45bb6ae21526926dfa225c4/spring_homepage.jpg?h=250",
+          "categoriesReference": [
+            {
+              "name": "",
+              "slug": "",
+              "icon": "",
+              "imageUrl": ""
+            },
+            {
+              "name": "",
+              "slug": "",
+              "icon": "",
+              "imageUrl": ""
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "",
+              "slug": ""
+            },
+            {
+              "name": "Blue",
+              "slug": "blue"
+            },
+            {
+              "name": "",
+              "slug": ""
+            },
+            {
+              "name": "",
+              "slug": ""
+            },
+            {
+              "name": "",
+              "slug": ""
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.158046,
+            "lat": 53.405817
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "simon.estill@stockport.gov.uk",
+                "permission": "A",
+                "name": "Simon Estill"
+              },
+              {
+                "email": "oglevie.freelancing@gmail.com",
+                "permission": "A",
+                "name": "Brant"
+              },
+              {
+                "email": "raj.paili@stockport.gov.uk",
+                "permission": "E",
+                "name": "Raj Paili"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Zico Harris"
+              },
+              {
+                "email": "mohammed.ntambiye@stockport.gov.uk",
+                "permission": "A",
+                "name": "mohammed ntambiye"
+              },
+              {
+                "email": "thesun@gmail.com",
+                "permission": "E",
+                "name": "Praise"
+              },
+              {
+                "email": "harsha.reddy@stockport.gov.uk",
+                "permission": "E",
+                "name": "Harsha Reddy"
+              },
+              {
+                "email": "stephen.lally@stockport.gov.uk",
+                "permission": "A",
+                "name": "Stephen Lally"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "{{BUTTON:/start/report-a-street-light-fault, Report a streetlight fault}}\r\n{{VIDEO:P8gSX}}\r\n{{PDF:filename}}\r\n{{CAROUSEL: Image 1, Image 2, Image 3}}\r\n{{CONTACT-US: brownfield-site}}",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-05T12:41:50.663Z",
+          "suitableFor": [],
+          "ageRange": [
+            "0-2 Babies",
+            "3-5 Toddlers"
+          ]
+        },
+        {
+          "name": "",
+          "slug": "",
+          "phoneNumber": "",
+          "email": "",
+          "website": "",
+          "twitter": "",
+          "facebook": "",
+          "address": "",
+          "description": "",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/7m27ec2YOAeQWKYi0MqK6c/7298490f6e815ec97f00e6283bb4b1a9/dog_and_human.jpeg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/7m27ec2YOAeQWKYi0MqK6c/7298490f6e815ec97f00e6283bb4b1a9/dog_and_human.jpeg?h=250",
+          "categoriesReference": [],
+          "subCategories": [
+            {
+              "name": "",
+              "slug": ""
+            },
+            {
+              "name": "",
+              "slug": ""
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-05-17T08:51:48.289Z",
+          "suitableFor": [],
+          "ageRange": []
+        },
+        {
+          "name": "ZAFT",
+          "slug": "zaft",
+          "phoneNumber": "00000000000",
+          "email": "zico.harris@stockport.gov.uk",
+          "website": null,
+          "twitter": "https://www.twitter.com/stockportzumba",
+          "facebook": "https://www.facEbook.com/yourpage/groups",
+          "address": "Stockport, UK\n\n<h3>Apply</h3>\n",
+          "description": "\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on \\_any tag\\_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "",
+              "slug": "",
+              "icon": "",
+              "imageUrl": ""
+            },
+            {
+              "name": "",
+              "slug": "",
+              "icon": "",
+              "imageUrl": ""
+            },
+            {
+              "name": "Armed forces",
+              "slug": "armed-forces",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "",
+              "slug": ""
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.15753319999999,
+            "lat": 53.4106316
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "lydia.gray@stockport.gov.uk",
+                "permission": "A",
+                "name": "Lydia"
+              },
+              {
+                "email": "intranet@stockport.gov.uk",
+                "permission": "A",
+                "name": "Intranet"
+              },
+              {
+                "email": "zico.harris@stockport.gov.uk",
+                "permission": "A",
+                "name": "Z"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please email with your interest and we�ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": "Use the button below to find out about making a donation to support our group.",
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "__This is a non-public area__\r\n\r\nThis link will execute a script.[linkrefjs]: javascript:alert(\"gotcha\")This one [linkrefjs] defined by a linkref will also.Same with URL autolinks . (Email autolinks might be considered unsafe too since they will typically launch an external application.)Raw HTML blocks can be used to insert links and on _any tag_ arbitrary attributes that can inject scripting:click meScript tags:alert(\"yes this ran\");Style tags:body { margin: 5em; }",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-12-04T11:56:21.169Z",
+          "suitableFor": [],
+          "ageRange": []
+        }
+      ],
+      "featuredGroupsCategory": {
+        "name": "Armed forces",
+        "slug": "armed-forces",
+        "icon": "si-house",
+        "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+      },
+      "featuredGroupsSubCategory": {
+        "name": "Blue",
+        "slug": "blue"
+      },
+      "alerts": [
+        {
+          "title": "A6 Closure",
+          "subHeading": "",
+          "body": "The A6 has now reopened.",
+          "severity": "Information",
+          "sunriseDate": "2017-08-03T00:00:00+01:00",
+          "sunsetDate": "2019-08-31T00:00:00+01:00",
+          "slug": "a6-closure"
+        },
+        {
+          "title": "Flooding update",
+          "subHeading": "",
+          "body": "See our latest information on the [floods in Stockport](/news/flooding-again).",
+          "severity": "Error",
+          "sunriseDate": "2017-01-18T13:00:00+00:00",
+          "sunsetDate": "2017-11-08T23:59:00+00:00",
+          "slug": ""
+        },
+        {
+          "title": "Error alert",
+          "subHeading": "test",
+          "body": "test",
+          "severity": "Warning",
+          "sunriseDate": "2016-08-01T00:00:00+01:00",
+          "sunsetDate": "2017-12-30T14:14:00+00:00",
+          "slug": "error-alert"
+        }
+      ],
+      "bodyHeading": "",
+      "body": "{{VIDEO:FtpRl}} \n",
+      "secondaryBodyHeading": "Secondary Body Heading",
+      "secondaryBody": "![make your mark collage2](//images.ctfassets.net/6cfgzlmcakf7/5yaOFxvDtSkk0CmSK48GKG/6edceab89a1100054aa218da1ccee713/make_your_mark_collage2.jpg)\n\n",
+      "eventBanner": {
+        "title": "Find events at Stockport museums",
+        "teaser": "Use our calender to find out what's happen including Bramall hall, Air raid Shelters and the Hats Works",
+        "icon": "si-heart",
+        "link": "https://www.stockport.gov.uk/events"
+      }
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Mon, 10 Dec 2018 11:44:32 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

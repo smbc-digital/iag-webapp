@@ -33,3 +33,10 @@ local: &local
   << : *stage
   << : *qa
   << : *int
+
+uitest: &uitest
+  << : *prod
+  << : *stage
+  << : *qa
+  << : *int
+  GroupDetailsPage: true

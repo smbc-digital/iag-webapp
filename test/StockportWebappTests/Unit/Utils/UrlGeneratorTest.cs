@@ -8,7 +8,7 @@ using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class UrlGeneratorTest
     {

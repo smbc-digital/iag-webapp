@@ -4,47 +4,53 @@ using FluentAssertions;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
-using StockportWebappTests.Unit.Fake;
 using Xunit;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.ProcessedModels;
-using Helper = StockportWebappTests.TestHelper;
+using System.Threading.Tasks;
+using StockportWebapp.Repositories;
+using Moq;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Helpers;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ProfileControllerTest
     {
-        private readonly FakeProcessedContentRepository _fakeRepository;
+        private readonly Mock<IProcessedContentRepository> _fakeRepository = new Mock<IProcessedContentRepository>();
         private readonly ProfileController _profileController;
 
 
         public ProfileControllerTest()
         {
-            _fakeRepository = new FakeProcessedContentRepository();
-            _profileController = new ProfileController(_fakeRepository);
+            _profileController = new ProfileController(_fakeRepository.Object);
         }
 
         [Fact]
-        public void ItReturnsAProfileWithProcessedBody()
+        public async Task ItReturnsAProfileWithProcessedBody()
         { 
-            var processedProfile = new ProcessedProfile(Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString, Helper.AnyString,
-                Helper.AnyString, new List<Crumb>(), new List<Alert>());
+            var processedProfile = new ProcessedProfile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, new List<Crumb>(), new List<Alert>());
 
-            _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.OK, processedProfile, string.Empty));
+            _fakeRepository
+                .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new HttpResponse((int) HttpStatusCode.OK, processedProfile, string.Empty));
 
-            var view = AsyncTestHelper.Resolve(_profileController.Index("slug")) as ViewResult;
+            var view = await _profileController.Index("slug") as ViewResult;;
             var model = view.ViewData.Model as ProcessedProfile;
 
             model.Should().Be(processedProfile);
         }
 
         [Fact]
-        public void GetsA404NotFoundProfile()
+        public async Task GetsA404NotFoundProfile()
         {
-            _fakeRepository.Set(new HttpResponse((int) HttpStatusCode.NotFound, null, string.Empty));
+            _fakeRepository
+                .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_profileController.Index("not-found-slug")) as HttpResponse;
+            var response = await _profileController.Index("not-found-slug") as HttpResponse;;
 
             response.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
         }

@@ -8,9 +8,9 @@ using StockportWebapp.Utils;
 using Xunit;
 using FluentAssertions;
 using Org.BouncyCastle.Security;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 
-namespace StockportWebappTests.Unit.ContentFactory
+namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
     public class GroupFactoryTest
     {

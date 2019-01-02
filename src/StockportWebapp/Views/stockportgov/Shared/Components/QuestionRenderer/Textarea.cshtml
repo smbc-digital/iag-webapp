@@ -8,5 +8,4 @@
     }
     @Html.TextArea("Response", "", new { data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
 
-    @Html.Partial("_ValidationError.cshtml", Model)
-</div>
+    <partial name="_ValidationError.cshtml" model=' Model'/></div>

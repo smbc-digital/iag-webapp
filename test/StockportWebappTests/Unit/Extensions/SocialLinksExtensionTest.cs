@@ -3,7 +3,7 @@ using StockportWebapp.Extensions;
 using StockportWebapp.Models;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Extensions
+namespace StockportWebappTests_Unit.Unit.Extensions
 {
     public class SocialLinksExtensionTest
     {

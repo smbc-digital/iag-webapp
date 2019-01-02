@@ -4,12 +4,13 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Services;
 using Xunit;
 using Microsoft.Extensions.Logging;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 using System;
 using StockportWebapp.Wrappers;
 using System.Net.Http;
+using StockportWebappTests_Unit.Helpers;
 
-namespace StockportWebappTests.Unit.Services
+namespace StockportWebappTests_Unit.Unit.Services
 {
     public class DocumentsServiceTests
     {

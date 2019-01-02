@@ -13,7 +13,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>())
+    <partial name="Breadcrumb" model='new List<Crumb>()'/>
 }
 
 <div class="l-page-content">
@@ -53,14 +53,14 @@
                  @Html.Raw(end);
                  @Html.Raw(start);
 
-                 @Html.Partial("EventCard", eventItem)
+                 <partial name="EventCard" model='eventItem'/>
 
                  previousEnteredDate = eventItem.EventDate.Date;
              }
              if (hasEvents)
              {
                  @Html.Raw("</div>")
-                 @Html.Partial("Pagination", Model.Pagination)
+                 <partial name="Pagination" model='Model.Pagination'/>
              }    
         }
 

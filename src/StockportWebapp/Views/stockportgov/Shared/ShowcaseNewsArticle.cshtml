@@ -25,7 +25,7 @@
                         }
                         <div class="@(!string.IsNullOrEmpty(Model.NewsArticle.ThumbnailImage) ? "mobile-grid-100 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "nav-card-news-detail grid-100") grid-70 grid-parent">
                             <div class="news-date hide-on-mobile">
-                                <i class="fa fa-clock-o" aria-hidden="true"></i>@Html.Partial("FormattedDate", Model.NewsArticle.SunriseDate)
+                                <i class="fa fa-clock-o" aria-hidden="true"></i><partial name="FormattedDate" model='Model.NewsArticle.SunriseDate'/>
                             </div>
 
                             <h3 class="nav-card-news-title">@Model.NewsArticle.Title</h3>

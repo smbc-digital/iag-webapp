@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Unit.TestBuilders
+namespace StockportWebappTests_Unit.Unit.TestBuilders
 {
     public class ShowcaseBuilder
     {

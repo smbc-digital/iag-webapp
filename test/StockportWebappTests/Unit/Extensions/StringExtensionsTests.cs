@@ -2,7 +2,7 @@
 using FluentAssertions;
 using StockportWebapp.Extensions;
 
-namespace StockportWebappTests.Unit.Extensions
+namespace StockportWebappTests_Unit.Unit.Extensions
 {
     public class StringExtensionsTests
     {

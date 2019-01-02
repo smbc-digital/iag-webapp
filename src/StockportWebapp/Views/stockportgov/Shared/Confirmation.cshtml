@@ -10,7 +10,7 @@
 @if (Model.Crumbs.Any())
 {
     @section Breadcrumbs {
-        @Html.Partial("Breadcrumb", Model.Crumbs)
+        <partial name="Breadcrumb" model='Model.Crumbs'/>
     }
 }
 

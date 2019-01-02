@@ -5,9 +5,10 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Middleware;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Middleware
+namespace StockportWebappTests_Unit.Unit.Middleware
 {
     public class BusinessIdMiddlewareTest
     {

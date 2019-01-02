@@ -4,7 +4,7 @@
 }
 <div class="primary-topics">
     <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
-        @Html.Partial("GenericFeaturedItem", Model.Items.Take(take))
+        <partial name="GenericFeaturedItem" model='Model.Items.Take(take)'/>
     </div>
 </div>
 @if (!string.IsNullOrEmpty(Model.ButtonText))
@@ -13,7 +13,7 @@
         @for (var count = 4; count < Model.Items.Count(); count += 4)
         {
             <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
-                @Html.Partial("GenericFeaturedItem", Model.Items.Skip(count).Take(4))
+                <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)'/>
             </div>
         }
     </div>

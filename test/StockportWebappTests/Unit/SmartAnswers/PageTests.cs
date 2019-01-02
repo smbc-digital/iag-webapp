@@ -6,7 +6,7 @@ using FluentAssertions;
 using StockportWebapp.QuestionBuilder.Entities;
 using Xunit;
 
-namespace StockportWebappTests.Unit.SmartAnswers
+namespace StockportWebappTests_Unit.Unit.SmartAnswers
 {
     public class PageTests
     {

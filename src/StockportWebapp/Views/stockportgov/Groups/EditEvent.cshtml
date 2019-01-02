@@ -15,7 +15,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups"), new Crumb(Model.Title, "manage/" + Model.GroupSlug + "/events/" + Model.Slug, "groups") })
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups"), new Crumb(Model.Title, "manage/" + Model.GroupSlug + "/events/" + Model.Slug, "groups") }'/>
 }
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
@@ -138,7 +138,7 @@
                                         <label>Event categories</label>
                                         <div class="grid-100 grid-parent category-div" id="category-div1">
                                             <input type="hidden" asp-for="@Model.CategoriesList" />
-                                            @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories })
+                                            <partial name="multiselect" model='new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories }'/>
                                         </div>
 
                                         <stock-button id="uitest-contact-form-submit" class="button-contact-us">Save changes</stock-button>

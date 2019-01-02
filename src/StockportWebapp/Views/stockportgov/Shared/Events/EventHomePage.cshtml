@@ -12,7 +12,7 @@
                 <div class="event-header">
                     <h2>Discover something new in Stockport</h2>
                 </div>
-                @Html.Partial("GenericFeaturedItemList", Model.GenericItemList)
+                <partial name="GenericFeaturedItemList" model='Model.GenericItemList'/>
             </div>
         </div>
     }
@@ -57,7 +57,7 @@
                                 }
                         }
                         <div class="@classname">
-                            @Html.Partial("Events/EventCard", item)
+                            <partial name="Events/EventCard" model='item'/>
                         </div>
                         i++;
                     }

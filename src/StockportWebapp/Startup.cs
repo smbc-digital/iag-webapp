@@ -24,23 +24,21 @@ namespace StockportWebapp
 {
     public class Startup
     {
-        public IConfigurationRoot Configuration { get; }
+        public IConfiguration Configuration { get; }
         private readonly string _appEnvironment;
         private readonly string _contentRootPath;
         public readonly string ConfigDir = "app-config";
         private readonly bool _useRedisSession;
         private readonly bool _sendAmazonEmails;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
+            //var configBuilder = new ConfigurationBuilder();
+            //var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
+            ////Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
+            Configuration = configuration;
             _contentRootPath = env.ContentRootPath;
-
-            var configBuilder = new ConfigurationBuilder();
-            var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
-
-            Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
-            
-            _appEnvironment = configLoader.EnvironmentName(env);
+            _appEnvironment = env.EnvironmentName;
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }
@@ -119,9 +117,6 @@ namespace StockportWebapp
             app.UseMiddleware<RobotsTxtMiddleware>();
             app.UseMiddleware<BetaToWwwMiddleware>();
             app.UseMiddleware<SecurityHeaderMiddleware>();
-
-            app.UseApplicationInsightsRequestTelemetry();
-            app.UseApplicationInsightsExceptionTelemetry();
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
 
             // custom extenstions

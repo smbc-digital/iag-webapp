@@ -1,7 +1,7 @@
 ﻿@model StockportWebapp.ProcessedModels.ProcessedOrganisation
 
 <div class="hide-on-mobile tablet-grid-100 grid-100 grid-parent favourites-container">
-    @Html.Partial("FavouritesBar")
+    <partial name="FavouritesBar" />
 </div>
 <div class="grid-container-full-width">
     <div class="grid-container organisation-detail">
@@ -36,7 +36,7 @@
                     <ul class="group-listing-container grid-container grid-parent matchbox-parent">
                         @foreach (var group in Model.Groups.Take(3))
                         {
-                            @Html.Partial("Groups/GroupCard", group)
+                            <partial name="Groups/GroupCard" model='group'/>
                             ;
                         }
 
@@ -45,16 +45,16 @@
                         <a class="show-more-button hide-on-desktop hide-on-tablet button-default white" href="/groups/results?tag=@Model.Slug&Order=Name+A-Z">View more from @Model.Title</a>
                     </div>
                     <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent grid-container favourites-container">
-                        @Html.Partial("FavouritesBar")
+                        <partial name="FavouritesBar" />
                     </div>
                 </div>
             }
 
-            @Html.Partial("Groups/VolunteeringBar", Model.Volunteering)
-            @Html.Partial("Groups/DonationsBar", Model.Donations)
+            <partial name="Groups/VolunteeringBar" model='Model.Volunteering'/>
+            <partial name="Groups/DonationsBar" model='Model.Donations'/>
 
             <div id="shareThis" class="sharethis">
-                @Html.Partial("SharePrintThis", new Tuple<string, string>("organisations", Model.Slug))
+                <partial name="SharePrintThis" model='new Tuple<string, string>("organisations", Model.Slug)'/>
             </div>
 
         </div>

@@ -11,14 +11,14 @@
 }
 @section BackgroundImage
     {
-    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage))
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage)'/>
 }
 @section CarouselBackgroundImage
     {
     @{ int counter = 1; }
     @foreach (var carouselContent in Model.HomepageContent.CarouselContents)
     {
-        @Html.Partial("ScaleImageByDevice", new Image("webcast-" + counter, carouselContent.Image))
+        <partial name="ScaleImageByDevice" model='new Image("webcast-" + counter, carouselContent.Image)'/>
         counter++;
     }
 }
@@ -71,7 +71,7 @@
                             count++;
                             <div @(count == 3 ? "class=hide-on-tablet" : "")>
                                 
-                                @Html.Partial("EventCard", item)
+                                <partial name="EventCard" model='item'/>
                             </div>
                         }
                     </div>
@@ -86,7 +86,7 @@
             @if (Model.HomepageContent.CarouselContents.Count() != 0)
             {
                 <div class="grid-100 grid-parent hs-carousel-container">
-                    @Html.Partial("Carousel", Model.HomepageContent.CarouselContents)
+                    <partial name="Carousel" model='Model.HomepageContent.CarouselContents'/>
                 </div>
             }
         </section>

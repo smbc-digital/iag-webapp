@@ -17,14 +17,14 @@
     ViewData["EventSubheading"] = Model.EventSubheading;
 }
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+    <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
 }
 
 @if (Model.Alerts != null)
 {
     foreach (var alert in Model.Alerts)
     {
-        @Html.Partial("GlobalAlert", alert)
+        <partial name="GlobalAlert" model='alert'/>
     }
 }
 
@@ -146,7 +146,7 @@
             if (Model.Consultations.Any())
             {
                 <div class="@titleHack showcase-news-events">
-                    @Html.Partial("Consultations", Model.Consultations)
+                    <partial name="Consultations" model='Model.Consultations'/>
                 </div>
             }
 
@@ -160,7 +160,7 @@
                     <div class="grid-container showcase-body key-facts">
                         <div class="grid-100 grid-parent l-article-content">
                             <h2>@Model.KeyFactSubheading</h2>
-                            @Html.Partial("Showcase/KeyFacts", Model.KeyFacts)
+                            <partial name="Showcase/KeyFacts" model='Model.KeyFacts'/>
                         </div>
                     </div>
                 </div>
@@ -173,7 +173,7 @@
             if (Model.NewsArticle != null)
             {
                 <div class="@titleHack showcase-news showcase-news-events">
-                    @Html.Partial("ShowcaseNewsArticle", Model)
+                    <partial name="ShowcaseNewsArticle" model='Model'/>
                 </div>
             }
 
@@ -184,7 +184,7 @@
             if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any())
             {
                 <div class="@titleHack showcase-events showcase-news-events">
-                    @Html.Partial("ShowcaseEventCards", Model)
+                    <partial name="ShowcaseEventCards" model='Model'/>
                 </div>
             }
 
@@ -199,11 +199,11 @@
                         <div class="grid-parent grid-100">
                             @if (string.IsNullOrEmpty(Model.Profile.Body))
                             {
-                                @Html.Partial("ProfileWithoutBody", Model.Profile)
+                                <partial name="ProfileWithoutBody" model='Model.Profile'/>
                             }
                             else
                             {
-                                @Html.Partial("Profile", Model.Profile)  
+                                <partial name="Profile" model='Model.Profile'/>  
                             }
 
                         </div>
@@ -218,7 +218,7 @@
             if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
             {
                 <div class="@titleHack showcase-news-events">
-                    @Html.Partial("ShowcaseSocialMediaLinks", Model.SocialMediaLinks)
+                    <partial name="ShowcaseSocialMediaLinks" model='Model.SocialMediaLinks'/>
                 </div>
             }
 

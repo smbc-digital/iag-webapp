@@ -1,7 +1,7 @@
 ﻿using System.IO;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Logging;
-using Serilog;
+using Microsoft.Extensions.Configuration;
 
 namespace StockportWebapp
 {
@@ -9,15 +9,25 @@ namespace StockportWebapp
     {
         public static void Main(string[] args)
         {
-            var host = new WebHostBuilder()
-                .UseUrls("http://0.0.0.0:5000")
-                .UseKestrel()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseStartup<Startup>()
-                .Build();
-
-            host.Run();          
+            CreateWebHostBuilder(args).Build().Run();
         }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)
+                .UseUrls("http://0.0.0.0:5000")
+                .UseStartup<Startup>()
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    config.Sources.Clear();
+                    config.SetBasePath(hostContext.HostingEnvironment.ContentRootPath + "/app-config");
+                    config
+                        .AddJsonFile("appsettings.json")
+                        .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json")
+                        .AddJsonFile("appversion.json", true);
+                    var tempConfig = config.Build();
+                    config.AddJsonFile(
+                        $"{tempConfig["secrets-location"]}/appsettings.{hostContext.HostingEnvironment.EnvironmentName}.secrets.json");
+                });
+
     }
 }

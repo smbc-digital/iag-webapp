@@ -10,8 +10,9 @@ using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using StockportWebapp.Emails.Models;
+using StockportWebappTests_Unit.Helpers;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class EventEmailBuilderTests
     {

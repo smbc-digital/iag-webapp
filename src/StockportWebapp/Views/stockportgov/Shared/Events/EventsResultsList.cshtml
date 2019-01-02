@@ -14,7 +14,7 @@
     <input asp-for="Latitude" type="hidden" id="latitude" name="latitude" />
     <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
     <input asp-for="Location" type="hidden" id="location" name="location" />
-    @Html.Partial("RefineByBar", Model.RefineByBar())
+    <partial name="RefineByBar" model='Model.RefineByBar()'/>
 </div>
 
 <div class="grid-container" id="event-listing-container">
@@ -50,13 +50,13 @@
     @Html.Raw(end);
     @Html.Raw(start);
 
-    @Html.Partial("Events/EventCard", eventItem)
+    <partial name="Events/EventCard" model='eventItem'/>
 
     previousEnteredDate = eventItem.EventDate.Date;
 }
 @if (hasEvents)
 {
     @Html.Raw("</div>")
-    @Html.Partial("Pagination", Model.Pagination)
+    <partial name="Pagination" model='Model.Pagination'/>
 }
 </div>

@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Exceptions;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 using Xunit;
 using StockportWebapp.ViewModels;
-using FluentAssertions;
-using StockportWebapp.FeatureToggling;
 
-namespace StockportWebappTests.Unit.Services
+namespace StockportWebappTests_Unit.Unit.Services
 {
     public class GroupsServiceTests
     {
@@ -231,7 +226,7 @@ namespace StockportWebappTests.Unit.Services
             _service.DoPagination(groupResults, 0, 0);
 
             // Assert
-            groupResults.Pagination.ShouldBeEquivalentTo(new Pagination());
+            groupResults.Pagination.Should().BeEquivalentTo(new Pagination());
         }
 
         [Theory]

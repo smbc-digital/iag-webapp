@@ -9,7 +9,7 @@ using Moq;
 using StockportWebapp.Builders;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Unit.Builders
+namespace StockportWebappTests_Unit.Unit.Builders
 {
     public class EmailBuilderTest
     {

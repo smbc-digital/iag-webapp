@@ -3,14 +3,15 @@ using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.ViewComponents;
+using System.Threading.Tasks;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ViewComponents
+namespace StockportWebappTests_Unit.Unit.ViewComponents
 {
     public class GoogleAnalyticsViewComponentTest
     {
         [Fact]
-        public void ShouldReturnGoogleAnalyticsId()
+        public async Task ShouldReturnGoogleAnalyticsId()
         {
             const string businessId = "businessID";
             var googleAnalyticsCode = AppSetting.GetAppSetting("a code");
@@ -20,7 +21,7 @@ namespace StockportWebappTests.Unit.ViewComponents
 
             var googleAnalyticsViewComponent = new GoogleAnalyticsViewComponent(config.Object, new BusinessId(businessId));
 
-            var view = AsyncTestHelper.Resolve(googleAnalyticsViewComponent.InvokeAsync()) as ViewViewComponentResult;
+            var view = await googleAnalyticsViewComponent.InvokeAsync() as ViewViewComponentResult;
 
             config.Verify(o => o.GetGoogleAnalyticsCode(businessId), Times.Once);
             var model = view.ViewData.Model as AppSetting;

@@ -5,7 +5,7 @@
 @model StockportWebapp.ViewModels.GroupDetailsViewModel
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") })
+    <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") }'/>
 }
 @{  
     var socialLinksExtension = new SocialLinksExtension();
@@ -24,7 +24,7 @@
 
 }
 <div class="hide-on-mobile grid-100 tablet-grid-100 grid-parent favourites-container">
-    @Html.Partial("FavouritesBar")
+    <partial name="FavouritesBar" />
 </div>
 <div class="grid-container-full-width">
     <div class="grid-container remove-edges-for-pdf grid-100">
@@ -273,7 +273,7 @@
                         </div>
                     </div>
                     <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
-                        @Html.Partial("FavouritesBar")
+                        <partial name="FavouritesBar" />
                     </div>
                     <div>
                         <h3 class="group-details-heading">Description</h3>
@@ -286,12 +286,12 @@
                             @Html.Raw(Model.Group.AdditionalInformation);
                             foreach (Document document in Model.Group.AdditionalDocuments)
                              {
-                            @Html.Partial("Document", document);
+                            <partial name="Document" model='document'/>;
                              }
                         }
 
-                        @Html.Partial("Groups/VolunteeringBar", Model.Group.Volunteering)
-                        @Html.Partial("Groups/DonationsBar", Model.Group.Donations)
+                        <partial name="Groups/VolunteeringBar" model='Model.Group.Volunteering'/>
+                        <partial name="Groups/DonationsBar" model='Model.Group.Donations'/>
 
 
                         @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
@@ -299,14 +299,14 @@
                             <hr />
                             <div class="group-map-container group-map-container-padding">
                                 <h3 class="group-details-heading">How to find us</h3>
-                                @Html.Partial("MapPosition", Model.Group.MapDetails)
+                                <partial name="MapPosition" model='Model.Group.MapDetails'/>
                             </div>
 
                         }
                         @if (Model.Group.Events != null && Model.Group.Events.Any())
                         {
                             <div class="upcoming-events-container">
-                                @Html.Partial("Events/EventCards", Model.Group.Events.Take(3).ToList())
+                                <partial name="Events/EventCards" model='Model.Group.Events.Take(3).ToList()'/>
                             </div>
                         }
                         @if (Model.Group.LinkedGroups != null && Model.Group.LinkedGroups.Any())
@@ -318,7 +318,7 @@
                                 {
                                     <a class="view-more hide-on-mobile" href="/groups/results?category=@Model.Group.CategoriesReference[0].Slug&subcategories=@Model.Group.SubCategories[0].Slug">View more</a>
                                 }
-                                @Html.Partial("groups/GroupCardList", Model.Group.LinkedGroups.OrderBy(_ => Guid.NewGuid()).Take(3).ToList())
+                                <partial name="groups/GroupCardList" model='Model.Group.LinkedGroups.OrderBy(_ => Guid.NewGuid()).Take(3).ToList()'/>
                                 @if (Model.Group.LinkedGroups.Count() > 3)
                                 {
                                     <div class="grid-100 hide-on-desktop hide-on-tablet view-more-mobile">
@@ -345,7 +345,7 @@
 
                         <div class="clearfix"></div>
                         <div id="shareThis" class="sharethis">
-                            @Html.Partial("SharePrintThis", new Tuple<string, string>("groups", Model.Group.Slug))
+                            <partial name="SharePrintThis" model='new Tuple<string, string>("groups", Model.Group.Slug)'/>
                         </div>
                     </div>
                 </div>

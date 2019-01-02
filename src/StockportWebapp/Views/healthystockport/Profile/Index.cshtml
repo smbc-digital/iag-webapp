@@ -12,11 +12,11 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Breadcrumbs)
+    <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
 }
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.BackgroundImage))
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.BackgroundImage)'/>
 }
 
 @if (!string.IsNullOrEmpty(Model.BackgroundImage))

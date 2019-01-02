@@ -6,14 +6,18 @@
     ViewData["Title"] = "Edit event";
     ViewData["og:title"] = "Edit event";
     Layout = "../Shared/_Layout.cshtml";
+    var crumbs = new List<Crumb>
+    {
+        new Crumb("Stockport Local", "groups", "Group"),
+        new Crumb("Manage your groups", "manage", "groups"),
+        new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupSlug, "groups"),
+        new Crumb("Manage your events", "manage/" + ViewBag.GroupSlug + "/events/", "groups"),
+        new Crumb(ViewBag.EventName, "manage/" + ViewBag.GroupSlug + "/events/" + ViewBag.Slug, "groups")
+    };
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"),
-                                            new Crumb("Manage your groups", "manage", "groups"),
-                                            new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupSlug, "groups"),
-                                            new Crumb("Manage your events", "manage/" + ViewBag.GroupSlug + "/events/", "groups"),
-                                            new Crumb(ViewBag.EventName, "manage/" + ViewBag.GroupSlug + "/events/" + ViewBag.Slug, "groups") })
+    <partial name="Breadcrumb" model="crumbs"/>
 }
 
 <div class="grid-container-full-width">

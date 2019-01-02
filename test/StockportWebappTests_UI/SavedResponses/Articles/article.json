@@ -1,0 +1,325 @@
+{
+  "Guid": "46510eed-265e-415d-ba54-3f9257233c7d",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/articles/uitest-about-the-hat-works",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "body": "{{PROFILE:sarahs-story}}\n{{PROFILE:profile-no-body}}\n\nThis is some text and there should be a profile above this\n\nCAROUSEL BELOW?\n\n{{CAROUSEL:![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)}}",
+      "slug": "uitest-about-the-hat-works",
+      "title": "UITEST: About the Hat Works",
+      "teaser": "The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.  The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.",
+      "icon": "",
+      "backgroundImage": "",
+      "image": "",
+      "sections": [
+        {
+          "title": "UITEST: Overview",
+          "slug": "uitest-overview",
+          "body": "This award winning visitor attraction offers two floors of interactive exhibits taking you on a journey through the history of Stockport’s once thriving hatting industry.\n\nThe museum is home to a recreated hat factory with some 20 fully restored working Victorian-style machines and a fantastic collection of over 400 hats from around the world.\n\nThe museum is a hub of excellence, creativity and innovation for milliners, crafts-people, designer makers and those with a keen interest in haute couture fashion and cutting edge textile design.\n\n{{CAROUSEL:![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)}}",
+          "profiles": [],
+          "alertsInline": [],
+          "documents": [],
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z"
+        },
+        {
+          "title": "UITEST: Gallery floor",
+          "slug": "uitest-gallery-floor",
+          "body": "On our gallery floor you can see our extensive collection of hats from around the world as well as visiting our temporary exhibition space - where there is always an interesting interactive exhibition on offer.\n\nOn this floor you will also find our Family Fun area where the young visitors will be entertained by the range of activities on offer.\n\n{{BUTTON:/start/uitest-council-tax-reduction-form, UITEST: Council Tax Reduction Form}}\n\n## Pdf\n{{PDF:Stockport-Metroshuttle.pdf}}",
+          "profiles": [],
+          "alertsInline": [],
+          "documents": [
+            {
+              "title": "testing description",
+              "size": 674192,
+              "url": "//assets.ctfassets.net/6cfgzlmcakf7/5QG8oheTlKW2GSA80YgaYU/414a4fb2058abee58bef3364fc562237/Stockport-Metroshuttle.pdf",
+              "lastUpdated": "2017-06-05T14:38:52.718Z",
+              "fileName": "Stockport-Metroshuttle.pdf",
+              "assetId": "5QG8oheTlKW2GSA80YgaYU",
+              "mediaType": "application/pdf"
+            }
+          ],
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z"
+        },
+        {
+          "title": "in line alert test",
+          "slug": "in-line-alert-test",
+          "body": "{{Alerts-Inline:test alert5}}",
+          "profiles": [],
+          "alertsInline": [],
+          "documents": [],
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z"
+        }
+      ],
+      "breadcrumbs": [
+        {
+          "title": "UITEST: Hat Works",
+          "slug": "uitest-hat-works",
+          "type": "topic"
+        }
+      ],
+      "alerts": [],
+      "alertsInline": [],
+      "profiles": [
+        {
+          "type": "My Story",
+          "title": "Sarah's Story",
+          "slug": "sarahs-story",
+          "subtitle": "Sarah Atkinson, Reddish",
+          "teaser": "Sarah Atkinson has five children. Hannah is just two years old and has attended Stockport Village Nursery since September 2013. . Hannah is just two years old and has attended Stre",
+          "image": "//images.ctfassets.net/6cfgzlmcakf7/4ZaddM6s5a24UuQOEiGQWq/59253529ca20a43d1a78f5d8d3d1d00f/Sarah_s_Story.jpg",
+          "body": "chicken nuggets\n\nSarah Atkinson from Reddish has five children. Hannah is just two years old and has attended Stockport Village Nursery in the town centre since September 2013, taking her 15 free hours 9am till 12pm, Monday to Friday.\n\n\"I found out about the free 15 hours for two year olds from the Job Centre and after receiving a letter from the Council.  My other children are much older and I didn’t have the opportunity for free child care with them. I used to work as a teaching assistant but since Hannah was born I have been a stay at home mum.\n\n{{Alerts-Inline:A6 Closure}}\n\nI wasn’t sure at first, but I called the Council to check I was eligible and got a form from my local Sure Start Children’s Centre.  It was simple enough to fill in and I got a letter back telling me that Hannah was eligible for up to 15 free hours a week.\n\nI was a bit nervous at first as Hannah was only two and I worried that she might be too young to start in a ‘school’ environment, but that hasn’t been the case at all.  As soon as we visited the nursery I could see that this place could give Hannah what I couldn’t always give her at home.\n\nThe activities such as messy play with paints, bikes and play equipment outside – they even built an igloo at Christmas with an ice lake and penguins!  Just as importantly she gets to mix with other children of her own age, who share her imagination and who she can learn from.\n\n{{CAROUSEL:![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)}}\n\nWhen she started Hannah was very shy but in less than a year she’s grown so much in confidence. Her speech has really developed and she plays quite happily alongside other children. \n\nI have been surprised at how much she has learnt through just ‘playing’.  She’ll come home and hang her own coat up, wash her hands and sit at the table to eat her dinner – being at the nursery has really helped prepare her for our daily routines.\n\nFrom my perspective those few hours every morning have allowed me to get on top of the housework and spend some precious time with my older children.  I’m even planning to start looking for work now I know Hannah is settled and happy.\n\nIt can be a scary thought sending your two year old to nursery but it has been a really rewarding experience for Hannah and myself. I would urge any parent who thinks that they might be eligible to find out more.\"\n\n\n{{CAROUSEL:![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)}}\n### VIDEO:\n{{VIDEO:G3HqZ}}\n\n<iframe width=\"640\" height=\"360\" src=\"https://www.youtube.com/embed/lOMjIT1sAhE\" frameborder=\"0\" allowfullscreen></iframe>\n\n{{CAROUSEL:![Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg), ![Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg),![Hong Kong at night](//images.contentful.com/6cfgzlmcakf7/1UsN59Cdbae60QACKEYOgI/73a0d4876a1cb2f6d51166281447c9cb/shutterstock_112151279.jpg)}}",
+          "icon": "",
+          "backgroundImage": "",
+          "breadcrumbs": [
+            {
+              "title": "Work & Jobs",
+              "slug": "work-and-jobs",
+              "type": "topic"
+            },
+            {
+              "title": "article without summary/ body",
+              "slug": "article-without-summary-body",
+              "type": "article"
+            },
+            {
+              "title": "testing call to action button",
+              "slug": "testing-call-to-action-button",
+              "type": "article"
+            }
+          ],
+          "alerts": [
+            {
+              "title": "A6 Closure",
+              "subHeading": "",
+              "body": "The A6 has now reopened.",
+              "severity": "Information",
+              "sunriseDate": "2017-08-03T00:00:00+01:00",
+              "sunsetDate": "2019-08-31T00:00:00+01:00",
+              "slug": "a6-closure"
+            }
+          ]
+        },
+        {
+          "type": "Success Story",
+          "title": "profile no body",
+          "slug": "profile",
+          "subtitle": "you know, something,. whatever",
+          "teaser": "you know, something,. ",
+          "image": "//images.ctfassets.net/6cfgzlmcakf7/1yYuDGiCugUo2KOG4mu0kg/7bf502e5fff0a7baae6c0808ca93e98f/pumpkin.jpg",
+          "body": "",
+          "icon": "",
+          "backgroundImage": "",
+          "breadcrumbs": [],
+          "alerts": []
+        }
+      ],
+      "parentTopic": {
+        "slug": "uitest-hat-works",
+        "name": "UITEST: Hat Works",
+        "teaser": null,
+        "summary": null,
+        "icon": null,
+        "backgroundImage": null,
+        "image": null,
+        "subItems": [
+          {
+            "slug": "uitest-about-the-hat-works",
+            "title": "UITEST: About the Hat Works",
+            "teaser": "The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.  The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": []
+          },
+          {
+            "slug": "uitest-testarticle",
+            "title": "UITEST: Article with profile, video and table",
+            "teaser": "Teaser for a test article for ui tests (don't edit or delete)",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": [
+              {
+                "slug": "uitest-testarticle/uitest-test-video-and-profile-section",
+                "title": "UITEST: Test Video and Profile Section",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-testarticle/uitest-section-with-pdf",
+                "title": "UITEST: Section With PDF",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-testarticle/testingone",
+                "title": "testingone",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              }
+            ]
+          },
+          {
+            "slug": "testing-alert-5",
+            "title": "testing alert 5",
+            "teaser": "test",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": []
+          }
+        ],
+        "secondaryItems": [
+          {
+            "slug": "uitest-secondary-item",
+            "title": "UITEST: Secondary Item",
+            "teaser": "This is is Ui Test Secondary Item ",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": [
+              {
+                "slug": "uitest-secondary-item/testoneone",
+                "title": "testone",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testtwotwo",
+                "title": "testtwotwo",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testthreethree",
+                "title": "testthree",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testfourfour",
+                "title": "testfourfour",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              },
+              {
+                "slug": "uitest-secondary-item/testfivefive",
+                "title": "testfivefive",
+                "teaser": "",
+                "icon": "",
+                "type": "section",
+                "sunriseDate": "0001-01-01T00:00:00Z",
+                "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+                "image": "",
+                "subItems": []
+              }
+            ]
+          }
+        ],
+        "tertiaryItems": [
+          {
+            "slug": "uitest-about-the-hat-works",
+            "title": "UITEST: About the Hat Works",
+            "teaser": "The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.  The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.",
+            "icon": "si-default",
+            "type": "article",
+            "sunriseDate": "0001-01-01T00:00:00Z",
+            "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+            "image": "",
+            "subItems": []
+          }
+        ],
+        "breadcrumbs": null,
+        "alerts": null,
+        "sunriseDate": "0001-01-01T00:00:00",
+        "sunsetDate": "0001-01-01T00:00:00",
+        "emailAlerts": false,
+        "emailAlertsTopicId": null,
+        "eventBanner": null,
+        "expandingLinkTitle": null,
+        "expandingLinkBoxes": null,
+        "primaryItemTitle": null,
+        "advertisement": null
+      },
+      "documents": [],
+      "sunriseDate": "0001-01-01T00:00:00Z",
+      "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+      "liveChatVisible": true,
+      "liveChat": {
+        "title": "UITEST: Live Chat",
+        "text": "this is a live chat text",
+        "sys": null
+      },
+      "advertisement": null
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Fri, 14 Dec 2018 11:48:35 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

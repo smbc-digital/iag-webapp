@@ -18,7 +18,7 @@ using StockportWebapp.Repositories;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.FeatureToggling;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ContactUsControllerTest
     {
@@ -69,36 +69,36 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItSendsAnEmailToService()
+        public async Task ItSendsAnEmailToService()
         {
-            AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
+            await _controller.Contact(_validContactDetails);
 
             _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<EmailMessage>()));
         }
 
         [Fact]
-        public void DynamicContactUsPostShouldReturnARedirectActionIfFeatureToggleOn()
+        public async Task DynamicContactUsPostShouldReturnARedirectActionIfFeatureToggleOn()
         {
-            var pageResult = AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails)) as RedirectResult;
+            var pageResult = await _controller.Contact(_validContactDetails) as RedirectResult;;
 
             pageResult.Url.Should().Contain(Path);
         }
 
         [Fact]
-        public void ShouldNotSendEmailWhenInvalid()
+        public async Task ShouldNotSendEmailWhenInvalid()
         {
             var invalidDetails = new ContactUsDetails { Email = "nam", Name = "name" };
             _controller.ModelState.AddModelError("", "Error");
 
-            AsyncTestHelper.Resolve(_controller.Contact(invalidDetails));
+            await _controller.Contact(invalidDetails);
 
             _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<EmailMessage>()), Times.Never);
         }
 
         [Fact]
-        public void ShouldCreateTheEmailBodyFromContactUsDetailsForPostIfItIsValid()
+        public async Task ShouldCreateTheEmailBodyFromContactUsDetailsForPostIfItIsValid()
         {
-            AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
+            await _controller.Contact(_validContactDetails);
 
             _mockEmailClient.Verify(client => client.SendEmailToService(It.Is<EmailMessage>(
                 message => !string.IsNullOrEmpty(message.Subject) &&
@@ -107,11 +107,11 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldSendSentStatusBackInTheRedirectAsTrueIfMessageValidAndIsSentSuccessfully()
+        public async Task ShouldSendSentStatusBackInTheRedirectAsTrueIfMessageValidAndIsSentSuccessfully()
         {
             _mockEmailClient.Setup(o => o.SendEmailToService(It.IsAny<EmailMessage>())).ReturnsAsync(HttpStatusCode.OK);
 
-            var pageResult = AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
+            var pageResult = await _controller.Contact(_validContactDetails);
 
             pageResult.Should().BeOfType<RedirectToActionResult>();
             var redirectResult = pageResult as RedirectToActionResult;
@@ -121,42 +121,42 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldSendSentStatusBackInTheRedirectAsFalseIfMessageValidButIsNotSentSuccessfully()
+        public async Task ShouldSendSentStatusBackInTheRedirectAsFalseIfMessageValidButIsNotSentSuccessfully()
         {
             _mockEmailClient.Setup(o => o.SendEmailToService(It.IsAny<EmailMessage>())).Returns(Task.FromResult(HttpStatusCode.BadRequest));
 
-            var pageResult = AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails)) as RedirectResult;
+            var pageResult = await _controller.Contact(_validContactDetails) as RedirectResult;;
 
             pageResult.Url.Should().Contain("message=We have been unable to process the request. Please try again later.");
         }
 
         [Fact]
-        public void ShouldSendSentStatusBackInTheRedirectAsFalseIfMessageInvalid()
+        public async Task ShouldSendSentStatusBackInTheRedirectAsFalseIfMessageInvalid()
         {
             var invalidDetails = new ContactUsDetails { Email = "nam", Name = "name" };
             _controller.ModelState.AddModelError("Name", "an invalid name was provided");
             _controller.ModelState.AddModelError("Email", "an invalid email was provided");
 
-            var pageResult = AsyncTestHelper.Resolve(_controller.Contact(invalidDetails)) as RedirectResult;
+            var pageResult = await _controller.Contact(invalidDetails) as RedirectResult;;
 
             pageResult.Url.Should().Contain("message=an invalid name was provided<br />an invalid email was provided<br />");
         }
 
         [Fact]
-        public void ShouldShowAThankYouPageWithTheReferingUrlPassed()
+        public async Task ShouldShowAThankYouPageWithTheReferingUrlPassed()
         {
             var referer = "this-is-a-referer";
 
-            var pageResult = AsyncTestHelper.Resolve(_controller.ThankYouMessage(referer)) as ViewResult;
+            var pageResult = await _controller.ThankYouMessage(referer) as ViewResult;;
 
             pageResult.Model.Should().Be(referer);
             pageResult.ViewName.Should().Be("ThankYouMessage");
         }
 
         [Fact]
-        public void ShouldAddPageTitleToSubject()
+        public async Task ShouldAddPageTitleToSubject()
         {
-            AsyncTestHelper.Resolve(_controller.Contact(_validContactDetails));
+            await _controller.Contact(_validContactDetails);
 
             _mockEmailClient.Verify(client => client.SendEmailToService(It.IsAny<EmailMessage>()));
         }

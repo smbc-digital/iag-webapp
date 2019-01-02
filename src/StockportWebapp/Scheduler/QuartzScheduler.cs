@@ -31,7 +31,6 @@ namespace StockportWebapp.Scheduler
 
         public async Task Start()
         {
-
             var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
             await scheduler.Start();
 

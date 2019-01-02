@@ -5,9 +5,10 @@ using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Scheduler;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Middleware
+namespace StockportWebappTests_Unit.Unit.Middleware
 {
     public class ShortUrlRedirectsMiddlewareTests
     {

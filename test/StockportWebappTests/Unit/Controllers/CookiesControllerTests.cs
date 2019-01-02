@@ -7,7 +7,7 @@ using StockportWebapp.Controllers;
 using StockportWebapp.Utils;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class CookiesControllerTests
     {

@@ -4,7 +4,7 @@ using StockportWebapp.Controllers;
 using StockportWebapp.Models;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class LegacyRedirectsManagerTest
     {

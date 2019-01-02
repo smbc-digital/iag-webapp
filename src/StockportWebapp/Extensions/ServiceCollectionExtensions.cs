@@ -82,10 +82,9 @@ namespace StockportWebapp.Extensions
             return services;
         }
 
-        public static IServiceCollection AddConfiguration(this IServiceCollection services, IConfigurationRoot configuration)
+        public static IServiceCollection AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(configuration));
-            services.AddSingleton<IConfigurationRoot>(configuration);
             services.AddSingleton<IConfiguration>(configuration);
 
             return services;
@@ -168,7 +167,7 @@ namespace StockportWebapp.Extensions
         {
             services.AddTransient<IHealthcheckService>(
                 p => new HealthcheckService($"{contentRootPath}/version.txt", $"{contentRootPath}/sha.txt",
-                    new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<System.Net.Http.HttpClient>(),
+                    new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<IHttpClient>(),
                     p.GetService<UrlGenerator>(), appEnvironment, p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
 
             services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>(), p.GetService<IHttpClientWrapper>(), p.GetService<ILogger<DocumentsService>>()));
@@ -214,7 +213,7 @@ namespace StockportWebapp.Extensions
             return services;
         }
 
-        public static IServiceCollection AddParisConfiguration(this IServiceCollection services, IConfigurationRoot configuration, ILogger logger)
+        public static IServiceCollection AddParisConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             if (!string.IsNullOrEmpty(configuration["paris:preSalt"]) &&
                 !string.IsNullOrEmpty(configuration["paris:postSalt"]) &&
@@ -237,7 +236,7 @@ namespace StockportWebapp.Extensions
             return services;
         }
 
-        public static IServiceCollection AddGroupConfiguration(this IServiceCollection services, IConfigurationRoot configuration, ILogger logger)
+        public static IServiceCollection AddGroupConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             if (!string.IsNullOrEmpty(configuration["group:authenticationKey"]))
             {
@@ -256,7 +255,7 @@ namespace StockportWebapp.Extensions
             return services;
         }
 
-        public static IServiceCollection AddSesEmailConfiguration(this IServiceCollection services, IConfigurationRoot configuration, ILogger logger)
+        public static IServiceCollection AddSesEmailConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
         {
             if (!string.IsNullOrEmpty(configuration["ses:accessKey"]) &&
                 !string.IsNullOrEmpty(configuration["ses:secretKey"]))
@@ -275,7 +274,7 @@ namespace StockportWebapp.Extensions
             return services;
         }
 
-        public static IServiceCollection AddRedis(this IServiceCollection services, IConfigurationRoot configuration, bool useRedisSession, ILogger logger)
+        public static IServiceCollection AddRedis(this IServiceCollection services, IConfiguration configuration, bool useRedisSession, ILogger logger)
         {
             if (useRedisSession)
             {

@@ -5,7 +5,7 @@
             <h2 class="group-homepage-title">Find local support, activities and volunteering opportunities in Stockport</h2>
         </div>
            <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
-               @Html.Partial("FavouritesBar")
+               <partial name="FavouritesBar" />
            </div>
         <div class="group-homepage-list">
             <div class="grid-25 tablet-grid-50 group-homepage-container" id="search-everything">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid-25 tablet-grid-50 group-homepage-container">
+            <div class="grid-25 tablet-grid-50 group-homepage-container" id="find-where-to-volunteer">
                 <a href="/groups/results?category=all&latitude=53.405817&longitude=-2.158046&location=stockport&order=nearest&keeptag=&fromsearch=true&getinvolved=yes">
                     <div class="group-block-content">
                         <i class="fa  fa-users fa-3x default-icon hide-on-tablet hide-on-mobile" aria-hidden="true"></i>

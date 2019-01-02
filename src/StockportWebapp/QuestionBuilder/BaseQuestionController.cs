@@ -113,13 +113,13 @@ namespace StockportWebapp.QuestionBuilder
         
         [HttpPost]
         [Route("submitanswers")]      
-        public Task<IActionResult> SubmitAnswers(Page page)
+        public IActionResult SubmitAnswers(Page page)
         {
             var results = GetMappedResult(page.GetCombinedAnswers());            
             return ProcessResults(results, page.Endpoint);
         } 
 
-        public abstract Task<IActionResult> ProcessResults(T result, string endpointName);
+        public abstract IActionResult ProcessResults(T result, string endpointName);
 
         public IActionResult DefaultBehaviour(int currentPageId)
         {

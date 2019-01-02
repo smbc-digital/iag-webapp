@@ -39,9 +39,9 @@
 
     var init = function () {
         $("*").on("focus", function (e) {
-            if ($(event.target).parent().hasClass('menu-account-button')) {
+            if ($(e.target).parent().hasClass('menu-account-button')) {
                 $(".menu-tooltip").show();
-            } else if (!$(event.target).parent().hasClass('menu-links')) {
+            } else if (!$(e.target).parent().hasClass('menu-links')) {
                 $('.menu-tooltip').attr('style', '');
             }
         });

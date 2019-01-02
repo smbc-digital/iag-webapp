@@ -16,11 +16,11 @@
 @section Breadcrumbs {
     @if (!string.IsNullOrEmpty(Model.GroupName))
     {
-        @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups") })
+        <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups") }'/>
     }
     else
     {
-        @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Events", "events", "events") })
+        <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Events", "events", "events") }'/>
     }
 }
 
@@ -171,7 +171,7 @@
                                     <label>Event categories</label>
                                     <div class="grid-100 grid-parent category-div">
                                         <input aria-label="Categories list" type="hidden" asp-for="@Model.CategoriesList" />
-                                        @Html.Partial("multiselect", new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.BuildCategoryList() })
+                                        <partial name="multiselect" model='new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.BuildCategoryList() }'/>
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                     </div>
                                     <h2 class="visually-hidden">Event image (optional)</h2>

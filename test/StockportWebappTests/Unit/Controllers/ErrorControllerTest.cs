@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -9,9 +10,10 @@ using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ErrorControllerTest
     {
@@ -34,14 +36,14 @@ namespace StockportWebappTests.Unit.Controllers
             const string url = "/a-url";
             SetUpUrl(_httpContextAccessor, url);
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(string.Empty);
-            var result = AsyncTestHelper.Resolve(_controller.Error("404")) as ViewResult;
+            var result = _controller.Error("404") as ViewResult;;
             result.ViewData[@"ErrorHeading"].Should().Be("Something's missing");
         }
     
         [Fact]
         public void ShouldTellUsSomethingIsWrongIfADifferentErrorOccurred()
         {
-            var result = AsyncTestHelper.Resolve(_controller.Error("500")) as ViewResult;
+            var result = _controller.Error("500") as ViewResult;;
 
             result.ViewData[@"ErrorHeading"].Should().Be("Something went wrong");
         }
@@ -53,7 +55,7 @@ namespace StockportWebappTests.Unit.Controllers
             SetUpUrl(_httpContextAccessor, url);
             var redirectedToLocation = @"/redirected-to-location-from-the-rule";
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(redirectedToLocation);
-            var result = AsyncTestHelper.Resolve(_controller.Error("404")) as RedirectResult;
+            var result = _controller.Error("404") as RedirectResult;;
             result.Url.Should().Be(redirectedToLocation);
             result.Permanent.Should().BeTrue();
         }
@@ -64,7 +66,7 @@ namespace StockportWebappTests.Unit.Controllers
             const string url = "/a-url";
             SetUpUrl(_httpContextAccessor, url);
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(string.Empty);
-            AsyncTestHelper.Resolve(_controller.Error("404"));
+            _controller.Error("404");
             LogTesting.Assert(_logger, LogLevel.Information,
                 $"No legacy url matching current url ({url}) found");
         }
@@ -77,7 +79,7 @@ namespace StockportWebappTests.Unit.Controllers
             var redirectedToLocation = @"/redirected-to-location-from-the-rule";
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(redirectedToLocation);
 
-            AsyncTestHelper.Resolve(_controller.Error("404"));
+            _controller.Error("404");
 
             LogTesting.Assert(_logger, LogLevel.Information,
                 $"A legacy redirect was found - redirecting to {redirectedToLocation}");

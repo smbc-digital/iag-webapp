@@ -7,8 +7,9 @@ using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using Xunit;
 using FluentAssertions;
+using StockportWebappTests_Unit.Helpers;
 
-namespace StockportWebappTests.Unit.Parsers
+namespace StockportWebappTests_Unit.Unit.Parsers
 {
     public class DocumentTagParserTest
     {

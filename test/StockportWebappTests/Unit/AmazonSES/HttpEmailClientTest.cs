@@ -13,8 +13,10 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Builders;
 using StockportWebapp.Models;
+using System.Threading.Tasks;
+using StockportWebappTests_Unit.Helpers;
 
-namespace StockportWebappTests.Unit.AmazonSES
+namespace StockportWebappTests_Unit.Unit.AmazonSES
 {
     public class HttpEmailClientTest
     {
@@ -30,19 +32,19 @@ namespace StockportWebappTests.Unit.AmazonSES
         }
 
         [Fact]
-        public void ItShouldReturnA500AndLogItIfTheServiceEmailIsNullOrEmpty()
+        public async Task ItShouldReturnA500AndLogItIfTheServiceEmailIsNullOrEmpty()
         {
             var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "", "", "user@email.com", new List<IFormFile>());
 
-            var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
+            var httpStatusCode = await emailClient.SendEmailToService(emailMessage);
             httpStatusCode.Should().Be(HttpStatusCode.InternalServerError);
 
             LogTesting.Assert(_mockLogger, LogLevel.Error, "ToEmail can not be null or empty. No email has been sent.");
         }
 
         [Fact]
-        public void ItShouldReturnA200IfTheStatusCodeIsOkAndLogTheResponse()
+        public async Task ItShouldReturnA200IfTheStatusCodeIsOkAndLogTheResponse()
         {
             _amazonEmailService.Setup(o => o.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.OK, MessageId = "test", ResponseMetadata = new ResponseMetadata { RequestId = "test" } });
@@ -50,7 +52,7 @@ namespace StockportWebappTests.Unit.AmazonSES
             var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
 
-            var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
+            var httpStatusCode = await emailClient.SendEmailToService(emailMessage);
 
             httpStatusCode.Should().Be(HttpStatusCode.OK);
             LogTesting.Assert(_mockLogger, LogLevel.Information, "An email was sent to Amazon SES with message id: test and request id test");
@@ -58,7 +60,7 @@ namespace StockportWebappTests.Unit.AmazonSES
 
 
         [Fact]
-        public void ItShouldReturnA500IfTheEmailServiceThrowsAnException()
+        public async Task ItShouldReturnA500IfTheEmailServiceThrowsAnException()
         {
             _amazonEmailService.Setup(o => o.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new SendRawEmailResponse { HttpStatusCode = HttpStatusCode.InternalServerError, MessageId = "test", ResponseMetadata = new ResponseMetadata { RequestId = "test" } });
@@ -66,14 +68,14 @@ namespace StockportWebappTests.Unit.AmazonSES
             var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
 
-            var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
+            var httpStatusCode = await emailClient.SendEmailToService(emailMessage);
 
             httpStatusCode.Should().Be(HttpStatusCode.InternalServerError);
             LogTesting.Assert(_mockLogger, LogLevel.Warning, $"There was a problem sending an email, message id: test and request id: test and status code {HttpStatusCode.InternalServerError}");
         }
 
         [Fact]
-        public void ItShouldReturnABadRequestIfAmazonSesReturnsAnException()
+        public async Task ItShouldReturnABadRequestIfAmazonSesReturnsAnException()
         {
             _amazonEmailService.Setup(
                     o => o.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()))
@@ -82,20 +84,20 @@ namespace StockportWebappTests.Unit.AmazonSES
             var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, true);
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
 
-            var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
+            var httpStatusCode = await emailClient.SendEmailToService(emailMessage);
 
             httpStatusCode.Should().Be(HttpStatusCode.BadRequest);
             LogTesting.Assert(_mockLogger, LogLevel.Error, "An error occurred trying to send an email to Amazon SES. \nThere was an error");
         }
 
         [Fact]
-        public void ItShouldReturnAOk_When_SendAmazonEmail_SetToFalse()
+        public async Task ItShouldReturnAOk_When_SendAmazonEmail_SetToFalse()
         {
 
             var emailClient = new HttpEmailClient(_mockLogger.Object, _emailBuilder.Object, _amazonEmailService.Object, false);
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "service@mail.com", "user@email.com", new List<IFormFile>());
 
-            var httpStatusCode = AsyncTestHelper.Resolve(emailClient.SendEmailToService(emailMessage));
+            var httpStatusCode = await emailClient.SendEmailToService(emailMessage);
 
             httpStatusCode.Should().Be(HttpStatusCode.OK);
             _amazonEmailService.Verify(_ => _.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()),Times.Never);
