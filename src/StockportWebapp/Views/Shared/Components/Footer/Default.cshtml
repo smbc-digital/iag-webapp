@@ -45,14 +45,17 @@
             </div>
         </div>
     </div>
-    <div class="grid-parent grid-container footer-logo-links">
-        <div class="grid-20">
-            <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer" />
+    @if (BusinessId.ToString() == "stockportgov")
+    {
+        <div class="grid-parent grid-container footer-logo-links">
+            <div class="grid-20">
+                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer"/>
+            </div>
+            <div class="grid-20">
+                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="GMCA"/>
+            </div>
         </div>
-        <div class="grid-20">
-            <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="GMCA" />
-        </div>
-    </div>
+    }
     <div class="footer-bottom">
         <div class="grid-container ">
             <div class="grid-50 tablet-grid-50 copyright">
@@ -67,9 +70,9 @@
                 <p>
                     <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
                 </p>
-            </div>    
+            </div>
         </div>
     </div>
-    
-    
+
+
 </footer>
