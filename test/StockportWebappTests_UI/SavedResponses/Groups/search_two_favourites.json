@@ -1,0 +1,357 @@
+﻿{
+  "Guid": "9eab574c-f95a-4aba-9615-6b922847d142",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/group-results/",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Params": [
+      {
+        "Name": "slugs",
+        "Matchers": [
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "time-for-dance"
+          },
+          {
+            "Name": "ExactMatcher",
+            "Pattern": "time-for-dance1"
+          }
+        ]
+      }
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "groups": [
+        {
+          "name": "1Time for Dance",
+          "slug": "time-for-dance",
+          "phoneNumber": null,
+          "email": "thisis@email.com",
+          "website": null,
+          "twitter": null,
+          "facebook": null,
+          "address": "90 o'clock, clockley, clockshire ",
+          "description": "\r\n\r\n**Clock**\r\n\r\n",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Help and support",
+              "slug": "help-and-support",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+            }
+          ],
+          "subCategories": [
+            {
+              "name": "Black",
+              "slug": "black"
+            }
+          ],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": -2.1492138999999497,
+            "lat": 53.408706
+          },
+          "volunteering": false,
+          "events": null,
+          "groupAdministrators": {
+            "items": [
+              {
+                "email": "brant.oglevie@stockport.gov.uk",
+                "permission": "A",
+                "name": "brant"
+              },
+              {
+                "email": "harsha.reddy1@hotmail.com",
+                "permission": "E",
+                "name": "harsha"
+              }
+            ]
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we�ll be in contact as soon as possible.",
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": null,
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-07T14:45:38.516Z",
+          "suitableFor": [
+            "Deaf or hard of hearing"
+          ],
+          "ageRange": []
+        },
+        {
+          "name": "1Time for Dance1",
+          "slug": "time-for-dance1",
+          "phoneNumber": "",
+          "email": "thisis@email.com",
+          "website": "",
+          "twitter": "",
+          "facebook": "",
+          "address": "90 o'clock, clockley, clockshire ",
+          "description": "__Clock__",
+          "imageUrl": "",
+          "thumbnailImageUrl": "",
+          "categoriesReference": [
+            {
+              "name": "Help and support",
+              "slug": "help-and-support",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+            },
+            {
+              "name": "Outdoors and adventure",
+              "slug": "outdoors-and-adventure",
+              "icon": "si-house",
+              "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+            }
+          ],
+          "subCategories": [],
+          "breadcrumbs": [
+            {
+              "title": "Stockport Local",
+              "slug": "",
+              "type": "groups"
+            }
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "volunteering": true,
+          "events": null,
+          "groupAdministrators": {
+            "items": []
+          },
+          "dateHiddenFrom": "9999-12-31T23:59:59",
+          "dateHiddenTo": "9999-12-31T23:59:59",
+          "status": "Published",
+          "cost": [],
+          "costText": null,
+          "abilityLevel": null,
+          "volunteeringText": null,
+          "organisation": {
+            "title": "",
+            "slug": "",
+            "imageUrl": "",
+            "aboutUs": "",
+            "phone": "",
+            "email": "",
+            "volunteering": false,
+            "volunteeringText": null,
+            "donationsText": null,
+            "donationsUrl": null,
+            "groups": [],
+            "donations": false
+          },
+          "linkedGroups": null,
+          "donations": false,
+          "donationsText": null,
+          "donationsUrl": null,
+          "accessibleTransportLink": "/accessibleTransport",
+          "additionalInformation": "",
+          "additionalDocuments": [],
+          "dateLastModified": "2018-09-10T09:41:41.554Z",
+          "suitableFor": [],
+          "ageRange": []
+        }
+      ],
+      "categories": [
+        {
+          "name": "",
+          "slug": "untitled-entry-2018-02-21-at-02-31-19",
+          "icon": "",
+          "imageUrl": ""
+        },
+        {
+          "name": "",
+          "slug": "untitled-entry-2018-01-03-at-08-14-29",
+          "icon": "",
+          "imageUrl": ""
+        },
+        {
+          "name": "0utdoors and adventure and an",
+          "slug": "outdoors-and-adventure-and-nothing",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+        },
+        {
+          "name": "Armed forces",
+          "slug": "armed-forces",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1Mod7GkKCkYMgI8wicUs6u/c3cda5e526131c1895eb625baa288f90/Football_for_football_article.jpg"
+        },
+        {
+          "name": "Arts and crafts",
+          "slug": "arts-and-crafts",
+          "icon": "si-house",
+          "imageUrl": ""
+        },
+        {
+          "name": "Children and family",
+          "slug": "children-and-family",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/jkQlA0GQk8MuECyo2uKOu/b00253a2cf7a4ee9adb403aa941dd06a/Autumn_leaves.jpg"
+        },
+        {
+          "name": "Comma, Test",
+          "slug": "comma-test",
+          "icon": "si-pitch",
+          "imageUrl": ""
+        },
+        {
+          "name": "Culture",
+          "slug": "culture",
+          "icon": "si-book",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+        },
+        {
+          "name": "Dancing",
+          "slug": "dancing",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2zuDiI9PoUk8Mc6S2qOU8E/20fed7926b74ebdd49fb771464e51a9f/iStock_95406809_MEDIUM.jpg"
+        },
+        {
+          "name": "Education and learning",
+          "slug": "education-and-learning",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+        },
+        {
+          "name": "Health and wellbeing",
+          "slug": "health-and-wellbeing",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg"
+        },
+        {
+          "name": "Help and support",
+          "slug": "help-and-support",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5cyiwyYaFqu8youiGcgoG8/a3a456888bfa27c38f1473a4e3b2fcc3/BAUBLES1.jpg"
+        },
+        {
+          "name": "Music",
+          "slug": "music",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg"
+        },
+        {
+          "name": "Outdoors and adventure",
+          "slug": "outdoors-and-adventure",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/36p8wTiUdGoyGEEyo6s204/e94601c5f00dbd3256011a2ee0d4aa32/council-chambers.jpg"
+        },
+        {
+          "name": "Religion",
+          "slug": "religion",
+          "icon": "si-file",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/33s1i45B9eeqS8sC26QyAK/a98eeaa7174d40dfb6f129f2b355d984/maxresdefault.jpg"
+        },
+        {
+          "name": "Sports and fitness",
+          "slug": "sports-and-fitness",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/4ZaddM6s5a24UuQOEiGQWq/59253529ca20a43d1a78f5d8d3d1d00f/Sarah_s_Story.jpg"
+        },
+        {
+          "name": "test test",
+          "slug": "test-test",
+          "icon": "fa-icon",
+          "imageUrl": ""
+        },
+        {
+          "name": "Theatre, music and performance",
+          "slug": "theatre-music-and-performance",
+          "icon": "si-drums",
+          "imageUrl": ""
+        },
+        {
+          "name": "this category name is verrrrrrrrrrrrrrrrrrry loooooooooooooooooong",
+          "slug": "very-long",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+        },
+        {
+          "name": "this category name is very loooong",
+          "slug": "very-long1",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5nghPGu9uowomaQCywW2Ue/33abeb4ee6bb87f4ec322479b1fa7543/runners.jpg"
+        },
+        {
+          "name": "UITEST: Group Category",
+          "slug": "uitest-group-category",
+          "icon": "si-book",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+        },
+        {
+          "name": "Un-cached Group",
+          "slug": "un-cached-group",
+          "icon": "si-house",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+        },
+        {
+          "name": "young people",
+          "slug": "young-people",
+          "icon": "si-house",
+          "imageUrl": ""
+        }
+      ],
+      "availableSubCategories": [
+        {
+          "name": "Black",
+          "slug": "black"
+        }
+      ]
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Thu, 13 Dec 2018 15:33:10 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "Guid": "2c6e03ed-dd09-4525-a455-f8abc567bddc",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/topics/uitest-hat-works",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "slug": "uitest-hat-works",
+      "name": "UITEST: Hat Works",
+      "teaser": "The Hat Works is the UK's only museum dedicated to the hatting industry, hats and headwear.",
+      "summary": "The Hat Works is the UK's only museum dedicated to the hatting industry, hats and headwear.",
+      "icon": "",
+      "backgroundImage": "",
+      "image": "",
+      "subItems": [
+        {
+          "slug": "uitest-about-the-hat-works",
+          "title": "UITEST: About the Hat Works",
+          "teaser": "The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.  The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": [
+            {
+              "slug": "uitest-about-the-hat-works/uitest-overview",
+              "title": "UITEST: Overview",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-about-the-hat-works/uitest-gallery-floor",
+              "title": "UITEST: Gallery floor",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-about-the-hat-works/in-line-alert-test",
+              "title": "in line alert test",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "slug": "uitest-testarticle",
+          "title": "UITEST: Article with profile, video and table",
+          "teaser": "Teaser for a test article for ui tests (don't edit or delete)",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": [
+            {
+              "slug": "uitest-testarticle/uitest-test-video-and-profile-section",
+              "title": "UITEST: Test Video and Profile Section",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-testarticle/uitest-section-with-pdf",
+              "title": "UITEST: Section With PDF",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-testarticle/testingone",
+              "title": "testingone",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            }
+          ]
+        },
+        {
+          "slug": "testing-alert-5",
+          "title": "testing alert 5",
+          "teaser": "test",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        }
+      ],
+      "secondaryItems": [
+        {
+          "slug": "uitest-secondary-item",
+          "title": "UITEST: Secondary Item",
+          "teaser": "This is is Ui Test Secondary Item ",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": [
+            {
+              "slug": "uitest-secondary-item/testoneone",
+              "title": "testone",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-secondary-item/testtwotwo",
+              "title": "testtwotwo",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-secondary-item/testthreethree",
+              "title": "testthree",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-secondary-item/testfourfour",
+              "title": "testfourfour",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-secondary-item/testfivefive",
+              "title": "testfivefive",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            }
+          ]
+        }
+      ],
+      "tertiaryItems": [
+        {
+          "slug": "uitest-about-the-hat-works",
+          "title": "UITEST: About the Hat Works",
+          "teaser": "The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.  The Hat Works is an award winning attraction housed in a restored Grade ll listed Victorian Mill.",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": [
+            {
+              "slug": "uitest-about-the-hat-works/uitest-overview",
+              "title": "UITEST: Overview",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-about-the-hat-works/uitest-gallery-floor",
+              "title": "UITEST: Gallery floor",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            },
+            {
+              "slug": "uitest-about-the-hat-works/in-line-alert-test",
+              "title": "in line alert test",
+              "teaser": "",
+              "icon": "",
+              "type": "section",
+              "sunriseDate": "0001-01-01T00:00:00Z",
+              "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+              "image": "",
+              "subItems": []
+            }
+          ]
+        }
+      ],
+      "breadcrumbs": [],
+      "alerts": [
+        {
+          "title": "Alert error",
+          "subHeading": "",
+          "body": "body text",
+          "severity": "Error",
+          "sunriseDate": "2018-06-01T00:00:00+01:00",
+          "sunsetDate": "2043-06-11T00:00:00+01:00",
+          "slug": "alert-error"
+        }
+      ],
+      "sunriseDate": "0001-01-01T00:00:00Z",
+      "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+      "emailAlerts": true,
+      "emailAlertsTopicId": "uksmbc_20",
+      "eventBanner": {
+        "title": "Test Event Banner-Find events at Stockport museums Test Event Banner-Find events at Stockport museums Test Event Banner-Find events at Stockport museums",
+        "teaser": "Use our calender to find out what's happen including Bramall hall, Air raid Shelters and the Hats Works. Use our calender to find out what's happening at our museums including Bramall hall, Air raid Shelters and the Hats Works.",
+        "icon": "si-calendar",
+        "link": "https://www.stockport.gov.uk/events"
+      },
+      "expandingLinkTitle": "",
+      "expandingLinkBoxes": [],
+      "primaryItemTitle": null,
+      "advertisement": {
+        "title": "Outdoor Theatre Programme 2012",
+        "slug": "outdoor-theatre-programme-2012",
+        "teaser": "Find out about our summer outdoor theatre programme at Bramall Hall",
+        "sunriseDate": "2018-03-22T09:00:00+00:00",
+        "sunsetDate": "2018-03-22T09:00:00+00:00",
+        "isadvertisement": true,
+        "navigationUrl": "http://www.google.com",
+        "image": "//images.ctfassets.net/6cfgzlmcakf7/hXlU0ebB5eIgWm64U6MCi/83e4e7db0316000c79fa9664b2c534d9/Planning_-_Front_of_Bramall_Hall_with_gardens.jpg"
+      }
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Mon, 10 Dec 2018 11:54:13 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

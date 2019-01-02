@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using StockportWebapp.Config;
 using StockportWebapp.Utils;
 
-namespace StockportWebappTests.Unit.Helpers
+namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class HostHelperTests
     {

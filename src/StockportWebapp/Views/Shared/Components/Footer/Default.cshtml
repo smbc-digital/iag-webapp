@@ -8,7 +8,7 @@
 <footer>
     @if (BusinessId.ToString() == "stockportgov")
     {
-        @Html.Partial("AToZStockportGov", "")
+        <partial name="AToZStockportGov" model='""'/>
     }
     <div class="l-container-footer grid-container">
         <div class="grid-container grid-parent">
@@ -16,7 +16,7 @@
                 <div class="grid-30 tablet-grid-35 tablet-push-65 push-65 footer-social-container">
                     @if (Model.SocialMediaLinks != null)
                     {
-                        @Html.Partial("SocialMediaLinks", Model.SocialMediaLinks)
+                        <partial name="SocialMediaLinks" model='Model.SocialMediaLinks'/>
                     }
                 </div>
                 <div class="grid-25 tablet-grid-25 tablet-pull-35 pull-30 mobile-grid-100">
@@ -37,7 +37,7 @@
                         <ul class="footer-nav">
                             @if (Model.Links != null)
                             {
-                                @Html.Partial("FooterLinks", Model.Links)
+                                <partial name="FooterLinks" model='Model.Links'/>
                             }
                         </ul>
                     </div>

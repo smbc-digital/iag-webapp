@@ -9,7 +9,7 @@
         <div class="l-body-section-filled l-group-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@ViewData["Title"] content">
                 <div class="l-content-container grid-100 grid-parent group-margin" id="group-padding">
-                    @Html.Partial("PaymentConfirmationBody", Model)
+                    <partial name="PaymentConfirmationBody" model='Model'/>
                 </div>
             </section>
         </div>

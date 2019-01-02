@@ -3,7 +3,7 @@ using FluentAssertions;
 using StockportWebapp.Validation;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Validation
+namespace StockportWebappTests_Unit.Unit.Validation
 {
     public class PastDateValidationTest
     {

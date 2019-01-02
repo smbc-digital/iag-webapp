@@ -10,7 +10,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", topic.Breadcrumbs)
+    <partial name="Breadcrumb" model='topic.Breadcrumbs'/>
 }
 
 <div class="l-page-content" id="topic-page-content">
@@ -39,33 +39,33 @@
             {
                 foreach (var alert in topic.Alerts)
                 {
-                    @Html.Partial("DisplayTemplates/Alert", alert)
+                    <partial name="DisplayTemplates/Alert" model='alert'/>
                 }
             }
         }
+        
+        <partial name="Advertisement" model='Model.Topic.Advertisement'/>
 
-        @Html.Partial("Advertisement", Model.Topic.Advertisement)
-
-        @Html.Partial("PrimarySubitems", topic)
+        <partial name="PrimarySubitems" model='topic'/>
 
         @if (Model.Topic.ExpandingLinkBoxes != null && Model.Topic.ExpandingLinkBoxes.Any())
         {
-            @Html.Partial("ExpandingLinkBox", topic)
+            <partial name="ExpandingLinkBox" model='topic'/>
         }
 
         @if (!string.IsNullOrEmpty(topic.EventBanner.Title))
         {
-            @Html.Partial("Events/EventBanner", topic.EventBanner)
+            <partial name="Events/EventBanner" model='topic.EventBanner'/>
         }
 
         @if (topic.SecondaryItems.Any())
         {
-            @Html.Partial("SecondaryItems", topic)
+            <partial name="SecondaryItems" model='topic'/>
         }
 
         @if (topic.TertiaryItems.Any())
         {
-            @Html.Partial("TertiaryItems", topic)
+            <partial name="TertiaryItems" model='topic'/>
         }
     </div>
 </div>

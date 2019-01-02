@@ -10,10 +10,10 @@
 }
 @section BackgroundImage
 {
-    @Html.Partial("ScaleImageByDevice", new Image("l-background-hs-image", Model.Topic.BackgroundImage))
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)'/>
 }
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Topic.Breadcrumbs)
+    <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs'/>
 }
 @if (!string.IsNullOrEmpty(topic.BackgroundImage))
 {
@@ -30,7 +30,7 @@
                     {
                         foreach (var alert in topic.Alerts)
                         {
-                            @Html.Partial("DisplayTemplates/Alert", alert)
+                            <partial name="DisplayTemplates/Alert" model='alert'/>
                         }
                     }
                 }
@@ -42,12 +42,12 @@
             @Html.Raw(topic.Summary)
         </div>
         
-        @Html.Partial("SubItem-List", topic)        
+        <partial name="SubItem-List" model='topic'/>        
     </div>
     
     <div class="grid-100 topic-contactus">
         <div class="topic-contactus-container">
-            @Html.Partial("../Shared/ContactUs-Nav")
+            <partial name="../Shared/ContactUs-Nav" />
         </div>      
     </div>
 </section>

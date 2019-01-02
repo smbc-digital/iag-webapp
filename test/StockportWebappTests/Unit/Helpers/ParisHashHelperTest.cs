@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Helpers
+namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class ParisHashHelperTest
     {

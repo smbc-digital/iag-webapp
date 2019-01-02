@@ -4,9 +4,10 @@ using Moq;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewDetails;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Parsers
+namespace StockportWebappTests_Unit.Unit.Parsers
 {
     public class ContactUsTagParserTest
     {

@@ -13,9 +13,10 @@ using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Services;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
+using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class HomeControllerTest
     {
@@ -34,7 +35,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GivenNavigateToIndexReturnsHomeViewWithFeaturedTopicsAndTasks()
+        public async Task GivenNavigateToIndexReturnsHomeViewWithFeaturedTopicsAndTasks()
         {
             // TODO: Tidy up...
             // Arrange
@@ -65,7 +66,7 @@ namespace StockportWebappTests.Unit.Controllers
             _eventsService.Setup(o => o.GetLatestFeaturedEventItem()).ReturnsAsync(eventsContent);
 
             // Act
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
+            var indexPage = await _controller.Index() as ViewResult;;
             var page = indexPage.ViewData.Model as HomepageViewModel;
 
             // Assert
@@ -144,23 +145,23 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GetsA404NotFoundOnTheHomepage()
+        public async Task GetsA404NotFoundOnTheHomepage()
         {
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync((ProcessedHomepage)null);
 
-            var response = AsyncTestHelper.Resolve(_controller.Index()) as NotFoundResult;
+            var response = await _controller.Index() as NotFoundResult;;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
 
         [Fact]
-        public void ShouldRedirectEmailSubscribeToConfiguredUrlWithEmailAddress()
+        public async Task ShouldRedirectEmailSubscribeToConfiguredUrlWithEmailAddress()
         {
             const string emailAddress = "me@email.com";
             var appSetting = AppSetting.GetAppSetting(EmailAlertsUrl);
             _config.Setup(o => o.GetEmailAlertsUrl(_businessId)).Returns(appSetting);
 
-            var response = AsyncTestHelper.Resolve(_controller.EmailSubscribe(emailAddress, ""));
+            var response = await _controller.EmailSubscribe(emailAddress, "");
 
             response.Should().BeOfType<RedirectResult>();
             var redirect = response as RedirectResult;
@@ -169,19 +170,19 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldRedirectToApplicationErrorIfEmailConfigurationIsMissing()
+        public async Task ShouldRedirectToApplicationErrorIfEmailConfigurationIsMissing()
         {
             const string emailAddress = "me@email.com";
             var appSetting = AppSetting.GetAppSetting(null);
             _config.Setup(o => o.GetEmailAlertsUrl(_businessId)).Returns(appSetting);
 
-            var response = AsyncTestHelper.Resolve(_controller.EmailSubscribe(emailAddress, "")) as StatusCodeResult;
+            var response = await _controller.EmailSubscribe(emailAddress, "") as StatusCodeResult;;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
 
         [Fact]
-        public void ShouldReturnEventsFromTheApi()
+        public async Task ShouldReturnEventsFromTheApi()
         {
             // Arrange
             var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest");
@@ -191,7 +192,7 @@ namespace StockportWebappTests.Unit.Controllers
             _stockportApiService.Setup(o => o.GetEventsByCategory("unittest", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
 
             // Act
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
+            var indexPage = await _controller.Index() as ViewResult;;
             var page = indexPage.ViewData.Model as HomepageViewModel;
 
             // Assert
@@ -200,7 +201,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnEmptyEventsIfCategoryIsNotSet()
+        public async Task ShouldReturnEmptyEventsIfCategoryIsNotSet()
         {
             // Arrange
             var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "");
@@ -209,7 +210,7 @@ namespace StockportWebappTests.Unit.Controllers
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
 
             // Act
-            var indexPage = AsyncTestHelper.Resolve(_controller.Index()) as ViewResult;
+            var indexPage = await _controller.Index() as ViewResult;;
             var page = indexPage.ViewData.Model as HomepageViewModel;
 
             // Assert

@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace StockportWebappTests.Builders
+namespace StockportWebappTests_Unit.Builders
 {
     internal class GroupBuilder
     {

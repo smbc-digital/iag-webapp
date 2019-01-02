@@ -1,4 +1,4 @@
-namespace StockportWebappTests.Unit.Fake
+namespace StockportWebappTests_Unit.Unit.Fake
 {
     public class FakeFeatureToggles
     {

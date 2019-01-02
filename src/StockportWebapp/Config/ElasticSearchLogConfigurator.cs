@@ -11,14 +11,14 @@ namespace StockportWebapp.Config
     {
         private const string ElasticsearchConfigurationKey = "ElasticSearchAwsConfiguration";
         private const string ElasticsearchSecretsConfigurationKey = "ElasticSearchAwsSecretsConfiguration";
-        private readonly IConfigurationRoot _configuration;
+        private readonly IConfiguration _configuration;
         private ElasticSearchLogConfiguration _elasticSearchLogConfiguration = new ElasticSearchLogConfiguration();
         private ElasticSearchLogSecretConfiguration _elasticSearchLogSecretConfiguration = new ElasticSearchLogSecretConfiguration();
 
-        public ElasticSearchLogConfigurator(IConfigurationRoot configurationRoot)
+        public ElasticSearchLogConfigurator(IConfiguration configuration)
         {
 
-            _configuration = configurationRoot;
+            _configuration = configuration;
 
             var elasticSearchLogConfigurationSection = _configuration.GetSection(ElasticsearchConfigurationKey);
             var elasticSearchLogSecretConfigurationSection = _configuration.GetSection(ElasticsearchSecretsConfigurationKey);

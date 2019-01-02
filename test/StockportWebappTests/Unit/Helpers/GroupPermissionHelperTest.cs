@@ -2,7 +2,7 @@
 using Xunit;
 using StockportWebapp.Utils;
 
-namespace StockportWebappTests.Unit.Helpers
+namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class GroupPermissionHelperTest
     {

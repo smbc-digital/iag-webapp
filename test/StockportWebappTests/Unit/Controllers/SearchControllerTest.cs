@@ -6,8 +6,9 @@ using FluentAssertions;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
+using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class SearchControllerTest
     {
@@ -25,13 +26,13 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItRedirectsToPostcodeSearchUrl()
+        public async Task ItRedirectsToPostcodeSearchUrl()
         {
             var postcodeSearchSetting = AppSetting.GetAppSetting(PostcodeUrl);
             _config.Setup(o => o.GetPostcodeSearchUrl(_businessId)).Returns(postcodeSearchSetting);
 
             var postcode = "m45 3fz";
-            var result = AsyncTestHelper.Resolve(_searchController.Postcode(postcode));
+            var result = await _searchController.Postcode(postcode);
 
             result.Should().BeOfType<RedirectResult>();
             
@@ -41,12 +42,12 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldRedierctToApplicationErrorIfPostCodeUrlConfigurationIsMissing()
+        public async Task ShouldRedierctToApplicationErrorIfPostCodeUrlConfigurationIsMissing()
         {
             var postCodeSearchSetting = AppSetting.GetAppSetting(null);
             _config.Setup(o => o.GetPostcodeSearchUrl(_businessId)).Returns(postCodeSearchSetting);
 
-            var result = AsyncTestHelper.Resolve(_searchController.Postcode("a-postcode")) as StatusCodeResult;
+            var result = await _searchController.Postcode("a-postcode") as StatusCodeResult;
 
             result.StatusCode.Should().Be((int) HttpStatusCode.NotFound);            
         }

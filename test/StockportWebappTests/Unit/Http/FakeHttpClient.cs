@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Http
+namespace StockportWebappTests_Unit.Unit.Http
 {
     public class FakeHttpClient : IHttpClient
     {

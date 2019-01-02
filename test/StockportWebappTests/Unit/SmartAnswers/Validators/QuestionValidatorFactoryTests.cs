@@ -9,7 +9,7 @@ using StockportWebapp.QuestionBuilder.Validators;
 using StockportWebapp.QuestionBuilder.Validators.Entities;
 using Xunit;
 
-namespace StockportWebappTests.Unit.SmartAnswers.Validators
+namespace StockportWebappTests_Unit.Unit.SmartAnswers.Validators
 {
     public class QuestionValidatorFactoryTests
     {
@@ -39,7 +39,7 @@ namespace StockportWebappTests.Unit.SmartAnswers.Validators
                 QuestionValidatorFactory.CreateQuestionValidator(question.Object, validatorData);
             };
 
-            exception.ShouldThrow<ArgumentException>();
+            exception.Should().Throw<ArgumentException>();
         }
     }
 }

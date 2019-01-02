@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using StockportWebapp.ViewDetails;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ViewDetails
+namespace StockportWebappTests_Unit.Unit.ViewDetails
 {
     public class ContactUsDetailsTest
     {

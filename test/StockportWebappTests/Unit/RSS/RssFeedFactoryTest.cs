@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using Castle.Components.DictionaryAdapter;
 using FluentAssertions;
 
-namespace StockportWebappTests.Unit.RSS
+namespace StockportWebappTests_Unit.Unit.RSS
 {
     public class RssFeedFactoryTest
     {

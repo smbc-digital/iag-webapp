@@ -16,10 +16,10 @@ using Org.BouncyCastle.Asn1.Mozilla;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Validation;
-using StockportWebappTests.Unit.Http;
+using StockportWebappTests_Unit.Unit.Http;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Validation
+namespace StockportWebappTests_Unit.Unit.Validation
 {
     public class ReCaptchaValidationTests
     {

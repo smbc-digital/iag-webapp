@@ -1,6 +1,11 @@
 ﻿@using StockportWebapp.ViewModels
 @model PrimaryFilter
 
+@{
+    var locationSearch = new LocationSearch
+    {LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = Model.Location, Label = "groups in"};
+}
+
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form primary-filter-form-autocomplete">
 
     <div class="grid-100" id="primary-filter-listing-refine-bar">
@@ -16,8 +21,7 @@
         <input asp-for="Longitude" type="hidden" id="longitude" name="longitude" />
         <input asp-for="Location" type="hidden" id="location" />
 
-        @Html.Partial("LocationSearch", new LocationSearch
-            { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = Model.Location, Label = "groups in" })
+        <partial name="LocationSearch" model='locationSearch'/>
 
         <div class="primary-filter-form-section hide-on-mobile">
             <label class="primary-filter-label">sorted by</label>

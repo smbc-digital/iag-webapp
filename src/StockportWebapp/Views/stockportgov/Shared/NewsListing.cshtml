@@ -105,7 +105,7 @@
             {
                 foreach (var alert in newsroom.Alerts)
                 {
-                    @Html.Partial("DisplayTemplates/Alert", alert)
+                    <partial name="DisplayTemplates/Alert" model='alert'/>
                 }
             }
         }
@@ -129,14 +129,14 @@
                                 }
                                 <div  class="@(!string.IsNullOrEmpty(subItem.ThumbnailImage) ? "mobile-grid-65 tablet-grid-70 nav-card-news-detail pull-30 tablet-pull-30" : "") grid-70 grid-parent">
                                     <div class="news-date hide-on-mobile">
-                                        <i class="fa fa-clock-o" aria-hidden="true"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i><partial name="FormattedDate" model='subItem.SunriseDate'/>
                                     </div>
 
                                     <h2 class="nav-card-news-title" style="margin: 0">@subItem.Title</h2>
 
                                     <p class="nav-card-news-teaser hide-on-mobile">@subItem.Teaser</p>
                                     <div class="news-date hide-on-desktop hide-on-tablet">
-                                        <i class="fa fa-clock-o" aria-hidden="true"></i>@Html.Partial("FormattedDate", subItem.SunriseDate)
+                                        <i class="fa fa-clock-o" aria-hidden="true"></i><partial name="FormattedDate" model='subItem.SunriseDate'/>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                 }
             </ul>
             <div class="news-pagination">
-                @Html.Partial("Pagination", Model.Pagination)
+                <partial name="Pagination" model='Model.Pagination'/>
             </div>
             
 

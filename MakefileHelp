@@ -1,25 +1,18 @@
 Avaliable commands:
-  build:              runs the clean, restore, test, version, publish and package commands
-  run:                runs the application
-  clean:              deletes the /bin/ commands
-  dotnet-restore:     runs dotnet restore
-  dotnet-test:        runs dotnet test
-  test:               another way to run the unit tests
-  publish-app:        publishes the app into src/StockportWebapp/publish dir in Release configuration
-  version:            puts the current version into version.txt file
-  package-app:        packages the app into the .zip file
-  start-proxy:        starts a local proxy for running the website based on businessid's
+  build:      runs the clean, restore, test, version, publish and package commands
+  run:        runs the application
+  restore:    runs dotnet restore
+  test:       runs dotnet test
+  test-all:   runs both dotnet and js tests
 
 UI Tests:
-  ui-test-all:        runs all of the ui tests for all businessid's
-  ui-test:            run ui tests for singular businessid
-  ui-test-specific:   runs a specific singular ui test
+  ui-test:    run ui tests for singular businessid
 
 JS Tests:
-  js-tests:           runs the javascript tests
+  js-test:    runs the javascript tests
 
 Gulp Tasks:
-  css:                runs the sass to css gulp task
-  js:                 runs the minify all custom js task
-  js-config:          runs the minify the js require config task
-  js-all:             rund both the minify all custom js task and minify the js require config task
+  css:        runs the sass to css gulp task
+  js:         runs the minify all custom js task
+  js-config:  runs the minify the js require config task
+  js-all:     rund both the minify all custom js task and minify the js require config task

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Unit.Http
+namespace StockportWebappTests_Unit.Unit.Http
 {
     public class FakeHttpEmailClient : IHttpEmailClient
     {

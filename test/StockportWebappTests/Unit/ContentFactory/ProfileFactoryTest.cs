@@ -7,7 +7,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ContentFactory
+namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
     public class ProfileFactoryTest
     {

@@ -7,5 +7,5 @@
     var title = ViewData["Title"];
 }
 <div class="groupLastUpdated">
-    <p>Last updated @Html.Partial("FormattedDate", Model.DateLastModified)</p>
+    <p>Last updated <partial name="FormattedDate" model='Model.DateLastModified'/></p>
 </div>

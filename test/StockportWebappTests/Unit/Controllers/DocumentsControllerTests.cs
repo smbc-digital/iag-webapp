@@ -7,12 +7,12 @@ using StockportWebapp.Services;
 using Xunit;
 using System.Net.Http;
 using StockportWebapp.Wrappers;
-using StockportWebappTests.Builders;
+using StockportWebappTests_Unit.Builders;
 using Microsoft.AspNetCore.Mvc;
 using FluentAssertions;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class DocumentsControllerTests
     {

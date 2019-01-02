@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Microsoft.Extensions.Logging;
@@ -7,9 +8,10 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewComponents;
+using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ViewComponents
+namespace StockportWebappTests_Unit.Unit.ViewComponents
 {
     public class SemanticFooterViewComponentTest
     {
@@ -25,12 +27,12 @@ namespace StockportWebappTests.Unit.ViewComponents
         }
 
         [Fact]
-        public void ShouldReturnFooterAsModelInView()
+        public async Task ShouldReturnFooterAsModelInView()
         {
             var footer = new Footer("Title", "Slug", "Copyright", new List<SubItem>(), new List<SocialMediaLink>());
             _repository.Setup(o => o.Get<Footer>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Successful(200, footer));
 
-            var result = AsyncTestHelper.Resolve(_semanticFooterViewComponent.InvokeAsync()) as ViewViewComponentResult;
+            var result = await _semanticFooterViewComponent.InvokeAsync() as ViewViewComponentResult;
 
             result.ViewData.Model.Should().BeOfType<Footer>();
             var footerModel = result.ViewData.Model as Footer;
@@ -40,11 +42,11 @@ namespace StockportWebappTests.Unit.ViewComponents
         }
 
         [Fact]
-        public void ShouldNotReturnAFooterInViewIfViewNotFound()
+        public async Task ShouldNotReturnAFooterInViewIfViewNotFound()
         {
             _repository.Setup(o => o.Get<Footer>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Failure(404, "No Footer Found"));
 
-            var result = AsyncTestHelper.Resolve(_semanticFooterViewComponent.InvokeAsync()) as ViewViewComponentResult;
+            var result = await _semanticFooterViewComponent.InvokeAsync() as ViewViewComponentResult;
 
             result.ViewData.Model.Should().BeNull();
             Assert.Equal("NoFooterFound", result.ViewName);

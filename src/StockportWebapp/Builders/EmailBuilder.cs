@@ -30,7 +30,7 @@ namespace StockportWebapp.Builders
 
             foreach (var email in toEmails)
             {
-                message.To.Add(new MailboxAddress(string.Empty, email));
+                message.To.Add(new MailboxAddress(string.Empty, email.Trim()));
             }
 
             message.From.Add(new MailboxAddress(string.Empty, emailMessage.FromEmail));

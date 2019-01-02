@@ -9,7 +9,7 @@
 }
 
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "groups"), new Crumb(Model.GroupName, Model.Slug, "groups") })
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups"), new Crumb(Model.GroupName, Model.Slug, "groups") }'/>
 }
 
 <div class="grid-container-full-width">

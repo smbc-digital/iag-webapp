@@ -8,7 +8,7 @@
 @model StockportWebapp.ViewModels.SmartAnswerViewModel
 <div class="page-container" id="smart-answers-container">
     <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
-    @Html.Partial("Components/QuestionRenderer/Semantic/QuestionForm", Model.Page)
+    <partial name="Components/QuestionRenderer/Semantic/QuestionForm" model='Model.Page'/>
 </div>
 @section Scripts
     {

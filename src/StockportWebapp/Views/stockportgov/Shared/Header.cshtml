@@ -78,13 +78,13 @@
                     </div>
                 </div>
                 <div class="grid-50 grid-parent pull-right header-search-bar">
-                    @Html.Partial("HeaderSearchBar")
+                    <partial name="HeaderSearchBar" />
                 </div>
             </div>
         </div>
     </header>
 </div>
-@Html.Partial("MobileSearchBar")
+<partial name="MobileSearchBar" />
 <div class="banner-header-container">
     <div class="grid-container grid-100">
         @if (ViewData["Beta"] != null && ViewData["BetaForm"] != null && (bool)ViewData["Beta"])
@@ -99,7 +99,7 @@
 
     </div>
 </div>
-@Html.Partial("BrowserCheck")
+<partial name="BrowserCheck" />
 
 <script type="text/javascript">
     require(['cludo'], function () { });

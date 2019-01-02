@@ -9,13 +9,12 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ContentFactory
+namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
     public class PrivacyNoticeFactoryTest
     {
         private readonly PrivacyNoticeFactory _factory;
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
-        private readonly PrivacyNotice _privacyNotice;
 
         public PrivacyNoticeFactoryTest()
         {

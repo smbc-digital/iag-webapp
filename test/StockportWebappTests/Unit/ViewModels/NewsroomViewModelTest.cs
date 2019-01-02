@@ -5,7 +5,7 @@ using StockportWebapp.Models;
 using StockportWebapp.ViewModels;
 using Xunit;
 
-namespace StockportWebappTests.Unit.ViewModels
+namespace StockportWebappTests_Unit.Unit.ViewModels
 {
     public class NewsroomViewModelTest
     {

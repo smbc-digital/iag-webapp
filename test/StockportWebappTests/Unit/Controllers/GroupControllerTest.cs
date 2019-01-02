@@ -17,12 +17,13 @@ using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using StockportWebapp.AmazonSES;
 using Microsoft.AspNetCore.Http;
-using StockportWebappTests.Builders;
-using StockportWebappTests.Unit.Utils;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Unit.Utils;
 using StockportWebapp.Services;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Threading.Tasks;
 
-namespace StockportWebappTests.Unit.Controllers
+namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class GroupControllerTest
     {
@@ -102,7 +103,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItReturnsAGroupWithProcessedBody()
+        public async Task ItReturnsAGroupWithProcessedBody()
         {
             // Arrange
             var processedGroup = new ProcessedGroupBuilder().Build();
@@ -117,7 +118,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .Returns(new List<ArchiveEmailPeriod> {new ArchiveEmailPeriod {NumOfDays = 1}});
 
             // Act
-            var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
+            var view = await _groupController.Detail("slug") as ViewResult;
             var model = view.ViewData.Model as GroupDetailsViewModel;
 
             // Assert
@@ -129,21 +130,21 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void GetsA404NotFoundGroup()
+        public async Task GetsA404NotFoundGroup()
         {
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = AsyncTestHelper.Resolve(_groupController.Detail("not-found-slug")) as StockportWebapp.Http.HttpResponse;
+            var response = await _groupController.Detail("not-found-slug") as StockportWebapp.Http.HttpResponse;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
 
         [Fact]
-        public void ShouldGetListOfGroupCategories()
+        public async Task ShouldGetListOfGroupCategories()
         {
             // Act
-            var view = AsyncTestHelper.Resolve(_groupController.Index()) as ViewResult;
+            var view = await _groupController.Index() as ViewResult;
             var model = view.ViewData.Model as GroupStartPage;
 
             // Assert
@@ -151,7 +152,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ItShouldGetARedirectResultForAValidGroupSubmission()
+        public async Task ItShouldGetARedirectResultForAValidGroupSubmission()
         {
             var groupSubmission = new GroupSubmission()
             {
@@ -166,38 +167,38 @@ namespace StockportWebappTests.Unit.Controllers
             };
             _groupEmailBuilder.Setup(o => o.SendEmailAddNew(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.OK);
 
-            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission)) as RedirectToActionResult;
+            var actionResponse = await _groupController.AddAGroup(groupSubmission) as RedirectToActionResult;
             actionResponse.ActionName.Should().Be("ThankYouMessage");
         }
 
         [Fact]
-        public void ItShouldReturnBackToTheViewForAnInvalidEmailSubmission()
+        public async Task ItShouldReturnBackToTheViewForAnInvalidEmailSubmission()
         {
             var groupSubmission = new GroupSubmission();
 
             _groupEmailBuilder.Setup(o => o.SendEmailAddNew(It.IsAny<GroupSubmission>())).ReturnsAsync(HttpStatusCode.BadRequest);
 
-            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
+            var actionResponse = await _groupController.AddAGroup(groupSubmission);
 
             actionResponse.Should().BeOfType<ViewResult>();
             _groupEmailBuilder.Verify(o => o.SendEmailAddNew(groupSubmission), Times.Once);
         }
 
         [Fact]
-        public void ItShouldNotSendAnEmailForAnInvalidFormSumbission()
+        public async Task ItShouldNotSendAnEmailForAnInvalidFormSumbission()
         {
             var groupSubmission = new GroupSubmission();
 
             _groupController.ModelState.AddModelError("Name", "an invalid name was provided");
            
-            var actionResponse = AsyncTestHelper.Resolve(_groupController.AddAGroup(groupSubmission));
+            var actionResponse = await _groupController.AddAGroup(groupSubmission);
 
             actionResponse.Should().BeOfType<ViewResult>();
             _groupEmailBuilder.Verify(o => o.SendEmailAddNew(groupSubmission), Times.Never);
         }
 
         [Fact]
-        public void ShouldReturnLocationIfOneIsSelected()
+        public async Task ShouldReturnLocationIfOneIsSelected()
         {
             // Arrange
             var location = new MapDetails(){
@@ -216,7 +217,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .Returns(new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { NumOfDays = 1 } });
 
             // Act
-            var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
+            var view = await _groupController.Detail("slug") as ViewResult;
             var model = view.ViewData.Model as GroupDetailsViewModel;
 
             // Assert
@@ -224,7 +225,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void ShouldReturnAListOfLinkedEvents()
+        public async Task ShouldReturnAListOfLinkedEvents()
         {
             // Arrange
             var linkedEvent = new Event() {Slug = "event-slug"};
@@ -240,7 +241,7 @@ namespace StockportWebappTests.Unit.Controllers
                 .Returns(new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { NumOfDays = 1 } });
 
             // Act
-            var view = AsyncTestHelper.Resolve(_groupController.Detail("slug")) as ViewResult;
+            var view = await _groupController.Detail("slug") as ViewResult;
             var model = view.ViewData.Model as GroupDetailsViewModel;
 
             // Assert
@@ -248,7 +249,7 @@ namespace StockportWebappTests.Unit.Controllers
         }
 
         [Fact]
-        public void EditGroup_ShouldReturnCorrectTwitterHandleFormat()
+        public async Task EditGroup_ShouldReturnCorrectTwitterHandleFormat()
         {
             var groupAdmins = new GroupAdministrators();
             groupAdmins.Items.Add(new GroupAdministratorItems() {Email= "test@email.com"});
@@ -276,7 +277,7 @@ namespace StockportWebappTests.Unit.Controllers
             _groupsService.Setup(_ => _.GetAvailableGroupCategories()).ReturnsAsync(new List<string>());
 
             // Act
-            var view = AsyncTestHelper.Resolve(_groupController.EditGroup("slug", loggedInPerson)) as ViewResult;
+            var view = await _groupController.EditGroup("slug", loggedInPerson) as ViewResult;
             var model = view.ViewData.Model as GroupSubmission;
 
             Assert.Equal("@testHandle", model.Twitter);

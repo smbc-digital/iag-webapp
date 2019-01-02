@@ -1,23 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Builders
+namespace StockportWebappTests_Unit.Builders
 {
     public class DocumentBuilder
     {
-        private string _assetId = "asset id";
-        private string _title = "title";
-        private int _size = 22;
-        private string _url = "url";
-        private DateTime _lastUpdated = DateTime.MinValue;
-        private string _fileName = "fileName";
-        private string _mediaType = "application/pdf";
+        private const string AssetId = "asset id";
+        private const string Title = "title";
+        private const int Size = 22;
+        private const string Url = "url";
+        private readonly DateTime _lastUpdated = DateTime.MinValue;
+        private const string FileName = "fileName";
+        private const string MediaType = "application/pdf";
 
         public Document Build()
         {
-            return new Document(_title, _size, _lastUpdated, _url, _fileName, _assetId, _mediaType);
+            return new Document(Title, Size, _lastUpdated, Url, FileName, AssetId, MediaType);
         }
     }
 }

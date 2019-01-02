@@ -1,0 +1,110 @@
+{
+  "Guid": "4b22f009-154a-409c-8c34-bab11fb36681",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/groups/administrators/scn.uitest@gmail.com",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": [
+      {
+        "name": "UITEST: A group for ui testing",
+        "slug": "uitest-a-group-for-ui-testing",
+        "phoneNumber": "0123456789",
+        "email": "scn.uitest@gmail.com",
+        "website": "http://www.stockport.gov.uk",
+        "twitter": null,
+        "facebook": null,
+        "address": "dance club",
+        "description": "\r\n\r\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec feugiat nulla, non consectetur enim. Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec sit amet libero placerat, semper augue quis, bibendum lorem. Duis dapibus ac dolor eget accumsan. Nam pellentesque faucibus neque, quis fermentum sem laoreet at. Duis id augue id dui accumsan facilisis scelerisque a tortor. Proin aliquam metus massa, eget rutrum nulla fringilla a. Fusce in sollicitudin dui. Nulla lobortis imperdiet eros, ultricies facilisis velit semper in. Donec venenatis, lorem sed suscipit consequat, augue lacus fringilla quam, ac vehicula neque ex at nunc. Morbi ornare justo in quam rhoncus, nec ultrices turpis eleifend. Nunc vel leo leo. Vivamus suscipit, est et rutrum pretium, tortor eros tincidunt enim, quis feugiat orci ipsum vel magna. Sed elementum sit amet ipsum ac gravida.Duis vel erat massa. Integer ac nisl sed elit ultrices aliquam sed id urna. Aenean commodo nisi at ipsum molestie suscipit. Nulla sed risus eget quam scelerisque consequat. Phasellus dictum tortor a lobortis congue. Pellentesque sem tortor, malesuada sit amet est a, feugiat malesuada ligula. Duis mattis in diam maximus lobortis. Nulla efficitur enim id ligula placerat ullamcorper. Nulla egestas hendrerit nisi nec dapibus. Integer enim nibh, lobortis in finibus in, varius a velit. Nunc quis ullamcorper turpis. Aenean euismod mauris ex, ac dignissim justo vulputate quis. Donec tempor at orci vel euismod. Cras congue dapibus efficitur. Duis vitae sapien ligula. Aliquam ornare blandit diam eget varius.\r\n\r\n",
+        "imageUrl": "",
+        "thumbnailImageUrl": "",
+        "categoriesReference": [
+          {
+            "name": "UITEST: Group Category",
+            "slug": "uitest-group-category",
+            "icon": "si-book",
+            "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
+          }
+        ],
+        "subCategories": [],
+        "breadcrumbs": [
+          {
+            "title": "Stockport Local",
+            "slug": "",
+            "type": "groups"
+          }
+        ],
+        "mapPosition": {
+          "lon": -2.12380600000006,
+          "lat": 53.382031
+        },
+        "volunteering": true,
+        "events": null,
+        "groupAdministrators": {
+          "items": [
+            {
+              "email": "scn.uitest@gmail.com",
+              "permission": "A",
+              "name": "Ui Test"
+            }
+          ]
+        },
+        "dateHiddenFrom": "2108-05-09T11:00:00+01:00",
+        "dateHiddenTo": "9999-12-31T23:59:59",
+        "status": "Published",
+        "cost": [],
+        "costText": null,
+        "abilityLevel": null,
+        "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible.",
+        "organisation": {
+          "title": "",
+          "slug": "",
+          "imageUrl": "",
+          "aboutUs": "",
+          "phone": "",
+          "email": "",
+          "volunteering": false,
+          "volunteeringText": null,
+          "donationsText": null,
+          "donationsUrl": null,
+          "groups": [],
+          "donations": false
+        },
+        "linkedGroups": null,
+        "donations": true,
+        "donationsText": "Use the button below to find out about making a donation to support our group.",
+        "donationsUrl": null,
+        "accessibleTransportLink": "/accessibleTransport",
+        "additionalInformation": null,
+        "additionalDocuments": [],
+        "dateLastModified": "2018-12-04T10:35:34.679Z",
+        "suitableFor": [
+          "Autism",
+          "Dementia"
+        ],
+        "ageRange": []
+      }
+    ],
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Tue, 11 Dec 2018 09:01:04 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

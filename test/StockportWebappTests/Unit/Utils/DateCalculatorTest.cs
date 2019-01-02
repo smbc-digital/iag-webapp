@@ -5,7 +5,7 @@ using Moq;
 using System;
 using StockportWebapp.Models;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class DateCalculatorTest
     {

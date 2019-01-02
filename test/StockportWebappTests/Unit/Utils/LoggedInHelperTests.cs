@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http.Internal;
 using System.Collections.Generic;
 
-namespace StockportWebappTests.Unit.Utils
+namespace StockportWebappTests_Unit.Unit.Utils
 {
     public class LoggedInHelperTests
     {

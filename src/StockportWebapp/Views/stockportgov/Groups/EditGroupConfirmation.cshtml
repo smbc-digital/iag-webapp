@@ -8,7 +8,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.Slug, "groups") })
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.Slug, "groups") }'/>
 }
 
 <div class="grid-container-full-width">

@@ -4,7 +4,7 @@ using StockportWebapp.Config;
 using FluentAssertions;
 using Xunit;
 
-namespace StockportWebappTests.Unit.Config
+namespace StockportWebappTests_Unit.Unit.Config
 {
     public class EmailConfigurationBuilderTest
     {

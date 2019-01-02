@@ -24,8 +24,6 @@ namespace StockportWebapp.Repositories
 
         private static string BucketName = "live-iag-static-assets";
         private static string ServiceUrl = "s3-eu-west-1.amazonaws.com";
-        private static IAmazonS3 client;
-        static string keyName = "";
         public static int Count = 0;
         private readonly Dictionary<string, string> authenticationHeaders;
         private readonly IApplicationConfiguration _config;

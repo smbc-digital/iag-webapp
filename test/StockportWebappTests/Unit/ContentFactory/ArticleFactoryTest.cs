@@ -4,15 +4,16 @@ using FluentAssertions;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using Xunit;
-using Helper = StockportWebappTests.TestHelper;
 using Moq;
 using StockportWebapp.Http;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
+using StockportWebappTests_Unit.Builders;
+using StockportWebappTests_Unit.Helpers;
 
-namespace StockportWebappTests.Unit.ContentFactory
+namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
     public class ArticleFactoryTest
     {
@@ -60,10 +61,10 @@ namespace StockportWebappTests.Unit.ContentFactory
             _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object, _repository.Object);
 
 
-            _sectionOne = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-            _processedSectionOne = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-            _sectionTwo = new Section(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-            _processedSectionTwo = new ProcessedSection(Helper.AnyString, "id-1", Helper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _sectionOne = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _processedSectionOne = new ProcessedSection(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _sectionTwo = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _processedSectionTwo = new ProcessedSection(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
 

@@ -10,7 +10,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 @section Breadcrumbs {
-    @Html.Partial("Breadcrumb", Model.Payment.Breadcrumbs)
+    <partial name="Breadcrumb" model='Model.Payment.Breadcrumbs'/>
 }
 
     <form asp-controller="Payment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data">

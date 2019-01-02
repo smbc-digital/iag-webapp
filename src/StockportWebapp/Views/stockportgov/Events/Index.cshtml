@@ -12,13 +12,13 @@
 @if (string.IsNullOrWhiteSpace(Model.Category))
 {
     @section Breadcrumbs {
-       @Html.Partial("Breadcrumb", new List<Crumb>())
+       <partial name="Breadcrumb" model='new List<Crumb>()'/>
     }
 }
 else
 {
     @section Breadcrumbs {
-       @Html.Partial("Breadcrumb", new List<Crumb>() { new Crumb("What's on in Stockport", "events", "event") })
+       <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("What&#39;s on in Stockport", "events", "event") }'/>
     }
 }
 
@@ -34,15 +34,15 @@ else
         </div>
     </div>
     
-    @Html.Partial("Events/EventsFilterBar", Model)
+    <partial name="Events/EventsFilterBar" model='Model'/>
 
     @if (Model.FromSearch)
     {
-        @Html.Partial("Events/EventsResultsList", Model)
+        <partial name="Events/EventsResultsList" model='Model'/>
     }
     else
     {
-        @Html.Partial("Events/EventHomepage", Model.Homepage)
+        <partial name="Events/EventHomepage" model='Model.Homepage'/>
     }
     
     <div class="full-width-title hide-on-desktop hide-on-tablet add-button-container">
