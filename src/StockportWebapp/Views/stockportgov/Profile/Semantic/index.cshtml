@@ -1,0 +1,20 @@
+﻿@using StockportWebapp.ProcessedModels
+
+@model StockportWebapp.ProcessedModels.ProcessedProfile
+@{
+    ViewData["Title"] = Model.Title;
+    var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
+    ViewData["og:title"] = articleTitle + Model.Title;
+    ViewData["Description"] = Model.Teaser;
+    Layout = "../../Shared/_LayoutSemantic.cshtml";
+}
+
+@*@section Breadcrumbs {
+    <partial name="Breadcrumb" model='Model.Breadcrumbs' />
+}*@
+
+<div class="page-container">
+    <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
+    <p class="subtitle">@Model.Subtitle</p>
+    <hr/>
+</div>

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Http;
@@ -11,10 +12,12 @@ namespace StockportWebapp.Controllers
     public class ProfileController : Controller
     {
         private readonly IProcessedContentRepository _repository;
+        private readonly FeatureToggles _featuretogles;
 
-        public ProfileController(IProcessedContentRepository repository)
+        public ProfileController(IProcessedContentRepository repository, FeatureToggles featureToggles)
         {
             _repository = repository;
+            _featuretogles = featureToggles;
         }
 
         [Route("/profile/{slug}")]
@@ -25,6 +28,11 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             var profile = response.Content as ProcessedProfile;
+
+            if (_featuretogles.SemanticProfile)
+            {
+                return View("Semantic/Index", profile);
+            }
 
             return View(profile);
         }
