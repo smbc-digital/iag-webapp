@@ -58,11 +58,12 @@
                 </a>
             }
         </div>
-        @if (Model.ContactUsCategories.Any())
-        {
-            <h2>Other online services</h2>
-        }
-        <div class="">
+       
+        <div class="contact-us-category-container">
+            @if (Model.ContactUsCategories.Any())
+            {
+                <h2>@Model.CategoriesTitle</h2>
+            }
             @foreach (var categoryItem in Model.ContactUsCategories)
             {
                 <div class="contact-us-category">
@@ -70,11 +71,11 @@
                         <div class="icon-container">
                             <i class="@categoryItem.Icon" aria-hidden="true"></i>
                         </div>
-                        <div class="category-title">@categoryItem.Title</div>                       
+                        <div class="category-title">@categoryItem.Title</div>
                     </div>
                     <div class="category-body">
-                        <div class="category-body-col category-body-left">@categoryItem.BodyTextLeft</div>
-                        <div class="category-body-col category-body-right">@categoryItem.BodyTextRight</div>
+                        <div class="category-body-col category-body-left">@Html.Raw(categoryItem.BodyTextLeft)</div>
+                        <div class="category-body-col category-body-right">@Html.Raw(categoryItem.BodyTextRight)</div>
                     </div>
                 </div>
             }

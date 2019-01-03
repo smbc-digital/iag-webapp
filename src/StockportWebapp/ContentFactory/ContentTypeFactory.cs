@@ -16,6 +16,7 @@ namespace StockportWebapp.ContentFactory
         public ContentTypeFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IHttpContextAccessor httpContextAccesor, IDynamicTagParser<S3BucketSearch> s3BucketParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser)
         {
             var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null);
+            var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper,documentTagParser, null);
 
             _factories.Add(typeof(Section), sectionFactory);
             _factories.Add(typeof(Profile), new ProfileFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
@@ -30,7 +31,7 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccesor));
             _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
             _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
-            _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(tagParserContainer, markdownWrapper));
+            _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(tagParserContainer, markdownWrapper, contactUsCategoryFactory));
 
         }
 

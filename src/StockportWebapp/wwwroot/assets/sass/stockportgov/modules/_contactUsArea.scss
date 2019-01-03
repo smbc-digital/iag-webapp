@@ -56,7 +56,7 @@ a:hover {
         @media #{$mobile} {
             display: flex;
             justify-content: center;
-            padding: 10px 0px 10px 0px; 
+            padding: 10px 0px 10px 0px;
         }
     }
 
@@ -93,6 +93,15 @@ a:hover {
     }
 }
 
+.contact-us-category-container {
+    padding-left: 10px;
+    margin-right: -5px;
+
+    @media #{$mobile} {
+        margin-right: -25px;
+    }
+}
+
 .contact-us-category {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -107,14 +116,11 @@ a:hover {
     color: black;
     font-weight: 700;
     text-decoration: none;
-    -webkit-box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
-    box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
     border-top: 5px solid #00b79b;
 
     @media #{$mobile} {
         width: 84.5%;
         display: block;
-        text-align: center;
     }
 
     .category-header {
@@ -126,7 +132,7 @@ a:hover {
             display: inline-block;
             width: 30px;
             font-size: 2.5em;
-            padding: 5px 15px;
+            padding: 5px 35px;
             font-weight: 700;
             vertical-align: middle;
         }
@@ -134,7 +140,7 @@ a:hover {
         .category-title {
             display: inline-block;
             font-size: 1.5em;
-            padding: 5px 15px;
+            padding: 5px 0px;
             font-weight: 700;
             vertical-align: middle;
         }
@@ -145,12 +151,17 @@ a:hover {
         .category-body-col {
             display: inline-block;
             width: 40%;
-            padding: 5px 20px;
-            font-weight: 600;
+            padding: 25px 35px;
+            font-weight: normal;
 
             @media #{$mobile} {
                 width: 84.5%;
                 display: block;
+                text-align: left;
+            }
+
+            p {
+                margin: 0 0 10px 0;
             }
         }
 
@@ -160,19 +171,26 @@ a:hover {
             @media #{$mobile} {
                 float: unset;
             }
+
+            p {
+                line-height: 1.5;
+            }
         }
 
         .category-body-right {
             float: right;
 
             @media #{$mobile} {
-                width: 84.5%;
-                display: block;
+                float: unset;
+                margin-top: -45px;
+            }
+
+            p {
+                line-height: 1.5;
             }
         }
     }
 }
-
 
 .contact-us-area-primary {
     padding-left: 10px;
@@ -191,12 +209,8 @@ a:hover {
         margin-left: 10px;
     }
 
-    .contact-us-area-primary {
-        padding-left: 10px;
-        margin-right: -5px;
 
-        @media #{$mobile} {
-            margin-right: -25px;
-        }
+    @media #{$mobile} {
+        margin-right: -25px;
     }
-    }
+}
