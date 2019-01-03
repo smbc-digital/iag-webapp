@@ -95,7 +95,7 @@ a:hover {
 
 .contact-us-category-container {
     padding-left: 10px;
-    margin-right: -5px;
+    margin-right: 10px;
 
     @media #{$mobile} {
         margin-right: -25px;
@@ -119,7 +119,7 @@ a:hover {
     border-top: 5px solid #00b79b;
 
     @media #{$mobile} {
-        width: 84.5%;
+        width: 92%;
         display: block;
     }
 
@@ -155,7 +155,7 @@ a:hover {
             font-weight: normal;
 
             @media #{$mobile} {
-                width: 84.5%;
+                width: 87%;
                 display: block;
                 text-align: left;
             }
@@ -182,7 +182,7 @@ a:hover {
 
             @media #{$mobile} {
                 float: unset;
-                margin-top: -45px;
+                margin-top:-20px;
             }
 
             p {
@@ -211,6 +211,6 @@ a:hover {
 
 
     @media #{$mobile} {
-        margin-right: -25px;
+        margin-right: -20px;
     }
 }

@@ -45,19 +45,19 @@
                 </div>
             }
         }
-        <div class="dashboard-button-container contact-us-area-primary" >
-            @foreach (var primaryItem in Model.PrimaryItems)
-            {
-                var url = primaryItem.NavigationLink;
+                <div class="dashboard-button-container contact-us-area-primary">
+                    @foreach (var primaryItem in Model.PrimaryItems)
+                    {
+                        var url = primaryItem.NavigationLink;
 
-                <a href="@url" class="section-link">
-                    <div class="icon-container">
-                        <i class="@primaryItem.Icon" aria-hidden="true"></i>
-                    </div>
-                    <div class="primaryItemText">@primaryItem.Title</div>
-                </a>
-            }
-        </div>
+                        <a href="@url" class="section-link">
+                            <div class="icon-container">
+                                <i class="@primaryItem.Icon" aria-hidden="true"></i>
+                            </div>
+                            <div class="primaryItemText">@primaryItem.Title</div>
+                        </a>
+                    }
+                </div>
        
         <div class="contact-us-category-container">
             @if (Model.ContactUsCategories.Any())
