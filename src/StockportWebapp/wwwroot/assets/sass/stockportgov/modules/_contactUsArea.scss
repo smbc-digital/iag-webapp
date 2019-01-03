@@ -109,8 +109,4 @@ a:hover {
 .contact-us-area-primary {
     padding-left: 10px;
     margin-right: -5px;
-
-    @media #{$mobile} {
-        margin-right: -25px;
-    }
     }
