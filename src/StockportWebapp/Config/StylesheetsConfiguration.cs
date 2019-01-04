@@ -10,6 +10,8 @@
 
         public string StyleguideSemantic { get; set; }
 
+        public string StyleguideSemanticV2 { get; set; }
+
         public string FontAwesome { get; set; }
 
         public string JqueryUi { get; set; }
