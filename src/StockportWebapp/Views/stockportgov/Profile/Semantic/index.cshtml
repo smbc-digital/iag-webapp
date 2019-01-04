@@ -9,12 +9,12 @@
     Layout = "../../Shared/_LayoutSemantic.cshtml";
 }
 
-@*@section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Breadcrumbs' />
-}*@
+@section Breadcrumbs {
+    <partial name="SemanticBreadcrumb" model='Model.Breadcrumbs' />
+}
 
 <div class="page-container">
     <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
-    <p class="subtitle">@Model.Subtitle</p>
-    <hr/>
+    <p class="lead-paragraph">@Model.Subtitle</p>
+    <hr class="thick-divider"/>
 </div>
