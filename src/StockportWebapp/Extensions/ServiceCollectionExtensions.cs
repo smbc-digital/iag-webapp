@@ -32,6 +32,7 @@ using StockportWebapp.Validation;
 using StockportWebapp.Wrappers;
 using Serilog;
 using ILogger = Serilog.ILogger;
+using StockportWebapp.Services.Profile;
 
 namespace StockportWebapp.Extensions
 {
@@ -177,6 +178,7 @@ namespace StockportWebapp.Extensions
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
             services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IProcessedContentRepository>(), p.GetService<IHttpEmailClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<ILogger<GroupsService>>(), p.GetService<IStockportApiRepository>(), p.GetService<BusinessId>()));
+            services.AddTransient<IProfileService>(p => new ProfileService(p.GetService<IRepository>()));
 
             return services;
         }

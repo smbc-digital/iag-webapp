@@ -1,6 +1,6 @@
-﻿@using StockportWebapp.ProcessedModels
+﻿@using StockportWebapp.Models
 
-@model StockportWebapp.ProcessedModels.ProcessedProfile
+@model ProfileNew
 @{
     ViewData["Title"] = Model.Title;
     var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
@@ -15,6 +15,6 @@
 
 <div class="page-container">
     <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
-    <p class="lead-paragraph">@Model.Subtitle</p>
+    <p class="lead-paragraph">@Model.LeadParagraph</p>
     <hr class="thick-divider"/>
 </div>
