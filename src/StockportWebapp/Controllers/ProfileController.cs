@@ -30,7 +30,7 @@ namespace StockportWebapp.Controllers
             {
                 var profileEntity = await _profileService.GetProfile(slug);
                 var model = new ProfileNew(profileEntity.Title, profileEntity.Slug, profileEntity.LeadParagraph, profileEntity.Teaser,
-                profileEntity.Image, profileEntity.Body, profileEntity.Breadcrumbs, profileEntity.Alerts);
+                profileEntity.Image, profileEntity.Body, profileEntity.Breadcrumbs, profileEntity.Alerts, profileEntity.DidYouKnowSection);
 
                 return View("Semantic/Index", model);
             }
