@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Services.Profile;
 using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
@@ -18,6 +19,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
     public class ProfileControllerTest
     {
         private readonly Mock<IProcessedContentRepository> _fakeRepository = new Mock<IProcessedContentRepository>();
+        private readonly Mock<IProfileService> _profileService = new Mock<IProfileService>();
         private readonly ProfileController _profileController;
         private readonly FeatureToggles _featureToggles;
 
@@ -28,7 +30,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             {
                 SemanticProfile = false
             };
-            _profileController = new ProfileController(_fakeRepository.Object, _featureToggles);
+            _profileController = new ProfileController(_fakeRepository.Object, _featureToggles, _profileService.Object);
         }
 
         [Fact]
