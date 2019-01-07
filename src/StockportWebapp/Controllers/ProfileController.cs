@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Http;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Services.Profile;
 
 namespace StockportWebapp.Controllers
 {
@@ -11,10 +13,14 @@ namespace StockportWebapp.Controllers
     public class ProfileController : Controller
     {
         private readonly IProcessedContentRepository _repository;
+        private readonly FeatureToggles _featuretogles;
+        private readonly IProfileService _profileService;
 
-        public ProfileController(IProcessedContentRepository repository)
+        public ProfileController(IProcessedContentRepository repository, FeatureToggles featureToggles, IProfileService profileService)
         {
             _repository = repository;
+            _featuretogles = featureToggles;
+            _profileService = profileService;
         }
 
         [Route("/profile/{slug}")]
@@ -25,6 +31,15 @@ namespace StockportWebapp.Controllers
             if (!response.IsSuccessful()) return response;
 
             var profile = response.Content as ProcessedProfile;
+
+            if (_featuretogles.SemanticProfile)
+            {
+                var profileEntity = await _profileService.GetProfile(slug);
+                var model = new ProfileNew(profileEntity.Title, profileEntity.Slug, profileEntity.LeadParagraph, profileEntity.Teaser,
+                profileEntity.Image, profileEntity.Body, profileEntity.Breadcrumbs, profileEntity.Alerts);
+                
+                return View("Semantic/Index", model);
+            }
 
             return View(profile);
         }

@@ -1,4 +1,6 @@
-﻿@using StockportWebapp.ProcessedModels
+﻿@using StockportWebapp.Config
+@using StockportWebapp.ProcessedModels
+@inject IApplicationConfiguration ApplicationConfiguration
 @model StockportWebapp.ProcessedModels.ProcessedProfile
 @{
     ViewData["Title"] = Model.Title;
@@ -9,7 +11,7 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
+    <partial name="Breadcrumb" model='Model.Breadcrumbs' />
 }
 
 <div class="grid-container-full-width">

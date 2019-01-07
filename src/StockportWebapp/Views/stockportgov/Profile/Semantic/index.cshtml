@@ -1,0 +1,20 @@
+﻿@using StockportWebapp.Models
+
+@model ProfileNew
+@{
+    ViewData["Title"] = Model.Title;
+    var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
+    ViewData["og:title"] = articleTitle + Model.Title;
+    ViewData["Description"] = Model.Teaser;
+    Layout = "../../Shared/_LayoutSemantic.cshtml";
+}
+
+@section Breadcrumbs {
+    <partial name="SemanticBreadcrumb" model='Model.Breadcrumbs' />
+}
+
+<div class="page-container">
+    <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
+    <p class="lead-paragraph">@Model.LeadParagraph</p>
+    <hr class="thick-divider"/>
+</div>
