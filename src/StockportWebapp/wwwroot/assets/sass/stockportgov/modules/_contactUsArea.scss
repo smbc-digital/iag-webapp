@@ -107,6 +107,7 @@ a:hover {
     -webkit-border-radius: 3px;
     border-radius: 3px;
     width: 100%;
+    box-sizing: border-box;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -193,8 +194,7 @@ a:hover {
 }
 
 .contact-us-area-primary {
-    padding-left: 10px;
-    margin-right: -5px;
+    padding: 0 10px;
 
     .alert-insetText {
         background-color: #cccccc;
@@ -212,5 +212,9 @@ a:hover {
 
     @media #{$mobile} {
         margin-right: -20px;
+    }
+
+    .section-link:last-of-type {
+        margin-right: 0;
     }
 }
