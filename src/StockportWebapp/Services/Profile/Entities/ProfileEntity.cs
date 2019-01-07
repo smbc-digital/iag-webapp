@@ -5,13 +5,13 @@ namespace StockportWebapp.Services.Profile.Entities
 {
     public class ProfileEntity
     {
-        public string Title { get; }
-        public string Slug { get; }
-        public string LeadParagraph { get; }
-        public string Teaser { get; }
-        public string Image { get; }
-        public string Body { get; }
-        public IEnumerable<Crumb> Breadcrumbs { get; }
-        public List<Alert> Alerts { get; }
+        public string Title { get; set; }
+        public string Slug { get; set; }
+        public string LeadParagraph { get; set; }
+        public string Teaser { get; set; }
+        public string Image { get; set; }
+        public string Body { get; set; }
+        public IEnumerable<Crumb> Breadcrumbs { get; set; }
+        public List<Alert> Alerts { get; set; }
     }
 }
