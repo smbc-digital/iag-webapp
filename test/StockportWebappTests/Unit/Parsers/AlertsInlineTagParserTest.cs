@@ -5,6 +5,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using StockportWebapp.FeatureToggling;
 using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
@@ -15,12 +16,14 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         private readonly Mock<IViewRender> _viewRenderer;
         private readonly AlertsInlineTagParser _alertsInlineTagParser;
         private readonly Mock<ILogger<Alert>> _mockLogger;
+        private readonly FeatureToggles _featureToggles;
 
         public AlertsInlineTagParserTest()
         {
+            _featureToggles =  new FeatureToggles(){SemanticInlineAlert = true};
             _viewRenderer = new Mock<IViewRender>();
             _mockLogger = new Mock<ILogger<Alert>>();
-            _alertsInlineTagParser = new AlertsInlineTagParser(_viewRenderer.Object, _mockLogger.Object);
+            _alertsInlineTagParser = new AlertsInlineTagParser(_viewRenderer.Object, _mockLogger.Object, _featureToggles);
         }
 
         [Fact]
