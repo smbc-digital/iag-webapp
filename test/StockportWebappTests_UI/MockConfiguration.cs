@@ -58,6 +58,8 @@ namespace StockportWebappTests_UI
                 Server.ReadStaticMappings(path + "SavedResponses/News");
                 Server.ReadStaticMappings(path + "SavedResponses/Showcase");
                 Server.ReadStaticMappings(path + "SavedResponses/Topics");
+                Server.ReadStaticMappings(path + "SavedResponses/ContactUsArea");
+
             }
         }
     }

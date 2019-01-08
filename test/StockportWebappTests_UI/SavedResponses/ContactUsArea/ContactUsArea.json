@@ -1,0 +1,109 @@
+{
+  "Guid": "6d158427-eacf-45e3-b4ab-496b7f48e9b2",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/contactusarea",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "title": "Contact us",
+      "slug": "contactusarea",
+      "teaser": null,
+      "body": null,
+      "categoriesTitle": "Below is a number of Contact Us Categories",
+      "primaryItems": [
+        {
+          "slug": "tenants-home-contents-insurance",
+          "title": "Tenants Home Contents Insurance",
+          "teaser": "test",
+          "icon": "si-coin",
+          "type": "payment",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        },
+        {
+          "slug": "council-tax-support-enquiry-form",
+          "title": "Council Tax Support Enquiry form",
+          "teaser": "",
+          "icon": "si-default",
+          "type": "start-page",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        },
+        {
+          "slug": "parking-fine",
+          "title": "Parking Fine",
+          "teaser": "Parking Fine",
+          "icon": "si-coin",
+          "type": "payment",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        }
+      ],
+      "breadcrumbs": [
+        {
+          "title": "Difficulties paying your Council Tax",
+          "slug": "difficulties-paying-your-council-tax-new_hidden",
+          "type": "article"
+        }
+      ],
+      "alerts": [],
+      "insetTexts": [
+        {
+          "title": "What do you need help with?",
+          "subHeading": "",
+          "body": "You can let us know about most things just by using our online forms",
+          "colour": "grey",
+          "slug": "contactus-inset"
+        }
+      ],
+      "contactUsCategories": [
+        {
+          "title": "Council tax",
+          "bodyTextLeft": "I'm on the left for the Council tax card",
+          "bodyTextRight": "__I'm on the left for the Council tax card__text in bold____",
+          "icon": "si-house"
+        },
+        {
+          "title": "Bins and recycling",
+          "bodyTextLeft": "__Apply:__\n\n[this is a this is some extra wrapping test test link awooga waoohhj to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a this is some extra wrapping test test this should wrap as well link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n\n__Pay:__\n\n[this is a this is some extra wrapping test test link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a this is some extra wrapping test test link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to SMBC](https://www.stockport.gov.uk \"SMBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")",
+          "bodyTextRight": "__Apply:__\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n\n__Pay:__\n\n[this is a this is some extra wrapping test test link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a this is some extra wrapping test test link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to SMBC](https://www.stockport.gov.uk \"SMBC\")\n\n[this is a this is some extra wrapping test test link to the bbc](https://www.bbc.co.uk \"BBC\")",
+          "icon": "si-house"
+        },
+        {
+          "title": "Zebra patrol",
+          "bodyTextLeft": "__Apply:__\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a li lasdjf hlkdhaslkjasdh flkjhasd fkljash dlfkjhasldfkjhlasdfj hdkjas hfldjas hflkjasdf asdfnk to the bbc](https://www.bbc.co.uk \"BBC\")\n\n<br/>\n\n__Pay:__\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to SMBC](https://www.stockport.gov.uk \"SMBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n<br/>\n\n__Solve it:__\n\n[this this is some extra text to force a wrap is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to SMBC](https://www.stockport.gov.uk \"SMBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")",
+          "bodyTextRight": "__Further information:__\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n<br/>\n\n__Report it:__\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")\n\n[this is a link to amazon](https://www.amazon.co.uk \"Amazon\")\n\n[this is a link to SMBC](https://www.stockport.gov.uk \"SMBC\")\n\n[this is a link to the bbc](https://www.bbc.co.uk \"BBC\")",
+          "icon": "si-coin"
+        }
+      ]
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Tue, 08 Jan 2019 09:53:46 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}
