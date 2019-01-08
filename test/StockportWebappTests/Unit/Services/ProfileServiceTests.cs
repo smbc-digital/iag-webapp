@@ -8,6 +8,13 @@ using StockportWebapp.Http;
 using StockportWebapp.Services.Profile.Entities;
 using StockportWebapp.Models;
 using System.Threading.Tasks;
+using Amazon.Runtime.Internal.Util;
+using Microsoft.Extensions.Logging;
+using StockportWebapp.Parsers;
+using StockportTagHelpers;
+using StockportWebapp.FeatureToggling;
+using StockportWebapp.Utils;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {
@@ -15,12 +22,20 @@ namespace StockportWebappTests_Unit.Unit.Services
     {
         private readonly ProfileService _service;
         private readonly Mock<IRepository> _repository;
-
+        private readonly Mock<ISimpleTagParserContainer> _parser;
+        private readonly MarkdownWrapper _markdownWrapper;
+        private readonly IDynamicTagParser<Alert> _alerts;
+        private readonly Mock<ILogger<Alert>> _logger;
+        private readonly Mock<IViewRender> _viewRender;
         public ProfileServiceTests()
         {
             _repository = new Mock<IRepository>();
-
-            _service = new ProfileService(_repository.Object);
+            _parser = new Mock<ISimpleTagParserContainer>();
+            _markdownWrapper = new MarkdownWrapper();
+            _logger = new Mock<ILogger<Alert>>();
+            _viewRender = new Mock<IViewRender>();
+            _alerts =  new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles(){SemanticProfile = true} );
+            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts );
         }
 
         [Fact]
