@@ -22,10 +22,9 @@
     </article>
     <hr class="thick-divider"/>
     <h2>Did you know?</h2>
-    @foreach(DidYouKnow item in Model.DidYouKnowSection)
+    @foreach(var didyouknow in Model.DidYouKnowSection)
     {
-        <p><span class="si si-@item.Icon"></span>@item.Text</p>
+        <p><span class="si si-@didyouknow.Icon"></span>@didyouknow.Text</p>
 
     }
 </div>
-

@@ -43,6 +43,7 @@
     <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />
     <None Remove="Views\Shared\Components\SemanticFooter\NoFooterFound.cshtml" />
     <None Remove="Views\Shared\DisplayTemplates\InsetText.cshtml" />
+    <None Remove="Views\Shared\Semantic\AlertsInline.cshtml" />
     <None Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
@@ -94,6 +95,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\Shared\Components\SemanticFooter\Semantic.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\Shared\Semantic\AlertsInline.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml">

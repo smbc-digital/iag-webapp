@@ -29,6 +29,7 @@ int: &int
   SiaSystem: true
   SemanticLayout: true
   SemanticProfile: true
+  SemanticInlineAlert: true
 
 local: &local
   << : *prod

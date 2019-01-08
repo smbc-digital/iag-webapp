@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -12,11 +13,13 @@ namespace StockportWebapp.Parsers
     {
         private readonly IViewRender _viewRenderer;
         private readonly ILogger<Alert> _logger;
+        private readonly FeatureToggles _featureToggles;
 
-        public AlertsInlineTagParser(IViewRender viewRenderer, ILogger<Alert> logger)
+        public AlertsInlineTagParser(IViewRender viewRenderer, ILogger<Alert> logger, FeatureToggles featureToggles)
         {
             _viewRenderer = viewRenderer;
             _logger = logger;
+            _featureToggles = featureToggles;
         }
 
         protected Regex TagRegex => new Regex("{{Alerts-Inline:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
@@ -32,8 +35,17 @@ namespace StockportWebapp.Parsers
                 var AlertsInline = GetAlertsInlineMatchingTitle(alertsInline, AlertsInlineTitle);
                 if (AlertsInline != null)
                 {
-                    var AlertsInlineHtml = _viewRenderer.Render("AlertsInline", AlertsInline);
-                    content = TagRegex.Replace(content, AlertsInlineHtml, 1);
+                    var alertsInlineHtml = "";
+                    if (_featureToggles.SemanticInlineAlert)
+                    {
+                        alertsInlineHtml = _viewRenderer.Render("Semantic/AlertsInline", AlertsInline);
+                    }
+                    else
+                    {
+                        alertsInlineHtml = _viewRenderer.Render("AlertsInline", AlertsInline);
+                    }
+                    
+                    content = TagRegex.Replace(content, alertsInlineHtml, 1);
                 }
                 else
                 {
