@@ -34,11 +34,11 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var alertsInlineList = new List<Alert>() { alertsInline };
             var renderResult = "RENDERED ARTICLE CONTENT";
 
-            _viewRenderer.Setup(o => o.Render("AlertsInline", alertsInline)).Returns(renderResult);
+            _viewRenderer.Setup(o => o.Render("Semantic/AlertsInline", alertsInline)).Returns(renderResult);
 
             var parsedHtml = _alertsInlineTagParser.Parse(content, alertsInlineList);
 
-            _viewRenderer.Verify(o => o.Render("AlertsInline", alertsInline), Times.Once);
+            _viewRenderer.Verify(o => o.Render("Semantic/AlertsInline", alertsInline), Times.Once);
             parsedHtml.Should().Contain(renderResult);
         }
 
