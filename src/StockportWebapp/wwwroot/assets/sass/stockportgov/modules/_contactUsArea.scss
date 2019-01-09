@@ -1,6 +1,7 @@
 ﻿.dashboard-button-container {
     display: flex;
     justify-content: flex-start;
+    
 
     i {
         padding-bottom: 10px;
@@ -43,7 +44,7 @@ a:hover {
     border-top: 5px solid #00b79b;
 
     @media #{$mobile} {
-        width: 84.5%;
+        width: 90%;
         display: block;
         text-align: center;
     }
@@ -100,6 +101,13 @@ a:hover {
     @media #{$mobile} {
         margin-right: -25px;
     }
+
+    @media #{$desktop} {
+        h2 {
+            border-top: 2px solid #d3d3d3;
+            padding-top: 10px;
+        }
+    }
 }
 
 .contact-us-category {
@@ -120,7 +128,7 @@ a:hover {
     border-top: 5px solid #00b79b;
 
     @media #{$mobile} {
-        width: 92%;
+        width: 90%;
         display: block;
     }
 
@@ -164,6 +172,10 @@ a:hover {
             p {
                 margin: 0 0 10px 0;
             }
+
+            h4 {
+                margin-bottom: 15px;
+            }
         }
 
         .category-body-left {
@@ -183,7 +195,7 @@ a:hover {
 
             @media #{$mobile} {
                 float: unset;
-                margin-top:-20px;
+                margin-top:-25px;
             }
 
             p {
@@ -211,7 +223,7 @@ a:hover {
 
 
     @media #{$mobile} {
-        margin-right: -20px;
+        width: -57px;
     }
 
     .section-link:last-of-type {
