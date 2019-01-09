@@ -8,13 +8,11 @@ using StockportWebapp.Http;
 using StockportWebapp.Services.Profile.Entities;
 using StockportWebapp.Models;
 using System.Threading.Tasks;
-using Amazon.Runtime.Internal.Util;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Parsers;
-using StockportTagHelpers;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Repositories.Responses;
 using StockportWebapp.Utils;
-using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {
@@ -44,7 +42,7 @@ namespace StockportWebappTests_Unit.Unit.Services
             // Arrange
             var response = HttpResponse.Failure(500, "Test Error");
             _repository
-                .Setup(_ => _.Get<ProfileEntity>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .Setup(_ => _.Get<ProfileResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(response);
 
             // Act
@@ -58,10 +56,24 @@ namespace StockportWebappTests_Unit.Unit.Services
         public async Task GetProfile_ShouldReturnProfileWhenSuccessful()
         {
             // Arrange
-            var response = HttpResponse.Successful(200, new ProfileEntity());
+            var response = HttpResponse.Successful(200, new ProfileResponse
+            {
+                Body = "Test",
+                Slug = "test",
+                Alerts = new List<Alert>(),
+                Breadcrumbs = new List<Crumb>(),
+                DidYouKnowSection = new List<DidYouKnow>(),
+                Image = "testimage",
+                LeadParagraph = "test",
+                Teaser = "test",
+                Title = "test"
+            });
             _repository
-                .Setup(_ => _.Get<ProfileEntity>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+                .Setup(_ => _.Get<ProfileResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(response);
+            _parser
+                .Setup(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns("testProcessedBody");
 
             // Act
             var result = await _service.GetProfile("testing slug");
