@@ -16,15 +16,19 @@
 <div class="page-container">
     <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
     <p class="lead-paragraph">@Model.LeadParagraph</p>
-    <hr class="thick-divider"/>
+    <hr class="thick-divider" />
     <article>
         @Html.Raw(Model.Body)
     </article>
-    <hr class="thick-divider"/>
-    <h2>Did you know?</h2>
-    @foreach(var didyouknow in Model.DidYouKnowSection)
-    {
-        <p><span class="si si-@didyouknow.Icon"></span>@didyouknow.Text</p>
+    <hr class="thick-divider" />
 
-    }
+    <article class="did-you-know">
+        <h2>Did you know?</h2>
+        @foreach (var didyouknow in Model.DidYouKnowSection)
+        {
+            <div class="grid-5 mobile-grid-10 tablet-grid-5"><span class="si si-@didyouknow.Icon"></span></div>
+
+            <div class="grid-95 mobile-grid-90 tablet-grid-95"><p>@didyouknow.Text</p></div>
+        }
+    </article>
 </div>

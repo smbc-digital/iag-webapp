@@ -45,6 +45,7 @@
             }
         }
                 <div class="dashboard-button-container contact-us-area-primary">
+                    <h2 class="visuallyhidden">Popular Services</h2>
                     @foreach (var primaryItem in Model.PrimaryItems)
                     {
                         var url = primaryItem.NavigationLink;
@@ -57,7 +58,7 @@
                         </a>
                     }
                 </div>
-       
+
         <div class="contact-us-category-container">
             @if (Model.ContactUsCategories.Any())
             {

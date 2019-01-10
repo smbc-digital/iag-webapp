@@ -10,6 +10,7 @@
     <AssetTargetFallback>$(AssetTargetFallback);dotnet5.6</AssetTargetFallback>
     <DefaultItemExcludes>$(DefaultItemExcludes);publish/**/*</DefaultItemExcludes>
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
