@@ -47,7 +47,8 @@ namespace StockportWebapp.Services.Profile
                     Body = processedBody,
                     Breadcrumbs = profile.Breadcrumbs,
                     Alerts = profile.Alerts,
-                    DidYouKnowSection = profile.DidYouKnowSection
+                    DidYouKnowSection = profile.DidYouKnowSection,
+                    FieldOrder = profile.FieldOrder
                 };
             }
 

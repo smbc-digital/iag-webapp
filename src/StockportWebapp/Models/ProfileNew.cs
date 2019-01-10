@@ -13,13 +13,23 @@ namespace StockportWebapp.Models
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public List<Alert> Alerts { get; }
         public List<DidYouKnow> DidYouKnowSection { get; }
+        public FieldOrder FieldOrder { get; }
 
         public ProfileNew()
         {
-            
+
         }
 
-        public ProfileNew(string title, string slug, string leadParagraph, string teaser, string image, string body, IEnumerable<Crumb> breadcrumbs, List<Alert> alerts, List<DidYouKnow> didYouKnowSection)
+        public ProfileNew(string title,
+            string slug,
+            string leadParagraph,
+            string teaser,
+            string image,
+            string body,
+            IEnumerable<Crumb> breadcrumbs,
+            List<Alert> alerts,
+            List<DidYouKnow> didYouKnowSection,
+            FieldOrder fieldOrder)
         {
             Title = title;
             Slug = slug;
@@ -30,6 +40,7 @@ namespace StockportWebapp.Models
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
             DidYouKnowSection = didYouKnowSection;
+            FieldOrder = fieldOrder;
         }
 
     }

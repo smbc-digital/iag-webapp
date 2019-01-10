@@ -14,5 +14,6 @@ namespace StockportWebapp.Repositories.Responses
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
         public List<DidYouKnow> DidYouKnowSection { get; set; }
+        public FieldOrder FieldOrder { get; set; }
     }
 }
