@@ -7,6 +7,7 @@ prod: &prod
   SiaSystem: false
   SemanticLayout: true
   SemanticProfile: false
+  SemanticShowcase: false
   ContactUsArea: false
   SemanticSmartAnswer: 
     - enforcement-referral
@@ -30,6 +31,7 @@ int: &int
   SemanticLayout: true
   SemanticProfile: true
   SemanticInlineAlert: true
+  SemanticShowcase: true
 
 local: &local
   << : *prod

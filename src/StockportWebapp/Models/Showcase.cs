@@ -32,12 +32,14 @@ namespace StockportWebapp.Models
         public Profile Profile { get; }
         public FieldOrder FieldOrder { get; }
         public string Icon { get; set; }
+        public readonly List<DidYouKnow> DidYouKnowSection;
+
 
         public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading,
             string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
             IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
             IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts,
-            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon)
+            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon, List<DidYouKnow> didYouKnowSection)
         {
             Title = title;
             Slug = slug;
@@ -67,6 +69,7 @@ namespace StockportWebapp.Models
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;
+            DidYouKnowSection = didYouKnowSection;
         }
     }
 }

@@ -20,15 +20,28 @@
     <article>
         @Html.Raw(Model.Body)
     </article>
-    <hr class="thick-divider" />
+    
+    @if (Model.DidYouKnowSection.Count > 0)
+    {
+        <hr class="thick-divider"/>
 
-    <article class="did-you-know">
-        <h2>Did you know?</h2>
-        @foreach (var didyouknow in Model.DidYouKnowSection)
-        {
-            <div class="grid-5 mobile-grid-10 tablet-grid-5"><span class="si si-@didyouknow.Icon"></span></div>
+        <section class="did-you-know">
+            <h2>Did you know?</h2>
+            @foreach (var didyouknow in Model.DidYouKnowSection)
+            {
+                <div class="grid-5 mobile-grid-10 tablet-grid-5"><span class="si si-@didyouknow.Icon"></span></div>
 
-            <div class="grid-95 mobile-grid-90 tablet-grid-95"><p>@didyouknow.Text</p></div>
-        }
-    </article>
+                <div class="grid-95 mobile-grid-90 tablet-grid-95">
+                    @if (didyouknow.Link != "")
+                    {
+                        <a href="@didyouknow.Link" rel="@didyouknow.Name"><h4>@didyouknow.Text</h4></a>
+                    }
+                    else
+                    {
+                        <h4>@didyouknow.Text</h4>
+                    }
+                </div>
+            }
+        </section>
+    }
 </div>

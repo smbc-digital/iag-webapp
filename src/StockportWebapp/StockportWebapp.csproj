@@ -38,6 +38,7 @@
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
+    <Content Remove="Views\stockportgov\Showcase\Semantic\Showcase.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />

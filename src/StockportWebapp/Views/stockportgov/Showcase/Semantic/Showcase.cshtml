@@ -1,0 +1,312 @@
+﻿@using System.Linq
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using StockportWebapp.ProcessedModels
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles FeatureToggles
+
+@model ProcessedShowcase
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["og:title"] = Model.Title;
+    ViewData["Description"] = Model.Teaser;
+    ViewData["Slug"] = Model.Slug;
+    Layout = "../../Shared/_LayoutSemantic.cshtml";
+    var titleHack = string.Empty;
+    ViewData["EventsH2"] = true;
+    ViewData["EventCategory"] = Model.EventCategory;
+    ViewData["EventSubheading"] = Model.EventSubheading;
+}
+@section Breadcrumbs {
+    <partial name="Breadcrumb" model='Model.Breadcrumbs' />
+}
+
+@if (Model.Alerts != null)
+{
+    foreach (var alert in Model.Alerts)
+    {
+        <partial name="GlobalAlert" model='alert' />
+    }
+}
+
+<h2>This is semantic</h2>
+
+@foreach (var field in Model.FieldOrder.Items)
+{
+    switch (field)
+    {
+        case "Primary Items":
+
+            if (Model.PrimaryItems != null && Model.PrimaryItems.Count() == 3)
+            {
+                <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
+                    <div class="title-card showcase-redesign-title-card">
+                        <div class="grid-container tablet-grid-100 grid-100 showcase-title">
+                            <div class="showcase-title-container mobile-grid-100 tablet-grid-100">
+                                <h1 tabindex="-1" id="content">
+                                    <span>@Model.Title</span>
+                                </h1>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <section>
+                                <h2 class="visuallyhidden">Featured Topics</h2>
+                            </section>
+                            @foreach (var item in Model.PrimaryItems)
+                            {
+                                <div class="showcase-primary-item-container grid-33 tablet-grid-100 mobile-grid-100">
+                                    <a href="@item.NavigationLink">
+                                        <div class="showcase-primary-item">
+                                            <div class="primary-item-icon colour-icon tablet-grid-15 mobile-grid-25">
+                                                <i class="si @item.Icon" aria-hidden="true"></i>
+                                            </div>
+                                            <h3 class="primary-item-title tablet-grid-75 mobile-grid-65">@item.Title</h3>
+                                            <div class="primary-item-teaser hide-on-tablet hide-on-mobile">@item.Teaser</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+
+                if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl))
+                {
+                    <div class="showcase-hero-image" style="background-image: url(@Model.HeroImageUrl)">
+                        <div class="title-card">
+                            <h1>
+                                <span>@Model.Title</span>
+                            </h1>
+                            <div class="clearfix hero-image-divider-container">
+                                <hr class="hero-image-divider" />
+                                <div>
+                                    <h2>
+                                        <span>@Model.Teaser</span>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div tabindex="-1" id="content" class="full-width-title title-only">
+                        <div class="grid-container grid-parent grid-100">
+                            <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                                <h1 class="full-width-title-with-button">@Model.Title</h1>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            break;
+
+        case "Featured Items":
+
+            if (Model.FeaturedItems.Any())
+            {
+                <div class="alt-container-rowx showcase-news-events white featured-items-wrapper matchbox-parent">
+                    <div class="featured-topic-list">
+                        <h2 class="visuallyhidden">Popular Services</h2>
+                        <h2>@Model.Subheading</h2>
+                        @foreach (var item in Model.FeaturedItems)
+                        {
+                            <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
+                                <div class="featured-topic-content">
+                                    <a href="@item.NavigationLink">
+                                        <div class="featured-topic-icon">
+                                            <i class="@item.Icon si-default" aria-hidden="true"></i>
+                                        </div>
+                                        <div class="featured-topic-name"><h3>@item.Title</h3></div>
+                                    </a>
+                                    <p class="hide-on-mobile hide-on-tablet featured-topic-description">
+                                        @if (item.SubItems.Any())
+                                        {
+                                            <span>Including</span>
+                                        }
+                                        @foreach (var subItem in item.SubItems.Take(2))
+                                        {
+                                            <br />
+                                            <a href="@subItem.NavigationLink">@subItem.Title</a>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+
+            break;
+
+        case "Consultations":
+
+            if (Model.Consultations.Any())
+            {
+                <div class="@titleHack showcase-news-events">
+                    <partial name="Consultations" model='Model.Consultations' />
+                </div>
+            }
+
+            break;
+
+        case "Key Facts":
+
+            if (Model.KeyFacts != null && Model.KeyFacts.Any())
+            {
+                <div class="@titleHack showcase-news-events white">
+                    <div class="grid-container showcase-body key-facts">
+                        <div class="grid-100 grid-parent l-article-content">
+                            <h2>@Model.KeyFactSubheading</h2>
+                            <partial name="Showcase/KeyFacts" model='Model.KeyFacts' />
+                        </div>
+                    </div>
+                </div>
+            }
+
+            break;
+
+        case "News":
+
+            if (Model.NewsArticle != null)
+            {
+                <div class="@titleHack showcase-news showcase-news-events">
+                    <partial name="ShowcaseNewsArticle" model='Model' />
+                </div>
+            }
+
+            break;
+
+        case "Events":
+
+            if (!string.IsNullOrEmpty(Model.EventCategory) && Model.Events != null && Model.Events.Any())
+            {
+                <div class="@titleHack showcase-events showcase-news-events">
+                    <partial name="ShowcaseEventCards" model='Model' />
+                </div>
+            }
+
+            break;
+
+        case "Profile":
+
+            if (Model.Profile != null)
+            {
+                <div class="@titleHack showcase-profile showcase-news-events white">
+                    <div class="grid-container">
+                        <div class="grid-parent grid-100">
+                            @if (string.IsNullOrEmpty(Model.Profile.Body))
+                            {
+                                <partial name="ProfileWithoutBody" model='Model.Profile' />
+                            }
+                            else
+                            {
+                                <partial name="Profile" model='Model.Profile' />
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            break;
+
+        case "Social Media":
+
+            if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
+            {
+                <div class="@titleHack showcase-news-events">
+                    <partial name="ShowcaseSocialMediaLinks" model='Model.SocialMediaLinks' />
+                </div>
+            }
+
+            break;
+
+        case "Body":
+
+            if (!string.IsNullOrWhiteSpace(Model.Body) && !string.Equals("<p></p>\n", Model.Body))
+            {
+                <div class="@titleHack showcase-news-events white">
+                    <div class="grid-container showcase-body">
+                        <div class="l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
+                            @if (!string.IsNullOrWhiteSpace(Model.BodySubheading))
+                            {
+                                <h2>@Model.BodySubheading</h2>
+                            }
+                            <div class="grid-100 grid-parent">
+                                <article>
+                                    @Html.Raw(Model.Body)
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            break;
+
+        case "Did you know":
+            if (Model.DidYouKnowSection.Count > 0)
+             {
+                 <section class="did-you-know">
+                     <h2>Did you know?</h2>
+                     @foreach (var didyouknow in Model.DidYouKnowSection)
+                     {
+                         <div class="grid-5 mobile-grid-10 tablet-grid-5"><span class="si si-@didyouknow.Icon"></span></div>
+
+                         <div class="grid-95 mobile-grid-90 tablet-grid-95">
+                             @if (didyouknow.Link != "")
+                             {
+                                 <a href="@didyouknow.Link" rel="@didyouknow.Name"><h4>@didyouknow.Text</h4></a>
+                             }
+                             else
+                             {
+                                 <h4>@didyouknow.Text</h4>
+                             }
+                         </div>
+                     }
+                 </section>
+             }
+            break;
+        }
+
+        titleHack = "full-width-title-margin-fix";
+    }
+
+
+@if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
+{
+    <div class="@titleHack showcase-news-events showcase-email-banner">
+        <div class="email-banner grid-container">
+            <div class="email-banner-container mobile-grid-100 grid-parent">
+                <div class="email-banner-icon-container hide-on-mobile hide-on-tablet">
+                    <i class="si-envelope-open email-banner-icon" aria-hidden="true"></i>
+                </div>
+                <div class="email-banner-inner grid-parent grid-95 tablet-grid-95 mobile-grid-100">
+                    <div class="grid-100 tablet-grid-100 mobile-grid-100 email-banner-text-container">
+                        <div class="grid-100 grid-parent">
+                            <h3> @Model.EmailAlertsText</h3>
+                        </div>
+                    </div>
+                    <div class="grid-100 input-container">
+                        <form method="get" role="form" action="/subscribe">
+
+                            <div class="grid-50 tablet-grid-50 grid-parent">
+                                <input type="email" name="emailAddress" placeholder="Enter your email address">
+                            </div>
+                            <div class="grid-30 tablet-grid-50 grid-parent">
+                                <button type="submit" id="test-subscribe" class="button-default">Subscribe</button>
+                            </div>
+                            <div class="suffix-10"></div>
+                            @Html.HiddenFor(o => o.EmailAlertsTopicId)
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
