@@ -53,7 +53,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.Body,
                 showcase.NewsArticle,
                 showcase.HeroImageUrl,
-                showcase.FeaturedItems,
+                showcase.SecondaryItems,
                 showcase.Breadcrumbs,
                 showcase.Consultations,
                 showcase.SocialMediaLinks,

@@ -19,7 +19,7 @@ namespace StockportWebapp.Models
         public string BodySubheading { get; set; }
         public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
-        public IEnumerable<SubItem> FeaturedItems { get; set; }
+        public IEnumerable<SubItem> SecondaryItems { get; set; }
         public IEnumerable<SubItem> PrimaryItems { get; set; }
         public IEnumerable<Consultation> Consultations { get; set; }
         public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
@@ -35,7 +35,7 @@ namespace StockportWebapp.Models
 
         public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading,
             string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
-            IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> secondaryItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
             IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts,
             Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon)
         {
@@ -47,7 +47,7 @@ namespace StockportWebapp.Models
             EventSubheading = eventSubheading;
             HeroImageUrl = heroImageUrl;
             Breadcrumbs = breadcrumbs;
-            FeaturedItems = featuredItems;
+            SecondaryItems = secondaryItems;
             Consultations = consultations;
             SocialMediaLinks = socialMediaLinks;
             Events = events;
