@@ -20,7 +20,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Body;
         public readonly News NewsArticle;
         public readonly IEnumerable<Crumb> Breadcrumbs;
-        public readonly IEnumerable<SubItem> FeaturedItems;
+        public readonly IEnumerable<SubItem> SecondaryItems;
         public readonly IEnumerable<SubItem> PrimaryItems;
         public readonly IEnumerable<Consultation> Consultations;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
@@ -39,7 +39,7 @@ namespace StockportWebapp.ProcessedModels
 
         public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, 
             string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
-            IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
+            IEnumerable<SubItem> secondaryItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
             IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, 
             Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon)
         {
@@ -51,7 +51,7 @@ namespace StockportWebapp.ProcessedModels
             EventCategory = eventCategory;
             EventSubheading = eventSubheading;
             Breadcrumbs = breadcrumbs;
-            FeaturedItems = featuredItems;
+            SecondaryItems = secondaryItems;
             Consultations = consultations;
             SocialMediaLinks = socialMediaLinks;
             Events = events;
