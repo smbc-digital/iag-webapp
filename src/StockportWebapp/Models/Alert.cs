@@ -35,5 +35,6 @@ namespace StockportWebapp.Models
         public const string Warning = "Warning";
         public const string Error = "Error";
         public const string Information = "Information";
+        public const string Success = "Success";
     }
 }
