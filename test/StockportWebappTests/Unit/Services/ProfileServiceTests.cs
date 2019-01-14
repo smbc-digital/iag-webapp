@@ -62,7 +62,7 @@ namespace StockportWebappTests_Unit.Unit.Services
                 Slug = "test",
                 Alerts = new List<Alert>(),
                 Breadcrumbs = new List<Crumb>(),
-                DidYouKnowSection = new List<DidYouKnow>(),
+                DidYouKnowSection = new List<InformationList>(),
                 Image = "testimage",
                 LeadParagraph = "test",
                 Teaser = "test",

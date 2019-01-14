@@ -22,7 +22,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _emailAlertsText { get; set; } = "alertText";
         private string _keyFactSubheading { get; set; } = "Key Fact Subheading";
         private string _showcaseIcon = "fa-icon";
-        private List<DidYouKnow> _didYouKnow = new List<DidYouKnow>
+        private List<InformationList> _didYouKnow = new List<InformationList>
         {
 
         };
