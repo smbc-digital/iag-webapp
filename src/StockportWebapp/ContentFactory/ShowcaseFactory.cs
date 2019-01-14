@@ -2,7 +2,6 @@
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace StockportWebapp.ContentFactory
@@ -66,7 +65,8 @@ namespace StockportWebapp.ContentFactory
                 showcase.Profile,
                 fields,
                 showcase.KeyFactSubheading,
-                showcase.Icon
+                showcase.Icon,
+                showcase.DidYouKnowSection
             );
         }
     }

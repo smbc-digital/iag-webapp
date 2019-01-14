@@ -1,0 +1,97 @@
+﻿@using StockportWebapp.ProcessedModels
+@using StockportWebapp.ViewModels
+@using StockportWebapp.FeatureToggling
+
+@inject FeatureToggles FeatureToggles
+
+@model ProcessedShowcase
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["FullWidth"] = "full-width";
+    ViewData["additionalClass"] = "showcase";
+    ViewData["og:title"] = Model.Title;
+    ViewData["Description"] = Model.Teaser;
+    ViewData["Slug"] = Model.Slug;
+    Layout = "../../Shared/_LayoutSemantic.cshtml";
+    ViewData["EventsH2"] = true;
+    ViewData["EventCategory"] = Model.EventCategory;
+    ViewData["EventSubheading"] = Model.EventSubheading;
+    var emailBanner = new EmailBannerViewModel(Model.EmailAlertsText, Model.EmailAlertsTopicId);
+}
+@section Breadcrumbs {
+    <partial name="SemanticBreadcrumb" model='Model.Breadcrumbs' />
+}
+
+@if (Model.Alerts != null)
+{
+
+    <div class="center-wrapper margin-top-20">
+        @foreach (var alert in Model.Alerts)
+        {
+            <partial name="Semantic/GlobalAlert" model='alert' />
+        }
+    </div>
+}
+
+@foreach (var field in Model.FieldOrder.Items)
+{
+    switch (field)
+    {
+        case "Primary Items":
+
+            break;
+
+        case "Featured Items":
+
+            break;
+
+        case "Consultations":
+
+            break;
+
+        case "Key Facts":
+
+            break;
+
+        case "News":
+
+            break;
+
+        case "Events":
+
+            break;
+
+        case "Profile":
+
+            break;
+
+        case "Social Media":
+
+            break;
+
+        case "Body":
+
+            break;
+
+        case "Did you know":
+            <div class="full-width">
+                <div class="center-wrapper">
+                    <hr class="thick-divider" />
+                    <partial name="Semantic/DidYouKnow" model='Model.DidYouKnowSection' view-data="ViewData" />
+                </div>
+            </div>
+            break;
+    }
+}
+
+
+@if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
+{
+    <partial name="Semantic/EmailBanner" model="emailBanner" />
+}
+
+<script>
+    require(['alerts'], function (alerts) {
+        alerts.Init();
+    });
+</script>

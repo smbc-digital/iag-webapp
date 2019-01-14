@@ -39,6 +39,7 @@
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
+    <Content Remove="Views\stockportgov\Showcase\Semantic\Showcase.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />
@@ -54,6 +55,7 @@
     <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml" />
     <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
     <None Remove="Views\stockportgov\SmartAnswers\Index - Copy.cshtml" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
@@ -64,6 +66,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
     <PackageReference Include="Markdig" Version="0.15.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.1" />
@@ -108,6 +111,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\SmartAnswers\Semantic\Index.cshtml">
