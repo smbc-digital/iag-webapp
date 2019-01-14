@@ -38,6 +38,7 @@
     <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\PrimaryItems.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
     <Content Remove="Views\stockportgov\Showcase\Semantic\Showcase.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
