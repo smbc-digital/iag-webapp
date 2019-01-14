@@ -87,7 +87,11 @@
 
 @if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
 {
-    <partial name="Semantic/EmailBanner" model="emailBanner" />
+    <div class="full-width">
+        <div class="center-wrapper">
+            <partial name="Semantic/EmailBanner" model="emailBanner" />
+        </div>
+    </div>
 }
 
 <script>

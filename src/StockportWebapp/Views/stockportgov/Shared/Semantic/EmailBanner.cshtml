@@ -1,24 +1,16 @@
 ﻿@using StockportWebapp.ViewModels
 @model EmailBannerViewModel
 
-<div class="full-width">
-    <div class="center-wrapper">
-        <section class="email-banner">
-            <div>
-                <i class="si-envelope-open email-banner-icon" aria-hidden="true"></i>
-            </div>
-            <div>
-                <h3>@Model.EmailAlertsText</h3>
-                <form class="grid-100" method="get" role="form" action="/subscribe">
-                    <div class="grid-70 tablet-grid-50 grid-parent">
-                        <input type="email" name="emailAddress" placeholder="Enter your email address">
-                    </div>
-                    <div class="grid-30 tablet-grid-50 grid-parent">
-                        <button type="submit" id="test-subscribe" class="button-primary">Subscribe</button>
-                    </div>
-                    @Html.HiddenFor(o => o.EmailAlertsTopicId)
-                </form>
-            </div>
-        </section>
+<section class="email-banner">
+    <div>
+        <i class="si-envelope-open email-banner-icon" aria-hidden="true"></i>
     </div>
-</div>
+    <div>
+        <h3>@Model.EmailAlertsText</h3>
+        <form method="get" role="form" action="/subscribe">
+            <input type="email" name="emailAddress" placeholder="Enter your email address">
+            <button type="submit" id="test-subscribe" class="button-primary">Subscribe</button>
+            @Html.HiddenFor(o => o.EmailAlertsTopicId)
+        </form>
+    </div>
+</section>

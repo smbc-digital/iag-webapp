@@ -29,7 +29,16 @@ namespace StockportWebapp.Controllers
             if (_featuretogles.SemanticProfile)
             {
                 var profileEntity = await _profileService.GetProfile(slug);
-                var model = new ProfileNew(profileEntity.Title, profileEntity.Slug, profileEntity.LeadParagraph, profileEntity.Teaser, profileEntity.Image, profileEntity.Body, profileEntity.Breadcrumbs, profileEntity.Alerts, profileEntity.DidYouKnowSection);
+                var model = new ProfileNew(profileEntity.Title, 
+                    profileEntity.Slug, 
+                    profileEntity.LeadParagraph, 
+                    profileEntity.Teaser, 
+                    profileEntity.Image, 
+                    profileEntity.Body, 
+                    profileEntity.Breadcrumbs, 
+                    profileEntity.Alerts, 
+                    profileEntity.DidYouKnowSection,
+                    profileEntity.FieldOrder);
 
                 return View("Semantic/Index", model);
             }
