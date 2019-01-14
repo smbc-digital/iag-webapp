@@ -33,7 +33,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly Profile Profile;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
-        public readonly List<DidYouKnow> DidYouKnowSection;
+        public readonly List<InformationList> DidYouKnowSection;
 
         public ProcessedShowcase()
         { }
@@ -42,7 +42,7 @@ namespace StockportWebapp.ProcessedModels
             string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
             IEnumerable<SubItem> secondaryItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
             IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, 
-            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon, List<DidYouKnow> didYouKnowSection)
+            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon, List<InformationList> didYouKnowSection)
         {
             Title = title;
             Slug = slug;

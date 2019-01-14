@@ -1,6 +1,8 @@
-﻿namespace StockportWebapp.Models
+﻿using StockportWebapp.Enums;
+
+namespace StockportWebapp.Models
 {
-    public class DidYouKnow
+    public class InformationList
     {
         public string Name { get; set; }
 
@@ -10,7 +12,7 @@
 
         public string Link { get; set; }
 
-        public DidYouKnow(string name, string icon, string text, string link)
+        public InformationList(string name, string icon, string text, string link)
         {
             Name = name;
             Icon = icon;
