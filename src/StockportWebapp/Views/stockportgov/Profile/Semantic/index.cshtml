@@ -1,4 +1,5 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.Enums
+@using StockportWebapp.Models
 
 @model ProfileNew
 @{
@@ -23,7 +24,13 @@
 
     @if (Model.DidYouKnowSection != null)
     {
-        <hr class="thick-divider"/>
-        <partial name="Semantic/DidYouKnow" model='Model.DidYouKnowSection' />
+        <hr class="thick-divider" />
+        @await Component.InvokeAsync("InformationList", new { model = Model.DidYouKnowSection, type = "DidYouKnow" })
+    }
+
+    @if (Model.KeyFactsSection != null)
+    {
+        <hr class="thick-divider" />
+        @await Component.InvokeAsync("InformationList", new { model = Model.KeyFactsSection, type = "KeyFacts" })
     }
 </article>
