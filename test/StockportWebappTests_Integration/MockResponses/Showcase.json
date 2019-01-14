@@ -12,7 +12,7 @@
   "bodySubheading": "body subheading",
   "body": "body",
   "heroImageUrl": "heroImageUrl.jpg",
-  "featuredItems": [
+  "secondaryItems": [
     {
       "title": "test title",
       "icon": "si-tickbox",
