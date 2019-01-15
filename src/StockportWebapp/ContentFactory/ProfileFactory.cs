@@ -25,8 +25,18 @@ namespace StockportWebapp.ContentFactory
             processedBody = _markdownWrapper.ConvertToHtml(processedBody);
             processedBody = _alertsInlineTagParser.Parse(processedBody, profile.Alerts);
 
-            return new ProcessedProfile(profile.Type, profile.Title, profile.Slug, profile.Subtitle, profile.Teaser,
-                profile.Image, processedBody, profile.BackgroundImage, profile.Icon, profile.Breadcrumbs, profile.Alerts);
+            return new ProcessedProfile(profile.Type,
+                profile.Title,
+                profile.Slug,
+                profile.Subtitle,
+                profile.LeadParagraph,
+                profile.Teaser,
+                profile.Image,
+                processedBody,
+                profile.BackgroundImage,
+                profile.Icon,
+                profile.Breadcrumbs,
+                profile.Alerts);
         }
     }
 }

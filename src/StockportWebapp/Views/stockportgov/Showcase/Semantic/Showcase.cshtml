@@ -39,7 +39,7 @@
     {
         case "Primary Items":
             <div class="full-width">
-                <partial name="Semantic/Showcase/PrimaryItems" model='Model'/>
+                <partial name="Semantic/Showcase/PrimaryItems" model='Model' />
             </div>
             break;
 
@@ -52,7 +52,19 @@
             break;
 
         case "Key Facts":
-
+            if (Model.KeyFactsSection.Count != 0)
+            {
+                <div class="full-width">
+                    <div class="center-wrapper">
+                        <hr class="thick-divider" />
+                        @await Component.InvokeAsync("InformationList", new
+                        {
+                            model = Model.KeyFactsSection,
+                            type = "KeyFacts"
+                        })
+                    </div>
+                </div>
+            }
             break;
 
         case "News":
@@ -64,7 +76,19 @@
             break;
 
         case "Profile":
-            //TONOTDO: Please do not do this right away.
+            <div class="full-width">
+                <div class=" showcase-profile showcase-news-events white">
+                    <div class="grid-container">
+                        <div class="grid-parent grid-100">
+                            @await Component.InvokeAsync("ProfileInline", new
+                            {
+                                profile = Model.Profile,
+                                withoutBody = string.IsNullOrEmpty(Model.Profile.Body)
+                            })
+                        </div>
+                    </div>
+                </div>
+            </div>
             break;
 
         case "Social Media":
@@ -76,12 +100,19 @@
             break;
 
         case "Did you know":
-            <div class="full-width">
-                <div class="center-wrapper">
-                    <hr class="thick-divider" />
-                    <partial name="Semantic/DidYouKnow" model='Model.DidYouKnowSection' view-data="ViewData" />
+            if (Model.DidYouKnowSection.Count != 0)
+            {
+                <div class="full-width">
+                    <div class="center-wrapper">
+                        <hr class="thick-divider" />
+                        @await Component.InvokeAsync("InformationList", new
+                        {
+                            model = Model.DidYouKnowSection,
+                            type = "DidYouKnow"
+                        })
+                    </div>
                 </div>
-            </div>
+            }
             break;
     }
 }

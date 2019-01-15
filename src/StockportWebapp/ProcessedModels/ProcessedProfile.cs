@@ -9,6 +9,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Title;
         public readonly string Slug;
         public readonly string Subtitle;
+        public readonly string LeadParagraph;
         public readonly string Teaser;
         public readonly string Image;
         public readonly string Body;
@@ -17,8 +18,18 @@ namespace StockportWebapp.ProcessedModels
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
 
-        public ProcessedProfile(string type, string title, string slug, string subtitle, string teaser, string image,
-            string body, string backgroundImage, string icon, IEnumerable<Crumb> breadcrumbs, List<Alert> alerts)
+        public ProcessedProfile(string type,
+            string title,
+            string slug,
+            string subtitle,
+            string leadParagraph,
+            string teaser,
+            string image,
+            string body,
+            string backgroundImage,
+            string icon,
+            IEnumerable<Crumb> breadcrumbs,
+            List<Alert> alerts)
         {
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
@@ -26,6 +37,7 @@ namespace StockportWebapp.ProcessedModels
             Title = title;
             Slug = slug;
             Subtitle = subtitle;
+            LeadParagraph = leadParagraph;
             Teaser = teaser;
             Image = image;
             Body = body;
