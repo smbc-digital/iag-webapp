@@ -38,7 +38,7 @@ namespace StockportWebapp.ProcessedModels
             Slug = slug;
             Subtitle = subtitle;
             Teaser = teaser;
-            Teaser = quote;
+            Quote = quote;
             Image = image;
             Body = body;
             BackgroundImage = backgroundImage;

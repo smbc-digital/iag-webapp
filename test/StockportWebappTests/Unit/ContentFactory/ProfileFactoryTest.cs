@@ -43,13 +43,14 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var breacrumbs = new List<Crumb> { crumb, crumb };
             var alerts = new List<Alert>();
 
-            var profile = new Profile(type, title, slug, subtitle, quote,teaser, image, body, backgroundImage, icon, breacrumbs, alerts);
+            var profile = new Profile(type, title, slug, subtitle, teaser, quote, image, body, backgroundImage, icon, breacrumbs, alerts);
 
             var result = _profileFactory.Build(profile);
 
             result.Body.Should().Be(body);
             result.Slug.Should().Be(slug);
             result.Teaser.Should().Be(teaser);
+            result.Quote.Should().Be(quote);
             result.Subtitle.Should().Be(subtitle);
             result.Title.Should().Be(title);
             result.Icon.Should().Be(icon);
