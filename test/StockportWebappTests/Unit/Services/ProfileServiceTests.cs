@@ -64,7 +64,6 @@ namespace StockportWebappTests_Unit.Unit.Services
                 Breadcrumbs = new List<Crumb>(),
                 DidYouKnowSection = new List<InformationList>(),
                 Image = "testimage",
-                LeadParagraph = "test",
                 Teaser = "test",
                 Title = "test"
             });

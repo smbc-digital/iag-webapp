@@ -41,8 +41,8 @@ namespace StockportWebapp.Services.Profile
                 {
                     Title = profile.Title,
                     Slug = profile.Slug,
-                    LeadParagraph = profile.LeadParagraph,
                     Teaser = profile.Teaser,
+                    Quote = profile.Quote,
                     Image = profile.Image,
                     Body = processedBody,
                     Breadcrumbs = profile.Breadcrumbs,

@@ -10,8 +10,8 @@ namespace StockportWebapp.Models
         public string Title { get; set; }
         public string Slug { get; set; }
         public string Subtitle { get; set; }
-        public string LeadParagraph { get; set; }
         public string Teaser { get; set; }
+        public string Quote { get; set; }
         public string Image { get; set; }
         public string Body { get; set; }
         public string BackgroundImage { get; set; }
@@ -23,7 +23,7 @@ namespace StockportWebapp.Models
             string title,
             string slug,
             string subtitle,
-            string leadParagraph,
+            string quote,
             string teaser,
             string image, 
             string body,
@@ -36,7 +36,7 @@ namespace StockportWebapp.Models
             Title = title;
             Slug = slug;
             Subtitle = subtitle;
-            LeadParagraph = leadParagraph;
+            Quote = quote;
             Teaser = teaser;
             Image = image;
             Body = body;

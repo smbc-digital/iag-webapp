@@ -9,8 +9,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Title;
         public readonly string Slug;
         public readonly string Subtitle;
-        public readonly string LeadParagraph;
         public readonly string Teaser;
+        public readonly string Quote;
         public readonly string Image;
         public readonly string Body;
         public readonly string BackgroundImage;
@@ -22,8 +22,8 @@ namespace StockportWebapp.ProcessedModels
             string title,
             string slug,
             string subtitle,
-            string leadParagraph,
             string teaser,
+            string quote,
             string image,
             string body,
             string backgroundImage,
@@ -37,8 +37,8 @@ namespace StockportWebapp.ProcessedModels
             Title = title;
             Slug = slug;
             Subtitle = subtitle;
-            LeadParagraph = leadParagraph;
             Teaser = teaser;
+            Teaser = quote;
             Image = image;
             Body = body;
             BackgroundImage = backgroundImage;

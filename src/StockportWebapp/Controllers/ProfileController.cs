@@ -31,8 +31,8 @@ namespace StockportWebapp.Controllers
                 var profileEntity = await _profileService.GetProfile(slug);
                 var model = new ProfileNew(profileEntity.Title,
                     profileEntity.Slug,
-                    profileEntity.LeadParagraph,
-                    profileEntity.Teaser,
+                    profileEntity.Subtitle,
+                    profileEntity.Quote,
                     profileEntity.Image,
                     profileEntity.Body,
                     profileEntity.Breadcrumbs,

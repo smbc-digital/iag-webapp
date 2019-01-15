@@ -7,8 +7,8 @@ namespace StockportWebapp.Repositories.Responses
     {
         public string Title { get; set; }
         public string Slug { get; set; }
-        public string LeadParagraph { get; set; }
         public string Teaser { get; set; }
+        public string Quote { get; set; }
         public string Image { get; set; }
         public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
