@@ -23,8 +23,8 @@ namespace StockportWebapp.Models
             string title,
             string slug,
             string subtitle,
-            string quote,
             string teaser,
+            string quote,
             string image, 
             string body,
             string backgroundImage,
@@ -36,8 +36,8 @@ namespace StockportWebapp.Models
             Title = title;
             Slug = slug;
             Subtitle = subtitle;
-            Quote = quote;
             Teaser = teaser;
+            Quote = quote;
             Image = image;
             Body = body;
             BackgroundImage = backgroundImage;
