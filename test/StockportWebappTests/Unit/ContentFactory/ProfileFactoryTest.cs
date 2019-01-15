@@ -34,6 +34,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var slug = "slug";
             var teaser = "teaser";
             var subtitle = "subtitle";
+            var quote = "quote";
             var title = "title";
             var icon = "icon";
             var type = "type";
@@ -42,7 +43,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var breacrumbs = new List<Crumb> { crumb, crumb };
             var alerts = new List<Alert>();
 
-            var profile = new Profile(type, title, slug, subtitle, teaser, image, body, backgroundImage, icon, breacrumbs, alerts);
+            var profile = new Profile(type, title, slug, subtitle, quote,teaser, image, body, backgroundImage, icon, breacrumbs, alerts);
 
             var result = _profileFactory.Build(profile);
 
