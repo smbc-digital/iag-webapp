@@ -34,6 +34,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var slug = "slug";
             var teaser = "teaser";
             var subtitle = "subtitle";
+            var leadparagraph = "leadparagraph";
             var title = "title";
             var icon = "icon";
             var type = "type";
@@ -42,7 +43,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var breacrumbs = new List<Crumb> { crumb, crumb };
             var alerts = new List<Alert>();
 
-            var profile = new Profile(type, title, slug, subtitle, teaser, image, body, backgroundImage, icon, breacrumbs, alerts);
+            var profile = new Profile(type, title, slug, subtitle, leadparagraph, teaser, image, body, backgroundImage, icon, breacrumbs, alerts);
 
             var result = _profileFactory.Build(profile);
 
@@ -61,5 +62,5 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _markdownWrapperMock.Verify(o => o.ConvertToHtml(body), Times.Once);
         }
 
-       }
+    }
 }

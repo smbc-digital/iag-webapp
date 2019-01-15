@@ -26,7 +26,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         public ProfileControllerTest()
         {
-            _featureToggles= new FeatureToggles
+            _featureToggles = new FeatureToggles
             {
                 SemanticProfile = false
             };
@@ -35,16 +35,16 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         [Fact]
         public async Task ItReturnsAProfileWithProcessedBody()
-        { 
-            var processedProfile = new ProcessedProfile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+        {
+            var processedProfile = new ProcessedProfile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 TextHelper.AnyString, new List<Crumb>(), new List<Alert>());
 
             _fakeRepository
                 .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-                .ReturnsAsync(new HttpResponse((int) HttpStatusCode.OK, processedProfile, string.Empty));
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedProfile, string.Empty));
 
-            var view = await _profileController.Index("slug") as ViewResult;;
+            var view = await _profileController.Index("slug") as ViewResult; ;
             var model = view.ViewData.Model as ProcessedProfile;
 
             model.Should().Be(processedProfile);
@@ -57,9 +57,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = await _profileController.Index("not-found-slug") as HttpResponse;;
+            var response = await _profileController.Index("not-found-slug") as HttpResponse; ;
 
-            response.StatusCode.Should().Be((int) HttpStatusCode.NotFound);
+            response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
     }
 
