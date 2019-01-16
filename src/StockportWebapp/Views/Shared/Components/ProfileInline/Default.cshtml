@@ -1,6 +1,17 @@
-﻿@model Tuple<StockportWebapp.Models.Profile, bool>
+﻿@model StockportWebapp.Models.Profile
 
-<section class="profile-inline">
+
+<a class="profile-inline-container" href="/profile/@Model.Slug;">
+        <img class="profile-inline-image" src="@Model.Image" alt="@Model.Title" />
+        <div class="profile-inline-quote">
+            <p class="lead-paragraph">@Model.Quote</p>
+            <i class="green open fa fa-2x fa-quote-left" aria-hidden="true"></i>
+            <i class="green fa fa-2x fa-quote-right" aria-hidden="true"></i>
+            <p class="read-more">Read more</p>
+        </div>
+</a>
+
+@*<section class="profile-inline">
     <a href="/profile/@Model.Item1.Slug" class="profile profile-success-story-new profile-link" alt="Read more about @Model.Item1.Title">
 
         @{
@@ -37,4 +48,4 @@
             <p class="read-more">Read more</p>
         </div>
     </a>
-</section>
+</section>*@

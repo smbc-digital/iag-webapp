@@ -65,7 +65,7 @@
             {
                 <div class="full-width">
                     <div class="center-wrapper">
-                        <hr class="thick-divider" />                       
+                        <hr class="thick-divider" />
                         <vc:information-list type="KeyFacts" model="@Model.KeyFactsSection">
                         </vc:information-list>
                     </div>
@@ -85,13 +85,12 @@
             if (Model.Profile != null)
             {
                 <div class="full-width">
-                    <div class=" showcase-profile showcase-news-events white">
-                        <div class="grid-container">
-                            <div class="grid-parent grid-100">
-                                <vc:profile-inline withoutBody="@string.IsNullOrEmpty(Model.Profile.Body)" profile="@Model.Profile">
-                                </vc:profile-inline>
-                            </div>
-                        </div>
+                    <div class="center-wrapper">
+                        @await Component.InvokeAsync("ProfileInline", new
+                        {
+                            profile = Model.Profile,
+                            withoutBody = string.IsNullOrEmpty(Model.Profile.Body)
+                        })
                     </div>
                 </div>
             }
