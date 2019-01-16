@@ -1,8 +1,11 @@
 ﻿@using StockportWebapp.ProcessedModels
 @using StockportWebapp.ViewModels
 @using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models
+@using StockportWebapp.Utils
 
 @inject FeatureToggles FeatureToggles
+@inject ICookiesHelper CookiesHelper
 
 @model ProcessedShowcase
 @{
@@ -24,13 +27,19 @@
 
 @if (Model.Alerts != null)
 {
-
-    <div class="center-wrapper margin-top-20">
-        @foreach (var alert in Model.Alerts)
-        {
-            <partial name="Semantic/GlobalAlert" model='alert' />
-        }
-    </div>
+    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    if (alertCookies != null && alertCookies.Count() != Model.Alerts.Count())
+    {
+        <div class="center-wrapper margin-top-20">
+            @foreach (var alert in Model.Alerts)
+            {
+                if (!alertCookies.Contains(alert.Slug))
+                {
+                    <partial name="Semantic/GlobalAlert" model='alert' />
+                }
+            }
+        </div>
+    }
 }
 
 @foreach (var field in Model.FieldOrder.Items)
@@ -52,16 +61,13 @@
             break;
 
         case "Key Facts":
-            if (Model.KeyFactsSection.Count != 0)
+            if (Model.KeyFactsSection != null && Model.KeyFactsSection.Count != 0)
             {
                 <div class="full-width">
                     <div class="center-wrapper">
-                        <hr class="thick-divider" />
-                        @await Component.InvokeAsync("InformationList", new
-                        {
-                            model = Model.KeyFactsSection,
-                            type = "KeyFacts"
-                        })
+                        <hr class="thick-divider" />                       
+                        <vc:information-list type="KeyFacts" model="@Model.KeyFactsSection">
+                        </vc:information-list>
                     </div>
                 </div>
             }
@@ -76,19 +82,19 @@
             break;
 
         case "Profile":
-            <div class="full-width">
-                <div class=" showcase-profile showcase-news-events white">
-                    <div class="grid-container">
-                        <div class="grid-parent grid-100">
-                            @await Component.InvokeAsync("ProfileInline", new
-                            {
-                                profile = Model.Profile,
-                                withoutBody = string.IsNullOrEmpty(Model.Profile.Body)
-                            })
+            if (Model.Profile != null)
+            {
+                <div class="full-width">
+                    <div class=" showcase-profile showcase-news-events white">
+                        <div class="grid-container">
+                            <div class="grid-parent grid-100">
+                                <vc:profile-inline withoutBody="@string.IsNullOrEmpty(Model.Profile.Body)" profile="@Model.Profile">
+                                </vc:profile-inline>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
             break;
 
         case "Social Media":
@@ -100,16 +106,13 @@
             break;
 
         case "Did you know":
-            if (Model.DidYouKnowSection.Count != 0)
+            if (Model.DidYouKnowSection != null && Model.DidYouKnowSection.Count > 0)
             {
                 <div class="full-width">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
-                        @await Component.InvokeAsync("InformationList", new
-                        {
-                            model = Model.DidYouKnowSection,
-                            type = "DidYouKnow"
-                        })
+                        <vc:information-list type="DidYouKnow" model="@Model.DidYouKnowSection">
+                        </vc:information-list>
                     </div>
                 </div>
             }
