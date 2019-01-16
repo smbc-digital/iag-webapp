@@ -69,6 +69,11 @@ namespace StockportWebapp.Controllers
 
             DoPagination(Page, result, pageSize);
 
+            if (_featureToggles.SemanticShowcase)
+            {
+                return View("Semantic/PreviousConsultations", result);
+            }
+
             return View(result);
         }
 

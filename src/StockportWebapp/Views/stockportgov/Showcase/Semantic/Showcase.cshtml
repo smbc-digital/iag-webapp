@@ -57,7 +57,14 @@
             break;
 
         case "Consultations":
-
+            if (Model.Consultations.Any())
+            {
+                <div class="full-width">
+                    <div class="center-wrapper">
+                        <partial name="Consultations" model='Model.Consultations' />
+                    </div>
+                </div>
+            }
             break;
 
         case "Key Facts":
@@ -65,7 +72,7 @@
             {
                 <div class="full-width">
                     <div class="center-wrapper">
-                        <hr class="thick-divider" />                       
+                        <hr class="thick-divider" />
                         <vc:information-list type="KeyFacts" model="@Model.KeyFactsSection">
                         </vc:information-list>
                     </div>
@@ -74,7 +81,14 @@
             break;
 
         case "News":
-
+            if (Model.NewsArticle != null)
+            {
+                <div class="full-width">
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/NewsArticle" model='Model' />
+                    </div>
+                </div>
+            }
             break;
 
         case "Events":
@@ -102,7 +116,14 @@
             break;
 
         case "Body":
-
+            if (!string.IsNullOrWhiteSpace(Model.Body) && !string.Equals("<p></p>\n", Model.Body))
+            {
+                <div class="full-width">
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/Body" model='Model' />
+                    </div>
+                </div>
+            }
             break;
 
         case "Did you know":
