@@ -17,11 +17,11 @@ stage: &stage
   << : *prod
   GroupArchiveEmails: true
   SiaSystem: false
+  ContactUsArea: true
 
 qa: &qa
   << : *prod
   << : *stage
-  ContactUsArea: true
 
 int: &int
   << : *prod
