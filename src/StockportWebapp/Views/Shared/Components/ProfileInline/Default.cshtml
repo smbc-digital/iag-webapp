@@ -1,0 +1,40 @@
+﻿@model Tuple<StockportWebapp.Models.Profile, bool>
+
+<section class="profile-inline">
+    <a href="/profile/@Model.Item1.Slug" class="profile profile-success-story-new profile-link" alt="Read more about @Model.Item1.Title">
+
+        @{
+            var width = "100";
+        }
+        @if (!string.IsNullOrEmpty(Model.Item1.Image))
+        {
+            width = "75";
+            <div class="grid-25 tablet-grid-25 mobile-grid-100">
+                <div class="profile-inline-image">
+                    <img class="circle-image" src="@Model.Item1.Image" alt="@Model.Item1.Title" />
+                </div>
+            </div>
+        }
+        <div class="grid-@width tablet-grid-@width mobile-grid-100">
+            <div class="mobile-push-10 profile-inline-heading">
+                <h2>@Model.Item1.Title</h2>
+                <p>@Model.Item1.Subtitle</p>
+            </div>
+            <div class="grid-100 grid-parent profile-inline-quote">
+                <div class="grid-10 tablet-grid-10 mobile-grid-10">
+                    <i class="green open fa fa-2x fa-quote-left" aria-hidden="true"></i>
+                </div>
+                <div class="grid-80 tablet-grid-80 mobile-grid-80 main-body">
+                    <p class="lead-paragraph">@Model.Item1.Quote</p>
+                </div>
+                <div class="grid-10 tablet-grid-10 mobile-grid-10"></div>
+            </div>
+            <div class="grid-100 grid-parent closing-quote">
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 tablet-push-90 mobile-push-90 push-90">
+                    <i class="green fa fa-2x fa-quote-right" aria-hidden="true"></i>
+                </div>
+            </div>
+            <p class="read-more">Read more</p>
+        </div>
+    </a>
+</section>

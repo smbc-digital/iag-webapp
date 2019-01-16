@@ -34,15 +34,41 @@ namespace StockportWebapp.ProcessedModels
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
         public readonly List<InformationList> DidYouKnowSection;
+        public readonly List<InformationList> KeyFactsSection;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, 
-            string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
-            IEnumerable<SubItem> secondaryItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
-            IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, 
-            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon, List<InformationList> didYouKnowSection)
+        public ProcessedShowcase(string title,
+            string slug,
+            string teaser,
+            string subHeading,
+            string eventCategory,
+            string eventsCategoryOrTag,
+            string eventSubheading,
+            string newsSubheading,
+            string newsCategoryTag,
+            string newsCategoryOrTag,
+            string bodySubheading,
+            string body,
+            News newsArticle,
+            string heroImageUrl,
+            IEnumerable<SubItem> secondaryItems,
+            IEnumerable<Crumb> breadcrumbs,
+            IEnumerable<Consultation> consultations,
+            IEnumerable<SocialMediaLink> socialMediaLinks,
+            IEnumerable<Event> events,
+            string emailAlertsTopicId,
+            string emailAlertsText,
+            IEnumerable<Alert> alerts,
+            IEnumerable<SubItem> primaryItems,
+            IEnumerable<KeyFact> keyFacts,
+            Profile profile,
+            FieldOrder fieldOrder,
+            string keyFactSubheading,
+            string icon,
+            List<InformationList> didYouKnowSection,
+            List<InformationList> keyFactsSection)
         {
             Title = title;
             Slug = slug;
@@ -73,6 +99,7 @@ namespace StockportWebapp.ProcessedModels
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;
             DidYouKnowSection = didYouKnowSection;
+            KeyFactsSection = keyFactsSection;
         }
     }
 }

@@ -6,8 +6,8 @@ namespace StockportWebapp.Models
     {
         public string Title { get; }
         public string Slug { get; }
-        public string LeadParagraph { get; }
-        public string Teaser { get; }
+        public string Subtitle { get; }
+        public string Quote { get; }
         public string Image { get; }
         public string Body { get; }
         public IEnumerable<Crumb> Breadcrumbs { get; }
@@ -23,8 +23,8 @@ namespace StockportWebapp.Models
 
         public ProfileNew(string title,
             string slug,
-            string leadParagraph,
-            string teaser,
+            string subtitle,
+            string quote,
             string image,
             string body,
             IEnumerable<Crumb> breadcrumbs,
@@ -35,8 +35,8 @@ namespace StockportWebapp.Models
         {
             Title = title;
             Slug = slug;
-            LeadParagraph = leadParagraph;
-            Teaser = teaser;
+            Subtitle = subtitle;
+            Quote = quote;
             Image = image;
             Body = body;
             Breadcrumbs = breadcrumbs;
