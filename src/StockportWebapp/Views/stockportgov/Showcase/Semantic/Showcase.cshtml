@@ -81,7 +81,14 @@
             break;
 
         case "News":
-
+            if (Model.NewsArticle != null)
+            {
+                <div class="full-width">
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/NewsArticle" model='Model' />
+                    </div>
+                </div>
+            }
             break;
 
         case "Events":
@@ -111,19 +118,9 @@
         case "Body":
             if (!string.IsNullOrWhiteSpace(Model.Body) && !string.Equals("<p></p>\n", Model.Body))
             {
-                <div class="showcase-news-events white">
-                    <div class="grid-container showcase-body">
-                        <div class="l-article-content grid-100 tablet-grid-100 mobile-grid-100 grid-parent">
-                            @if (!string.IsNullOrWhiteSpace(Model.BodySubheading))
-                            {
-                                <h2>@Model.BodySubheading</h2>
-                            }
-                            <div class="grid-100 grid-parent">
-                                <article>
-                                    @Html.Raw(Model.Body)
-                                </article>
-                            </div>
-                        </div>
+                <div class="full-width">
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/Body" model='Model' />
                     </div>
                 </div>
             }
