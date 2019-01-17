@@ -59,9 +59,9 @@
         case "Consultations":
             if (Model.Consultations.Any())
             {
-                <div class="full-width">
+                <div class="showcase-section background-off-white">
                     <div class="center-wrapper">
-                        <partial name="Consultations" model='Model.Consultations' />
+                        <partial name="Semantic/Showcase/Consultations" model='Model.Consultations' />
                     </div>
                 </div>
             }
@@ -70,7 +70,7 @@
         case "Key Facts":
             if (Model.KeyFactsSection != null && Model.KeyFactsSection.Count != 0)
             {
-                <div class="full-width">
+                <div class="showcase-section">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
                         <vc:information-list type="KeyFacts" model="@Model.KeyFactsSection">
@@ -83,7 +83,7 @@
         case "News":
             if (Model.NewsArticle != null)
             {
-                <div class="full-width">
+                <div class="showcase-section background-off-white">
                     <div class="center-wrapper">
                         <partial name="Semantic/Showcase/NewsArticle" model='Model' />
                     </div>
@@ -98,7 +98,7 @@
         case "Profile":
             if (Model.Profile != null)
             {
-                <div class="full-width">
+                <div class="showcase-section">
                     <div class=" showcase-profile showcase-news-events white">
                         <div class="grid-container">
                             <div class="grid-parent grid-100">
@@ -118,7 +118,7 @@
         case "Body":
             if (!string.IsNullOrWhiteSpace(Model.Body) && !string.Equals("<p></p>\n", Model.Body))
             {
-                <div class="full-width">
+                <div class="showcase-section">
                     <div class="center-wrapper">
                         <partial name="Semantic/Showcase/Body" model='Model' />
                     </div>
@@ -129,7 +129,7 @@
         case "Did you know":
             if (Model.DidYouKnowSection != null && Model.DidYouKnowSection.Count > 0)
             {
-                <div class="full-width">
+                <div class="showcase-section">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
                         <vc:information-list type="DidYouKnow" model="@Model.DidYouKnowSection">
@@ -144,7 +144,7 @@
 
 @if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
 {
-    <div class="full-width">
+    <div class="showcase-section background-off-white">
         <div class="center-wrapper">
             <partial name="Semantic/EmailBanner" model="emailBanner" />
         </div>
