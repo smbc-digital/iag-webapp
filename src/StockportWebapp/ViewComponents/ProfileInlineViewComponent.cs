@@ -12,7 +12,7 @@ namespace StockportWebapp.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync(Profile profile, bool withoutBody)
         {
-            return View(new Tuple<Profile, bool>(profile, withoutBody));
+            return View(profile);
         }
     }
 }

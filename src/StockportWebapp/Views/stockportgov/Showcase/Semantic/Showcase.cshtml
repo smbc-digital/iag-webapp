@@ -98,14 +98,14 @@
         case "Profile":
             if (Model.Profile != null)
             {
+
                 <div class="showcase-section">
                     <div class=" showcase-profile showcase-news-events white">
-                        <div class="grid-container">
-                            <div class="grid-parent grid-100">
-                                <vc:profile-inline withoutBody="@string.IsNullOrEmpty(Model.Profile.Body)" profile="@Model.Profile">
-                                </vc:profile-inline>
-                            </div>
-                        </div>
+                        @await Component.InvokeAsync("ProfileInline", new
+                        {
+                            profile = Model.Profile,
+                            withoutBody = string.IsNullOrEmpty(Model.Profile.Body)
+                        })
                     </div>
                 </div>
             }
