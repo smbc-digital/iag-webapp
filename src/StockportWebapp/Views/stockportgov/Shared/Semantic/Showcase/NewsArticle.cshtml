@@ -1,0 +1,31 @@
+﻿@using System.Threading.Tasks
+@using StockportWebapp.ProcessedModels
+@model ProcessedShowcase
+
+@{
+    var header = string.IsNullOrWhiteSpace(Model.NewsSubheading) ? "Latest News" : Model.NewsSubheading;
+    var querystring = Model.NewsCategoryOrTag == "C" ? "Category" : "tag";
+    querystring += "=" + Model.NewsCategoryTag;
+}
+
+<h2>@header</h2>
+<a class="hide-on-mobile" href="@Url.Action("Index", "News")?@querystring">View more</a> <!--hide on mobile && tablet-->
+<div class="news-card">
+    <a href="@Url.Action("Detail", "News", new {slug = Model.NewsArticle.Slug})">
+        <div class="news-card-body">
+            <p>
+                <span class="fa fa-clock-o" aria-hidden="true" />
+                <partial name="FormattedDate" model='Model.NewsArticle.SunriseDate' />
+            </p>
+            <h3>@Model.NewsArticle.Title</h3>
+            <p>@Model.NewsArticle.Teaser</p>
+        </div>
+        @if (!string.IsNullOrEmpty(Model.NewsArticle.ThumbnailImage))
+        {
+        <div class="news-card-thumbnail" style="background-image: url(@Model.NewsArticle.ThumbnailImage);"></div>
+        }
+    </a>
+</div>
+<div class="text-centre view-more-news-container hide-on-desktop hide-on-tablet">
+    <stock-button as-link="true" class="white" href="@Url.Action("Index", "News")?@querystring">View more news</stock-button>
+</div>
