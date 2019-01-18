@@ -12,8 +12,8 @@ namespace StockportWebapp.Models
         public string Body { get; }
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public List<Alert> Alerts { get; }
-        public List<InformationList> DidYouKnowSection { get; }
-        public List<InformationList> KeyFactsSection { get; }
+        public List<InformationItem> DidYouKnowSection { get; }
+        public List<InformationItem> KeyFactsSection { get; }
         public FieldOrder FieldOrder { get; }
 
         public ProfileNew()
@@ -29,8 +29,8 @@ namespace StockportWebapp.Models
             string body,
             IEnumerable<Crumb> breadcrumbs,
             List<Alert> alerts,
-            List<InformationList> didYouKnowSection,
-            List<InformationList> keyFactsSection,
+            List<InformationItem> didYouKnowSection,
+            List<InformationItem> keyFactsSection,
             FieldOrder fieldOrder)
         {
             Title = title;

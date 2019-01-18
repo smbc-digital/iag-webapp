@@ -10,9 +10,9 @@ namespace StockportWebapp.ViewComponents
 {
     public class InformationListViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(List<InformationList> model, string type)
+        public async Task<IViewComponentResult> InvokeAsync(List<InformationItem> model, string type)
         {
-            return View(new Tuple<IEnumerable<InformationList>, string>( model, type));
+            return View(new Tuple<IEnumerable<InformationItem>, string>( model, type));
         }
     }
 }

@@ -14,8 +14,8 @@ namespace StockportWebapp.Services.Profile.Entities
         public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
-        public List<InformationList> DidYouKnowSection { get; set; }
-        public List<InformationList> KeyFactsSection { get; set; }
+        public List<InformationItem> DidYouKnowSection { get; set; }
+        public List<InformationItem> KeyFactsSection { get; set; }
         public FieldOrder FieldOrder { get; set; }
     }
 }

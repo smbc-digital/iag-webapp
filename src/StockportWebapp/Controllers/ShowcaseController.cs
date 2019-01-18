@@ -12,6 +12,7 @@ using System;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using System.Collections.Generic;
+using StockportWebapp.Services.Showcase;
 
 namespace StockportWebapp.Controllers
 {
@@ -19,13 +20,14 @@ namespace StockportWebapp.Controllers
     public class ShowcaseController : Controller
     {
         private readonly IProcessedContentRepository _repository;
+        private readonly IShowcaseService _service;
         private readonly ILogger<ShowcaseController> _logger;
         private readonly IApplicationConfiguration _config;
         private readonly FeatureToggles _featureToggles;
 
-        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger, IApplicationConfiguration config, FeatureToggles featureToggles)
+        public ShowcaseController(IShowcaseService service, ILogger<ShowcaseController> logger, IApplicationConfiguration config, FeatureToggles featureToggles)
         {
-            _repository = repository;
+            _service = service;
             _logger = logger;
             _config = config;
             _featureToggles = featureToggles;
@@ -34,19 +36,19 @@ namespace StockportWebapp.Controllers
         [Route("/showcase/{slug}")]
         public async Task<IActionResult> Showcase(string slug)
         {
-            var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
+            var showcaseEntity = await _service.GetShowcase(slug);
 
-            if (!showcaseHttpResponse.IsSuccessful())
-                return showcaseHttpResponse;
-
-            var showcase = showcaseHttpResponse.Content as ProcessedShowcase;
+            if (showcaseEntity == null)
+            {
+                return null;
+            }
 
             if (_featureToggles.SemanticShowcase)
             {
-                return View("Semantic/Showcase", showcase);
+                return View("Semantic/Showcase", showcaseEntity);
             }
 
-            return View(showcase);
+            return View(showcaseEntity);
         }
 
         [Route("/showcase/{slug}/previousconsultations")]

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using StockportWebapp.ContentFactory.InformationFactory;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
@@ -13,7 +14,7 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly Dictionary<Type, dynamic> _factories = new Dictionary<Type, object>();
 
-        public ContentTypeFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IHttpContextAccessor httpContextAccesor, IDynamicTagParser<S3BucketSearch> s3BucketParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser)
+        public ContentTypeFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IHttpContextAccessor httpContextAccesor, IDynamicTagParser<S3BucketSearch> s3BucketParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IInformationFactory informationFactory)
         {
             var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null);
             var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper,documentTagParser, null);
@@ -32,7 +33,7 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
             _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
             _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(tagParserContainer, markdownWrapper, contactUsCategoryFactory));
-
+            _factories.Add(typeof(List<InformationItem>), new InformationFactory.InformationFactory(markdownWrapper));
         }
 
         public IProcessedContentType Build<T>(T content)
