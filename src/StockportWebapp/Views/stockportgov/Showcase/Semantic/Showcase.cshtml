@@ -144,6 +144,13 @@
             <div class="full-width">
                 <div class="showcase-banner">
                     <div class="center-wrapper">
+                        <a class="call-to-action-banner-container" href="@Model.CallToActionBanner.Link">
+                            <div>
+                                <h2>@Model.CallToActionBanner.Title</h2>
+                                <div class="button-tertiary">@Model.CallToActionBanner.ButtonText</div>
+                            </div>
+                            <img src="@Model.CallToActionBanner.Image" alt="@Model.CallToActionBanner.AltText" />
+                        </a>
                     </div>
                 </div>
             </div>
