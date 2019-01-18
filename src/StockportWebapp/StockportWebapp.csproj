@@ -36,6 +36,7 @@
     <Content Remove="app-config\appsettings.uitest.json" />
     <Content Remove="app-config\injected\appsettings.integrationtest.secrets.json" />
     <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
+    <Content Remove="Views\Shared\Components\ProfilePreview\Default.cshtml" />
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\Body.cshtml" />

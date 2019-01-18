@@ -31,6 +31,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string KeyFactSubheading;
         public readonly IEnumerable<KeyFact> KeyFacts;
         public readonly Profile Profile;
+        public readonly List<Profile> Profiles;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
         public readonly List<InformationList> DidYouKnowSection;
@@ -64,6 +65,7 @@ namespace StockportWebapp.ProcessedModels
             IEnumerable<SubItem> primaryItems,
             IEnumerable<KeyFact> keyFacts,
             Profile profile,
+            List<Profile> profiles,
             FieldOrder fieldOrder,
             string keyFactSubheading,
             string icon,
@@ -95,6 +97,7 @@ namespace StockportWebapp.ProcessedModels
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
             Profile = profile;
+            Profiles = profiles;
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;
