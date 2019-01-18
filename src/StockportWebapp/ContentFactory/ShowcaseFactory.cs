@@ -65,6 +65,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.KeyFacts,
                 showcase.Profile,
                 showcase.Profiles,
+                showcase.CallToActionBanner,
                 fields,
                 showcase.KeyFactSubheading,
                 showcase.Icon,
