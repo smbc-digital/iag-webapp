@@ -30,6 +30,7 @@ namespace StockportWebapp.Models
         public string KeyFactSubheading { get; }
         public IEnumerable<KeyFact> KeyFacts { get; }
         public Profile Profile { get; }
+        public List<Profile> Profiles { get; set; }
         public CallToActionBanner CallToActionBanner { get; }
         public FieldOrder FieldOrder { get; }
         public string Icon { get; set; }
@@ -43,7 +44,7 @@ namespace StockportWebapp.Models
             string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> secondaryItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks,
             IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts,
-            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon, List<InformationList> didYouKnowSection, List<InformationList> keyFactsSection, CallToActionBanner callToActionBanner)
+            Profile profile, List<Profile> profiles, FieldOrder fieldOrder, string keyFactSubheading, string icon, List<InformationList> didYouKnowSection, List<InformationList> keyFactsSection, CallToActionBanner callToActionBanner)
         {
             Title = title;
             Slug = slug;
@@ -70,6 +71,7 @@ namespace StockportWebapp.Models
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
             Profile = profile;
+            Profiles = profiles;
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;

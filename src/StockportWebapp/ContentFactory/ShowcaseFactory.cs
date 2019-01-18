@@ -33,6 +33,7 @@ namespace StockportWebapp.ContentFactory
                 fields.Items.Add("News");
                 fields.Items.Add("Events");
                 fields.Items.Add("Profile");
+                fields.Items.Add("Profiles");
                 fields.Items.Add("Social Media");
                 fields.Items.Add("Body");
             }
@@ -63,6 +64,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.PrimaryItems,
                 showcase.KeyFacts,
                 showcase.Profile,
+                showcase.Profiles,
                 showcase.CallToActionBanner,
                 fields,
                 showcase.KeyFactSubheading,
