@@ -59,6 +59,7 @@
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
     <None Remove="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Semantic\Showcase\Consultations.cshtml" />
     <None Remove="Views\stockportgov\Showcase\Semantic\PreviousConsultations.cshtml" />
     <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
     <None Remove="Views\stockportgov\SmartAnswers\Index - Copy.cshtml" />
@@ -118,6 +119,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Semantic\Showcase\Consultations.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Showcase\Semantic\PreviousConsultations.cshtml">
