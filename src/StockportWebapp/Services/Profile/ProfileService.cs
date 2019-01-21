@@ -49,7 +49,8 @@ namespace StockportWebapp.Services.Profile
                     Alerts = profile.Alerts,
                     DidYouKnowSection = profile.DidYouKnowSection,
                     KeyFactsSection = profile.KeyFactsSection,
-                    FieldOrder = profile.FieldOrder
+                    FieldOrder = profile.FieldOrder,
+                    LeadParagraph = profile.LeadParagraph
                 };
             }
 

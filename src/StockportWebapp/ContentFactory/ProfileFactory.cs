@@ -28,7 +28,7 @@ namespace StockportWebapp.ContentFactory
             return new ProcessedProfile(profile.Type,
                 profile.Title,
                 profile.Slug,
-                profile.Subtitle,
+                profile.LeadParagraph,
                 profile.Teaser,
                 profile.Quote,
                 profile.Image,
