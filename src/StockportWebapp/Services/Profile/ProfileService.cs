@@ -50,7 +50,7 @@ namespace StockportWebapp.Services.Profile
                     DidYouKnowSection = profile.DidYouKnowSection,
                     KeyFactsSection = profile.KeyFactsSection,
                     FieldOrder = profile.FieldOrder,
-                    LeadParagraph = profile.LeadParagraph
+                    Subtitle = profile.Subtitle
                 };
             }
 

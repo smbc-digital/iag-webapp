@@ -9,7 +9,7 @@ namespace StockportWebapp.Models
         public string Type { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }
-        public string LeadParagraph { get; set; }
+        public string Subtitle { get; set; }
         public string Teaser { get; set; }
         public string Quote { get; set; }
         public string Image { get; set; }
@@ -22,7 +22,7 @@ namespace StockportWebapp.Models
         public Profile(string type,
             string title,
             string slug,
-            string leadParagraph,
+            string subtitle,
             string teaser,
             string quote,
             string image, 
@@ -35,7 +35,7 @@ namespace StockportWebapp.Models
             Type = type;
             Title = title;
             Slug = slug;
-            LeadParagraph = leadParagraph;
+            Subtitle = subtitle;
             Teaser = teaser;
             Quote = quote;
             Image = image;

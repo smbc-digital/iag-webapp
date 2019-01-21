@@ -8,7 +8,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Type;
         public readonly string Title;
         public readonly string Slug;
-        public readonly string LeadParagraph;
+        public readonly string Subtitle;
         public readonly string Teaser;
         public readonly string Quote;
         public readonly string Image;
@@ -21,7 +21,7 @@ namespace StockportWebapp.ProcessedModels
         public ProcessedProfile(string type,
             string title,
             string slug,
-            string leadParagraph,
+            string subtitle,
             string teaser,
             string quote,
             string image,
@@ -36,7 +36,7 @@ namespace StockportWebapp.ProcessedModels
             Type = type;
             Title = title;
             Slug = slug;
-            LeadParagraph = leadParagraph;
+            Subtitle = subtitle;
             Teaser = teaser;
             Quote = quote;
             Image = image;

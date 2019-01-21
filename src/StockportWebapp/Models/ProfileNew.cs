@@ -6,7 +6,7 @@ namespace StockportWebapp.Models
     {
         public string Title { get; }
         public string Slug { get; }
-        public string LeadParagraph { get; }
+        public string Subtitle { get; }
         public string Quote { get; }
         public string Image { get; }
         public string Body { get; }
@@ -23,7 +23,7 @@ namespace StockportWebapp.Models
 
         public ProfileNew(string title,
             string slug,
-            string leadParagraph,
+            string subtitle,
             string quote,
             string image,
             string body,
@@ -35,7 +35,7 @@ namespace StockportWebapp.Models
         {
             Title = title;
             Slug = slug;
-            LeadParagraph = leadParagraph;
+            Subtitle = subtitle;
             Quote = quote;
             Image = image;
             Body = body;
