@@ -37,8 +37,8 @@ namespace StockportWebapp.Controllers
                     profileEntity.Body,
                     profileEntity.Breadcrumbs,
                     profileEntity.Alerts,
+                    profileEntity.DidYouKnowSubheading,
                     profileEntity.DidYouKnowSection,
-                    profileEntity.KeyFactsSection,
                     profileEntity.FieldOrder);
 
                 return View("Semantic/Index", model);

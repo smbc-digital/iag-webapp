@@ -20,24 +20,16 @@ namespace StockportWebapp.ContentFactory.InformationFactory
 
             foreach (var item in informationList)
             {
-                processedInformationList.Add(Build(item));
+                processedInformationList.Add(new ProcessedInformationItem
+                (
+                    item.Name,
+                    item.Icon,
+                    _markdownWrapper.ConvertToHtml(item.Text),
+                    item.Link
+                ));
             }
 
-
             return processedInformationList;
-        }
-
-        public ProcessedInformationItem Build(InformationItem informationPoint)
-        {
-            var processedInformationPoint = new ProcessedInformationItem
-            (
-                informationPoint.Name,
-                informationPoint.Icon,
-                _markdownWrapper.ConvertToHtml(informationPoint.Text),
-                informationPoint.Link
-            );
-
-            return processedInformationPoint;
         }
     }
 }

@@ -30,11 +30,9 @@ using StockportWebapp.RSS;
 using StockportWebapp.Services;
 using StockportWebapp.Validation;
 using StockportWebapp.Wrappers;
-using Serilog;
 using StockportWebapp.ContentFactory.InformationFactory;
 using ILogger = Serilog.ILogger;
 using StockportWebapp.Services.Profile;
-using StockportWebapp.Services.Showcase;
 
 namespace StockportWebapp.Extensions
 {
@@ -128,13 +126,19 @@ namespace StockportWebapp.Extensions
         {
             services.AddSingleton<IRssFeedFactory, RssFeedFactory>();
             services.AddTransient<ArticleFactory>();
-            services.AddTransient<InformationFactory>();
+            services.AddTransient<IInformationFactory>(p => new InformationFactory(p.GetService<MarkdownWrapper>()));
             services.AddTransient<SectionFactory>();
-            services.AddTransient(p => new ArticleFactory(p.GetService<ISimpleTagParserContainer>(),
-            p.GetService<IDynamicTagParser<Profile>>(), p.GetService<SectionFactory>(), p.GetService<MarkdownWrapper>(),
-            p.GetService<IDynamicTagParser<Document>>(), p.GetService<IDynamicTagParser<Alert>>(), p.GetService<IDynamicTagParser<S3BucketSearch>>(), p.GetService<IDynamicTagParser<PrivacyNotice>>(), p.GetService<IRepository>()));
-
-            services.AddTransient(p => new InformationFactory(p.GetService<MarkdownWrapper>()));
+            services.AddTransient(p => new ArticleFactory(
+                p.GetService<ISimpleTagParserContainer>(),
+                p.GetService<IDynamicTagParser<Profile>>(),
+                p.GetService<SectionFactory>(),
+                p.GetService<MarkdownWrapper>(),
+                p.GetService<IDynamicTagParser<Document>>(),
+                p.GetService<IDynamicTagParser<Alert>>(),
+                p.GetService<IDynamicTagParser<S3BucketSearch>>(),
+                p.GetService<IDynamicTagParser<PrivacyNotice>>(),
+                p.GetService<IRepository>()));
+           
             return services;
         }
 
@@ -157,14 +161,13 @@ namespace StockportWebapp.Extensions
                     new ProcessedContentRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         new ContentTypeFactory(
                                         p.GetService<ISimpleTagParserContainer>(),
-                                            p.GetService<IDynamicTagParser<Profile>>(), 
+                                            p.GetService<IDynamicTagParser<Profile>>(),
                                             p.GetService<MarkdownWrapper>(),
-                                            p.GetService<IDynamicTagParser<Document>>(), 
-                                            p.GetService<IDynamicTagParser<Alert>>(), 
-                                            p.GetService<IHttpContextAccessor>(), 
-                                            p.GetService<IDynamicTagParser<S3BucketSearch>>(), 
-                                            p.GetService<IDynamicTagParser<PrivacyNotice>>(), 
-                                            p.GetService<IInformationFactory>()), 
+                                            p.GetService<IDynamicTagParser<Document>>(),
+                                            p.GetService<IDynamicTagParser<Alert>>(),
+                                            p.GetService<IHttpContextAccessor>(),
+                                            p.GetService<IDynamicTagParser<S3BucketSearch>>(),
+                                            p.GetService<IDynamicTagParser<PrivacyNotice>>()),
                         p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>()));
             services.AddTransient<IPaymentRepository, PaymentRepository>();
@@ -190,8 +193,13 @@ namespace StockportWebapp.Extensions
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
             services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IProcessedContentRepository>(), p.GetService<IHttpEmailClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<ILogger<GroupsService>>(), p.GetService<IStockportApiRepository>(), p.GetService<BusinessId>()));
-            services.AddTransient<IProfileService>(p => new ProfileService(p.GetService<IRepository>(), p.GetService<ISimpleTagParserContainer>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Alert>>()));
-            services.AddTransient<IShowcaseService>(p => new ShowcaseService(p.GetService<IProcessedContentRepository>(), p.GetService<ContentTypeFactory>()));
+            services.AddTransient<IProfileService>(p => new 
+                ProfileService(
+                    p.GetService<IRepository>(), 
+                    p.GetService<ISimpleTagParserContainer>(), 
+                    p.GetService<MarkdownWrapper>(), 
+                    p.GetService<IDynamicTagParser<Alert>>(),
+                    p.GetService<IInformationFactory>()));
 
             //SimpleTagParserContainer parser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Alert> alertsInlineTagParser
             return services;

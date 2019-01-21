@@ -1,37 +1,39 @@
-﻿@model Tuple<IEnumerable<StockportWebapp.Models.InformationList>, string>
+﻿@using System.Text.RegularExpressions
+@using Microsoft.AspNetCore.Mvc.Internal
+@model Tuple<IEnumerable<StockportWebapp.ProcessedModels.ProcessedInformationItem>, string, string>
 
-<section class="information-list @(Model.Item2 == "KeyFacts" ? "information-list-key-facts" : "information-list-did-you-know") @ViewBag.additionalClass">
-    <h2>@(Model.Item2 == "KeyFacts" ? "Key facts" : "Did you know?")</h2>
-        <ul>
-            @for (int i = 0; i < Model.Item1.Count(); i++)
-            {
-                var informationItem = Model.Item1.ToArray()[i];
+<section class="information-list @Model.Item3">
+    <h2>@Model.Item2</h2>
+    <ul>
+        @for (int i = 0; i < Model.Item1.Count(); i++)
+        {
+            var informationItem = Model.Item1.ToArray()[i];
 
-                <li>
-                    <div class="grid-5 mobile-grid-10 tablet-grid-5">
-                        @if (Model.Item2 == "KeyFacts")
-                        {
-                            <span class="fa fa-@informationItem.Icon fa-2x"></span>
-                        }
-                        else
-                        {
-                            <span class="si si-@informationItem.Icon"></span>
-                        }
-                    </div>
-                    <div class="grid-95 mobile-grid-90 tablet-grid-95">
-                        @if (!string.IsNullOrEmpty(informationItem.Link))
-                        {
-                            <a href="@informationItem.Link" rel="@informationItem.Name">
-                                <p class="h4">@informationItem.Text</p>
-                            </a>
-                        }
-                        else
-                        {
-                            <p class="h4">@informationItem.Text</p>
-                        }
-                    </div>
-                </li>
-            }
-        </ul>
+            <li>
+                <div class="grid-5 mobile-grid-10 tablet-grid-5">
+                    <span class="si si-@informationItem.Icon"></span>
+                </div>
+                <div class="grid-95 mobile-grid-90 tablet-grid-95">
+                    @if (!string.IsNullOrEmpty(informationItem.Link))
+                    {
+                        <a class="information-item" href="@informationItem.Link" rel="@informationItem.Name">
+                            @{
+                                var parsedItemText = new Regex("<a((?!>).)*>")
+                                    .Replace(informationItem.Text, "<span class='information-item-link'>")
+                                    .Replace("</a>", "</span>");
+                            }
+                            @Html.Raw(parsedItemText)
+                        </a>
+                    }
+                    else
+                    {
+                        @Html.Raw(informationItem.Text)
+                    }
+                </div>
+            </li>
+        }
+    </ul>
 </section>
+
+
 

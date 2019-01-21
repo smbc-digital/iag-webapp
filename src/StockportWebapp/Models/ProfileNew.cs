@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.Models
 {
@@ -12,8 +13,8 @@ namespace StockportWebapp.Models
         public string Body { get; }
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public List<Alert> Alerts { get; }
-        public List<InformationItem> DidYouKnowSection { get; }
-        public List<InformationItem> KeyFactsSection { get; }
+        public string DidYouKnowSubheading { get; }
+        public List<ProcessedInformationItem> DidYouKnowSection { get; }
         public FieldOrder FieldOrder { get; }
 
         public ProfileNew()
@@ -29,8 +30,8 @@ namespace StockportWebapp.Models
             string body,
             IEnumerable<Crumb> breadcrumbs,
             List<Alert> alerts,
-            List<InformationItem> didYouKnowSection,
-            List<InformationItem> keyFactsSection,
+            string didYouKnowSubheading,
+            List<ProcessedInformationItem> didYouKnowSection,
             FieldOrder fieldOrder)
         {
             Title = title;
@@ -41,8 +42,8 @@ namespace StockportWebapp.Models
             Body = body;
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
+            DidYouKnowSubheading = didYouKnowSubheading;
             DidYouKnowSection = didYouKnowSection;
-            KeyFactsSection = keyFactsSection;
             FieldOrder = fieldOrder;
         }
 

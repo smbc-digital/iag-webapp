@@ -67,19 +67,6 @@
             }
             break;
 
-        case "Key Facts":
-            if (Model.KeyFactsSection != null && Model.KeyFactsSection.Count != 0)
-            {
-                <div class="showcase-section">
-                    <div class="center-wrapper">
-                        <hr class="thick-divider" />
-                        <vc:information-list type="KeyFacts" model="@Model.KeyFactsSection">
-                        </vc:information-list>
-                    </div>
-                </div>
-            }
-            break;
-
         case "News":
             if (Model.NewsArticle != null)
             {
@@ -149,8 +136,12 @@
                 <div class="showcase-section">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
-                        <vc:information-list type="DidYouKnow" model="@Model.DidYouKnowSection">
-                        </vc:information-list>
+                        @await Component.InvokeAsync("InformationList", new
+                       {
+                           model = Model.DidYouKnowSection,
+                           heading = Model.DidYouKnowSubheading,
+                           additionalClasses = "showcase"
+                       })
                     </div>
                 </div>
             }

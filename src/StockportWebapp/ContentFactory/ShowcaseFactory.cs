@@ -4,6 +4,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using System.Linq;
+using StockportWebapp.ContentFactory.InformationFactory;
 
 namespace StockportWebapp.ContentFactory
 {
@@ -11,11 +12,15 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly ISimpleTagParserContainer _tagParserContainer;
         private readonly MarkdownWrapper _markdownWrapper;
+        private readonly IInformationFactory _informationFactory;
 
-        public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
+        public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer, 
+            MarkdownWrapper markdownWrapper, 
+            IInformationFactory informationFactory)
         {
             _tagParserContainer = tagParserContainer;
             _markdownWrapper = markdownWrapper;
+            _informationFactory = informationFactory;
         }
 
         public virtual ProcessedShowcase Build(Showcase showcase)
@@ -70,8 +75,8 @@ namespace StockportWebapp.ContentFactory
                 fields,
                 showcase.KeyFactSubheading,
                 showcase.Icon,
-                new List<ProcessedInformationItem>(), 
-                showcase.KeyFactsSection
+                showcase.DidYouKnowSubheading,
+                _informationFactory.Build(showcase.DidYouKnowSection)
             );
         }
     }

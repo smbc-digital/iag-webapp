@@ -24,12 +24,9 @@
     @if (Model.DidYouKnowSection != null)
     {
         <hr class="thick-divider" />
-        @await Component.InvokeAsync("InformationList", new { model = Model.DidYouKnowSection, type = "DidYouKnow" })
-    }
-
-    @if (Model.KeyFactsSection != null)
-    {
-        <hr class="thick-divider" />
-        @await Component.InvokeAsync("InformationList", new { model = Model.KeyFactsSection, type = "KeyFacts" })
+        @await Component.InvokeAsync("InformationList", new {
+            model = Model.DidYouKnowSection,
+            heading = Model.DidYouKnowSubheading
+        })
     }
 </article>
