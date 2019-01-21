@@ -1,0 +1,16 @@
+﻿@using StockportWebapp.ViewModels
+@model EmailBannerViewModel
+
+<section class="email-banner">
+    <div>
+        <i class="si-envelope-open email-banner-icon" aria-hidden="true"></i>
+    </div>
+    <div>
+        <h3>@Model.EmailAlertsText</h3>
+        <form method="get" role="form" action="/subscribe">
+            <input type="email" name="emailAddress" placeholder="Enter your email address">
+            <button type="submit" id="test-subscribe" class="button-primary">Subscribe</button>
+            @Html.HiddenFor(o => o.EmailAlertsTopicId)
+        </form>
+    </div>
+</section>

@@ -10,6 +10,7 @@
     <AssetTargetFallback>$(AssetTargetFallback);dotnet5.6</AssetTargetFallback>
     <DefaultItemExcludes>$(DefaultItemExcludes);publish/**/*</DefaultItemExcludes>
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
@@ -35,14 +36,20 @@
     <Content Remove="app-config\appsettings.uitest.json" />
     <Content Remove="app-config\injected\appsettings.integrationtest.secrets.json" />
     <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
+    <Content Remove="Views\Shared\Components\ProfilePreview\Default.cshtml" />
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\Body.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\NewsArticle.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\PrimaryItems.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
+    <Content Remove="Views\stockportgov\Showcase\Semantic\Showcase.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />
     <None Remove="Views\Shared\Components\SemanticFooter\NoFooterFound.cshtml" />
     <None Remove="Views\Shared\DisplayTemplates\InsetText.cshtml" />
+    <None Remove="Views\Shared\Semantic\AlertsInline.cshtml" />
     <None Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
@@ -52,6 +59,9 @@
     <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Semantic\Showcase\Consultations.cshtml" />
+    <None Remove="Views\stockportgov\Showcase\Semantic\PreviousConsultations.cshtml" />
     <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
     <None Remove="Views\stockportgov\SmartAnswers\Index - Copy.cshtml" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
@@ -62,6 +72,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
     <PackageReference Include="Markdig" Version="0.15.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.1" />
@@ -96,6 +107,9 @@
     <Content Update="Views\Shared\Components\SemanticFooter\Semantic.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\Shared\Semantic\AlertsInline.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -103,6 +117,15 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Semantic\Showcase\Consultations.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Showcase\Semantic\PreviousConsultations.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\SmartAnswers\Semantic\Index.cshtml">

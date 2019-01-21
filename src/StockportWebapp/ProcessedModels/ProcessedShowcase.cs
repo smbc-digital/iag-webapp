@@ -20,7 +20,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Body;
         public readonly News NewsArticle;
         public readonly IEnumerable<Crumb> Breadcrumbs;
-        public readonly IEnumerable<SubItem> FeaturedItems;
+        public readonly IEnumerable<SubItem> SecondaryItems;
         public readonly IEnumerable<SubItem> PrimaryItems;
         public readonly IEnumerable<Consultation> Consultations;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
@@ -31,17 +31,48 @@ namespace StockportWebapp.ProcessedModels
         public readonly string KeyFactSubheading;
         public readonly IEnumerable<KeyFact> KeyFacts;
         public readonly Profile Profile;
+        public readonly List<Profile> Profiles;
+        public readonly CallToActionBanner CallToActionBanner;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
+        public readonly List<InformationList> DidYouKnowSection;
+        public readonly List<InformationList> KeyFactsSection;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(string title, string slug, string teaser, string subHeading, string eventCategory, string eventsCategoryOrTag, string eventSubheading, 
-            string newsSubheading, string newsCategoryTag, string newsCategoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
-            IEnumerable<SubItem> featuredItems, IEnumerable<Crumb> breadcrumbs, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
-            IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts, 
-            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon)
+        public ProcessedShowcase(string title,
+            string slug,
+            string teaser,
+            string subHeading,
+            string eventCategory,
+            string eventsCategoryOrTag,
+            string eventSubheading,
+            string newsSubheading,
+            string newsCategoryTag,
+            string newsCategoryOrTag,
+            string bodySubheading,
+            string body,
+            News newsArticle,
+            string heroImageUrl,
+            IEnumerable<SubItem> secondaryItems,
+            IEnumerable<Crumb> breadcrumbs,
+            IEnumerable<Consultation> consultations,
+            IEnumerable<SocialMediaLink> socialMediaLinks,
+            IEnumerable<Event> events,
+            string emailAlertsTopicId,
+            string emailAlertsText,
+            IEnumerable<Alert> alerts,
+            IEnumerable<SubItem> primaryItems,
+            IEnumerable<KeyFact> keyFacts,
+            Profile profile,
+            List<Profile> profiles,
+            CallToActionBanner callToActionBanner,
+            FieldOrder fieldOrder,
+            string keyFactSubheading,
+            string icon,
+            List<InformationList> didYouKnowSection,
+            List<InformationList> keyFactsSection)
         {
             Title = title;
             Slug = slug;
@@ -51,7 +82,7 @@ namespace StockportWebapp.ProcessedModels
             EventCategory = eventCategory;
             EventSubheading = eventSubheading;
             Breadcrumbs = breadcrumbs;
-            FeaturedItems = featuredItems;
+            SecondaryItems = secondaryItems;
             Consultations = consultations;
             SocialMediaLinks = socialMediaLinks;
             Events = events;
@@ -68,9 +99,13 @@ namespace StockportWebapp.ProcessedModels
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
             Profile = profile;
+            Profiles = profiles;
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;
+            DidYouKnowSection = didYouKnowSection;
+            KeyFactsSection = keyFactsSection;
+            CallToActionBanner = callToActionBanner;
         }
     }
 }

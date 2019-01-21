@@ -26,22 +26,29 @@ namespace StockportWebapp.Controllers
         [Route("/profile/{slug}")]
         public async Task<IActionResult> Index(string slug)
         {
+            if (_featuretogles.SemanticProfile)
+            {
+                var profileEntity = await _profileService.GetProfile(slug);
+                var model = new ProfileNew(profileEntity.Title,
+                    profileEntity.Slug,
+                    profileEntity.Subtitle,
+                    profileEntity.Quote,
+                    profileEntity.Image,
+                    profileEntity.Body,
+                    profileEntity.Breadcrumbs,
+                    profileEntity.Alerts,
+                    profileEntity.DidYouKnowSection,
+                    profileEntity.KeyFactsSection,
+                    profileEntity.FieldOrder);
+
+                return View("Semantic/Index", model);
+            }
+
             var response = await _repository.Get<Profile>(slug);
 
             if (!response.IsSuccessful()) return response;
 
-            var profile = response.Content as ProcessedProfile;
-
-            if (_featuretogles.SemanticProfile)
-            {
-                var profileEntity = await _profileService.GetProfile(slug);
-                var model = new ProfileNew(profileEntity.Title, profileEntity.Slug, profileEntity.LeadParagraph, profileEntity.Teaser,
-                profileEntity.Image, profileEntity.Body, profileEntity.Breadcrumbs, profileEntity.Alerts);
-                
-                return View("Semantic/Index", model);
-            }
-
-            return View(profile);
+            return View(response.Content as ProcessedProfile);
         }
     }
 }

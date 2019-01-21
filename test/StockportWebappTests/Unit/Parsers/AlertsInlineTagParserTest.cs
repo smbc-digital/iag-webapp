@@ -5,6 +5,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using StockportWebapp.FeatureToggling;
 using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
@@ -15,12 +16,14 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         private readonly Mock<IViewRender> _viewRenderer;
         private readonly AlertsInlineTagParser _alertsInlineTagParser;
         private readonly Mock<ILogger<Alert>> _mockLogger;
+        private readonly FeatureToggles _featureToggles;
 
         public AlertsInlineTagParserTest()
         {
+            _featureToggles =  new FeatureToggles(){SemanticInlineAlert = true};
             _viewRenderer = new Mock<IViewRender>();
             _mockLogger = new Mock<ILogger<Alert>>();
-            _alertsInlineTagParser = new AlertsInlineTagParser(_viewRenderer.Object, _mockLogger.Object);
+            _alertsInlineTagParser = new AlertsInlineTagParser(_viewRenderer.Object, _mockLogger.Object, _featureToggles);
         }
 
         [Fact]
@@ -31,11 +34,11 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var alertsInlineList = new List<Alert>() { alertsInline };
             var renderResult = "RENDERED ARTICLE CONTENT";
 
-            _viewRenderer.Setup(o => o.Render("AlertsInline", alertsInline)).Returns(renderResult);
+            _viewRenderer.Setup(o => o.Render("Semantic/AlertsInline", alertsInline)).Returns(renderResult);
 
             var parsedHtml = _alertsInlineTagParser.Parse(content, alertsInlineList);
 
-            _viewRenderer.Verify(o => o.Render("AlertsInline", alertsInline), Times.Once);
+            _viewRenderer.Verify(o => o.Render("Semantic/AlertsInline", alertsInline), Times.Once);
             parsedHtml.Should().Contain(renderResult);
         }
 

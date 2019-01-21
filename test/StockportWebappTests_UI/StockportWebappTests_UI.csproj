@@ -160,29 +160,34 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\AToZ1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>AToZ.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Breadcrumb.feature.cs">
       <DependentUpon>Breadcrumb.feature</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="Features\ContactUsArea.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContactUsArea.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Events.feature.cs">
       <DependentUpon>Events.feature</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupsAddEdit.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GroupsAddEdit.feature</DependentUpon>
-    </Compile>
     <Compile Include="Features\GroupManagement.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupManagement.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Features\GroupsAddEdit.feature.cs">
+      <DependentUpon>GroupsAddEdit.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsArticleLoggedIn.feature.cs">
       <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
@@ -234,6 +239,7 @@
     <Compile Include="StepDefinitions\ArticleSteps.cs" />
     <Compile Include="StepDefinitions\AToZSteps.cs" />
     <Compile Include="StepDefinitions\BreadcrumbSteps.cs" />
+    <Compile Include="StepDefinitions\ContactUsAreaSteps.cs" />
     <Compile Include="StepDefinitions\EventsSteps.cs" />
     <Compile Include="StepDefinitions\GenericSteps.cs" />
     <Compile Include="StepDefinitions\GroupsArticleNotLoggedInSteps.cs">
@@ -270,17 +276,21 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Breadcrumb.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\ContactUsArea.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ContactUsArea.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Events.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Events.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\GroupsAddEdit.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
-    </None>
     <None Include="Features\GroupManagement.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>GroupManagement.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsAddEdit.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsArticleLoggedIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -320,6 +330,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
+    <None Include="SavedResponses\ContactUsArea\ContactUsArea.json" />
     <None Include="SavedResponses\Events\events.json" />
     <None Include="SavedResponses\Events\homepage.json" />
     <None Include="SavedResponses\Events\latest.json" />

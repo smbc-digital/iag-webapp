@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="@stylesheet.CludoSearch" />
     <link rel="stylesheet" type="text/css" href="@stylesheet.JqueryUi" />
     <link rel="stylesheet" type="text/css" href="@stylesheet.StyleguideSemanticV2" />
+    <link rel="stylesheet" type="text/css" href="@stylesheet.Slick" />
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
     @if (CurrentEnvironment.Name == "test")
     {
@@ -40,16 +41,29 @@
         <partial name="BrowserCheckSemantic" />
         @if (bannerTypeformUrl != null)
         {
-            <partial name="TypeFormBannerHeader" model='bannerTypeformUrl'/>
+            <partial name="TypeFormBannerHeader" model='bannerTypeformUrl' />
         }
         @RenderSection("Breadcrumbs", false)
     </header>
-    <main id="content">
+
+    <main id="content" class="@ViewData["FullWidth"]">
         @RenderBody()
     </main>
+
     @RenderSection("Scripts", false)
     <distributed-cache name="semanticFooter" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("SemanticFooter")
     </distributed-cache>
+
+    <script type="text/javascript">
+        require(['startup', 'carousel', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick', 'utils'],
+            function (startup, carousel, viewmoreslider, matchHeight, matchboxconfig, slick, utils) {
+                startup.Init();
+                viewmoreslider.Init();
+                matchboxconfig.Init();
+                carousel.Init();
+                utils.Init();
+            })
+    </script>
 </body>
 </html>

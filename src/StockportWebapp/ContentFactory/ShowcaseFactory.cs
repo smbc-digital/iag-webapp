@@ -2,7 +2,6 @@
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace StockportWebapp.ContentFactory
@@ -34,6 +33,7 @@ namespace StockportWebapp.ContentFactory
                 fields.Items.Add("News");
                 fields.Items.Add("Events");
                 fields.Items.Add("Profile");
+                fields.Items.Add("Profiles");
                 fields.Items.Add("Social Media");
                 fields.Items.Add("Body");
             }
@@ -53,7 +53,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.Body,
                 showcase.NewsArticle,
                 showcase.HeroImageUrl,
-                showcase.FeaturedItems,
+                showcase.SecondaryItems,
                 showcase.Breadcrumbs,
                 showcase.Consultations,
                 showcase.SocialMediaLinks,
@@ -64,10 +64,14 @@ namespace StockportWebapp.ContentFactory
                 showcase.PrimaryItems,
                 showcase.KeyFacts,
                 showcase.Profile,
+                showcase.Profiles,
+                showcase.CallToActionBanner,
                 fields,
                 showcase.KeyFactSubheading,
-                showcase.Icon
-            );
+                showcase.Icon,
+                showcase.DidYouKnowSection,
+                showcase.KeyFactsSection
+                    );
         }
     }
 }

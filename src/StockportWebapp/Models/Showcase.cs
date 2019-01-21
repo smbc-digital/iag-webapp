@@ -19,7 +19,7 @@ namespace StockportWebapp.Models
         public string BodySubheading { get; set; }
         public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
-        public IEnumerable<SubItem> FeaturedItems { get; set; }
+        public IEnumerable<SubItem> SecondaryItems { get; set; }
         public IEnumerable<SubItem> PrimaryItems { get; set; }
         public IEnumerable<Consultation> Consultations { get; set; }
         public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
@@ -30,14 +30,21 @@ namespace StockportWebapp.Models
         public string KeyFactSubheading { get; }
         public IEnumerable<KeyFact> KeyFacts { get; }
         public Profile Profile { get; }
+        public List<Profile> Profiles { get; set; }
+        public CallToActionBanner CallToActionBanner { get; }
         public FieldOrder FieldOrder { get; }
         public string Icon { get; set; }
 
+        public readonly List<InformationList> DidYouKnowSection;
+
+        public readonly List<InformationList> KeyFactsSection;
+
+
         public Showcase(string title, string slug, string teaser, string subheading, string eventCategory, string eventsCategoryOrTag, string eventSubheading,
-            string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl, 
-            IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> featuredItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks, 
+            string newsSubheading, string newsCatgeoryTag, string newsCatgeoryOrTag, string bodySubheading, string body, News newsArticle, string heroImageUrl,
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> secondaryItems, IEnumerable<Consultation> consultations, IEnumerable<SocialMediaLink> socialMediaLinks,
             IEnumerable<Event> events, string emailAlertsTopicId, string emailAlertsText, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<KeyFact> keyFacts,
-            Profile profile, FieldOrder fieldOrder, string keyFactSubheading, string icon)
+            Profile profile, List<Profile> profiles, FieldOrder fieldOrder, string keyFactSubheading, string icon, List<InformationList> didYouKnowSection, List<InformationList> keyFactsSection, CallToActionBanner callToActionBanner)
         {
             Title = title;
             Slug = slug;
@@ -47,7 +54,7 @@ namespace StockportWebapp.Models
             EventSubheading = eventSubheading;
             HeroImageUrl = heroImageUrl;
             Breadcrumbs = breadcrumbs;
-            FeaturedItems = featuredItems;
+            SecondaryItems = secondaryItems;
             Consultations = consultations;
             SocialMediaLinks = socialMediaLinks;
             Events = events;
@@ -64,9 +71,13 @@ namespace StockportWebapp.Models
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
             Profile = profile;
+            Profiles = profiles;
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;
+            DidYouKnowSection = didYouKnowSection;
+            KeyFactsSection = keyFactsSection;
+            CallToActionBanner = callToActionBanner;
         }
     }
 }

@@ -1,11 +1,11 @@
-﻿@using StockportWebapp.Models
+﻿@using StockportWebapp.Enums
+@using StockportWebapp.Models
 
 @model ProfileNew
 @{
     ViewData["Title"] = Model.Title;
     var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
     ViewData["og:title"] = articleTitle + Model.Title;
-    ViewData["Description"] = Model.Teaser;
     Layout = "../../Shared/_LayoutSemantic.cshtml";
 }
 
@@ -13,8 +13,23 @@
     <partial name="SemanticBreadcrumb" model='Model.Breadcrumbs' />
 }
 
-<div class="page-container">
+<article class="page-container">
     <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
-    <p class="lead-paragraph">@Model.LeadParagraph</p>
-    <hr class="thick-divider"/>
-</div>
+    <p class="lead-paragraph">@Model.Subtitle</p>
+    <hr class="thick-divider" />
+    <section>
+        @Html.Raw(Model.Body)
+    </section>
+
+    @if (Model.DidYouKnowSection != null)
+    {
+        <hr class="thick-divider" />
+        @await Component.InvokeAsync("InformationList", new { model = Model.DidYouKnowSection, type = "DidYouKnow" })
+    }
+
+    @if (Model.KeyFactsSection != null)
+    {
+        <hr class="thick-divider" />
+        @await Component.InvokeAsync("InformationList", new { model = Model.KeyFactsSection, type = "KeyFacts" })
+    }
+</article>

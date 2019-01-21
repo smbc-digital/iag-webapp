@@ -4,6 +4,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.ViewModels;
 using StockportWebapp.Entities;
+using StockportWebapp.Repositories.Responses;
 using StockportWebapp.Services.Profile.Entities;
 
 namespace StockportWebapp.Utils
@@ -25,7 +26,7 @@ namespace StockportWebapp.Utils
             {typeof(List<TopicSitemap>), "topics/"},
             {typeof(Article), "articles/"},
             {typeof(Profile), "profiles/"},
-            {typeof(ProfileEntity), "profiles/"},
+            {typeof(ProfileResponse), "profiles/"},
             {typeof(List<Profile>), "profiles/"},
             {typeof(StartPage), "start-page/"},
             {typeof(List<StartPage>), "start-page/"},

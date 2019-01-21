@@ -10,6 +10,7 @@ using System.Linq;
 using StockportWebapp.Utils;
 using System;
 using StockportWebapp.Config;
+using StockportWebapp.FeatureToggling;
 using System.Collections.Generic;
 
 namespace StockportWebapp.Controllers
@@ -20,17 +21,19 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _repository;
         private readonly ILogger<ShowcaseController> _logger;
         private readonly IApplicationConfiguration _config;
+        private readonly FeatureToggles _featureToggles;
 
-        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger, IApplicationConfiguration config)
+        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger, IApplicationConfiguration config, FeatureToggles featureToggles)
         {
             _repository = repository;
             _logger = logger;
             _config = config;
+            _featureToggles = featureToggles;
         }
 
         [Route("/showcase/{slug}")]
         public async Task<IActionResult> Showcase(string slug)
-        { 
+        {
             var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
 
             if (!showcaseHttpResponse.IsSuccessful())
@@ -38,11 +41,16 @@ namespace StockportWebapp.Controllers
 
             var showcase = showcaseHttpResponse.Content as ProcessedShowcase;
 
+            if (_featureToggles.SemanticShowcase)
+            {
+                return View("Semantic/Showcase", showcase);
+            }
+
             return View(showcase);
         }
 
         [Route("/showcase/{slug}/previousconsultations")]
-        public async Task<IActionResult> PreviousConsultations(string slug, [FromQuery]int Page,[FromQuery] int pageSize)
+        public async Task<IActionResult> PreviousConsultations(string slug, [FromQuery]int Page, [FromQuery] int pageSize)
         {
             var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
 
@@ -60,6 +68,11 @@ namespace StockportWebapp.Controllers
             };
 
             DoPagination(Page, result, pageSize);
+
+            if (_featureToggles.SemanticShowcase)
+            {
+                return View("Semantic/PreviousConsultations", result);
+            }
 
             return View(result);
         }

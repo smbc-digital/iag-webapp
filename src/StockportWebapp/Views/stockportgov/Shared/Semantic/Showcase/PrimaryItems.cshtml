@@ -1,0 +1,50 @@
+﻿@model StockportWebapp.ProcessedModels.ProcessedShowcase
+@if (Model.PrimaryItems != null && Model.PrimaryItems.Count() == 3)
+{
+    <section class="hero-image" style="background-image: url(@Model.HeroImageUrl)">
+        <div class="darken">
+            <div class="center-wrapper">
+                <div class="card-list-container">
+                    <h1 class="card-list-header">@Model.Title</h1>
+                    <ul class="card-list-body">
+                        @foreach (var item in Model.PrimaryItems)
+                        {
+                            <li>
+                                <a href="@item.NavigationLink" class="icon-card">
+                                    <i class="si @item.Icon" aria-hidden="true"></i>
+                                    <h3>@item.Title</h3>
+                                    <p>@item.Teaser</p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+
+    if (!string.IsNullOrWhiteSpace(Model.HeroImageUrl))
+    {
+        <section class="hero-image" style="background-image: url(@Model.HeroImageUrl)">
+            <div class="darken">
+                <div class="title-centre-container">
+                    <h1>@Model.Title</h1>
+                    <h2>@Model.Teaser</h2>
+                </div>
+            </div>
+        </section>
+    }
+    else
+    {
+        <div class="title-container no-margin-bottom">
+            <div class="title-content">
+                <div class="title">
+                    <h1>@Model.Title</h1>
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -105,13 +105,13 @@
 
         case "Featured Items":
 
-            if (Model.FeaturedItems.Any())
+            if (Model.SecondaryItems.Any())
             {
                 <div class="alt-container-rowx showcase-news-events white featured-items-wrapper matchbox-parent">
                     <div class="featured-topic-list">
                         <h2 class="visuallyhidden">Popular Services</h2>
                         <h2>@Model.Subheading</h2>
-                        @foreach (var item in Model.FeaturedItems)
+                        @foreach (var item in Model.SecondaryItems)
                         {
                             <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
                                 <div class="featured-topic-content">

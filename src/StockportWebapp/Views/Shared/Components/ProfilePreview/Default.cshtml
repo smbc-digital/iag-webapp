@@ -1,0 +1,18 @@
+﻿@using Amazon.Runtime.Internal.Util
+@model List<StockportWebapp.Models.Profile>
+
+@if (Model.Any())
+{
+    await Component.InvokeAsync("ProfileInline", new
+    {
+        profile = Model.FirstOrDefault(),
+        withoutBody = string.IsNullOrEmpty(Model.FirstOrDefault().Body)
+    });
+}
+else
+{
+    foreach (var profile in Model)
+    {
+
+    }
+}

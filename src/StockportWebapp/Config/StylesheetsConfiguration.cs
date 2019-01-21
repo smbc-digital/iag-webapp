@@ -17,5 +17,7 @@
         public string JqueryUi { get; set; }
 
         public string GoogleFonts { get; set; }
+
+        public string Slick { get; set; }
     }
 }
