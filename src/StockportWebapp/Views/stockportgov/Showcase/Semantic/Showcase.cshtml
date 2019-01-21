@@ -118,10 +118,7 @@
                 <div class="full-width">
                     <div class="showcase-profile showcase-news-events">
                         <div class="center-wrapper">
-                            @await Component.InvokeAsync("ProfilePreview", new
-                            {
-                                profiles = Model.Profiles
-                            })
+                            <partial name="Semantic/Showcase/ProfilesList" model="Model.Profiles" />
                         </div>
                     </div>
                 </div>
