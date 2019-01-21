@@ -39,7 +39,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventCategoryOrtag, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events, _emailAlertsTopicId, _emailAlertsText, alerts, new List<SubItem>(), null, null, new FieldOrder(), _keyFactSubheading, _showcaseIcon, _didYouKnow, _keyFacts, _callToActionBanner);
+            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventCategoryOrtag, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events, _emailAlertsTopicId, _emailAlertsText, alerts, new List<SubItem>(), null, null, null, new FieldOrder(), _keyFactSubheading, _showcaseIcon, _didYouKnow, _keyFacts, _callToActionBanner);
         }
 
         public ShowcaseBuilder Title(string title)
