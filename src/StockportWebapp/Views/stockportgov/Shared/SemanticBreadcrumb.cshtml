@@ -3,8 +3,7 @@
     string title = ViewData["Title"] != null ? ViewData["Title"].ToString() : "";
 }
 
-<nav id="breadcrumb" class="@((bool?)ViewData["Form"] ?? false ? "breadcrumb hidden" : "breadcrumb")">
-    <h2 class="sr-only">Breadcrumb navigation</h2>
+<nav id="breadcrumb" class="@((bool?)ViewData["Form"] ?? false ? "breadcrumb hidden" : "breadcrumb")" aria-label="Breadcrumb navigation">
     <ul class="center-wrapper">
         <li><a href="https://www.stockport.gov.uk/">Home</a></li>
         @if (Model != null)
