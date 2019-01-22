@@ -23,8 +23,8 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _keyFactSubheading { get; set; } = "Key Fact Subheading";
         private string _showcaseIcon = "fa-icon";
         private CallToActionBanner _callToActionBanner = new CallToActionBanner();
-        private List<InformationList> _didYouKnow = new List<InformationList>{};
-        private List<InformationList> _keyFacts = new List<InformationList>{};
+        private List<InformationItem> _didYouKnow = new List<InformationItem>{};
+        private List<InformationItem> _keyFacts = new List<InformationItem>{};
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
         private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };

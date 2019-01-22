@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.Services.Profile.Entities
 {
@@ -14,8 +15,8 @@ namespace StockportWebapp.Services.Profile.Entities
         public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
-        public List<InformationList> DidYouKnowSection { get; set; }
-        public List<InformationList> KeyFactsSection { get; set; }
+        public string TriviaSubheading { get; set; }
+        public List<ProcessedInformationItem> TriviaSection { get; set; }
         public FieldOrder FieldOrder { get; set; }
     }
 }

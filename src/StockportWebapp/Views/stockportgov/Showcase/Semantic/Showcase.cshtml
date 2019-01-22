@@ -67,19 +67,6 @@
             }
             break;
 
-        case "Key Facts":
-            if (Model.KeyFactsSection != null && Model.KeyFactsSection.Count != 0)
-            {
-                <div class="showcase-section">
-                    <div class="center-wrapper">
-                        <hr class="thick-divider" />
-                        <vc:information-list type="KeyFacts" model="@Model.KeyFactsSection">
-                        </vc:information-list>
-                    </div>
-                </div>
-            }
-            break;
-
         case "News":
             if (Model.NewsArticle != null)
             {
@@ -124,7 +111,6 @@
                 </div>
             }
             break;
-            break;
 
         case "Social Media":
             //TONOTDO: Please do not do this right away.
@@ -142,13 +128,17 @@
             break;
 
         case "Did you know":
-            if (Model.DidYouKnowSection != null && Model.DidYouKnowSection.Count > 0)
+            if (Model.TriviaSubheading != null && Model.TriviaSection.Count > 0)
             {
                 <div class="showcase-section">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
-                        <vc:information-list type="DidYouKnow" model="@Model.DidYouKnowSection">
-                        </vc:information-list>
+                        @await Component.InvokeAsync("InformationList", new
+                       {
+                           model = Model.TriviaSection,
+                           heading = Model.TriviaSubheading,
+                           additionalClasses = "showcase"
+                       })
                     </div>
                 </div>
             }

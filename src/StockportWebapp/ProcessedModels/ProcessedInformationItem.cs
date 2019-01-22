@@ -1,8 +1,8 @@
-﻿using StockportWebapp.Enums;
+﻿using StockportWebapp.Models;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ProcessedModels
 {
-    public class InformationList
+    public class ProcessedInformationItem : IProcessedContentType
     {
         public string Name { get; set; }
 
@@ -12,7 +12,7 @@ namespace StockportWebapp.Models
 
         public string Link { get; set; }
 
-        public InformationList(string name, string icon, string text, string link)
+        public ProcessedInformationItem(string name, string icon, string text, string link)
         {
             Name = name;
             Icon = icon;

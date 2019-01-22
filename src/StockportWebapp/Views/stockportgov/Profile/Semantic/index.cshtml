@@ -21,15 +21,12 @@
         @Html.Raw(Model.Body)
     </section>
 
-    @if (Model.DidYouKnowSection != null)
+    @if (Model.TriviaSection.Count() > 0)
     {
         <hr class="thick-divider" />
-        @await Component.InvokeAsync("InformationList", new { model = Model.DidYouKnowSection, type = "DidYouKnow" })
-    }
-
-    @if (Model.KeyFactsSection != null)
-    {
-        <hr class="thick-divider" />
-        @await Component.InvokeAsync("InformationList", new { model = Model.KeyFactsSection, type = "KeyFacts" })
+        @await Component.InvokeAsync("InformationList", new {
+           model = Model.TriviaSection,
+           heading = Model.TriviaSubheading
+       })
     }
 </article>
