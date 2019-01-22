@@ -131,15 +131,15 @@
             break;
 
         case "Did you know":
-            if (Model.DidYouKnowSection != null && Model.DidYouKnowSection.Count > 0)
+            if (Model.TriviaSubheading != null && Model.TriviaSection.Count > 0)
             {
                 <div class="showcase-section">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
                         @await Component.InvokeAsync("InformationList", new
                        {
-                           model = Model.DidYouKnowSection,
-                           heading = Model.DidYouKnowSubheading,
+                           model = Model.TriviaSection,
+                           heading = Model.TriviaSubheading,
                            additionalClasses = "showcase"
                        })
                     </div>

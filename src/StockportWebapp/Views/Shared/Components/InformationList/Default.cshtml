@@ -1,5 +1,4 @@
 ﻿@using System.Text.RegularExpressions
-@using Microsoft.AspNetCore.Mvc.Internal
 @model Tuple<IEnumerable<StockportWebapp.ProcessedModels.ProcessedInformationItem>, string, string>
 
 <section class="information-list @Model.Item3">
@@ -10,10 +9,10 @@
             var informationItem = Model.Item1.ToArray()[i];
 
             <li>
-                <div class="grid-5 mobile-grid-10 tablet-grid-5">
+                <div class="grid-10">
                     <span class="si si-@informationItem.Icon"></span>
                 </div>
-                <div class="grid-95 mobile-grid-90 tablet-grid-95">
+                <div class="grid-90">
                     @if (!string.IsNullOrEmpty(informationItem.Link))
                     {
                         <a class="information-item" href="@informationItem.Link" rel="@informationItem.Name">

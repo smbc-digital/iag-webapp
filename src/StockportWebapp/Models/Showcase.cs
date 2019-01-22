@@ -34,8 +34,8 @@ namespace StockportWebapp.Models
         public CallToActionBanner CallToActionBanner { get; }
         public FieldOrder FieldOrder { get; }
         public string Icon { get; set; }
-        public string DidYouKnowSubheading { get; set; }
-        public List<InformationItem> DidYouKnowSection;
+        public string TriviaSubheading { get; set; }
+        public List<InformationItem> TriviaSection;
 
         public Showcase(string title, 
             string slug, 
@@ -66,8 +66,8 @@ namespace StockportWebapp.Models
             FieldOrder fieldOrder, 
             string keyFactSubheading, 
             string icon, 
-            string didYouKnowSubheading,
-            List<InformationItem> didYouKnowSection, 
+            string triviaSubheading,
+            List<InformationItem> triviaSection, 
             CallToActionBanner callToActionBanner)
         {
             Title = title;
@@ -99,8 +99,8 @@ namespace StockportWebapp.Models
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;
-            DidYouKnowSubheading = didYouKnowSubheading;
-            DidYouKnowSection = didYouKnowSection;
+            TriviaSubheading = triviaSubheading;
+            TriviaSection = triviaSection;
             CallToActionBanner = callToActionBanner;
         }
     }

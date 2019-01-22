@@ -35,8 +35,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly CallToActionBanner CallToActionBanner;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
-        public readonly string DidYouKnowSubheading;
-        public readonly List<ProcessedInformationItem> DidYouKnowSection;
+        public readonly string TriviaSubheading;
+        public readonly List<ProcessedInformationItem> TriviaSection;
 
         public ProcessedShowcase()
         { }
@@ -72,8 +72,8 @@ namespace StockportWebapp.ProcessedModels
             FieldOrder fieldOrder,
             string keyFactSubheading,
             string icon,
-            string didYouKnowSubheading,
-            List<ProcessedInformationItem> didYouKnowSection
+            string triviaSubheading,
+            List<ProcessedInformationItem> triviaSection
         )
         {
             Title = title;
@@ -105,8 +105,8 @@ namespace StockportWebapp.ProcessedModels
             FieldOrder = fieldOrder;
             KeyFactSubheading = keyFactSubheading;
             Icon = icon;
-            DidYouKnowSubheading = didYouKnowSubheading;
-            DidYouKnowSection = didYouKnowSection;
+            TriviaSubheading = triviaSubheading;
+            TriviaSection = triviaSection;
             CallToActionBanner = callToActionBanner;
         }
     }

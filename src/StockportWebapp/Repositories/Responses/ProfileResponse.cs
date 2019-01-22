@@ -13,8 +13,8 @@ namespace StockportWebapp.Repositories.Responses
         public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
-        public string DidYouKnowSubheading { get; set; }
-        public List<InformationItem> DidYouKnowSection { get; set; }
+        public string TriviaSubheading { get; set; }
+        public List<InformationItem> TriviaSection { get; set; }
         public FieldOrder FieldOrder { get; set; }
     }
 }

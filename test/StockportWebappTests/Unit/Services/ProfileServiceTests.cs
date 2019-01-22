@@ -13,6 +13,7 @@ using StockportWebapp.Parsers;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Repositories.Responses;
 using StockportWebapp.Utils;
+using StockportWebapp.ContentFactory.InformationFactory;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {
@@ -25,15 +26,18 @@ namespace StockportWebappTests_Unit.Unit.Services
         private readonly IDynamicTagParser<Alert> _alerts;
         private readonly Mock<ILogger<Alert>> _logger;
         private readonly Mock<IViewRender> _viewRender;
+        private readonly Mock<IInformationFactory> _informationFactory;
+
         public ProfileServiceTests()
         {
+            _informationFactory = new Mock<IInformationFactory>();
             _repository = new Mock<IRepository>();
             _parser = new Mock<ISimpleTagParserContainer>();
             _markdownWrapper = new MarkdownWrapper();
             _logger = new Mock<ILogger<Alert>>();
             _viewRender = new Mock<IViewRender>();
             _alerts =  new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles(){SemanticProfile = true} );
-            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts );
+            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts, _informationFactory.Object);
         }
 
         [Fact]
@@ -62,7 +66,7 @@ namespace StockportWebappTests_Unit.Unit.Services
                 Slug = "test",
                 Alerts = new List<Alert>(),
                 Breadcrumbs = new List<Crumb>(),
-                DidYouKnowSection = new List<InformationItem>(),
+                TriviaSection = new List<InformationItem>(),
                 Image = "testimage",
                 Teaser = "test",
                 Title = "test"

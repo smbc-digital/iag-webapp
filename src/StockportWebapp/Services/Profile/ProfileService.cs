@@ -41,7 +41,7 @@ namespace StockportWebapp.Services.Profile
             if (response.StatusCode == 200)
             {
                 var profile = response.Content as ProfileResponse;
-                var processedInformationItems = _informationFactory.Build(profile.DidYouKnowSection);
+                var processedInformationItems = _informationFactory.Build(profile.TriviaSection);
 
                 var processedBody = _parser.ParseAll(profile.Body, profile.Title);
                 processedBody = _markdownWrapper.ConvertToHtml(processedBody);
@@ -57,8 +57,8 @@ namespace StockportWebapp.Services.Profile
                     Body = processedBody,
                     Breadcrumbs = profile.Breadcrumbs,
                     Alerts = profile.Alerts,
-                    DidYouKnowSubheading = profile.DidYouKnowSubheading,
-                    DidYouKnowSection = processedInformationItems,
+                    TriviaSubheading = profile.TriviaSubheading,
+                    TriviaSection = processedInformationItems,
                     FieldOrder = profile.FieldOrder
                 };
             }

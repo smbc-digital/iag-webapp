@@ -13,8 +13,8 @@ namespace StockportWebapp.Models
         public string Body { get; }
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public List<Alert> Alerts { get; }
-        public string DidYouKnowSubheading { get; }
-        public List<ProcessedInformationItem> DidYouKnowSection { get; }
+        public string TriviaSubheading { get; }
+        public List<ProcessedInformationItem> TriviaSection { get; }
         public FieldOrder FieldOrder { get; }
 
         public ProfileNew()
@@ -30,8 +30,8 @@ namespace StockportWebapp.Models
             string body,
             IEnumerable<Crumb> breadcrumbs,
             List<Alert> alerts,
-            string didYouKnowSubheading,
-            List<ProcessedInformationItem> didYouKnowSection,
+            string triviaSubheading,
+            List<ProcessedInformationItem> triviaSection,
             FieldOrder fieldOrder)
         {
             Title = title;
@@ -42,8 +42,8 @@ namespace StockportWebapp.Models
             Body = body;
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
-            DidYouKnowSubheading = didYouKnowSubheading;
-            DidYouKnowSection = didYouKnowSection;
+            TriviaSubheading = triviaSubheading;
+            TriviaSection = triviaSection;
             FieldOrder = fieldOrder;
         }
 

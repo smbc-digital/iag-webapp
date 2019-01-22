@@ -75,8 +75,8 @@ namespace StockportWebapp.ContentFactory
                 fields,
                 showcase.KeyFactSubheading,
                 showcase.Icon,
-                showcase.DidYouKnowSubheading,
-                _informationFactory.Build(showcase.DidYouKnowSection)
+                showcase.TriviaSubheading,
+                _informationFactory.Build(showcase.TriviaSection)
             );
         }
     }
