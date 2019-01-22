@@ -5,23 +5,27 @@
 
 @{
     var icons = new Dictionary<string, string>()
-    {
-        {Severity.Error, "exclamation-circle"},
-        {Severity.Information, "info-circle"},
-        {Severity.Warning, "exclamation-triangle"},
-        {Severity.Success, "check-circle"},
-    };
+{
+{Severity.Error, "exclamation-circle"},
+{Severity.Information, "info-circle"},
+{Severity.Warning, "exclamation-triangle"},
+{Severity.Success, "check-circle"},
+};
 }
 
 <section class="alert-@Model.Severity.ToLower()-fullwidth">
-    <i class="fa fa-@icons[@Model.Severity]"></i>
-    <div class="content">
-        <p class="h2">@Model.Title</p>
-        <p>@Html.Raw(Model.Body)</p>
-    </div>
-    <div class="dismiss">
-        <a href="javascript:void(0)" aria-label="close" data-parent="alert-@Model.Severity.ToLower()-fullwidth" data-slug="@Model.Slug" aria-hidden="true">
-            <i class="fa fa-times"></i>
-        </a>
+    <div class="alert-body">
+        <div class="icon">
+            <i class="fa fa-@icons[@Model.Severity]"></i>
+        </div>
+        <div class="content">
+            <p class="h2">@Model.Title</p>
+            <p>@Html.Raw(Model.Body)</p>
+        </div>
+        <div class="dismiss">
+            <a href="javascript:void(0)" aria-label="close" data-parent="alert-@Model.Severity.ToLower()-fullwidth" data-slug="@Model.Slug" aria-hidden="true">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
     </div>
 </section>
