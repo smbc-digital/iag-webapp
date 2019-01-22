@@ -1,5 +1,6 @@
 ﻿using StockportWebapp.Utils;
 using System.Collections.Generic;
+using System.Linq;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 
@@ -16,20 +17,13 @@ namespace StockportWebapp.ContentFactory.InformationFactory
 
         public List<ProcessedInformationItem> Build(List<InformationItem> informationList)
         {
-            var processedInformationList = new List<ProcessedInformationItem>();
-
-            foreach (var item in informationList)
-            {
-                processedInformationList.Add(new ProcessedInformationItem
-                (
-                    item.Name,
-                    item.Icon,
-                    _markdownWrapper.ConvertToHtml(item.Text),
-                    item.Link
-                ));
-            }
-
-            return processedInformationList;
+            return informationList?.Select(item => new ProcessedInformationItem
+            (
+                item.Name,
+                item.Icon,
+                _markdownWrapper.ConvertToHtml(item.Text),
+                item.Link
+            )).ToList();
         }
     }
 }

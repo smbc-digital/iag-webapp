@@ -32,17 +32,18 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<KeyFact> KeyFacts;
         public readonly Profile Profile;
         public readonly List<Profile> Profiles;
+        public string ProfileHeading;
+        public string ProfileLink;
         public readonly CallToActionBanner CallToActionBanner;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
-        public readonly string TriviaSubheading;
         public readonly List<ProcessedInformationItem> TriviaSection;
+        public readonly string TriviaSubheading;
 
         public ProcessedShowcase()
         { }
 
-        public ProcessedShowcase(
-            string title,
+        public ProcessedShowcase(string title,
             string slug,
             string teaser,
             string subHeading,
@@ -73,8 +74,9 @@ namespace StockportWebapp.ProcessedModels
             string keyFactSubheading,
             string icon,
             string triviaSubheading,
-            List<ProcessedInformationItem> triviaSection
-        )
+            List<ProcessedInformationItem> triviaSection,
+            string profileHeading,
+            string profileLink)
         {
             Title = title;
             Slug = slug;
@@ -108,6 +110,8 @@ namespace StockportWebapp.ProcessedModels
             TriviaSubheading = triviaSubheading;
             TriviaSection = triviaSection;
             CallToActionBanner = callToActionBanner;
+            ProfileHeading = profileHeading;
+            ProfileLink = profileLink;
         }
     }
 }

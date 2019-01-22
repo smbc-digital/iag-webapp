@@ -77,8 +77,10 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 new FieldOrder(),
                 "Key Fact Subheading",
                 "fa-icon",
-                new List<InformationItem>(),
-                new List<InformationItem>());
+                "",
+                null,
+                "",
+                "");
 
             _mockContentRepository
                 .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))

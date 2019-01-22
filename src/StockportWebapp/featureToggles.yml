@@ -22,16 +22,16 @@ stage: &stage
 qa: &qa
   << : *prod
   << : *stage
+  SemanticLayout: true
+  SemanticProfile: true
+  SemanticInlineAlert: true
+  SemanticShowcase: true
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
   SiaSystem: true
-  SemanticLayout: true
-  SemanticProfile: true
-  SemanticInlineAlert: true
-  SemanticShowcase: true
 
 local: &local
   << : *prod
