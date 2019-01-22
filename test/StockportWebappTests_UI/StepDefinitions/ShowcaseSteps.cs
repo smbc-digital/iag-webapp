@@ -10,7 +10,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see the alerts section")]
         public void ThenIShouldSeeTheAlertsSection()
         {
-            Assert.True(BrowserSession.FindAllCss(".global-alert-information").Any());
+            Assert.True(BrowserSession.FindAllCss(".alert-container").Any());
         }
 
         [Then(@"I should see the hero image")]

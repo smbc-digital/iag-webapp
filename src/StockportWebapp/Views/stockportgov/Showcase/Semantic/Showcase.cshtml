@@ -30,7 +30,7 @@
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
     if (alertCookies == null || alertCookies.Count() != Model.Alerts.Count())
     {
-        <div class="center-wrapper margin-top-20">
+        <div class="alert-container">
             @foreach (var alert in Model.Alerts)
             {
                 if (alertCookies == null || !alertCookies.Contains(alert.Slug))
