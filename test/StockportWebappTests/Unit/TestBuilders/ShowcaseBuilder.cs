@@ -23,14 +23,17 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _keyFactSubheading { get; set; } = "Key Fact Subheading";
         private string _showcaseIcon = "fa-icon";
         private CallToActionBanner _callToActionBanner = new CallToActionBanner();
-        private List<InformationItem> _didYouKnow = new List<InformationItem>{};
-        private List<InformationItem> _keyFacts = new List<InformationItem>{};
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
         private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
         private IEnumerable<Event> _events = new List<Event>();
         private IEnumerable<Alert> alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty)};
+
+        public string _profileHeading { get; set; }
+        public string _profileLink { get; set; }
+        public string _triviaSubheading { get; set; }
+        public List<InformationItem> _triviaSection { get; set; }
 
         private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
         {
@@ -39,7 +42,43 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventCategoryOrtag, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events, _emailAlertsTopicId, _emailAlertsText, alerts, new List<SubItem>(), null, null, null, new FieldOrder(), _keyFactSubheading, _showcaseIcon, _didYouKnow, _keyFacts, _callToActionBanner);
+            return new Showcase(
+                _title,
+                _slug,
+                _teaser,
+                _subheading,
+                _eventCategory,
+                _eventCategoryOrtag,
+                _eventSubheading,
+                _newsSubheading,
+                _newsCategory,
+                string.Empty,
+                _bodySubheading,
+                _body,
+                null,
+                _heroImageUrl, 
+                _breadcrumbs,
+                _featuredItems,
+                _consultations,
+                _socialMediaLinks,
+                _events,
+                _emailAlertsTopicId,
+                _emailAlertsText,
+                alerts,
+                new List<SubItem>(),
+                null,
+                null,
+                _profileHeading,
+                _profileLink,
+                null,
+                new FieldOrder(),
+                _keyFactSubheading,
+                _showcaseIcon,
+                _triviaSubheading,
+                _triviaSection,
+                _callToActionBanner
+                    
+            );
         }
 
         public ShowcaseBuilder Title(string title)

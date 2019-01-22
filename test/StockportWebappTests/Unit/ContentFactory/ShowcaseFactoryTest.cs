@@ -5,6 +5,7 @@ using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using Xunit;
 using Moq;
+using StockportWebapp.ContentFactory.InformationFactory;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using StockportWebappTests_Unit.Unit.TestBuilders;
@@ -14,12 +15,14 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
     public class ShowcaseFactoryTest
     {
         private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
+        private readonly Mock<IInformationFactory> _informationFactory;
         private readonly Mock<MarkdownWrapper> _markdownWrapper;
 
         public ShowcaseFactoryTest()
         {
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();           
             _markdownWrapper = new Mock<MarkdownWrapper>();
+            _informationFactory = new Mock<IInformationFactory>();
         }
 
         [Fact]
@@ -40,7 +43,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         })
                 .Build();
 
-            var _showcaseFactory = new ShowcaseFactory(_tagParserContainer.Object, _markdownWrapper.Object);
+            var _showcaseFactory = new ShowcaseFactory(_tagParserContainer.Object, _markdownWrapper.Object, _informationFactory.Object);
 
             // Act
             var processedShowcase = _showcaseFactory.Build(showcase);
