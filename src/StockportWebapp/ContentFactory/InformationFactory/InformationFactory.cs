@@ -17,7 +17,7 @@ namespace StockportWebapp.ContentFactory.InformationFactory
 
         public List<ProcessedInformationItem> Build(List<InformationItem> informationList)
         {
-            return informationList.Select(item => new ProcessedInformationItem
+            return informationList?.Select(item => new ProcessedInformationItem
             (
                 item.Name,
                 item.Icon,

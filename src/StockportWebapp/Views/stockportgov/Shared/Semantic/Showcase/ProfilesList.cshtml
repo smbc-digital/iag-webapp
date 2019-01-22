@@ -1,9 +1,9 @@
-﻿@model List<StockportWebapp.Models.Profile>;
+﻿@model StockportWebapp.ViewModels.ProfileListViewModel
 
 <div class="circle-list-container">
-    <h2>Fostering in Stockport</h2>
+    <h2>@Model.Heading</h2>
     <div>
-        @foreach (var profile in Model)
+        @foreach (var profile in Model.Profiles)
         {
             <a class="circle-list-item" href="/profile/@profile.Slug">
                 <img class="circle-list-image" src="@profile.Image" />
@@ -12,5 +12,5 @@
             </a>
         }
     </div>
-    <a class="read-more" href="www.google.com">Read More</a>
+    <a class="read-more" href="@Model.Link">Read More</a>
 </div>
