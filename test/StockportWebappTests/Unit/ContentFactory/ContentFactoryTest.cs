@@ -49,7 +49,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             var profile = new Profile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 TextHelper.AnyString, TextHelper.AnyString,
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>());
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), TextHelper.AnyString, TextHelper.AnyString);
 
 
             var processedProfile = _factory.Build<Profile>(profile);

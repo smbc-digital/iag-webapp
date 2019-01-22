@@ -38,7 +38,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             var processedProfile = new ProcessedProfile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-                TextHelper.AnyString, new List<Crumb>(), new List<Alert>());
+                TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), "", "");
 
             _fakeRepository
                 .Setup(_ => _.Get<Profile>(It.IsAny<string>(), It.IsAny<List<Query>>()))

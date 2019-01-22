@@ -16,6 +16,8 @@ namespace StockportWebapp.Models
         public string Body { get; set; }
         public string BackgroundImage { get; set; }
         public string Icon { get; set; }
+        public string Subject { get; set; }
+        public string Author { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
 
@@ -30,7 +32,9 @@ namespace StockportWebapp.Models
             string backgroundImage,
             string icon,
             IEnumerable<Crumb> breadcrumbs,
-            List<Alert> alerts)
+            List<Alert> alerts,
+            string subject,
+            string author)
         {
             Type = type;
             Title = title;
@@ -44,6 +48,8 @@ namespace StockportWebapp.Models
             Icon = icon;
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
+            Subject = subject;
+            Author = author;
         }
     }
 }

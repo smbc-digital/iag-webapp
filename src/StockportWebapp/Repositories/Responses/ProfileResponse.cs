@@ -17,5 +17,7 @@ namespace StockportWebapp.Repositories.Responses
         public string TriviaSubheading { get; set; }
         public List<InformationItem> TriviaSection { get; set; }
         public FieldOrder FieldOrder { get; set; }
+        public string Subject { get; set; }
+        public string Author { get; set; }
     }
 }

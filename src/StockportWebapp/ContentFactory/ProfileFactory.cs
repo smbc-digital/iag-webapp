@@ -36,7 +36,9 @@ namespace StockportWebapp.ContentFactory
                 profile.BackgroundImage,
                 profile.Icon,
                 profile.Breadcrumbs,
-                profile.Alerts);
+                profile.Alerts,
+                profile.Author,
+                profile.Subject);
         }
     }
 }

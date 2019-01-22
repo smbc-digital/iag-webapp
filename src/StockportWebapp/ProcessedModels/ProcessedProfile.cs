@@ -17,6 +17,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Icon;
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
+        public string Subject { get; set; }
+        public string Author { get; set; }
 
         public ProcessedProfile(string type,
             string title,
@@ -29,7 +31,9 @@ namespace StockportWebapp.ProcessedModels
             string backgroundImage,
             string icon,
             IEnumerable<Crumb> breadcrumbs,
-            List<Alert> alerts)
+            List<Alert> alerts,
+            string author,
+            string subject)
         {
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
@@ -43,6 +47,8 @@ namespace StockportWebapp.ProcessedModels
             Body = body;
             BackgroundImage = backgroundImage;
             Icon = icon;
+            Author = author;
+            Subject = subject;
         }
     }
 }
