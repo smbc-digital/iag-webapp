@@ -70,8 +70,10 @@ namespace StockportWebapp.ContentFactory
                 showcase.KeyFactSubheading,
                 showcase.Icon,
                 showcase.DidYouKnowSection,
-                showcase.KeyFactsSection
-                    );
+                showcase.KeyFactsSection,
+                showcase.ProfileHeading,
+                showcase.ProfileLink
+            );
         }
     }
 }

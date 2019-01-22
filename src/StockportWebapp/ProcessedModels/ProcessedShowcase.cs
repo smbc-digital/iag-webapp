@@ -32,6 +32,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<KeyFact> KeyFacts;
         public readonly Profile Profile;
         public readonly List<Profile> Profiles;
+        public string ProfileHeading;
+        public string ProfileLink;
         public readonly CallToActionBanner CallToActionBanner;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
@@ -72,7 +74,9 @@ namespace StockportWebapp.ProcessedModels
             string keyFactSubheading,
             string icon,
             List<InformationList> didYouKnowSection,
-            List<InformationList> keyFactsSection)
+            List<InformationList> keyFactsSection,
+            string profileHeading,
+            string profileLink)
         {
             Title = title;
             Slug = slug;
@@ -106,6 +110,8 @@ namespace StockportWebapp.ProcessedModels
             DidYouKnowSection = didYouKnowSection;
             KeyFactsSection = keyFactsSection;
             CallToActionBanner = callToActionBanner;
+            ProfileHeading = profileHeading;
+            ProfileLink = profileLink;
         }
     }
 }

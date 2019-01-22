@@ -31,6 +31,8 @@ namespace StockportWebapp.Models
         public IEnumerable<KeyFact> KeyFacts { get; }
         public Profile Profile { get; }
         public List<Profile> Profiles { get; set; }
+        public string ProfileHeading { get; set; }
+        public string ProfileLink { get; set; }
         public CallToActionBanner CallToActionBanner { get; }
         public FieldOrder FieldOrder { get; }
         public string Icon { get; set; }
