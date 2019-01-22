@@ -1,0 +1,15 @@
+﻿@model List<StockportWebapp.Models.Profile>;
+
+<div class="circle-list-container">
+    <h2></h2>
+    <a class="read-more" href="www.google.com"></a>
+    <div>
+        @foreach (var profile in Model){
+            <a class="circle-list-item" href="/profile/@profile.Slug">
+                <img class="circle-list-image" src="@profile.Image" />
+                <h3>@profile.Title</h3>
+                <h4>@profile.Subtitle</h4>
+            </a>
+        }
+    </div>
+</div>
