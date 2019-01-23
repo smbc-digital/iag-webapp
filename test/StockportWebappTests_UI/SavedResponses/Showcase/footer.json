@@ -1,0 +1,118 @@
+{
+  "Guid": "42f8c4af-59e7-4de1-8b36-6351ab442c4d",
+  "Title": "",
+  "Priority": 0,
+  "Request": {
+    "Path": {
+      "Matchers": [
+        {
+          "Name": "WildcardMatcher",
+          "Pattern": "/stockportgov/footer",
+          "IgnoreCase": false
+        }
+      ]
+    },
+    "Methods": [
+      "GET"
+    ],
+    "Body": {}
+  },
+  "Response": {
+    "StatusCode": 200,
+    "BodyAsJson": {
+      "title": "Stockport Gov Footer",
+      "slug": "stockportgov",
+      "copyrightSection": "© 2019 Stockport Metropolitan Borough Council",
+      "links": [
+        {
+          "slug": "contact-us",
+          "title": "Contact Us",
+          "teaser": "contact US",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        },
+        {
+          "slug": "cookies",
+          "title": "Cookies",
+          "teaser": "Cookie policy",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        },
+        {
+          "slug": "data-protection",
+          "title": "Data Protection",
+          "teaser": "Data Protection",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        },
+        {
+          "slug": "freedom-of-information",
+          "title": "Freedom of Information",
+          "teaser": "Freedom of Information ",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        },
+        {
+          "slug": "website-feedback",
+          "title": "Feedback",
+          "teaser": "Find out how to contact the council if you have enquiries about our website.",
+          "icon": "si-default",
+          "type": "article",
+          "sunriseDate": "0001-01-01T00:00:00Z",
+          "sunsetDate": "9999-12-31T23:59:59.9999999Z",
+          "image": "",
+          "subItems": []
+        }
+      ],
+      "socialMediaLinks": [
+        {
+          "title": "Facebook",
+          "slug": "facebook",
+          "url": "https://www.facebook.com/StockportMBC",
+          "icon": "fa-facebook"
+        },
+        {
+          "title": "Youtube",
+          "slug": "youtube",
+          "url": "https://www.youtube.com/user/StockportCouncil",
+          "icon": "fa-youtube"
+        },
+        {
+          "title": "Twitter",
+          "slug": "twitter",
+          "url": "https://twitter.com/StockportMBC",
+          "icon": "fa-twitter"
+        },
+        {
+          "title": "Instagram",
+          "slug": "instagram",
+          "url": "https://www.instagram.com/stockportcouncil",
+          "icon": "fa-instagram"
+        }
+      ]
+    },
+    "UseTransformer": false,
+    "Headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Transfer-Encoding": "chunked",
+      "Date": "Wed, 23 Jan 2019 10:44:34 GMT",
+      "Server": "Kestrel"
+    }
+  }
+}

@@ -4,7 +4,7 @@
 	I want the showcase page to render correctly
 
 Scenario: When I navigate to a showcase page I should see a showcase
-	Given I navigate to "/showcase/test-showcase"
+	Given I navigate to "/showcase/uitest-showcase-page"
 	Then I should see the alerts section
 	And I should see the hero image
 	And I should see the primary items section

@@ -70,7 +70,7 @@ namespace StockportWebappTests_UI.Features
 #line 6
 this.ScenarioSetup(scenarioInfo);
 #line 7
- testRunner.Given("I navigate to \"/showcase/test-showcase\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I navigate to \"/showcase/uitest-showcase-page\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
  testRunner.Then("I should see the alerts section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 9
