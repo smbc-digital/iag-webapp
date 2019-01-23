@@ -16,13 +16,19 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see the hero image")]
         public void ThenIShouldSeeTheHeroImage()
         {
-            Assert.True(BrowserSession.FindCss(".showcase-hero-image").Exists());
+            Assert.True(BrowserSession.FindCss(".hero-image").Exists());
         }
 
         [Then(@"I should see the primary items section")]
         public void ThenIShouldSeeThePrimaryItemsSection()
         {
-            Assert.True(BrowserSession.FindAllCss(".showcase-primary-item-container").Any());
+            Assert.True(BrowserSession.FindAllCss(".hero-image .card-list-container .icon-card").Any());
+        }
+
+        [Then(@"I should see the news section")]
+        public void IShoulSeeTheNewsSection()
+        {
+            Assert.True(BrowserSession.FindCss(".news-card-container").Exists());
         }
 
         [Then(@"I should see the featured items section")]
@@ -52,19 +58,37 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see the profile section")]
         public void ThenIShouldSeeTheProfileSection()
         {
-            Assert.True(BrowserSession.FindCss(".profile").Exists());
+            Assert.True(BrowserSession.FindCss(".showcase-profile").Exists());
         }
 
-        [Then(@"I should see the key facts section")]
+        [Then(@"I should see multiple profiles")]
+        public void IShouldSeeMultipleProfiles()
+        {
+            Assert.True(BrowserSession.FindCss(".circle-list-container").Exists());
+        }
+
+        [Then(@"I should see showcase banner")]
+        public void IShouldSeeShowcaseBanner()
+        {
+            Assert.True(BrowserSession.FindCss(".showcase-banner").Exists());
+        }
+
+        [Then(@"I should see email banner")]
+        public void IShouldSeeEmailBanner()
+        {
+            Assert.True(BrowserSession.FindCss(".email-banner").Exists());
+        }
+
+        [Then(@"I should see the trivia section")]
         public void ThenIShouldSeeTheKeyFactsSection()
         {
-            Assert.True(BrowserSession.FindCss(".key-facts").Exists());
+            Assert.True(BrowserSession.FindCss(".information-list").Exists());
         }
 
         [Then(@"I should see the body section")]
         public void ThenIShouldSeeTheBodySection()
         {
-            Assert.True(BrowserSession.FindAllCss(".showcase-body").Any());
+            Assert.True(BrowserSession.FindAllCss("article").Any());
         }
     }
 }
