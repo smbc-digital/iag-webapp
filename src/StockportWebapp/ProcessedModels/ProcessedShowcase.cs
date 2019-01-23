@@ -22,6 +22,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<Crumb> Breadcrumbs;
         public readonly IEnumerable<SubItem> SecondaryItems;
         public readonly IEnumerable<SubItem> PrimaryItems;
+        public readonly string FeaturedItemsSubheading;
+        public readonly IEnumerable<SubItem> FeaturedItems;
         public readonly IEnumerable<Consultation> Consultations;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
         public readonly IEnumerable<Event> Events;
@@ -67,6 +69,8 @@ namespace StockportWebapp.ProcessedModels
             string emailAlertsText,
             IEnumerable<Alert> alerts,
             IEnumerable<SubItem> primaryItems,
+            string featuredItemsSubheading,
+            IEnumerable<SubItem> featuredItems,
             IEnumerable<KeyFact> keyFacts,
             Profile profile,
             List<Profile> profiles,
@@ -104,6 +108,8 @@ namespace StockportWebapp.ProcessedModels
             Alerts = alerts;
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
+            FeaturedItemsSubheading = featuredItemsSubheading;
+            FeaturedItems = featuredItems;
             Profile = profile;
             Profiles = profiles;
             FieldOrder = fieldOrder;

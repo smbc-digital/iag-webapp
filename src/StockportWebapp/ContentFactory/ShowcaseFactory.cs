@@ -33,6 +33,7 @@ namespace StockportWebapp.ContentFactory
             if (!fields.Items.Any())
             {
                 fields.Items.Add("Primary Items");
+                fields.Items.Add("Secondary Items");
                 fields.Items.Add("Featured Items");
                 fields.Items.Add("Consultations");
                 fields.Items.Add("Key Facts");
@@ -70,6 +71,8 @@ namespace StockportWebapp.ContentFactory
                 showcase.EmailAlertsText,
                 showcase.Alerts,
                 showcase.PrimaryItems,
+                showcase.FeaturedItemsSubheading,
+                showcase.FeaturedItems,
                 showcase.KeyFacts,
                 showcase.Profile,
                 showcase.Profiles,
