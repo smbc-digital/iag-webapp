@@ -52,8 +52,27 @@
             </div>
             break;
 
-        case "Secondary Items":
-            //TONOTDO: Please do not do this right away.
+        case "Featured Items":
+            
+                <div class="center-wrapper">
+                    <div class="featured-item-container">
+                    <h2 class="featured-item-header lead-paragraph">@Model.FeaturedItemsSubheading</h2>
+                        <ul class="featured-item-body">
+                            @foreach (var item in Model.FeaturedItems)
+                            {
+                                <li>
+                                    <a href="@item.NavigationLink">
+                                        <img src="@item.Image"/>
+                                        <h3>@item.Title</h3>
+                                        <p>@item.Teaser</p>
+                                    </a>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            
             break;
 
         case "Consultations":
@@ -96,20 +115,20 @@
                         </div>
                     </div>
                 </div>
-                    }
-                    break;
+            }
+            break;
 
-                case "Profiles":
-                    if (Model.Profiles != null)
-                    {
-                        var profileViewModel = new ProfileListViewModel
-                        {
-                            Profiles = Model.Profiles,
-                            Link = Model.ProfileLink,
-                            Heading = Model.ProfileHeading
-                        };
+        case "Profiles":
+            if (Model.Profiles != null)
+            {
+                var profileViewModel = new ProfileListViewModel
+                {
+                    Profiles = Model.Profiles,
+                    Link = Model.ProfileLink,
+                    Heading = Model.ProfileHeading
+                };
 
-                        <div class="full-width">
+                <div class="full-width">
                     <div class="showcase-section">
                         <div class="center-wrapper">
                             <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
