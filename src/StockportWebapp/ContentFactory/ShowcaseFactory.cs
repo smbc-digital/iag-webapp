@@ -14,8 +14,8 @@ namespace StockportWebapp.ContentFactory
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly IInformationFactory _informationFactory;
 
-        public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer, 
-            MarkdownWrapper markdownWrapper, 
+        public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer,
+            MarkdownWrapper markdownWrapper,
             IInformationFactory informationFactory)
         {
             _tagParserContainer = tagParserContainer;
@@ -42,6 +42,8 @@ namespace StockportWebapp.ContentFactory
                 fields.Items.Add("Profiles");
                 fields.Items.Add("Social Media");
                 fields.Items.Add("Body");
+                fields.Items.Add("Video");
+                fields.Items.Add("Trivia");
             }
 
             return new ProcessedShowcase(
@@ -78,7 +80,8 @@ namespace StockportWebapp.ContentFactory
                 showcase.TriviaSubheading,
                 _informationFactory.Build(showcase.TriviaSection),
                 showcase.ProfileHeading,
-                showcase.ProfileLink
+                showcase.ProfileLink,
+                showcase.Video
             );
         }
     }

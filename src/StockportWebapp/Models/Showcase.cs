@@ -38,41 +38,43 @@ namespace StockportWebapp.Models
         public string Icon { get; set; }
         public string TriviaSubheading { get; set; }
         public List<InformationItem> TriviaSection { get; set; }
+        public Video Video { get; set; }
 
-        public Showcase(string title, 
-            string slug, 
-            string teaser, 
-            string subheading, 
-            string eventCategory, 
-            string eventsCategoryOrTag, 
+        public Showcase(string title,
+            string slug,
+            string teaser,
+            string subheading,
+            string eventCategory,
+            string eventsCategoryOrTag,
             string eventSubheading,
-            string newsSubheading, 
-            string newsCatgeoryTag, 
-            string newsCatgeoryOrTag, 
-            string bodySubheading, 
-            string body, 
-            News newsArticle, 
+            string newsSubheading,
+            string newsCatgeoryTag,
+            string newsCatgeoryOrTag,
+            string bodySubheading,
+            string body,
+            News newsArticle,
             string heroImageUrl,
-            IEnumerable<Crumb> breadcrumbs, 
-            IEnumerable<SubItem> secondaryItems, 
-            IEnumerable<Consultation> consultations, 
+            IEnumerable<Crumb> breadcrumbs,
+            IEnumerable<SubItem> secondaryItems,
+            IEnumerable<Consultation> consultations,
             IEnumerable<SocialMediaLink> socialMediaLinks,
-            IEnumerable<Event> events, 
-            string emailAlertsTopicId, 
-            string emailAlertsText, 
-            IEnumerable<Alert> alerts, 
-            IEnumerable<SubItem> primaryItems, 
+            IEnumerable<Event> events,
+            string emailAlertsTopicId,
+            string emailAlertsText,
+            IEnumerable<Alert> alerts,
+            IEnumerable<SubItem> primaryItems,
             IEnumerable<KeyFact> keyFacts,
-            Profile profile, 
+            Profile profile,
             string profileHeading,
             string profileLink,
-            List<Profile> profiles, 
-            FieldOrder fieldOrder, 
-            string keyFactSubheading, 
-            string icon, 
+            List<Profile> profiles,
+            FieldOrder fieldOrder,
+            string keyFactSubheading,
+            string icon,
             string triviaSubheading,
-            List<InformationItem> triviaSection, 
-            CallToActionBanner callToActionBanner)
+            List<InformationItem> triviaSection,
+            CallToActionBanner callToActionBanner,
+            Video video)
         {
             Title = title;
             Slug = slug;
@@ -108,6 +110,7 @@ namespace StockportWebapp.Models
             CallToActionBanner = callToActionBanner;
             ProfileLink = profileLink;
             ProfileHeading = profileHeading;
+            Video = video;
         }
     }
 }

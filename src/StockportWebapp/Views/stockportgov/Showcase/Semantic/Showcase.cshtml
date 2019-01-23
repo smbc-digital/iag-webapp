@@ -3,6 +3,7 @@
 @using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.Utils
+@using System.Text.RegularExpressions
 
 @inject FeatureToggles FeatureToggles
 @inject ICookiesHelper CookiesHelper
@@ -96,20 +97,20 @@
                         </div>
                     </div>
                 </div>
-                    }
-                    break;
+            }
+            break;
 
-                case "Profiles":
-                    if (Model.Profiles != null)
-                    {
-                        var profileViewModel = new ProfileListViewModel
-                        {
-                            Profiles = Model.Profiles,
-                            Link = Model.ProfileLink,
-                            Heading = Model.ProfileHeading
-                        };
+        case "Profiles":
+            if (Model.Profiles != null)
+            {
+                var profileViewModel = new ProfileListViewModel
+                {
+                    Profiles = Model.Profiles,
+                    Link = Model.ProfileLink,
+                    Heading = Model.ProfileHeading
+                };
 
-                        <div class="full-width">
+                <div class="full-width">
                     <div class="showcase-section">
                         <div class="center-wrapper">
                             <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
@@ -162,6 +163,22 @@
                             </div>
                             <img src="@Model.CallToActionBanner.Image" alt="@Model.CallToActionBanner.AltText" />
                         </a>
+                    </div>
+                </div>
+            </div>
+            break;
+
+        case "Video":
+            <div class="full-width background-off-white">
+                <div class="showcase-banner">
+                    <div class="video-section">
+                        <h2>@Model.Video.Heading</h2>
+                        <p>@Model.Video.Text</p>
+                        <hr class="thin-divider" />
+                        @{
+                            var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
+                        }
+                        @Html.Raw(videoCode)
                     </div>
                 </div>
             </div>

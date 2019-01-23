@@ -39,6 +39,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Icon;
         public readonly List<ProcessedInformationItem> TriviaSection;
         public readonly string TriviaSubheading;
+        public readonly Video Video;
 
         public ProcessedShowcase()
         { }
@@ -76,7 +77,8 @@ namespace StockportWebapp.ProcessedModels
             string triviaSubheading,
             List<ProcessedInformationItem> triviaSection,
             string profileHeading,
-            string profileLink)
+            string profileLink,
+            Video video)
         {
             Title = title;
             Slug = slug;
@@ -112,6 +114,7 @@ namespace StockportWebapp.ProcessedModels
             CallToActionBanner = callToActionBanner;
             ProfileHeading = profileHeading;
             ProfileLink = profileLink;
+            Video = video;
         }
     }
 }
