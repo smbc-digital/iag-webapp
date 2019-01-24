@@ -80,6 +80,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 "",
                 null,
                 "",
+                "",
                 "");
 
             _mockContentRepository

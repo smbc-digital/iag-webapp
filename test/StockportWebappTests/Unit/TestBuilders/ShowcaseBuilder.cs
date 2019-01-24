@@ -33,6 +33,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         public string _profileHeading { get; set; }
         public string _profileLink { get; set; }
         public string _triviaSubheading { get; set; }
+        public string _eventsReadMoreText { get; set; } = "";
         public List<InformationItem> _triviaSection { get; set; }
 
         private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
@@ -76,8 +77,9 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
                 _showcaseIcon,
                 _triviaSubheading,
                 _triviaSection,
-                _callToActionBanner
-                    
+                _callToActionBanner,
+                _eventsReadMoreText
+
             );
         }
 
