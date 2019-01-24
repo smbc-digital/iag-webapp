@@ -85,6 +85,8 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("I should see the profile section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
  testRunner.And("I should see multiple profiles", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 17
+ testRunner.And("I should see the events section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 18
  testRunner.And("I should see the trivia section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 19

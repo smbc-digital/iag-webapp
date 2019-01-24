@@ -52,7 +52,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see the events section")]
         public void ThenIShouldSeeTheEventsSection()
         {
-            Assert.True(BrowserSession.FindCss(".showcase-event-content").Exists());
+            Assert.True(BrowserSession.FindCss(".events-list-container").Exists());
         }
 
         [Then(@"I should see the profile section")]
