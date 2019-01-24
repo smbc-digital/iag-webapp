@@ -28,6 +28,9 @@ namespace StockportWebapp.ContentFactory
             var body = _tagParserContainer.ParseAll(showcase.Body);
             showcase.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
 
+            var video = showcase.Video;
+            video.VideoEmbedCode = _tagParserContainer.ParseAll(video.VideoEmbedCode);
+
             var fields = showcase.FieldOrder;
 
             if (!fields.Items.Any())
@@ -84,7 +87,7 @@ namespace StockportWebapp.ContentFactory
                 _informationFactory.Build(showcase.TriviaSection),
                 showcase.ProfileHeading,
                 showcase.ProfileLink,
-                showcase.Video
+                video
             );
         }
     }
