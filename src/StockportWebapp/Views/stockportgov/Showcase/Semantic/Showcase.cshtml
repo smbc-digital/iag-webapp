@@ -51,16 +51,17 @@
             break;
 
         case "Featured Items":
-            
+
+            <div class="showcase-section background-off-white">
                 <div class="center-wrapper">
                     <div class="featured-item-container">
-                    <h2 class="featured-item-header lead-paragraph">@Model.FeaturedItemsSubheading</h2>
+                        <h2 class="featured-item-header">@Model.FeaturedItemsSubheading</h2>
                         <ul class="featured-item-body">
                             @foreach (var item in Model.FeaturedItems)
                             {
                                 <li>
                                     <a href="@item.NavigationLink">
-                                        <img src="@item.Image"/>
+                                        <img src="@item.Image" />
                                         <h3>@item.Title</h3>
                                         <p>@item.Teaser</p>
                                     </a>
@@ -70,7 +71,7 @@
                         </ul>
                     </div>
                 </div>
-            
+            </div>
             break;
 
         case "Consultations":
@@ -186,7 +187,7 @@
             break;
 
         case "Call to action banner":
-            <div class="full-width">
+            <div class="full-width showcase-section">
                 <div class="showcase-banner">
                     <div class="center-wrapper">
                         <a class="call-to-action-banner-container" href="@Model.CallToActionBanner.Link">
