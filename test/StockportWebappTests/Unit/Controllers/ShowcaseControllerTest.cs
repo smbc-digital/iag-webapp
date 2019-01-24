@@ -66,9 +66,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 new List<Consultation>(),
                 new List<SocialMediaLink>(),
                 new List<Event>(),
-                "",
-                "",
+                "email alerts topic id",
+                "emailAlertsText",
                 alerts,
+                new List<SubItem>(),
+                "",
                 new List<SubItem>(),
                 null,
                 null,
@@ -80,7 +82,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 "",
                 null,
                 "",
-                "");
+                "",
+                new Video());
 
             _mockContentRepository
                 .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
