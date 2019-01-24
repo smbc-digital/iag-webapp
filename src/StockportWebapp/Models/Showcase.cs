@@ -65,6 +65,8 @@ namespace StockportWebapp.Models
             string emailAlertsText,
             IEnumerable<Alert> alerts,
             IEnumerable<SubItem> primaryItems,
+            string featuredItemsSubheading,
+            IEnumerable<SubItem> featuredItems,
             IEnumerable<KeyFact> keyFacts,
             Profile profile,
             string profileHeading,
@@ -102,6 +104,8 @@ namespace StockportWebapp.Models
             Alerts = alerts;
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
+            FeaturedItemsSubheading = featuredItemsSubheading;
+            FeaturedItems = featuredItems;
             Profile = profile;
             Profiles = profiles;
             FieldOrder = fieldOrder;
