@@ -14,14 +14,26 @@ namespace StockportWebapp.Parsers
 
             outputHtml.Append($"<div id=\"buto_{tagData}\"></div>");
             outputHtml.Append("<script>");
-            outputHtml.Append("var globalButoIds = globalButoIds || [];");
-            outputHtml.Append("(");
-            outputHtml.Append("function (d, config) {");
+            outputHtml.Append("(function(d, config) {");
+            outputHtml.Append("var script = d.createElement(\"script\");");
+            outputHtml.Append("script.setAttribute(\"async\", true);");
             outputHtml.Append("var data = JSON.stringify(config);");
-            outputHtml.Append("globalButoIds.push(\"//js.buto.tv/video/\" + data);");
-            outputHtml.Append($"}}(document, {{ \"object_id\": \"{ tagData}\" }})");
-            outputHtml.Append(")");
+            outputHtml.Append("script.src = \"//js.buto.tv/video/\" + data;");
+            outputHtml.Append("var s = d.getElementsByTagName(\"script\")[0];");
+            outputHtml.Append("s.parentNode.insertBefore(script, s)");
+            outputHtml.Append($"}})(document, {{\"object_id\":\"{tagData}\", \"height\":\"640px\"}})");
             outputHtml.Append("</script>");
+
+            //outputHtml.Append($"<div id=\"buto_{tagData}\"></div>");
+            //outputHtml.Append("<script>");
+            //outputHtml.Append("var globalButoIds = globalButoIds || [];");
+            //outputHtml.Append("(");
+            //outputHtml.Append("function (d, config) {");
+            //outputHtml.Append("var data = JSON.stringify(config);");
+            //outputHtml.Append("globalButoIds.push(\"//js.buto.tv/video/\" + data);");
+            //outputHtml.Append($"}}(document, {{ \"object_id\": \"{tagData}\" }})");
+            //outputHtml.Append(")");
+            //outputHtml.Append("</script>");
 
             return outputHtml.ToString();
         }
