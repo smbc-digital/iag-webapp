@@ -206,11 +206,14 @@
             <div class="full-width background-off-white">
                 <div class="showcase-banner">
                     <div class="video-section">
-                        <h2>@Model.Video.Heading</h2>
-                        <p>@Model.Video.Text</p>
-                        <hr class="thin-divider" />
+                        @if (!string.IsNullOrEmpty(Model.Video.Heading) && !string.IsNullOrEmpty(Model.Video.Text))
+                        {
+                            <h2>@Model.Video.Heading</h2>
+                            <p>@Model.Video.Text</p>
+                            <hr class="thin-divider"/>
+                        }
                         @{
-                            var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
+            var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
                         }
                         @Html.Raw(videoCode)
                     </div>
