@@ -14,8 +14,8 @@ namespace StockportWebapp.ContentFactory
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly IInformationFactory _informationFactory;
 
-        public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer, 
-            MarkdownWrapper markdownWrapper, 
+        public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer,
+            MarkdownWrapper markdownWrapper,
             IInformationFactory informationFactory)
         {
             _tagParserContainer = tagParserContainer;
@@ -28,11 +28,15 @@ namespace StockportWebapp.ContentFactory
             var body = _tagParserContainer.ParseAll(showcase.Body);
             showcase.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
 
+            var video = showcase.Video;
+            video.VideoEmbedCode = _tagParserContainer.ParseAll(video.VideoEmbedCode);
+
             var fields = showcase.FieldOrder;
 
             if (!fields.Items.Any())
             {
                 fields.Items.Add("Primary Items");
+                fields.Items.Add("Secondary Items");
                 fields.Items.Add("Featured Items");
                 fields.Items.Add("Consultations");
                 fields.Items.Add("Key Facts");
@@ -42,6 +46,8 @@ namespace StockportWebapp.ContentFactory
                 fields.Items.Add("Profiles");
                 fields.Items.Add("Social Media");
                 fields.Items.Add("Body");
+                fields.Items.Add("Video");
+                fields.Items.Add("Trivia");
             }
 
             return new ProcessedShowcase(
@@ -68,6 +74,8 @@ namespace StockportWebapp.ContentFactory
                 showcase.EmailAlertsText,
                 showcase.Alerts,
                 showcase.PrimaryItems,
+                showcase.FeaturedItemsSubheading,
+                showcase.FeaturedItems,
                 showcase.KeyFacts,
                 showcase.Profile,
                 showcase.Profiles,
@@ -78,8 +86,9 @@ namespace StockportWebapp.ContentFactory
                 showcase.TriviaSubheading,
                 _informationFactory.Build(showcase.TriviaSection),
                 showcase.ProfileHeading,
-                showcase.ProfileLink,
-                showcase.EventsReadMoreText
+                showcase.ProfileLink
+                showcase.EventsReadMoreText,
+                video
             );
         }
     }
