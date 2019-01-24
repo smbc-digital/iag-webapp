@@ -83,6 +83,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 null,
                 "",
                 "",
+                "",
                 new Video());
 
             _mockContentRepository

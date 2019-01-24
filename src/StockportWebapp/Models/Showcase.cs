@@ -40,6 +40,7 @@ namespace StockportWebapp.Models
         public string Icon { get; set; }
         public string TriviaSubheading { get; set; }
         public List<InformationItem> TriviaSection { get; set; }
+        public string EventsReadMoreText { get; set; }
         public Video Video { get; set; }
 
         public Showcase(string title,
@@ -76,8 +77,9 @@ namespace StockportWebapp.Models
             string keyFactSubheading,
             string icon,
             string triviaSubheading,
-            List<InformationItem> triviaSection,
+            List<InformationItem> triviaSection, 
             CallToActionBanner callToActionBanner,
+            string eventsReadMoreText,
             Video video)
         {
             Title = title;
@@ -116,6 +118,7 @@ namespace StockportWebapp.Models
             CallToActionBanner = callToActionBanner;
             ProfileLink = profileLink;
             ProfileHeading = profileHeading;
+            EventsReadMoreText = eventsReadMoreText;
             Video = video;
         }
     }

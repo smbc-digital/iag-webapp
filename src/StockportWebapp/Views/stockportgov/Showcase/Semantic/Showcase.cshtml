@@ -17,9 +17,6 @@
     ViewData["Description"] = Model.Teaser;
     ViewData["Slug"] = Model.Slug;
     Layout = "../../Shared/_LayoutSemantic.cshtml";
-    ViewData["EventsH2"] = true;
-    ViewData["EventCategory"] = Model.EventCategory;
-    ViewData["EventSubheading"] = Model.EventSubheading;
     var emailBanner = new EmailBannerViewModel(Model.EmailAlertsText, Model.EmailAlertsTopicId);
 }
 @section Breadcrumbs {
@@ -100,7 +97,24 @@
             break;
 
         case "Events":
-            //TONOTDO: Please do not do this right away.
+            if (Model.Events != null)
+            {
+                var eventsListViewModel = new EventsListViewModel
+                {
+                    Events = Model.Events,
+                    Heading = Model.EventSubheading,
+                    Link = Model.EventsCategoryOrTag == "T" ? $"{Url.Action("Index", "Events")}?tag={Model.EventCategory}" : $"{Url.Action("Index", "Events")}?category={Model.EventCategory}",
+                    LinkText = Model.EventsReadMoreText
+                };
+
+                <div class="full-width">
+                    <div class="showcase-section background-off-white">
+                        <div class="center-wrapper relative">
+                            <partial name="Semantic/Showcase/EventsList" model="eventsListViewModel" />
+                        </div>
+                    </div>
+                </div>
+            }
             break;
 
         case "Profile":
