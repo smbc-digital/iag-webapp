@@ -52,7 +52,7 @@
 
         case "Featured Items":
 
-            <div class="showcase-section background-off-white">
+            <div class="showcase-section">
                 <div class="center-wrapper">
                     <div class="featured-item-container">
                         <h2 class="featured-item-header">@Model.FeaturedItemsSubheading</h2>
@@ -77,7 +77,7 @@
         case "Consultations":
             if (Model.Consultations.Any())
             {
-                <div class="showcase-section background-off-white">
+                <div class="showcase-section">
                     <div class="center-wrapper">
                         <partial name="Semantic/Showcase/Consultations" model='Model.Consultations' />
                     </div>
@@ -88,7 +88,7 @@
         case "News":
             if (Model.NewsArticle != null)
             {
-                <div class="showcase-section background-off-white">
+                <div class="showcase-section">
                     <div class="center-wrapper">
                         <partial name="Semantic/Showcase/NewsArticle" model='Model' />
                     </div>
@@ -107,11 +107,9 @@
                     LinkText = Model.EventsReadMoreText
                 };
 
-                <div class="full-width">
-                    <div class="showcase-section background-off-white">
-                        <div class="center-wrapper relative">
-                            <partial name="Semantic/Showcase/EventsList" model="eventsListViewModel" />
-                        </div>
+                <div class="showcase-section">
+                    <div class="center-wrapper relative">
+                        <partial name="Semantic/Showcase/EventsList" model="eventsListViewModel" />
                     </div>
                 </div>
             }
@@ -120,7 +118,7 @@
         case "Profile":
             if (Model.Profile != null)
             {
-                <div class="full-width">
+                <div class="showcase-section">
                     <div class="showcase-profile showcase-news-events">
                         <div class="center-wrapper">
                             @await Component.InvokeAsync("ProfileInline", new
@@ -144,18 +142,23 @@
                     Heading = Model.ProfileHeading
                 };
 
-                <div class="full-width">
-                    <div class="showcase-section">
+                <div class="showcase-section">
                         <div class="center-wrapper">
                             <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
                         </div>
-                    </div>
                 </div>
             }
             break;
 
         case "Social Media":
-            //TONOTDO: Please do not do this right away.
+            if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
+            {
+                <div class="showcase-section">
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/SocialMediaLinks" model="Model.SocialMediaLinks"/>
+                    </div>
+                </div>
+            }
             break;
 
         case "Body":
@@ -187,7 +190,7 @@
             break;
 
         case "Call to action banner":
-            <div class="full-width showcase-section">
+            <div class="showcase-section">
                 <div class="showcase-banner">
                     <div class="center-wrapper">
                         <a class="call-to-action-banner-container" href="@Model.CallToActionBanner.Link">
@@ -203,19 +206,22 @@
             break;
 
         case "Video":
-            <div class="full-width background-off-white">
-                <div class="showcase-banner">
-                    <div class="video-section">
-                        <h2>@Model.Video.Heading</h2>
-                        <p>@Model.Video.Text</p>
-                        <hr class="thin-divider" />
-                        @{
-                            var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
-                        }
-                        @Html.Raw(videoCode)
+            if (Model.Video != null)
+            {
+                <div class="showcase-section">
+                    <div class="showcase-banner">
+                        <div class="video-section">
+                            <h2>@Model.Video.Heading</h2>
+                            <p>@Model.Video.Text</p>
+                            <hr class="thin-divider"/>
+                            @{
+                                var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
+                            }
+                            @Html.Raw(videoCode)
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             break;
     }
 }
@@ -223,7 +229,7 @@
 
 @if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
 {
-    <div class="showcase-section background-off-white">
+    <div class="showcase-section">
         <div class="center-wrapper">
             <partial name="Semantic/EmailBanner" model="emailBanner" />
         </div>

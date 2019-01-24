@@ -1,0 +1,14 @@
+﻿@model IEnumerable<StockportWebapp.Models.SocialMediaLink>
+
+<section>
+    <h2>Test header</h2>
+    <div class="showcase-button-container">
+    @foreach (var link in Model)
+    {
+        <button as-link="true" class="showcase-button" href="@link.Url">
+            <i class="@link.Icon fa" aria-hidden="true"></i>
+            @link.Title
+        </button>
+    }
+    </div>
+</section>

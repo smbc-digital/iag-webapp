@@ -25,6 +25,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string FeaturedItemsSubheading;
         public readonly IEnumerable<SubItem> FeaturedItems;
         public readonly IEnumerable<Consultation> Consultations;
+        public readonly string SocialMediaLinksSubheading;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
         public readonly IEnumerable<Event> Events;
         public readonly string EmailAlertsTopicId;
@@ -64,6 +65,7 @@ namespace StockportWebapp.ProcessedModels
             IEnumerable<SubItem> secondaryItems,
             IEnumerable<Crumb> breadcrumbs,
             IEnumerable<Consultation> consultations,
+            string socialMediaLinksSubheading,
             IEnumerable<SocialMediaLink> socialMediaLinks,
             IEnumerable<Event> events,
             string emailAlertsTopicId,
@@ -96,6 +98,7 @@ namespace StockportWebapp.ProcessedModels
             Breadcrumbs = breadcrumbs;
             SecondaryItems = secondaryItems;
             Consultations = consultations;
+            SocialMediaLinksSubheading = socialMediaLinksSubheading;
             SocialMediaLinks = socialMediaLinks;
             Events = events;
             NewsSubheading = newsSubheading;

@@ -29,7 +29,11 @@ namespace StockportWebapp.ContentFactory
             showcase.Body = _markdownWrapper.ConvertToHtml(body ?? string.Empty);
 
             var video = showcase.Video;
-            video.VideoEmbedCode = _tagParserContainer.ParseAll(video.VideoEmbedCode);
+
+            if (video != null)
+            {
+                video.VideoEmbedCode = _tagParserContainer.ParseAll(video.VideoEmbedCode);
+            }
 
             var fields = showcase.FieldOrder;
 
@@ -68,6 +72,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.SecondaryItems,
                 showcase.Breadcrumbs,
                 showcase.Consultations,
+                showcase.SocialMediaLinksSubheading,
                 showcase.SocialMediaLinks,
                 showcase.Events,
                 showcase.EmailAlertsTopicId,
