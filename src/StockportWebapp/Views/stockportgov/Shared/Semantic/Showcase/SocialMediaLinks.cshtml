@@ -1,14 +1,14 @@
-﻿@model IEnumerable<StockportWebapp.Models.SocialMediaLink>
+﻿@model StockportWebapp.ViewModels.SocialMediaLinksViewModel
 
 <section>
-    <h2>Test header</h2>
+    <h2>@Model.SocialMediaLinksSubheading</h2>
     <div class="showcase-button-container">
-    @foreach (var link in Model)
+    @foreach (var link in Model.SocialMediaLinks)
     {
-        <button as-link="true" class="showcase-button" href="@link.Url">
-            <i class="@link.Icon fa" aria-hidden="true"></i>
-            @link.Title
-        </button>
+        <a as-link="true" class="showcase-button" href="@link.Url">
+            <span class="@link.Icon fa 2x" aria-hidden="true"></span>
+            <span>@link.Title</span>
+        </a>
     }
     </div>
 </section>

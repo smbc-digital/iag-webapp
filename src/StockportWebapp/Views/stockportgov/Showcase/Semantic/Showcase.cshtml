@@ -147,15 +147,21 @@
                             <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
                         </div>
                 </div>
-            }
-            break;
+                    }
+                    break;
 
         case "Social Media":
             if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
             {
+                var socialMediaLinksViewModel = new SocialMediaLinksViewModel
+                {
+                    SocialMediaLinksSubheading = Model.SocialMediaLinksSubheading != String.Empty ? Model.SocialMediaLinksSubheading : "Get in touch",
+                    SocialMediaLinks = Model.SocialMediaLinks
+                };
+
                 <div class="showcase-section">
                     <div class="center-wrapper">
-                        <partial name="Semantic/Showcase/SocialMediaLinks" model="Model.SocialMediaLinks"/>
+                        <partial name="Semantic/Showcase/SocialMediaLinks" model="socialMediaLinksViewModel"/>
                     </div>
                 </div>
             }
