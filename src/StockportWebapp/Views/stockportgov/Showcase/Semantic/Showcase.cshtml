@@ -143,12 +143,12 @@
                 };
 
                 <div class="showcase-section">
-                        <div class="center-wrapper">
-                            <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
-                        </div>
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
+                    </div>
                 </div>
-                    }
-                    break;
+            }
+            break;
 
         case "Social Media":
             if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
@@ -161,7 +161,7 @@
 
                 <div class="showcase-section">
                     <div class="center-wrapper">
-                        <partial name="Semantic/Showcase/SocialMediaLinks" model="socialMediaLinksViewModel"/>
+                        <partial name="Semantic/Showcase/SocialMediaLinks" model="socialMediaLinksViewModel" />
                     </div>
                 </div>
             }
@@ -217,9 +217,18 @@
                 <div class="showcase-section">
                     <div class="showcase-banner">
                         <div class="video-section">
-                            <h2>@Model.Video.Heading</h2>
-                            <p>@Model.Video.Text</p>
-                            <hr class="thin-divider"/>
+                            @if (!string.IsNullOrEmpty(Model.Video.Heading))
+                            {
+                                <h2>@Model.Video.Heading</h2>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Video.Text))
+                            {
+                                <p>@Model.Video.Text</p>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.Video.Heading) || !string.IsNullOrEmpty(Model.Video.Text))
+                            {
+                                <hr class="thin-divider" />
+                            }
                             @{
                                 var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
                             }
