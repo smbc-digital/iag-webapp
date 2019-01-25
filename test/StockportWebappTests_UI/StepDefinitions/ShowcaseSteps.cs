@@ -34,7 +34,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see the featured items section")]
         public void ThenIShouldSeeTheFeaturedItemsSection()
         {
-            Assert.True(BrowserSession.FindCss(".featured-topic-list").Exists());
+            Assert.True(BrowserSession.FindCss(".featured-item-container").Exists());
         }
 
         [Then(@"I should see the consultations section")]
@@ -46,7 +46,7 @@ namespace StockportWebappTests_UI.StepDefinitions
         [Then(@"I should see the social media links section")]
         public void ThenIShouldSeeTheSocialMediaLinksSection()
         {
-            Assert.True(BrowserSession.FindCss(".showcase-social-media").Exists());
+            Assert.True(BrowserSession.FindCss(".showcase-button-container").Exists());
         }
 
         [Then(@"I should see the events section")]

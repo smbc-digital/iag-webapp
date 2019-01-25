@@ -33,6 +33,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         public string _profileHeading { get; set; }
         public string _profileLink { get; set; }
         public string _triviaSubheading { get; set; }
+        public string _socialMediaLinksSubheading { get; set; } = "";
         public string _eventsReadMoreText { get; set; } = "";
         public List<InformationItem> _triviaSection { get; set; }
         public string _featuredItemsSubheading { get; set; } = "";
@@ -66,6 +67,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
                 _breadcrumbs,
                 _secondaryItems,
                 _consultations,
+                _socialMediaLinksSubheading,
                 _socialMediaLinks,
                 _events,
                 _emailAlertsTopicId,

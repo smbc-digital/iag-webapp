@@ -79,6 +79,8 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.And("I should see the news section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 11
  testRunner.And("I should see the primary items section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 12
+ testRunner.And("I should see the featured items section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 13
  testRunner.And("I should see the consultations section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 15

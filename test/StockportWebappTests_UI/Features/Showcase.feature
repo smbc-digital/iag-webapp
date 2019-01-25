@@ -9,7 +9,7 @@ Scenario: When I navigate to a showcase page I should see a showcase
 	And I should see the hero image
 	And I should see the news section
 	And I should see the primary items section
-	#And I should see the featured items section
+	And I should see the featured items section
 	And I should see the consultations section
 	#And I should see the social media links section
 	And I should see the profile section
