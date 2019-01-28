@@ -6,7 +6,7 @@ prod: &prod
   GroupDetailsPage: true
   SiaSystem: false
   SemanticLayout: true
-  SemanticProfile: false
+  SemanticProfile: true
   SemanticShowcase: false
   ContactUsArea: false
   SemanticSmartAnswer: 
@@ -23,7 +23,6 @@ qa: &qa
   << : *prod
   << : *stage
   SemanticLayout: true
-  SemanticProfile: true
   SemanticInlineAlert: true
   SemanticShowcase: true
 
