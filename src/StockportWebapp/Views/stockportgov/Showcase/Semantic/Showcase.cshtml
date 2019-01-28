@@ -229,12 +229,10 @@
                         {
                             <hr class="thin-divider" />
                         }
-                            <div class="video-wrapper">
                                 @{
                                     var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
                                 }
                                 @Html.Raw(videoCode)
-                            </div>
                         </div>
                     </div>
                 </div>

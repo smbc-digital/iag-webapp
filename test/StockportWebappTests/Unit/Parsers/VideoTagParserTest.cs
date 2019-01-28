@@ -22,6 +22,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
 
             var outputHtml = new StringBuilder();
 
+            outputHtml.Append("<div class=\"video-wrapper\">");
             outputHtml.Append($"<div id=\"buto_{tag}\"></div>");
             outputHtml.Append("<script>");
             outputHtml.Append("(function(d, config) {");
@@ -33,6 +34,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             outputHtml.Append("s.parentNode.insertBefore(script, s)");
             outputHtml.Append($"}})(document, {{\"object_id\":\"{tag}\", \"width\": \"100%\", \"height\": \"100%\"}})");
             outputHtml.Append("</script>");
+            outputHtml.Append("</div>");
 
             //outputHtml.Append($"<div id=\"buto_{tag}\"></div>");
             //outputHtml.Append("<script>");
