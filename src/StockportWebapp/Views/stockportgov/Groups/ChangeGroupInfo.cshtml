@@ -14,12 +14,13 @@
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
+        <div tabindex="-1" id="content"></div>
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="" class="grid-100 mobile-grid-100">
                 <div class="l-content-container">
                     <div class="grid-100">
                         <h1>Changes to a group's information</h1>
-                        
+
                         <div>
                             <p>It is important to keep the details on a group's information page as up-to-date as possible to help people who are looking for community and local service provision.</p>
                             <p>If you know that information on a specific group page is out-of-date, inaccurate or the organisation no longer operates please let us know by using the email contact form below and providing as much information as possible.</p>
@@ -51,20 +52,20 @@
                             </div>
                         </noscript>
                         <form asp-controller="Groups" asp-action="ChangeGroupInfo" method="post" role="form">
-                            <input type="hidden" asp-for="@Model.GroupName"/>
+                            <input type="hidden" asp-for="@Model.GroupName" />
                             <div class="form">
                                 <div class="form-section">
                                     <fieldset>
                                         <label asp-for="@Model.Name"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name"/>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Name" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Email"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email"/>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Email" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Email" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Subject"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Subject"/>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Subject" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Subject" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <label asp-for="@Model.Message"></label>
