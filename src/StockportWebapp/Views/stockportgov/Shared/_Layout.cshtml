@@ -75,12 +75,8 @@
     </script>
 
     <script type="text/javascript">
-        require(['validate', 'clipboard', 'jquery-ui', 'jquery.cookie', 'jquery'],
-            function (validate, clipboard, jqueryui, jquerycookie, $) {
-                var url = window.location.href;
-                if (url.includes("schoolclosures")) {
-                    $("head").append('<meta http-equiv="cache-control" content="max-age=0" />');
-                };
+        require(['validate', 'clipboard', 'jquery-ui', 'jquery.cookie'],
+            function (validate, clipboard, jqueryui, jquerycookie) {
             })
     </script>
 
