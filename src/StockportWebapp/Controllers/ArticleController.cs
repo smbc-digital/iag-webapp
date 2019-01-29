@@ -13,7 +13,7 @@ using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+    //[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
     public class ArticleController : Controller
     {
         private readonly IProcessedContentRepository _repository;
