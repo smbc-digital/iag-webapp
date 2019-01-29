@@ -10,6 +10,7 @@
 @section Breadcrumbs {
     <partial name="SemanticBreadcrumb" model='new List<Crumb> { new Crumb(Model.Title, Model.Slug, "showcase") }' />
 }
+    <div tabindex="-1" id="content"></div>
     <div class="full-width">
         <article class="center-wrapper">
             <h1 class="group-article-title">@ViewData["Title"].ToString()</h1>
@@ -35,7 +36,7 @@
                             <tr class="hover-hand">
                                 <td class="hide-on-mobile hide-on-tablet"><a href="@item.Link"></a>@item.Title</td>
                                 <td class="align-right hide-on-mobile hide-on-tablet">@date</td>
-                                <td class="hide-on-mobile hide-on-tablet align-center"><span class="fa fa-angle-right"/></td>
+                                <td class="hide-on-mobile hide-on-tablet align-center"><span class="fa fa-angle-right" /></td>
                                 <td class="hide-on-desktop">
                                     <a href="#">
                                         <div>
