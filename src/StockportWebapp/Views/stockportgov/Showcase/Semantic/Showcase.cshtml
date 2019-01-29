@@ -3,6 +3,7 @@
 @using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
 @using StockportWebapp.Utils
+@using System.Text.RegularExpressions
 
 @inject FeatureToggles FeatureToggles
 @inject ICookiesHelper CookiesHelper
@@ -16,14 +17,13 @@
     ViewData["Description"] = Model.Teaser;
     ViewData["Slug"] = Model.Slug;
     Layout = "../../Shared/_LayoutSemantic.cshtml";
-    ViewData["EventsH2"] = true;
-    ViewData["EventCategory"] = Model.EventCategory;
-    ViewData["EventSubheading"] = Model.EventSubheading;
     var emailBanner = new EmailBannerViewModel(Model.EmailAlertsText, Model.EmailAlertsTopicId);
 }
 @section Breadcrumbs {
     <partial name="SemanticBreadcrumb" model='Model.Breadcrumbs' />
 }
+
+<div tabindex="-1" id="content"></div>
 
 @if (Model.Alerts != null)
 {
@@ -52,14 +52,34 @@
             </div>
             break;
 
-        case "Secondary Items":
-            //TONOTDO: Please do not do this right away.
+        case "Featured Items":
+
+            <div class="showcase-section">
+                <div class="center-wrapper">
+                    <div class="featured-item-container">
+                        <h2 class="featured-item-header">@Model.FeaturedItemsSubheading</h2>
+                        <ul class="featured-item-body">
+                            @foreach (var item in Model.FeaturedItems)
+                            {
+                                <li>
+                                    <a href="@item.NavigationLink">
+                                        <img src="@item.Image" />
+                                        <h3>@item.Title</h3>
+                                        <p>@item.Teaser</p>
+                                    </a>
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
             break;
 
         case "Consultations":
             if (Model.Consultations.Any())
             {
-                <div class="showcase-section background-off-white">
+                <div class="showcase-section">
                     <div class="center-wrapper">
                         <partial name="Semantic/Showcase/Consultations" model='Model.Consultations' />
                     </div>
@@ -70,7 +90,7 @@
         case "News":
             if (Model.NewsArticle != null)
             {
-                <div class="showcase-section background-off-white">
+                <div class="showcase-section">
                     <div class="center-wrapper">
                         <partial name="Semantic/Showcase/NewsArticle" model='Model' />
                     </div>
@@ -79,13 +99,28 @@
             break;
 
         case "Events":
-            //TONOTDO: Please do not do this right away.
+            if (Model.Events != null)
+            {
+                var eventsListViewModel = new EventsListViewModel
+                {
+                    Events = Model.Events,
+                    Heading = Model.EventSubheading,
+                    Link = Model.EventsCategoryOrTag == "T" ? $"{Url.Action("Index", "Events")}?tag={Model.EventCategory}" : $"{Url.Action("Index", "Events")}?category={Model.EventCategory}",
+                    LinkText = Model.EventsReadMoreText
+                };
+
+                <div class="showcase-section">
+                    <div class="center-wrapper relative">
+                        <partial name="Semantic/Showcase/EventsList" model="eventsListViewModel" />
+                    </div>
+                </div>
+            }
             break;
 
         case "Profile":
             if (Model.Profile != null)
             {
-                <div class="full-width">
+                <div class="showcase-section">
                     <div class="showcase-profile showcase-news-events">
                         <div class="center-wrapper">
                             @await Component.InvokeAsync("ProfileInline", new
@@ -96,31 +131,42 @@
                         </div>
                     </div>
                 </div>
-                    }
-                    break;
+            }
+            break;
 
-                case "Profiles":
-                    if (Model.Profiles != null)
-                    {
-                        var profileViewModel = new ProfileListViewModel
-                        {
-                            Profiles = Model.Profiles,
-                            Link = Model.ProfileLink,
-                            Heading = Model.ProfileHeading
-                        };
+        case "Profiles":
+            if (Model.Profiles != null)
+            {
+                var profileViewModel = new ProfileListViewModel
+                {
+                    Profiles = Model.Profiles,
+                    Link = Model.ProfileLink,
+                    Heading = Model.ProfileHeading
+                };
 
-                        <div class="full-width">
-                    <div class="showcase-section">
-                        <div class="center-wrapper">
-                            <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
-                        </div>
+                <div class="showcase-section">
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/ProfilesList" model="profileViewModel" />
                     </div>
                 </div>
             }
             break;
 
         case "Social Media":
-            //TONOTDO: Please do not do this right away.
+            if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
+            {
+                var socialMediaLinksViewModel = new SocialMediaLinksViewModel
+                {
+                    SocialMediaLinksSubheading = Model.SocialMediaLinksSubheading != String.Empty ? Model.SocialMediaLinksSubheading : "Get in touch",
+                    SocialMediaLinks = Model.SocialMediaLinks
+                };
+
+                <div class="showcase-section">
+                    <div class="center-wrapper">
+                        <partial name="Semantic/Showcase/SocialMediaLinks" model="socialMediaLinksViewModel" />
+                    </div>
+                </div>
+            }
             break;
 
         case "Body":
@@ -152,7 +198,7 @@
             break;
 
         case "Call to action banner":
-            <div class="full-width">
+            <div class="showcase-section">
                 <div class="showcase-banner">
                     <div class="center-wrapper">
                         <a class="call-to-action-banner-container" href="@Model.CallToActionBanner.Link">
@@ -166,13 +212,41 @@
                 </div>
             </div>
             break;
+
+        case "Video":
+            if (Model.Video != null)
+            {
+                <div class="showcase-section">
+                    <div class="showcase-banner">
+                        <div class="video-section">
+                            @if (!string.IsNullOrEmpty(Model.Video.Heading))
+                        {
+                            <h2>@Model.Video.Heading</h2>
+                        }
+                            @if (!string.IsNullOrEmpty(Model.Video.Text))
+                        {
+                            <p>@Model.Video.Text</p>
+                        }
+                            @if (!string.IsNullOrEmpty(Model.Video.Heading) || !string.IsNullOrEmpty(Model.Video.Text))
+                        {
+                            <hr class="thin-divider" />
+                        }
+                                @{
+                                    var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
+                                }
+                                @Html.Raw(videoCode)
+                        </div>
+                    </div>
+                </div>
+            }
+            break;
     }
 }
 
 
 @if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
 {
-    <div class="showcase-section background-off-white">
+    <div class="showcase-section">
         <div class="center-wrapper">
             <partial name="Semantic/EmailBanner" model="emailBanner" />
         </div>

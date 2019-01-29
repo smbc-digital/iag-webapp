@@ -155,84 +155,89 @@
   <ItemGroup>
     <Compile Include="BrowserConfiguration.cs" />
     <Compile Include="Features\Article.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Article.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\AToZ1.feature.cs">
+    <Compile Include="Features\AToZ.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>AToZ.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\Breadcrumb.feature.cs">
+    <Compile Include="Features\Breadcrumb1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Breadcrumb.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\ContactUsArea.feature.cs">
+    <Compile Include="Features\ContactUsArea1.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ContactUsArea.feature</DependentUpon>
     </Compile>
-    <Compile Include="Features\Events.feature.cs">
+    <Compile Include="Features\Events1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Events.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupManagement.feature.cs">
+    <Compile Include="Features\GroupManagement1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>GroupManagement.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupsAddEdit.feature.cs">
+    <Compile Include="Features\GroupsAddEdit1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsAddEdit.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupsArticleLoggedIn.feature.cs">
+    <Compile Include="Features\GroupsArticleLoggedIn1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupsArticleLoggedInNotAdmin.feature.cs">
+    <Compile Include="Features\GroupsArticleLoggedInNotAdmin1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleLoggedInNotAdmin.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupsArticleNotLoggedIn.feature.cs">
+    <Compile Include="Features\GroupsArticleNotLoggedIn1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleNotLoggedIn.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupsFavourites.feature.cs">
+    <Compile Include="Features\GroupsFavourites1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsFavourites.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\GroupsHomepage.feature.cs">
+    <Compile Include="Features\GroupsHomepage1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsHomepage.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\Homepage.feature.cs">
+    <Compile Include="Features\GroupsSearch1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GroupsSearch.feature</DependentUpon>
+    </Compile>
+    <Compile Include="Features\Homepage1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Homepage.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\News.feature.cs">
-      <DependentUpon>News.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Features\News1.feature.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>News.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Showcase.feature.cs">
       <DependentUpon>Showcase.feature</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Include="Features\Topic.feature.cs">
-      <DependentUpon>Topic.feature</DependentUpon>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Features\Topic1.feature.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Topic.feature</DependentUpon>
     </Compile>
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -270,55 +275,59 @@
     </None>
     <None Include="Features\AToZ.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>AToZ1.feature.cs</LastGenOutput>
+      <LastGenOutput>AToZ.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Breadcrumb.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Breadcrumb.feature.cs</LastGenOutput>
+      <LastGenOutput>Breadcrumb1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\ContactUsArea.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ContactUsArea.feature.cs</LastGenOutput>
+      <LastGenOutput>ContactUsArea1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Events.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Events.feature.cs</LastGenOutput>
+      <LastGenOutput>Events1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupManagement.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupManagement.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupManagement1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsAddEdit.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsAddEdit.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupsAddEdit1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsArticleLoggedIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsArticleLoggedIn.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupsArticleLoggedIn1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsArticleLoggedInNotAdmin.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsArticleLoggedInNotAdmin.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupsArticleLoggedInNotAdmin1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsArticleNotLoggedIn.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsArticleNotLoggedIn.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupsArticleNotLoggedIn1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsFavourites.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsFavourites.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupsFavourites1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\GroupsHomepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>GroupsHomepage.feature.cs</LastGenOutput>
+      <LastGenOutput>GroupsHomepage1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\GroupsSearch.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>GroupsSearch1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Homepage.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Homepage.feature.cs</LastGenOutput>
+      <LastGenOutput>Homepage1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\News.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>News.feature.cs</LastGenOutput>
+      <LastGenOutput>News1.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Showcase.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
@@ -326,7 +335,7 @@
     </None>
     <None Include="Features\Topic.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>Topic.feature.cs</LastGenOutput>
+      <LastGenOutput>Topic1.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
@@ -336,7 +345,7 @@
     <None Include="SavedResponses\Events\latest.json" />
     <None Include="SavedResponses\Groups\homepage.json" />
     <None Include="SavedResponses\Articles\uitest-test-article.json" />
-    <None Include="SavedResponses\Showcase\showcase.json" />
+    <None Include="SavedResponses\Topics\test_topic.json" />
     <None Include="SavedResponses\Topics\uitest-hat-works.json" />
     <None Include="SavedResponses\Footer\footer.json" />
     <None Include="SavedResponses\Homepage\homepage.json" />
@@ -366,7 +375,9 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\xunit.analyzers.0.10.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SavedResponses\Showcase\" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.1.2.0\build\net45\MSTest.TestAdapter.targets')" />

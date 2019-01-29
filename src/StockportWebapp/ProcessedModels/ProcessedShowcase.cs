@@ -22,7 +22,10 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<Crumb> Breadcrumbs;
         public readonly IEnumerable<SubItem> SecondaryItems;
         public readonly IEnumerable<SubItem> PrimaryItems;
+        public readonly string FeaturedItemsSubheading;
+        public readonly IEnumerable<SubItem> FeaturedItems;
         public readonly IEnumerable<Consultation> Consultations;
+        public readonly string SocialMediaLinksSubheading;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
         public readonly IEnumerable<Event> Events;
         public readonly string EmailAlertsTopicId;
@@ -39,6 +42,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Icon;
         public readonly List<ProcessedInformationItem> TriviaSection;
         public readonly string TriviaSubheading;
+        public string EventsReadMoreText;
+        public readonly Video Video;
 
         public ProcessedShowcase()
         { }
@@ -60,12 +65,15 @@ namespace StockportWebapp.ProcessedModels
             IEnumerable<SubItem> secondaryItems,
             IEnumerable<Crumb> breadcrumbs,
             IEnumerable<Consultation> consultations,
+            string socialMediaLinksSubheading,
             IEnumerable<SocialMediaLink> socialMediaLinks,
             IEnumerable<Event> events,
             string emailAlertsTopicId,
             string emailAlertsText,
             IEnumerable<Alert> alerts,
             IEnumerable<SubItem> primaryItems,
+            string featuredItemsSubheading,
+            IEnumerable<SubItem> featuredItems,
             IEnumerable<KeyFact> keyFacts,
             Profile profile,
             List<Profile> profiles,
@@ -76,7 +84,9 @@ namespace StockportWebapp.ProcessedModels
             string triviaSubheading,
             List<ProcessedInformationItem> triviaSection,
             string profileHeading,
-            string profileLink)
+            string profileLink,
+            string eventsReadMoreText,
+            Video video)
         {
             Title = title;
             Slug = slug;
@@ -88,6 +98,7 @@ namespace StockportWebapp.ProcessedModels
             Breadcrumbs = breadcrumbs;
             SecondaryItems = secondaryItems;
             Consultations = consultations;
+            SocialMediaLinksSubheading = socialMediaLinksSubheading;
             SocialMediaLinks = socialMediaLinks;
             Events = events;
             NewsSubheading = newsSubheading;
@@ -102,6 +113,8 @@ namespace StockportWebapp.ProcessedModels
             Alerts = alerts;
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
+            FeaturedItemsSubheading = featuredItemsSubheading;
+            FeaturedItems = featuredItems;
             Profile = profile;
             Profiles = profiles;
             FieldOrder = fieldOrder;
@@ -112,6 +125,8 @@ namespace StockportWebapp.ProcessedModels
             CallToActionBanner = callToActionBanner;
             ProfileHeading = profileHeading;
             ProfileLink = profileLink;
+            EventsReadMoreText = eventsReadMoreText;
+            Video = video;
         }
     }
 }

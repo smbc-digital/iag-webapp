@@ -21,7 +21,10 @@ namespace StockportWebapp.Models
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public IEnumerable<SubItem> SecondaryItems { get; set; }
         public IEnumerable<SubItem> PrimaryItems { get; set; }
+        public string FeaturedItemsSubheading { get; set; }
+        public IEnumerable<SubItem> FeaturedItems { get; set; }
         public IEnumerable<Consultation> Consultations { get; set; }
+        public string SocialMediaLinksSubheading { get; set; }
         public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
         public IEnumerable<Event> Events { get; set; }
         public string EmailAlertsTopicId { get; set; }
@@ -38,41 +41,48 @@ namespace StockportWebapp.Models
         public string Icon { get; set; }
         public string TriviaSubheading { get; set; }
         public List<InformationItem> TriviaSection { get; set; }
+        public string EventsReadMoreText { get; set; }
+        public Video Video { get; set; }
 
-        public Showcase(string title, 
-            string slug, 
-            string teaser, 
-            string subheading, 
-            string eventCategory, 
-            string eventsCategoryOrTag, 
+        public Showcase(string title,
+            string slug,
+            string teaser,
+            string subheading,
+            string eventCategory,
+            string eventsCategoryOrTag,
             string eventSubheading,
-            string newsSubheading, 
-            string newsCatgeoryTag, 
-            string newsCatgeoryOrTag, 
-            string bodySubheading, 
-            string body, 
-            News newsArticle, 
+            string newsSubheading,
+            string newsCatgeoryTag,
+            string newsCatgeoryOrTag,
+            string bodySubheading,
+            string body,
+            News newsArticle,
             string heroImageUrl,
-            IEnumerable<Crumb> breadcrumbs, 
-            IEnumerable<SubItem> secondaryItems, 
-            IEnumerable<Consultation> consultations, 
+            IEnumerable<Crumb> breadcrumbs,
+            IEnumerable<SubItem> secondaryItems,
+            IEnumerable<Consultation> consultations,
+            string socialMediaLinksSubheading,
             IEnumerable<SocialMediaLink> socialMediaLinks,
-            IEnumerable<Event> events, 
-            string emailAlertsTopicId, 
-            string emailAlertsText, 
-            IEnumerable<Alert> alerts, 
-            IEnumerable<SubItem> primaryItems, 
+            IEnumerable<Event> events,
+            string emailAlertsTopicId,
+            string emailAlertsText,
+            IEnumerable<Alert> alerts,
+            IEnumerable<SubItem> primaryItems,
+            string featuredItemsSubheading,
+            IEnumerable<SubItem> featuredItems,
             IEnumerable<KeyFact> keyFacts,
-            Profile profile, 
+            Profile profile,
             string profileHeading,
             string profileLink,
-            List<Profile> profiles, 
-            FieldOrder fieldOrder, 
-            string keyFactSubheading, 
-            string icon, 
+            List<Profile> profiles,
+            FieldOrder fieldOrder,
+            string keyFactSubheading,
+            string icon,
             string triviaSubheading,
             List<InformationItem> triviaSection, 
-            CallToActionBanner callToActionBanner)
+            CallToActionBanner callToActionBanner,
+            string eventsReadMoreText,
+            Video video)
         {
             Title = title;
             Slug = slug;
@@ -84,6 +94,7 @@ namespace StockportWebapp.Models
             Breadcrumbs = breadcrumbs;
             SecondaryItems = secondaryItems;
             Consultations = consultations;
+            SocialMediaLinksSubheading = socialMediaLinksSubheading;
             SocialMediaLinks = socialMediaLinks;
             Events = events;
             NewsSubheading = newsSubheading;
@@ -98,6 +109,8 @@ namespace StockportWebapp.Models
             Alerts = alerts;
             KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
+            FeaturedItemsSubheading = featuredItemsSubheading;
+            FeaturedItems = featuredItems;
             Profile = profile;
             Profiles = profiles;
             FieldOrder = fieldOrder;
@@ -108,6 +121,8 @@ namespace StockportWebapp.Models
             CallToActionBanner = callToActionBanner;
             ProfileLink = profileLink;
             ProfileHeading = profileHeading;
+            EventsReadMoreText = eventsReadMoreText;
+            Video = video;
         }
     }
 }

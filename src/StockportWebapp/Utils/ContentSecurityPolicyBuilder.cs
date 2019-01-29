@@ -153,8 +153,8 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.gstatic.com/recaptcha/api2/")
                 .AddSource("https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js")
                 .AddSource("https://www.jscache.com/")
-                .AddSource("*.tripadvisor.com")
-                .AddSource("*.tripadvisor.co.uk")
+                .AddSource("tripadvisor.com")
+                .AddSource("tripadvisor.co.uk")
                 .AddSource("static.tacdn.com")
                 .AddSource("http://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js")
 				.AddSource("platform.twitter.com/")
@@ -164,6 +164,8 @@ namespace StockportWebapp.Utils
                 .AddSource("stage.midas-pps.tractivity.co.uk/")
                 .AddSource("https://content.govdelivery.com/overlay/js/4939.js")
                 .AddSource("https://core-api-eu1.cludo.com/")
+				.AddSource("https://app.meetami.ai/")
+				.AddSource("https://cdn.trackjs.com/releases/current/tracker.js")
 				.Finish());
         }
 
@@ -180,7 +182,8 @@ namespace StockportWebapp.Utils
                 .AddSource("https://zldiarvaya.execute-api.eu-west-1.amazonaws.com/prod/")
                 .AddSource("https://13bg9nmobj.execute-api.eu-west-1.amazonaws.com/production/player-analytics")
                 .AddSource("https://core-api-eu1.cludo.com/")
-                .Finish());
+				.AddSource("https://event-collector.buto.tv/")
+				.Finish());
         }
 
         private void BuildMediaSource()

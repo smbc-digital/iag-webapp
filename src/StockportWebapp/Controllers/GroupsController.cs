@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -418,11 +419,11 @@ namespace StockportWebapp.Controllers
                 Title = "Changes to a group's information",
                 SubTitle = $"You've successfully submitted a change for {groupName}",
                 ConfirmationText = "We will take a look at the changes you have suggested so that we can make sure that they are correct.",
-				ButtonText = $"Go back to Stockport Local {groupName}",
-				ButtonLink = "/groups/" + slug,
-				Icon = "check",
-				IconColour = "green",
-				Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
+                ButtonText = $"Go back to Stockport Local {groupName}",
+                ButtonLink = "/groups/" + slug,
+                Icon = "check",
+                IconColour = "green",
+                Crumbs = new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb(ViewBag.GroupName, ViewBag.Slug, "groups") }
             };
 
             return View("Confirmation", viewmodel);
@@ -460,8 +461,8 @@ namespace StockportWebapp.Controllers
                 var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
 
                 if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
-
-                return new FileContentResult(result, new MediaTypeHeaderValue("application/pdf") { Encoding = Encoding.UTF8, Charset = "utf-8" });
+                Stream stream = new MemoryStream(result);
+                return File(stream, "application/pdf", group.Name + ".pdf");
             }
             catch (Exception ex)
             {
@@ -1167,7 +1168,7 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpPost]
-        
+
         [Route("/groups/{slug}/up-to-date")]
         public async Task<IActionResult> GroupUpToDate(string slug)
         {
@@ -1181,7 +1182,7 @@ namespace StockportWebapp.Controllers
             var putResponse = await _repository.Put<Group>(httpContent, slug);
 
             return Json(putResponse.StatusCode.ToString());
-           
+
         }
 
         [HttpGet]

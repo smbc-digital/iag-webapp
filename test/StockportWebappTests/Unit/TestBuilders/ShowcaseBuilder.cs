@@ -15,6 +15,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _eventCategoryOrtag = "event category or tag";
         private string _newsSubheading = "news subheading";
         private string _newsCategory = "news category";
+        private string _newsCategoryOrTag = "";
         private string _bodySubheading = "body subheading";
         private string _body = "body";
         private string _heroImageUrl = "image-url.jpg";
@@ -29,13 +30,19 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private IEnumerable<Event> _events = new List<Event>();
         private IEnumerable<Alert> alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty)};
-
         public string _profileHeading { get; set; }
         public string _profileLink { get; set; }
         public string _triviaSubheading { get; set; }
+        public string _socialMediaLinksSubheading { get; set; } = "";
+        public string _eventsReadMoreText { get; set; } = "";
         public List<InformationItem> _triviaSection { get; set; }
+        public string _featuredItemsSubheading { get; set; } = "";
+        public IEnumerable<SubItem> _featuredItems = new List<SubItem>()
+        {
+            new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
+        };
 
-        private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
+        private IEnumerable<SubItem> _secondaryItems = new List<SubItem>()
         {
             new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
         };
@@ -52,32 +59,36 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
                 _eventSubheading,
                 _newsSubheading,
                 _newsCategory,
-                string.Empty,
+                _newsCategoryOrTag,
                 _bodySubheading,
                 _body,
                 null,
-                _heroImageUrl, 
+                _heroImageUrl,
                 _breadcrumbs,
-                _featuredItems,
+                _secondaryItems,
                 _consultations,
+                _socialMediaLinksSubheading,
                 _socialMediaLinks,
                 _events,
                 _emailAlertsTopicId,
                 _emailAlertsText,
                 alerts,
                 new List<SubItem>(),
-                null,
-                null,
+                _featuredItemsSubheading,
+                _featuredItems,
+                new List<KeyFact>(),
+                new Profile(),
                 _profileHeading,
                 _profileLink,
-                null,
+                new List<Profile>(),
                 new FieldOrder(),
                 _keyFactSubheading,
                 _showcaseIcon,
                 _triviaSubheading,
                 _triviaSection,
-                _callToActionBanner
-                    
+                _callToActionBanner,
+                _eventsReadMoreText,
+                new Video()
             );
         }
 

@@ -1,5 +1,5 @@
 {
-  "Guid": "139efb91-dd09-49fb-8b8d-2a5db2886912",
+  "Guid": "7b6b9571-c30d-4417-8af6-0eb79084e7cc",
   "Title": "",
   "Priority": 0,
   "Request": {
@@ -26,7 +26,7 @@
       "subheading": "spotlight subheading",
       "heroImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/efpyPKadj2gOSm2I2cGSg/1b58f96120dc31eda3afa33e37de70fa/flower.jpg",
       "eventSubheading": "events",
-      "eventCategory": "ui-test",
+      "eventCategory": "Dance",
       "eventsCategoryOrTag": null,
       "newsSubheading": "news",
       "newsCategoryTag": "UITEST",
@@ -638,6 +638,8 @@
           ]
         }
       ],
+      "featuredItemsSubheading": "",
+      "featuredItems": [],
       "breadcrumbs": [],
       "consultations": [
         {
@@ -661,23 +663,24 @@
           "link": "https://www.stockport.gov.uk/news"
         }
       ],
+      "socialMediaLinksSubheading": "",
       "socialMediaLinks": [],
       "events": [
         {
-          "title": "UITest Event BROKEN",
-          "slug": "uitest-event-BROKEN",
-          "teaser": "Don't change or delete this event",
-          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3YpXWLwYLeAmsWs2Oy0YCI/48c8e5200eaebd4075eb4632b3ba9534/sunset-poppy-backlight-66274.jpeg",
-          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3YpXWLwYLeAmsWs2Oy0YCI/48c8e5200eaebd4075eb4632b3ba9534/sunset-poppy-backlight-66274.jpeg?h=250",
-          "description": "__Lorem i__psum dolor sit amet, consectetur adipiscing elit. Mauris aliquam, felis sit amet porta fermentum, ante nibh ornare odio, lobortis luctus dui tellus in odio. Nam neque felis, rhoncus a facilisis nec, pulvinar a dolor. Proin ac dapibus ipsum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer sodales, nisl nec porta tristique, magna sapien tempus ante, ac feugiat lorem lorem venenatis augue. Proin vehicula mattis urna sollicitudin lacinia. Morbi mollis mauris vitae velit rhoncus aliquam. Duis vehicula consectetur placerat. Fusce sit amet consequat mi.\n\nMaecenas vel leo feugiat, congue urna sed, imperdiet lacus. Aenean a neque eget ex faucibus blandit sit amet eu diam. Quisque interdum augue sed gravida facilisis. Suspendisse eget augue suscipit, interdum massa at, tristique sapien. Quisque at velit non nisi rutrum pharetra. Vestibulum semper risus et lobortis aliquet. Nulla egestas vulputate turpis eget condimentum. Praesent posuere arcu non lacus ornare aliquam. In volutpat lorem eget quam congue consequat et sed nulla. Suspendisse ut erat eget orci vestibulum vulputate. Pellentesque suscipit libero ac arcu mattis, eget vehicula lectus tempor. Nunc nec semper erat, nec aliquam ante. Cras a facilisis lacus, facilisis condimentum turpis. Vivamus eleifend neque et dolor malesuada egestas.\n£10.00\n\n{{CAROUSEL:![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)}}\n/////\n\n{{VIDEO:kQl5D}}\n",
-          "fee": "30",
-          "location": "Stopford House, Stockport SK1, UK",
-          "submittedBy": "Harsha",
-          "eventDate": "2019-01-25T00:00:00",
-          "startTime": "10:00",
-          "endTime": "20:00",
-          "occurences": 100,
-          "eventFrequency": "Weekly",
+          "title": "Petting Time",
+          "slug": "petting-time",
+          "teaser": "Come along and pet your favourite dogs!",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/4mUplgILHjc1q2k3BkP962/fe2ad8a7b48df4e24a08ddd0f8b7a568/group-of-dogs-in-snow.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/4mUplgILHjc1q2k3BkP962/fe2ad8a7b48df4e24a08ddd0f8b7a568/group-of-dogs-in-snow.jpg?h=250",
+          "description": "Come in and pet the dogs. There's corgis, spaniels, german shepherds and even huskies!!!",
+          "fee": "50000",
+          "location": "Zoo",
+          "submittedBy": "",
+          "eventDate": "2019-01-24T00:00:00",
+          "startTime": "11:00",
+          "endTime": "12:00",
+          "occurences": 999,
+          "eventFrequency": "Fortnightly",
           "breadcrumbs": [
             {
               "title": "Events",
@@ -687,18 +690,16 @@
           ],
           "documents": [],
           "categories": [
-            "Excercise and Fitness"
+            "Dance"
           ],
           "mapPosition": {
-            "lon": -2.1575189000000137,
-            "lat": 53.4067442
+            "lon": 0.0,
+            "lat": 0.0
           },
           "bookingInformation": "",
           "featured": false,
-          "updatedAt": "2018-04-26T08:52:25.554Z",
-          "tags": [
-            "uitest"
-          ],
+          "updatedAt": "2019-01-23T14:16:28.493Z",
+          "tags": [],
           "group": {
             "name": "",
             "slug": "",
@@ -761,29 +762,19 @@
             "suitableFor": [],
             "ageRange": []
           },
-          "alerts": [
-            {
-              "title": "M6 delays",
-              "subHeading": "",
-              "body": "The A6 has now reopened.",
-              "severity": "Information",
-              "sunriseDate": "2017-08-03T00:00:00+01:00",
-              "sunsetDate": "2019-08-31T00:00:00+01:00",
-              "slug": "m6-delays"
-            }
-          ],
+          "alerts": [],
           "eventCategories": [
             {
-              "name": "UI Test",
-              "slug": "ui-test",
-              "icon": "si-fair"
+              "name": "Dance",
+              "slug": "dance",
+              "icon": "si-quaver"
             }
           ],
-          "free": true,
+          "free": false,
           "paid": true,
           "coord": {
-            "latitude": 53.4067442,
-            "longitude": -2.1575189000000137,
+            "latitude": 0.0,
+            "longitude": 0.0,
             "horizontalAccuracy": "NaN",
             "verticalAccuracy": "NaN",
             "speed": "NaN",
@@ -794,20 +785,20 @@
           "accessibleTransportLink": "/accessibleTransport"
         },
         {
-          "title": "UITest Event",
-          "slug": "uitest-event",
-          "teaser": "8 Excellent Ales from the Abbeydale Brewery will be on tap. The Glass Unicorn band will be playing live from 9pm on Saturday. ",
-          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/70PwYhRUPYaKgymWKWOWKm/3ca2b92e1223b6808221f0a4e6ad753b/Alcohol_Calories.png",
-          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/70PwYhRUPYaKgymWKWOWKm/3ca2b92e1223b6808221f0a4e6ad753b/Alcohol_Calories.png?h=250",
-          "description": "__Lorem i__psum dolor sit amet, consectetur adipiscing elit. Mauris aliquam, felis sit amet porta fermentum, ante nibh ornare odio, lobortis luctus dui tellus in odio. Nam neque felis, rhoncus a facilisis nec, pulvinar a dolor. Proin ac dapibus ipsum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer sodales, nisl nec porta tristique, magna sapien tempus ante, ac feugiat lorem lorem venenatis augue. Proin vehicula mattis urna sollicitudin lacinia. Morbi mollis mauris vitae velit rhoncus aliquam. Duis vehicula consectetur placerat. Fusce sit amet consequat mi.\n\nMaecenas vel leo feugiat, congue urna sed, imperdiet lacus. Aenean a neque eget ex faucibus blandit sit amet eu diam. Quisque interdum augue sed gravida facilisis. Suspendisse eget augue suscipit, interdum massa at, tristique sapien. Quisque at velit non nisi rutrum pharetra. Vestibulum semper risus et lobortis aliquet. Nulla egestas vulputate turpis eget condimentum. Praesent posuere arcu non lacus ornare aliquam. In volutpat lorem eget quam congue consequat et sed nulla. Suspendisse ut erat eget orci vestibulum vulputate. Pellentesque suscipit libero ac arcu mattis, eget vehicula lectus tempor. Nunc nec semper erat, nec aliquam ante. Cras a facilisis lacus, facilisis condimentum turpis. Vivamus eleifend neque et dolor malesuada egestas.\n£10.00\n\n{{CAROUSEL:![UITEST:Image 1](//images.contentful.com/6cfgzlmcakf7/2FNKi2ZYcomigKGAqWiSyC/aec4f120903972fd6c842e84603c6a50/Flu_Jab.jpg), ![UITEST:Image 2](//images.contentful.com/6cfgzlmcakf7/3TsbpFmDewU4iuEAQU4IAo/afb6c155b46b9a0f196409ebb47cd4ff/Cllr_Foster_and_the_children_from_RECLAIM.jpg), ![UITEST:Image 3](//images.contentful.com/6cfgzlmcakf7/5NxhtngXYcEUUa6uOy6Ym6/a9263e313e538c45d04ce9a813880a2d/Art_gallery_image_2.jpg)}}\n/////\n\n{{VIDEO:kQl5D}}\n",
-          "fee": "Free",
-          "location": "The Crown Inn 154 Heaton Lane Stockport SK4 1AR",
-          "submittedBy": "Abbeydale Brewery ",
-          "eventDate": "2028-11-18T00:00:00",
-          "startTime": "12:00",
-          "endTime": "23:59",
-          "occurences": 0,
-          "eventFrequency": "None",
+          "title": "Dog Swimming",
+          "slug": "dog-swimming",
+          "teaser": "Get your dogs doin' the paddlin'",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1OLskoycZluog3Oz6T1JdX/d72f41f384c8d3f8ff048d0ffd83a3c3/unleahed-eddie-frasier.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/1OLskoycZluog3Oz6T1JdX/d72f41f384c8d3f8ff048d0ffd83a3c3/unleahed-eddie-frasier.jpg?h=250",
+          "description": "Is your dog huge? It needs to exercise! Treat it to an hour of swimming in our childs paddling pool.",
+          "fee": "20",
+          "location": "Baths",
+          "submittedBy": "",
+          "eventDate": "2019-01-24T00:00:00",
+          "startTime": "13:00",
+          "endTime": "16:00",
+          "occurences": 999,
+          "eventFrequency": "Fortnightly",
           "breadcrumbs": [
             {
               "title": "Events",
@@ -817,36 +808,29 @@
           ],
           "documents": [],
           "categories": [
-            "Arts and Crafts"
+            "Dance"
           ],
           "mapPosition": {
-            "lon": -2.1665146999999934,
-            "lat": 53.4098613
+            "lon": 0.0,
+            "lat": 0.0
           },
           "bookingInformation": "",
           "featured": false,
-          "updatedAt": "2018-04-26T10:21:01.894Z",
+          "updatedAt": "2019-01-23T14:16:05.237Z",
           "tags": [],
           "group": {
-            "name": "UITEST: A group for ui testing",
-            "slug": "uitest-a-group-for-ui-testing",
-            "phoneNumber": "0123456789",
-            "email": "scn.uitest@gmail.com",
-            "website": "http://www.stockport.gov.uk",
-            "twitter": null,
-            "facebook": null,
-            "address": "dance club",
-            "description": "\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean nec feugiat nulla, non consectetur enim. Aliquam erat volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec sit amet libero placerat, semper augue quis, bibendum lorem. Duis dapibus ac dolor eget accumsan. Nam pellentesque faucibus neque, quis fermentum sem laoreet at. Duis id augue id dui accumsan facilisis scelerisque a tortor. Proin aliquam metus massa, eget rutrum nulla fringilla a. Fusce in sollicitudin dui. Nulla lobortis imperdiet eros, ultricies facilisis velit semper in. Donec venenatis, lorem sed suscipit consequat, augue lacus fringilla quam, ac vehicula neque ex at nunc. Morbi ornare justo in quam rhoncus, nec ultrices turpis eleifend. Nunc vel leo leo. Vivamus suscipit, est et rutrum pretium, tortor eros tincidunt enim, quis feugiat orci ipsum vel magna. Sed elementum sit amet ipsum ac gravida.Duis vel erat massa. Integer ac nisl sed elit ultrices aliquam sed id urna. Aenean commodo nisi at ipsum molestie suscipit. Nulla sed risus eget quam scelerisque consequat. Phasellus dictum tortor a lobortis congue. Pellentesque sem tortor, malesuada sit amet est a, feugiat malesuada ligula. Duis mattis in diam maximus lobortis. Nulla efficitur enim id ligula placerat ullamcorper. Nulla egestas hendrerit nisi nec dapibus. Integer enim nibh, lobortis in finibus in, varius a velit. Nunc quis ullamcorper turpis. Aenean euismod mauris ex, ac dignissim justo vulputate quis. Donec tempor at orci vel euismod. Cras congue dapibus efficitur. Duis vitae sapien ligula. Aliquam ornare blandit diam eget varius.\n\n",
+            "name": "",
+            "slug": "",
+            "phoneNumber": "",
+            "email": "",
+            "website": "",
+            "twitter": "",
+            "facebook": "",
+            "address": "",
+            "description": "",
             "imageUrl": "",
             "thumbnailImageUrl": "",
-            "categoriesReference": [
-              {
-                "name": "UITEST: Group Category",
-                "slug": "uitest-group-category",
-                "icon": "si-book",
-                "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/3uCuePsajmewIOqYCkOS4S/6c958b3b69471566c108f3a497de54fe/526420873.jpg"
-              }
-            ],
+            "categoriesReference": [],
             "subCategories": [],
             "breadcrumbs": [
               {
@@ -856,32 +840,21 @@
               }
             ],
             "mapPosition": {
-              "lon": -2.12380600000006,
-              "lat": 53.382031
+              "lon": 0.0,
+              "lat": 0.0
             },
-            "volunteering": true,
+            "volunteering": false,
             "events": null,
             "groupAdministrators": {
-              "items": [
-                {
-                  "email": "colin.lees@stockport.gov.uk",
-                  "permission": "A",
-                  "name": "Colin"
-                },
-                {
-                  "email": "scn.uitest@gmail.com",
-                  "permission": "A",
-                  "name": "Ui Test"
-                }
-              ]
+              "items": []
             },
-            "dateHiddenFrom": "2108-05-09T11:00:00+01:00",
-            "dateHiddenTo": "9999-12-31T23:59:59",
+            "dateHiddenFrom": null,
+            "dateHiddenTo": null,
             "status": "Published",
             "cost": [],
             "costText": null,
             "abilityLevel": null,
-            "volunteeringText": "If you would like to find out more about being a volunteer with us, please e-mail with your interest and we’ll be in contact as soon as possible.",
+            "volunteeringText": null,
             "organisation": {
               "title": "",
               "slug": "",
@@ -897,32 +870,147 @@
               "donations": false
             },
             "linkedGroups": null,
-            "donations": true,
-            "donationsText": "Use the button below to find out about making a donation to support our group.",
+            "donations": false,
+            "donationsText": null,
             "donationsUrl": null,
             "accessibleTransportLink": "/accessibleTransport",
-            "additionalInformation": null,
+            "additionalInformation": "",
             "additionalDocuments": [],
-            "dateLastModified": "2018-12-18T09:06:27.208Z",
-            "suitableFor": [
-              "Autism",
-              "Dementia"
-            ],
+            "dateLastModified": null,
+            "suitableFor": [],
             "ageRange": []
           },
           "alerts": [],
           "eventCategories": [
             {
-              "name": "UI Test",
-              "slug": "ui-test",
-              "icon": "si-fair"
+              "name": "Dance",
+              "slug": "dance",
+              "icon": "si-quaver"
             }
           ],
-          "free": null,
-          "paid": null,
+          "free": false,
+          "paid": true,
           "coord": {
-            "latitude": 53.4098613,
-            "longitude": -2.1665146999999934,
+            "latitude": 0.0,
+            "longitude": 0.0,
+            "horizontalAccuracy": "NaN",
+            "verticalAccuracy": "NaN",
+            "speed": "NaN",
+            "course": "NaN",
+            "isUnknown": false,
+            "altitude": "NaN"
+          },
+          "accessibleTransportLink": "/accessibleTransport"
+        },
+        {
+          "title": "Group Dog Walk",
+          "slug": "group-dog-walk",
+          "teaser": "Looking for some social dog walking?",
+          "imageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5SdQrGHdInvGnE0djl7cyQ/6aa98785196e19d862476f64e5c1c3cf/adorable-animal-breed-434090.jpg",
+          "thumbnailImageUrl": "//images.ctfassets.net/6cfgzlmcakf7/5SdQrGHdInvGnE0djl7cyQ/6aa98785196e19d862476f64e5c1c3cf/adorable-animal-breed-434090.jpg?h=250",
+          "description": "Join other dog owners and find out what they enjoy about their dogs. It's probably their ears.",
+          "fee": "0",
+          "location": "Roads",
+          "submittedBy": "",
+          "eventDate": "2019-01-25T00:00:00",
+          "startTime": "12:00",
+          "endTime": "13:30",
+          "occurences": 233,
+          "eventFrequency": "Weekly",
+          "breadcrumbs": [
+            {
+              "title": "Events",
+              "slug": "",
+              "type": "events"
+            }
+          ],
+          "documents": [],
+          "categories": [
+            "Dance"
+          ],
+          "mapPosition": {
+            "lon": 0.0,
+            "lat": 0.0
+          },
+          "bookingInformation": "",
+          "featured": false,
+          "updatedAt": "2019-01-23T09:49:03.486Z",
+          "tags": [],
+          "group": {
+            "name": "",
+            "slug": "",
+            "phoneNumber": "",
+            "email": "",
+            "website": "",
+            "twitter": "",
+            "facebook": "",
+            "address": "",
+            "description": "",
+            "imageUrl": "",
+            "thumbnailImageUrl": "",
+            "categoriesReference": [],
+            "subCategories": [],
+            "breadcrumbs": [
+              {
+                "title": "Stockport Local",
+                "slug": "",
+                "type": "groups"
+              }
+            ],
+            "mapPosition": {
+              "lon": 0.0,
+              "lat": 0.0
+            },
+            "volunteering": false,
+            "events": null,
+            "groupAdministrators": {
+              "items": []
+            },
+            "dateHiddenFrom": null,
+            "dateHiddenTo": null,
+            "status": "Published",
+            "cost": [],
+            "costText": null,
+            "abilityLevel": null,
+            "volunteeringText": null,
+            "organisation": {
+              "title": "",
+              "slug": "",
+              "imageUrl": "",
+              "aboutUs": "",
+              "phone": "",
+              "email": "",
+              "volunteering": false,
+              "volunteeringText": null,
+              "donationsText": null,
+              "donationsUrl": null,
+              "groups": [],
+              "donations": false
+            },
+            "linkedGroups": null,
+            "donations": false,
+            "donationsText": null,
+            "donationsUrl": null,
+            "accessibleTransportLink": "/accessibleTransport",
+            "additionalInformation": "",
+            "additionalDocuments": [],
+            "dateLastModified": null,
+            "suitableFor": [],
+            "ageRange": []
+          },
+          "alerts": [],
+          "eventCategories": [
+            {
+              "name": "Dance",
+              "slug": "dance",
+              "icon": "si-quaver"
+            }
+          ],
+          "free": true,
+          "paid": false,
+          "coord": {
+            "latitude": 0.0,
+            "longitude": 0.0,
             "horizontalAccuracy": "NaN",
             "verticalAccuracy": "NaN",
             "speed": "NaN",
@@ -1032,7 +1120,7 @@
         "title": "Dogs are back and not going anywhere",
         "image": "//images.ctfassets.net/6cfgzlmcakf7/5SdQrGHdInvGnE0djl7cyQ/6aa98785196e19d862476f64e5c1c3cf/adorable-animal-breed-434090.jpg",
         "link": "https://www.google.com",
-        "buttonText": "Poke the nose",
+        "buttonText": "Boop the snoot",
         "altText": "Click it"
       },
       "fieldOrder": {
@@ -1046,7 +1134,7 @@
           "Profile",
           "Social Media",
           "Body",
-          "Did you know",
+          "Trivia",
           "Profiles",
           "Call to action banner"
         ]
@@ -1072,13 +1160,15 @@
           "text": "This is a hand, and not a link",
           "link": ""
         }
-      ]
+      ],
+      "eventsReadMoreText": "Read More",
+      "video": null
     },
     "UseTransformer": false,
     "Headers": {
       "Content-Type": "application/json; charset=utf-8",
       "Transfer-Encoding": "chunked",
-      "Date": "Wed, 23 Jan 2019 10:44:33 GMT",
+      "Date": "Thu, 24 Jan 2019 16:55:36 GMT",
       "Server": "Kestrel"
     }
   }
