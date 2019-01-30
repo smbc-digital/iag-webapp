@@ -22,19 +22,25 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> Index(string slug)
         {
             var profileEntity = await _profileService.GetProfile(slug);
-            var model = new Profile(profileEntity.Title,
-                profileEntity.Slug,
-                profileEntity.Subtitle,
-                profileEntity.Quote,
-                profileEntity.Image,
-                profileEntity.Body,
-                profileEntity.Breadcrumbs,
-                profileEntity.Alerts,
-                profileEntity.TriviaSubheading,
-                profileEntity.TriviaSection,
-                profileEntity.FieldOrder);
 
-            return View("Semantic/Index", model);
+            if (profileEntity != null)
+            {
+                var model = new Profile(profileEntity.Title,
+                    profileEntity.Slug,
+                    profileEntity.Subtitle,
+                    profileEntity.Quote,
+                    profileEntity.Image,
+                    profileEntity.Body,
+                    profileEntity.Breadcrumbs,
+                    profileEntity.Alerts,
+                    profileEntity.TriviaSubheading,
+                    profileEntity.TriviaSection,
+                    profileEntity.FieldOrder);
+
+                return View("Semantic/Index", model);
+            }
+
+            return NotFound();
         }
     }
 }
