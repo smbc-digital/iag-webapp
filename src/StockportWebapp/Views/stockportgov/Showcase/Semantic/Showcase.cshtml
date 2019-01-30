@@ -1,4 +1,5 @@
 ﻿@using StockportWebapp.ProcessedModels
+@using StockportWebapp.Extensions
 @using StockportWebapp.ViewModels
 @using StockportWebapp.FeatureToggling
 @using StockportWebapp.Models
@@ -53,7 +54,8 @@
             break;
 
         case "Featured Items":
-
+            if (Model.FeaturedItems.AnyOrDefault())
+            {
             <div class="showcase-section">
                 <div class="center-wrapper">
                     <div class="featured-item-container">
@@ -74,6 +76,7 @@
                     </div>
                 </div>
             </div>
+            }
             break;
 
         case "Consultations":
