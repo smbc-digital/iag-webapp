@@ -16,6 +16,8 @@ namespace StockportWebapp.Models
         public string TriviaSubheading { get; set; }
         public List<ProcessedInformationItem> TriviaSection { get; set; }
         public FieldOrder FieldOrder { get; set; }
+        public string Author { get; set; } = string.Empty;
+        public string Subject { get; set; } = string.Empty;
 
         public Profile()
         {

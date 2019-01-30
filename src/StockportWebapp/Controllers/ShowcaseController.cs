@@ -37,15 +37,10 @@ namespace StockportWebapp.Controllers
 
             if (!response.IsSuccessful())
                 return response;
-            
+
             var showcase = response.Content as ProcessedShowcase;
 
-            if (_featureToggles.SemanticShowcase)
-            {
-                return View("Semantic/Showcase", showcase);
-            }
-
-            return View(showcase);
+            return View("Semantic/Showcase", showcase);
         }
 
         [Route("/showcase/{slug}/previousconsultations")]
@@ -68,12 +63,8 @@ namespace StockportWebapp.Controllers
 
             DoPagination(Page, result, pageSize);
 
-            if (_featureToggles.SemanticShowcase)
-            {
-                return View("Semantic/PreviousConsultations", result);
-            }
+            return View("Semantic/PreviousConsultations", result);
 
-            return View(result);
         }
 
         private void DoPagination(int currentPageNumber, PreviousConsultaion prevConsultation, int pageSize)

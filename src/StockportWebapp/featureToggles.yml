@@ -6,7 +6,6 @@ prod: &prod
   GroupDetailsPage: true
   SiaSystem: false
   SemanticLayout: true
-  SemanticShowcase: false
   ContactUsArea: false
   SemanticSmartAnswer: 
     - enforcement-referral
@@ -23,7 +22,6 @@ qa: &qa
   << : *stage
   SemanticLayout: true
   SemanticInlineAlert: true
-  SemanticShowcase: true
 
 int: &int
   << : *prod
