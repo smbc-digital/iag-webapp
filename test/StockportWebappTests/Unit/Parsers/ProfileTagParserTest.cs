@@ -33,8 +33,6 @@ namespace StockportWebappTests_Unit.Unit.Parsers
                 Title = "some-title",
                 Image = "some-image-url",
                 Subtitle = "some-subtitle",
-                Teaser = "some-teaser",
-                Type = "some-type",
                 Body = "some-body"
             };
             var profiles = new List<Profile>() { profile };
@@ -58,8 +56,6 @@ namespace StockportWebappTests_Unit.Unit.Parsers
                 Title = "some-title",
                 Image = "some-image-url",
                 Subtitle = "some-subtitle",
-                Teaser = "some-teaser",
-                Type = "some-type",
                 Body = ""
             };
             var profiles = new List<Profile>() { profile };
