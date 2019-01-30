@@ -97,6 +97,7 @@ namespace StockportWebapp.Utils
 				.AddSource("pbs.twimg.com/")
                 .AddSource("https://1.bp.blogspot.com/-v6yARqgGaBc/WKL2ZtO9lhI/AAAAAAAAEDU/0CJfMgpdnWg0i6-Wd87E1vTtdKk4TeikQCLcB/s1600/Fake-or-Counterfeit-Bathmate-Pumps.png")
                 .AddSource("https://content.govdelivery.com/attachments/fancy_images/UKSMBC/2018/01/1741761/reviewoverlay_original.png")
+                .AddSource("https://app.meetami.ai")
 				.Finish());
         }
 
@@ -184,6 +185,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://core-api-eu1.cludo.com/")
 				.AddSource("https://event-collector.buto.tv/")
                 .AddSource("https://app.meetami.ai/")
+                .AddSource("chat.meetami.ai/")
                 .Finish());
         }
 
@@ -195,6 +197,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.youtube.com/")
                 .AddSource("*.cloudfront.net/butotv/live/videos/")
 				.AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
+				.AddSource("https://app.meetami.ai/")
 				.Finish());
         }
 
