@@ -39,7 +39,7 @@ namespace StockportWebapp.Models
         public string Icon { get; set; }
         public string TriviaSubheading { get; set; }
         public List<InformationItem> TriviaSection { get; set; }
-        public CallToActionBanner CallToActionBanner { get; }
+        public CallToActionBanner CallToActionBanner { get; set; }
         public Video Video { get; set; }
 
         public News NewsArticle { get; set; }
