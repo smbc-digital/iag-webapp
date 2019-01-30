@@ -100,16 +100,16 @@ namespace StockportWebappTests_Integration
             result.Should().Contain(contactUsMessage);
         }
 
-        [Fact]
-        public async void ItReturnsTheCorrectHeadersForArticles()
-        {
-            SetBusinessIdRequestHeader("healthystockport");
+        //[Fact]
+        //public async void ItReturnsTheCorrectHeadersForArticles()
+        //{
+        //    SetBusinessIdRequestHeader("healthystockport");
 
-            var result = await _fakeClient.GetAsync("/physical-activity");
+        //    var result = await _fakeClient.GetAsync("/physical-activity");
 
-            result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(15));
-            result.Headers.CacheControl.Public.Should().Be(true);
-        }
+        //    result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(15));
+        //    result.Headers.CacheControl.Public.Should().Be(true);
+        //}
 
         [Fact]
         public async Task ItReturnsSubItemsInTheHomePage()

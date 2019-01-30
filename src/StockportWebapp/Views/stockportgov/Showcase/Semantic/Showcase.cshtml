@@ -80,7 +80,7 @@
             break;
 
         case "Consultations":
-            if (Model.Consultations.Any())
+            if (Model.Consultations.AnyOrDefault())
             {
                 <div class="showcase-section">
                     <div class="center-wrapper">
@@ -102,7 +102,7 @@
             break;
 
         case "Events":
-            if (Model.Events != null)
+            if (Model.Events.AnyOrDefault())
             {
                 var eventsListViewModel = new EventsListViewModel
                 {
@@ -138,7 +138,7 @@
             break;
 
         case "Profiles":
-            if (Model.Profiles != null)
+            if (Model.Profiles.AnyOrDefault())
             {
                 var profileViewModel = new ProfileListViewModel
                 {
@@ -156,7 +156,7 @@
             break;
 
         case "Social Media":
-            if (Model.SocialMediaLinks != null && Model.SocialMediaLinks.Any())
+            if (Model.SocialMediaLinks.AnyOrDefault())
             {
                 var socialMediaLinksViewModel = new SocialMediaLinksViewModel
                 {
@@ -184,7 +184,7 @@
             break;
 
         case "Trivia":
-            if (Model.TriviaSubheading != null && Model.TriviaSection.Count > 0)
+            if (Model.TriviaSubheading != null && Model.TriviaSection.AnyOrDefault())
             {
                 <div class="showcase-section">
                     <div class="center-wrapper">
@@ -201,19 +201,22 @@
             break;
 
         case "Call to action banner":
-            <div class="showcase-section">
-                <div class="showcase-banner">
-                    <div class="center-wrapper">
-                        <a class="call-to-action-banner-container" href="@Model.CallToActionBanner.Link">
-                            <div>
-                                <h2>@Model.CallToActionBanner.Title</h2>
-                                <div class="button-tertiary">@Model.CallToActionBanner.ButtonText</div>
-                            </div>
-                            <img src="@Model.CallToActionBanner.Image" alt="@Model.CallToActionBanner.AltText" />
-                        </a>
+            if (Model.CallToActionBanner != null)
+            {
+                <div class="showcase-section">
+                    <div class="showcase-banner">
+                        <div class="center-wrapper">
+                            <a class="call-to-action-banner-container" href="@Model.CallToActionBanner.Link">
+                                <div>
+                                    <h2>@Model.CallToActionBanner.Title</h2>
+                                    <div class="button-tertiary">@Model.CallToActionBanner.ButtonText</div>
+                                </div>
+                                <img src="@Model.CallToActionBanner.Image" alt="@Model.CallToActionBanner.AltText" />
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
             break;
 
         case "Video":
