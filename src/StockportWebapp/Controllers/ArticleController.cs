@@ -76,7 +76,7 @@ namespace StockportWebapp.Controllers
             }
             catch (SectionDoesNotExistException)
             {
-                _logger.LogWarning("Section does not exist, returning 404.");
+                
                 return NotFound();
             }
         }

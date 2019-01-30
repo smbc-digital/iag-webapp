@@ -1,7 +1,7 @@
 ﻿@using StockportWebapp.Enums
 @using StockportWebapp.Models
 
-@model ProfileNew
+@model Profile
 @{
     ViewData["Title"] = Model.Title;
     var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
@@ -21,7 +21,7 @@
         @Html.Raw(Model.Body)
     </section>
 
-    @if (Model.TriviaSection.Count() > 0)
+    @if (Model.TriviaSection?.Count() > 0)
     {
         <hr class="thick-divider" />
         @await Component.InvokeAsync("InformationList", new {

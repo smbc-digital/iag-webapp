@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
-using StockportWebapp.ContentFactory.InformationFactory;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
-using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.ContentFactory
 {
@@ -29,7 +27,6 @@ namespace StockportWebapp.ContentFactory
             var informationFactory = new InformationFactory.InformationFactory(markdownWrapper);
 
             _factories.Add(typeof(Section), sectionFactory);
-            _factories.Add(typeof(Profile), new ProfileFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
             _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, profileTagParser, sectionFactory, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null));
             _factories.Add(typeof(News), new NewsFactory(tagParserContainer, markdownWrapper, documentTagParser));
             _factories.Add(typeof(Event), new EventFactory(tagParserContainer, markdownWrapper, documentTagParser));

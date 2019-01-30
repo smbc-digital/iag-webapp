@@ -155,79 +155,79 @@
   <ItemGroup>
     <Compile Include="BrowserConfiguration.cs" />
     <Compile Include="Features\Article.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Article.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\AToZ.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>AToZ.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Breadcrumb1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Breadcrumb.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\ContactUsArea1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>ContactUsArea.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Events1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Events.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupManagement1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupManagement.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsAddEdit1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsAddEdit.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsArticleLoggedIn1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleLoggedIn.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsArticleLoggedInNotAdmin1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleLoggedInNotAdmin.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsArticleNotLoggedIn1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsArticleNotLoggedIn.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsFavourites1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsFavourites.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsHomepage1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsHomepage.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\GroupsSearch1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>GroupsSearch.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Homepage1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Homepage.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\News1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>News.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Showcase.feature.cs">
       <DependentUpon>Showcase.feature</DependentUpon>
@@ -235,9 +235,9 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Features\Topic1.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Topic.feature</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="MockConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -339,12 +339,12 @@
     </None>
     <None Include="packages.config" />
     <None Include="runtests.cmd" />
+    <None Include="SavedResponses\Articles\uitest-test-article.json" />
     <None Include="SavedResponses\ContactUsArea\ContactUsArea.json" />
     <None Include="SavedResponses\Events\events.json" />
     <None Include="SavedResponses\Events\homepage.json" />
     <None Include="SavedResponses\Events\latest.json" />
     <None Include="SavedResponses\Groups\homepage.json" />
-    <None Include="SavedResponses\Articles\uitest-test-article.json" />
     <None Include="SavedResponses\Topics\test_topic.json" />
     <None Include="SavedResponses\Topics\uitest-hat-works.json" />
     <None Include="SavedResponses\Footer\footer.json" />

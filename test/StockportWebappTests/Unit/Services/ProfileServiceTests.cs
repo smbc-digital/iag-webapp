@@ -36,7 +36,7 @@ namespace StockportWebappTests_Unit.Unit.Services
             _markdownWrapper = new MarkdownWrapper();
             _logger = new Mock<ILogger<Alert>>();
             _viewRender = new Mock<IViewRender>();
-            _alerts =  new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles(){SemanticProfile = true} );
+            _alerts =  new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles(){SemanticInlineAlert = true} );
             _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts, _informationFactory.Object);
         }
 
