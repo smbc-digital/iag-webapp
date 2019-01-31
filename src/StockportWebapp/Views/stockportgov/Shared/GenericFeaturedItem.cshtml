@@ -7,7 +7,7 @@
         <div class="grid-25 tablet-grid-20 mobile-grid-25 featured-topic matchbox-child @(count > 4 ? "hide-on-mobile" : string.Empty)">
     
                 <div class="featured-topic-content">
-                    <a class="featured-topic-link" href="@item.Url" id="featured-topic-@count">
+                    <a class="featured-topic-link" href="@item.Url">
                         <div class="featured-topic-icon">
                             <i class="@item.Icon si-default" aria-hidden="true"></i>
                         </div>
@@ -20,7 +20,7 @@
                         @foreach (var subItem in item.SubItems.Take(2))
                         {
                             <br />
-                            <a href="@subItem.Url" id="featured-sub-topic-@count">@subItem.Title</a>
+                            <a href="@subItem.Url">@subItem.Title</a>
                         }
                     </p>
                     }
