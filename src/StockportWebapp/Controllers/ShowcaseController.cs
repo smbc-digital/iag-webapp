@@ -40,7 +40,12 @@ namespace StockportWebapp.Controllers
 
             var showcase = response.Content as ProcessedShowcase;
 
-            return View("Semantic/Showcase", showcase);
+            if (_featureToggles.SemanticShowcase)
+            {
+                return View("Semantic/Showcase", showcase);
+            }
+
+            return View(showcase);
         }
 
         [Route("/showcase/{slug}/previousconsultations")]
