@@ -185,7 +185,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://core-api-eu1.cludo.com/")
 				.AddSource("https://event-collector.buto.tv/")
                 .AddSource("https://app.meetami.ai/")
-                .AddSource("wss://chat.meetami.ai/socket.io/")
+                .AddSource("wss://chat.meetami.ai/")
                 .Finish());
         }
 
