@@ -9,7 +9,6 @@ Scenario: User navigates to stockport.gov.uk
 	Then I should see the header
 	And I should see the "Popular services" section
 	And I should see the "View more services" button
-	And I should see the "Do it online" button
 	And I should see the "latest news" section
 	And I should see the "whats on in stockport" section
 	And I should not see the additional categories section
