@@ -24,7 +24,7 @@
     <h2>Key Facts</h2>
     @foreach (var fact in Model)
     {
-        <div class="grid-5 mobile-grid-10 tablet-grid-5"><span class="si si-@fact.Icon"></span></div>
+        <div class="grid-5 mobile-grid-10 tablet-grid-5"><span class="si @fact.Icon"></span></div>
 
         <div class="grid-95 mobile-grid-90 tablet-grid-95"><p>@fact.Text</p></div>
     }
