@@ -17,21 +17,21 @@ namespace StockportWebapp.Utils
             }
         }
 
-        public ContentSecurityPolicyElement AddSource(string source)
+        public ContentSecurityPolicyElement AddSource(string source, bool appendHttps = true)
         {
             _stringBuilder.Append(" ");
-            AddSourceForSafari9(source);
+            AddSourceForSafari9(source, appendHttps);
 
             return this;
         }
 
-        private void AddSourceForSafari9(string source)
+        private void AddSourceForSafari9(string source, bool appendHttps)
         {
             if (IsSafari9Exception(source))
             {
                 _stringBuilder.Append(source);
             }
-            else
+            else if (appendHttps)
             {
                 AddSourceWithBothHttpAndHttpsForSafari9(source);
             }
