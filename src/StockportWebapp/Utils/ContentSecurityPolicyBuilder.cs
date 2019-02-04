@@ -27,6 +27,7 @@ namespace StockportWebapp.Utils
                 new ContentSecurityPolicyElement
                     ("default-src", containsSelf: false)
                 .AddSource("https:")
+				.AddSource("wss:")
                 .Finish());
         }
 
