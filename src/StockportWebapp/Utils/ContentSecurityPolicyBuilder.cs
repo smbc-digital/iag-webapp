@@ -165,7 +165,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://content.govdelivery.com/overlay/js/4939.js")
                 .AddSource("https://core-api-eu1.cludo.com/")
 				.AddSource("app.meetami.ai/")
-				.AddSource("chatmeetami.ai/")
+				.AddSource("*.chatmeetami.ai/")
 				.AddSource("https://cdn.trackjs.com/releases/current/tracker.js")
 				.Finish());
         }
@@ -185,8 +185,9 @@ namespace StockportWebapp.Utils
                 .AddSource("https://core-api-eu1.cludo.com/")
 				.AddSource("https://event-collector.buto.tv/")
                 .AddSource("app.meetami.ai/")
-                .AddSource("chatmeetami.ai/")
-                .Finish());
+                .AddSource("*.chatmeetami.ai/")
+				.AddSource("http://localhost/sitereplier/chats/enabled/")
+				.Finish());
         }
 
         private void BuildMediaSource()
@@ -198,7 +199,7 @@ namespace StockportWebapp.Utils
                 .AddSource("*.cloudfront.net/butotv/live/videos/")
 				.AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
 				.AddSource("app.meetami.ai/")
-				.AddSource("chatmeetami.ai/")
+				.AddSource("*.chatmeetami.ai/")
 				.Finish());
         }
 
