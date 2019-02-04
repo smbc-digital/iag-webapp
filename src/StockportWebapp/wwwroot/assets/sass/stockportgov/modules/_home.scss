@@ -251,14 +251,24 @@
 
 @media #{$desktop} {
     ul.nav-card-list.latest-container {
-        margin-bottom: -50px;
+        margin-bottom: -44px;        
     }
 }
 
-@media #{$mobile, $tablet} {
+@media #{$tablet} {
     li.nav-card.latest-item {
-        margin-bottom: -55px;
+        margin-bottom: -44px;        
     }
+}
+
+@media #{$mobile} {
+    li.nav-card.latest-item {
+        margin-bottom: -44px;
+    }
+}
+
+ul.nav-card-list:nth-of-type(1) {
+    margin-top: 32px;
 }
 
 .do-it-online, .do-it-online:hover {
