@@ -28,7 +28,7 @@ namespace StockportWebapp.Controllers
             _logger = logger;
         }
 
-        [Route("/google-sitemap.xml")]
+        [Route("/sitemap.xml")]
         public async Task<IActionResult> Sitemap(string type)
         {
             var baseURL = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
