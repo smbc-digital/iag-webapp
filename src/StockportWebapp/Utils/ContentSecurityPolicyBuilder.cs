@@ -27,7 +27,7 @@ namespace StockportWebapp.Utils
                 new ContentSecurityPolicyElement
                     ("default-src", containsSelf: false)
                 .AddSource("https:")
-				.AddSource("wss:")
+				.AddSource("wss:", false)
                 .Finish());
         }
 
@@ -186,7 +186,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://core-api-eu1.cludo.com/")
 				.AddSource("https://event-collector.buto.tv/")
                 .AddSource("app.meetami.ai/")
-                .AddSource("*.chatmeetami.ai/")
+                .AddSource("*.chatmeetami.ai/", false)
 				.AddSource("http://localhost/sitereplier/chats/enabled/")
 				.Finish());
         }
