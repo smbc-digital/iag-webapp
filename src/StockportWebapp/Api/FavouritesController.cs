@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -14,12 +16,14 @@ namespace StockportWebapp.Api
         private CookiesHelper cookiesHelper;
         private IHttpContextAccessor httpContextAccessor;
         private HostHelper hostHelper;
+        private ILogger<FavouritesController> logger;
 
-        public FavouritesController(CookiesHelper _cookiesHelper, IHttpContextAccessor _httpContextAccessor, HostHelper _hostHelper)
+        public FavouritesController(CookiesHelper _cookiesHelper, IHttpContextAccessor _httpContextAccessor, HostHelper _hostHelper, ILogger<FavouritesController> _logger)
         {
             cookiesHelper = _cookiesHelper;
             httpContextAccessor = _httpContextAccessor;
             hostHelper = _hostHelper;
+            logger = _logger;
         }
 
         [Route("/favourites/add")]
@@ -50,6 +54,8 @@ namespace StockportWebapp.Api
                     cookiesHelper.AddToCookies<Event>(slug, "favourites");
                     break;
             }
+
+            logger.LogWarning($"Add request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request)}");
 
             return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
         }
@@ -82,6 +88,8 @@ namespace StockportWebapp.Api
                     cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
                     break;
             }
+
+            logger.LogWarning($"Remove request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request)}");
 
             return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
         }
