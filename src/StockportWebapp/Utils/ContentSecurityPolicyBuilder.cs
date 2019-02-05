@@ -167,6 +167,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://core-api-eu1.cludo.com/")
 				.AddSource("app.meetami.ai/")
 				.AddSource("*chat.meetami.ai/", false)
+				.AddSource("wss://chat.meetami.ai/", false)
 				.AddSource("https://cdn.trackjs.com/releases/current/tracker.js")
 				.Finish());
         }

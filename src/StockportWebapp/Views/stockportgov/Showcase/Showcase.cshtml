@@ -112,7 +112,12 @@
                 <div class="alt-container-rowx showcase-news-events white featured-items-wrapper matchbox-parent">
                     <div class="featured-topic-list">
                         <h2 class="visuallyhidden">Popular Services</h2>
-                        <h2>@Model.Subheading</h2>
+
+                        @if (!string.IsNullOrEmpty(Model.Subheading))
+                        {
+                            <h2>@Model.Subheading</h2>
+                        }
+
                         @foreach (var item in Model.SecondaryItems)
                         {
                             <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
@@ -272,7 +277,7 @@
                         <form method="get" role="form" action="/subscribe">
 
                             <div class="grid-50 tablet-grid-50 grid-parent">
-                                <input type="email" name="emailAddress" placeholder="Enter your email address">
+                                <input type="email" name="emailAddress" placeholder="Enter your email address" title="Enter your email address" aria-label="Enter your email address"> 
                             </div>
                             <div class="grid-30 tablet-grid-50 grid-parent">
                                 <button type="submit" id="test-subscribe" class="button-default">Subscribe</button>
