@@ -50,14 +50,5 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             _viewRenderer.Verify(o => o.Render("AlertsInline", It.IsAny<Alert>()), Times.Never);
             parsedHtml.Should().Be("this is some test ");
         }
-
-        [Fact]
-        public void ShouldLogWhenAlertsInlineIsNotFound()
-        {
-            var content = "this is some test {{Alerts-Inline:some-title}}";
-            _alertsInlineTagParser.Parse(content, new List<Alert>());
-            LogTesting.Assert(_mockLogger, LogLevel.Warning,
-             "The Alerts Title some-title could not be found and will be removed");
-        }
     }
 }

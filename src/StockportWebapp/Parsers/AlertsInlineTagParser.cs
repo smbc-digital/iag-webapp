@@ -47,10 +47,6 @@ namespace StockportWebapp.Parsers
                     
                     content = TagRegex.Replace(content, alertsInlineHtml, 1);
                 }
-                else
-                {
-                    _logger.LogWarning($"The Alerts Title {AlertsInlineTitle} could not be found and will be removed");
-                }
             }
             return RemoveEmptyTags(content);
         }

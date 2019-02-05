@@ -33,10 +33,6 @@ namespace StockportWebapp.Parsers
                 {
                     content = ReplaceTagWithHtml(content, document);
                 }
-                else
-                {
-                    _logger.LogWarning($"The document {fileName} could not be found and will be removed");
-                }
             }
             return RemoveEmptyTags(content);
         }
