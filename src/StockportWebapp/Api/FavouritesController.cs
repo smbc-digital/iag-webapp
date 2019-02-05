@@ -55,7 +55,7 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            logger.LogWarning($"Add request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request)}");
+            logger.LogWarning($"Add request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request.Headers)}");
 
             return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
         }
@@ -89,7 +89,7 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            logger.LogWarning($"Remove request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request)}");
+            logger.LogWarning($"Remove request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request.Headers)}");
 
             return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
         }
