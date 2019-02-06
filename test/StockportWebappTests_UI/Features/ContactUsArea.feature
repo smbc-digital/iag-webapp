@@ -4,8 +4,8 @@ Feature: ContactUsArea
 	As a website user
 	I want to be able to see all available UI elements
 
-Scenario: User navigates to stockport.gov.uk/contact-us-area
-	Given I navigate to "/contact-us-area"
+Scenario: User navigates to stockport.gov.uk/contact
+	Given I navigate to "/contact"
 	Then I should see the header
 	And I should see the footer
 	And I should see the "inset text" section
