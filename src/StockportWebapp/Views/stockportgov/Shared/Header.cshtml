@@ -6,6 +6,7 @@
 
 @{ 
     var user = loggedInHelper.GetLoggedInPerson();
+    var bannerTypeformUrl = ViewData["BannerTypeformUrl"];
 }
 
 @*This script enables the feedback button.*@
@@ -100,6 +101,18 @@
     </div>
 </div>
 <partial name="BrowserCheck" />
+@if (bannerTypeformUrl != null)
+{
+    <div class="banner-header-container">
+        <div class="grid-container grid-100">
+            <div class="banner-header grid-100 mobile-grid-100 tablet-grid-100">
+                <p>
+                    <span class="banner-icon-beta">NEW</span><span class="banner-title-beta">This part of our website is brand new. </span><span class="banner-body"><a target="_blank" href="@ViewData["BannerTypeformUrl"]">Give us your feedback</a> to help us improve it.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+}
 
 <script type="text/javascript">
     require(['cludo'], function () { });
