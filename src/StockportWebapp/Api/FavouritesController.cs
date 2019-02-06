@@ -55,9 +55,18 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            logger.LogWarning($"Add request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request.Headers)}");
+            var referer = string.Empty;
 
-            return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
+            try {
+                referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
+                logger.LogWarning($"NoJS.Add referer header: {referer}");
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, $"Could not get 'Referer' header from Context: {ex.Message}");
+            }
+
+            return new RedirectResult(referer);
         }
 
         [Route("/favourites/remove")]
@@ -89,12 +98,18 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            logger.LogWarning($"Remove request object: {JsonConvert.SerializeObject(httpContextAccessor.HttpContext.Request.Headers)}");
+            var referer = string.Empty;
 
-            return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
+            try {
+                referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
+                logger.LogWarning($"NoJS.Remove referer header: {referer}");
+            }
+            catch (Exception ex)
+            {
+                logger.LogWarning(ex, $"Could not get 'Referer' header from Context: {ex.Message}");
+            }
+
+            return new RedirectResult(referer);
         }
-
-
-
     }
 }
