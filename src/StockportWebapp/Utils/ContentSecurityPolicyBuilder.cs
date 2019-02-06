@@ -195,6 +195,7 @@ namespace StockportWebapp.Utils
 				.AddSource("*.meetami.ai/", false)
 				.AddSource("*.meetami.ai/")
 				.AddSource("https://chat.meetami.ai/")
+				.AddSource("wss://chat.meetami.ai/", false)
 				.AddSource("http://localhost/sitereplier/chats/enabled/")
 				.Finish());
 		}
