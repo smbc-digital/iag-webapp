@@ -17,15 +17,15 @@ namespace StockportWebapp.Utils
             }
         }
 
-        public ContentSecurityPolicyElement AddSource(string source, bool appendHttps = true)
+        public ContentSecurityPolicyElement AddSource(string source, bool appendHttps = true, bool force = false)
         {
             _stringBuilder.Append(" ");
-            AddSourceForSafari9(source, appendHttps);
+            AddSourceForSafari9(source, appendHttps, force);
 
             return this;
         }
 
-        private void AddSourceForSafari9(string source, bool appendHttps)
+        private void AddSourceForSafari9(string source, bool appendHttps, bool force)
         {
             if (IsSafari9Exception(source))
             {
@@ -34,6 +34,10 @@ namespace StockportWebapp.Utils
             else if (appendHttps)
             {
                 AddSourceWithBothHttpAndHttpsForSafari9(source);
+            }
+            else if (force)
+            {
+                _stringBuilder.Append(source);
             }
         }
 
