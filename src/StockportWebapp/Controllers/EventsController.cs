@@ -241,6 +241,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events/add-your-event")]
+        [ResponseCache(NoStore = true, Duration = 0)]
         public IActionResult AddYourEvent()
         {
             var eventSubmission = new EventSubmission();
@@ -250,6 +251,7 @@ namespace StockportWebapp.Controllers
         [HttpPost]
         [Route("/events/add-your-event")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        [ResponseCache(NoStore = true, Duration = 0)]
         public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
         {
             if (!ModelState.IsValid)
