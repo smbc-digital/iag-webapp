@@ -55,15 +55,11 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            var referer = string.Empty;
+            var referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
 
-            try {
-                referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
-                logger.LogWarning($"NoJS.Add referer header: {referer}");
-            }
-            catch (Exception ex)
+            if (string.IsNullOrEmpty(referer))
             {
-                logger.LogWarning(ex, $"Could not get 'Referer' header from Context: {ex.Message}");
+                return new RedirectToActionResult("FavouriteGroups", "Groups", null);
             }
 
             return new RedirectResult(referer);
@@ -98,15 +94,11 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            var referer = string.Empty;
+            var referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
 
-            try {
-                referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
-                logger.LogWarning($"NoJS.Remove referer header: {referer}");
-            }
-            catch (Exception ex)
+            if (string.IsNullOrEmpty(referer))
             {
-                logger.LogWarning(ex, $"Could not get 'Referer' header from Context: {ex.Message}");
+                return new RedirectToActionResult("FavouriteGroups", "Groups", null);
             }
 
             return new RedirectResult(referer);
