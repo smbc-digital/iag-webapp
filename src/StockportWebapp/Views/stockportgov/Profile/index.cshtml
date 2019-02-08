@@ -1,12 +1,12 @@
 ﻿@using StockportWebapp.Enums
 @using StockportWebapp.Models
 
-@model ProfileNew
+@model Profile
 @{
     ViewData["Title"] = Model.Title;
     var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
     ViewData["og:title"] = articleTitle + Model.Title;
-    Layout = "../../Shared/_LayoutSemantic.cshtml";
+    Layout = "../Shared/_LayoutSemantic.cshtml";
 }
 
 @section Breadcrumbs {
@@ -14,22 +14,19 @@
 }
 
 <article class="page-container">
-    <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
+    <h1 tabindex="-1">@ViewData["Title"]</h1>
     <p class="lead-paragraph">@Model.Subtitle</p>
     <hr class="thick-divider" />
     <section>
         @Html.Raw(Model.Body)
     </section>
 
-    @if (Model.DidYouKnowSection != null)
+    @if (Model.TriviaSection?.Count() > 0)
     {
         <hr class="thick-divider" />
-        @await Component.InvokeAsync("InformationList", new { model = Model.DidYouKnowSection, type = "DidYouKnow" })
-    }
-
-    @if (Model.KeyFactsSection != null)
-    {
-        <hr class="thick-divider" />
-        @await Component.InvokeAsync("InformationList", new { model = Model.KeyFactsSection, type = "KeyFacts" })
+        @await Component.InvokeAsync("InformationList", new {
+           model = Model.TriviaSection,
+           heading = Model.TriviaSubheading
+       })
     }
 </article>

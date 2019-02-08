@@ -100,16 +100,16 @@ namespace StockportWebappTests_Integration
             result.Should().Contain(contactUsMessage);
         }
 
-        [Fact]
-        public async void ItReturnsTheCorrectHeadersForArticles()
-        {
-            SetBusinessIdRequestHeader("healthystockport");
+        //[Fact]
+        //public async void ItReturnsTheCorrectHeadersForArticles()
+        //{
+        //    SetBusinessIdRequestHeader("healthystockport");
 
-            var result = await _fakeClient.GetAsync("/physical-activity");
+        //    var result = await _fakeClient.GetAsync("/physical-activity");
 
-            result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(15));
-            result.Headers.CacheControl.Public.Should().Be(true);
-        }
+        //    result.Headers.CacheControl.MaxAge.Should().Be(TimeSpan.FromMinutes(15));
+        //    result.Headers.CacheControl.Public.Should().Be(true);
+        //}
 
         [Fact]
         public async Task ItReturnsSubItemsInTheHomePage()
@@ -164,22 +164,6 @@ namespace StockportWebappTests_Integration
         }
 
         [Fact]
-        public async Task ItReturnsAnArticlePageAndRendersProfileInSection()
-        {
-            SetBusinessIdRequestHeader("healthystockport");
-
-            var profileTitle = "Test Profile";
-            var profileTeaser = "Profile teaser";
-            var profileSubtitle = "This is a test profile";
-
-            var result = await _fakeClient.GetStringAsync("/physical-activity/test-profile-section");
-
-            result.Should().Contain(profileTitle);
-            result.Should().Contain(profileTeaser);
-            result.Should().Contain(profileSubtitle);
-        }
-
-        [Fact]
         public async Task ItReturnsAnArticlePageAndRendersDocumentInSection()
         {
             SetBusinessIdRequestHeader("healthystockport");
@@ -198,23 +182,6 @@ namespace StockportWebappTests_Integration
         }
 
         [Fact]
-        public async Task ItReturnsAStandaloneArticlePageAndRendersProfile()
-        {
-            SetBusinessIdRequestHeader("healthystockport");
-
-            var profileTitle = "Test Profile";
-            var profileTeaser = "This is a profile teaser";
-            var profileSubtitle = "This is a test profile";
-
-            var result = await _fakeClient.GetStringAsync("/about");
-
-            result.Should().Contain(profileTitle);
-            result.Should().Contain(profileTeaser);
-            result.Should().Contain(profileSubtitle);
-            result.Should().NotContain("<code>");
-        }
-
-        [Fact]
         public async Task ItReturnsAnArticlePageWithRequestedSectionGivenArticleAndSectionSlugs()
         {
             SetBusinessIdRequestHeader("healthystockport");
@@ -228,20 +195,6 @@ namespace StockportWebappTests_Integration
             result.Should().Contain(requestedSectionBody);
             result.Should().NotContain(articleSummary);
             result.Should().NotContain(sectionOneBody);
-        }
-
-        [Fact]
-        public async Task ItReturnsAProfilePage()
-        {
-            SetBusinessIdRequestHeader("healthystockport");
-
-            var requestedTitle = "Test Profile";
-            var requestedBody = "Test body";
-
-            var result = await _fakeClient.GetStringAsync("/profile/test-profile");
-
-            result.Should().Contain(requestedTitle);
-            result.Should().Contain(requestedBody);
         }
 
         [Fact]
@@ -337,22 +290,6 @@ namespace StockportWebappTests_Integration
             var result = await _fakeClient.GetStringAsync("/robots.txt");
 
             result.Should().Contain("# no robots");
-        }
-
-        [Theory]
-        [InlineData("/")]
-        [InlineData("/topic/test-topic")]
-        [InlineData("/news")]
-        [InlineData("/physical-activity")]
-        [InlineData("/profile/test-profile")]
-        [InlineData("/start/start-page")]
-        public async Task ItReturnsAFooterOnThePage(string url)
-        {
-            SetBusinessIdRequestHeader("stockportgov");
-
-            var result = await _fakeClient.GetStringAsync(url);
-
-            result.Should().Contain("2016 A Council Name");
         }
 
         [Fact]

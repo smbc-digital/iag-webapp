@@ -3,42 +3,19 @@
 	As a resident of Stockport
 	I want the showcase page to render correctly
 
-Scenario: User loads showcase should see alerts section
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the alerts section
-
-Scenario: User loads showcase should see a hero image
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the hero image
-
-Scenario: User loads showcase should see primary items
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the primary items section
-
-Scenario: User loads showcase should see features items
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the featured items section
-
-Scenario: User loads showcase should see consultations
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the consultations section
-
-Scenario: User loads showcase should see social media links
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the social media links section
-
-Scenario: User loads showcase should see the profile section
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the profile section
-
-Scenario: User loads showcase should see the events section
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the events section
-
-Scenario: User loads showcase should see the key facts section
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the key facts section
-
-Scenario: User loads showcase should see the body section
-	Given I navigate to "/showcase/test-showcase"
-	Then I should see the body section
+#Scenario: When I navigate to a showcase page I should see a showcase
+#	Given I navigate to "/showcase/uitest-showcase-page"
+#	Then I should see the alerts section
+#	And I should see the hero image
+#	And I should see the news section
+#	And I should see the primary items section
+#	And I should see the featured items section
+#	And I should see the consultations section
+#	#And I should see the social media links section
+#	And I should see the profile section
+#	And I should see multiple profiles
+#	And I should see the events section
+#	And I should see the trivia section
+#	And I should see showcase banner
+#	And I should see email banner
+#	And I should see the body section

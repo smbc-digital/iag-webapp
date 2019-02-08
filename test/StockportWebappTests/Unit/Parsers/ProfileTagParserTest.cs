@@ -33,8 +33,6 @@ namespace StockportWebappTests_Unit.Unit.Parsers
                 Title = "some-title",
                 Image = "some-image-url",
                 Subtitle = "some-subtitle",
-                Teaser = "some-teaser",
-                Type = "some-type",
                 Body = "some-body"
             };
             var profiles = new List<Profile>() { profile };
@@ -58,8 +56,6 @@ namespace StockportWebappTests_Unit.Unit.Parsers
                 Title = "some-title",
                 Image = "some-image-url",
                 Subtitle = "some-subtitle",
-                Teaser = "some-teaser",
-                Type = "some-type",
                 Body = ""
             };
             var profiles = new List<Profile>() { profile };
@@ -81,14 +77,5 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             _viewRenderer.Verify(o => o.Render("Profile", It.IsAny<Profile>()), Times.Never);
             parsedHtml.Should().Be("this is a test");
         }
-
-      [Fact]
-      public void ShouldLogWhenProfileNotFound()
-      {
-           var content = "this is a test{{PROFILE:nope}}";
-           _profileTagParser.Parse(content, new List<Profile>());
-           LogTesting.Assert(_mockLogger, LogLevel.Warning,
-            "The profile slug nope could not be found and will be removed");
-       }
     }
 }

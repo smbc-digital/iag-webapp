@@ -18,4 +18,3 @@ Scenario: User navigates to stockport.gov.uk/uitest-testarticle
 	And I should see the "table" section
 	And I should see the "profile" section
 	And I should see the footer
-

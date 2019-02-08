@@ -99,7 +99,7 @@
         <p class="mobile-filter-heading filter-title">Filter news</p>
 
     </div>
-    <div class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
+    <div id="content" class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
         @{
             if (newsroom.Alerts != null)
             {
@@ -120,7 +120,7 @@
             <ul  class="nav-card-news-list grid-100">
                 @foreach (var subItem in newsroom.News)
                 {
-                    <li id="@( subItem == newsroom.News.First() ? "content" : subItem.Slug)" class="grid-100 grid-parent nav-card-news nav-card-news-item">
+                    <li id="@subItem.Slug" class="grid-100 grid-parent nav-card-news nav-card-news-item">
                         <a href="@Url.Action("Detail", "News", new {slug = subItem.Slug})">
                             <div class="news-bottom-border grid-100 grid-parent">
                                 @if (!string.IsNullOrEmpty(subItem.ThumbnailImage))

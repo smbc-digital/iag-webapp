@@ -3,14 +3,28 @@
 @model Footer
 @inject IStaticAssets StaticAssets
 @inject IApplicationConfiguration appConfig
+@inject BusinessId BusinessId
 @{
     var isForm = (bool?)ViewData["Form"] ?? false;
 }
 
 <footer>
+    @if (BusinessId.ToString() == "stockportgov")
+    {
+        <partial name="AToZStockportGov" model='""' />
+    }
+    @if (Model.SocialMediaLinks != null && !isForm)
+    {
+        @await Component.InvokeAsync("SemanticFooterSocialMediaLinks", new
+        {
+            model = Model.SocialMediaLinks,
+            additionalClasses = "mobile-social-links"
+        });
+    }
     <div class="center-wrapper">
+
         <div id="footer-logo">
-            <a href="http://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
+            <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
         </div>
         @if (Model.Links != null)
         {
@@ -23,19 +37,14 @@
         }
         @if (Model.SocialMediaLinks != null && !isForm)
         {
-            <ul class="social-links">
-                @foreach (var socLink in Model.SocialMediaLinks)
-                {
-                    <li>
-                        <a href="@socLink.Url">
-                            <i class="fa @socLink.Icon"></i>
-                        </a>
-                    </li>
-                }
-            </ul>
+            @await Component.InvokeAsync("SemanticFooterSocialMediaLinks", new
+            {
+                model = Model.SocialMediaLinks,
+                additionalClasses = "social-links"
+            });
         }
     </div>
-     
+
     <div class="center-wrapper">
         <div class="footer-logo-links">
             <a href="https://www.gov.uk/" target="_blank">
@@ -51,7 +60,7 @@
     </div>
     <div class="footer-copyright">
         <div class="center-wrapper">
-            <p><i class="fa fa-copyright" aria-hidden="true"></i>&nbsp;@DateTime.Now.Year Stockport Metropolitan Borough Council</p>
+            <p><span class="fa fa-copyright" aria-hidden="true"></span>&nbsp;@DateTime.Now.Year Stockport Metropolitan Borough Council</p>
             <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
         </div>
     </div>

@@ -1,0 +1,37 @@
+﻿@model StockportWebapp.ViewModels.EventsListViewModel
+
+<div class="events-list-container">
+    <h2>@Model.Heading</h2>
+    <div class="card-list-container">
+        <ul class="card-list-body">
+            @{
+                var index = 0;
+
+                foreach (var item in Model.Events)
+                {
+                    var fee = item.Fee;
+                    if (item.Fee == "0")
+                    {
+                        fee = "Free";
+
+                    }
+
+                    <li class="full-height @(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
+                        <a class="image-card" href="/events/@item.Slug">
+                            <img src="@item.ImageUrl" />
+                            <h3>@item.Title</h3>
+                            <p><i class="fa fa-gbp"></i>@fee</p>
+                            <p><i class="fa fa-clock-o"></i>@item.EventDate.ToString("D") @item.StartTime</p>
+                            <p><i class="fa fa-map-marker"></i>@item.Location</p>
+                        </a>
+                    </li>
+                    index++;
+                }
+            }
+
+
+        </ul>
+        <a class="read-more-mobile hide-on-desktop hide-on-tablet" href="@Model.Link">@Model.LinkText</a>
+        <a class="read-more hide-on-mobile" href="@Model.Link">@Model.LinkText</a>
+    </div>
+</div>

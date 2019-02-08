@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -14,12 +16,14 @@ namespace StockportWebapp.Api
         private CookiesHelper cookiesHelper;
         private IHttpContextAccessor httpContextAccessor;
         private HostHelper hostHelper;
+        private ILogger<FavouritesController> logger;
 
-        public FavouritesController(CookiesHelper _cookiesHelper, IHttpContextAccessor _httpContextAccessor, HostHelper _hostHelper)
+        public FavouritesController(CookiesHelper _cookiesHelper, IHttpContextAccessor _httpContextAccessor, HostHelper _hostHelper, ILogger<FavouritesController> _logger)
         {
             cookiesHelper = _cookiesHelper;
             httpContextAccessor = _httpContextAccessor;
             hostHelper = _hostHelper;
+            logger = _logger;
         }
 
         [Route("/favourites/add")]
@@ -51,7 +55,14 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
+            var referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
+
+            if (string.IsNullOrEmpty(referer))
+            {
+                return new RedirectToActionResult("FavouriteGroups", "Groups", null);
+            }
+
+            return new RedirectResult(referer);
         }
 
         [Route("/favourites/remove")]
@@ -83,10 +94,14 @@ namespace StockportWebapp.Api
                     break;
             }
 
-            return new RedirectResult(httpContextAccessor.HttpContext.Request.Headers["referer"]);
+            var referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
+
+            if (string.IsNullOrEmpty(referer))
+            {
+                return new RedirectToActionResult("FavouriteGroups", "Groups", null);
+            }
+
+            return new RedirectResult(referer);
         }
-
-
-
     }
 }

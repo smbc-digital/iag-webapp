@@ -1,0 +1,15 @@
+﻿@model StockportWebapp.ViewModels.ProfileListViewModel
+
+<div class="circle-list-container">
+    <h2>@Model.Heading</h2>
+    <div>
+        @foreach (var profile in Model.Profiles)
+        {
+            <a class="circle-list-item" href="/profile/@profile.Slug">
+                <img class="circle-list-image" src="@profile.Image" />
+                <h3>@profile.Subject</h3>
+                <h4>@profile.Author</h4>
+            </a>
+        }
+    </div>
+</div>

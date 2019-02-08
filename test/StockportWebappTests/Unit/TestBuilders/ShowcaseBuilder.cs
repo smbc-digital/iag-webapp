@@ -15,6 +15,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _eventCategoryOrtag = "event category or tag";
         private string _newsSubheading = "news subheading";
         private string _newsCategory = "news category";
+        private string _newsCategoryOrTag = "";
         private string _bodySubheading = "body subheading";
         private string _body = "body";
         private string _heroImageUrl = "image-url.jpg";
@@ -23,23 +24,72 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _keyFactSubheading { get; set; } = "Key Fact Subheading";
         private string _showcaseIcon = "fa-icon";
         private CallToActionBanner _callToActionBanner = new CallToActionBanner();
-        private List<InformationList> _didYouKnow = new List<InformationList>{};
-        private List<InformationList> _keyFacts = new List<InformationList>{};
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
         private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
         private IEnumerable<Event> _events = new List<Event>();
         private IEnumerable<Alert> alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty)};
+        public string _profileHeading { get; set; }
+        public string _profileLink { get; set; }
+        public string _triviaSubheading { get; set; }
+        public string _socialMediaLinksSubheading { get; set; } = "";
+        public string _eventsReadMoreText { get; set; } = "";
+        public List<InformationItem> _triviaSection { get; set; }
+        public string _featuredItemsSubheading { get; set; } = "";
+        public IEnumerable<SubItem> _featuredItems = new List<SubItem>()
+        {
+            new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
+        };
 
-        private IEnumerable<SubItem> _featuredItems = new List<SubItem>()
+        private IEnumerable<SubItem> _secondaryItems = new List<SubItem>()
         {
             new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
         };
 
         public Showcase Build()
         {
-            return new Showcase(_title, _slug, _teaser, _subheading, _eventCategory, _eventCategoryOrtag, _eventSubheading, _newsSubheading, _newsCategory, string.Empty, _bodySubheading, _body, null, _heroImageUrl, _breadcrumbs, _featuredItems, _consultations, _socialMediaLinks, _events, _emailAlertsTopicId, _emailAlertsText, alerts, new List<SubItem>(), null, null, new FieldOrder(), _keyFactSubheading, _showcaseIcon, _didYouKnow, _keyFacts, _callToActionBanner);
+            return new Showcase { 
+                Title = _title,
+                Slug = _slug,
+                Teaser = _teaser,
+                Subheading = _subheading,
+                EventCategory = _eventCategory,
+                EventsCategoryOrTag = _eventCategoryOrtag,
+                EventSubheading = _eventSubheading,
+                NewsSubheading = _newsSubheading,
+                NewsCategoryTag = _newsCategory,
+                NewsCategoryOrTag = _newsCategoryOrTag,
+                BodySubheading = _bodySubheading,
+                Body = _body,
+                HeroImageUrl = _heroImageUrl,
+                Breadcrumbs = _breadcrumbs,
+                SecondaryItems = _secondaryItems,
+                Consultations = _consultations,
+                SocialMediaLinksSubheading = _socialMediaLinksSubheading,
+                SocialMediaLinks = _socialMediaLinks,
+                Events = _events,
+                EmailAlertsTopicId = _emailAlertsTopicId,
+                EmailAlertsText = _emailAlertsText,
+                Alerts = alerts,
+                FeaturedItemsSubheading = _featuredItemsSubheading,
+                FeaturedItems = _featuredItems,
+                KeyFacts = new List<KeyFact>(),
+                Profile = new Profile(),
+                ProfileHeading = _profileHeading,
+                ProfileLink = _profileLink,
+                Profiles = new List<Profile>(),
+                FieldOrder = new FieldOrder(),
+                KeyFactSubheading = _keyFactSubheading,
+                Icon = _showcaseIcon,
+                TriviaSubheading = _triviaSubheading,
+                TriviaSection = _triviaSection,
+                CallToActionBanner = _callToActionBanner,
+                EventsReadMoreText = _eventsReadMoreText,
+                Video = new Video(),
+                NewsArticle = null,
+                PrimaryItems = null
+            };
         }
 
         public ShowcaseBuilder Title(string title)

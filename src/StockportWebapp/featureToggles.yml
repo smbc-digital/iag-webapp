@@ -6,9 +6,8 @@ prod: &prod
   GroupDetailsPage: true
   SiaSystem: false
   SemanticLayout: true
-  SemanticProfile: false
   SemanticShowcase: false
-  ContactUsArea: false
+  ContactUsArea: true
   SemanticSmartAnswer: 
     - enforcement-referral
     - education-penalty-notice
@@ -17,21 +16,19 @@ stage: &stage
   << : *prod
   GroupArchiveEmails: true
   SiaSystem: false
-  ContactUsArea: true
 
 qa: &qa
   << : *prod
   << : *stage
+  SemanticLayout: true
+  SemanticInlineAlert: true
+  SemanticShowcase: true
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
   SiaSystem: true
-  SemanticLayout: true
-  SemanticProfile: true
-  SemanticInlineAlert: true
-  SemanticShowcase: true
 
 local: &local
   << : *prod

@@ -2,13 +2,13 @@
 @model EmailBannerViewModel
 
 <section class="email-banner">
-    <div>
+    <div class="hide-on-tablet">
         <i class="si-envelope-open email-banner-icon" aria-hidden="true"></i>
     </div>
     <div>
-        <h3>@Model.EmailAlertsText</h3>
+        <h2 class="h3">@Model.EmailAlertsText</h2>
         <form method="get" role="form" action="/subscribe">
-            <input type="email" name="emailAddress" placeholder="Enter your email address">
+            <input type="email" name="emailAddress" placeholder="Enter your email address" title="Enter your email address" aria-label="Enter your email address">
             <button type="submit" id="test-subscribe" class="button-primary">Subscribe</button>
             @Html.HiddenFor(o => o.EmailAlertsTopicId)
         </form>

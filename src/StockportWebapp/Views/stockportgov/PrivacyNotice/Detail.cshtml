@@ -10,9 +10,10 @@
 }
 <div class="grid-container-full-width">
     <div class="grid-container">
+        <div tabindex="-1" id="content"></div>
         <article class="privacy-notice mobile-grid-100 grid-container l-body-section-filled article-col l-body-section-filled @(Model.HasParentTopicWithSubItems()
-                                                                      ? "grid-parent mobile-grid-100 tablet-grid-100 grid-70"
-                                                                      : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
+                                                                                                                                    ? "grid-parent mobile-grid-100 tablet-grid-100 grid-70"
+                                                                                                                                    : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <div class="grid-100">
                 <h1>@Model.PrivacyNotice.Title</h1>
                 <h2>@Html.Raw(Model.PrivacyNotice.Category) privacy notice</h2>
@@ -109,7 +110,7 @@
                                 @if (showMoreButton)
                                 {
                                     <li>
-                                        <a href="@Url.Action("Index", "Topic", new { topicSlug = Model.PrivacyNotice.ParentTopic.Slug })">
+                                        <a href="@Url.Action("Index", "Topic", new {topicSlug = Model.PrivacyNotice.ParentTopic.Slug})">
                                             <strong>More</strong>
                                         </a>
                                     </li>

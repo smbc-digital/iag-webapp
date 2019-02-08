@@ -11,7 +11,6 @@ using StockportWebapp.Utils;
 using System;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
-using System.Collections.Generic;
 
 namespace StockportWebapp.Controllers
 {
@@ -34,12 +33,12 @@ namespace StockportWebapp.Controllers
         [Route("/showcase/{slug}")]
         public async Task<IActionResult> Showcase(string slug)
         {
-            var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
+            var response = await _repository.Get<Showcase>(slug);
 
-            if (!showcaseHttpResponse.IsSuccessful())
-                return showcaseHttpResponse;
+            if (!response.IsSuccessful())
+                return response;
 
-            var showcase = showcaseHttpResponse.Content as ProcessedShowcase;
+            var showcase = response.Content as ProcessedShowcase;
 
             if (_featureToggles.SemanticShowcase)
             {
@@ -69,12 +68,8 @@ namespace StockportWebapp.Controllers
 
             DoPagination(Page, result, pageSize);
 
-            if (_featureToggles.SemanticShowcase)
-            {
-                return View("Semantic/PreviousConsultations", result);
-            }
+            return View("Semantic/PreviousConsultations", result);
 
-            return View(result);
         }
 
         private void DoPagination(int currentPageNumber, PreviousConsultaion prevConsultation, int pageSize)

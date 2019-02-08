@@ -28,6 +28,8 @@
     }
 }
 
+<div tabindex="-1" id="content"></div>
+
 @foreach (var field in Model.FieldOrder.Items)
 {
     switch (field)
@@ -40,7 +42,7 @@
                     <div class="title-card showcase-redesign-title-card">
                         <div class="grid-container tablet-grid-100 grid-100 showcase-title">
                             <div class="showcase-title-container mobile-grid-100 tablet-grid-100">
-                                <h1 tabindex="-1" id="content">
+                                <h1>
                                     <span>@Model.Title</span>
                                 </h1>
                             </div>
@@ -91,7 +93,7 @@
                 }
                 else
                 {
-                    <div tabindex="-1" id="content" class="full-width-title title-only">
+                    <div class="full-width-title title-only">
                         <div class="grid-container grid-parent grid-100">
                             <div class="grid-100 tablet-grid-100 mobile-grid-100">
                                 <h1 class="full-width-title-with-button">@Model.Title</h1>
@@ -110,7 +112,12 @@
                 <div class="alt-container-rowx showcase-news-events white featured-items-wrapper matchbox-parent">
                     <div class="featured-topic-list">
                         <h2 class="visuallyhidden">Popular Services</h2>
-                        <h2>@Model.Subheading</h2>
+
+                        @if (!string.IsNullOrEmpty(Model.Subheading))
+                        {
+                            <h2>@Model.Subheading</h2>
+                        }
+
                         @foreach (var item in Model.SecondaryItems)
                         {
                             <div class="grid-20 tablet-grid-25 mobile-grid-33 featured-topic matchbox-child">
@@ -270,7 +277,7 @@
                         <form method="get" role="form" action="/subscribe">
 
                             <div class="grid-50 tablet-grid-50 grid-parent">
-                                <input type="email" name="emailAddress" placeholder="Enter your email address">
+                                <input type="email" name="emailAddress" placeholder="Enter your email address" title="Enter your email address" aria-label="Enter your email address"> 
                             </div>
                             <div class="grid-30 tablet-grid-50 grid-parent">
                                 <button type="submit" id="test-subscribe" class="button-default">Subscribe</button>

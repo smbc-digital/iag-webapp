@@ -17,23 +17,27 @@ namespace StockportWebapp.Utils
             }
         }
 
-        public ContentSecurityPolicyElement AddSource(string source)
+        public ContentSecurityPolicyElement AddSource(string source, bool appendHttps = true, bool force = false)
         {
             _stringBuilder.Append(" ");
-            AddSourceForSafari9(source);
+            AddSourceForSafari9(source, appendHttps, force);
 
             return this;
         }
 
-        private void AddSourceForSafari9(string source)
+        private void AddSourceForSafari9(string source, bool appendHttps, bool force)
         {
             if (IsSafari9Exception(source))
             {
                 _stringBuilder.Append(source);
             }
-            else
+            else if (appendHttps)
             {
                 AddSourceWithBothHttpAndHttpsForSafari9(source);
+            }
+            else if (force)
+            {
+                _stringBuilder.Append(source);
             }
         }
 
@@ -43,7 +47,9 @@ namespace StockportWebapp.Utils
                    || source == "'unsafe-eval'"
                    || source == "https:"
                    || source == "data:"
-                   || source.StartsWith("*.");
+				   || source == "wss:"
+				   || source == "http:"
+				   || source.StartsWith("*.");
         }
 
         private void AddSourceWithBothHttpAndHttpsForSafari9(string source)

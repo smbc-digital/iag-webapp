@@ -13,12 +13,28 @@
                 <div class="grid-100 group-title">
                     <h3>@Model.Name</h3>
                 </div>
+                <div>
+                    <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon display-on-pdf">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </div>
+                    <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text display-on-pdf">
+                        @Model.Email
+                    </div>
+                </div>
+                <div>
+                    <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon display-on-pdf">
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                    </div>
+                    <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text display-on-pdf">
+                        @Model.PhoneNumber
+                    </div>
+                </div>
                 @if (Model.Cost.Any())
                 {
-                    <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
-                        <i class="fa fa-gbp" aria-hidden="true"></i>
-                    </div>
-                    <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@string.Join(", ", Model.Cost.ToArray())</div>
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                    <i class="fa fa-gbp" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@string.Join(", ", Model.Cost.ToArray())</div>
                 }
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
                     <i class="fa fa-map-marker" aria-hidden="true"></i>
@@ -28,10 +44,10 @@
                 </div>
                 @if (!string.IsNullOrWhiteSpace(Model.AbilityLevel))
                 {
-                    <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
-                    <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@Model.AbilityLevel</div>
+                <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </div>
+                <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@Model.AbilityLevel</div>
                 }
                 <div>
                     <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon hidden display-on-pdf">

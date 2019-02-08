@@ -38,7 +38,7 @@ namespace StockportWebappTests_UI.StepDefinitions
                     result = BrowserSession.FindCss("table").Exists();
                     break;
                 case "profile":
-                    result = BrowserSession.FindCss(".profile").Exists();
+                    result = BrowserSession.FindAllCss(".profile").Any();
                     break;
             }
             Assert.True(result);

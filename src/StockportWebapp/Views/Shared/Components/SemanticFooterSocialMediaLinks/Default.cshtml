@@ -1,0 +1,15 @@
+﻿@model Tuple<IEnumerable<StockportWebapp.Models.SocialMediaLink>, string>
+
+<ul class="@Model.Item2">
+    @foreach (var socLink in Model.Item1)
+    {
+        <li>
+            <a href="@socLink.Url">
+                <i class="fa @socLink.Icon"></i>
+            </a>
+        </li>
+    }
+</ul>
+
+
+

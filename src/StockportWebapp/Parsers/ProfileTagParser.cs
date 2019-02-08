@@ -39,10 +39,6 @@ namespace StockportWebapp.Parsers
 
                     content = TagRegex.Replace(content, profileHtml, 1);
                 }
-                else
-                {
-                    _logger.LogWarning($"The profile slug {profileSlug} could not be found and will be removed");
-                }
             }
             return RemoveEmptyTags(content);
         }

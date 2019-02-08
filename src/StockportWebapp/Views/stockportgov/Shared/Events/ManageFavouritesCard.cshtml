@@ -1,5 +1,5 @@
 ﻿@model StockportWebapp.ProcessedModels.ProcessedGroup
-    <div id="add-favourite" class="add-favourite sidebar-links @(Model.Favourite ? "hidden" : "")">
+    <div class="add-favourite sidebar-links @(Model.Favourite ? "hidden" : "")">
         <i class=" fa fa-star-o fa-lg" aria-hidden="true"></i>
         <a data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")">Add to favourites </a>
     </div>

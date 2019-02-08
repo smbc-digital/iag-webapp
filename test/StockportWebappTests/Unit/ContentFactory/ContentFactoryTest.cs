@@ -9,8 +9,6 @@ using StockportWebapp.ContentFactory;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
-using System.Collections;
-using StockportWebappTests_Unit.Builders;
 using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory
@@ -42,19 +40,6 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var processedSection = _factory.Build<Section>(section);
 
             processedSection.Should().BeOfType<ProcessedSection>();
-        }
-
-        [Fact]
-        public void ItUsesProfileFactoryToBuildProcessedProfileFromProfile()
-        {
-            var profile = new Profile(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-                TextHelper.AnyString, TextHelper.AnyString,
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>());
-
-
-            var processedProfile = _factory.Build<Profile>(profile);
-
-            processedProfile.Should().BeOfType<ProcessedProfile>();
         }
 
         [Fact]
