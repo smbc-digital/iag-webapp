@@ -359,12 +359,6 @@
       ],
       "sunriseDate": "0001-01-01T00:00:00Z",
       "sunsetDate": "9999-12-31T23:59:59.9999999Z",
-      "liveChatVisible": false,
-      "liveChat": {
-        "title": "",
-        "text": "",
-        "sys": null
-      },
       "advertisement": null
     },
     "UseTransformer": false,

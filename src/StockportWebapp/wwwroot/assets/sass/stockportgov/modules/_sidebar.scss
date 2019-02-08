@@ -158,40 +158,6 @@
     }
 }
 
-.side-bar-section-live-chat {
- 
-    @media #{$mobile, $tablet} {
-           margin-right:10px;
-        }   
-    p{                   
-        font-size: 14px;
-
-        @media #{$desktop} {
-           padding-left: 35px;
-        }
-
-        @media #{$mobile, $tablet} {
-           padding-left: 10px;
-        }        
-    }
-
-    .button-default {
-        margin-top:20px;
-        min-width:unset;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 1.125em;
-    }
-    
-    .online-chat {
-        margin-bottom:20px;
-        @media #{$desktop} {
-           padding-left: 35px;
-        }
-    }
-
-}
-
 .sidebar-links {
     list-style: none;
     margin-left: 0;

@@ -17,7 +17,6 @@
         "expandinglinks": "stockportgov/expandinglinks",
         "filters": "stockportgov/filters",
         "groups": "stockportgov/Groups",
-        "livechat": "stockportgov/livechat",
         "matchboxconfig": "stockportgov/matchbox",
         "multiselect": "stockportgov/multiSelect",
         "primaryfilter": "stockportgov/primaryfilter",
