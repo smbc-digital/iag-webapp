@@ -146,7 +146,7 @@ namespace StockportWebapp
             Log.Logger = logConfig.CreateLogger();
             StartupLogger = Log.Logger;
 
-            StartupLogger.Warning("Completed logging configuration...");
+            StartupLogger.Debug("Completed logging configuration...");
         }
     }
 }

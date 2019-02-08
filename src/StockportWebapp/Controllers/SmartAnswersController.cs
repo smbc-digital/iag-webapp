@@ -17,7 +17,7 @@ using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+    [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
     [Route("smart/{slug}")]
     public class SmartAnswersController : BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>
     {

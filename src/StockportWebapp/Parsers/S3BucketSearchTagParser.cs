@@ -35,10 +35,6 @@ namespace StockportWebapp.Parsers
                     var searchHtml = _viewRenderer.Render("S3Bucket", search);
                     content = TagRegex.Replace(content, searchHtml, 1);
                 }
-                else
-                {
-                    _logger.LogWarning($"The search Title test could not be found and will be removed");
-                }
             }
             return RemoveEmptyTags(content);
         }

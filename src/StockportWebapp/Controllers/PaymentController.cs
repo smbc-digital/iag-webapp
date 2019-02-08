@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.NodeServices;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
+    [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
     public class PaymentController : Controller
     {
         private readonly IProcessedContentRepository _repository;

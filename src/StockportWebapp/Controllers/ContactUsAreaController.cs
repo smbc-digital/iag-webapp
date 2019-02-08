@@ -23,7 +23,7 @@ namespace StockportWebapp.Controllers
             _featureToggles = featureToggles;
         }
 
-        [Route("/contact-us-area")]
+        [Route("/contact")]
         public async Task<IActionResult> Index()
         {
             if (_featureToggles.ContactUsArea)

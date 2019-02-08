@@ -310,6 +310,7 @@ namespace StockportWebapp.Controllers
 
         [HttpGet]
         [Route("/groups/{slug}/change-group-info")]
+        [ResponseCache(NoStore = true, Duration = 0)]
         public ActionResult ChangeGroupInfo(string slug, string groupname)
         {
             var model = new ChangeGroupInfoViewModel
@@ -325,6 +326,7 @@ namespace StockportWebapp.Controllers
         [HttpPost]
         [Route("/groups/{slug}/change-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        [ResponseCache(NoStore = true, Duration = 0)]
         public IActionResult ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
         {
             if (!ModelState.IsValid)
@@ -344,6 +346,7 @@ namespace StockportWebapp.Controllers
 
         [HttpGet]
         [Route("/groups/{slug}/report-group-info")]
+        [ResponseCache(NoStore = true, Duration = 0)]
         public ActionResult ReportGroupInfo(string slug, string groupname)
         {
             var model = new ReportGroupViewModel
@@ -360,6 +363,7 @@ namespace StockportWebapp.Controllers
         [HttpPost]
         [Route("/groups/{slug}/report-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
+        [ResponseCache(NoStore = true, Duration = 0)]
         public IActionResult ReportGroupInfo(string slug, ReportGroupViewModel submission)
         {
             if (!ModelState.IsValid)

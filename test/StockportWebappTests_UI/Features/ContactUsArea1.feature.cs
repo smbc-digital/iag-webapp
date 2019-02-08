@@ -65,14 +65,14 @@ namespace StockportWebappTests_UI.Features
             testRunner.CollectScenarioErrors();
         }
         
-        [TechTalk.SpecRun.ScenarioAttribute("User navigates to stockport.gov.uk/contact-us-area", SourceLine=6)]
-        public virtual void UserNavigatesToStockport_Gov_UkContact_Us_Area()
+        [TechTalk.SpecRun.ScenarioAttribute("User navigates to stockport.gov.uk/contact", SourceLine=6)]
+        public virtual void UserNavigatesToStockport_Gov_UkContact()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to stockport.gov.uk/contact-us-area", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User navigates to stockport.gov.uk/contact", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 8
- testRunner.Given("I navigate to \"/contact-us-area\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I navigate to \"/contact\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
  testRunner.Then("I should see the header", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 10

@@ -50,16 +50,5 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             _viewRenderer.Verify(o => o.Render("Document", It.IsAny<Document>()), Times.Never);
             parsedHtml.Should().Be("this is some test ");
         }
-
-        [Fact]
-        public void ShouldLogWhenDocumentNotFound()
-        {
-            const string content = "this is some test {{PDF:some-pdf.pdf}}";
-
-            _documentTagParser.Parse(content, new List<Document> { new Document("title", 2434, DateTime.Now, "url", "not-found.jpg", string.Empty, "media") });
-
-            LogTesting.Assert(_mockLogger, LogLevel.Warning,
-            "The document some-pdf.pdf could not be found and will be removed");
-        }
     }
 }

@@ -53,6 +53,51 @@
             </div>
             break;
 
+        case "Secondary Items":
+
+            if (Model.SecondaryItems.Any())
+            {
+                <div class="showcase-section">
+                    <div class="center-wrapper">
+                        <div class="secondary-item-header">
+                            <h2 class="sr-only">Popular Services</h2>
+                            @if (!string.IsNullOrEmpty(@Model.Subheading))
+                            {
+                                <h2>@Model.Subheading</h2>
+                            }
+                        </div>
+                        <div class="secondary-item-body">
+                            @foreach (var item in Model.SecondaryItems)
+                            {
+                                <div class="grid-20 tablet-grid-25 mobile-grid-33 secondary-item matchbox-child">
+                                    <div class="secondary-item-content">
+                                        <a href="@item.NavigationLink">
+                                            <div class="secondary-item-icon">
+                                                <i class="@item.Icon si-default" aria-hidden="true"></i>
+                                            </div>
+                                            <div class="secondary-item-name"><h3>@item.Title</h3></div>
+                                        </a>
+                                        @if (item.SubItems.Any())
+                                        {
+                                            <p class="hide-on-mobile hide-on-tablet secondary-item-description">
+                                                <span>Including</span>
+                                                @foreach (var subItem in item.SubItems.Take(2))
+                                                {
+                                                    <br />
+                                                    <a href="@subItem.NavigationLink">@subItem.Title</a>
+                                                }
+                                            </p>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+
+            break;
+
         case "Featured Items":
             if (Model.FeaturedItems.AnyOrDefault())
             {

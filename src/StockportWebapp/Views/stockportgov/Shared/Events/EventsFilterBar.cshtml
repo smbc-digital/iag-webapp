@@ -5,11 +5,11 @@
     var hasSearched = (Model.FromSearch) || !string.IsNullOrWhiteSpace(Model.Tag);
     var hideOnMobile = hasSearched ? "hide-on-mobile" : "mobile-grid-100";
     var showOnMobile = hasSearched ? "hide-on-desktop hide-on-tablet" : "hide-on-mobile hide-on-desktop hide-on-tablet";
-    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <b>All</b> events " : $"Showing <b>{Model.Category}</b> events ",
-                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
-                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <b>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</b> ",
-                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <b>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</b>",
-                        Model.DateFrom == null && Model.DateTo == null ? "from <b>All dates</b>" : string.Empty);
+    var nowShowing = string.Concat(string.IsNullOrWhiteSpace(Model.Category) ? "Showing <strong>All</strong> events " : $"Showing <strong>{Model.Category}</strong> events ",
+                        Model.DateFrom == null || Model.DateTo == null || Model.DateFrom != Model.DateTo ? string.Empty : $"for <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom == Model.DateTo || Model.DateFrom == null ? string.Empty : $"from <strong>{((DateTime)Model.DateFrom).ToString("dd/MM/yy")}</strong> ",
+                        Model.DateFrom == Model.DateTo || Model.DateTo == null ? string.Empty : $"to <string>{((DateTime)Model.DateTo).ToString("dd/MM/yy")}</strong>",
+                        Model.DateFrom == null && Model.DateTo == null ? "from <strong>All dates</strong>" : string.Empty);
 }
 <form action="/events" method="get" id="events-filter-bar-container">
     <input type="hidden" asp-for="@Model.FromSearch" value="true" />

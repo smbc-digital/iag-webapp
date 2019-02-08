@@ -2,7 +2,7 @@
 @model StockportWebapp.Models.Topic
 @inject FeatureToggles FeatureToggles
 
-<div id="test-topic-page-secondary-topics-list" class="subitems-tertiary-padding grid-100">
+<div class="subitems-tertiary-padding grid-100">
 
     @{
         var firstHalfOfItems = (int)Math.Ceiling((decimal)Model.TertiaryItems.Count() / 2);

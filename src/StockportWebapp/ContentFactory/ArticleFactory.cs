@@ -44,10 +44,6 @@ namespace StockportWebapp.ContentFactory
             }
 
             var body = _markdownWrapper.ConvertToHtml(article.Body ?? "");
-            if (article.LiveChat != null)
-            {
-                article.LiveChat.Text = _markdownWrapper.ConvertToHtml(article.LiveChat.Text ?? "");
-            }
             body = _profileTagParser.Parse(body, article.Profiles);
             body = _documentTagParser.Parse(body, article.Documents);
             body = _alertsInlineTagParser.Parse(body, article.AlertsInline);
@@ -61,7 +57,7 @@ namespace StockportWebapp.ContentFactory
             body = _tagParserContainer.ParseAll(body, article.Title);
 
             return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser,
-                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.LiveChatVisible, article.LiveChat, article.AlertsInline, article.Advertisement, article.S3Bucket);
+                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.AlertsInline, article.Advertisement, article.S3Bucket);
         }
 
         private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()

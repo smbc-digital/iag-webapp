@@ -43,7 +43,12 @@
 .featured-topic {
     float: none;
     display: inline-block;
+    
     margin-right: -5px;
+    @media #{$tablet} {
+        margin-right: 0;
+    }
+
     vertical-align: top;
     text-align: center;
     text-decoration: none;
@@ -213,6 +218,10 @@
             content: "\f106";
         }
     }
+}
+
+#see-more-services {
+    margin-top: 25px;
 }
 
 #topic-page-content {

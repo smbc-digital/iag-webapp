@@ -25,6 +25,20 @@
                                             <div class="group-title">
                                                 <h3>@group.Name</h3>
                                             </div>
+                                            <div class="group-card-text">
+                                                <div class="group-card-icon">
+                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    @(group.Email)
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="group-card-text">
+                                                <div class="group-card-icon">
+                                                    <i class="fa fa-phone" aria-hidden="true"></i>
+                                                    @(group.PhoneNumber)
+                                                </div>
+                                                
+                                            </div>
                                             @if (group.Cost.Any())
                                             {                                               
                                                 <div class="group-card-text">

@@ -39,8 +39,6 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly List<Crumb> _breadcrumbs;
         private readonly Article _article;
         private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
-        private const bool _liveChatVisible = true;
-        private readonly LiveChat _liveChat = new LiveChat("Title","text");
         private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
         private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
         private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
@@ -70,13 +68,12 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
 
             var _advertisement = new NullAdvertisement();
 
-             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _liveChatVisible, _liveChat, _emptyAlertsInline, _advertisement);
+             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _advertisement);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
             _repository.Setup(o => o.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-            _markdownWrapper.Setup(o => o.ConvertToHtml(_liveChat.Text)).Returns(_liveChat.Text);
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
@@ -101,9 +98,6 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             result.BackgroundImage.Should().Be(BackgroundImage);
             result.Image.Should().Be(Image);
             result.Breadcrumbs.ToList().Should().BeEquivalentTo(_breadcrumbs);
-            result.LiveChatVisible.Should().Be(true);
-            result.LiveChat.Title.Should().Be("Title");
-            result.LiveChat.Text.Should().Be("text");
         }
 
         [Fact]

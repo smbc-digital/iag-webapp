@@ -10,12 +10,12 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model="Model.Article.Breadcrumbs"/>
+    <partial name="Breadcrumb" model="Model.Article.Breadcrumbs" />
 }
 <div class="grid-container-full-width">
     <div class="grid-container grid-100 article-cols">
         <div tabindex="-1" id="content"></div>
-        <article id="uitest-page-has-loaded" class="article-col l-body-section-filled @(Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible
+        <article id="uitest-page-has-loaded" class="article-col l-body-section-filled @(Model.HasParentTopicWithSubItems()
                                                                       ? "grid-parent mobile-grid-100 tablet-grid-100 grid-70"
                                                                       : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
@@ -27,7 +27,7 @@
                                 <h1>@Model.Article.Title</h1>
                             </div>
                         </div>
-                            <div class="title-spacer"></div>
+                        <div class="title-spacer"></div>
                     }
                     <div class="grid-100">
                         @if (string.IsNullOrEmpty(Model.Article.Image))
@@ -42,13 +42,13 @@
                                 <div class="alert-container">
                                     @foreach (var alert in Model.Article.Alerts)
                                     {
-                                        <partial name="DisplayTemplates/Alert" model='alert'/>
+                                        <partial name="DisplayTemplates/Alert" model='alert' />
                                     }
                                 </div>
                             }
                         }
-                        
-                        <partial name="Advertisement" model='Model.Article.Advertisement'/>
+
+                        <partial name="Advertisement" model='Model.Article.Advertisement' />
 
                         <div class="grid-100">
 
@@ -62,7 +62,7 @@
                             @if (Model.DisplayedSection != null)
                             {
                                 <partial name="../Shared/Section-Nav" />
-                                <partial name="../Shared/Article-Single-Section" model='Model'/>
+                                <partial name="../Shared/Article-Single-Section" model='Model' />
                                 <partial name="DisplayTemplates/Section-Pagination" />
                             }
                         </div>
@@ -71,7 +71,7 @@
             </section>
         </article>
         @{
-            if (Model.HasParentTopicWithSubItems() || Model.Article.LiveChatVisible)
+            if (Model.HasParentTopicWithSubItems())
             {
                 <div class="l-right-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent article-col article-col-sidebar">
                     @if (Model.HasParentTopicWithSubItems())
@@ -97,23 +97,18 @@
                                 }
                             </ul>
                         </div>
-                                    }
-                    @if (Model.Article.LiveChatVisible)
-                    {
-                        <partial name="LiveChat" model='Model.Article.LiveChat'/>
                     }
                 </div>
-                }
+            }
         }
     </div>
 </div>
 
 <script type="text/javascript">
-    require(['startup', 'carousel', 'matchHeight', 'matchboxconfig', 'slick', 'livechat'],
-        function (startup, carousel, matchHeight, matchboxconfig, slick, livechat) {
-                startup.Init();
-                matchboxconfig.Init();
-                carousel.Init();
-                livechat.Init();
-            })
+    require(['startup', 'carousel', 'matchHeight', 'matchboxconfig', 'slick'],
+        function (startup, carousel, matchHeight, matchboxconfig, slick) {
+            startup.Init();
+            matchboxconfig.Init();
+            carousel.Init();
+        })
 </script>

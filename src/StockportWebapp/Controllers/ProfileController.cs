@@ -37,7 +37,7 @@ namespace StockportWebapp.Controllers
                     profileEntity.TriviaSection,
                     profileEntity.FieldOrder);
 
-                return View("Semantic/Index", model);
+                return View(model);
             }
 
             return NotFound();

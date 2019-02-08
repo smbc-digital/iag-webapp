@@ -9,10 +9,10 @@
             var informationItem = Model.Item1.ToArray()[i];
 
             <li>
-                <div class="grid-10">
-                    <span class="si si-@informationItem.Icon"></span>
+                <div class="icon-column">
+                    <span class="si @informationItem.Icon"></span>
                 </div>
-                <div class="grid-90">
+                <div class="text-column">
                     @if (!string.IsNullOrEmpty(informationItem.Link))
                     {
                         <a class="information-item" href="@informationItem.Link" rel="@informationItem.Name">

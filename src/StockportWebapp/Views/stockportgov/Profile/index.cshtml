@@ -6,7 +6,7 @@
     ViewData["Title"] = Model.Title;
     var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
     ViewData["og:title"] = articleTitle + Model.Title;
-    Layout = "../../Shared/_LayoutSemantic.cshtml";
+    Layout = "../Shared/_LayoutSemantic.cshtml";
 }
 
 @section Breadcrumbs {
@@ -14,7 +14,7 @@
 }
 
 <article class="page-container">
-    <h1 tabindex="-1" id="content">@ViewData["Title"]</h1>
+    <h1 tabindex="-1">@ViewData["Title"]</h1>
     <p class="lead-paragraph">@Model.Subtitle</p>
     <hr class="thick-divider" />
     <section>
