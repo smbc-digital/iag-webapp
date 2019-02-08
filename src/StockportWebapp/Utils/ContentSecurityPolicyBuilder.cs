@@ -157,7 +157,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://www.opinionstage.com/assets/loader.js")
 				.AddSource("https://www.google.com/recaptcha/api.js")
 				.AddSource("https://www.gstatic.com/recaptcha/api2/")
-                .AddSource("https://www.googletagmanager.com/")
+                .AddSource("https://www.googletagmanager.com/gtm.js?id=GTM-NXDQK7S")
                 .AddSource("https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js")
 				.AddSource("https://www.jscache.com/")
 				.AddSource("tripadvisor.com")
