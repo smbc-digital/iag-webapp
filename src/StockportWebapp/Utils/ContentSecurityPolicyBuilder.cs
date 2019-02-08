@@ -172,7 +172,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://core-api-eu1.cludo.com/")
 				.AddSource("app.meetami.ai/")
 				.AddSource("wss://chat.meetami.ai/", false, true)
-				.AddSource("wss://chat.meetami.ai/socket.io/?EIO=3&transport=websocket", false, true)
+				.AddSource("wss://chat.meetami.ai/socket.io/", false, true)
                 .AddSource("https://cdn.trackjs.com/releases/current/tracker.js")
 				.Finish());
 		}
@@ -194,7 +194,7 @@ namespace StockportWebapp.Utils
 				.AddSource("app.meetami.ai/")
 				.AddSource("https://chat.meetami.ai/")
 				.AddSource("wss://chat.meetami.ai/", false, true)
-                .AddSource("wss://chat.meetami.ai/socket.io/?EIO=3&transport=websocket", false, true)
+                .AddSource("wss://chat.meetami.ai/socket.io/", false, true)
                 .AddSource("http://localhost/sitereplier/chats/enabled/")
 				.Finish());
 		}
