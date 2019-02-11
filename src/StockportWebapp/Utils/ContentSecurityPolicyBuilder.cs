@@ -127,7 +127,8 @@ namespace StockportWebapp.Utils
 				.AddSource("platform.twitter.com/css/")
 				.AddSource("stockportb.logo-net.co.uk/Delivery/")
 				.AddSource("*/butotv/live/")
-				.Finish());
+                .AddSource("tagmanager.google.com/")
+                .Finish());
 		}
 
 		private void BuildScriptSource()
@@ -141,6 +142,7 @@ namespace StockportWebapp.Utils
 				.AddSource("maps.googleapis.com")
 				.AddSource("m.addthisedge.com/live/boost/")
 				.AddSource("www.google-analytics.com/analytics.js")
+                .AddSource("tagmanager.google.com/")
 				.AddSource("api.cludo.com/scripts/")
 				.AddSource("customer.cludo.com/scripts/")
 				.AddSource("cdnjs.cloudflare.com/ajax/libs/cookieconsent2/")
