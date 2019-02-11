@@ -208,7 +208,7 @@ namespace StockportWebapp.Utils
 				new ContentSecurityPolicyElement
 					("media-src")
 				.AddSource("https://www.youtube.com/")
-				.AddSource("*/butotv/live/")
+				.AddSource("*/butotv/live/", false, true)
 				.AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
 				.AddSource("app.meetami.ai/")
 				.AddSource("*.meetami.ai/", false)
