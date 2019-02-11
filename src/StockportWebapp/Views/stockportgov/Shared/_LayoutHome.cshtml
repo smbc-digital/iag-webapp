@@ -29,7 +29,6 @@
     @RenderSection("BackgroundImage")
     @RenderSection("CarouselBackgroundImage")
     <partial name="CookieBanner" />
-    @await Component.InvokeAsync("GoogleAnalytics")
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
 
     @if (CurrentEnvironment.Name == "test")
@@ -40,9 +39,11 @@
     {
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
-
+    <partial name="TagManager/TagManagerDataLayer" />
+    <partial name="TagManager/TagManager" />
 </head>
 <body class="container-layout-free type-home">
+    <partial name="TagManager/TagManagerNoScript" />
     <partial name="Header" />
     <div class="grid-container-full-width">
         @RenderBody()

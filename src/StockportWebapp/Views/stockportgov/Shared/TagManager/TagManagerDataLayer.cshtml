@@ -1,0 +1,8 @@
+﻿@using StockportWebapp.Config.AnalyticsConfiguration
+@inject IAnalyticsConfiguration Analytics
+
+<script>
+    dataLayer = [{
+        'AnalyticsTrackingCode': '@Analytics.GetTrackerCode().AnalyticsTrackingCode'
+    }];
+</script>

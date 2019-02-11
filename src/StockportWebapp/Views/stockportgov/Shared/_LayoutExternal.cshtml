@@ -40,70 +40,72 @@
     <link rel="stylesheet" href="@democracyHomeLink/assets/stylesheets/styleguide-sg.min.css" />
     <link rel="stylesheet" href="@democracyHomeLink/assets/stylesheets/site-sg.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
-    @await Component.InvokeAsync("GoogleAnalytics")
+    <partial name="TagManager/TagManagerDataLayer" />
+    <partial name="TagManager/TagManager" />
 </head>
 <body class="container-layout-free">
-    <partial name="Header" />
-    <main>
-        @RenderBody()
-    </main>
-    <partial name="StaticFooter" />
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script>
-        var mobileWidth = 767;
-        var tabletWidth = (1024 - 17);
-        var windowHeight = $(window).height();
+        <partial name="TagManager/TagManagerNoScript" />
+        <partial name="Header" />
+        <main>
+            @RenderBody()
+        </main>
+        <partial name="StaticFooter" />
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+                integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+                crossorigin="anonymous"></script>
+        <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+        <script>
+            var mobileWidth = 767;
+            var tabletWidth = (1024 - 17);
+            var windowHeight = $(window).height();
 
-        document.documentElement.className = document.documentElement.className.replace("no-js", "js");
-        var CludoSearch;
-        (function () {
-            var cludoSettings = {
-                customerId: 112,
-                engineId: 1144,
-                type: 'standardOverlay',
-                hideSearchFilters: true,
-                initSearchBoxText: '',
-                searchInputs: ["cludo-search-form", "cludo-search-mobile-form", "cludo-search-hero-form"],
-                theme: { themeColor: '#055c58', themeBannerColor: { textColor: '#333', backgroundColor: '#f2f2f2' }, borderRadius: 10 },
-                language: 'en'
-            };
-            CludoSearch = new Cludo(cludoSettings);
-            CludoSearch.init();
-        })();
+            document.documentElement.className = document.documentElement.className.replace("no-js", "js");
+            var CludoSearch;
+            (function () {
+                var cludoSettings = {
+                    customerId: 112,
+                    engineId: 1144,
+                    type: 'standardOverlay',
+                    hideSearchFilters: true,
+                    initSearchBoxText: '',
+                    searchInputs: ["cludo-search-form", "cludo-search-mobile-form", "cludo-search-hero-form"],
+                    theme: { themeColor: '#055c58', themeBannerColor: { textColor: '#333', backgroundColor: '#f2f2f2' }, borderRadius: 10 },
+                    language: 'en'
+                };
+                CludoSearch = new Cludo(cludoSettings);
+                CludoSearch.init();
+            })();
 
-        $(".show-search-button").click(function () {
-            $("#mobileSearchInput").slideToggle(220);
-            $(".show-search-button").toggleClass("arrow");
-        });
+            $(".show-search-button").click(function () {
+                $("#mobileSearchInput").slideToggle(220);
+                $(".show-search-button").toggleClass("arrow");
+            });
 
-        $(window).resize(function () {
-            var image = $("#header .logo-main-image");
-            var logoMobile = image.attr("data-mobile-image");
-            var logoDesktop = image.attr("data-desktop-image");
+            $(window).resize(function () {
+                var image = $("#header .logo-main-image");
+                var logoMobile = image.attr("data-mobile-image");
+                var logoDesktop = image.attr("data-desktop-image");
 
-            if ($(window).width() <= mobileWidth) {
-                image.attr("src", logoMobile);
-            } else {
-                image.attr("src", logoDesktop);
-            }
+                if ($(window).width() <= mobileWidth) {
+                    image.attr("src", logoMobile);
+                } else {
+                    image.attr("src", logoDesktop);
+                }
 
-            if ($(window).width() > tabletWidth) {
-                $("#mobileSearchInput").hide();
-                $(".show-search-button").removeClass("arrow");
-                $('#displayRefineBy').css('display', 'block');
-            }
-        });
+                if ($(window).width() > tabletWidth) {
+                    $("#mobileSearchInput").hide();
+                    $(".show-search-button").removeClass("arrow");
+                    $('#displayRefineBy').css('display', 'block');
+                }
+            });
 
-    </script>
-    <!-- Start: Ami Snippet -->
-    <script type="text/javascript">
-        (function () { var sr = document.createElement('script'); var srRef = '168019131601'; sr.type = 'text/javascript'; sr.async = true; sr.src = '//app.meetami.ai/launchpad.php?c=' + srRef; var srComp = document.getElementsByTagName('script')[0]; srComp.parentNode.insertBefore(sr, srComp); }
+        </script>
+        <!-- Start: Ami Snippet -->
+        <script type="text/javascript">
+            (function () { var sr = document.createElement('script'); var srRef = '168019131601'; sr.type = 'text/javascript'; sr.async = true; sr.src = '//app.meetami.ai/launchpad.php?c=' + srRef; var srComp = document.getElementsByTagName('script')[0]; srComp.parentNode.insertBefore(sr, srComp); }
 
-        )();
-    </script>
-    <!-- End: Ami Snippet -->
-</body>
+            )();
+        </script>
+        <!-- End: Ami Snippet -->
+    </body>
 </html>

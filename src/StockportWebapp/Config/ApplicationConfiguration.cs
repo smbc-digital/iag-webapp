@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
+using StockportWebapp.Config.AnalyticsConfiguration;
 
 namespace StockportWebapp.Config
 {
@@ -11,12 +12,13 @@ namespace StockportWebapp.Config
         AppSetting GetEmailAlertsUrl(string businessId);
         AppSetting GetSearchUrl(string businessId);
         AppSetting GetPostcodeSearchUrl(string businessId);
-        AppSetting GetGoogleAnalyticsCode(string businessId);
+        AppSetting GetGoogleAnalyticsCode(string buisnessId);
         AppSetting GetAddThisShareId(string businessId);
         AppSetting GetRssEmail(string businessId);
         Uri GetContentApiUri();
         Uri GetContentApiUrlRoot();
         Uri GetStockportApiUri();
+        Uri GetGoogleAnalyticsUri();
         AppSetting GetEmailHost(string businessId);
         AppSetting GetEmailRegion(string businessId);
         AppSetting GetEmailEmailFrom(string businessId);
@@ -43,6 +45,7 @@ namespace StockportWebapp.Config
         string GetDigitalStockportLink();
         List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
         StylesheetsConfiguration GetStylesheetConfig();
+        AnalyticsConfigurationModel GetAnalyticsConfig();
         string GetStaleGroupsSecret();
     }
 
@@ -90,6 +93,11 @@ namespace StockportWebapp.Config
         public AppSetting GetGoogleAnalyticsCode(string businessId)
         {
             return AppSetting.GetAppSetting(_appsettings[$"{businessId}:GoogleAnalytics"]);
+        }
+
+        public Uri GetGoogleAnalyticsUri()
+        {
+            return new Uri(_appsettings["stockportgov:GoogleAnalyticsApiUrl"]);
         }
 
         public AppSetting GetAddThisShareId(string businessId)
@@ -187,6 +195,13 @@ namespace StockportWebapp.Config
             var stylesheetConfig = new StylesheetsConfiguration();
             _appsettings.GetSection("stockportgov:StylesheetsConfiguration").Bind(stylesheetConfig);
             return stylesheetConfig;
+        }
+
+        public AnalyticsConfigurationModel GetAnalyticsConfig()
+        {
+            var config = new AnalyticsConfigurationModel();
+            _appsettings.GetSection("stockportgov:Analytics").Bind(config);
+            return config;
         }
 
         public int GetFooterCache(string businessId)

@@ -42,6 +42,9 @@
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\NewsArticle.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\PrimaryItems.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Showcase\BrowserCheckSemantic.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\TagManager\TagManager.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\TagManager\TagManagerDataLayer.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\TagManager\TagManagerNoScript.cshtml" />
     <Content Remove="Views\stockportgov\Showcase\Semantic\Showcase.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
