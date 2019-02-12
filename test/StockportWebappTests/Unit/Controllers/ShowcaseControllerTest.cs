@@ -21,12 +21,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
     public class ShowcaseControllerTest
     {
         private readonly ShowcaseController _controller;
-        private readonly Mock<FeatureToggles> _mockFeatureToggles = new Mock<FeatureToggles>();
+
         private readonly Mock<IProcessedContentRepository> _mockContentRepository = new Mock<IProcessedContentRepository>();
 
         public ShowcaseControllerTest()
         {
-            _controller = new ShowcaseController(_mockContentRepository.Object, new Mock<ILogger<ShowcaseController>>().Object, new Mock<IApplicationConfiguration>().Object, _mockFeatureToggles.Object);
+            _controller = new ShowcaseController(_mockContentRepository.Object, new Mock<IApplicationConfiguration>().Object);
         }
 
         [Fact]
