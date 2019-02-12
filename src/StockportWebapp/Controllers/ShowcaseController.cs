@@ -10,7 +10,6 @@ using System.Linq;
 using StockportWebapp.Utils;
 using System;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Controllers
 {
@@ -18,16 +17,14 @@ namespace StockportWebapp.Controllers
     public class ShowcaseController : Controller
     {
         private readonly IProcessedContentRepository _repository;
-        private readonly ILogger<ShowcaseController> _logger;
         private readonly IApplicationConfiguration _config;
-        private readonly FeatureToggles _featureToggles;
 
-        public ShowcaseController(IProcessedContentRepository repository, ILogger<ShowcaseController> logger, IApplicationConfiguration config, FeatureToggles featureToggles)
+        public ShowcaseController(
+            IProcessedContentRepository repository,
+            IApplicationConfiguration config)
         {
             _repository = repository;
-            _logger = logger;
             _config = config;
-            _featureToggles = featureToggles;
         }
 
         [Route("/showcase/{slug}")]
@@ -40,12 +37,7 @@ namespace StockportWebapp.Controllers
 
             var showcase = response.Content as ProcessedShowcase;
 
-            if (_featureToggles.SemanticShowcase)
-            {
-                return View("Semantic/Showcase", showcase);
-            }
-
-            return View(showcase);
+            return View("Showcase", showcase);
         }
 
         [Route("/showcase/{slug}/previousconsultations")]
@@ -68,7 +60,7 @@ namespace StockportWebapp.Controllers
 
             DoPagination(Page, result, pageSize);
 
-            return View("Semantic/PreviousConsultations", result);
+            return View("PreviousConsultations", result);
 
         }
 

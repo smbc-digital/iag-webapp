@@ -31,8 +31,6 @@ namespace StockportWebapp.ProcessedModels
         public readonly string EmailAlertsTopicId;
         public readonly string EmailAlertsText;
         public readonly IEnumerable<Alert> Alerts;
-        public readonly string KeyFactSubheading;
-        public readonly IEnumerable<KeyFact> KeyFacts;
         public readonly Profile Profile;
         public readonly List<Profile> Profiles;
         public string ProfileHeading;
@@ -74,12 +72,10 @@ namespace StockportWebapp.ProcessedModels
             IEnumerable<SubItem> primaryItems,
             string featuredItemsSubheading,
             IEnumerable<SubItem> featuredItems,
-            IEnumerable<KeyFact> keyFacts,
             Profile profile,
             List<Profile> profiles,
             CallToActionBanner callToActionBanner,
             FieldOrder fieldOrder,
-            string keyFactSubheading,
             string icon,
             string triviaSubheading,
             List<ProcessedInformationItem> triviaSection,
@@ -111,14 +107,12 @@ namespace StockportWebapp.ProcessedModels
             EmailAlertsTopicId = emailAlertsTopicId;
             EmailAlertsText = emailAlertsText;
             Alerts = alerts;
-            KeyFacts = keyFacts;
             PrimaryItems = primaryItems;
             FeaturedItemsSubheading = featuredItemsSubheading;
             FeaturedItems = featuredItems;
             Profile = profile;
             Profiles = profiles;
             FieldOrder = fieldOrder;
-            KeyFactSubheading = keyFactSubheading;
             Icon = icon;
             TriviaSubheading = triviaSubheading;
             TriviaSection = triviaSection;

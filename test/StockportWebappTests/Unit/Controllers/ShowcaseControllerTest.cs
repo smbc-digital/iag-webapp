@@ -76,10 +76,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 new List<SubItem>(),
                 null,
                 null,
-                null,
                 new CallToActionBanner(),
                 new FieldOrder(),
-                "Key Fact Subheading",
                 "fa-icon",
                 "",
                 null,
@@ -104,7 +102,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             processedShowcase.Breadcrumbs.Count().Should().Be(1);
             processedShowcase.SecondaryItems.Count().Should().Be(1);
             processedShowcase.Alerts.Count().Should().Be(1);
-            processedShowcase.KeyFactSubheading.Should().Be("Key Fact Subheading");
             processedShowcase.Icon.Should().Be("fa-icon");
         }
 

@@ -33,8 +33,6 @@ namespace StockportWebapp.Models
         public FieldOrder FieldOrder { get; set; }
         public string EmailAlertsTopicId { get; set; }
         public string EmailAlertsText { get; set; }
-        public string KeyFactSubheading { get; set; }
-        public IEnumerable<KeyFact> KeyFacts { get; set; }
         public IEnumerable<Alert> Alerts { get; set; }
         public string Icon { get; set; }
         public string TriviaSubheading { get; set; }
