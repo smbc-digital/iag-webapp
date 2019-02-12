@@ -18,6 +18,7 @@ namespace StockportWebapp.Utils
 			BuildMediaSource();
 			BuildObjectSource();
 			BuildManifestSource();
+            BuildFrameSource();
 
 			return _stringBuilder.ToString();
 		}
@@ -219,7 +220,18 @@ namespace StockportWebapp.Utils
 				.Finish());
 		}
 
-		private void BuildObjectSource()
+	    private void BuildFrameSource()
+	    {
+	        _stringBuilder.Append(
+	            new ContentSecurityPolicyElement
+	                    ("frame-ancestors")
+	                .AddSource("*.stockport.gov.uk")
+	                .AddSource("*.meetami.ai/")
+	                .AddSource("*.chat.meetami.ai/")
+                    .Finish());
+	    }
+
+        private void BuildObjectSource()
 		{
 			_stringBuilder.Append(
 				new ContentSecurityPolicyElement
