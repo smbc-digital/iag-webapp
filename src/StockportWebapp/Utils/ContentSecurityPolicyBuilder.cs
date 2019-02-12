@@ -47,7 +47,8 @@ namespace StockportWebapp.Utils
 				.AddSource("https://www.google.com/recaptcha/api2/bframe")
 				.AddSource("https://player.vimeo.com/")
 				.AddSource("http://stage.midas-pps.tractivity.co.uk/")
-				.AddSource("*.buto.tv/")
+				.AddSource("*.cloudfront.net/butotv/live/", false, true)
+				.AddSource("https://www.facebook.com/")
 				.Finish());
 		}
 
@@ -102,7 +103,8 @@ namespace StockportWebapp.Utils
 				.AddSource("https://1.bp.blogspot.com/-v6yARqgGaBc/WKL2ZtO9lhI/AAAAAAAAEDU/0CJfMgpdnWg0i6-Wd87E1vTtdKk4TeikQCLcB/s1600/Fake-or-Counterfeit-Bathmate-Pumps.png")
 				.AddSource("https://content.govdelivery.com/attachments/fancy_images/UKSMBC/2018/01/1741761/reviewoverlay_original.png")
 				.AddSource("https://app.meetami.ai")
-				.AddSource("*/butotv/live/")
+				.AddSource("*.cloudfront.net/butotv/live/", false, true)
+				.AddSource("https://www.facebook.com/")
 				.Finish());
 		}
 
@@ -126,7 +128,7 @@ namespace StockportWebapp.Utils
 				.AddSource("data:")
 				.AddSource("platform.twitter.com/css/")
 				.AddSource("stockportb.logo-net.co.uk/Delivery/")
-				.AddSource("*/butotv/live/")
+				.AddSource("*.cloudfront.net/butotv/live/", false, true)
                 .AddSource("tagmanager.google.com/")
                 .Finish());
 		}
@@ -159,7 +161,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://www.opinionstage.com/assets/loader.js")
 				.AddSource("https://www.google.com/recaptcha/api.js")
 				.AddSource("https://www.gstatic.com/recaptcha/api2/")
-                .AddSource("https://www.googletagmanager.com/gtm.js?id=GTM-NXDQK7S")
+                .AddSource("https://www.googletagmanager.com/")
                 .AddSource("https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js")
 				.AddSource("https://www.jscache.com/")
 				.AddSource("tripadvisor.com")
@@ -177,6 +179,8 @@ namespace StockportWebapp.Utils
 				.AddSource("wss://chat.meetami.ai/", false, true)
 				.AddSource("wss://chat.meetami.ai/socket.io/", false, true)
                 .AddSource("https://cdn.trackjs.com/releases/current/tracker.js")
+				.AddSource("http://feed2js.org//feed2js.php")
+				.AddSource("https://connect.facebook.net/")
 				.Finish());
 		}
 
@@ -208,7 +212,7 @@ namespace StockportWebapp.Utils
 				new ContentSecurityPolicyElement
 					("media-src")
 				.AddSource("https://www.youtube.com/")
-				.AddSource("*/butotv/live/", false, true)
+				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
 				.AddSource("app.meetami.ai/")
 				.AddSource("*.meetami.ai/", false)
