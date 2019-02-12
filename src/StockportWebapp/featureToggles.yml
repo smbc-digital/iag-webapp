@@ -16,13 +16,13 @@ stage: &stage
   << : *prod
   GroupArchiveEmails: true
   SiaSystem: false
+  SemanticShowcase: true
 
 qa: &qa
   << : *prod
   << : *stage
   SemanticLayout: true
   SemanticInlineAlert: true
-  SemanticShowcase: true
 
 int: &int
   << : *prod
