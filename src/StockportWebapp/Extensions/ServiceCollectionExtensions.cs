@@ -96,6 +96,7 @@ namespace StockportWebapp.Extensions
             services.AddSingleton<ISimpleTagParserContainer>(p => new SimpleTagParserContainer(p.GetService<List<ISimpleTagParser>>()));
             services.AddSingleton<IContactUsMessageTagParser, ContactUsMessageTagParser>();
             services.AddSingleton<IDynamicTagParser<Profile>, ProfileTagParser>();
+            services.AddSingleton<IDynamicTagParser<InlineQuote>, InlineQuoteTagParser>();
             services.AddSingleton<IDynamicTagParser<Document>, DocumentTagParser>();
             services.AddSingleton<IDynamicTagParser<Alert>, AlertsInlineTagParser>();
             services.AddSingleton<IDynamicTagParser<S3BucketSearch>, S3BucketSearchTagParser>();
@@ -199,9 +200,9 @@ namespace StockportWebapp.Extensions
                     p.GetService<ISimpleTagParserContainer>(), 
                     p.GetService<MarkdownWrapper>(), 
                     p.GetService<IDynamicTagParser<Alert>>(),
-                    p.GetService<IInformationFactory>()));
+                    p.GetService<IInformationFactory>(),
+                    p.GetService<IDynamicTagParser<InlineQuote>>()));
 
-            //SimpleTagParserContainer parser, MarkdownWrapper markdownWrapper, IDynamicTagParser<Alert> alertsInlineTagParser
             return services;
         }
 

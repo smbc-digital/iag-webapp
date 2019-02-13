@@ -18,6 +18,7 @@ namespace StockportWebapp.Services.Profile
         private readonly ISimpleTagParserContainer _parser;
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
+        private readonly IDynamicTagParser<InlineQuote> _inlineQuotesTagParser;
         private readonly IInformationFactory _informationFactory;
 
         public ProfileService(
@@ -25,13 +26,15 @@ namespace StockportWebapp.Services.Profile
             ISimpleTagParserContainer parser, 
             MarkdownWrapper markdownWrapper, 
             IDynamicTagParser<Alert> alertsInlineTagParser,
-            IInformationFactory informationFactory)
+            IInformationFactory informationFactory,
+            IDynamicTagParser<InlineQuote> inlineQuotesTagParser)
         {
             _repository = repository;
             _parser = parser;
             _markdownWrapper = markdownWrapper;
             _alertsInlineTagParser = alertsInlineTagParser;
             _informationFactory = informationFactory;
+            _inlineQuotesTagParser = inlineQuotesTagParser;
         }
 
         public async Task<ProfileEntity> GetProfile(string slug)
@@ -43,9 +46,10 @@ namespace StockportWebapp.Services.Profile
                 var profile = response.Content as ProfileResponse;
                 var processedInformationItems = _informationFactory.Build(profile.TriviaSection);
 
-                var processedBody = _parser.ParseAll(profile.Body, profile.Title);
+                var processedBody = _parser.ParseAll(profile.Body, profile.Title, false);
                 processedBody = _markdownWrapper.ConvertToHtml(processedBody);
                 processedBody = _alertsInlineTagParser.Parse(processedBody, profile.Alerts);
+                processedBody = _inlineQuotesTagParser.Parse(processedBody, profile.InlineQuotes);
 
                 return new ProfileEntity
                 {
@@ -60,7 +64,8 @@ namespace StockportWebapp.Services.Profile
                     TriviaSubheading = profile.TriviaSubheading,
                     TriviaSection = processedInformationItems,
                     FieldOrder = profile.FieldOrder,
-                    Subtitle = profile.Subtitle
+                    Subtitle = profile.Subtitle,
+                    InlineQuotes = profile.InlineQuotes
                 };
             }
 

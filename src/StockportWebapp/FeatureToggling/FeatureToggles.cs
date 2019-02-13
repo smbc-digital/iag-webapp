@@ -14,5 +14,6 @@ namespace StockportWebapp.FeatureToggling
         public bool SemanticShowcase { get; set; } = false;
         public bool ContactUsArea { get; set; } = false;
         public bool SemanticInlineAlert { get; set; } = false;
+        public bool AmiChatBot { get; set; } = false;
     }
 }

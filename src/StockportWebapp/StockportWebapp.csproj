@@ -49,6 +49,7 @@
     <None Remove="Views\Shared\Components\SemanticFooterSocialMediaLinks\Default.cshtml" />
     <None Remove="Views\Shared\Components\SemanticFooter\NoFooterFound.cshtml" />
     <None Remove="Views\Shared\DisplayTemplates\InsetText.cshtml" />
+    <None Remove="Views\Shared\InlineQuote.cshtml" />
     <None Remove="Views\Shared\Semantic\AlertsInline.cshtml" />
     <None Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
@@ -102,6 +103,9 @@
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.301" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Views\Shared\InlineQuote.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\Components\SemanticFooterSocialMediaLinks\Default.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

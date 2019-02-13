@@ -14,7 +14,7 @@ namespace StockportWebapp.Extensions
             return Regex.Replace(input, @"(?![\u00A3])[^\u0000-\u007F]+", "");
         }
 
-        private static string TrimStart(this string target, string trimString)
+        public static string TrimStart(this string target, string trimString)
         {
             var result = target;
 
@@ -24,6 +24,16 @@ namespace StockportWebapp.Extensions
             }
 
             return result;
+        }
+
+        public static string TrimEnd(this string source, string value)
+        {
+            if (!source.EndsWith(value))
+            {
+                return source;
+            }
+
+            return source.Remove(source.LastIndexOf(value));
         }
     }
 }

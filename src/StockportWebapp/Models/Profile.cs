@@ -9,6 +9,7 @@ namespace StockportWebapp.Models
         public string Slug { get; set; }
         public string Subtitle { get; set; }
         public string Quote { get; set; }
+        public List<InlineQuote> InlineQuotes { get; set; }
         public string Image { get; set; }
         public string Body { get; set; }
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
@@ -34,7 +35,8 @@ namespace StockportWebapp.Models
             List<Alert> alerts,
             string triviaSubheading,
             List<ProcessedInformationItem> triviaSection,
-            FieldOrder fieldOrder)
+            FieldOrder fieldOrder, 
+            List<InlineQuote> inlineQuotes)
         {
             Title = title;
             Slug = slug;
@@ -47,6 +49,7 @@ namespace StockportWebapp.Models
             TriviaSubheading = triviaSubheading;
             TriviaSection = triviaSection;
             FieldOrder = fieldOrder;
+            InlineQuotes = inlineQuotes;
         }
 
     }

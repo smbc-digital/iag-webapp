@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services.Profile;
+using StockportWebapp.Services.Profile.Entities;
 
 namespace StockportWebapp.Controllers
 {
@@ -35,7 +36,8 @@ namespace StockportWebapp.Controllers
                     profileEntity.Alerts,
                     profileEntity.TriviaSubheading,
                     profileEntity.TriviaSection,
-                    profileEntity.FieldOrder);
+                    profileEntity.FieldOrder,
+                    profileEntity.InlineQuotes);
 
                 return View(model);
             }
