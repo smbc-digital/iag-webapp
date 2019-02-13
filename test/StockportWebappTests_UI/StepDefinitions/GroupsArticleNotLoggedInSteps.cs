@@ -17,7 +17,7 @@ namespace StockportWebappTests_UI.StepDefinitions
             switch (sectionName)
             {
                 case "Add to favourites":
-                    result = BrowserSession.FindId("add-favourite").Exists();
+                    result = BrowserSession.FindAllCss(".add-favourite").Any();
                     break;
                 case "Report this page as inappropriate":
                     result = BrowserSession.FindId("report-page").Exists();

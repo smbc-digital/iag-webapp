@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Builders;
 using StockportWebapp.Config;
+using StockportWebapp.Config.AnalyticsConfiguration;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Controllers;
 using StockportWebapp.DataProtection;
@@ -87,6 +88,7 @@ namespace StockportWebapp.Extensions
         {
             services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(configuration));
             services.AddSingleton<IConfiguration>(configuration);
+            services.AddSingleton<IAnalyticsConfiguration>(_ => new AnalyticsConfiguration(_.GetService<IApplicationConfiguration>()));
 
             return services;
         }

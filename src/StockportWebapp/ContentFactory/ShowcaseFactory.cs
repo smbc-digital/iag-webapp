@@ -43,7 +43,6 @@ namespace StockportWebapp.ContentFactory
                 fields.Items.Add("Secondary Items");
                 fields.Items.Add("Featured Items");
                 fields.Items.Add("Consultations");
-                fields.Items.Add("Key Facts");
                 fields.Items.Add("News");
                 fields.Items.Add("Events");
                 fields.Items.Add("Profile");
@@ -81,12 +80,10 @@ namespace StockportWebapp.ContentFactory
                 showcase.PrimaryItems,
                 showcase.FeaturedItemsSubheading,
                 showcase.FeaturedItems,
-                showcase.KeyFacts,
                 showcase.Profile,
                 showcase.Profiles,
                 showcase.CallToActionBanner,
                 fields,
-                showcase.KeyFactSubheading,
                 showcase.Icon,
                 showcase.TriviaSubheading,
                 _informationFactory.Build(showcase.TriviaSection),

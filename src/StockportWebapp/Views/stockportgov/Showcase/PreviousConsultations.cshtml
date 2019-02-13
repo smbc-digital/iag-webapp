@@ -3,68 +3,62 @@
 
 @model PreviousConsultaion
 @{
-    Layout = "../Shared/_Layout.cshtml";
+    Layout = "../Shared/_LayoutSemantic.cshtml";
     ViewData["Title"] = "Previous Consultations";
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb(Model.Title, Model.Slug, "showcase") }' />
+    <partial name="SemanticBreadcrumb" model='new List<Crumb> { new Crumb(Model.Title, Model.Slug, "showcase") }' />
 }
-
-<div class="grid-container-full-width previous-consultations">
-    <div class="grid-container grid-100">
-        <div tabindex="-1" id="content"></div>
-        <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
-            <div class="l-content-container grid-100 group-margin" id="group-padding">
-                <h1 class="group-article-title">@ViewData["Title"].ToString()</h1>
-                <div class="sk-table-outer-container">
-                    <div class="sk-table-body">
-                        <div class="grid-100 sk-table-row grid-parent">
-                            <div class="grid-100 sk-table-cell">
-                                <h3 tabindex="-1" id="content">@ViewData["Title"].ToString()</h3>
-                            </div>
-                        </div>
-
-                        <div class="sk-table-header sk-table-thin-row grid-100 grid-parent hide-on-mobile">
-                            <div class="grid-75 tablet-grid-60 mobile-grid-60">
-                                <span>Description</span>
-                            </div>
-                            <div class="grid-20 tablet-grid-35 mobile-grid-85 sk-table-header-right">
-                                <span>Closing Date</span>
-                            </div>
-                        </div>
-
+    <div tabindex="-1" id="content"></div>
+    <div class="full-width">
+        <article class="center-wrapper">
+            <h1 class="group-article-title">@ViewData["Title"].ToString()</h1>
+            <section class="appointments appointment-link">
+                <header>
+                    <h2>
+                        <strong>@ViewData["Title"].ToString()</strong>
+                    </h2>
+                </header>
+                <table>
+                    <thead class="hide-on-mobile hide-on-tablet">
+                        <tr>
+                            <td>Description</td>
+                            <td class="align-right">Closing Date</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var item in Model.Consultations)
                         {
                             var date = item.ClosingDate.Date == DateTime.Now.AddDays(-1).Date ? "Yesterday" : item.ClosingDate.ToString("dd MMMM yyyy");
                             date = item.ClosingDate.Date == DateTime.Now.Date ? "Earlier today" : date;
-                            <a href="@item.Link">
-                                <div class="grid-100 sk-table-row grid-parent">
-                                    <div class="sk-table-cell">
-                                        <i class="row-arrow centre" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="sk-table-cell grid-75 tablet-grid-60 mobile-grid-85">
-                                        <span class="main">@item.Title</span>
-                                    </div>
-                                    <div class="sk-table-cell-right grid-20 tablet-grid-35 mobile-grid-85">
-                                        <span class="centre"><span class="hide-on-desktop hide-on-tablet">Closing Date: </span>@date</span>
-                                    </div>
-                                </div>
-                            </a>
+                            <tr class="hover-hand">
+                                <td class="hide-on-mobile hide-on-tablet"><a href="@item.Link"></a>@item.Title</td>
+                                <td class="align-right hide-on-mobile hide-on-tablet">@date</td>
+                                <td class="hide-on-mobile hide-on-tablet align-center"><span class="fa fa-angle-right" /></td>
+                                <td class="hide-on-desktop">
+                                    <a href="#">
+                                        <div>
+                                            <div>
+                                                <p>
+                                                    <strong>@item.Title</strong>
+                                                </p>
+                                                <p>@date</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
                         }
-
-                        <div class="grid-100 sk-table-row grid-parent">
-                            <div class="sk-table-cell sk-table-pagination">
-                                <partial name="Pagination" model='Model.Pagination' />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </tbody>
+                </table>
+                <footer>
+                    <partial name="Pagination" model='Model.Pagination' />
+                </footer>
+            </section>
+        </article>
     </div>
-</div>
-
 <script type="text/javascript">
     require(['alerts', 'startup'],
         function (alerts) {

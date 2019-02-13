@@ -27,17 +27,13 @@ namespace StockportWebapp.Utils
 
         private void AddSourceForSafari9(string source, bool appendHttps, bool force)
         {
-            if (IsSafari9Exception(source))
+            if (IsSafari9Exception(source) || force)
             {
                 _stringBuilder.Append(source);
             }
             else if (appendHttps)
             {
                 AddSourceWithBothHttpAndHttpsForSafari9(source);
-            }
-            else if (force)
-            {
-                _stringBuilder.Append(source);
             }
         }
 

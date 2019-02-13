@@ -31,9 +31,12 @@
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
     @*@Html.Partial("CookieBanner")*@
-    @await Component.InvokeAsync("GoogleAnalytics")
+    
+    <partial name="TagManager/TagManagerDataLayer" />
+    <partial name="TagManager/TagManager" />
 </head>
 <body>
+    <partial name="TagManager/TagManagerNoScript" />
     <header>
         <div class="skip-to-main-content">
             <a href="#content">Skip to main content</a>

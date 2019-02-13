@@ -40,7 +40,8 @@
     <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
 
     <partial name="CookieBanner" />
-    @await Component.InvokeAsync("GoogleAnalytics")
+    <partial name="TagManager/TagManagerDataLayer" />
+    <partial name="TagManager/TagManager" />
 
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
     @if (CurrentEnvironment.Name == "test")
@@ -54,6 +55,7 @@
 </head>
 <body class="container-layout-free @(string.Concat(" type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
 
+    <partial name="TagManager/TagManagerNoScript" />
     <partial name="Header" />
     @RenderSection("Breadcrumbs", false)
     <main>
