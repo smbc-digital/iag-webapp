@@ -1,9 +1,8 @@
 ﻿@model StockportWebapp.ViewModels.EventsListViewModel
 
-<div class="events-list-container">
-    <h2>@Model.Heading</h2>
-    <div class="card-list-container">
-        <ul class="card-list-body">
+<div class="featured-item-container">
+    <h2 class="featured-item-header">@Model.Heading</h2>
+        <ul class="featured-item-body">
             @{
                 var index = 0;
 
@@ -16,13 +15,25 @@
 
                     }
 
-                    <li class="full-height @(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
-                        <a class="image-card" href="/events/@item.Slug">
-                            <img src="@item.ImageUrl" />
-                            <h3>@item.Title</h3>
-                            <p><i class="fa fa-gbp"></i>@fee</p>
-                            <p><i class="fa fa-clock-o"></i>@item.EventDate.ToString("D") @item.StartTime</p>
-                            <p><i class="fa fa-map-marker"></i>@item.Location</p>
+                    <li class="@(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
+                        <a href="/events/@item.Slug">
+                            <div class="featured-event-item">
+                                <img src="@item.ImageUrl" />
+                                <h3>@item.Title</h3>
+                                <div>
+                                    <span class="featured-event-icon"><i class="fa fa-gbp"></i></span>
+                                    <span>@fee</span>
+                                </div>
+                                <div>
+                                    <span class="featured-event-icon"><i class="fa fa-clock-o"></i></span>
+                                    <span>@item.EventDate.ToString("D") @item.StartTime</span>
+                                </div>
+                                <div>
+                                    <span class="featured-event-icon"><i class="fa fa-map-marker"></i></span>
+                                    <span>@item.Location</span>
+
+                                </div>
+                            </div>
                         </a>
                     </li>
                     index++;
@@ -33,5 +44,4 @@
         </ul>
         <a class="read-more-mobile hide-on-desktop hide-on-tablet" href="@Model.Link">@Model.LinkText</a>
         <a class="read-more hide-on-mobile" href="@Model.Link">@Model.LinkText</a>
-    </div>
 </div>
