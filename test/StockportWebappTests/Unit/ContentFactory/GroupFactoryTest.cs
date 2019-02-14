@@ -29,8 +29,8 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
 
             _group = new GroupBuilder().Build();
 
-            _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>())).Returns(_group.Description);
-            _tagParserContainer.Setup(o => o.ParseAll(_group.AdditionalInformation, It.IsAny<string>())).Returns(_group.AdditionalInformation);
+            _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(_group.Description);
+            _tagParserContainer.Setup(o => o.ParseAll(_group.AdditionalInformation, It.IsAny<string>(), It.IsAny<bool>())).Returns(_group.AdditionalInformation);
             _markdownWrapper.Setup(o => o.ConvertToHtml(_group.Description)).Returns(_group.Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(_group.AdditionalInformation)).Returns(_group.AdditionalInformation);
         }
@@ -69,7 +69,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _factory.Build(_group);
 
-            _tagParserContainer.Verify(o => o.ParseAll(_group.Description, _group.Name), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(_group.Description, _group.Name, It.IsAny<bool>()), Times.Once);
         }      
     }
 }

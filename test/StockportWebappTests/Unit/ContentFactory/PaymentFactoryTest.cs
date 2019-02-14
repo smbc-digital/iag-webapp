@@ -49,7 +49,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
                 BreadCrumbs = new List<Crumb>()
             };
 
-            _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
+            _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);          
         }
 
@@ -76,7 +76,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _factory.Build(_payment);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Description, _payment.Title), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Description, _payment.Title, It.IsAny<bool>()), Times.Once);
         }
     }
 }

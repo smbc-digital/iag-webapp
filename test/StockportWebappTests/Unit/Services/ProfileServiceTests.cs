@@ -27,6 +27,7 @@ namespace StockportWebappTests_Unit.Unit.Services
         private readonly Mock<ILogger<Alert>> _logger;
         private readonly Mock<IViewRender> _viewRender;
         private readonly Mock<IInformationFactory> _informationFactory;
+        private readonly Mock<IDynamicTagParser<InlineQuote>> _inlineQuoteTagParser;
 
         public ProfileServiceTests()
         {
@@ -36,8 +37,9 @@ namespace StockportWebappTests_Unit.Unit.Services
             _markdownWrapper = new MarkdownWrapper();
             _logger = new Mock<ILogger<Alert>>();
             _viewRender = new Mock<IViewRender>();
+            _inlineQuoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
             _alerts =  new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles(){SemanticInlineAlert = true} );
-            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts, _informationFactory.Object);
+            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts, _informationFactory.Object, _inlineQuoteTagParser.Object);
         }
 
         [Fact]
@@ -75,7 +77,7 @@ namespace StockportWebappTests_Unit.Unit.Services
                 .Setup(_ => _.Get<ProfileResponse>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(response);
             _parser
-                .Setup(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>()))
+                .Setup(_ => _.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()))
                 .Returns("testProcessedBody");
 
             // Act

@@ -48,7 +48,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _section = new Section(Title, Slug, Body, _profiles, _documents, _emptyAlertsInline);
 
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-            _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
+            _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _section.Profiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _section.Documents)).Returns(Body);
             _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
@@ -81,7 +81,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _factory.Build(_section,_articleTitle);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>()), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
         }
 
         [Fact]
@@ -97,7 +97,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _factory.Build(_section, _articleTitle);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Body, _articleTitle), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Body, _articleTitle, It.IsAny<bool>()), Times.Once);
         }
 
         [Fact]

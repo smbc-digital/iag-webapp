@@ -41,7 +41,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             };
 
             _markdownWrapperMock.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-            _simpleTagParserContainerMock.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
+            _simpleTagParserContainerMock.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
         }
 
         [Fact]
@@ -59,7 +59,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             var result = _groupHomepageFactory.Build(_groupHomepage);
 
-            _simpleTagParserContainerMock.Verify(o => o.ParseAll(Body,It.IsAny<string>()), Times.Once);
+            _simpleTagParserContainerMock.Verify(o => o.ParseAll(Body,It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
             _markdownWrapperMock.Verify(o => o.ConvertToHtml(Body), Times.Once);
         }
 

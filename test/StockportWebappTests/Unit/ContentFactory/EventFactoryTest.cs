@@ -44,7 +44,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
                                  SubmittedBy = SubmittedBy, EventDate = _eventDate, StartTime = StartTime,
                                  EndTime = EndTime, Breadcrumbs = _breadcrumbs, BookingInformation = _bookingInformation, Alerts = _alerts};
 
-            _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>())).Returns(Description);
+            _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
             _documentTagParser.Setup(o => o.Parse(Description, _event.Documents)).Returns(Description);
         }
@@ -85,7 +85,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _factory.Build(_event);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Description, _event.Title, It.IsAny<bool>()), Times.Once);
         }
 
         [Fact]

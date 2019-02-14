@@ -74,7 +74,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
             _repository.Setup(o => o.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
-            _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>())).Returns(Body);
+            _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
             _profileTagParser.Setup(o => o.Parse(Body, _emptyProfiles)).Returns(Body);
             _documentTagParser.Setup(o => o.Parse(Body, _emptyDocuments)).Returns(Body);
             _alertsInlineTagParser.Setup(o => o.Parse(Body, _emptyAlertsInline)).Returns(Body);
@@ -122,7 +122,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _articleFactory.Build(_article);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>()), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
         }
 
         [Fact]
@@ -138,7 +138,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _articleFactory.Build(_article);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Body, _article.Title), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Body, _article.Title, It.IsAny<bool>()), Times.Once);
         }
 
         [Fact]
