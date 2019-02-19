@@ -25,35 +25,39 @@
                                             <div class="group-title">
                                                 <h3>@group.Name</h3>
                                             </div>
-                                            <div class="group-card-text">
-                                                <div class="group-card-icon">
-                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                    @(group.Email)
+                                            @if (!string.IsNullOrEmpty(group.Email))
+                                            {
+                                                <div class="group-card-text">
+                                                    <div class="group-card-icon">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        @group.Email
+                                                    </div>
                                                 </div>
-                                                
-                                            </div>
-                                            <div class="group-card-text">
-                                                <div class="group-card-icon">
-                                                    <i class="fa fa-phone" aria-hidden="true"></i>
-                                                    @(group.PhoneNumber)
+                                            }
+                                            @if (!string.IsNullOrEmpty(group.PhoneNumber))
+                                            {
+                                                <div class="group-card-text">
+                                                    <div class="group-card-icon">
+                                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                                        @group.PhoneNumber
+                                                    </div>
                                                 </div>
-                                                
-                                            </div>
+                                            }
                                             @if (group.Cost.Any())
-                                            {                                               
+                                            {
                                                 <div class="group-card-text">
                                                     <div class="group-card-icon">
                                                         <i class="fa fa-gbp" aria-hidden="true"></i>
                                                         @string.Join(", ", group.Cost.ToArray())
                                                     </div>
                                                 </div>
-                                            }                                           
+                                            }
                                             <div class="group-card-text">
                                                 <div class="group-card-icon">
                                                     <i class="fa fa-map-marker" aria-hidden="true"></i>
                                                     @(group.Address)
                                                 </div>
-                                                
+
                                             </div>
 
                                             @if (!string.IsNullOrWhiteSpace(group.AbilityLevel))
@@ -63,7 +67,7 @@
                                                 </div>
                                                 <div class="group-card-text">@group.AbilityLevel</div>
                                             }
-                                            
+
                                             <div class="group-card-text">
                                                 <div class="group-card-icon">
                                                     <i class="fa fa-link" aria-hidden="true"></i>
