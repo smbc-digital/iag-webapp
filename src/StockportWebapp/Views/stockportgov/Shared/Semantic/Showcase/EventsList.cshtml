@@ -17,22 +17,12 @@
 
                     <li class="@(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
                         <a href="/events/@item.Slug">
+                            <img src="@item.ImageUrl" />
+                            <h3>@item.Title</h3>
                             <div class="featured-event-item">
-                                <img src="@item.ImageUrl" />
-                                <h3>@item.Title</h3>
-                                <div>
-                                    <span class="featured-event-icon"><i class="fa fa-gbp"></i></span>
-                                    <span>@fee</span>
-                                </div>
-                                <div>
-                                    <span class="featured-event-icon"><i class="fa fa-clock-o"></i></span>
-                                    <span>@item.EventDate.ToString("D") @item.StartTime</span>
-                                </div>
-                                <div>
-                                    <span class="featured-event-icon"><i class="fa fa-map-marker"></i></span>
-                                    <span>@item.Location</span>
-
-                                </div>
+                                <span class="fa fa-gbp"></span><p>@fee</p>
+                                <span class="fa fa-clock-o"></span><p>@item.EventDate.ToString("D") @item.StartTime</p>
+                                <span class="fa fa-map-marker"></span><p>@item.Location</p>
                             </div>
                         </a>
                     </li>
