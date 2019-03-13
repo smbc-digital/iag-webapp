@@ -31,7 +31,7 @@
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
     @*@Html.Partial("CookieBanner")*@
-    
+
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
 </head>
@@ -45,7 +45,17 @@
         <partial name="BrowserCheckSemantic" />
         @if (bannerTypeformUrl != null)
         {
-            <partial name="TypeFormBannerHeader" model='bannerTypeformUrl' />
+            <div class="typeform-bar">
+                <div class="center-wrapper">
+                    <p>
+                        <span class="typeform-bar-icon">NEW</span>
+                        <span class="typeform-bar-title">This part of our website is brand new. </span>
+                        <span class="typeform-bar-body">
+                            <a target="_blank" href="@ViewData["BannerTypeformUrl"]">Give us your feedback</a> to help us improve it.
+                        </span>
+                    </p>
+                </div>
+            </div>
         }
         @RenderSection("Breadcrumbs", false)
     </header>
