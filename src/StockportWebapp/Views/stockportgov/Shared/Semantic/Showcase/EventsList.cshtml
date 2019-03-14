@@ -1,4 +1,6 @@
-﻿@model StockportWebapp.ViewModels.EventsListViewModel
+﻿@using StockportWebapp.Utils
+@model StockportWebapp.ViewModels.EventsListViewModel
+@inject ViewHelpers ViewHelpers
 
 <div class="featured-item-container">
     <h2 class="featured-item-header">@Model.Heading</h2>
@@ -21,7 +23,7 @@
                             <h3>@item.Title</h3>
                             <div class="featured-event-item">
                                 <span class="fa fa-gbp"></span><p>@fee</p>
-                                <span class="fa fa-clock-o"></span><p>@item.EventDate.ToString("D") @item.StartTime</p>
+                                <span class="fa fa-clock-o"></span><p>@ViewHelpers.FormatEventDate(item.EventDate, item.StartTime)</p>
                                 <span class="fa fa-map-marker"></span><p>@item.Location</p>
                             </div>
                         </a>
