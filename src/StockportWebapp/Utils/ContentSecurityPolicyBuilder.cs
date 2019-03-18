@@ -182,6 +182,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://cdn.trackjs.com/releases/current/tracker.js")
 				.AddSource("http://feed2js.org/feed2js.php")
 				.AddSource("https://connect.facebook.net/")
+				.AddSource("widget.wheredoivote.co.uk/")
 				.Finish());
 		}
 
