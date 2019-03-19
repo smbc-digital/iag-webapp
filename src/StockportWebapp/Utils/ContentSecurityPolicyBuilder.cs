@@ -50,6 +50,7 @@ namespace StockportWebapp.Utils
 				.AddSource("http://stage.midas-pps.tractivity.co.uk/")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("https://www.facebook.com/")
+				.AddSource("https://myaccount.stockport.gov.uk")
 				.Finish());
 		}
 
