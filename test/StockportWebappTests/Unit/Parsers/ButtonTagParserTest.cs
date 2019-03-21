@@ -64,7 +64,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
 
         private static string HtmlButton(string link, string title)
         {
-            const string buttonClassStyle = "button button-outline button-partialrounded button-call-to-action";
+            const string buttonClassStyle = "button button-primary button-outline button-partialrounded button-call-to-action";
             return $"<a class=\"{buttonClassStyle}\" href=\"{link}\">{title}</a>";
         }
     }
