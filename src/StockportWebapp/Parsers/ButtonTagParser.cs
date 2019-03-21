@@ -7,7 +7,7 @@ namespace StockportWebapp.Parsers
     {
         private readonly TagReplacer _tagReplacer;
         protected Regex TagRegex => new Regex("{{BUTTON:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
-        private const string ButtonClassStyle = "button button-outline button-partialrounded button-call-to-action";
+        private const string ButtonClassStyle = "button button-primary button-outline button-partialrounded button-call-to-action";
 
         protected string GenerateHtml(string tagData)
         {
