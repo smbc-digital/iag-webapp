@@ -1,9 +1,10 @@
-﻿@model StockportWebapp.ViewModels.EventsListViewModel
+﻿@using StockportWebapp.Utils
+@model StockportWebapp.ViewModels.EventsListViewModel
+@inject ViewHelpers ViewHelpers
 
-<div class="events-list-container">
-    <h2>@Model.Heading</h2>
-    <div class="card-list-container">
-        <ul class="card-list-body">
+<div class="featured-item-container">
+    <h2 class="featured-item-header">@Model.Heading</h2>
+        <ul class="featured-item-body">
             @{
                 var index = 0;
 
@@ -16,13 +17,15 @@
 
                     }
 
-                    <li class="full-height @(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
-                        <a class="image-card" href="/events/@item.Slug">
+                    <li class="@(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
+                        <a href="/events/@item.Slug">
                             <img src="@item.ImageUrl" />
                             <h3>@item.Title</h3>
-                            <p><i class="fa fa-gbp"></i>@fee</p>
-                            <p><i class="fa fa-clock-o"></i>@item.EventDate.ToString("D") @item.StartTime</p>
-                            <p><i class="fa fa-map-marker"></i>@item.Location</p>
+                            <div class="featured-event-item">
+                                <span class="fa fa-gbp"></span><p>@fee</p>
+                                <span class="fa fa-clock-o"></span><p>@ViewHelpers.FormatEventDate(item.EventDate, item.StartTime)</p>
+                                <span class="fa fa-map-marker"></span><p>@item.Location</p>
+                            </div>
                         </a>
                     </li>
                     index++;
@@ -31,7 +34,6 @@
 
 
         </ul>
-        <a class="read-more-mobile hide-on-desktop hide-on-tablet" href="@Model.Link">@Model.LinkText</a>
+        <a class="button-inverted hide-on-desktop hide-on-tablet" href="@Model.Link">@Model.LinkText</a>
         <a class="read-more hide-on-mobile" href="@Model.Link">@Model.LinkText</a>
-    </div>
 </div>

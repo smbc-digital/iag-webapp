@@ -42,6 +42,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string TriviaSubheading;
         public string EventsReadMoreText;
         public readonly Video Video;
+        public readonly string TypeformUrl;
 
         public ProcessedShowcase()
         { }
@@ -82,7 +83,8 @@ namespace StockportWebapp.ProcessedModels
             string profileHeading,
             string profileLink,
             string eventsReadMoreText,
-            Video video)
+            Video video,
+            string typeformUrl)
         {
             Title = title;
             Slug = slug;
@@ -121,6 +123,7 @@ namespace StockportWebapp.ProcessedModels
             ProfileLink = profileLink;
             EventsReadMoreText = eventsReadMoreText;
             Video = video;
+            TypeformUrl = typeformUrl;
         }
     }
 }

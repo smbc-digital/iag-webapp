@@ -50,7 +50,8 @@ namespace StockportWebapp.Utils
 				.AddSource("http://stage.midas-pps.tractivity.co.uk/")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("https://www.facebook.com/")
-				.Finish());
+				.AddSource("*.stockport.gov.uk")
+                .Finish());
 		}
 
 		private void BuildFontSource()
@@ -182,6 +183,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://cdn.trackjs.com/releases/current/tracker.js")
 				.AddSource("http://feed2js.org/feed2js.php")
 				.AddSource("https://connect.facebook.net/")
+				.AddSource("widget.wheredoivote.co.uk/")
 				.Finish());
 		}
 
@@ -204,6 +206,7 @@ namespace StockportWebapp.Utils
 				.AddSource("wss://chat.meetami.ai/", false, true)
                 .AddSource("wss://chat.meetami.ai/socket.io/", false, true)
                 .AddSource("http://localhost/sitereplier/chats/enabled/")
+                .AddSource("*.stockport.gov.uk")
 				.Finish());
 		}
 
