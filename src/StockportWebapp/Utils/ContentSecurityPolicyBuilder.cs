@@ -51,6 +51,7 @@ namespace StockportWebapp.Utils
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("https://www.facebook.com/")
 				.AddSource("*.stockport.gov.uk")
+				.AddSource("*.smbcdigital.net")
                 .Finish());
 		}
 
@@ -207,6 +208,7 @@ namespace StockportWebapp.Utils
                 .AddSource("wss://chat.meetami.ai/socket.io/", false, true)
                 .AddSource("http://localhost/sitereplier/chats/enabled/")
                 .AddSource("*.stockport.gov.uk")
+                .AddSource("*.smbcdigital.net")
 				.Finish());
 		}
 
@@ -229,6 +231,7 @@ namespace StockportWebapp.Utils
 	            new ContentSecurityPolicyElement
 	                    ("frame-ancestors")
 	                .AddSource("*.stockport.gov.uk")
+                    .AddSource("*.smbcdigital.net")
 	                .AddSource("*.meetami.ai/")
 	                .AddSource("*.chat.meetami.ai/")
                     .Finish());
