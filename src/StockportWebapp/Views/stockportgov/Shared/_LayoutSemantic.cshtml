@@ -45,15 +45,9 @@
         <partial name="BrowserCheckSemantic" />
         @if (bannerTypeformUrl != null)
         {
-            <div class="typeform-bar">
+            <div class="banner-header">
                 <div class="center-wrapper">
-                    <p>
-                        <span class="typeform-bar-icon">NEW</span>
-                        <span class="typeform-bar-title">This part of our website is brand new. </span>
-                        <span class="typeform-bar-body">
-                            <a target="_blank" href="@ViewData["BannerTypeformUrl"]">Give us your feedback</a> to help us improve it.
-                        </span>
-                    </p>
+                    <span>NEW</span><strong>This part of our website is brand new. </strong><a href="@ViewData["BannerTypeformUrl"]" target="_blank" data-mode="1" class="typeform-share link">Give us your feedback</a> to help us improve it.
                 </div>
             </div>
         }
