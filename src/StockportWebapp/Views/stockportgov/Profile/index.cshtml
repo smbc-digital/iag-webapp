@@ -20,6 +20,16 @@
     <section>
         @Html.Raw(Model.Body)
     </section>
+    
+    @foreach(var item in Model.FieldOrder.Items)
+    {
+        switch (item)
+        {
+            case "Button":
+                <partial name="Button" model='Model.Button' />
+                break;
+        }
+    }
 
     @if (Model.TriviaSection?.Count() > 0)
     {
@@ -27,6 +37,6 @@
         @await Component.InvokeAsync("InformationList", new {
            model = Model.TriviaSection,
            heading = Model.TriviaSubheading
-       })
+        })
     }
 </article>

@@ -20,5 +20,6 @@ namespace StockportWebapp.Repositories.Responses
         public FieldOrder FieldOrder { get; set; }
         public string Subject { get; set; }
         public string Author { get; set; }
+        public Button Button { get; set; }
     }
 }

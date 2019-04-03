@@ -19,6 +19,7 @@ namespace StockportWebapp.Models
         public FieldOrder FieldOrder { get; set; }
         public string Author { get; set; } = string.Empty;
         public string Subject { get; set; } = string.Empty;
+        public Button Button { get; set; } = new Button();
 
         public Profile()
         {
@@ -36,7 +37,8 @@ namespace StockportWebapp.Models
             string triviaSubheading,
             List<ProcessedInformationItem> triviaSection,
             FieldOrder fieldOrder, 
-            List<InlineQuote> inlineQuotes)
+            List<InlineQuote> inlineQuotes,
+            Button button)
         {
             Title = title;
             Slug = slug;
@@ -50,6 +52,7 @@ namespace StockportWebapp.Models
             TriviaSection = triviaSection;
             FieldOrder = fieldOrder;
             InlineQuotes = inlineQuotes;
+            Button = button;
         }
 
     }

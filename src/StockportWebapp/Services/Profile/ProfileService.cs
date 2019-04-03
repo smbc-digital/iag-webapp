@@ -65,7 +65,8 @@ namespace StockportWebapp.Services.Profile
                     TriviaSection = processedInformationItems,
                     FieldOrder = profile.FieldOrder,
                     Subtitle = profile.Subtitle,
-                    InlineQuotes = profile.InlineQuotes
+                    InlineQuotes = profile.InlineQuotes,
+                    Button = profile.Button
                 };
             }
 

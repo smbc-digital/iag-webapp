@@ -37,7 +37,8 @@ namespace StockportWebapp.Controllers
                     profileEntity.TriviaSubheading,
                     profileEntity.TriviaSection,
                     profileEntity.FieldOrder,
-                    profileEntity.InlineQuotes);
+                    profileEntity.InlineQuotes,
+                    profileEntity.Button);
 
                 return View(model);
             }
