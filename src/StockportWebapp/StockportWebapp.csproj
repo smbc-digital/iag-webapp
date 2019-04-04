@@ -59,6 +59,7 @@
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml" />
     <None Remove="Views\stockportgov\Shared\ContentDisclaimerCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Events\Semantic\EventBanner.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
     <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
     <None Remove="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml" />
@@ -125,6 +126,9 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Events\Semantic\EventBanner.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml">

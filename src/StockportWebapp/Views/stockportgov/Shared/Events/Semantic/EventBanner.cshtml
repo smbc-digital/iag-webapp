@@ -1,0 +1,28 @@
+﻿@model StockportWebapp.Models.EventBanner
+
+@* <div class="event-banner"> *@
+@*     <a href="@Model.Link"> *@
+@*         <div class="event-banner-container mobile-grid-100"> *@
+@*             <div class="event-banner-icon-container">               *@
+@*                 <i class="@Model.Icon eventbanner-icon" aria-hidden="true"></i> *@
+@*             </div> *@
+@*             <div class="grid-95 tablet-grid-95 mobile-grid-95 event-banner-text-container"> *@
+@*                 <h3> @Model.Title</h3> *@
+@*                 <label class="hide-on-mobile">@Model.Teaser</label> *@
+@*             </div> *@
+@*             <div class="event-banner-chevron-container grid-5 tablet-grid-5 mobile-grid-5"> *@
+@*                 <i class="fa fa-2x fa-angle-right event-banner-chevron" aria-hidden="true"></i> *@
+@*             </div> *@
+@*         </div> *@
+@*     </a> *@
+@* </div> *@
+
+<a class="banner" href="@Model.Link">
+    <div>
+        <span class="@Model.Icon" aria-hidden="true"></span>
+    </div>
+    <div>
+        <p><strong>@Model.Title</strong></p>
+        <p>@Model.Teaser</p>
+    </div>
+</a>
