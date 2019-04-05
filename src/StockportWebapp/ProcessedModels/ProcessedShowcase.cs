@@ -43,6 +43,7 @@ namespace StockportWebapp.ProcessedModels
         public string EventsReadMoreText;
         public readonly Video Video;
         public readonly string TypeformUrl;
+        public readonly SpotlightBanner SpotlightBanner;
 
         public ProcessedShowcase()
         { }
@@ -84,7 +85,8 @@ namespace StockportWebapp.ProcessedModels
             string profileLink,
             string eventsReadMoreText,
             Video video,
-            string typeformUrl)
+            string typeformUrl,
+            SpotlightBanner spotlightBanner)
         {
             Title = title;
             Slug = slug;
@@ -124,6 +126,7 @@ namespace StockportWebapp.ProcessedModels
             EventsReadMoreText = eventsReadMoreText;
             Video = video;
             TypeformUrl = typeformUrl;
+            SpotlightBanner = spotlightBanner;
         }
     }
 }

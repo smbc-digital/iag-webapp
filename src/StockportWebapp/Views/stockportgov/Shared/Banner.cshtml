@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿@model StockportWebapp.Models.SpotlightBanner
 
-namespace StockportWebapp.Views.stockportgov.Shared
-{
-    public class Banner
-    {
-    }
-}
+<a class="banner-no-icon" href="@Model.Link">
+    <div>
+        <h2>@Model.Title</h2>
+        <p class="lead-paragraph">@Model.Teaser</p>
+    </div>
+    <div>
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </div>
+</a>
