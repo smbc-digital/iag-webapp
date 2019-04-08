@@ -85,7 +85,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 "",
                 "",
                 new Video(),
-                "typeformUrl");
+                "typeformUrl",
+                new SpotlightBanner("test", "test", "test"));
 
             _mockContentRepository
                 .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))

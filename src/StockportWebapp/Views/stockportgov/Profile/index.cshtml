@@ -4,6 +4,7 @@
 @model Profile
 @{
     ViewData["Title"] = Model.Title;
+    ViewData["FullWidth"] = "full-width";
     var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
     ViewData["og:title"] = articleTitle + Model.Title;
     Layout = "../Shared/_LayoutSemantic.cshtml";
@@ -28,14 +29,17 @@
             case "Button":
                 <partial name="Button" model='Model.Button' />
                 break;
-            case "Events Banner":
-                <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner' />
-                break;
+            @*case "Events Banner":
+                <div class="showcase-section">
+                    <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner' />
+                </div>
+                break;*@
             case "Trivia":
                 if (Model.TriviaSection?.Count() > 0)
                 {
                     <hr class="thick-divider" />
-                    @await Component.InvokeAsync("InformationList", new {
+                    @await Component.InvokeAsync("InformationList", new
+                    {
                         model = Model.TriviaSection,
                         heading = Model.TriviaSubheading
                     })
@@ -45,3 +49,14 @@
     }
 
 </article>
+
+<div class="showcase-section">
+    <div class="center-wrapper">
+        <article>
+            <section>
+                <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner'/>
+            </section>
+        </article>
+    </div>
+</div>
+
