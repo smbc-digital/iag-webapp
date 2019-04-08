@@ -50,9 +50,11 @@
 
 </article>
 
-<div class="banner-section">
-    <section>
-        <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner'/>
-    </section>
-</div>
-
+@if (Model.EventsBanner.Title != "")
+{
+    <div class="banner-section">
+        <section>
+            <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner'/>
+        </section>
+    </div>
+}
