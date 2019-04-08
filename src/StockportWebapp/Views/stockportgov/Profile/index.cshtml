@@ -4,7 +4,7 @@
 @model Profile
 @{
     ViewData["Title"] = Model.Title;
-    ViewData["FullWidth"] = "full-width";
+    ViewData["FullWidth"] = "full-width profile";
     var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
     ViewData["og:title"] = articleTitle + Model.Title;
     Layout = "../Shared/_LayoutSemantic.cshtml";
@@ -50,13 +50,9 @@
 
 </article>
 
-<div class="showcase-section">
-    <div class="center-wrapper">
-        <article>
-            <section>
-                <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner'/>
-            </section>
-        </article>
-    </div>
+<div class="banner-section">
+    <section>
+        <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner'/>
+    </section>
 </div>
 
