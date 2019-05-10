@@ -12,6 +12,7 @@ namespace StockportWebapp.Models
     {
         public ProcessedPayment Payment { get; set; } = new ProcessedPayment();
         [Required]
+        [PaymentReferenceValidation]
         public string Reference { get; set; } = "";
         [Required]
         [Range(0.01, int.MaxValue, ErrorMessage = "Please enter a valid amount (e.g. 25.00)")]

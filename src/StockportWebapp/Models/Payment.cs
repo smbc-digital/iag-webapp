@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using StockportWebapp.Enums;
 
 namespace StockportWebapp.Models
 {
@@ -15,5 +16,6 @@ namespace StockportWebapp.Models
         public string GlCodeCostCentreNumber { get; set; }
         public string Icon { get; set; }
         public List<Crumb> BreadCrumbs { get; set; }
+        public EPaymentReferenceValidation ReferenceValidation { get; set; }
     }
 }

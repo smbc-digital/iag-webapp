@@ -33,7 +33,8 @@ namespace StockportWebapp.ContentFactory
                 payment.ParisReference,
                 payment.Fund,
                 payment.GlCodeCostCentreNumber,
-                payment.BreadCrumbs);
+                payment.BreadCrumbs,
+                payment.ReferenceValidation);
         }
     }
 }
