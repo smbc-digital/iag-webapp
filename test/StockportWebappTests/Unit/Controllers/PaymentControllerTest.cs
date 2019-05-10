@@ -11,6 +11,7 @@ using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using Moq;
 using System.Threading.Tasks;
+using StockportWebapp.Enums;
 using StockportWebapp.Repositories;
 using StockportWebappTests_Unit.Helpers;
 
@@ -32,7 +33,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task ItReturnsAGroupWithProcessedBody()
         {
             var processedPayment = new ProcessedPayment(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>());
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), EPaymentReferenceValidation.None);
 
             _fakeRepository
                 .Setup(_ => _.Get<Payment>(It.IsAny<string>(), It.IsAny<List<Query>>()))

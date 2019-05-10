@@ -59,6 +59,8 @@ namespace StockportWebapp.Controllers
 
             paymentSubmission.Payment = payment;
 
+            TryValidateModel(paymentSubmission);
+
             var currentPath = Request.GetUri().AbsoluteUri;
             var confirmationReturn =  $"{currentPath}";
 

@@ -1,0 +1,106 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using FluentAssertions;
+using StockportWebapp.Enums;
+using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
+using Xunit;
+
+namespace StockportWebappTests_Unit.Unit.Validation
+{
+    public class PaymentReferenceValidationTests
+    {
+        [Fact]
+        public void Should_ReturnSuccess_WhenValidationIsNone()
+        {
+            // Arrange
+            var paymentSubmission = new PaymentSubmission
+            {
+                Amount = 10.00m,
+                Payment = new ProcessedPayment("paymentTitle",
+                    "paymentSlug",
+                    "paymentTeaser",
+                    "paymentDescription",
+                    "paymentDetailsText",
+                    "paymentReference",
+                    "parisReference",
+                    "fund",
+                    "glCodeCostCentreNumber",
+                    new List<Crumb>(),
+                    EPaymentReferenceValidation.None),
+                Reference = "12345"
+            };
+            var context = new ValidationContext(paymentSubmission);
+            var results = new List<ValidationResult>();
+
+            // Act
+            var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(EPaymentReferenceValidation.ParkingFine, "12345")]
+        public void Should_ReturnSuccess(EPaymentReferenceValidation referenceValidation, string reference)
+        {
+            // Arrange
+            var paymentSubmission = new PaymentSubmission
+            {
+                Amount = 10.00m,
+                Payment = new ProcessedPayment("paymentTitle",
+                    "paymentSlug",
+                    "paymentTeaser",
+                    "paymentDescription",
+                    "paymentDetailsText",
+                    "paymentReference",
+                    "parisReference",
+                    "fund",
+                    "glCodeCostCentreNumber",
+                    new List<Crumb>(),
+                    referenceValidation),
+                Reference = reference
+            };
+            var context = new ValidationContext(paymentSubmission);
+            var results = new List<ValidationResult>();
+
+            // Act
+            var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
+        [Theory]
+        [InlineData(EPaymentReferenceValidation.ParkingFine, "1234567")]
+        [InlineData(EPaymentReferenceValidation.ParkingFine, "NOTVALID")]
+        public void Should_ReturnFalse(EPaymentReferenceValidation referenceValidation, string reference)
+        {
+            // Arrange
+            var paymentSubmission = new PaymentSubmission
+            {
+                Amount = 10.00m,
+                Payment = new ProcessedPayment("paymentTitle",
+                    "paymentSlug",
+                    "paymentTeaser",
+                    "paymentDescription",
+                    "paymentDetailsText",
+                    "paymentReference",
+                    "parisReference",
+                    "fund",
+                    "glCodeCostCentreNumber",
+                    new List<Crumb>(),
+                    referenceValidation),
+                Reference = reference
+            };
+            var context = new ValidationContext(paymentSubmission);
+            var results = new List<ValidationResult>();
+
+            // Act
+            var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+    }
+}

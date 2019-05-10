@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using StockportWebapp.Enums;
 using StockportWebapp.ProcessedModels;
 using Xunit;
 
@@ -25,7 +26,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                      "parisReference",
                                                                      "07",
                                                                      "glCodeCostCentreNumber",
-                                                                     new List<Crumb>());
+                                                                     new List<Crumb>(),
+                                                                     EPaymentReferenceValidation.None);
 
         string returnUrl = "https://www.stockport.gov.uk";
 
@@ -68,7 +70,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                                                       "parisReference",
                                                                                                       "07",
                                                                                                       "",
-                                                                                                      new List<Crumb>());
+                                                                                                      new List<Crumb>(),
+                                                                                                      EPaymentReferenceValidation.None);
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "test", Payment = testProcessedPaymentWithoutglCodeCostCentreNumber };
 
             string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object, returnUrl);
