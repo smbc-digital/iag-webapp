@@ -43,7 +43,7 @@
         </div>
         <partial name="SemanticHeader" />
         <partial name="BrowserCheckSemantic" />
-        @if (bannerTypeformUrl != null)
+        @if (!string.IsNullOrEmpty((string)bannerTypeformUrl))
         {
             <div class="banner-header">
                 <div class="center-wrapper">
