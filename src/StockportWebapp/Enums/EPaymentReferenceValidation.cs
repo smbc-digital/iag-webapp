@@ -3,6 +3,8 @@
     public enum EPaymentReferenceValidation
     {
         None,
-        ParkingFine
+        ParkingFine,
+        BusLaneAndCamera,
+        FPN,
     }
 }
