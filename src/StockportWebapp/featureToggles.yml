@@ -27,8 +27,6 @@ int: &int
   << : *stage
   << : *qa
   SiaSystem: true
-  SemanticSmartAnswer:
-  - com-com-com
 
 local: &local
   << : *prod
