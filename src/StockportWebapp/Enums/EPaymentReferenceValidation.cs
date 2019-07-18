@@ -6,5 +6,7 @@
         ParkingFine,
         BusLaneAndCamera,
         FPN,
+        CameraCar,
+        BusLane
     }
 }
