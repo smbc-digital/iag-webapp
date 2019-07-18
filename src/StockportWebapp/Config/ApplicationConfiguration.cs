@@ -41,6 +41,7 @@ namespace StockportWebapp.Config
         string GetContentApiAuthenticationKey();
         string GetWebAppClientId();
         AppSetting GetDemocracyHomeLink();
+        AppSetting GetDemocracyStyleLink();
         string GetStockportHomeLink();
         string GetDigitalStockportLink();
         List<ArchiveEmailPeriod> GetArchiveEmailPeriods();
@@ -129,6 +130,12 @@ namespace StockportWebapp.Config
         {
             return AppSetting.GetAppSetting(_appsettings["DemocracyHomeLink"]);
         }
+
+        public AppSetting GetDemocracyStyleLink()
+        {
+            return AppSetting.GetAppSetting(_appsettings["DemocracyStyleLink"]);
+        }
+       
         public AppSetting GetTermsAndConditions()
         {
             return AppSetting.GetAppSetting(_appsettings["TermsAndConditions"]);
