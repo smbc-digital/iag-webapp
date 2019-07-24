@@ -46,6 +46,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM80000200")]
         [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234567")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
+        [InlineData(EPaymentReferenceValidation.CameraCar, "SM8123456A")]
+        [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
         public void Should_ReturnSuccess(EPaymentReferenceValidation referenceValidation, string reference)
         {
             // Arrange
@@ -82,6 +84,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM800002")]
         [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
+        [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
+        [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
         public void Should_ReturnFalse(EPaymentReferenceValidation referenceValidation, string reference)
         {
             // Arrange
