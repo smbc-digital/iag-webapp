@@ -46,7 +46,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM80000200")]
         [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234567")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
-        [InlineData(EPaymentReferenceValidation.CameraCar, "SM8123456A")]
+        [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
         public void Should_ReturnSuccess(EPaymentReferenceValidation referenceValidation, string reference)
         {
