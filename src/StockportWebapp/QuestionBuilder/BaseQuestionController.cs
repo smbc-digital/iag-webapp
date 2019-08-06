@@ -161,50 +161,32 @@ namespace StockportWebapp.QuestionBuilder
                         page = GetPage(Convert.ToInt32(behaviour.Value));
                         page.AddAnswers(allAnswers);
                         break;
-                    //case EQuestionType.HandOffData:
-                    //    _logger.LogInformation("------Before config");
-                    //    var authenticationKey = _config["DTSHandOffAuthenticationKey"];
-                    //    _logger.LogInformation($"------Authentication key: {authenticationKey}");
-                    //
-                    //    _logger.LogInformation($"------{behaviour.Value}hand-off-data");
-                    //    try
-                    //    {
-                    //        var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
-                    //        _logger.LogInformation($"------{guid ?? null}");
-                    //        if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
-                    //        {
-                    //            _logger.LogInformation($"Guid not set");
-                    //        }
-                    //        else
-                    //        {
-                    //            //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                    //            return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                    //        }
-                    //    }
-                    //    catch (Exception e)
-                    //    {
-                    //        _logger.LogInformation($"------{e}");
-                    //        throw;
-                    //    }
-                    //    break;
                     case EQuestionType.HandOffData:
-                        //_logger.LogInformation("------Before config");
+                        _logger.LogInformation("------Before config");
                         var authenticationKey = _config["DTSHandOffAuthenticationKey"];
-                        //_logger.LogInformation($"------Authentication key: {authenticationKey}");
-
-                        //_logger.LogInformation($"------{behaviour.Value}hand-off-data");
+                        _logger.LogInformation($"------Authentication key: {authenticationKey}");
+                    
+                        _logger.LogInformation($"------{behaviour.Value}hand-off-data");
                         try
                         {
                             var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
-                            return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                            _logger.LogInformation($"------{guid ?? null}");
+                            if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
+                            {
+                                _logger.LogInformation($"Guid not set");
+                            }
+                            else
+                            {
+                                //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                            }
                         }
                         catch (Exception e)
                         {
-                        //    _logger.LogInformation($"------{e}");
+                            _logger.LogInformation($"------{e}");
                             throw;
                         }
                         break;
-
                 }
             }
             else
@@ -225,11 +207,35 @@ namespace StockportWebapp.QuestionBuilder
             
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
+            result.Page.Description = checkForSpecialText(result.Page.Description, result.Page.PreviousAnswers);
+
             if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(result.Slug))
             {
                 return View("Semantic/Index", result);
             }
             return View(result);
+        }
+
+        private string checkForSpecialText(string description, IList<Answer> prevAnswers)
+        {
+            if ((description.IndexOf("{") != -1) && (description.IndexOf("}") != -1))
+            {
+                int check1 = description.IndexOf("{");
+                int check2 = description.IndexOf("}");
+
+                var specialText = description.Substring(check1, (check2 - check1) + 1);
+                var cleanSpecialText = specialText.Replace("{", "").Replace("}", "");
+
+                foreach (Answer answer in prevAnswers)
+                {
+                    if (answer.QuestionId == cleanSpecialText)
+                    {
+                        description = description.Replace(specialText, answer.ResponseValue + " " + answer.Response);
+                    }
+                }
+            }
+
+            return description;
         }
 
         public Page GetPage(int pageId)
@@ -276,3 +282,4 @@ namespace StockportWebapp.QuestionBuilder
 
     }
 }
+

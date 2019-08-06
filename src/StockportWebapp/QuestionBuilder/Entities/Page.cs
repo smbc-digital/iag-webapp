@@ -3,6 +3,7 @@ using System.Linq;
 using StockportWebapp.QuestionBuilder.Validators;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using System;
 
 namespace StockportWebapp.QuestionBuilder.Entities
 {
@@ -25,13 +26,38 @@ namespace StockportWebapp.QuestionBuilder.Entities
         {
             PageId = pageId;
             AnalyticsEvent = analyticsEvent;
+            Questions = questions;
             Description = description;
             Behaviours = behaviours;
             IsLastPage = isLastPage;
-            Questions = questions;
             ShouldCache = shouldCache;
             HideBackButton = hideBackButton;
 
+        }
+
+        private string checkForCurlyBois(string description)
+        {
+            if ((description.IndexOf("{") != -1) && (description.IndexOf("}") != -1))
+            {
+                int check1 = description.IndexOf("{");
+                int check2 = description.IndexOf("}");
+
+                var wordFound = description.Substring(check1, (check2 - check1) + 1);
+                var questionId = wordFound.Replace("{", "").Replace("}", "");
+
+//                var blah = GetCombinedAnswers();
+
+  //              blah.ToList().ForEach(a =>
+    //            {
+      //              var existingAnswer = PreviousAnswers.FirstOrDefault(p => p.QuestionId == questionId);
+
+                    description = description.Replace(wordFound, questionId);
+        //        });
+
+                
+            }
+
+            return description;
         }
 
         public int PageId { get; set; }
@@ -60,7 +86,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
         public string PreviousAnswersJson { get; set; }
         public string AnalyticsEvent { get; set; }
-        public string Description { get; }
+        public string Description { get; set; }
         public IList<Behaviour> Behaviours { get; }
         public bool IsLastPage { get; set; }
         public string ButtonText { get; set; }
@@ -121,6 +147,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
             return answersList;
         }
+       
 
         /// <summary>
         /// Gets a combined list of current and previous answers
