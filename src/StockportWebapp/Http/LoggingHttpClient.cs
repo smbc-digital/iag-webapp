@@ -153,5 +153,11 @@ namespace StockportWebapp.Http
 
             return await Task.FromResult(new HttpResponseMessage());
         }
+
+        public Task PostMessage(string requestURI, HttpContent content, Dictionary<string, string> headers)
+        {
+            _logger.LogInformation("Posting: " + requestURI);
+            return Task.FromResult(new HttpResponseMessage());
+        }
     }
 }

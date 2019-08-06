@@ -12,6 +12,7 @@ namespace StockportWebapp.Enums
         RedirectToActionController,
         GoToPage,
         GoToSummary,
-        HandOffData
+        HandOffData,
+        HandOffDataStay
     }
 }

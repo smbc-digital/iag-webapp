@@ -1,0 +1,7 @@
+﻿@model StockportWebapp.QuestionBuilder.Entities.Question
+
+<div class="form-section question-section">
+    <h2 class="h3">@Model.Label</h2>
+    @Html.TextBox("Response", "", new {@class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-")})
+    <partial name="_ValidationError.cshtml" model=' Model'/>
+</div>
