@@ -11,6 +11,9 @@ prod: &prod
     - enforcement-referral
     - education-penalty-notice
     - complaints
+    - pothole
+    - pothole-and-tripping-hazard-reporting
+    - make-a-formal-complaint
 
 stage: &stage
   << : *prod

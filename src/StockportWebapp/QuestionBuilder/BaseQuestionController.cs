@@ -33,6 +33,7 @@ namespace StockportWebapp.QuestionBuilder
 
         protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, FeatureToggles featureToggles, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
         {
+
             var slug = string.Empty;
             var url = httpContextAccessor.HttpContext.Request.Path.ToString();
             if (url.IndexOf("smart/") > 0)
