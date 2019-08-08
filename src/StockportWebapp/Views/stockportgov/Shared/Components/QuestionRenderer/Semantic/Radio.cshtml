@@ -14,6 +14,8 @@
         <div class="input-radio-container">
             <input data-questionid="@Model.QuestionId" aria-labelledby="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" id="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")" type="radio" name="Questions[0].Response" value="@item.Value">
             <label id="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" for="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")">@item.Label</label>
+            <br/>
+            <span>@item.SubLabel</span>
             <span class="tertiary-Information hidden">@item.TertiaryInformation</span>
         </div>
     }
