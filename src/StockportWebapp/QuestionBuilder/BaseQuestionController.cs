@@ -231,7 +231,7 @@ namespace StockportWebapp.QuestionBuilder
                 {
                     if (answer.QuestionId == cleanSpecialText)
                     {
-                        description = description.Replace(specialText, answer.ResponseValue + " " + answer.Response);
+                        description = description.Replace(specialText, answer.ResponseValue + " " + "<b>" + answer.Response.Substring(0,1).ToUpper() + answer.Response.Substring(1) + "</b>");
                     }
                 }
             }
