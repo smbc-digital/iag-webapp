@@ -29,7 +29,7 @@ namespace StockportWebapp.QuestionBuilder
         private readonly IHttpClient _client;
         private readonly FeatureToggles _featureToggles;
         private readonly IConfiguration _config;
-        private readonly ILogger<BaseQuestionController<T,M>> _logger;
+        private readonly ILogger<BaseQuestionController<T, M>> _logger;
 
         protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, FeatureToggles featureToggles, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
         {
@@ -70,7 +70,7 @@ namespace StockportWebapp.QuestionBuilder
                     page.PreviousAnswers = JsonConvert.DeserializeObject<IList<Answer>>(tempJson);
                     page.PreviousAnswersJson = tempJson;
                 }
-                   
+
                 page.ValidateQuestions();
 
                 if (page.HasValidationErrors())
@@ -86,9 +86,9 @@ namespace StockportWebapp.QuestionBuilder
                 }
             }
 
-            var action = await RunBehaviours(page);             
-                  
-            if(!page.ShouldCache)
+            var action = await RunBehaviours(page);
+
+            if (!page.ShouldCache)
             {
                 AddNoCacheHeaders(HttpContextAccessor);
             }
@@ -111,14 +111,14 @@ namespace StockportWebapp.QuestionBuilder
             page.ValidateQuestions();
             return new JsonResult(page.GetValidationResults());
         }
-        
+
         [HttpPost]
-        [Route("submitanswers")]      
+        [Route("submitanswers")]
         public IActionResult SubmitAnswers(Page page)
         {
-            var results = GetMappedResult(page.GetCombinedAnswers());            
+            var results = GetMappedResult(page.GetCombinedAnswers());
             return ProcessResults(results, page.Endpoint);
-        } 
+        }
 
         public abstract IActionResult ProcessResults(T result, string endpointName);
 
@@ -132,7 +132,7 @@ namespace StockportWebapp.QuestionBuilder
         {
 
             var allAnswers = page.GetCombinedAnswers();
-            
+
             IBehaviour behaviour = null;
 
             if (page.Behaviours != null)
@@ -166,7 +166,7 @@ namespace StockportWebapp.QuestionBuilder
                         _logger.LogInformation("------Before config");
                         var authenticationKey = _config["DTSHandOffAuthenticationKey"];
                         _logger.LogInformation($"------Authentication key: {authenticationKey}");
-                    
+
                         _logger.LogInformation($"------{behaviour.Value}hand-off-data");
                         try
                         {
@@ -205,16 +205,54 @@ namespace StockportWebapp.QuestionBuilder
                 Slug = Slug,
                 Title = Title
             };
-            
+
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
-            result.Page.Description = checkForSpecialText(result.Page.Description, result.Page.PreviousAnswers);
+            result.Page.Description = checkForSpecialTextExtra(result.Page.Description, result.Page.PreviousAnswers);
 
             if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(result.Slug))
             {
                 return View("Semantic/Index", result);
             }
             return View(result);
+        }
+
+        //{complaintAbout:bins:You're complaining about bins}
+        //{complaintAbout:environment:What about the environment}
+        //{complaintAbout:highways:Roads and highways}
+
+        private string checkForSpecialTextExtra(string description, IList<Answer> prevAnswers)
+        {
+            description = "ashdf kjhasbdfjh asjdf ljas flkjasndf kjnasdfj nlasdf{complainingAbout:bins:You're complaining about bins}{complainingAbout:environment:What about the environment}{complainingAbout:highways:Roads and highways}";
+            var openBoi = description.Count(x => x == '{');
+            var closedBoi = description.Count(x => x == '}');
+
+            if ((description.IndexOf("{") != -1) && (description.IndexOf("}") != -1) &&
+                (openBoi == closedBoi))
+            {
+                var descriptionSplit = description.Split('{');
+
+                foreach (string splitText in descriptionSplit)
+                {
+                    var splitTextArray = splitText.Split(':');
+                    foreach (Answer answer in prevAnswers)
+                    {
+                        if (answer.QuestionId == splitTextArray[0] && answer.Response == splitTextArray[1])
+                        {
+                            description = description.Replace(splitText, splitTextArray[2]).Replace('{', ' ').Replace('}',' ');
+                        }
+                        else
+                        {
+                            description = description.Replace(splitText, " ");
+                        }
+                    }
+                }
+
+
+//                description = (descriptionSplit[1] + ":" + descriptionSplit[2] + ":" + descriptionSplit[3]);
+            }
+
+            return description;
         }
 
         private string checkForSpecialText(string description, IList<Answer> prevAnswers)
@@ -231,7 +269,7 @@ namespace StockportWebapp.QuestionBuilder
                 {
                     if (answer.QuestionId == cleanSpecialText)
                     {
-                        description = description.Replace(specialText, answer.ResponseValue + " " + "<b>" + answer.Response.Substring(0,1).ToUpper() + answer.Response.Substring(1) + "</b>");
+                        description = description.Replace(specialText, answer.ResponseValue + " " + "<b>" + answer.Response.Substring(0, 1).ToUpper() + answer.Response.Substring(1) + "</b>");
                     }
                 }
             }
@@ -266,7 +304,7 @@ namespace StockportWebapp.QuestionBuilder
                 fullQuestion.Response = postedQuestion.Response;
             });
             fullPage.PreviousAnswers = pageToProcess.PreviousAnswers;
-            
+
             return fullPage;
         }
 
