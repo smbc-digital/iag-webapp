@@ -38,9 +38,9 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
                 .Body("body")
                 .Breadcrumbs(new List<Crumb> { new Crumb("test link", "test title", "test type") })
                 .FeaturedItems(new List<SubItem>
-        {
-            new SubItem("slug","title", "icon", "teaser", "link", "image-url.jpg", new List<SubItem>())
-        })
+                {
+                    new SubItem("slug","title", "icon", "teaser", "link", "image-url.jpg", new List<SubItem>())
+                })
                 .Build();
 
             var _showcaseFactory = new ShowcaseFactory(_tagParserContainer.Object, _markdownWrapper.Object, _informationFactory.Object);

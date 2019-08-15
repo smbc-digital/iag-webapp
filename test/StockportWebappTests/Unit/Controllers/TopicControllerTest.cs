@@ -48,7 +48,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, false, string.Empty, string.Empty);
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
                 new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, advertisement);
 
@@ -85,7 +85,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, false, string.Empty, string.Empty);
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
               new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
 
             const string slug = "healthy-living";
@@ -113,7 +113,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
                 DateTime.MinValue, true, "image-url", "image");
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
 
             const string slug = "healthy-living";
@@ -139,7 +139,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
                 DateTime.MinValue, false, "image-url", "image");
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
 
             const string slug = "healthy-living";
@@ -176,7 +176,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, false, string.Empty, string.Empty);
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "Icon", "Image", "Image", null, null, null,
+            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
                new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
 
             const string slug = "healthy-living";
