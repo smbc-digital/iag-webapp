@@ -70,6 +70,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             result.EmailAlertsTopicId.Should().Be("test-id");
             result.EventBanner.Title.Should().Be(_eventBanner.Title);
             result.EventBanner.Teaser.Should().Be(_eventBanner.Teaser);
+            result.MetaDescription.Should().Be("metaDescription");
             result.EventBanner.Icon.Should().Be(_eventBanner.Icon);
             result.EventBanner.Link.Should().Be(_eventBanner.Link);
             result.ExpandingLinkTitle.Should().Be("expandingLinkText");
