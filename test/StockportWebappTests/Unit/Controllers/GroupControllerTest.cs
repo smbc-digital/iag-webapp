@@ -54,6 +54,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly ProcessedGroupHomepage groupHomepage = new ProcessedGroupHomepage
         (
            "title",
+           "test meta descripiton",
            "background-image.jpg",
            "featured group heading",
            new List<Group>(),
@@ -149,6 +150,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             // Assert
             model.Categories.Count.Should().Be(groupCategories.Count);
+            model.MetaDescription.Should().Be(groupHomepage.MetaDescription);
         }
 
         [Fact]

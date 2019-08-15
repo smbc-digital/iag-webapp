@@ -17,6 +17,7 @@ namespace StockportWebapp.ViewModels
         public string Body { get; set; }
         public string SecondaryBodyHeading { get; set; }
         public string SecondaryBody { get; set; }
+        public string MetaDescription { get; set; }
         public EventBanner EventBanner { get; set; }
 
         public GroupStartPage() { }
