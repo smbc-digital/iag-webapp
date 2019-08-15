@@ -9,6 +9,7 @@ namespace StockportWebappTests_Unit.Builders
     {
         private string _name = "name";
         private string _slug = "slug";
+        private string _metaDescription = "metaDescription";
         private string _phoneNumber = "01234567";
         private string _email = "notanemail@fake.email";
         private string _website = "http://www.stockport.gov.uk";
@@ -47,6 +48,7 @@ namespace StockportWebappTests_Unit.Builders
         {
             return new ProcessedGroup(_name,
                 _slug,
+                _metaDescription,
                 _phoneNumber,
                 _email,
                 _website,
@@ -83,6 +85,12 @@ namespace StockportWebappTests_Unit.Builders
         public ProcessedGroupBuilder Email(string value)
         {
             _email = value;
+            return this;
+        }
+
+        public ProcessedGroupBuilder MetaDescription(string metaDescription)
+        {
+            _metaDescription = metaDescription;
             return this;
         }
 

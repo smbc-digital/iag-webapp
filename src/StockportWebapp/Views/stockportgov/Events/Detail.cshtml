@@ -7,7 +7,7 @@
 @{
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
-    ViewData["Description"] = Model.Teaser;
+    ViewData["Description"] = Model.MetaDescription;
     ViewData["Location"] = Model.Location;
     Layout = "../Shared/_Layout.cshtml";
     var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;

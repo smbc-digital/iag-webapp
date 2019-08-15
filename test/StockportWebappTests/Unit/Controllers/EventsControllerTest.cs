@@ -59,7 +59,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
             var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
                 "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
-                new List<Crumb>(), _categories, new MapDetails(), "booking information",_group, _alerts,string.Empty);
+                new List<Crumb>(), _categories, new MapDetails(), "booking information",_group, _alerts,string.Empty,string.Empty);
 
             var eventHomepage = new EventHomepage { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
 
