@@ -116,6 +116,7 @@ namespace StockportWebapp.Controllers
             model.SecondaryBodyHeading = homepage.SecondaryBodyHeading;
             model.SecondaryBody = homepage.SecondaryBody;
             model.EventBanner = homepage.EventBanner;
+            model.MetaDescription = homepage.MetaDescription;
 
             return View(model);
         }
