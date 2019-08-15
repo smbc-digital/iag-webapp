@@ -9,6 +9,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _title = "title";
         private string _slug = "showcase_slug";
         private string _teaser = "teaser";
+        private string _metaDescription = "metaDescription";
         private string _subheading = "subheading";
         private string _eventSubheading = "event subheading";
         private string _eventCategory = "event category";
@@ -55,6 +56,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
                 Title = _title,
                 Slug = _slug,
                 Teaser = _teaser,
+                MetaDescription = _metaDescription,
                 Subheading = _subheading,
                 EventCategory = _eventCategory,
                 EventsCategoryOrTag = _eventCategoryOrtag,
@@ -108,6 +110,11 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         public ShowcaseBuilder Teaser(string teaser)
         {
             _teaser = teaser;
+            return this;
+        }
+        public ShowcaseBuilder MetaDescription(string metaDescription)
+        {
+            _metaDescription = metaDescription;
             return this;
         }
 
