@@ -12,8 +12,9 @@ namespace StockportWebapp.Models
         public IEnumerable<Alert> Alerts { get; }
         public IEnumerable<InsetText> InsetTexts { get; set; }
         public IEnumerable<ContactUsCategory> ContactUsCategories { get; set; }
+        public string MetaDescription { get; set; }
 
-        public ContactUsArea(string title, string slug, string categoriesTitle, IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<InsetText> insetTexts, IEnumerable<ContactUsCategory> contactUsCategories)
+        public ContactUsArea(string title, string slug, string categoriesTitle, IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<InsetText> insetTexts, IEnumerable<ContactUsCategory> contactUsCategories, string metaDescription)
         {
             Title = title;
             Slug = slug;
@@ -23,6 +24,7 @@ namespace StockportWebapp.Models
             PrimaryItems = primaryItems;
             InsetTexts = insetTexts;
             ContactUsCategories = contactUsCategories;
+            MetaDescription = metaDescription;
         }
     }
 }
