@@ -6,7 +6,7 @@
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "What's on in Stockport" : category == null ? Model.Category : category.Name;
     ViewData["Title"] = ViewData["og:title"];
-    ViewData["Description"] = "Whats on in Stockport"
+    ViewData["Description"] = "Whats on in Stockport";
     Layout = "../Shared/_Layout.cshtml";
 }
 
