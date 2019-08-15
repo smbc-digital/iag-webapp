@@ -5,7 +5,7 @@
     var topic = Model.Topic;
     ViewData["Title"] = topic.Name;
     ViewData["og:title"] = topic.Name;
-    ViewData["Description"] = topic.Teaser;
+    ViewData["Description"] = topic.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
 }
 
