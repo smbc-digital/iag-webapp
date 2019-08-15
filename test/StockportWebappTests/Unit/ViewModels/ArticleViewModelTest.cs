@@ -273,8 +273,9 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, false, string.Empty, string.Empty);
 
-            var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "MetaDescrption", "Icon", "Image", "Image", null, null, null,
+            var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
                 new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
+
             return new ProcessedArticle(TextHelper.AnyString, slug, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, sections,
                 TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), new NullAdvertisement(), null);
         }
