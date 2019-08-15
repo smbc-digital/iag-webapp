@@ -37,11 +37,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, false, string.Empty, string.Empty);
 
-<<<<<<< HEAD
-            var topic = new Topic("name", "slug", "summary", "teaser", "metaDescription", "icon", "backgroundimage", "image",
-=======
             var topic = new Topic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image",
->>>>>>> feature(Group): add meta data 'description' to group/{slug}
                 new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
                 new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText",
                 new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
