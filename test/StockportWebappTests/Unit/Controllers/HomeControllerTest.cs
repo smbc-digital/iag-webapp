@@ -54,7 +54,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             {
                 new SubItem("Council Tax", "council-tax", "How to pay, discounts", "", "", "", new List<SubItem>())
             };
-            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text", null, "");
+            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text", null, "", "meta description");
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
             var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
@@ -96,6 +96,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             page.HomepageContent.CarouselContents.First().URL.Should().Be("Carousel Url");
             page.HomepageContent.BackgroundImage.Should().Be("image.jpg");
             page.HomepageContent.FreeText.Should().Be("homepage text");
+            page.HomepageContent.MetaDescription.Should().Be("meta description");
 
             page.FeaturedNews.Title.Should().Be("title");
             page.FeaturedNews.Slug.Should().Be("slug");
@@ -125,7 +126,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             {
                 new SubItem("Council Tax", "council-tax", "", "How to pay, discounts", "", "", new List<SubItem>())
             };
-            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text", null, "");
+            var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text", null, "", "meta description");
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
             var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
@@ -185,7 +186,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task ShouldReturnEventsFromTheApi()
         {
             // Arrange
-            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest");
+            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest", "meta description");
 
             // Mock
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
@@ -204,7 +205,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task ShouldReturnEmptyEventsIfCategoryIsNotSet()
         {
             // Arrange
-            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "");
+            var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "", "meta description");
 
             // Mock
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
