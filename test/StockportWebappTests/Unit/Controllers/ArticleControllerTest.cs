@@ -41,8 +41,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task GivenNavigateToArticleReturnsArticleView()
         {
             const string articleSlug = "physical-activity";
-            var article = new ProcessedArticle("Physical Activity", "physical-activity",
-                "Being active is great for your body", "teaser", new List<ProcessedSection>() { DummySection() },
+            var article = new ProcessedArticle("Physical Activity", "physical-activity",  
+                "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
                 new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null);
 
@@ -70,7 +70,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
 
             var article = new ProcessedArticle("Physical Activity", "physical-activity",
-                "Being active is great for your body", "teaser", new List<ProcessedSection>() { DummySection() },
+                "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
                 new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), advertisement, null);
 
@@ -95,7 +95,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 DateTime.MinValue, false, "image-url", "image");
 
             var article = new ProcessedArticle("Physical Activity", "physical-activity",
-                "Being active is great for your body", "teaser", new List<ProcessedSection>() { DummySection() },
+                "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
                 new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), advertisement, null);
 
@@ -115,7 +115,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
                 new List<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null);
 
@@ -138,7 +138,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
                 string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null);
 
             var response = new HttpResponse(200, article, string.Empty);
@@ -159,7 +159,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
                 new List<Crumb>() { }, new List<Alert>(), new NullTopic(),  new List<Alert>(), new NullAdvertisement(), null);
 
@@ -185,7 +185,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
                 new List<Alert>(), new NullTopic(),  new List<Alert>(), new NullAdvertisement(), null);
 
@@ -224,7 +224,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty)
             };
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), new NullAdvertisement(), null);
             
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
@@ -286,7 +286,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty)
             };
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new NullAdvertisement(), null);
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
@@ -312,7 +312,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var processedSection = new ProcessedSection("title", "slug", "body", new List<Profile>(), new List<Document>(), alertsInline);
 
-            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty,
+            var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new NullAdvertisement(), null);
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
@@ -329,7 +329,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         private ProcessedArticle DummyProcessedArticle()
         {
-            return new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+            return new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
                 new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null);
         }
