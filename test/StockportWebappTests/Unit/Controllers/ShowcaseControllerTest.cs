@@ -39,6 +39,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 "Test showcase",
                 showcaseSlug,
                 "showcase teaser",
+                "showcase metaDescription",
                 "showcase subheading",
                 "event category",
                 "events Category Or Tag",

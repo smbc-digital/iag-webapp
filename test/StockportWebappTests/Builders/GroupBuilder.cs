@@ -7,6 +7,7 @@ namespace StockportWebappTests_Unit.Builders
     internal class GroupBuilder
     {
         private string _name = "name";
+        private string _metaDescription = "metaDescription";
         private string _slug = "slug";
         private string _phoneNumber = "01234567";
         private string _email = "notanemail@fake.email";
@@ -51,6 +52,7 @@ namespace StockportWebappTests_Unit.Builders
         {
             return new Group(_name,
                     _slug,
+                    _metaDescription,
                     _phoneNumber,
                     _email,
                     _website,
@@ -94,6 +96,12 @@ namespace StockportWebappTests_Unit.Builders
         public GroupBuilder Image(string value)
         {
             _imageUrl = value;
+            return this;
+        }
+
+        public GroupBuilder MetaDescription(string metaDescription)
+        {
+            _metaDescription = metaDescription;
             return this;
         }
 
