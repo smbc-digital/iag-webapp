@@ -9,6 +9,7 @@ namespace StockportWebapp.Models
         public string HeroImageUrl { get; set; }
         public IEnumerable<SubItem> PrimaryItems { get; set; }        
         public string Teaser { get; set; }
+        public string MetaDescription { get; set; }
         public string Subheading { get; set; }
         public IEnumerable<SubItem> SecondaryItems { get; set; }
         public string FeaturedItemsSubheading { get; set; }

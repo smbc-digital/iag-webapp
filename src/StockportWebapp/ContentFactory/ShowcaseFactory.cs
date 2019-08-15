@@ -57,6 +57,7 @@ namespace StockportWebapp.ContentFactory
                 showcase.Title,
                 showcase.Slug,
                 showcase.Teaser,
+                showcase.MetaDescription,
                 showcase.Subheading,
                 showcase.EventCategory,
                 showcase.EventsCategoryOrTag,

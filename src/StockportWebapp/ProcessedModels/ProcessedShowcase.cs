@@ -8,6 +8,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Title;
         public readonly string Slug;
         public readonly string Teaser;
+        public readonly string MetaDescription;
         public readonly string Subheading;
         public readonly string HeroImageUrl;
         public readonly string EventCategory;
@@ -51,6 +52,7 @@ namespace StockportWebapp.ProcessedModels
         public ProcessedShowcase(string title,
             string slug,
             string teaser,
+            string metaDescription,
             string subHeading,
             string eventCategory,
             string eventsCategoryOrTag,
@@ -91,6 +93,7 @@ namespace StockportWebapp.ProcessedModels
             Title = title;
             Slug = slug;
             Teaser = teaser;
+            MetaDescription = metaDescription;
             Subheading = subHeading;
             HeroImageUrl = heroImageUrl;
             EventCategory = eventCategory;
