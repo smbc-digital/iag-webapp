@@ -27,7 +27,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "fund",
                     "glCodeCostCentreNumber",
                     new List<Crumb>(),
-                    EPaymentReferenceValidation.None),
+                    EPaymentReferenceValidation.None,
+                    "metaDescription"),
                 Reference = "12345"
             };
             var context = new ValidationContext(paymentSubmission);
@@ -64,7 +65,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "fund",
                     "glCodeCostCentreNumber",
                     new List<Crumb>(),
-                    referenceValidation),
+                    referenceValidation,
+                    "metaDescription"),
                 Reference = reference
             };
             var context = new ValidationContext(paymentSubmission);
@@ -102,7 +104,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "fund",
                     "glCodeCostCentreNumber",
                     new List<Crumb>(),
-                    referenceValidation),
+                    referenceValidation,
+                    "metaDescription"),
                 Reference = reference
             };
             var context = new ValidationContext(paymentSubmission);

@@ -7,6 +7,7 @@
 @{
     ViewData["Title"] = "Pay your " + Model.Title.ToLower();
     ViewData["og:title"] = ViewData["Title"];
+    ViewData["Description"] = Model.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
 }
 

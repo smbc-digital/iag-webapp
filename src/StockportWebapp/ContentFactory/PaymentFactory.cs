@@ -34,7 +34,8 @@ namespace StockportWebapp.ContentFactory
                 payment.Fund,
                 payment.GlCodeCostCentreNumber,
                 payment.BreadCrumbs,
-                payment.ReferenceValidation);
+                payment.ReferenceValidation,
+                payment.MetaDescription);
         }
     }
 }

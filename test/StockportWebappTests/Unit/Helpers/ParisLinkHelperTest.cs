@@ -27,7 +27,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                      "07",
                                                                      "glCodeCostCentreNumber",
                                                                      new List<Crumb>(),
-                                                                     EPaymentReferenceValidation.None);
+                                                                     EPaymentReferenceValidation.None,
+                                                                     "metaDescription");
 
         string returnUrl = "https://www.stockport.gov.uk";
 
@@ -71,7 +72,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                                                       "07",
                                                                                                       "",
                                                                                                       new List<Crumb>(),
-                                                                                                      EPaymentReferenceValidation.None);
+                                                                                                      EPaymentReferenceValidation.None,
+                                                                                                      "metaDescription");
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "test", Payment = testProcessedPaymentWithoutglCodeCostCentreNumber };
 
             string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object, returnUrl);
