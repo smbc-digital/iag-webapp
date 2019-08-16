@@ -7,7 +7,7 @@ namespace StockportWebapp.Models
         public List<EventHomepageRow> Rows { get; set; }
         public List<EventCategory> Categories { get; set; }
 
-
+        public string MetaDescription { get; set; }
 
         public EventHomepage()
         {
