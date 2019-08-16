@@ -16,6 +16,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         private readonly Mock<IViewRender> _viewRenderer;
         private const string Message = "This is a message";
         private const string DefaultBody = "default body";
+        private const string MetaDescription = "default meta description";
         private readonly string _bodyWithContactUsMessageTag = $"This is some content { ContactUsTagParser.ContactUsMessageTagRegex } <form><form>";
         private readonly Advertisement _advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
             DateTime.MinValue, false, string.Empty, string.Empty);
@@ -111,9 +112,9 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             _viewRenderer.Verify(o => o.Render("ContactUsMessage", Message), Times.Once);
         }
 
-        private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = DefaultBody)
+        private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = DefaultBody, string metaDescription = MetaDescription)
         {
-            return new ProcessedSection("title", slug, body, new List<Profile>(), new List<Document>(), new List<Alert>());
+            return new ProcessedSection("title", slug, metaDescription, body, new List<Profile>(), new List<Document>(), new List<Alert>());
         }
 
         private static Topic DefaultTopic()

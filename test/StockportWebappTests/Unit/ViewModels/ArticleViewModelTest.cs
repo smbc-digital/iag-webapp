@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
-using StockportWebappTests_Unit.Builders;
 using StockportWebappTests_Unit.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ViewModels
@@ -267,6 +266,49 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             showMoreButton.Should().Be(true);
         }
 
+        [Theory]
+        [InlineData("test section meta", "test article meta", "test section meta")]
+        [InlineData("test section meta", null, "test section meta")]
+        [InlineData("", "test article meta", "test article meta")]
+        [InlineData(null, "test article meta", "test article meta")]
+        private void ShouldSetMetaDescription(string sectionMeta, string articleMeta, string expectedMeta)
+        {
+            // Arrange
+            var sectionSlug = "test-slug";
+            var section = new ProcessedSection(
+                string.Empty,
+                sectionSlug,
+                sectionMeta,
+                string.Empty,
+                null,
+                null,
+                null
+            );
+            var article = new ProcessedArticle(
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                articleMeta,
+                new List<ProcessedSection> { section },
+                string.Empty,
+                string.Empty,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            );
+
+            // Act
+            var model = new ArticleViewModel(article, sectionSlug);
+
+            // Assert
+            model.MetaDescription.Should().Be(expectedMeta);
+        }
+
         private ProcessedArticle BuildArticle(string slug, List<ProcessedSection> sections)
         {
 
@@ -287,7 +329,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var documents = new List<Document>();
             var alertsInline = new List<Alert>();
 
-            return new ProcessedSection(TextHelper.AnyString, slug, TextHelper.AnyString, profiles, documents, alertsInline);
+            return new ProcessedSection(TextHelper.AnyString, slug, TextHelper.AnyString, TextHelper.AnyString, profiles, documents, alertsInline);
         }
     }
 }

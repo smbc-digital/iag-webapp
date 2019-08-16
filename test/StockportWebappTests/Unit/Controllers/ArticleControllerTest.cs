@@ -112,8 +112,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
         {
             const string articleSlug = "physical-activity";
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
@@ -135,8 +135,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task MultipleSectionsArticleWithNoSectionSlugViewDataCanonicalUrlShouldBeNull()
         {
             const string articleSlug = "physical-activity";
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
                 string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null);
@@ -156,8 +156,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             const string articleSlug = "physical-activity";
             const string sectionSlug = "physical-activity-overview";
 
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
@@ -183,8 +183,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             const string articleSlug = "physical-activity";
             const string sectionSlug = "types-of-physical-activity";
 
-            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", "body", new List<Profile>(), new List<Document>(), new List<Alert>());
-            var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionOne = new ProcessedSection("Overview", "physical-activity-overview", string.Empty, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
+            var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
                 new List<Alert>(), new NullTopic(),  new List<Alert>(), new NullAdvertisement(), null);
@@ -200,6 +200,119 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             displayedArticle.DisplayedSection.Title.Should().Contain("Types of Physical Activity");
             displayedArticle.DisplayedSection.Slug.Should().Be(sectionSlug);
             displayedArticle.ShouldShowArticleSummary.Should().BeFalse();
+        }
+
+        [Fact]
+        public async Task ArticleWithSectionMetaDescriptionReturnsViewDataWithMetaDescription()
+        {
+            // Arrange
+            var expectedMetaDescription = "test meta description";
+            var sectionSlug = "test-slug";
+            var section = new ProcessedSection(
+                string.Empty,
+                sectionSlug, 
+                expectedMetaDescription, 
+                string.Empty, 
+                null, 
+                null, 
+                null
+            );
+            var article = new ProcessedArticle(
+                string.Empty, 
+                string.Empty, 
+                string.Empty, 
+                string.Empty, 
+                string.Empty, 
+                new List<ProcessedSection> {section }, 
+                string.Empty, 
+                string.Empty, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null, 
+                null
+            );
+
+            _articleRepository
+                .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync(new HttpResponse(200, article, string.Empty));
+
+            // Act
+            var result = await _controller
+                .ArticleWithSection(
+                    string.Empty,
+                    sectionSlug, 
+                    string.Empty, 
+                    string.Empty, 
+                    string.Empty) as ViewResult;
+            var resultModel = result.ViewData.Model as ArticleViewModel;
+
+            // Assert
+            resultModel.Should().NotBeNull();
+            resultModel?.DisplayedSection.MetaDescription.Should().Be(expectedMetaDescription);
+        }
+
+        [Fact]
+        public async Task MulitpleArticlesWithSectionMetaDescriptionReturnsViewDataWithMetaDescription()
+        {
+            // Arrange
+            var expectedMetaDescription = "test meta description";
+            var sectionSlug = "test-slug";
+            var section1 = new ProcessedSection(
+                string.Empty,
+                sectionSlug,
+                expectedMetaDescription,
+                string.Empty,
+                null,
+                null,
+                null
+            );
+            var section2 = new ProcessedSection(
+                string.Empty,
+                string.Empty,
+                "other string",
+                string.Empty,
+                null,
+                null,
+                null
+            );
+            var article = new ProcessedArticle(
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                new List<ProcessedSection> { section1, section2 },
+                string.Empty,
+                string.Empty,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+            );
+
+            _articleRepository
+                .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+                .ReturnsAsync(new HttpResponse(200, article, string.Empty));
+
+            // Act
+            var result = await _controller
+                .ArticleWithSection(
+                    string.Empty,
+                    sectionSlug,
+                    string.Empty,
+                    string.Empty,
+                    string.Empty) as ViewResult;
+            var resultModel = result.ViewData.Model as ArticleViewModel;
+
+            // Assert
+            resultModel.Should().NotBeNull();
+            resultModel?.DisplayedSection.MetaDescription.Should().Be(expectedMetaDescription);
         }
 
         [Fact]
@@ -310,7 +423,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty)
             };
 
-            var processedSection = new ProcessedSection("title", "slug", "body", new List<Profile>(), new List<Document>(), alertsInline);
+            var processedSection = new ProcessedSection("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new NullAdvertisement(), null);
@@ -336,7 +449,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         private ProcessedSection DummySection()
         {
-            return new ProcessedSection(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
+            return new ProcessedSection(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
         }
     }
 }

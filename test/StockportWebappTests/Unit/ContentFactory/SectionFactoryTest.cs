@@ -22,6 +22,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private const string Title = "title";
         private const string Slug = "slug";
         private const string Body = "The new content of the body";
+        private const string MetaDescription = "Example meta description";
         private readonly List<Profile> _profiles = new List<Profile>();
         private readonly List<Document> _documents = new List<Document>();
         private readonly Section _section;
@@ -45,7 +46,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
 
             _factory = new SectionFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object, _repository.Object);
 
-            _section = new Section(Title, Slug, Body, _profiles, _documents, _emptyAlertsInline);
+            _section = new Section(Title, Slug, MetaDescription, Body, _profiles, _documents, _emptyAlertsInline);
 
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
