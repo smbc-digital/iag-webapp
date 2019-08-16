@@ -18,12 +18,13 @@ namespace StockportWebapp.ProcessedModels
         public readonly string GlCodeCostCentreNumber;
         public readonly List<Crumb> Breadcrumbs;
         public readonly EPaymentReferenceValidation ReferenceValidation;
+        public readonly string MetaDescription;
 
         public ProcessedPayment()
         { }
 
         public ProcessedPayment(string title, string slug, string teaser, string description, string paymentDetailsText,
-            string referenceLabel, string parisReference, string fund, string glCodeCostCentreNumber, List<Crumb> breadcrumbs, EPaymentReferenceValidation referenceValidation)
+            string referenceLabel, string parisReference, string fund, string glCodeCostCentreNumber, List<Crumb> breadcrumbs, EPaymentReferenceValidation referenceValidation, string metaDescription)
         {
             Title = title;
             Slug = slug;
@@ -36,6 +37,7 @@ namespace StockportWebapp.ProcessedModels
             GlCodeCostCentreNumber = glCodeCostCentreNumber;
             Breadcrumbs = breadcrumbs;
             ReferenceValidation = referenceValidation;
+            MetaDescription = metaDescription;
         }
     }
 }

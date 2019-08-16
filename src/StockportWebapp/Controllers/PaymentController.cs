@@ -107,6 +107,7 @@ namespace StockportWebapp.Controllers
             model.ReceiptNumber = receiptNumber;
             model.Hash = hash;
             model.Slug = slug;
+            model.MetaDescription = payment.MetaDescription;
       
             return View(model);
         }

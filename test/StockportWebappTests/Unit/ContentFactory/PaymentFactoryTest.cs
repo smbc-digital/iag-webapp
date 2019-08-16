@@ -27,6 +27,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly string ParisReference = "Paris reference";
         private readonly string Fund = "Fund";
         private readonly string ReferenceLabel = "Reference label";
+        private readonly string MetaDescription = "Meta description";
 
 
 
@@ -46,7 +47,8 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
                 Fund = Fund,
                 ReferenceLabel = ReferenceLabel,
                 GlCodeCostCentreNumber = GlCodeCostCentreNumber,
-                BreadCrumbs = new List<Crumb>()
+                BreadCrumbs = new List<Crumb>(),
+                MetaDescription = MetaDescription
             };
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(Description);
@@ -60,7 +62,8 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             result.Title.Should().Be("Pay your council Tax");
             result.Description.Should().Be("Description");
             result.Slug.Should().Be("council-tax");
-            
+            result.MetaDescription.Should().Be("Meta description");
+
         }
 
         [Fact]
