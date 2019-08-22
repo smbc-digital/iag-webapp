@@ -13,6 +13,8 @@
         "carousel": "stockportgov/carousel",
         "cludoconfig": "stockportgov/cludo",
         "contactus": "stockportgov/contactUs",
+        "iag-validate-chars": "stockportgov/iagValidateChars",
+        "text-limiter": "stockportgov/textLimiter",
         "events": "stockportgov/events",
         "expandinglinks": "stockportgov/expandinglinks",
         "filters": "stockportgov/filters",

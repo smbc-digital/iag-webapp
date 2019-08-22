@@ -4,8 +4,8 @@
 
         $(".chars-remaining").each(function (idx, elem) {
 
-            $input = $(elem).siblings(".form-control-deep");
-            var limit = $input.data("val-length-max");
+            $input = $(elem).siblings("textarea");
+            var limit = $("textarea").attr("maxlength");
             displayCharsRemaining($input, limit);
             $input.on("keyup", function () { displayCharsRemaining(this, limit); });
         });
@@ -14,13 +14,14 @@
     var displayCharsRemaining = function (input, limit) {
 
         var charsRemaining = numberOfRemainingCharacters(input, limit);
+        console.log("input- " + input + ". limit- " + limit);
 
         if (charsRemaining < 0) {
             charsRemaining *= -1;
-            $input.siblings(".chars-remaining").html("<small class='error-text'>" + charsRemaining + " characters over the limit</small>");
+            $input.siblings(".chars-remaining").html("You are " + charsRemaining + " characters over the limit");
         }
         else {
-            $input.siblings(".chars-remaining").html("<small>" + charsRemaining + " characters remaining</small>");
+            $input.siblings(".chars-remaining").html("You have " + charsRemaining + " characters remaining");
         }
     };
 
@@ -45,11 +46,10 @@
     var onlySubmitFormIfValid = function () {
         $("form")
             .submit(function (e) {
-                console.log("form submission triggered");
                 var chars = $(".chars-remaining");
                 if (chars.length > 0) {
-                    $input = chars.siblings(".form-control-deep");
-                    var limit = $input.data("val-length-max");
+                    $input = chars.siblings("textarea");
+                    var limit = $input.data("maxlength");
 
                     if (numberOfRemainingCharacters($input, limit) < 0) {
                         e.preventDefault();
