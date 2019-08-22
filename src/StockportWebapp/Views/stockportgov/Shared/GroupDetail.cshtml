@@ -95,19 +95,6 @@
                     </div>
                 </li>
             }
-            @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
-            {
-                <li>
-                    <i class="fa  fa-heart fa-2x group-details-symbol" aria-hidden="true"></i>
-                    <div>
-                        <p><strong>Supported by</strong></p>
-                        @if (!string.IsNullOrEmpty(Model.Group.Organisation.Title))
-                        {
-                            <p><a href="/organisations/@Model.Group.Organisation.Slug">@Model.Group.Organisation.Title</a> </p>
-                        }
-                    </div>
-                </li>
-            }
         </ul>
     </section>
     
@@ -211,12 +198,21 @@
     <hr class="hide-on-mobile" />
     <section class="group-information-section grid-100 mobile-grid-100">
         <div class="hide-on-mobile">
-            <partial name="Events/ManageFavouritesCard" model='Model.Group'/>
+            <partial name="Events/ManageFavouritesCard" model='Model.Group' />
         </div>
         <div class="add-remove-favourite sidebar-links" id="report-page">
             <i class="fa fa-flag-o fa-lg" aria-hidden="true"></i>
             <a href="/groups/@Model.Group.Slug/report-group-info?groupname=@Model.Group.Name">Report this page as inappropriate</a>
         </div>
+
+        @if (!string.IsNullOrEmpty(Model.Group.Organisation?.Title))
+        {
+            <div class="add-remove-favourite sidebar-links" id="report-page">
+                <i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i>
+                <a href="/organisations/@Model.Group.Organisation.Slug">Supported by @Model.Group.Organisation.Title</a>
+            </div>
+        }
+
         @if (!Model.ShouldShowAdminOptions && Model.IsLoggedIn)
         {
             <div class="sidebar-links">
