@@ -7,14 +7,7 @@ namespace StockportWebapp.Utils
     {
         public static string GetImageUrl(Group group)
         {
-            if (string.IsNullOrEmpty(group.ImageUrl))
-            {
-                return group.CategoriesReference.Count > 0 ? GetFirstCategoryThatHasAnImageUrl(group.CategoriesReference) : "";
-            }
-            else
-            {
-                return group.ImageUrl;
-            }
+            return group.CategoriesReference.Count > 0 ? GetFirstCategoryThatHasAnImageUrl(group.CategoriesReference) : "";
         }
 
         private static string GetFirstCategoryThatHasAnImageUrl(List<GroupCategory> groupCategories)
