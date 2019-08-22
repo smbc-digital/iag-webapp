@@ -10,6 +10,7 @@ prod: &prod
   SemanticSmartAnswer: 
     - enforcement-referral
     - education-penalty-notice
+    - compliments
 
 stage: &stage
   << : *prod
