@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model StockportWebapp.ViewModels.ThankYouMessageViewModel
 @{
     ViewData["Title"] = "Thank you";
     ViewData["og:title"] = "Thank you";
@@ -17,7 +17,7 @@
                             <i class="fa fa-check fa-5x" aria-hidden="true"></i>
                         </div>
                         <p>We will aim to respond to your enquiry within 10 working days.</p>
-                        <a class="button-default" href="@Model">Return to previous page</a>
+                        <a class="button-default" href="@Model.ReturnUrl">@Model.ButtonText</a>
                     </div>
                 </div>
             </section>
