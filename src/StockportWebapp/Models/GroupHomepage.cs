@@ -9,6 +9,7 @@ namespace StockportWebapp.Models
     public class GroupHomepage
     {
         public string Title { get; set; }
+        public string MetaDescription { get; set; }
         public string BackgroundImage { get; set; }
         public string FeaturedGroupsHeading { get; set; }
         public List<Group> FeaturedGroups { get; set; }

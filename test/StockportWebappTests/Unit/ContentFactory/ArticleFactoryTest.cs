@@ -29,6 +29,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private const string Slug = "slug";
         private const string Body = "body";
         private const string Teaser = "teaser";
+        private const string MetaDescription = "meta desctiption";
         private readonly Section _sectionOne;
         private readonly ProcessedSection _processedSectionOne;
         private readonly Section _sectionTwo;
@@ -59,16 +60,16 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _articleFactory = new ArticleFactory(_tagParserContainer.Object, _profileTagParser.Object, _sectionFactory.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object, _repository.Object);
 
 
-            _sectionOne = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-            _processedSectionOne = new ProcessedSection(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-            _sectionTwo = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
-            _processedSectionTwo = new ProcessedSection(TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _sectionOne = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _processedSectionOne = new ProcessedSection(TextHelper.AnyString, TextHelper.AnyString, "id-1", TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _sectionTwo = new Section(TextHelper.AnyString, "id-1", TextHelper.AnyString, TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
+            _processedSectionTwo = new ProcessedSection(TextHelper.AnyString, "id-1", TextHelper.AnyString, TextHelper.AnyString, _emptyProfiles, _emptyDocuments, _emptyAlertsInline);
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
 
             var _advertisement = new NullAdvertisement();
 
-             _article = new Article(Title, Slug, Body, Teaser, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _advertisement);
+             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _advertisement);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
@@ -91,6 +92,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             result.NavigationLink.Should().Be("/" + Slug);
             result.Body.Should().Be(Body);
             result.Teaser.Should().Be(Teaser);
+            result.MetaDescription.Should().Be(MetaDescription);
             result.Sections.Should().HaveCount(2);
             result.Sections.ToList()[0].Should().Be(_processedSectionOne);
             result.Sections.ToList()[1].Should().Be(_processedSectionTwo);

@@ -58,6 +58,8 @@
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml" />
+    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml" />
     <None Remove="Views\stockportgov\Shared\ContentDisclaimerCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
@@ -77,7 +79,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
     <PackageReference Include="Markdig" Version="0.15.4" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.1" />
@@ -122,6 +124,12 @@
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml">

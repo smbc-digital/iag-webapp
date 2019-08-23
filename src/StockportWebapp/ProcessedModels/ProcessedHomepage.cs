@@ -17,6 +17,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string FreeText;
         public readonly Group FeaturedGroupItem;
         public readonly string EventCategory;
+        public readonly string MetaDescription;
 
         public GenericFeaturedItemList GenericItemList
         {
@@ -49,7 +50,7 @@ namespace StockportWebapp.ProcessedModels
             }
         }
 
-        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory)
+        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory, string metaDescription)
         {
             PopularSearchTerms = popularSearchTerms;
             FeaturedTasksHeading = featuredTasksHeading;
@@ -62,6 +63,7 @@ namespace StockportWebapp.ProcessedModels
             FreeText = freeText;
             FeaturedGroupItem = featuredGroup;
             EventCategory = eventCategory;
+            MetaDescription = metaDescription;
         }
     }
 }

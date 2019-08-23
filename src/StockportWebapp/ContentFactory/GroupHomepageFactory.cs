@@ -26,6 +26,7 @@ namespace StockportWebapp.ContentFactory
 
             return new ProcessedGroupHomepage(
             groupHomepage.Title,
+            groupHomepage.MetaDescription,
             groupHomepage.BackgroundImage,
             groupHomepage.FeaturedGroupsHeading,
             groupHomepage.FeaturedGroups,

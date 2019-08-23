@@ -59,6 +59,7 @@ namespace StockportWebapp.ContentFactory
             return new ProcessedSection(
                 section.Title,
                 section.Slug,
+                section.MetaDescription,
                 parsedBody,
                 section.Profiles,
                 section.Documents,

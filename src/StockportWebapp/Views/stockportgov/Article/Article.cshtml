@@ -4,7 +4,7 @@
 
 @{
     ViewData["Title"] = Model.Article.Title;
-    ViewData["Description"] = Model.Article.Teaser;
+    ViewData["Description"] = Model.MetaDescription;
     ViewData["og:title"] = Model.OgTitleMetaData;
     Layout = "../Shared/_Layout.cshtml";
 }

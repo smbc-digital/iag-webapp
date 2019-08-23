@@ -14,6 +14,7 @@ namespace StockportWebapp.ViewModels
         public readonly bool ShouldShowArticleSummary;
         public readonly bool ShouldShowCanonicalLink;
         public readonly string OgTitleMetaData;
+        public string MetaDescription => string.IsNullOrEmpty(DisplayedSection?.MetaDescription) ? Article.MetaDescription : DisplayedSection.MetaDescription;
 
         public ArticleViewModel(ProcessedArticle article)
         {

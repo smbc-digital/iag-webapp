@@ -8,6 +8,7 @@ namespace StockportWebapp.ProcessedModels
     {
         public string Name { get; set; }
         public string Slug { get; set; }
+        public string MetaDescription { get; set; }
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Website { get; set; }
@@ -45,7 +46,7 @@ namespace StockportWebapp.ProcessedModels
         {
         }
 
-        public ProcessedGroup(string name, string slug, string phoneNumber, string email, string website, string twitter,
+        public ProcessedGroup(string name, string slug, string metaDescription, string phoneNumber, string email, string website, string twitter,
                       string facebook, string address, string description, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories,
                       List<Crumb> breadcrumbs, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo,
                         List<string> cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, List<Group> linkedGroups, Donations donations,
@@ -53,6 +54,7 @@ namespace StockportWebapp.ProcessedModels
         {
             Name = name;
             Slug = slug;
+            MetaDescription = metaDescription;
             PhoneNumber = phoneNumber;
             Email = email;
             Website = website;

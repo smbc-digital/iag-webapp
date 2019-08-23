@@ -36,7 +36,8 @@ namespace StockportWebapp.ContentFactory
                 contactUsArea.PrimaryItems,
                 contactUsArea.Alerts,
                 contactUsArea.InsetTexts,
-                processedContactUsCategories
+                processedContactUsCategories,
+                contactUsArea.MetaDescription
             );
         }
     }

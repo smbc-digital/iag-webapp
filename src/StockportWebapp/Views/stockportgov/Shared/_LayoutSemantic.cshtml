@@ -15,6 +15,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1, user-scalable=yes" />
     <link rel="shortcut icon" type="image/png" href="~/assets/images/ui-images/favicon-sg.png" />
     <title>@ViewData["Title"] - Stockport Council</title>
+    @if (ViewData["Description"] != null)
+    {
+        <meta name="Description" content="@ViewData["Description"]" />
+    }
     <link rel="stylesheet" type="text/css" href="@stylesheet.GoogleFonts" />
     <link rel="stylesheet" type="text/css" href="@stylesheet.FontAwesome" />
     <link rel="stylesheet" type="text/css" href="@stylesheet.CludoSearch" />
@@ -73,12 +77,7 @@
                 utils.Init();
             })
     </script>
-    <!-- Start: Ami Snippet -->
-    <script type="text/javascript">
-        (function () { var sr = document.createElement('script'); var srRef = '168019131601'; sr.type = 'text/javascript'; sr.async = true; sr.src = '//app.meetami.ai/launchpad.php?c=' + srRef; var srComp = document.getElementsByTagName('script')[0]; srComp.parentNode.insertBefore(sr, srComp); }
 
-        )();
-    </script>
-    <!-- End: Ami Snippet -->
+    <partial name="AmiSnippet" />
 </body>
-</html>
+</html> 

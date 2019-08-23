@@ -16,7 +16,7 @@
     ViewData["FullWidth"] = "full-width";
     ViewData["additionalClass"] = "showcase";
     ViewData["og:title"] = Model.Title;
-    ViewData["Description"] = Model.Teaser;
+    ViewData["Description"] = Model.MetaDescription;
     ViewData["Slug"] = Model.Slug;
     Layout = "../Shared/_LayoutSemantic.cshtml";
     var emailBanner = new EmailBannerViewModel(Model.EmailAlertsText, Model.EmailAlertsTopicId);

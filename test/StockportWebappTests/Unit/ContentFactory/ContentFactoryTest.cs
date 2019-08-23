@@ -35,7 +35,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ItUsesSectionFactoryToBuildProcessedSectionFromSection()
         {
-            var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
+            var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var processedSection = _factory.Build<Section>(section);
 
@@ -45,7 +45,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
         {
-            var article = new Article(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+            var article = new Article(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 new List<Section>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new Advertisement(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, DateTime.MinValue, DateTime.MinValue, false, TextHelper.AnyString, TextHelper.AnyString));
 
             var processedArticle = _factory.Build<Article>(article);

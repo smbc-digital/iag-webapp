@@ -13,8 +13,9 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<Alert> Alerts;
         public readonly IEnumerable<InsetText> InsetTexts;
         public readonly IEnumerable<ProcessedContactUsCategory> ContactUsCategories;
+        public readonly string MetaDescription;
 
-        public ProcessedContactUsArea(string title, string slug, string categoriesTitle, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> primaryItems, IEnumerable<Alert> alerts, IEnumerable<InsetText> insetTexts, IEnumerable<ProcessedContactUsCategory> contactUsCategories)
+        public ProcessedContactUsArea(string title, string slug, string categoriesTitle, IEnumerable<Crumb> breadcrumbs, IEnumerable<SubItem> primaryItems, IEnumerable<Alert> alerts, IEnumerable<InsetText> insetTexts, IEnumerable<ProcessedContactUsCategory> contactUsCategories, string metaDescription)
         {
             Title = title;
             Slug = slug;
@@ -24,6 +25,7 @@ namespace StockportWebapp.ProcessedModels
             PrimaryItems = primaryItems;
             InsetTexts = insetTexts;
             ContactUsCategories = contactUsCategories;
+            MetaDescription = metaDescription;
         }
     }
 }

@@ -7,7 +7,7 @@
 @{
     ViewData["Title"] = Model.Group.Name;
     ViewData["og:title"] = Model.Group.Name;
-    ViewData["Description"] = Model.Group.Description;
+    ViewData["Description"] = Model.Group.MetaDescription;
     ViewData["Type"] = "Group";
     ViewData["Location"] = Model.Group.Address;
     Layout = "../Shared/_Layout.cshtml";
@@ -27,6 +27,7 @@ else
     <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css" />
     <partial name="GroupDetailOld" model='Model'/>
 }
+
 <script type="text/javascript">
     require(['startup', 'favourites',  'groups',  'matchboxconfig', 'matchHeight', ],
         function (startup, favourites,  groups, matchboxconfig, matchHeight) {

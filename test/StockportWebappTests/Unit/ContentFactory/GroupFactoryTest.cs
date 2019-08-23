@@ -41,6 +41,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var result = _factory.Build(_group);
 
             result.Name.Should().Be(_group.Name);
+            result.MetaDescription.Should().Be(_group.MetaDescription);
             result.Description.Should().Be(_group.Description);
             result.Slug.Should().Be(_group.Slug);
             result.Address.Should().Be(_group.Address);

@@ -6,6 +6,7 @@
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "What's on in Stockport" : category == null ? Model.Category : category.Name;
     ViewData["Title"] = ViewData["og:title"];
+    ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
 }
 
@@ -18,7 +19,7 @@
 else
 {
     @section Breadcrumbs {
-       <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("What’s on in Stockport", "events", "event") }'/>
+        <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("What’s on in Stockport", "events", "event") }' />
     }
 }
 

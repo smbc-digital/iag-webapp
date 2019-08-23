@@ -7,6 +7,8 @@ namespace StockportWebapp.Models
     {
         public string Title { get; set; }
         public string Slug { get; set; }
+
+        public string MetaDescription { get; set; }
         public string Teaser { get; set; }
         public string ImageUrl { get; set; }
         public string ThumbnailImageUrl { get; set; }

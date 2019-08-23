@@ -10,10 +10,7 @@ prod: &prod
   SemanticSmartAnswer: 
     - enforcement-referral
     - education-penalty-notice
-    - complaints
-    - pothole
-    - pothole-and-tripping-hazard-reporting
-    - make-a-formal-complaint
+    - compliments
 
 stage: &stage
   << : *prod

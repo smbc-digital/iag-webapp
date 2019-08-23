@@ -16,6 +16,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Title;
         public string Body { get; private set; }
         public readonly string Teaser;
+        public readonly string MetaDescription;
         public readonly IEnumerable<ProcessedSection> Sections;
         public readonly string Icon;
         public readonly string BackgroundImage;
@@ -28,7 +29,7 @@ namespace StockportWebapp.ProcessedModels
         public Advertisement Advertisement;
         public S3BucketSearch S3BucketSearch;
 
-        public ProcessedArticle(string title, string slug, string body, string teaser,
+        public ProcessedArticle(string title, string slug, string body, string teaser, string metaDescription,
             IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, IEnumerable<Crumb> breadcrumbs,
             IEnumerable<Alert> alerts, Topic topic, IEnumerable<Alert> alertsInline, Advertisement advertisement, S3BucketSearch s3BucketSearch)
         {
@@ -36,6 +37,7 @@ namespace StockportWebapp.ProcessedModels
             NavigationLink = TypeRoutes.GetUrlFor("article", slug);
             Body = body;
             Teaser = teaser;
+            MetaDescription = metaDescription;
             Sections = sections;
             Icon = icon;
             BackgroundImage = backgroundImage;

@@ -54,6 +54,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly ProcessedGroupHomepage groupHomepage = new ProcessedGroupHomepage
         (
            "title",
+           "test meta descripiton",
            "background-image.jpg",
            "featured group heading",
            new List<Group>(),
@@ -149,6 +150,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             // Assert
             model.Categories.Count.Should().Be(groupCategories.Count);
+            model.MetaDescription.Should().Be(groupHomepage.MetaDescription);
         }
 
         [Fact]
@@ -255,7 +257,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             groupAdmins.Items.Add(new GroupAdministratorItems() {Email= "test@email.com"});
 
 
-            var group = new Group("name", "slug", "010101010", "email@mail.com", "www.website.com",
+            var group = new Group("name", "slug", "metaDescription","010101010", "email@mail.com", "www.website.com",
                 "https://www.twitter.com/testHandle", "www.facebook.com", "address", "description", "image-url",
                 "thumnail-url", new List<GroupCategory>{new GroupCategory {Name = "testCategory" } }, new List<GroupSubCategory>(), new List<Crumb>(),
                 new MapPosition{Lat = 100, Lon = 200}, false, new List<Event>(), new GroupAdministrators(), DateTime.MinValue,

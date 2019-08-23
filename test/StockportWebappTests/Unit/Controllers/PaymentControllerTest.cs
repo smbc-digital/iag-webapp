@@ -33,7 +33,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task ItReturnsAGroupWithProcessedBody()
         {
             var processedPayment = new ProcessedPayment(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), EPaymentReferenceValidation.None);
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), EPaymentReferenceValidation.None, TextHelper.AnyString);
 
             _fakeRepository
                 .Setup(_ => _.Get<Payment>(It.IsAny<string>(), It.IsAny<List<Query>>()))

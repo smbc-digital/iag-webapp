@@ -18,7 +18,7 @@
     <title>@ViewData["Title"] - Stockport Council</title>
     @if (ViewData["Description"] != null)
     {
-        <meta name="Description" content="@ViewData[" Description"]" />
+        <meta name="Description" content="@ViewData["Description"]" />
     }
     @if (ViewData["CanonicalUrl"] != null)
     {
@@ -26,7 +26,7 @@
     }
     @if (ViewData["og:title"] != null)
     {
-        <meta property="og:title" content="@ViewData[" og:title"]" />
+        <meta property="og:title" content="@ViewData["og:title"]" />
     }
     <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
@@ -53,7 +53,7 @@
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
 </head>
-<body class="container-layout-free @(string.Concat(" type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+<body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
 
     <partial name="TagManager/TagManagerNoScript" />
     <partial name="Header" />
@@ -85,12 +85,7 @@
     @await Component.InvokeAsync("AddThis")
 
     @RenderSection("Scripts", false)
-    <!-- Start: Ami Snippet -->
-    <script type="text/javascript">
-        (function () { var sr = document.createElement('script'); var srRef = '168019131601'; sr.type = 'text/javascript'; sr.async = true; sr.src = '//app.meetami.ai/launchpad.php?c=' + srRef; var srComp = document.getElementsByTagName('script')[0]; srComp.parentNode.insertBefore(sr, srComp); }
 
-        )();
-    </script>
-    <!-- End: Ami Snippet -->
+    <partial name="AmiSnippet" />
 </body>
 </html>

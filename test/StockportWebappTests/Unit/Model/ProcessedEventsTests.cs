@@ -13,7 +13,7 @@ namespace StockportWebappTests_Unit.Unit.Model
     {       
         private readonly ProcessedEvents processedEvent = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description",
                 "fee", "location", "submittedBy", DateTime.Now.AddDays(1), "startTime", "endTime",
-                new List<Crumb>(), null, new MapDetails(), "booking information", null, null,null);
+                new List<Crumb>(), null, new MapDetails(), "booking information", null, null,null, null);
 
         [Fact]
         public void ShouldBeTrueIsAlertSunsetDateIsNotPassed ()
