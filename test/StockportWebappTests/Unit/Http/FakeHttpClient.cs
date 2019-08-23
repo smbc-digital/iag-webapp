@@ -109,5 +109,10 @@ namespace StockportWebappTests_Unit.Unit.Http
         {
             throw new NotImplementedException();
         }
+
+        public Task PostMessage(string requestURI, HttpContent content, Dictionary<string, string> headers)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
