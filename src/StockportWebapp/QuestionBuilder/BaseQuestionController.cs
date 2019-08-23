@@ -208,7 +208,7 @@ namespace StockportWebapp.QuestionBuilder
 
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
-            result.Page.Description = checkForSpecialTextExtra(result.Page.Description, result.Page.PreviousAnswers);
+            result.Page.Description = checkSpecialText(result.Page.Description, result.Page.PreviousAnswers);
 
             if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(result.Slug))
             {
@@ -217,64 +217,66 @@ namespace StockportWebapp.QuestionBuilder
             return View(result);
         }
 
-        //{complaintAbout:bins:You're complaining about bins}
-        //{complaintAbout:environment:What about the environment}
-        //{complaintAbout:highways:Roads and highways}
-
-        private string checkForSpecialTextExtra(string description, IList<Answer> prevAnswers)
+        private string checkSpecialText(string description, IList<Answer> prevAnswers)
         {
-            description = "ashdf kjhasbdfjh asjdf ljas flkjasndf kjnasdfj nlasdf{complainingAbout:bins:You're complaining about bins}{complainingAbout:environment:What about the environment}{complainingAbout:highways:Roads and highways}";
             var openBoi = description.Count(x => x == '{');
             var closedBoi = description.Count(x => x == '}');
-
-            if ((description.IndexOf("{") != -1) && (description.IndexOf("}") != -1) &&
-                (openBoi == closedBoi))
+            if (openBoi != closedBoi)
             {
-                var descriptionSplit = description.Split('{');
+                return description;
+            }
 
-                foreach (string splitText in descriptionSplit)
+            if (openBoi > 1)
+            {
+                var descSpilt = description.Split('}');
+                descSpilt = descSpilt.Take(descSpilt.Count() - 1).ToArray();
+
+                foreach (var decSplitRow in descSpilt)
                 {
-                    var splitTextArray = splitText.Split(':');
+                    var indDescSplit = decSplitRow.Replace("{", "").Replace("}", "").Split(':');
+
                     foreach (Answer answer in prevAnswers)
                     {
-                        if (answer.QuestionId == splitTextArray[0] && answer.Response == splitTextArray[1])
+                        if (answer.QuestionId == indDescSplit[0] && answer.Response == indDescSplit[1])
                         {
-                            description = description.Replace(splitText, splitTextArray[2]).Replace('{', ' ').Replace('}',' ');
-                        }
-                        else
-                        {
-                            description = description.Replace(splitText, " ");
+                            description = indDescSplit[2];
+                            return description;
                         }
                     }
+
                 }
-
-
-//                description = (descriptionSplit[1] + ":" + descriptionSplit[2] + ":" + descriptionSplit[3]);
+                return description;
             }
-
-            return description;
-        }
-
-        private string checkForSpecialText(string description, IList<Answer> prevAnswers)
-        {
-            if ((description.IndexOf("{") != -1) && (description.IndexOf("}") != -1))
+            else
             {
-                int check1 = description.IndexOf("{");
-                int check2 = description.IndexOf("}");
-
-                var specialText = description.Substring(check1, (check2 - check1) + 1);
-                var cleanSpecialText = specialText.Replace("{", "").Replace("}", "");
-
-                foreach (Answer answer in prevAnswers)
+                var indDescSplit = description.Replace("{", "").Replace("}", "").Split(':');
+                if (indDescSplit.Length == 2)
                 {
-                    if (answer.QuestionId == cleanSpecialText)
+                    foreach (Answer answer in prevAnswers)
                     {
-                        description = description.Replace(specialText, answer.ResponseValue + " " + "<b>" + answer.Response.Substring(0, 1).ToUpper() + answer.Response.Substring(1) + "</b>");
+                        if (answer.QuestionId == indDescSplit[1].Trim())
+                        {
+                            description = indDescSplit[0] + ": " + answer.Response;
+                            return description;
+                        }
                     }
+                    return description;
                 }
-            }
+                else
+                {
+                    foreach (Answer answer in prevAnswers)
+                    {
+                        if (answer.QuestionId == indDescSplit[0] && answer.Response == indDescSplit[1])
+                        {
+                            description = indDescSplit[2];
+                            return description;
+                        }
+                    }
+                    return description;
 
-            return description;
+                }
+
+            }
         }
 
         public Page GetPage(int pageId)
