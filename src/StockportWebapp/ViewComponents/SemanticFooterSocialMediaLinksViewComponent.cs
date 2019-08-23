@@ -10,7 +10,7 @@ namespace StockportWebapp.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync(IEnumerable<SocialMediaLink> model, string additionalClasses)
         {
-            return View(new Tuple<IEnumerable<SocialMediaLink>, string>(model, additionalClasses));
+            return await Task.Run(() => View(new Tuple<IEnumerable<SocialMediaLink>, string>(model, additionalClasses)));
         }
     }
 }
