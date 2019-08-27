@@ -6,7 +6,7 @@
 
 <div class="form-section question-section">
     <h2 class="h3">@Model.Label</h2>
-    <!-- <span style="font-size:15px; color:dimgrey;">@Model.TextSubLabel</span> -->
+    <span>@Model.TextSubLabel</span> 
     <div class="enquiry-message">
         @Html.TextArea("Response", "", new { @class = "", maxLength = @limitValue, data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
         <partial name="_ValidationError.cshtml" model='Model' />
