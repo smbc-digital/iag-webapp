@@ -6,25 +6,22 @@
 
         public string Text { get; set; }
 
-        public string File { get; set; }
-
-        public string FileDescription { get; set; }
+        public MediaAsset File { get; set; } = new MediaAsset();
 
         public string Url { get; set; }
 
-        public GroupBranding(string title, string text, string file, string fileDescription, string url)
+        public GroupBranding(string title, string text, MediaAsset file, string url)
         {
             Title = title;
             Text = text;
             File = file;
-            FileDescription = fileDescription;
             Url = url;
         }
     }
 
     public class NullGroupBranding : GroupBranding
     {
-        public NullGroupBranding() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty) { }
+        public NullGroupBranding() : base(string.Empty, string.Empty, new MediaAsset(), string.Empty) { }
     }
 }
 
