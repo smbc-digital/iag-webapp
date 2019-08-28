@@ -47,13 +47,17 @@
         height: 224px;
 
         @media #{$mobile} {
-            height: 154px;
-            width: 334px;
+            height: 100%;
+            width: 100%;
         }
 
         img {
             position: absolute;
             border-radius: 2px;
+            
+            @media #{$mobile} {
+                position: relative;
+            }
         }
     }
 
