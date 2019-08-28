@@ -44,6 +44,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [Theory]
         [InlineData(EPaymentReferenceValidation.FPN, "12345")]
         [InlineData(EPaymentReferenceValidation.ParkingFine, "SM30414755")]
+        [InlineData(EPaymentReferenceValidation.ParkingFine, "SM3086279A")]
         [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM80000200")]
         [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234567")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
