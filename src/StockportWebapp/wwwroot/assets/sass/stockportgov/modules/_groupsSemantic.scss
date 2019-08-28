@@ -71,6 +71,32 @@
         display: inline-block;
     }
 
+    div.group-branding {
+        div.group-branding-row {
+            margin-bottom: 20px;
+
+            div.group-branding-item {
+                width: 21%;
+                display: inline-block;
+                margin-right: 20px;
+
+                &:not(:last-child) {
+                    border-right: 1px solid #ccc;
+                }
+
+                p {
+                    display: inline;
+                }
+
+                img {
+                    height: 100px;
+                    width: 100px;
+                    display: block;
+                }
+            }
+        }
+    }
+
 
     > div {
         background-color: $white;
