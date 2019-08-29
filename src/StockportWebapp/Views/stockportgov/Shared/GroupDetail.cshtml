@@ -62,7 +62,6 @@
         <section id="about-us">
             <hr class="hide-on-desktop">
             <h2>About us</h2>
-            <h1>@Model.Group.GroupBranding.First().Title</h1>
             <ul class="group-information">
                 @if (!string.IsNullOrEmpty(Model.Group.Address))
                 {
@@ -108,21 +107,24 @@
 
             <partial name="Groups/VolunteeringBar" model='Model.Group.Volunteering' />
             <partial name="Groups/DonationsBar" model='Model.Group.Donations' />
-
-            <div class="group-branding">
-                @for (int i = 0; i < Model.Group.GroupBranding.Count; i += 4)
-                {<div class="group-branding-row matchbox-parent">
-                        @for (int x = i; x < x + 4 && x < Model.Group.GroupBranding.Count; x++)
-                        {
-                            <div class="group-branding-item matchbox-child">
-                                <p><strong>@Model.Group.GroupBranding[x].Text</strong></p>
-                                <a href="@Model.Group.GroupBranding[x].Url"><img src="@Model.Group.GroupBranding[x].File.Url" alt="@Model.Group.GroupBranding[x].File.Description" href="@Model.Group.GroupBranding[x].Url" /></a>
+            
+            @if (Model.Group.GroupBranding.Any())
+            {
+                <div class="group-branding">
+                    @foreach (var branding in Model.Group.GroupBranding)
+                    {
+                        <div class="group-branding-item">
+                            <p><strong>@branding.Text</strong></p>
+                            <div class="group-branding-item-image">
+                                <a href="@branding.Url">
+                                    <img src="@branding.File.Url" alt="@branding.File.Description"/>
+                                </a>
                             </div>
-                        }
-                    </div>
-                }
-            </div>
-            <hr />
+                        </div>
+                    }
+                </div>
+                <hr />
+            }
         </section>
 
         <section id="contact-us">

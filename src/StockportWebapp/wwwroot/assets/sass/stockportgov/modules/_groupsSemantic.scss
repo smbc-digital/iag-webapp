@@ -72,27 +72,75 @@
     }
 
     div.group-branding {
-        div.group-branding-row {
-            margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -50px;
 
-            div.group-branding-item {
-                width: 21%;
-                display: inline-block;
-                margin-right: 20px;
+        @media #{$mobile} {
+            flex-direction: column;
+            margin: 0;
+        }
 
-                &:not(:last-child) {
-                    border-right: 1px solid #ccc;
+        div.group-branding-item {
+            width: calc(25% - 25px);
+            display: flex;
+            flex-direction: column;
+            margin: 0 25px 25px 0;
+            padding: 0 25px 0 0;
+            box-sizing: border-box;
+
+            p {
+                margin: -10px 0 10px 0;
+            }
+
+            &:not(:nth-child(4n)) {
+                border-right: 1px solid #ccc;
+
+                @media #{$mobile} {
+                    border-right: none;
                 }
+            }
 
-                p {
-                    display: inline;
-                }
+            &:last-of-type {
+                border: none;
+            }
 
-                img {
-                    height: 100px;
-                    width: 100px;
-                    display: block;
+            &:nth-child(4n) {
+                margin: 0 0 25px 0;
+            }
+
+            @media #{$mobile} {
+                padding: 0 0 25px 0;
+                margin: 0 0 25px 0;
+                width: 100%;
+                border-bottom: 1px solid #ccc;
+            }
+        }
+
+        div.group-branding-item-image {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            a {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            @media #{$mobile} {
+                justify-content: flex-start;
+
+                a {
+                    align-items: flex-start;
                 }
+            }
+
+            img {
+                max-width: 100%;
+                max-height: 100px;
             }
         }
     }
