@@ -133,6 +133,8 @@ namespace StockportWebapp.QuestionBuilder
 
             var allAnswers = page.GetCombinedAnswers();
 
+            var isCompliment = page.Questions.Any(_ => _.QuestionId.Contains("compliment"));
+
             IBehaviour behaviour = null;
 
             if (page.Behaviours != null)
@@ -178,9 +180,17 @@ namespace StockportWebapp.QuestionBuilder
                             }
                             else
                             {
-                                //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                                return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                if (isCompliment)
+                                {
+                                    //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                    return Redirect($"{behaviour.Value}success?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                }
+                                else
+                                {
+                                    return Redirect($"{behaviour.Value}contact-details?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                }
                             }
+                                
                         }
                         catch (Exception e)
                         {
