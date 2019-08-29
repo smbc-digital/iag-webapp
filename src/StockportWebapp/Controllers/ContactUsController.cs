@@ -15,6 +15,7 @@ using StockportWebapp.ViewDetails;
 using StockportWebapp.Http;
 using StockportWebapp.Validation;
 using StockportWebapp.Repositories;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
@@ -40,12 +41,25 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
         public async Task<IActionResult> Contact(ContactUsDetails contactUsDetails)
         {
-            contactUsDetails.ServiceEmail = await GetEmailAddressFromId(contactUsDetails.ServiceEmailId);
+            var contactUsModel = await GetContactUsId(contactUsDetails.ServiceEmailId);
 
-            var referer = Request.Headers["referer"];
-            if (string.IsNullOrEmpty(referer)) return NotFound();
+            contactUsDetails.ServiceEmail = contactUsModel.EmailAddress;
 
-            var redirectUrl = new UriBuilder(referer).Path;
+            string redirectUrl;
+            if (!string.IsNullOrEmpty(contactUsModel.SuccessPageReturnUrl))
+            {
+                redirectUrl = contactUsModel.SuccessPageReturnUrl;
+            }
+            else
+            {
+                var referer = Request.Headers["referer"];
+                if (string.IsNullOrEmpty(referer))
+                {
+                    return NotFound();
+                }
+                redirectUrl = new UriBuilder(referer).Path;
+            }
+
             var message = "We have been unable to process the request. Please try again later.";
 
             if (ModelState.IsValid)
@@ -53,7 +67,9 @@ namespace StockportWebapp.Controllers
                 var successCode = await SendEmailMessage(contactUsDetails);
                 if (IsSuccess(successCode))
                 {
-                    return RedirectToAction("ThankYouMessage", routeValues: new { referer = redirectUrl });
+                    return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel {
+                        ReturnUrl = redirectUrl, ButtonText = contactUsModel.SuccessPageButtonText
+                    });
                 }
             }
             else
@@ -65,9 +81,8 @@ namespace StockportWebapp.Controllers
             return await Task.FromResult(Redirect(toUrl));
         }
 
-        private async Task<string> GetEmailAddressFromId(string serviceEmailId)
+        private async Task<ContactUsId> GetContactUsId(string serviceEmailId)
         {
-            var result = String.Empty;
             var response = await _repository.Get<ContactUsId>(serviceEmailId);
 
             if (!response.IsSuccessful())
@@ -76,10 +91,10 @@ namespace StockportWebapp.Controllers
             }
             else
             {
-                var contactUsId = response.Content as ContactUsId;
-                result = contactUsId.EmailAddress;
+                return response.Content as ContactUsId;
             }
-            return result;
+
+            return null;
         }
 
         private string GetErrorsFromModelState(ModelStateDictionary modelState)
@@ -133,9 +148,9 @@ namespace StockportWebapp.Controllers
 
         [Route("/thank-you")]
         [HttpGet]
-        public async Task<IActionResult> ThankYouMessage(string referer)
+        public async Task<IActionResult> ThankYouMessage(ThankYouMessageViewModel viewModel)
         {
-            return await Task.FromResult(View("ThankYouMessage", referer));
+            return await Task.FromResult(View("ThankYouMessage", viewModel));
         }
     }
 

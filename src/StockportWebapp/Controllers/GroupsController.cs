@@ -50,12 +50,24 @@ namespace StockportWebapp.Controllers
         private readonly IGroupsService _groupsService;
         private readonly FeatureToggles _featureToggles;
 
-        public GroupsController(IProcessedContentRepository processedContentRepository, IRepository repository,
-            GroupEmailBuilder emailBuilder, EventEmailBuilder eventEmailBuilder, IFilteredUrl filteredUrl,
-            IViewRender viewRender, ILogger<GroupsController> logger, IApplicationConfiguration configuration,
-            MarkdownWrapper markdownWrapper, ViewHelpers viewHelpers, IDateCalculator dateCalculator,
-            IHtmlUtilities htmlUtilities, HostHelper hostHelper, ILoggedInHelper loggedInHelper, IGroupsService groupsService,
-            ICookiesHelper cookiesHelper, FeatureToggles featureToggles)
+        public GroupsController(
+            IProcessedContentRepository processedContentRepository, 
+            IRepository repository,
+            GroupEmailBuilder emailBuilder, 
+            EventEmailBuilder eventEmailBuilder, 
+            IFilteredUrl filteredUrl,
+            IViewRender viewRender, 
+            ILogger<GroupsController> logger, 
+            IApplicationConfiguration configuration,
+            MarkdownWrapper markdownWrapper, 
+            ViewHelpers viewHelpers, 
+            IDateCalculator dateCalculator,
+            IHtmlUtilities htmlUtilities, 
+            HostHelper hostHelper, 
+            ILoggedInHelper loggedInHelper, 
+            IGroupsService groupsService,
+            ICookiesHelper cookiesHelper, 
+            FeatureToggles featureToggles)
         {
             _processedContentRepository = processedContentRepository;
             _repository = repository;
@@ -742,7 +754,8 @@ namespace StockportWebapp.Controllers
             var result = new GroupManagePage
             {
                 Groups = groups,
-                Email = loggedInPerson.Email
+                Email = loggedInPerson.Email,
+                ContactPageUrl = _configuration.GetGroupManageContactUrl()
             };
 
             return View(result);

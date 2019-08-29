@@ -230,7 +230,7 @@ namespace StockportWebappTests_Integration
             var result =await _fakeClient.SendAsync(request);
 
             result.StatusCode.Should().Be(HttpStatusCode.Redirect);
-            result.Headers.Location.OriginalString.Should().Be("/thank-you?referer=%2Fa-page");
+            result.Headers.Location.OriginalString.Should().Be("/thank-you?ReturnUrl=%2Fa-page");
         }
 
         /*[Fact]

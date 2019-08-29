@@ -29,16 +29,7 @@
         var $input = $(input);
         var inputText = $input.val();
         var maxLength = parseInt(limit);
-
-        var newLines = inputText.match(/(\n)/g);
-
-        var addition = 0;
-        if (newLines != null) {
-            addition = newLines.length;
-        }
-
-        var currentLength = inputText.length + addition;
-        var charsRemaining = maxLength - currentLength;
+        var charsRemaining = maxLength - inputText.length;
 
         return charsRemaining;
     };

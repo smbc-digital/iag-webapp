@@ -12,8 +12,7 @@ namespace StockportWebapp.Parsers
         private readonly TagReplacer _tagReplacer;
         private string _articleTitle;
 
-        private const string UnableToRenderFormError =
-            "<p>This contact form is temporarily unavailable. Please check back later.</p>";
+        private const string UnableToRenderFormError = "<p>This contact form is temporarily unavailable. Please check back later.</p>";
 
         public ContactUsTagParser(IViewRender viewRenderer, ILogger<ContactUsTagParser> logger)
         {
@@ -24,15 +23,13 @@ namespace StockportWebapp.Parsers
 
         protected Regex TagRegex => new Regex("{{CONTACT-US:(\\s*[a-zA-Z0-9]*[^}]*)}}", RegexOptions.Compiled);
 
-        public static Regex ContactUsMessageTagRegex
-            => new Regex("<!-- ##CONTACT_US_MESSAGE## -->", RegexOptions.Compiled);
+        public static Regex ContactUsMessageTagRegex => new Regex("<!-- ##CONTACT_US_MESSAGE## -->", RegexOptions.Compiled);
 
         protected string GenerateHtml(string serviceEmailId)
         {
             if (string.IsNullOrEmpty(serviceEmailId))
             {
-                _logger.LogError(
-                    $"The service email ID in this CONTACT-US tag is invalid and this contact form will not render.");
+                _logger.LogError("The service email ID in this CONTACT-US tag is invalid and this contact form will not render.");
                 return UnableToRenderFormError;
             }
             var renderResult = _viewRenderer.Render("ContactUs", new ContactUsDetails(serviceEmailId, _articleTitle));

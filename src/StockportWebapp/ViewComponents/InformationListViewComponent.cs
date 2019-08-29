@@ -11,7 +11,7 @@ namespace StockportWebapp.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync(List<ProcessedInformationItem> model, string heading, string additionalClasses)
         {
-            return View(new Tuple<IEnumerable<ProcessedInformationItem>, string, string>( model, heading, additionalClasses));
+            return await Task.Run(() => View(new Tuple<IEnumerable<ProcessedInformationItem>, string, string>( model, heading, additionalClasses)));
         }
     }
 }

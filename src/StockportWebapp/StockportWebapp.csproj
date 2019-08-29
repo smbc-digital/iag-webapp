@@ -58,8 +58,6 @@
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml" />
     <None Remove="Views\stockportgov\Shared\ContentDisclaimerCard.cshtml" />
     <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />

@@ -17,6 +17,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -51,7 +52,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             _businessId = new BusinessId("businessid");
 
-            _contactUsId = new ContactUsId("name", "slug", "email");
+            _contactUsId = new ContactUsId("name", "slug", "email", "test button text", "test return url");
           
             _repository.Setup(o => o.Get<ContactUsId>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                .ReturnsAsync(HttpResponse.Successful(200, _contactUsId));
@@ -81,7 +82,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             var pageResult = await _controller.Contact(_validContactDetails) as RedirectResult;;
 
-            pageResult.Url.Should().Contain(Path);
+            pageResult.Url.Should().Contain("test return url");
         }
 
         [Fact]
@@ -117,7 +118,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var redirectResult = pageResult as RedirectToActionResult;
 
             redirectResult.ActionName.Should().Be("ThankYouMessage");
-            redirectResult.RouteValues["referer"].Should().Be(Path);
+            redirectResult.RouteValues["ReturnUrl"].Should().Be("test return url");
         }
 
         [Fact]
@@ -145,11 +146,14 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task ShouldShowAThankYouPageWithTheReferingUrlPassed()
         {
-            var referer = "this-is-a-referer";
+            var referer = new ThankYouMessageViewModel
+            {
+                ReturnUrl = "this-is-a-referer"
+            };
 
             var pageResult = await _controller.ThankYouMessage(referer) as ViewResult;;
 
-            pageResult.Model.Should().Be(referer);
+            pageResult.Model.As<ThankYouMessageViewModel>().ReturnUrl.Should().Be(referer.ReturnUrl);
             pageResult.ViewName.Should().Be("ThankYouMessage");
         }
 

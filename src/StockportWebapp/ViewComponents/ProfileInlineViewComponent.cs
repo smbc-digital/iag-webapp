@@ -8,7 +8,7 @@ namespace StockportWebapp.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync(Profile profile, bool withoutBody)
         {
-            return View(profile);
+            return await Task.Run(() => View(profile));
         }
     }
 }
