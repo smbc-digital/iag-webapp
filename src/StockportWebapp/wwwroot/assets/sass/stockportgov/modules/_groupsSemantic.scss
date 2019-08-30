@@ -54,7 +54,7 @@
         img {
             position: absolute;
             border-radius: 2px;
-            
+
             @media #{$mobile} {
                 position: relative;
             }
@@ -105,6 +105,14 @@
                 }
             }
 
+            &:nth-child(4n) {
+                margin: 0 0 25px 0;
+
+                @media #{$mobile} {
+                    margin: 0 0 10px 0;
+                }
+            }
+
             &:last-of-type {
                 border: none;
 
@@ -112,10 +120,6 @@
                     margin: 0 0 10px 0;
                     padding: 0;
                 }
-            }
-
-            &:nth-child(4n) {
-                margin: 0 0 25px 0;
             }
 
             @media #{$mobile} {
