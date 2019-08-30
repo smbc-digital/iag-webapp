@@ -42,7 +42,6 @@ namespace StockportWebapp.ProcessedModels
         public string DonationsUrl { get; set; }
         public List<GroupBranding> GroupBranding { get; set; }
 
-
         public ProcessedGroup()
         {
         }
