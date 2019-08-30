@@ -107,6 +107,11 @@
 
             &:last-of-type {
                 border: none;
+
+                @media #{$mobile} {
+                    margin: 0 0 10px 0;
+                    padding: 0;
+                }
             }
 
             &:nth-child(4n) {
