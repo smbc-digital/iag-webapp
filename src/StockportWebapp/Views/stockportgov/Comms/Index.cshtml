@@ -21,6 +21,10 @@
         <h2>@Model.FacebookFeedTitle</h2>
     </article>
     <article class="article-aside page-container">
+        @{
+            ViewData["SignUpAlertsTopicIdTopicId"] = "UKSMBC_136";
+        }
+        <partial name="SignUpAlerts" />
         <h3>Useful links</h3>
         <h3>What's on in Stockport</h3>
     </article>
