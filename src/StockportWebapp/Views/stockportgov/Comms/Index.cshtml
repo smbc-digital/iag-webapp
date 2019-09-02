@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = Model.Title;
     ViewData["og:title"] = Model.Title;
+    ViewData["WhiteBackground"] = true;
     Layout = "../Shared/_LayoutSemantic.cshtml";
     var crumbsList = new List<Crumb>();
 }
@@ -11,14 +12,15 @@
     <partial name="SemanticBreadcrumb" model='@crumbsList' />
 }
 
-<article class="with-aside">
+<article class="with-aside page-container">
     <h1>@Model.Title</h1>
     <h2>@Model.LatestNewsHeader</h2>
     <h2>@Model.TwitterFeedHeader</h2>
     <h2>@Model.InstagramFeedTitle</h2>
     <h2>@Model.FacebookFeedTitle</h2>
 </article>
-<article class="article-aside">
+<article class="article-aside page-container">
+
     <h3>Useful links</h3>
     <h3>What's on in Stockport</h3>
 </article>

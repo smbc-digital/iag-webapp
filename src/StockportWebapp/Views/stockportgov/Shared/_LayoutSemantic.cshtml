@@ -1,11 +1,11 @@
 ﻿@using StockportWebapp.Config
-@using StockportWebapp.Config
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
 @{
     var bannerTypeformUrl = ViewData["BannerTypeformUrl"];
     var stylesheet = ApplicationConfiguration.GetStylesheetConfig();
+    var bodyClass = ViewData["WhiteBackground"] != null &&  (bool)ViewData["WhiteBackground"] ? "white-background" : string.Empty;
 }
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -39,7 +39,7 @@
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
 </head>
-<body>
+<body class=@bodyClass>
     <partial name="TagManager/TagManagerNoScript" />
     <header>
         <div class="skip-to-main-content">
