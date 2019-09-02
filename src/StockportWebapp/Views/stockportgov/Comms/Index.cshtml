@@ -1,9 +1,9 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
-@model StockportWebapp.Models.CommsHomepage
+@model StockportWebapp.ViewModels.CommsHomepageViewModel
 @{
-    ViewData["Title"] = Model.Title;
-    ViewData["og:title"] = Model.Title;
+    ViewData["Title"] = Model.Homepage.Title;
+    ViewData["og:title"] = Model.Homepage.Title;
     ViewData["WhiteBackground"] = true;
     Layout = "../Shared/_LayoutSemantic.cshtml";
     var crumbsList = new List<Crumb>();
@@ -15,11 +15,30 @@
 
 <div class="comms-homepage">
     <article class="with-aside page-container">
-        <h1>@Model.Title</h1>
-        <h2>@Model.LatestNewsHeader</h2>
-        <h2>@Model.TwitterFeedHeader</h2>
-        <h2>@Model.InstagramFeedTitle</h2>
-        <h2>@Model.FacebookFeedTitle</h2>
+        <h1>@Model.Homepage.Title</h1>
+        
+        @if (Model.LatestNews != null)
+        {
+            <h2>@Model.Homepage.LatestNewsHeader</h2>
+            <section class="latest-news">
+                <div class="news-details">
+                    <div class="date">
+                        <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+                        <partial name="FormattedDate" model='Model.LatestNews.SunriseDate'/>
+                    </div>
+                    <span class="status-news">@Model.LatestNews.Type</span>
+                </div>
+                <a href="@Url.Action("Details", "News", new {Slug = Model.LatestNews.Slug})">
+                    <h1 class="h2">@Model.LatestNews.Title</h1>
+                    <p>@Model.LatestNews.Teaser</p>
+                </a>
+                <a href="@Url.Action("Index", "News")" class="button-tertiary-inverted">View more news</a>
+            </section>
+        }
+
+        <h2>@Model.Homepage.TwitterFeedHeader</h2>
+        <h2>@Model.Homepage.InstagramFeedTitle</h2>
+        <h2>@Model.Homepage.FacebookFeedTitle</h2>
     </article>
     <article class="article-aside page-container">
         @{

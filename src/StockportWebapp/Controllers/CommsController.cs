@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
@@ -22,8 +24,16 @@ namespace StockportWebapp.Controllers
             var response = await _repository.Get<CommsHomepage>(queries: new List<Query>());
 
             var commsHomepage = response.Content as CommsHomepage;
+            var latestNewsResponse = await _repository.GetLatest<List<News>>(1);
+            var latestNews = latestNewsResponse.Content as List<News>;
 
-            return View(commsHomepage);
+            var viewModel = new CommsHomepageViewModel
+            {
+                Homepage = commsHomepage,
+                LatestNews = latestNews?.FirstOrDefault()
+            };
+
+            return View(viewModel);
         }
     }
 }
