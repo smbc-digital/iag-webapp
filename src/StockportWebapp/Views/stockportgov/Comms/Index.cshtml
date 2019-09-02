@@ -25,7 +25,16 @@
             ViewData["SignUpAlertsTopicIdTopicId"] = "UKSMBC_136";
         }
         <partial name="SignUpAlerts" />
-        <h3>Useful links</h3>
-        <h3>What's on in Stockport</h3>
+        <h2 class="h3">Useful links</h2>
+        <ul class="useful-links">
+            @foreach (var link in Model.UsefullLinks)
+            {
+                <a href="@link.Url" title="@link.Text">
+                    <li>@link.Text</li>
+                </a>
+            }
+        </ul>
+
+        <h2 class="h3">What's on in Stockport</h2>
     </article>
 </div>
