@@ -5,6 +5,7 @@
     ViewData["Title"] = Model.Homepage.Title;
     ViewData["og:title"] = Model.Homepage.Title;
     ViewData["WhiteBackground"] = true;
+    ViewData["FullWidth"] = "full-width";
     Layout = "../Shared/_LayoutSemantic.cshtml";
     var crumbsList = new List<Crumb>();
 }
@@ -15,26 +16,25 @@
 
 <div class="comms-homepage">
     <article class="with-aside page-container">
-        <h1>@Model.Homepage.Title</h1>
-        
-        @if (Model.LatestNews != null)
-        {
-            <h2>@Model.Homepage.LatestNewsHeader</h2>
-            <section class="latest-news">
-                <div class="news-details">
-                    <div class="date">
-                        <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
-                        <partial name="FormattedDate" model='Model.LatestNews.SunriseDate'/>
-                    </div>
-                    <span class="status-news">@Model.LatestNews.Type</span>
+        <h1 class="comms-homepage-header">@Model.Homepage.Title</h1>
+
+        <section class="latest-news">
+            <h2 class="latest-news-header">@Model.Homepage.LatestNewsHeader</h2>
+            <div class="latest-news-details">
+                <div class="latest-news-details-date">
+                    <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+                    <partial name="FormattedDate" model='Model.LatestNews.SunriseDate'/>
                 </div>
-                <a href="@Url.Action("Details", "News", new {Slug = Model.LatestNews.Slug})">
-                    <h1 class="h2">@Model.LatestNews.Title</h1>
-                    <p>@Model.LatestNews.Teaser</p>
-                </a>
-                <a href="@Url.Action("Index", "News")" class="button-tertiary-inverted">View more news</a>
-            </section>
-        }
+                <span class="status-news">@Model.LatestNews.Purpose</span>
+            </div>
+
+            <a href="@Url.Action("Detail", "News", new {Model.LatestNews.Slug})" class="latest-news-anchor">
+                <h3 class="h2">@Model.LatestNews.Title</h3>
+                <p>@Model.LatestNews.Teaser</p>
+            </a>
+
+            <a href="@Url.Action("Index", "News")" class="button-inverted">View more news</a>
+        </section>
 
         <h2>@Model.Homepage.TwitterFeedHeader</h2>
         <h2>@Model.Homepage.InstagramFeedTitle</h2>

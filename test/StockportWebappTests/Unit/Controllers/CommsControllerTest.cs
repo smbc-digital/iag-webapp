@@ -39,6 +39,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 "News 2nd September",
                 "news-2nd-september",
                 "test",
+                "purpose",
                 "",
                 "",
                 "test",

@@ -8,7 +8,7 @@ namespace StockportWebapp.Models
         public string Title { get; }
         public string Slug { get; }
         public string Teaser { get; }
-        public string Type { get; set; }
+        public string Purpose { get; set; }
         public string Image { get; }
         public string ThumbnailImage { get; }
         public string Body { get; }
@@ -19,12 +19,12 @@ namespace StockportWebapp.Models
         public List<string> Tags { get; }
         public IEnumerable<Document> Documents { get; set; }
 
-        public News(string title, string slug, string teaser, string type, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags, IEnumerable<Document> documents )
+        public News(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags, IEnumerable<Document> documents )
         {
             Title = title;
             Slug = slug;
             Teaser = teaser;
-            Type = type;
+            Purpose = purpose;
             Image = image;
             ThumbnailImage = thumbnailImage;
             Body = body;

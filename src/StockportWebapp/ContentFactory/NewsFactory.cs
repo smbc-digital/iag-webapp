@@ -24,7 +24,7 @@ namespace StockportWebapp.ContentFactory
             body = _markdownWrapper.ConvertToHtml(body ?? "");
             body = _documentTagParser.Parse(body, news.Documents);
 
-            return new ProcessedNews(news.Title, news.Slug, news.Teaser, news.Image, news.ThumbnailImage, body, news.Breadcrumbs, news.SunriseDate, news.SunsetDate, news.Alerts, news.Tags);
+            return new ProcessedNews(news.Title, news.Slug, news.Teaser, news.Purpose, news.Image, news.ThumbnailImage, body, news.Breadcrumbs, news.SunriseDate, news.SunsetDate, news.Alerts, news.Tags);
         }
     }
 }

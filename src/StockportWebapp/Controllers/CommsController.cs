@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
@@ -25,7 +26,18 @@ namespace StockportWebapp.Controllers
 
             var commsHomepage = response.Content as CommsHomepage;
             var latestNewsResponse = await _repository.GetLatest<List<News>>(1);
+
+            if (!latestNewsResponse.IsSuccessful())
+            {
+                return latestNewsResponse;
+            }
+
             var latestNews = latestNewsResponse.Content as List<News>;
+
+            if (latestNews == null || !latestNews.Any())
+            {
+                return NotFound();
+            }
 
             var viewModel = new CommsHomepageViewModel
             {
