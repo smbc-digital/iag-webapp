@@ -39,6 +39,7 @@
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Event.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\Body.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\NewsArticle.cshtml" />

@@ -1,4 +1,5 @@
 ﻿@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
 @model StockportWebapp.Models.CommsHomepage
 @{
     ViewData["Title"] = Model.Title;
@@ -9,7 +10,7 @@
 }
 
 @section Breadcrumbs {
-    <partial name="SemanticBreadcrumb" model='@crumbsList' />
+    <partial name="../Shared/SemanticBreadcrumb.cshtml" model='@crumbsList' />
 }
 
 <div class="comms-homepage">
@@ -24,7 +25,7 @@
         @{
             ViewData["SignUpAlertsTopicIdTopicId"] = "UKSMBC_136";
         }
-        <partial name="SignUpAlerts" />
+        <partial name="../Shared/SignUpAlerts.cshtml" />
         <h2 class="h3">Useful links</h2>
         <ul class="useful-links">
             @foreach (var link in Model.UsefullLinks)
@@ -34,7 +35,7 @@
                 </a>
             }
         </ul>
-
         <h2 class="h3">What's on in Stockport</h2>
+        <partial name="../Shared/Event.cshtml" model='@Model.WhatsOnInStockportEvent' />
     </article>
 </div>
