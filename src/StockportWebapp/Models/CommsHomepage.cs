@@ -6,7 +6,7 @@ namespace StockportWebapp.Models
     {
         public string Title { get; set; }
 
-        public SpotlightBanner SpotlightBanner { get; set; }
+        public CallToActionBanner CallToActionBanner { get; set; }
 
         public string LatestNewsHeader { get; set; }
 
