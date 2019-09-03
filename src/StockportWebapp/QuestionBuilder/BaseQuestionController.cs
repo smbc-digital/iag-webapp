@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using StockportWebapp.Http;
 using StockportWebapp.ViewModels;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.QuestionBuilder
 {
@@ -30,8 +31,9 @@ namespace StockportWebapp.QuestionBuilder
         private readonly FeatureToggles _featureToggles;
         private readonly IConfiguration _config;
         private readonly ILogger<BaseQuestionController<T, M>> _logger;
+        private readonly ISmartAnswerStringHelper SmartAnswerStringHelper;
 
-        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, FeatureToggles featureToggles, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
+        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, FeatureToggles featureToggles, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger, ISmartAnswerStringHelper smartAnswerStringHelper)
         {
 
             var slug = string.Empty;
@@ -55,6 +57,7 @@ namespace StockportWebapp.QuestionBuilder
             _logger = logger;
             Structure = questionLoader.LoadQuestions<GenericSmartAnswersQuestions>(slug, ref Title).Structure;
             Slug = slug;
+            SmartAnswerStringHelper = smartAnswerStringHelper;
         }
 
         [HttpPost]
@@ -130,6 +133,7 @@ namespace StockportWebapp.QuestionBuilder
 
         public async Task<IActionResult> RunBehaviours(Page page)
         {
+            SmartAnswerStringHelper smartAnswerStringHelper = new SmartAnswerStringHelper();
 
             var allAnswers = page.GetCombinedAnswers();
 
@@ -218,7 +222,7 @@ namespace StockportWebapp.QuestionBuilder
 
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
-            result.Page.Description = checkSpecialText(result.Page.Description, result.Page.PreviousAnswers);
+            result.Page.Description = SmartAnswerStringHelper.DescriptionTextParser(result.Page.Description, result.Page.PreviousAnswers);
 
             if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(result.Slug))
             {
@@ -227,67 +231,67 @@ namespace StockportWebapp.QuestionBuilder
             return View(result);
         }
 
-        private string checkSpecialText(string description, IList<Answer> prevAnswers)
-        {
-            var openBoi = description.Count(x => x == '{');
-            var closedBoi = description.Count(x => x == '}');
-            if (openBoi != closedBoi)
-            {
-                return description;
-            }
+        //private string checkSpecialText(string description, IList<Answer> prevAnswers)
+        //{
+        //    var openBoi = description.Count(x => x == '{');
+        //    var closedBoi = description.Count(x => x == '}');
+        //    if (openBoi != closedBoi)
+        //    {
+        //        return description;
+        //    }
 
-            if (openBoi > 1)
-            {
-                var descSpilt = description.Split('}');
-                descSpilt = descSpilt.Take(descSpilt.Count() - 1).ToArray();
+        //    if (openBoi > 1)
+        //    {
+        //        var descSpilt = description.Split('}');
+        //        descSpilt = descSpilt.Take(descSpilt.Count() - 1).ToArray();
 
-                foreach (var decSplitRow in descSpilt)
-                {
-                    var indDescSplit = decSplitRow.Replace("{", "").Replace("}", "").Split(':');
+        //        foreach (var decSplitRow in descSpilt)
+        //        {
+        //            var indDescSplit = decSplitRow.Replace("{", "").Replace("}", "").Split(':');
 
-                    foreach (Answer answer in prevAnswers)
-                    {
-                        if (answer.QuestionId == indDescSplit[0] && answer.Response == indDescSplit[1])
-                        {
-                            description = indDescSplit[2];
-                            return description;
-                        }
-                    }
+        //            foreach (Answer answer in prevAnswers)
+        //            {
+        //                if (answer.QuestionId == indDescSplit[0] && answer.Response == indDescSplit[1])
+        //                {
+        //                    description = indDescSplit[2];
+        //                    return description;
+        //                }
+        //            }
 
-                }
-                return description;
-            }
-            else
-            {
-                var indDescSplit = description.Replace("{", "").Replace("}", "").Split(':');
-                if (indDescSplit.Length == 2)
-                {
-                    foreach (Answer answer in prevAnswers)
-                    {
-                        if (answer.QuestionId == indDescSplit[1].Trim())
-                        {
-                            description = indDescSplit[0] + ": " + answer.Response;
-                            return description;
-                        }
-                    }
-                    return description;
-                }
-                else
-                {
-                    foreach (Answer answer in prevAnswers)
-                    {
-                        if (answer.QuestionId == indDescSplit[0] && answer.Response == indDescSplit[1])
-                        {
-                            description = indDescSplit[2];
-                            return description;
-                        }
-                    }
-                    return description;
+        //        }
+        //        return description;
+        //    }
+        //    else
+        //    {
+        //        var indDescSplit = description.Replace("{", "").Replace("}", "").Split(':');
+        //        if (indDescSplit.Length == 2)
+        //        {
+        //            foreach (Answer answer in prevAnswers)
+        //            {
+        //                if (answer.QuestionId == indDescSplit[1].Trim())
+        //                {
+        //                    description = indDescSplit[0] + ": " + answer.Response;
+        //                    return description;
+        //                }
+        //            }
+        //            return description;
+        //        }
+        //        else
+        //        {
+        //            foreach (Answer answer in prevAnswers)
+        //            {
+        //                if (answer.QuestionId == indDescSplit[0] && answer.Response == indDescSplit[1])
+        //                {
+        //                    description = indDescSplit[2];
+        //                    return description;
+        //                }
+        //            }
+        //            return description;
 
-                }
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
         public Page GetPage(int pageId)
         {
