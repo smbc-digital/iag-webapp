@@ -137,8 +137,6 @@ namespace StockportWebapp.QuestionBuilder
 
             var allAnswers = page.GetCombinedAnswers();
 
-            var isCompliment = page.Questions.Any(_ => _.QuestionId.Contains("compliment"));
-
             IBehaviour behaviour = null;
 
             if (page.Behaviours != null)
@@ -173,10 +171,10 @@ namespace StockportWebapp.QuestionBuilder
                         var authenticationKey = _config["DTSHandOffAuthenticationKey"];
                         _logger.LogInformation($"------Authentication key: {authenticationKey}");
 
-                        _logger.LogInformation($"------{behaviour.Value}hand-off-data");
+                        _logger.LogInformation($"------{behaviour.Value}");
                         try
                         {
-                            var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
+                            var guid = await _client.PostAsyncMessage($"{behaviour.Value}", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
                             _logger.LogInformation($"------{guid ?? null}");
                             if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
                             {
@@ -184,15 +182,8 @@ namespace StockportWebapp.QuestionBuilder
                             }
                             else
                             {
-                                if (isCompliment)
-                                {
-                                    //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                                    return Redirect($"{behaviour.Value}success?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                                }
-                                else
-                                {
-                                    return Redirect($"{behaviour.Value}contact-details?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                                }
+                                //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                return Redirect($"{behaviour.RedirectValue}?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                             }
                                 
                         }
