@@ -160,4 +160,7 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\stockportgov\Comms\" />
+  </ItemGroup>
 </Project>
