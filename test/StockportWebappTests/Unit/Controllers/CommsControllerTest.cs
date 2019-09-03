@@ -17,15 +17,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
     {
         private readonly Mock<IRepository> _mockRepository = new Mock<IRepository>();
         private readonly CommsController _controller;
-//        private static readonly News ExampleNews = new News(
-//            "News 2nd September",
-//            "news-2nd-september",
-//            "test",
-//            "",
-//            "",
-//            "test",
-//            new List<Crumb>(), new DateTime(2019, 9, 2), new DateTime(2019, 9, 2), new List<Alert>(),
-//            new List<string>(), new List<Document>());
 
         public CommsControllerTest()
         {
@@ -48,7 +39,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             // Arrange
             _mockRepository
-                .Setup(_ => _.GetLatest<News>(It.IsAny<int>()))
+                .Setup(_ => _.GetLatest<List<News>>(It.IsAny<int>()))
                 .ReturnsAsync(HttpResponse.Successful(200, new List<News>{ exampleNews }));
             _mockRepository
                 .Setup(_ => _.Get<CommsHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))

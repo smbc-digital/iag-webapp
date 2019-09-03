@@ -57,7 +57,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics,  alerts, carouselContents, "image.jpg", new List<News>(),  "homepage text", null, "", "meta description");
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
-            var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
+            var newsContent = new News("title", "slug", "teaser", "purpose", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
             var eventsContent = new Event { Title = "title", EventDate = new DateTime(2017, 01, 01), Featured = true };
 
             // Mock
@@ -129,7 +129,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var homePageContent = new ProcessedHomepage(popularSearchTerms, "heading", "summary", featuredTasks, featuredTopics, alerts, carouselContents, "image.jpg", new List<News>(), "homepage text", null, "", "meta description");
             var sunrise = new DateTime(2015, 9, 10);
             var sunset = new DateTime(2015, 9, 20);
-            var newsContent = new News("title", "slug", "teaser", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
+            var newsContent = new News("title", "slug", "teaser", "purpose", "image", "thumbnail", "body", new List<Crumb>(), sunrise, sunset, new List<Alert>(), new List<string>(), new List<Document>());
 
             // Mock
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
