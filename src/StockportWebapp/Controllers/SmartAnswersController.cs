@@ -12,6 +12,7 @@ using StockportWebapp.QuestionBuilder;
 using StockportWebapp.QuestionBuilder.Maps;
 using StockportWebapp.Services;
 using StockportWebapp.ViewModels;
+using StockportWebapp.Utils;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -24,7 +25,7 @@ namespace StockportWebapp.Controllers
         private readonly ISmartResultService _service;
         private readonly FeatureToggles _featuretogles;
 
-        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggles, ISmartResultService service, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger) : base(HttpContextAccessor, questionLoader, FeatureToggles, _client, _config, logger)
+        public SmartAnswersController(IHttpContextAccessor HttpContextAccessor, QuestionLoader questionLoader, FeatureToggles FeatureToggles, ISmartResultService service, IHttpClient _client, IConfiguration _config, ILogger<BaseQuestionController<GenericSmartAnswersModel, GenericSmartAnswersMap>> logger, ISmartAnswerStringHelper smartAnswerStringHelper) : base(HttpContextAccessor, questionLoader, FeatureToggles, _client, _config, logger, smartAnswerStringHelper)
         {
             _service = service;
             _featuretogles = FeatureToggles;

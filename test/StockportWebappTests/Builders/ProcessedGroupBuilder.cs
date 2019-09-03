@@ -43,6 +43,7 @@ namespace StockportWebappTests_Unit.Builders
         private Donations _donations = new Donations();
         private string _additionalInformation = "additional information";
         private List<Document> _additionalDocuments = new List<Document>();
+        private List<GroupBranding> _groupBranding = new List<GroupBranding>();
 
         public ProcessedGroup Build()
         {
@@ -78,7 +79,8 @@ namespace StockportWebappTests_Unit.Builders
                 _additionalDocuments,
                 _donationsText,
                 _donationsUrl,
-                _dateLastModified
+                _dateLastModified,
+                _groupBranding
             );
         }
 

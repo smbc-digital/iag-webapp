@@ -20,6 +20,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private const string Title = "News 26th Aug";
         private const string Slug = "news-26th-aug";
         private const string Teaser = "teaser";
+        private const string Purpose = "purpose";
         private const string Image = "image";
         private const string ThumbnailImage = "image";
         private const string Body = "body";
@@ -37,7 +38,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object,_documentTagParser.Object);
-            _news = new News(Title, Slug, Teaser, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _alerts,_tags,_documents);
+            _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _alerts,_tags,_documents);
 
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);

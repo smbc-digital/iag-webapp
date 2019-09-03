@@ -9,6 +9,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly string Title;
         public readonly string Slug;
         public readonly string Teaser;
+        public readonly string Purpose;
         public readonly string Image;
         public readonly string ThumbnailImage;
         public readonly string Body;
@@ -18,11 +19,12 @@ namespace StockportWebapp.ProcessedModels
         public readonly List<Alert> Alerts;
         public readonly List<string> Tags;
 
-        public ProcessedNews(string title, string slug, string teaser, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags )
+        public ProcessedNews(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags )
         {
             Title = title;
             Slug = slug;
             Teaser = teaser;
+            Purpose = purpose;
             Image = image;
             ThumbnailImage = thumbnailImage;
             Body = body;

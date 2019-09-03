@@ -39,7 +39,7 @@ namespace StockportWebapp.ViewDetails
         [MaxLength(500, ErrorMessage = "The enquiry message must be no more than 500 characters long")]
         [StringLength(500, ErrorMessage = "Too much string")]
         public string Message { get; set; }
-        
+
 
         public IEnumerable<Crumb> Breadcrumbs = new List<Crumb>();
 

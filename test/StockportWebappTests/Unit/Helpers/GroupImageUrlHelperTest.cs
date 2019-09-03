@@ -11,19 +11,6 @@ namespace StockportWebappTests_Unit.Unit.Helpers
     public class GroupImageURLHelperTest
     {
         [Fact]
-        public void ShouldReturnGroupsImageUrlIfExists()
-        {
-            // Arrange
-            var groupWithImage = new GroupBuilder().Build();
-
-            // Act
-            var outputImageUrl = GroupImageUrlHelper.GetImageUrl(groupWithImage);
-
-            // Assert
-            outputImageUrl.Should().Be(groupWithImage.ImageUrl);
-        }
-
-        [Fact]
         public void ShouldReturnFirstCategoryImageUrlIfGroupImageUrlIsEmptyButFirstCategoryImageUrlIsNot()
         {
             // Arrange
@@ -45,7 +32,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
         }
 
         [Fact]
-        public void ShouldReturnEmptyStringIfTheGroupImageUrlisEmptyAndThereAreNoGroupCategories()
+        public void ShouldReturnEmptyStringIfThereAreNoGroupCategories()
         {
             // Arrange
             var group = new GroupBuilder().Image(string.Empty).Build();
@@ -58,7 +45,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
         }
 
         [Fact]
-        public void ShouldReturnSecondCategoryImageUrlIfGroupImageUrlIsEmptyAndFirstCategoryImageUrlIsEmptyButSecondCategoryImageUrlIsNot()
+        public void ShouldReturnSecondCategoryImageUrlIfFirstCategoryImageUrlIsEmptyButSecondCategoryImageUrlIsNot()
         {
             // Arrange
             var groupCategoryWithOutImageUrl = new GroupCategory()

@@ -14,8 +14,8 @@ namespace StockportWebapp.Http
         Task<HttpResponse> PostAsync(string requestURI, HttpContent content, Dictionary<string, string> headers);
         Task<HttpResponse> PutAsync(string requestURI, HttpContent content, Dictionary<string, string> headers);
         Task<HttpResponse> DeleteAsync(string requestURI, Dictionary<string, string> headers);
-        Task<HttpResponseMessage> PostAsyncMessage(string requestURI, HttpContent content,
-            Dictionary<string, string> headers);
+        Task<HttpResponseMessage> PostAsyncMessage(string requestURI, HttpContent content, Dictionary<string, string> headers);
+        Task PostMessage(string requestURI, HttpContent content, Dictionary<string, string> headers);
     }
 
     public class HttpClient : IHttpClient
@@ -106,6 +106,16 @@ namespace StockportWebapp.Http
             return new HttpResponse((int)task.StatusCode,
                                     null,
                                     task.ReasonPhrase);
+        }
+
+        public Task PostMessage(string requestURI, HttpContent content, Dictionary<string, string> headers)
+        {
+            headers.ToList().ForEach(header =>
+            {
+                _client.DefaultRequestHeaders.Remove(header.Key);
+                _client.DefaultRequestHeaders.Add(header.Key, header.Value);
+            });
+            return _client.PostAsync(requestURI, content);
         }
     }
 }

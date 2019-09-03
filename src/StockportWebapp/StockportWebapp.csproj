@@ -37,10 +37,14 @@
     <Content Remove="app-config\injected\appsettings.integrationtest.secrets.json" />
     <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\Event.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\Body.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\NewsArticle.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\PrimaryItems.cshtml" />
+    <Content Remove="Views\stockportgov\Shared\SignUpAlerts.cshtml" />
     <Content Remove="Views\stockportgov\Shared\TagManager\TagManager.cshtml" />
     <Content Remove="Views\stockportgov\Shared\TagManager\TagManagerDataLayer.cshtml" />
     <Content Remove="Views\stockportgov\Shared\TagManager\TagManagerNoScript.cshtml" />
@@ -75,7 +79,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.5" />
     <PackageReference Include="Markdig" Version="0.15.4" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.1" />
@@ -122,6 +126,12 @@
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
+    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
@@ -149,5 +159,8 @@
     <Content Update="wwwroot\assets\stylesheets\styleguide-sg.min.css">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\stockportgov\Comms\" />
   </ItemGroup>
 </Project>

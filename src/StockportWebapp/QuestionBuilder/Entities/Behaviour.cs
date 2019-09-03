@@ -10,6 +10,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
         public EQuestionType BehaviourType { get; set; }
         public IList<Condition> Conditions { get; set; }
         public string Value { get; set; }
+        public string RedirectValue { get; set; }
         
         public bool ShouldTrigger(IList<Answer> responses)
         {

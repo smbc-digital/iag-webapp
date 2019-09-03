@@ -10,7 +10,7 @@
 
     padding-bottom: 0;
 
-    section ul .group-information, .directions-list{
+    section ul .group-information, .directions-list {
         margin-bottom: 10px;
     }
 
@@ -25,11 +25,11 @@
 
     h1 {
         color: $colorPrimary;
-        font-size: 4.250em;
+        font-size: 50px;
         font-weight: 600;
 
         @media #{$mobile } {
-            font-size: 2.25em;
+            font-size: 30px;
         }
     }
 
@@ -43,16 +43,21 @@
     .group-image {
         margin-bottom: 15px;
         position: relative;
-        width: 100%;
-        height: 225px;
+        width: 464px;
+        height: 224px;
 
         @media #{$mobile} {
-            height: 160px;
+            height: 100%;
+            width: 100%;
         }
 
         img {
             position: absolute;
-            clip: rect(0,1000px,226px,0);
+            border-radius: 2px;
+
+            @media #{$mobile} {
+                position: relative;
+            }
         }
     }
 
@@ -68,6 +73,89 @@
 
     section {
         display: inline-block;
+    }
+
+    div.group-branding {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -50px;
+
+        @media #{$mobile} {
+            flex-direction: column;
+            margin: 0;
+        }
+
+        div.group-branding-item {
+            width: calc(25% - 25px);
+            display: flex;
+            flex-direction: column;
+            margin: 0 25px 25px 0;
+            padding: 0 25px 0 0;
+            box-sizing: border-box;
+
+            p {
+                margin: -10px 0 10px 0;
+            }
+
+            &:not(:nth-child(4n)) {
+                border-right: 1px solid #ccc;
+
+                @media #{$mobile} {
+                    border-right: none;
+                }
+            }
+
+            &:nth-child(4n) {
+                margin: 0 0 25px 0;
+
+                @media #{$mobile} {
+                    margin: 0 0 10px 0;
+                }
+            }
+
+            &:last-of-type {
+                border: none;
+
+                @media #{$mobile} {
+                    margin: 0 0 10px 0;
+                    padding: 0;
+                }
+            }
+
+            @media #{$mobile} {
+                padding: 0 0 25px 0;
+                margin: 0 0 25px 0;
+                width: 100%;
+                border-bottom: 1px solid #ccc;
+            }
+        }
+
+        div.group-branding-item-image {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            a {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            @media #{$mobile} {
+                justify-content: flex-start;
+
+                a {
+                    align-items: flex-start;
+                }
+            }
+
+            img {
+                max-width: 100%;
+                max-height: 100px;
+            }
+        }
     }
 
 
@@ -225,7 +313,7 @@
             }
         }
 
-   
+
         p {
             font-weight: 400;
         }

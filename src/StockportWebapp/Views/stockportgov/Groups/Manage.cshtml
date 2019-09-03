@@ -1,15 +1,16 @@
-﻿@using StockportWebapp.Models
-@using StockportWebapp.ViewModels
+﻿@using StockportWebapp.ViewModels
 @using StockportWebapp.Utils
+@using StockportWebapp.Models
 @model GroupManagePage
 @{
     ViewData["Title"] = "Manage your groups";
     ViewData["og:title"] = "Manage your groups";
     Layout = "../Shared/_Layout.cshtml";
+    var crumbs = new List<Crumb>() {new Crumb("Stockport Local", "groups", "Group") };
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") }'/>
+    <partial name="Breadcrumb" model='@crumbs'/>
 }
 
 <div class="l-page-content" id="content-no-margin-bottom-mainpage">
@@ -29,14 +30,11 @@
                 <div class="l-content-container grid-100 group-margin">
                     <div class="sk-table-outer-container">
                         <div class="sk-table-body">
-                            <div class="grid-100 sk-table-row grid-parent">
-                                <div class="grid-75 tablet-grid-60 mobile-grid-100 sk-table-cell">
-                                    <h2>Your groups</h2>
-                                </div>
-                                <div class="grid-25 tablet-grid-40 hide-on-mobile sk-table-cell">
-                                    <div class="header-right-button">
-                                        <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
-                                    </div>
+                            <div class="sk-table-row sk-table-cell groups-admin-table-header">
+                                <h2>Your groups</h2>
+                                <div class="hide-on-mobile sk-table-cell">
+                                    <a href="@Model.ContactPageUrl">Need help?</a>
+                                    <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
                                 </div>
                             </div>
                             @if (Model.Groups.Count == 0)
@@ -81,8 +79,9 @@
                                         </div>
                                     </a>
                                 }
-
-                                <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
+                                
+                                <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet groups-admin-table-footer">
+                                    <a href="@Model.ContactPageUrl">Need help?</a>
                                     <stock-button as-link="true" class="sk-table white" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
                                 </div>
                             }

@@ -47,6 +47,7 @@ namespace StockportWebappTests_Unit.Builders
         private DateTime? _dateLastModified = null;
         private List<string> _suitableFor = new List<string>();
         private List<string> _ageRange = new List<string>();
+        private List<GroupBranding> _groupBranding = new List<GroupBranding>();
     
         public Group Build()
         {
@@ -81,6 +82,7 @@ namespace StockportWebappTests_Unit.Builders
                     _linkedGroups,
                     _donations,
                     _accessibleTransportLink,
+                    _groupBranding,
                     _additionalInformation,
                     _additionalDocuments,
                     _dateLastModified,
@@ -88,8 +90,6 @@ namespace StockportWebappTests_Unit.Builders
                     _ageRange,
                     _donationsText,
                     _donationsUrl
-
-                    
                 );
         }
 

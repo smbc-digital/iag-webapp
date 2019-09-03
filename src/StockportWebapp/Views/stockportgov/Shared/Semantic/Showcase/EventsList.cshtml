@@ -10,23 +10,8 @@
 
                 foreach (var item in Model.Events)
                 {
-                    var fee = item.Fee;
-                    if (item.Fee == "0")
-                    {
-                        fee = "Free";
-
-                    }
-
                     <li class="@(index > 0 ? "hide-on-mobile" : "") @(index > 1 ? "hide-on-tablet" : "")">
-                        <a href="/events/@item.Slug">
-                            <img src="@item.ImageUrl" />
-                            <h3>@item.Title</h3>
-                            <div class="featured-event-item">
-                                <span class="fa fa-gbp"></span><p>@fee</p>
-                                <span class="fa fa-clock-o"></span><p>@ViewHelpers.FormatEventDate(item.EventDate, item.StartTime)</p>
-                                <span class="fa fa-map-marker"></span><p>@item.Location</p>
-                            </div>
-                        </a>
+                        <partial name="../../Event.cshtml" model="@item"/>
                     </li>
                     index++;
                 }

@@ -12,6 +12,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
         public string QuestionRenderer { get; set; }
         public string Label { get; set; }
         public string SecondaryInfo { get; set; }
+        public string TextSubLabel { get; set; }
         public IList<QuestionOption> Options { get; set; }
         public string Response { get; set; }
         public IList<ValidatorData> ValidatorData { get; set; } = new List<ValidatorData>();

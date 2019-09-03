@@ -15,6 +15,7 @@ using Newtonsoft.Json;
 using StockportWebapp.Http;
 using StockportWebapp.ViewModels;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.QuestionBuilder
 {
@@ -29,10 +30,12 @@ namespace StockportWebapp.QuestionBuilder
         private readonly IHttpClient _client;
         private readonly FeatureToggles _featureToggles;
         private readonly IConfiguration _config;
-        private readonly ILogger<BaseQuestionController<T,M>> _logger;
+        private readonly ILogger<BaseQuestionController<T, M>> _logger;
+        private readonly ISmartAnswerStringHelper SmartAnswerStringHelper;
 
-        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, FeatureToggles featureToggles, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger)
+        protected BaseQuestionController(IHttpContextAccessor httpContextAccessor, QuestionLoader questionLoader, FeatureToggles featureToggles, IHttpClient client, IConfiguration config, ILogger<BaseQuestionController<T, M>> logger, ISmartAnswerStringHelper smartAnswerStringHelper)
         {
+
             var slug = string.Empty;
             var url = httpContextAccessor.HttpContext.Request.Path.ToString();
             if (url.IndexOf("smart/") > 0)
@@ -54,6 +57,7 @@ namespace StockportWebapp.QuestionBuilder
             _logger = logger;
             Structure = questionLoader.LoadQuestions<GenericSmartAnswersQuestions>(slug, ref Title).Structure;
             Slug = slug;
+            SmartAnswerStringHelper = smartAnswerStringHelper;
         }
 
         [HttpPost]
@@ -69,7 +73,7 @@ namespace StockportWebapp.QuestionBuilder
                     page.PreviousAnswers = JsonConvert.DeserializeObject<IList<Answer>>(tempJson);
                     page.PreviousAnswersJson = tempJson;
                 }
-                   
+
                 page.ValidateQuestions();
 
                 if (page.HasValidationErrors())
@@ -85,9 +89,9 @@ namespace StockportWebapp.QuestionBuilder
                 }
             }
 
-            var action = await RunBehaviours(page);             
-                  
-            if(!page.ShouldCache)
+            var action = await RunBehaviours(page);
+
+            if (!page.ShouldCache)
             {
                 AddNoCacheHeaders(HttpContextAccessor);
             }
@@ -110,14 +114,14 @@ namespace StockportWebapp.QuestionBuilder
             page.ValidateQuestions();
             return new JsonResult(page.GetValidationResults());
         }
-        
+
         [HttpPost]
-        [Route("submitanswers")]      
+        [Route("submitanswers")]
         public IActionResult SubmitAnswers(Page page)
         {
-            var results = GetMappedResult(page.GetCombinedAnswers());            
+            var results = GetMappedResult(page.GetCombinedAnswers());
             return ProcessResults(results, page.Endpoint);
-        } 
+        }
 
         public abstract IActionResult ProcessResults(T result, string endpointName);
 
@@ -129,9 +133,10 @@ namespace StockportWebapp.QuestionBuilder
 
         public async Task<IActionResult> RunBehaviours(Page page)
         {
+            SmartAnswerStringHelper smartAnswerStringHelper = new SmartAnswerStringHelper();
 
             var allAnswers = page.GetCombinedAnswers();
-            
+
             IBehaviour behaviour = null;
 
             if (page.Behaviours != null)
@@ -166,10 +171,10 @@ namespace StockportWebapp.QuestionBuilder
                         var authenticationKey = _config["DTSHandOffAuthenticationKey"];
                         _logger.LogInformation($"------Authentication key: {authenticationKey}");
 
-                        _logger.LogInformation($"------{behaviour.Value}hand-off-data");
+                        _logger.LogInformation($"------{behaviour.Value}");
                         try
                         {
-                            var guid = await _client.PostAsyncMessage($"{behaviour.Value}hand-off-data", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
+                            var guid = await _client.PostAsyncMessage($"{behaviour.Value}", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
                             _logger.LogInformation($"------{guid ?? null}");
                             if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
                             {
@@ -177,9 +182,10 @@ namespace StockportWebapp.QuestionBuilder
                             }
                             else
                             {
-                                _logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
-                                return Redirect($"{behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
+                                return Redirect($"{behaviour.RedirectValue}?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                             }
+                                
                         }
                         catch (Exception e)
                         {
@@ -204,8 +210,10 @@ namespace StockportWebapp.QuestionBuilder
                 Slug = Slug,
                 Title = Title
             };
-            
+
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
+
+            result.Page.Description = SmartAnswerStringHelper.DescriptionTextParser(result.Page.Description, result.Page.PreviousAnswers);
 
             if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(result.Slug))
             {
@@ -241,7 +249,7 @@ namespace StockportWebapp.QuestionBuilder
                 fullQuestion.Response = postedQuestion.Response;
             });
             fullPage.PreviousAnswers = pageToProcess.PreviousAnswers;
-            
+
             return fullPage;
         }
 
@@ -258,3 +266,4 @@ namespace StockportWebapp.QuestionBuilder
 
     }
 }
+

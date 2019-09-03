@@ -1,0 +1,86 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.ViewModels
+@model StockportWebapp.ViewModels.CommsHomepageViewModel
+@{
+    ViewData["Title"] = Model.Homepage.Title;
+    ViewData["og:title"] = Model.Homepage.Title;
+    ViewData["WhiteBackground"] = true;
+    ViewData["FullWidth"] = "full-width";
+    Layout = "../Shared/_LayoutSemantic.cshtml";
+    var crumbsList = new List<Crumb>();
+}
+
+@section Breadcrumbs {
+    <partial name="../Shared/SemanticBreadcrumb.cshtml" model='@crumbsList' />
+}
+
+<div class="comms-homepage">
+    <h1 class="comms-homepage-header">@Model.Homepage.Title</h1>
+    
+    <a class="call-to-action-banner-container" href="@Model.Homepage.CallToActionBanner.Link">
+        <div>
+            <h2>@Model.Homepage.CallToActionBanner.Title</h2>
+            <div class="button-tertiary">@Model.Homepage.CallToActionBanner.ButtonText</div>
+        </div>
+        <img src="@Model.Homepage.CallToActionBanner.Image" alt="@Model.Homepage.CallToActionBanner.AltText" />
+    </a>
+
+    <article class="with-aside">
+        <section class="latest-news">
+            <h2 class="latest-news-header">@Model.Homepage.LatestNewsHeader</h2>
+            <div class="latest-news-details">
+                <div class="latest-news-details-date">
+                    <i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+                    <partial name="FormattedDate" model='Model.LatestNews.SunriseDate' />
+                </div>
+                <span class="status-news">@Model.LatestNews.Purpose</span>
+            </div>
+
+            <a href="@Url.Action("Detail", "News", new {Model.LatestNews.Slug})" class="latest-news-anchor">
+                <h3 class="h2">@Model.LatestNews.Title</h3>
+                <p>@Model.LatestNews.Teaser</p>
+            </a>
+
+            <a href="@Url.Action("Index", "News")" class="button-inverted">View more news</a>
+        </section>
+
+        <h2>@Model.Homepage.TwitterFeedHeader</h2>
+        <div class="iframe-container" title ="Twitter Feed" aria-label ="Twitter Feed">
+            <a class="twitter-timeline" href="https://twitter.com/StockportMBC?ref_src=twsrc%5Etfw" height="500" width="500">Tweets by StockportMBC</a>
+            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+        <h2>@Model.Homepage.InstagramFeedTitle</h2>
+        <div class="iframe-container" title ="Instagram Feed" aria-label ="Instagram Feed">
+            <iframe src="@Model.Homepage.InstagramLink/embed" class="instagram"></iframe>
+        </div>
+        <h2>@Model.Homepage.FacebookFeedTitle</h2>
+        <div class="iframe-container" title ="Facebook Feed" aria-label ="Facebook Feed">
+            <div id="fb-root"></div>
+            <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v4.0"></script>
+            <div class="fb-page" data-href="https://www.facebook.com/StockportMBC" data-tabs="timeline" data-width="500"
+                 data-height="500" data-small-header="true" data-adapt-container-width="true"
+                 data-hide-cover="false" data-show-facepile="true">
+                <blockquote cite="https://www.facebook.com/StockportMBC" class="fb-xfbml-parse-ignore">
+                    <a href="https://www.facebook.com/StockportMBC">Stockport Council</a>
+                </blockquote>
+            </div>
+        </div>
+    </article>
+    <aside class="article-aside">
+        @{
+            ViewData["SignUpAlertsTopicIdTopicId"] = "UKSMBC_136";
+        }
+        <partial name="../Shared/SignUpAlerts.cshtml" />
+        <h2 class="h3">Useful links</h2>
+        <ul class="useful-links">
+            @foreach (var link in Model.Homepage.UsefullLinks)
+            {
+                <a href="@link.Url" title="@link.Text">
+                    <li>@link.Text</li>
+                </a>
+            }
+        </ul>
+        <h2 class="h3">What's on in Stockport</h2>
+        <partial name="../Shared/Event.cshtml" model='@Model.Homepage.WhatsOnInStockportEvent' />
+    </aside>
+</div>

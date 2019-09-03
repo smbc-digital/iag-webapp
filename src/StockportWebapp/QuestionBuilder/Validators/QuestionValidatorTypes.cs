@@ -9,6 +9,6 @@
         public const string Name = "name";
         public const string Decimal = "decimal";
         public const string Checkbox = "checkbox";
-
+        public const string MaxLength = "max-length";
     }
 }
