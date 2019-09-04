@@ -100,14 +100,16 @@
 
 
         <section id="what-we-do">
-            <h2 class="group-details-heading">What we do</h2>
-            @Html.Raw(Model.Group.Description.StripEmojis())
+            <article class="what-we-do">
+                <h2 class="group-details-heading">What we do</h2>
+                @Html.Raw(Model.Group.Description.StripEmojis())
+                <hr/>
+            </article>
 
 
+            <partial name="Groups/VolunteeringBar" model='Model.Group.Volunteering'/>
+            <partial name="Groups/DonationsBar" model='Model.Group.Donations'/>
 
-            <partial name="Groups/VolunteeringBar" model='Model.Group.Volunteering' />
-            <partial name="Groups/DonationsBar" model='Model.Group.Donations' />
-            
             @if (Model.Group.GroupBranding.Any())
             {
                 <div class="group-branding">
@@ -123,7 +125,7 @@
                         </div>
                     }
                 </div>
-                <hr />
+                <hr/>
             }
         </section>
 
