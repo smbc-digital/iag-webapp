@@ -17,13 +17,16 @@
 <div class="comms-homepage">
     <h1 class="comms-homepage-header">@Model.Homepage.Title</h1>
     
-    <a class="call-to-action-banner-container" href="@Model.Homepage.CallToActionBanner.Link">
-        <div>
-            <h2>@Model.Homepage.CallToActionBanner.Title</h2>
-            <div class="button-tertiary">@Model.Homepage.CallToActionBanner.ButtonText</div>
-        </div>
-        <img src="@Model.Homepage.CallToActionBanner.Image" alt="@Model.Homepage.CallToActionBanner.AltText" />
-    </a>
+    @if (Model.Homepage.CallToActionBanner != null)
+    {
+        <a class="call-to-action-banner-container" href="@Model.Homepage.CallToActionBanner.Link">
+            <div>
+                <h2>@Model.Homepage.CallToActionBanner.Title</h2>
+                <div class="button-tertiary">@Model.Homepage.CallToActionBanner.ButtonText</div>
+            </div>
+            <img src="@Model.Homepage.CallToActionBanner.Image" alt="@Model.Homepage.CallToActionBanner.AltText"/>
+        </a>
+    }
 
     <article class="with-aside">
         <section class="latest-news">
