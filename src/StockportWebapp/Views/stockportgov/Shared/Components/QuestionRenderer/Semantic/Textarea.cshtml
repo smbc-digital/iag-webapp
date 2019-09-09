@@ -4,17 +4,22 @@
     var limitValue = @Model.ValidatorData.Any(_ => _.Type == "max-length") ? @Model.ValidatorData.FirstOrDefault(_ => _.Type == "max-length").Value : "500";
 }
 
-<div class="form-section question-section">
-    <h2 class="h3">@Model.Label</h2>
-    <span>@Model.TextSubLabel</span> 
-    <div class="enquiry-message">
-        @Html.TextArea("Response", "", new { @class = "", maxLength = @limitValue, data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
-        <partial name="_ValidationError.cshtml" model='Model' />
-        <span class="text-control chars-remaining">
-            <small></small>
-        </span><br/>
+    <div class="form-section question-section">
+        @{
+            if (!string.IsNullOrEmpty(Model.Label))
+            {
+                <h2 class="h3">@Model.Label</h2>
+            }
+        }
+        <span>@Model.TextSubLabel</span>
+        <div class="enquiry-message">
+            @Html.TextArea("Response", "", new { @class = "", maxLength = @limitValue, data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
+            <partial name="_ValidationError.cshtml" model='Model' />
+            <span class="text-control chars-remaining">
+                <small></small>
+            </span><br />
+        </div>
     </div>
-</div>
 
 <script type="text/javascript">
     require(['startup', 'text-limiter', 'iag-validate-chars', 'jquery.steps', 'utils', 'unobtrusive'],

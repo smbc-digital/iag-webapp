@@ -1,6 +1,11 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Page
 
-<span>@Html.Raw(Model.Description)</span>
+@{
+    if (!string.IsNullOrEmpty(Model.Description))
+    {
+        <h2>@Html.Raw(Model.Description)</h2>
+    }
+}
 
 @using (Html.BeginForm(Model.Action, null, FormMethod.Post, new { @class = "question-form" }))
 {
@@ -16,13 +21,13 @@
     }
 
     if (Model.DisplayNextButton)
-    {       
+    {
         <button disabled="disabled" type="submit" class="button-primary button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script button-width">@Model.ButtonText</button>
         if (Model.PageId != 0 && !Model.HideBackButton)
         {
-        <p><a class="back-button" href="javascript:history.go(-1)">Previous</a></p>    
+            <p><a class="back-button" href="javascript:history.go(-1)">Previous</a></p>
         }
-       
+
         <noscript>
             <input id="next-button" type="submit" value="Next step" class="button-primary button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />
         </noscript>

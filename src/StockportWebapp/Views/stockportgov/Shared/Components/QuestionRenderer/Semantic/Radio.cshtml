@@ -1,7 +1,12 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
 
     <div class="form-section question-section">
-        <h2 class="h3">@Model.Label</h2>
+        @{
+            if (!string.IsNullOrEmpty(Model.Label))
+            {
+                <h2 class="h3">@Model.Label</h2>
+            }
+        }
         @if (!String.IsNullOrEmpty(Model.SecondaryInfo))
         {
             <div class="grid-100" style="padding-left:0px;">

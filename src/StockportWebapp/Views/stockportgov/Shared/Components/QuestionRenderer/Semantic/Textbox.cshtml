@@ -4,12 +4,18 @@
     var limitValue = @Model.ValidatorData.Any(_ => _.Type == "max-length") ? @Model.ValidatorData.FirstOrDefault(_ => _.Type == "max-length").Value : "60";
 }
 
-<div class="form-section question-section">
-    <h2 class="h3">@Model.Label</h2>
-    <span style="font-size:15px; color:dimgrey;">@Model.TextSubLabel</span>
-    @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
-    <partial name="_ValidationError.cshtml" model='Model' />
-</div>
+    <div class="form-section question-section">
+        <h2 class="h3">@Model.Label</h2>
+        @{
+            if (!string.IsNullOrEmpty(Model.TextSubLabel))
+            {
+                <span style="font-size:15px; color:dimgrey;">@Model.TextSubLabel</span>
+            }
+        }
+
+        @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
+        <partial name="_ValidationError.cshtml" model='Model' />
+    </div>
 
 <script type="text/javascript">
     require(['startup', 'text-limiter', 'jquery.steps', 'utils', 'unobtrusive'],
