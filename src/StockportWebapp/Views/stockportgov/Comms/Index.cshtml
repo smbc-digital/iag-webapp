@@ -4,6 +4,7 @@
 @{
     ViewData["Title"] = Model.Homepage.Title;
     ViewData["og:title"] = Model.Homepage.Title;
+    ViewData["Description"] = Model.Homepage.MetaDescription;
     ViewData["WhiteBackground"] = true;
     ViewData["FullWidth"] = "full-width";
     Layout = "../Shared/_LayoutSemantic.cshtml";
@@ -71,7 +72,7 @@
     </article>
     <aside class="article-aside">
         @{
-            ViewData["SignUpAlertsTopicIdTopicId"] = "UKSMBC_136";
+            ViewData["SignUpAlertsTopicIdTopicId"] = Model.Homepage.EmailAlertsTopicId;
         }
         <partial name="../Shared/SignUpAlerts.cshtml" />
         <h2 class="h3">Useful links</h2>

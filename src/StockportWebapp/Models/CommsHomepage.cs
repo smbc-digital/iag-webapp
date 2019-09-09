@@ -6,6 +6,8 @@ namespace StockportWebapp.Models
     {
         public string Title { get; set; }
 
+        public string MetaDescription { get; set; }
+
         public CallToActionBanner CallToActionBanner { get; set; }
 
         public string LatestNewsHeader { get; set; }
@@ -21,5 +23,7 @@ namespace StockportWebapp.Models
         public IEnumerable<BasicLink> UsefullLinks { get; set; }
 
         public Event WhatsOnInStockportEvent { get; set; }
+
+        public string EmailAlertsTopicId { get; set; }
     }
 }
