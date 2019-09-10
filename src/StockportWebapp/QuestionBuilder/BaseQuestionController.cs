@@ -213,7 +213,10 @@ namespace StockportWebapp.QuestionBuilder
 
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);
 
-            result.Page.Description = SmartAnswerStringHelper.DescriptionTextParser(result.Page.Description, result.Page.PreviousAnswers);
+            if (!string.IsNullOrEmpty(result.Page.Description))
+            {
+                result.Page.Description = SmartAnswerStringHelper.DescriptionTextParser(result.Page.Description, result.Page.PreviousAnswers);
+            }
 
             if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(result.Slug))
             {
