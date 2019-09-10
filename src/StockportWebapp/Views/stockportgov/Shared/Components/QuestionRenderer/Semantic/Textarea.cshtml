@@ -1,7 +1,7 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
 
 @{
-    var limitValue = @Model.ValidatorData.Any(_ => _.Type == "max-length") ? @Model.ValidatorData.FirstOrDefault(_ => _.Type == "max-length").Value : "500";
+    var limitValue = @Model.ValidatorData.Any(_ => _.Type == "max-length") ? @Model.ValidatorData.FirstOrDefault(_ => _.Type == "max-length").Value : "2000";
 }
 
     <div class="form-section question-section">

@@ -5,7 +5,18 @@
 }
 
     <div class="form-section question-section">
-        <h2 class="h3">@Model.Label</h2>
+
+        @{
+            if (Model.ValidatorData.Count == 0)
+            {
+                <h2 class="h3 optional">@Model.Label</h2>
+                <p class="optional">(optional)</p>
+            }
+            else
+            {
+                <h2 class="h3" style="margin-bottom:0px">@Model.Label</h2>
+            }
+        }
         @{
             if (!string.IsNullOrEmpty(Model.TextSubLabel))
             {
