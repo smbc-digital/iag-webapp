@@ -11,6 +11,8 @@ prod: &prod
     - enforcement-referral
     - education-penalty-notice
     - compliments
+    - compliments-int
+    - compliments-qa
     - complaints
 
 stage: &stage
