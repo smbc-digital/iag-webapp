@@ -1,6 +1,8 @@
-﻿@using StockportWebapp.ViewModels
+﻿@using StockportWebapp.FeatureToggling
+@using StockportWebapp.ViewModels
 @model HomepageViewModel
 @inject StockportWebapp.Utils.ViewHelpers viewHelper
+@inject FeatureToggles FeatureToggles
 
 @{
     ViewData["Title"] = "Welcome to Stockport Council";
@@ -60,7 +62,9 @@
             {
                 <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
                     <span class="latest-nav-card-item matchbox-child">
-                        <h2 class="news title"><a tabindex="-1" href="@Url.Action("Index", "News")">Latest news</a></h2>
+                        <h2 class="news title">
+                            <a tabindex="-1" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">Latest news</a>
+                        </h2>
                         <div class="body">
                             <a href="/news/@Model.FeaturedNews.Slug">
                                 <h3>@Model.FeaturedNews.Title</h3>
@@ -70,7 +74,7 @@
                             </a>
                         </div>
                     </span>
-                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "News")">View news and media</stock-button>
+                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">View news and media</stock-button>
                 </li>
             }
 
