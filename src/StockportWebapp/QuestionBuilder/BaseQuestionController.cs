@@ -172,6 +172,8 @@ namespace StockportWebapp.QuestionBuilder
                         _logger.LogInformation($"------Authentication key: {authenticationKey}");
 
                         _logger.LogInformation($"------{behaviour.Value}");
+
+                        _logger.LogWarning($"------{behaviour.Value}");
                         try
                         {
                             var guid = await _client.PostAsyncMessage($"{behaviour.Value}", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
@@ -189,7 +191,7 @@ namespace StockportWebapp.QuestionBuilder
                         }
                         catch (Exception e)
                         {
-                            _logger.LogInformation($"------{e}");
+                            _logger.LogError($"------{e}");
                             throw;
                         }
                         break;

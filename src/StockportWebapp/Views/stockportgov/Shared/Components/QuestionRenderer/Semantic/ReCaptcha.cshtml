@@ -5,7 +5,8 @@
 }
 
     <div class="form-section question-section">
-        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx" data-callback="enableBtn"></div> 
+        <partial name="_ValidationError.cshtml" model='Model' />
     </div>
 
 <script type="text/javascript">
@@ -14,4 +15,19 @@
             startup.Init();
             textLimiter.restrictLength(@Model.QuestionId, @limitValue);
         })
+
+
+
+   function enableBtn(){
+       console.log("enable button");
+
+       document.getElementsByClassName("question-button-next").innerHTML = "awooga";
+
+       document.getElementsByClassName("question-button-next").disabled = true;
+
+       var stateOfButton = document.getElementsByClassName("question-button-next");
+
+       console.log(stateOfButton);
+
+   }
 </script>
