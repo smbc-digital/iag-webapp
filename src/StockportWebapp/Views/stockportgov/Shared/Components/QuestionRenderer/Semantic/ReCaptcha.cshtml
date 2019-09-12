@@ -1,0 +1,17 @@
+﻿@model StockportWebapp.QuestionBuilder.Entities.Question
+
+@{
+    var limitValue = @Model.ValidatorData.Any(_ => _.Type == "max-length") ? @Model.ValidatorData.FirstOrDefault(_ => _.Type == "max-length").Value : "60";
+}
+
+    <div class="form-section question-section">
+        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+    </div>
+
+<script type="text/javascript">
+    require(['startup', 'text-limiter', 'jquery.steps', 'recaptcha', 'utils', 'unobtrusive'],
+        function (startup, textLimiter) {
+            startup.Init();
+            textLimiter.restrictLength(@Model.QuestionId, @limitValue);
+        })
+</script>
