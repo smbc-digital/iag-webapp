@@ -37,7 +37,17 @@ namespace StockportWebapp.QuestionBuilder.Validators
 
         private string GetValidationMessage()
         {
-            return string.IsNullOrEmpty(_validationMessage) ? DefaultValidationMessage : _validationMessage;
+            if (string.IsNullOrEmpty(_validationMessage))
+            {
+                return DefaultValidationMessage;
+            }
+
+            if (_validationMessage.Equals("No message"))
+            {
+                return string.Empty;
+            }
+            
+            return _validationMessage;
         }
 
     }

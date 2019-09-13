@@ -176,6 +176,7 @@ namespace StockportWebapp.QuestionBuilder
                         _logger.LogWarning($"------{behaviour.Value}");
                         try
                         {
+                            _logger.LogWarning($"------- {page.PreviousAnswersJson}");
                             var guid = await _client.PostAsyncMessage($"{behaviour.Value}", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
                             _logger.LogInformation($"------{guid ?? null}");
                             if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
@@ -187,7 +188,7 @@ namespace StockportWebapp.QuestionBuilder
                                 //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                                 return Redirect($"{behaviour.RedirectValue}?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                             }
-                                
+
                         }
                         catch (Exception e)
                         {
