@@ -12,7 +12,7 @@ prod: &prod
     - education-penalty-notice
     - compliments
     - compliments-int
-    - compliments-qa
+    - give-a-compliment
     - complaints
 
 stage: &stage

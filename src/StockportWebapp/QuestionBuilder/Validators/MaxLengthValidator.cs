@@ -1,5 +1,4 @@
-﻿using System;
-using StockportWebapp.Attributes;
+﻿using StockportWebapp.Attributes;
 using StockportWebapp.QuestionBuilder.Entities;
 
 namespace StockportWebapp.QuestionBuilder.Validators
