@@ -1,33 +1,19 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
 
-@{
-    var limitValue = @Model.ValidatorData.Any(_ => _.Type == "max-length") ? @Model.ValidatorData.FirstOrDefault(_ => _.Type == "max-length").Value : "60";
-}
-
     <div class="form-section question-section">
         <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx" data-callback="enableBtn"></div> 
-        <partial name="_ValidationError.cshtml" model='Model' />
     </div>
 
 <script type="text/javascript">
-    require(['startup', 'text-limiter', 'jquery.steps', 'recaptcha', 'utils', 'unobtrusive'],
-        function (startup, textLimiter) {
+    require(['startup', 'jquery.steps', 'recaptcha', 'utils', 'unobtrusive'],
+        function(startup) {
             startup.Init();
-            textLimiter.restrictLength(@Model.QuestionId, @limitValue);
-        })
-
-
-
+        });
+    
    function enableBtn(){
        console.log("enable button");
 
-       document.getElementsByClassName("question-button-next").innerHTML = "awooga";
-
-       document.getElementsByClassName("question-button-next").disabled = true;
-
-       var stateOfButton = document.getElementsByClassName("question-button-next");
-
-       console.log(stateOfButton);
-
+       document.getElementById("button").removeAttribute("disabled");
+       document.getElementById("button").classList.remove("button-disabled");
    }
 </script>
