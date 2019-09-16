@@ -13,7 +13,9 @@ prod: &prod
     - compliments
     - compliments-int
     - give-a-compliment
-    - complaints
+    - make-a-complaint-local
+    - make-a-complaint-int
+    - make-a-complaint
 
 stage: &stage
   << : *prod
