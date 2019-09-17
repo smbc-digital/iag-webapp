@@ -56,11 +56,13 @@ namespace StockportWebapp.Models
         public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set;  }
         public string PrimaryItemTitle { get; }
         public Advertisement Advertisement { get; }
+
+        public bool DisplayContactUs { get; set; }
         
         public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, 
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, 
-            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxs, string primaryItemTitle, string title, Advertisement advertisement)
+            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxs, string primaryItemTitle, string title, Advertisement advertisement, bool displayContactUs)
         {
             Name = name;
             Title = title;
@@ -85,11 +87,12 @@ namespace StockportWebapp.Models
             ExpandingLinkTitle = expandingLinkTitle;
             ExpandingLinkBoxes = expandingLinkBoxs;
             PrimaryItemTitle = primaryItemTitle;
+            DisplayContactUs = displayContactUs;
         }
     }
 
     public class NullTopic : Topic
     {
-        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(), string.Empty, string.Empty, null) { }
+        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(), string.Empty, string.Empty, null, true) { }
     }
 }

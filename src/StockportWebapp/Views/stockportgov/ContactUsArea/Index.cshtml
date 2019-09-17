@@ -46,7 +46,6 @@
                 </div>
             }
         }
-<<<<<<< HEAD
                 <div class="dashboard-button-container contact-us-area-primary">
                     <h2 class="visuallyhidden">Popular Services</h2>
                     @foreach (var primaryItem in Model.PrimaryItems)
@@ -67,7 +66,6 @@
             {
                 <h2>@Model.CategoriesTitle</h2>
             }
-=======
         <div class="dashboard-button-container contact-us-area-primary" >
             @foreach (var primaryItem in Model.PrimaryItems)
             {
@@ -86,7 +84,6 @@
             <h2>Other online services</h2>
         }
         <div class="">
->>>>>>> JonC Simon #64 contact us category added
             @foreach (var categoryItem in Model.ContactUsCategories)
             {
                 <div class="contact-us-category">
@@ -94,19 +91,11 @@
                         <div class="icon-container">
                             <i class="@categoryItem.Icon" aria-hidden="true"></i>
                         </div>
-<<<<<<< HEAD
                         <div class="category-title">@categoryItem.Title</div>
                     </div>
                     <div class="category-body">
                         <div class="category-body-col category-body-left">@Html.Raw(categoryItem.BodyTextLeft)</div>
                         <div class="category-body-col category-body-right">@Html.Raw(categoryItem.BodyTextRight)</div>
-=======
-                        <div class="category-title">@categoryItem.Title</div>                       
-                    </div>
-                    <div class="category-body">
-                        <div class="category-body-col category-body-left">@categoryItem.BodyTextLeft</div>
-                        <div class="category-body-col category-body-right">@categoryItem.BodyTextRight</div>
->>>>>>> JonC Simon #64 contact us category added
                     </div>
                 </div>
             }

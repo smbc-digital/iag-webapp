@@ -44,11 +44,14 @@
         
         <partial name="SubItem-List" model='topic'/>        
     </div>
-    
+    @if (topic.DisplayContactUs)
+    {
     <div class="grid-100 topic-contactus">
         <div class="topic-contactus-container">
+
             <partial name="../Shared/ContactUs-Nav" />
         </div>      
     </div>
+    }
 </section>
 
