@@ -5,6 +5,17 @@
     {
         <h2>@Html.Raw(Model.Description)</h2>
     }
+    if (Model.Alert != null && !string.IsNullOrEmpty(Model.Alert.Content))
+    {
+        if (Model.Alert.Icon != null && Model.Alert.Icon.Equals("warning"))
+        {
+            <partial name="WarningAlert.cshtml" model='Model' />
+        }
+        else
+        {
+            <partial name="InformationAlert.cshtml" model='Model'/>
+        }
+    }
 }
 
 @using (Html.BeginForm(Model.Action, null, FormMethod.Post, new { @class = "question-form" }))
@@ -29,8 +40,8 @@
         }
 
         @*<noscript>
-            <input id="next-button" type="submit" value="Next step" class="button-primary button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />
-        </noscript>*@
+                <input id="next-button" type="submit" value="Next step" class="button-primary button-outline button-partialrounded button-bold button-call-to-action question-button-next question-button-next-noscript" />
+            </noscript>*@
         <div class="question-margin-bottom"></div>
     }
 }

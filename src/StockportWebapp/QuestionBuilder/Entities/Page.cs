@@ -22,7 +22,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
         [JsonConstructor]
         public Page(int pageId, string analyticsEvent = "", string description = "", IList<Question> questions = null, 
-            IList<Behaviour> behaviours = null, bool isLastPage = false, bool shouldCache = true, bool hideBackButton = false)
+            IList<Behaviour> behaviours = null, bool isLastPage = false, bool shouldCache = true, bool hideBackButton = false, InlineAlert alert = null)
         {
             PageId = pageId;
             AnalyticsEvent = analyticsEvent;
@@ -32,7 +32,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
             IsLastPage = isLastPage;
             ShouldCache = shouldCache;
             HideBackButton = hideBackButton;
-
+            Alert = alert;
         }
 
         public int PageId { get; set; }
@@ -70,6 +70,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
         public bool DisplayNextButton => !Questions.Any(_ => _.QuestionType == null || _.QuestionType.Equals("redirect"));
         public string ButtonCssClass => IsLastPage ? "button-loading" : "";
         public bool HideBackButton { get; set; }
+        public InlineAlert Alert { get; set; }
         public bool ShouldCache { get; set; }
 
         public void AddAnswers(List<Answer> answers)
