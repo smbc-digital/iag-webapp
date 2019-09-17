@@ -21,7 +21,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
                 DateTime.MinValue, true, "image-url", string.Empty);
 
             var topic = new Topic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-                new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
+                new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement, true);
 
             var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 
@@ -40,7 +40,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var topic = new Topic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image",
                 new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
                 new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText",
-                new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement);
+                new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement, true);
 
             var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 
