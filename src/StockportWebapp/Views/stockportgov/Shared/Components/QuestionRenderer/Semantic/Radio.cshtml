@@ -4,7 +4,7 @@
         @{
             if (!string.IsNullOrEmpty(Model.Label))
             {
-                <h2 class="h3">@Model.Label</h2>
+                <p>@Model.Label</p>
             }
         }
         @if (!String.IsNullOrEmpty(Model.SecondaryInfo))
@@ -22,11 +22,10 @@
                 <input data-questionid="@Model.QuestionId" aria-labelledby="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" id="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")" type="radio" name="Questions[0].Response" value="@item.Value">
 
                 <label id="@string.Concat("label-",@Model.QuestionId, @item.Value).Replace(" ", "-")" for="@string.Concat(@Model.QuestionId, @item.Value).Replace(" ", "-")">@item.Label</label>
-                <br />
 
                 @if (!string.IsNullOrEmpty(@item.SubLabel))
                 {
-                    <span style="font-size: 15px; color: dimgrey; padding-left: 60px;">@item.SubLabel</span>
+                    <span class="radio-sub-label" >@item.SubLabel</span>
                 }
             </div>
         }
