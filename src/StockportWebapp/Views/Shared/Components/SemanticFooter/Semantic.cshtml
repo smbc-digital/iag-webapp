@@ -11,7 +11,10 @@
 <footer>
     @if (BusinessId.ToString() == "stockportgov")
     {
-        <partial name="AToZStockportGov" model='""' />
+        if (!isForm)
+        {
+            <partial name="AToZStockportGov" model='""' />
+        }
     }
     @if (Model.SocialMediaLinks != null && !isForm)
     {
