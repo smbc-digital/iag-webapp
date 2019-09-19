@@ -25,7 +25,9 @@
         }
 
         @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
-        <partial name="_ValidationError.cshtml" model='Model' />
+        
+        @*Disabled validation messages on textbox as they are no longer required.*@  
+        @*<partial name="_ValidationError.cshtml" model='Model' />*@
     </div>
 
 <script type="text/javascript">
