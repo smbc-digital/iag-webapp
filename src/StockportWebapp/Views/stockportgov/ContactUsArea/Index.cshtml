@@ -46,27 +46,26 @@
                 </div>
             }
         }
-                <div class="dashboard-button-container contact-us-area-primary">
-                    <h2 class="visuallyhidden">Popular Services</h2>
-                    @foreach (var primaryItem in Model.PrimaryItems)
-                    {
-                        var url = primaryItem.NavigationLink;
+        <div class="dashboard-button-container contact-us-area-primary">
+            <h2 class="visuallyhidden">Popular Services</h2>
+            @foreach (var primaryItem in Model.PrimaryItems)
+            {
+                var url = primaryItem.NavigationLink;
 
-                        <a href="@url" class="section-link">
-                            <div class="icon-container">
-                                <i class="@primaryItem.Icon" aria-hidden="true"></i>
-                            </div>
-                            <div class="primaryItemText">@primaryItem.Title</div>
-                        </a>
-                    }
-                </div>
+                <a href="@url" class="section-link">
+                    <div class="icon-container">
+                        <i class="@primaryItem.Icon" aria-hidden="true"></i>
+                    </div>
+                    <div class="primaryItemText">@primaryItem.Title</div>
+                </a>
+            }
+        </div>
 
-        
-        @if (Model.ContactUsCategories.Any())
-        {
-            <h2>Other online services</h2>
-        }
-        <div class="">
+        <div class="contact-us-category-container">
+            @if (Model.ContactUsCategories.Any())
+            {
+                <h2>Other online services</h2>
+            }
             @foreach (var categoryItem in Model.ContactUsCategories)
             {
                 <div class="contact-us-category">
@@ -82,9 +81,7 @@
                     </div>
                 </div>
             }
-
         </div>
-
     </div>
 </div>
 
