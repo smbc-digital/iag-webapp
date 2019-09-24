@@ -230,7 +230,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://*.hotjar.com:*")
                 .AddSource("http://*.hotjar.io")
                 .AddSource("https://*.hotjar.io")
-                .AddSource("wss://*.hotjar.com")
+                .AddSource("wss://*.hotjar.com", false, true)
                 .Finish());
 		}
 
@@ -286,6 +286,7 @@ namespace StockportWebapp.Utils
                 .AddSource("https://*.hotjar.com")
                 .AddSource("http://*.hotjar.io")
                 .AddSource("https://*.hotjar.io")
+				.AddSource("https://s7.addthis.com")
                 .Finish());
         }
 	}
