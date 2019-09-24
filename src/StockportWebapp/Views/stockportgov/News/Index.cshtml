@@ -1,6 +1,7 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @model NewsroomViewModel
+@inject FeatureToggles FeatureToggles
 @{
     ViewData["og:title"] = "News";
     ViewData["Title"] = "News";
@@ -8,7 +9,14 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' />
+    @if (FeatureToggles.Newsroom)
+    {
+        <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' />
+    }
+    else
+    {
+        <partial name="Breadcrumb" model='new List<Crumb>()' />
+    }
 }
 
 <div class="l-page-content">
