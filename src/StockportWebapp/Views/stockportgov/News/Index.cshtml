@@ -1,5 +1,6 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@using StockportWebapp.FeatureToggling
 @model NewsroomViewModel
 @inject FeatureToggles FeatureToggles
 @{
@@ -38,17 +39,17 @@
             </div>
         </div>
     </div>
-    
-    <partial name="NewsListing" model='Model'/>
+
+    <partial name="NewsListing" model='Model' />
 </div>
 <script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks','primaryfilter', 'filters', 'viewmoreslider'],
+    require(['startup', 'favourites', 'expandinglinks', 'primaryfilter', 'filters', 'viewmoreslider'],
         function (startup, favourites, expandinglinks, primaryfilter, filters, viewmoreslider) {
-            favourites.Init();         
+            favourites.Init();
             startup.Init();
             expandinglinks.Init();
             primaryfilter.Init();
-            filters.Init();            
+            filters.Init();
             viewmoreslider.Init();
         })
 </script>
