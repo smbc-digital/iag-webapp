@@ -94,7 +94,6 @@ a:hover {
     }
 }
 
-<<<<<<< HEAD
 .contact-us-category-container {
     padding-left: 10px;
     margin-right: 10px;
@@ -107,29 +106,6 @@ a:hover {
     }
 }
 
-.contact-us-category {
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin: 0 15px 20px 0;
-    border: 1px solid $greyLighter;
-    color: black;
-    font-weight: 700;
-    text-decoration: none;
-    border-top: 5px solid #00b79b;
-
-    @media #{$mobile} {
-        width: 100%;
-        display: block;
-    }
-
-=======
 .contact-us-category {
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -153,7 +129,6 @@ a:hover {
         display: block;
         text-align: center;
     }
-
 
     .category-header {
         border-bottom: 1px solid $greyLighter;
