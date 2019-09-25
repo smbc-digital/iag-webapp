@@ -85,6 +85,11 @@ namespace StockportWebapp.QuestionBuilder
                         Title = Title
                     };
 
+                    if (_featureToggles.SemanticLayout && _featureToggles.SemanticSmartAnswer.Contains(Slug))
+                    {
+                        return View("Semantic/Index", model);
+                    }
+
                     return View(model);
                 }
             }
