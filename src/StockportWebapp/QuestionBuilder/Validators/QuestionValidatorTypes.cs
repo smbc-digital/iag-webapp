@@ -10,5 +10,6 @@
         public const string Decimal = "decimal";
         public const string Checkbox = "checkbox";
         public const string MaxLength = "max-length";
+        public const string Optional = "optional";
     }
 }

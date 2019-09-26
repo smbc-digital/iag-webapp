@@ -12,9 +12,19 @@
                 <h2 class="h3 optional">@Model.Label</h2>
                 <p class="optional">(optional)</p>
             }
-            else
+
+            if (Model.ValidatorData.Count > 0)
             {
-                <h2 class="h3" style="margin-bottom:0px">@Model.Label</h2>
+                var item = Model.ValidatorData.Where(x => x.Type == "email");
+                if (Model.ValidatorData.Count == 1 && item.Count().Equals(1))
+                {
+                    <h2 class="h3 optional">@Model.Label</h2>
+                    <p class="optional">(optional)</p>
+                }
+                else
+                {
+                    <h2 class="h3" style="margin-bottom: 0px">@Model.Label</h2>
+                }
             }
         }
         @{
@@ -25,9 +35,9 @@
         }
 
         @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
-        
-        @*Disabled validation messages on textbox as they are no longer required.*@  
-        @*<partial name="_ValidationError.cshtml" model='Model' />*@
+
+        @*Disabled validation messages on textbox as they are no longer required.*@
+        <partial name="_ValidationError.cshtml" model='Model' />
     </div>
 
 <script type="text/javascript">

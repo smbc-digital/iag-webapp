@@ -18,7 +18,7 @@ namespace StockportWebapp.Utils
 			BuildMediaSource();
 			BuildObjectSource();
 			BuildManifestSource();
-            BuildFrameSource();
+            //BuildFrameSource();
             BuildFrameAncestorsSource();
 
             return _stringBuilder.ToString();

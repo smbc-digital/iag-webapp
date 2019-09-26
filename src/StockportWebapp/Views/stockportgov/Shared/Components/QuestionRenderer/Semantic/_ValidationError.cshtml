@@ -1,29 +1,30 @@
-﻿@model StockportWebapp.QuestionBuilder.Entities.Question
+﻿@using System.Diagnostics
+@model StockportWebapp.QuestionBuilder.Entities.Question
 
-@*@{
-    var displayValidationStyle = Model.ValidationResult != null && Model.ValidationResult.IsValid ? "display: contents;" : "display: none;";
+<style>
+    .input-error-content {
+        padding: 5px 0 5px 10px;
+    }
 
-    if (Model.ValidationResult != null)
+        .input-error-content:before {
+            top: -45px;
+        }
+</style>
+
+
+<span data-questionid="@Model.QuestionId" aria-atomic="true" role="alert" style="display: none;" class="input-error-content field-validation-error"><span>@(Model.ValidationResult?.Message ?? "")</span></span>
+
+
+@*@if (Model.ValidationResult?.Message != null || Model.ValidationResult?.Message != string.Empty)
+{
+    @if (string.IsNullOrEmpty(Model.ValidationResult?.Message) && Model.ValidationResult?.Message != "No message")
+     {
+         <span data-questionid="@Model.QuestionId" aria-atomic="true" role="alert" style="display: none;" class="input-error-content field-validation-error"><span>@(Model.ValidationResult?.Message ?? "")</span></span>
+     }
+    
+    @if (Model.ValidationResult?.Message != string.Empty)
     {
-        <span data-questionid="@Model.QuestionId" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent field-validation-error" style="display: none;">
-            <span>@(Model.ValidationResult?.Message ?? "")</span>
-        </span>
-    }
-    else if (Model.ValidationResult != null)
-    {
-        <span data-questionid="@Model.QuestionId" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent field-validation-error" style="display: contents;">
-            <span>@(Model.ValidationResult?.Message ?? "")</span>
-        </span>
-    }
-    else
-    {
-        <span data-questionid="@Model.QuestionId" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent field-validation-error" style="display: none;">
-            <span>@(Model.ValidationResult?.Message ?? "")</span>
-        </span>
+        <span data-questionid="@Model.QuestionId" aria-atomic="true" role="alert" style="display: none;" class="input-error-content field-validation-error"><span>@(Model.ValidationResult?.Message ?? "")</span></span>
     }
 }*@
 
-    <p data-questionid="@Model.QuestionId" aria-atomic="true" role="alert" style="margin-top: 35px;" class="input-error-content">@(Model.ValidationResult?.Message ?? "")</p>
-@*<span data-questionid="@Model.QuestionId" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent field-validation-error" style="display: contents;">
-        <span>@(Model.ValidationResult?.Message ?? "")</span>
-    </span>*@
