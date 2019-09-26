@@ -18,6 +18,7 @@ namespace StockportWebapp.Utils
 			BuildMediaSource();
 			BuildObjectSource();
 			BuildManifestSource();
+            BuildFrameSource();
             BuildFrameAncestorsSource();
 
             return _stringBuilder.ToString();
@@ -31,12 +32,6 @@ namespace StockportWebapp.Utils
 				.AddSource("https:")
 				.AddSource("wss:", false)
 				.AddSource("http:", false)
-				.AddSource("http://*.hotjar.com:*")
-                .AddSource("https://*.hotjar.com:*")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
-                .AddSource("wss://*.hotjar.com", false, true)
-				.AddSource("'unsafe-eval'")
 				.Finish());
 		}
 
@@ -59,6 +54,9 @@ namespace StockportWebapp.Utils
 				.AddSource("*.stockport.gov.uk")
 				.AddSource("*.smbcdigital.net")
 				.AddSource("https://stockportmaps.github.io")
+                .AddSource("https://*.hotjar.com")
+                .AddSource("http://*.hotjar.io")
+                .AddSource("https://*.hotjar.io")
                 .Finish());
 		}
 
@@ -71,6 +69,10 @@ namespace StockportWebapp.Utils
 				.AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
 				.AddSource("fonts.gstatic.com/")
 				.AddSource("static.tacdn.com")
+                .AddSource("http://*.hotjar.com")
+                .AddSource("https://*.hotjar.com")
+                .AddSource("http://*.hotjar.io")
+                .AddSource("https://*.hotjar.io")
 				.Finish());
 		}
 
@@ -115,6 +117,10 @@ namespace StockportWebapp.Utils
 				.AddSource("https://app.meetami.ai")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("https://www.facebook.com/")
+                .AddSource("http://*.hotjar.com")
+                .AddSource("https://*.hotjar.com")
+                .AddSource("http://*.hotjar.io")
+                .AddSource("https://*.hotjar.io")
                 .Finish());
 		}
 
@@ -192,6 +198,10 @@ namespace StockportWebapp.Utils
 				.AddSource("http://feed2js.org/feed2js.php")
 				.AddSource("https://connect.facebook.net/")
 				.AddSource("widget.wheredoivote.co.uk/")
+                .AddSource("http://*.hotjar.com")
+                .AddSource("https://*.hotjar.com")
+                .AddSource("http://*.hotjar.io")
+                .AddSource("https://*.hotjar.io")
                 .Finish());
 		}
 
@@ -216,6 +226,11 @@ namespace StockportWebapp.Utils
                 .AddSource("http://localhost/sitereplier/chats/enabled/")
                 .AddSource("*.stockport.gov.uk")
                 .AddSource("*.smbcdigital.net")
+                .AddSource("http://*.hotjar.com:*")
+                .AddSource("https://*.hotjar.com:*")
+                .AddSource("http://*.hotjar.io")
+                .AddSource("https://*.hotjar.io")
+                .AddSource("wss://*.hotjar.com", false, true)
                 .Finish());
 		}
 
@@ -262,5 +277,17 @@ namespace StockportWebapp.Utils
 				.AddSource("http://localhost:5000/assets/images/ui-images/sg/manifest.json")
 				.Finish());
 		}
+
+        private void BuildFrameSource()
+        {
+            _stringBuilder.Append(
+                new ContentSecurityPolicyElement
+                    ("frame-src")
+                .AddSource("https://*.hotjar.com")
+                .AddSource("http://*.hotjar.io")
+                .AddSource("https://*.hotjar.io")
+				.AddSource("https://s7.addthis.com")
+                .Finish());
+        }
 	}
 }
