@@ -256,6 +256,10 @@ namespace StockportWebapp.Utils
                     .AddSource("*.smbcdigital.net")
 	                .AddSource("*.meetami.ai/")
 	                .AddSource("*.chat.meetami.ai/")
+					.AddSource("https://*.hotjar.com")
+					.AddSource("http://*.hotjar.io")
+					.AddSource("https://*.hotjar.io")
+					.AddSource("https://s7.addthis.com")
                     .Finish());
 	    }
 
@@ -277,17 +281,5 @@ namespace StockportWebapp.Utils
 				.AddSource("http://localhost:5000/assets/images/ui-images/sg/manifest.json")
 				.Finish());
 		}
-
-        private void BuildFrameSource()
-        {
-            _stringBuilder.Append(
-                new ContentSecurityPolicyElement
-                    ("frame-src")
-                .AddSource("https://*.hotjar.com")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
-				.AddSource("https://s7.addthis.com")
-                .Finish());
-        }
 	}
 }
