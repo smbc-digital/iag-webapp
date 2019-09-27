@@ -8,66 +8,69 @@
     var isForm = (bool?)ViewData["Form"] ?? false;
 }
 
-<footer>
-    @if (BusinessId.ToString() == "stockportgov")
-    {
-        if (!isForm)
+    <footer>
+        @if (BusinessId.ToString() == "stockportgov")
         {
-            <partial name="AToZStockportGov" model='""' />
-        }
-    }
-    @if (Model.SocialMediaLinks != null && !isForm)
-    {
-        @await Component.InvokeAsync("SemanticFooterSocialMediaLinks", new
-        {
-            model = Model.SocialMediaLinks,
-            additionalClasses = "mobile-social-links"
-        });
-    }
-    <div class="center-wrapper">
-
-        <div id="footer-logo">
-            <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
-        </div>
-        @if (Model.Links != null)
-        {
-            <ul class="footer-links">
-                @foreach (var link in Model.Links)
-                {
-                    <li><a href="@link.NavigationLink">@link.Title</a></li>
-                }
-            </ul>
+            if (!isForm)
+            {
+                <partial name="AToZStockportGov" model='""' />
+            }
         }
         @if (Model.SocialMediaLinks != null && !isForm)
         {
             @await Component.InvokeAsync("SemanticFooterSocialMediaLinks", new
             {
                 model = Model.SocialMediaLinks,
-                additionalClasses = "social-links"
+                additionalClasses = "mobile-social-links"
             });
         }
-    </div>
-
-    <div class="center-wrapper">
-        <div class="footer-logo-links">
-            <a href="https://www.gov.uk/" target="_blank">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/gov-uk-logo.png" alt="GOV UK" />
-            </a>
-            <a href="https://www.greatermanchester-ca.gov.uk/" target="_blank">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="Greater Manchester Combined Authority" />
-            </a>
-            <a href="https://www.digitalstockport.info/digital-transformation-award/" target="_blank">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/mj-logo.png" alt="The MJ Achievement Awards 2019" />
-            </a>
-            <a href="https://idea.org.uk/" target="_blank">
-                <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer" />
-            </a>
-        </div>
-    </div>
-    <div class="footer-copyright">
         <div class="center-wrapper">
-            <p id="ami-trigger"><span class="fa fa-copyright" aria-hidden="true"></span>&nbsp;@DateTime.Now.Year Stockport Metropolitan Borough Council</p>
-            <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
+
+            <div id="footer-logo">
+                <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
+            </div>
+            @if (Model.Links != null)
+            {
+                <ul class="footer-links">
+                    @foreach (var link in Model.Links)
+                    {
+                        <li><a href="@link.NavigationLink">@link.Title</a></li>
+                    }
+                </ul>
+            }
+            @if (Model.SocialMediaLinks != null && !isForm)
+            {
+                @await Component.InvokeAsync("SemanticFooterSocialMediaLinks", new
+                {
+                    model = Model.SocialMediaLinks,
+                    additionalClasses = "social-links"
+                });
+            }
         </div>
-    </div>
-</footer>
+
+        @if (!isForm)
+        {
+        <div class="center-wrapper">
+            <div class="footer-logo-links">
+                <a href="https://www.gov.uk/" target="_blank">
+                    <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/gov-uk-logo.png" alt="GOV UK" />
+                </a>
+                <a href="https://www.greatermanchester-ca.gov.uk/" target="_blank">
+                    <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/GMCA-logo.png" alt="Greater Manchester Combined Authority" />
+                </a>
+                <a href="https://www.digitalstockport.info/digital-transformation-award/" target="_blank">
+                    <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/mj-logo.png" alt="The MJ Achievement Awards 2019" />
+                </a>
+                <a href="https://idea.org.uk/" target="_blank">
+                    <img src="https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/Pioneer-logo.png" alt="Pioneer" />
+                </a>
+            </div>
+        </div>
+        }
+        <div class="footer-copyright">
+            <div class="center-wrapper">
+                <p id="ami-trigger"><span class="fa fa-copyright" aria-hidden="true"></span>&nbsp;@DateTime.Now.Year Stockport Metropolitan Borough Council</p>
+                <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
+            </div>
+        </div>
+    </footer>
