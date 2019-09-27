@@ -18,9 +18,9 @@ namespace StockportWebapp.Utils
 			BuildMediaSource();
 			BuildObjectSource();
 			BuildManifestSource();
-            BuildFrameAncestorsSource();
+            BuildFrameSource();
 
-            return _stringBuilder.ToString();
+			return _stringBuilder.ToString();
 		}
 
 		private void BuildDefaultSource()
@@ -31,12 +31,6 @@ namespace StockportWebapp.Utils
 				.AddSource("https:")
 				.AddSource("wss:", false)
 				.AddSource("http:", false)
-				.AddSource("http://*.hotjar.com:*")
-                .AddSource("https://*.hotjar.com:*")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
-                .AddSource("wss://*.hotjar.com", false, true)
-				.AddSource("'unsafe-eval'")
 				.Finish());
 		}
 
@@ -232,7 +226,7 @@ namespace StockportWebapp.Utils
 				.Finish());
 		}
 
-	    private void BuildFrameAncestorsSource()
+	    private void BuildFrameSource()
 	    {
 	        _stringBuilder.Append(
 	            new ContentSecurityPolicyElement

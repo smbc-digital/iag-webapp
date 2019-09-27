@@ -39,7 +39,7 @@
             color: $white;
             text-decoration: none;
 
-            i {
+            span {
                 color: $colorPrimaryPale;
                 padding-right: 10px;
             }
@@ -47,7 +47,7 @@
             &:hover {
                 text-decoration: underline;
 
-                i {
+                span {
                     color: $white;
                 }
             }

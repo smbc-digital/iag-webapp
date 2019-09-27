@@ -11,7 +11,7 @@
 }
 <div class="center-wrapper">
     <div id="header-logo">
-        <a href="http://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
+        <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
     </div>
     <div class="@headerClass" id="header-my-account">
         @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
@@ -19,7 +19,7 @@
             <div class="menu-container">
                 <div class="menu">
                     <p>Welcome @user.Name</p>
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="fa fa-user" aria-hidden="true"></span>
                     <a href="/dashboard">My Account</a>
                     <i class="fa fa-angle-down" aria-hidden="true"></i>
                 </div>
@@ -57,7 +57,7 @@
         }
         else
         {
-            <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><i class="fa fa-user" aria-hidden="true"></i>My Account</a>
+            <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><span class="fa fa-user" aria-hidden="true"></span>My Account</a>
         }
     </div>
     @if (!isForm)

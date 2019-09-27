@@ -22,6 +22,8 @@
         </span>
     }
 }*@
-<span data-questionid="@Model.QuestionId" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent field-validation-error" style="display: contents;">
+
+    <p data-questionid="@Model.QuestionId" aria-atomic="true" role="alert" style="margin-top: 35px;" class="input-error-content">@(Model.ValidationResult?.Message ?? "")</p>
+@*<span data-questionid="@Model.QuestionId" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent field-validation-error" style="display: contents;">
         <span>@(Model.ValidationResult?.Message ?? "")</span>
-    </span>
+    </span>*@

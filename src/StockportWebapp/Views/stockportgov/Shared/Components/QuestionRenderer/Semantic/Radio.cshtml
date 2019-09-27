@@ -1,9 +1,10 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
 
-    <div class="form-section question-section">
+    <fieldset class="form-section question-section">
         @{
             if (!string.IsNullOrEmpty(Model.Label))
             {
+                <legend class="sr-only">@Model.Label</legend>
                 <p>@Model.Label</p>
             }
         }
@@ -48,4 +49,4 @@
         @*Disabled on radio buttons as we no longer display the validation message*@
         @*<partial name="_ValidationError.cshtml" model=' Model' />*@
         <span id="tertiary-Information-value"></span>
-    </div>
+    </fieldset>
