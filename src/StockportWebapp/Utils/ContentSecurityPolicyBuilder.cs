@@ -18,10 +18,9 @@ namespace StockportWebapp.Utils
 			BuildMediaSource();
 			BuildObjectSource();
 			BuildManifestSource();
-            //BuildFrameSource();
-            BuildFrameAncestorsSource();
+            BuildFrameSource();
 
-            return _stringBuilder.ToString();
+			return _stringBuilder.ToString();
 		}
 
 		private void BuildDefaultSource()
@@ -54,9 +53,6 @@ namespace StockportWebapp.Utils
 				.AddSource("*.stockport.gov.uk")
 				.AddSource("*.smbcdigital.net")
 				.AddSource("https://stockportmaps.github.io")
-                .AddSource("https://*.hotjar.com")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
                 .Finish());
 		}
 
@@ -69,10 +65,6 @@ namespace StockportWebapp.Utils
 				.AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
 				.AddSource("fonts.gstatic.com/")
 				.AddSource("static.tacdn.com")
-                .AddSource("http://*.hotjar.com")
-                .AddSource("https://*.hotjar.com")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
 				.Finish());
 		}
 
@@ -117,10 +109,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://app.meetami.ai")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("https://www.facebook.com/")
-                .AddSource("http://*.hotjar.com")
-                .AddSource("https://*.hotjar.com")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
+				.AddSource("*.siteimproveanalytics.io/")
                 .Finish());
 		}
 
@@ -159,6 +148,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://ajax.googleapis.com/ajax/libs/jquery/")
 				.AddSource("maps.googleapis.com")
 				.AddSource("m.addthisedge.com/live/boost/")
+				.AddSource("v1.addthisedge.com/live/boost/")
 				.AddSource("www.google-analytics.com/analytics.js")
                 .AddSource("tagmanager.google.com/")
 				.AddSource("api.cludo.com/scripts/")
@@ -176,7 +166,7 @@ namespace StockportWebapp.Utils
 				.AddSource("logo-net.co.uk/Delivery/")
 				.AddSource("https://www.opinionstage.com/assets/loader.js")
 				.AddSource("https://www.google.com/recaptcha/api.js")
-				.AddSource("https://www.gstatic.com/recaptcha/api2/")
+				.AddSource("https://www.gstatic.com/recaptcha/")
                 .AddSource("https://www.googletagmanager.com/")
                 .AddSource("https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js")
 				.AddSource("https://www.jscache.com/")
@@ -198,10 +188,7 @@ namespace StockportWebapp.Utils
 				.AddSource("http://feed2js.org/feed2js.php")
 				.AddSource("https://connect.facebook.net/")
 				.AddSource("widget.wheredoivote.co.uk/")
-                .AddSource("http://*.hotjar.com")
-                .AddSource("https://*.hotjar.com")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
+				.AddSource("https://static.hotjar.com/")
                 .Finish());
 		}
 
@@ -226,11 +213,6 @@ namespace StockportWebapp.Utils
                 .AddSource("http://localhost/sitereplier/chats/enabled/")
                 .AddSource("*.stockport.gov.uk")
                 .AddSource("*.smbcdigital.net")
-                .AddSource("http://*.hotjar.com:*")
-                .AddSource("https://*.hotjar.com:*")
-                .AddSource("http://*.hotjar.io")
-                .AddSource("https://*.hotjar.io")
-                .AddSource("wss://*.hotjar.com", false, true)
                 .Finish());
 		}
 
@@ -247,7 +229,7 @@ namespace StockportWebapp.Utils
 				.Finish());
 		}
 
-	    private void BuildFrameAncestorsSource()
+	    private void BuildFrameSource()
 	    {
 	        _stringBuilder.Append(
 	            new ContentSecurityPolicyElement
@@ -256,10 +238,6 @@ namespace StockportWebapp.Utils
                     .AddSource("*.smbcdigital.net")
 	                .AddSource("*.meetami.ai/")
 	                .AddSource("*.chat.meetami.ai/")
-					.AddSource("https://*.hotjar.com")
-					.AddSource("http://*.hotjar.io")
-					.AddSource("https://*.hotjar.io")
-					.AddSource("https://s7.addthis.com")
                     .Finish());
 	    }
 
