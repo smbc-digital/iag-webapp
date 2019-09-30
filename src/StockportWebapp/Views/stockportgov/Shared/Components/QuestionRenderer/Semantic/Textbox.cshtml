@@ -15,7 +15,7 @@
 
             if (Model.ValidatorData.Count > 0)
             {
-                var item = Model.ValidatorData.Where(x => x.Type == "email");
+                var item = Model.ValidatorData.Where(x => x.Type == "optional-email");
                 if (Model.ValidatorData.Count == 1 && item.Count().Equals(1))
                 {
                     <h2 class="h3 optional">@Model.Label</h2>

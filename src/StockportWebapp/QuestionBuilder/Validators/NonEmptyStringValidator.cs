@@ -16,8 +16,13 @@ namespace StockportWebapp.QuestionBuilder.Validators
 
         public override bool IsValid(string input, string validationValue)
         {
-            var inputWithoutWhitespace = input.Trim();
-            return !string.IsNullOrEmpty(inputWithoutWhitespace);
+            if (!string.IsNullOrEmpty(input))
+            {
+                var inputWithoutWhitespace = input.Trim();
+                return !string.IsNullOrEmpty(inputWithoutWhitespace);
+            }
+
+            return false;
         }
 
         public override string DefaultValidationMessage => "This is a required answer";

@@ -1,26 +1,26 @@
 using System.Text.RegularExpressions;
-using Quartz.Util;
 using StockportWebapp.Attributes;
 using StockportWebapp.QuestionBuilder.Entities;
 
 namespace StockportWebapp.QuestionBuilder.Validators
 {
-    [QuestionValidatorType(QuestionValidatorTypes.Email)]
-    public class EmailValidator : ValidatorBase
+    [QuestionValidatorType(QuestionValidatorTypes.OptionalEmail)]
+    public class OptionalEmailValidator : ValidatorBase
     {
   
-        public EmailValidator(IQuestion question, string validationMessage, string validationValue) : base(question, validationMessage, validationValue)
+        public OptionalEmailValidator(IQuestion question, string validationMessage, string validationValue) : base(question, validationMessage, validationValue)
         {
         }
 
-        public EmailValidator(IQuestion question) : base(question)
+        public OptionalEmailValidator(IQuestion question) : base(question)
         {
         }
 
         public override bool IsValid(string input, string validationValue)
         {
             Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$");
-            return emailRegex.IsMatch(input);
+            var isValid = string.IsNullOrEmpty(input) || emailRegex.IsMatch(input);
+            return isValid;
         }
 
         public override string DefaultValidationMessage => "Enter a valid email address";

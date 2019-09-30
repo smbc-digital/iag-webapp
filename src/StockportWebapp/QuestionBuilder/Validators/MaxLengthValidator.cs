@@ -17,10 +17,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         public override bool IsValid(string input, string validationValue)
         {
             var maxLength = int.Parse(validationValue);
-            //if(input.Length > maxLength)
-            //{
-            //    throw new Exception();
-            //}
+
             return input.Length <= maxLength;
         }
 

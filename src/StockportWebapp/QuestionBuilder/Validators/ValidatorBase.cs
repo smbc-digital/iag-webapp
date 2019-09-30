@@ -27,11 +27,6 @@ namespace StockportWebapp.QuestionBuilder.Validators
 
         public ValidationResult Validate(string input)
         {
-            if (input == null)
-            {
-                return ValidationResult.Invalid(GetValidationMessage(), _question.QuestionId);
-            }
-
             return IsValid(input, _validationValue) ? ValidationResult.Valid(_question.QuestionId) : ValidationResult.Invalid(GetValidationMessage(), _question.QuestionId);
         }
 
