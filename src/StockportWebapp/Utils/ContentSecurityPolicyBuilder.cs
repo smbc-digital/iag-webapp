@@ -109,6 +109,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://app.meetami.ai")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("https://www.facebook.com/")
+				.AddSource("*.siteimproveanalytics.io/")
                 .Finish());
 		}
 
@@ -147,6 +148,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://ajax.googleapis.com/ajax/libs/jquery/")
 				.AddSource("maps.googleapis.com")
 				.AddSource("m.addthisedge.com/live/boost/")
+				.AddSource("v1.addthisedge.com/live/boost/")
 				.AddSource("www.google-analytics.com/analytics.js")
                 .AddSource("tagmanager.google.com/")
 				.AddSource("api.cludo.com/scripts/")
@@ -164,7 +166,7 @@ namespace StockportWebapp.Utils
 				.AddSource("logo-net.co.uk/Delivery/")
 				.AddSource("https://www.opinionstage.com/assets/loader.js")
 				.AddSource("https://www.google.com/recaptcha/api.js")
-				.AddSource("https://www.gstatic.com/recaptcha/api2/")
+				.AddSource("https://www.gstatic.com/recaptcha/")
                 .AddSource("https://www.googletagmanager.com/")
                 .AddSource("https://d26b395fwzu5fz.cloudfront.net/keen-tracking-1.1.3.min.js")
 				.AddSource("https://www.jscache.com/")
@@ -186,6 +188,7 @@ namespace StockportWebapp.Utils
 				.AddSource("http://feed2js.org/feed2js.php")
 				.AddSource("https://connect.facebook.net/")
 				.AddSource("widget.wheredoivote.co.uk/")
+				.AddSource("https://static.hotjar.com/")
                 .Finish());
 		}
 
