@@ -18,7 +18,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         public override bool IsValid(string input, string validationValue)
         {
             Regex numericRegex = new Regex(@"\D*(?:\d\D*){5}$");
-            return numericRegex.IsMatch(input);
+            return input != null && numericRegex.IsMatch(input);
         }
 
         public override string DefaultValidationMessage => "Enter a valid telephone number";

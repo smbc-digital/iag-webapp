@@ -20,7 +20,7 @@ namespace StockportWebapp.QuestionBuilder.Validators
         public override bool IsValid(string input, string validationValue)
         {
             Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$");
-            return emailRegex.IsMatch(input);
+            return input != null && emailRegex.IsMatch(input);
         }
 
         public override string DefaultValidationMessage => "Enter a valid email address";
