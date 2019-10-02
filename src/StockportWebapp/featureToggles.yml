@@ -19,6 +19,7 @@ prod: &prod
     - make-a-complaint
     - feedback
     - feedback-local
+    -give-feedback
 
 stage: &stage
   << : *prod
