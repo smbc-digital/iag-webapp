@@ -9,9 +9,9 @@ namespace StockportWebapp.Parsers
         protected Regex TagRegex => new Regex("{{BUTTON:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
         private const string ButtonClassStyle = "button button-primary button-outline button-partialrounded button-call-to-action";
 
-        protected string GenerateHtml(string tagData)
+        public string GenerateHtml(string tagData)
         {
-            var commaSplitString = tagData.Split(',');
+            var commaSplitString = tagData.Split(new[] { ',' }, 2);
             var thereIsLinkText = commaSplitString.Count() == 2;
             var link = tagData;
             var title = tagData;

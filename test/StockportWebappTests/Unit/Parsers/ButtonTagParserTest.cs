@@ -46,6 +46,21 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             result.Should().Be(expectedHtmlData);
         }
 
+        [Theory]
+        [InlineData("http://www.google.com, Okay Google", "http://www.google.com", "Okay Google")]
+        [InlineData("http://www.stockport.gov.uk, Hello, MyAccount", "http://www.stockport.gov.uk", "Hello, MyAccount")]
+        [InlineData("http://www.stockport.gov.uk, Hello, React, Forms", "http://www.stockport.gov.uk", "Hello, React, Forms")]
+        protected void ItParsesButtonTagAndSplitsLinkAndTitleWithComma(string tagData, string expectedButtonLink, string expectedButtonTitle)
+        {
+            string body = "{{BUTTON: " + tagData + "}}";
+            var expectedHtmlData = HtmlButton(expectedButtonLink, expectedButtonTitle);
+
+            var result = _buttonParser.Parse(body);
+
+            result.Should().Be(expectedHtmlData);
+        }
+
+
         [Fact]
         public void ItParsesAllButtonTagsAndReplacesThemWithHtmlButtons()
         {
