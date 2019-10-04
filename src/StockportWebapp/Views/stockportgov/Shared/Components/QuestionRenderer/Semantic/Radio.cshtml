@@ -1,6 +1,6 @@
 ﻿@model StockportWebapp.QuestionBuilder.Entities.Question
 
-    <fieldset class="form-section question-section">
+    <fieldset class="form-section question-section" role="radiogroup" aria-label="@Model.QuestionId">
         @{
             if (!string.IsNullOrEmpty(Model.Label))
             {
