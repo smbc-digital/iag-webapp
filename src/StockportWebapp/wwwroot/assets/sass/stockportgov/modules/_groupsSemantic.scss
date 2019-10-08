@@ -93,6 +93,10 @@
             padding: 0 25px 0 0;
             box-sizing: border-box;
 
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //IE only
+                display: block;
+            }
+
             p {
                 margin: -10px 0 10px 0;
             }
@@ -136,11 +140,19 @@
             align-items: center;
             justify-content: center;
 
+            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //IE only
+                height: 80%;
+            }
+
             a {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+
+                @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //IE only
+                    display: inline;
+                }
             }
 
             @media #{$mobile} {
