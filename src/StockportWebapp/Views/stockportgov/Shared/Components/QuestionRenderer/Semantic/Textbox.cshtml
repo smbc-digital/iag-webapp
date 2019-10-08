@@ -13,10 +13,13 @@
                 <p class="optional">(optional)</p>
             }
 
+            var itemEmail = Model.ValidatorData.Where(x => x.Type == "email");
+            var itemEmailOptional = Model.ValidatorData.Where(x => x.Type == "optional-email");
+
             if (Model.ValidatorData.Count > 0)
             {
-                var item = Model.ValidatorData.Where(x => x.Type == "optional-email");
-                if (Model.ValidatorData.Count == 1 && item.Count().Equals(1))
+                
+                if (Model.ValidatorData.Count == 1 && itemEmailOptional.Count().Equals(1))
                 {
                     <h2 class="h3 optional">@Model.Label</h2>
                     <p class="optional">(optional)</p>
@@ -34,10 +37,19 @@
             }
         }
 
-        @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
+        @{
+            if (itemEmailOptional.Count().Equals(1) || itemEmail.Count().Equals(1))
+            {
+                @Html.TextBox("Response", "", new { @class = "email-smart-answers", style="width:100%;", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
+            }
+            else
+            {
+                @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
 
-        @*Disabled validation messages on textbox as they are no longer required.*@
-        <partial name="_ValidationError.cshtml" model='Model' />
+            }
+
+            <partial name="_ValidationError.cshtml" model='Model' />
+        }
     </div>
 
 <script type="text/javascript">
