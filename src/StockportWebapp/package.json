@@ -30,6 +30,6 @@
     "jsreport-core": "^1.5.1",
     "jsreport-jsrender": "^1.0.2",
     "jsreport-phantom-pdf": "^1.4.6",
-    "sass": "^1.22.12"
+    "sass": "^1.23.0"
   }
 }
