@@ -25,12 +25,14 @@ stage: &stage
   << : *prod
   GroupArchiveEmails: true
   SiaSystem: false
+  Newsroom: true
 
 qa: &qa
   << : *prod
   << : *stage
   SemanticLayout: true
   SemanticInlineAlert: true
+  Newsroom: true
 
 int: &int
   << : *prod
