@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -13,10 +15,12 @@ namespace StockportWebapp.Controllers
     public class CommsController : Controller
     {
         private readonly IRepository _repository;
+        private readonly ILogger<CommsController> _logger;
 
-        public CommsController(IRepository repository)
+        public CommsController(IRepository repository, ILogger<CommsController> logger)
         {
             _repository = repository;
+            _logger = logger;
         }
 
         [Route("/news-room")]
@@ -35,7 +39,15 @@ namespace StockportWebapp.Controllers
                 LatestNews = latestNews?.FirstOrDefault()
             };
 
-            return View(viewModel);
+            try
+            {
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("News and media unable to load", ex.Message);
+                return RedirectToRoute("Error", "500");
+            }
         }
     }
 }
