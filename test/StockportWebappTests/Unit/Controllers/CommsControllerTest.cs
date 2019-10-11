@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
@@ -16,11 +17,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
     public class CommsControllerTest
     {
         private readonly Mock<IRepository> _mockRepository = new Mock<IRepository>();
+        private readonly Mock<ILogger<CommsController>> _mockLogger = new Mock<ILogger<CommsController>>();
         private readonly CommsController _controller;
 
         public CommsControllerTest()
         {
-            _controller = new CommsController(_mockRepository.Object);
+            _controller = new CommsController(_mockRepository.Object, _mockLogger.Object);
         }
 
         [Fact]
