@@ -13,7 +13,7 @@
         }
         <span>@Html.Raw(Model.TextSubLabel)</span>
         <div class="enquiry-message">
-            @Html.TextArea("Response", "", new { @class = "", maxLength = @limitValue, data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
+            @Html.TextArea("Response", "", new { @class = "", maxLength = @limitValue, data_questionid = Model.QuestionId, aria_labelledby = @Model.QuestionId, id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
            
             @*Disabled on text areas as we no longer display the validation message*@
             @*<partial name="_ValidationError.cshtml" model='Model' />*@

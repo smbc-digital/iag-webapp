@@ -5,7 +5,6 @@
 }
 
     <div class="form-section question-section">
-
         @{
             if (Model.ValidatorData.Count == 0)
             {
@@ -18,7 +17,7 @@
 
             if (Model.ValidatorData.Count > 0)
             {
-                
+
                 if (Model.ValidatorData.Count == 1 && itemEmailOptional.Count().Equals(1))
                 {
                     <h2 class="h3 optional">@Model.Label</h2>
@@ -26,7 +25,10 @@
                 }
                 else
                 {
-                    <h2 class="h3">@Model.Label</h2>
+                    if (!string.IsNullOrEmpty(@Model.Label))
+                    {
+                        <h2 class="h3">@Model.Label</h2>
+                    }
                 }
             }
         }
@@ -40,12 +42,11 @@
         @{
             if (itemEmailOptional.Count().Equals(1) || itemEmail.Count().Equals(1))
             {
-                @Html.TextBox("Response", "", new { @class = "email-smart-answers", style="width:100%;", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
+                @Html.TextBox("Response", "", new { @class = "email-smart-answers",  style = "width:100%;", data_questionid = Model.QuestionId, aria_labelledby = @Model.QuestionId, id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
             }
             else
             {
-                @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = string.Concat("label-", @Model.QuestionId).Replace(" ", "-"), id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
-
+                @Html.TextBox("Response", "", new { @class = "", data_questionid = Model.QuestionId, aria_labelledby = @Model.QuestionId, id = string.Concat(@Model.QuestionId).Replace(" ", "-") })
             }
 
             <partial name="_ValidationError.cshtml" model='Model' />
