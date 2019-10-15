@@ -1,26 +1,49 @@
 ﻿@model StockportWebapp.ViewDetails.ContactUsDetails
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 
-<form method="post" role="form" action="/contact-us">
-    <div class="form">
-        <div class="form-section">
-            <label tabindex="-1" id="content"asp-for="Name">Name *</label>
-            <input class="input-field" asp-for="Name" placeholder="Enter your name"/>
+<noscript>
+    <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
+        <div class="alert-icon">
+            <i class="fa fa-exclamation fa-3x" aria-hidden="true"></i>
         </div>
-        <div class="form-section">
-            <label asp-for="Email">Email Address *</label>
-            <input class="input-field" asp-for="Email" placeholder="Enter your email address"/>
-        </div>
-        <div class="form-section">
-            <label asp-for="Subject">Subject *</label>
-            <input class="input-field" asp-for="Subject" placeholder="What are you contacting us about?"/>
-        </div>
-        <div class="form-section">
-            <textarea asp-for="Message" rows="6" placeholder="Enter a Message" title="Enter a Message"></textarea>
-        </div>
-            <input type="hidden" asp-for="ServiceEmailId" value="@Model.ServiceEmailId"/>
-        <div class="form-section">
-            <button type="submit" class="button button-outline button-partialrounded button-fullwidth button-dark">Submit</button>
+        <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
+            <h3>There has been a problem: </h3>
+            <p>For security reasons, you can’t use our contact forms with JavaScript turned off. Please enable JavaScript to use the form or alternatively send your enquiry to webcontent@stockport.gov.uk<br></p>
         </div>
     </div>
-</form>
+</noscript>
+
+<form method="post" role="form" action="/contact-us">
+        <div class="form">
+            <div class="form-section">
+                <label tabindex="-1" id="content"asp-for="Name">Name *</label>
+                <input class="input-field" asp-for="Name" placeholder="Enter your name"/>
+            </div>
+            <div class="form-section">
+                <label asp-for="Email">Email Address *</label>
+                <input class="input-field" asp-for="Email" placeholder="Enter your email address"/>
+            </div>
+            <div class="form-section">
+                <label asp-for="Subject">Subject *</label>
+                <input class="input-field" asp-for="Subject" placeholder="What are you contacting us about?"/>
+            </div>
+            <div class="form-section">
+                <textarea asp-for="Message" rows="6" placeholder="Enter a Message" title="Enter a Message"></textarea>
+            </div>
+            <input type="hidden" asp-for="ServiceEmailId" value="@Model.ServiceEmailId"/>
+            <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+            <div class="clearfix">
+            </div>
+            <div class="form-section">
+                <button type="submit" class="button button-outline button-partialrounded button-fullwidth button-dark">Submit</button>
+            </div>
+        </div>
+    </form>
+
+<script type="text/javascript">
+    require(['startup', 'contactus', 'jquery.steps', 'recaptcha', 'utils', 'unobtrusive'],
+        function (startup, contactus) {
+            startup.Init();
+            contactus.Init();
+        })
+</script>
