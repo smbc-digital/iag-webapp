@@ -38,7 +38,9 @@ namespace StockportWebapp.Controllers
 
             var page = GetPage(0);
 
-            var result = new SmartAnswerViewModel { Page = page, Slug = Slug, Title = Title };
+            var result = new SmartAnswerViewModel { Page = page, Slug = Slug, Title = Title, TypeformUrl = page.TypeformUrl};
+
+            //var typeformUrl = 
 
             if (_featuretogles.SemanticLayout && _featuretogles.SemanticSmartAnswer.Contains(result.Slug))
             {

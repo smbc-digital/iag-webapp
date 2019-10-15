@@ -216,7 +216,8 @@ namespace StockportWebapp.QuestionBuilder
             {
                 Page = page,
                 Slug = Slug,
-                Title = Title
+                Title = Title,
+                TypeformUrl = page.TypeformUrl
             };
 
             result.Page.PreviousAnswersJson = JsonConvert.SerializeObject(page.PreviousAnswers);

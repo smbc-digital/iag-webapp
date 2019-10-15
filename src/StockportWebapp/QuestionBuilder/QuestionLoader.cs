@@ -35,6 +35,11 @@ namespace StockportWebapp.QuestionBuilder
                 new GenericJsonConverter<IBehaviour, Behaviour>() 
             });
 
+            foreach (var question in questionList)
+            {
+                question.TypeformUrl = smartAnswer.TypeformUrl;
+            }
+
             var questionStructure = new TQuestionStructure
             {
                 Structure = BuildQuestionMapFromList(questionList)

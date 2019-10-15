@@ -22,7 +22,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
 
         [JsonConstructor]
         public Page(int pageId, string analyticsEvent = "", string description = "", IList<Question> questions = null, 
-            IList<Behaviour> behaviours = null, bool isLastPage = false, bool shouldCache = true, bool hideBackButton = false, InlineAlert alert = null)
+            IList<Behaviour> behaviours = null, bool isLastPage = false, bool shouldCache = true, bool hideBackButton = false, InlineAlert alert = null, string typeformUrl = "")
         {
             PageId = pageId;
             AnalyticsEvent = analyticsEvent;
@@ -33,6 +33,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
             ShouldCache = shouldCache;
             HideBackButton = hideBackButton;
             Alert = alert;
+            TypeformUrl = typeformUrl;
         }
 
         public int PageId { get; set; }
@@ -72,6 +73,7 @@ namespace StockportWebapp.QuestionBuilder.Entities
         public bool HideBackButton { get; set; }
         public InlineAlert Alert { get; set; }
         public bool ShouldCache { get; set; }
+        public string TypeformUrl { get; set; }
 
         public void AddAnswers(List<Answer> answers)
         {
