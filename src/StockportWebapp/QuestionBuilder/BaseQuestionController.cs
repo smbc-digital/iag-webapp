@@ -172,25 +172,16 @@ namespace StockportWebapp.QuestionBuilder
                         page.AddAnswers(allAnswers);
                         break;
                     case EQuestionType.HandOffData:
-                        _logger.LogInformation("------Before config");
                         var authenticationKey = _config["DTSHandOffAuthenticationKey"];
-                        _logger.LogInformation($"------Authentication key: {authenticationKey}");
-
-                        _logger.LogInformation($"------{behaviour.Value}");
-
-                        _logger.LogWarning($"------{behaviour.Value}");
                         try
                         {
-                            _logger.LogWarning($"------- {page.PreviousAnswersJson}");
                             var guid = await _client.PostAsyncMessage($"{behaviour.Value}", new StringContent(page.PreviousAnswersJson, Encoding.UTF8, "application/json"), new Dictionary<string, string> { { "DTSHandOffAuthenticationKey", authenticationKey } });
-                            _logger.LogInformation($"------{guid ?? null}");
                             if (string.IsNullOrEmpty(guid.Content.ReadAsStringAsync().Result))
                             {
-                                _logger.LogInformation($"Guid not set");
+                                _logger.LogWarning($"Guid not set");
                             }
                             else
                             {
-                                //_logger.LogInformation($"Redirect url ==== {behaviour.Value}date?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                                 return Redirect($"{behaviour.RedirectValue}?guid={JsonConvert.DeserializeObject(guid.Content.ReadAsStringAsync().Result)}");
                             }
 
