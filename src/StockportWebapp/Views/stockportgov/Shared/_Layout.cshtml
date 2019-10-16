@@ -86,6 +86,9 @@
 
     @RenderSection("Scripts", false)
 
-    <partial name="AmiSnippet" />
+    if (ViewData["HideAmi"]) == null && ViewData["HideAmi"]) == true)
+    {
+        <partial name="AmiSnippet" />
+    }
 </body>
 </html>
