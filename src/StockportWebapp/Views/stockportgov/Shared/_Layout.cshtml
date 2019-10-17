@@ -86,7 +86,7 @@
 
     @RenderSection("Scripts", false)
 
-    @if (ViewData["HideAmi"] == null)
+    @if (@ViewData["Title"] as string != "Contact Us")
     {
         <partial name="AmiSnippet" />
     }
