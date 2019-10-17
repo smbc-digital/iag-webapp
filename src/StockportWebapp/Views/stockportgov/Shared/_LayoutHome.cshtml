@@ -72,6 +72,9 @@
             })
     </script>
 
-    <partial name="AmiSnippet" />
+    @if (ViewData["HideAmi"] == null)
+    {
+        <partial name="AmiSnippet" />
+    }
 </body>
 </html>
