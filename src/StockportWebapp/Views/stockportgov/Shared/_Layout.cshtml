@@ -86,7 +86,7 @@
 
     @RenderSection("Scripts", false)
 
-    @if (@ViewData["Title"] as string != "Contact Us")
+    @if ((@ViewData["Title"] as string).ToLower() != "contact us")
     {
         <partial name="AmiSnippet" />
     }
