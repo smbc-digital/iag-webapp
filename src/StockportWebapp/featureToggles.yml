@@ -11,14 +11,8 @@ prod: &prod
   SemanticSmartAnswer: 
     - enforcement-referral
     - education-penalty-notice
-    - compliments
-    - compliments-int
     - give-a-compliment
-    - make-a-complaint-local
-    - make-a-complaint-int
-    - make-a-complaint
-    - feedback
-    - feedback-local
+    - make-a-formal-complaint
     - give-feedback
 
 stage: &stage
