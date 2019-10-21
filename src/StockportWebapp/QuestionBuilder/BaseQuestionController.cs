@@ -188,7 +188,7 @@ namespace StockportWebapp.QuestionBuilder
                         }
                         catch (Exception e)
                         {
-                            _logger.LogError($"------{e}");
+                            _logger.LogError($"Failed posting to {behaviour.Value} ------{e}");
                             throw;
                         }
                         break;
