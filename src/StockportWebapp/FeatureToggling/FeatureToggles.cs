@@ -13,7 +13,6 @@ namespace StockportWebapp.FeatureToggling
         public List<string> SemanticSmartAnswer { get; set; } = new List<string>();
         public bool ContactUsArea { get; set; } = false;
         public bool SemanticInlineAlert { get; set; } = false;
-        public bool AmiChatBot { get; set; } = false;
         public bool Newsroom { get; set; } = false;
     }
 }

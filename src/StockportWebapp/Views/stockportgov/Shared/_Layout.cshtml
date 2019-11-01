@@ -85,10 +85,5 @@
     @await Component.InvokeAsync("AddThis")
 
     @RenderSection("Scripts", false)
-
-    @if ((@ViewData["Title"] as string).ToLower() != "contact us")
-    {
-        <partial name="AmiSnippet" />
-    }
 </body>
 </html>

@@ -65,8 +65,6 @@ namespace StockportWebapp.Utils
                     output,
                     new HtmlHelperOptions());
 
-                viewContext.ViewData.Add("HideAmi", true);
-
                 view.RenderAsync(viewContext).GetAwaiter().GetResult();
 
                 return output.ToString();
