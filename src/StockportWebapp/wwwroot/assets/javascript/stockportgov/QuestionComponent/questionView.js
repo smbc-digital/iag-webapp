@@ -8,8 +8,14 @@ define(["jquery"], function ($) {
 
     var enableNextButton = function () {
         var button = $(".question-button-next");
-        button.prop("disabled", false);
-        button.removeClass("button-disabled");
+        if (button.hasClass("button-loading")) {
+	        disableNextButton();
+            event.stopPropagation();
+            return false;
+        } else {
+			button.prop("disabled", false);
+			button.removeClass("button-disabled");
+        }
     };
 
     var showNextbutton = function () {

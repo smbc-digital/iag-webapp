@@ -15,6 +15,10 @@ define(["jquery", "questioncontroller"], function ($, controller) {
                 var text = $(".tertiary-Information", li).text();
                 $("#tertiary-Information-value").text(text);
             });
+
+            $("#submit-button").click(function () {
+				$("#submit-button").addClass("button-loading");
+            });
         }
     };
 });

@@ -13,7 +13,7 @@
         }
         else
         {
-            <partial name="InformationAlert.cshtml" model='Model'/>
+            <partial name="InformationAlert.cshtml" model='Model' />
         }
     }
 }
@@ -33,7 +33,15 @@
 
     if (Model.DisplayNextButton)
     {
-        <button disabled="disabled" id="button" type="submit" class="button-primary button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script button-width">@Model.ButtonText</button>
+        if (Model.ButtonText.Equals("Submit"))
+        {
+            <button disabled="disabled" id="submit-button" type="submit" class="button-primary button-disabled question-button-next question-button-next-script">@Model.ButtonText</button>
+        }
+        else
+        {
+            <button disabled="disabled" id="button" type="submit" class="button-primary button-outline button-partialrounded button-bold button-call-to-action button-disabled question-button-next question-button-next-script button-width">@Model.ButtonText</button>
+        }
+
         if (Model.PageId != 0 && !Model.HideBackButton)
         {
             <p><a class="back-button" href="javascript:history.go(-1)">Previous</a></p>
