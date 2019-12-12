@@ -217,7 +217,7 @@ namespace StockportWebapp.Services
                 stageOneGroup.GroupAdministrators.Items
                     .Where(admin => admin.Permission == "A")
                     .Select(admin => new GroupArchiveWarningEmailViewModel(admin.Name, stageOneGroup.Name, admin.Email))
-                    .Select(viewModel => new EmailMessage(subject, _emailClient.GenerateEmailBodyFromHtml(viewModel, template), fromAddress, viewModel.EmailAddress, "website.updates@stockport.gov.uk", null))
+                    .Select(viewModel => new EmailMessage(subject, _emailClient.GenerateEmailBodyFromHtml(viewModel, template), fromAddress, viewModel.EmailAddress, string.Empty, null))
                     .ToList()
                     .ForEach(entity => _emailClient.SendEmailToService(entity));
     
