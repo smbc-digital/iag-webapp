@@ -75,10 +75,10 @@ namespace StockportWebapp.Controllers
 
             TryValidateModel(paymentSubmission);
 
-            if (!ModelState.IsValid)
-            {
-                return View(paymentSubmission);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(paymentSubmission);
+            //}
 
             if (_featureToggles.CivicaPay)
             {
