@@ -1,13 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net;
+using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.ProcessedModels;
 using Microsoft.AspNetCore.NodeServices;
+using StockportGovUK.AspNetCore.Gateways.Civica.Pay;
+using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
+using System;
+using Microsoft.Extensions.Configuration;
+using StockportWebapp.FeatureToggling;
+using StockportWebapp.Config;
 
 namespace StockportWebapp.Controllers
 {
@@ -15,16 +21,22 @@ namespace StockportWebapp.Controllers
     public class PaymentController : Controller
     {
         private readonly IProcessedContentRepository _repository;
-        private readonly IApplicationConfiguration _applicationConfiguration;
         private readonly IViewRender _viewRender;
         private readonly ParisHashHelper _hashHelper;
+        private readonly ICivicaPayGateway _civicaPayGateway;
+        private readonly IConfiguration _configuration;
+        private readonly FeatureToggles _featureToggles;
+        private readonly IApplicationConfiguration _applicationConfiguration;
 
-        public PaymentController(IProcessedContentRepository repository, IApplicationConfiguration applicationConfiguration, IViewRender viewRender, ParisHashHelper hashHelper)
+        public PaymentController(IProcessedContentRepository repository, IViewRender viewRender, ParisHashHelper hashHelper, ICivicaPayGateway civicaPayGateway, IConfiguration configuration, FeatureToggles featureToggles, IApplicationConfiguration applicationConfiguration)
         {
             _repository = repository;
-            _applicationConfiguration = applicationConfiguration;
             _viewRender = viewRender;
             _hashHelper = hashHelper;
+            _civicaPayGateway = civicaPayGateway;
+            _configuration = configuration;
+            _featureToggles = featureToggles;
+            _applicationConfiguration = applicationConfiguration;
         }
 
         [Route("/payment/{slug}")]
@@ -37,8 +49,10 @@ namespace StockportWebapp.Controllers
 
             var payment = response.Content as ProcessedPayment;
 
-            var paymentSubmission = new PaymentSubmission();
-            paymentSubmission.Payment = payment;
+            var paymentSubmission = new PaymentSubmission
+            {
+                Payment = payment
+            };
 
             if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceprocessed) && serviceprocessed.ToUpper().Equals("FALSE"))
                 ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
@@ -61,13 +75,74 @@ namespace StockportWebapp.Controllers
 
             TryValidateModel(paymentSubmission);
 
-            var currentPath = Request.GetUri().AbsoluteUri;
-            var confirmationReturn =  $"{currentPath}";
-
             if (!ModelState.IsValid)
+            {
                 return View(paymentSubmission);
-            else
-                return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration, confirmationReturn));
+            }
+
+            if (_featureToggles.CivicaPay)
+            {
+                var transactionReference = Guid.NewGuid().ToString();
+
+                var immediateBasketResponse = new CreateImmediateBasketRequest
+                {
+                    CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
+                    CustomerID = _configuration.GetValue<string>("CivicaPayCustomerID"),
+                    ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
+                    ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Protocol}://{Request.Host}/payment/{slug}/success",
+                    NotifyURL = string.Empty,
+                    CallingAppTranReference = transactionReference,
+                    PaymentItems = new System.Collections.Generic.List<PaymentItem>
+                {
+                    new PaymentItem
+                    {
+                        PaymentDetails = new PaymentDetail
+                        {
+                            CatalogueID = payment.CatalogueId,
+                            AccountReference = paymentSubmission.Reference,
+                            PaymentAmount = paymentSubmission.Amount.ToString(),
+                            PaymentNarrative = payment.PaymentDescription,
+                            CallingAppTranReference = transactionReference,
+                            Quantity = "1"
+                        },
+                        AddressDetails = new AddressDetail()
+                    }
+                }
+                };
+
+                var civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
+                if (civicaResponse.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    return View("Error", response);
+                }
+
+                return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken));
+            }
+
+            var currentPath = Request.GetUri().AbsoluteUri;
+            var confirmationReturn = $"{currentPath}";
+
+            return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration, confirmationReturn));
+        }
+
+        [Route("/payment/{slug}/success")]
+        public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string basketRef)
+        {
+            var response = await _repository.Get<Payment>(slug);
+
+            if (!response.IsSuccessful())
+                return response;
+
+            var payment = response.Content as ProcessedPayment;
+
+            var model = new PaymentSuccess
+            {
+                Title = payment.Title,
+                ReceiptNumber = basketRef,
+                MetaDescription = payment.MetaDescription
+            };
+
+            return View(model);
         }
 
         [Route("/payment/{slug}/thanks")]
@@ -92,23 +167,24 @@ namespace StockportWebapp.Controllers
 
             var payment = response.Content as ProcessedPayment;
 
-            var model = new PaymentResponse();
+            var model = new PaymentResponse
+            {
+                Title = payment.Title,
+                TransactionType = transactionType,
+                AdministrationCharge = administrationCharge,
+                Amount = amount,
+                Data = data,
+                ServiceProcessed = serviceProcessed,
+                MerchantNumber = merchantNumber,
+                AuthorisationCode = authorisationCode,
+                Date = date,
+                MerchantTid = merchantTid,
+                ReceiptNumber = receiptNumber,
+                Hash = hash,
+                Slug = slug,
+                MetaDescription = payment.MetaDescription
+            };
 
-            model.Title = payment.Title;
-            model.TransactionType = transactionType;
-            model.AdministrationCharge = administrationCharge;
-            model.Amount = amount;
-            model.Data = data;
-            model.ServiceProcessed = serviceProcessed;
-            model.MerchantNumber = merchantNumber;
-            model.AuthorisationCode = authorisationCode;
-            model.Date = date;
-            model.MerchantTid = merchantTid;
-            model.ReceiptNumber = receiptNumber;
-            model.Hash = hash;
-            model.Slug = slug;
-            model.MetaDescription = payment.MetaDescription;
-      
             return View(model);
         }
 
@@ -129,21 +205,22 @@ namespace StockportWebapp.Controllers
 
             var payment = response.Content as ProcessedPayment;
 
-            var model = new PaymentResponse();
-
-            model.Title = payment.Title;
-            model.TransactionType = transactionType;
-            model.AdministrationCharge = administrationCharge;
-            model.Amount = amount;
-            model.Data = data;
-            model.ServiceProcessed = serviceProcessed;
-            model.MerchantNumber = merchantNumber;
-            model.AuthorisationCode = authorisationCode;
-            model.Date = date;
-            model.MerchantTid = merchantTid;
-            model.ReceiptNumber = receiptNumber;
-            model.Hash = hash;
-            model.Slug = slug;
+            var model = new PaymentResponse
+            {
+                Title = payment.Title,
+                TransactionType = transactionType,
+                AdministrationCharge = administrationCharge,
+                Amount = amount,
+                Data = data,
+                ServiceProcessed = serviceProcessed,
+                MerchantNumber = merchantNumber,
+                AuthorisationCode = authorisationCode,
+                Date = date,
+                MerchantTid = merchantTid,
+                ReceiptNumber = receiptNumber,
+                Hash = hash,
+                Slug = slug
+            };
 
             return View(model);
         }
@@ -168,21 +245,22 @@ namespace StockportWebapp.Controllers
 
             var payment = response.Content as ProcessedPayment;
 
-            var model = new PaymentResponse();
-
-            model.Title = payment.Title;
-            model.TransactionType = transactionType;
-            model.AdministrationCharge = administrationCharge;
-            model.Amount = amount;
-            model.Data = data;
-            model.ServiceProcessed = serviceProcessed;
-            model.MerchantNumber = merchantNumber;
-            model.AuthorisationCode = authorisationCode;
-            model.Date = date;
-            model.MerchantTid = merchantTid;
-            model.ReceiptNumber = receiptNumber;
-            model.Hash = hash;
-            model.Slug = slug;
+            var model = new PaymentResponse
+            {
+                Title = payment.Title,
+                TransactionType = transactionType,
+                AdministrationCharge = administrationCharge,
+                Amount = amount,
+                Data = data,
+                ServiceProcessed = serviceProcessed,
+                MerchantNumber = merchantNumber,
+                AuthorisationCode = authorisationCode,
+                Date = date,
+                MerchantTid = merchantTid,
+                ReceiptNumber = receiptNumber,
+                Hash = hash,
+                Slug = slug
+            };
 
             var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
             var renderedHtml = _viewRender.Render("Shared/PaymentConfirmationPDF", model);

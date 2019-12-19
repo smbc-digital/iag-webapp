@@ -28,7 +28,10 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "glCodeCostCentreNumber",
                     new List<Crumb>(),
                     EPaymentReferenceValidation.None,
-                    "metaDescription"),
+                    "metaDescription",
+                    "returnUrl",
+                    "catalogueId",
+                    "paymentDescription"),
                 Reference = "12345"
             };
             var context = new ValidationContext(paymentSubmission);
@@ -68,7 +71,10 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "glCodeCostCentreNumber",
                     new List<Crumb>(),
                     referenceValidation,
-                    "metaDescription"),
+                    "metaDescription",
+                    "returnUrl",
+                    "catalogueId",
+                    "paymentDescription"),
                 Reference = reference
             };
             var context = new ValidationContext(paymentSubmission);
@@ -107,7 +113,10 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "glCodeCostCentreNumber",
                     new List<Crumb>(),
                     referenceValidation,
-                    "metaDescription"),
+                    "metaDescription",
+                    "returnUrl",
+                    "catalogueId",
+                    "paymentDescription"),
                 Reference = reference
             };
             var context = new ValidationContext(paymentSubmission);

@@ -18,17 +18,20 @@ namespace StockportWebappTests_Unit.Unit.Helpers
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
         private ProcessedPayment testProcessedPayment = new ProcessedPayment("title",
-                                                                     "slug",
-                                                                     "teaser",
-                                                                     "description",
-                                                                     "paymentDetailsText",
-                                                                     "referenceLabel",
-                                                                     "parisReference",
-                                                                     "07",
-                                                                     "glCodeCostCentreNumber",
-                                                                     new List<Crumb>(),
-                                                                     EPaymentReferenceValidation.None,
-                                                                     "metaDescription");
+                                                                    "slug",
+                                                                    "teaser",
+                                                                    "description",
+                                                                    "paymentDetailsText",
+                                                                    "referenceLabel",
+                                                                    "parisReference",
+                                                                    "07",
+                                                                    "glCodeCostCentreNumber",
+                                                                    new List<Crumb>(),
+                                                                    EPaymentReferenceValidation.None,
+                                                                    "metaDescription",
+                                                                    "returnUrl",
+                                                                    "catalogueId",
+                                                                    "paymentDescription");
 
         string returnUrl = "https://www.stockport.gov.uk";
 
@@ -63,17 +66,20 @@ namespace StockportWebappTests_Unit.Unit.Helpers
         public void ReferenceShouldBeUserInputAndText6ShouldBeTitleIfGlCodeNumberIsNotSupplied()
         {
             ProcessedPayment testProcessedPaymentWithoutglCodeCostCentreNumber = new ProcessedPayment("title",
-                                                                                                      "slug",
-                                                                                                      "teaser",
-                                                                                                      "description",
-                                                                                                      "paymentDetailsText",
-                                                                                                      "referenceLabel",
-                                                                                                      "parisReference",
-                                                                                                      "07",
-                                                                                                      "",
-                                                                                                      new List<Crumb>(),
-                                                                                                      EPaymentReferenceValidation.None,
-                                                                                                      "metaDescription");
+                                                                                                    "slug",
+                                                                                                    "teaser",
+                                                                                                    "description",
+                                                                                                    "paymentDetailsText",
+                                                                                                    "referenceLabel",
+                                                                                                    "parisReference",
+                                                                                                    "07",
+                                                                                                    "",
+                                                                                                    new List<Crumb>(),
+                                                                                                    EPaymentReferenceValidation.None,
+                                                                                                    "metaDescription",
+                                                                                                    "returnUrl",
+                                                                                                    "catalogueId",
+                                                                                                    "paymentDescription");
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "test", Payment = testProcessedPaymentWithoutglCodeCostCentreNumber };
 
             string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object, returnUrl);

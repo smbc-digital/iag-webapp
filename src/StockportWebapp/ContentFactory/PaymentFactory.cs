@@ -35,7 +35,10 @@ namespace StockportWebapp.ContentFactory
                 payment.GlCodeCostCentreNumber,
                 payment.BreadCrumbs,
                 payment.ReferenceValidation,
-                payment.MetaDescription);
+                payment.MetaDescription,
+                payment.ReturnUrl,
+                payment.CatalogueId,
+                payment.PaymentDescription);
         }
     }
 }

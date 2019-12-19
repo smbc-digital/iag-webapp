@@ -16,6 +16,7 @@ using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
 using Microsoft.AspNetCore.Http;
 using Serilog;
+using StockportGovUK.AspNetCore.Gateways;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Services;
 using StockportWebapp.Wrappers;
@@ -83,6 +84,7 @@ namespace StockportWebapp
             services.AddGroupConfiguration(Configuration, StartupLogger);
             services.AddSesEmailConfiguration(Configuration, StartupLogger);
             services.AddRedis(Configuration, _useRedisSession, StartupLogger);
+            services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
 
             // sdk
             services.AddApplicationInsightsTelemetry(Configuration);

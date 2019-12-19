@@ -17,6 +17,9 @@ namespace StockportWebapp.Models
         public string Icon { get; set; }
         public List<Crumb> BreadCrumbs { get; set; }
         public EPaymentReferenceValidation ReferenceValidation { get; set; }
-        public string MetaDescription { get; set; } 
+        public string MetaDescription { get; set; }
+        public string ReturnUrl { get; set; }
+        public string CatalogueId { get; set; }
+        public string PaymentDescription { get; set; }
     }
 }
