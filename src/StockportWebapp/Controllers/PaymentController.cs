@@ -89,7 +89,7 @@ namespace StockportWebapp.Controllers
                     CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
                     CustomerID = _configuration.GetValue<string>("CivicaPayCustomerID"),
                     ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
-                    ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/payment/{slug}/success",
+                    ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
                     NotifyURL = string.Empty,
                     CallingAppTranReference = transactionReference,
                     PaymentItems = new System.Collections.Generic.List<PaymentItem>
@@ -125,8 +125,8 @@ namespace StockportWebapp.Controllers
             return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration, confirmationReturn));
         }
 
-        [Route("/payment/{slug}/success")]
-        public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string basketRef)
+        [Route("/payment/{slug}/result")]
+        public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string basketRef, [FromQuery] string responseCode)
         {
             var response = await _repository.Get<Payment>(slug);
 
@@ -134,6 +134,11 @@ namespace StockportWebapp.Controllers
                 return response;
 
             var payment = response.Content as ProcessedPayment;
+
+            if (responseCode == "99999")
+            {
+                return View("Failure", slug);
+            }
 
             var model = new PaymentSuccess
             {
