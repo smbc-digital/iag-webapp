@@ -104,7 +104,8 @@ namespace StockportWebapp.Controllers
                             PaymentNarrative = payment.PaymentDescription,
                             CallingAppTranReference = transactionReference,
                             Quantity = "1"
-                        }
+                        },
+                        AddressDetails = new AddressDetail()
                     }
                 }
                 };
