@@ -75,10 +75,10 @@ namespace StockportWebapp.Controllers
 
             TryValidateModel(paymentSubmission);
 
-            //if (!ModelState.IsValid)
-            //{
+            // if (!ModelState.IsValid)
+            // {
             //    return View(paymentSubmission);
-            //}
+            // }
 
             if (_featureToggles.CivicaPay)
             {
@@ -89,7 +89,7 @@ namespace StockportWebapp.Controllers
                     CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
                     CustomerID = _configuration.GetValue<string>("CivicaPayCustomerID"),
                     ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
-                    ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Protocol}://{Request.Host}/payment/{slug}/success",
+                    ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/payment/{slug}/success",
                     NotifyURL = string.Empty,
                     CallingAppTranReference = transactionReference,
                     PaymentItems = new System.Collections.Generic.List<PaymentItem>
@@ -104,8 +104,7 @@ namespace StockportWebapp.Controllers
                             PaymentNarrative = payment.PaymentDescription,
                             CallingAppTranReference = transactionReference,
                             Quantity = "1"
-                        },
-                        AddressDetails = new AddressDetail()
+                        }
                     }
                 }
                 };
