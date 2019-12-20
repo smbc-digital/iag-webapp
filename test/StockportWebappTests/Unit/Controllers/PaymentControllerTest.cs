@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using StockportWebapp.Enums;
 using StockportWebapp.Repositories;
 using StockportWebappTests_Unit.Helpers;
-using StockportGovUK.AspNetCore.Gateways.Civica.Pay;
+using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportWebapp.FeatureToggling;
 using Microsoft.Extensions.Configuration;
 

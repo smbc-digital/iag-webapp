@@ -16,7 +16,7 @@ using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
 using Microsoft.AspNetCore.Http;
 using Serilog;
-using StockportGovUK.AspNetCore.Gateways;
+using StockportGovUK.NetStandard.Gateways;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Services;
 using StockportWebapp.Wrappers;

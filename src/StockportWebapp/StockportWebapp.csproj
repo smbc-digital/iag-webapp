@@ -91,7 +91,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="6.5.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-    <PackageReference Include="StockportGovUk.AspNetCore.Gateways" Version="0.9.9" />
+    <PackageReference Include="StockportGovUk.NetStandard.Gateways" Version="1.0.2" />
     <PackageReference Include="WebMarkupMin.AspNetCore1" Version="2.5.0" />
     <PackageReference Include="YamlDotNet" Version="5.2.1" />
     <PackageReference Include="Humanizer.Core" Version="2.5.1" />

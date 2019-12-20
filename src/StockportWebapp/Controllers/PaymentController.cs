@@ -8,7 +8,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.ProcessedModels;
 using Microsoft.AspNetCore.NodeServices;
-using StockportGovUK.AspNetCore.Gateways.Civica.Pay;
+using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using System;
 using Microsoft.Extensions.Configuration;
@@ -116,7 +116,7 @@ namespace StockportWebapp.Controllers
                     return View("Error", response);
                 }
 
-                return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken));
+                return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, transactionReference));
             }
 
             var currentPath = Request.GetUri().AbsoluteUri;
@@ -126,7 +126,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/payment/{slug}/result")]
-        public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string basketRef, [FromQuery] string responseCode)
+        public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string callingAppTxnRef, [FromQuery] string responseCode)
         {
             var response = await _repository.Get<Payment>(slug);
 
@@ -143,7 +143,7 @@ namespace StockportWebapp.Controllers
             var model = new PaymentSuccess
             {
                 Title = payment.Title,
-                ReceiptNumber = basketRef,
+                ReceiptNumber = callingAppTxnRef,
                 MetaDescription = payment.MetaDescription
             };
 
