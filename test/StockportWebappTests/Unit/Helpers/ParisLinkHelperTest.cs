@@ -31,6 +31,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                     "metaDescription",
                                                                     "returnUrl",
                                                                     "catalogueId",
+                                                                    "accountReference",
                                                                     "paymentDescription");
 
         string returnUrl = "https://www.stockport.gov.uk";
@@ -79,6 +80,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                                                     "metaDescription",
                                                                                                     "returnUrl",
                                                                                                     "catalogueId",
+                                                                                                    "accountReference",
                                                                                                     "paymentDescription");
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "test", Payment = testProcessedPaymentWithoutglCodeCostCentreNumber };
 

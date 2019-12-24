@@ -31,6 +31,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "metaDescription",
                     "returnUrl",
                     "catalogueId",
+                    "accountReference",
                     "paymentDescription"),
                 Reference = "12345"
             };
@@ -74,6 +75,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "metaDescription",
                     "returnUrl",
                     "catalogueId",
+                    "accountReference",
                     "paymentDescription"),
                 Reference = reference
             };
@@ -116,6 +118,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "metaDescription",
                     "returnUrl",
                     "catalogueId",
+                    "accountReference",
                     "paymentDescription"),
                 Reference = reference
             };
