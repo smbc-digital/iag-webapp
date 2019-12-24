@@ -20,6 +20,7 @@ namespace StockportWebapp.Models
         public string MetaDescription { get; set; }
         public string ReturnUrl { get; set; }
         public string CatalogueId { get; set; }
+        public string AccountReference { get; set; }
         public string PaymentDescription { get; set; }
     }
 }

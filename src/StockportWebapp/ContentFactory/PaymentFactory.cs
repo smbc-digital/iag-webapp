@@ -38,6 +38,7 @@ namespace StockportWebapp.ContentFactory
                 payment.MetaDescription,
                 payment.ReturnUrl,
                 payment.CatalogueId,
+                payment.AccountReference,
                 payment.PaymentDescription);
         }
     }

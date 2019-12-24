@@ -99,9 +99,9 @@ namespace StockportWebapp.Controllers
                         PaymentDetails = new PaymentDetail
                         {
                             CatalogueID = payment.CatalogueId,
-                            AccountReference = paymentSubmission.Reference,
+                            AccountReference = !string.IsNullOrEmpty(payment.AccountReference) ? payment.AccountReference : paymentSubmission.Reference,
                             PaymentAmount = paymentSubmission.Amount.ToString(),
-                            PaymentNarrative = payment.PaymentDescription,
+                            PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
                             CallingAppTranReference = transactionReference,
                             Quantity = "1"
                         },
