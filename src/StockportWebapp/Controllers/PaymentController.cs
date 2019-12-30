@@ -135,7 +135,7 @@ namespace StockportWebapp.Controllers
 
             var payment = response.Content as ProcessedPayment;
 
-            if (responseCode == "99999")
+            if (responseCode != "00000")
             {
                 return View("Failure", slug);
             }
