@@ -75,10 +75,10 @@ namespace StockportWebapp.Controllers
 
             TryValidateModel(paymentSubmission);
 
-            // if (!ModelState.IsValid)
-            // {
-            //    return View(paymentSubmission);
-            // }
+            if (!ModelState.IsValid)
+            {
+                return View(paymentSubmission);
+            }
 
             if (_featureToggles.CivicaPay)
             {
@@ -113,7 +113,12 @@ namespace StockportWebapp.Controllers
                 var civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
                 if (civicaResponse.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    return View("Error", response);
+                    if (civicaResponse.ResponseContent.ResponseCode == "00001")
+                    {
+                        ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
+                        return View(paymentSubmission);
+                    }
+                     return View("Error", response);
                 }
 
                 return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, transactionReference));
