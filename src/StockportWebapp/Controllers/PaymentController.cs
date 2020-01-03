@@ -93,21 +93,21 @@ namespace StockportWebapp.Controllers
                     NotifyURL = string.Empty,
                     CallingAppTranReference = transactionReference,
                     PaymentItems = new System.Collections.Generic.List<PaymentItem>
-                {
-                    new PaymentItem
                     {
-                        PaymentDetails = new PaymentDetail
+                        new PaymentItem
                         {
-                            CatalogueID = payment.CatalogueId,
-                            AccountReference = !string.IsNullOrEmpty(payment.AccountReference) ? payment.AccountReference : paymentSubmission.Reference,
-                            PaymentAmount = paymentSubmission.Amount.ToString(),
-                            PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
-                            CallingAppTranReference = transactionReference,
-                            Quantity = "1"
-                        },
-                        AddressDetails = new AddressDetail()
+                            PaymentDetails = new PaymentDetail
+                            {
+                                CatalogueID = payment.CatalogueId,
+                                AccountReference = !string.IsNullOrEmpty(payment.AccountReference) ? payment.AccountReference : paymentSubmission.Reference,
+                                PaymentAmount = paymentSubmission.Amount.ToString(),
+                                PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
+                                CallingAppTranReference = transactionReference,
+                                Quantity = "1"
+                            },
+                            AddressDetails = new AddressDetail()
+                        }
                     }
-                }
                 };
 
                 var civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
