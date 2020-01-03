@@ -17,8 +17,7 @@ prod: &prod
 
 stage: &stage
   << : *prod
-  GroupArchiveEmails: true
-  SiaSystem: false
+  CivicaPay: true
 
 qa: &qa
   << : *prod
@@ -31,7 +30,6 @@ int: &int
   << : *stage
   << : *qa
   SiaSystem: true
-  CivicaPay: true
 
 local: &local
   << : *prod
@@ -44,4 +42,3 @@ uitest: &uitest
   << : *stage
   << : *qa
   << : *int
-  GroupDetailsPage: true
