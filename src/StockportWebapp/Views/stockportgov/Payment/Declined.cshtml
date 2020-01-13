@@ -1,0 +1,18 @@
+﻿@model string
+@{
+    Layout = "_LayoutSemantic";
+    ViewData["Title"] = "Payment declined";
+}
+
+<div class="ineligible-warning">
+    <div class="header-container">
+        <div>
+            <i class="fa fa-exclamation" aria-hidden="true"></i>
+        </div>
+        <h1>We're sorry the payment was declined</h1>
+    </div>
+    <section class="body-container">
+        <p>Please try again if you want to continue with the order</p>
+        <a href="@Url.Action("Detail", "Payment", new { slug = Model })" class="button-primary">Continue with the order</a>
+    </section>
+</div>

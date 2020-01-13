@@ -142,7 +142,9 @@ namespace StockportWebapp.Controllers
 
             if (responseCode != "00000")
             {
-                return View("Failure", slug);
+                return responseCode == "00022" || responseCode == "00023"
+                    ? View("Declined", slug)
+                    : View("Failure", slug);
             }
 
             var model = new PaymentSuccess
