@@ -136,7 +136,8 @@ namespace StockportWebapp.Utils
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
                 .AddSource("tagmanager.google.com/")
 				.AddSource("https://wpcc.io/lib/1.0.2/cookieconsent.min.css")
-                .Finish());
+                .AddSource("unpkg.com/")
+				.Finish());
 		}
 
 		private void BuildScriptSource()
@@ -191,6 +192,7 @@ namespace StockportWebapp.Utils
 				.AddSource("widget.wheredoivote.co.uk/")
 				.AddSource("https://static.hotjar.com/")
 				.AddSource("https://wpcc.io/lib/1.0.2/cookieconsent.min.js")
+                .AddSource("unpkg.com/")
                 .Finish());
 		}
 
