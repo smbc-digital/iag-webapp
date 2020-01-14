@@ -137,6 +137,7 @@ namespace StockportWebapp.Utils
                 .AddSource("tagmanager.google.com/")
 				.AddSource("https://wpcc.io/lib/1.0.2/cookieconsent.min.css")
                 .AddSource("unpkg.com/")
+                .AddSource("api.mapbox.com/")
 				.Finish());
 		}
 
@@ -193,6 +194,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://static.hotjar.com/")
 				.AddSource("https://wpcc.io/lib/1.0.2/cookieconsent.min.js")
                 .AddSource("unpkg.com/")
+                .AddSource("api.mapbox.com/")
                 .Finish());
 		}
 
