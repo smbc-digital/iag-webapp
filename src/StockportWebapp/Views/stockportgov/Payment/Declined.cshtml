@@ -9,10 +9,11 @@
         <div>
             <i class="fa fa-exclamation" aria-hidden="true"></i>
         </div>
-        <h1>We're sorry the payment was declined</h1>
+        <h1>Your payment was declined</h1>
     </div>
     <section class="body-container">
-        <p>Please try again if you want to continue with the order</p>
-        <a href="@Url.Action("Detail", "Payment", new { slug = Model })" class="button-primary">Continue with the order</a>
+        <p>Contact your bank for more details. No money has been taken from your account.</p>
+        <a href="@Url.Action("Detail", "Payment", new { slug = Model })" class="button-primary">Go back to try the payment again</a>
+        <a href="@Url.Action("Index", "Home") class="button-secondary">Go to the homepage</a>
     </section>
 </div>
