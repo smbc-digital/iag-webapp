@@ -53,7 +53,8 @@ namespace StockportWebapp.Utils
 				.AddSource("*.stockport.gov.uk")
 				.AddSource("*.smbcdigital.net")
 				.AddSource("https://stockportmaps.github.io")
-                .Finish());
+                .AddSource("blob:", false, true)
+				.Finish());
 		}
 
 		private void BuildFontSource()
@@ -65,6 +66,7 @@ namespace StockportWebapp.Utils
 				.AddSource("maxcdn.bootstrapcdn.com/font-awesome/")
 				.AddSource("fonts.gstatic.com/")
 				.AddSource("static.tacdn.com")
+				.AddSource("data:", false)
 				.Finish());
 		}
 
@@ -110,7 +112,9 @@ namespace StockportWebapp.Utils
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("https://www.facebook.com/")
 				.AddSource("*.siteimproveanalytics.io/")
-                .Finish());
+                .AddSource("https://www.googletagmanager.com/")
+                .AddSource("blob:", false, true)
+				.Finish());
 		}
 
 		private void BuildStyleSource()
@@ -157,6 +161,7 @@ namespace StockportWebapp.Utils
 				.AddSource("api.cludo.com/scripts/")
 				.AddSource("customer.cludo.com/scripts/")
 				.AddSource("cdnjs.cloudflare.com/ajax/libs/cookieconsent2/")
+				.AddSource("s3.eu-west-1.amazonaws.com/")
 				.AddSource("s3-eu-west-1.amazonaws.com/")
 				.AddSource("s7.addthis.com/")
 				.AddSource("https://stockportcouncil.typeform.com/")
@@ -219,7 +224,10 @@ namespace StockportWebapp.Utils
                 .AddSource("http://localhost/sitereplier/chats/enabled/")
                 .AddSource("*.stockport.gov.uk")
                 .AddSource("*.smbcdigital.net")
-                .Finish());
+                .AddSource("api.mapbox.com/")
+                .AddSource("events.mapbox.com/")
+                .AddSource("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+				.Finish());
 		}
 
 		private void BuildMediaSource()

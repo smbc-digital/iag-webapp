@@ -1,7 +1,12 @@
 ﻿@using StockportWebapp.Config
+@using StockportWebapp.FeatureToggling
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
+@inject FeatureToggles FeatureToggles
+@{
+    var stylesheet = ApplicationConfiguration.GetStylesheetConfig();
+}
 
 <!DOCTYPE html>
 <html lang="en-GB" class="no-js">
@@ -38,6 +43,10 @@
     <link rel="stylesheet" href="/lib/trumbowyg/trumbowyg.min.css">
     <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed" />
     <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
+    @if (FeatureToggles.LeafletMap)
+    {
+        <link rel="stylesheet" type="text/css" href="@stylesheet.StyleguideSemanticV2" />
+    }
 
     <partial name="CookieBanner" />
     <partial name="TagManager/TagManagerDataLayer" />

@@ -14,6 +14,7 @@ namespace StockportWebapp.FeatureToggling
         public bool ContactUsArea { get; set; } = false;
         public bool SemanticInlineAlert { get; set; } = false;
         public bool Newsroom { get; set; } = false;
+        public bool LeafletMap { get; set; } = false;
         public bool CivicaPay { get; set; } = false;
     }
 }

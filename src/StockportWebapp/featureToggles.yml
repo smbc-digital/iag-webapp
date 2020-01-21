@@ -24,6 +24,7 @@ qa: &qa
   << : *stage
   SemanticLayout: true
   SemanticInlineAlert: true
+  LeafletMap: true
 
 int: &int
   << : *prod

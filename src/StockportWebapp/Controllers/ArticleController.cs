@@ -46,7 +46,7 @@ namespace StockportWebapp.Controllers
             var article = articleHttpResponse.Content as ProcessedArticle;
 
             _contactUsMessageParser.Parse(article, message, "");
-            
+
             var viewModel = new ArticleViewModel(article);
 
             ViewBag.CurrentUrl = Request?.GetUri();
@@ -76,9 +76,15 @@ namespace StockportWebapp.Controllers
             }
             catch (SectionDoesNotExistException)
             {
-                
+
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MapPost()
+        {
+            return NotFound();
         }
 
         private void SetArticlesCanonicalUrl(string articleSlug, string sectionSlug, ProcessedArticle article)

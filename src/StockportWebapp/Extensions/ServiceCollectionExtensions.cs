@@ -111,7 +111,9 @@ namespace StockportWebapp.Extensions
                         new ContactUsTagParser(p.GetService<IViewRender>(), p.GetService<ILogger<ContactUsTagParser>>()),
                         new VideoTagParser(),
                         new CarouselTagParser(),
-                        new IShareTagParser()
+                        new IShareTagParser(),
+                        new IFrameTagParser(),
+                        new MapTagParser()
                     });
 
             return services;
