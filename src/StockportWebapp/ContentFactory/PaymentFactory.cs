@@ -16,12 +16,10 @@ namespace StockportWebapp.ContentFactory
             _markdownWrapper = markdownWrapper;            
         }
 
-
         public virtual ProcessedPayment Build(Payment payment)
         {
             var description = _simpleTagParserContainer.ParseAll(payment.Description, payment.Title);
             description = _markdownWrapper.ConvertToHtml(description ?? "");
-            
 
             return new ProcessedPayment(
                 payment.Title,
@@ -39,7 +37,8 @@ namespace StockportWebapp.ContentFactory
                 payment.ReturnUrl,
                 payment.CatalogueId,
                 payment.AccountReference,
-                payment.PaymentDescription);
+                payment.PaymentDescription,
+                payment.Alerts);
         }
     }
 }
