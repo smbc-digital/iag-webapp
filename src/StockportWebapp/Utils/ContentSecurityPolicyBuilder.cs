@@ -49,6 +49,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://player.vimeo.com/")
 				.AddSource("http://stage.midas-pps.tractivity.co.uk/")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
+				.AddSource("https://y84kj.videomarketingplatform.co/", false, true)
 				.AddSource("https://www.facebook.com/")
 				.AddSource("*.stockport.gov.uk")
 				.AddSource("*.smbcdigital.net")
