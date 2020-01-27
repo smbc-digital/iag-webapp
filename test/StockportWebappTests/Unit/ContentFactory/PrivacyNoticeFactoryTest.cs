@@ -52,6 +52,9 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var retentionPeriod = "test-retention";
             _markdownWrapper.Setup(_ => _.ConvertToHtml(retentionPeriod)).Returns("test-retention-html");
 
+            var legislation = "test-legislation";
+            _markdownWrapper.Setup(_ => _.ConvertToHtml(legislation)).Returns("test-legislation-html");
+
             var privacyNotice = new PrivacyNotice()
             {
                 Slug = "test-slug",
@@ -80,7 +83,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             processedPrivacyNotice.Category.Should().Be("test-categories");
             processedPrivacyNotice.Purpose.Should().Be("test-purpose-html");
             processedPrivacyNotice.TypeOfData.Should().Be("test-type-of-data-html");
-            processedPrivacyNotice.Legislation.Should().Be("test-legislation");
+            processedPrivacyNotice.Legislation.Should().Be("test-legislation-html");
             processedPrivacyNotice.Obtained.Should().Be("test-obtained-html");
             processedPrivacyNotice.ExternallyShared.Should().Be("test-externally-shared-html");
             processedPrivacyNotice.RetentionPeriod.Should().Be("test-retention-html");
