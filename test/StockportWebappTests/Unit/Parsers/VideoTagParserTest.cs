@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using FluentAssertions;
+using Moq;
+using StockportWebapp.FeatureToggling;
 using StockportWebapp.Parsers;
 using Xunit;
 
@@ -8,10 +10,11 @@ namespace StockportWebappTests_Unit.Unit.Parsers
     public class VideoTagParserTest
     {
         private readonly VideoTagParser _parser;
+        private readonly Mock<FeatureToggles> _featureToggles = new Mock<FeatureToggles>();
 
         public VideoTagParserTest()
         {
-            _parser = new VideoTagParser();
+            _parser = new VideoTagParser(_featureToggles.Object);
         }
 
         [Fact]
@@ -35,17 +38,6 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             outputHtml.Append($"}})(document, {{\"object_id\":\"{tag}\", \"width\": \"100%\", \"height\": \"100%\"}})");
             outputHtml.Append("</script>");
             outputHtml.Append("</div>");
-
-            //outputHtml.Append($"<div id=\"buto_{tag}\"></div>");
-            //outputHtml.Append("<script>");
-            //outputHtml.Append("var globalButoIds = globalButoIds || [];");
-            //outputHtml.Append("(");
-            //outputHtml.Append("function (d, config) {");
-            //outputHtml.Append("var data = JSON.stringify(config);");
-            //outputHtml.Append("globalButoIds.push(\"//js.buto.tv/video/\" + data);");
-            //outputHtml.Append($"}}(document, {{ \"object_id\": \"{ tag}\" }})");
-            //outputHtml.Append(")");
-            //outputHtml.Append("</script>");
 
             response.Should().Be(outputHtml.ToString());
         }
