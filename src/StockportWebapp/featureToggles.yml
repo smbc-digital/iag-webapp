@@ -8,6 +8,7 @@ prod: &prod
   SemanticLayout: true
   ContactUsArea: true
   Newsroom: true
+  CivicaPay: true
   SemanticSmartAnswer: 
     - enforcement-referral
     - education-penalty-notice
@@ -17,7 +18,6 @@ prod: &prod
 
 stage: &stage
   << : *prod
-  CivicaPay: true
 
 qa: &qa
   << : *prod
