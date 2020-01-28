@@ -20,6 +20,15 @@
                     <section aria-label="@Model.Payment.Title content" class="grid-100 mobile-grid-100">
                         <div class="l-content-container l-article-container">
                             <h1 tabindex="-1" id="content">@Model.Payment.Title</h1>
+                            @if (Model.Payment.Alerts != null)
+                            {
+                                <div class="alert-container">
+                                    @foreach (var alert in Model.Payment.Alerts)
+                                    {
+                                        <partial name="DisplayTemplates/Alert" model='alert' />
+                                    }
+                                </div>
+                            }
                             @Html.Raw(Model.Payment.Description)
                             <hr />
                             <h2>Payment details</h2>

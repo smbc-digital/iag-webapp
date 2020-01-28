@@ -32,7 +32,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                     "returnUrl",
                                                                     "catalogueId",
                                                                     "accountReference",
-                                                                    "paymentDescription");
+                                                                    "paymentDescription",
+                                                                    new List<Alert>());
 
         string returnUrl = "https://www.stockport.gov.uk";
 
@@ -81,7 +82,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                                                                                                     "returnUrl",
                                                                                                     "catalogueId",
                                                                                                     "accountReference",
-                                                                                                    "paymentDescription");
+                                                                                                    "paymentDescription",
+                                                                                                    new List<Alert>());
             PaymentSubmission paymentSubmission = new PaymentSubmission() { Reference = "test", Payment = testProcessedPaymentWithoutglCodeCostCentreNumber };
 
             string parisLink = ParisLinkHelper.CreateParisLink(paymentSubmission, _config.Object, returnUrl);

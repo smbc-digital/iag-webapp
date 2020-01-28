@@ -32,7 +32,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "returnUrl",
                     "catalogueId",
                     "accountReference",
-                    "paymentDescription"),
+                    "paymentDescription",
+                    new List<Alert>()),
                 Reference = "12345"
             };
             var context = new ValidationContext(paymentSubmission);
@@ -76,7 +77,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "returnUrl",
                     "catalogueId",
                     "accountReference",
-                    "paymentDescription"),
+                    "paymentDescription",
+                    new List<Alert>()),
                 Reference = reference
             };
             var context = new ValidationContext(paymentSubmission);
@@ -119,7 +121,8 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "returnUrl",
                     "catalogueId",
                     "accountReference",
-                    "paymentDescription"),
+                    "paymentDescription",
+                    new List<Alert>()),
                 Reference = reference
             };
             var context = new ValidationContext(paymentSubmission);
