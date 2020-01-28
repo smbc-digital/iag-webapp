@@ -17,12 +17,12 @@ namespace StockportWebapp.Parsers
             if (_featureToggles.TwentyThreeVideo)
             {
                 outputHtml.Append("<div class=\"video-wrapper\">");
-                outputHtml.Append("<div style=\"width:100%; height:100%; position:relative; \"><iframe src=");
+                outputHtml.Append("<iframe src=");
                 outputHtml.Append("\"https://y84kj.videomarketingplatform.co/v.ihtml/player.html?source=embed&");
                 outputHtml.Append($"photo%5fid={tagData}\" style=\"width:100%; height:100%; position:absolute; top:0; left:0;\" ");
                 outputHtml.Append("frameborder=\"0\" border=\"0\" scrolling=\"no\" allowfullscreen=\"1\" mozallowfullscreen=\"1\" ");
                 outputHtml.Append("webkitallowfullscreen=\"1\" allow=\"autoplay; fullscreen\">");
-                outputHtml.Append("</iframe></div></div>");
+                outputHtml.Append("</iframe></div>");
             }
             else
             {
