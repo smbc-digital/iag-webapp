@@ -55,6 +55,7 @@ namespace StockportWebapp.Utils
 				.AddSource("*.smbcdigital.net")
 				.AddSource("https://stockportmaps.github.io")
                 .AddSource("blob:", false, true)
+				.AddSource("https://vars.hotjar.com/")
 				.Finish());
 		}
 
@@ -201,6 +202,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://wpcc.io/lib/1.0.2/cookieconsent.min.js")
                 .AddSource("unpkg.com/")
                 .AddSource("api.mapbox.com/")
+				.AddSource("https://script.hotjar.com/")
                 .Finish());
 		}
 
@@ -228,6 +230,7 @@ namespace StockportWebapp.Utils
                 .AddSource("api.mapbox.com/")
                 .AddSource("events.mapbox.com/")
                 .AddSource("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
+				.AddSource("https://api.buto.tv/")
 				.Finish());
 		}
 
