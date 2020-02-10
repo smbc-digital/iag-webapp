@@ -69,7 +69,8 @@ namespace StockportWebapp.Utils
 				.AddSource("fonts.gstatic.com/")
 				.AddSource("static.tacdn.com")
 				.AddSource("data:", false)
-				.Finish());
+                .AddSource("s3-eu-west-1.amazonaws.com", true)
+                .Finish());
 		}
 
 		private void BuildImageSource()
@@ -203,6 +204,8 @@ namespace StockportWebapp.Utils
                 .AddSource("unpkg.com/")
                 .AddSource("api.mapbox.com/")
 				.AddSource("https://script.hotjar.com/")
+                .AddSource("spatialgeojson.s3.eu-west-1.amazonaws.com", true)
+                .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
                 .Finish());
 		}
 
@@ -231,7 +234,9 @@ namespace StockportWebapp.Utils
                 .AddSource("events.mapbox.com/")
                 .AddSource("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css")
 				.AddSource("https://api.buto.tv/")
-				.Finish());
+                .AddSource("spatialgeojson.s3.eu-west-1.amazonaws.com", true)
+                .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
+                .Finish());
 		}
 
 		private void BuildMediaSource()
