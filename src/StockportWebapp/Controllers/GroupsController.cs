@@ -213,6 +213,7 @@ namespace StockportWebapp.Controllers
             if (!string.IsNullOrEmpty(groupSearch.GetInvolved)) queries.Add(new Query("getinvolved", groupSearch.GetInvolved));
             if (!string.IsNullOrEmpty(groupSearch.Tag)) queries.Add(new Query("organisation", groupSearch.Tag));
             if (groupSearch.SubCategories.Any()) queries.Add(new Query("subcategories", string.Join(",", groupSearch.SubCategories)));
+            if (!string.IsNullOrEmpty(groupSearch.Tags)) queries.Add(new Query("Tags", groupSearch.Tags));
 
             var response = await _repository.Get<GroupResults>(queries: queries);
 
@@ -242,8 +243,8 @@ namespace StockportWebapp.Controllers
             model.PrimaryFilter.Longitude = groupSearch.Longitude != 0 ? groupSearch.Longitude : Defaults.Groups.StockportLongitude;
             model.GetInvolved = groupSearch.GetInvolved == "yes";
             model.SubCategories = groupSearch.SubCategories;
-            model.Tag = groupSearch.Tag;
-            model.KeepTag = groupSearch.KeepTag;
+            model.Tag = groupSearch.Tag; // organisation filter
+            model.KeepTag = groupSearch.KeepTag; // get first found organisation with Tag
 
 
             if (!string.IsNullOrEmpty(groupSearch.Tag) && model.Groups.Any(g => g.Organisation?.Slug == groupSearch.Tag))
