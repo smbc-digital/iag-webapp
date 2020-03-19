@@ -10,7 +10,6 @@ namespace StockportWebapp.Parsers
         private readonly Func<string, string> _generateHtml;
         private const int TagDataIndex = 1;
 
-
         public TagReplacer(Func<string, string> generateHtml, Regex tagRegex)
         {
             _generateHtml = generateHtml;

@@ -20,7 +20,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         [Fact]
         public void ShouldParseButoVideoTags()
         {
-            var tag = "a-video-tag";
+            var tag = "VideoTag";
             var response = _parser.Parse("{{VIDEO:" + tag + "}}");
 
             var outputHtml = new StringBuilder();
@@ -46,15 +46,15 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         public void ShouldParseTwentyThreeVideoTags()
         {
             _featureToggles.Object.TwentyThreeVideo = true;
-            var tag = "a-video-tag";
+            var tag = "VideoId;VideoToken";
             var response = _parser.Parse("{{VIDEO:" + tag + "}}");
 
             var outputHtml = new StringBuilder();
 
             outputHtml.Append("<div class=\"video-wrapper\">");
             outputHtml.Append("<iframe src=");
-            outputHtml.Append("\"https://y84kj.videomarketingplatform.co/v.ihtml/player.html?source=embed&");
-            outputHtml.Append($"photo%5fid={tag}\" style=\"width:100%; height:100%; position:absolute; top:0; left:0;\" ");
+            outputHtml.Append("\"https://y84kj.videomarketingplatform.co/v.ihtml/player.html?token=VideoToken&source=embed&");
+            outputHtml.Append("photo%5fid=VideoId\" style=\"width:100%; height:100%; position:absolute; top:0; left:0;\" ");
             outputHtml.Append("frameborder=\"0\" border=\"0\" scrolling=\"no\" allowfullscreen=\"1\" mozallowfullscreen=\"1\" ");
             outputHtml.Append("webkitallowfullscreen=\"1\" allow=\"autoplay; fullscreen\">");
             outputHtml.Append("</iframe></div>");
