@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace StockportWebapp.Models
@@ -22,9 +23,10 @@ namespace StockportWebapp.Models
         public Advertisement Advertisement { get; set; }
         public S3BucketSearch S3Bucket { get; set; }
         public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
+        public DateTime UpdatedAt { get; set; }
 
         public Article(string title, string slug, string body, string teaser, string metaDescription, IEnumerable<Section> sections, string icon, string backgroundImage, string image,
-            IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, Advertisement advertisement)
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, Advertisement advertisement, DateTime updatedAt)
         {
             Title = title;
             Slug = slug;
@@ -40,6 +42,7 @@ namespace StockportWebapp.Models
             Documents = documents;
             AlertsInline = alertsInline;
             Advertisement = advertisement;
+            UpdatedAt = updatedAt;
         }
     }
 }

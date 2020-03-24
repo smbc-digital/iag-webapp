@@ -54,9 +54,12 @@
 
                             @if (Model.ShouldShowArticleSummary && !string.Equals("<p></p>\n", Model.Article.Body))
                             {
-                                <div class="map-content">
-                                    @Html.Raw(Model.Article.Body)
-                                </div>
+                            <div class="map-content">
+                                <p class="news-date news-article-date">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                                </p>
+                                @Html.Raw(Model.Article.Body)
+                            </div>
                             }
 
                             @if (Model.DisplayedSection != null)
