@@ -32,8 +32,19 @@
 <div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
     <partial name="FavouritesBar" />
 </div>
+
 <article aria-label="@Model.Group.Name content" class="grid-container group-detail">
     <div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
+        @if (Model.Group.Alerts != null)
+        {
+            <div class="alert-container grid-container">
+                @foreach (var alert in Model.Group.Alerts)
+                {
+                    <partial name="DisplayTemplates/Alert" model='alert' />
+                }
+            </div>
+        }
+
         <h1 tabindex="-1" id="content" class="group-article-title">@Model.Group.Name</h1>
 
 
@@ -103,12 +114,12 @@
             <article class="what-we-do">
                 <h2 class="group-details-heading">What we do</h2>
                 @Html.Raw(Model.Group.Description.StripEmojis())
-                <hr/>
+                <hr />
             </article>
 
 
-            <partial name="Groups/VolunteeringBar" model='Model.Group.Volunteering'/>
-            <partial name="Groups/DonationsBar" model='Model.Group.Donations'/>
+            <partial name="Groups/VolunteeringBar" model='Model.Group.Volunteering' />
+            <partial name="Groups/DonationsBar" model='Model.Group.Donations' />
 
             @if (Model.Group.GroupBranding.Any())
             {
@@ -119,13 +130,13 @@
                             <p><strong>@branding.Text</strong></p>
                             <div class="group-branding-item-image">
                                 <a href="@branding.Url">
-                                    <img src="@branding.File.Url" alt="@branding.File.Description"/>
+                                    <img src="@branding.File.Url" alt="@branding.File.Description" />
                                 </a>
                             </div>
                         </div>
                     }
                 </div>
-                <hr/>
+                <hr />
             }
         </section>
 

@@ -14,23 +14,23 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Group.Breadcrumbs'/>
+    <partial name="Breadcrumb" model='Model.Group.Breadcrumbs' />
 }
 
 @if (FeatureToggles.GroupDetailsPage)
 {
     <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail-new.min.css" />
-    <partial name="GroupDetail" model='Model'/>
+    <partial name="GroupDetail" model='Model' />
 }
 else
-{ 
+{
     <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css" />
-    <partial name="GroupDetailOld" model='Model'/>
+    <partial name="GroupDetailOld" model='Model' />
 }
 
 <script type="text/javascript">
-    require(['startup', 'favourites',  'groups',  'matchboxconfig', 'matchHeight', ],
-        function (startup, favourites,  groups, matchboxconfig, matchHeight) {
+    require(['startup', 'favourites', 'groups', 'matchboxconfig', 'matchHeight',],
+        function (startup, favourites, groups, matchboxconfig, matchHeight) {
             favourites.Init();
             groups.Init();
             startup.Init();

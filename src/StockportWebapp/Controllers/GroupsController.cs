@@ -51,22 +51,22 @@ namespace StockportWebapp.Controllers
         private readonly FeatureToggles _featureToggles;
 
         public GroupsController(
-            IProcessedContentRepository processedContentRepository, 
+            IProcessedContentRepository processedContentRepository,
             IRepository repository,
-            GroupEmailBuilder emailBuilder, 
-            EventEmailBuilder eventEmailBuilder, 
+            GroupEmailBuilder emailBuilder,
+            EventEmailBuilder eventEmailBuilder,
             IFilteredUrl filteredUrl,
-            IViewRender viewRender, 
-            ILogger<GroupsController> logger, 
+            IViewRender viewRender,
+            ILogger<GroupsController> logger,
             IApplicationConfiguration configuration,
-            MarkdownWrapper markdownWrapper, 
-            ViewHelpers viewHelpers, 
+            MarkdownWrapper markdownWrapper,
+            ViewHelpers viewHelpers,
             IDateCalculator dateCalculator,
-            IHtmlUtilities htmlUtilities, 
-            HostHelper hostHelper, 
-            ILoggedInHelper loggedInHelper, 
+            IHtmlUtilities htmlUtilities,
+            HostHelper hostHelper,
+            ILoggedInHelper loggedInHelper,
             IGroupsService groupsService,
-            ICookiesHelper cookiesHelper, 
+            ICookiesHelper cookiesHelper,
             FeatureToggles featureToggles)
         {
             _processedContentRepository = processedContentRepository;

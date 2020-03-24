@@ -61,7 +61,7 @@ namespace StockportWebapp.ContentFactory
                 group.Breadcrumbs, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo,
                 group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation,
                 group.LinkedGroups, donations, mapDetails, parsedAdditionalInformation, group.AdditionalDocuments, group.DonationsText, group.DonationsUrl,
-                group.DateLastModified, group.GroupBranding);
+                group.DateLastModified, group.GroupBranding, group.Alerts);
         }
     }
 }
