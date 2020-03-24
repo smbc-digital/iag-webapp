@@ -12,6 +12,7 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebappTests_Unit.Builders;
 using StockportWebappTests_Unit.Helpers;
+using System;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory
 {
@@ -44,6 +45,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
         private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
         private readonly Mock<IRepository> _repository;
+        private readonly DateTime _updatedAt = new DateTime();
 
         public ArticleFactoryTest()
         {
@@ -69,7 +71,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
 
             var _advertisement = new NullAdvertisement();
 
-             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _advertisement);
+             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _advertisement, _updatedAt);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);

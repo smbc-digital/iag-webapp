@@ -38,7 +38,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var slug = "this-is-a-slug";
             var section = ProcessedSectionWithDefaultSlugAndBody();
             var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null);
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null, new DateTime());
 
             _tagParser.Parse(processedArticle, message, slug);
 
@@ -52,7 +52,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         [Fact]
         public void ShouldAddErrorMessageToArticleBodyWithFormTagInsideIfEmptySlugGiven()
         {
-            var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", "meta description", new List<ProcessedSection>(), "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null);
+            var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", "meta description", new List<ProcessedSection>(), "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null, new DateTime());
 
             _tagParser.Parse(processedArticle, Message, "");
 
@@ -63,7 +63,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         public void ShouldAddErrorMessageToFirstSectionBodyWithFormTagInsideIfArticleDoesntHaveFormIfEmptySlugGiven()
         {
             var section = ProcessedSectionWithDefaultSlugAndBody(body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null);
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null, new DateTime());
 
             _tagParser.Parse(processedArticle, Message, "");
 
@@ -77,7 +77,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var slug = "this-is-a-slug";
             var section = ProcessedSectionWithDefaultSlugAndBody();
             var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null);
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null, new DateTime());
 
             _tagParser.Parse(processedArticle, Message, slug);
 
@@ -90,7 +90,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         public void ShouldDoNothingIfSlugProvidedButNoSectionsAreProvided()
         {
             var slug = "this-is-a-slug";
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null);
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), _advertisement, null, new DateTime());
 
             _tagParser.Parse(processedArticle, Message, slug);
 
@@ -105,7 +105,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
                 DateTime.MinValue, false, string.Empty, string.Empty);
 
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), advertisement, null);
+            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), advertisement, null, new DateTime());
 
             _tagParser.Parse(processedArticle, Message, slug);
             
