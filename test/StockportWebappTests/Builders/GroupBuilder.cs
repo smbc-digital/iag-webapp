@@ -48,7 +48,8 @@ namespace StockportWebappTests_Unit.Builders
         private List<string> _suitableFor = new List<string>();
         private List<string> _ageRange = new List<string>();
         private List<GroupBranding> _groupBranding = new List<GroupBranding>();
-    
+        private readonly List<Alert> _alerts = new List<Alert>();
+
         public Group Build()
         {
             return new Group(_name,
@@ -89,7 +90,8 @@ namespace StockportWebappTests_Unit.Builders
                     _suitableFor,
                     _ageRange,
                     _donationsText,
-                    _donationsUrl
+                    _donationsUrl,
+                    _alerts
                 );
         }
 

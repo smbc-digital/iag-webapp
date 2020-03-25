@@ -263,7 +263,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 new MapPosition{Lat = 100, Lon = 200}, false, new List<Event>(), new GroupAdministrators(), DateTime.MinValue,
                 DateTime.MinValue, "status", new List<string>(), "£1", "ability", false, "volunteer text",
                 new Organisation(), new List<Group>(), false, "tenaport-link", new List<GroupBranding>(), "aditional-info",
-                new List<Document>(), DateTime.MinValue, new List<string>(), new List<string>(), "donation-text", "donation-url");
+                new List<Document>(), DateTime.MinValue, new List<string>(), new List<string>(), "donation-text", "donation-url",
+                new List<Alert>());
 
             var loggedInPerson = new LoggedInPerson
             {

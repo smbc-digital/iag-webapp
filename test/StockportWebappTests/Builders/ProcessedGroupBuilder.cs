@@ -44,6 +44,7 @@ namespace StockportWebappTests_Unit.Builders
         private string _additionalInformation = "additional information";
         private List<Document> _additionalDocuments = new List<Document>();
         private List<GroupBranding> _groupBranding = new List<GroupBranding>();
+        private readonly List<Alert> _alerts = new List<Alert>();
 
         public ProcessedGroup Build()
         {
@@ -80,7 +81,8 @@ namespace StockportWebappTests_Unit.Builders
                 _donationsText,
                 _donationsUrl,
                 _dateLastModified,
-                _groupBranding
+                _groupBranding,
+                _alerts
             );
         }
 
