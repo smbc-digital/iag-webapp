@@ -18,6 +18,7 @@ prod: &prod
 
 stage: &stage
   << : *prod
+  TwentyThreeVideo: true
 
 qa: &qa
   << : *prod
@@ -31,7 +32,6 @@ int: &int
   << : *stage
   << : *qa
   SiaSystem: true
-  TwentyThreeVideo: true
 
 local: &local
   << : *prod
