@@ -236,6 +236,9 @@ namespace StockportWebapp.Utils
 				.AddSource("https://api.buto.tv/")
                 .AddSource("spatialgeojson.s3.eu-west-1.amazonaws.com", true)
                 .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
+				.AddSource("embed.buto.tv/")
+				.AddSource("butoembed.twentythree.net/")
+				.AddSource("report.23video.com/")
                 .Finish());
 		}
 

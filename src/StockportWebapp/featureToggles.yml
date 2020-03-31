@@ -15,10 +15,10 @@ prod: &prod
     - give-a-compliment
     - make-a-formal-complaint
     - give-feedback
+  TwentyThreeVideo: true
 
 stage: &stage
   << : *prod
-  TwentyThreeVideo: true
 
 qa: &qa
   << : *prod
