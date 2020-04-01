@@ -229,7 +229,6 @@ namespace StockportWebapp.Extensions
         public static IServiceCollection AddHelpers(this IServiceCollection services)
         {
             services.AddSingleton(p => new CalendarHelper(p.GetService<ITimeProvider>()));
-            services.AddSingleton<ParisHashHelper>();
             services.AddTransient<ICookiesHelper, CookiesHelper>();
             services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
             services.AddTransient<IArticleRepository>(
@@ -240,29 +239,6 @@ namespace StockportWebapp.Extensions
 
             services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
             services.AddTransient<ISmartAnswerStringHelper, SmartAnswerStringHelper>();
-            return services;
-        }
-
-        public static IServiceCollection AddParisConfiguration(this IServiceCollection services, IConfiguration configuration, ILogger logger)
-        {
-            if (!string.IsNullOrEmpty(configuration["paris:preSalt"]) &&
-                !string.IsNullOrEmpty(configuration["paris:postSalt"]) &&
-                !string.IsNullOrEmpty(configuration["paris:privateSalt"]))
-            {
-                var parisKeys = new ParisKeys()
-                {
-                    PreSalt = configuration["paris:preSalt"],
-                    PostSalt = configuration["paris:postSalt"],
-                    PrivateSalt = configuration["paris:privateSalt"]
-                };
-
-                services.AddSingleton(parisKeys);
-            }
-            else
-            {
-                logger.Information("Paris secrets not found.");
-            }
-
             return services;
         }
 

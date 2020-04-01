@@ -35,6 +35,7 @@
     <Content Remove="app-config\appsettings.integrationtest.json" />
     <Content Remove="app-config\appsettings.uitest.json" />
     <Content Remove="app-config\injected\appsettings.integrationtest.secrets.json" />
+    <Content Remove="app-config\injected\appsettings.local.secrets.json" />
     <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
     <Content Remove="Views\stockportgov\Payment\Failure.cshtml" />
     <Content Remove="Views\stockportgov\Payment\Success.cshtml" />
@@ -91,7 +92,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="6.5.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
-    <PackageReference Include="StockportGovUk.NetStandard.Gateways" Version="1.0.4" />
+    <PackageReference Include="StockportGovUk.NetStandard.Gateways" Version="1.1.1-prerelease128" />
     <PackageReference Include="WebMarkupMin.AspNetCore1" Version="2.5.0" />
     <PackageReference Include="YamlDotNet" Version="5.2.1" />
     <PackageReference Include="Humanizer.Core" Version="2.5.1" />

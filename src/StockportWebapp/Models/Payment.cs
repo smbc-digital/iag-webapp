@@ -11,7 +11,6 @@ namespace StockportWebapp.Models
         public string Description { get; set; }
         public string PaymentDetailsText { get; set; }
         public string ReferenceLabel { get; set; }
-        public string ParisReference { get; set; }
         public string Fund { get; set; }
         public string GlCodeCostCentreNumber { get; set; }
         public string Icon { get; set; }

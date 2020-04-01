@@ -8,11 +8,6 @@ Values that should be in the config file
     "accessKey": "The AWS SES access key",
     "secretKey": "The AWS SES secret key"
   },
-  "paris": {
-    "preSalt": "xx",
-    "postSalt": "xx",
-    "privateSalt": "xx"
-  },
   "group": {
     "authenticationKey": "xx"
   },

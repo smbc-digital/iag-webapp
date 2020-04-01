@@ -28,7 +28,6 @@ namespace StockportWebapp.ContentFactory
                 description,
                 payment.PaymentDetailsText,
                 payment.ReferenceLabel,
-                payment.ParisReference,
                 payment.Fund,
                 payment.GlCodeCostCentreNumber,
                 payment.BreadCrumbs,

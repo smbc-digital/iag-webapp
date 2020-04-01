@@ -15,7 +15,6 @@ using StockportWebapp.Enums;
 using StockportWebapp.Repositories;
 using StockportWebappTests_Unit.Helpers;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
-using StockportWebapp.FeatureToggling;
 using Microsoft.Extensions.Configuration;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
@@ -26,20 +25,19 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly PaymentController _paymentController;
         private readonly Mock<IViewRender> _viewRender = new Mock<IViewRender>();
         private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new Mock<ICivicaPayGateway>();
-        private readonly Mock<FeatureToggles> _featureToggles = new Mock<FeatureToggles>();
         private readonly Mock<IConfiguration> _configuration = new Mock<IConfiguration>();
         private readonly Mock<IApplicationConfiguration> _applicationConfiguration = new Mock<IApplicationConfiguration>();
 
         public PaymentControllerTest()
         {
-            _paymentController = new PaymentController(_fakeRepository.Object,_viewRender.Object, null, _civicaPayGateway.Object, _configuration.Object, _featureToggles.Object, _applicationConfiguration.Object);
+            _paymentController = new PaymentController(_fakeRepository.Object,_viewRender.Object, _civicaPayGateway.Object, _configuration.Object, _applicationConfiguration.Object);
         }
 
         [Fact]
         public async Task ItReturnsAGroupWithProcessedBody()
         {
             var processedPayment = new ProcessedPayment(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
                 EPaymentReferenceValidation.None, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Alert>());
 
             _fakeRepository

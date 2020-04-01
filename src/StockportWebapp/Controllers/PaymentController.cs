@@ -12,7 +12,6 @@ using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using System;
 using Microsoft.Extensions.Configuration;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Config;
 
 namespace StockportWebapp.Controllers
@@ -22,20 +21,16 @@ namespace StockportWebapp.Controllers
     {
         private readonly IProcessedContentRepository _repository;
         private readonly IViewRender _viewRender;
-        private readonly ParisHashHelper _hashHelper;
         private readonly ICivicaPayGateway _civicaPayGateway;
         private readonly IConfiguration _configuration;
-        private readonly FeatureToggles _featureToggles;
         private readonly IApplicationConfiguration _applicationConfiguration;
 
-        public PaymentController(IProcessedContentRepository repository, IViewRender viewRender, ParisHashHelper hashHelper, ICivicaPayGateway civicaPayGateway, IConfiguration configuration, FeatureToggles featureToggles, IApplicationConfiguration applicationConfiguration)
+        public PaymentController(IProcessedContentRepository repository, IViewRender viewRender, ICivicaPayGateway civicaPayGateway, IConfiguration configuration, IApplicationConfiguration applicationConfiguration)
         {
             _repository = repository;
             _viewRender = viewRender;
-            _hashHelper = hashHelper;
             _civicaPayGateway = civicaPayGateway;
             _configuration = configuration;
-            _featureToggles = featureToggles;
             _applicationConfiguration = applicationConfiguration;
         }
 
@@ -80,54 +75,46 @@ namespace StockportWebapp.Controllers
                 return View(paymentSubmission);
             }
 
-            if (_featureToggles.CivicaPay)
+            var transactionReference = Guid.NewGuid().ToString();
+
+            var immediateBasketResponse = new CreateImmediateBasketRequest
             {
-                var transactionReference = Guid.NewGuid().ToString();
-
-                var immediateBasketResponse = new CreateImmediateBasketRequest
+                CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
+                CustomerID = _configuration.GetValue<string>("CivicaPayCustomerID"),
+                ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
+                ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
+                NotifyURL = string.Empty,
+                CallingAppTranReference = transactionReference,
+                PaymentItems = new System.Collections.Generic.List<PaymentItem>
                 {
-                    CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
-                    CustomerID = _configuration.GetValue<string>("CivicaPayCustomerID"),
-                    ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
-                    ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
-                    NotifyURL = string.Empty,
-                    CallingAppTranReference = transactionReference,
-                    PaymentItems = new System.Collections.Generic.List<PaymentItem>
+                    new PaymentItem
                     {
-                        new PaymentItem
+                        PaymentDetails = new PaymentDetail
                         {
-                            PaymentDetails = new PaymentDetail
-                            {
-                                CatalogueID = payment.CatalogueId,
-                                AccountReference = !string.IsNullOrEmpty(payment.AccountReference) ? payment.AccountReference : paymentSubmission.Reference,
-                                PaymentAmount = paymentSubmission.Amount.ToString(),
-                                PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
-                                CallingAppTranReference = transactionReference,
-                                Quantity = "1"
-                            },
-                            AddressDetails = new AddressDetail()
-                        }
+                            CatalogueID = payment.CatalogueId,
+                            AccountReference = !string.IsNullOrEmpty(payment.AccountReference) ? payment.AccountReference : paymentSubmission.Reference,
+                            PaymentAmount = paymentSubmission.Amount.ToString(),
+                            PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
+                            CallingAppTranReference = transactionReference,
+                            Quantity = "1"
+                        },
+                        AddressDetails = new AddressDetail()
                     }
-                };
-
-                var civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
-                if (civicaResponse.StatusCode == HttpStatusCode.BadRequest)
-                {
-                    if (civicaResponse.ResponseContent.ResponseCode == "00001")
-                    {
-                        ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
-                        return View(paymentSubmission);
-                    }
-                     return View("Error", response);
                 }
+            };
 
-                return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, transactionReference));
+            var civicaResponse = await _civicaPayGateway.CreateImmediateBasketAsync(immediateBasketResponse);
+            if (civicaResponse.StatusCode == HttpStatusCode.BadRequest)
+            {
+                if (civicaResponse.ResponseContent.ResponseCode == "00001")
+                {
+                    ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
+                    return View(paymentSubmission);
+                }
+                return View("Error", response);
             }
 
-            var currentPath = Request.GetUri().AbsoluteUri;
-            var confirmationReturn = $"{currentPath}";
-
-            return Redirect(ParisLinkHelper.CreateParisLink(paymentSubmission, _applicationConfiguration, confirmationReturn));
+            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, transactionReference));
         }
 
         [Route("/payment/{slug}/result")]
@@ -167,11 +154,6 @@ namespace StockportWebapp.Controllers
                 return RedirectToAction("Detail", new { slug = slug, error = error, serviceprocessed = "false" });
             }
 
-            if (!_hashHelper.IsValidRequest(Request))
-            {
-                return NotFound();
-            }
-
             var response = await _repository.Get<Payment>(slug);
 
             if (!response.IsSuccessful())
@@ -205,11 +187,6 @@ namespace StockportWebapp.Controllers
                                             [FromQuery] string serviceProcessed, [FromQuery] string merchantNumber, [FromQuery] string authorisationCode, [FromQuery] string date, [FromQuery] string merchantTid,
                                             [FromQuery] string receiptNumber, [FromQuery] string hash)
         {
-            if (!_hashHelper.IsValidRequest(Request))
-            {
-                return NotFound();
-            }
-
             var response = await _repository.Get<Payment>(slug);
 
             if (!response.IsSuccessful())
@@ -243,11 +220,6 @@ namespace StockportWebapp.Controllers
                                             [FromQuery] string serviceProcessed, [FromQuery] string merchantNumber, [FromQuery] string authorisationCode, [FromQuery] string date, [FromQuery] string merchantTid,
                                             [FromQuery] string receiptNumber, [FromQuery] string hash)
         {
-            if (!_hashHelper.IsValidRequest(Request))
-            {
-                return NotFound();
-            }
-
             ViewBag.CurrentUrl = Request?.GetUri();
 
             var response = await _repository.Get<Payment>(slug);

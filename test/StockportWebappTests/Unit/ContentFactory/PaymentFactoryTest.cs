@@ -43,7 +43,6 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
                 Slug = Slug,                
                 Description = Description,
                 PaymentDetailsText = PaymentDetailsText,
-                ParisReference = ParisReference,
                 Fund = Fund,
                 ReferenceLabel = ReferenceLabel,
                 GlCodeCostCentreNumber = GlCodeCostCentreNumber,

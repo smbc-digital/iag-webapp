@@ -80,7 +80,6 @@ namespace StockportWebapp
             services.AddCustomServices(_contentRootPath, _appEnvironment);
             services.AddBuilders();
             services.AddHelpers();
-            services.AddParisConfiguration(Configuration, StartupLogger);
             services.AddGroupConfiguration(Configuration, StartupLogger);
             services.AddSesEmailConfiguration(Configuration, StartupLogger);
             services.AddRedis(Configuration, _useRedisSession, StartupLogger);
