@@ -7,6 +7,7 @@
         BusLaneAndCamera,
         FPN,
         CameraCar,
-        BusLane
+        BusLane,
+        Applications
     }
 }

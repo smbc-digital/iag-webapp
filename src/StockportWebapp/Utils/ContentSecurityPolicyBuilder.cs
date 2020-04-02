@@ -56,6 +56,8 @@ namespace StockportWebapp.Utils
 				.AddSource("https://stockportmaps.github.io")
                 .AddSource("blob:", false, true)
 				.AddSource("https://vars.hotjar.com/")
+				.AddSource("https://embed.buto.tv/")
+				.AddSource("https://butoembed.twentythree.net/")
 				.Finish());
 		}
 
@@ -236,9 +238,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://api.buto.tv/")
                 .AddSource("spatialgeojson.s3.eu-west-1.amazonaws.com", true)
                 .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
-				.AddSource("embed.buto.tv/")
-				.AddSource("butoembed.twentythree.net/")
-				.AddSource("report.23video.com/")
+				.AddSource("https://report.23video.com/")
                 .Finish());
 		}
 
