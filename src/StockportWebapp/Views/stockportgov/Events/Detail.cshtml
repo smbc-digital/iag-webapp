@@ -14,6 +14,10 @@
     var crumb = new List<Crumb> {new Crumb("What's on in Stockport", "events", "event")};
 }
 
+@{
+    var coronavirusAlert = new Alert("Event cancellations due to coronavirus", null, "Due to the coronavirus pandemic, some events have been cancelled or postponed. Please contact the event organiser for more information", "warning", new DateTime(), new DateTime(), null);
+}
+
 @section Breadcrumbs {
     <partial name="Breadcrumb" model="crumb"/>
 }
@@ -23,26 +27,27 @@
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
+                    <partial name="DisplayTemplates/Alert" model="coronavirusAlert" />
                     @{
                         if (Model.Alerts != null)
                         {
                             foreach (var alert in Model.Alerts)
                             {
-                                if(Model.IsAlertDisplayed(alert))
+                                if (Model.IsAlertDisplayed(alert))
                                 {
-                                    <partial name="DisplayTemplates/Alert" model='alert'/>
-                                }                               
+                                    <partial name="DisplayTemplates/Alert" model='alert' />
+                                }
                             }
                         }
-                    }                    
+                    }
                     <h1 class="events-article-title">@Model.Title</h1>
-                    <div  tabindex="-1" id="content"></div>
+                    <div tabindex="-1" id="content"></div>
                     <div class="grid-100 events-calender-container grid-100">
                         @if (!string.IsNullOrEmpty(Model.ImageUrl))
                         {
                             <div class="group-calender-container-image hide-on-desktop" style="background-size: cover; background-position: center; background-image: url(@Model.ImageUrl);"> </div>
                         }
-                        
+
                         <h2 class="visuallyhidden">Details box</h2>
                         <div class="grid-50 events-calender-container-description">
                             <ul class="events-ul">
@@ -51,7 +56,9 @@
                                         <i class="fa fa-clock-o fa-2x events-details-symbol" aria-hidden="true"></i>
                                     </div>
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
-                                        <div class="events-details-heading"><h3>Date and time</h3></div>
+                                        <div class="events-details-heading">
+                                            <h3>Date and time</h3>
+                                        </div>
                                         @Model.EventDate.ToString("dddd dd MMMM yyyy") @Model.StartTime - @Model.EndTime
                                     </div>
                                     <div class="clearfix"></div>
@@ -76,7 +83,7 @@
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             <h3>Location</h3>
-</div>
+                                        </div>
                                         @Html.Raw(Model.Location)
                                     </div>
                                     <div class="clearfix"></div>
@@ -88,7 +95,7 @@
                                     <div class="grid-90 mobile-grid-85 tablet-grid-90 events-details-content">
                                         <div class="events-details-heading">
                                             <h3>Submitted by</h3>
-</div>
+                                        </div>
                                         @if (Model.Group.Name != string.Empty)
                                         {
                                             <a href="/groups/@Model.Group.Slug">@Model.Group.Name</a>
@@ -99,7 +106,7 @@
                                         }
                                         else
                                         {
-                                            <br/>
+                                            <br />
                                         }
 
                                     </div>
@@ -144,12 +151,13 @@
                         <article>
                             @Html.Raw(Model.Description)
                         </article>
-                    </div><h2 class="visuallyhidden">Map</h2>
+                    </div>
+                    <h2 class="visuallyhidden">Map</h2>
                     @if (Model.MapDetails.MapPosition != null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
                     {
-                        <div class="event-map-container">     
+                        <div class="event-map-container">
                             <br />
-                            <partial name="MapPosition" model='Model.MapDetails'/>
+                            <partial name="MapPosition" model='Model.MapDetails' />
                         </div>
                     }
 
