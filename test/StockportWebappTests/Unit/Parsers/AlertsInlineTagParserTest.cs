@@ -30,7 +30,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         public void ShouldReplaceAlertsInlineTagWithAlertsInlineView()
         {
             var content = "this is some test {{Alerts-Inline:some-title}}";
-            var alertsInline = new Alert("some-title", "some-image-url", "some-subheading", "some-severity", System.DateTime.MinValue, System.DateTime.MaxValue, string.Empty);
+            var alertsInline = new Alert("some-title", "some-image-url", "some-subheading", "some-severity", System.DateTime.MinValue, System.DateTime.MaxValue, string.Empty, false);
             var alertsInlineList = new List<Alert>() { alertsInline };
             var renderResult = "RENDERED ARTICLE CONTENT";
 

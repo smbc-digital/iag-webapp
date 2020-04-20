@@ -34,7 +34,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             const string showcaseSlug = "showcase-slug";
             var alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty)};
+                                                                 new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false)};
             var showcase = new ProcessedShowcase(
                 "Test showcase",
                 showcaseSlug,
