@@ -4,13 +4,8 @@
 @inject ICookiesHelper CookiesHelper
 
 @{
-    bool isDismissed = false;
-
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    if (alertCookies != null && alertCookies.Contains(Model.Slug))
-    {
-        isDismissed = true;
-    }
+    var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
 }
 
 @if (!isDismissed)
@@ -40,12 +35,15 @@
                 }
                 @Html.Raw(Model.Body)
             </div>
-            <div class="alert-close">
-                <a href="javascript:void(0)">
-                    <span class="visuallyhidden"> Close Alert</span>
-                    <i class="fa fa-times fa-2x close-alert" data-parent="grid-100" aria-hidden="true" data-slug="@Model.Slug"></i>
-                </a>
-            </div>
+            @if (!Model.IsStatic)
+            {
+                <div class="alert-close">
+                    <a href="javascript:void(0)">
+                        <span class="visuallyhidden"> Close Alert</span>
+                        <i class="fa fa-times fa-2x close-alert" data-parent="grid-100" aria-hidden="true" data-slug="@Model.Slug"></i>
+                    </a>
+                </div>
+            }
         </div>
     </div>
 }

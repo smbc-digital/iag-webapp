@@ -12,8 +12,9 @@ namespace StockportWebapp.Models
         public DateTime SunriseDate { get; }
         public DateTime SunsetDate { get; }
         public string Slug { get; }
+        public bool IsStatic { get; }
 
-        public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate,string slug)
+        public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate, string slug, bool isStatic)
         {
             Title = title;
             SubHeading = subHeading;
@@ -22,12 +23,13 @@ namespace StockportWebapp.Models
             SunriseDate = sunriseDate;
             SunsetDate = sunsetDate;
             Slug = slug;
+            IsStatic = isStatic;
         }
     }
 
     public class NullAlert : Alert
     {
-        public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,String.Empty) { }
+        public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,String.Empty, false) { }
     }
 
     public static class Severity

@@ -4,13 +4,8 @@
 @model Alert
 
 @{
-    bool isDismissed = false;
-
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    if (alertCookies != null && alertCookies.Contains(Model.Slug))
-    {
-        isDismissed = true;
-    }
+    var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
 }
 
 @if (!isDismissed)
@@ -26,13 +21,16 @@
                         <h3>@Model.Title</h3> @Html.Raw(Model.Body)
                     </div>
                 </div>
-                <div class="global-alert-close-container">
-                    <a href="javascript:void(0)">
-                        <div class="global-alert-close-@Model.Severity.ToLowerInvariant()">
-                            <i class="close-alert" data-slug="@Model.Slug" data-parent="global-alert-@Model.Severity.ToLowerInvariant()" aria-hidden="true"></i>
-                        </div>
-                    </a>
-                </div>
+                @if (!Model.IsStatic)
+                {
+                    <div class="global-alert-close-container">
+                        <a href="javascript:void(0)">
+                            <div class="global-alert-close-@Model.Severity.ToLowerInvariant()">
+                                <i class="close-alert" data-slug="@Model.Slug" data-parent="global-alert-@Model.Severity.ToLowerInvariant()" aria-hidden="true"></i>
+                            </div>
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </div>
