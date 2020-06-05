@@ -17,7 +17,9 @@ namespace StockportWebapp.ContentFactory
         {
             var freeText = _markdownWrapper.ConvertToHtml(homepage.FreeText ?? "");
 
-            return new ProcessedHomepage(homepage.PopularSearchTerms, homepage.FeaturedTasksHeading, homepage.FeaturedTasksSummary, homepage.FeaturedTasks, homepage.FeaturedTopics, homepage.Alerts, homepage.CarouselContents, homepage.BackgroundImage, homepage.LastNews, freeText, homepage.FeaturedGroup, homepage.EventCategory, homepage.MetaDescription);
+            var featuredTasksSummary = _markdownWrapper.ConvertToHtml(homepage.FeaturedTasksSummary);
+
+            return new ProcessedHomepage(homepage.PopularSearchTerms, homepage.FeaturedTasksHeading, featuredTasksSummary, homepage.FeaturedTasks, homepage.FeaturedTopics, homepage.Alerts, homepage.CarouselContents, homepage.BackgroundImage, homepage.LastNews, freeText, homepage.FeaturedGroup, homepage.EventCategory, homepage.MetaDescription);
         }   
     }
 }
