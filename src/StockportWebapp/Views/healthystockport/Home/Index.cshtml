@@ -33,7 +33,7 @@
         <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container">
             <h2>@Model.HomepageContent.FeaturedTasksHeading</h2>
             <hr />
-            <p class="feature-tagline feature-tagline-heading">@Model.HomepageContent.FeaturedTasksSummary</p>
+            <div class="feature-tagline feature-tagline-heading">@Html.Raw(Model.HomepageContent.FeaturedTasksSummary)</div>
             <div class="topic-block-list matchbox-parent" id="topicBlockList">
                 @foreach (var subItem in Model.HomepageContent.FeaturedTasks)
                 {
