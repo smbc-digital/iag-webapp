@@ -38,7 +38,7 @@ namespace StockportWebapp.Extensions
         {
             var ci = new CultureInfo("en-GB") { DateTimeFormat = { ShortDatePattern = "dd/MM/yyyy" } };
 
-            // Configure the Localization middleware
+            // Configure the Localization middleware .
             app.UseRequestLocalization(new RequestLocalizationOptions
             {
                 DefaultRequestCulture = new RequestCulture(ci),
