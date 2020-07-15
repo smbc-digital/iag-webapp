@@ -27,9 +27,9 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
-    "jsreport-core": "^1.5.1",
-    "jsreport-jsrender": "^1.0.2",
-    "jsreport-phantom-pdf": "^1.4.6",
+    "jsreport-core": "^2.8.1",
+    "jsreport-jsrender": "^2.1.1",
+    "jsreport-phantom-pdf": "^2.5.1",
     "sass": "^1.22.12"
   }
 }
