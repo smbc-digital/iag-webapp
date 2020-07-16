@@ -1,24 +1,32 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace StockportWebapp.Parsers
 {
     public class IFrameTagParser : ISimpleTagParser
     {
         private readonly TagReplacer _tagReplacer;
-        protected Regex TagRegex => new Regex("{{IFRAME:(.*)}}", RegexOptions.Compiled);
+        private Regex TagRegex => new Regex("{{IFRAME:(.*)}}", RegexOptions.Compiled);
 
-        public string GenerateHtml(string tagData)
+        private string GenerateHtml(string tagData)
         {
             tagData.Replace("{{IFRAME:", string.Empty);
             tagData.Replace("}}", string.Empty);
 
-            var ValidUrl = new Regex(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
+            var splitTagData = tagData.Split(';');
 
-            if (!ValidUrl.IsMatch(tagData))
-                return null;
+            if (splitTagData.Length < 4)
+            {
+                return string.Empty;
+            }
 
-            return $"<iframe class='mapframe' allowfullscreen src='{tagData}'></iframe>";
+            var url = splitTagData[0];
+            var title = splitTagData[1];
+
+            var validUrl = new Regex(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
+
+            return validUrl.IsMatch(url)
+                ? $"<iframe class='mapframe' title='{title}' allowfullscreen src='{tagData}'></iframe>"
+                : null;
         }
 
         public IFrameTagParser()

@@ -5,12 +5,12 @@ namespace StockportWebapp.Parsers
     public class IShareTagParser : ISimpleTagParser
     {
         private readonly TagReplacer _tagReplacer;
-        protected Regex TagRegex => new Regex("{{ISHARE:(.*)}}", RegexOptions.Compiled);
+        private Regex TagRegex => new Regex("{{ISHARE:(.*)}}", RegexOptions.Compiled);
 
-        protected string GenerateHtml(string tagData)
+        private string GenerateHtml(string tagData)
         {
-            tagData = tagData.Replace("{{ISHARE:", "");
-            tagData = tagData.Replace("}}", "");
+            tagData.Replace("{{ISHARE:", string.Empty);
+            tagData.Replace("}}", string.Empty);
 
             var splitTagData = tagData.Split(';');
 
@@ -19,12 +19,13 @@ namespace StockportWebapp.Parsers
                 return string.Empty;
             }
 
-            string mapSource = splitTagData[0];
-            string panelOne = splitTagData[1];
-            string panelTwo = splitTagData[2];
-            string layers = splitTagData[3];
+            var mapSource = splitTagData[0];
+            var panelOne = splitTagData[1];
+            var panelTwo = splitTagData[2];
+            var layers = splitTagData[3];
+            var title = splitTagData[4];
 
-            var html = $"<iframe class=\"mapframe\" src=\"/map?layers={layers}&source={mapSource}&panels={panelOne},{panelTwo}\"></iframe>";
+            var html = $"<iframe class='mapframe' title='{title}' src='/map?layers={layers}&source={mapSource}&panels={panelOne},{panelTwo}'></iframe>";
 
             return html;
 

@@ -95,7 +95,7 @@
                                 {
                                     <li>
                                         <a href="@Url.Action("Index", "Topic", new {topicSlug = Model.Article.ParentTopic.Slug})">
-                                            <strong>More</strong>
+                                            <strong>More about @Model.Article.ParentTopic.Name.ToLowerInvariant()</strong>
                                         </a>
                                     </li>
                                 }
