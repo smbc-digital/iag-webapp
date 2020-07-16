@@ -1,18 +1,14 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.Utils;
 using StockportWebapp.ProcessedModels;
-using Microsoft.AspNetCore.NodeServices;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using System;
 using Microsoft.Extensions.Configuration;
-using StockportWebapp.Config;
 
 namespace StockportWebapp.Controllers
 {
@@ -20,18 +16,14 @@ namespace StockportWebapp.Controllers
     public class PaymentController : Controller
     {
         private readonly IProcessedContentRepository _repository;
-        private readonly IViewRender _viewRender;
         private readonly ICivicaPayGateway _civicaPayGateway;
         private readonly IConfiguration _configuration;
-        private readonly IApplicationConfiguration _applicationConfiguration;
 
-        public PaymentController(IProcessedContentRepository repository, IViewRender viewRender, ICivicaPayGateway civicaPayGateway, IConfiguration configuration, IApplicationConfiguration applicationConfiguration)
+        public PaymentController(IProcessedContentRepository repository, ICivicaPayGateway civicaPayGateway, IConfiguration configuration)
         {
             _repository = repository;
-            _viewRender = viewRender;
             _civicaPayGateway = civicaPayGateway;
             _configuration = configuration;
-            _applicationConfiguration = applicationConfiguration;
         }
 
         [Route("/payment/{slug}")]
@@ -212,52 +204,6 @@ namespace StockportWebapp.Controllers
             };
 
             return View(model);
-        }
-
-        [HttpGet]
-        [Route("/payment/{slug}/exportpdf")]
-        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug, [FromQuery] string transactionType, [FromQuery] string amount, [FromQuery] string administrationCharge, [FromQuery] string data,
-                                            [FromQuery] string serviceProcessed, [FromQuery] string merchantNumber, [FromQuery] string authorisationCode, [FromQuery] string date, [FromQuery] string merchantTid,
-                                            [FromQuery] string receiptNumber, [FromQuery] string hash)
-        {
-            ViewBag.CurrentUrl = Request?.GetUri();
-
-            var response = await _repository.Get<Payment>(slug);
-
-            if (!response.IsSuccessful())
-                return response;
-
-            var payment = response.Content as ProcessedPayment;
-
-            var model = new PaymentResponse
-            {
-                Title = payment.Title,
-                TransactionType = transactionType,
-                AdministrationCharge = administrationCharge,
-                Amount = amount,
-                Data = data,
-                ServiceProcessed = serviceProcessed,
-                MerchantNumber = merchantNumber,
-                AuthorisationCode = authorisationCode,
-                Date = date,
-                MerchantTid = merchantTid,
-                ReceiptNumber = receiptNumber,
-                Hash = hash,
-                Slug = slug
-            };
-
-            var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", string.Concat(Request?.Scheme, "://", Request?.Host));
-            var renderedHtml = _viewRender.Render("Shared/PaymentConfirmationPDF", model);
-
-            var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtml), delay = 500 });
-
-            HttpContext.Response.ContentType = "application/pdf";
-
-            string filename = @"receipt.pdf";
-            HttpContext.Response.Headers.Add("x-filename", filename);
-            HttpContext.Response.Headers.Add("Access-Control-Expose-Headers", "x-filename");
-            HttpContext.Response.Body.Write(result, 0, result.Length);
-            return new ContentResult();
         }
     }
 }

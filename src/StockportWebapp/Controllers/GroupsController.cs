@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -15,14 +14,12 @@ using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
-using Microsoft.AspNetCore.NodeServices;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Filters;
 using ReverseMarkdown;
-using Microsoft.Net.Http.Headers;
 using StockportWebapp.Services;
 using StockportWebapp.FeatureToggling;
 
@@ -36,7 +33,6 @@ namespace StockportWebapp.Controllers
         private readonly GroupEmailBuilder _emailBuilder;
         private readonly EventEmailBuilder _eventEmailBuilder;
         private readonly IFilteredUrl _filteredUrl;
-        private readonly IViewRender _viewRender;
         private readonly ILogger<GroupsController> _logger;
         private readonly List<Query> _managementQuery;
         private readonly IApplicationConfiguration _configuration;
@@ -44,8 +40,6 @@ namespace StockportWebapp.Controllers
         private readonly ViewHelpers _viewHelpers;
         private readonly IDateCalculator _dateCalculator;
         private readonly ICookiesHelper _cookiesHelper;
-        private readonly IHtmlUtilities _htmlUtilities;
-        private readonly HostHelper _hostHelper;
         private readonly ILoggedInHelper _loggedInHelper;
         private readonly IGroupsService _groupsService;
         private readonly FeatureToggles _featureToggles;
@@ -56,14 +50,11 @@ namespace StockportWebapp.Controllers
             GroupEmailBuilder emailBuilder,
             EventEmailBuilder eventEmailBuilder,
             IFilteredUrl filteredUrl,
-            IViewRender viewRender,
             ILogger<GroupsController> logger,
             IApplicationConfiguration configuration,
             MarkdownWrapper markdownWrapper,
             ViewHelpers viewHelpers,
             IDateCalculator dateCalculator,
-            IHtmlUtilities htmlUtilities,
-            HostHelper hostHelper,
             ILoggedInHelper loggedInHelper,
             IGroupsService groupsService,
             ICookiesHelper cookiesHelper,
@@ -72,7 +63,6 @@ namespace StockportWebapp.Controllers
             _processedContentRepository = processedContentRepository;
             _repository = repository;
             _filteredUrl = filteredUrl;
-            _viewRender = viewRender;
             _logger = logger;
             _configuration = configuration;
             _emailBuilder = emailBuilder;
@@ -82,8 +72,6 @@ namespace StockportWebapp.Controllers
             _viewHelpers = viewHelpers;
             _dateCalculator = dateCalculator;
             _cookiesHelper = cookiesHelper;
-            _hostHelper = hostHelper;
-            _htmlUtilities = htmlUtilities;
             _loggedInHelper = loggedInHelper;
             _groupsService = groupsService;
             _featureToggles = featureToggles;
@@ -446,49 +434,7 @@ namespace StockportWebapp.Controllers
 
             return View("Confirmation", viewmodel);
         }
-
-        [ResponseCache(NoStore = true, Duration = 0)]
-        [HttpGet]
-        [Route("/groups/exportpdf/{slug}")]
-        [Route("/groups/export/{slug}")]
-        public async Task<IActionResult> ExportPdf([FromServices] INodeServices nodeServices, string slug, [FromQuery] bool returnHtml = false, bool print = false)
-        {
-            _logger.LogInformation(string.Concat("Exporting group ", slug, " to pdf"));
-
-            try
-            {
-                var response = await _processedContentRepository.Get<Group>(slug);
-
-                if (!response.IsSuccessful()) return response;
-
-                var group = response.Content as ProcessedGroup;
-
-                // Set the current url
-                group.SetCurrentUrl(_hostHelper.GetHost(Request));
-
-                var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-                var renderedHtml = _viewRender.Render("Shared/GroupDetail", new GroupDetailsViewModel { Group = group });
-
-                var renderedHtmlAbsoluteLinks = _htmlUtilities.ConvertRelativeUrltoAbsolute(renderedHtml, _hostHelper.GetHost(Request));
-
-                var joinedHtml = string.Concat(renderedExportStyles, renderedHtmlAbsoluteLinks);
-
-                // if raw html is requested, simply return the html instead
-                if (returnHtml || print) return Content(joinedHtml, "text/html");
-
-                var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = joinedHtml, delay = 1000 });
-
-                if (result == null) _logger.LogError(string.Concat("Failed to export group ", slug, " to pdf"));
-                Stream stream = new MemoryStream(result);
-                return File(stream, "application/pdf", group.Name + ".pdf");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error exporting {slug} to pdf, exception: {ex.Message}");
-                return new ContentResult() { Content = "There was a problem exporting this group to pdf" + ex.Message, ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError };
-            }
-        }
-
+      
         [Route("/groups/manage/{slug}/users")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Users(string slug, LoggedInPerson loggedInPerson)
@@ -1267,8 +1213,6 @@ namespace StockportWebapp.Controllers
             return groupResults.Groups.ToList().Count(a => a.Status != "Archived");
         }
 
-
-
         [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/favourites")]
@@ -1296,41 +1240,6 @@ namespace StockportWebapp.Controllers
             else
             {
                 return View(model);
-            }
-        }
-
-        [ResponseCache(NoStore = true, Duration = 0)]
-        [HttpGet]
-        [Route("/groups/exportpdf/favourites")]
-        public async Task<IActionResult> FavouriteGroupsPDF([FromServices] INodeServices nodeServices)
-        {
-            _logger.LogInformation("Exporting group favourites to pdf");
-
-            try
-            {
-                var response = await GetFavouriteGroupResults();
-
-                if (response.IsNotFound()) return NotFound();
-
-                var model = response.Content as GroupResults;
-
-                var groupList = model.Groups;
-
-                var renderedExportStyles = _viewRender.Render("Shared/ExportStyles", _configuration.GetExportHost());
-                var renderedHtml = _viewRender.Render("Shared/Groups/FavouriteGroupsPrint", groupList);
-
-                var renderedHtmlAbsoluteLinks = _htmlUtilities.ConvertRelativeUrltoAbsolute(renderedHtml, _hostHelper.GetHost(Request));
-
-                var result = await nodeServices.InvokeAsync<byte[]>("./pdf", new { data = string.Concat(renderedExportStyles, renderedHtmlAbsoluteLinks), delay = 1000 });
-
-                if (result == null) _logger.LogError("Failed to export group favourites to pdf");
-
-                return new FileContentResult(result, "application/pdf");
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error exporting favourites to pdf, exception: {ex.Message}");
-                return new ContentResult() { Content = "There was a problem exporting favourites to pdf", ContentType = "text/plain", StatusCode = (int)HttpStatusCode.InternalServerError };
             }
         }
 

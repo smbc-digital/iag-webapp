@@ -6,9 +6,7 @@ using StockportWebapp.Controllers;
 using StockportWebapp.Models;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
-using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.Utils;
 using Moq;
 using System.Threading.Tasks;
 using StockportWebapp.Enums;
@@ -23,14 +21,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
     {
         private readonly Mock<IProcessedContentRepository> _fakeRepository = new Mock<IProcessedContentRepository>();
         private readonly PaymentController _paymentController;
-        private readonly Mock<IViewRender> _viewRender = new Mock<IViewRender>();
         private readonly Mock<ICivicaPayGateway> _civicaPayGateway = new Mock<ICivicaPayGateway>();
         private readonly Mock<IConfiguration> _configuration = new Mock<IConfiguration>();
-        private readonly Mock<IApplicationConfiguration> _applicationConfiguration = new Mock<IApplicationConfiguration>();
 
         public PaymentControllerTest()
         {
-            _paymentController = new PaymentController(_fakeRepository.Object,_viewRender.Object, _civicaPayGateway.Object, _configuration.Object, _applicationConfiguration.Object);
+            _paymentController = new PaymentController(_fakeRepository.Object, _civicaPayGateway.Object, _configuration.Object);
         }
 
         [Fact]

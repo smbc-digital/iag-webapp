@@ -27,13 +27,16 @@
     </div>
 </div>
 
-<div class="share border grid-60" id="download-pdf">
-    <h2>Download as PDF</h2>
-    <div class="addthis_toolbox">
-        <div class="custom_images">
-            <a class="export-as-pdf" href="/@Model.Item1/exportpdf/@Model.Item2" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+@{
+    if (FeatureToggles.PDF)
+    {
+        <div class="share border grid-60" id="download-pdf">
+            <h2>Download as PDF</h2>
+            <div class="addthis_toolbox">
+                <div class="custom_images">
+                    <a class="export-as-pdf" href="/@Model.Item1/exportpdf/@Model.Item2" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-
+    }
+}

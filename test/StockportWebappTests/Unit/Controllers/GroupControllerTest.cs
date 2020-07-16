@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using FluentAssertions;
 using StockportWebapp.Controllers;
 using StockportWebapp.Models;
@@ -38,8 +37,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private Mock<MarkdownWrapper> _markdownWrapper = new Mock<MarkdownWrapper>();
         private DateCalculator datetimeCalculator;
         private Mock<IHttpContextAccessor> http;
-        private Mock<IHtmlUtilities> htmlUtilities = new Mock<IHtmlUtilities>();
-        private HostHelper hostHelper = new HostHelper(new CurrentEnvironment("local"));
         private Mock<ILoggedInHelper> _loggedInHelper = new Mock<ILoggedInHelper>();
         private Mock<IGroupsService> _groupsService = new Mock<IGroupsService>();
         private Mock<ICookiesHelper> _cookiesHelper = new Mock<ICookiesHelper>();
@@ -93,8 +90,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var cookies = new FakeCookie(true);
             http.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-
-            _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, htmlUtilities.Object, hostHelper, _loggedInHelper.Object, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
+            
+            _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, _loggedInHelper.Object, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
 
             // setup mocks
             _groupsService.Setup(o => o.GetGroupCategories()).ReturnsAsync(groupCategories);
@@ -301,7 +298,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var mockTime = new Mock<ITimeProvider>();
             var viewHelper = new ViewHelpers(mockTime.Object);
-            return new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, null, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, htmlUtilities.Object, hostHelper, null, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
+            return new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, null, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
         }
 
         private List<Group> BuildGroupList(int numberOfItems)
