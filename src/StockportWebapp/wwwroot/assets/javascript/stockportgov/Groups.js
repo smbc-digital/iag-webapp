@@ -9,7 +9,6 @@
         }
     };
 
-
     var handleDonations = function (input) {
         if ($(input).is(':checked') === true) {
             $("#donations-text").show();
@@ -33,14 +32,10 @@
                             $this.text('Thanks for letting us know');
                         } 
                     } 
-
                 });
             return false;
         });
-
-
     }
-
 
     var handleAdditionalInformation = function (input) {
         if ($(input).is(':checked') === true) {
@@ -148,8 +143,3 @@
         Init: init
     }
 });
-
-
-
-
-

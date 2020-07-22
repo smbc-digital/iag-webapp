@@ -35,20 +35,6 @@
                                 <div class="atclear"></div>
                             </div>
                         </div>
-                        @{
-                            if (FeatureToggles.PDF)
-                            {
-                                <div class="share padding-bottom grid-15 push-5 mobile-grid-50">
-                                    <h6>Download as PDF</h6>
-                                    <div class="addthis_toolbox">
-                                        <div class="custom_images">
-                                            <a class="export-as-pdf" href="/payment/@Model.Slug/exportpdf?authorisationcode=@Model.AuthorisationCode&receiptnumber=@Uri.EscapeUriString(Model.ReceiptNumber)&transactiontype=@Model.TransactionType&merchantnumber=@Model.MerchantNumber&data=@Model.Data&serviceprocessed=@Model.ServiceProcessed&merchanttid=@Model.MerchantTid&amount=@Model.Amount&date=@Uri.EscapeUriString(Model.Date)&administrationcharge=@Model.AdministrationCharge&hash=@Model.Hash" target="_blank"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
-                                        </div>
-                                        <div class="atclear"></div>
-                                    </div>
-                                </div>
-                            }
-                        }
                     </div>
                 </div>
             </section>

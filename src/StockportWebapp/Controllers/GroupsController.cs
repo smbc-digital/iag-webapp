@@ -173,7 +173,6 @@ namespace StockportWebapp.Controllers
             return View(viewModel);
         }
 
-
         private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
         {
             return groupAdvisor != null && (groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug));
@@ -324,7 +323,6 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-
         [HttpPost]
         [Route("/groups/{slug}/change-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
@@ -360,8 +358,6 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-
-
         [HttpPost]
         [Route("/groups/{slug}/report-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
@@ -382,7 +378,6 @@ namespace StockportWebapp.Controllers
             return View(submission);
 
         }
-
 
         [Route("/groups/{slug}/report-group-info-confirmation")]
         public IActionResult ReportGroupInfoConfirmation(string slug, string groupName)
@@ -753,8 +748,6 @@ namespace StockportWebapp.Controllers
 
             return View(group);
         }
-
-
 
         [Route("/groups/manage/{groupSlug}/events/{eventSlug}/delete")]
         [ServiceFilter(typeof(GroupAuthorisation))]
@@ -1133,7 +1126,6 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpPost]
-
         [Route("/groups/{slug}/up-to-date")]
         public async Task<IActionResult> GroupUpToDate(string slug)
         {
@@ -1478,7 +1470,6 @@ namespace StockportWebapp.Controllers
 
             return View(group);
         }
-
 
         [HttpGet]
         [Route("/groups/manage/{groupSlug}/events/{eventSlug}")]

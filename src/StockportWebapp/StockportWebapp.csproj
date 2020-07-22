@@ -18,7 +18,6 @@
     <None Include="Views\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="app-config\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
-    <None Include="pdf.js" CopyToPublishDirectory="PreserveNewest" />
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
     <Compile Remove="Views\thirdsite\**" />
     <Compile Remove="wwwroot\assets\javascript\thirdsite\**" />

@@ -16,7 +16,6 @@ prod: &prod
     - make-a-formal-complaint
     - give-feedback
   TwentyThreeVideo: true
-  PDF: false
 
 stage: &stage
   << : *prod
