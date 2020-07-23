@@ -8,9 +8,9 @@ namespace StockportWebapp.Parsers
     {
         private readonly TagReplacer _tagReplacer;
         private readonly FeatureToggles _featureToggles; 
-        private Regex TagRegex => new Regex("{{VIDEO:([0-9aA-zZ]*;?[0-9aA-zZ]*;?[0-9aA-zZ]*)}}", RegexOptions.Compiled);
+        protected Regex TagRegex => new Regex("{{VIDEO:([0-9aA-zZ]*;?[0-9aA-zZ]*)}}", RegexOptions.Compiled);
 
-        private string GenerateHtml(string tagData)
+        protected string GenerateHtml(string tagData)
         {
             var outputHtml = new StringBuilder();
 
@@ -23,7 +23,7 @@ namespace StockportWebapp.Parsers
                 outputHtml.Append($"\"https://y84kj.videomarketingplatform.co/v.ihtml/player.html?token={videoData[1]}&source=embed&");
                 outputHtml.Append($"photo%5fid={videoData[0]}\" style=\"width:100%; height:100%; position:absolute; top:0; left:0;\" ");
                 outputHtml.Append("frameborder=\"0\" border=\"0\" scrolling=\"no\" allowfullscreen=\"1\" mozallowfullscreen=\"1\" ");
-                outputHtml.Append($"webkitallowfullscreen=\"1\" allow=\"autoplay; fullscreen title=\"{videoData[2]}\"\">");
+                outputHtml.Append("webkitallowfullscreen=\"1\" allow=\"autoplay; fullscreen\">");
                 outputHtml.Append("</iframe></div>");
             }
             else
