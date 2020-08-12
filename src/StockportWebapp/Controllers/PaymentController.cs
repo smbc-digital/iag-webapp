@@ -110,6 +110,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/payment/{slug}/result")]
+        [Route("/service-pay-payment/{slug}/result")]
         public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string callingAppTxnRef, [FromQuery] string responseCode)
         {
             var response = await _repository.Get<Payment>(slug);
@@ -137,6 +138,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/payment/{slug}/thanks")]
+        [Route("/service-pay-payment/{slug}/thanks")]
         public async Task<IActionResult> Confirmation(string slug, [FromQuery] string error, [FromQuery] string transactionType, [FromQuery] string amount, [FromQuery] string administrationCharge, [FromQuery] string data,
                                             [FromQuery] string serviceProcessed, [FromQuery] string merchantNumber, [FromQuery] string authorisationCode, [FromQuery] string date, [FromQuery] string merchantTid,
                                             [FromQuery] string receiptNumber, [FromQuery] string hash)
@@ -175,6 +177,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/payment/{slug}/printthanks")]
+        [Route("/service-pay-payment/{slug}/printthanks")]
         public async Task<IActionResult> ConfirmationPrint(string slug, [FromQuery] string transactionType, [FromQuery] string amount, [FromQuery] string administrationCharge, [FromQuery] string data,
                                             [FromQuery] string serviceProcessed, [FromQuery] string merchantNumber, [FromQuery] string authorisationCode, [FromQuery] string date, [FromQuery] string merchantTid,
                                             [FromQuery] string receiptNumber, [FromQuery] string hash)

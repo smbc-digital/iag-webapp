@@ -46,6 +46,7 @@ namespace StockportWebapp.Utils
             {typeof(List<Group>), "groups/"},
             {typeof(Payment), "payments/"},
             {typeof(List<Payment>), "payments/"},
+            {typeof(ServicePayPayment), "service-pay-payments/"},
             {typeof(Section), "sections/"},
             {typeof(List<Section>), "sections/"},
             {typeof(Showcase), "showcases/"},
