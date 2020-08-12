@@ -98,7 +98,7 @@ namespace StockportWebapp.Controllers
                             PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
                             CallingAppTranReference = transactionReference,
                             Quantity = "1",
-                            ServicePayReference = paymentSubmission.Reference,
+                            ServicePayReference = transactionReference,
                             ServicePayNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
                             EmailAddress = paymentSubmission.EmailAddress
                         },

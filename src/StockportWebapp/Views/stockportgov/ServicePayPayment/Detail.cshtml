@@ -12,7 +12,7 @@
     <partial name="Breadcrumb" model='Model.Payment.Breadcrumbs' />
 }
 
-<form asp-controller="Payment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data">
+<form asp-controller="ServicePayPayment" asp-action="Detail" method="post" role="form" enctype="multipart/form-data">
     <div class="grid-container-full-width">
         <div class="grid-container grid-100">
             <div class="l-body-section-filled grid-100">
@@ -49,7 +49,7 @@
                                     <span role="alert" aria-atomic="true" asp-validation-for="Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
 
                                     <label asp-for="Amount">Payment amount</label>
-                                    @if (Model.Amount == 0)
+                                    @if (@Model.Amount == 0)
                                     {
                                         <p class="visually-hidden">Enter a sterling value below</p>
                                         <div class="input-group">
@@ -59,7 +59,8 @@
                                     }
                                     else
                                     {
-                                        <p>Model.Amount.ToString()</p>
+                                        <p>&pound;@Model.Amount.ToString()</p>
+                                        @Html.HiddenFor(_ => _.Amount);
                                     }
 
                                     <stock-button id="uitest-payment-form-submit" class="button-submit-payment">Start your payment</stock-button>

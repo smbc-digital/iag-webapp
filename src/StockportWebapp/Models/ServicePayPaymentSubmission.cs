@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Validation;
 
@@ -21,6 +22,7 @@ namespace StockportWebapp.Models
 
         [Required]
         [EmailValidation]
+        [DisplayName("Email address")]
         public string EmailAddress { get; set; } = string.Empty;
     }
 }

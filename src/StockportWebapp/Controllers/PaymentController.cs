@@ -113,18 +113,28 @@ namespace StockportWebapp.Controllers
         [Route("/service-pay-payment/{slug}/result")]
         public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string callingAppTxnRef, [FromQuery] string responseCode)
         {
-            var response = await _repository.Get<Payment>(slug);
+            var pathIsServicePay = Request.Path.Value.Contains("service-pay-payment");
+            
+            var response = pathIsServicePay ? await _repository.Get<ServicePayPayment>(slug) : await _repository.Get<Payment>(slug);
 
             if (!response.IsSuccessful())
                 return response;
 
-            var payment = response.Content as ProcessedPayment;
+            dynamic payment;
+            if (pathIsServicePay)
+            {
+                payment = response.Content as ProcessedServicePayPayment;
+            }
+            else
+            {
+                payment = response.Content as ProcessedPayment;
+            }
 
             if (responseCode != "00000")
             {
                 return responseCode == "00022" || responseCode == "00023"
-                    ? View("Declined", slug)
-                    : View("Failure", slug);
+                    ? pathIsServicePay ? View("Declined", slug) : View("~/Views/stockportgov/ServicePayPayment/Declined", slug)
+                    : pathIsServicePay ? View("Failure", slug) : View("~/Views/stockportgov/ServicePayPayment/Failure", slug);
             }
 
             var model = new PaymentSuccess
@@ -143,17 +153,27 @@ namespace StockportWebapp.Controllers
                                             [FromQuery] string serviceProcessed, [FromQuery] string merchantNumber, [FromQuery] string authorisationCode, [FromQuery] string date, [FromQuery] string merchantTid,
                                             [FromQuery] string receiptNumber, [FromQuery] string hash)
         {
+            var pathIsServicePay = Request.Path.Value.Contains("service-pay-payment");
+
             if (!string.IsNullOrEmpty(error))
             {
                 return RedirectToAction("Detail", new { slug = slug, error = error, serviceprocessed = "false" });
             }
 
-            var response = await _repository.Get<Payment>(slug);
+            var response = pathIsServicePay ? await _repository.Get<ServicePayPayment>(slug) : await _repository.Get<Payment>(slug);
 
             if (!response.IsSuccessful())
                 return response;
 
-            var payment = response.Content as ProcessedPayment;
+            dynamic payment;
+            if (pathIsServicePay)
+            {
+                payment = response.Content as ProcessedServicePayPayment;
+            }
+            else
+            {
+                payment = response.Content as ProcessedPayment;
+            }
 
             var model = new PaymentResponse
             {
@@ -182,12 +202,21 @@ namespace StockportWebapp.Controllers
                                             [FromQuery] string serviceProcessed, [FromQuery] string merchantNumber, [FromQuery] string authorisationCode, [FromQuery] string date, [FromQuery] string merchantTid,
                                             [FromQuery] string receiptNumber, [FromQuery] string hash)
         {
-            var response = await _repository.Get<Payment>(slug);
+            var pathIsServicePay = Request.Path.Value.Contains("service-pay-payment");
+            var response = pathIsServicePay ? await _repository.Get<ServicePayPayment>(slug) : await _repository.Get<Payment>(slug);
 
             if (!response.IsSuccessful())
                 return response;
 
-            var payment = response.Content as ProcessedPayment;
+            dynamic payment;
+            if (pathIsServicePay)
+            {
+                payment = response.Content as ProcessedServicePayPayment;
+            }
+            else
+            {
+                payment = response.Content as ProcessedPayment;
+            }
 
             var model = new PaymentResponse
             {
