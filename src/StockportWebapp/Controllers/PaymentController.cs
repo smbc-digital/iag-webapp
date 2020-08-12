@@ -133,8 +133,8 @@ namespace StockportWebapp.Controllers
             if (responseCode != "00000")
             {
                 return responseCode == "00022" || responseCode == "00023"
-                    ? pathIsServicePay ? View("Declined", slug) : View("~/Views/stockportgov/ServicePayPayment/Declined", slug)
-                    : pathIsServicePay ? View("Failure", slug) : View("~/Views/stockportgov/ServicePayPayment/Failure", slug);
+                    ? pathIsServicePay ? View("../ServicePayPayment/Declined", slug) : View("Declined", slug)
+                    : pathIsServicePay ? View("../ServicePayPayment/Failure", slug) : View("Failure", slug);
             }
 
             var model = new PaymentSuccess

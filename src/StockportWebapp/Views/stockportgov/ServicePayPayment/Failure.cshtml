@@ -1,0 +1,19 @@
+﻿@model string
+@{
+    Layout = "_LayoutSemantic";
+    ViewData["Title"] = "Payment unsuccessful";
+}
+
+<div class="ineligible-warning">
+    <div class="header-container">
+        <div>
+            <i class="fa fa-exclamation" aria-hidden="true"></i>
+        </div>
+        <h1>We're sorry there was a problem with the form</h1>
+    </div>
+    <section class="body-container">
+        <p>No money has been taken from your account, please try again if you want to continue</p>
+        <a href="@Url.Action("Detail", "ServicePayPayment", new { slug = Model })" class="button-primary">Go back to try the payment again</a>
+        <a href="@Url.Action("Index", "Home") class="button-secondary">Go to the homepage</a>
+    </section>
+</div>
