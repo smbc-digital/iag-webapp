@@ -34,6 +34,7 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(GroupHomepage), new GroupHomepageFactory(tagParserContainer, markdownWrapper));
             _factories.Add(typeof(Group), new GroupFactory(tagParserContainer, markdownWrapper, documentTagParser));
             _factories.Add(typeof(Payment), new PaymentFactory(tagParserContainer, markdownWrapper));
+            _factories.Add(typeof(ServicePayPayment), new ServicePayPaymentFactory(tagParserContainer, markdownWrapper));
             _factories.Add(typeof(Showcase), new ShowcaseFactory(tagParserContainer, markdownWrapper, informationFactory));
             _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccesor));
             _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));

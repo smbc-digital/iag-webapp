@@ -1,62 +1,71 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.ProcessedModels;
+using Microsoft.Extensions.Configuration;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
-using System;
-using Microsoft.Extensions.Configuration;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Controllers
 {
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-    public class PaymentController : Controller
+    public class ServicePayPaymentController : Controller
     {
         private readonly IProcessedContentRepository _repository;
         private readonly ICivicaPayGateway _civicaPayGateway;
         private readonly IConfiguration _configuration;
 
-        public PaymentController(IProcessedContentRepository repository, ICivicaPayGateway civicaPayGateway, IConfiguration configuration)
+        public ServicePayPaymentController(IProcessedContentRepository repository, ICivicaPayGateway civicaPayGateway, IConfiguration configuration)
         {
             _repository = repository;
             _civicaPayGateway = civicaPayGateway;
             _configuration = configuration;
         }
 
-        [Route("/payment/{slug}")]
-        public async Task<IActionResult> Detail(string slug, string error, string serviceprocessed)
+        [Route("/service-pay-payment/{slug}")]
+        public async Task<IActionResult> Detail(string slug, string error, string serviceProcessed)
         {
-            var response = await _repository.Get<Payment>(slug);
+            var response = await _repository.Get<ServicePayPayment>(slug);
 
             if (!response.IsSuccessful())
                 return response;
 
-            var payment = response.Content as ProcessedPayment;
+            var payment = response.Content as ProcessedServicePayPayment;
 
-            var paymentSubmission = new PaymentSubmission
+            var paymentSubmission = new ServicePayPaymentSubmission
             {
                 Payment = payment
             };
 
-            if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceprocessed) && serviceprocessed.ToUpper().Equals("FALSE"))
-                ModelState.AddModelError(nameof(PaymentSubmission.Reference), error);
+            if (!string.IsNullOrEmpty(payment?.PaymentAmount))
+                paymentSubmission.Amount = decimal.Parse(payment.PaymentAmount);
+
+            if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceProcessed) && serviceProcessed.ToUpper().Equals("FALSE"))
+            {
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.Reference), error);
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.EmailAddress), error);
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.Name), error);
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.Amount), error);
+            }
 
             return View(paymentSubmission);
         }
 
         [HttpPost]
-        [Route("/payment/{slug}")]
-        public async Task<IActionResult> Detail(string slug, PaymentSubmission paymentSubmission)
+        [Route("/service-pay-payment/{slug}")]
+        public async Task<IActionResult> Detail(string slug, ServicePayPaymentSubmission paymentSubmission)
         {
-            var response = await _repository.Get<Payment>(slug);
+            var response = await _repository.Get<ServicePayPayment>(slug);
 
             if (!response.IsSuccessful())
                 return response;
 
-            var payment = response.Content as ProcessedPayment;
+            var payment = response.Content as ProcessedServicePayPayment;
 
             paymentSubmission.Payment = payment;
 
@@ -74,10 +83,10 @@ namespace StockportWebapp.Controllers
                 CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
                 CustomerID = _configuration.GetValue<string>("CivicaPayCustomerID"),
                 ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
-                ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/payment/{slug}/result",
+                ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
                 NotifyURL = string.Empty,
                 CallingAppTranReference = transactionReference,
-                PaymentItems = new System.Collections.Generic.List<PaymentItem>
+                PaymentItems = new List<PaymentItem>
                 {
                     new PaymentItem
                     {
@@ -88,9 +97,15 @@ namespace StockportWebapp.Controllers
                             PaymentAmount = paymentSubmission.Amount.ToString(),
                             PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
                             CallingAppTranReference = transactionReference,
-                            Quantity = "1"
+                            Quantity = "1",
+                            ServicePayReference = transactionReference,
+                            ServicePayNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
+                            EmailAddress = paymentSubmission.EmailAddress
                         },
-                        AddressDetails = new AddressDetail()
+                        AddressDetails = new AddressDetail
+                        {
+                            Name = paymentSubmission.Name
+                        }
                     }
                 }
             };
@@ -107,44 +122,6 @@ namespace StockportWebapp.Controllers
             }
 
             return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, transactionReference));
-        }
-
-        [Route("/payment/{slug}/result")]
-        [Route("/service-pay-payment/{slug}/result")]
-        public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string callingAppTxnRef, [FromQuery] string responseCode)
-        {
-            var pathIsServicePay = Request.Path.Value.Contains("service-pay-payment");
-            
-            var response = pathIsServicePay ? await _repository.Get<ServicePayPayment>(slug) : await _repository.Get<Payment>(slug);
-
-            if (!response.IsSuccessful())
-                return response;
-
-            dynamic payment;
-            if (pathIsServicePay)
-            {
-                payment = response.Content as ProcessedServicePayPayment;
-            }
-            else
-            {
-                payment = response.Content as ProcessedPayment;
-            }
-
-            if (responseCode != "00000")
-            {
-                return responseCode == "00022" || responseCode == "00023"
-                    ? pathIsServicePay ? View("../ServicePayPayment/Declined", slug) : View("Declined", slug)
-                    : pathIsServicePay ? View("../ServicePayPayment/Failure", slug) : View("Failure", slug);
-            }
-
-            var model = new PaymentSuccess
-            {
-                Title = payment.Title,
-                ReceiptNumber = callingAppTxnRef,
-                MetaDescription = payment.MetaDescription
-            };
-
-            return View(model);
         }
     }
 }

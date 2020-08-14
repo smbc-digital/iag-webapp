@@ -23,6 +23,8 @@ namespace StockportWebapp.Utils
                     return $"/groups/{slug}";
                 case "payment":
                     return $"/payment/{slug}";
+                case "service-pay-payment":
+                    return $"/service-pay-payment/{slug}";
                 case "showcase":
                     return $"/showcase/{slug}";
                 case "sia":

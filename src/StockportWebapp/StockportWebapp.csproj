@@ -39,6 +39,7 @@
     <Content Remove="Views\stockportgov\Payment\Failure.cshtml" />
     <Content Remove="Views\stockportgov\Payment\Success.cshtml" />
     <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
+    <Content Remove="Views\stockportgov\ServicePayPayment\Failure.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\InformationAlert.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml" />
@@ -62,6 +63,8 @@
     <None Remove="Views\Shared\Semantic\AlertsInline.cshtml" />
     <None Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
     <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
+    <None Remove="Views\stockportgov\ServicePayPayment\Declined.cshtml" />
+    <None Remove="Views\stockportgov\ServicePayPayment\Detail.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml" />
     <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\ReCaptcha.cshtml" />
