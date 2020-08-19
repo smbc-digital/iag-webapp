@@ -119,6 +119,7 @@ namespace StockportWebapp.Utils
 				.AddSource("*.siteimproveanalytics.io/")
                 .AddSource("https://www.googletagmanager.com/")
                 .AddSource("blob:", false, true)
+				.AddSource("spatial.stockport.gov.uk/")
 				.Finish());
 		}
 
