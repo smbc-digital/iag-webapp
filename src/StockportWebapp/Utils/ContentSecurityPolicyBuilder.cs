@@ -246,6 +246,7 @@ namespace StockportWebapp.Utils
                 .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
 				.AddSource("https://report.23video.com/")
 				.AddSource("https://plus.browsealoud.com/")
+				.AddSource("https://www.browsealoud.com/")
                 .Finish());
 		}
 
