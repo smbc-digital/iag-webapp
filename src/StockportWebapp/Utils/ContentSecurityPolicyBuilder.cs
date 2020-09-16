@@ -120,6 +120,9 @@ namespace StockportWebapp.Utils
                 .AddSource("https://www.googletagmanager.com/")
                 .AddSource("blob:", false, true)
 				.AddSource("spatial.stockport.gov.uk/")
+				.AddSource("https://ssl.gstatic.com/")
+				.AddSource("https://www.gstatic.com/")
+				.AddSource("https://lh3.googleusercontent.com/")
 				.Finish());
 		}
 
@@ -242,6 +245,7 @@ namespace StockportWebapp.Utils
                 .AddSource("spatialgeojson.s3.eu-west-1.amazonaws.com", true)
                 .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
 				.AddSource("https://report.23video.com/")
+				.AddSource("https://plus.browsealoud.com/")
                 .Finish());
 		}
 
