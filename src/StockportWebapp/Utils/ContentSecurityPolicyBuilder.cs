@@ -209,7 +209,8 @@ namespace StockportWebapp.Utils
 				.AddSource("https://script.hotjar.com/")
                 .AddSource("spatialgeojson.s3.eu-west-1.amazonaws.com", true)
                 .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
-				.AddSource("https://www.browsealoud.com/plus/scripts/")
+				.AddSource("https://www.browsealoud.com/")
+				.AddSource("https://plus.browsealoud.com/")
                 .Finish());
 		}
 
