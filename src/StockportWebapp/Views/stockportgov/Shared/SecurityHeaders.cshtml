@@ -9,4 +9,4 @@
     var allowedContent = cspBuilder.BuildPolicy();
 }
 
-<meta http-equiv="Content-Security-Policy" content="@allowedContent" />
+<meta http-equiv="Content-Security-Policy" content="@Html.Raw(allowedContent)" />
