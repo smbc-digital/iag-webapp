@@ -163,6 +163,7 @@ namespace StockportWebapp.Utils
 				.AddSource("'unsafe-eval'")
 				.AddSource("https://ajax.googleapis.com/ajax/libs/jquery/")
 				.AddSource("maps.googleapis.com")
+				.AddSource("apis.google.com")
 				.AddSource("m.addthisedge.com/live/boost/")
 				.AddSource("v1.addthisedge.com/live/boost/")
 				.AddSource("www.google-analytics.com/analytics.js")
@@ -249,6 +250,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://report.23video.com/")
 				.AddSource("https://plus.browsealoud.com/")
 				.AddSource("https://www.browsealoud.com/")
+				.AddSource("https://speech.speechstream.net/", true)
                 .Finish());
 		}
 
