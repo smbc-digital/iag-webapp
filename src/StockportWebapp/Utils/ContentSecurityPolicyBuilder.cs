@@ -214,6 +214,8 @@ namespace StockportWebapp.Utils
                 .AddSource("spatialgeojson.s3-eu-west-1.amazonaws.com", true)
 				.AddSource("https://www.browsealoud.com/")
 				.AddSource("https://plus.browsealoud.com/")
+				.AddSource("https://speech.speechstream.net/", true)
+				.AddSource("https://www.google-analytics.com/", true)
                 .Finish());
 		}
 
