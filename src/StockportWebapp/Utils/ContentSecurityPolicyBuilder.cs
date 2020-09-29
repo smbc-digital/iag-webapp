@@ -259,6 +259,7 @@ namespace StockportWebapp.Utils
 			_stringBuilder.Append(
 				new ContentSecurityPolicyElement
 					("media-src")
+				.AddSource("blob:")
 				.AddSource("https://www.youtube.com/")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
 				.AddSource("http://wpc.196c.planetstream.net/00196C/audio/")
