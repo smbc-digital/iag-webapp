@@ -8,7 +8,7 @@
 
     .menu-logged-out {
         display: table;
-        padding: 10px 20px;
+        padding: 10px 10px;
         height: 50px;
         text-align: right;
 
@@ -52,7 +52,7 @@
 }
 
 .type-home {
-    .menu .menu-logged-out {
+    .menu .menu-logged-out:first-of-type {
         padding-right: 0;
     }
 }
