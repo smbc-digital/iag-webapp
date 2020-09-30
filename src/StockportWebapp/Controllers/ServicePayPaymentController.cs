@@ -76,8 +76,6 @@ namespace StockportWebapp.Controllers
                 return View(paymentSubmission);
             }
 
-            var transactionReference = Guid.NewGuid().ToString();
-
             var immediateBasketResponse = new CreateImmediateBasketRequest
             {
                 CallingAppIdentifier = _configuration.GetValue<string>("CivicaPayCallingAppIdentifier"),
@@ -85,7 +83,7 @@ namespace StockportWebapp.Controllers
                 ApiPassword = _configuration.GetValue<string>("CivicaPayApiPassword"),
                 ReturnURL = !string.IsNullOrEmpty(payment.ReturnUrl) ? payment.ReturnUrl : $"{Request.Scheme}://{Request.Host}/service-pay-payment/{slug}/result",
                 NotifyURL = string.Empty,
-                CallingAppTranReference = transactionReference,
+                CallingAppTranReference = paymentSubmission.Reference,
                 PaymentItems = new List<PaymentItem>
                 {
                     new PaymentItem
@@ -96,11 +94,12 @@ namespace StockportWebapp.Controllers
                             AccountReference = !string.IsNullOrEmpty(payment.AccountReference) ? payment.AccountReference : paymentSubmission.Reference,
                             PaymentAmount = paymentSubmission.Amount.ToString(),
                             PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
-                            CallingAppTranReference = transactionReference,
+                            CallingAppTranReference = paymentSubmission.Reference,
                             Quantity = "1",
-                            ServicePayReference = transactionReference,
-                            ServicePayNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
-                            EmailAddress = paymentSubmission.EmailAddress
+                            ServicePayReference = paymentSubmission.Reference,
+                            ServicePayNarrative = $"{payment.PaymentDescription} - Name: {paymentSubmission.Name} - Email: {paymentSubmission.EmailAddress}",
+                            EmailAddress = paymentSubmission.EmailAddress,
+                            TelephoneNumber = "0"
                         },
                         AddressDetails = new AddressDetail
                         {
@@ -121,7 +120,7 @@ namespace StockportWebapp.Controllers
                 return View("Error", response);
             }
 
-            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, transactionReference));
+            return Redirect(_civicaPayGateway.GetPaymentUrl(civicaResponse.ResponseContent.BasketReference, civicaResponse.ResponseContent.BasketToken, paymentSubmission.Reference));
         }
     }
 }
