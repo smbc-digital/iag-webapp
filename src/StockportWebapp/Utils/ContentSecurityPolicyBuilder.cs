@@ -251,6 +251,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://plus.browsealoud.com/")
 				.AddSource("https://www.browsealoud.com/")
 				.AddSource("https://speech.speechstream.net/", true)
+				.AddSource("https://www.google-analytics.com/")
                 .Finish());
 		}
 
