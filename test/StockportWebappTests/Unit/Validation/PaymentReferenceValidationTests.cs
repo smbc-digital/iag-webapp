@@ -4,6 +4,7 @@ using FluentAssertions;
 using StockportWebapp.Enums;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.ViewModels;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Validation
@@ -45,6 +46,42 @@ namespace StockportWebappTests_Unit.Unit.Validation
             result.Should().BeTrue();
         }
 
+        [Fact]
+        public void Should_ReturnSuccess_WhenValidationIsNone_ForServicePayPayment()
+        {
+            // Arrange
+            var paymentSubmission = new ServicePayPaymentSubmissionViewModel
+            {
+                Amount = 10.00m,
+                Payment = new ProcessedServicePayPayment("paymentTitle",
+                    "paymentSlug",
+                    "paymentTeaser",
+                    "paymentDescription",
+                    "paymentDetailsText",
+                    "paymentReference",
+                    new List<Crumb>(),
+                    EPaymentReferenceValidation.None,
+                    "metaDescription",
+                    "returnUrl",
+                    "catalogueId",
+                    "accountReference",
+                    "paymentDescription",
+                    new List<Alert>(),
+                    "12"),
+                Reference = "12345",
+                Name = "name",
+                EmailAddress = "test@email.com"
+            };
+            var context = new ValidationContext(paymentSubmission);
+            var results = new List<ValidationResult>();
+
+            // Act
+            var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
         [Theory]
         [InlineData(EPaymentReferenceValidation.FPN, "12345")]
         [InlineData(EPaymentReferenceValidation.ParkingFine, "SM30414755")]
@@ -55,7 +92,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
-        public void Should_ReturnSuccess(EPaymentReferenceValidation referenceValidation, string reference)
+        public void Should_ReturnSuccess_ForValidReference(EPaymentReferenceValidation referenceValidation, string reference)
         {
             // Arrange
             var paymentSubmission = new PaymentSubmission
@@ -89,6 +126,52 @@ namespace StockportWebappTests_Unit.Unit.Validation
             result.Should().BeTrue();
         }
 
+
+        [Theory]
+        [InlineData(EPaymentReferenceValidation.FPN, "12345")]
+        [InlineData(EPaymentReferenceValidation.ParkingFine, "SM30414755")]
+        [InlineData(EPaymentReferenceValidation.ParkingFine, "SM3086279A")]
+        [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM80000200")]
+        [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM8000020A")]
+        [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234567")]
+        [InlineData(EPaymentReferenceValidation.CameraCar, "SM6123456A")]
+        [InlineData(EPaymentReferenceValidation.BusLane, "SM81234567")]
+        [InlineData(EPaymentReferenceValidation.BusLane, "SM8123456A")]
+        public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
+        {
+            // Arrange
+             var paymentSubmission = new ServicePayPaymentSubmissionViewModel
+            {
+                Amount = 10.00m,
+                Payment = new ProcessedServicePayPayment("paymentTitle",
+                    "paymentSlug",
+                    "paymentTeaser",
+                    "paymentDescription",
+                    "paymentDetailsText",
+                    "paymentReference",
+                    new List<Crumb>(),
+                    referenceValidation,
+                    "metaDescription",
+                    "returnUrl",
+                    "catalogueId",
+                    "accountReference",
+                    "paymentDescription",
+                    new List<Alert>(),
+                    "12"),
+                Reference = reference,
+                Name = "name",
+                EmailAddress = "test@email.com"
+            };
+            var context = new ValidationContext(paymentSubmission);
+            var results = new List<ValidationResult>();
+
+            // Act
+            var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+
+            // Assert
+            result.Should().BeTrue();
+        }
+
         [Theory]
         [InlineData(EPaymentReferenceValidation.FPN, "1234567")]
         [InlineData(EPaymentReferenceValidation.FPN, "NOTVALID")]
@@ -98,7 +181,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
         [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
         [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
-        public void Should_ReturnFalse(EPaymentReferenceValidation referenceValidation, string reference)
+        public void Should_ReturnFalse_ForInvalidReference(EPaymentReferenceValidation referenceValidation, string reference)
         {
             // Arrange
             var paymentSubmission = new PaymentSubmission
@@ -121,6 +204,50 @@ namespace StockportWebappTests_Unit.Unit.Validation
                     "paymentDescription",
                     new List<Alert>()),
                 Reference = reference
+            };
+            var context = new ValidationContext(paymentSubmission);
+            var results = new List<ValidationResult>();
+
+            // Act
+            var result = Validator.TryValidateObject(paymentSubmission, context, results, true);
+
+            // Assert
+            result.Should().BeFalse();
+        }
+
+        [Theory]
+        [InlineData(EPaymentReferenceValidation.FPN, "1234567")]
+        [InlineData(EPaymentReferenceValidation.FPN, "NOTVALID")]
+        [InlineData(EPaymentReferenceValidation.ParkingFine, "ER30414755")]
+        [InlineData(EPaymentReferenceValidation.BusLaneAndCamera, "SM800002")]
+        [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234")]
+        [InlineData(EPaymentReferenceValidation.BusLane, "SM81234")]
+        [InlineData(EPaymentReferenceValidation.CameraCar, "SM61234A")]
+        [InlineData(EPaymentReferenceValidation.BusLane, "SM81234A")]
+        public void Should_ReturnFalse_ForInvalidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
+        {
+            // Arrange
+            var paymentSubmission = new ServicePayPaymentSubmissionViewModel
+            {
+                Amount = 10.00m,
+                Payment = new ProcessedServicePayPayment("paymentTitle",
+                    "paymentSlug",
+                    "paymentTeaser",
+                    "paymentDescription",
+                    "paymentDetailsText",
+                    "paymentReference",
+                    new List<Crumb>(),
+                    referenceValidation,
+                    "metaDescription",
+                    "returnUrl",
+                    "catalogueId",
+                    "accountReference",
+                    "paymentDescription",
+                    new List<Alert>(),
+                    "12"),
+                Reference = reference,
+                Name = "name",
+                EmailAddress = "test@email.com"
             };
             var context = new ValidationContext(paymentSubmission);
             var results = new List<ValidationResult>();

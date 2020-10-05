@@ -59,6 +59,9 @@ namespace StockportWebapp.Validation
                 
             var reference = value as string;
 
+            if (reference == null)
+                return new ValidationResult("The reference number is required");
+
             var isValid = Regex.IsMatch(reference, ValidatorsRegex[referenceValidation]);
 
             return !isValid 

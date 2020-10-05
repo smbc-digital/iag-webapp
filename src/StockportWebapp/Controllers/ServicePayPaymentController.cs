@@ -70,12 +70,8 @@ namespace StockportWebapp.Controllers
 
             paymentSubmission.Payment = payment;
 
-            TryValidateModel(paymentSubmission);
-
             if (!ModelState.IsValid)
-            {
                 return View(paymentSubmission);
-            }
 
             var immediateBasketResponse = new CreateImmediateBasketRequest
             {
