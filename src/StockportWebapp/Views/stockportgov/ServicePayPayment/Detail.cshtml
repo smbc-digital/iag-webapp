@@ -49,7 +49,7 @@
                                     <span role="alert" aria-atomic="true" asp-validation-for="Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
 
                                     <label asp-for="Amount">Payment amount</label>
-                                    @if (@Model.Amount == 0)
+                                    @if (Model.Amount == null || Model.Amount == 0)
                                     {
                                         <p class="visually-hidden">Enter a sterling value below</p>
                                         <div class="input-group">
@@ -59,7 +59,7 @@
                                     }
                                     else
                                     {
-                                        <p>&pound;@Model.Amount.ToString("F2")</p>
+                                        <p>&pound;@Model.Amount?.ToString("F2")</p>
                                         @Html.HiddenFor(_ => _.Amount);
                                     }
 
