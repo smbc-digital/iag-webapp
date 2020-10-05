@@ -3,11 +3,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using StockportWebapp.Enums;
 using StockportWebapp.Models;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Validation
 {
     public class PaymentReferenceValidation : ValidationAttribute
     {
+        private readonly EPaymentSubmissionType _paymentSubmissionType;
+        public PaymentReferenceValidation(EPaymentSubmissionType paymentSubmissionType)
+        {
+            _paymentSubmissionType = paymentSubmissionType;
+        }
+        
         private static readonly Dictionary<EPaymentReferenceValidation, string> ValidatorsRegex = new Dictionary<EPaymentReferenceValidation, string>
         {
             { EPaymentReferenceValidation.FPN, @"^(\d{5})$" },
@@ -20,30 +27,43 @@ namespace StockportWebapp.Validation
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var paymentSubmission = validationContext.ObjectInstance as PaymentSubmission;
+            return _paymentSubmissionType.Equals(EPaymentSubmissionType.Payment)
+                ? ProcessPayment(value, validationContext)
+                : ProcessServicePayPayment(value, validationContext);
+        }
+
+        private ValidationResult ProcessPayment(object value, ValidationContext validationContext)
+        {
+            var paymentSubmission = validationContext.ObjectInstance as PaymentSubmission;;
 
             if (paymentSubmission?.Payment != null)
-            {
-                if (paymentSubmission.Payment.ReferenceValidation == EPaymentReferenceValidation.None)
-                {
-                    return ValidationResult.Success;
-                }
-                var reference = value as string;
-
-                if (reference == null)
-                {
-                    return new ValidationResult("The reference number is required");
-                }
-
-                var isValid = Regex.IsMatch(reference, ValidatorsRegex[paymentSubmission.Payment.ReferenceValidation]);
-
-                if (!isValid)
-                {
-                    return new ValidationResult("Check the reference number and try again");
-                }
-            }
+               return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
 
             return ValidationResult.Success;
+        }
+
+        private ValidationResult ProcessServicePayPayment(object value, ValidationContext validationContext)
+        {
+            var paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
+
+            if (paymentSubmission?.Payment != null)
+                return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
+
+            return ValidationResult.Success;
+        }
+
+        private ValidationResult ValidateReference(object value, EPaymentReferenceValidation referenceValidation)
+        {
+            if (referenceValidation == EPaymentReferenceValidation.None)
+                return ValidationResult.Success;
+                
+            var reference = value as string;
+
+            var isValid = Regex.IsMatch(reference, ValidatorsRegex[referenceValidation]);
+
+            return !isValid 
+                ? new ValidationResult("Check the reference number and try again") 
+                : ValidationResult.Success;
         }
     }
 }

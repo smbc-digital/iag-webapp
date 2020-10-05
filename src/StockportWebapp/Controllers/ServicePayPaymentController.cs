@@ -10,6 +10,7 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
@@ -37,7 +38,7 @@ namespace StockportWebapp.Controllers
 
             var payment = response.Content as ProcessedServicePayPayment;
 
-            var paymentSubmission = new ServicePayPaymentSubmission
+            var paymentSubmission = new ServicePayPaymentSubmissionViewModel
             {
                 Payment = payment
             };
@@ -47,10 +48,10 @@ namespace StockportWebapp.Controllers
 
             if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceProcessed) && serviceProcessed.ToUpper().Equals("FALSE"))
             {
-                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.Reference), error);
-                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.EmailAddress), error);
-                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.Name), error);
-                ModelState.AddModelError(nameof(ServicePayPaymentSubmission.Amount), error);
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.Reference), error);
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.EmailAddress), error);
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.Name), error);
+                ModelState.AddModelError(nameof(ServicePayPaymentSubmissionViewModel.Amount), error);
             }
 
             return View(paymentSubmission);
@@ -58,7 +59,7 @@ namespace StockportWebapp.Controllers
 
         [HttpPost]
         [Route("/service-pay-payment/{slug}")]
-        public async Task<IActionResult> Detail(string slug, ServicePayPaymentSubmission paymentSubmission)
+        public async Task<IActionResult> Detail(string slug, ServicePayPaymentSubmissionViewModel paymentSubmission)
         {
             var response = await _repository.Get<ServicePayPayment>(slug);
 
