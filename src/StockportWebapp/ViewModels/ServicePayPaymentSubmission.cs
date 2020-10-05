@@ -3,9 +3,9 @@ using StockportWebapp.Enums;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Validation;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ViewModels
 {
-    public class ServicePayPaymentSubmission
+    public class ServicePayPaymentSubmissionViewModel
     {
         public ProcessedServicePayPayment Payment { get; set; } = new ProcessedServicePayPayment();
 
@@ -26,5 +26,7 @@ namespace StockportWebapp.Models
         [EmailValidation]
         [Display(Name = "email address")]
         public string EmailAddress { get; set; } = string.Empty;
+
+        public bool HasServiceSpecifiedPrice => !string.IsNullOrEmpty(Payment.PaymentAmount);
     }
 }

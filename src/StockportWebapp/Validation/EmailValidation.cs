@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
-using StockportWebapp.Models;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Validation
 {
@@ -9,7 +9,7 @@ namespace StockportWebapp.Validation
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,})+)$");
-            var paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmission;
+            var paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
 
             if (string.IsNullOrEmpty(paymentSubmission?.EmailAddress))
                 return new ValidationResult("The email address is required");

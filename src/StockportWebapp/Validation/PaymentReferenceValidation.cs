@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using StockportWebapp.Enums;
 using StockportWebapp.Models;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Validation
 {
@@ -43,7 +44,7 @@ namespace StockportWebapp.Validation
 
         private ValidationResult ProcessServicePayPayment(object value, ValidationContext validationContext)
         {
-            var paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmission;
+            var paymentSubmission = validationContext.ObjectInstance as ServicePayPaymentSubmissionViewModel;
 
             if (paymentSubmission?.Payment != null)
                 return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
@@ -54,9 +55,8 @@ namespace StockportWebapp.Validation
         private ValidationResult ValidateReference(object value, EPaymentReferenceValidation referenceValidation)
         {
             if (referenceValidation == EPaymentReferenceValidation.None)
-            {
                 return ValidationResult.Success;
-            }
+                
             var reference = value as string;
 
             var isValid = Regex.IsMatch(reference, ValidatorsRegex[referenceValidation]);
