@@ -4,7 +4,7 @@ using FluentAssertions;
 using StockportWebapp.Enums;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.Validation;
+using StockportWebapp.ViewModels;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Validation
@@ -18,7 +18,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [Fact]
         public void IsValidShouldReturnValidationResultSuccess()
         {
-            var model = new ServicePayPaymentSubmission
+            var model = new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
                 Amount = 23.52m,
@@ -38,7 +38,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [Fact]
         public void IsValidShouldReturnValidationResultErrorIfEmailAddressDoesNotMatchRegex()
         {
-            var model = new ServicePayPaymentSubmission
+            var model = new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
                 Amount = 23.52m,
@@ -58,7 +58,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
         [Fact]
         public void IsValidShouldReturnValidationResultErrorIfEmailAddressEmpty()
         {
-            var model = new ServicePayPaymentSubmission
+            var model = new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
                 Amount = 23.52m,

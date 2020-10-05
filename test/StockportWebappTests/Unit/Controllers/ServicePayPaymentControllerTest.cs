@@ -15,6 +15,7 @@ using StockportWebapp.Enums;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
+using StockportWebapp.ViewModels;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
 
@@ -63,7 +64,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task DetailShouldReturnAPaymentWithProcessedBody()
         {
             var view = await _paymentController.Detail("slug", null, null) as ViewResult;;
-            var model = view.ViewData.Model as ServicePayPaymentSubmission;
+            var model = view.ViewData.Model as ServicePayPaymentSubmissionViewModel;
 
             model.Payment.Should().Be(_processedPayment);
         }
@@ -83,7 +84,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task DetailPostShouldCallGatewayCreateImmediateBasket()
         {
-            await _paymentController.Detail("slug", new ServicePayPaymentSubmission
+            await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
                 Amount = 23.5m,
@@ -100,7 +101,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             _paymentController.ModelState.AddModelError("Reference", "error");
 
-            var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmission
+            var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Payment = _processedPayment,
                 Amount = 12.00m,
@@ -117,7 +118,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _civicaPayGateway.Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
                 .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse> { StatusCode = HttpStatusCode.BadRequest, ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00000" } });
 
-            var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmission
+            var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Payment = _processedPayment,
                 Amount = 12.00m,
@@ -135,7 +136,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _civicaPayGateway.Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
                 .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse> { StatusCode = HttpStatusCode.BadRequest, ResponseContent = new CreateImmediateBasketResponse { BasketReference = "testRef", BasketToken = "testBasketToken", ResponseCode = "00001" } });
 
-            var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmission
+            var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Payment = _processedPayment,
                 Reference = "123456789",
@@ -150,7 +151,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task DetailPostShouldCallGatewayGetPaymentUrl()
         {
-            await _paymentController.Detail("slug", new ServicePayPaymentSubmission
+            await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Payment = _processedPayment,
                 Amount = 12.00m,
