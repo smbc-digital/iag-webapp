@@ -52,7 +52,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
             // Arrange
             var paymentSubmission = new ServicePayPaymentSubmissionViewModel
             {
-                Amount = 10.00m,
+                Amount = "10.00",
                 Payment = new ProcessedServicePayPayment("paymentTitle",
                     "paymentSlug",
                     "paymentTeaser",
@@ -142,7 +142,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
             // Arrange
              var paymentSubmission = new ServicePayPaymentSubmissionViewModel
             {
-                Amount = 10.00m,
+                Amount = "10.00",
                 Payment = new ProcessedServicePayPayment("paymentTitle",
                     "paymentSlug",
                     "paymentTeaser",
@@ -229,7 +229,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
             // Arrange
             var paymentSubmission = new ServicePayPaymentSubmissionViewModel
             {
-                Amount = 10.00m,
+                Amount = "10.00",
                 Payment = new ProcessedServicePayPayment("paymentTitle",
                     "paymentSlug",
                     "paymentTeaser",

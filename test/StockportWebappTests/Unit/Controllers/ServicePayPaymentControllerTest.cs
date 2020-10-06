@@ -87,7 +87,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
-                Amount = 23.5m,
+                Amount = "23.5",
                 Name = "name",
                 EmailAddress = "test-email-address",
                 Payment = _processedPayment
@@ -104,7 +104,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Payment = _processedPayment,
-                Amount = 12.00m,
+                Amount = "12.00",
                 Reference = "123456"
             }) as ViewResult;
 
@@ -121,7 +121,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var result = await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Payment = _processedPayment,
-                Amount = 12.00m,
+                Amount = "12.00",
                 Reference = "123456789"
             }) as ViewResult;
 
@@ -140,7 +140,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             {
                 Payment = _processedPayment,
                 Reference = "123456789",
-                Amount = 12.00m,
+                Amount = "12.00",
                 EmailAddress = "test-email-address"
             }) as ViewResult;
 
@@ -154,7 +154,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             await _paymentController.Detail("slug", new ServicePayPaymentSubmissionViewModel
             {
                 Payment = _processedPayment,
-                Amount = 12.00m,
+                Amount = "12.00",
                 Reference = "123456789"
             });
 

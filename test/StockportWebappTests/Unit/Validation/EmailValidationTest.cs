@@ -21,7 +21,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
             var model = new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
-                Amount = 23.52m,
+                Amount = "23.52",
                 EmailAddress = "test@test.com",
                 Name = "Test Name",
                 Payment = _processedPayment
@@ -41,7 +41,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
             var model = new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
-                Amount = 23.52m,
+                Amount = "23.52",
                 EmailAddress = "test@t",
                 Name = "Test Name",
                 Payment = _processedPayment
@@ -61,7 +61,7 @@ namespace StockportWebappTests_Unit.Unit.Validation
             var model = new ServicePayPaymentSubmissionViewModel
             {
                 Reference = "12346",
-                Amount = 23.52m,
+                Amount = "23.52",
                 EmailAddress = string.Empty,
                 Name = "Test Name",
                 Payment = _processedPayment
