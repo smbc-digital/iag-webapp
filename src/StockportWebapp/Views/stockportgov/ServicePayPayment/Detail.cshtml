@@ -1,5 +1,5 @@
-﻿@using StockportWebapp.ViewModels
-@model ServicePayPaymentSubmissionViewModel
+﻿@using StockportWebapp.Models
+@model ServicePayPaymentSubmission
 
 @{
     ViewData["Title"] = Model.Payment.Title;
@@ -36,6 +36,10 @@
                         <div class="form">
                             <div class="form-section">
                                 <fieldset>
+                                    <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
+                                    <input asp-for="Reference" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
+                                    <span role="alert" aria-atomic="true" asp-validation-for="Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
+
                                     <label asp-for="Name">Name</label>
                                     <input asp-for="Name" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
                                     <span role="alert" aria-atomic="true" asp-validation-for="Name" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
@@ -44,22 +48,18 @@
                                     <input asp-for="EmailAddress" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
                                     <span role="alert" aria-atomic="true" asp-validation-for="EmailAddress" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
 
-                                    <label asp-for="Reference">@Model.Payment.ReferenceLabel</label>
-                                    <input asp-for="Reference" type="text" class="grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100 form-control" />
-                                    <span role="alert" aria-atomic="true" asp-validation-for="Reference" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
-
                                     <label asp-for="Amount">Payment amount</label>
-                                    @if (!Model.HasServiceSpecifiedPrice)
+                                    @if (@Model.Amount == 0)
                                     {
                                         <p class="visually-hidden">Enter a sterling value below</p>
                                         <div class="input-group">
-                                            <span class="input-addon">£</span><input asp-for="Amount" type="text" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
+                                            <span class="input-addon">£</span><input asp-for="Amount" type="text" value="" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
                                             <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
                                         </div>
                                     }
                                     else
                                     {
-                                        <p>&pound;@Model.Amount?.ToString("F2")</p>
+                                        <p>&pound;@Model.Amount.ToString("F2")</p>
                                         @Html.HiddenFor(_ => _.Amount);
                                     }
 
