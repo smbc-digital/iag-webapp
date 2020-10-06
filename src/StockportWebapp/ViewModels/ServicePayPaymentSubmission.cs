@@ -14,9 +14,9 @@ namespace StockportWebapp.ViewModels
         [Display(Name = "reference")]
         public string Reference { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Enter the payment amount in numbers")]
+        [Required(ErrorMessage = "Enter the payment amount")]
         [Range(0.01, int.MaxValue, ErrorMessage = "Enter the payment amount in numbers")]
-        public decimal? Amount { get; set; } = 0;
+        public string Amount { get; set; }
 
         [Required]
         [Display(Name = "name")]

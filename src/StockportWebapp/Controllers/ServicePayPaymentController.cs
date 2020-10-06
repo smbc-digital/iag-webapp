@@ -44,7 +44,7 @@ namespace StockportWebapp.Controllers
             };
 
             if (!string.IsNullOrEmpty(payment?.PaymentAmount))
-                paymentSubmission.Amount = decimal.Parse(payment.PaymentAmount);
+                paymentSubmission.Amount = payment.PaymentAmount;
 
             if (!string.IsNullOrEmpty(error) && !string.IsNullOrEmpty(serviceProcessed) && serviceProcessed.ToUpper().Equals("FALSE"))
             {
@@ -89,7 +89,7 @@ namespace StockportWebapp.Controllers
                         {
                             CatalogueID = payment.CatalogueId,
                             AccountReference = !string.IsNullOrEmpty(payment.AccountReference) ? payment.AccountReference : paymentSubmission.Reference,
-                            PaymentAmount = paymentSubmission.Amount.ToString(),
+                            PaymentAmount = paymentSubmission.Amount,
                             PaymentNarrative = $"{payment.PaymentDescription} - {paymentSubmission.Reference}",
                             CallingAppTranReference = paymentSubmission.Reference,
                             Quantity = "1",
