@@ -1,5 +1,5 @@
-﻿@using StockportWebapp.Models
-@model ServicePayPaymentSubmission
+﻿@using StockportWebapp.ViewModels
+@model ServicePayPaymentSubmissionViewModel
 
 @{
     ViewData["Title"] = Model.Payment.Title;
@@ -49,18 +49,19 @@
                                     <span role="alert" aria-atomic="true" asp-validation-for="EmailAddress" class="form-field-validation-error grid-30 tablet-grid-50 suffix-70 tablet-suffix-50 mobile-grid-100"></span>
 
                                     <label asp-for="Amount">Payment amount</label>
-                                    @if (@Model.Amount == 0)
+                                    @if (!Model.HasServiceSpecifiedPrice)
                                     {
                                         <p class="visually-hidden">Enter a sterling value below</p>
                                         <div class="input-group">
-                                            <span class="input-addon">£</span><input asp-for="Amount" type="text" value="" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
+                                            <span class="input-addon">£</span><input asp-for="Amount" type="text" class="currency grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100 form-control">
                                             <span role="alert" aria-atomic="true" asp-validation-for="Amount" class="form-field-validation-error grid-15 tablet-grid-25 suffix-85 tablet-suffix-75 mobile-grid-100"></span>
                                         </div>
                                     }
                                     else
                                     {
-                                        <p>&pound;@Model.Amount.ToString("F2")</p>
-                                        @Html.HiddenFor(_ => _.Amount);
+                                        <p>&pound;@Model.Amount?.ToString("F2")</p>
+                                        @Html.HiddenFor(_ => _.Amount)
+                                        ;
                                     }
 
                                     <stock-button id="uitest-payment-form-submit" class="button-submit-payment">Start your payment</stock-button>
