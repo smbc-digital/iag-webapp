@@ -60,7 +60,6 @@
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     <partial name="TagManager/TagManagerNoScript" />
-    <div id="__ba_launchpad" style="display:none !important;"></div>
     <partial name="Header" />
     @RenderSection("Breadcrumbs", false)
     <main>
