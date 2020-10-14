@@ -113,6 +113,11 @@
         a {
             font-size: 14px;
             color: $colorPrimarySuperDark;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline!important;
+            }
         }
     }
 }

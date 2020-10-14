@@ -377,14 +377,14 @@ ul.nav-card-list:nth-of-type(1) {
     }
 
     &:hover {
-        background-color: lighten($teal-darker, 5%);
+        background-color: darken($teal-darker, 10%);
     }
 
     &:focus {
         background-color: $teal-darker;
 
         &:hover {
-            background-color: lighten($teal-darker, 5%);
+            background-color: darken($teal-darker, 10%);
         }
     }
 }
