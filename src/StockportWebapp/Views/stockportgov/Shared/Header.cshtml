@@ -75,6 +75,11 @@
                             <div class="menu-logged-out pull-right">
                                 <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>My Account</a>
                             </div>
+                            @if (featureToggles.ReciteMeTrial) {
+                                <div class="menu-logged-out pull-right">
+                                    <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
+                                </div>
+                            }
                         }
                     </div>
                 </div>
