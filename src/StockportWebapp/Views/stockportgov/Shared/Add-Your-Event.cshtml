@@ -38,7 +38,7 @@
                             <div id="error-message-anchor"></div>
                             <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
                                 <div class="alert-icon">
-                                    <i class="fa fa-exclamation fa-3x" aria-hidden="true"></i>
+                                    <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
                                 </div>
                                 <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
                                     <h3>There has been a problem: </h3>
@@ -50,7 +50,7 @@
                         <noscript>
                             <div id="recaptchaJsError" class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
                                 <div class="alert-icon">
-                                    <i class="fa fa-exclamation fa-3x" aria-hidden="true"></i>
+                                    <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
                                 </div>
                                 <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
                                     <h3>There has been a problem: </h3>
@@ -71,18 +71,18 @@
 
                                     <h2 class="visually-hidden">Description</h2>
                                     <label asp-for="@Model.Description"></label>
-                                    <i class="small" aria-hidden="true">
+                                    <span class="small" aria-hidden="true">
                                         <ul>
                                             <li>Let people know why they should visit your event</li>
                                             <li>Let people know how to get in touch</li>
                                         </ul>
-                                    </i>
+                                    </span>
                                     <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" title="Enter a Description"></textarea>
                                     <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                     <h2 class="visually-hidden">Location</h2>
                                     <label asp-for="@Model.Location"></label>
-                                    <i>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</i>
+                                    <span>For example: Cheadle Library, 23 Ashfield Rd, Cheadle, Stockport, SK8 1BB</span>
                                     <input aria-labelledby="Location" type="text" id="Location" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Location" />
                                     <div style="visibility: hidden; position: absolute; top: -100px; left: -100px;">
                                         <input aria-labelledby="latitude" type="text" id="latitude" asp-for="@Model.Latitude" />
@@ -149,12 +149,12 @@
                                                     if (!string.IsNullOrWhiteSpace(@Model.Frequencylist[item]))
                                                     {
                                                         <p>
-                                                            <i>@Model.Frequencylist[item]</i>
+                                                            <i>@Model.Frequencylist[item]</i>>
                                                         </p>
                                                     }
                                                 }
                                             </ul>
-                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Frequency" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Frequency" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>>
                                         </fieldset>
 
                                         <h3 class="visually-hidden">End date</h3>

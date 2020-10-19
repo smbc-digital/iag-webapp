@@ -27,7 +27,7 @@
                     </div>
                     <div>
                         <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
-                            <i class="fa fa-gbp" aria-hidden="true"></i>
+                            <span class="fa fa-gbp" aria-hidden="true"></span>
                         </div>
                         <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
                             @(item.Fee.Length > 70 ? item.Fee.Substring(0, 70) + "..." : item.Fee)
@@ -35,7 +35,7 @@
                     </div>
                     <div>
                         <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            <span class="fa fa-clock-o" aria-hidden="true"></span>
                         </div>
                         <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
                             @item.EventDate.ToString("D") @item.StartTime
@@ -43,7 +43,7 @@
                     </div>
                     <div>
                         <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
-                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span class="fa fa-map-marker" aria-hidden="true"></span>
                         </div>
                         <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
                             @(item.Location.Length > 70 ? item.Location.Substring(0, 70) + "..." : item.Location)
@@ -51,7 +51,7 @@
                     </div>
                     <div>
                         <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon hidden display-on-pdf">
-                            <i class="fa fa-link" aria-hidden="true"></i>
+                            <span class="fa fa-link" aria-hidden="true"></span>
                         </div>
                         <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text hidden display-on-pdf">
                             <span class="link-inside-text">events/@item.Slug</span>

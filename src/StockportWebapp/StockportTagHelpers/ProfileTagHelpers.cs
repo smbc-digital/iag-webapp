@@ -21,7 +21,7 @@ namespace StockportTagHelpers
                 <p>{4}</p>
                 <a class=""button button-outline button-dark button-chevron"" href=""{5}"">
                     Read More
-                    <i aria-hidden=""true"" class=""fa fa-angle-right""></i>
+                    <span aria-hidden=""true"" class=""fa fa-angle-right""></span>
                 </a>
             </div>
             ";

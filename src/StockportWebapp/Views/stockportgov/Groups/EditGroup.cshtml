@@ -29,7 +29,7 @@
     <div id="error-message-anchor"></div>
     <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
         <div class="alert-icon">
-            <i class="fa fa-exclamation fa-3x" aria-hidden="true"></i>
+            <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
         </div>
         <div class="alert-content grid-80 tablet-grid-80 mobile-grid-80">
             <h3>There has been a problem: </h3>
@@ -42,7 +42,7 @@
 {
     <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
         <div class="alert-icon">
-            <i class="fa fa-exclamation fa-3x" aria-hidden="true"></i>
+            <span class="fa fa-exclamation fa-3x" aria-hidden="true"></span>
         </div>
         <div class="alert-content grid-85 tablet-grid-80 mobile-grid-80">
             <h3>Sorry - it's not you, it's us </h3>
@@ -70,12 +70,12 @@
                 <span role="alert" aria-atomic="true" asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                 <div>
                     <label asp-for="@Model.Description"></label>
-                    <i class="small" aria-hidden="true">
+                    <span class="small" aria-hidden="true">
                         <ul>
                             <li>Let people know why they should visit your group</li>
                             <li>Let people know how to get in touch</li>
                         </ul>
-                    </i>
+                    </span>
                 </div>
                 <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent">
                     <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
@@ -175,12 +175,12 @@
                     </div>
                 </div>
                 <div id="volunteering-text">
-                    <i class="small" aria-hidden="true">
+                    <span class="small" aria-hidden="true">
                         <ul>
                             <li>Let people get in touch with you about volunteering opportunities</li>
                             <li>Let people know that your group is looking for volunteers</li>
                         </ul>
-                    </i>
+                    </span>
                     <i>You can edit the text below to customise this message</i>
                     <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
@@ -199,12 +199,12 @@
                     </div>
                 </div>
                 <div id="donations-text">
-                    <i class="small" aria-hidden="true">
+                    <span class="small" aria-hidden="true">
                         <ul>
                             <li>Let people get in touch with you about donations </li>
                             <li>Let people know that your group is looking for donations</li>
                         </ul>
-                    </i>
+                    </span>
                     <i>You can edit the text below to customise this message</i>
                     <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                              use the button below to find out about making a donation to support our group.

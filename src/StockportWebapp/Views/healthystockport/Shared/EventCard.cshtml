@@ -10,19 +10,19 @@
                     <h3 tabindex="-1" id="content" class="events-link">@Model.Title</h3>
                 </div>
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
-                    <i class="fa fa-gbp" aria-hidden="true"></i>
+                    <span class="fa fa-gbp" aria-hidden="true"></span>
                 </div>
                 <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
                     @Model.Fee
                 </div>
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <span class="fa fa-clock-o" aria-hidden="true"></span>
                 </div>
                 <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
                     @viewHelper.FormatEventDate(Model.EventDate, Model.StartTime)
                 </div>
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 event-card-icon">
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span class="fa fa-map-marker" aria-hidden="true"></span>
                 </div>
                 <div class="grid-90 tablet-grid-90 mobile-grid-90 event-card-text">
                     @Model.Location

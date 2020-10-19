@@ -29,7 +29,7 @@
                                             {
                                                 <div class="group-card-text">
                                                     <div class="group-card-icon">
-                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        <span class="fa fa-envelope" aria-hidden="true"></span>
                                                         @group.Email
                                                     </div>
                                                 </div>
@@ -38,7 +38,7 @@
                                             {
                                                 <div class="group-card-text">
                                                     <div class="group-card-icon">
-                                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                                        <span class="fa fa-phone" aria-hidden="true"></span>
                                                         @group.PhoneNumber
                                                     </div>
                                                 </div>
@@ -47,14 +47,14 @@
                                             {
                                                 <div class="group-card-text">
                                                     <div class="group-card-icon">
-                                                        <i class="fa fa-gbp" aria-hidden="true"></i>
+                                                        <span class="fa fa-gbp" aria-hidden="true"></span>
                                                         @string.Join(", ", group.Cost.ToArray())
                                                     </div>
                                                 </div>
                                             }
                                             <div class="group-card-text">
                                                 <div class="group-card-icon">
-                                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                    <span class="fa fa-map-marker" aria-hidden="true"></span>
                                                     @(group.Address)
                                                 </div>
 
@@ -63,14 +63,14 @@
                                             @if (!string.IsNullOrWhiteSpace(group.AbilityLevel))
                                             {
                                                 <div class="group-card-icon">
-                                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                                    <span class="fa fa-star" aria-hidden="true"></span>
                                                 </div>
                                                 <div class="group-card-text">@group.AbilityLevel</div>
                                             }
 
                                             <div class="group-card-text">
                                                 <div class="group-card-icon">
-                                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                                    <span class="fa fa-link" aria-hidden="true"></span>
                                                     <span>@hostHelper.GetHost(this.Context.Request)/groups/@group.Slug</span>
                                                 </div>
                                             </div>

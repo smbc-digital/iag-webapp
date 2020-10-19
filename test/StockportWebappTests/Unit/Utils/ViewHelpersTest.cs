@@ -42,7 +42,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         [InlineData("<b>Bold Text</b>", "<b>Bold Text</b>")]
         [InlineData("<b class=\"bolder\">Bold Text</b>", "<b class=\"bolder\">Bold Text</b>")]
         [InlineData("<i>Italic Text</i>", "Italic Text")]
-        [InlineData("<i class=\"fancy\">Italic Text</i>", "Italic Text")]
+        [InlineData("<span class=\"fancy\">Italic Text</span>", "Italic Text")]
         [InlineData("&lt;b&gt;Bold Text&lt;/b&gt;", "Bold Text")]
         [InlineData("<script type=\"text/javscript\">alert('foo');</script>", "alert('foo');")]
         public void FormatWysiwygTextToOnlyAllowAllowedHtml(string html, string expected)

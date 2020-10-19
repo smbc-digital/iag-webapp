@@ -17,7 +17,7 @@
                 {
                     <div>
                         <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon display-on-pdf">
-                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                            <span class="fa fa-envelope" aria-hidden="true"></span>
                         </div>
                         <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text display-on-pdf">
                             @Model.Email
@@ -28,7 +28,7 @@
                 {
                     <div>
                         <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon display-on-pdf">
-                            <i class="fa fa-phone" aria-hidden="true"></i>
+                            <span class="fa fa-phone" aria-hidden="true"></span>
                         </div>
                         <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text display-on-pdf">
                             @Model.PhoneNumber
@@ -38,12 +38,12 @@
                 @if (Model.Cost.Any())
                 {
                     <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
-                        <i class="fa fa-gbp" aria-hidden="true"></i>
+                        <span class="fa fa-gbp" aria-hidden="true"></span>
                     </div>
                     <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@string.Join(", ", Model.Cost.ToArray())</div>
                 }
                 <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
-                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span class="fa fa-map-marker" aria-hidden="true"></span>
                 </div>
                 <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">
                     @(Model.Address.Length > 70 ? Model.Address.Substring(0, 70) + "..." : Model.Address)
@@ -51,13 +51,13 @@
                 @if (!string.IsNullOrWhiteSpace(Model.AbilityLevel))
                 {
                     <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon">
-                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <span class="fa fa-star" aria-hidden="true"></span>
                     </div>
                     <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text">@Model.AbilityLevel</div>
                 }
                 <div>
                     <div class="grid-10 tablet-grid-10 mobile-grid-10 group-card-icon hidden display-on-pdf">
-                        <i class="fa fa-link" aria-hidden="true"></i>
+                        <span class="fa fa-link" aria-hidden="true"></span>
                     </div>
                     <div class="grid-90 tablet-grid-90 mobile-grid-90 group-card-text hidden display-on-pdf">
                         <span class="link-inside-text">groups/@Model.Slug</span>
@@ -68,7 +68,7 @@
     </div>
     <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100 event-tracking" data-category="Groups" data-action="Remove from favourites" data-label="@Model.Slug" data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")">
         <div class="grid-10 mobile-grid-10 favourite-icon">
-            <i class="fa fa-star" aria-hidden="true"></i>
+            <span class="fa fa-star" aria-hidden="true"></span>
         </div>
         <div class="grid-90 mobile-grid-90">
             <span class="favourite-text">Remove from favourites</span>
@@ -76,7 +76,7 @@
     </a>
     <a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100 event-tracking" data-category="Groups" data-action="Add to favourites" data-label="@Model.Slug" data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")">
         <div class="grid-10  mobile-grid-10 favourite-icon">
-            <i class="fa fa-star-o" aria-hidden="true"></i>
+            <span class="fa fa-star-o" aria-hidden="true"></span>
         </div>
         <div class="grid-90 mobile-grid-90">
             <span class="favourite-text">Add to favourites</span>

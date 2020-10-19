@@ -68,7 +68,7 @@
                         <div class="body">
                             <a href="/news/@Model.FeaturedNews.Slug">
                                 <h3>@Model.FeaturedNews.Title</h3>
-                                <p class="bullet"><i class="fa fa-clock-o" aria-hidden="true"></i><partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/></p>
+                                <p class="bullet"><span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/></p>
                                 <p>@Model.FeaturedNews.Teaser</p>
                                 <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
@@ -86,8 +86,8 @@
                         <div class="body">
                             <a href="/events/@Model.FeaturedEvent.Slug">
                                 <h3>@Model.FeaturedEvent.Title</h3>
-                                <div class="bullet"><i class="fa fa-clock-o"></i>@viewHelper.FormatEventDate(Model.FeaturedEvent.EventDate, Model.FeaturedEvent.StartTime)</div>
-                                <div class="bullet"><i class="fa fa-map-marker" aria-hidden="true"></i>@Model.FeaturedEvent.Location</div>
+                                <div class="bullet"><span class="fa fa-clock-o"></span>@viewHelper.FormatEventDate(Model.FeaturedEvent.EventDate, Model.FeaturedEvent.StartTime)</div>
+                                <div class="bullet"><span class="fa fa-map-marker" aria-hidden="true"></span>@Model.FeaturedEvent.Location</div>
                                 <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
@@ -106,16 +106,16 @@
                                 <h3>@Model.HomepageContent.FeaturedGroupItem.Name</h3>
                                 @if (Model.HomepageContent.FeaturedGroupItem.CategoriesReference.Any())
                                 {
-                                    <div class="bullet"><i class="fa fa-tags" aria-hidden="true"></i>@Model.HomepageContent.FeaturedGroupItem.CategoriesReference[0].Name</div>
+                                    <div class="bullet"><span class="fa fa-tags" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.CategoriesReference[0].Name</div>
                                 }
-                                <div class="bullet"><i class="fa fa-map-marker" aria-hidden="true"></i>@Model.HomepageContent.FeaturedGroupItem.Address</div>
+                                <div class="bullet"><span class="fa fa-map-marker" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.Address</div>
                                 @if (Model.HomepageContent.FeaturedGroupItem.Cost.Any())
                                 {
-                                    <div class="bullet"><i class="fa fa-gbp"></i>@string.Join(", ", Model.HomepageContent.FeaturedGroupItem.Cost.ToArray())</div>
+                                    <div class="bullet"><span class="fa fa-gbp"></span>@string.Join(", ", Model.HomepageContent.FeaturedGroupItem.Cost.ToArray())</div>
                                 }
                                 @if (!string.IsNullOrEmpty(Model.HomepageContent.FeaturedGroupItem.AbilityLevel))
                                 {
-                                    <div class="bullet"><i class="fa fa-star" aria-hidden="true"></i>@Model.HomepageContent.FeaturedGroupItem.AbilityLevel</div>
+                                    <div class="bullet"><span class="fa fa-star" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.AbilityLevel</div>
                                 }
                                 <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>

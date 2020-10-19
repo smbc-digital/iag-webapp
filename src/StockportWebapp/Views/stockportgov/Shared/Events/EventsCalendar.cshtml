@@ -15,15 +15,15 @@
                         <ul>
                         @if (!string.IsNullOrEmpty(Model.Category) && Model.DoesCategoryExist(Model.Category))
                         {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Category</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())"><span class="fa fa-times" aria-hidden="true"></span> @Model.Category</a></li>
                         }
                         @if (!string.IsNullOrEmpty(dateFilter) && (Model.DateFrom <= Model.DateTo))
                         {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())"><i class="fa fa-times" aria-hidden="true"></i> @dateFilter</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())"><span class="fa fa-times" aria-hidden="true"></span> @dateFilter</a></li>
                         }
                         @if (!string.IsNullOrEmpty(Model.Tag))
                         {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())"><i class="fa fa-times" aria-hidden="true"></i> @Model.Tag</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())"><span class="fa fa-times" aria-hidden="true"></span> @Model.Tag</a></li>
                         }
                         </ul>
                     </li>
@@ -135,7 +135,7 @@
                                     <h2 class="nav-card-events-title">@subItem.Title</h2>
 
                                     <div class="events-date hide-on-mobile">
-                                        <i class="fa fa-clock-o" aria-hidden="true"></i>@subItem.EventDate.ToString("dddd dd MMMM") @subItem.StartTime
+                                        <span class="fa fa-clock-o" aria-hidden="true"></span>@subItem.EventDate.ToString("dddd dd MMMM") @subItem.StartTime
                                     </div>
                                     <p class="hide-on-mobile nav-card-events-location">@Html.Raw(subItem.Location)</p>
                                     <p class="nav-card-events-fee">@subItem.Fee</p>

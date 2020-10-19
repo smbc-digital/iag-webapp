@@ -21,10 +21,10 @@
                     <p>Welcome @user.Name</p>
                     <span class="fa fa-user" aria-hidden="true"></span>
                     <a href="/dashboard">My Account</a>
-                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                    <span class="fa fa-angle-down" aria-hidden="true"></span>
                 </div>
                 <nav class="menu-tooltip">
-                    <i class="fa fa-caret-up" aria-hidden="true"></i>
+                    <span class="fa fa-caret-up" aria-hidden="true"></span>
                     @Html.ActionLink("My Account", "Index", "Dashboard")
                     @Html.ActionLink("Account settings", "Settings", "Account")
                     <a class="typeform-share link" data-mode="1" target="_blank" href="https://public.govdelivery.com/accounts/UKSMBC/subscriber/new">Email alerts</a>
@@ -34,12 +34,12 @@
             <div class="modal">
                 <input id="modal" type="checkbox" name="modal" tabIndex="1" />
                 <label for="modal">
-                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="fa fa-user" aria-hidden="true"></span>
                     <span class="hidden">Open account menu</span>
                 </label>
                 <div class="modal-overlay">
                     <label for="modal" class="button button-outline button-close button-overlay">
-                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <span class="fa fa-times" aria-hidden="true"></span>
                         Close
                     </label>
                     <nav class="mobile-menu">
@@ -66,7 +66,7 @@
             <fieldset class="input-group"></fieldset>
             <label for="search" class="sr-only">Search Stockport council website</label>
             <input id="search" class="search-input" name="query" placeholder="Search" autoComplete="off" type="text" />
-            <button type="submit" title="Search Stockport Gov website"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <button type="submit" title="Search Stockport Gov website"><span class="fa fa-search" aria-hidden="true"></span></button>
         </form>
     }
 </div>

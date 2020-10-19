@@ -16,7 +16,7 @@
 <section class="alert-@Model.Severity.ToLower()-fullwidth">
     <div class="alert-body">
         <div class="icon">
-            <i class="fa fa-@icons[@Model.Severity]"></i>
+            <span class="fa fa-@icons[@Model.Severity]"></span>
         </div>
         <div class="content">
             <p class="h2">@Model.Title</p>
@@ -24,7 +24,7 @@
         </div>
         <div class="dismiss">
             <a href="javascript:void(0)" aria-label="close" data-parent="alert-@Model.Severity.ToLower()-fullwidth" data-slug="@Model.Slug" aria-hidden="true">
-                <i class="fa fa-times"></i>
+                <span class="fa fa-times"></span>
             </a>
         </div>
     </div>
