@@ -56,13 +56,14 @@
     </distributed-cache>
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
     <script type="text/javascript">
-        require(['startup', 'carousel', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick', 'utils'],
-            function (startup, carousel, viewmoreslider, matchHeight, matchboxconfig, slick, utils) {
+        require(['startup', 'carousel', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick', 'utils', 'reciteMe'],
+            function (startup, carousel, viewmoreslider, matchHeight, matchboxconfig, slick, utils, reciteMe) {
                 startup.Init();
                 viewmoreslider.Init();
                 matchboxconfig.Init();
                 carousel.Init();
                 utils.Init();
+                reciteMe.Init();
             })
     </script>
 

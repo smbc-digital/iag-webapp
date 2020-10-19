@@ -40,7 +40,8 @@
         "multiStepForm": "stockportgov/multistep-form",
         "jquery.cookie": "/assets/javascript/vendor/jquery.cookie",
         "trumbowyg": "/lib/trumbowyg/trumbowyg.min",
-        "trumbowyginit": "stockportgov/trumbowyginit"
+        "trumbowyginit": "stockportgov/trumbowyginit",
+        "reciteMe": "stockportgov/reciteme"
     },
     shim: {
         'jquery.steps': {
