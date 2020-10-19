@@ -19,6 +19,7 @@ prod: &prod
 
 stage: &stage
   << : *prod
+  ReciteMeTrial: true
 
 qa: &qa
   << : *prod
@@ -26,18 +27,21 @@ qa: &qa
   SemanticLayout: true
   SemanticInlineAlert: true
   LeafletMap: true
+  ReciteMeTrial: false
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
   SiaSystem: true
+  ReciteMeTrial: false
 
 local: &local
   << : *prod
   << : *stage
   << : *qa
   << : *int
+  ReciteMeTrial: true
 
 uitest: &uitest
   << : *prod
