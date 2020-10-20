@@ -12,6 +12,7 @@
                          slidesToShow: 1,
                          slidesToScroll: 1,
                          dots: true,
+                         accessibility: true,
                          autoplay: false, 
                          autoplaySpeed: 5000,
                          focusOnChange: true
