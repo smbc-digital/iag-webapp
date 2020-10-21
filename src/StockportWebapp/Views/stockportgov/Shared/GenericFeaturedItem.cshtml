@@ -15,14 +15,15 @@
                     </a>
                     @if (item.SubItems != null && item.SubItems.Any())
                     {
-                    <p class="hide-on-mobile hide-on-tablet featured-topic-description">
-                        Including 
-                        @foreach (var subItem in item.SubItems.Take(2))
-                        {
-                            <br />
-                            <a href="@subItem.Url">@subItem.Title</a>
-                        }
-                    </p>
+                    <div class="hide-on-mobile hide-on-tablet featured-topic-description">
+                        <p>Including</p> 
+                        <ul>
+                            @foreach (var subItem in item.SubItems.Take(2))
+                            {
+                                <li><a href="@subItem.Url">@subItem.Title</a></li>
+                            }
+                        </ul>
+                    </div>
                     }
                 </div>
         </div>

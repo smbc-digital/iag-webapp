@@ -42,8 +42,8 @@
 .featured-topic {
     float: none;
     display: inline-block;
-    
     margin-right: -5px;
+
     @media #{$tablet} {
         margin-right: 0;
     }
@@ -107,16 +107,21 @@
 
     .featured-topic-description {
         color: $greyDarkest;
-        font-size: 13px;
+        font-size: 130px;
         line-height: 1.5;
 
+        li {
+            list-style: none;
+            margin-left: 0;
+        }
+
         a {
-            font-size: 14px;
+            font-size: 50px;
             color: $colorPrimarySuperDark;
             text-decoration: none;
 
             &:hover {
-                text-decoration: underline!important;
+                text-decoration: underline !important;
             }
         }
     }
