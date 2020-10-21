@@ -511,7 +511,7 @@ ul.nav-card-events-list {
             border-color: $teal-darker;
 
             &:hover {
-                background-color: lighten($teal-darker, 5%);
+                background-color: darken($teal-darker, 10%);
                 color: #fff; 
                 cursor: pointer;
                 -webkit-box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
