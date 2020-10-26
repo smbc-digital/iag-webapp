@@ -10,8 +10,8 @@
 
     <div class="grid-100" id="primary-filter-listing-refine-bar">
         <div class="primary-filter-form-section">
-            <label class="hide-on-mobile primary-filter-label">Show me</label>
-            <label class="hide-on-desktop hide-on-tablet filter-label">Choose a category</label>
+            <label class="hide-on-mobile primary-filter-label" for="selectCategory">Show me</label>
+            <label class="hide-on-desktop hide-on-tablet filter-label" for="selectCategory">Choose a category</label>
             <select asp-for="Category" asp-items="@(new SelectList(Model.Categories, "Slug", "Name"))" class="primary-filter-select custom-arrow" id="selectCategory">
                 <option selected value="all">All</option>
             </select>
@@ -24,7 +24,7 @@
         <partial name="LocationSearch" model='locationSearch'/>
 
         <div class="primary-filter-form-section hide-on-mobile">
-            <label class="primary-filter-label">sorted by</label>
+            <label class="primary-filter-label" for="selectOrder">sorted by</label>
             <select asp-for="Order" asp-items="@(new SelectList(Model.Orders))" class="primary-filter-select custom-arrow" id="selectOrder"></select>
         </div>
         <div class="primary-filter-form-section-button">
@@ -32,7 +32,7 @@
         </div>
     </div>
     @* HIDDEN - Used for auto-resizing selects *@
-    <select id="hiddenSelectCategory" class="primary-filter-select hidden"></select>
-    <select id="hiddenSelectOrder" class="primary-filter-select hidden"></select>
-    <select id="hiddenSelectLocation" class="primary-filter-select hidden"></select>
+    <select id="hiddenSelectCategory" class="primary-filter-select hidden" aria-label="Show me"></select>
+    <select id="hiddenSelectOrder" class="primary-filter-select hidden" aria-label="groups in"></select>
+    <select id="hiddenSelectLocation" class="primary-filter-select hidden" aria-label="sorted by"></select>
 </form>

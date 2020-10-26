@@ -42,8 +42,8 @@
 .featured-topic {
     float: none;
     display: inline-block;
-    
     margin-right: -5px;
+
     @media #{$tablet} {
         margin-right: 0;
     }
@@ -110,13 +110,23 @@
         font-size: 13px;
         line-height: 1.5;
 
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            list-style: none;
+            margin-left: 0;
+
+        }
+
         a {
             font-size: 14px;
             color: $colorPrimarySuperDark;
             text-decoration: none;
 
             &:hover {
-                text-decoration: underline!important;
+                text-decoration: underline !important;
             }
         }
     }
@@ -173,15 +183,15 @@
 .featured-content-button-wrapper {
     margin-top: 10px;
     text-align: center;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 
     .generic-list-see-more {
         background-color: $greyDark;
 
         @media #{$mobile} {
             width: 100%;
-            padding-left:10px;
-            padding-right:10px;
+            padding-left: 10px;
+            padding-right: 10px;
         }
 
         &:active {
@@ -189,11 +199,11 @@
         }
 
         &:hover {
-            background-color: #a6a6a6;
+            background-color: darken($greyDark, 10%);
         }
 
         &:focus {
-            background-color: #a6a6a6;
+            background-color: darken($greyDark, 10%);
         }
     }
 
