@@ -54,7 +54,7 @@
         </div>
 
         <div class="hide-on-desktop hide-on-tablet mobile-grid-50 mobile-pull-left group-sort-by-order">
-            <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile"></select>
+            <select asp-for="PrimaryFilter.Order" asp-items="@(new SelectList(Model.PrimaryFilter.Orders))" class="primary-filter-select custom-arrow mobile-grid-100" id="selectOrderMobile" aria-label="sorted by"></select>
         </div>
         <div class="mobile-grid-100 hide-on-desktop hide-on-tablet grid-parent favourites-container">
             <partial name="FavouritesBar" />

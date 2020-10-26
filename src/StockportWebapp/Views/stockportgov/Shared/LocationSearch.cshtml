@@ -8,11 +8,11 @@
 <input type="hidden" id="latitudeControlId" value="@Model.LatitudeControlId" />
 <input type="hidden" id="callback" value="@Model.Callback" />
 <div class="primary-filter-form-section location-search-section">
-    <label class="hide-on-mobile primary-filter-label">@Model.Label</label>
-    <label class="hide-on-desktop hide-on-tablet primary-filter-label">Enter a location</label>
+    <label class="hide-on-mobile primary-filter-label" for="postcode">@Model.Label</label>
+    <label class="hide-on-desktop hide-on-tablet primary-filter-label" for="postcode">Enter a location</label>
     <input  type="text" readonly="readonly" id="postcode" value="@Model.Default" class="primary-filter-select custom-arrow expandable-toggle" />
     <div  role="alert" aria-atomic="true" id="getLocation" class="getLocation-width-mobile expandable-box">
-        <label class="location-search-label">Enter postcode or place name</label>
+        <label class="location-search-label" for="location-autocomplete">Enter postcode or place name</label>
         <input type="text" id="location-autocomplete" class="location-search-input input-validation-error" aria-atomic = "true" />
         <div id="locationError" class="form-field-validation-error grid-100 tablet-grid-100 mobile-grid-100 grid-parent"></div>
         <div class="search-link">
