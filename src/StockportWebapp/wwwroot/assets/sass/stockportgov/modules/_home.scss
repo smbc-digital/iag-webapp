@@ -132,7 +132,7 @@
                 min-height: 50px;
             }
 
-            i, span {
+            span.si-default {
                 padding-top: 5px;
                 padding-bottom: 5px;
                 display: inline-block;
@@ -355,7 +355,7 @@ ul.nav-card-list:nth-of-type(1) {
         .bullet, .date {
             margin-bottom: 0;
 
-            i, span {
+            span {
                 margin-right: 10px;
             }
         }
