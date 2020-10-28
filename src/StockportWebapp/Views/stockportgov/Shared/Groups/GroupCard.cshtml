@@ -8,7 +8,9 @@
 <li id="item-card-@Model.Slug" class="group-li grid-33 tablet-grid-50 mobile-grid-100">
     <div class="group-card matchbox-child">
         <a href="/groups/@Model.Slug" class="group-card-main remove-from-pdf">
-            <div class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(Model))!important;"></div>
+            <div>
+                <span class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(Model))!important;" role="img" aria-label="@Model.Name"></span>
+            </div>
             <div class="group-card-information grid-100">
                 <div class="grid-100 group-title">
                     <h3>@Model.Name</h3>
