@@ -3,7 +3,18 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
-
+    @{ 
+        var mapName = "";
+        if (!string.IsNullOrEmpty(@Model.Item3)) {
+            mapName = @Model.Item3.Replace("_", " ");
+            mapName = mapName.Replace(",", ", ");
+        }
+    }
+    @if(string.IsNullOrEmpty(@mapName)) {
+        <title>Map</title>
+    } else {
+        <title>@mapName</title>
+    }
     <link type="text/css" href="//maps.stockport.gov.uk/css/jQuery/jquery.core.css" rel="stylesheet">
     <link type="text/css" href="//maps.stockport.gov.uk/css/jQuery/jquery.autocomplete.css" rel="stylesheet">
     <link type="text/css" href="//maps.stockport.gov.uk/css/jQuery/astun/ui.all.css" rel="stylesheet">
