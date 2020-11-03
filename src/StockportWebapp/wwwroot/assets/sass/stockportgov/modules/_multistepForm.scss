@@ -40,7 +40,7 @@
     }
 
     &:hover {
-        background-color: lighten($teal-darker, 5%);
+        background-color: darken($teal-darker, 10%);
         color: #fff;
         cursor: pointer;
         -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);

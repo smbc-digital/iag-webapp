@@ -15,13 +15,13 @@
         border-bottom: $greyLighter solid 1px;
         padding: 10px 0;
 
-        i {
+        span {
             width: 41px;
             text-align: center;
             margin-right: 10px;
         }
 
-        > i, a {
+        > span, a {
             vertical-align: middle;
 
             > h3{
