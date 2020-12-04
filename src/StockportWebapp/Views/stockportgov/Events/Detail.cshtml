@@ -12,15 +12,13 @@
     Layout = "../Shared/_Layout.cshtml";
     var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
     var crumb = new List<Crumb> {new Crumb("What's on in Stockport", "events", "event")};
-}
-
-@{
-    var coronavirusAlert = new Alert("Event cancellations due to coronavirus", null, "Due to the coronavirus pandemic, some events have been cancelled or postponed. Some events are being held online. Please contact the event organiser for more information.", "warning", new DateTime(), new DateTime(), null, false);
+    var coronavirusAlert = new Alert("Events during coronavirus", null, "Due to the coronavirus pandemic, some events have been cancelled or postponed and some events are now being held online. Please contact the event organiser for more information.  Do not travel unnecessarily and make sure you adhere to current social distancing guidelines at all times. You can find out more by visiting <a href='https://www.gov.uk/guidance/local-restriction-tiers-what-you-need-to-know#very-high-alert'>GOV.UK</a>.", "warning", new DateTime(), new DateTime(), null, true);
 }
 
 @section Breadcrumbs {
     <partial name="Breadcrumb" model="crumb"/>
 }
+
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 

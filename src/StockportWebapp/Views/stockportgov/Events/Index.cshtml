@@ -1,13 +1,15 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
-
 @model EventCalendar
+
 @{
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
     ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "What's on in Stockport" : category == null ? Model.Category : category.Name;
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
+
+    var coronavirusAlert = new Alert("Events during coronavirus", null, "Due to the coronavirus pandemic, some events have been cancelled or postponed and some events are now being held online. Please contact the event organiser for more information.  Do not travel unnecessarily and make sure you adhere to current social distancing guidelines at all times. You can find out more by visiting <a href='https://www.gov.uk/guidance/local-restriction-tiers-what-you-need-to-know#very-high-alert'>GOV.UK</a>.", "warning", new DateTime(), new DateTime(), null, true);
 }
 
 @if (string.IsNullOrWhiteSpace(Model.Category))
@@ -24,6 +26,7 @@ else
 }
 
 <div class="l-page-content">
+    <partial name="GlobalAlert" model='coronavirusAlert'/>
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div tabindex="-1" id="content" class="grid-70 tablet-grid-70 mobile-grid-100">
