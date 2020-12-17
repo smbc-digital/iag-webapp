@@ -3,9 +3,9 @@
 
 
 <form action="" method="get" role="search" id="@Model.Item1" class="cludo-search_autocomplete">
-    <label class="visuallyhidden" for="search-bar">
+    <label class="visuallyhidden" for="@Model.Item3">
         search input box  
     </label>
-    <input class="grid-100 tablet-grid-100 mobile-grid-100 search-input" id="@Model.Item3" type="text" name="query" id="search-bar" placeholder="@Model.Item2" autocomplete="off">
+    <input class="grid-100 tablet-grid-100 mobile-grid-100 search-input" id="@Model.Item3" type="text" name="query" placeholder="@Model.Item2" autocomplete="off">
     <button class="search-button" type="submit"><span class="fa fa-search" aria-hidden="true"></span> <span class="visuallyhidden"> Submit Search </span></button>
 </form>
