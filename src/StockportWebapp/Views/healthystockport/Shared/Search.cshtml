@@ -2,8 +2,8 @@
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 
 
-<form action="" method="get" role="search" id="@Model.Item1" class="cludo-search_autocomplete">
-    <label class="visuallyhidden" for="@Model.Item3">
+<form action="" method="get" role="search" id="@Model.Item1" class="cludo-search_autocomplete" aria-labelledby="search">
+    <label class="visuallyhidden" for="@Model.Item3" aria-label="search">
         search input box  
     </label>
     <input class="grid-100 tablet-grid-100 mobile-grid-100 search-input" id="@Model.Item3" type="text" name="query" placeholder="@Model.Item2" autocomplete="off">
