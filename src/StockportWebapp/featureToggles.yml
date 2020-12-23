@@ -20,7 +20,7 @@ prod: &prod
 
 stage: &stage
   << : *prod
-  ReciteMeTrial: false
+  ReciteMeTrial: true
 
 qa: &qa
   << : *prod
