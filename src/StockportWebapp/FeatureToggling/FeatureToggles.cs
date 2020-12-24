@@ -18,5 +18,7 @@ namespace StockportWebapp.FeatureToggling
         public bool CivicaPay { get; set; } = false;
         public bool TwentyThreeVideo { get; set; } = false;
         public bool ReciteMeTrial { get; set; } = false;
+
+        public bool ReciteMeTagManager { get; set; } = false;
     }
 }
