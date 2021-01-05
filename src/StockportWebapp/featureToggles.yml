@@ -17,12 +17,10 @@ prod: &prod
     - give-feedback
   TwentyThreeVideo: true
   ReciteMeTrial: true
-  ReciteMeTagManager: false
 
 stage: &stage
   << : *prod
   ReciteMeTrial: true
-  ReciteMeTagManager: true
 
 qa: &qa
   << : *prod
@@ -31,7 +29,6 @@ qa: &qa
   SemanticInlineAlert: true
   LeafletMap: true
   ReciteMeTrial: true
-  ReciteMeTagManager: false
 
 int: &int
   << : *prod
@@ -39,7 +36,6 @@ int: &int
   << : *qa
   SiaSystem: true
   ReciteMeTrial: true
-  ReciteMeTagManager: false
 
 local: &local
   << : *prod
@@ -47,7 +43,6 @@ local: &local
   << : *qa
   << : *int
   ReciteMeTrial: true
-  ReciteMeTagManager: false
 
 uitest: &uitest
   << : *prod
