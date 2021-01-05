@@ -16,13 +16,10 @@ prod: &prod
     - make-a-formal-complaint
     - give-feedback
   TwentyThreeVideo: true
-  ReciteMeTrial: true
-  ReciteMeTagManager: false
+  ReciteMe: true
 
 stage: &stage
   << : *prod
-  ReciteMeTrial: true
-  ReciteMeTagManager: true
 
 qa: &qa
   << : *prod
@@ -30,24 +27,21 @@ qa: &qa
   SemanticLayout: true
   SemanticInlineAlert: true
   LeafletMap: true
-  ReciteMeTrial: true
-  ReciteMeTagManager: false
+  ReciteMe: true
 
 int: &int
   << : *prod
   << : *stage
   << : *qa
   SiaSystem: true
-  ReciteMeTrial: true
-  ReciteMeTagManager: false
+  ReciteMe: true
 
 local: &local
   << : *prod
   << : *stage
   << : *qa
   << : *int
-  ReciteMeTrial: true
-  ReciteMeTagManager: false
+  ReciteMe: true
 
 uitest: &uitest
   << : *prod
