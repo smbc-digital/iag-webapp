@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<StockportWebapp.Models.Crumb>
-<div class="breadcrumb-container">
+<nav class="breadcrumb-container" role="navigation">
     <div class="grid-container grid-100">
         <ul class="breadcrumb">
             <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -17,4 +17,4 @@
             <li class="current">@Html.ActionLink(title, ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), new { tag = ViewBag.Tag })</li>
         </ul>
     </div>
-</div>
+</nav>
