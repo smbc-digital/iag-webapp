@@ -28,7 +28,7 @@
     <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
 </head>
-<body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
+<body class="container-layout-free type-article">
     <partial name="Header" />
     <partial name="BrowserCheck" />
     <div class="l-background">
@@ -42,7 +42,7 @@
         </distributed-cache>
     </div>
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-    
+
     @if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
     {
         <script data-main="/assets/javascript/requireConfigHealthyStockport.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
@@ -52,6 +52,11 @@
         <script data-main="/assets/javascript/requireConfigHealthyStockport" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
     }
 
-
+    <script type="text/javascript">
+        require(['validate', 'clipboard', 'jquery-ui', 'jquery.cookie', 'reciteMe'],
+            function (validate, clipboard, jqueryui, jquerycookie, reciteMe) {
+                reciteMe.Init();
+            })
+    </script>
 </body>
 </html>

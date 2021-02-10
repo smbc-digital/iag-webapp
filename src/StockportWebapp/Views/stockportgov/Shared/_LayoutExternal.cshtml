@@ -31,16 +31,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
-    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-
-    @if (CurrentEnvironment.Name == "test")
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
-    }
-    else
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
-    }
 </head>
 <body class="container-layout-free">
     <partial name="TagManager/TagManagerNoScript" />
@@ -100,11 +90,6 @@
         });
 
     </script>
-    <script type="text/javascript">
-        require(['reciteMe'],
-            function (reciteMe) {
-                reciteMe.Init();
-            })
-    </script>
+    <script type="text/javascript" src="@democracyHomeLink/assets/javascript/stockportgov/reciteMe.js"></script>
 </body>
 </html>

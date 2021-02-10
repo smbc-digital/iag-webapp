@@ -8,7 +8,7 @@
 <html lang="en-GB" class="no-js">
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />   
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1, user-scalable=yes" />
     <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/Favicon.png" />
     <title>@ViewData["Title"] - Healthy Stockport</title>
@@ -26,10 +26,10 @@
     <!--<![endif]-->
     <link rel="stylesheet" href="~/assets/stylesheets/styleguide-hs.min.css" />
     <link rel="stylesheet" href="~/assets/stylesheets/site-hs.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
     <link rel="stylesheet" href="/assets/stylesheets/vendor/slick.min.css">
     <link rel="stylesheet" href="~/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min.css" />
-    
+
     <!--[if (lt IE 9) & (!IEMobile)]>
         <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
     <![endif]-->
@@ -37,7 +37,7 @@
     {
         @RenderSection("BackgroundImage")
     }
-    
+
     <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
@@ -47,7 +47,7 @@
     <partial name="Header" />
     <partial name="BrowserCheck" />
     @RenderSection("Breadcrumbs", false)
-   
+
     <main class="grid-container i-grid-container-mobile">
         <div class="l-container l-body-container l-body-container-pushed l-body-container-nondesktop-margin">
             <div class="l-body-section-filled grid-100">
@@ -68,5 +68,12 @@
     {
         <script data-main="/assets/javascript/requireConfigHealthyStockport" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
     }
+
+    <script type="text/javascript">
+        require(['validate', 'clipboard', 'jquery-ui', 'jquery.cookie', 'reciteMe'],
+            function (validate, clipboard, jqueryui, jquerycookie, reciteMe) {
+                reciteMe.Init();
+            })
+    </script>
 </body>
 </html>

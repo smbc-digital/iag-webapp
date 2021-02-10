@@ -12,7 +12,8 @@
         "healthystockport": "healthystockport/healthystockport",
         "matchboxconfig": "healthystockport/matchbox",
         "startup": "healthystockport/startup",
-        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min"
+        "matchHeight": "/lib/matchHeight/dist/jquery.matchHeight-min",
+        "reciteMe": "healthystockport/reciteme"
     },
     shim: {
         unobtrusive: {
