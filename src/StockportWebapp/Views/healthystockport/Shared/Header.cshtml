@@ -1,4 +1,5 @@
-﻿
+﻿@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
+
 <div class="l-header-container">
     <nav class="skip-to-main-content healthy-skip" aria-label="skip to main content">
         <a href="#content" tabindex="1" class="skip-main"> Skip to main content </a>
@@ -11,9 +12,12 @@
             <div class="header-container grid-100 grid-parent">
                 <div class="grid-50 grid-parent header-myaccount">
                     <div class="menu">
-                        <div class="menu-logged-out pull-right">
-                            <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
-                        </div>
+                        @if (featureToggles.ReciteMeTrial)
+                        {
+                            <div class="menu-logged-out pull-right">
+                                <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
+                            </div>
+                        }
                     </div>
                 </div>
                 <div class="grid-parent pull-right header-search-bar">
