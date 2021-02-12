@@ -28,10 +28,11 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'healthystockport', 'matchboxconfig', 'validate', 'unobtrusive', 'jquery', 'startup', 'matchHeight'],
-    function (carousel, cludoconfig, healthystockport, matchboxconfig, validate, unobtrusive, $, startup, matchHeight) {
+require(['carousel', 'cludoconfig', 'healthystockport', 'matchboxconfig', 'validate', 'unobtrusive', 'jquery', 'startup', 'matchHeight', 'reciteMe'],
+    function (carousel, cludoconfig, healthystockport, matchboxconfig, validate, unobtrusive, $, startup, matchHeight, reciteMe) {
         startup.Init();
         matchboxconfig.Init();
+        reciteMe.Init();
     }
 );
 
