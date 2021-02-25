@@ -69,7 +69,11 @@
 				flex-grow: 1;	
 				outline: none;	
 				border: 0!important;
-				height: 28px;	
+				height: 28px;
+
+				&::placeholder {
+					color: black;
+				}
 			}	
 
 			ul {	
