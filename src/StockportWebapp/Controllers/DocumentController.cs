@@ -10,14 +10,14 @@ using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {
-    public class PDFController : Controller
+    public class DocumentController : Controller
     {
         private readonly IProcessedContentRepository _repository;
         private readonly IDocumentPageRepository _documentPageRepository;
         private readonly IContactUsMessageTagParser _contactUsMessageParser;
         private readonly FeatureToggles _featureToggles;
 
-        public PDFController(
+        public DocumentController(
             IProcessedContentRepository repository,
             IContactUsMessageTagParser contactUsMessageParser,
             IDocumentPageRepository documentPageRepository,
