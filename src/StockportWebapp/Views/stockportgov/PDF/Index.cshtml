@@ -1,0 +1,72 @@
+﻿@model StockportWebapp.ViewModels.DocumentPageViewModel
+@using StockportWebapp.FeatureToggling
+@inject FeatureToggles featureToggles
+
+@{
+    ViewData["Title"] = Model.DocumentPage.Title;
+    ViewData["Description"] = Model.MetaDescription;
+    ViewData["og:title"] = Model.OgTitleMetaData;
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+@section Breadcrumbs {
+    <partial name="Breadcrumb" model="Model.DocumentPage.Breadcrumbs" />
+}
+
+<div class="grid-container-full-width">
+    <div class="grid-container grid-100 article-cols">
+        <div tabindex="-1" id="content"></div>
+        <article id="uitest-page-has-loaded" class="article-col l-body-section-filled grid-parent mobile-grid-100 tablet-grid-100 grid-100">
+            <section aria-label="@Model.DocumentPage.Title content" class="grid-100 mobile-grid-100 ">
+                <div class="l-content-container">
+                    <div class="grid-100">
+                       <div class="grid-100">
+                            <div class="map-content">
+                                <h1>@Model.DocumentPage.Title</h1>
+                                <p class="news-date news-article-date">
+                                    <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.DocumentPage.UpdatedAt' />
+                                </p>
+                                <h2>@(Model.DocumentPage.Documents.Count() > 1 ? "About these documents" : "About this document")</h2>
+                                @Html.Raw(Model.DocumentPage.AboutThisDocument)
+                                <h2>@(Model.DocumentPage.Documents.Count() > 1 ? "Documents" : "Document")</h2>
+                                @foreach (var document in Model.DocumentPage.Documents)
+                                {
+                                    <partial name="../Shared/Document" model='document' />
+                                }
+
+                                @if (!string.IsNullOrEmpty(Model.DocumentPage.RequestAnAccessibleFormatContactInformation))
+                                {
+                                    <h2>Request an accessible format</h2>
+                                    <p>If you need this information in a different format like an accessible PDF, large print, easy read, audio recording or braille, contact: </p>
+                                    @Html.Raw(Model.DocumentPage.RequestAnAccessibleFormatContactInformation)
+                                }
+
+                                @if (!string.IsNullOrEmpty(Model.DocumentPage.FurtherInformation))
+                                {
+                                    <h2>Further details</h2>
+                                    @Html.Raw(Model.DocumentPage.FurtherInformation)
+                                }
+
+                                @if (Model.DocumentPage.RelatedDocuments.Count() > 0)
+                                {
+                                    <h2>Related documents</h2>
+                                    <ul>
+                                        @foreach (var document in Model.DocumentPage.RelatedDocuments)
+                                        {
+                                            <li><a href="@document.NavigationLink">@document.Title</a></li>
+                                        }
+                                    </ul>
+                                }
+
+                                <h2 class="document-page-dates">Date published:</h2>
+                                <p><strong>@Model.DocumentPage.DatePublished.ToString("d MMMM yyyy")</strong></p>
+                                <h2 class="document-page-dates">Last updated:</h2>
+                                <p><strong>@Model.DocumentPage.DatePublished.ToString("d MMMM yyyy")</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </article>
+    </div>
+</div>

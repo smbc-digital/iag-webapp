@@ -143,6 +143,8 @@ namespace StockportWebapp.Extensions
                 p.GetService<IDynamicTagParser<S3BucketSearch>>(),
                 p.GetService<IDynamicTagParser<PrivacyNotice>>(),
                 p.GetService<IRepository>()));
+            services.AddTransient(p => new DocumentPageFactory(
+                p.GetService<MarkdownWrapper>()));
            
             return services;
         }
@@ -235,6 +237,10 @@ namespace StockportWebapp.Extensions
                 p =>
                     new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         p.GetService<ArticleFactory>(), p.GetService<IApplicationConfiguration>()));
+            services.AddTransient<IDocumentPageRepository>(
+                p =>
+                    new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
+                        p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
             services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ISimpleTagParserContainer>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Document>>()));
 
             services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));

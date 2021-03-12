@@ -29,6 +29,7 @@ qa: &qa
   SemanticInlineAlert: true
   LeafletMap: true
   ReciteMeTrial: true
+  DocumentPage: true
 
 int: &int
   << : *prod
@@ -36,6 +37,7 @@ int: &int
   << : *qa
   SiaSystem: true
   ReciteMeTrial: true
+  DocumentPage: true
 
 local: &local
   << : *prod
@@ -43,6 +45,7 @@ local: &local
   << : *qa
   << : *int
   ReciteMeTrial: true
+  DocumentPage: true
 
 uitest: &uitest
   << : *prod
