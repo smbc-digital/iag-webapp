@@ -30,13 +30,11 @@ namespace StockportWebapp.Controllers
             _featureToggles = featureToggles;
         }
 
-        [Route("/document-page/{documentPageSlug}")]
+        [Route("/documents/{documentPageSlug}")]
         public async Task<IActionResult> Index(string documentPageSlug)
         {
             if(!_featureToggles.DocumentPage)
-            {
                 RedirectToAction("Error", "Error", new { id = 404 });
-            }
 
             var documentPageHttpResponse = await _documentPageRepository.Get(documentPageSlug);
 

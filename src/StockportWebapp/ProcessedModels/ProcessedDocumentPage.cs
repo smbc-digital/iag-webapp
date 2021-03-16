@@ -10,8 +10,9 @@ namespace StockportWebapp.ProcessedModels
         public string Slug;
         public string Teaser;
         public string MetaDescription;
-        public string AboutThisDocument;
+        public string AboutTheDocument;
         public IEnumerable<Document> Documents;
+        public string AwsDocuments;
         public string RequestAnAccessibleFormatContactInformation;
         public string FurtherInformation;
         public List<SubItem> RelatedDocuments;
@@ -19,28 +20,32 @@ namespace StockportWebapp.ProcessedModels
         public DateTime LastUpdated;
         public IEnumerable<Crumb> Breadcrumbs;
         public DateTime UpdatedAt;
+        public bool MultipleDocuments;
 
         public ProcessedDocumentPage(
             string title,
             string slug,
             string teaser,
             string metaDescription,
-            string aboutThisDocument,
+            string aboutTheDocument,
             IEnumerable<Document> documents,
+            string awsDocuments,
             string requestAnAccessibleFormatContactInformation,
             string furtherInformation,
             List<SubItem> relatedDocuments,
             DateTime datePublished,
             DateTime lastUpdated,
             IEnumerable<Crumb> breadcrumbs,
-            DateTime updatedAt)
+            DateTime updatedAt,
+            bool multipleDocuments)
         {
             Title = title;
             Slug = slug;
             Teaser = teaser;
             MetaDescription = metaDescription;
-            AboutThisDocument = aboutThisDocument;
+            AboutTheDocument = aboutTheDocument;
             Documents = documents;
+            AwsDocuments = awsDocuments;
             RequestAnAccessibleFormatContactInformation = requestAnAccessibleFormatContactInformation;
             FurtherInformation = furtherInformation;
             RelatedDocuments = relatedDocuments;
@@ -48,6 +53,7 @@ namespace StockportWebapp.ProcessedModels
             LastUpdated = lastUpdated;
             Breadcrumbs = breadcrumbs;
             UpdatedAt = updatedAt;
+            MultipleDocuments = multipleDocuments;
         }
     }
 }

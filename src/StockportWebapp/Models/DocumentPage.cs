@@ -9,8 +9,9 @@ namespace StockportWebapp.Models
         public string Slug { get; set; }
         public string Teaser { get; set; }
         public string MetaDescription { get; set; }
-        public string AboutThisDocument { get; set; }
+        public string AboutTheDocument { get; set; }
         public IEnumerable<Document> Documents { get; set; }
+        public string AwsDocuments { get; set; }
         public string RequestAnAccessibleFormatContactInformation { get; set; }
         public string FurtherInformation { get; set; }
         public List<SubItem> RelatedDocuments { get; set; }
@@ -24,7 +25,7 @@ namespace StockportWebapp.Models
             string slug,
             string teaser,
             string metaDescription,
-            string aboutThisDocument,
+            string aboutTheDocument,
             IEnumerable<Document> documents,
             string requestAnAccessibleFormatContactInformation,
             string furtherInformation,
@@ -38,7 +39,7 @@ namespace StockportWebapp.Models
             Slug = slug;
             Teaser = teaser;
             MetaDescription = metaDescription;
-            AboutThisDocument = aboutThisDocument;
+            AboutTheDocument = aboutTheDocument;
             Documents = documents;
             RequestAnAccessibleFormatContactInformation = requestAnAccessibleFormatContactInformation;
             FurtherInformation = furtherInformation;

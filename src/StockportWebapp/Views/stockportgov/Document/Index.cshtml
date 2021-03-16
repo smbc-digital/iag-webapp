@@ -26,13 +26,15 @@
                                 <p class="news-date news-article-date">
                                     <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.DocumentPage.UpdatedAt' />
                                 </p>
-                                <h2>@(Model.DocumentPage.Documents.Count() > 1 ? "About these documents" : "About this document")</h2>
-                                @Html.Raw(Model.DocumentPage.AboutThisDocument)
-                                <h2>@(Model.DocumentPage.Documents.Count() > 1 ? "Documents" : "Document")</h2>
+                                <h2>@(Model.DocumentPage.MultipleDocuments ? "About these documents" : "About the document")</h2>
+                                @Html.Raw(Model.DocumentPage.AboutTheDocument)
+                                <h2>@(Model.DocumentPage.MultipleDocuments ? "Documents" : "Document")</h2>
                                 @foreach (var document in Model.DocumentPage.Documents)
                                 {
                                     <partial name="../Shared/Document" model='document' />
                                 }
+
+                                @Html.Raw(Model.DocumentPage.AwsDocuments)
 
                                 @if (!string.IsNullOrEmpty(Model.DocumentPage.RequestAnAccessibleFormatContactInformation))
                                 {
