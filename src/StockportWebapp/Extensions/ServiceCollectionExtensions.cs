@@ -109,7 +109,7 @@ namespace StockportWebapp.Extensions
                     {
                         new ButtonTagParser(),
                         new ContactUsTagParser(p.GetService<IViewRender>(), p.GetService<ILogger<ContactUsTagParser>>()),
-                        new VideoTagParser(p.GetService<FeatureToggles>()),
+                        new VideoTagParser(),
                         new CarouselTagParser(),
                         new IShareTagParser(),
                         new IFrameTagParser(),
