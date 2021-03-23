@@ -15,27 +15,21 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _repository;
         private readonly IDocumentPageRepository _documentPageRepository;
         private readonly IContactUsMessageTagParser _contactUsMessageParser;
-        private readonly FeatureToggles _featureToggles;
 
         public DocumentController(
             IProcessedContentRepository repository,
             IContactUsMessageTagParser contactUsMessageParser,
-            IDocumentPageRepository documentPageRepository,
-            FeatureToggles featureToggles
+            IDocumentPageRepository documentPageRepository
             )
         {
             _repository = repository;
             _contactUsMessageParser = contactUsMessageParser;
             _documentPageRepository = documentPageRepository;
-            _featureToggles = featureToggles;
         }
 
         [Route("/documents/{documentPageSlug}")]
         public async Task<IActionResult> Index(string documentPageSlug)
         {
-            if(!_featureToggles.DocumentPage)
-                RedirectToAction("Error", "Error", new { id = 404 });
-
             var documentPageHttpResponse = await _documentPageRepository.Get(documentPageSlug);
 
             if (!documentPageHttpResponse.IsSuccessful())
