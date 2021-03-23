@@ -9,11 +9,11 @@
     .menu-logged-out {
         display: table;
         padding: 10px 10px;
-        height: 50px;
+        height: 60px;
         text-align: right;
 
         @media #{$tablet} {
-            height: 35px;
+            height: 50px;
             padding: 15px;
         }
 
