@@ -5,6 +5,7 @@ using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
 using StockportWebapp.Utils;
+using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Scheduler
 {
@@ -13,23 +14,19 @@ namespace StockportWebapp.Scheduler
         private readonly ShortUrlRedirects _shortShortUrlRedirectses;
         private readonly LegacyUrlRedirects _legacyUrlRedirects;
         private readonly IRepository _repository;
-        private readonly IGroupsService _groupsService;
-        private readonly ITimeProvider _timeProvider;
-        private readonly FeatureToggles _featureToggles;
+        private readonly ILogger<QuartzJob> _logger;
 
-        public QuartzJobFactory(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, IGroupsService groupsService, ITimeProvider timeProvider, FeatureToggles featureToggles)
+        public QuartzJobFactory(ShortUrlRedirects shortShortUrlRedirectses, LegacyUrlRedirects legacyUrlRedirects, IRepository repository, ILogger<QuartzJob> logger)
         {
             _shortShortUrlRedirectses = shortShortUrlRedirectses;
             _legacyUrlRedirects = legacyUrlRedirects;
             _repository = repository;
-            _groupsService = groupsService;
-            _timeProvider = timeProvider;
-            _featureToggles = featureToggles;
+            _logger = logger;
         }
 
         public IJob NewJob(TriggerFiredBundle bundle, IScheduler scheduler)
         {
-            return new QuartzJob(_shortShortUrlRedirectses, _legacyUrlRedirects, _repository, _groupsService, _timeProvider, _featureToggles);
+            return new QuartzJob(_shortShortUrlRedirectses, _legacyUrlRedirects, _repository, _logger);
         }
 
         public void ReturnJob(IJob job)

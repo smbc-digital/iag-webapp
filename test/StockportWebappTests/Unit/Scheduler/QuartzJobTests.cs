@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Quartz;
 using StockportWebapp.FeatureToggling;
@@ -15,19 +16,15 @@ namespace StockportWebappTests_Unit.Unit.Scheduler
 {
     public class QuartzJobTests
     {
-        private readonly Mock<IRepository> _mockRepository;
-        private readonly Mock<IGroupsService> _mockGroupsService;
+        private readonly Mock<IRepository> _mockRepository = new Mock<IRepository>();
         private readonly ShortUrlRedirects _shortUrlRedirects = new ShortUrlRedirects(new BusinessIdRedirectDictionary());
         private readonly LegacyUrlRedirects _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary());
-        private readonly Mock<ITimeProvider> _mockTimeProvider = new Mock<ITimeProvider>();
-        private readonly FeatureToggles _featureToggles = new FeatureToggles { GroupArchiveEmails = true };
+        private readonly Mock<ILogger<QuartzJob>> _mockLogger = new Mock<ILogger<QuartzJob>>();
         private readonly QuartzJob _quartzJob;
         const string businessId = "unittest";
         public QuartzJobTests()
         {
-            _mockRepository = new Mock<IRepository>();
-            _mockGroupsService = new Mock<IGroupsService>();
-            _quartzJob = new QuartzJob(_shortUrlRedirects, _legacyUrlRedirects, _mockRepository.Object, _mockGroupsService.Object, _mockTimeProvider.Object, _featureToggles);
+            _quartzJob = new QuartzJob(_shortUrlRedirects, _legacyUrlRedirects, _mockRepository.Object, _mockLogger.Object);
 
             
             var shortUrlRedirectDictionary = new BusinessIdRedirectDictionary { {businessId, new RedirectDictionary { {"test1", "value1"} } }};
