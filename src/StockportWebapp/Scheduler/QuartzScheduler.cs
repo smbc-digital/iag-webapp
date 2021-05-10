@@ -35,7 +35,7 @@ namespace StockportWebapp.Scheduler
 
             var job = JobBuilder.Create<QuartzJob>().Build();
 
-            var immediateJob = JobBuilder.Create<QuartzJob>().Build();
+            var immediateJob = JobBuilder.Create<QuartzJob>().StoreDurably().Build();
 
             var trigger = TriggerBuilder.Create()
                 .StartNow()
@@ -43,15 +43,10 @@ namespace StockportWebapp.Scheduler
                         .WithIntervalInSeconds(RedirectTimeout.RedirectsTimeout)
                         .RepeatForever())
                 .Build();
-
-            var immediateTrigger = TriggerBuilder.Create()
-                .WithSimpleSchedule(x => x
-                        .WithIntervalInSeconds(60)
-                        .WithRepeatCount(0))
-                .Build();
-
-            await scheduler.ScheduleJob(immediateJob, immediateTrigger);
+            
             await scheduler.ScheduleJob(job, trigger);
+            await scheduler.AddJob(immediateJob, false);
+            await scheduler.TriggerJob(immediateJob.Key);
         }
     }
 }
