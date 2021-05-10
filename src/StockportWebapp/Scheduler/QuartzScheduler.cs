@@ -41,6 +41,7 @@ namespace StockportWebapp.Scheduler
                         .RepeatForever())
                 .Build();
 
+            await scheduler.TriggerJob(job.Key);
             await scheduler.ScheduleJob(job, trigger);
         }
     }
