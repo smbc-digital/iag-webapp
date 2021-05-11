@@ -14,7 +14,7 @@ namespace StockportWebapp
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://0.0.0.0:5000")                
+                .UseUrls("http://0.0.0.0:5000")            
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {
                     config.Sources.Clear();
@@ -27,7 +27,7 @@ namespace StockportWebapp
                     config.AddJsonFile(
                         $"{tempConfig["secrets-location"]}/appsettings.{hostContext.HostingEnvironment.EnvironmentName}.secrets.json");
                 })
-            .UseStartup<Startup>()
+                .UseStartup<Startup>()
             ;
 
     }
