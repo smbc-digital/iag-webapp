@@ -34,10 +34,10 @@ namespace StockportWebapp.Scheduler
             scheduler.JobFactory = new QuartzJobFactory(_shortShortUrlRedirects, _legacyUrlRedirects, _repository, _logger);
 
             var job = JobBuilder.Create<QuartzJob>().Build();
-            var triggerTime = DateTime.Now.AddMinutes(1);
 
             var trigger = TriggerBuilder.Create()
-                .StartAt(new DateTimeOffset(triggerTime))
+                .WithIdentity("redirectTrigger")
+                .StartAt(new DateTimeOffset(DateTime.Now.AddMinutes(1)))
                 .WithSimpleSchedule(x => x
                     .WithIntervalInSeconds(RedirectTimeout.RedirectsTimeout)
                     .RepeatForever())

@@ -29,22 +29,15 @@ namespace StockportWebapp.Scheduler
 
         public async Task Execute(IJobExecutionContext context)
         {
-            try
-            {
-                var response = await _repository.GetRedirects();
+            var response = await _repository.GetRedirects();
 
-                var redirects = response.Content as Redirects;
+            var redirects = response.Content as Redirects;
 
-                _logger.LogWarning(
-                    $"QuartzJob:Execute, Performed redirects update. New redirects contains {redirects.ShortUrlRedirects?.Sum(_ => _.Value.Count())} Short Url and {redirects.LegacyUrlRedirects?.Sum(_ => _.Value.Count())} Legacy Url entires");
+            _logger.LogWarning(
+                $"QuartzJob:Execute, Performed redirects update. New redirects contains {redirects.ShortUrlRedirects?.Sum(_ => _.Value.Count())} Short Url and {redirects.LegacyUrlRedirects?.Sum(_ => _.Value.Count())} Legacy Url entires");
 
-                _shortShortUrlRedirectses.Redirects = redirects.ShortUrlRedirects;
-                _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"QuartzJob: Execute:: Failed - {ex.InnerException}");
-            }
+            _shortShortUrlRedirectses.Redirects = redirects.ShortUrlRedirects;
+            _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
         }
     }
 }
