@@ -37,7 +37,7 @@ namespace StockportWebapp.Scheduler
 
             var immediateJob = JobBuilder.Create<QuartzJob>().Build();
 
-            var triggerTime = DateTime.Now.AddMinutes(8);
+            var triggerTime = DateTime.Now.AddMinutes(5);
             var immediateTrigger = TriggerBuilder.Create().StartAt(new DateTimeOffset(triggerTime)).Build();
 
             var trigger = TriggerBuilder.Create()
