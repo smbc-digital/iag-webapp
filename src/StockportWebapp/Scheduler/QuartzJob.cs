@@ -33,9 +33,6 @@ namespace StockportWebapp.Scheduler
 
             var redirects = response.Content as Redirects;
 
-            _logger.LogWarning(
-                $"QuartzJob:Execute, Performed redirects update. New redirects contains {redirects.ShortUrlRedirects?.Sum(_ => _.Value.Count())} Short Url and {redirects.LegacyUrlRedirects?.Sum(_ => _.Value.Count())} Legacy Url entires");
-
             _shortShortUrlRedirectses.Redirects = redirects.ShortUrlRedirects;
             _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
         }
