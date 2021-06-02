@@ -4,14 +4,10 @@ using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
-using StockportWebapp.Repositories;
 using Xunit;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http.Internal;
 using System.Net;
 using StockportWebapp.Utils;
-using StockportWebapp.Emails.Models;
-using Microsoft.AspNetCore.Hosting.Internal;
 using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Utils

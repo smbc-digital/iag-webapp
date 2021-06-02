@@ -2,14 +2,12 @@
 using System.Net;
 using Xunit;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using StockportWebapp.Emails.Models;
 using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Utils

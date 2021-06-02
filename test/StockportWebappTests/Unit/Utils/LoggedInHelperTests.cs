@@ -5,8 +5,10 @@ using Moq;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Http.Internal;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Primitives;
+using Microsoft.Net.Http.Headers;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {
@@ -28,7 +30,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         {
             // Arrange
             var httpContext = new DefaultHttpContext();
-            httpContext.Request.Cookies = new RequestCookieCollection(new Dictionary<string, string>() { { "jwtCookie", "test" } });
+            httpContext.Request.Cookies = MockRequestCookieCollection("jwtCookie", "test");
 
             // Mocks
             _context.Setup(_ => _.HttpContext).Returns(httpContext);
@@ -56,6 +58,21 @@ namespace StockportWebappTests_Unit.Unit.Utils
             // Assert
             loggedInPerson.Name.Should().BeNull();
             loggedInPerson.Email.Should().BeNull();
+        }
+
+        private static IRequestCookieCollection MockRequestCookieCollection(string key, string value)
+        {
+            var requestFeature = new HttpRequestFeature();
+            var featureCollection = new FeatureCollection();
+
+            requestFeature.Headers = new Microsoft.AspNetCore.Http.HeaderDictionary();
+            requestFeature.Headers.Add(HeaderNames.Cookie, new StringValues(key + "=" + value));
+
+            featureCollection.Set<IHttpRequestFeature>(requestFeature);
+
+            var cookiesFeature = new RequestCookiesFeature(featureCollection);
+
+            return cookiesFeature.Cookies;
         }
     }
 }

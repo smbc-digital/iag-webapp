@@ -15,10 +15,10 @@ using ILogger = Serilog.ILogger;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using StockportGovUK.NetStandard.Gateways;
-using StockportWebapp.FeatureToggling;
-using StockportWebapp.Services;
 using StockportWebapp.Wrappers;
 
 namespace StockportWebapp
@@ -32,11 +32,8 @@ namespace StockportWebapp
         private readonly bool _useRedisSession;
         private readonly bool _sendAmazonEmails;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            //var configBuilder = new ConfigurationBuilder();
-            //var configLoader = new ConfigurationLoader(configBuilder, ConfigDir);
-            ////Configuration = configLoader.LoadConfiguration(env, _contentRootPath);
             Configuration = configuration;
             _contentRootPath = env.ContentRootPath;
             _appEnvironment = env.EnvironmentName;
@@ -51,6 +48,9 @@ namespace StockportWebapp
         {
             // logging
             ConfigureSerilog();
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             // other
             services.AddSingleton(new CurrentEnvironment(_appEnvironment));
@@ -87,7 +87,6 @@ namespace StockportWebapp
 
             // sdk
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddNodeServices();
             services.AddMvc(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
@@ -97,7 +96,7 @@ namespace StockportWebapp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider, IApplicationLifetime appLifetime)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider, IHostApplicationLifetime appLifetime)
         {
             // add logging
             loggerFactory.AddSerilog();
@@ -124,11 +123,11 @@ namespace StockportWebapp
             app.UseCustomStaticFiles();
             app.UseCustomCulture();
 
-            // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
-            app.UseMvc(routes => { routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}"); });
-            app.UseMvc(routes => { routes.MapRoute("thankyou", "{controller=ContactUs}/{action=ThankYou}/"); });
-            app.UseMvc(routes => { routes.MapRoute("search", "{controller=Search}/{action=Index}"); });
-            app.UseMvc(routes => { routes.MapRoute("rss", "{controller=Rss}/{action=Index}"); });
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             // Close logger
             appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);

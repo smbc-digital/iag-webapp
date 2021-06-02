@@ -20,15 +20,12 @@ namespace StockportWebappTests_Unit.Unit.AmazonSES
 {
     public class HttpEmailClientTest
     {
-        private readonly Mock<ILogger<HttpEmailClient>> _mockLogger;
-        private readonly Mock<IEmailBuilder> _emailBuilder;
-        private readonly Mock<IAmazonSimpleEmailService> _amazonEmailService;
+        private readonly Mock<ILogger<HttpEmailClient>> _mockLogger = new Mock<ILogger<HttpEmailClient>>();
+        private readonly Mock<IEmailBuilder> _emailBuilder = new Mock<IEmailBuilder>();
+        private readonly Mock<IAmazonSimpleEmailService> _amazonEmailService = new Mock<IAmazonSimpleEmailService>();
 
         public HttpEmailClientTest()
         {
-            _mockLogger = new Mock<ILogger<HttpEmailClient>>();
-            _emailBuilder = new Mock<IEmailBuilder>();
-            _amazonEmailService = new Mock<IAmazonSimpleEmailService>();
         }
 
         [Fact]

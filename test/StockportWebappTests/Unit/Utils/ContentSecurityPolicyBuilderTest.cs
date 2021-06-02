@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Primitives;
-using StockportWebapp.Utils;
+﻿using StockportWebapp.Utils;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Utils

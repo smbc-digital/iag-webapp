@@ -1,20 +1,24 @@
 ﻿using System;
 using System.Linq;
-using Microsoft.AspNetCore.DataProtection.Internal;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.DataProtection.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
 using StockportWebapp.DataProtection;
 using Xunit;
+using DataProtectionBuilderExtensions = StockportWebapp.DataProtection.DataProtectionBuilderExtensions;
 
 namespace StockportWebappTests_Unit.Unit.DataProtection
 {
     public class DataProtectionBuilderExtension
     {
+        private readonly Mock<IDataProtectionBuilder> _mockDataProtectionBuilder = new Mock<IDataProtectionBuilder>();
+
         [Fact]
         public void PersistKeysToRedis_EmptyConnectionString()
         {
-            var builder = new DataProtectionBuilder(new ServiceCollection());
-            Assert.Throws<ArgumentException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder, ""));
+            var builder = new Mock<IDataProtectionBuilder>();
+            Assert.Throws<ArgumentException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder.Object, ""));
         }
 
         [Fact]
@@ -26,19 +30,26 @@ namespace StockportWebappTests_Unit.Unit.DataProtection
         [Fact]
         public void PersistKeysToRedis_NullConnectionString()
         {
-            var builder = new DataProtectionBuilder(new ServiceCollection());
-            Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder, null));
+            var builder = new Mock<IDataProtectionBuilder>();
+            Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.PersistKeysToRedis(builder.Object, null));
         }
 
         [Fact]
         public void PersistKeysToRedis_RegistersServices()
         {
-            var builder = new DataProtectionBuilder(new ServiceCollection());
+            // Arrange
+            IServiceCollection services = new ServiceCollection();
+            services.Add(new ServiceDescriptor(typeof(IXmlRepository), "test"));
+            _mockDataProtectionBuilder.Setup(x => x.Services).Returns(services);
+            var builder = _mockDataProtectionBuilder.Object;
+
+            // Act
             builder.PersistKeysToRedis("connection");
 
+            // Assert
             // A lambda factory gets registered for the repo so we can't test the type without actually
             // trying to connect to Redis.
-            Assert.Single(builder.Services.Where(s => s.ServiceType == typeof(IXmlRepository)));
+            Assert.Equal(1, builder.Services.Count(s => s.ServiceType.Equals(typeof(IXmlRepository))));
         }
 
         [Fact]
@@ -51,8 +62,8 @@ namespace StockportWebappTests_Unit.Unit.DataProtection
         [Fact]
         public void Use_NullDescriptor()
         {
-            var builder = new DataProtectionBuilder(new ServiceCollection());
-            Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.Use(builder, null));
+            var builder = new Mock<IDataProtectionBuilder>();
+            Assert.Throws<ArgumentNullException>(() => DataProtectionBuilderExtensions.Use(builder.Object, null));
         }
 
         [Fact]
@@ -62,7 +73,9 @@ namespace StockportWebappTests_Unit.Unit.DataProtection
             IServiceCollection services = new ServiceCollection();
             services.Add(new ServiceDescriptor(typeof(string), "a"));
             services.Add(new ServiceDescriptor(typeof(string), "b"));
-            var builder = new DataProtectionBuilder(services);
+            _mockDataProtectionBuilder.Setup(x => x.Services).Returns(services);
+            var builder = _mockDataProtectionBuilder.Object;
+
             builder.Use(descriptor);
             Assert.Single(services.Where(s => s.ServiceType == typeof(string)));
             Assert.Equal("c", services[0].ImplementationInstance);

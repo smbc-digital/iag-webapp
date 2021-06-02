@@ -42,11 +42,11 @@
     {
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
-    <partial name="TagManager/TagManagerDataLayer" />
-    <partial name="TagManager/TagManager" />
+    @await Html.PartialAsync("TagManager/TagManagerDataLayer")
+    @await Html.PartialAsync("TagManager/TagManager")
 </head>
 <body class="container-layout-free type-home">
-    <partial name="TagManager/TagManagerNoScript" />
+    @await Html.PartialAsync("TagManager/TagManagerNoScript")
     <partial name="Header" />
     <div class="grid-container-full-width">
         @RenderBody()

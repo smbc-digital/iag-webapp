@@ -35,11 +35,11 @@
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
 
-    <partial name="TagManager/TagManagerDataLayer" />
-    <partial name="TagManager/TagManager" />
+    @await Html.PartialAsync("TagManager/TagManagerDataLayer")
+    @await Html.PartialAsync("TagManager/TagManager")
 </head>
 <body class=@bodyClass>
-    <partial name="TagManager/TagManagerNoScript" />
+    @await Html.PartialAsync("TagManager/TagManagerNoScript")
     <header>
         <div class="skip-to-main-content" role="navigation">
             <a href="#content">Skip to main content</a>

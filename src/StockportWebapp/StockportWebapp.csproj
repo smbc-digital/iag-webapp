@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>StockportWebapp</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>StockportWebapp</PackageId>
     <UserSecretsId>aspnet5-StockportWebappSolution-fc49787c-9e31-4f98-92f9-0c35044e86c7</UserSecretsId>
-    <RuntimeFrameworkVersion>2.2.5</RuntimeFrameworkVersion>
     <AssetTargetFallback>$(AssetTargetFallback);dotnet5.6</AssetTargetFallback>
     <DefaultItemExcludes>$(DefaultItemExcludes);publish/**/*</DefaultItemExcludes>
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
@@ -50,9 +49,6 @@
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\NewsArticle.cshtml" />
     <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\PrimaryItems.cshtml" />
     <Content Remove="Views\stockportgov\Shared\SignUpAlerts.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\TagManager\TagManager.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\TagManager\TagManagerDataLayer.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\TagManager\TagManagerNoScript.cshtml" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
     <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
     <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />
@@ -85,8 +81,8 @@
     <PackageReference Include="AWSSDK.S3" Version="3.3.26.12" />
     <PackageReference Include="Elasticsearch.Net.Aws" Version="6.0.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.5" />
     <PackageReference Include="Markdig" Version="0.15.4" />
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />

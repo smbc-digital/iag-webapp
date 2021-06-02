@@ -1,19 +1,24 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
+using Microsoft.Net.Http.Headers;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Filters;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
+using HostString = Microsoft.AspNetCore.Http.HostString;
+using PathString = Microsoft.AspNetCore.Http.PathString;
+using QueryString = Microsoft.AspNetCore.Http.QueryString;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {
@@ -65,7 +70,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
             _context.Request.Path = new PathString("/");
             _context.Request.Scheme = "http";
             _context.Request.QueryString = new QueryString("");
-            _context.Request.Cookies = new RequestCookieCollection(new Dictionary<string, string>() { { "jwtCookie", "test" } });
+            _context.Request.Cookies = MockRequestCookieCollection("jwtCookie", "test");
 
             // Mocks
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
@@ -80,6 +85,21 @@ namespace StockportWebappTests_Unit.Unit.Utils
             // Assert
             loggedInPerson.Email.Should().Be("test");
             loggedInPerson.Name.Should().Be("test");
+        }
+
+        private static IRequestCookieCollection MockRequestCookieCollection(string key, string value)
+        {
+            var requestFeature = new HttpRequestFeature();
+            var featureCollection = new FeatureCollection();
+
+            requestFeature.Headers = new Microsoft.AspNetCore.Http.HeaderDictionary();
+            requestFeature.Headers.Add(HeaderNames.Cookie, new StringValues(key + "=" + value));
+
+            featureCollection.Set<IHttpRequestFeature>(requestFeature);
+
+            var cookiesFeature = new RequestCookiesFeature(featureCollection);
+
+            return cookiesFeature.Cookies;
         }
 
         private void SetUpParameters()
