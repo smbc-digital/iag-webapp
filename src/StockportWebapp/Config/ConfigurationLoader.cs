@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Config
 {
@@ -25,7 +22,7 @@ namespace StockportWebapp.Config
          * To address this we need to manually parse a configuration on the box.
          * See http://stackoverflow.com/questions/40127703/aws-elastic-beanstalk-environment-in-asp-net-core-1-0
          **/
-        public string EnvironmentName(IHostingEnvironment env)
+        public string EnvironmentName(IWebHostEnvironment env)
         {
             // If we haven't set an ASPNETCORE_ENVIRONMENT then it defaults to Production.
             // This is the case on Int / QA / Stage / Prod
@@ -56,7 +53,7 @@ namespace StockportWebapp.Config
             return iisEnvironmentConfiguration;
         }
 
-        public IConfigurationRoot LoadConfiguration(IHostingEnvironment env, string contentRootPath)
+        public IConfigurationRoot LoadConfiguration(IWebHostEnvironment env, string contentRootPath)
         {
             var envName = EnvironmentName(env);
 

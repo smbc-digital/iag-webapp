@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Internal;
 using Moq;
 
 namespace StockportWebappTests_Unit.Helpers
@@ -11,16 +11,16 @@ namespace StockportWebappTests_Unit.Helpers
         {
             loggerMock.Verify(
                 x =>
-                    x.Log<object>(logLevel, (EventId)0, new FormattedLogValues(logMessage), It.IsAny<Exception>(),
-                        It.IsAny<Func<object, Exception, string>>()), Times.AtLeastOnce);
+                    x.Log<object>(logLevel, (EventId)0, It.IsAny<It.IsAnyType>(), It.IsAny<Exception>(),
+                        (Func<object, Exception, string>)(Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.AtLeastOnce);
         }
 
         public static void DoesNotContain<T>(Mock<ILogger<T>> loggerMock, LogLevel logLevel, string logMessage)
         {
             loggerMock.Verify(
                 x =>
-                    x.Log<object>(logLevel, (EventId)0, new FormattedLogValues(logMessage), (Exception)null,
-                        It.IsAny<Func<object, Exception, string>>()), Times.Never);
+                    x.Log<object>(logLevel, (EventId)0, It.IsAny<It.IsAnyType>(), (Exception)null,
+                        (Func<object, Exception, string>)(Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.Never);
         }
     }
 }

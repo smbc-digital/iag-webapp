@@ -13,7 +13,6 @@ using Microsoft.Extensions.PlatformAbstractions;
 using StockportWebappTests_Integration.Http;
 using StockportWebapp.AmazonSES;
 using StockportWebappTests_Integration.Fake;
-using StockportWebappTests_Integration.Extensions;
 using StockportWebappTests_Integration.Helpers;
 using Xunit;
 using HttpClient = System.Net.Http.HttpClient;

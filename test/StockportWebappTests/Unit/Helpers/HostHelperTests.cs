@@ -2,7 +2,6 @@
 using Xunit;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using StockportWebapp.Config;
 using StockportWebapp.Utils;
 
@@ -18,7 +17,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
                 httpContext.Request.Host = new HostString("host");
                 httpContext.Request.Scheme = "http";
 
-            var request = new DefaultHttpRequest(httpContext);
+            var request = httpContext.Request;
             hostHelper.GetHost(request).Should().Be("http://host");
         }
 
@@ -30,7 +29,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
             httpContext.Request.Host = new HostString("host");
             httpContext.Request.Scheme = "https";
 
-            var request = new DefaultHttpRequest(httpContext);
+            var request = httpContext.Request;
             hostHelper.GetHost(request).Should().Be("https://host");
         }
 
@@ -48,7 +47,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
             });
 
             //Act
-            var request = new DefaultHttpRequest(httpContext);
+            var request = httpContext.Request;
 
             //Assert
             hostHelper.GetHostAndQueryString(request).Should().Be("http://host.com?test=test");
