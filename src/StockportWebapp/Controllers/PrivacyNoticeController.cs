@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Repositories;
+using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.Http;
+using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers

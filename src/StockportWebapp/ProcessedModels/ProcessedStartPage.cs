@@ -1,5 +1,5 @@
-﻿using StockportWebapp.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using StockportWebapp.Models;
 
 namespace StockportWebapp.ProcessedModels
 {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentAssertions;
-using Xunit;
-using HttpClient = System.Net.Http.HttpClient;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Xunit;
+using HttpClient = System.Net.Http.HttpClient;
 
 namespace StockportWebappTests_Integration
 {

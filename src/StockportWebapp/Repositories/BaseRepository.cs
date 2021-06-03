@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using StockportWebapp.Config;
-using StockportWebapp.Http;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using Newtonsoft.Json;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using StockportWebapp.Config;
+using StockportWebapp.Http;
 
 namespace StockportWebapp.Repositories
 {

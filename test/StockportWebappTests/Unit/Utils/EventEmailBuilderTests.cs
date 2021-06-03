@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using Xunit;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -9,6 +8,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using StockportWebappTests_Unit.Helpers;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {

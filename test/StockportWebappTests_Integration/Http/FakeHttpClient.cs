@@ -1,8 +1,8 @@
-﻿using StockportWebapp.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using StockportWebapp.Http;
 
 namespace StockportWebappTests_Integration.Http
 {

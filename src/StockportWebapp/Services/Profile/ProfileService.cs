@@ -1,10 +1,7 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using StockportWebapp.ContentFactory;
 using StockportWebapp.ContentFactory.InformationFactory;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
-using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Repositories.Responses;
 using StockportWebapp.Services.Profile.Entities;

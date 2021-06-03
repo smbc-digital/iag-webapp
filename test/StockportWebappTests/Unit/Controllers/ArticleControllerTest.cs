@@ -1,21 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
-using Moq;
 using StockportWebapp.Parsers;
-using StockportWebapp.ViewModels;
-using Xunit;
-using System;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
-using System.Threading.Tasks;
-using StockportWebappTests_Unit.Builders;
+using StockportWebapp.ViewModels;
 using StockportWebappTests_Unit.Helpers;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {

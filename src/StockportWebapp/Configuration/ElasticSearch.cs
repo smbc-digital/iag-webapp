@@ -1,6 +1,4 @@
-﻿using Serilog.Events;
-
-namespace StockportWebapp.Configuration
+﻿namespace StockportWebapp.Configuration
 {
     public class ElasticSearch
     {

@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Utils;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class EventBanner
     {

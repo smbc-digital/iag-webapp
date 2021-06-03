@@ -1,11 +1,11 @@
 ﻿using System;
-using StockportWebapp.Utils;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using StockportWebapp.ContentFactory;
-using StockportWebapp.Repositories;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Services
 {

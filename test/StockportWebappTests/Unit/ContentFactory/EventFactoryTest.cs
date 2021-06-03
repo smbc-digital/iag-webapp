@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using Xunit;
-using FluentAssertions;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory
 {

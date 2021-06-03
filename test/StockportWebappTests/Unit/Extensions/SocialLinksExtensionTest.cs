@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.Extensions;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Extensions;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Extensions

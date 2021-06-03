@@ -1,7 +1,5 @@
 ﻿using System.Text;
 using FluentAssertions;
-using Moq;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Parsers;
 using Xunit;
 

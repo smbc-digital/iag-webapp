@@ -1,8 +1,4 @@
-﻿using System.Linq;
-using TechTalk.SpecFlow;
-using Xunit;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding, Scope(Tag = "article")]
     class ArticleSteps : UiTestBase

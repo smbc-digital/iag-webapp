@@ -17,11 +17,11 @@ using StockportWebapp.Builders;
 using StockportWebapp.Config;
 using StockportWebapp.Config.AnalyticsConfiguration;
 using StockportWebapp.ContentFactory;
+using StockportWebapp.ContentFactory.InformationFactory;
 using StockportWebapp.Controllers;
 using StockportWebapp.DataProtection;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Filters;
-using StockportWebapp.Utils;
 using StockportWebapp.Http;
 using StockportWebapp.Middleware;
 using StockportWebapp.Models;
@@ -29,11 +29,11 @@ using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using StockportWebapp.Services;
+using StockportWebapp.Services.Profile;
+using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.Wrappers;
-using StockportWebapp.ContentFactory.InformationFactory;
 using ILogger = Serilog.ILogger;
-using StockportWebapp.Services.Profile;
 
 namespace StockportWebapp.Extensions
 {

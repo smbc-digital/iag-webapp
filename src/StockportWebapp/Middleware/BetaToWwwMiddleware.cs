@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Middleware
 {

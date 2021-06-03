@@ -1,7 +1,7 @@
-﻿using System.Linq;
-using StockportWebapp.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using StockportWebapp.Exceptions;
+using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.ViewModels

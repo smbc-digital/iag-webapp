@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xunit;
 using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.ViewModels;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Model
 {

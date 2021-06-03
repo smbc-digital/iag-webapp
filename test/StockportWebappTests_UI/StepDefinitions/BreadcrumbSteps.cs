@@ -1,7 +1,4 @@
-﻿using TechTalk.SpecFlow;
-using Xunit;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding]
     public class BreadcrumbSteps : UiTestBase

@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Wrappers;
-using System;
-using System.Threading.Tasks;
 
 namespace StockportWebapp.Services
 {

@@ -1,9 +1,9 @@
-﻿using Xunit;
+﻿using System;
 using FluentAssertions;
-using StockportWebapp.Utils;
 using Moq;
-using System;
 using StockportWebapp.Models;
+using StockportWebapp.Utils;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {

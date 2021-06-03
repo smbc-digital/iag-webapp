@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.Logging;
-using StockportWebapp;
-using StockportWebapp.Http;
 using System.IO;
 using System.Net.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
-using StockportWebappTests_Integration.Http;
+using StockportWebapp;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Http;
 using StockportWebappTests_Integration.Fake;
 using StockportWebappTests_Integration.Helpers;
+using StockportWebappTests_Integration.Http;
 using Xunit;
 using HttpClient = System.Net.Http.HttpClient;
 

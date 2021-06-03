@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Threading;
+using System.Threading.Tasks;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using StockportWebapp.AmazonSES;
-using Xunit;
 using Microsoft.Extensions.Logging;
 using Moq;
+using StockportWebapp.AmazonSES;
 using StockportWebapp.Builders;
 using StockportWebapp.Models;
-using System.Threading.Tasks;
 using StockportWebappTests_Unit.Helpers;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.AmazonSES
 {

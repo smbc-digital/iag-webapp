@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 
 namespace StockportWebapp.Models

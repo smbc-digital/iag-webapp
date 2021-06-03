@@ -1,11 +1,11 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
-using StockportWebapp.ViewModels;
-using StockportWebapp.Services;
-using System.Collections.Generic;
 using StockportWebapp.Models;
-using System.Linq;
+using StockportWebapp.Services;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {

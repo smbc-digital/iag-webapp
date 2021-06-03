@@ -1,19 +1,19 @@
-﻿using FluentAssertions;
-using Moq;
-using StockportWebapp.Repositories;
-using System.Collections.Generic;
-using Xunit;
-using StockportWebapp.Services.Profile;
-using StockportWebapp.Http;
-using StockportWebapp.Services.Profile.Entities;
-using StockportWebapp.Models;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.Parsers;
-using StockportWebapp.FeatureToggling;
-using StockportWebapp.Repositories.Responses;
-using StockportWebapp.Utils;
+using Moq;
 using StockportWebapp.ContentFactory.InformationFactory;
+using StockportWebapp.FeatureToggling;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
+using StockportWebapp.Parsers;
+using StockportWebapp.Repositories;
+using StockportWebapp.Repositories.Responses;
+using StockportWebapp.Services.Profile;
+using StockportWebapp.Services.Profile.Entities;
+using StockportWebapp.Utils;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {

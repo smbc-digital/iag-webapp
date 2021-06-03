@@ -1,22 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Moq;
+using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
 using StockportWebapp.Controllers;
 using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using Moq;
-using StockportWebapp.Config;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
+using StockportWebappTests_Unit.Builders;
 using Xunit;
 using HttpResponse = StockportWebapp.Http.HttpResponse;
-using StockportWebapp.AmazonSES;
-using StockportWebappTests_Unit.Builders;
-using System.Threading.Tasks;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {

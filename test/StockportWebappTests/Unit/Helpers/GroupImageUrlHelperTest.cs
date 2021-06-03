@@ -1,10 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using System.Collections.Generic;
-using Xunit;
 using StockportWebappTests_Unit.Builders;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Helpers
 {

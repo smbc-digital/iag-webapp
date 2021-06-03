@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
 using Xunit;
-using FluentAssertions;
-using StockportWebappTests_Unit.Helpers;
 
 namespace StockportWebappTests_Unit.Unit.Parsers
 {

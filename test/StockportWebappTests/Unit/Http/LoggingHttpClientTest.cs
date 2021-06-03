@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
-using StockportWebapp.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using Microsoft.Extensions.Logging;
 using Moq;
+using StockportWebapp.Http;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Http

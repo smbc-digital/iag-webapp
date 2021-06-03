@@ -1,6 +1,6 @@
-﻿using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
 using StockportWebapp.Extensions;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Extensions
 {

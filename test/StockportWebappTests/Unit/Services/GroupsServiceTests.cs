@@ -6,15 +6,15 @@ using System.Net.Http;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebapp.Config;
 using StockportWebapp.AmazonSES;
+using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
+using StockportWebapp.ViewModels;
 using StockportWebappTests_Unit.Builders;
 using Xunit;
-using StockportWebapp.ViewModels;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {

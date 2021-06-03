@@ -1,12 +1,10 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory

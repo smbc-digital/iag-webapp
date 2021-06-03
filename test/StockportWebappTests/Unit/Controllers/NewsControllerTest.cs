@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Markdig.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.Controllers;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
+using StockportWebapp.Controllers;
+using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
-using Xunit;
-using HttpResponse = StockportWebapp.Http.HttpResponse;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
-using System.Threading.Tasks;
+using Xunit;
+using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {

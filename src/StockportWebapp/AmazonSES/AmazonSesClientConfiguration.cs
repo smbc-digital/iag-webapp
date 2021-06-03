@@ -1,5 +1,4 @@
-﻿using System;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 
 namespace StockportWebapp.AmazonSES
 {

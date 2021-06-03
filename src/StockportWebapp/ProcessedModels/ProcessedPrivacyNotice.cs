@@ -1,9 +1,6 @@
-﻿using StockportWebapp.Models;
+﻿using System.Collections.Generic;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StockportWebapp.ProcessedModels
 {

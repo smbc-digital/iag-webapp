@@ -1,11 +1,8 @@
-﻿using Quartz;
+﻿using Microsoft.Extensions.Logging;
+using Quartz;
 using Quartz.Spi;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.Services;
-using StockportWebapp.Utils;
-using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Scheduler
 {

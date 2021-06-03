@@ -1,11 +1,6 @@
-﻿using StockportWebapp.Validation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.Collections.Generic;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using System.Linq;
 
 namespace StockportWebapp.ViewModels
 {

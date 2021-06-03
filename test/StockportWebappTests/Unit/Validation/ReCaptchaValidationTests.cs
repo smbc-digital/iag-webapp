@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,13 +8,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Primitives;
-using MimeKit.Cryptography;
 using Moq;
-using Org.BouncyCastle.Asn1.Mozilla;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Validation;
-using StockportWebappTests_Unit.Unit.Http;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Validation

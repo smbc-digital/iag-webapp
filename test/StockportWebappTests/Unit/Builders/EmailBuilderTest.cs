@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using Xunit;
+using System.Text;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using StockportWebapp.Builders;
 using StockportWebapp.Models;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Builders
 {

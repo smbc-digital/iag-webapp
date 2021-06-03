@@ -1,15 +1,11 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Quartz;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Scheduler;
-using StockportWebapp.Services;
-using StockportWebapp.Utils;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Scheduler

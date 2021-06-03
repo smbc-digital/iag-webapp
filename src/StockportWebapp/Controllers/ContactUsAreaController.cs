@@ -1,11 +1,11 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.Http;
-using StockportWebapp.ProcessedModels;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Controllers
 {

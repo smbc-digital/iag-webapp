@@ -1,7 +1,7 @@
-﻿using StockportWebapp.Models;
+﻿using System.Threading.Tasks;
+using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
-using System.Threading.Tasks;
 
 namespace StockportWebapp.Services
 {

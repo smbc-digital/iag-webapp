@@ -1,16 +1,16 @@
-﻿using Moq;
-using StockportWebapp.Config;
-using StockportWebapp.Http;
-using StockportWebapp.Repositories;
-using StockportWebapp.Utils;
-using Xunit;
-using StockportWebapp.Models;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using StockportWebappTests_Unit.Builders;
+using Moq;
 using Newtonsoft.Json;
+using StockportWebapp.Config;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
+using StockportWebapp.Repositories;
+using StockportWebapp.Utils;
+using StockportWebappTests_Unit.Builders;
 using StockportWebappTests_Unit.Helpers;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Repositories
 {

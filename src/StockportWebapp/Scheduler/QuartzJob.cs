@@ -1,14 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Quartz;
-using StockportWebapp.Exceptions;
-using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using StockportWebapp.Services;
-using StockportWebapp.Utils;
-using Microsoft.Extensions.Logging;
-using System.Linq;
 
 namespace StockportWebapp.Scheduler
 {

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services.Profile;
-using StockportWebapp.Services.Profile.Entities;
 
 namespace StockportWebapp.Controllers
 {
