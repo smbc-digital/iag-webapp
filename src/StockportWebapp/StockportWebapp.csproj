@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <AssemblyName>StockportWebapp</AssemblyName>
     <OutputType>Exe</OutputType>
@@ -14,68 +14,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
     <None Include="emails\templates\**\*" CopyToPublishDirectory="PreserveNewest" />
-    <None Include="Views\**\*" CopyToPublishDirectory="PreserveNewest" />
-    <None Include="app-config\**\*" CopyToPublishDirectory="PreserveNewest" />
-    <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
-    <Compile Remove="Views\thirdsite\**" />
-    <Compile Remove="wwwroot\assets\javascript\thirdsite\**" />
-    <Compile Remove="wwwroot\assets\sass\thirdsite\**" />
-    <Content Remove="Views\thirdsite\**" />
-    <Content Remove="wwwroot\assets\javascript\thirdsite\**" />
-    <Content Remove="wwwroot\assets\sass\thirdsite\**" />
-    <EmbeddedResource Remove="Views\thirdsite\**" />
-    <EmbeddedResource Remove="wwwroot\assets\javascript\thirdsite\**" />
-    <EmbeddedResource Remove="wwwroot\assets\sass\thirdsite\**" />
-    <None Remove="Views\thirdsite\**" />
-    <None Remove="wwwroot\assets\javascript\thirdsite\**" />
-    <None Remove="wwwroot\assets\sass\thirdsite\**" />
-    <Content Remove="app-config\appsettings.integrationtest.json" />
-    <Content Remove="app-config\appsettings.uitest.json" />
-    <Content Remove="app-config\injected\appsettings.integrationtest.secrets.json" />
-    <Content Remove="app-config\injected\appsettings.local.secrets.json" />
-    <Content Remove="app-config\injected\appsettings.uitest.secrets.json" />
-    <Content Remove="Views\stockportgov\Payment\Failure.cshtml" />
-    <Content Remove="Views\stockportgov\Payment\Success.cshtml" />
-    <Content Remove="Views\stockportgov\Profile\Semantic\index.cshtml" />
-    <Content Remove="Views\stockportgov\ServicePayPayment\Failure.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\InformationAlert.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\WarningAlert.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Event.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\SemanticBreadcrumb.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\Body.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\NewsArticle.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\Semantic\Showcase\PrimaryItems.cshtml" />
-    <Content Remove="Views\stockportgov\Shared\SignUpAlerts.cshtml" />
-    <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.js" />
-    <Content Remove="wwwroot/assets\javascript\requireConfigThirdSite.min.js" />
-    <None Remove="Views\Shared\Components\Footer\Semantic.cshtml" />
-    <None Remove="Views\Shared\Components\SemanticFooterSocialMediaLinks\Default.cshtml" />
-    <None Remove="Views\Shared\Components\SemanticFooter\NoFooterFound.cshtml" />
-    <None Remove="Views\Shared\DisplayTemplates\InsetText.cshtml" />
-    <None Remove="Views\Shared\InlineQuote.cshtml" />
-    <None Remove="Views\Shared\Semantic\AlertsInline.cshtml" />
-    <None Remove="Views\stockportgov\ContactUsArea\Index.cshtml" />
-    <None Remove="Views\stockportgov\Groups\ReportGroupInfoConfirmation.cshtml" />
-    <None Remove="Views\stockportgov\ServicePayPayment\Declined.cshtml" />
-    <None Remove="Views\stockportgov\ServicePayPayment\Detail.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\ReCaptcha.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml" />
-    <None Remove="Views\stockportgov\Shared\ContentDisclaimerCard.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Events\ManageFavouritesCard.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Events\Semantic\EventBanner.cshtml" />
-    <None Remove="Views\stockportgov\Shared\GroupDetailOld.cshtml" />
-    <None Remove="Views\stockportgov\Shared\GroupLastUpDated.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Semantic\Showcase\Consultations.cshtml" />
-    <None Remove="Views\stockportgov\Shared\Semantic\Showcase\SocialMediaLinks.cshtml" />
-    <None Remove="Views\stockportgov\SIA\Albums.cshtml" />
-    <None Remove="Views\stockportgov\SmartAnswers\Index - Copy.cshtml" />
-    <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.3.26.12" />
@@ -83,7 +22,7 @@
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.5.1" />
     <PackageReference Include="Markdig" Version="0.15.4" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.15" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Serilog" Version="2.7.1" />
     <PackageReference Include="Serilog.Extensions.Logging" Version="2.0.2" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.0.1" />
@@ -113,59 +52,8 @@
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.301" />
   </ItemGroup>
   <ItemGroup>
-    <Content Update="Views\Shared\InlineQuote.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\Components\SemanticFooterSocialMediaLinks\Default.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\Components\SemanticFooter\NoFooterFound.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\Components\SemanticFooter\Semantic.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Shared\Semantic\AlertsInline.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\QuestionForm.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textbox.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Textarea.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\Radio.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Components\QuestionRenderer\Semantic\_ValidationError.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Events\Semantic\EventBanner.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Semantic\EmailBanner.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Semantic\Showcase\Consultations.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Shared\Semantic\Showcase\SocialMediaLinks.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\Showcase\PreviousConsultations.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\stockportgov\SmartAnswers\Semantic\Index.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="wwwroot\assets\stylesheets\styleguide-sg.min.css">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\stockportgov\Comms\" />
   </ItemGroup>  
 </Project>

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -13,17 +7,13 @@ namespace StockportWebapp.Api
 {
     public class FavouritesController
     {
-        private CookiesHelper cookiesHelper;
-        private IHttpContextAccessor httpContextAccessor;
-        private HostHelper hostHelper;
-        private ILogger<FavouritesController> logger;
+        private CookiesHelper _cookiesHelper;
+        private IHttpContextAccessor _httpContextAccessor;
 
-        public FavouritesController(CookiesHelper _cookiesHelper, IHttpContextAccessor _httpContextAccessor, HostHelper _hostHelper, ILogger<FavouritesController> _logger)
+        public FavouritesController(CookiesHelper cookiesHelper, IHttpContextAccessor httpContextAccessor)
         {
-            cookiesHelper = _cookiesHelper;
-            httpContextAccessor = _httpContextAccessor;
-            hostHelper = _hostHelper;
-            logger = _logger;
+            _cookiesHelper = cookiesHelper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [Route("/favourites/add")]
@@ -32,10 +22,10 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    cookiesHelper.AddToCookies<Group>(slug, "favourites");
+                    _cookiesHelper.AddToCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    cookiesHelper.AddToCookies<Event>(slug, "favourites");
+                    _cookiesHelper.AddToCookies<Event>(slug, "favourites");
                     break;
             }
 
@@ -48,14 +38,14 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    cookiesHelper.AddToCookies<Group>(slug, "favourites");
+                    _cookiesHelper.AddToCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    cookiesHelper.AddToCookies<Event>(slug, "favourites");
+                    _cookiesHelper.AddToCookies<Event>(slug, "favourites");
                     break;
             }
 
-            var referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
+            var referer = _httpContextAccessor.HttpContext.Request.Headers["referer"];
 
             if (string.IsNullOrEmpty(referer))
             {
@@ -71,10 +61,10 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
+                    _cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
+                    _cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
                     break;
             }
 
@@ -87,14 +77,14 @@ namespace StockportWebapp.Api
             switch (type)
             {
                 case "group":
-                    cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
+                    _cookiesHelper.RemoveFromCookies<Group>(slug, "favourites");
                     break;
                 case "event":
-                    cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
+                    _cookiesHelper.RemoveFromCookies<Event>(slug, "favourites");
                     break;
             }
 
-            var referer = httpContextAccessor.HttpContext.Request.Headers["referer"];
+            var referer = _httpContextAccessor.HttpContext.Request.Headers["referer"];
 
             if (string.IsNullOrEmpty(referer))
             {

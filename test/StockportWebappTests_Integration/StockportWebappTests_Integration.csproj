@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>StockportWebappTests_Integration</AssemblyName>
     <PackageId>StockportWebappTests_Integration</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
@@ -16,15 +15,12 @@
     <ApplicationIcon />
     <OutputType>Library</OutputType>
   </PropertyGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="MockResponses\*.json" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\StockportWebapp\StockportWebapp.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="netstandard" />
     <PackageReference Include="AngleSharp" Version="0.9.10" />
@@ -32,7 +28,7 @@
     <PackageReference Include="FluentAssertions" Version="5.5.0" />
     <PackageReference Include="jose-jwt" Version="2.4.0" />
     <PackageReference Include="Markdig" Version="0.15.4" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.15" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.15" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="Moq" Version="4.16.1" />
@@ -41,5 +37,4 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
   </ItemGroup>
-
 </Project>

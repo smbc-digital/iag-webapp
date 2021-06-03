@@ -35,7 +35,7 @@ namespace StockportWebapp.ModelBinders
             {
                 DateTime.TryParse(valueProviderResult.FirstValue, out var DateProvided);
 
-                if (DateProvided != null && DateProvided > DateTime.MinValue)
+                if (DateProvided > DateTime.MinValue)
                     return DateProvided;
             }
 
@@ -55,7 +55,7 @@ namespace StockportWebapp.ModelBinders
             {
                 DateTime.TryParse(valueProviderResult.FirstValue, out var DateProvided);
 
-                if (DateProvided != null && DateProvided > DateTime.MinValue)
+                if (DateProvided > DateTime.MinValue)
                 {
                     bindingContext.Result = ModelBindingResult.Success(DateProvided);
                     return Task.CompletedTask;

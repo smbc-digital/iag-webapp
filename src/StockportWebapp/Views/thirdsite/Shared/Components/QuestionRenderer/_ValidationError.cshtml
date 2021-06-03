@@ -1,8 +1,0 @@
-﻿@model StockportWebapp.QuestionBuilder.Entities.Question
-
-@{
-    var displayValidationStyle = Model.ValidationResult != null && !Model.ValidationResult.IsValid ? "" : "display: none;";
-}
-<span data-questionid="@Model.QuestionId" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent field-validation-error" style="@displayValidationStyle">
-    <span>@(Model.ValidationResult?.Message ?? "")</span>
-</span>
