@@ -1,18 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
-using System.Linq;
-using System.Xml;
-using System.Xml.Serialization;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Http;
-using System.Text;
 
 namespace StockportWebapp.Controllers
 {

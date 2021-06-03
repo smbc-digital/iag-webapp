@@ -1,13 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
-using StockportWebapp.Extensions;
 using StockportWebapp.Http;
-using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StockportWebapp.Repositories
 {

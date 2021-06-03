@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TechTalk.SpecFlow;
-using Xunit;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding, Scope(Tag = "groupsArticleNotLoggedIn")]
     public sealed class GroupsArticleNotLoggedInSteps : UiTestBase

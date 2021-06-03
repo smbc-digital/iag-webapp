@@ -1,9 +1,9 @@
-﻿using Ical.Net.DataTypes;
-using System;
+﻿using System;
+using Ical.Net.CalendarComponents;
+using Ical.Net.DataTypes;
 using Ical.Net.Serialization;
 using Calendar = Ical.Net.Calendar;
 using Event = StockportWebapp.Models.Event;
-using Ical.Net.CalendarComponents;
 
 namespace StockportWebapp.Utils
 {

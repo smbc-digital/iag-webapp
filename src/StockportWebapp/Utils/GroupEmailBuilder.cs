@@ -1,5 +1,8 @@
 ﻿using System;
-using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
@@ -8,11 +11,6 @@ using StockportWebapp.Emails.Models;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using AngleSharp.Dom.Css;
 
 namespace StockportWebapp.Utils
 {

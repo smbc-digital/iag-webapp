@@ -7,7 +7,6 @@ using StockportWebapp.FeatureToggling;
 using StockportWebappTests_Unit.Helpers;
 using StockportWebappTests_Unit.Unit.Fake;
 using Xunit;
-using Xunit.Sdk;
 
 namespace StockportWebappTests_Unit.Unit.FeatureToggling
 {

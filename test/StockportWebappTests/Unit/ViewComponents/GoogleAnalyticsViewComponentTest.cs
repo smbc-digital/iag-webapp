@@ -1,9 +1,9 @@
-﻿using FluentAssertions;
+﻿using System.Threading.Tasks;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.ViewComponents;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ViewComponents

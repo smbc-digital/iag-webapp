@@ -1,7 +1,7 @@
 ﻿using AngleSharp.Parser.Html;
-using Xunit;
 using FluentAssertions;
 using StockportWebapp.Utils;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {

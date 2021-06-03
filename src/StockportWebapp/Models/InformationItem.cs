@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Enums;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class InformationItem
     {

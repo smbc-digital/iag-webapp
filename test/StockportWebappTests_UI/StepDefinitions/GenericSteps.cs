@@ -1,11 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using Xunit;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding]
     public class GenericSteps: UiTestBase

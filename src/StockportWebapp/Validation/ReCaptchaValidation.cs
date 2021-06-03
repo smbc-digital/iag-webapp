@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
-using HttpClient = System.Net.Http.HttpClient;
 
 namespace StockportWebapp.Validation
 {

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using TechTalk.SpecFlow;
-using Xunit;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding, Scope(Tag = "groupsFavourites")]
     public sealed class GroupsFavouritesSteps : UiTestBase

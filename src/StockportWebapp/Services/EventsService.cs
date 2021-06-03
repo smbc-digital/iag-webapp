@@ -1,8 +1,8 @@
-﻿using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using StockportWebapp.Models;
+using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Services

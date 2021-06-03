@@ -1,10 +1,7 @@
-﻿using System;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+﻿using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
-using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Filters

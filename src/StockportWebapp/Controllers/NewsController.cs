@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using StockportWebapp.FeatureToggling;
-using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 

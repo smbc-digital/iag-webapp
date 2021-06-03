@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
-using StockportWebapp.Config;
 using StockportWebapp.Config.AnalyticsConfiguration;
 
 namespace StockportWebapp.Config

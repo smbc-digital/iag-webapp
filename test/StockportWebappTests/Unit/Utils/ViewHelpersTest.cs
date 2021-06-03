@@ -1,11 +1,8 @@
-﻿using StockportWebapp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 using FluentAssertions;
-using Xunit;
 using Moq;
+using StockportWebapp.Utils;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {

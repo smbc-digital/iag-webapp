@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Parsers
 {

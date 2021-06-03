@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using StockportWebapp.Models;
-using StockportWebapp.RSS;
-using Xunit;
 using System.Xml.Linq;
 using Castle.Components.DictionaryAdapter;
 using FluentAssertions;
+using StockportWebapp.Models;
+using StockportWebapp.RSS;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.RSS
 {

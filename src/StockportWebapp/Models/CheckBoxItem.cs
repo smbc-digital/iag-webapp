@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class CheckBoxItem
     {

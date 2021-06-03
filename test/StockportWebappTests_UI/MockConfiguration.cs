@@ -1,12 +1,4 @@
-﻿using System;
-using Newtonsoft.Json.Linq;
-using WireMock.Handlers;
-using WireMock.RequestBuilders;
-using WireMock.ResponseBuilders;
-using WireMock.Server;
-using WireMock.Settings;
-
-namespace StockportWebappTests_UI
+﻿namespace StockportWebappTests_UI
 {
     public class MockConfiguration
     {

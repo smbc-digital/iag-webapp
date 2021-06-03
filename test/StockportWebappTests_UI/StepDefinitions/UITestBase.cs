@@ -1,6 +1,4 @@
-﻿using Coypu;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     public abstract class UiTestBase
     {

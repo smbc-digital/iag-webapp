@@ -1,9 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using StockportWebapp.QuestionBuilder.Validators;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
-using System;
+using StockportWebapp.QuestionBuilder.Validators;
 
 namespace StockportWebapp.QuestionBuilder.Entities
 {

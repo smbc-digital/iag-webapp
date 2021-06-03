@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
-using Xunit;
-using FluentAssertions;
-using Org.BouncyCastle.Security;
 using StockportWebappTests_Unit.Builders;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory
 {

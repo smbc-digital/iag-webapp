@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +11,6 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
-using StockportWebapp.ViewModels;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Repositories

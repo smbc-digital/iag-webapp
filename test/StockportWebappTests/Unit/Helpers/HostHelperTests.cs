@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Xunit;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Config;
 using StockportWebapp.Utils;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Helpers
 {

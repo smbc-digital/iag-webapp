@@ -1,11 +1,10 @@
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Parsers;
-using StockportWebapp.Repositories;
 using StockportWebapp.Http;
-using StockportWebapp.FeatureToggling;
+using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers

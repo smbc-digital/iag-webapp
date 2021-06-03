@@ -2,7 +2,7 @@
 
 namespace StockportWebapp.Utils
 {
-	public class ContentSecurityPolicyBuilder
+    public class ContentSecurityPolicyBuilder
 	{
 		private StringBuilder _stringBuilder = new StringBuilder();
 

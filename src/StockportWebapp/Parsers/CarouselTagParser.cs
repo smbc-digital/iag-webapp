@@ -1,11 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
+﻿using System.Text;
 using System.Text.RegularExpressions;
-using Microsoft.ApplicationInsights.Extensibility;
-using System.Reflection.Metadata;
-using System.Xml.Linq;
-using HtmlAgilityPack;
 
 namespace StockportWebapp.Parsers
 {

@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Services;
-using StockportWebapp.Wrappers;
 
 namespace StockportWebapp.Controllers
 {

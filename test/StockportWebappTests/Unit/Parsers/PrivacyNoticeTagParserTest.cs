@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Amazon.Runtime.Internal.Util;
-using Moq;
-using Xunit;
+﻿using System.Collections.Generic;
 using FluentAssertions;
-using StockportWebapp.Utils;
-using StockportWebapp.Parsers;
 using Microsoft.Extensions.Logging;
+using Moq;
 using StockportWebapp.Models;
+using StockportWebapp.Parsers;
+using StockportWebapp.Utils;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Parsers
 {

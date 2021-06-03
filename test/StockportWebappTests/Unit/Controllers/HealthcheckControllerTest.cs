@@ -1,7 +1,7 @@
-﻿using Moq;
+﻿using System.Threading.Tasks;
+using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.Services;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Controllers

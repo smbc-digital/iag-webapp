@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using StockportWebapp.AmazonSES;
-using StockportWebapp.Controllers;
-using StockportWebapp.ViewDetails;
-using Xunit;
 using System.Net;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
+using Moq;
+using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
+using StockportWebapp.Controllers;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
-using HttpResponse = StockportWebapp.Http.HttpResponse;
-using StockportWebapp.FeatureToggling;
+using StockportWebapp.ViewDetails;
 using StockportWebapp.ViewModels;
+using Xunit;
+using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using StockportWebapp.Models;
-using Xunit;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
 using StockportWebapp.ContentFactory;
+using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 using StockportWebappTests_Unit.Helpers;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory
 {

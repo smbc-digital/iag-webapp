@@ -3,8 +3,8 @@ using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
-using StockportWebapp.Repositories;
 using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Controllers
 {

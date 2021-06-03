@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using StockportWebapp.ContentFactory.InformationFactory;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
-using System.Linq;
-using StockportWebapp.ContentFactory.InformationFactory;
 
 namespace StockportWebapp.ContentFactory
 {

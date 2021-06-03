@@ -1,5 +1,5 @@
-﻿using StockportWebapp.Utils;
-using System;
+﻿using System;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {

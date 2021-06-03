@@ -8,7 +8,7 @@ using StockportWebapp.Utils;
 
 namespace StockportWebapp.Parsers
 {
-    
+
     public class AlertsInlineTagParser : IDynamicTagParser<Alert>
     {
         private readonly IViewRender _viewRenderer;

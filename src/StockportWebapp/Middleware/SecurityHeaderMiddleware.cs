@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Middleware
-{   
+{
     public class SecurityHeaderMiddleware
     {
         private readonly RequestDelegate _next;

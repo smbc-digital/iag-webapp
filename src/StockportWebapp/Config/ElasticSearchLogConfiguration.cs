@@ -2,7 +2,7 @@
 using Serilog.Events;
 
 namespace StockportWebapp.Config
-{ 
+{
     public class ElasticSearchLogConfiguration
     {
         public bool Enabled { get; set; }

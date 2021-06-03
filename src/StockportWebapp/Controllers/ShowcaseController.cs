@@ -1,15 +1,14 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.Http;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.ViewModels;
-using System.Linq;
-using StockportWebapp.Utils;
-using System;
 using StockportWebapp.Config;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
+using StockportWebapp.Utils;
+using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {

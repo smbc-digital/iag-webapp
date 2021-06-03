@@ -1,8 +1,8 @@
-﻿using StockportWebapp.Models;
-using System;
+﻿using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
+using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
 {

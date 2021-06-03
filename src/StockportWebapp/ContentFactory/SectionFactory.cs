@@ -1,12 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.Utils;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Quartz.Impl.Triggers;
 using StockportWebapp.Repositories;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.ContentFactory
 {

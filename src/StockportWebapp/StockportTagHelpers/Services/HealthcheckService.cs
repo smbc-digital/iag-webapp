@@ -1,14 +1,13 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using HttpClient = StockportWebapp.Http.HttpClient;
 
 namespace StockportWebapp.Services
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using TechTalk.SpecFlow;
-using Xunit;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding, Scope(Tag = "atoz")]
     public class AToZSteps : UiTestBase

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace StockportWebapp.Emails.Models
+﻿namespace StockportWebapp.Emails.Models
 {
     public class GroupArchiveWarningEmailViewModel
     {

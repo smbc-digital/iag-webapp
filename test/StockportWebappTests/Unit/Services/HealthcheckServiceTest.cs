@@ -1,17 +1,15 @@
-using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
+using StockportWebapp.Config;
 using StockportWebapp.FeatureToggling;
+using StockportWebapp.Http;
 using StockportWebapp.Services;
 using StockportWebapp.Utils;
 using Xunit;
-using StockportWebapp;
-using StockportWebapp.Config;
-using System.Threading.Tasks;
-using StockportWebapp.Http;
-using System.Collections.Generic;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {

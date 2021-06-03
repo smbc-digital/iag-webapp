@@ -1,18 +1,14 @@
-﻿using FluentAssertions;
+﻿using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
 using Moq;
+using StockportWebapp.ContentFactory;
+using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
-using Xunit;
-using Microsoft.Extensions.Logging;
-using StockportWebappTests_Unit.Builders;
-using System;
-using StockportWebapp.Wrappers;
-using System.Net.Http;
 using StockportWebapp.Utils;
-using System.Collections.Generic;
-using StockportWebapp.Models;
-using System.Linq;
-using StockportWebapp.ContentFactory;
+using StockportWebappTests_Unit.Builders;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Services
 {

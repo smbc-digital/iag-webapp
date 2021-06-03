@@ -1,12 +1,12 @@
-﻿using FluentAssertions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using StockportWebappTests_Unit.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ViewModels

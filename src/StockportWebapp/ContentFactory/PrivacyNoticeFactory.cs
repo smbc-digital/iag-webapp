@@ -1,10 +1,6 @@
 ﻿using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace StockportWebapp.ContentFactory
 {

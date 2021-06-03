@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using AngleSharp.Parser.Html;
 using AngleSharp.Extensions;
+using AngleSharp.Parser.Html;
 
 namespace StockportWebapp.Utils
 {

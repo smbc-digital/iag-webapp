@@ -7,7 +7,7 @@ using StockportWebapp.Utils;
 
 namespace StockportWebapp.Parsers
 {
-    
+
     public class ProfileTagParser : IDynamicTagParser<Profile>
     {
         private readonly IViewRender _viewRenderer;

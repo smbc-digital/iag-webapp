@@ -1,9 +1,8 @@
 ﻿using System;
 using FluentAssertions;
+using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
-using System.Collections.Generic;
-using Moq;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Helpers

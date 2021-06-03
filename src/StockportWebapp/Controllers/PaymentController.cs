@@ -1,14 +1,14 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.ProcessedModels;
+using Microsoft.Extensions.Configuration;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
-using System;
-using Microsoft.Extensions.Configuration;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
+using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Controllers
 {

@@ -1,14 +1,13 @@
-﻿using Xunit;
-using FluentAssertions;
-using StockportWebapp.Utils;
-using Moq;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using StockportWebapp.Models;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
+using Moq;
+using StockportWebapp.Models;
+using StockportWebapp.Utils;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {

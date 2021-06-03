@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using StockportWebapp.Models;
-using System.Collections.Generic;
 
 namespace StockportWebapp.ViewModels
 {

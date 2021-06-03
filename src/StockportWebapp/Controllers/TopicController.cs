@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using StockportWebapp.Repositories;
-using StockportWebapp.Models;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
+using StockportWebapp.Models;
+using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers

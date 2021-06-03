@@ -1,7 +1,7 @@
-﻿using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using StockportWebapp.Validation;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Validation
 {

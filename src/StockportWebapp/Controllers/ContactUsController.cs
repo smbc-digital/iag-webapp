@@ -10,11 +10,11 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
-using StockportWebapp.Models;
-using StockportWebapp.ViewDetails;
 using StockportWebapp.Http;
-using StockportWebapp.Validation;
+using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Validation;
+using StockportWebapp.ViewDetails;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers

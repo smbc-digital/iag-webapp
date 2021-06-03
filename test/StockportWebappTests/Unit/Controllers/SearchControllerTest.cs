@@ -1,12 +1,11 @@
 ﻿using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Controllers;
-using Xunit;
+using System.Threading.Tasks;
 using FluentAssertions;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.FeatureToggling;
-using System.Threading.Tasks;
+using StockportWebapp.Controllers;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {

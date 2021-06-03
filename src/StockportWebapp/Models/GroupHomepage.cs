@@ -1,8 +1,4 @@
-﻿using StockportWebapp.Validation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using StockportWebapp.Utils;
+﻿using System.Collections.Generic;
 
 namespace StockportWebapp.Models
 {

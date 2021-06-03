@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Net;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
-using Xunit;
-using FluentAssertions;
-using System.Net;
 using StockportWebapp.Utils;
 using StockportWebappTests_Unit.Helpers;
+using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Utils
 {

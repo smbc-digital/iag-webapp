@@ -1,7 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Config;
-using FluentAssertions;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Config

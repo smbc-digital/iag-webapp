@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using StockportWebapp.Models;
-using StockportWebapp.Http;
-using StockportWebapp.Config;
 using Microsoft.Extensions.Logging;
+using StockportWebapp.Config;
 using StockportWebapp.Extensions;
+using StockportWebapp.Http;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Repositories

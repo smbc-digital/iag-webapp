@@ -1,10 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using TechTalk.SpecFlow;
-using Xunit;
-
-namespace StockportWebappTests_UI.StepDefinitions
+﻿namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding, Scope(Tag = "groupsAddEdit")]
     public class GroupsAddEditSteps: UiTestBase

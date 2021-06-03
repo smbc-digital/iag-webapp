@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-
-namespace StockportWebapp.QuestionBuilder.Entities
+﻿namespace StockportWebapp.QuestionBuilder.Entities
 {
     public class InlineAlert
     {
