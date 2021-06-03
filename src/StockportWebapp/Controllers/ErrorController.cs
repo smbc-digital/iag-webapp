@@ -9,11 +9,13 @@ namespace StockportWebapp.Controllers
     public class ErrorController : Controller
     {
         private readonly ILegacyRedirectsManager _legacyRedirectsManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<ErrorController> _logger;
 
-        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, ILogger<ErrorController> logger)
+        public ErrorController(ILegacyRedirectsManager legacyRedirectsManager, IHttpContextAccessor httpContextAccessor, ILogger<ErrorController> logger)
         {
             _legacyRedirectsManager = legacyRedirectsManager;
+            _httpContextAccessor = httpContextAccessor;
             _logger = logger;
         }
 
@@ -27,7 +29,7 @@ namespace StockportWebapp.Controllers
         {
             if (id.Equals("404"))
             {
-                var currentPath = GetCurrentPath(HttpContext);
+                var currentPath = GetCurrentPath(_httpContextAccessor);
                 var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl(currentPath);
                 if (!string.IsNullOrEmpty(urlToRedirectLegacyRequestTo))
                 {
@@ -55,9 +57,9 @@ namespace StockportWebapp.Controllers
             }
         }
 
-        private static string GetCurrentPath(HttpContext httpContext)
+        private static string GetCurrentPath(IHttpContextAccessor httpContextAccessor)
         {
-            return httpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
+            return httpContextAccessor.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
         }
     }
 }
