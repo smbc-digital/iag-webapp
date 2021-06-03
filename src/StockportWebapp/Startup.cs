@@ -14,8 +14,6 @@ using StockportWebapp.ModelBinders;
 using ILogger = Serilog.ILogger;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Extensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using StockportGovUK.NetStandard.Gateways;
@@ -43,14 +41,17 @@ namespace StockportWebapp
 
         private ILogger StartupLogger { get; set; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            // logging
             ConfigureSerilog();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
+            });
             services.AddRazorPages();
+
+            services.AddHttpContextAccessor();
 
             // other
             services.AddSingleton(new CurrentEnvironment(_appEnvironment));
@@ -85,28 +86,17 @@ namespace StockportWebapp
             services.AddRedis(Configuration, _useRedisSession, StartupLogger);
             services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
 
-            // sdk
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddMvc(options =>
-            {
-                options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
-            });
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider, IHostApplicationLifetime appLifetime)
         {
-            // add logging
             loggerFactory.AddSerilog();
 
             if (_appEnvironment == "int" || _appEnvironment == "local" || _appEnvironment == "qa")
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            // Quartz stuff
 
             var scheduler = new QuartzScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
                 serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ILogger<QuartzJob>>());
@@ -119,7 +109,6 @@ namespace StockportWebapp
             app.UseMiddleware<SecurityHeaderMiddleware>();
             app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
 
-            // custom extenstions
             app.UseCustomStaticFiles();
             app.UseCustomCulture();
 
@@ -135,7 +124,6 @@ namespace StockportWebapp
 
         private void ConfigureSerilog()
         {
-
             var logConfig = new LoggerConfiguration()
                 .ReadFrom
                 .Configuration(Configuration);

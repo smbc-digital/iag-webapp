@@ -45,8 +45,8 @@
     <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
 
     <partial name="CookieBanner" />
-    @await Html.PartialAsync("TagManager/TagManagerDataLayer")
-    @await Html.PartialAsync("TagManager/TagManager")
+    <partial name="TagManager/TagManagerDataLayer" />
+    <partial name="TagManager/TagManager" />
 
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
     @if (CurrentEnvironment.Name == "test")
@@ -59,7 +59,7 @@
     }
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
-    @await Html.PartialAsync("TagManager/TagManagerNoScript")
+    <partial name="TagManager/TagManagerNoScript" />
     <div id="__ba_launchpad"></div>
     <partial name="Header" />
     @RenderSection("Breadcrumbs", false)
@@ -85,7 +85,7 @@
         require(['validate', 'clipboard', 'jquery-ui', 'jquery.cookie', 'reciteMe'],
             function (validate, clipboard, jqueryui, jquerycookie, reciteMe) {
                 reciteMe.Init();
-        })
+            })
     </script>
 
     @await Component.InvokeAsync("AddThis")

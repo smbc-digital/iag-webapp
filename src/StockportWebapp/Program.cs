@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -13,8 +12,7 @@ namespace StockportWebapp
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://0.0.0.0:5000")            
+            WebHost.CreateDefaultBuilder<Startup>(args)
                 .ConfigureAppConfiguration((hostContext, config) =>
                 {
                     config.Sources.Clear();
@@ -26,9 +24,7 @@ namespace StockportWebapp
                     var tempConfig = config.Build();
                     config.AddJsonFile(
                         $"{tempConfig["secrets-location"]}/appsettings.{hostContext.HostingEnvironment.EnvironmentName}.secrets.json");
-                })
-                .UseStartup<Startup>()
-            ;
+                });
 
     }
 }
