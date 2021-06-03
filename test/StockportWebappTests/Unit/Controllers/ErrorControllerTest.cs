@@ -1,15 +1,10 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Controllers;
-using StockportWebapp.FeatureToggling;
-using StockportWebapp.Http;
 using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
@@ -20,21 +15,21 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly ErrorController _controller;
         private readonly Mock<ILegacyRedirectsManager> _legacyRedirects;
         private readonly Mock<ILogger<ErrorController>> _logger;
-        private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
+        private readonly Mock<HttpContext> _httpContext;
 
         public ErrorControllerTest()
         {
             _logger = new Mock<ILogger<ErrorController>>();
-            _httpContextAccessor = new Mock<IHttpContextAccessor>();
+            _httpContext = new Mock<HttpContext>();
             _legacyRedirects = new Mock<ILegacyRedirectsManager>();
-           _controller = new ErrorController(_legacyRedirects.Object, _httpContextAccessor.Object, _logger.Object);
+           _controller = new ErrorController(_legacyRedirects.Object, _logger.Object);
         }
 
         [Fact]
         public void ShouldTellUsSomethingsMissingIfAPageWasNotFound()
         {
             const string url = "/a-url";
-            SetUpUrl(_httpContextAccessor, url);
+            SetUpUrl(_httpContext, url);
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(string.Empty);
             var result = _controller.Error("404") as ViewResult;;
             result.ViewData[@"ErrorHeading"].Should().Be("Something's missing");
@@ -52,7 +47,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public void ShouldRedirectIfPageNotFoundButMatchedALegacyRedirect()
         {
             const string url = "/a-url";
-            SetUpUrl(_httpContextAccessor, url);
+            SetUpUrl(_httpContext, url);
             var redirectedToLocation = @"/redirected-to-location-from-the-rule";
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(redirectedToLocation);
             var result = _controller.Error("404") as RedirectResult;;
@@ -64,7 +59,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public void ShouldLogInformationIfLegacyUrlNotfound()
         {
             const string url = "/a-url";
-            SetUpUrl(_httpContextAccessor, url);
+            SetUpUrl(_httpContext, url);
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(string.Empty);
             _controller.Error("404");
             LogTesting.Assert(_logger, LogLevel.Information,
@@ -75,7 +70,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public void ShouldLogInformationIfLegacyUrlfound()
         {
             const string url = "/a-url";
-            SetUpUrl(_httpContextAccessor, url);
+            SetUpUrl(_httpContext, url);
             var redirectedToLocation = @"/redirected-to-location-from-the-rule";
             _legacyRedirects.Setup(o => o.RedirectUrl(url)).Returns(redirectedToLocation);
 
@@ -85,9 +80,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 $"A legacy redirect was found - redirecting to {redirectedToLocation}");
         }
 
-        private void SetUpUrl(Mock<IHttpContextAccessor> httpContextAccessor, string url)
+        private void SetUpUrl(Mock<HttpContext> httpContext, string url)
         {
-            httpContextAccessor.Setup(h => h.HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath)
+            httpContext.Setup(c => c.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath)
                  .Returns(url);
         }
     }
