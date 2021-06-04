@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using StockportWebapp.Services;
 
 namespace StockportWebapp.Controllers
@@ -19,7 +20,15 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> Index()
         {
             var healthcheck = await _healthCheckService.Get();
-            return Ok(JsonConvert.SerializeObject(healthcheck));
+            var contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+            
+            return Ok(JsonConvert.SerializeObject(healthcheck, new JsonSerializerSettings
+            {
+                ContractResolver = contractResolver
+            }));
         }
     }
 }
