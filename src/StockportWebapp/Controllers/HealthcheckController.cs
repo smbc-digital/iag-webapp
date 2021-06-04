@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using StockportWebapp.Services;
 
 namespace StockportWebapp.Controllers
@@ -18,7 +19,7 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> Index()
         {
             var healthcheck = await _healthCheckService.Get();
-            return Json(healthcheck);
+            return Ok(JsonConvert.SerializeObject(healthcheck));
         }
     }
 }
