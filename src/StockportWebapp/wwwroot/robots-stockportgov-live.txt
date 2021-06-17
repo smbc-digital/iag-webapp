@@ -1,11 +1,16 @@
 ﻿User-agent: *
-Disallow:/*.jpg$
-Disallow:/*.jpeg$
-Disallow:/*.png$
-Disallow:/*.gif$
-Disallow:/*.tiff$
-Disallow:/*.bmp$
-Disallow:/*.pdf$
-Disallow:/*.svg$
-Disallow:/smart/*
-Disallow:/*_hidden
+Disallow: /*.jpg$
+Disallow: /*.jpeg$
+Disallow: /*.png$
+Disallow: /*.gif$
+Disallow: /*.tiff$
+Disallow: /*.bmp$
+Disallow: /*.pdf$
+Disallow: /*.svg$
+Disallow: /smart/*
+Disallow: /*_hidden
+
+User-agent: SemrushBot
+User-agent: BLEXBot
+User-agent: AhrefsBot
+Disallow: /
