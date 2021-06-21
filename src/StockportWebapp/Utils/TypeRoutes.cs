@@ -21,6 +21,7 @@
                     return $"/groups/{slug}";
                 case "payment":
                     return $"/payment/{slug}";
+                case "servicePayPayment":
                 case "service-pay-payment":
                     return $"/service-pay-payment/{slug}";
                 case "showcase":
