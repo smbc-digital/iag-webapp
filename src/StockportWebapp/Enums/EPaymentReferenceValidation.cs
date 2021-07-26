@@ -8,6 +8,7 @@
         FPN,
         CameraCar,
         BusLane,
-        Applications
+        Applications,
+        ParkingPermit
     }
 }
