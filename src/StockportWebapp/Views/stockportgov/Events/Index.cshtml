@@ -9,7 +9,7 @@
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
 
-    var coronavirusAlert = new Alert("Events during coronavirus", null, "Due to the coronavirus pandemic, some events have been cancelled or postponed and some events are now being held online. Please contact the event organiser for more information.  Do not travel unnecessarily and make sure you adhere to current social distancing guidelines at all times. You can find out more by visiting <a href='https://www.gov.uk/guidance/local-restriction-tiers-what-you-need-to-know#very-high-alert'>GOV.UK</a>.", "warning", new DateTime(), new DateTime(), null, true);
+    var coronavirusAlert = new Alert("Events during coronavirus (COVID-19)", null, "As restrictions have been lifted, events are being held across the borough again. Please contact the event organiser for information about any rules you&#39;ll need to adhere to during their event.", "warning", new DateTime(), new DateTime(), null, true);
 }
 
 @if (string.IsNullOrWhiteSpace(Model.Category))
