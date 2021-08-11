@@ -43,13 +43,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-
-            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
-                DateTime.MinValue, false, string.Empty, string.Empty);
-
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
-                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, advertisement, true);
+                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -83,11 +79,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
-                DateTime.MinValue, false, string.Empty, string.Empty);
-
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement, true);
+              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -104,53 +97,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             subItem.Icon.Should().Be("Icon");
             result.EmailAlerts.Should().Be(true);
             result.EmailAlertsTopicId.Should().Be("test-id");       
-        }
-
-        [Fact]
-        public async Task GivenTopicHasAdvertisement()
-        {
-            var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
-
-            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
-                DateTime.MinValue, true, "image-url", "image");
-
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-                new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement, true);
-
-            const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
-
-            var indexPage = await _controller.Index("healthy-living") as ViewResult;
-            var viewModel = indexPage.ViewData.Model as TopicViewModel;
-            var result = viewModel.Topic;
-
-            result.Advertisement.Isadvertisement.Should().Be(true);
-            result.Advertisement.Title.Should().Be("ad-title");
-            result.Advertisement.Teaser.Should().Be("ad-teaser");
-            result.Advertisement.Image.Should().Be("image");
-            result.Advertisement.Slug.Should().Be("ad-slug");
-            result.Advertisement.NavigationUrl.Should().Be("image-url");
-        }
-
-        [Fact]
-        public async Task GivenTopicHasNoAdvertisementWhenIsAdvertisementIsFalse()
-        {
-            var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
-
-            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
-                DateTime.MinValue, false, "image-url", "image");
-
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-                new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement, true);
-
-            const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
-
-            var indexPage = await _controller.Index("healthy-living") as ViewResult;
-            var viewModel = indexPage.ViewData.Model as TopicViewModel;
-            var result = viewModel.Topic;
-
-            result.Advertisement.Isadvertisement.Should().Be(false);
         }
 
         [Fact]
@@ -174,11 +120,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
             };
 
-            var advertisement = new Advertisement(string.Empty, string.Empty, string.Empty, DateTime.MinValue,
-                DateTime.MinValue, false, string.Empty, string.Empty);
-
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
-               new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, advertisement, true);
+               new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));

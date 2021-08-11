@@ -43,7 +43,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var article = new ProcessedArticle("Physical Activity", "physical-activity",  
                 "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
-                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null, new DateTime());
+                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime());
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -60,54 +60,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         }
 
         [Fact]
-        public async Task GivenArticleHasAdvertisement()
-        {
-            const string articleSlug = "physical-activity";
-
-            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
-                DateTime.MinValue, true, "image-url", "image");
-
-
-            var article = new ProcessedArticle("Physical Activity", "physical-activity",
-                "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
-                "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
-                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), advertisement, null, new DateTime());
-
-            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
-
-            var articlePage = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult; ;
-            var viewModel = articlePage.ViewData.Model as ArticleViewModel;
-
-            viewModel.Article.Advertisement.Isadvertisement.Should().Be(true);
-            viewModel.Article.Advertisement.Title.Should().Be("ad-title");
-            viewModel.Article.Advertisement.Teaser.Should().Be("ad-teaser");
-            viewModel.Article.Advertisement.Image.Should().Be("image");
-            viewModel.Article.Advertisement.Slug.Should().Be("ad-slug");
-        }
-
-        [Fact]
-        public async Task GivenArticleHasNoAdvertisementWhenIsAdvertisementIsFalse()
-        {
-            const string articleSlug = "physical-activity";
-
-            var advertisement = new Advertisement("ad-title", "ad-slug", "ad-teaser", DateTime.MinValue,
-                DateTime.MinValue, false, "image-url", "image");
-
-            var article = new ProcessedArticle("Physical Activity", "physical-activity",
-                "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
-                "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
-                new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), advertisement, null, new DateTime());
-
-            _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
-
-
-            var articlePage = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult; ;
-            var viewModel = articlePage.ViewData.Model as ArticleViewModel;
-
-            viewModel.Article.Advertisement.Isadvertisement.Should().Be(false);
-        }
-
-        [Fact]
         public async Task MultipleSectionsArticleWithNoSectionSlugReturnsFirstSection()
         {
             const string articleSlug = "physical-activity";
@@ -116,7 +68,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-                new List<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null, new DateTime());
+                new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -138,13 +90,13 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var sectionTwo = new ProcessedSection("Types of Physical Activity", TextHelper.AnyString, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<ProcessedSection>() { sectionOne, sectionTwo },
-                string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null, new DateTime());
+                string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime());
 
             var response = new HttpResponse(200, article, string.Empty);
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(response);
 
-            var view = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult; ;
+            var view = await _controller.Article(articleSlug, DefaultMessage, string.Empty, string.Empty) as ViewResult;
 
             view.ViewData["CanonicalUrl"].Should().BeNull();
         }
@@ -160,7 +112,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
-                new List<Crumb>() { }, new List<Alert>(), new NullTopic(),  new List<Alert>(), new NullAdvertisement(), null, new DateTime());
+                new List<Crumb>() { }, new List<Alert>(), new NullTopic(),  new List<Alert>(), null, new DateTime());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -186,7 +138,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-                new List<Alert>(), new NullTopic(),  new List<Alert>(), new NullAdvertisement(), null, new DateTime());
+                new List<Alert>(), new NullTopic(),  new List<Alert>(), null, new DateTime());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -231,7 +183,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 null, 
                 null, 
                 null, 
-                null,
                 new DateTime()
             );
 
@@ -293,7 +244,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 null,
                 null,
                 null,
-                null,
                 new DateTime()
             );
 
@@ -339,7 +289,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), new NullAdvertisement(), null, new DateTime());
+                new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), null, new DateTime());
             
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -401,7 +351,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new NullAdvertisement(), null, new DateTime());
+                new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, null, new DateTime());
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -427,7 +377,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var processedSection = new ProcessedSection("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
-                new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, new NullAdvertisement(), null, new DateTime());
+                new List<ProcessedSection>() { processedSection }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, null, new DateTime());
 
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
@@ -445,7 +395,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             return new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
                 new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(),
-                new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), new NullAdvertisement(), null, new DateTime());
+                new LinkedList<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime());
         }
 
         private ProcessedSection DummySection()
