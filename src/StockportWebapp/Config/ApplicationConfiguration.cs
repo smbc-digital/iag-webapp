@@ -34,7 +34,6 @@ namespace StockportWebapp.Config
         string GetExportHost();
         int GetNewsDefaultPageSize(string businessId);
         int GetEventsDefaultPageSize(string businessId);
-        int GetConsultationsDefaultPageSize(string businessId);
         int GetGroupsDefaultPageSize(string businessId);
         string GetContentApiAuthenticationKey();
         string GetWebAppClientId();
@@ -250,12 +249,6 @@ namespace StockportWebapp.Config
         {
             int result;
             int.TryParse(_appsettings[$"{businessId}:EventsDefaultPageSize"], out result);
-            return result;
-        }
-        public int GetConsultationsDefaultPageSize(string businessId)
-        {
-            int result;
-            int.TryParse(_appsettings[$"{businessId}:ConsultationDefaultPageSize"], out result);
             return result;
         }
         public int GetGroupsDefaultPageSize(string businessId)

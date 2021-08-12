@@ -25,7 +25,6 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<SubItem> PrimaryItems;
         public readonly string FeaturedItemsSubheading;
         public readonly IEnumerable<SubItem> FeaturedItems;
-        public readonly IEnumerable<Consultation> Consultations;
         public readonly string SocialMediaLinksSubheading;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
         public readonly IEnumerable<Event> Events;
@@ -66,7 +65,6 @@ namespace StockportWebapp.ProcessedModels
             string heroImageUrl,
             IEnumerable<SubItem> secondaryItems,
             IEnumerable<Crumb> breadcrumbs,
-            IEnumerable<Consultation> consultations,
             string socialMediaLinksSubheading,
             IEnumerable<SocialMediaLink> socialMediaLinks,
             IEnumerable<Event> events,
@@ -100,7 +98,6 @@ namespace StockportWebapp.ProcessedModels
             EventSubheading = eventSubheading;
             Breadcrumbs = breadcrumbs;
             SecondaryItems = secondaryItems;
-            Consultations = consultations;
             SocialMediaLinksSubheading = socialMediaLinksSubheading;
             SocialMediaLinks = socialMediaLinks;
             Events = events;

@@ -41,7 +41,6 @@ namespace StockportWebapp.ContentFactory
                 fields.Items.Add("Primary Items");
                 fields.Items.Add("Secondary Items");
                 fields.Items.Add("Featured Items");
-                fields.Items.Add("Consultations");
                 fields.Items.Add("News");
                 fields.Items.Add("Events");
                 fields.Items.Add("Profile");
@@ -70,7 +69,6 @@ namespace StockportWebapp.ContentFactory
                 showcase.HeroImageUrl,
                 showcase.SecondaryItems,
                 showcase.Breadcrumbs,
-                showcase.Consultations,
                 showcase.SocialMediaLinksSubheading,
                 showcase.SocialMediaLinks,
                 showcase.Events,
