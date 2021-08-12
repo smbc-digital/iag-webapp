@@ -63,7 +63,6 @@ namespace StockportWebapp.Services.Profile
                     FieldOrder = profile.FieldOrder,
                     Subtitle = profile.Subtitle,
                     InlineQuotes = profile.InlineQuotes,
-                    Button = profile.Button,
                     EventsBanner = profile.EventsBanner
                 };
             }

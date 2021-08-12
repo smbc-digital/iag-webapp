@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using StockportWebapp.Config;
 using StockportWebapp.ContentFactory;
@@ -30,7 +31,7 @@ namespace StockportWebapp.Repositories
             var url = _urlGenerator.UrlFor<T>(slug, queries);
             var httpResponse = await _httpClient.Get(url, authenticationHeaders);
 
-            if (!httpResponse.IsSuccessful())
+            if (!httpResponse.IsSuccessful()) 
             {
                 return httpResponse;
             }
