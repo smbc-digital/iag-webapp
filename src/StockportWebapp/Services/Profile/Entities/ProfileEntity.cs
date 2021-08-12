@@ -21,7 +21,6 @@ namespace StockportWebapp.Services.Profile.Entities
         public FieldOrder FieldOrder { get; set; }
         public string Subject { get; set; }
         public string Author { get; set; }
-        public Button Button { get; set; }
         public EventBanner EventsBanner { get; set; }
     }
 }
