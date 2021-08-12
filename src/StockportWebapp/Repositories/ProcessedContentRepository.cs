@@ -28,12 +28,11 @@ namespace StockportWebapp.Repositories
 
         public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
         {
-            //var testClientHandeler = new HttpClientHandler { Proxy = null };
-            //var testClient = new System.Net.Http.HttpClient(testClientHandeler);
             var url = _urlGenerator.UrlFor<T>(slug, queries);
             var httpResponse = await _httpClient.Get(url, authenticationHeaders);
 
-            if (!httpResponse.IsSuccessful()) {
+            if (!httpResponse.IsSuccessful()) 
+            {
                 return httpResponse;
             }
 
@@ -41,7 +40,6 @@ namespace StockportWebapp.Repositories
             var processedModel = _contentTypeFactory.Build((T)model.Content);
 
             return HttpResponse.Successful(200, processedModel);
-
         }
     }
 }
