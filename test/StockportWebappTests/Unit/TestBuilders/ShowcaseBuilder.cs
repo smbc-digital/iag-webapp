@@ -26,7 +26,6 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _showcaseIcon = "fa-icon";
         private CallToActionBanner _callToActionBanner = new CallToActionBanner();
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
-        private IEnumerable<Consultation> _consultations = new List<Consultation>() { new Consultation("title", DateTime.MinValue, "https://link.url") };
         private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
         private IEnumerable<Event> _events = new List<Event>();
         private IEnumerable<Alert> alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
@@ -69,7 +68,6 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
                 HeroImageUrl = _heroImageUrl,
                 Breadcrumbs = _breadcrumbs,
                 SecondaryItems = _secondaryItems,
-                Consultations = _consultations,
                 SocialMediaLinksSubheading = _socialMediaLinksSubheading,
                 SocialMediaLinks = _socialMediaLinks,
                 Events = _events,
@@ -163,12 +161,6 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         public ShowcaseBuilder FeaturedItems(IEnumerable<SubItem> featuredItems)
         {
             _featuredItems = featuredItems;
-            return this;
-        }
-
-        public ShowcaseBuilder Consultations(IEnumerable<Consultation> consultations)
-        {
-            _consultations = consultations;
             return this;
         }
 
