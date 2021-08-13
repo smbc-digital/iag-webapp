@@ -33,7 +33,16 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task Index_ShouldCallRepository_AndReturnView()
         {
             // Setup 
-            var contactUsArea = new ContactUsArea("title", "contact-us-area", "contact-us-area", new List<Crumb>(), new List<Alert>(), new List<SubItem>(), new List<InsetText>(), new List<ContactUsCategory>(), string.Empty);
+            var contactUsArea = new ContactUsArea("title", 
+                "contact-us-area", 
+                "contact-us-area", 
+                new List<Crumb>(), 
+                new List<Alert>(), 
+                new List<SubItem>(),
+                new List<ContactUsCategory>(), 
+                "insetTextTitle",
+                "InsetTextBody",
+                string.Empty);
             var response = new HttpResponse((int)HttpStatusCode.OK, contactUsArea, string.Empty);
 
             _repository.Setup(_ => _.Get<ContactUsArea>(It.IsAny<string>(), null))

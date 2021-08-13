@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {
@@ -10,11 +11,12 @@ namespace StockportWebapp.Models
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public IEnumerable<SubItem> PrimaryItems { get; set; }
         public IEnumerable<Alert> Alerts { get; }
-        public IEnumerable<InsetText> InsetTexts { get; set; }
+        public string InsetTextTitle { get; set; }
+        public string InsetTextBody { get; set; }
         public IEnumerable<ContactUsCategory> ContactUsCategories { get; set; }
         public string MetaDescription { get; set; }
 
-        public ContactUsArea(string title, string slug, string categoriesTitle, IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<InsetText> insetTexts, IEnumerable<ContactUsCategory> contactUsCategories, string metaDescription)
+        public ContactUsArea(string title, string slug, string categoriesTitle, IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, IEnumerable<SubItem> primaryItems, IEnumerable<ContactUsCategory> contactUsCategories, string insetTextTitle, string insetTextBody, string metaDescription)
         {
             Title = title;
             Slug = slug;
@@ -22,7 +24,8 @@ namespace StockportWebapp.Models
             Breadcrumbs = breadcrumbs;
             Alerts = alerts;
             PrimaryItems = primaryItems;
-            InsetTexts = insetTexts;
+            InsetTextTitle = insetTextTitle;
+            InsetTextBody = MarkdownWrapper.ToHtml(insetTextBody);
             ContactUsCategories = contactUsCategories;
             MetaDescription = metaDescription;            
         }
