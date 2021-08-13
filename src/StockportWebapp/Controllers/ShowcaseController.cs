@@ -38,51 +38,5 @@ namespace StockportWebapp.Controllers
 
             return View("Showcase", showcase);
         }
-
-        [Route("/showcase/{slug}/previousconsultations")]
-        public async Task<IActionResult> PreviousConsultations(string slug, [FromQuery]int Page, [FromQuery] int pageSize)
-        {
-            var showcaseHttpResponse = await _repository.Get<Showcase>(slug);
-
-            if (!showcaseHttpResponse.IsSuccessful())
-                return showcaseHttpResponse;
-
-            var showcase = showcaseHttpResponse.Content as ProcessedShowcase;
-
-            var result = new PreviousConsultaion()
-            {
-                Title = showcase.Title,
-                Slug = showcase.Slug,
-                Consultations = showcase.Consultations.Where(i => i.ClosingDate <= DateTime.Now && i.ClosingDate > DateTime.Now.AddYears(-1)).OrderByDescending(i => i.ClosingDate).ToList(),
-                Pagination = new Pagination()
-            };
-
-            DoPagination(Page, result, pageSize);
-
-            return View("PreviousConsultations", result);
-
-        }
-
-        private void DoPagination(int currentPageNumber, PreviousConsultaion prevConsultation, int pageSize)
-        {
-            if (prevConsultation != null && prevConsultation.Consultations.Any())
-            {
-                var paginatedList = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
-                    prevConsultation.Consultations.ToList(),
-                    currentPageNumber,
-                    "consultations",
-                    pageSize,
-                    _config.GetConsultationsDefaultPageSize("stockportgov"));
-
-                prevConsultation.Consultations = paginatedList.Items;
-                prevConsultation.Pagination = paginatedList.Pagination;
-
-                prevConsultation.Pagination.CurrentUrl = new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query);
-            }
-            else
-            {
-                prevConsultation.Pagination = new Pagination();
-            }
-        }
     }
 }

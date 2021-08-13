@@ -14,7 +14,6 @@ namespace StockportWebapp.Models
         public IEnumerable<SubItem> SecondaryItems { get; set; }
         public string FeaturedItemsSubheading { get; set; }
         public IEnumerable<SubItem> FeaturedItems { get; set; }
-        public IEnumerable<Consultation> Consultations { get; set; }
         public string SocialMediaLinksSubheading { get; set; }
         public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
         public string EventSubheading { get; set; }

@@ -123,17 +123,6 @@
             }
             break;
 
-        case "Consultations":
-            if (Model.Consultations.AnyOrDefault())
-            {
-                <div class="showcase-section">
-                    <div class="center-wrapper">
-                        <partial name="Semantic/Showcase/Consultations" model='Model.Consultations' />
-                    </div>
-                </div>
-            }
-            break;
-
         case "News":
             if (Model.NewsArticle != null)
             {
