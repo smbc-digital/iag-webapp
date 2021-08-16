@@ -2,7 +2,7 @@
 
 namespace StockportWebapp.ProcessedModels
 {
-    public class ProcessedInformationItem : IProcessedContentType
+    public class ProcessedTrivia : IProcessedContentType
     {
         public string Name { get; set; }
 
@@ -12,7 +12,7 @@ namespace StockportWebapp.ProcessedModels
 
         public string Link { get; set; }
 
-        public ProcessedInformationItem(string name, string icon, string text, string link)
+        public ProcessedTrivia(string name, string icon, string text, string link)
         {
             Name = name;
             Icon = icon;

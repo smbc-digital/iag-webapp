@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebapp.ContentFactory.InformationFactory;
+using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -26,12 +26,12 @@ namespace StockportWebappTests_Unit.Unit.Services
         private readonly IDynamicTagParser<Alert> _alerts;
         private readonly Mock<ILogger<Alert>> _logger;
         private readonly Mock<IViewRender> _viewRender;
-        private readonly Mock<IInformationFactory> _informationFactory;
+        private readonly Mock<ITriviaFactory> _triviaFactory;
         private readonly Mock<IDynamicTagParser<InlineQuote>> _inlineQuoteTagParser;
 
         public ProfileServiceTests()
         {
-            _informationFactory = new Mock<IInformationFactory>();
+            _triviaFactory = new Mock<ITriviaFactory>();
             _repository = new Mock<IRepository>();
             _parser = new Mock<ISimpleTagParserContainer>();
             _markdownWrapper = new MarkdownWrapper();
@@ -39,7 +39,7 @@ namespace StockportWebappTests_Unit.Unit.Services
             _viewRender = new Mock<IViewRender>();
             _inlineQuoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
             _alerts =  new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles(){SemanticInlineAlert = true} );
-            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts, _informationFactory.Object, _inlineQuoteTagParser.Object);
+            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts, _triviaFactory.Object, _inlineQuoteTagParser.Object);
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace StockportWebappTests_Unit.Unit.Services
                 Slug = "test",
                 Alerts = new List<Alert>(),
                 Breadcrumbs = new List<Crumb>(),
-                TriviaSection = new List<InformationItem>(),
+                TriviaSection = new List<Trivia>(),
                 Image = "testimage",
                 Teaser = "test",
                 Title = "test"

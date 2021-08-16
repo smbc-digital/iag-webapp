@@ -76,7 +76,7 @@
         }
 
         [Then(@"I should see the trivia section")]
-        public void ThenIShouldSeeTheKeyFactsSection()
+        public void ThenIShouldSeeTheTriviaSection()
         {
             Assert.True(BrowserSession.FindCss(".information-list").Exists());
         }

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using StockportWebapp.ContentFactory.InformationFactory;
+using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
@@ -16,21 +16,21 @@ namespace StockportWebapp.Services.Profile
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
         private readonly IDynamicTagParser<InlineQuote> _inlineQuotesTagParser;
-        private readonly IInformationFactory _informationFactory;
+        private readonly ITriviaFactory _triviaFactory;
 
         public ProfileService(
             IRepository repository, 
             ISimpleTagParserContainer parser, 
             MarkdownWrapper markdownWrapper, 
             IDynamicTagParser<Alert> alertsInlineTagParser,
-            IInformationFactory informationFactory,
+            ITriviaFactory triviaFactory,
             IDynamicTagParser<InlineQuote> inlineQuotesTagParser)
         {
             _repository = repository;
             _parser = parser;
             _markdownWrapper = markdownWrapper;
             _alertsInlineTagParser = alertsInlineTagParser;
-            _informationFactory = informationFactory;
+            _triviaFactory = triviaFactory;
             _inlineQuotesTagParser = inlineQuotesTagParser;
         }
 
@@ -41,7 +41,7 @@ namespace StockportWebapp.Services.Profile
             if (response.StatusCode == 200)
             {
                 var profile = response.Content as ProfileResponse;
-                var processedInformationItems = _informationFactory.Build(profile.TriviaSection);
+                var triviaSection = _triviaFactory.Build(profile.TriviaSection);
 
                 var processedBody = _parser.ParseAll(profile.Body, profile.Title, false);
                 processedBody = _markdownWrapper.ConvertToHtml(processedBody);
@@ -59,8 +59,7 @@ namespace StockportWebapp.Services.Profile
                     Breadcrumbs = profile.Breadcrumbs,
                     Alerts = profile.Alerts,
                     TriviaSubheading = profile.TriviaSubheading,
-                    TriviaSection = processedInformationItems,
-                    FieldOrder = profile.FieldOrder,
+                    TriviaSection = triviaSection,
                     Subtitle = profile.Subtitle,
                     InlineQuotes = profile.InlineQuotes,
                     EventsBanner = profile.EventsBanner

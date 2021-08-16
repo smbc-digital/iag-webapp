@@ -17,8 +17,7 @@ namespace StockportWebapp.Services.Profile.Entities
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
         public string TriviaSubheading { get; set; }
-        public List<ProcessedInformationItem> TriviaSection { get; set; }
-        public FieldOrder FieldOrder { get; set; }
+        public List<ProcessedTrivia> TriviaSection { get; set; }
         public string Subject { get; set; }
         public string Author { get; set; }
         public EventBanner EventsBanner { get; set; }

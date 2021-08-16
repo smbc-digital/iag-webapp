@@ -38,7 +38,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly CallToActionBanner CallToActionBanner;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
-        public readonly List<ProcessedInformationItem> TriviaSection;
+        public readonly List<ProcessedTrivia> TriviaSection;
         public readonly string TriviaSubheading;
         public string EventsReadMoreText;
         public readonly Video Video;
@@ -80,7 +80,7 @@ namespace StockportWebapp.ProcessedModels
             FieldOrder fieldOrder,
             string icon,
             string triviaSubheading,
-            List<ProcessedInformationItem> triviaSection,
+            List<ProcessedTrivia> triviaSection,
             string profileHeading,
             string profileLink,
             string eventsReadMoreText,

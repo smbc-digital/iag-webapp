@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 
-namespace StockportWebapp.ContentFactory.InformationFactory
+namespace StockportWebapp.ContentFactory.Trivia
 {
-    public class InformationFactory : IInformationFactory
+    public class TriviaFactory : ITriviaFactory
     {
         private readonly MarkdownWrapper _markdownWrapper;
 
-        public InformationFactory(MarkdownWrapper markdownWrapper)
+        public TriviaFactory(MarkdownWrapper markdownWrapper)
         {
             _markdownWrapper = markdownWrapper;
         }
 
-        public List<ProcessedInformationItem> Build(List<InformationItem> informationList)
+        public List<ProcessedTrivia> Build(List<Models.Trivia> triviaSection)
         {
-            return informationList?.Select(item => new ProcessedInformationItem
+            return triviaSection?.Select(item => new ProcessedTrivia
             (
                 item.Name,
                 item.Icon,

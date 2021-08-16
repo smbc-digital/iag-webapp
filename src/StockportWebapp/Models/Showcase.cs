@@ -36,7 +36,7 @@ namespace StockportWebapp.Models
         public IEnumerable<Alert> Alerts { get; set; }
         public string Icon { get; set; }
         public string TriviaSubheading { get; set; }
-        public List<InformationItem> TriviaSection { get; set; }
+        public List<Trivia> TriviaSection { get; set; }
         public CallToActionBanner CallToActionBanner { get; set; }
         public Video Video { get; set; }
         public string TypeformUrl { get; set; }
