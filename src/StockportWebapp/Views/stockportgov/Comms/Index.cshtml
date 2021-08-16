@@ -75,11 +75,11 @@
         }
         <partial name="../Shared/SignUpAlerts.cshtml" />
 
-        @if (Model.Homepage.UsefullLinks.Any())
+        @if (Model.Homepage.UsefulLinks.Any())
         {
             <h2 class="h3">Useful links</h2>
             <ul class="useful-links">
-                @foreach (var link in Model.Homepage.UsefullLinks)
+                @foreach (var link in Model.Homepage.UsefulLinks)
                 {
                     <a href="@link.Url" title="@link.Text">
                     <li>@link.Text</li>
