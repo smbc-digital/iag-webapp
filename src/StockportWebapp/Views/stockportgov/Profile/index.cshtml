@@ -1,5 +1,4 @@
-﻿@using StockportWebapp.Enums
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 
 @model Profile
 @{
@@ -21,30 +20,16 @@
     <section>
         @Html.Raw(Model.Body)
     </section>
-
-    @foreach (var item in Model.FieldOrder.Items)
+    
+    @if (Model.TriviaSection?.Count > 0)
     {
-        switch (item)
+        <hr class="thick-divider" />
+        @await Component.InvokeAsync("Trivia", new
         {
-            @*case "Events Banner":
-                <div class="showcase-section">
-                    <partial name="Events/Semantic/EventBanner" model='Model.EventsBanner' />
-                </div>
-                break;*@
-            case "Trivia":
-                if (Model.TriviaSection?.Count() > 0)
-                {
-                    <hr class="thick-divider" />
-                    @await Component.InvokeAsync("InformationList", new
-                    {
-                        model = Model.TriviaSection,
-                        heading = Model.TriviaSubheading
-                    })
-                }
-                break;
-        }
+            model = Model.TriviaSection,
+            heading = Model.TriviaSubheading
+        })
     }
-
 </article>
 
 @if (Model.EventsBanner.Title != "")

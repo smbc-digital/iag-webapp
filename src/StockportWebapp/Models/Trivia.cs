@@ -1,6 +1,6 @@
 ﻿namespace StockportWebapp.Models
 {
-    public class InformationItem
+    public class Trivia
     {
         public string Name { get; set; }
 
@@ -10,7 +10,7 @@
 
         public string Link { get; set; }
 
-        public InformationItem(string name, string icon, string text, string link)
+        public Trivia(string name, string icon, string text, string link)
         {
             Name = name;
             Icon = icon;

@@ -222,12 +222,12 @@
                 <div class="showcase-section">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
-                        @await Component.InvokeAsync("InformationList", new
-                       {
+                        @await Component.InvokeAsync("Trivia", new
+                        {
                            model = Model.TriviaSection,
                            heading = Model.TriviaSubheading,
                            additionalClasses = "showcase"
-                       })
+                        })
                     </div>
                 </div>
             }

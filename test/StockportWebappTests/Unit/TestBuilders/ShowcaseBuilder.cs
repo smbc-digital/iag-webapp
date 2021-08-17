@@ -22,7 +22,6 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _heroImageUrl = "image-url.jpg";
         private string _emailAlertsTopicId { get; set; } = "alertId";
         private string _emailAlertsText { get; set; } = "alertText";
-        private string _keyFactSubheading { get; set; } = "Key Fact Subheading";
         private string _showcaseIcon = "fa-icon";
         private CallToActionBanner _callToActionBanner = new CallToActionBanner();
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
@@ -35,7 +34,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         public string _triviaSubheading { get; set; }
         public string _socialMediaLinksSubheading { get; set; } = "";
         public string _eventsReadMoreText { get; set; } = "";
-        public List<InformationItem> _triviaSection { get; set; }
+        public List<Trivia> _triviaSection { get; set; }
         public string _featuredItemsSubheading { get; set; } = "";
         public IEnumerable<SubItem> _featuredItems = new List<SubItem>()
         {

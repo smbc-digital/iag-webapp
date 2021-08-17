@@ -35,7 +35,6 @@ namespace StockportWebapp.Controllers
                     profileEntity.Alerts,
                     profileEntity.TriviaSubheading,
                     profileEntity.TriviaSection,
-                    profileEntity.FieldOrder,
                     profileEntity.InlineQuotes,
                     profileEntity.EventsBanner);
 

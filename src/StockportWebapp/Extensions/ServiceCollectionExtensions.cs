@@ -17,7 +17,7 @@ using StockportWebapp.Builders;
 using StockportWebapp.Config;
 using StockportWebapp.Config.AnalyticsConfiguration;
 using StockportWebapp.ContentFactory;
-using StockportWebapp.ContentFactory.InformationFactory;
+using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.Controllers;
 using StockportWebapp.DataProtection;
 using StockportWebapp.FeatureToggling;
@@ -131,7 +131,7 @@ namespace StockportWebapp.Extensions
         {
             services.AddSingleton<IRssFeedFactory, RssFeedFactory>();
             services.AddTransient<ArticleFactory>();
-            services.AddTransient<IInformationFactory>(p => new InformationFactory(p.GetService<MarkdownWrapper>()));
+            services.AddTransient<ITriviaFactory>(p => new TriviaFactory(p.GetService<MarkdownWrapper>()));
             services.AddTransient<SectionFactory>();
             services.AddTransient(p => new ArticleFactory(
                 p.GetService<ISimpleTagParserContainer>(),
@@ -206,7 +206,7 @@ namespace StockportWebapp.Extensions
                     p.GetService<ISimpleTagParserContainer>(), 
                     p.GetService<MarkdownWrapper>(), 
                     p.GetService<IDynamicTagParser<Alert>>(),
-                    p.GetService<IInformationFactory>(),
+                    p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
 
             return services;

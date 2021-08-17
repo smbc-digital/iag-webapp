@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using StockportWebapp.ContentFactory.InformationFactory;
+using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
@@ -11,15 +11,15 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly ISimpleTagParserContainer _tagParserContainer;
         private readonly MarkdownWrapper _markdownWrapper;
-        private readonly IInformationFactory _informationFactory;
+        private readonly ITriviaFactory _triviaFactory;
 
         public ShowcaseFactory(ISimpleTagParserContainer tagParserContainer,
             MarkdownWrapper markdownWrapper,
-            IInformationFactory informationFactory)
+            ITriviaFactory triviaFactory)
         {
             _tagParserContainer = tagParserContainer;
             _markdownWrapper = markdownWrapper;
-            _informationFactory = informationFactory;
+            _triviaFactory = triviaFactory;
         }
 
         public virtual ProcessedShowcase Build(Showcase showcase)
@@ -84,7 +84,7 @@ namespace StockportWebapp.ContentFactory
                 fields,
                 showcase.Icon,
                 showcase.TriviaSubheading,
-                _informationFactory.Build(showcase.TriviaSection),
+                _triviaFactory.Build(showcase.TriviaSection),
                 showcase.ProfileHeading,
                 showcase.ProfileLink,
                 showcase.EventsReadMoreText,
