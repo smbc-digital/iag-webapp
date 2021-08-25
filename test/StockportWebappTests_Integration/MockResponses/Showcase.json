@@ -27,14 +27,7 @@
       "title": "test-title",
       "slug": "slug",
       "type": "showcase"
-    }
-  ],
-  "consultations": [
-    {
-      "title": "title",
-      "closingDate": "0001-01-01T00:00:00+00:00",
-      "link": "http://link.url"
-    }
+    }  
   ],
   "socialMediaLinks": [
     {
@@ -46,7 +39,7 @@
   ],
   "events": [],
   "fieldOrder": {
-    "items": [ "Primary Items", "Featured Items", "Consultations"]
+    "items": [ "Primary Items", "Featured Items"]
   }
 }
 

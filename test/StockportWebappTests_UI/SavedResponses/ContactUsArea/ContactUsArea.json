@@ -68,15 +68,8 @@
         }
       ],
       "alerts": [],
-      "insetTexts": [
-        {
-          "title": "What do you need help with?",
-          "subHeading": "",
-          "body": "You can let us know about most things just by using our online forms",
-          "colour": "grey",
-          "slug": "contactus-inset"
-        }
-      ],
+      "insetTextTitle": "What do you need help with?",
+      "insetTextBody": "You can let us know about most things just by using our online forms",
       "contactUsCategories": [
         {
           "title": "Council tax",

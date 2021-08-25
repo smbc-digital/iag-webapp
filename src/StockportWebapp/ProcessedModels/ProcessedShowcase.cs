@@ -25,7 +25,6 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<SubItem> PrimaryItems;
         public readonly string FeaturedItemsSubheading;
         public readonly IEnumerable<SubItem> FeaturedItems;
-        public readonly IEnumerable<Consultation> Consultations;
         public readonly string SocialMediaLinksSubheading;
         public readonly IEnumerable<SocialMediaLink> SocialMediaLinks;
         public readonly IEnumerable<Event> Events;
@@ -39,7 +38,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly CallToActionBanner CallToActionBanner;
         public readonly FieldOrder FieldOrder;
         public readonly string Icon;
-        public readonly List<ProcessedInformationItem> TriviaSection;
+        public readonly List<ProcessedTrivia> TriviaSection;
         public readonly string TriviaSubheading;
         public string EventsReadMoreText;
         public readonly Video Video;
@@ -66,7 +65,6 @@ namespace StockportWebapp.ProcessedModels
             string heroImageUrl,
             IEnumerable<SubItem> secondaryItems,
             IEnumerable<Crumb> breadcrumbs,
-            IEnumerable<Consultation> consultations,
             string socialMediaLinksSubheading,
             IEnumerable<SocialMediaLink> socialMediaLinks,
             IEnumerable<Event> events,
@@ -82,7 +80,7 @@ namespace StockportWebapp.ProcessedModels
             FieldOrder fieldOrder,
             string icon,
             string triviaSubheading,
-            List<ProcessedInformationItem> triviaSection,
+            List<ProcessedTrivia> triviaSection,
             string profileHeading,
             string profileLink,
             string eventsReadMoreText,
@@ -100,7 +98,6 @@ namespace StockportWebapp.ProcessedModels
             EventSubheading = eventSubheading;
             Breadcrumbs = breadcrumbs;
             SecondaryItems = secondaryItems;
-            Consultations = consultations;
             SocialMediaLinksSubheading = socialMediaLinksSubheading;
             SocialMediaLinks = socialMediaLinks;
             Events = events;

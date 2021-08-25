@@ -123,17 +123,6 @@
             }
             break;
 
-        case "Consultations":
-            if (Model.Consultations.AnyOrDefault())
-            {
-                <div class="showcase-section">
-                    <div class="center-wrapper">
-                        <partial name="Semantic/Showcase/Consultations" model='Model.Consultations' />
-                    </div>
-                </div>
-            }
-            break;
-
         case "News":
             if (Model.NewsArticle != null)
             {
@@ -233,12 +222,12 @@
                 <div class="showcase-section">
                     <div class="center-wrapper">
                         <hr class="thick-divider" />
-                        @await Component.InvokeAsync("InformationList", new
-                       {
+                        @await Component.InvokeAsync("Trivia", new
+                        {
                            model = Model.TriviaSection,
                            heading = Model.TriviaSubheading,
                            additionalClasses = "showcase"
-                       })
+                        })
                     </div>
                 </div>
             }

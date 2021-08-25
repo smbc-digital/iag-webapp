@@ -77,7 +77,7 @@ namespace StockportWebapp.Controllers
             _featureToggles = featureToggles;
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         [Route("/groups")]
         public async Task<IActionResult> Index()
         {
@@ -121,7 +121,7 @@ namespace StockportWebapp.Controllers
             return View(model);
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         [Route("/groups/{slug}")]
         public async Task<IActionResult> Detail(string slug, bool confirmedUpToDate = false)
         {
@@ -183,7 +183,7 @@ namespace StockportWebapp.Controllers
             return group.GroupAdministrators.Items.Any(_ => _.Email == email);
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         [Route("groups/results")]
         public async Task<IActionResult> Results([FromQuery] int page, [FromQuery] int pageSize, GroupSearch groupSearch)
         {
@@ -311,7 +311,7 @@ namespace StockportWebapp.Controllers
 
         [HttpGet]
         [Route("/groups/{slug}/change-group-info")]
-        [ResponseCache(NoStore = true, Duration = 0)]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public ActionResult ChangeGroupInfo(string slug, string groupname)
         {
             var model = new ChangeGroupInfoViewModel
@@ -326,7 +326,7 @@ namespace StockportWebapp.Controllers
         [HttpPost]
         [Route("/groups/{slug}/change-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
-        [ResponseCache(NoStore = true, Duration = 0)]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public IActionResult ChangeGroupInfo(string slug, ChangeGroupInfoViewModel submission)
         {
             if (!ModelState.IsValid)
@@ -346,7 +346,7 @@ namespace StockportWebapp.Controllers
 
         [HttpGet]
         [Route("/groups/{slug}/report-group-info")]
-        [ResponseCache(NoStore = true, Duration = 0)]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public ActionResult ReportGroupInfo(string slug, string groupname)
         {
             var model = new ReportGroupViewModel
@@ -361,7 +361,7 @@ namespace StockportWebapp.Controllers
         [HttpPost]
         [Route("/groups/{slug}/report-group-info")]
         [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
-        [ResponseCache(NoStore = true, Duration = 0)]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public IActionResult ReportGroupInfo(string slug, ReportGroupViewModel submission)
         {
             if (!ModelState.IsValid)
@@ -682,9 +682,9 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
         [Route("/groups/manage")]
         [ServiceFilter(typeof(GroupAuthorisation))]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public async Task<IActionResult> Manage(LoggedInPerson loggedInPerson)
         {
             var response = await _repository.GetAdministratorsGroups(loggedInPerson.Email);
@@ -985,10 +985,10 @@ namespace StockportWebapp.Controllers
             return View();
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/manage/{slug}/update")]
         [ServiceFilter(typeof(GroupAuthorisation))]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public async Task<IActionResult> EditGroup(string slug, LoggedInPerson loggedInPerson)
         {
             var response = await _repository.Get<Group>(slug, _managementQuery);
@@ -1181,9 +1181,9 @@ namespace StockportWebapp.Controllers
             return await _repository.Get<GroupResults>(queries: queries);
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/favourites/get-count")]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public async Task<int> GetCount()
         {
             var queries = new List<Query>();
@@ -1205,9 +1205,9 @@ namespace StockportWebapp.Controllers
             return groupResults.Groups.ToList().Count(a => a.Status != "Archived");
         }
 
-        [ResponseCache(NoStore = true, Duration = 0)]
         [HttpGet]
         [Route("/groups/favourites")]
+        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
         public async Task<IActionResult> FavouriteGroups([FromQuery] int page, [FromQuery] int pageSize)
         {
             var response = await GetFavouriteGroupResults();

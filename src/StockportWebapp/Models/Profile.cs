@@ -15,11 +15,9 @@ namespace StockportWebapp.Models
         public IEnumerable<Crumb> Breadcrumbs { get; set; }
         public List<Alert> Alerts { get; set; }
         public string TriviaSubheading { get; set; }
-        public List<ProcessedInformationItem> TriviaSection { get; set; }
-        public FieldOrder FieldOrder { get; set; }
+        public List<ProcessedTrivia> TriviaSection { get; set; }
         public string Author { get; set; } = string.Empty;
         public string Subject { get; set; } = string.Empty;
-        public Button Button { get; set; } = new Button();
         public EventBanner EventsBanner { get; set; }
 
         public Profile()
@@ -36,10 +34,8 @@ namespace StockportWebapp.Models
             IEnumerable<Crumb> breadcrumbs,
             List<Alert> alerts,
             string triviaSubheading,
-            List<ProcessedInformationItem> triviaSection,
-            FieldOrder fieldOrder, 
+            List<ProcessedTrivia> triviaSection,
             List<InlineQuote> inlineQuotes,
-            Button button,
             EventBanner eventsBanner)
         {
             Title = title;
@@ -52,9 +48,7 @@ namespace StockportWebapp.Models
             Alerts = alerts;
             TriviaSubheading = triviaSubheading;
             TriviaSection = triviaSection;
-            FieldOrder = fieldOrder;
             InlineQuotes = inlineQuotes;
-            Button = button;
             EventsBanner = eventsBanner;
         }
 

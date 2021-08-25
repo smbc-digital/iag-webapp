@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Utils;
@@ -24,7 +25,7 @@ namespace StockportWebapp.ContentFactory
         {
             var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null);
             var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper,documentTagParser, null);
-            var informationFactory = new InformationFactory.InformationFactory(markdownWrapper);
+            var triviaFactory = new TriviaFactory(markdownWrapper);
 
             _factories.Add(typeof(Section), sectionFactory);
             _factories.Add(typeof(Article), new ArticleFactory(tagParserContainer, profileTagParser, sectionFactory, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null));
@@ -36,12 +37,12 @@ namespace StockportWebapp.ContentFactory
             _factories.Add(typeof(Group), new GroupFactory(tagParserContainer, markdownWrapper, documentTagParser));
             _factories.Add(typeof(Payment), new PaymentFactory(tagParserContainer, markdownWrapper));
             _factories.Add(typeof(ServicePayPayment), new ServicePayPaymentFactory(tagParserContainer, markdownWrapper));
-            _factories.Add(typeof(Showcase), new ShowcaseFactory(tagParserContainer, markdownWrapper, informationFactory));
+            _factories.Add(typeof(Showcase), new ShowcaseFactory(tagParserContainer, markdownWrapper, triviaFactory));
             _factories.Add(typeof(Organisation), new OrganisationFactory(markdownWrapper, httpContextAccesor));
             _factories.Add(typeof(PrivacyNotice), new PrivacyNoticeFactory(markdownWrapper));
             _factories.Add(typeof(StartPage), new StartPageFactory(tagParserContainer, markdownWrapper, alertsInlineTagParser));
             _factories.Add(typeof(ContactUsArea), new ContactUsAreaFactory(tagParserContainer, markdownWrapper, contactUsCategoryFactory));
-            _factories.Add(typeof(List<InformationItem>), informationFactory);
+            _factories.Add(typeof(List<Models.Trivia>), triviaFactory);
         }
 
         public IProcessedContentType Build<T>(T content)

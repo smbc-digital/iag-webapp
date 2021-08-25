@@ -35,13 +35,21 @@
         }
 
         @{
-            if (Model.InsetTexts != null)
+            if (!string.IsNullOrEmpty(Model.InsetTextTitle) || !string.IsNullOrEmpty(Model.InsetTextBody))
             {
                 <div class="alert-container contact-us-area-primary">
-                    @foreach (var insetText in Model.InsetTexts)
-                    {
-                        <partial name="DisplayTemplates/InsetText" model="insetText"/>
-                    }
+                    <div class="alert alert-insetText">
+                        <div tabindex="0" class="focusable alert-insetText-overlap alert-content">
+                            @if (!string.IsNullOrEmpty(Model.InsetTextTitle))
+                            {
+                                <h2>@Model.InsetTextTitle</h2>
+                            }
+                            @if (!string.IsNullOrEmpty(Model.InsetTextBody))
+                            {
+                                @Html.Raw(Model.InsetTextBody)
+                            }
+                        </div>
+                    </div>
                 </div>
             }
         }

@@ -68,9 +68,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
 
-            var _advertisement = new NullAdvertisement();
-
-             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _advertisement, _updatedAt);
+             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _updatedAt);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);

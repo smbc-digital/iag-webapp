@@ -14,7 +14,6 @@ namespace StockportWebapp.Models
         public IEnumerable<SubItem> SecondaryItems { get; set; }
         public string FeaturedItemsSubheading { get; set; }
         public IEnumerable<SubItem> FeaturedItems { get; set; }
-        public IEnumerable<Consultation> Consultations { get; set; }
         public string SocialMediaLinksSubheading { get; set; }
         public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
         public string EventSubheading { get; set; }
@@ -37,7 +36,7 @@ namespace StockportWebapp.Models
         public IEnumerable<Alert> Alerts { get; set; }
         public string Icon { get; set; }
         public string TriviaSubheading { get; set; }
-        public List<InformationItem> TriviaSection { get; set; }
+        public List<Trivia> TriviaSection { get; set; }
         public CallToActionBanner CallToActionBanner { get; set; }
         public Video Video { get; set; }
         public string TypeformUrl { get; set; }
