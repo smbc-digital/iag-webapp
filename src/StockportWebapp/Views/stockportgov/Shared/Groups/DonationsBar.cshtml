@@ -16,11 +16,11 @@
             }
             @if (string.IsNullOrEmpty(Model.DonationsUrl))
             {
-                <stock-button class="volunteering-btn" as-link="true" target="_blank" href="mailto:@Model.Email?subject=Donations&body=Hello%0A%0AI%20am%20interested%20in%20making%20a%20donation.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/@Model.Url%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20explain%20how%20I%20can%20make%20a%20donation.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you.">Get in touch with us</stock-Button>
+                <stock-button class="volunteering-btn" as-link="true" target="_blank" href="mailto:@Model.Email?subject=Donations&body=Hello%0A%0AI%20am%20interested%20in%20making%20a%20donation.%20%20I%20found%20your%20details%20here:%20https://www.stockport.gov.uk/@Model.Url%0A%0AI%20would%20be%20grateful%20if%20you%20could%20contact%20me%20to%20explain%20how%20I%20can%20make%20a%20donation.%0A%0AName:%0A%0AEmail:%0A%0ATelephone%20Number:%0A%0AI%20look%20forward%20to%20hearing%20from%20you.">Make a donation</stock-Button>
             }
             else
             { 
-                <stock-button class="volunteering-btn" as-link="true" target="_blank" href="@Model.DonationsUrl">Make a Donation</stock-button>
+                <stock-button class="volunteering-btn" as-link="true" target="_blank" href="@Model.DonationsUrl">Make a donation</stock-button>
             }
 
         </div>
