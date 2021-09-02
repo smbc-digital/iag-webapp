@@ -98,9 +98,9 @@ namespace StockportWebapp
                 app.UseDeveloperExceptionPage();
             }
 
-            var scheduler = new QuartzScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
-                serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ILogger<QuartzJob>>());
-            await scheduler.Start();
+            //var scheduler = new QuartzScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
+            //    serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ILogger<QuartzJob>>());
+            //await scheduler.Start();
 
             app.UseMiddleware<BusinessIdMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
