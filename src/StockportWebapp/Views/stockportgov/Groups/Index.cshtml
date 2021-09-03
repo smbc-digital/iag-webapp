@@ -1,5 +1,4 @@
-﻿@using Quartz.Util
-@using StockportWebapp.Models
+﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
 @using StockportWebapp.FeatureToggling
 @inject FeatureToggles FeatureToggles
@@ -86,12 +85,12 @@
             </div>
         }
 
-        @if (!Model.Body.IsNullOrWhiteSpace())
+        @if (!string.IsNullOrWhiteSpace(Model.Body))
         {
             <div class="home-page-row">
                 <div class="grid-container">
                     <div class="group-body-header">
-                        @if (!Model.BodyHeading.IsNullOrWhiteSpace())
+                        @if (!string.IsNullOrWhiteSpace(Model.BodyHeading))
                         {
                             <h2>@Model.BodyHeading</h2>
                         }
@@ -101,12 +100,12 @@
             </div>
         }
 
-        @if (!Model.SecondaryBody.IsNullOrWhiteSpace())
+        @if (!string.IsNullOrWhiteSpace(Model.SecondaryBody))
         {
             <div class="home-page-row">
                 <div class="grid-container">
                     <div class="group-body-header">
-                        @if (!Model.SecondaryBodyHeading.IsNullOrWhiteSpace())
+                        @if (!string.IsNullOrWhiteSpace(Model.SecondaryBodyHeading))
                         {
                             <h2>@Model.SecondaryBodyHeading</h2>
                         }

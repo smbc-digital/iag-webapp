@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
+using StockportWebapp.Http;
 using StockportWebapp.Middleware;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -46,7 +47,6 @@ namespace StockportWebappTests_Unit.Unit.Middleware
         [Fact]
         public void Invoke_ShouldCallRepository_IfCachedRedirectsHaveExpired()
         {
-            var logger = new Mock<ILogger<ShortUrlRedirectsMiddleware>>();
             var next = new Mock<RequestDelegate>();
             var shortItems = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/short-test", "short-redirect-url" } } } };
             var legacyItems = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/legacy-test", "legacy-redirect-url" } } } };
@@ -54,12 +54,14 @@ namespace StockportWebappTests_Unit.Unit.Middleware
             shortUrlRedirect.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 50, 0));
             var legacyUrlRedirects = new LegacyUrlRedirects(legacyItems);
             legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 50, 0));
-            var middleware = new ShortUrlRedirectsMiddleware(next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object); ;
+            var middleware = new ShortUrlRedirectsMiddleware(next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object);
+
+            _mockRepository.Setup(_ => _.GetRedirects()).ReturnsAsync(new StockportWebapp.Http.HttpResponse(200, new Redirects(shortItems, legacyItems), string.Empty));
 
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Path = "/short-test";
 
-            _middleware.Invoke(httpContext, _businessId).Wait();
+            middleware.Invoke(httpContext, _businessId).Wait();
 
             _mockRepository.Verify(_ => _.GetRedirects(), Times.Once);
         }
@@ -96,12 +98,12 @@ namespace StockportWebappTests_Unit.Unit.Middleware
         public void ItReturns302ForCorrectHttpRedirectIgnoringCase()
         {
             var httpContext = new DefaultHttpContext();
-            httpContext.Request.Path = "/TEST";
+            httpContext.Request.Path = "/SHORT-TEST";
 
             _middleware.Invoke(httpContext, _businessId).Wait();
 
             httpContext.Response.StatusCode.Should().Be(302);
-            httpContext.Response.Headers["Location"][0].Should().Be("redirect-url");
+            httpContext.Response.Headers["Location"][0].Should().Be("short-redirect-url");
         }
 
         [Fact]
@@ -136,13 +138,13 @@ namespace StockportWebappTests_Unit.Unit.Middleware
             var shortItems = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/short-test", "short-redirect-url" } } } };
             var legacyItems = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/legacy-test", "legacy-redirect-url" } } } };
             var shortUrlRedirect = new ShortUrlRedirects(shortItems);
-            shortUrlRedirect.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 30, 0));
+            shortUrlRedirect.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 3, 0));
             var legacyUrlRedirects = new LegacyUrlRedirects(legacyItems);
-            legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 30, 0));
+            legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 3, 0));
             var businessId = new BusinessId("not-in-redirects");
             var middleware = new ShortUrlRedirectsMiddleware(next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object); ;
             var httpContext = new DefaultHttpContext();
-            httpContext.Request.Path = "/test";
+            httpContext.Request.Path = "/short-test";
 
             middleware.Invoke(httpContext, businessId).Wait();
 
