@@ -5,7 +5,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
-namespace StockportWebapp.Scheduler
+namespace StockportWebapp.Middleware
 {
     public class ShortUrlRedirectsMiddleware
     {
@@ -40,7 +40,14 @@ namespace StockportWebapp.Scheduler
             if (_shortUrlRedirects.Redirects.ContainsKey(businessId.ToString()) && _shortUrlRedirects.Redirects[businessId.ToString()].ContainsKey(path))
             {
                 var redirectTo = _shortUrlRedirects.Redirects[businessId.ToString()][path];
-                _logger.LogInformation($"Redirecting from: {path}, to: {redirectTo}");
+                _logger.LogInformation($"Short Url Redirecting from: {path}, to: {redirectTo}");
+                context.Response.Redirect(redirectTo);
+                context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.RedirectCacheDuration;
+            }
+            else if (_legacyUrlRedirects.Redirects.ContainsKey(businessId.ToString()) && _legacyUrlRedirects.Redirects[businessId.ToString()].ContainsKey(path))
+            {
+                var redirectTo = _legacyUrlRedirects.Redirects[businessId.ToString()][path];
+                _logger.LogInformation($"Legacy Url Redirecting from: {path}, to: {redirectTo}");
                 context.Response.Redirect(redirectTo);
                 context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.RedirectCacheDuration;
             }
