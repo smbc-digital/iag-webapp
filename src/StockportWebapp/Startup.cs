@@ -14,7 +14,6 @@ using StockportWebapp.ModelBinders;
 using StockportWebapp.Models;
 using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Repositories;
-using StockportWebapp.Scheduler;
 using StockportWebapp.Utils;
 using StockportWebapp.Wrappers;
 using ILogger = Serilog.ILogger;
@@ -98,10 +97,6 @@ namespace StockportWebapp
                 app.UseDeveloperExceptionPage();
             }
 
-            var scheduler = new QuartzScheduler(serviceProvider.GetService<ShortUrlRedirects>(),
-                serviceProvider.GetService<LegacyUrlRedirects>(), serviceProvider.GetService<IRepository>(), serviceProvider.GetService<ILogger<QuartzJob>>());
-            await scheduler.Start();
-
             app.UseMiddleware<BusinessIdMiddleware>();
             app.UseMiddleware<ShortUrlRedirectsMiddleware>();
             app.UseMiddleware<RobotsTxtMiddleware>();
@@ -113,6 +108,7 @@ namespace StockportWebapp
             app.UseCustomCulture();
 
             app.UseRouting();
+            app.Map("/favicon.ico", delegate { });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
