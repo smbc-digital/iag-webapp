@@ -81,20 +81,6 @@ namespace StockportWebappTests_Unit.Unit.Middleware
         }
 
         [Fact]
-        public void ItReturns302ForCorrectHttpRedirect_ForLegacyUrlRedirect()
-        {
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Path = "/legacy-test";
-
-            _middleware.Invoke(httpContext, _businessId).Wait();
-
-            httpContext.Response.StatusCode.Should().Be(302);
-            httpContext.Response.Headers["Location"][0].Should().Be("legacy-redirect-url");
-
-            LogTesting.Assert(_logger, LogLevel.Information, "Redirecting from: /legacy-test, to: legacy-redirect-url");
-        }
-
-        [Fact]
         public void ItReturns302ForCorrectHttpRedirectIgnoringCase()
         {
             var httpContext = new DefaultHttpContext();

@@ -1,26 +1,41 @@
-﻿using StockportWebapp.Config;
+﻿using System.Threading.Tasks;
+using StockportWebapp.Config;
 using StockportWebapp.Models;
+using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Controllers
 {
     public interface ILegacyRedirectsManager
     {
-        string RedirectUrl(string url);
+        Task<string> RedirectUrl(string url);
     }
 
     public class LegacyRedirectsMapper : ILegacyRedirectsManager
     {
         private readonly BusinessId _businessId;
         private readonly LegacyUrlRedirects _legacyUrlRedirects;
+        private readonly ShortUrlRedirects _shortUrlRedirects;
+        private readonly IRepository _repository;
 
-        public LegacyRedirectsMapper(BusinessId businessId, LegacyUrlRedirects legacyUrlRedirects)
+        public LegacyRedirectsMapper(BusinessId businessId, LegacyUrlRedirects legacyUrlRedirects, ShortUrlRedirects shortUrlRedirects, IRepository repository)
         {
             _businessId = businessId;
             _legacyUrlRedirects = legacyUrlRedirects;
+            _shortUrlRedirects = shortUrlRedirects;
+            _repository = repository;
         }
 
-        public string RedirectUrl(string url)
+        public async Task<string> RedirectUrl(string url)
         {
+            if (_legacyUrlRedirects.HasExpired())
+            {
+                var response = await _repository.GetRedirects();
+                var redirects = response.Content as Redirects;
+                _shortUrlRedirects.Redirects = redirects.ShortUrlRedirects;
+                _shortUrlRedirects.LastUpdated = System.DateTime.Now;
+                _legacyUrlRedirects.Redirects = redirects.LegacyUrlRedirects;
+                _legacyUrlRedirects.LastUpdated = System.DateTime.Now;
+            }
             if (!DictionaryContainsBusinessId(_legacyUrlRedirects.Redirects, _businessId.ToString())) return string.Empty;
 
             var businessIdLegacyUrlRedirects = _legacyUrlRedirects.Redirects[_businessId.ToString()];

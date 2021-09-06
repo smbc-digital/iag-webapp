@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -17,19 +18,19 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/error")]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             var statusCode = HttpContext.Response.StatusCode;
             SetupPageMessage(statusCode);
-            return RedirectIfLegacyUrl(statusCode);
+            return await RedirectIfLegacyUrl(statusCode);
         }
 
-        private IActionResult RedirectIfLegacyUrl(int statusCode)
+        private async Task<IActionResult> RedirectIfLegacyUrl(int statusCode)
         {
             if (statusCode.Equals(404))
             {
                 var path = HttpContext.Features.Get<IStatusCodeReExecuteFeature>().OriginalPath;
-                var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl(path);
+                var urlToRedirectLegacyRequestTo = await _legacyRedirectsManager.RedirectUrl(path);
                 if (!string.IsNullOrEmpty(urlToRedirectLegacyRequestTo))
                 {
                     _logger.LogInformation($"A legacy redirect was found - redirecting to {urlToRedirectLegacyRequestTo}");

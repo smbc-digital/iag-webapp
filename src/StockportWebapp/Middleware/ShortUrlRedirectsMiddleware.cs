@@ -16,7 +16,11 @@ namespace StockportWebapp.Middleware
         private readonly ILogger<ShortUrlRedirectsMiddleware> _logger;
         private readonly IRepository _repository;
 
-        public ShortUrlRedirectsMiddleware(RequestDelegate next, ShortUrlRedirects shortUrlRedirects, LegacyUrlRedirects legacyUrlRedirects, ILogger<ShortUrlRedirectsMiddleware> logger, IRepository repository)
+        public ShortUrlRedirectsMiddleware(RequestDelegate next, 
+            ShortUrlRedirects shortUrlRedirects, 
+            LegacyUrlRedirects legacyUrlRedirects, 
+            ILogger<ShortUrlRedirectsMiddleware> logger, 
+            IRepository repository)
         {
             _next = next;
             _shortUrlRedirects = shortUrlRedirects;
@@ -28,7 +32,7 @@ namespace StockportWebapp.Middleware
         public async Task Invoke(HttpContext context, BusinessId businessId)
         {
             var path = context.Request.Path;
-            if (_shortUrlRedirects.HasExpired() || _legacyUrlRedirects.HasExpired())
+            if (_shortUrlRedirects.HasExpired())
             {
                 var response = await _repository.GetRedirects();
                 var redirects = response.Content as Redirects;
