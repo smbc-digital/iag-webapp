@@ -28,8 +28,7 @@ namespace StockportWebapp.Controllers
             var topicHttpResponse = await _repository.Get<Topic>(topicSlug);
 
             if (!topicHttpResponse.IsSuccessful())
-                //return topicHttpResponse;
-                return RedirectToAction("Error", "Error", new {id = "404", path = $"/topic/{topicSlug}"});
+                return topicHttpResponse;
             
             var topic = topicHttpResponse.Content as Topic;
 

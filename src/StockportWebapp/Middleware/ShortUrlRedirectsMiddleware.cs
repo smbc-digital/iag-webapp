@@ -45,13 +45,6 @@ namespace StockportWebapp.Middleware
                 context.Response.Redirect(redirectTo);
                 context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.RedirectCacheDuration;
             }
-            else if (_legacyUrlRedirects.Redirects.ContainsKey(businessId.ToString()) && _legacyUrlRedirects.Redirects[businessId.ToString()].ContainsKey(path))
-            {
-                var redirectTo = _legacyUrlRedirects.Redirects[businessId.ToString()][path];
-                _logger.LogInformation($"Legacy Url Redirecting from: {path}, to: {redirectTo}");
-                context.Response.Redirect(redirectTo);
-                context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.RedirectCacheDuration;
-            }
             else
             {
                 await _next.Invoke(context);
