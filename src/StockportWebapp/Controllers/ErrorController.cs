@@ -19,7 +19,8 @@ namespace StockportWebapp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Error(string id)
+        [Route("/error")]
+        public IActionResult Error(string id = "404")
         {
             SetupPageMessage(id);
             return RedirectIfLegacyUrl(id);
@@ -29,15 +30,18 @@ namespace StockportWebapp.Controllers
         {
             if (id.Equals("404"))
             {
-                var currentPath = GetCurrentPath(_httpContextAccessor);
-                var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl(currentPath);
+                //var path = GetCurrentPath(_httpContextAccessor);
+                var curpath = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+                var path = curpath.OriginalPath;
+                //var path = System.Web.HttpUtility.UrlDecode(currentPath);
+                var urlToRedirectLegacyRequestTo = _legacyRedirectsManager.RedirectUrl(path);
                 if (!string.IsNullOrEmpty(urlToRedirectLegacyRequestTo))
                 {
                     _logger.LogInformation($"A legacy redirect was found - redirecting to {urlToRedirectLegacyRequestTo}");
                     return RedirectPermanent(urlToRedirectLegacyRequestTo);
                 }
 
-                _logger.LogInformation($"No legacy url matching current url ({currentPath}) found");
+                _logger.LogInformation($"No legacy url matching current url ({path}) found");
             }
             return View();
         }

@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StockportWebapp.Exceptions;
@@ -41,7 +42,13 @@ namespace StockportWebapp.Controllers
             var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetUri().ToString());
 
             if (!articleHttpResponse.IsSuccessful())
+            {
+                HttpContext.Features.Set<IStatusCodePagesFeature>(new StatusCodePagesFeature());
                 return articleHttpResponse;
+                //var curpath = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+                //var path = curpath.OriginalPath;
+                //return RedirectToAction("Error", "Error", new { id = "404" });
+            }
 
             var article = articleHttpResponse.Content as ProcessedArticle;
 

@@ -102,7 +102,17 @@ namespace StockportWebapp
             app.UseMiddleware<RobotsTxtMiddleware>();
             app.UseMiddleware<BetaToWwwMiddleware>();
             app.UseMiddleware<SecurityHeaderMiddleware>();
-            app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
+            app.UseStatusCodePagesWithReExecute("/error");
+
+            app.Use(async (context, next) =>
+            {
+                await next();
+                if (context.Response.StatusCode != 200)
+                {
+                    context.Request.Path = "/error/{0}";
+                    await next();
+                }
+            });
 
             app.UseCustomStaticFiles();
             app.UseCustomCulture();
