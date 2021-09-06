@@ -17,7 +17,7 @@ namespace StockportWebapp.Utils
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
 
-        private readonly Dictionary<Type, string> _urls = new Dictionary<Type, string>()
+        private readonly Dictionary<Type, string> _urls = new()
         {
             {typeof(Topic), "topics/"},
             {typeof(List<TopicSitemap>), "topics/"},
@@ -51,12 +51,10 @@ namespace StockportWebapp.Utils
             {typeof(ContactUsId), "contact-us-id/"},
             {typeof(List<ArticleSiteMap>), "articleSiteMap"},
             {typeof(List<SectionSiteMap>), "sectionSiteMap"},
-            {typeof(SmartAnswers), "smart/"},
             {typeof(Organisation), "organisations/"},
             {typeof(GroupAdvisor), "groups/advisors/"},
             {typeof(Document), "documents/"},
-            {typeof(List<Event>), "events"},
-            {typeof(SmartResult), "smart-result"}
+            {typeof(List<Event>), "events"}
         };
 
         public UrlGeneratorSimple(IApplicationConfiguration config, BusinessId businessId)

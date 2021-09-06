@@ -10,7 +10,6 @@ namespace StockportWebapp.FeatureToggling
         public bool GroupDetailsPage { get; set; } = false;
         public bool SiaSystem { get; set; } = false;
         public bool SemanticLayout { get; set; } = false;
-        public List<string> SemanticSmartAnswer { get; set; } = new List<string>();
         public bool ContactUsArea { get; set; } = false;
         public bool SemanticInlineAlert { get; set; } = false;
         public bool Newsroom { get; set; } = false;
