@@ -180,7 +180,6 @@ namespace StockportWebapp.Extensions
             services.AddTransient<IPaymentRepository, PaymentRepository>();
             services.AddTransient<IDocumentsRepository>(p => new DocumentsRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILoggedInHelper>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
-            services.AddTransient<ISmartResultRepository, SmartResultRepository>();
             services.AddTransient<IContentApiRepository>(p => new ContentApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
 
             return services;
@@ -196,7 +195,6 @@ namespace StockportWebapp.Extensions
             services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>(), p.GetService<IHttpClientWrapper>(), p.GetService<ILogger<DocumentsService>>()));
             services.AddTransient<INewsService>(p => new NewsService(p.GetService<IRepository>()));
             services.AddTransient<IEventsService>(p => new EventsService(p.GetService<IRepository>()));
-            services.AddTransient<ISmartResultService>(p => new SmartResultService(p.GetService<ISmartResultRepository>(), p.GetService<ILogger<SmartResultService>>(), p.GetService<IHttpClientWrapper>()));
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
             services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IProcessedContentRepository>(), p.GetService<IHttpEmailClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<ILogger<GroupsService>>(), p.GetService<IStockportApiRepository>(), p.GetService<BusinessId>()));
@@ -242,9 +240,7 @@ namespace StockportWebapp.Extensions
                     new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         p.GetService<DocumentPageFactory>(), p.GetService<IApplicationConfiguration>()));
             services.AddSingleton<IEventFactory>(p => new EventFactory(p.GetService<ISimpleTagParserContainer>(), p.GetService<MarkdownWrapper>(), p.GetService<IDynamicTagParser<Document>>()));
-
             services.AddTransient<ILoggedInHelper>(p => new LoggedInHelper(p.GetService<IHttpContextAccessor>(), p.GetService<CurrentEnvironment>(), p.GetService<IJwtDecoder>(), p.GetService<ILogger<LoggedInHelper>>()));
-            services.AddTransient<ISmartAnswerStringHelper, SmartAnswerStringHelper>();
             return services;
         }
 

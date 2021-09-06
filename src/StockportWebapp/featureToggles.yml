@@ -9,12 +9,6 @@ prod: &prod
   ContactUsArea: true
   Newsroom: true
   CivicaPay: true
-  SemanticSmartAnswer: 
-    - enforcement-referral
-    - education-penalty-notice
-    - give-a-compliment
-    - make-a-formal-complaint
-    - give-feedback
   ReciteMeTrial: true
 
 stage: &stage

@@ -12,7 +12,6 @@ using StockportWebapp.Extensions;
 using StockportWebapp.Middleware;
 using StockportWebapp.ModelBinders;
 using StockportWebapp.Models;
-using StockportWebapp.QuestionBuilder;
 using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.Wrappers;
@@ -61,7 +60,6 @@ namespace StockportWebapp
             services.AddTransient<IUrlGeneratorSimple>(p => new UrlGeneratorSimple(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
-            services.AddTransient(p => new QuestionLoader(p.GetService<IRepository>()));
             services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(new System.Net.Http.HttpClient(), provider.GetService<ILogger<HttpClientWrapper>>()));
 
             // custom extensions

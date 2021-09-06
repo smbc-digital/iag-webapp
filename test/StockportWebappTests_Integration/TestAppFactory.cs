@@ -145,8 +145,6 @@ namespace StockportWebappTests_Integration
                 .Return(HttpResponse.Successful(200, JsonFileHelper.GetStringResponseFromFile("GroupStart.json")));
             Client.For("http://localhost:5001/stockportgov/grouphomepage")
                 .Return(HttpResponse.Successful(200, JsonFileHelper.GetStringResponseFromFile("GroupHomepage.json")));
-            Client.For("http://localhost:5001/stockportgov/smart/smart-test")
-                .Return(HttpResponse.Successful(200, JsonFileHelper.GetStringResponseFromFile("Smart.json")));
             Client.For("http://localhost:5001/stockportgov/groups/")
                 .Return(HttpResponse.Successful(200, JsonFileHelper.GetStringResponseFromFile("GroupListing.json")));
             #endregion
