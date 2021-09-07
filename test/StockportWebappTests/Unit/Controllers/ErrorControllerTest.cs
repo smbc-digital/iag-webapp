@@ -13,16 +13,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class ErrorControllerTest
     {
-        private readonly ErrorController _controller;
         private readonly Mock<ILegacyRedirectsManager> _legacyRedirects;
         private readonly Mock<ILogger<ErrorController>> _logger;
-        private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
-
 
         public ErrorControllerTest()
         {
             _logger = new Mock<ILogger<ErrorController>>();
-            _httpContextAccessor = new Mock<IHttpContextAccessor>();
             _legacyRedirects = new Mock<ILegacyRedirectsManager>();
         }
 
