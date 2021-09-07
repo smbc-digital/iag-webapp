@@ -100,7 +100,7 @@ namespace StockportWebapp
             app.UseMiddleware<RobotsTxtMiddleware>();
             app.UseMiddleware<BetaToWwwMiddleware>();
             app.UseMiddleware<SecurityHeaderMiddleware>();
-            app.UseStatusCodePagesWithReExecute("/Error/Error/{0}");
+            app.UseStatusCodePagesWithReExecute("/error");
 
             app.UseCustomStaticFiles();
             app.UseCustomCulture();

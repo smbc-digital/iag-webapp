@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.Http;
 using StockportWebapp.Middleware;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -78,20 +77,6 @@ namespace StockportWebappTests_Unit.Unit.Middleware
             httpContext.Response.Headers["Location"][0].Should().Be("short-redirect-url");
 
             LogTesting.Assert(_logger, LogLevel.Information, "Redirecting from: /short-test, to: short-redirect-url");
-        }
-
-        [Fact]
-        public void ItReturns302ForCorrectHttpRedirect_ForLegacyUrlRedirect()
-        {
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Path = "/legacy-test";
-
-            _middleware.Invoke(httpContext, _businessId).Wait();
-
-            httpContext.Response.StatusCode.Should().Be(302);
-            httpContext.Response.Headers["Location"][0].Should().Be("legacy-redirect-url");
-
-            LogTesting.Assert(_logger, LogLevel.Information, "Redirecting from: /legacy-test, to: legacy-redirect-url");
         }
 
         [Fact]
