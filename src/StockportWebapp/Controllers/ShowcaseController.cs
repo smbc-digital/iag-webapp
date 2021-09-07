@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
@@ -7,8 +5,6 @@ using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
-using StockportWebapp.Utils;
-using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
 {

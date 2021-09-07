@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
-using StockportWebapp.Http;
 using StockportWebapp.Middleware;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
