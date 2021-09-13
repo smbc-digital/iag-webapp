@@ -83,8 +83,8 @@
                         <div class="category-title">@categoryItem.Title</div>
                     </div>
                     <div class="category-body">
-                        <div class="category-body-col category-body-left">@Html.Raw(categoryItem.BodyTextLeft)</div>
-                        <div class="category-body-col category-body-right">@Html.Raw(categoryItem.BodyTextRight)</div>
+                        <div class="category-body-col category-body-left">@Html.Raw(categoryItem.BodyTextLeft.Replace("<p>", "").Replace("</p>", ""))</div>
+                        <div class="category-body-col category-body-right">@Html.Raw(categoryItem.BodyTextRight.Replace("<p>", "").Replace("</p>", ""))</div>
                     </div>
                 </div>
             }
