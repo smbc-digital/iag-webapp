@@ -4,9 +4,8 @@
     @{ int counter = 1; }
     @foreach (var carouselContent in Model)
     {
-        <a href="@carouselContent.URL">
+        <a href="@carouselContent.URL" aria-label="@carouselContent.Title" title="@carouselContent.Title">
             <div class="stockport-carousel webcast-@counter">
-
                 <div class="stockport-carousel-text">
                     <h2>@carouselContent.Title</h2>
                     <p>
@@ -17,5 +16,6 @@
             </div>
         </a>
         counter++;
+        
     }
 </div>
