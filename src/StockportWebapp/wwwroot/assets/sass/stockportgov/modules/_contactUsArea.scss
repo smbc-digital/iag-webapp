@@ -125,7 +125,6 @@ a:hover {
     border-top: 5px solid #00b79b;
 
     @media #{$mobile} {
-        width: 84.5%;
         display: block;
         text-align: center;
     }
@@ -175,6 +174,14 @@ a:hover {
 
             h4 {
                 margin-bottom: 15px;
+            }
+
+            ul {
+                list-style-type: none;
+            }
+
+            li {
+                margin-left: 0px;
             }
         }
 
