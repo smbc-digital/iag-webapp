@@ -175,6 +175,14 @@ a:hover {
             h4 {
                 margin-bottom: 15px;
             }
+
+            ul {
+                list-style-type: none;
+            }
+
+            li {
+                margin-left: 0px;
+            }
         }
 
         .category-body-left {
@@ -186,14 +194,6 @@ a:hover {
 
             p {
                 line-height: 1.5;
-            }
-
-            ul {
-                list-style-type: none;
-            }
-
-            li {
-                margin-left: 0px;
             }
         }
 
