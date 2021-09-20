@@ -2,7 +2,7 @@
 
 namespace StockportWebapp.Utils
 {
-    //Todo: I didn't want to create this class but we use the markdown converter
+    // Todo: I didn't want to create this class but we use the markdown converter
     // statically everywhere and fixing that will take time. (Need to get rid of static method during refactor)
     public class MarkdownWrapper
     {
