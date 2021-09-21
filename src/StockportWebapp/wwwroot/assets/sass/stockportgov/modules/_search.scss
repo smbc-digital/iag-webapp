@@ -43,6 +43,15 @@
             &:focus {
                 outline: none;
             }
+
+            & ::placeholder {
+                color: #505a5f;
+                opacity: 1;
+            }
+
+            & :-ms-input-placeholder {
+                color: #505a5f;
+            }
         }
 
         .search-button {
