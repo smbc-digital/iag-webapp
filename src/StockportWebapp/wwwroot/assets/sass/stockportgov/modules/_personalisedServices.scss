@@ -82,7 +82,7 @@
             display: inline;
             margin: 0 auto;
             margin-top: 20px;
-            @media #{$desktop, $tablet} {
+            @media #{$desktop} {
                 margin-left: 40px;
             }
             min-width: 240px;
