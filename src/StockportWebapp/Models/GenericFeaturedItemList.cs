@@ -7,5 +7,6 @@ namespace StockportWebapp.Models
         public List<GenericFeaturedItem> Items { get; set; }
         public string ButtonText { get; set; }
         public string ButtonCssClass { get; set; }
+        public bool HideButton { get; set; }
     }
 }

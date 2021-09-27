@@ -6,7 +6,6 @@ namespace StockportWebapp.Models
     {
         public List<EventHomepageRow> Rows { get; set; }
         public List<EventCategory> Categories { get; set; }
-
         public string MetaDescription { get; set; }
 
         public EventHomepage()
@@ -24,9 +23,9 @@ namespace StockportWebapp.Models
                 {
                     result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/events?category={cat.Slug}" });
                 }
-
+                
                 result.ButtonText = "View more categories";
-
+                result.HideButton = true;
                 return result;
             }
         }
