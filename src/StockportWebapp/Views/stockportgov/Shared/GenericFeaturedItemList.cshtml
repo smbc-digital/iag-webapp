@@ -1,9 +1,6 @@
 ﻿
 @model StockportWebapp.Models.GenericFeaturedItemList
-@{
-    var take = string.IsNullOrEmpty(Model.ButtonText) ? Model.Items.Count : 8;
-    var noOfInitialTopics = 8;
-}
+
 <div class="primary-topics">
     @if (Model.HideButton == true)
     {
@@ -13,7 +10,7 @@
     }
     else
     {
-        @for (var count = 0; count < noOfInitialTopics; count += 4)
+        @for (var count = 0; count < 8; count += 4)
         {
             <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
                 <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
@@ -24,14 +21,14 @@
 
 @if (!string.IsNullOrEmpty(Model.ButtonText))
 {
+    <div class="generic-list-see-more-container">
     @for (var count = 8; count < Model.Items.Count(); count += 4)
     {
-        <div class="generic-list-see-more-container">
             <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
                 <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
             </div>
-        </div>
     }
+    </div>
     if (Model.Items.Count > 9)
     {
         <div>
