@@ -19,5 +19,7 @@
         public string GoogleFonts { get; set; }
 
         public string Slick { get; set; }
+
+        public string DesignSystemJs { get; set; }
     }
 }
