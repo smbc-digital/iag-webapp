@@ -33,7 +33,7 @@ namespace StockportWebapp.ProcessedModels
                     result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/groups/results?category={cat.Slug}&order=Name+A-Z" });
                 }
 
-                result.ButtonText = "View more categories";
+                result.ButtonText = string.Empty;
                 result.HideButton = true;
                 return result;
             }
