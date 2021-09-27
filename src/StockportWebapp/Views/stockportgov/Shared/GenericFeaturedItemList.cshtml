@@ -8,30 +8,43 @@
     @for (var count = 0; count < noOfInitialTopics; count += 4)
     {
         <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
-            <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)'/>
-        </div>
-    }
-    
-</div>
-@if (!string.IsNullOrEmpty(Model.ButtonText))
-{
-    <div class="generic-list-see-more-container">
-        @for (var count = 8; count < Model.Items.Count(); count += 4)
-        {
-            <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
-                <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
-            </div>
-        }
-    </div>
-    if (Model.Items.Count > 9)
-    {
-        <div>
-            <div class="featured-content-button-wrapper">
-                <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down">@Model.ButtonText</stock-button>
-            </div>
+            <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
         </div>
     }
 
+</div>
+@if (!string.IsNullOrEmpty(Model.ButtonText))
+{
+    @if (Model.HideButton == true)
+    {
+        @foreach (var item in Model.Items)
+        {
+            <div class="generic-list-see-more-container">
+                <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
+                    <partial name="GenericFeaturedItem" model='item' />
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        @for (var count = 8; count < Model.Items.Count(); count += 4)
+        {
+            <div class="generic-list-see-more-container">
+                <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
+                    <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
+                </div>
+            </div>
+        }
+        if (Model.Items.Count > 9)
+        {
+            <div>
+                <div class="featured-content-button-wrapper">
+                    <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down">@Model.ButtonText</stock-button>
+                </div>
+            </div>
+        }
+    }
 }
 
 <script type="text/javascript" src="assets/javascript/stockportgov/EventFeatureItemFocus.js"></script>

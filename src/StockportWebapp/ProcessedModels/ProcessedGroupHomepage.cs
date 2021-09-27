@@ -34,7 +34,7 @@ namespace StockportWebapp.ProcessedModels
                 }
 
                 result.ButtonText = "View more categories";
-
+                result.HideButton = true;
                 return result;
             }
         }
