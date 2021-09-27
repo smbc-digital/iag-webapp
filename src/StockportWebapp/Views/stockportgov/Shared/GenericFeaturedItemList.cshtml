@@ -1,42 +1,45 @@
 ﻿
 @model StockportWebapp.Models.GenericFeaturedItemList
 
-<div class="primary-topics">
-    @if (Model.HideButton == true)
-    {
-        <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
-            <partial name="GenericFeaturedItem" model='Model.Items' />
-        </div>
-    }
-    else
-    {
-        @for (var count = 0; count < 8; count += 4)
+    <div class="primary-topics">
+        @if (Model.HideButton)
         {
-            <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
-                <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
+            @for (var count = 0; count < Model.Items.Count(); count += 4)
+            {
+                <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
+                    <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
+                </div>
+             }
+        } 
+        else 
+        {
+            @for (var count = 0; count < 8; count += 4)
+            {
+                <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
+                    <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
+                </div>
+            }
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.ButtonText))
+    {
+        <div class="generic-list-see-more-container">
+            @for (var count = 8; count < Model.Items.Count(); count += 4)
+            {
+                <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
+                    <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
+                </div>
+            }
+        </div>
+        if (Model.Items.Count > 9)
+        {
+            <div>
+                <div class="featured-content-button-wrapper">
+                    <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down">@Model.ButtonText</stock-button>
+                </div>
             </div>
         }
     }
-</div>
 
-@if (!string.IsNullOrEmpty(Model.ButtonText))
-{
-    <div class="generic-list-see-more-container">
-    @for (var count = 8; count < Model.Items.Count(); count += 4)
-    {
-            <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
-                <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
-            </div>
-    }
-    </div>
-    if (Model.Items.Count > 9)
-    {
-        <div>
-            <div class="featured-content-button-wrapper">
-                <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down">@Model.ButtonText</stock-button>
-            </div>
-        </div>
-    }
-}
-
-<script type="text/javascript" src="assets/javascript/stockportgov/EventFeatureItemFocus.js"></script>
+    <script type="text/javascript" src="assets/javascript/stockportgov/EventFeatureItemFocus.js"></script>
