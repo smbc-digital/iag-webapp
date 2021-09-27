@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
+    <script type='text/javascript' src='https://stockportgov-design-system.s3-eu-west-1.amazonaws.com/prod/1.2.11/smbc-frontend.min.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
     @*<partial name="SecurityHeaders" />*@
     <meta charset="utf-8" />
@@ -57,6 +58,7 @@
     {
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
+
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     <partial name="TagManager/TagManagerNoScript" />
