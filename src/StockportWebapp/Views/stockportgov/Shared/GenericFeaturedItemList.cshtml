@@ -5,7 +5,7 @@
     var loopCount = Model.HideButton ? Model.Items.Count() : 8;
 }
 
-<div class="primary-topics">
+<div class="primary-topics" tabindex="-1">
         @for (var count = 0; count < loopCount; count += 4)
         {
             <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
@@ -28,7 +28,7 @@
     {
         <div>
             <div class="featured-content-button-wrapper">
-                <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down">@Model.ButtonText</stock-button>
+                <stock-button id="see-more-services" class="@Model.ButtonCssClass generic-list-see-more button-up-down" onclick="$('.primary-topics').focus()">@Model.ButtonText</stock-button>
             </div>
         </div>
     }
