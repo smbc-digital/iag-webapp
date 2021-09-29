@@ -1,6 +1,8 @@
-﻿window.onload = function () {
-    $("#see-more-services").click(function () {
-            $("#featured-topic-4").focus();
+﻿var topic = document.getElementsByClassName('featured-topic-list');
 
+window.onload = function () {
+    $("#see-more-services").click(function () {
+        $(topic).focus();
     });
 };
+
