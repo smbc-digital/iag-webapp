@@ -96,6 +96,7 @@
     .subitem-title {
         span {
             text-decoration: underline;
+            text-decoration-thickness: 1px;
             color: $colorPrimary;
         }
     }
@@ -105,7 +106,7 @@
 
         .subitem-title {
             span {
-                text-decoration-thickness: 2px;
+                text-decoration-thickness: 3px;
             }
         }
     }
