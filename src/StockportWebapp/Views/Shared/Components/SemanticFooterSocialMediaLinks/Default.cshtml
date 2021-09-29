@@ -4,12 +4,9 @@
     @foreach (var socLink in Model.Item1)
     {
         <li>
-            <a href="@socLink.Url">
+            <a aria-label="@socLink.Title" href="@socLink.Url">
                 <span class="fa @socLink.Icon"></span>
             </a>
         </li>
     }
 </ul>
-
-
-
