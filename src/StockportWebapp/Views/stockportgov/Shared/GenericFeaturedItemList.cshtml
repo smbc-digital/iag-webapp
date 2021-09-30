@@ -19,7 +19,7 @@
     <div class="generic-list-see-more-container">
         @for (var count = 8; count < Model.Items.Count(); count += 4)
         {
-            <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent" @(count == 8 ? "tabindex=0 style= outline-color:transparent" : string.Empty)>
+            <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
                 <partial name="GenericFeaturedItem" model='Model.Items.Skip(count).Take(4)' />
             </div>
         }
