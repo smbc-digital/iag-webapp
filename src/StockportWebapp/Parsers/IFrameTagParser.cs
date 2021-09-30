@@ -5,7 +5,7 @@ namespace StockportWebapp.Parsers
     public class IFrameTagParser : ISimpleTagParser
     {
         private readonly TagReplacer _tagReplacer;
-        protected Regex TagRegex => new Regex("{{IFRAME:(.*)}}", RegexOptions.Compiled);
+        protected Regex TagRegex => new("{{IFRAME:(.*)}}", RegexOptions.Compiled);
 
         public string GenerateHtml(string tagData)
         {
@@ -20,12 +20,12 @@ namespace StockportWebapp.Parsers
 
             var iFrameTitle = string.Empty;
 
-            if(splitTagData.Length > 1)
+            if (splitTagData.Length > 1)
                 iFrameTitle = $"title=\"{splitTagData[1]}\"";
 
             return $"<iframe {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
         }
-
+        
         public IFrameTagParser()
         {
             _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);

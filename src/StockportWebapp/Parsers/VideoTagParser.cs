@@ -6,8 +6,8 @@ namespace StockportWebapp.Parsers
     public class VideoTagParser : ISimpleTagParser
     {
         private readonly TagReplacer _tagReplacer;
-        protected Regex TagRegex => new Regex("{{VIDEO:([0-9aA-zZ]*;[0-9aA-zZ]*;?[0-9aA-zZ ]*)}}", RegexOptions.Compiled);
-
+        protected Regex TagRegex => new("{{VIDEO:([0-9aA-zZ]*;[0-9aA-zZ]*;?[0-9aA-zZ ]*)}}", RegexOptions.Compiled);
+        
         protected string GenerateHtml(string tagData)
         {
             var videoData = tagData.Split(';');
