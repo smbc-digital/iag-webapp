@@ -2,8 +2,6 @@
 
 window.onload = function () {
     $("#see-more-services").click(function () {
-        $(topic[7]).focus();
-        $(topic[7]).blur();
+        topic[8].focus();
     });
 };
-
