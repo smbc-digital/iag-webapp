@@ -9,6 +9,9 @@
                 if (!$(self).hasClass("is-collapsed")) {
                     $(self).text($(self).text().replace('more', 'fewer'));
                     $(self).toggleClass("is-collapsed");
+                    if ($(".featured-topic-link")[8] !== undefined) {
+                        $(".featured-topic-link")[8].focus();
+                    }
                 }
                 else {
                     $(self).text($(self).text().replace('fewer', 'more'));

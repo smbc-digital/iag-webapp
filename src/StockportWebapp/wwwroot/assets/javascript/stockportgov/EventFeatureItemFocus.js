@@ -1,7 +1,0 @@
-﻿var topic = document.getElementsByClassName('featured-topic-link');
-
-window.onload = function () {
-    $("#see-more-services").click(function () {
-        topic[8].focus();
-    });
-};
