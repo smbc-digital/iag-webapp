@@ -2,23 +2,19 @@
 @model StockportWebapp.Models.Document
 <div class="document grid-100 grid-100-mobile test-documents">
     <div class="document-icon">
-        <a href="@Model.Url" target="_blank" rel="nofollow">
-            <span class="si-documents si-default" aria-hidden="true"></span>
-        </a>
+        <span class="si-documents si-default" aria-hidden="true"></span>
     </div>
     <div class="grid-90 tablet-grid-90 mobile-grid-85 document-detail">
         <a href="@Model.Url" target="_blank" class="document-detail-title" rel="nofollow"> @Model.Title</a>
         @{
-            var Megabytes = Model.Size/(1048576.0);
-            var Kilobytes = (Model.Size%1048576)/1024;
+            var Megabytes = Model.Size / (1048576.0);
+            var Kilobytes = (Model.Size % 1048576) / 1024;
         }
         <p>
-            @if (Megabytes >= 1.0)
-            {
+            @if (Megabytes >= 1.0) {
                 @:PDF, @Megabytes.ToString("#.##") MB
             }
-            else
-            {
+            else {
                 @:PDF, @Kilobytes.ToString("#.##") KB
             }
         </p>
