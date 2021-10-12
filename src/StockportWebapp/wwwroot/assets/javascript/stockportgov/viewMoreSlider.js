@@ -17,7 +17,7 @@
                     $(self).text($(self).text().replace('fewer', 'more'));
                     $(self).toggleClass("is-collapsed");
                     $([document.documentElement, document.body]).animate({
-                        scrollTop: $("#see-more-services").offset().top
+                        scrollTop: $("#" + $(self)[0].id).offset().top - 250
                     }, 300);
                 }
             });
