@@ -68,6 +68,7 @@ namespace StockportWebapp.Controllers
             var payment = response.Content as ProcessedServicePayPayment;
 
             paymentSubmission.Payment = payment;
+            TryValidateModel(paymentSubmission);
 
             if (!ModelState.IsValid)
                 return View(paymentSubmission);
