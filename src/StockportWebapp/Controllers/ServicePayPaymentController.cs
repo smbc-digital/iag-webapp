@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using StockportWebapp.Http;
@@ -19,12 +20,14 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _repository;
         private readonly ICivicaPayGateway _civicaPayGateway;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<ServicePayPaymentController> _logger;
 
-        public ServicePayPaymentController(IProcessedContentRepository repository, ICivicaPayGateway civicaPayGateway, IConfiguration configuration)
+        public ServicePayPaymentController(IProcessedContentRepository repository, ICivicaPayGateway civicaPayGateway, IConfiguration configuration, ILogger<ServicePayPaymentController> logger)
         {
             _repository = repository;
             _civicaPayGateway = civicaPayGateway;
             _configuration = configuration;
+            _logger = logger;
         }
 
         [Route("/service-pay-payment/{slug}")]
@@ -114,6 +117,7 @@ namespace StockportWebapp.Controllers
                     ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
                     return View(paymentSubmission);
                 }
+                _logger.LogError($"ServicePayPaymentController:: civica basket response failed with response code {civicaResponse.ResponseContent.ResponseCode}, response message - {civicaResponse.ReasonPhrase}");
                 return View("Error", response);
             }
 
