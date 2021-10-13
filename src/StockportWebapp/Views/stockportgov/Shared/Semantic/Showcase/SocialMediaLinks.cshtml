@@ -3,12 +3,12 @@
 <section>
     <h2>@Model.SocialMediaLinksSubheading</h2>
     <div class="showcase-button-container">
-    @foreach (var link in Model.SocialMediaLinks)
-    {
-        <a as-link="true" class="showcase-button" href="@link.Url">
-                <span class="@link.Icon fa 2x" aria-label="@link.Title"></span>
-            <span aria-hidden="true">@link.Title</span>
-        </a>
-    }
+        @foreach (var link in Model.SocialMediaLinks)
+        {
+            <a as-link="true" class="showcase-button" href="@link.Url">
+                <span class="@link.Icon fa 2x" aria-label="@link.Platform @link.Title"></span>
+                <span aria-hidden="true">@link.Title</span>
+            </a>
+        }
     </div>
 </section>
