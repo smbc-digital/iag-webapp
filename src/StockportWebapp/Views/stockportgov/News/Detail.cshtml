@@ -42,14 +42,15 @@
                     <article>
                         @Html.Raw(Model.NewsItem.Body)
                     </article>
-                    <ul class="news-tags">
-                        @foreach (var newsTag in Model.NewsItem.Tags)
-                        {
-                            <li class="news-tag">
-                                <a href="@Url.Action("Index", "News", new {tag = newsTag})">@newsTag</a>
-                            </li>
-                        }
-                    </ul>
+                    @if (Model.NewsItem.Tags.Count > 0) {
+                        <ul class="news-tags">
+                            @foreach (var newsTag in Model.NewsItem.Tags) {
+                                <li class="news-tag">
+                                    <a href="@Url.Action("Index", "News", new { tag = newsTag })">@newsTag</a>
+                                </li>
+                            }
+                        </ul>
+                    }
                     <div class="share border top-border">
                         <div class="grid-20">
                             <partial name="Share" />
