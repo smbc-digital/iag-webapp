@@ -42,7 +42,7 @@
                     <article>
                         @Html.Raw(Model.NewsItem.Body)
                     </article>
-                    @if (Model.NewsItem.Tags.Count > 0) {
+                    @if (Model.NewsItem.Tags.Any()) {
                         <ul class="news-tags">
                             @foreach (var newsTag in Model.NewsItem.Tags) {
                                 <li class="news-tag">
