@@ -81,5 +81,13 @@ namespace StockportWebapp.ViewModels
         {
             CurrentUrl = queryUrl;
         }
+
+        public bool HasActiveFilter() {
+            if (!string.IsNullOrEmpty(Category) ||
+                !string.IsNullOrEmpty(Tag) ||
+                DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo))         
+                return true;
+            return false;         
+        }
     }
 }

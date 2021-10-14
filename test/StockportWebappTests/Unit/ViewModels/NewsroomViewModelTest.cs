@@ -76,6 +76,42 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             result.Should().Be("01/01/2016");
         }
 
+        [Fact]
+        public void HasActiveFilterShouldReturnFalseWhenNoActiveFiltersExsist() 
+        {
+            var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+            var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
+            var result = newsroomViewModel.HasActiveFilter();
+
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public void HasActiveFilterShouldReturnTrueWhenActiveFiltersExist() 
+        {
+            var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+            var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
+            newsroomViewModel.Category = "Zebras";
+            newsroomViewModel.Tag = "Tag";
+            newsroomViewModel.DateFrom = DateTime.Now.AddDays(-5);
+            newsroomViewModel.DateTo = DateTime.Now;
+
+            var result = newsroomViewModel.HasActiveFilter();
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public void HasActiveFilterShouldReturnFalseWhenDateFilterIsInvalid() 
+        {
+            var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
+            var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
+            newsroomViewModel.DateFrom = DateTime.Now;
+            newsroomViewModel.DateTo = DateTime.Now.AddDays(-5);
+
+            var result = newsroomViewModel.HasActiveFilter();
+            result.Should().BeFalse();
+        }
+
         private static Newsroom BuildNewsRoom(List<string> categories = null, string emailAlertsTopicId = "")
         {
             return new Newsroom(new List<News>(), new List<Alert>(), true, emailAlertsTopicId, categories ?? emptyList, new List<DateTime>());
