@@ -117,7 +117,8 @@ namespace StockportWebapp.Controllers
                     ModelState.AddModelError("Reference", $"Check {payment.ReferenceLabel.ToLower()} and try again.");
                     return View(paymentSubmission);
                 }
-                _logger.LogError($"ServicePayPaymentController:: civica basket response failed with response code {civicaResponse.ResponseContent.ResponseCode}, response message - {civicaResponse.ReasonPhrase}");
+
+                _logger.LogError($"ServicePayPaymentController:: Unable to create ImmediateBasket:: CivicaPay response code: {civicaResponse.ResponseContent.ResponseCode}, CivicaPay error message - {civicaResponse.ResponseContent.ErrorMessage}");
                 return View("Error", response);
             }
 
