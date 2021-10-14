@@ -84,8 +84,8 @@ namespace StockportWebapp.ViewModels
 
         public bool HasActiveFilter() {
             if (!string.IsNullOrEmpty(Category) ||
-                DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo) || 
-                !string.IsNullOrEmpty(Tag))
+                !string.IsNullOrEmpty(Tag) ||
+                DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo))         
                 return true;
             return false;         
         }
