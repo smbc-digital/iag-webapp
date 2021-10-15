@@ -44,8 +44,6 @@ namespace StockportWebapp.Models
 
         public News NewsArticle { get; set; }
         public IEnumerable<Event> Events { get; set; }
-        public string AccountName { get; set; }
-
 
         public Showcase()
         {
