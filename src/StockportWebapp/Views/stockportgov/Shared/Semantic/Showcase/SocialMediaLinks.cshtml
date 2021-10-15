@@ -6,7 +6,7 @@
         @foreach (var link in Model.SocialMediaLinks)
         {
             <a as-link="true" class="showcase-button" href="@link.Url">
-                <span class="@link.Icon fa 2x" aria-label="@link.Platform @link.Title"></span>
+                <span class="@link.Icon fa 2x" aria-label="@link.Title @link.AccountName"></span>
                 <span aria-hidden="true">@link.Title</span>
             </a>
         }
