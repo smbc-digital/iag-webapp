@@ -6,15 +6,15 @@
         public string Slug { get; }
         public string Url { get; }
         public string Icon { get; }
-        public string Platform { get; }
+        public string AccountName { get; }
 
-        public SocialMediaLink(string title, string slug, string url, string icon, string platform)
+        public SocialMediaLink(string title, string slug, string url, string icon, string accountName)
         {
             Title = title;
             Slug = slug;
             Url = url;
             Icon = icon;
-            Platform = platform;
+            AccountName = accountName;
         }
     }
 

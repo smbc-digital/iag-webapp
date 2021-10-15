@@ -25,7 +25,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         private string _showcaseIcon = "fa-icon";
         private CallToActionBanner _callToActionBanner = new CallToActionBanner();
         private IEnumerable<Crumb> _breadcrumbs = new List<Crumb>() { new Crumb("link", "title", "type") };
-        private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon") };
+        private IEnumerable<SocialMediaLink> _socialMediaLinks = new List<SocialMediaLink>() { new SocialMediaLink("title", "slug", "url", "icon", "accountName") };
         private IEnumerable<Event> _events = new List<Event>();
         private IEnumerable<Alert> alerts = new List<Alert> {new Alert("title", "subHeading", "body", Severity.Information, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false)};
