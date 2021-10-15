@@ -7,7 +7,9 @@
 
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="news-filters">
-        <h2 class="filters-heading">Refine by</h2>
+        @if (Model.HasActiveFilter()) {
+            <h2 class="filters-heading">Refine by</h2>
+        }
 
         <ul class="filters-list" id="displayRefineBy">
             @if (Model.HasActiveFilter()) {
@@ -28,7 +30,11 @@
             @if (Model.Categories.Any())
             {
                 <li class="filter collapsible" id="category-filter">
-                    <h3 tabindex="0"  class="filter-title focusable">Category</h3>
+                    @if (Model.HasActiveFilter()) {
+                        <h3 tabindex="0"  class="filter-title focusable">Category</h3>
+                    } else { 
+                        <h2 tabindex="0"  class="filter-title focusable">Category</h2>
+                    }
                     <ul class="filters-list">
                         <li class=@(Model.FilteredUrl.HasNoCategoryFilter() ? "active" : "")>
                             <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())">All categories</a>
@@ -43,7 +49,11 @@
                 </li>
             }
             <li class="filter collapsible" id="news-archive">
-                <h3 tabindex="0" class="filter-title focusable">News archive</h3>
+                @if (Model.HasActiveFilter()) {
+                    <h3 tabindex="0" class="filter-title focusable">News archive</h3>
+                } else { 
+                    <h2 tabindex="0" class="filter-title focusable">News archive</h2>
+                }
                 <ul class="filters-list filters-outer-list" id="uitest-news-archive">
                     <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : "")>
                         <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())">All recent news</a>
