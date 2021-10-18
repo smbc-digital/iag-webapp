@@ -4,7 +4,7 @@
     @foreach (var socLink in Model.Item1)
     {
         <li>
-            <a aria-label="@socLink.Title @socLink.AccountName" href="@socLink.Url">
+            <a aria-label="@socLink.ScreenReader" href="@socLink.Url">
                 <span class="fa @socLink.Icon"></span>
             </a>
         </li>
