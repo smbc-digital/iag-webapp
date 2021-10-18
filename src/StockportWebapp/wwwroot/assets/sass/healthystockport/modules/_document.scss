@@ -4,16 +4,11 @@
     .document-icon {
         vertical-align: top;
         float: left;
-        opacity: .5;
         transition: opacity 0.3s;
         width: 10%;
 
         @media #{$mobile} {
             width: 15%;
-        }
-
-        &:hover {
-            opacity: 1;
         }
 
         a:hover {
