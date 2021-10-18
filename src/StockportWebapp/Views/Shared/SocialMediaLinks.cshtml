@@ -15,10 +15,10 @@
     @foreach (var socialMediaLink in Model)
     {
         string socialMediaCSS = socialMediaLink.Icon.Replace("fa-", "icon-");
-        <a href="@socialMediaLink.Url">
-            <span class="visuallyhidden">link to @nameOfSite @socialMediaLink.Title </span>
+            <a href="@socialMediaLink.Url" aria-label="@socialMediaLink.ScreenReader">
+            <span class="visuallyhidden">link to @nameOfSite @socialMediaLink.AccountName </span>
             <div class="icon-bordered icon-bordered-fixed icon-container icon-twitter @socialMediaCSS">
-                <span class="fa fab fa-2x @socialMediaLink.Icon" aria-label="@socialMediaLink.Title @socialMediaLink.AccountName"></span>
+                <span class="fa fab fa-2x @socialMediaLink.Icon"></span>
             </div>
         </a>
     }
