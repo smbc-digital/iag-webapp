@@ -266,7 +266,7 @@ namespace StockportWebappTests_Integration
 
             var result = await _fakeClient.GetStringAsync("/robots.txt");
 
-            result.Should().Contain("# no robots");
+            result.Should().Contain("User-agent: *\r\nDisallow: /");
         }
 
         #endregion
@@ -289,7 +289,7 @@ namespace StockportWebappTests_Integration
 
             var result = await _fakeClient.GetStringAsync("/robots.txt");
 
-            result.Should().Contain("# no robots");
+            result.Should().Contain("User-agent: *\r\nDisallow: /");
         }
 
         [Fact]
