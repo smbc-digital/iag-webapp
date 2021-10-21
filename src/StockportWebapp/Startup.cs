@@ -50,6 +50,8 @@ namespace StockportWebapp
 
             services.AddHsts(options =>
             {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
                 options.MaxAge = TimeSpan.FromSeconds(31536000);
             });
 
