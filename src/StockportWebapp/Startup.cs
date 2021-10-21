@@ -12,7 +12,6 @@ using StockportWebapp.Extensions;
 using StockportWebapp.Middleware;
 using StockportWebapp.ModelBinders;
 using StockportWebapp.Models;
-using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 using StockportWebapp.Wrappers;
 using ILogger = Serilog.ILogger;
@@ -22,7 +21,7 @@ namespace StockportWebapp
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        private readonly string _appEnvironment;
+        private readonly string _appEnvironmentName;
         private readonly string _contentRootPath;
         public readonly string ConfigDir = "app-config";
         private readonly bool _useRedisSession;
@@ -32,7 +31,7 @@ namespace StockportWebapp
         {
             Configuration = configuration;
             _contentRootPath = env.ContentRootPath;
-            _appEnvironment = env.EnvironmentName;
+            _appEnvironmentName = env.EnvironmentName;
             _useRedisSession = Configuration["UseRedisSessions"] == "true";
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }
@@ -49,10 +48,15 @@ namespace StockportWebapp
             });
             services.AddRazorPages();
 
+            services.AddHsts(options =>
+            {
+                options.MaxAge = TimeSpan.FromSeconds(31536000);
+            });
+
             services.AddHttpContextAccessor();
 
             // other
-            services.AddSingleton(new CurrentEnvironment(_appEnvironment));
+            services.AddSingleton(new CurrentEnvironment(_appEnvironmentName));
             services.AddTransient(p => new HostHelper(p.GetService<CurrentEnvironment>()));
             services.AddSingleton(o => new ViewHelpers(o.GetService<ITimeProvider>()));
             services.AddScoped<BusinessId>();
@@ -64,7 +68,7 @@ namespace StockportWebapp
 
             // custom extensions
             services.AddCustomisedAngleSharp();
-            services.AddFeatureToggles(_contentRootPath, _appEnvironment);
+            services.AddFeatureToggles(_contentRootPath, _appEnvironmentName);
             services.AddCustomisationOfViews();
             services.AddTimeProvider();
             services.AddRedirects();
@@ -75,7 +79,7 @@ namespace StockportWebapp
             services.AddFactories();
             services.AddCustomHttpClients(_sendAmazonEmails);
             services.AddRepositories();
-            services.AddCustomServices(_contentRootPath, _appEnvironment);
+            services.AddCustomServices(_contentRootPath, _appEnvironmentName);
             services.AddBuilders();
             services.AddHelpers();
             services.AddGroupConfiguration(Configuration, StartupLogger);
@@ -86,31 +90,33 @@ namespace StockportWebapp
             services.AddApplicationInsightsTelemetry(Configuration);
         }
 
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider, IHostApplicationLifetime appLifetime)
+        public void Configure(
+            IApplicationBuilder app, 
+            IWebHostEnvironment env, 
+            ILoggerFactory loggerFactory, 
+            IHostApplicationLifetime appLifetime)
         {
             loggerFactory.AddSerilog();
 
-            if (_appEnvironment == "int" || _appEnvironment == "local" || _appEnvironment == "qa")
-            {
+            if (!env.IsEnvironment("prod") && !env.IsEnvironment("stage"))
                 app.UseDeveloperExceptionPage();
-            }
 
-            app.UseMiddleware<BusinessIdMiddleware>();
-            app.UseMiddleware<ShortUrlRedirectsMiddleware>();
-            app.UseMiddleware<RobotsTxtMiddleware>();
-            app.UseMiddleware<BetaToWwwMiddleware>();
-            app.UseMiddleware<SecurityHeaderMiddleware>();
-            app.UseStatusCodePagesWithReExecute("/error");
+            if (!env.IsEnvironment("local"))
+                app.UseHsts();
 
-            app.UseCustomStaticFiles();
-            app.UseCustomCulture();
-
-            app.UseRouting();
-            app.Map("/favicon.ico", delegate { });
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseMiddleware<BusinessIdMiddleware>()
+                .UseMiddleware<ShortUrlRedirectsMiddleware>()
+                .UseMiddleware<RobotsMiddleware>()
+                .UseMiddleware<BetaToWwwMiddleware>()
+                .UseStatusCodePagesWithReExecute("/error")
+                .UseCustomStaticFiles()
+                .UseCustomCulture()
+                .UseRouting()
+                .Map("/favicon.ico", delegate { })
+                .UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
 
             // Close logger
             appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);

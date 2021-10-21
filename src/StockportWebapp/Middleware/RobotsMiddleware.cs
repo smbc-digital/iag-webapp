@@ -1,25 +1,27 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
 using StockportWebapp.Config;
 
 namespace StockportWebapp.Middleware
 {
-    public class RobotsTxtMiddleware
+    public class RobotsMiddleware
     {
         private readonly RequestDelegate _next;
 
-        public RobotsTxtMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
+        public RobotsMiddleware(RequestDelegate next) => _next = next;
 
-        public Task Invoke(HttpContext context, BusinessId businessId)
+        public Task Invoke(HttpContext context, BusinessId businessId, IWebHostEnvironment env)
         {
+            if (!env.IsEnvironment("prod"))
+                context.Response.Headers.Add("X-Robots-Tag", "noindex");
+
             if (context.Request.Path.ToString().EndsWith("robots.txt"))
             {
                 var isLive = context.Request.Host.Value.StartsWith("www.");
                 var url = string.Concat("/robots-", businessId, isLive ? "-live" : "", ".txt");
-                context.Request.Path = context.Request.PathBase.Add(new PathString(url));     
+                context.Request.Path = context.Request.PathBase.Add(new PathString(url));
             }
 
             return _next(context);
