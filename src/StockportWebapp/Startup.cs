@@ -48,13 +48,6 @@ namespace StockportWebapp
             });
             services.AddRazorPages();
 
-            services.AddHsts(options =>
-            {
-                options.Preload = true;
-                options.IncludeSubDomains = true;
-                options.MaxAge = TimeSpan.FromSeconds(31536000);
-            });
-
             services.AddHttpContextAccessor();
 
             // other
@@ -103,16 +96,11 @@ namespace StockportWebapp
             if (!env.IsEnvironment("prod") && !env.IsEnvironment("stage"))
                 app.UseDeveloperExceptionPage();
 
-            if (!env.IsEnvironment("local"))
-            {
-                app.UseForwardedHeaders()
-                   .UseHsts();
-            }
-
             app.UseMiddleware<BusinessIdMiddleware>()
                 .UseMiddleware<ShortUrlRedirectsMiddleware>()
                 .UseMiddleware<RobotsMiddleware>()
                 .UseMiddleware<BetaToWwwMiddleware>()
+                .UseMiddleware<SecurityHeaderMiddleware>()
                 .UseStatusCodePagesWithReExecute("/error")
                 .UseCustomStaticFiles()
                 .UseCustomCulture()
