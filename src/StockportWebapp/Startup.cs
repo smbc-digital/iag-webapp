@@ -102,7 +102,10 @@ namespace StockportWebapp
                 app.UseDeveloperExceptionPage();
 
             if (!env.IsEnvironment("local"))
-                app.UseHsts();
+            {
+                app.UseForwardedHeaders()
+                   .UseHsts();
+            }
 
             app.UseMiddleware<BusinessIdMiddleware>()
                 .UseMiddleware<ShortUrlRedirectsMiddleware>()
