@@ -98,7 +98,7 @@ namespace StockportWebapp
         {
             loggerFactory.AddSerilog();
 
-            if (!env.IsEnvironment("prod"))
+            if (!env.IsEnvironment("prod") && !env.IsEnvironment("stage"))
                 app.UseDeveloperExceptionPage();
 
             if (!env.IsEnvironment("local"))
