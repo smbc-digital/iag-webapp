@@ -22,7 +22,7 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }' />
+<partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }' />
 }
 
 @Html.HiddenFor(_ => _.ConfirmedUpToDate)
@@ -200,7 +200,8 @@
                 }
             </ul>
         </section>
-        @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 && Model.Group.MapDetails.MapPosition.Lon != 0.0)
+        @if (Model.Group.MapDetails.MapPosition != null && Model.Group.MapDetails.MapPosition.Lat != 0.0 &&
+        Model.Group.MapDetails.MapPosition.Lon != 0.0)
         {
 
             <div class="group-map-container group-map-container-padding">
@@ -219,7 +220,8 @@
         }
         <div id="shareThis" class="sharethis">
             <partial name="GroupLastUpdated" model='Model.Group' />
-            <partial name="SharePrintThis" model='Model.Group.Name'/>
+            <partial name="ShareViaSocialMedia" model='Model.Group.Name' />
+            <partial name="ShareViaPrint" model='Model.Group.Name' />
         </div>
         <partial name="ContentDisclaimerCard" />
 
@@ -233,7 +235,8 @@
             </div>
             <div class="add-remove-favourite sidebar-links" id="report-page">
                 <span class="fa fa-flag-o fa-lg" aria-hidden="true"></span>
-                <a href="/groups/@Model.Group.Slug/report-group-info?groupname=@Model.Group.Name">Report this page as inappropriate</a>
+                <a href="/groups/@Model.Group.Slug/report-group-info?groupname=@Model.Group.Name">Report this page as
+                    inappropriate</a>
             </div>
 
             @if (!string.IsNullOrEmpty(Model.Group.Organisation?.Title))
@@ -248,7 +251,8 @@
             {
                 <div class="sidebar-links">
                     <span class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></span>
-                    <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">Let us know about a change to this group or service.</a>
+                    <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">Let us know about a
+                        change to this group or service.</a>
                 </div>
             }
         </section>
@@ -260,45 +264,57 @@
             {
                 if (DateTimeOffset.Now.AddDays(-Model.DaysTillStale) >= Model.Group.DateLastModified)
                 {
-                    <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
+                    <p>Let us know if the information on this page is still up to date - your page might be automatically
+                        archived if you don't.</p>
 
                     using (Html.BeginForm("GroupUpToDate", "Groups", new { slug = Model.Group.Slug }))
                     {
-                        <stock-button id="upToDateButton" class="manage-group-button sidebar-button upToDate">It's up to date</stock-button>
+                        <stock-button id="upToDateButton" class="manage-group-button sidebar-button upToDate">It's up to date
+                        </stock-button>
                     }
 
-                    <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                    <stock-button class="manage-group-button sidebar-button" as-link="true"
+                href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
                 }
 
                 else if (Model.ConfirmedUpToDate)
                 {
-                    <p>Let us know if the information on this page is still up to date - your page might be automatically archived if you don't.</p>
+                    <p>Let us know if the information on this page is still up to date - your page might be automatically
+                        archived if you don't.</p>
                     <div class="thank-you-message">
                         <span class="fa fa-check events-details-symbol" aria-hidden="true"></span>
                         Thanks for letting us know
                     </div>
-                    <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                    <stock-button class="manage-group-button sidebar-button" as-link="true"
+                href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
 
                 }
                 else
                 {
-                    <p>If any of this group's information has changed then make sure you let people know by updating this page. </p>
-                    <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
+                    <p>If any of this group's information has changed then make sure you let people know by updating this page.
+                    </p>
+                    <stock-button class="manage-group-button sidebar-button" as-link="true"
+                href="/groups/manage/@Model.Group.Slug">Make a change to this page</stock-button>
 
                     <p>If you have other groups, you can make changes to your information, events and more.</p>
-                    <stock-button class="manage-group-button sidebar-button" href="/groups/manage" as-link="true">Manage your groups</stock-button>
+                    <stock-button class="manage-group-button sidebar-button" href="/groups/manage" as-link="true">Manage your
+                        groups</stock-button>
                 }
             }
             else if (Model.IsLoggedIn)
             {
                 <p>Make changes to your information, events and more.</p>
-                <stock-button class="manage-group-button sidebar-button disabled" as-link="true" href="/groups/manage">Manage your groups</stock-button>
+                <stock-button class="manage-group-button sidebar-button disabled" as-link="true" href="/groups/manage">
+                    Manage your groups</stock-button>
             }
             else
             {
                 <p>Sign up or login to keep this page's information up to date.</p>
-                <p>If you aren't involved in this group or service, you can still <a href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">let us know about a change</a> to this group or service.</p>
-                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Sign up or login</stock-button>
+                <p>If you aren't involved in this group or service, you can still <a
+                    href="/groups/@Model.Group.Slug/change-group-info?groupname=@Model.Group.Name">let us know about a
+                        change</a> to this group or service.</p>
+                <stock-button class="manage-group-button sidebar-button" as-link="true" href="/groups/manage">Sign up or
+                    login</stock-button>
             }
         </section>
     </aside>

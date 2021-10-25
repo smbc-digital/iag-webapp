@@ -1,0 +1,14 @@
+﻿@model string
+@{
+    var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
+    var title = ViewData["Title"];
+}
+
+<div class="share border grid-20" id="print">
+    <p>Print this page</p>
+    <div class="addthis_toolbox">
+        <div class="custom_images">
+            <a class="print-this" href="#" aria-label="print @Model"><span class="fa fa-print" aria-hidden="true"></span></a>
+        </div>
+    </div>
+</div>

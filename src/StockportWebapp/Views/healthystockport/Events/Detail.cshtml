@@ -148,12 +148,8 @@
                 </div>
                 <div class="l-content-container grid-100">
                     <div class="share border top-border">
-                        <div class="grid-20">
-                            <partial name="Share" model='Model.Title' />
-                        </div>
-                        <div class="grid-20 events-to-calendar">
-                            <partial name="AddToCalendar" model='Model' />
-                        </div>
+                        <partial name="ShareViaSocialMedia" model='Model.Title' />
+                        <partial name="ShareViaCalendar" model='Model' />
                     </div>
                 </div>
             </section>
