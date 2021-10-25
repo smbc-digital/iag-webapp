@@ -215,10 +215,8 @@
             <div class="upcoming-events-container hide-on-mobile ">
                 <partial name="Events/EventCards" model='Model.Group.Events.Take(3).ToList()' />
             </div>
-
-
         }
-        <div id="shareThis" class="sharethis">
+        <div class="share border top-border">
             <partial name="GroupLastUpdated" model='Model.Group' />
             <partial name="ShareViaSocialMedia" model='Model.Group.Name' />
             <partial name="ShareViaPrint" model='Model.Group.Name' />
