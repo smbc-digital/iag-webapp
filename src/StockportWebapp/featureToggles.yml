@@ -3,7 +3,6 @@ prod: &prod
   GroupArchiveEmails: true
   NameInHeader: true
   EditGroupUploadImage: true
-  GroupDetailsPage: true
   SiaSystem: false
   SemanticLayout: true
   ContactUsArea: true

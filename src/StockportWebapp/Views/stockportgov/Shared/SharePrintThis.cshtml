@@ -1,20 +1,17 @@
-﻿@model Tuple<string, string>
-@using StockportWebapp.FeatureToggling
-@inject FeatureToggles FeatureToggles
+﻿@model string
 @{
     var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
     var title = ViewData["Title"];
 }
-
 
 <div class="share border grid-20" id="share">
     <h2>Share this</h2>
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <div class="addthis_toolbox">
         <div class="custom_images">
-            <a class="addthis_button_facebook" href="http://www.facebook.com/share.php?url=@url"><span class="fa fa-facebook-official" aria-hidden="true"></span></a>
-            <a class="addthis_button_twitter" href="http://twitter.com/intent/tweet?url=@url&text=@title"><span class="fa fa-twitter-square" aria-hidden="true"></span></a>
-            <a href="mailto:?body=@url&subject=@title"><span class="fa fa-envelope" aria-hidden="true"></span></a>
+            <a class="addthis_button_facebook" href="http://www.facebook.com/share.php?url=@url" aria-label="share @Model on facebook"><span class="fa fa-facebook-official" aria-hidden="true"></span></a>
+            <a class="addthis_button_twitter" href="http://twitter.com/intent/tweet?url=@url&text=@title" aria-label="share @Model on twitter"><span class="fa fa-twitter-square" aria-hidden="true"></span></a>
+            <a href="mailto:?body=@url&subject=@title" aria-label="share @Model by email"><span class="fa fa-envelope" aria-hidden="true"></span></a>
         </div>
     </div>
 </div>
@@ -22,7 +19,7 @@
     <h2>Print this page</h2>
     <div class="addthis_toolbox">
         <div class="custom_images">
-            <a class="print-this" href="#"><span class="fa fa-print" aria-hidden="true"></span></a>
+            <a class="print-this" href="#" aria-label="print @Model"><span class="fa fa-print" aria-hidden="true"></span></a>
         </div>
     </div>
 </div>

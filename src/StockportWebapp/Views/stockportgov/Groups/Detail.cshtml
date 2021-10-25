@@ -17,16 +17,8 @@
     <partial name="Breadcrumb" model='Model.Group.Breadcrumbs' />
 }
 
-@if (FeatureToggles.GroupDetailsPage)
-{
-    <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail-new.min.css" />
-    <partial name="GroupDetail" model='Model' />
-}
-else
-{
-    <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail.min.css" />
-    <partial name="GroupDetailOld" model='Model' />
-}
+<link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail-new.min.css" />
+<partial name="GroupDetail" model='Model' />
 
 <script type="text/javascript">
     require(['startup', 'favourites', 'groups', 'matchboxconfig', 'matchHeight',],

@@ -219,7 +219,7 @@
         }
         <div id="shareThis" class="sharethis">
             <partial name="GroupLastUpdated" model='Model.Group' />
-            <partial name="SharePrintThis" model='new Tuple<string, string>("groups", Model.Group.Slug)' />
+            <partial name="SharePrintThis" model='Model.Group.Name'/>
         </div>
         <partial name="ContentDisclaimerCard" />
 
