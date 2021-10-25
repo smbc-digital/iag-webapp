@@ -78,14 +78,17 @@
                                         </a>
                                         @if (item.SubItems.Any())
                                         {
-                                            <p class="hide-on-mobile hide-on-tablet secondary-item-description">
-                                                <span>Including</span>
-                                                @foreach (var subItem in item.SubItems.Take(2))
-                                                {
-                                                    <br />
-                                                    <a href="@subItem.NavigationLink">@subItem.Title</a>
-                                                }
-                                            </p>
+                                            <div class="hide-on-mobile hide-on-tablet secondary-item-description">
+                                                <p>Including</p>
+                                                <ul>
+                                                    @foreach (var subItem in item.SubItems.Take(2))
+                                                    {
+                                                        <li>
+                                                            <a href="@subItem.NavigationLink">@subItem.Title</a>
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
                                         }
                                     </div>
                                 </div>
@@ -100,26 +103,26 @@
         case "Featured Items":
             if (Model.FeaturedItems.AnyOrDefault())
             {
-            <div class="showcase-section">
-                <div class="center-wrapper">
-                    <div class="featured-item-container">
-                        <h2 class="featured-item-header">@Model.FeaturedItemsSubheading</h2>
-                        <ul class="featured-item-body">
-                            @foreach (var item in Model.FeaturedItems)
-                            {
-                                <li>
-                                    <a href="@item.NavigationLink" class="event-item">
-                                        <img alt="" role="presentation" src="@item.Image" />
-                                        <h3>@item.Title</h3>
-                                        <p>@item.Teaser</p>
-                                    </a>
-                                </li>
+                <div class="showcase-section">
+                    <div class="center-wrapper">
+                        <div class="featured-item-container">
+                            <h2 class="featured-item-header">@Model.FeaturedItemsSubheading</h2>
+                            <ul class="featured-item-body">
+                                @foreach (var item in Model.FeaturedItems)
+                                {
+                                    <li>
+                                        <a href="@item.NavigationLink" class="event-item">
+                                            <img alt="" role="presentation" src="@item.Image" />
+                                            <h3>@item.Title</h3>
+                                            <p>@item.Teaser</p>
+                                        </a>
+                                    </li>
 
-                            }
-                        </ul>
+                                }
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
             }
             break;
 
@@ -259,21 +262,21 @@
                     <div class="showcase-banner">
                         <div class="video-section">
                             @if (!string.IsNullOrEmpty(Model.Video.Heading))
-                        {
-                            <h2>@Model.Video.Heading</h2>
-                        }
+                            {
+                                <h2>@Model.Video.Heading</h2>
+                            }
                             @if (!string.IsNullOrEmpty(Model.Video.Text))
-                        {
-                            <p>@Model.Video.Text</p>
-                        }
+                            {
+                                <p>@Model.Video.Text</p>
+                            }
                             @if (!string.IsNullOrEmpty(Model.Video.Heading) || !string.IsNullOrEmpty(Model.Video.Text))
-                        {
-                            <hr class="thin-divider" />
-                        }
-                                @{
-                                    var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
-                                }
-                                @Html.Raw(videoCode)
+                            {
+                                <hr class="thin-divider" />
+                            }
+                            @{
+                                var videoCode = new Regex("(width=|height=)\"((?!\").)*\"").Replace(Model.Video.VideoEmbedCode, "");
+                            }
+                            @Html.Raw(videoCode)
                         </div>
                     </div>
                 </div>
