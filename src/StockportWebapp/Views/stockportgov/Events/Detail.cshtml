@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
-@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
-@using StockportWebapp.ProcessedModels
+﻿@using StockportWebapp.Models
 @model StockportWebapp.ProcessedModels.ProcessedEvents
 
 @{
@@ -10,7 +7,6 @@
     ViewData["Description"] = Model.MetaDescription;
     ViewData["Location"] = Model.Location;
     Layout = "../Shared/_Layout.cshtml";
-    var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
     var crumb = new List<Crumb> {new Crumb("What's on in Stockport", "events", "event")};
     var coronavirusAlert = new Alert("Events during coronavirus (COVID-19)", null, "As restrictions have been lifted, events are being held across the borough again. Please contact the event organiser for information about any rules you&#39;ll need to adhere to during their event.", "warning", new DateTime(), new DateTime(), null, true);
 }
@@ -163,19 +159,10 @@
                 <div class="l-content-container grid-100">
                     <div class="share border top-border">
                         <div class="grid-20">
-                            <partial name="Share" />
+                            <partial name="Share" model='Model.Title' />
                         </div>
                         <div class="grid-20 events-to-calendar">
-                            <h2>Add to calendar</h2>
-                            <!-- Go to www.addthis.com/dashboard to customize your tools -->
-                            <div class="addthis_toolbox">
-                                <div class="custom_images">
-                                    <a href="@Url.Action("AddToCalendar", "Events", new {type = "windows", eventUrl = @url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" aria-label="Add to Outlook Calendar"><span class="fa fa-windows" aria-hidden="true"></span></a>
-                                    <a href="@Url.Action("AddToCalendar", "Events", new {type = "google", eventUrl = @url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" target="_blank" aria-label="Add to Google  Calendar"><span class="fa fa-google" aria-hidden="true"></span></a>
-                                    <a href="@Url.Action("AddToCalendar", "Events", new {type = "apple", eventUrl = @url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" aria-label="Add to Apple Calendar"><span class="fa fa-apple" aria-hidden="true"></span></a>
-                                    <a class="hide-on-mobile hide-on-tablet" href="@Url.Action("AddToCalendar", "Events", new {type = "yahoo", eventUrl =@url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" target="_blank" aria-label="Add to Yahoo  Calendar"><span class="fa fa-yahoo" aria-hidden="true"></span></a>
-                                </div>
-                            </div>
+                            <partial name="AddToCalendar" model='Model' />
                         </div>
                     </div>
                 </div>               

@@ -1,5 +1,4 @@
-﻿@using StockportWebapp.Models;
-@using StockportWebapp.ViewModels;
+﻿@using StockportWebapp.ViewModels;
 @model NewsViewModel
 
 @{
@@ -53,7 +52,7 @@
                     }
                     <div class="share border top-border">
                         <div class="grid-20">
-                            <partial name="Share" />
+                            <partial name="Share" model='Model.NewsItem.Title' />
                         </div>
                     </div>
                 </div>
