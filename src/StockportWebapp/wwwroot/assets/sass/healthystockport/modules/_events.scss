@@ -789,9 +789,12 @@ ul.nav-card-events-list {
     }
 
     p {
-        margin-bottom: 0px;
-        font-size: .875em;
+        text-transform: none;
+        font-size: 1em;
+        margin: 0;
         font-weight: 600;
+        letter-spacing: 0;
+        font-family: "Source Sans Pro",sans-serif;
     }
 
     .events-to-calendar {
