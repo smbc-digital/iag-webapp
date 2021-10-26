@@ -5,7 +5,6 @@
 
 <div class="grid-20 events-to-calendar">
     <p>Add to calendar</p>
-    <!-- Go to www.addthis.com/dashboard to customize your tools -->
     <div class="addthis_toolbox">
         <div class="custom_images">
             <a href="@Url.Action("AddToCalendar", "Events", new {type = "windows", eventUrl = @url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})"
