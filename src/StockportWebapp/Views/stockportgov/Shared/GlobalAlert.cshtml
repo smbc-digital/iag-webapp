@@ -24,7 +24,7 @@
                 @if (!Model.IsStatic)
                 {
                     <div class="global-alert-close-container">
-                        <a href="javascript:void(0)" Title="Close @Model.Title alert" aria-label="Close @Model.Title alert">
+                        <a href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert">
                             <div class="global-alert-close-@Model.Severity.ToLowerInvariant()">
                                 <i class="close-alert" data-slug="@Model.Slug" data-parent="global-alert-@Model.Severity.ToLowerInvariant()"></i>
                             </div>
