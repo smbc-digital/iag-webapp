@@ -56,7 +56,7 @@
         }
 
         .add-favourite {
-            display: block;
+            display: block; 
             border-top: solid 1px #ebebeb;
             font-size: 0.9em;
             padding-left: 15px;
@@ -65,6 +65,10 @@
 
             .favourite-text {
                 text-decoration: underline;
+
+                &:hover {
+                    text-decoration-thickness: 3px;
+                }
             }
 
             &.hidden {
