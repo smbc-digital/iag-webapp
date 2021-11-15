@@ -39,6 +39,15 @@
         list-style: outside none none;
         padding: 0px;
         margin-bottom: 0;
+
+        & li a {
+            text-decoration: underline;
+            text-underline-offset: 1px;
+
+            &:hover {
+                text-decoration-thickness: 3px;
+            }
+        }
     }
 
     .filter-title, .filter-inner-title {
