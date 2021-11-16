@@ -3,6 +3,10 @@
         min-width: 190px;
         float: right;
 
+        span {
+            padding-right: 5px;
+        }
+
         @media #{$mobile} {
             float: none;
             margin-top: 10px;

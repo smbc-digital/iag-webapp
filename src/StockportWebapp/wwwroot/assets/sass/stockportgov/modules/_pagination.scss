@@ -5,11 +5,12 @@
         margin-top: 10px;
         margin-bottom: 0;
         color: $teal-darker;
+        text-decoration: underline;
     }
 
     &:hover {
         p:first-of-type {
-            text-decoration: underline;
+            text-decoration-thickness: 3px;
         }
     }
 }

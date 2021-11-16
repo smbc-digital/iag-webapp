@@ -83,7 +83,7 @@
             text-decoration: none;
 
             .featured-topic-name {
-                text-decoration: underline;
+                text-decoration-thickness: 3px;
             }
         }
     }
@@ -94,6 +94,7 @@
         font-size: 18px;
         font-weight: 600;
         line-height: 1.5em;
+        text-decoration: underline;
 
         @media #{$mobile} {
             margin-bottom: 10px;

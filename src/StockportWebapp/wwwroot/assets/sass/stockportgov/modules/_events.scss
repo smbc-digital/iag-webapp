@@ -468,6 +468,10 @@ ul.nav-card-events-list {
     .view-more {
         text-decoration: underline;
         margin-left: 30px;
+
+        &:hover {
+            text-decoration-thickness: 3px;
+        }
     }
 
     &:nth-child(odd) {
