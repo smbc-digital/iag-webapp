@@ -1,6 +1,10 @@
 ﻿.organisation-detail {
     background-color: #fff;
 
+    span {
+        padding-right: 5px;
+    }
+    
     h1 {
         color: $colorPrimary;
         font-size: 3em;
