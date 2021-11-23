@@ -142,9 +142,13 @@
 
         a {
             display: block;
-            text-decoration: none;
+            text-decoration: underline;
             padding-top: 10px;
             padding-bottom: 10px;
+
+            &:hover {
+                text-decoration-thickness: 3px;
+            }
 
             @media #{$desktop} {
                 padding-top: 1px;
@@ -186,10 +190,6 @@
                 font-weight: bold;
             }
         }
-    }
-
-    .filter li:not(:first-child) {
-        border-top: 1px solid $greyLight;
     }
 
     .filter li {
