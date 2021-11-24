@@ -23,6 +23,10 @@
     .filters-active ul {
         list-style: none;
         margin-bottom: 0;
+        
+        span {
+            padding-right: 5px;
+        }
 
         @media #{$mobile, $tablet} {
             li:first-child {
@@ -31,7 +35,7 @@
         }
 
         a {
-            padding: 0;
+            padding-right: 0px;
         }
     }
 
