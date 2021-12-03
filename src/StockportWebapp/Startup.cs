@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Primitives;
 using Serilog;
 using StockportGovUK.NetStandard.Gateways;
 using StockportWebapp.Config;
@@ -86,9 +87,9 @@ namespace StockportWebapp
         }
 
         public void Configure(
-            IApplicationBuilder app, 
-            IWebHostEnvironment env, 
-            ILoggerFactory loggerFactory, 
+            IApplicationBuilder app,
+            IWebHostEnvironment env,
+            ILoggerFactory loggerFactory,
             IHostApplicationLifetime appLifetime)
         {
             loggerFactory.AddSerilog();
@@ -105,7 +106,7 @@ namespace StockportWebapp
                 .UseCustomStaticFiles()
                 .UseCustomCulture()
                 .UseRouting()
-                .Map("/favicon.ico", delegate { })
+                .Map("/favicon.ico", HandleFaviconRequests)
                 .UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
@@ -113,6 +114,20 @@ namespace StockportWebapp
 
             // Close logger
             appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
+        }
+
+        private static void HandleFaviconRequests(IApplicationBuilder app)
+        {
+            app.Run(context => {
+                string defaultFaviconPath = "/assets/images/ui-images/sg/favicon.ico";
+                if (context.Request.Headers.TryGetValue("BUSINESS-ID", out StringValues idFromHeader))
+                {
+                    if (idFromHeader.Equals("healthystockport"))
+                        defaultFaviconPath = "/assets/images/ui-images/Favicon.png";
+                }
+                context.Response.Redirect(defaultFaviconPath, true);
+                return Task.CompletedTask;
+            });
         }
 
         private void ConfigureSerilog()

@@ -2,7 +2,6 @@
 @using StockportWebapp.Utils
 @inject ViewHelpers viewHelper
 
-
 @model StockportWebapp.ProcessedModels.ProcessedEvents
 
 @{
@@ -11,7 +10,6 @@
     ViewData["Description"] = Model.Teaser;
     ViewData["Location"] = Model.Location;
     Layout = "_Layout";
-    var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
 }
 
 @section Breadcrumbs {
@@ -150,23 +148,10 @@
                 </div>
                 <div class="l-content-container grid-100">
                     <div class="share border top-border">
-                        <div class="grid-20">
-                            <partial name="Share" />
-                        </div>
-                        <div class="grid-20 events-to-calendar">
-                            <p>Add to calendar</p>
-                            <!-- Go to www.addthis.com/dashboard to customize your tools -->
-                            <div class="addthis_toolbox">
-                                <div class="custom_images">
-                                    <a href="@Url.Action("AddToCalendar", "Events", new {type = "windows", eventUrl = @url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" title="Add to Outlook Calendar"><span class="fa fa-windows" aria-hidden="true"></span></a>
-                                    <a href="@Url.Action("AddToCalendar", "Events", new {type = "google", eventUrl = @url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" target="_blank" title="Add to Google  Calendar"><span class="fa fa-google" aria-hidden="true"></span></a>
-                                    <a href="@Url.Action("AddToCalendar", "Events", new {type = "apple", eventUrl = @url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" title="Add to Apple Calendar"><span class="fa fa-apple" aria-hidden="true"></span></a>
-                                    <a class="hide-on-mobile hide-on-tablet" href="@Url.Action("AddToCalendar", "Events", new {type = "yahoo", eventUrl =@url, slug = Model.Slug, eventDate = ViewBag.Eventdate, name = Model.Title, location = Model.Location, startTime = Model.StartTime, endTime = Model.EndTime, summary = Model.Teaser})" target="_blank" title="Add to Yahoo  Calendar"><span class="fa fa-yahoo" aria-hidden="true"></span></a>
-                                </div>
-                            </div>
-                        </div>
+                        <partial name="ShareViaSocialMedia" model='Model.Title' />
+                        <partial name="ShareViaCalendar" model='Model' />
                     </div>
-                </div>               
+                </div>
             </section>
         </div>
     </div>

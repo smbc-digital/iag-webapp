@@ -13,13 +13,13 @@
     <div class="l-container-footer grid-container">
         <div class="grid-container grid-parent">
             <div class="grid-100 grid-parent">
-                <div class="grid-30 tablet-grid-35 tablet-push-65 push-65 footer-social-container">
+                <div class="grid-30 footer-social-container hide-on-tablet hide-on-desktop">
                     @if (Model.SocialMediaLinks != null)
                     {
                         <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
                     }
                 </div>
-                <div class="grid-25 tablet-grid-25 tablet-pull-35 pull-30 mobile-grid-100">
+                <div class="grid-25 tablet-grid-25 mobile-grid-100">
                     <div class="footer-stockport-logo">
                         @if (BusinessId.ToString() == "healthystockport")
                         {
@@ -32,7 +32,7 @@
                         }
                     </div>
                 </div>
-                <div class="footer-links tablet-grid-40 pull-30 tablet-pull-35 grid-45 grid-100-mobile">
+                <div class="footer-links tablet-grid-40 grid-45 grid-100-mobile">
                     <div class="grid-100 tablet-grid-100 mobile-grid-100">
                         <ul class="footer-nav">
                             @if (Model.Links != null)
@@ -41,6 +41,12 @@
                             }
                         </ul>
                     </div>
+                </div>
+                <div class="grid-30 tablet-grid-35 footer-social-container hide-on-mobile">
+                    @if (Model.SocialMediaLinks != null)
+                    {
+                        <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
+                    }
                 </div>
             </div>
         </div>

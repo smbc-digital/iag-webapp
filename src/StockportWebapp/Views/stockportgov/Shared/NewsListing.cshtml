@@ -16,13 +16,13 @@
                 <li class="filters-active">
                     <ul>
                         @if (!string.IsNullOrEmpty(Model.Category)) {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span> @Model.Category</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span>@Model.Category</a></li>
                         }
                         @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && (Model.DateFrom <= Model.DateTo)) {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span> @Model.GetActiveDateFilter()</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span>@Model.GetActiveDateFilter()</a></li>
                         }
                         @if (!string.IsNullOrEmpty(Model.Tag)) {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span> @Model.Tag</a></li>
+                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span>@Model.Tag</a></li>
                         }
                     </ul>
                 </li>
