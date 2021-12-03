@@ -9,7 +9,11 @@
     }
 
     a {
-        text-decoration: none;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration-thickness: 3px;
+        }
     }
 
     .sk-table-pagination {
@@ -136,7 +140,7 @@
     }
 
     a:hover .sk-table-cell .main, .sk-table-cell .link {
-        text-decoration: underline;
+        text-decoration-thickness: 3px;
     }
 
     .sk-table-row {

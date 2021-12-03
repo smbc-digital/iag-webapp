@@ -1053,7 +1053,7 @@
         margin-right: 20px;
         text-decoration: underline;
         &:hover, &:active {
-            text-decoration: none;
+            text-decoration-thickness: 3px;
         }
     }
 }
@@ -1067,7 +1067,7 @@
         text-decoration: underline;
 
         &:hover, &:active {
-            text-decoration: none;
+            text-decoration-thickness: 3px;
         }
     }
 }

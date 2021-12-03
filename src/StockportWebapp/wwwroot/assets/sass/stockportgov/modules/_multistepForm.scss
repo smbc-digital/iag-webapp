@@ -156,6 +156,15 @@
                 a {
                     color: #000000;
                     text-decoration: underline;
+
+                    &:hover {
+                        text-decoration-thickness: 3px;
+
+                        .number {
+                            text-decoration-color: #fff;
+                            text-decoration-thickness: 3px;
+                        }
+                    }
                 }
             }
 
