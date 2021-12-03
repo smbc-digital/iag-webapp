@@ -79,8 +79,6 @@
                 -o-box-sizing: border-box;
                 box-sizing: border-box;
 
-
-
                 div {
                     padding-right: 15px;
 
@@ -139,8 +137,12 @@
         }
     }
 
-    a:hover .sk-table-cell .main, .sk-table-cell .link {
-        text-decoration-thickness: 3px;
+    a .sk-table-cell .main, .sk-table-cell .link {
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration-thickness: 3px;
+        }
     }
 
     .sk-table-row {
