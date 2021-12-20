@@ -1,5 +1,5 @@
-﻿.news-grid-container-margins{
-    margin-top: -20px; 
+﻿.news-grid-container-margins {
+    margin-top: -20px;
     margin-bottom: -30px;
 }
 
@@ -93,13 +93,13 @@ ul.nav-card-news-list {
     display: table;
     background: $white;
 
-    @media #{$mobile} {        
-        margin-top: 0px;   
+    @media #{$mobile} {
+        margin-top: 0px;
     }
 
     .news-bottom-border {
         border-bottom: 1px solid $greyLightest;
-        padding-bottom: 10px; 
+        padding-bottom: 10px;
     }
 
     li {
@@ -118,7 +118,7 @@ ul.nav-card-news-list {
     a {
         color: $greyDarkest;
         text-decoration: none;
-        display:block;
+        display: block;
 
         &:hover {
             h3 {
@@ -131,17 +131,18 @@ ul.nav-card-news-list {
 .nav-card-news-thumbnail {
     height: 150px;
     max-width: 100%;
+
     @media #{$mobile} {
         height: 100px;
     }
 }
 
-.nav-card-news-thumbnail-background-image
-{
+.nav-card-news-thumbnail-background-image {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: left top;
 }
+
 .nav-no-left-padding {
     padding-left: 0px;
 }
@@ -175,27 +176,28 @@ ul.nav-card-news-list {
     margin-top: 0;
 }
 
-.news-article-date {
-    margin-bottom: 0;
-    padding-top: 15px;
-}
-
-.news-date {
+.news-date, .article-date {
     color: $colorPrimary;
 
     span {
         padding-right: 5px;
-        padding-bottom:15px;
+        padding-bottom: 15px;
     }
+}
+
+.news-date {
 
     p {
-        margin-bottom: 0px;        
+        margin-bottom: 0px;
     }
 
-     @media #{$tablet, $desktop} {
+    @media #{$tablet, $desktop} {
         margin-bottom: -5px;
-     }
+    }
+}
 
+.article-date {
+    margin-bottom: 15px;
 }
 
 .news-tag {

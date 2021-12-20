@@ -79,7 +79,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             displayedArticle.DisplayedSection.Title.Should().Contain("Overview");
             displayedArticle.DisplayedSection.Slug.Should().Be("physical-activity-overview");
-            displayedArticle.ShouldShowArticleSummary.Should().BeTrue();
         }
 
         [Fact]
