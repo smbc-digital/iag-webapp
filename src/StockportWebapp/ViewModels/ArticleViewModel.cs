@@ -11,6 +11,7 @@ namespace StockportWebapp.ViewModels
         public readonly ProcessedArticle Article;
         public readonly ProcessedSection DisplayedSection;
         public int DisplayedSectionIndex => IndexForDisplayedSection() + 1;
+        public readonly bool ShouldShowArticleSummary;
         public readonly bool ShouldShowCanonicalLink;
         public readonly string OgTitleMetaData;
         public string MetaDescription => string.IsNullOrEmpty(DisplayedSection?.MetaDescription) ? Article.MetaDescription : DisplayedSection.MetaDescription;
@@ -19,14 +20,17 @@ namespace StockportWebapp.ViewModels
         {
             Article = article;
             DisplayedSection = FirstOrNull(article.Sections);
+            ShouldShowArticleSummary = true;
             ShouldShowCanonicalLink = false;
             OgTitleMetaData = Article.Title;
+
         }
 
         public ArticleViewModel(ProcessedArticle article, string sectionSlug)
         {
             Article = article;
             DisplayedSection = GetSectionOrThrowSectionNotFound(sectionSlug);
+            ShouldShowArticleSummary = (Article.Sections.First().Slug == DisplayedSection.Slug);
             OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title) ? " - " : "", DisplayedSection.Title);
         }
 
