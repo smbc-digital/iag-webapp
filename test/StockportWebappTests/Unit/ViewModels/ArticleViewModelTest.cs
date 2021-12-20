@@ -35,26 +35,6 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         }
 
         [Fact]
-        public void ShowsArticleSummaryIfDisplayedSectionIsFirstSection()
-        {
-            var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
-
-            var viewModel = new ArticleViewModel(article, _sectionOne.Slug);
-
-            viewModel.ShouldShowArticleSummary.Should().BeTrue();
-        }
-
-        [Fact]
-        public void DoesNotShowArticleSummaryIfDisplayedSectionIsNotTheFirstSection()
-        {
-            var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
-
-            var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
-
-            viewModel.ShouldShowArticleSummary.Should().BeFalse();
-        }
-
-        [Fact]
         public void ReturnsTheDisplayedSectionIndex()
         {
             var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
@@ -162,7 +142,6 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var viewModel = new ArticleViewModel(article);
             viewModel.Article.Sections.Should().BeNullOrEmpty();
             viewModel.DisplayedSection.Should().BeNull();
-            viewModel.ShouldShowArticleSummary.Should().BeTrue();
             viewModel.OgTitleMetaData.Should().Be(viewModel.Article.Title);
         }
 
