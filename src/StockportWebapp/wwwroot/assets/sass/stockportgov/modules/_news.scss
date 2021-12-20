@@ -197,9 +197,7 @@ ul.nav-card-news-list {
 }
 
 .article-date {
-    @media #{$tablet, $desktop} {
-        margin-bottom: 15px;
-    }
+    margin-bottom: 15px;
 }
 
 .news-tag {
