@@ -51,7 +51,7 @@
 
                         <div class="grid-100">
 
-                            @if (Model.ShouldShowArticleSummary && !string.Equals("<p></p>\n", Model.Article.Body))
+                            @if (!string.Equals("<p></p>\n", Model.Article.Body))
                             {
                                 <div class="map-content">
                                     <p class="article-date">
