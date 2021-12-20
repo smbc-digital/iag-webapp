@@ -23,7 +23,6 @@ namespace StockportWebapp.ViewModels
             ShouldShowArticleSummary = true;
             ShouldShowCanonicalLink = false;
             OgTitleMetaData = Article.Title;
-
         }
 
         public ArticleViewModel(ProcessedArticle article, string sectionSlug)
