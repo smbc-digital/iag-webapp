@@ -29,7 +29,7 @@ namespace StockportWebapp.ViewModels
         {
             Article = article;
             DisplayedSection = GetSectionOrThrowSectionNotFound(sectionSlug);
-            ShouldShowArticleSummary = (Article.Sections.First().Slug == DisplayedSection.Slug);
+            ShouldShowArticleSummary = true;
             OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title) ? " - " : "", DisplayedSection.Title);
         }
 
