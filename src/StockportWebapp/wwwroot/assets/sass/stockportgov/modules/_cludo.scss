@@ -1,0 +1,30 @@
+﻿
+.cludo-error-page {
+    h2,
+    .page-description {
+        text-align: left;
+        margin-left: 30px;
+    }
+
+    .hero {
+        display: inline;
+    }
+}
+
+#cludo-404-results {
+
+    .cludo-result-item,
+    .cludo-result-item a {
+        text-align: left !important;
+    }
+
+    .cludo-result-item > a {
+        display: none;
+    }
+
+    .cludo-results > .cludo-result-item-title {
+        text-transform: none !important;
+        text-align: left;
+        margin-left: 30px;
+    }
+}
