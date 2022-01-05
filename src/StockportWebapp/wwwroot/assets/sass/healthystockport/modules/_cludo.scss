@@ -1,0 +1,64 @@
+﻿.cludo-error-page {
+    min-height: 0px !important;
+
+    h1 {
+        color: $colorPrimary;
+        padding-top: 50px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    h1,
+    .page-description {
+        text-align: left;
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .page-description {
+        position: relative;
+        padding-left: 40px;
+    }
+
+    .error-page-icon {
+        border-radius: 17px;
+        border-style: solid;
+        border-width: 2px;
+        display: inline-block;
+        height: 30px;
+        left: 0;
+        position: absolute;
+        top: 6px;
+        width: 30px;
+        text-align: center;
+    }
+
+    .hero {
+        display: inline;
+    }
+}
+
+#cludo-404-results {
+
+    .cludo-result-item,
+    .cludo-result-item a {
+        text-align: left !important;
+    }
+
+    .cludo-result-item {
+        margin-right: 15px;
+    }
+
+    .cludo-result-item > a {
+        display: none;
+    }
+
+    .cludo-results > .cludo-result-item-title {
+        text-transform: none !important;
+        text-align: left;
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+}
