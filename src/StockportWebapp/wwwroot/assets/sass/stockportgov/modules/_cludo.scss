@@ -32,6 +32,7 @@
         top: 6px;
         width: 30px;
         text-align: center;
+        font-weight: 600;
     }
 
     .hero {
@@ -40,6 +41,8 @@
 }
 
 #cludo-404-results {
+
+    padding-top: 30px;
 
     .cludo-result-item,
     .cludo-result-item a {
@@ -55,5 +58,6 @@
         text-align: left;
         margin-left: 30px;
         margin-right: 30px;
+        font-size: 20px;
     }
 }

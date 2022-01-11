@@ -3,11 +3,12 @@
 
     h1 {
         color: $colorPrimary;
+        font-weight: 300;
         padding-top: 50px;
     }
 
     h2 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     h1,
@@ -33,6 +34,7 @@
         top: 6px;
         width: 30px;
         text-align: center;
+        font-weight: 600;
     }
 
     .hero {
@@ -41,6 +43,8 @@
 }
 
 #cludo-404-results {
+
+    padding-top: 30px;
 
     .cludo-result-item,
     .cludo-result-item a {
@@ -60,5 +64,11 @@
         text-align: left;
         margin-left: 30px;
         margin-right: 30px;
+        font-size: 20px;
+    }
+
+    .cludo-result-item > .cludo-result-item-title {
+        font-size: 18px;
+        margin-bottom: 15px;
     }
 }
