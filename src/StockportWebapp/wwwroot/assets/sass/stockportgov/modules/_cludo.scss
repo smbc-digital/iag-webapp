@@ -3,6 +3,7 @@
     h1 {
         color: $colorPrimary;
         padding-top: 50px;
+        font-size: 50px;
     }
 
     h2 {
@@ -37,6 +38,12 @@
 
     .hero {
         display: inline;
+    }
+}
+
+#cludo-404 {
+    .powered-by {
+        right: 15px !important
     }
 }
 
