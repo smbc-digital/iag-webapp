@@ -16,7 +16,16 @@
         CludoSearch.init();
     };
 
+    var addHomepageLink = function () {
+        $('#content').on('DOMSubtreeModified', function () {
+            if ($("#cludo-404").hasClass("loaded") && $("#cludo-404").hasClass("hide-module")) {
+                $("#homepage-link").removeClass("invisible");
+            }
+        });
+    }
+
     return {
-        Init: init
+        Init: init,
+        AddHomepageLink: addHomepageLink
     }
 });

@@ -21,6 +21,11 @@
     .page-description {
         position: relative;
         padding-left: 40px;
+
+        p {
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
     }
 
     .error-page-icon {
@@ -39,6 +44,10 @@
 
     .hero {
         display: inline;
+    }
+
+    .invisible {
+        display: none;
     }
 }
 
