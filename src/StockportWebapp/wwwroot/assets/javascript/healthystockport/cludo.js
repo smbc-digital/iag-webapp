@@ -13,5 +13,11 @@
         };
         CludoSearch = new Cludo(cludoSettings);
         CludoSearch.init();
+
+        $('#content').on('DOMSubtreeModified', function () {
+            if ($("#cludo-404").hasClass("loaded") && $("#cludo-404").hasClass("hide-module")) {
+                $("#homepage-link").removeClass("invisible");
+            }
+        });
     })();
 });

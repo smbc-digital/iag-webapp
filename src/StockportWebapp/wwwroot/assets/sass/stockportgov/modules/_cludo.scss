@@ -3,6 +3,7 @@
     h1 {
         color: $colorPrimary;
         padding-top: 50px;
+        font-size: 50px;
     }
 
     h2 {
@@ -19,6 +20,13 @@
     .page-description {
         position: relative;
         padding-left: 40px;
+
+        p {
+            margin-top: 10px;
+            margin-bottom: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
     }
 
     .error-page-icon {
@@ -37,6 +45,16 @@
 
     .hero {
         display: inline;
+    }
+
+    .invisible {
+        display: none;
+    }
+}
+
+#cludo-404 {
+    .powered-by {
+        right: 15px !important
     }
 }
 
