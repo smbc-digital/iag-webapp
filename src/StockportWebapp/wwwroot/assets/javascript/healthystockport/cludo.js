@@ -14,7 +14,7 @@
         CludoSearch = new Cludo(cludoSettings);
         CludoSearch.init();
 
-        $('#error-grid-container').on('DOMSubtreeModified', function () {
+        $('#content').on('DOMSubtreeModified', function () {
             if ($("#cludo-404").hasClass("loaded") && $("#cludo-404").hasClass("hide-module")) {
                 $("#homepage-link").removeClass("invisible");
             }
