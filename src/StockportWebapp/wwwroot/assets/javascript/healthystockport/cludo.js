@@ -14,10 +14,22 @@
         CludoSearch = new Cludo(cludoSettings);
         CludoSearch.init();
 
-        $('#content').on('DOMSubtreeModified', function () {
-            if ($("#cludo-404").hasClass("loaded") && $("#cludo-404").hasClass("hide-module")) {
-                $("#homepage-link").removeClass("invisible");
+        const target = document.querySelector('#content');
+        const config = { attributes: true, childList: true, subtree: true };
+        const observerCallback = function (mutationsList, observer) {
+            const cludoModule = document.querySelector('#cludo-404');
+
+            for (const mutation of mutationsList) {
+                if (mutation.type === 'attributes' && cludoModule != null && cludoModule.classList.contains("loaded")) {
+                    observer.disconnect();
+
+                    if (cludoModule.classList.contains("hide-module"))
+                        document.querySelector("#homepage-link").classList.remove("invisible");
+                }
             }
-        });
+        }
+
+        const observer = new MutationObserver(observerCallback);
+        observer.observe(target, config);
     })();
 });
