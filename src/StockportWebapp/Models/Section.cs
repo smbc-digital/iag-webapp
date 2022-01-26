@@ -13,10 +13,11 @@ namespace StockportWebapp.Models
         public IEnumerable<Alert> AlertsInline { get; set; }
         public S3BucketSearch S3Bucket { get; set; }
         public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
+        public bool HideLastUpdated { get; set; }
 
         public Section() { }
 
-        public Section(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline)
+        public Section(string title, string slug, string metaDescription, string body, List<Profile> profiles, List<Document> documents, IEnumerable<Alert> alertsInline, bool hideLastUpdated)
         {
             Title = title;
             Slug = slug;
@@ -25,6 +26,7 @@ namespace StockportWebapp.Models
             Profiles = profiles;
             Documents = documents;
             AlertsInline = alertsInline;
+            HideLastUpdated = hideLastUpdated;
         }
     }
 }

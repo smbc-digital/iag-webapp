@@ -11,6 +11,7 @@ namespace StockportWebapp.ViewModels
         public readonly ProcessedArticle Article;
         public readonly ProcessedSection DisplayedSection;
         public int DisplayedSectionIndex => IndexForDisplayedSection() + 1;
+        public readonly bool HideLastUpdated;
         public readonly bool ShouldShowArticleSummary;
         public readonly bool ShouldShowCanonicalLink;
         public readonly string OgTitleMetaData;
@@ -20,6 +21,7 @@ namespace StockportWebapp.ViewModels
         {
             Article = article;
             DisplayedSection = FirstOrNull(article.Sections);
+            HideLastUpdated = Article.HideLastUpdated;
             ShouldShowArticleSummary = true;
             ShouldShowCanonicalLink = false;
             OgTitleMetaData = Article.Title;
