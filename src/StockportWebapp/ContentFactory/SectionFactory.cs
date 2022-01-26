@@ -61,8 +61,7 @@ namespace StockportWebapp.ContentFactory
                 parsedBody,
                 section.Profiles,
                 section.Documents,
-                section.AlertsInline,
-                section.HideLastUpdated
+                section.AlertsInline
             );
         }
 
