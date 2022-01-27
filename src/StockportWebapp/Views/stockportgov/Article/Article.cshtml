@@ -53,7 +53,7 @@
 
                             @if (!string.Equals("<p></p>\n", Model.Article.Body))
                             {
-                                @if (Model.HideLastUpdated == false)
+                                @if (!Model.HideLastUpdated)
                                 {
                                 <div class="map-content">
                                     <p class="article-date">
