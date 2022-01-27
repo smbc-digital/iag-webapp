@@ -29,10 +29,11 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<Alert> AlertsInline;
         public S3BucketSearch S3BucketSearch;
         public DateTime UpdatedAt;
+        public bool HideLastUpdated;
 
         public ProcessedArticle(string title, string slug, string body, string teaser, string metaDescription,
             IEnumerable<ProcessedSection> sections, string icon, string backgroundImage, string image, IEnumerable<Crumb> breadcrumbs,
-            IEnumerable<Alert> alerts, Topic topic, IEnumerable<Alert> alertsInline, S3BucketSearch s3BucketSearch, DateTime updatedAt)
+            IEnumerable<Alert> alerts, Topic topic, IEnumerable<Alert> alertsInline, S3BucketSearch s3BucketSearch, DateTime updatedAt, bool hideLastUpdated)
         {
             Title = title;
             NavigationLink = TypeRoutes.GetUrlFor("article", slug);
@@ -49,6 +50,7 @@ namespace StockportWebapp.ProcessedModels
             AlertsInline = alertsInline;
             S3BucketSearch = s3BucketSearch;
             UpdatedAt = updatedAt;
+            HideLastUpdated = hideLastUpdated;
         }
 
         public void AddContactUsMessage(string message, string slug = "")

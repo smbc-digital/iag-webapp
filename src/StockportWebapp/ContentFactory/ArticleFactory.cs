@@ -57,7 +57,7 @@ namespace StockportWebapp.ContentFactory
             body = _tagParserContainer.ParseAll(body, article.Title);
 
             return new ProcessedArticle(article.Title, article.Slug, body, article.Teaser, article.MetaDescription,
-                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.AlertsInline, article.S3Bucket, article.UpdatedAt);
+                processedSections, article.Icon, article.BackgroundImage, article.Image, article.Breadcrumbs, article.Alerts, article.ParentTopic, article.AlertsInline, article.S3Bucket, article.UpdatedAt, article.HideLastUpdated);
         }
 
         private async Task<IEnumerable<PrivacyNotice>> GetPrivacyNotices()

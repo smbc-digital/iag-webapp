@@ -23,9 +23,10 @@ namespace StockportWebapp.Models
         public S3BucketSearch S3Bucket { get; set; }
         public IEnumerable<PrivacyNotice> PrivacyNotices { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public bool HideLastUpdated { get; set; }
 
         public Article(string title, string slug, string body, string teaser, string metaDescription, IEnumerable<Section> sections, string icon, string backgroundImage, string image,
-            IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt)
+            IEnumerable<Crumb> breadcrumbs, IEnumerable<Profile> profiles, IEnumerable<Document> documents, IEnumerable<Alert> alertsInline, DateTime updatedAt, bool hideLastUpdated)
         {
             Title = title;
             Slug = slug;
@@ -41,6 +42,7 @@ namespace StockportWebapp.Models
             Documents = documents;
             AlertsInline = alertsInline;
             UpdatedAt = updatedAt;
+            HideLastUpdated = hideLastUpdated;
         }
     }
 }

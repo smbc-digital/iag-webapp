@@ -40,11 +40,12 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly List<Crumb> _breadcrumbs;
         private readonly Article _article;
         private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
-        private readonly List<Alert> _emptyAlertsInline = new List<Alert>();
+        private readonly List<Alert> _emptyAlertsInline = new();
         private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
         private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
         private readonly Mock<IRepository> _repository;
-        private readonly DateTime _updatedAt = new DateTime();
+        private readonly DateTime _updatedAt = new();
+        private readonly bool _hideLastUpdated = new();
 
         public ArticleFactoryTest()
         {
@@ -68,7 +69,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
 
-             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _updatedAt);
+             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _updatedAt, _hideLastUpdated);
 
             _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
             _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);

@@ -53,12 +53,15 @@
 
                             @if (!string.Equals("<p></p>\n", Model.Article.Body))
                             {
+                                @if (!Model.HideLastUpdated)
+                                {
                                 <div class="map-content">
                                     <p class="article-date">
                                         <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
                                     </p>
                                     @Html.Raw(Model.Article.Body)
                                 </div>
+                                }
                             }
 
                             @if (Model.DisplayedSection != null)
