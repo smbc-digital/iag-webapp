@@ -33,6 +33,7 @@ namespace StockportWebapp.ViewModels
             DisplayedSection = GetSectionOrThrowSectionNotFound(sectionSlug);
             ShouldShowArticleSummary = (Article.Sections.First().Slug == DisplayedSection.Slug);
             OgTitleMetaData = string.Concat(Article.Title, !string.IsNullOrEmpty(DisplayedSection.Title) ? " - " : "", DisplayedSection.Title);
+            HideLastUpdated = Article.HideLastUpdated;
         }
 
         private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug)
