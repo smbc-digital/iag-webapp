@@ -1,0 +1,119 @@
+﻿@using StockportWebapp.Models
+@inject IStaticAssets StaticAssets
+@inject StockportWebapp.Utils.ILoggedInHelper loggedInHelper
+@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
+
+@{ 
+    var user = loggedInHelper.GetLoggedInPerson();
+    var bannerTypeformUrl = ViewData["BannerTypeformUrl"];
+}
+
+@*This script enables the feedback button.*@
+<script>(function () { var qs, js, q, s, d = document, gi = d.getElementById, ce = d.createElement, gt = d.getElementsByTagName, id = 'typef_orm', b = 'https://s3-eu-west-1.amazonaws.com/share.typeform.com/'; if (!gi.call(d, id)) { js = ce.call(d, 'script'); js.id = id; js.src = b + 'share.js'; q = gt.call(d, 'script')[0]; q.parentNode.insertBefore(js, q) } })()</script>
+
+<div class="l-header-container">
+    <nav aria-label="Skip to main content">
+    <div class="skip-to-main-content">
+        <a href="#content" class="skip-main">Skip to main content</a>
+    </div>
+    </nav>
+    <header role="banner" id="header" class="grid-container grid-100">
+        <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
+            <a href="https://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" data-mobile-image="@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")" data-desktop-image="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" alt="Stockport Council Logo Homepage Link" title="Welcome to Stockport Council" class="logo-main-image"></a>
+        </div>
+        <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
+            <div class="header-container grid-100 grid-parent">
+                <div class="grid-50 grid-parent header-myaccount">
+                    <div class="menu">
+                        @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
+                        {
+                            <div class="menu-logged-in hide-on-mobile hide-on-tablet">
+                                <div class="menu-account-button">
+                                    <span class="fa fa-user" aria-hidden="true"></span>
+                                    <p>Welcome @user.Name</p>
+                                    <a href="https://myaccount.stockport.gov.uk/">My Account</a>
+                                    <span class="fa fa-angle-down" aria-hidden="true"></span>
+                                </div>
+                                <div class="menu-tooltip">
+                                    <span class="fa fa-caret-up" aria-hidden="true"></span>
+                                    <div class="menu-links">
+                                        <a href="https://myaccount.stockport.gov.uk/">My Account</a>
+                                        <a href="https://myaccount.stockport.gov.uk/account/settings">Account settings</a>
+                                        <a class="typeform-share link" data-mode="1" target="_blank" href="https://public.govdelivery.com/accounts/UKSMBC/subscriber/new">Email alerts</a>
+                                        <a class="sign-out" href="https://myaccount.stockport.gov.uk/account/logout">Sign out</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-logged-in hide-on-desktop">
+                                <div class="modal">
+                                    <input id="modal" type="checkbox" name="modal">
+                                    <label for="modal"><span class="fa fa-user" aria-hidden="true"></span></label>
+
+                                    <div class="modal-overlay">
+                                        <div class="modal-header">
+                                            <div class="button button-outline button-close button-overlay">
+                                                <label for="modal"><span class="fa fa-times" aria-hidden="true"></span>Close</label>
+                                            </div>
+                                        </div>
+                                        <div class="modal-box">
+                                            <nav class="mobile-menu">
+                                                <ul>
+                                                    <li><a href="https://myaccount.stockport.gov.uk/">My Account</a></li>
+                                                    <li><a href="https://myaccount.stockport.gov.uk/account/settings">Account settings</a></li>
+                                                    <li><a class="typeform-share link" data-mode="1" target="_blank" href="https://public.govdelivery.com/accounts/UKSMBC/subscriber/new">Email alerts</a></li>
+                                                    <li><a class="sign-out" href="https://myaccount.stockport.gov.uk/account/logout">Sign out</a></li>
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="menu-logged-out pull-right">
+                                <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>My Account</a>
+                            </div>
+                            @if (featureToggles.ReciteMeTrial) {
+                                <div class="menu-logged-out pull-right">
+                                    <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="grid-50 grid-parent pull-right header-search-bar">
+                    <partial name="HeaderSearchBar" />
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+<partial name="MobileSearchBar" />
+<div class="banner-header-container">
+    <div class="grid-container grid-100">
+        @if (ViewData["Beta"] != null && ViewData["BetaForm"] != null && (bool)ViewData["Beta"])
+        {
+            <div class="banner-header grid-100 mobile-grid-100 tablet-grid-100">
+                <p>
+                    <span class="banner-icon-beta">NEW</span><span class="banner-title-beta">This part of Stockport.gov.uk is brand new</span><span class="banner-body"> – your <a class="typeform-share link" data-mode="1" target="_blank" href="@ViewData["BetaForm"]">feedback</a> will help us improve it.</span>
+                </p>
+            </div>
+
+        }
+
+    </div>
+</div>
+<partial name="BrowserCheck" />
+@if (bannerTypeformUrl != null)
+{
+    <div class="banner-header-container">
+        <div class="grid-container grid-100">
+            <div class="banner-header grid-100 mobile-grid-100 tablet-grid-100">
+                <p>
+                    <span class="banner-icon-beta">NEW</span><span class="banner-title-beta">This part of our website is brand new. </span><span class="banner-body"><a target="_blank" href="@ViewData["BannerTypeformUrl"]">Give us your feedback</a> to help us improve it.</span>
+                </p>
+            </div>
+        </div>
+    </div>
+}
