@@ -36,7 +36,7 @@
 </head>
 <body class="container-layout-free">
     <partial name="TagManager/TagManagerNoScript" />
-    <partial name="Header" />
+    <partial name="HeaderExternal" />
     <main>
         @RenderBody()
     </main>
@@ -52,6 +52,7 @@
         var windowHeight = $(window).height();
 
         document.documentElement.className = document.documentElement.className.replace("no-js", "js");
+
         var CludoSearch;
         (function () {
             var cludoSettings = {
