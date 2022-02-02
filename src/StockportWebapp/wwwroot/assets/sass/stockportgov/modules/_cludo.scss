@@ -61,6 +61,10 @@
 #cludo-404-results {
     padding-top: 30px;
 
+    ul > li {
+        margin-right: 30px;
+    }
+
     .cludo-result-item,
     .cludo-result-item a {
         text-align: left !important;
