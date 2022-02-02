@@ -1,5 +1,6 @@
 ﻿.cludo-error-page {
     min-height: 0px !important;
+    padding-bottom: 15px;
 
     h1 {
         color: $colorPrimary;
@@ -54,11 +55,8 @@
 
 #cludo-404 {
 
-    padding-bottom: 30px !important;
-
     .powered-by {
         right: 15px !important;
-        bottom: 10px !important; 
     }
 }
 
