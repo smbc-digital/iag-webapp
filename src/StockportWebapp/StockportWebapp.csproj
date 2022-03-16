@@ -15,6 +15,9 @@
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
     <None Include="emails\templates\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
+    <_ContentIncludedByDefault Remove="wwwroot\assets\sass\stockportgov\modules\_xxxcludo.scss" />
+    <Content Include="wwwroot\assets\sass\healthystockport\modules\_xxxcludo.scss" />
+    <Content Include="wwwroot\assets\sass\stockportgov\modules\_xxxcludo.scss" />
     <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
     <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
