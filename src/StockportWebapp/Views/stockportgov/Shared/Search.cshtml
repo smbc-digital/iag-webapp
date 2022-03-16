@@ -4,9 +4,14 @@
 
 @*<form aria-label="@Model.Item4" action="" method="get" role="search" id="@Model.Item1" class="cludo-search_autocomplete">
     <label class="visuallyhidden" for="@Model.Item3">
-        search input box  
+        search input box
     </label>
     <input class="grid-100 tablet-grid-100 mobile-grid-100 search-input" id="@Model.Item3" type="text" name="query" placeholder="@Model.Item2" autocomplete="off">
     <button value="Submit search button" class="search-button" type="submit"><span class="fa fa-search" aria-hidden="true"></span><span class="visuallyhidden"> Submit Search button</span></button>
 
 </form>*@
+
+<form id="@Model.Item1" role="search">
+    <input type="search" class="search-input" aria-label="Search">
+    <button type="submit" class="search-button" id="search-button">Search</button>
+</form>

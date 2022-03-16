@@ -10,8 +10,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    @if (ViewData["Description"] != null)
-    {
+    @if (ViewData["Description"] != null) {
         <meta name="Description" content="@ViewData["Description"]" />
     }
     <partial name="OwnershipVerificationCodes" />
@@ -34,12 +33,10 @@
     <partial name="CookieBanner" />
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
 
-    @if (CurrentEnvironment.Name == "test")
-    {
+    @if (CurrentEnvironment.Name == "test") {
         <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
     }
-    else
-    {
+    else {
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
     <partial name="TagManager/TagManagerDataLayer" />
@@ -48,6 +45,7 @@
 <body class="container-layout-free type-home">
     <partial name="TagManager/TagManagerNoScript" />
     <partial name="Header" />
+
     <div class="grid-container-full-width">
         @RenderBody()
     </div>
@@ -72,5 +70,27 @@
             function (validate, clipboard, jqueryui, jquerycookie) {
             })
     </script>
+
+    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+    <script>
+        var CludoSearch;
+        (function () {
+            var cludoSettings = {
+                customerId: 112,
+                engineId: 1144,
+                searchUrl: 'http://localhost:5006/search?query',
+                language: 'en',
+                searchInputs: ['cludo-search-form', 'cludo-search-hero-form'],
+                template: 'InlineBasic',
+                focusOnResultsAfterSearch: true,
+                type: 'inline'
+            };
+            CludoSearch = new Cludo(cludoSettings);
+            CludoSearch.init();
+        })();
+    </script>
+    <!--[if lte IE 9]>
+        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
+    <![endif]-->
 </body>
 </html>

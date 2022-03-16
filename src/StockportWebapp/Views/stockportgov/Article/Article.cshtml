@@ -20,8 +20,8 @@
                                                                       : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
                 <div class="l-content-container">
-                    @if (!string.IsNullOrEmpty(Model.Article.Image))
-                    {
+
+                    @if (!string.IsNullOrEmpty(Model.Article.Image)) {
                         <div class="title-card-background-image" style="background-image: url(@Model.Article.Image)">
                             <div class="title-card content">
                                 <h1>@Model.Article.Title</h1>
@@ -31,19 +31,16 @@
                     }
                     <div class="grid-100">
                         @{
-                            if (Model.Article.Alerts != null)
-                            {
+                            if (Model.Article.Alerts != null) {
                                 <div class="alert-container">
-                                    @foreach (var alert in Model.Article.Alerts)
-                                    {
+                                    @foreach (var alert in Model.Article.Alerts) {
                                         <partial name="DisplayTemplates/Alert" model='alert' />
                                     }
                                 </div>
                             }
                         }
 
-                        @if (string.IsNullOrEmpty(Model.Article.Image))
-                        {
+                        @if (string.IsNullOrEmpty(Model.Article.Image)) {
                             <div class="grid-100">
                                 <h1>@Model.Article.Title</h1>
                             </div>
@@ -51,25 +48,35 @@
 
                         <div class="grid-100">
 
-                            @if (!string.Equals("<p></p>\n", Model.Article.Body))
-                            {
-                                @if (!Model.HideLastUpdated)
-                                {
-                                <div class="map-content">
-                                    <p class="article-date">
-                                        <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
-                                    </p>
-                                    @Html.Raw(Model.Article.Body)
-                                </div>
+                            @if (!string.Equals("<p></p>\n", Model.Article.Body)) {
+                                @if (!Model.HideLastUpdated) {
+                                    <div class="map-content">
+                                        <p class="article-date">
+                                            <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                                        </p>
+                                        @Html.Raw(Model.Article.Body)
+                                    </div>
                                 }
                             }
 
-                            @if (Model.DisplayedSection != null)
-                            {
+                            @if (Model.DisplayedSection != null) {
                                 <partial name="../Shared/Section-Nav" />
                                 <partial name="../Shared/Article-Single-Section" model='Model' />
                                 <partial name="DisplayTemplates/Section-Pagination" />
                             }
+                        </div>
+                    </div>
+
+                    <div id="cludo-search-results">
+                        <div class="cludo-r">
+                            <div class="cludo-c-3">
+                                <div class="search-filters" role="navigation"></div>
+                            </div>
+                            <div class="cludo-c-9" role="main">
+                                <div class="search-result-count"></div>
+                                <div class="search-did-you-mean"></div>
+                                <div class="search-results"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
