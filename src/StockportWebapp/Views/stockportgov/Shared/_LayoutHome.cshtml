@@ -10,7 +10,8 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    @if (ViewData["Description"] != null) {
+    @if (ViewData["Description"] != null) 
+    {
         <meta name="Description" content="@ViewData["Description"]" />
     }
     <partial name="OwnershipVerificationCodes" />
@@ -33,10 +34,12 @@
     <partial name="CookieBanner" />
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
 
-    @if (CurrentEnvironment.Name == "test") {
+    @if (CurrentEnvironment.Name == "test") 
+    {
         <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
     }
-    else {
+    else
+    {
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
     <partial name="TagManager/TagManagerDataLayer" />
