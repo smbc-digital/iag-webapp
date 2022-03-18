@@ -26,5 +26,10 @@ namespace StockportWebapp.Controllers
             }
             return NotFound();
         }
+
+        [Route("/searchResults")]
+        public async Task<IActionResult> SearchResults(string query) {
+            return View();
+        }
     }
 }

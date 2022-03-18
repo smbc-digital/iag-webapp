@@ -1,4 +1,14 @@
-﻿.cludo-error-page {
+﻿#cludo-search-results {
+
+    .search-results-item {
+
+        a > p {
+        display: none !important;
+        }
+    }
+}
+
+.cludo-error-page {
 
     h1 {
         color: $colorPrimary;
