@@ -1,10 +1,41 @@
 ﻿#cludo-search-results {
+    line-height: 21px;
 
     .search-results-item {
+        a {
+            text-decoration: none;
+            padding: 10px;
+            margin: 0;
+            display: block;
+            color: #333;
+            text-shadow: none;
+            background-image: none;
+            border: 2px solid transparent
+        }
+
+        a > h2 {
+            line-height: 1;
+        }
 
         a > p {
-        display: none !important;
+            display: none !important;
         }
+
+        a > .path {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+        }
+
+        a:hover {
+            .path {
+                text-decoration-thickness: 3px;
+            }
+        }
+    }
+
+    .search-results-item:hover {
+        background-color: #f2f2f2;
+        background-image: none
     }
 }
 
