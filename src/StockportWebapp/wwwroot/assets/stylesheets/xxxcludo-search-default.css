@@ -991,16 +991,16 @@
     transition: all .3s ease-in-out
 }
 
-    #cludo-search-results .search-filters ul a:hover {
+/*    #cludo-search-results .search-filters ul a:hover {
         background-color: #f2f2f2;
         color: grey;
         background-image: none
-    }
+    }*/
 
-    #cludo-search-results .search-filters ul a.active {
+/*    #cludo-search-results .search-filters ul a.active {
         background-color: #5da1ce;
         color: #fff
-    }
+    }*/
 
 #cludo-search-results .cludo-search-modal-body .search-filters {
     position: relative;
