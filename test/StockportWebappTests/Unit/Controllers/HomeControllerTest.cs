@@ -165,7 +165,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             response.Should().BeOfType<RedirectResult>();
             var redirect = response as RedirectResult;
-            _config.Verify(o => o.GetEmailAlertsUrl(_businessId), Times.Once);
+            _config.Verify(o => o.GetEmailAlertsUrl(_businessId), Times.Never);
             redirect.Url.Should().Be(EmailAlertsUrl + emailAddress + "&topic_id=");
         }
 
