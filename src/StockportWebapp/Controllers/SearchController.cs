@@ -29,6 +29,7 @@ namespace StockportWebapp.Controllers
 
         [Route("/searchResults")]
         public async Task<IActionResult> SearchResults(string query) {
+            ViewData["Title"] = "Search results";
             return View();
         }
     }
