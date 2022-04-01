@@ -6,50 +6,73 @@
 <!DOCTYPE html>
 <html lang="en-GB" class="no-js">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="healthystockport.co.uk - helping people living or working in Stockport make positive lifestyle changes.">
-    <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/Favicon.png" />
-    <title>@ViewData["Title"]</title>
-    @*<link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">*@
-    <!--[if (gt IE 8) | (IEMobile)]><!-->
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
-    <!--<![endif]-->
-    <link rel="stylesheet" href="/assets/stylesheets/styleguide-hs.min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/site-hs.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/slick.min.css">
-    <!--[if (lt IE 9) & (!IEMobile)]>
-        <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
-    <![endif]-->
-    @RenderSection("BackgroundImage")
-    @RenderSection("CarouselBackgroundImage")
-    <partial name="CookieBanner" />
-    @await Component.InvokeAsync("GoogleAnalytics")
+	<meta charset="utf-8" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="healthystockport.co.uk - helping people living or working in Stockport make positive lifestyle changes.">
+	<link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/Favicon.png" />
+	<title>@ViewData["Title"]</title>
+	@*<link href="//customer.cludo.com/css/112/1144/cludo-search-default.min.css" type="text/css" rel="stylesheet">*@
+	<!--[if (gt IE 8) | (IEMobile)]><!-->
+	<link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
+	<!--<![endif]-->
+	<link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
+	<link href="https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="/assets/stylesheets/styleguide-hs.min.css" />
+	<link rel="stylesheet" href="~/assets/stylesheets/site-hs.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/assets/stylesheets/vendor/slick.min.css">
+	<!--[if (lt IE 9) & (!IEMobile)]>
+		<link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
+	<![endif]-->
+	@RenderSection("BackgroundImage")
+	@RenderSection("CarouselBackgroundImage")
+	<partial name="CookieBanner" />
+	@await Component.InvokeAsync("GoogleAnalytics")
 </head>
 <body class="container-layout-free type-article">
-    <partial name="Header" />
-    <partial name="BrowserCheck" />
-    <div class="l-background">
-        <div class="grid-container l-background-holder">
-            <div class="l-container l-body-container l-body-container-mobile">
-                @RenderBody()
-            </div>
-        </div>
-        <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
-            @await Component.InvokeAsync("Footer")
-        </distributed-cache>
-    </div>
-    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
+	<partial name="Header" />
+	<partial name="BrowserCheck" />
+	<div class="l-background">
+		<div class="grid-container l-background-holder">
+			<div class="l-container l-body-container l-body-container-mobile">
+				@RenderBody()
+			</div>
+		</div>
+		<distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+			@await Component.InvokeAsync("Footer")
+		</distributed-cache>
+	</div>
+	<script src="~/assets/javascript/vendor/modernizr.min.js"></script>
 
-    @if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
-    {
-        <script data-main="/assets/javascript/requireConfigHealthyStockport.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    }
-    else
-    {
-        <script data-main="/assets/javascript/requireConfigHealthyStockport" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    }
+	@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
+	{
+		<script data-main="/assets/javascript/requireConfigHealthyStockport.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+	}
+	else
+	{
+		<script data-main="/assets/javascript/requireConfigHealthyStockport" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+	}
+	<script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+	<script>
+		var CludoSearch;
+		(function () {
+			var cludoSettings = {
+				customerId: 112,
+				engineId: 1757,
+				searchUrl: '/searchResults?query',
+				language: 'en',
+				searchInputs: ['cludo-search-form'],
+				template: 'InlineBasic',
+				focusOnResultsAfterSearch: true,
+				type: 'inline'
+			};
+			CludoSearch = new Cludo(cludoSettings);
+			CludoSearch.init();
+		})();
+	</script>
+	<!--[if lte IE 9]>
+		<script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
+	<![endif]-->
 </body>
 </html>
