@@ -27,7 +27,7 @@ namespace StockportWebapp.Middleware
             else
             {
                 // default to stockportgov if no businessid
-                businessId.SetId(new StringValues("stockportgov"));
+                businessId.SetId(new StringValues("healthystockport"));
                 // to run healthystockport locally, comment out the above line and uncomment line below
                 //businessId.SetId(new StringValues("healthystockport"));
                 context.Request.Headers.Add("BUSINESS-ID", businessId.ToString());
