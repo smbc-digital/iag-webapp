@@ -29,14 +29,31 @@
     <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
 
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    @if (CurrentEnvironment.Name == "test")
-    {
+    @if (CurrentEnvironment.Name == "test") {
         <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
     }
-    else
-    {
+    else {
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
+
+    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+    <script>
+        var CludoSearch;
+        (function () {
+            var cludoSettings = {
+                customerId: 112,
+                engineId: 1144,
+                searchUrl: '/searchResults?query',
+                language: 'en',
+                searchInputs: ['cludo-search-form'],
+                template: 'InlineBasic',
+                focusOnResultsAfterSearch: true,
+                type: 'inline'
+            };
+            CludoSearch = new Cludo(cludoSettings);
+            CludoSearch.init();
+        })();
+    </script>
 
 </head>
 <body class="container-layout-free type-error">

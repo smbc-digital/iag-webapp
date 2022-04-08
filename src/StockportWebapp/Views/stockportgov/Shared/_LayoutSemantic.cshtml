@@ -45,8 +45,7 @@
         </div>
         <partial name="SemanticHeader" />
         <partial name="BrowserCheckSemantic" />
-        @if (!string.IsNullOrEmpty((string)bannerTypeformUrl))
-        {
+        @if (!string.IsNullOrEmpty((string)bannerTypeformUrl)) {
             <div class="banner-header">
                 <div class="center-wrapper">
                     <span>NEW </span><strong>This part of our website is brand new. </strong><a href="@ViewData["BannerTypeformUrl"]" target="_blank" data-mode="1" class="typeform-share link">Give us your feedback</a> to help us improve it.
@@ -75,6 +74,25 @@
                 utils.Init();
                 reciteMe.Init();
             })
+    </script>
+
+    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+    <script>
+        var CludoSearch;
+        (function () {
+            var cludoSettings = {
+                customerId: 112,
+                engineId: 1144,
+                searchUrl: '/searchResults?query',
+                language: 'en',
+                searchInputs: ['cludo-search-form'],
+                template: 'InlineBasic',
+                focusOnResultsAfterSearch: true,
+                type: 'inline'
+            };
+            CludoSearch = new Cludo(cludoSettings);
+            CludoSearch.init();
+        })();
     </script>
 </body>
 </html> 

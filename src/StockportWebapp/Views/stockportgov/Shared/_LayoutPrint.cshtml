@@ -25,5 +25,24 @@
     @*<script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>*@
     <script src="/assets/javascript/stockportgov.min.js"></script>
 
+    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+    <script>
+        var CludoSearch;
+        (function () {
+            var cludoSettings = {
+                customerId: 112,
+                engineId: 1144,
+                searchUrl: '/searchResults?query',
+                language: 'en',
+                searchInputs: ['cludo-search-form'],
+                template: 'InlineBasic',
+                focusOnResultsAfterSearch: true,
+                type: 'inline'
+            };
+            CludoSearch = new Cludo(cludoSettings);
+            CludoSearch.init();
+        })();
+    </script>
+
 </body>
 </html>
