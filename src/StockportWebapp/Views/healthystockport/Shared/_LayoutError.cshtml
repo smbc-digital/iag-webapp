@@ -29,42 +29,24 @@
 	@await Component.InvokeAsync("GoogleAnalytics")
 </head>
 <body class="@(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
-	<partial name="Header" />
-	@RenderBody()
-	<div id="error-footer">
-		<distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
-			@await Component.InvokeAsync("Footer")
-		</distributed-cache>
-	</div>
-	<script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-	@if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
-	{
-		<script data-main="/assets/javascript/requireConfigHealthyStockport.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-	}
-	else
-	{
-		<script data-main="/assets/javascript/requireConfigHealthyStockport" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-	}
-	<script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-	<script>
-		var CludoSearch;
-		(function () {
-			var cludoSettings = {
-				customerId: 112,
-				engineId: 1757,
-				searchUrl: '/searchResults?query',
-				language: 'en',
-				searchInputs: ['cludo-search-form'],
-				template: 'InlineBasic',
-				focusOnResultsAfterSearch: true,
-				type: 'inline'
-			};
-			CludoSearch = new Cludo(cludoSettings);
-			CludoSearch.init();
-		})();
-	</script>
-	<!--[if lte IE 9]>
-		<script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
-	<![endif]-->
+    <partial name="Header" />
+    @RenderBody()
+    <div id="error-footer">
+        <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+            @await Component.InvokeAsync("Footer")
+        </distributed-cache>
+    </div>
+    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
+    @if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage") {
+        <script data-main="/assets/javascript/requireConfigHealthyStockport.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    }
+    else {
+        <script data-main="/assets/javascript/requireConfigHealthyStockport" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
+    }
+    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
+    <script type="text/javascript" src="~/assets/javascript/healthystockport/cludoInit.js"></script>
+    <!--[if lte IE 9]>
+        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
+    <![endif]-->
 </body>
 </html>

@@ -96,23 +96,8 @@
     @RenderSection("Scripts", false)
 
     <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script>
-        var CludoSearch;
-        (function () {
-            var cludoSettings = {
-                customerId: 112,
-                engineId: 1144,
-                searchUrl: '/searchResults?query',
-                language: 'en',
-                searchInputs: ['cludo-search-form'],
-                template: 'InlineBasic',
-                focusOnResultsAfterSearch: true,
-                type: 'inline'
-            };
-            CludoSearch = new Cludo(cludoSettings);
-            CludoSearch.init();
-        })();
-    </script>
+    <script type="text/javascript" src="~/assets/javascript/stockportgov/cludoInit.js"></script>
+
     <!--[if lte IE 9]>
         <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
     <![endif]-->
