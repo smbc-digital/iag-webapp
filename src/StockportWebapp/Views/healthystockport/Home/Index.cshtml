@@ -24,14 +24,14 @@
 }
 <div>
     @if (Model.HomepageContent.Alerts != null)
-{
-    foreach (var alert in Model.HomepageContent.Alerts)
     {
-        <div>
-            <partial name="Alert" model='alert'/>
-        </div>
+        foreach (var alert in Model.HomepageContent.Alerts)
+        {
+            <div>
+                <partial name="Alert" model='alert'/>
+            </div>
+        }
     }
-}
 
     <div role="banner" class="grid-100 l-background-hs-image">
         <div class="introduction grid-50">
