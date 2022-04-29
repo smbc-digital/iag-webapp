@@ -14,11 +14,11 @@
         @{
             var severity = Model.Severity.ToLowerInvariant();
             var icon = "fa-info-circle";
-            if (severity == "error")
+            if (severity.Equals("error"))
             {
                 icon = "fa-exclamation-circle";
             }
-            if (severity == "warning")
+            if (severity.Equals("warning"))
             {
                 icon = "fa-exclamation-triangle";
             }
