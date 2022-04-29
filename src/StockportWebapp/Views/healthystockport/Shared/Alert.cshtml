@@ -1,0 +1,49 @@
+﻿@using StockportWebapp.Models
+@using StockportWebapp.Utils
+@model Alert
+@inject ICookiesHelper CookiesHelper
+
+@{
+    var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
+    var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
+}
+
+@if (!isDismissed)
+{
+    <div class="grid-100 tablet-grid-100 mobile-grid-100">
+        @{
+            var severity = Model.Severity.ToLowerInvariant();
+            var icon = "fa-info-circle";
+            if (severity.Equals("error"))
+            {
+                icon = "fa-exclamation-circle";
+            }
+            if (severity.Equals("warning"))
+            {
+                icon = "fa-exclamation-triangle";
+            }
+        }
+        <div class="alert alert-@Model.Severity.ToLowerInvariant()">
+            <div class="alert-icon">
+                <span class="fa @icon fa-3x" aria-hidden="true"></span>
+            </div>
+            <div tabindex="0" class=" focusable alert-content">
+                <h2>@Model.Title</h2>
+                @if (!string.IsNullOrEmpty(Model.SubHeading))
+                {
+                    <p class="alert-subheading">@Model.SubHeading</p>
+                }
+                @Html.Raw(Model.Body)
+            </div>
+            @if (!Model.IsStatic)
+            {
+                <div class="alert-close">
+                    <a href="javascript:void(0)">
+                        <span class="visuallyhidden"> Close Alert</span>
+                        <span class="fa fa-times fa-2x close-alert" data-parent="grid-100" aria-hidden="true" data-slug="@Model.Slug"></span>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+}
