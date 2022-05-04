@@ -20,7 +20,6 @@
                                                                       : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
                 <div class="l-content-container">
-
                     @if (!string.IsNullOrEmpty(Model.Article.Image)) 
                     {
                         <div class="title-card-background-image" style="background-image: url(@Model.Article.Image)">
@@ -32,7 +31,7 @@
                     }
                     <div class="grid-100">
                         @{
-                            if (Model.Article.Alerts != null) 
+                            if (Model.Article.Alerts != null)
                             {
                                 <div class="alert-container">
                                     @foreach (var alert in Model.Article.Alerts) 
@@ -43,7 +42,7 @@
                             }
                         }
 
-                        @if (string.IsNullOrEmpty(Model.Article.Image)) 
+                        @if (string.IsNullOrEmpty(Model.Article.Image))
                         {
                             <div class="grid-100">
                                 <h1>@Model.Article.Title</h1>
@@ -54,14 +53,14 @@
 
                             @if (!string.Equals("<p></p>\n", Model.Article.Body)) 
                             {
-                                @if (!Model.HideLastUpdated) 
+                                @if (!Model.HideLastUpdated)
                                 {
-                                    <div class="map-content">
-                                        <p class="article-date">
-                                            <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
-                                        </p>
-                                        @Html.Raw(Model.Article.Body)
-                                    </div>
+                                <div class="map-content">
+                                    <p class="article-date">
+                                        <span class="fa fa-clock-o" aria-hidden="true"></span>Last updated <partial name="FormattedDate" model='Model.Article.UpdatedAt' />
+                                    </p>
+                                    @Html.Raw(Model.Article.Body)
+                                </div>
                                 }
                             }
 

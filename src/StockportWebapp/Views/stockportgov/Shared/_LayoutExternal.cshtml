@@ -56,44 +56,28 @@
 
         document.documentElement.className = document.documentElement.className.replace("no-js", "js");
 
-        //var CludoSearch;
-        //(function () {
-        //    var cludoSettings = {
-        //        customerId: 112,
-        //        engineId: 1144,
-        //        searchUrl: '/searchResults?query',
-        //        language: 'en',
-        //        searchInputs: ['cludo-search-form', 'cludo-search-hero-form'],
-        //        template: 'InlineBasic',
-        //        focusOnResultsAfterSearch: true,
-        //        type: 'inline'
-        //    };
-        //    CludoSearch = new Cludo(cludoSettings);
-        //    CludoSearch.init();
-        //})();
+        $(".show-search-button").click(function () {
+            $("#mobileSearchInput").slideToggle(220);
+            $(".show-search-button").toggleClass("arrow");
+        });
 
-        //$(".show-search-button").click(function () {
-        //    $("#mobileSearchInput").slideToggle(220);
-        //    $(".show-search-button").toggleClass("arrow");
-        //});
+        $(window).resize(function () {
+            var image = $("#header .logo-main-image");
+            var logoMobile = image.attr("data-mobile-image");
+            var logoDesktop = image.attr("data-desktop-image");
 
-        //$(window).resize(function () {
-        //    var image = $("#header .logo-main-image");
-        //    var logoMobile = image.attr("data-mobile-image");
-        //    var logoDesktop = image.attr("data-desktop-image");
+            if ($(window).width() <= mobileWidth) {
+                image.attr("src", logoMobile);
+            } else {
+                image.attr("src", logoDesktop);
+            }
 
-        //    if ($(window).width() <= mobileWidth) {
-        //        image.attr("src", logoMobile);
-        //    } else {
-        //        image.attr("src", logoDesktop);
-        //    }
-
-        //    if ($(window).width() > tabletWidth) {
-        //        $("#mobileSearchInput").hide();
-        //        $(".show-search-button").removeClass("arrow");
-        //        $('#displayRefineBy').css('display', 'block');
-        //    }
-        //});
+            if ($(window).width() > tabletWidth) {
+                $("#mobileSearchInput").hide();
+                $(".show-search-button").removeClass("arrow");
+                $('#displayRefineBy').css('display', 'block');
+            }
+        });
 
     </script>
     <script type="text/javascript">

@@ -22,11 +22,11 @@
     <partial name="Favicon" />
 
     <title>@ViewData["Title"] - Stockport Council</title>
-    @if (ViewData["Description"] != null) 
+    @if (ViewData["Description"] != null)
     {
         <meta name="Description" content="@ViewData["Description"]" />
     }
-    @if (ViewData["CanonicalUrl"] != null) 
+    @if (ViewData["CanonicalUrl"] != null)
     {
         <partial name="Canonical-Link" />
     }
@@ -51,11 +51,11 @@
     <partial name="TagManager/TagManager" />
 
     <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    @if (CurrentEnvironment.Name == "test") 
+    @if (CurrentEnvironment.Name == "test")
     {
         <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
     }
-    else 
+    else
     {
         <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
     }
