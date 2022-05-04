@@ -3,7 +3,6 @@
     paths: {
         "jquery": "vendor/jquery.min",
         "recaptcha": "//www.google.com/recaptcha/api",
-        //"cludo": "//customer.cludo.com/scripts/bundles/search-script.min",
         "bootstrap": "/lib/bootstrap/dist/js/bootstrap.min",
         "handlebars": "/lib/handlebars/handlebars.runtime.min",
         "rangy": "/lib/rangy-1.3/rangy-core",
@@ -11,7 +10,6 @@
         "unobtrusive": "vendor/jquery.validate.unobtrusive.min",
         "slick": "vendor/slick",
         "carousel": "stockportgov/carousel",
-        //"cludoconfig": "stockportgov/cludo",
         "contactus": "stockportgov/contactUs",
         "iag-validate-chars": "stockportgov/iagValidateChars",
         "text-limiter": "stockportgov/textLimiter",

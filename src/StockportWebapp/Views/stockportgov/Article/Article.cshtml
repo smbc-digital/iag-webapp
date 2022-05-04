@@ -20,7 +20,7 @@
                                                                       : "grid-parent mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.Article.Title content" class="grid-100 mobile-grid-100 ">
                 <div class="l-content-container">
-                    @if (!string.IsNullOrEmpty(Model.Article.Image)) 
+                    @if (!string.IsNullOrEmpty(Model.Article.Image))
                     {
                         <div class="title-card-background-image" style="background-image: url(@Model.Article.Image)">
                             <div class="title-card content">
@@ -34,7 +34,7 @@
                             if (Model.Article.Alerts != null)
                             {
                                 <div class="alert-container">
-                                    @foreach (var alert in Model.Article.Alerts) 
+                                    @foreach (var alert in Model.Article.Alerts)
                                     {
                                         <partial name="DisplayTemplates/Alert" model='alert' />
                                     }
@@ -51,7 +51,7 @@
 
                         <div class="grid-100">
 
-                            @if (!string.Equals("<p></p>\n", Model.Article.Body)) 
+                            @if (!string.Equals("<p></p>\n", Model.Article.Body))
                             {
                                 @if (!Model.HideLastUpdated)
                                 {
