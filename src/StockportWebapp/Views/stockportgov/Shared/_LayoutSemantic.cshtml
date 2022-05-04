@@ -45,7 +45,8 @@
         </div>
         <partial name="SemanticHeader" />
         <partial name="BrowserCheckSemantic" />
-        @if (!string.IsNullOrEmpty((string)bannerTypeformUrl)) {
+        @if (!string.IsNullOrEmpty((string)bannerTypeformUrl))
+        {
             <div class="banner-header">
                 <div class="center-wrapper">
                     <span>NEW </span><strong>This part of our website is brand new. </strong><a href="@ViewData["BannerTypeformUrl"]" target="_blank" data-mode="1" class="typeform-share link">Give us your feedback</a> to help us improve it.
