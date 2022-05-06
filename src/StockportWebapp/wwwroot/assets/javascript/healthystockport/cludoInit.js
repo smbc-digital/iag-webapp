@@ -4,7 +4,7 @@ var cludoSettings = {
     engineId: 1757,
     searchUrl: '/searchResults?query',
     language: 'en',
-    searchInputs: ['cludo-search-form'],
+    searchInputs: ['cludo-search-form', 'cludo-search-mobile-form'],
     template: 'InlineBasic',
     focusOnResultsAfterSearch: true,
     type: 'inline'

@@ -56,6 +56,17 @@
     }
 }
 
+#cludo-search-form .search_autocomplete li:hover,
+.cludo-search-form .search_autocomplete li:hover,
+#cludo-search-form-content .search_autocomplete li:hover,
+#cludo-search-form .search_autocomplete li.active,
+.cludo-search-form .search_autocomplete li.active,
+#cludo-search-form-content .search_autocomplete li.active,
+.cludo-search_autocomplete .search_autocomplete li.active,
+.cludo-search_autocomplete .search_autocomplete li:hover {
+    background-color: $colorPrimary;
+}
+
 .cludo-error-page {
 
     h1 {
