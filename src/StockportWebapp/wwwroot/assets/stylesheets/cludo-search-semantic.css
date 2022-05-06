@@ -39,7 +39,6 @@
 
             #cludo-search-form ul li:hover, #cludo-search-form-content ul li:hover, .cludo-search-form ul li:hover, .cludo-search-modal-body ul li:hover, .cludo-search-modal-footer ul li:hover, .cludo-search-modal-header ul li:hover {
                 background-color: transparent;
-                border: 0
             }
 
     #cludo-search-form a, #cludo-search-form a:link, #cludo-search-form-content a, #cludo-search-form-content a:link, .cludo-search-form a, .cludo-search-form a:link, .cludo-search-modal-body a, .cludo-search-modal-body a:link, .cludo-search-modal-footer a, .cludo-search-modal-footer a:link, .cludo-search-modal-header a, .cludo-search-modal-header a:link {
@@ -990,17 +989,6 @@
     border: 2px solid transparent;
     transition: all .3s ease-in-out
 }
-
-    #cludo-search-results .search-filters ul a:hover {
-        background-color: #f2f2f2;
-        color: grey;
-        background-image: none
-    }
-
-    #cludo-search-results .search-filters ul a.active {
-        background-color: #5da1ce;
-        color: #fff
-    }
 
 #cludo-search-results .cludo-search-modal-body .search-filters {
     position: relative;
