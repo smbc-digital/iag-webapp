@@ -54,6 +54,10 @@
             color: $white;
         }
     }
+
+    .cludo-no-search-term {
+        display: none;
+    }
 }
 
 #cludo-search-form .search_autocomplete li:hover,
