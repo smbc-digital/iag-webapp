@@ -46,6 +46,14 @@
                     observer.observe(target, config);
                 })();
             </script>
+
+            <script type="text/javascript">
+                require(['startup', 'matchboxconfig'],
+                    function (startup, matchboxconfig) {
+                        startup.Init();
+                        matchboxconfig.Init();
+                    })
+            </script>
         </div>
     </div>
 </main>
