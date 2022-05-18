@@ -8,7 +8,6 @@
         "unobtrusive": "vendor/jquery.validate.unobtrusive.min",
         "slick": "vendor/slick",
         "carousel": "healthystockport/carousel",
-        "cludoconfig": "healthystockport/cludo",
         "healthystockport": "healthystockport/healthystockport",
         "matchboxconfig": "healthystockport/matchbox",
         "startup": "healthystockport/startup",
@@ -28,8 +27,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'healthystockport', 'matchboxconfig', 'validate', 'unobtrusive', 'jquery', 'startup', 'matchHeight', 'reciteMe'],
-    function (carousel, cludoconfig, healthystockport, matchboxconfig, validate, unobtrusive, $, startup, matchHeight, reciteMe) {
+require(['carousel', 'healthystockport', 'matchboxconfig', 'validate', 'unobtrusive', 'jquery', 'startup', 'matchHeight', 'reciteMe'],
+    function (carousel, healthystockport, matchboxconfig, validate, unobtrusive, $, startup, matchHeight, reciteMe) {
         startup.Init();
         matchboxconfig.Init();
         reciteMe.Init();

@@ -58,6 +58,27 @@
     .cludo-no-search-term {
         display: none;
     }
+
+    @media (max-width: 750px) {
+        .cludo-c-3 {
+            flex: 0 0 0;
+            padding: 0
+        }
+
+        .cludo-c-9 {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+        .search-result-count {
+            padding-left: 3%;
+        }
+
+        .search_page_list {
+            display: flex;
+            justify-content: center;
+        }
+    }
 }
 
 #cludo-search-form .search_autocomplete li:hover,
