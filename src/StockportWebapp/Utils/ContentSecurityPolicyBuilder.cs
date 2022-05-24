@@ -152,7 +152,7 @@ namespace StockportWebapp.Utils
 				.AddSource("stockportb.logo-net.co.uk/Delivery/")
 				.AddSource("*.cloudfront.net/butotv/live/", false, true)
                 .AddSource("tagmanager.google.com/")
-				.AddSource("https://wpcc.io/lib/1.0.2/cookieconsent.min.css")
+				.AddSource("https://cdn.websitepolicies.io/lib/cookieconsent/cookieconsent.min.css")
                 .AddSource("unpkg.com/")
                 .AddSource("api.mapbox.com/")
 				.Finish());
@@ -211,7 +211,7 @@ namespace StockportWebapp.Utils
 				.AddSource("https://connect.facebook.net/")
 				.AddSource("widget.wheredoivote.co.uk/")
 				.AddSource("https://static.hotjar.com/")
-				.AddSource("https://wpcc.io/lib/1.0.2/cookieconsent.min.js")
+				.AddSource("https://cdn.websitepolicies.io/lib/cookieconsent/cookieconsent.min.js")
                 .AddSource("unpkg.com/")
                 .AddSource("api.mapbox.com/")
 				.AddSource("https://script.hotjar.com/")
