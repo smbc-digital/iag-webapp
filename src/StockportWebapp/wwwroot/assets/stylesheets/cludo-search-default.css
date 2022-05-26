@@ -793,66 +793,67 @@
     }
 }
 
-#cludo-search-results .cludo-search-modal-body .cludo-banner {
+#cludo-search-results .cludo-banner {
     padding: 15px;
     margin: 15px 0;
     background-color: #055c58;
     color: #4d4d4d;
     float: none !important;
-    text-shadow: none
+    text-shadow: none;
+    color: white;
 }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner * {
+    #cludo-search-results .cludo-banner * {
         text-shadow: none
     }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner ul {
+    #cludo-search-results .cludo-banner ul {
         margin-left: 20px
     }
 
-        #cludo-search-results .cludo-search-modal-body .cludo-banner ul li {
+        #cludo-search-results .cludo-banner ul li {
             list-style: disc
         }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner a {
-        color: #5da1ce;
+    #cludo-search-results .cludo-banner a {
+        color: white;
         text-decoration: underline
     }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner p {
+    #cludo-search-results .cludo-banner p {
         font-size: 18px;
         line-height: 21px !important
     }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner h2 {
+    #cludo-search-results .cludo-banner h2 {
         font-size: 22px;
         font-weight: 700;
         margin-bottom: 10px;
         line-height: normal
     }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner h3 {
+    #cludo-search-results .cludo-banner h3 {
         font-size: 18px;
         font-weight: 700;
         margin-bottom: 10px;
         line-height: normal
     }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner h4 {
+    #cludo-search-results .cludo-banner h4 {
         font-size: 14px;
         font-weight: 700;
         margin-bottom: 10px;
         line-height: normal
     }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner h5 {
+    #cludo-search-results .cludo-banner h5 {
         font-size: 14px;
         font-weight: 700;
         margin-bottom: 5px;
         line-height: normal
     }
 
-    #cludo-search-results .cludo-search-modal-body .cludo-banner:after {
+    #cludo-search-results .cludo-banner:after {
         visibility: hidden;
         display: block;
         content: "";
