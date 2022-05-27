@@ -819,6 +819,9 @@
         color: white;
         text-decoration: underline
     }
+    #cludo-search-results .cludo-banner a:hover {
+        text-decoration-thickness: 3px;
+    }
 
     #cludo-search-results .cludo-banner p {
         font-size: 18px;
