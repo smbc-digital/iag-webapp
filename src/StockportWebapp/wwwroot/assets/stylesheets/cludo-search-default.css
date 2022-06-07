@@ -797,7 +797,6 @@
     padding: 15px;
     margin: 15px 0;
     background-color: #055c58;
-    color: #4d4d4d;
     float: none !important;
     text-shadow: none;
     color: white;
@@ -811,9 +810,9 @@
         margin-left: 20px
     }
 
-        #cludo-search-results .cludo-banner ul li {
-            list-style: disc
-        }
+    #cludo-search-results .cludo-banner ul li {
+        list-style: disc
+    }
 
     #cludo-search-results .cludo-banner a {
         color: white;
@@ -825,22 +824,24 @@
     }
 
     #cludo-search-results .cludo-banner p {
-        font-size: 18px;
-        line-height: 21px !important
+        font-size: 1.125em;
+        line-height: 1.3 !important
     }
 
     #cludo-search-results .cludo-banner h2 {
-        font-size: 22px;
+        font-size: 1.375em;
         font-weight: 700;
         margin-bottom: 10px;
-        line-height: normal
+        line-height: normal;
+        color: white;
     }
 
     #cludo-search-results .cludo-banner h3 {
-        font-size: 18px;
+        font-size: 1.125em;
         font-weight: 700;
         margin-bottom: 10px;
-        line-height: normal
+        line-height: normal;
+        color: white;
     }
 
     #cludo-search-results .cludo-banner h4 {
