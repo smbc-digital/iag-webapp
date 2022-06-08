@@ -19,7 +19,10 @@ namespace StockportWebapp.Controllers
         private readonly ISimpleTagParserContainer _tagParserContainer;
         private readonly MarkdownWrapper _markdownWrapper;
 
-        public TopicController(IRepository repository, IApplicationConfiguration config, BusinessId businessId, ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
+        public TopicController(IRepository repository,
+                               IApplicationConfiguration config,
+                               BusinessId businessId, ISimpleTagParserContainer tagParserContainer,
+                               MarkdownWrapper markdownWrapper)
         {
             _repository = repository;
             _config = config;

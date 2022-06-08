@@ -186,7 +186,11 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
             var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
-            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, true);
+            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(),
+                new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty,
+                true, string.Empty);
+
             var article = new ProcessedArticle(TextHelper.AnyString,TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(),
                 TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), null, new DateTime(), new bool());
 
@@ -216,8 +220,11 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var subItems = new List<SubItem> { firstSubItem, secondSubItem, thirdSubItem, fourthSubItem };
             var secondaryItems = new List<SubItem> { fifthSubItem, sixthSubItem, seventhSubItem, eightSubItem };
 
-            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-                subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true);
+            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+                TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(),
+                new List<Alert>(), false, TextHelper.AnyString, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty,
+                string.Empty, true, string.Empty);
+            
             var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), null, new DateTime(), new bool());
 
             var articleViewModel = new ArticleViewModel(article);
@@ -283,7 +290,8 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         {
 
             var parentTopic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
-                new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true);
+                new List<Crumb>(), null, true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty,
+                true, string.Empty);
 
             return new ProcessedArticle(TextHelper.AnyString, slug, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, sections,
                 TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), parentTopic, new List<Alert>(), null, new DateTime(), new bool());
