@@ -1,0 +1,22 @@
+.video-wrapper {
+    padding: 0;
+    position: relative;
+    height: 640px;
+
+    @media #{$mobile} {
+        height: 240px;
+    }
+
+    iframe {
+        -webkit-box-shadow: 0 3px 6px rgba(#666, 70%);
+        box-shadow: 0 3px 6px rgba(#666, 70%);
+        width: 100%;
+        height: 100%;
+    }
+
+    .base-akita-container {
+        -webkit-box-shadow: 0 3px 6px rgba(#666, 70%);
+        box-shadow: 0 3px 6px rgba(#666, 70%);
+        position: absolute;
+    }
+}
