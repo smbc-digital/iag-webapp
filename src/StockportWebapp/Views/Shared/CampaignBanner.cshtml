@@ -1,0 +1,14 @@
+﻿@model StockportWebapp.Models.CarouselContent
+<div>
+    <a href="@Model.URL" aria-label="@Model.Title" title="@Model.Title">
+        <div class="l-background-hs-image">
+            <div class="stockport-carousel-text">
+                <h1>@Model.Title</h1>
+                <p>
+                    @Model.Teaser
+                </p>
+            </div>
+            <div class="stockport-carousel-gradient"></div>
+        </div>
+    </a>
+</div>

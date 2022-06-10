@@ -53,13 +53,12 @@ namespace StockportWebapp.Controllers
         public async Task<IActionResult> EmailSubscribe(string emailAddress, [FromQuery] string EmailAlertsTopicId)
         {
             var urlSetting = _config.GetEmailAlertsUrl(_businessId.ToString());
-            if (urlSetting.IsValid())
-            {
-                var redirectUrl = string.Concat(urlSetting, emailAddress) + "&topic_id=" + EmailAlertsTopicId;
+            if (!urlSetting.IsValid()) 
+                return NotFound();
 
-                return await Task.FromResult(Redirect(redirectUrl));
-            }
-            return NotFound();
+            var redirectUrl = string.Concat(urlSetting, emailAddress) + "&topic_id=" + EmailAlertsTopicId;
+
+            return await Task.FromResult(Redirect(redirectUrl));
         }
     }
 }

@@ -9,10 +9,21 @@
     ViewData["og:title"] = "Welcome to Stockport Council";
 
 }
-@section BackgroundImage
+@if (!string.IsNullOrEmpty(Model.HomepageContent.CampaignBanner.Image))
+{
+    @section BackgroundImage
     {
-    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage)'/>
+        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.CampaignBanner.Image)'/>
+    }
 }
+else
+{
+    @section BackgroundImage
+    {
+        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage)'/>
+    }
+}
+
 @section CarouselBackgroundImage
     {
     @{ int counter = 1; }
@@ -33,11 +44,20 @@
         }
     }
 
-    <div role="banner" class="grid-100 l-background-hs-image">
-        <div class="introduction grid-50">
-            @Html.Raw(Model.HomepageContent.FreeText)
+    @if (!string.IsNullOrEmpty(Model.HomepageContent.CampaignBanner.Title))
+    {
+        <div role="banner" class="l-background-hs-image">
+            <partial name="CampaignBanner" model='Model.HomepageContent.CampaignBanner'/>
         </div>
-    </div>
+    }
+    else
+    {
+        <div role="banner" class="grid-100 l-background-hs-image">
+            <div class="introduction grid-50">
+                @Html.Raw(Model.HomepageContent.FreeText)
+            </div>
+        </div>
+    }
 
     <div tabindex="-1" id="content" class="l-body-section-filled grid-100">
         <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container">
