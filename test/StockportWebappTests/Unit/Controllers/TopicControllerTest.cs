@@ -9,9 +9,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
-using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
-using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using Xunit;
 
@@ -23,8 +21,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly Mock<IRepository> _repository;
         private const string BusinessId = "businessId";
         private readonly EventBanner _eventBanner;
-        private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
-        private readonly Mock<MarkdownWrapper> _markdownWrapper;
 
         public TopicControllerTest()
         {
@@ -32,17 +28,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-            _tagParserContainer = new Mock<ISimpleTagParserContainer>();
-
-            _markdownWrapper = new Mock<MarkdownWrapper>();
-
             _repository = new Mock<IRepository>();
-            _controller = new TopicController(_repository.Object,
-                                              config.Object,
-                                              new BusinessId(BusinessId),
-                                              _tagParserContainer.Object,
-                                              _markdownWrapper.Object
-                                              );
+            _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId));
             _eventBanner = new EventBanner("title", "teaser", "icon", "link");
         }
         
@@ -58,7 +45,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
-                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true, string.Empty);
+                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -93,8 +80,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
-              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(),
-              string.Empty, string.Empty, true, string.Empty);
+              new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -135,8 +121,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             };
 
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
-               new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty,
-               string.Empty, true, string.Empty);
+               new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));

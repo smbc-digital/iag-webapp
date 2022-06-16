@@ -56,12 +56,11 @@ namespace StockportWebapp.Models
         public string PrimaryItemTitle { get; }
 
         public bool DisplayContactUs { get; set; }
-        public string Body { get; set; }
-
+        
         public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, 
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner, 
-            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxs, string primaryItemTitle, string title, bool displayContactUs, string body)
+            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxs, string primaryItemTitle, string title, bool displayContactUs)
         {
             Name = name;
             Title = title;
@@ -86,12 +85,11 @@ namespace StockportWebapp.Models
             ExpandingLinkBoxes = expandingLinkBoxs;
             PrimaryItemTitle = primaryItemTitle;
             DisplayContactUs = displayContactUs;
-            Body = body;
         }
     }
 
     public class NullTopic : Topic
     {
-        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(), string.Empty, string.Empty, true, string.Empty) { }
+        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(), string.Empty, string.Empty, true) { }
     }
 }
