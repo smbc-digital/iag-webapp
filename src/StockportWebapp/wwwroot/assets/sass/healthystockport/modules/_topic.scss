@@ -56,6 +56,14 @@
 
         .topic-secondary-item {
 
+            h2 {
+                text-decoration: underline
+            }
+
+            a:hover h2 {
+                text-decoration-thickness: 3px;
+            }
+
             hr {
                 width: 100%;
                 border: 1px solid #ccc;
