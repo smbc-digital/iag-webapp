@@ -8,50 +8,74 @@
     ViewData["Description"] = topic.Teaser;
     ViewData["og:title"] = topic.Name;
 }
+
 @section BackgroundImage
 {
-    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)'/>
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
 }
-@section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs'/>
+
+@section Breadcrumbs
+{
+    <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
 }
+
 @if (!string.IsNullOrEmpty(topic.BackgroundImage))
 {
     <div class="grid-100 l-background-hs-image">
-    </div>  
-} 
-  
-<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">   
-    <div class="grid-100 topic-container-holder">   
-        
-            <div tabindex="-1" id="content" class="topic-container-holder-alert">
-                @{
-                    if (topic.Alerts != null)
-                    {
-                        foreach (var alert in topic.Alerts)
-                        {
-                            <partial name="DisplayTemplates/Alert" model='alert'/>
-                        }
-                    }
-                }
+    </div>
+}
 
+<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">
+    <div class="grid-100 topic-container-holder">
+
+        <div tabindex="-1" id="content" class="topic-container-holder-alert">
+            @if (topic.Alerts is not null)
+            {
+                foreach (var alert in topic.Alerts)
+                {
+                    <partial name="DisplayTemplates/Alert" model='alert' />
+                }
+            }
         </div>
-        <div  class="topic-container-holder-item">
+
+        <div class="topic-container-holder-item">
             <h1>@topic.Name</h1>
             <hr>
             @Html.Raw(topic.Summary)
         </div>
-        
-        <partial name="SubItem-List" model='topic'/>        
+
+        <ul class="article-list article-list-container grid-100 matchbox-parent">
+            @if (topic.SubItems.Any())
+            {
+                foreach (var item in topic.SubItems)
+                {
+                    <partial name="SubItem-List" model="item" />
+                }
+            }
+        </ul>
+
+        <ul class="article-list article-list-container grid-100 topic-secondary-item">
+            @if (topic.SecondaryItems.Any())
+            {
+                int itemLength = topic.SecondaryItems.Count();
+                foreach (var item in topic.SecondaryItems.Select((value, index) => new { index, value }))
+                {
+                    ViewData["IsLast"] = item.index.Equals(itemLength - 1);
+                    <partial name="SecondaryItem" model="item.value" />
+                }
+            }
+        </ul>
+
     </div>
+
     @if (topic.DisplayContactUs)
     {
-    <div class="grid-100 topic-contactus">
-        <div class="topic-contactus-container">
+        <div class="grid-100 topic-contactus">
+            <div class="topic-contactus-container">
 
-            <partial name="../Shared/ContactUs-Nav" />
-        </div>      
-    </div>
+                <partial name="../Shared/ContactUs-Nav" />
+            </div>
+        </div>
     }
 </section>
 

@@ -1,0 +1,15 @@
+﻿@model StockportWebapp.Models.SubItem
+
+<li class="article-list-item grid-100">
+    <a href="@Model.NavigationLink">
+        <div class="article-list-container">
+            <h2>@Model.Title</h2>
+            <p>@Model.Teaser</p>
+        </div>
+    </a>
+</li>
+
+@if (!(bool)ViewData["IsLast"])
+{
+    <hr>
+}
