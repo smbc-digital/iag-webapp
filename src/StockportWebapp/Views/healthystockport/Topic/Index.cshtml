@@ -11,12 +11,12 @@
 
 @section BackgroundImage
 {
-<partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
 }
 
 @section Breadcrumbs
 {
-<partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
+    <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
 }
 
 @if (!string.IsNullOrEmpty(topic.BackgroundImage))
@@ -29,7 +29,7 @@
     <div class="grid-100 topic-container-holder">
 
         <div tabindex="-1" id="content" class="topic-container-holder-alert">
-            @if (topic.Alerts != null)
+            @if (topic.Alerts is not null)
             {
                 foreach (var alert in topic.Alerts)
                 {
