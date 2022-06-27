@@ -108,6 +108,11 @@
                 border: 1px solid #ccc;
                 margin: 0px;
             }
+
+            a:hover .topic-secondary__title {
+                text-decoration:underline !important;
+                text-decoration-thickness: 3px !important;
+            }
         }
 
         &__header {
@@ -117,10 +122,6 @@
         &__title {
             text-decoration: underline !important;
             color: #0a6964 !important;
-        }
-
-        a:hover h2 {
-            text-decoration-thickness: 3px;
         }
     }
 }
