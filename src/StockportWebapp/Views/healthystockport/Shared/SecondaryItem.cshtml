@@ -1,15 +1,16 @@
 ﻿@model StockportWebapp.Models.SubItem
 
-<li class="article-list-item grid-100">
+<li class="article-list-item grid-100 topic-secondary__item">
     <a href="@Model.NavigationLink">
-        <div class="article-list-container">
-            <h2>@Model.Title</h2>
-            <p>@Model.Teaser</p>
+        <div class="article-list-container topic-secondary__header">
+            <h2 class="topic-secondary__title">@Model.Title</h2>
+            <p class="topic-secondary__teaser">@Model.Teaser</p>
         </div>
     </a>
-</li>
 
-@if (!(bool)ViewData["IsLast"])
-{
-    <hr>
-}
+    @if (!(bool)ViewData["IsLast"])
+    {
+        <hr>
+    }
+
+</li>
