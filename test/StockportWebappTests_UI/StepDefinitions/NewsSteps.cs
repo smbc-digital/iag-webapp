@@ -71,7 +71,7 @@
                     result = BrowserSession.FindCss("#category-filter ul").Exists();
                     break;
                 case "Email alerts":
-                    result = BrowserSession.FindCss("a[href*='https://public.govdelivery.com/accounts/UKSMBC/subscriber/new']").Exists();
+                    result = BrowserSession.FindCss("a[href*='https://int-formbuilder-origin.smbcdigital.net/list-subscription/signup']").Exists();
                     break;
                 case "news articles":
                     result = BrowserSession.FindCss(".nav-card-news-list").Exists() && BrowserSession.FindAllCss(".nav-card-news-list li").Any();

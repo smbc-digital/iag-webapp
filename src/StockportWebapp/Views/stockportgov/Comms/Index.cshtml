@@ -70,9 +70,6 @@
         </div>
     </article>
     <aside class="article-aside">
-        @{
-            ViewData["SignUpAlertsTopicIdTopicId"] = Model.Homepage.EmailAlertsTopicId;
-        }
         <partial name="../Shared/SignUpAlerts.cshtml" />
 
         @if (Model.Homepage.UsefulLinks.Any())
