@@ -5,10 +5,9 @@
     <div class="hide-on-tablet hide-on-mobile">
         <span class="si-envelope-open" aria-hidden="true"></span>
     </div>
-    <div>
+    <div class="email-alert">
         <h2 class="h3">@Model.EmailAlertsText</h2>
-        <form method="get" role="form" action="/subscribe">
-            <input type="email" name="emailAddress" placeholder="Enter your email address" title="Enter your email address" aria-label="Enter your email address">
+        <form method="post" role="form" action="/subscribe">
             <button type="submit" id="test-subscribe" class="button-primary">Subscribe</button>
             @Html.HiddenFor(o => o.EmailAlertsTopicId)
         </form>
