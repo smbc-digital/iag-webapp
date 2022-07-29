@@ -75,7 +75,7 @@ namespace StockportWebapp.Controllers
             DoPagination(newsRoom, model, page ,pageSize);
           
             model.AddNews(newsRoom);
-            model.AddUrlSetting(urlSetting);
+            model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
 
             return View(model);
         }

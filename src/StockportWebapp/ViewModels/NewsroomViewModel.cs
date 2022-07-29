@@ -56,9 +56,11 @@ namespace StockportWebapp.ViewModels
             Newsroom = newsRoom;
         }
 
-        internal void AddUrlSetting(AppSetting urlSetting)
+        internal void AddUrlSetting(AppSetting urlSetting, string topicId)
         {
-            EmailAlertsUrl = urlSetting.ToString();
+            EmailAlertsUrl = !string.IsNullOrEmpty(topicId) ?
+                string.Concat(urlSetting.ToString(), "?topic_id=", topicId) :
+                urlSetting.ToString();
         }
 
         public string GetActiveDateFilter()
