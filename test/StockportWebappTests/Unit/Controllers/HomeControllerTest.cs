@@ -25,7 +25,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly Mock<IEventsService> _eventsService = new();
         private readonly Mock<IHomepageService> _homepageService = new();
         private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
-        private const string EmailAlertsUrl = "email_alerts_url=";
+        private const string EmailAlertsUrl = "email_alerts_url";
         private const string BusinessId = "aBusinessId";
 
         #region Models
@@ -322,12 +322,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             const string emailAddress = "me@email.com";
 
             // Act
-            var result = await _controller.EmailSubscribe(emailAddress, "") as RedirectResult;
+            var result = await _controller.EmailSubscribe(emailAddress, null) as RedirectResult;
 
             // Assert
             Assert.IsType<RedirectResult>(result);
             _config.Verify(o => o.GetEmailAlertsUrl(BusinessId), Times.Once);
-            Assert.Equal($"{EmailAlertsUrl}{emailAddress}&topic_id=", result.Url);
+            Assert.Equal($"{EmailAlertsUrl}?email={emailAddress}", result.Url);
         }
 
         [Fact]
