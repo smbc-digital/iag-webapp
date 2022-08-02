@@ -8,8 +8,6 @@
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
-
-    var coronavirusAlert = new Alert("Events during coronavirus (COVID-19)", null, "As restrictions have been lifted, events are being held across the borough again. Please contact the event organiser for information about any rules you&#39;ll need to adhere to during their event.", "warning", new DateTime(), new DateTime(), null, true);
 }
 
 @if (string.IsNullOrWhiteSpace(Model.Category))
@@ -26,7 +24,6 @@ else
 }
 
 <div class="l-page-content">
-    <partial name="GlobalAlert" model='coronavirusAlert'/>
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div tabindex="-1" id="content" class="grid-70 tablet-grid-70 mobile-grid-100">
