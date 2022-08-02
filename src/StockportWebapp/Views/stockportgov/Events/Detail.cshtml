@@ -8,7 +8,6 @@
     ViewData["Location"] = Model.Location;
     Layout = "../Shared/_Layout.cshtml";
     var crumb = new List<Crumb> {new Crumb("What's on in Stockport", "events", "event")};
-    var coronavirusAlert = new Alert("Events during coronavirus (COVID-19)", null, "As restrictions have been lifted, events are being held across the borough again. Please contact the event organiser for information about any rules you&#39;ll need to adhere to during their event.", "warning", new DateTime(), new DateTime(), null, true);
 }
 
 @section Breadcrumbs {
@@ -21,7 +20,6 @@
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
-                    <partial name="DisplayTemplates/Alert" model="coronavirusAlert" />
                     @{
                         if (Model.Alerts != null)
                         {
