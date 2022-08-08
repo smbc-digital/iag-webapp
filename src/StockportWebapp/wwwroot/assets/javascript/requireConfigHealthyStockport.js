@@ -3,7 +3,7 @@
     paths: {
         "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min",
         "cludo": "//customer.cludo.com/scripts/bundles/search-script.min",
-        "jquery-ui": "/assets/stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
+        "jquery-ui": "/assets/stylesheets/vendor/jquery-ui-1.13.0.custom/jquery-ui.min",
         "validate": "vendor/jquery.validate.min",
         "unobtrusive": "vendor/jquery.validate.unobtrusive.min",
         "slick": "vendor/slick",
