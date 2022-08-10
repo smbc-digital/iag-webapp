@@ -25,7 +25,7 @@
         "utils": "stockportgov/utils",
         "viewmoreslider": "stockportgov/viewmoreslider",
         "clipboard": "/assets/javascript/vendor/clipboard",
-        "jquery-ui": "../stylesheets/vendor/jquery-ui-1.12.1.custom/jquery-ui.min",
+        "jquery-ui": "../stylesheets/vendor/jquery-ui-1.13.0.custom/jquery-ui.min",
         "favourites": "stockportgov/favourites",
         "tracking": "stockportgov/tracking",
         "alerts": "stockportgov/alerts",
