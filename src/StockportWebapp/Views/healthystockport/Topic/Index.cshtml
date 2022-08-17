@@ -9,21 +9,33 @@
     ViewData["og:title"] = topic.Name;
 }
 
-@section BackgroundImage
-{
-    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
-}
 
+@if(!string.IsNullOrEmpty(Model.Topic.CampaignBanner.Image))
+{
+    @section BackgroundImage
+    {
+        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.CampaignBanner.Image)' />
+    }
+}
+else
+{
+    
+    @section BackgroundImage
+    {
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
+    }
+}
+}
 @section Breadcrumbs
 {
     <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
 }
-
-@if (!string.IsNullOrEmpty(topic.BackgroundImage))
+@if (!(string.IsNullOrEmpty(topic.CampaignBanner.Image) && string.IsNullOrEmpty(topic.BackgroundImage)) )
 {
     <div class="grid-100 l-background-hs-image">
     </div>
 }
+
 
 <section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">
     <div class="grid-100 topic-container-holder">
