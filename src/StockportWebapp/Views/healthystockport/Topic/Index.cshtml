@@ -25,15 +25,10 @@ else
     <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
     }
 }
-}
+
 @section Breadcrumbs
 {
     <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
-}
-@if (!(string.IsNullOrEmpty(topic.CampaignBanner.Image) && string.IsNullOrEmpty(topic.BackgroundImage)) )
-{
-    <div class="grid-100 l-background-hs-image">
-    </div>
 }
 
 
@@ -49,6 +44,12 @@ else
                 }
             }
         </div>
+         @if (!string.IsNullOrEmpty(Model.Topic.CampaignBanner.Title))
+        {
+        <div role="banner" class="l-background-hs-image">
+            <partial name="CampaignBanner" model='Model.Topic.CampaignBanner'/>
+        </div>
+        }
 
         <div class="topic-container-holder-item">
             <h1>@topic.Name</h1>
