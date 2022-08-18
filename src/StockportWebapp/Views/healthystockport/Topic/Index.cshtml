@@ -19,7 +19,6 @@
 }
 else
 {
-    
     @section BackgroundImage
     {
     <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
@@ -31,6 +30,11 @@ else
     <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
 }
 
+@if (!string.IsNullOrEmpty(topic.BackgroundImage) && string.IsNullOrEmpty(topic.CampaignBanner.Image))
+{
+    <div class="grid-100 l-background-hs-image">
+    </div>
+}
 
 <section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">
     <div class="grid-100 topic-container-holder">
@@ -50,6 +54,7 @@ else
             <partial name="CampaignBanner" model='Model.Topic.CampaignBanner'/>
         </div>
         }
+
 
         <div class="topic-container-holder-item">
             <h1>@topic.Name</h1>
