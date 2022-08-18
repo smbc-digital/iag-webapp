@@ -1,15 +1,18 @@
 ﻿@model StockportWebapp.Models.SubItem
 
-<li class="article-list-item article-list-item-mobile grid-50 tablet-grid-50 mobile-grid-100 matchbox-item">
+<li class="article-list-item article-list-item-mobile grid-33 tablet-grid-50 mobile-grid-100 matchbox-item">
     <a href="@Model.NavigationLink" class="article-list-item-block grid-45 tablet-grid-45">
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <div style="margin: 0 -10px 0 -10px;">
+                <img src="@Model.Image" alt="" />
+            </div>
+        }
         <div class="article-list-container">
             <div class="matchbox-child">
                 <h2>@Model.Title</h2>
                 <p>@Model.Teaser</p>
             </div>
-        </div>
-        <div class="article-chevron l-right-align">
-            <span aria-hidden="true" class="fa fa-2x fa-angle-right"></span>
         </div>
     </a>
 </li>
