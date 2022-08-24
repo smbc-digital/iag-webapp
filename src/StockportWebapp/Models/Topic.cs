@@ -52,13 +52,9 @@ namespace StockportWebapp.Models
         public string EmailAlertsTopicId { get; }
         public EventBanner EventBanner { get; }
         public string ExpandingLinkTitle { get; }
-
-        public CarouselContent CarouselContent { get; }
         public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set;  }
         public string PrimaryItemTitle { get; }
-
         public bool DisplayContactUs { get; set; }
-
         public CarouselContent CampaignBanner { get;}
 
         public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
