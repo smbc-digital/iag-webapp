@@ -9,8 +9,16 @@
         @if (!string.IsNullOrEmpty(imageUrl))
         {
             <div style="margin: 0 -10px 0 -10px;">
-                <img srcset="@imageUrl?w=260&q=40 260w, @imageUrl?w=360&q=60 360w, @imageUrl?w=450&q=50 450w, @imageUrl?w=350&q=50 350w"
-                    sizes="(max-width: 560px) 260px, (max-width: 767px) 750px, (min-width: 768px) and (max-width: 1024px) 450px, 350px"
+                <img style="width: 100%;"
+                    src="@imageUrl?w=450&q=50"
+                    srcset="@imageUrl?w=260&q=40 260w,
+                            @imageUrl?w=360&q=60 360w,
+                            @imageUrl?w=450&q=50 450w,
+                            @imageUrl?w=350&q=50 350w"
+                    sizes="(max-width: 560px) 260px,
+                            (max-width: 767px) 750px,
+                            (min-width: 768px) and (max-width: 1024px) 450px,
+                            350px"
                     alt="" />
             </div>
         }
