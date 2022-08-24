@@ -9,7 +9,6 @@
     ViewData["og:title"] = topic.Name;
 }
 
-
 @if(!string.IsNullOrEmpty(Model.Topic.CampaignBanner.Image))
 {
     @section BackgroundImage
@@ -30,11 +29,8 @@ else
     <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
 }
 
-
-
 <section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">
     <div class="grid-100 topic-container-holder">
-
         <div tabindex="-1" id="content" class="topic-container-holder-alert">
             @if (topic.Alerts is not null)
             {
@@ -44,19 +40,17 @@ else
                 }
             }
         </div>
-         @if (!string.IsNullOrEmpty(Model.Topic.CampaignBanner.Title))
+
+        @if (!string.IsNullOrEmpty(topic.CampaignBanner.Image))
         {
-        <div role="banner" class="l-background-hs-image">
-            <partial name="CampaignBanner" model='Model.Topic.CampaignBanner'/>
-        </div>
+            <div role="banner" class="l-background-hs-image">
+                <partial name="CampaignBanner" model='Model.Topic.CampaignBanner'/>
+            </div>
         }
-
-        @if (!string.IsNullOrEmpty(topic.BackgroundImage) && string.IsNullOrEmpty(topic.CampaignBanner.Image))
-{
-    <div class="grid-100 l-background-hs-image">
-    </div>
-}
-
+        else if (!string.IsNullOrEmpty(topic.BackgroundImage))
+        {
+            <div class="grid-100 l-background-hs-image"></div>
+        }
 
         <div class="topic-container-holder-item">
             <h1>@topic.Name</h1>
