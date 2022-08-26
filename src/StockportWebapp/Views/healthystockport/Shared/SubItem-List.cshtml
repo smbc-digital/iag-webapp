@@ -1,12 +1,13 @@
-﻿@model StockportWebapp.Models.SubItem
+﻿@model Tuple<StockportWebapp.Models.SubItem, bool>
 @{
-    var item = Model;
+    var item = Model.Item1;
+    var displayImage = Model.Item2;
     var imageUrl = item.Image;
 }
 
 <li class="article-list-item article-list-item-mobile grid-33 tablet-grid-50 mobile-grid-50 matchbox-item">
     <a href="@item.NavigationLink" class="article-list-item-block grid-45 tablet-grid-45">
-        @if (!string.IsNullOrEmpty(imageUrl))
+        @if (displayImage)
         {
             <div style="margin: 0 -10px 0 -10px;">
                 <img style="width: 100%;"

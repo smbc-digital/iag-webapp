@@ -61,9 +61,10 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
         <ul class="article-list article-list-container grid-100 matchbox-parent">
             @if (topic.SubItems.Any())
             {
+                bool displayImages = topic.SubItems.All(item => !string.IsNullOrEmpty(item.Image));
                 foreach (var item in topic.SubItems)
                 {
-                    <partial name="SubItem-List" model="item" />
+                    <partial name="SubItem-List" model="new Tuple<SubItem, bool>(item, displayImages)" />
                 }
             }
         </ul>
