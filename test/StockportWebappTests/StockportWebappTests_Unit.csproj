@@ -31,7 +31,7 @@
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="5.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="3.1.15" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-    <PackageReference Include="Microsoft.Owin" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="StockportGovUk.NetStandard.Gateways" Version="1.1.2" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
