@@ -1,0 +1,23 @@
+﻿.call-to-action {
+    background-color: $mediumDarkCyan;
+    margin-bottom: 1rem;
+    padding: 12px;
+    color: $white;
+
+    & h2 {
+        color: $white;
+    }
+
+    &__link {
+        background-color: $darkCyan;
+        border-radius: 12px;
+        color: $white;
+        display: inline-block;
+        font-size: 1.125em;
+        line-height: 20px;
+        min-width: 300px;
+        padding: 15px 25px 15px 15px;
+        text-align: center;
+        text-decoration: none;
+    }
+}

@@ -21,6 +21,7 @@ namespace StockportWebapp.Models
         public string MetaDescription { get; }
         public string Icon { get; }
         public string BackgroundImage { get; }
+        public CallToAction CallToAction { get; init; }
         public string Image { get; }
         public IEnumerable<SubItem> SubItems { get; }
         public IEnumerable<SubItem> SecondaryItems { get; }
