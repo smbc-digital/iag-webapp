@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Serilog;
 using StockportGovUK.NetStandard.Gateways;
 using StockportWebapp.Config;
@@ -47,6 +49,12 @@ namespace StockportWebapp
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
             });
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+
             services.AddRazorPages();
 
             services.AddHttpContextAccessor();

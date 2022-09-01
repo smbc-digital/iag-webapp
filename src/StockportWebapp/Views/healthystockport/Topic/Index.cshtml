@@ -3,6 +3,7 @@
 @model StockportWebapp.ViewModels.TopicViewModel
 @{
     var topic = Model.Topic;
+    var callToAction = topic.CallToAction;
     ViewData["Title"] = topic.Name;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = topic.Teaser;
@@ -61,9 +62,10 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
         <ul class="article-list article-list-container grid-100 matchbox-parent">
             @if (topic.SubItems.Any())
             {
+                bool displayImages = topic.SubItems.All(item => !string.IsNullOrEmpty(item.Image));
                 foreach (var item in topic.SubItems)
                 {
-                    <partial name="SubItem-List" model="item" />
+                    <partial name="SubItem-List" model="new Tuple<SubItem, bool>(item, displayImages)" />
                 }
             }
         </ul>
@@ -118,5 +120,19 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
             </div>
         </div>
     }
-</section>
 
+    @if (callToAction is not null)
+    {
+        <div class="topic-container-holder">
+            <div class="call-to-action">
+                <h2>TESTING CALL TO ACTION</h2>
+                <p>@callToAction.Title</p>
+                <p>@callToAction.Text</p>
+                <a class="call-to-action__link" href=@callToAction.Link.Url>
+                    @(callToAction.Link.Text ?? callToAction.Link.Url)
+                </a>
+            </div>
+        </div>
+    }
+
+</section>
