@@ -10,6 +10,7 @@ using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
 using StockportWebapp.ViewModels;
 using Xunit;
 
@@ -21,6 +22,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly Mock<IRepository> _repository;
         private const string BusinessId = "businessId";
         private readonly EventBanner _eventBanner;
+        private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
 
         public TopicControllerTest()
         {
@@ -29,7 +31,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
             _repository = new Mock<IRepository>();
-            _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId));
+            _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
             _eventBanner = new EventBanner("title", "teaser", "icon", "link");
         }
         
@@ -46,7 +48,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
                 new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true,
-                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
+                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -82,7 +84,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
               new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-               new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
+               new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
@@ -124,7 +126,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
                new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
+                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             const string slug = "healthy-living";
             _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
