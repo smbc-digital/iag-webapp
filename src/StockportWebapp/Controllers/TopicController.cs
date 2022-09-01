@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -14,12 +17,14 @@ namespace StockportWebapp.Controllers
         private readonly IRepository _repository;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
+        private readonly IStockportApiEventsService _stockportApiEventsService;
 
-        public TopicController(IRepository repository, IApplicationConfiguration config, BusinessId businessId)
+        public TopicController(IRepository repository, IApplicationConfiguration config, BusinessId businessId, IStockportApiEventsService stockportApiService)
         {
             _repository = repository;
             _config = config;
             _businessId = businessId;
+            _stockportApiEventsService = stockportApiService;
         }
 
         [Route("/topic/{topicSlug}")]
@@ -34,7 +39,13 @@ namespace StockportWebapp.Controllers
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            return View(new TopicViewModel(topic, urlSetting.ToString()));
+            var eventsFromApi = !string.IsNullOrEmpty(topic.Tag) ? await _stockportApiEventsService.GetEventsByCategory(topic.Tag) : new List<Event>();
+
+            var topicViewModel = new TopicViewModel(topic, urlSetting.ToString());
+
+            topicViewModel.EventsFromApi = eventsFromApi?.Take(3).ToList();
+
+            return View(topicViewModel);
         }
     }
 }
