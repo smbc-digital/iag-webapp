@@ -57,12 +57,12 @@ namespace StockportWebapp.Models
         public string PrimaryItemTitle { get; }
         public bool DisplayContactUs { get; set; }
         public CarouselContent CampaignBanner { get;}
-        public string Category { get; set; }
+        public string EventCategory { get; set; }
 
         public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, 
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner,
-            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string category)
+            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory)
         {
             Name = name;
             Title = title;
@@ -88,7 +88,7 @@ namespace StockportWebapp.Models
             PrimaryItemTitle = primaryItemTitle;
             DisplayContactUs = displayContactUs;
             CampaignBanner = campaignBanner;
-            Category = category;
+            EventCategory = eventCategory;
         }
     }
 

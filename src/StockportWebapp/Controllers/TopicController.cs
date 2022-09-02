@@ -39,7 +39,7 @@ namespace StockportWebapp.Controllers
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            var eventsFromApi = !string.IsNullOrEmpty(topic.Category) ? await _stockportApiEventsService.GetEventsByCategory(topic.Category) : new List<Event>();
+            var eventsFromApi = !string.IsNullOrEmpty(topic.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(topic.EventCategory) : new List<Event>();
 
             var topicViewModel = new TopicViewModel(topic, urlSetting.ToString());
 
