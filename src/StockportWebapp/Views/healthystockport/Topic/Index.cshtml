@@ -84,7 +84,7 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
 
     </div>
 
-    @if (Model.EventsFromApi != null && Model.EventsFromApi.Any())
+    @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
     {
         <div class="grid-100 topic-container-holder">
             <div class="topic-container-holder-item">
@@ -95,13 +95,11 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
 
         <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container" id="event-listing-container">
             <div class="grid-100 event-container-row matchbox-parent">
-                @{
-                    foreach (var item in Model.EventsFromApi)
-                    {
-                        <div @(item.Equals(Model.EventsFromApi.Last()) ? "class=hide-on-tablet" : "")>
-                            <partial name="EventCard" model='item' />
-                        </div>
-                    }
+                @foreach (var item in Model.EventsFromApi)
+                {
+                    <div @(item.Equals(Model.EventsFromApi.Last()) ? "class=hide-on-tablet" : "")>
+                        <partial name="EventCard" model='item' />
+                    </div>
                 }
             </div>
         </section>
