@@ -18,7 +18,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
 
             var topic = new Topic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
                 new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
+                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 
@@ -35,7 +35,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
                 new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
                 new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText",
                 new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
+                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             var topicViewModel = new TopicViewModel(topic, EmailAlertsUrl);
 

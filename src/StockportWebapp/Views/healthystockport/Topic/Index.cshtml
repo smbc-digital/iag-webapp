@@ -14,26 +14,26 @@
 {
     @section BackgroundImage
     {
-        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.CampaignBanner.Image)' />
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.CampaignBanner.Image)' />
     }
 }
 else
 {
     @section BackgroundImage
     {
-        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
+    <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.Topic.BackgroundImage)' />
     }
 }
 
 @section Breadcrumbs
-{
+    {
     <partial name="Breadcrumb" model='Model.Topic.Breadcrumbs' />
 }
 
-@if (!string.IsNullOrEmpty(topic.CampaignBanner.Image))
+    @if (!string.IsNullOrEmpty(topic.CampaignBanner.Image))
 {
     <div role="banner" class="l-background-hs-image">
-        <partial name="CampaignBanner" model='Model.Topic.CampaignBanner'/>
+        <partial name="CampaignBanner" model='Model.Topic.CampaignBanner' />
     </div>
 }
 else if (!string.IsNullOrEmpty(topic.BackgroundImage))
@@ -84,11 +84,31 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
 
     </div>
 
+    @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
+    {
+        <div class="grid-100 topic-container-holder">
+            <div class="topic-container-holder-item">
+                <h1>Things to do</h1>
+                <hr>
+            </div>
+        </div>
+
+        <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container" id="event-listing-container">
+            <div class="grid-100 event-container-row matchbox-parent">
+                @foreach (var item in Model.EventsFromApi)
+                {
+                    <div @(item.Equals(Model.EventsFromApi.Last()) ? "class=hide-on-tablet" : "")>
+                        <partial name="EventCard" model='item' />
+                    </div>
+                }
+            </div>
+        </section>
+    }
+
     @if (topic.DisplayContactUs)
     {
         <div class="grid-100 topic-contactus">
             <div class="topic-contactus-container">
-
                 <partial name="../Shared/ContactUs-Nav" />
             </div>
         </div>
