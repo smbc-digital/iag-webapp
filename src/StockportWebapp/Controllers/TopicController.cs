@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
+using StockportWebapp.ContentFactory;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
@@ -11,30 +13,30 @@ namespace StockportWebapp.Controllers
     [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class TopicController : Controller
     {
-        private readonly IRepository _repository;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
+        private readonly ITopicRepository _topicRepository;
 
-        public TopicController(IRepository repository, IApplicationConfiguration config, BusinessId businessId)
+        public TopicController(ITopicRepository repository, IApplicationConfiguration config, BusinessId businessId)
         {
-            _repository = repository;
             _config = config;
             _businessId = businessId;
+            _topicRepository = repository;
         }
 
         [Route("/topic/{topicSlug}")]
         public async Task<IActionResult> Index(string topicSlug)
         {
-            var topicHttpResponse = await _repository.Get<Topic>(topicSlug);
+            var topicHttpResponse = await _topicRepository.Get<Topic>(topicSlug);
 
             if (!topicHttpResponse.IsSuccessful())
                 return topicHttpResponse;
-            
-            var topic = topicHttpResponse.Content as Topic;
 
+            var processedTopic = topicHttpResponse.Content as ProcessedTopic;
+            
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            return View(new TopicViewModel(topic, urlSetting.ToString()));
+            return View(new TopicViewModel(processedTopic, urlSetting.ToString()));
         }
     }
 }
