@@ -27,7 +27,7 @@ namespace StockportWebapp.Controllers
         [Route("/topic/{topicSlug}")]
         public async Task<IActionResult> Index(string topicSlug)
         {
-            var topicHttpResponse = await _topicRepository.Get<Topic>(topicSlug);
+            var topicHttpResponse = await _topicRepository.Get<ProcessedTopic>(topicSlug);
 
             if (!topicHttpResponse.IsSuccessful())
                 return topicHttpResponse;

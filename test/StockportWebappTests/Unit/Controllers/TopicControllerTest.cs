@@ -9,6 +9,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 using Xunit;
@@ -43,13 +44,13 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
                 new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true,
                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
 
             const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+            _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
             var indexPage = await _controller.Index(slug) as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
@@ -80,12 +81,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
               new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
 
             const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+            _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
             var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
@@ -106,7 +107,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             const string nonExistentTopic = "doesnt-exist";
 
-            _repository.Setup(o => o.Get<Topic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
+            _repository.Setup(o => o.Get<ProcessedTopic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
 
             var result = await _controller.Index(nonExistentTopic) as StatusCodeResult;
 
@@ -122,12 +123,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
             };
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
+            var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
                new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty));
 
             const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+            _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
             var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
