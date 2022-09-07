@@ -1,5 +1,6 @@
 ﻿using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
+using System.Collections.Generic;
 
 namespace StockportWebapp.ViewModels
 {
@@ -18,5 +19,7 @@ namespace StockportWebapp.ViewModels
         {
             return !string.IsNullOrEmpty(topic.EmailAlertsTopicId) ? string.Concat(url, "?topic_id=", topic.EmailAlertsTopicId) : url;
         }
+
+        public List<Event> EventsFromApi { get; set; }
     }
 }

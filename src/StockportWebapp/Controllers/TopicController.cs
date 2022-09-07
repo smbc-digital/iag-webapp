@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
@@ -6,6 +8,7 @@ using StockportWebapp.ProcessedModels;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
+using StockportWebapp.Services;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -15,13 +18,15 @@ namespace StockportWebapp.Controllers
     {
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
-        private readonly ITopicRepository _topicRepository;
+        private readonly ITopicRepository _topicRepository;      
+        private readonly IStockportApiEventsService _stockportApiEventsService;
 
-        public TopicController(ITopicRepository repository, IApplicationConfiguration config, BusinessId businessId)
+        public TopicController(ITopicRepository repository, IApplicationConfiguration config, BusinessId businessId, IStockportApiEventsService stockportApiService)
         {
             _config = config;
             _businessId = businessId;
             _topicRepository = repository;
+            _stockportApiEventsService = stockportApiService;
         }
 
         [Route("/topic/{topicSlug}")]
@@ -33,10 +38,15 @@ namespace StockportWebapp.Controllers
                 return topicHttpResponse;
 
             var processedTopic = topicHttpResponse.Content as ProcessedTopic;
-            
+
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            return View(new TopicViewModel(processedTopic, urlSetting.ToString()));
-        }
+            var eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) : new List<Event>();
+
+            var topicViewModel = new TopicViewModel(processedTopic, urlSetting.ToString());
+
+            topicViewModel.EventsFromApi = eventsFromApi?.Take(3).ToList();
+
+            return View(topicViewModel);        }
     }
 }
