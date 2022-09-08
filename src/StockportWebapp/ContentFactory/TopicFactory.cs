@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
-using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.ContentFactory
@@ -12,27 +9,12 @@ namespace StockportWebapp.ContentFactory
     {
 
         private readonly ISimpleTagParserContainer _tagParserContainer;
-        private readonly IDynamicTagParser<Profile> _profileTagParser;
-        private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
-        private readonly ISectionFactory _sectionFactory;
         private readonly MarkdownWrapper _markdownWrapper;
-        private readonly IDynamicTagParser<Document> _documentTagParser;
-        private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
-        private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
-        private readonly IRepository _repository;
 
-        public TopicFactory(ISimpleTagParserContainer tagParserContainer, IDynamicTagParser<Profile> profileTagParser, ISectionFactory sectionFactory, MarkdownWrapper markdownWrapper,
-            IDynamicTagParser<Document> documentTagParser, IDynamicTagParser<Alert> alertsInlineTagParser, IDynamicTagParser<S3BucketSearch> searchTagParser, IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser, IRepository repository)
+        public TopicFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper)
         {
             _tagParserContainer = tagParserContainer;
-            _sectionFactory = sectionFactory;
             _markdownWrapper = markdownWrapper;
-            _profileTagParser = profileTagParser;
-            _documentTagParser = documentTagParser;
-            _alertsInlineTagParser = alertsInlineTagParser;
-            _searchTagParser = searchTagParser;
-            _privacyNoticeTagParser = privacyNoticeTagParser;
-            _repository = repository;
         }
 
         public virtual ProcessedTopic Build(Topic topic)

@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Amazon.S3;
-using Amazon.S3.Model;
 using StockportWebapp.Config;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Http;

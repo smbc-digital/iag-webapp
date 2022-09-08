@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
-using StockportWebapp.ContentFactory;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Http;
 using StockportWebapp.Models;

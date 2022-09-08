@@ -148,14 +148,7 @@ namespace StockportWebapp.Extensions
             services.AddTransient<TopicFactory>();
             services.AddTransient(p => new TopicFactory(
                 p.GetService<ISimpleTagParserContainer>(),
-                p.GetService<IDynamicTagParser<Profile>>(),
-                p.GetService<SectionFactory>(),
-                p.GetService<MarkdownWrapper>(),
-                p.GetService<IDynamicTagParser<Document>>(),
-                p.GetService<IDynamicTagParser<Alert>>(),
-                p.GetService<IDynamicTagParser<S3BucketSearch>>(),
-                p.GetService<IDynamicTagParser<PrivacyNotice>>(),
-                p.GetService<IRepository>()));
+                p.GetService<MarkdownWrapper>()));
 
             return services;
         }
