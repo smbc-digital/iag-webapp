@@ -34,7 +34,6 @@ namespace StockportWebapp.Repositories
 
             public async Task<HttpResponse> Get<T>(string slug = "")
             {
-
                 var url = _urlGenerator.UrlFor<Topic>(slug);
                 var httpResponse = await _httpClient.Get(url, _authenticationHeaders);
 

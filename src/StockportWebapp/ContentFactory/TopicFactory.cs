@@ -19,9 +19,7 @@ namespace StockportWebapp.ContentFactory
 
         public virtual ProcessedTopic Build(Topic topic)
         {
-
             var summary = _markdownWrapper.ConvertToHtml(topic.Summary ?? "");
-          
             summary = _tagParserContainer.ParseAll(summary, topic.Title);
 
             return new ProcessedTopic(topic.Name, topic.Slug, summary, topic.Teaser, topic.MetaDescription, topic.Icon, topic.BackgroundImage,
