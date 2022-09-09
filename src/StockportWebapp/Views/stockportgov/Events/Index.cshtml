@@ -8,6 +8,7 @@
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
+    var londonBridgeAlert = new Alert("Changes to planned events", null, "Please check with the organiser of the event to find out if there are any planned changes as a mark of respect following the death of Her Majesty The Queen.", "warning", new DateTime(), new DateTime(), null, true);
 }
 
 @if (string.IsNullOrWhiteSpace(Model.Category))
@@ -24,6 +25,7 @@ else
 }
 
 <div class="l-page-content">
+    <partial name="GlobalAlert" model='londonBridgeAlert'/>
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
             <div tabindex="-1" id="content" class="grid-70 tablet-grid-70 mobile-grid-100">
@@ -34,7 +36,7 @@ else
             </div>
         </div>
     </div>
-    
+
     <partial name="Events/EventsFilterBar" model='Model'/>
 
     @if (Model.FromSearch)
@@ -45,7 +47,7 @@ else
     {
         <partial name="Events/EventHomepage" model='Model.Homepage'/>
     }
-    
+
     <div class="full-width-title hide-on-desktop hide-on-tablet add-button-container">
         <div class="grid-container grid-parent mobile-grid-100">
             <div class="header-right-button mobile-grid-100">

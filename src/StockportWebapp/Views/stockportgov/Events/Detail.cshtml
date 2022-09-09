@@ -8,6 +8,7 @@
     ViewData["Location"] = Model.Location;
     Layout = "../Shared/_Layout.cshtml";
     var crumb = new List<Crumb> {new Crumb("What's on in Stockport", "events", "event")};
+    var londonBridgeAlert = new Alert("Changes to planned events", null, "Please check with the organiser of the event to find out if there are any planned changes as a mark of respect following the death of Her Majesty The Queen.", "warning", new DateTime(), new DateTime(), null, true);
 }
 
 @section Breadcrumbs {
@@ -20,6 +21,7 @@
         <div class="l-body-section-filled l-article-content mobile-grid-100 tablet-grid-100 grid-100">
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
+                    <partial name="DisplayTemplates/Alert" model="londonBridgeAlert" />
                     @{
                         if (Model.Alerts != null)
                         {
@@ -27,7 +29,7 @@
                             {
                                 if (Model.IsAlertDisplayed(alert))
                                 {
-                                    <partial name="DisplayTemplates/Alert" model='alert' />
+                                    <partial name="DisplayTemplates/Alert" model='alert'/>
                                 }
                             }
                         }
@@ -98,7 +100,7 @@
                                         }
                                         else
                                         {
-                                            <br />
+                                            <br/>
                                         }
 
                                     </div>
@@ -148,8 +150,8 @@
                     @if (Model.MapDetails.MapPosition != null && Model.MapDetails.MapPosition.Lat != 0.0 && Model.MapDetails.MapPosition.Lon != 0.0)
                     {
                         <div class="event-map-container">
-                            <br />
-                            <partial name="MapPosition" model='Model.MapDetails' />
+                            <br/>
+                            <partial name="MapPosition" model='Model.MapDetails'/>
                         </div>
                     }
 
