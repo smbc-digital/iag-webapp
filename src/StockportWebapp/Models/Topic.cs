@@ -10,13 +10,9 @@ namespace StockportWebapp.Models
         public string Title { get; }
         public string Slug { get; }
         public string NavigationLink { get; }
-        private string _summary;
+
         private IEnumerable<SubItem> _topSubItems;
-        public string Summary
-        {
-            get { return _summary; }
-            set { _summary = MarkdownWrapper.ToHtml(value); }
-        }
+        public string Summary {get; }
         public string Teaser { get; }
         public string MetaDescription { get; }
         public string Icon { get; }

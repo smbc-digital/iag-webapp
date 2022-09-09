@@ -26,7 +26,6 @@ namespace StockportWebapp.ContentFactory
                 topic.Image, topic.SubItems, topic.SecondaryItems, topic.TertiaryItems, topic.Breadcrumbs, topic.Alerts, topic.EmailAlerts,
                 topic.EmailAlertsTopicId, topic.EventBanner, topic.ExpandingLinkTitle, topic.ExpandingLinkBoxes, topic.PrimaryItemTitle,
                 topic.Title,topic.DisplayContactUs, topic.CampaignBanner, topic.EventCategory);
-                       }
-
+        }
     }
 }
