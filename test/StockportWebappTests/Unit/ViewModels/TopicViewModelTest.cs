@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.ViewModels;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             const bool emailAlerts = true;
             const string emailAlertsTopicId = "topic-id";
 
-            var topic = new Topic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
+            var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
                 new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
                  new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
@@ -31,7 +32,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             const bool emailAlerts = true;
             const string emailAlertsTopicId = "";
 
-            var topic = new Topic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image",
+            var topic = new ProcessedTopic("name", "slug", "metaDescription", "summary", "teaser", "icon", "backgroundimage", "image",
                 new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
                 new List<Crumb>(), new List<Alert>(), emailAlerts, emailAlertsTopicId, null, "expandingLinkText",
                 new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,

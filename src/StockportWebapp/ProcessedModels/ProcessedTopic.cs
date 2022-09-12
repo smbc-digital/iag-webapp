@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
-namespace StockportWebapp.Models
+namespace StockportWebapp.ProcessedModels
 {
-    public class Topic
+    public class ProcessedTopic
     {
         public string Name { get; }
         public string Title { get; }
@@ -12,7 +13,8 @@ namespace StockportWebapp.Models
         public string NavigationLink { get; }
 
         private IEnumerable<SubItem> _topSubItems;
-        public string Summary {get; }
+        public string Summary { get; }
+            
         public string Teaser { get; }
         public string MetaDescription { get; }
         public string Icon { get; }
@@ -22,26 +24,7 @@ namespace StockportWebapp.Models
         public IEnumerable<SubItem> SubItems { get; }
         public IEnumerable<SubItem> SecondaryItems { get; }
         public IEnumerable<SubItem> TertiaryItems { get; }
-        public IEnumerable<SubItem> TopSubItems
-        {
-            get
-            {
-                const int take = 6;
-                if (_topSubItems.Any()) return _topSubItems;
-
-                _topSubItems = ConcatSubItems(_topSubItems, SubItems, take);
-                _topSubItems = ConcatSubItems(_topSubItems, SecondaryItems, take);
-                _topSubItems = ConcatSubItems(_topSubItems, TertiaryItems, take);
-                _topSubItems = _topSubItems.Take(take);
-
-                return _topSubItems;
-            }
-        }
-
-        private static IEnumerable<SubItem> ConcatSubItems(IEnumerable<SubItem> primary, IEnumerable<SubItem> secondary, int take)
-        {
-            return secondary != null ? primary.Concat(secondary.Take(take)) : primary;
-        }
+        public IEnumerable<SubItem> TopSubItems { get; }
 
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public IEnumerable<Alert> Alerts { get; }
@@ -49,16 +32,18 @@ namespace StockportWebapp.Models
         public string EmailAlertsTopicId { get; }
         public EventBanner EventBanner { get; }
         public string ExpandingLinkTitle { get; }
-        public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set;  }
+        public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set; }
         public string PrimaryItemTitle { get; }
         public bool DisplayContactUs { get; set; }
-        public CarouselContent CampaignBanner { get;}
+        public CarouselContent CampaignBanner { get; }
+
         public string EventCategory { get; set; }
 
-        public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, 
+        public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
+            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner,
-            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory)
+            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, 
+            string eventCategory)
         {
             Name = name;
             Title = title;
@@ -86,14 +71,5 @@ namespace StockportWebapp.Models
             CampaignBanner = campaignBanner;
             EventCategory = eventCategory;
         }
-    }
-
-    public class NullTopic : Topic
-    {
-        public NullTopic() :base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty ,string.Empty,
-            string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
-            new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(),
-            string.Empty, string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty)
-         { }
     }
 }

@@ -144,7 +144,12 @@ namespace StockportWebapp.Extensions
                 p.GetService<IRepository>()));
             services.AddTransient(p => new DocumentPageFactory(
                 p.GetService<MarkdownWrapper>()));
-           
+
+            services.AddTransient<TopicFactory>();
+            services.AddTransient(p => new TopicFactory(
+                p.GetService<ISimpleTagParserContainer>(),
+                p.GetService<MarkdownWrapper>()));
+
             return services;
         }
 
@@ -234,6 +239,11 @@ namespace StockportWebapp.Extensions
                 p =>
                     new ArticleRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
                         p.GetService<ArticleFactory>(), p.GetService<IApplicationConfiguration>()));
+
+            services.AddTransient<ITopicRepository>(
+              p =>
+                  new TopicRepository(p.GetService<TopicFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
+                      p.GetService<IApplicationConfiguration>(),p.GetService<UrlGeneratorSimple>()));
             services.AddTransient<IDocumentPageRepository>(
                 p =>
                     new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),

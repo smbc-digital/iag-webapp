@@ -9,6 +9,7 @@ using StockportWebapp.Config;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
 using StockportWebapp.ViewModels;
@@ -19,7 +20,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
     public class TopicControllerTest
     {
         private readonly TopicController _controller;
-        private readonly Mock<IRepository> _repository;
+        private readonly Mock<ITopicRepository> _repository;
         private const string BusinessId = "businessId";
         private readonly EventBanner _eventBanner;
         private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
@@ -30,7 +31,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email-alerts-url"));
 
-            _repository = new Mock<IRepository>();
+            _repository = new Mock<ITopicRepository>();
             _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
             _eventBanner = new EventBanner("title", "teaser", "icon", "link");
         }
@@ -45,13 +46,13 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {           
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
                 new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true,
                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+            _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
             var indexPage = await _controller.Index(slug) as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
@@ -82,12 +83,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
+            var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
               new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+            _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
             var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;
@@ -108,7 +109,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             const string nonExistentTopic = "doesnt-exist";
 
-            _repository.Setup(o => o.Get<Topic>(nonExistentTopic, null)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
+            _repository.Setup(o => o.Get<ProcessedTopic>(nonExistentTopic)).ReturnsAsync(new HttpResponse(404, null, "No topic found for 'doesnt-exist'"));
 
             var result = await _controller.Index(nonExistentTopic) as StatusCodeResult;
 
@@ -124,12 +125,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
             };
 
-            var topic = new Topic("Name", "slug", "Summary", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
+            var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,
                new List<Crumb>(), alerts, true, "test-id", _eventBanner, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             const string slug = "healthy-living";
-            _repository.Setup(o => o.Get<Topic>(slug, null)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
+            _repository.Setup(o => o.Get<ProcessedTopic>(slug)).ReturnsAsync(new HttpResponse(200, topic, string.Empty));
 
             var indexPage = await _controller.Index("healthy-living") as ViewResult;
             var viewModel = indexPage.ViewData.Model as TopicViewModel;

@@ -78,12 +78,12 @@ namespace StockportWebappTests_Integration
             var stockportResult = await _fakeClient.GetStringAsync("/");
             stockportResult.Should().Contain("Welcome to Stockport Council");
 
-            SetBusinessIdRequestHeader("healthystockport");
+            //SetBusinessIdRequestHeader("healthystockport");
 
-            var healthyResult = await _fakeClient.GetStringAsync("/");
+            //var healthyResult = await _fakeClient.GetStringAsync("/");
 
-            healthyResult.Should().Contain("Welcome to Healthy Stockport");
-            healthyResult.Should().Contain("Eat healthy", "Should render a business-specific piece of content");
+            //healthyResult.Should().Contain("Welcome to Healthy Stockport");
+            //healthyResult.Should().Contain("Eat healthy", "Should render a business-specific piece of content");
         }
         #endregion
 
@@ -114,7 +114,7 @@ namespace StockportWebappTests_Integration
         [Fact]
         public async Task ItReturnsSubItemsInTheHomePage()
         {
-            SetBusinessIdRequestHeader("healthystockport");
+            SetBusinessIdRequestHeader("stockportgov");
 
             var result = await _fakeClient.GetStringAsync("/");
 
@@ -141,7 +141,7 @@ namespace StockportWebappTests_Integration
         {
             SetBusinessIdRequestHeader("healthystockport");
 
-            var result = await _fakeClient.GetStringAsync("/topic/test-topic");
+            var result = await _fakeClient.GetStringAsync("/topics/test-topic");
 
             result.Should().Contain("This is an alert");
             result.Should().Contain("It also has a body text");
