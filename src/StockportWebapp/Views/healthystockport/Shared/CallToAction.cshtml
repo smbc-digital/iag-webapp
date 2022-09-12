@@ -1,0 +1,11 @@
+﻿@model StockportWebapp.Models.CallToAction
+
+<div class="topic-container-holder">
+    <a class="call-to-action" href=@Model.Link.Url target=@Model.Link.IsExternal ? "_blank" : "_self" ;>
+        <div class="call-to-action__text-container">
+            <h2 class="call-to-action__text-header">@Model.Title</h2>
+            <div class="call-to-action__text-button">@Model.Text</div>
+        </div>
+        <img class="call-to-action__image" src=@Model.ImageUrl />
+    </a>
+</div>
