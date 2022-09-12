@@ -84,7 +84,12 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
 
     </div>
 
-    @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
+    @if (callToAction is not null)
+    {
+        <partial name=@nameof(CallToAction) model=callToAction />
+    }
+
+    @if (Model.EventsFromApi.Any())
     {
         <div class="grid-100 topic-container-holder">
             <div class="topic-container-holder-item">
@@ -113,19 +118,4 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
             </div>
         </div>
     }
-
-    @if (callToAction is not null)
-    {
-        <div class="topic-container-holder">
-            <div class="call-to-action">
-                <h2>TESTING CALL TO ACTION</h2>
-                <p>@callToAction.Title</p>
-                <p>@callToAction.Text</p>
-                <a class="call-to-action__link" href=@callToAction.Link.Url>
-                    @(callToAction.Link.Text ?? callToAction.Link.Url)
-                </a>
-            </div>
-        </div>
-    }
-
 </section>
