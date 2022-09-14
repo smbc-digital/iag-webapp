@@ -84,12 +84,7 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
 
     </div>
 
-    @if (callToAction is not null)
-    {
-        <partial name=@nameof(CallToAction) model=callToAction />
-    }
-
-    @if (Model.EventsFromApi.Any())
+    @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
     {
         <div class="grid-100 topic-container-holder">
             <div class="topic-container-holder-item">
@@ -108,6 +103,11 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
                 }
             </div>
         </section>
+    }
+
+    @if (callToAction is not null)
+    {
+        <partial name=@nameof(CallToAction) model=callToAction />
     }
 
     @if (topic.DisplayContactUs)
