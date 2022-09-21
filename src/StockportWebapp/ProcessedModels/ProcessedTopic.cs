@@ -11,21 +11,19 @@ namespace StockportWebapp.ProcessedModels
         public string Title { get; }
         public string Slug { get; }
         public string NavigationLink { get; }
-
         private IEnumerable<SubItem> _topSubItems;
-        public string Summary { get; }
-            
+        public string Summary { get; }            
         public string Teaser { get; }
         public string MetaDescription { get; }
         public string Icon { get; }
         public string BackgroundImage { get; }
+        public Video Video { get; init; }
         public CallToAction CallToAction { get; init; }
         public string Image { get; }
         public IEnumerable<SubItem> SubItems { get; }
         public IEnumerable<SubItem> SecondaryItems { get; }
         public IEnumerable<SubItem> TertiaryItems { get; }
         public IEnumerable<SubItem> TopSubItems { get; }
-
         public IEnumerable<Crumb> Breadcrumbs { get; }
         public IEnumerable<Alert> Alerts { get; }
         public bool EmailAlerts { get; }
@@ -36,7 +34,6 @@ namespace StockportWebapp.ProcessedModels
         public string PrimaryItemTitle { get; }
         public bool DisplayContactUs { get; set; }
         public CarouselContent CampaignBanner { get; }
-
         public string EventCategory { get; set; }
 
         public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
