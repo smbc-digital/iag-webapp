@@ -1,7 +1,7 @@
 ﻿.call-to-action {
     display: flex;
     height: 313px;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     padding: 0;
     border-radius: 4px;
     text-decoration: none;
@@ -23,11 +23,23 @@
             padding: 0 60px 0 20px;
             justify-content: center;
             border-right: 5px solid $mediumDarkCyan;
-            background-image: linear-gradient($darkCyan, $mediumDarkCyan);
+            background-color: $darkCyan;
+
+            &.no-image {
+                border-radius: 4px;
+                padding: 0 60px;
+                width: 100%;
+                border-right: none;
+                align-items: center;
+            }
         }
 
         &-header {
             color: $white;
+        }
+
+        &-paragraph {
+            padding: 0 3rem;
         }
 
         &-button {

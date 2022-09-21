@@ -34,9 +34,6 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly List<SubItem> _secondaryItems;
         private readonly List<SubItem> _tertiaryItems;
 
-
-
-
         public TopicFactoryTest()
         { 
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
@@ -48,11 +45,13 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _secondaryItems = new List<SubItem>();
             _tertiaryItems = new List<SubItem>();
 
-            _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon,BackgroundImage,Image, _subItems, _secondaryItems, _tertiaryItems, _breadcrumbs,
+            _topic = new Topic("name", Slug, Summary, Teaser, MetaDescription, Icon, BackgroundImage, Image, _subItems, _secondaryItems, _tertiaryItems, _breadcrumbs,
                 new List<Alert>(), false, "emailAlertsTopic", new EventBanner("title", "teaser", "icon", "link"), "expanding Link Title",
                 new List<ExpandingLinkBox>(), "primary Item Title", Title, true, new CarouselContent("Title", "Teaser", "Image", "url"),
-                "event Category");
-
+                "event Category")
+            {
+                Video = new()
+            };
 
             _markdownWrapper.Setup(o => o.ConvertToHtml(Summary)).Returns(Summary);
             _tagParserContainer.Setup(o => o.ParseAll(Summary, Title, It.IsAny<bool>())).Returns(Summary);
@@ -91,8 +90,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _topicFactory.Build(_topic);
 
-            _tagParserContainer.Verify(o => o.ParseAll(Summary, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            _tagParserContainer.Verify(o => o.ParseAll(Summary, Title, It.IsAny<bool>()), Times.Once);
         }
-
     }
 }

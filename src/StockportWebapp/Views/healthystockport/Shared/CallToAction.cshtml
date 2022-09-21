@@ -1,11 +1,31 @@
 ﻿@model StockportWebapp.Models.CallToAction
+@if (Model is null) return;
+@{
+    string target = Model.Link.IsExternal ? "_blank" : "_self";
+    string containerClass = string.Empty;
+    if (string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        containerClass = "call-to-action__text-container no-image";
+    }
+    else
+    {
+        containerClass = "call-to-action__text-container";
+    }
+}
 
-<div class="topic-container-holder">
-    <a class="call-to-action" href=@Model.Link.Url target=@Model.Link.IsExternal ? "_blank" : "_self" ;>
-        <div class="call-to-action__text-container">
-            <h2 class="call-to-action__text-header">@Model.Title</h2>
-            <div class="call-to-action__text-button">@Model.Text</div>
+<div class="topic-container-holder-item">
+    <a href=@Model.Link.Url target=@target class=call-to-action>
+        <div class="@containerClass">
+            <h2 class=call-to-action__text-header>@Model.Title</h2>
+            @if (string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <p class=call-to-action__text-paragraph>@Model.Text</p>
+            }
+            <div class=call-to-action__text-button>@Model.Link.Text</div>
         </div>
-        <img class="call-to-action__image" src=@Model.ImageUrl />
+        @if (!string.IsNullOrEmpty(Model.ImageUrl))
+        {
+            <img src=@Model.ImageUrl alt="" class=call-to-action__image />
+        }
     </a>
 </div>

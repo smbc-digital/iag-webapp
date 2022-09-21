@@ -1,0 +1,8 @@
+﻿@model StockportWebapp.Models.Video
+@if (Model is null) return;
+
+<div class="topic-container-holder-item" style="margin-bottom: 3rem;">
+    <h2>@Model.Heading</h2>
+    <p>@Model.Text</p>
+    @Html.Raw(Model.VideoEmbedCode)
+</div>

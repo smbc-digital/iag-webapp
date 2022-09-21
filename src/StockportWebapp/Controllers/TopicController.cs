@@ -40,12 +40,12 @@ namespace StockportWebapp.Controllers
 
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
-            var eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) : new List<Event>();
-
             var topicViewModel = new TopicViewModel(processedTopic, urlSetting.ToString());
 
+            var eventsFromApi = !string.IsNullOrEmpty(processedTopic.EventCategory) ? await _stockportApiEventsService.GetEventsByCategory(processedTopic.EventCategory) : new List<Event>();
             topicViewModel.EventsFromApi = eventsFromApi?.Take(3).ToList();
 
-            return View(topicViewModel);        }
+            return View(topicViewModel);
+        }
     }
 }
