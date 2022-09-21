@@ -41,17 +41,17 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
     <div class="grid-100 l-background-hs-image"></div>
 }
 
-<section aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">
+<div aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">
     <div class="grid-100 topic-container-holder">
-        <div tabindex="-1" id="content" class="topic-container-holder-alert">
-            @if (topic.Alerts is not null)
-            {
-                foreach (var alert in topic.Alerts)
+        @if (topic.Alerts is not null)
+        {
+            <div tabindex="-1" id="content" class="topic-container-holder-alert">
+                @foreach (var alert in topic.Alerts)
                 {
                     <partial name="DisplayTemplates/Alert" model='alert' />
                 }
-            }
-        </div>
+            </div>
+        }
 
         <div class="topic-container-holder-item">
             <h1>@topic.Name</h1>
@@ -59,63 +59,66 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
             @Html.Raw(topic.Summary)
         </div>
 
-        <ul class="article-list article-list-container grid-100 matchbox-parent">
-            @if (topic.SubItems.Any())
-            {
-                bool displayImages = topic.SubItems.All(item => !string.IsNullOrEmpty(item.Image));
-                foreach (var item in topic.SubItems)
-                {
-                    <partial name="SubItem-List" model="new Tuple<SubItem, bool>(item, displayImages)" />
+        @if (topic.SubItems.Any())
+        {
+            <ul class="article-list article-list-container grid-100 matchbox-parent">
+                @{
+                    bool displayImages = topic.SubItems.All(item => !string.IsNullOrEmpty(item.Image));
+                    foreach (var item in topic.SubItems)
+                    {
+                        <partial name="SubItem-List" model="new Tuple<SubItem, bool>(item, displayImages)" />
+                    }
                 }
-            }
-        </ul>
+            </ul>
+        }
 
-        <ul class="article-list article-list-container grid-100 topic-secondary">
-            @if (topic.SecondaryItems.Any())
-            {
-                int itemLength = topic.SecondaryItems.Count();
-                foreach (var item in topic.SecondaryItems.Select((value, index) => new { index, value }))
-                {
-                    ViewData["IsLast"] = item.index.Equals(itemLength - 1);
-                    <partial name="SecondaryItem" model="item.value" />
+        @if (topic.SecondaryItems.Any())
+        {
+            <ul class="article-list article-list-container grid-100 topic-secondary">
+                @{
+                    var itemLength = topic.SecondaryItems.Count();
+                    foreach (var item in topic.SecondaryItems.Select((value, index) => new { index, value }))
+                    {
+                        ViewData["IsLast"] = item.index.Equals(itemLength - 1);
+                        <partial name="SecondaryItem" model="item.value" />
+                    }
                 }
-            }
-        </ul>
+            </ul>
+        }
 
-    </div>
-
-    @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
-    {
-        <div class="grid-100 topic-container-holder">
+        @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
+        {
             <div class="topic-container-holder-item">
-                <h1>Things to do</h1>
+                <h2>Things to do</h2>
                 <hr>
             </div>
-        </div>
-
-        <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container" id="event-listing-container">
-            <div class="grid-100 event-container-row matchbox-parent">
+            <div id="event-listing-container" class="grid-100 event-container-row matchbox-parent" style="padding:0;">
                 @foreach (var item in Model.EventsFromApi)
                 {
                     <div @(item.Equals(Model.EventsFromApi.Last()) ? "class=hide-on-tablet" : "")>
-                        <partial name="EventCard" model='item' />
+                        <partial name=EventCard model=item />
                     </div>
                 }
             </div>
-        </section>
-    }
-
-    @if (callToAction is not null)
-    {
-        <partial name=@nameof(CallToAction) model=callToAction />
-    }
-
-    @if (topic.DisplayContactUs)
-    {
-        <div class="grid-100 topic-contactus">
-            <div class="topic-contactus-container">
-                <partial name="../Shared/ContactUs-Nav" />
+            <div class="grid-100 events-call-to-action">
+                <a class="button button-outline button-partialrounded button-call-to-action" href="/events/category/@Model.Topic.EventCategory">
+                    Find more things to do
+                </a>
             </div>
-        </div>
-    }
-</section>
+        }
+
+        <partial name=@nameof(Video) model=Model.Topic.Video />
+
+        <partial name=@nameof(CallToAction) model=callToAction />
+
+        @if (topic.DisplayContactUs)
+        {
+            <div class="grid-100 topic-contactus">
+                <div class="topic-contactus-container">
+                    <partial name="../Shared/ContactUs-Nav" />
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
