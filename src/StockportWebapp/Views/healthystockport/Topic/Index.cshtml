@@ -41,11 +41,11 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
     <div class="grid-100 l-background-hs-image"></div>
 }
 
-<div aria-label="@Model.Topic.Name content" class="grid-100 mobile-grid-100 topic-container">
+<article id="content" class="grid-100 mobile-grid-100 topic-container">
     <div class="grid-100 topic-container-holder">
         @if (topic.Alerts is not null)
         {
-            <div tabindex="-1" id="content" class="topic-container-holder-alert">
+            <div class="topic-container-holder-alert">
                 @foreach (var alert in topic.Alerts)
                 {
                     <partial name="DisplayTemplates/Alert" model='alert' />
@@ -121,4 +121,4 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
         }
 
     </div>
-</div>
+</article>
