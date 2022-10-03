@@ -59,6 +59,8 @@ else if (!string.IsNullOrEmpty(topic.BackgroundImage))
             @Html.Raw(topic.Summary)
         </div>
 
+        <partial name=@nameof(TriviaSection) model=topic.TriviaSection />
+
         @if (topic.SubItems.Any())
         {
             <ul class="article-list article-list-container grid-100 matchbox-parent">

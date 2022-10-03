@@ -1,0 +1,25 @@
+﻿@model StockportWebapp.Models.TriviaSection
+@if (!Model.Trivia.Any()) return;
+
+<section class=topic-container-holder-item>
+
+    <hr style="height: 3px; border: none; color: #bcbcbc; background-color: #bcbcbc; width: auto;">
+
+    @if (!string.IsNullOrEmpty(Model.Heading))
+    {
+        <h2 class=trivia-section__header>@Model.Heading</h2>
+    }
+    <ul class=trivia-section__list>
+        @foreach (var trivia in Model.Trivia)
+        {
+            <li class=trivia-section__list-item>
+                <div class=trivia-section__list-icon>
+                    <span class="@trivia.Icon"></span>
+                </div>
+                <p class=trivia-section__list-paragraph>
+                    @Html.Raw(trivia.Text)
+                </p>
+            </li>
+        }
+    </ul>
+</section>
