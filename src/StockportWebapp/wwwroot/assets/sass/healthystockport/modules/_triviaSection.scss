@@ -9,6 +9,10 @@
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
+
+        @media #{$mobile, $tablet} {
+            display: block;
+        }
     }
 
     &__list-item {
