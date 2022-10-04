@@ -12,11 +12,12 @@ namespace StockportWebapp.ProcessedModels
         public string Slug { get; }
         public string NavigationLink { get; }
         private IEnumerable<SubItem> _topSubItems;
+        public string BackgroundImage { get; }
+        public TriviaSection TriviaSection { get; init; }
         public string Summary { get; }            
         public string Teaser { get; }
         public string MetaDescription { get; }
         public string Icon { get; }
-        public string BackgroundImage { get; }
         public Video Video { get; init; }
         public CallToAction CallToAction { get; init; }
         public string Image { get; }
