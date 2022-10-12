@@ -61,7 +61,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
                 new List<Crumb>(), _categories, new MapDetails(), "booking information",_group, _alerts,string.Empty,string.Empty);
 
-            var eventHomepage = new EventHomepage { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
+            var eventHomepage = new EventHomepage(new List<Alert>()) { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
 
             // setup responses (with mock data)
             responseListing = new HttpResponse(200, eventsCalendar, "");
