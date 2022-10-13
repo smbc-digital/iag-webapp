@@ -10,6 +10,16 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
+@if (Model.Homepage.Alerts != null)
+{
+    foreach (var alert in Model.Homepage.Alerts)
+    {
+        <div>
+            <partial name="GlobalAlert" model='alert' />
+        </div>
+    }
+}
+
 @if (string.IsNullOrWhiteSpace(Model.Category))
 {
     @section Breadcrumbs {
