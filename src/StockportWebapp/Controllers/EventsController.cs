@@ -244,7 +244,7 @@ namespace StockportWebapp.Controllers
             else
             {
                 ViewBag.Eventdate = eventItem?.EventDate.ToString("yyyy-MM-dd");
-            }           
+            }
 
             return View("Detail", eventItem);
         }
