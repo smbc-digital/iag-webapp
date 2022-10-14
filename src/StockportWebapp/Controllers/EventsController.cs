@@ -213,6 +213,17 @@ namespace StockportWebapp.Controllers
                 ViewBag.Eventdate = response?.EventDate.ToString("yyyy-MM-dd");
             }
 
+            var httpHomeResponse = await _repository.Get<EventHomepage>();
+
+            if (httpHomeResponse.IsSuccessful())
+            {
+                var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+
+                foreach (var item in eventHomeResponse.Alerts)
+                {
+                    response.GlobalAlerts.Add(item);
+                }
+            }
 
             return View(response);
         }
@@ -233,7 +244,7 @@ namespace StockportWebapp.Controllers
             else
             {
                 ViewBag.Eventdate = eventItem?.EventDate.ToString("yyyy-MM-dd");
-            }
+            }           
 
             return View("Detail", eventItem);
         }

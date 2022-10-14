@@ -22,6 +22,7 @@ namespace StockportWebapp.ProcessedModels
         public List<string> Categories { get; }
         public string BookingInformation { get; set; }
         public readonly List<Alert> Alerts;
+        public readonly List<Alert> GlobalAlerts = new List<Alert>();
         public MapDetails MapDetails { get; set; }
 
         public string MetaDescription { get; set; }
