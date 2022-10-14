@@ -219,10 +219,11 @@ namespace StockportWebapp.Controllers
             {
                 var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
-                foreach (var item in eventHomeResponse.Alerts)
+                if(eventHomeResponse.Alerts != null)
                 {
-                    response.GlobalAlerts.Add(item);
-                }
+                    foreach (var item in eventHomeResponse.Alerts)
+                        response.GlobalAlerts.Add(item);
+                }                
             }
 
             return View(response);
