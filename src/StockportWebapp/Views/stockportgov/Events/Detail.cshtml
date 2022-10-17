@@ -14,6 +14,16 @@
     <partial name="Breadcrumb" model="crumb"/>
 }
 
+@if (Model.GlobalAlerts != null)
+{
+    foreach (var alert in Model.GlobalAlerts)
+    {
+        <div>
+            <partial name="GlobalAlert" model='alert' />
+        </div>
+    }
+}
+
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 

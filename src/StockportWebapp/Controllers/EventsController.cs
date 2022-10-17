@@ -213,6 +213,18 @@ namespace StockportWebapp.Controllers
                 ViewBag.Eventdate = response?.EventDate.ToString("yyyy-MM-dd");
             }
 
+            var httpHomeResponse = await _repository.Get<EventHomepage>();
+
+            if (httpHomeResponse.IsSuccessful())
+            {
+                var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
+
+                if(eventHomeResponse.Alerts != null)
+                {
+                    foreach (var item in eventHomeResponse.Alerts)
+                        response.GlobalAlerts.Add(item);
+                }                
+            }
 
             return View(response);
         }
