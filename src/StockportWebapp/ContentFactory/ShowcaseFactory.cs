@@ -89,7 +89,6 @@ namespace StockportWebapp.ContentFactory
                 showcase.ProfileLink,
                 showcase.EventsReadMoreText,
                 video,
-                showcase.TypeformUrl,
                 showcase.SpotlightBanner
             );
         }

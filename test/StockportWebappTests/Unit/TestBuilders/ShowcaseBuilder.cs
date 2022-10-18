@@ -46,8 +46,6 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
             new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>() {new SubItem("slug", "title", "teaser", "icon", "type", "image.jpg", new List<SubItem>()) })
         };
 
-        public string _typeformUrl { get; set; } = "typeformUrl";
-
         public Showcase Build()
         {
             return new Showcase { 
@@ -87,8 +85,7 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
                 EventsReadMoreText = _eventsReadMoreText,
                 Video = new Video(),
                 NewsArticle = null,
-                PrimaryItems = null,
-                TypeformUrl = _typeformUrl
+                PrimaryItems = null
             };
         }
 
@@ -172,12 +169,6 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
         public ShowcaseBuilder Events(IEnumerable<Event> events)
         {
             _events = events;
-            return this;
-        }
-
-        public ShowcaseBuilder TypeformUrl(string typeformUrl)
-        {
-            _typeformUrl = typeformUrl;
             return this;
         }
     }
