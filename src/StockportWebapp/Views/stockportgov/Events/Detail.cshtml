@@ -14,16 +14,6 @@
     <partial name="Breadcrumb" model="crumb"/>
 }
 
-@if (Model.GlobalAlerts != null)
-{
-    foreach (var alert in Model.GlobalAlerts)
-    {
-        <div>
-            <partial name="GlobalAlert" model='alert' />
-        </div>
-    }
-}
-
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
@@ -31,6 +21,16 @@
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
                     @{
+                        @if (Model.GlobalAlerts != null)
+                        {
+                            foreach (var alert in Model.GlobalAlerts)
+                            {
+                                <div>
+                                    <partial name="DisplayTemplates/Alert" model='alert' />
+                                </div>
+                            }
+                        }
+
                         if (Model.Alerts != null)
                         {
                             foreach (var alert in Model.Alerts)
