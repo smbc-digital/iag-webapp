@@ -15,7 +15,7 @@
 
 @if (!string.IsNullOrEmpty(Model.ButtonText))
 {
-    <div class="generic-list-see-more-container">
+    <div id="see-more-container" class="generic-list-see-more-container">
         @for (var count = 8; count < Model.Items.Count(); count += 4)
         {
             <div class="featured-topic-list generic-Featured-Items-margin-top matchbox-parent">
