@@ -16,6 +16,7 @@
                         button.text(oldButtonText.replace('more', 'fewer'));
                         container.find(".featured-topic-link:first").focus();
                     }
+                    button.toggleClass("is-collapsed");
                 });
             });
         }
