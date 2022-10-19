@@ -3,9 +3,8 @@
 @inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
 @{
-    var bannerTypeformUrl = ViewData["BannerTypeformUrl"];
     var stylesheet = ApplicationConfiguration.GetStylesheetConfig();
-    var bodyClass = ViewData["WhiteBackground"] != null &&  (bool)ViewData["WhiteBackground"] ? "white-background" : string.Empty;
+    var bodyClass = ViewData["WhiteBackground"] is not null && (bool)ViewData["WhiteBackground"] ? "white-background" : string.Empty;
 }
 <!DOCTYPE html>
 <html lang="en-GB">
@@ -15,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="shortcut icon" type="image/png" href="~/assets/images/ui-images/favicon-sg.png" />
     <title>@ViewData["Title"] - Stockport Council</title>
-    @if (ViewData["Description"] != null)
+    @if (ViewData["Description"] is not null)
     {
         <meta name="Description" content="@ViewData["Description"]" />
     }
@@ -45,14 +44,6 @@
         </div>
         <partial name="SemanticHeader" />
         <partial name="BrowserCheckSemantic" />
-        @if (!string.IsNullOrEmpty((string)bannerTypeformUrl))
-        {
-            <div class="banner-header">
-                <div class="center-wrapper">
-                    <span>NEW </span><strong>This part of our website is brand new. </strong><a href="@ViewData["BannerTypeformUrl"]" target="_blank" data-mode="1" class="typeform-share link">Give us your feedback</a> to help us improve it.
-                </div>
-            </div>
-        }
         @RenderSection("Breadcrumbs", false)
     </header>
 

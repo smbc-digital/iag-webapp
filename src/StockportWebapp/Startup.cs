@@ -108,7 +108,6 @@ namespace StockportWebapp
             app.UseMiddleware<BusinessIdMiddleware>()
                 .UseMiddleware<ShortUrlRedirectsMiddleware>()
                 .UseMiddleware<RobotsMiddleware>()
-                .UseMiddleware<BetaToWwwMiddleware>()
                 .UseMiddleware<SecurityHeaderMiddleware>()
                 .UseStatusCodePagesWithReExecute("/error")
                 .UseCustomStaticFiles()

@@ -83,7 +83,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 "",
                 "",
                 new Video(),
-                "typeformUrl",
                 new SpotlightBanner("test", "test", "test"));
 
             _mockContentRepository
