@@ -100,11 +100,6 @@ namespace StockportWebapp.Controllers
                 model.PrimaryFilter.Categories = listOfGroupCategories.OrderBy(c => c.Name).ToList();
             }
 
-            if (homepage.FeaturedGroups != null && homepage.FeaturedGroups.Any())
-            {
-                _cookiesHelper.PopulateCookies(homepage.FeaturedGroups, "favourites");
-            }
-
             model.BackgroundImage = homepage.BackgroundImage;
             model.FeaturedGroupsHeading = homepage.FeaturedGroupsHeading;
             model.FeaturedGroups = homepage.FeaturedGroups;
@@ -164,12 +159,6 @@ namespace StockportWebapp.Controllers
                 DaysTillStale = daysTillStale
             };
 
-            _cookiesHelper.PopulateCookies(new List<ProcessedGroup> { group }, "favourites");
-
-            if (group.LinkedGroups != null)
-            {
-                _cookiesHelper.PopulateCookies(group.LinkedGroups, "favourites");
-            }
             return View(viewModel);
         }
 
@@ -221,8 +210,6 @@ namespace StockportWebapp.Controllers
                 ViewBag.Category = model.Categories.FirstOrDefault(c => c.Slug == groupSearch.Category);
                 model.PrimaryFilter.Categories = model.Categories.OrderBy(c => c.Name).ToList();
             }
-
-            _cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             model.PrimaryFilter.Order = groupSearch.Order;
             model.PrimaryFilter.Location = groupSearch.Location;
@@ -1222,8 +1209,6 @@ namespace StockportWebapp.Controllers
             model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
-
-            _cookiesHelper.PopulateCookies(model.Groups, "favourites");
 
             if (pageSize == -1)
             {
