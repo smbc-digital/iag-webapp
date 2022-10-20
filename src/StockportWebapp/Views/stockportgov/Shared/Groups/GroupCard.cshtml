@@ -6,8 +6,8 @@
 @model Group
 
 <li id="item-card-@Model.Slug" class="group-li grid-33 tablet-grid-50 mobile-grid-100">
-    <div class="group-card matchbox-child">
-        <a href="/groups/@Model.Slug" class="group-card-main remove-from-pdf">
+    <a href="/groups/@Model.Slug" class="group-card matchbox-child">
+        <div class="group-card-main remove-from-pdf">
             <div>
                 <span class="group-image" style="background-image: url(@GroupImageUrlHelper.GetImageUrl(Model))!important;" role="img" aria-label="@Model.Name"></span>
             </div>
@@ -66,22 +66,6 @@
                     </div>
                 </div>
             </div>
-        </a>
-    </div>
-    <a id="remove-favourite-@Model.Slug" class="@(!Model.Favourite ? "hidden" : "") remove-favourite grid-100 event-tracking" data-category="Groups" data-action="Remove from favourites" data-label="@Model.Slug" data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/remove?slug={Model.Slug}&type=group")" aria-label="Remove from favourites @Model.Name">
-        <div class="grid-10 mobile-grid-10 favourite-icon">
-            <span class="fa fa-star" aria-hidden="true"></span>
-        </div>
-        <div class="grid-90 mobile-grid-90">
-            <span class="favourite-text">Remove from favourites</span>
-        </div>
-    </a>
-    <a id="add-favourite-@Model.Slug" class="@(Model.Favourite ? "hidden" : "") add-favourite grid-100 event-tracking" data-category="Groups" data-action="Add to favourites" data-label="@Model.Slug" data-slug="@Model.Slug" data-type="group" href="@($"/favourites/nojs/add?slug={Model.Slug}&type=group")" aria-label="Add to favourites @Model.Name">
-        <div class="grid-10  mobile-grid-10 favourite-icon">
-            <span class="fa fa-star-o" aria-hidden="true"></span>
-        </div>
-        <div class="grid-90 mobile-grid-90">
-            <span class="favourite-text">Add to favourites</span>
         </div>
     </a>
 </li>

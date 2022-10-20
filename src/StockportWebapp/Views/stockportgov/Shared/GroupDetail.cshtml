@@ -26,12 +26,6 @@
 }
 
 @Html.HiddenFor(_ => _.ConfirmedUpToDate)
-<div class="hide-on-mobile grid-100 tablet-grid-100 grid-parent favourites-container">
-    <partial name="FavouritesBar" />
-</div>
-<div class="mobile-grid-100 hide-on-tablet hide-on-desktop grid-parent favourites-container">
-    <partial name="FavouritesBar" />
-</div>
 
 <article aria-label="@Model.Group.Name content" class="grid-container group-detail">
     <div class="grid-70 tablet-grid-100 mobile-grid-100 main-content">
@@ -55,9 +49,6 @@
                     <img src="@Model.Group.ImageUrl" alt="Group image">
                 </div>
             }
-            <section class="hide-on-desktop mobile-grid-100 tablet-grid-100">
-                <partial name="Events/ManageFavouritesCard" model='Model.Group' />
-            </section>
         </section>
         @if (Model.ShouldShowAdditionalInformation)
         {
@@ -228,9 +219,6 @@
         <h2>More about this group</h2>
         <hr class="hide-on-mobile" />
         <section class="group-information-section grid-100 mobile-grid-100">
-            <div class="hide-on-mobile">
-                <partial name="Events/ManageFavouritesCard" model='Model.Group' />
-            </div>
             <div class="add-remove-favourite sidebar-links" id="report-page">
                 <span class="fa fa-flag-o fa-lg" aria-hidden="true"></span>
                 <a href="/groups/@Model.Group.Slug/report-group-info?groupname=@Model.Group.Name">Report this page as
