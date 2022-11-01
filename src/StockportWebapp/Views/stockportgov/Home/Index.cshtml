@@ -11,29 +11,30 @@
     Layout = "../Shared/_LayoutHome.cshtml";
 }
 
-@if (Model.HomepageContent.Alerts != null)
+@section BackgroundImage
+{
+    <partial name="ScaleImageByDevice" model='new Image("homepage-hero", Model.HomepageContent.BackgroundImage)'/>
+}
+
+@section CarouselBackgroundImage
+{
+    @{
+        int counter = 1;
+        foreach (var carouselContent in Model.HomepageContent.CarouselContents)
+        {
+            <partial name="ScaleImageByDevice" model='new Image("webcast-"+counter, carouselContent.Image)'/>
+            counter++;
+        }
+    }
+}
+
+@if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
 {
     foreach (var alert in Model.HomepageContent.Alerts)
     {
         <div>
             <partial name="GlobalAlert" model='alert'/>
         </div>
-    }
-}
-
-@*css overides to request images per device*@
-
-@section BackgroundImage
-{
-    <partial name="ScaleImageByDevice" model='new Image("homepage-hero", Model.HomepageContent.BackgroundImage)'/>
-}
-@section CarouselBackgroundImage
-{
-    @{ int counter = 1; }
-    @foreach (var carouselContent in Model.HomepageContent.CarouselContents)
-    {
-        <partial name="ScaleImageByDevice" model='new Image("webcast-"+counter, carouselContent.Image)'/>
-        counter++;
     }
 }
 
@@ -58,10 +59,10 @@
 <div class="full-width-white">
     <div class="featured-topic-list">
         <ul class="nav-card-list latest-container matchbox-parent">
-            @if (Model.FeaturedNews != null)
+            @if (Model.FeaturedNews is not null)
             {
                 <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-                    <span class="latest-nav-card-item matchbox-child">
+                    <div class="latest-nav-card-item matchbox-child">
                         <h2 class="news title">
                             <a tabindex="-1" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">Latest news</a>
                         </h2>
@@ -73,15 +74,15 @@
                                 <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
-                    </span>
+                    </div>
                     <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">View news and media</stock-button>
                 </li>
             }
 
-            @if (Model.FeaturedEvent != null)
+            @if (Model.FeaturedEvent is not null)
             {
                 <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-                    <span class="latest-nav-card-item matchbox-child">
+                    <div class="latest-nav-card-item matchbox-child">
                         <h2 class="event title"><a tabindex="-1" href="@Url.Action("Index", "Events")">What's on in Stockport</a></h2>
                         <div class="body">
                             <a href="/events/@Model.FeaturedEvent.Slug">
@@ -91,15 +92,15 @@
                                 <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
-                    </span>
+                    </div>
                     <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "Events")">View more events</stock-button>
                 </li>
             }
 
-            @if (Model.HomepageContent.FeaturedGroupItem != null)
+            @if (Model.HomepageContent.FeaturedGroupItem is not null)
             {
                 <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
-                    <span class="latest-nav-card-item matchbox-child">
+                    <div class="latest-nav-card-item matchbox-child">
                         <h2 class="group title"><a tabindex="-1" href="@Url.Action("Index", "Groups")">Stockport Local</a></h2>
                         <div class="body">
                             <a href="/groups/@Model.HomepageContent.FeaturedGroupItem.Slug">
@@ -120,7 +121,7 @@
                                 <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
-                    </span>
+                    </div>
                     <stock-button class="nav-card-title button button-featured-content-more button-groups" as-link="true" href="@Url.Action("Index", "Groups")">View more groups and services</stock-button>
                 </li>
             }
@@ -132,7 +133,6 @@
     <partial name="Carousel" model='Model.HomepageContent.CarouselContents'/>
 </div>
 
-
 <section class="personalised-services">
     <h2 class="visuallyhidden">Subscription </h2>
     <div class="grid-container">
@@ -141,10 +141,3 @@
         </div>
     </div>
 </section>
-
-<script type="text/javascript">
-    require(['alerts'],
-        function (alerts) {
-            alerts.Init();
-        });
-</script>

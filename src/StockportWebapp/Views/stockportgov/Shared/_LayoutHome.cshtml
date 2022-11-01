@@ -1,50 +1,45 @@
 ﻿@using StockportWebapp.Config
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject BusinessId BusinessId
-@inject CurrentEnvironment CurrentEnvironment
 
 <!DOCTYPE html>
-<html lang="en-GB" class="no-js">
+<html lang="en-GB">
 <head>
     @* <partial name="SecurityHeaders" /> *@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    @if (ViewData["Description"] != null)
+    <title>@ViewData["Title"]</title>
+    <meta property="og:title" content="@ViewData["Title"]" />
+    @if (ViewData["Description"] is not null)
     {
         <meta name="Description" content="@ViewData["Description"]" />
     }
     <partial name="OwnershipVerificationCodes" />
     <partial name="Favicon" />
-    <title>@ViewData["Title"]</title>
-    <meta property="og:title" content="@ViewData["Title"]" />
+
     <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
     <link href="https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
     <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/stylesheets/vendor/slick.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+        integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g=="
+        crossorigin="anonymous">
     <!--[if IE]>
         <link rel="stylesheet" href="~/assets/stylesheets/ie.min.css"/>
     <![endif]-->
+
     <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed" />
     <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
     @RenderSection("BackgroundImage")
     @RenderSection("CarouselBackgroundImage")
     <partial name="CookieBanner" />
-    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-
-    @if (CurrentEnvironment.Name == "test")
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
-    }
-    else
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
-    }
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
+
+    <script src="~/assets/javascript/vendor/require.min.js"></Script>
 </head>
 <body class="container-layout-free type-home">
     <partial name="TagManager/TagManagerNoScript" />
@@ -55,30 +50,15 @@
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
-    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-    <script type="text/javascript">
-        require(['startup', 'carousel', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick', 'utils', 'reciteMe'],
-            function (startup, carousel, viewmoreslider, matchHeight, matchboxconfig, slick, utils, reciteMe) {
-                startup.Init();
-                viewmoreslider.Init();
-                matchboxconfig.Init();
-                carousel.Init();
-                utils.Init();
-                reciteMe.Init();
-            })
+
+    <script>
+        require(['assets/javascript/stockportgov/config.min'], function() {
+            require(['jquery', 'matchheight.min'],
+                function ($, matchheight) {
+                    matchheight.Init();
+                }
+            );
+        });
     </script>
-
-    <script type="text/javascript">
-        require(['validate', 'jquery-ui', 'jquery.cookie'],
-            function (validate, jqueryui, jquerycookie) {
-            })
-    </script>
-
-    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script type="text/javascript" src="~/assets/javascript/stockportgov/cludoInit.js"></script>
-
-    <!--[if lte IE 9]>
-        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
-    <![endif]-->
 </body>
 </html>

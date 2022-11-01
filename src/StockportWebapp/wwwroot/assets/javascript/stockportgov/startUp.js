@@ -1,13 +1,6 @@
-﻿define(["jquery", "multiselect", "utils"], function ($, multiSelector, utils) {
+﻿define(["jquery", "utils"], function ($, utils) {
 
     var documentReady = function () {
-        $('.global-alert-close-container a').on('click', function () {
-            $(this).closest('.global-alert').hide();
-        });
-
-        $('.alert-close a').on('click', function () {
-            $(this).closest('.alert').hide();
-        });
 
         utils.SwapLogo();
 
@@ -41,32 +34,21 @@
         return userAgent.indexOf("MSIE ") > -1 || userAgent.indexOf("Trident/") > -1 || userAgent.indexOf("Edge/") > -1;
     }
 
-    var init = function () {
-
-        $(document).ready(function () {
-            $('.multi-select-control').each(function () {
-                multiSelector.Init($(this).val());
-            });
-        });
-
-        if (isIE() === true) {
-            $("html").addClass("ie"); 
-        }
-
-        document.documentElement.className = document.documentElement.className.replace("no-js", "js");
-
-        $(document).ready(function () {
-            documentReady();
-        });
-
-        $(window).resize(function () {
-            documentResize();
-        });
-        
-    };
-
     return {
-        Init: init
+        Init: function () {
+
+            if (isIE() === true) {
+                $("html").addClass("ie");
+            }
+
+            $(document).ready(function () {
+                documentReady();
+            });
+
+            $(window).resize(function () {
+                documentResize();
+            });
+        }
     }
 });
 

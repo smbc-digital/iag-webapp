@@ -35,3 +35,13 @@
         </div>
     </div>
 }
+
+<script>
+    require(['assets/javascript/stockportgov/config.min'], function() {
+        require(['alerts.min'],
+            function(alerts) {
+                alerts.Init();
+            }
+        );
+    });
+</script>

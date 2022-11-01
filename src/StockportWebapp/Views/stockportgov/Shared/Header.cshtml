@@ -14,7 +14,14 @@
     </nav>
     <header role="banner" id="header" class="grid-container grid-100">
         <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
-            <a href="https://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" data-mobile-image="@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")" data-desktop-image="@StaticAssets.UrlFor("logo-stockport-full%402x.png")" alt="Stockport Council Logo Homepage Link" title="Welcome to Stockport Council" class="logo-main-image"></a>
+            <a href="https://www.stockport.gov.uk">
+                <img src="@StaticAssets.UrlFor("logo-stockport-full%402x.png")"
+                    data-mobile-image="@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")"
+                    data-desktop-image="@StaticAssets.UrlFor("logo-stockport-full%402x.png")"
+                    alt="Stockport Council Logo Homepage Link"
+                    title="Welcome to Stockport Council"
+                    class="logo-main-image">
+            </a>
         </div>
         <div class="grid-50 mobile-grid-50 tablet-grid-50 grid-parent">
             <div class="header-container grid-100 grid-parent">
@@ -67,11 +74,10 @@
                             <div class="menu-logged-out pull-right">
                                 <a href="https://myaccount.stockport.gov.uk/" aria-label="Go to My Account"><span class="fa fa-user hide-on-mobile" aria-hidden="true"></span>My Account</a>
                             </div>
-                            @if (featureToggles.ReciteMeTrial) {
-                                <div class="menu-logged-out pull-right">
-                                    <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
-                                </div>
-                            }
+
+                            <div class="menu-logged-out pull-right">
+                                <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
+                            </div>
                         }
                     </div>
                 </div>
@@ -84,3 +90,15 @@
 </div>
 <partial name="MobileSearchBar" />
 <partial name="BrowserCheck" />
+
+<script>
+    require(['assets/javascript/stockportgov/config.min'], function() {
+        require(['startup.min', 'utils.min', 'reciteMe.min'],
+            function(startup, utils, reciteMe) {
+                reciteMe.Init();
+                startup.Init();
+                utils.Init();
+            }
+        );
+    });
+</script>

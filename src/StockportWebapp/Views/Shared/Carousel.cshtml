@@ -1,21 +1,33 @@
 ﻿@model List<StockportWebapp.Models.CarouselContent>
+
 <h2 class="visuallyhidden">Carousel</h2>
 <div class="carousel" role="application">
-    @{ int counter = 1; }
-    @foreach (var carouselContent in Model)
-    {
-        <a href="@carouselContent.URL" aria-label="@carouselContent.Title" title="@carouselContent.Title">
-            <div class="stockport-carousel webcast-@counter">
-                <div class="stockport-carousel-text">
-                    <h2>@carouselContent.Title</h2>
-                    <p>
-                        @carouselContent.Teaser
-                    </p>
+    @{
+        int counter = 1;
+        foreach (var carouselContent in Model)
+        {
+            <a href="@carouselContent.URL" aria-label="@carouselContent.Title" title="@carouselContent.Title">
+                <div class="stockport-carousel webcast-@counter">
+                    <div class="stockport-carousel-text">
+                        <h2>@carouselContent.Title</h2>
+                        <p>
+                            @carouselContent.Teaser
+                        </p>
+                    </div>
+                    <div class="stockport-carousel-gradient"></div>
                 </div>
-                <div class="stockport-carousel-gradient"></div>
-            </div>
-        </a>
-        counter++;
-        
+            </a>
+            counter++;
+        }
     }
 </div>
+
+<script>
+    require(['assets/javascript/stockportgov/config.min'], function() {
+        require(['slick', 'carousel.min'],
+            function(_, carousel) {
+                carousel.Init();
+            }
+        );
+    });
+</script>
