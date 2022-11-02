@@ -212,8 +212,7 @@ gulp.task("scss-lint-all", function () {
             '!wwwroot/assets/sass/site-sg.scss',
             '!wwwroot/assets/sass/site-ts.scss',
             '!wwwroot/assets/sass/export-to-pdf.scss',
-            '!wwwroot/assets/sass/thirdsite/**/*.scss',
-            '!wwwroot/assets/sass/stockportgov/modules/_wysiwyg.scss']
+            '!wwwroot/assets/sass/thirdsite/**/*.scss']
     )
         .pipe(postcss(processors, { syntax: syntax_scss }));
 });

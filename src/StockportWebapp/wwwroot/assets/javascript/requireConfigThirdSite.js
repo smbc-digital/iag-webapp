@@ -4,10 +4,6 @@
         "jquery": "vendor/jquery.min",
         "recaptcha": "//www.google.com/recaptcha/api",
         "cludo": "//customer.cludo.com/scripts/bundles/search-script.min",
-        "bootstrap": "/lib/bootstrap/dist/js/bootstrap.min",
-        "handlebars": "/lib/handlebars/handlebars.runtime.min",
-        "rangy": "/lib/rangy-1.3/rangy-core",
-        "wysiwygtoolbar": "/lib/wysihtml5x/dist/wysihtml5x-toolbar.min",
         "validate": "vendor/jquery.validate.min",
         "unobtrusive": "vendor/jquery.validate.unobtrusive.min",
         "slick": "vendor/slick",
@@ -18,7 +14,6 @@
         "expandinglinks": "stockportgov/expandinglinks",
         "filters": "stockportgov/filters",
         "groups": "stockportgov/groups",
-        "livechat": "stockportgov/livechat",
         "matchboxconfig": "stockportgov/matchbox",
         "multiselect": "stockportgov/multiselect",
         "primaryfilter": "stockportgov/primaryfilter",
@@ -26,7 +21,6 @@
         "startup": "stockportgov/startup",
         "utils": "stockportgov/utils",
         "viewmoreslider": "stockportgov/viewmoreslider",
-        "clipboard": "//cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min",
         "jquery-ui": "../stylesheets/vendor/jquery-ui-1.13.0.custom/jquery-ui.min",
         "favourites": "stockportgov/favourites",
         "tracking": "stockportgov/tracking",
@@ -35,15 +29,6 @@
     shim: {
         'jquery-ui': {
             deps: ['jquery']
-        },
-        bootstrap: {
-            deps: ['jquery', 'jquery-ui']
-        },
-        wysiwygtoolbar: {
-            deps: ['jquery', 'jquery-ui', 'bootstrap', 'rangy']
-        },
-        customwysiwyg: {
-            deps: ['wysiwygtoolbar']
         },
         unobtrusive: {
             deps: ['validate']
@@ -54,8 +39,8 @@
     }
 });
 
-require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'livechat', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'matchHeight'],
-    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, livechat, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, matchHeight) {
+require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'filters', 'groups', 'matchboxconfig', 'primaryfilter', 'refinebybar', 'startup', 'viewmoreslider', 'validate', 'recaptcha', 'unobtrusive', 'jquery', 'clipboard', 'jquery-ui', 'favourites', 'tracking', 'matchHeight'],
+    function (carousel, cludoconfig, contactus, events, expandinglinks, filters, groups, matchboxconfig, primaryfilter, refinebybar, startup, viewmoreslider, validate, recaptcha, unobtrusive, $, clipboard, jqueryui, favourites, tracking, matchHeight) {
         carousel.Init();
         cludoconfig.Init();
         contactus.Init();
@@ -63,7 +48,6 @@ require(['carousel', 'cludoconfig', 'contactus', 'events', 'expandinglinks', 'fi
         expandinglinks.Init();
         filters.Init();
         groups.Init();
-        livechat.Init();
         matchboxconfig.Init();
         primaryfilter.Init();
         refinebybar.Init();
