@@ -48,16 +48,8 @@
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
 
-    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    @if (CurrentEnvironment.Name == "test")
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
-    }
-    else
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
-    }
-
+    <script type='text/javascript' src='@stylesheet.DesignSystemJs'></script>
+    <script src="~/assets/javascript/vendor/require.min.js"></Script>
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     <partial name="TagManager/TagManagerNoScript" />
@@ -70,33 +62,12 @@
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
-
-    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-    <script>
-        if (typeof (globalButoIds) !== "undefined") {
-            require(globalButoIds,
-                function () {
-                }
-            );
-        }
-    </script>
-
-    <script type="text/javascript">
-        require(['validate', 'jquery-ui', 'jquery.cookie', 'reciteMe'],
-            function (validate, jqueryui, jquerycookie, reciteMe) {
-                reciteMe.Init();
-            })
-    </script>
-
     @await Component.InvokeAsync("AddThis")
 
-    @RenderSection("Scripts", false)
-
-    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script type="text/javascript" src="~/assets/javascript/stockportgov/cludoInit.js"></script>
-
-    <!--[if lte IE 9]>
-        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
-    <![endif]-->
+    <script>
+        require(['/assets/javascript/stockportgov/config.min.js'], function() {
+            require(['jquery'], function () { });
+        });
+    </script>
 </body>
 </html>
