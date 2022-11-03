@@ -112,6 +112,7 @@ namespace StockportWebapp.Extensions
                         new VideoTagParser(),
                         new CarouselTagParser(),
                         new IFrameTagParser(),
+                        new FormBuilderTagParser(),
                         new MapTagParser()
                     });
 
