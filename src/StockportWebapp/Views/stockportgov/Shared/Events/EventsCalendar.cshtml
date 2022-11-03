@@ -47,12 +47,12 @@
                                                 }                                                   
                                                 <div class="date-from">
                                                     <label asp-for="@Model.DateFrom"></label>
-                                                    <input id="datepickerfrom" type="date" onchange="STK.EventsSetEndDateToStartDate('datepickerto', 'datepickerfrom')" class="datepicker" asp-for="@Model.DateFrom" novalidate />
+                                                    <input id="datepickerfrom" type="date" onchange="STK.EventsSetEndDateToStartDate('datepickerto', 'datepickerfrom')" asp-for="@Model.DateFrom" novalidate />
                                                     <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
                                                 </div>
                                                 <div class="date-to">
                                                     <label asp-for="@Model.DateTo"></label>
-                                                    <input id="datepickerto" type="date" class="datepicker" asp-for="@Model.DateTo" novalidate />
+                                                    <input id="datepickerto" type="date" asp-for="@Model.DateTo" novalidate />
                                                     <span id="inputvalidation" role="alert" aria-atomic="true"  asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
                                                 </div>
                                                 <div class="update-button">

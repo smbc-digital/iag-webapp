@@ -1,4 +1,4 @@
-﻿define(["jquery", "jquery-ui"], function ($) {
+﻿define(["jquery", "modernizr"], function ($) {
 
     var setEndDateToStartDate = function (endDateId, startDateId) {
         if (!Modernizr.inputtypes.date) {
@@ -13,45 +13,7 @@
         }
     }
 
-    var setDatePickers = function () {
-        if (!Modernizr.inputtypes.date) {
-            if ($(".datepicker").length > 0) {
-                $(".datepicker").datepicker({
-                    inline: true,
-                    dateFormat: 'dd/mm/yy'
-                });    
-            }
-
-            $(".hasDatepicker").each(function () {
-                var selectedDate = $(this).val();
-                if (selectedDate !== null && selectedDate !== "") {
-                    var eventdate = new Date(selectedDate);
-                    $(this).val($.datepicker.formatDate('dd/mm/yy', eventdate));
-                }
-            });
-
-            if ($.validator) {
-                $.validator.addMethod('date',
-                function (value, element) {
-                    if (this.optional(element)) {
-                        return true;
-                    }
-
-                    var ok = true;
-                    try {
-                        $.datepicker.parseDate('dd/mm/yy', value);
-                    }
-                    catch (err) {
-                        ok = false;
-                    }
-                    return ok;
-                });
-            }
-        }
-    };
-
     var init = function () {
-        setDatePickers();
         $(".schedule_multiple_events").show();
 
         if ($("#RecurringEventYnNo:checked").val()) {
