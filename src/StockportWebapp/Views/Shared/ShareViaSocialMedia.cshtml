@@ -1,6 +1,6 @@
 ﻿@model string
 @{
-    var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
+    var url = ViewBag.CurrentUrl is not null ? ViewBag.CurrentUrl : string.Empty;
     var title = ViewData["Title"];
 }
 

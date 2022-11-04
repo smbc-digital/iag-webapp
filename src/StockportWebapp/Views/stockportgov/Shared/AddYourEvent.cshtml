@@ -6,11 +6,7 @@
     ViewData["Title"] = "Add your event";
     ViewData["og:title"] = "Add your event";
     Layout = "../Shared/_Layout.cshtml";
-    var controllerType = "Events";
-    if (!string.IsNullOrEmpty(Model.GroupName))
-    {
-        controllerType = "Groups";
-    }
+    var controllerType = string.IsNullOrEmpty(Model.GroupName) ? "Events" : "Groups";
 }
 
 @section Breadcrumbs {
@@ -33,7 +29,7 @@
                     <div class="grid-100">
                         <h1 tabindex="-1" id="content"> Add your event</h1>
 
-                        @if (ViewBag.SubmissionError != null)
+                        @if (ViewBag.SubmissionError is not null)
                         {
                             <div id="error-message-anchor"></div>
                             <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
@@ -60,7 +56,6 @@
                                 </div>
                             </div>
                         </noscript>
-
 
                         <form asp-controller=@controllerType asp-action="AddYourEvent" method="post" enctype="multipart/form-data">
                             <div class="form">
@@ -132,7 +127,6 @@
                                             </ul>
                                         </div>
                                     </fieldset>
-
 
                                     <div class="schedule_multiple_events_inputs">
                                         <fieldset>
@@ -206,9 +200,7 @@
                                     @Html.HiddenFor(x => x.GroupName)
                                     @Html.HiddenFor(x => x.GroupSlug)
 
-                                    <stock-button id="uitest-contact-form-submit"
-                                                  class="button-contact-us"
-                                                  type="submit">Add your event</stock-button>
+                                    <stock-button id="uitest-contact-form-submit" class="button-contact-us" type="submit">Add your event</stock-button>
                                 </div>
                             </div>
                         </form>
@@ -218,16 +210,13 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'events', 'primaryfilter', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider', 'recaptcha'],
-        function (startup, favourites, expandinglinks, events, primaryfilter, filters, matchboxconfig, matchHeight, viewmoreslider) {
-            startup.Init();
-            favourites.Init();
-            events.Init();
-            expandinglinks.Init();
-            primaryfilter.Init();
-            filters.Init();
-            matchboxconfig.Init();
-            viewmoreslider.Init();
-        })
+
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['events.min', 'recaptcha'],
+            function(events) {
+                events.Init();
+            }
+        );
+    });
 </script>

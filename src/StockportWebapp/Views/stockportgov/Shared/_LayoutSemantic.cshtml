@@ -1,4 +1,7 @@
-﻿@using StockportWebapp.Config
+﻿@*
+    Comms, Profile, Showcase
+*@
+@using StockportWebapp.Config
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
@@ -50,7 +53,6 @@
         @RenderBody()
     </main>
 
-    @RenderSection("Scripts", false)
     <distributed-cache name="semanticFooter" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("SemanticFooter")
     </distributed-cache>

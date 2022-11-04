@@ -3,12 +3,12 @@
         Init: function () {
             $('.matchbox-parent').each(function () {
                 var maxHeight = 0;
-                $('.matchbox-child').each(function () {
-                    if ($(this).height() > maxHeight) {
-                        maxHeight = $(this).height();
-                    }
+
+                $(this).find('.matchbox-child').each(function () {
+                    maxHeight = $(this).height() > maxHeight ? $(this).height() : maxHeight;
                 });
-                $('.matchbox-child').height(maxHeight);
+
+                $(this).find('.matchbox-child').height(maxHeight);
             });
         }
     };

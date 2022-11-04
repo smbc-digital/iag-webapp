@@ -21,7 +21,7 @@
             <section aria-label="@Model.Title content">
                 <div class="l-content-container grid-100 events-margin">
                     @{
-                        @if (Model.GlobalAlerts != null)
+                        if (Model.GlobalAlerts is not null)
                         {
                             foreach (var alert in Model.GlobalAlerts)
                             {
@@ -31,7 +31,7 @@
                             }
                         }
 
-                        if (Model.Alerts != null)
+                        if (Model.Alerts is not null)
                         {
                             foreach (var alert in Model.Alerts)
                             {
@@ -174,12 +174,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'events','carousel'],
-        function (startup, favourites, expandinglinks, events, carousel) {
-            startup.Init();
-            favourites.Init();
-            events.Init();
-            carousel.Init();
-        })
-</script>
