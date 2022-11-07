@@ -78,7 +78,11 @@
 
     <script>
         require(['/assets/javascript/stockportgov/config.min.js'], function() {
-            require(['jquery'], function () { });
+            require(['jquery', 'matchbox.min'], 
+                function (_, matchbox) {
+                    matchbox.Init();
+                }
+            );
         });
     </script>
 </body>

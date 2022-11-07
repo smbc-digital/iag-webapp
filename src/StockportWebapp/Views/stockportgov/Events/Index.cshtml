@@ -67,9 +67,8 @@ else
 
 <script>
     require(['/assets/javascript/stockportgov/config.min.js'], function() {
-        require(['matchbox.min', 'events.min'],
-            function(matchbox, events) {
-                matchbox.Init();
+        require(['events.min'],
+            function(events) {
                 events.Init();
             }
         );
