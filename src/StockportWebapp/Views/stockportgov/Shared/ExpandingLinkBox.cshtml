@@ -32,3 +32,13 @@
         </ul>
     </div>
 </div>
+
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['expandingLinks.min'],
+            function(expandingLinks) {
+                expandingLinks.Init();
+            }
+        );
+    });
+</script>

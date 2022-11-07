@@ -10,16 +10,16 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='topic.Breadcrumbs'/>
+    <partial name="Breadcrumb" model='topic.Breadcrumbs' />
 }
 
-<div class="l-page-content" id="topic-page-content">
+    <div class="l-page-content" id="topic-page-content">
 
-    <div class="full-width-title">
-        <div class="grid-container grid-parent grid-100">
-            <div class="@(Model.Topic.EmailAlerts ? "grid-70 tablet-grid-70" : "grid-100 tablet-grid-100") mobile-grid-100">
-                <h1>@topic.Name</h1>
-                @if (topic.Summary != null)
+        <div class="full-width-title">
+            <div class="grid-container grid-parent grid-100">
+                <div class="@(Model.Topic.EmailAlerts ? "grid-70 tablet-grid-70" : "grid-100 tablet-grid-100") mobile-grid-100">
+                    <h1>@topic.Name</h1>
+                    @if (topic.Summary != null)
                 {
                     @Html.Raw(@topic.Summary)
                 }
@@ -34,45 +34,34 @@
     </div>
 
     <div tabindex="-1" id="content" class="grid-container grid-parent">
-        @{
-            if (topic.Alerts != null)
+        @if (topic.Alerts is not null)
+        {
+            foreach (var alert in topic.Alerts)
             {
-                foreach (var alert in topic.Alerts)
-                {
-                    <partial name="DisplayTemplates/Alert" model='alert'/>
-                }
+                <partial name="DisplayTemplates/Alert" model='alert' />
             }
         }
-        
-        <partial name="PrimarySubitems" model='topic'/>
 
-        @if (Model.Topic.ExpandingLinkBoxes != null && Model.Topic.ExpandingLinkBoxes.Any())
+        <partial name="PrimarySubitems" model='topic' />
+
+        @if (Model.Topic.ExpandingLinkBoxes is not null && Model.Topic.ExpandingLinkBoxes.Any())
         {
-            <partial name="ExpandingLinkBox" model='topic'/>
+            <partial name="ExpandingLinkBox" model='topic' />
         }
 
         @if (!string.IsNullOrEmpty(topic.EventBanner.Title))
         {
-            <partial name="Events/EventBanner" model='topic.EventBanner'/>
+            <partial name="Events/EventBanner" model='topic.EventBanner' />
         }
 
         @if (topic.SecondaryItems.Any())
         {
-            <partial name="SecondaryItems" model='topic'/>
+            <partial name="SecondaryItems" model='topic' />
         }
 
         @if (topic.TertiaryItems.Any())
         {
-            <partial name="TertiaryItems" model='topic'/>
+            <partial name="TertiaryItems" model='topic' />
         }
     </div>
 </div>
-
-<script type="text/javascript">
-    require(['startup', 'expandinglinks', 'matchboxconfig', 'matchHeight'],
-        function (startup, expandinglinks, matchboxconfig, matchHeight) {
-                startup.Init();
-                expandinglinks.Init();
-                matchboxconfig.Init();
-        })
-</script>
