@@ -1,4 +1,4 @@
-﻿define(["jquery", "refinebybar"], function ($, refinebybar) {
+﻿define(["jquery"], function ($) {
 
     var locationDefaults = {
         Name: "Stockport",

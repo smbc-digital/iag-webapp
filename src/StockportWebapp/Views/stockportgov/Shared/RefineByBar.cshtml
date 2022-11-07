@@ -75,10 +75,18 @@
                     <stock-button class="white cancel">Cancel</stock-button>
                     <stock-button class="green apply update-button">Apply</stock-button>
                 </div>
-
             </div>
         </div>    
     </div>
-    
-
 </div>
+
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['refineByBar.min', 'filters.min'],
+            function(refineByBar) {
+                refineByBar.Init();
+                filters.Init();
+            }
+        );
+    });
+</script>

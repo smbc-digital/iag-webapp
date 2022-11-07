@@ -17,7 +17,6 @@
     <partial name="Breadcrumb" model='new List<Crumb>() { new Crumb("Stockport Local", "groups", "Group") }'/>
 }
 
-
 <div class="l-page-content group-result-page" id="content-no-margin-bottom-mainpage">
     <div class="full-width-title">
         <div class="grid-container grid-parent grid-100">
@@ -114,21 +113,15 @@
             </div>
         </div>
     </div>
-
 </div>
 
-<script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter', 'refinebybar', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider', 'tracking'],
-        function (startup, favourites, expandinglinks, groups, primaryfilter, refinebybar, filters, matchboxconfig, matchHeight, viewmoreslider, tracking) {
-            favourites.Init();
-            groups.Init();
-            startup.Init();
-            expandinglinks.Init();
-            primaryfilter.Init();
-            filters.Init();
-            refinebybar.Init();
-            matchboxconfig.Init();
-            viewmoreslider.Init();
-            tracking.Init();
-        })
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['matchbox.min', 'groups.min'],
+            function(matchbox, groups) {
+                matchbox.Init();
+                groups.Init();
+            }
+        );
+    });
 </script>

@@ -1,4 +1,20 @@
-﻿define(["jquery", "utils", "primaryfilter"], function ($, utils, primaryfilter) {
+﻿define(["jquery"], function ($) {
+
+    var buildLocation = function (addressComponents) {
+        // take the address components and build a nice address from them
+        var street = extractFromAdress(addressComponents, "route");
+        var postcode = extractFromAdress(addressComponents, "postal_code");
+        var city = extractFromAdress(addressComponents, "locality");
+        var country = extractFromAdress(addressComponents, "country");
+        var joinedLocation = (street + " " + postcode + " " + city).trim();
+
+        if (joinedLocation === "") {
+            // only add the country into the locaion if nothing else comes back for the location
+            joinedLocation = country;
+        }
+
+        return joinedLocation;
+    };
 
     var handleVolunteering = function (input) {
         if ($(input).is(':checked') === true) {
@@ -48,9 +64,8 @@
 
     var init = function () {
 
-
-         changeText();
-        if ($(window).width() <= utils.MobileWidth) {
+        changeText();
+        if ($(window).width() <= 767) {
             $("#edit-search").hide();
             $(".result-arrow").addClass("result-search-down-arrow");
 
@@ -110,7 +125,7 @@
                 },
                     function (results, status) {
                         if (status === google.maps.GeocoderStatus.OK) {
-                            var jointLocation = primaryfilter.BuildLocation(results[0].address_components);
+                            var jointLocation = buildLocation(results[0].address_components);
                             var url = window.location.href;
                             latitude = position.coords.latitude;
                             longitude = position.coords.longitude;
