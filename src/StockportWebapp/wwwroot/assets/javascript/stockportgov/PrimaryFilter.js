@@ -1,4 +1,4 @@
-﻿define(["jquery"], function ($) {
+﻿define(["jquery", "google.places"], function ($) {
 
     var locationDefaults = {
         Name: "Stockport",
