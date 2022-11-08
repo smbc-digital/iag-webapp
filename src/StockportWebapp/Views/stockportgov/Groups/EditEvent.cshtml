@@ -18,7 +18,6 @@
     <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.GroupName, "manage/" + Model.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + Model.GroupSlug + "/events/", "groups"), new Crumb(Model.Title, "manage/" + Model.GroupSlug + "/events/" + Model.Slug, "groups") }'/>
 }
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
@@ -152,11 +151,13 @@
         </div>
     </div>
 </div>
-    <script type="text/javascript">
-    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha'],
-    function (groups, multiStepForm) {
-    multiStepForm.Init();           
-    groups.Init();
-           
-    })
-    </script>
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['multistepForm.min', 'groups.min', 'recaptcha', 'google.places'],
+            function(multistepForm, filters) {
+                multistepForm.Init();
+                groups.Init();
+            }
+        );
+    });
+</script>
