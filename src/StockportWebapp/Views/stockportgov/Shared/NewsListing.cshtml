@@ -7,22 +7,44 @@
 
 <div class="grid-container news-grid-container-margins">
     <div class="grid-30 tablet-grid-100 mobile-grid-100 l-filters" id="news-filters">
-        @if (Model.HasActiveFilter()) {
+        @if (Model.HasActiveFilter())
+        {
             <h2 class="filters-heading">Refine by</h2>
         }
 
         <ul class="filters-list" id="displayRefineBy">
-            @if (Model.HasActiveFilter()) {
+            @if (Model.HasActiveFilter())
+            {
                 <li class="filters-active">
                     <ul>
-                        @if (!string.IsNullOrEmpty(Model.Category)) {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span>@Model.Category</a></li>
+                        @if (!string.IsNullOrEmpty(Model.Category))
+                        {
+                            <li class="filter collapsible">
+                                <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutCategory())" rel="nofollow">
+                                    <span class="fa fa-times" aria-hidden="true"></span>
+                                    @Model.Category
+                                </a>
+                            </li>
                         }
-                        @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && (Model.DateFrom <= Model.DateTo)) {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span>@Model.GetActiveDateFilter()</a></li>
+
+                        @if (Model.DateFrom.HasValue && Model.DateTo.HasValue && (Model.DateFrom <= Model.DateTo))
+                        {
+                            <li class="filter collapsible">
+                                <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())" rel="nofollow">
+                                    <span class="fa fa-times" aria-hidden="true"></span>
+                                    @Model.GetActiveDateFilter()
+                                </a>
+                            </li>
                         }
-                        @if (!string.IsNullOrEmpty(Model.Tag)) {
-                            <li class="filter collapsible"><a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())" rel="nofollow"><span class="fa fa-times" aria-hidden="true"></span>@Model.Tag</a></li>
+
+                        @if (!string.IsNullOrEmpty(Model.Tag))
+                        {
+                            <li class="filter collapsible">
+                                <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutTagFilter())" rel="nofollow">
+                                    <span class="fa fa-times" aria-hidden="true"></span>
+                                    @Model.Tag
+                                </a>
+                            </li>
                         }
                     </ul>
                 </li>
@@ -30,9 +52,12 @@
             @if (Model.Categories.Any())
             {
                 <li class="filter collapsible" id="category-filter">
-                    @if (Model.HasActiveFilter()) {
+                    @if (Model.HasActiveFilter())
+                    {
                         <h3 tabindex="0"  class="filter-title focusable">Category</h3>
-                    } else { 
+                    }
+                    else
+                    { 
                         <h2 tabindex="0"  class="filter-title focusable">Category</h2>
                     }
                     <ul class="filters-list">
@@ -49,15 +74,19 @@
                 </li>
             }
             <li class="filter collapsible" id="news-archive">
-                @if (Model.HasActiveFilter()) {
+                @if (Model.HasActiveFilter())
+                {
                     <h3 tabindex="0" class="filter-title focusable">News archive</h3>
-                } else { 
+                }
+                else
+                {
                     <h2 tabindex="0" class="filter-title focusable">News archive</h2>
                 }
                 <ul class="filters-list filters-outer-list" id="uitest-news-archive">
                     <li class=@(Model.FilteredUrl.HasNoDateFilter() ? "active" : "")>
                         <a href="@Url.RouteUrl(Model.FilteredUrl.WithoutDateFilter())">All recent news</a>
                     </li>
+
                     @foreach (var year in newsroom.Dates.Select(s => s.Year).Distinct().OrderByDescending(y => y))
                     {
                         <li class="collapsible">
@@ -72,35 +101,34 @@
                             </ul>
                         </li>
                     }
-                    @{
-                        <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
-                            <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
-                            <ul class="filters-list custom-date">
-                                <li class="@(Model.DateRange == "customdate" ? "active" : "")">
-                                    <form action="@Url.Action("Index", "News")" method="get">
-                                        <input type="hidden" name="DateRange" value="customdate" />
-                                        @if (!string.IsNullOrEmpty(Model.Category))
-                                        {
-                                            <input type="hidden" name="Category" value="@Model.Category" />
-                                        }
-                                        <div class="date-from">
-                                            <label asp-for="@Model.DateFrom"></label>
-                                            <input type="date" asp-for="@Model.DateFrom" />
-                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
-                                        </div>
-                                        <div class="date-to">
-                                            <label asp-for="@Model.DateTo"></label>
-                                            <input type="date" asp-for="@Model.DateTo" />
-                                            <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
-                                        </div>
-                                        <div class="update-button">
-                                            <stock-button class="button-customdate">Update</stock-button>
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
-                        </li>
-                    }
+
+                    <li id="custom-filter-li" class="@(Model.DateRange == "customdate" ? "customdateactive" : "") filter collapsible">
+                        <a tabindex="0" class="filter-title custom-date-title" rel="nofollow">Custom date</a>
+                        <ul class="filters-list custom-date">
+                            <li class="@(Model.DateRange == "customdate" ? "active" : "")">
+                                <form action="@Url.Action("Index", "News")" method="get">
+                                    <input type="hidden" name="DateRange" value="customdate" />
+                                    @if (!string.IsNullOrEmpty(Model.Category))
+                                    {
+                                        <input type="hidden" name="Category" value="@Model.Category" />
+                                    }
+                                    <div class="date-from">
+                                        <label asp-for="@Model.DateFrom"></label>
+                                        <input type="date" asp-for="@Model.DateFrom" />
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.DateFrom" class="form-customdate-validation-error form-field-validation-error"></span>
+                                    </div>
+                                    <div class="date-to">
+                                        <label asp-for="@Model.DateTo"></label>
+                                        <input type="date" asp-for="@Model.DateTo" />
+                                        <span id="inputvalidation" role="alert" aria-atomic="true" asp-validation-for="@Model.DateTo" class="form-customdate-validation-error form-field-validation-error"></span>
+                                    </div>
+                                    <div class="update-button">
+                                        <stock-button class="button-customdate">Update</stock-button>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -108,15 +136,14 @@
 
     </div>
     <div id="content" class="grid-70 tablet-grid-100 mobile-grid-100 news-article-grid">
-        @{
-            if (newsroom.Alerts != null)
+        @if (newsroom.Alerts is not null)
+        {
+            foreach (var alert in newsroom.Alerts)
             {
-                foreach (var alert in newsroom.Alerts)
-                {
-                    <partial name="DisplayTemplates/Alert" model='alert'/>
-                }
+                <partial name="DisplayTemplates/Alert" model='alert'/>
             }
         }
+
         @if (!newsroom.News.Any())
         {
             <div class="grid-100 news-article-not-found">
@@ -156,3 +183,13 @@
         }
     </div>
 </div>
+
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['filters.min'],
+            function(filters) {
+                filters.Init();
+            }
+        );
+    });
+</script>
