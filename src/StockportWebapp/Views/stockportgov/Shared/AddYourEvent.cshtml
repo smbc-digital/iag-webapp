@@ -20,7 +20,6 @@
     }
 }
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
@@ -213,7 +212,7 @@
 
 <script>
     require(['/assets/javascript/stockportgov/config.min.js'], function() {
-        require(['events.min', 'recaptcha'],
+        require(['events.min', 'recaptcha', 'google.places'],
             function(events) {
                 events.Init();
             }
