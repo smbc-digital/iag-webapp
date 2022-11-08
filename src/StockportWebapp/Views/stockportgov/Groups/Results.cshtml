@@ -117,9 +117,8 @@
 
 <script>
     require(['/assets/javascript/stockportgov/config.min.js'], function() {
-        require(['matchbox.min', 'groups.min'],
-            function(matchbox, groups) {
-                matchbox.Init();
+        require(['groups.min'],
+            function(groups) {
                 groups.Init();
             }
         );
