@@ -13,7 +13,6 @@
     <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }'/>
 }
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled mobile-grid-100 tablet-grid-100 grid-100">
@@ -58,7 +57,9 @@
                                         <h3>Enter the location of your group or service</h3>
                                         <p>Enter a postcode or place name</p>
                                         <label class="sr-only">Enter the location of your group or service</label>
+
                                         <input type="text" id="location-autocomplete" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control location-search-input location-search-input-autoset" asp-for="@Model.Address" aria-label="Address" />
+
                                         <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
                                         <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -78,8 +79,6 @@
                                         <input type="hidden" asp-for="@Model.CategoriesList" />
                                         <partial name="multiselect" model='new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories, InputName="Categories" }'/>
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-
-
                                     </section>
                                     <h2>Tell us who your group is suitable for</h2>
                                     <section>
@@ -143,7 +142,6 @@
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Twitter" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                     </section>
-
                                     <h2>Additional information</h2>
                                     <section>
                                         <label asp-for="@Model.Image"></label>
@@ -218,7 +216,6 @@
                                         <stock-button id="uitest-contact-form-submit"
                                                       class="button-contact-us">Add your group or service</stock-button>
                                     </section>
-
                                 </div>
                             </div>
                         </form>
@@ -228,3 +225,14 @@
         </div>
     </div>
 </div>
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['groups.min', 'primaryFilter.min', 'multistepForm.min', 'recaptcha'],
+            function(groups, primaryFilter, multistepForm) {
+                groups.Init();
+                primaryFilter.Init();
+                multistepForm.Init();
+            }
+        );
+    });
+</script>
