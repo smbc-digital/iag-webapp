@@ -22,7 +22,7 @@
                     <div class="grid-100">
                         <h1 tabindex="-1" id="content">Add your group or service</h1>
 
-                        @if (ViewBag.SubmissionError != null)
+                        @if (ViewBag.SubmissionError is not null)
                         {
                             <div id="error-message-anchor"></div>
                             <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
@@ -228,14 +228,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    require(['startup', 'groups', 'multiStepForm', 'utils', 'primaryfilter', 'jquery.steps', 'recaptcha', 'unobtrusive'],
-        function (startup, groups, multiStepForm, utils, primaryfilter) {
-            startup.Init();
-            multiStepForm.Init();
-            groups.Init();
-            utils.Init();
-            primaryfilter.Init();
-        })
-</script>

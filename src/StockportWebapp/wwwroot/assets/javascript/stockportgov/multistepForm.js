@@ -1,4 +1,4 @@
-﻿define(["jquery"], function ($) {
+﻿define(["jquery", "jquery.steps", "unobtrusive"], function ($) {
     return {
         Init: function () {
             var form = $("#multistep-form");
