@@ -19,7 +19,7 @@
             <section aria-label="content">
                 <div class="l-content-container grid-100 group-margin" id="group-padding">
                     <h1 class="group-article-title">Add a user</h1>
-                    @if (ViewBag.SubmissionError != null)
+                    @if (ViewBag.SubmissionError is not null)
                     {
                         <div id="error-message-anchor"></div>
                         <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
@@ -85,11 +85,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha'],
-        function (groups, multiStepForm) {
-            multiStepForm.Init();           
-            groups.Init();
-           
-        })
-</script>
