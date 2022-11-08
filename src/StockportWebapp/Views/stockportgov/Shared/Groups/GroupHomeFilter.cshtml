@@ -1,5 +1,4 @@
-﻿<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"></script>
-<div class="group-home-filter">
+﻿<div class="group-home-filter">
     <div class="grid-container">
         <div>
             <h2 class="group-homepage-title">Find local support, activities and volunteering opportunities in Stockport</h2>
@@ -72,3 +71,8 @@
         </div>
     </div>
 </div>
+<script>
+    require(['/assets/javascript/stockportgov/config.min.js'], function() {
+        require(['google.places'], function() { } );
+    });
+</script>
