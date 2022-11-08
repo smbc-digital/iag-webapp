@@ -37,7 +37,7 @@
                                     <stock-button as-link="true" class="white no-margin" href="@Url.Action("AddAGroup", "Groups")">Add your group or service</stock-button>
                                 </div>
                             </div>
-                            @if (Model.Groups.Count == 0)
+                            @if (Model.Groups.Count.Equals(0))
                             {
                                 <div class="grid-100 sk-table-row grid-parent">
                                     <div class="grid-100 tablet-grid-100 mobile-grid-100 sk-table-cell sk-noresults">
@@ -86,18 +86,9 @@
                                 </div>
                             }
                         </div>
-
                     </div>
                 </div>
             </section>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha'],
-        function (groups, multiStepForm) {
-            multiStepForm.Init();           
-            groups.Init();
-           
-        })
-</script>
