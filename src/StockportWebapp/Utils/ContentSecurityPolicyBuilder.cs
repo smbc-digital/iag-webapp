@@ -276,7 +276,7 @@ namespace StockportWebapp.Utils
                     .AddSource("*.smbcdigital.net")
 	                .AddSource("*.meetami.ai/")
 	                .AddSource("*.chat.meetami.ai/")
-                    .AddSource("*-formbuilder-origin.smbcdigital.net/")
+                    .AddSource("*-formbuilder-origin.smbcdigital.net/", true)
                     .Finish());
 	    }
 
