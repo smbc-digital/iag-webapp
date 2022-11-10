@@ -26,26 +26,16 @@
     <link rel="stylesheet" type="text/css" href="@stylesheet.CludoSearch" />
     <link rel="stylesheet" type="text/css" href="@stylesheet.StyleguideSemanticV2" />
     <link rel="stylesheet" type="text/css" href="@stylesheet.Slick" />
-    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    @if (CurrentEnvironment.Name == "test")
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
-    }
-    else
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
-    }
+
+    <script src="~/assets/javascript/vendor/require.min.js"></Script>
+
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
 </head>
 <body class=@bodyClass>
     <partial name="TagManager/TagManagerNoScript" />
     <header>
-        <div class="skip-to-main-content" role="navigation">
-            <a href="#content">Skip to main content</a>
-        </div>
         <partial name="SemanticHeader" />
-        <partial name="BrowserCheckSemantic" />
         @RenderSection("Breadcrumbs", false)
     </header>
 
@@ -57,19 +47,14 @@
         @await Component.InvokeAsync("SemanticFooter")
     </distributed-cache>
 
-    <script type="text/javascript">
-        require(['startup', 'carousel', 'viewmoreslider', 'matchHeight', 'matchboxconfig', 'slick', 'utils', 'reciteMe'],
-            function (startup, carousel, viewmoreslider, matchHeight, matchboxconfig, slick, utils, reciteMe) {
-                startup.Init();
-                viewmoreslider.Init();
-                matchboxconfig.Init();
-                carousel.Init();
-                utils.Init();
-                reciteMe.Init();
-            })
+    <script>
+        require(['/assets/javascript/stockportgov/config.min.js'], function() {
+            require(['jquery', 'matchbox.min'], 
+                function (_, matchbox) {
+                    matchbox.Init();
+                }
+            );
+        });
     </script>
-
-    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script type="text/javascript" src="~/assets/javascript/stockportgov/cludoInit.js"></script>
 </body>
 </html> 
