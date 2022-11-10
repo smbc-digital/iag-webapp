@@ -9,8 +9,7 @@
             $(".show-search-button").toggleClass("arrow");
         });
         
-        var ie = (!!window.ActiveXObject && +(/msie\s(\d+)/i.exec(navigator.userAgent)[1])) || NaN;
-        if (ie === 9 || ie === 10) {
+        if (isIE()) {
             $("#browser-check").removeClass("hidden");
 
             var element = document.getElementById("browser-check");
@@ -37,7 +36,7 @@
     return {
         Init: function () {
 
-            if (isIE() === true) {
+            if (isIE()) {
                 $("html").addClass("ie");
             }
 
