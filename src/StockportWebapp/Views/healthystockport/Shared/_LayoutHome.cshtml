@@ -4,7 +4,7 @@
 @inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
 <!DOCTYPE html>
-<html lang="en-GB" class="no-js">
+<html lang="en-GB">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
@@ -24,10 +24,22 @@
     <!--[if (lt IE 9) & (!IEMobile)]>
 	    <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
     <![endif]-->
+    <noscript>
+        @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
+        <style>
+            .event-map-container { display: none; }
+            .search-bar, .search-bar-mobile-header-container, .search-bar-header-container, .show-search-button {
+                display:none;
+            }
+        </style>
+    </noscript>
+
     @RenderSection("BackgroundImage")
     @RenderSection("CarouselBackgroundImage")
     <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
+
+    <script src="~/assets/javascript/vendor/require.min.js"></Script>
 </head>
 <body class="container-layout-free type-article">
     <partial name="Header" />
@@ -42,18 +54,15 @@
             @await Component.InvokeAsync("Footer")
         </distributed-cache>
     </div>
-    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
 
-    @if (CurrentEnvironment.Name == "prod" || CurrentEnvironment.Name == "stage")
-    {
-        <script data-main="/assets/javascript/requireConfigHealthyStockport.min" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    }
-    else
-    {
-        <script data-main="/assets/javascript/requireConfigHealthyStockport" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    }
-    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script type="text/javascript" src="~/assets/javascript/healthystockport/cludoInit.js"></script>
+    <script>
+        require(['/assets/javascript/config.min.js'], function() {
+            require(['matchbox.min', 'jquery'], 
+                function (matchbox) {
+                    matchbox.Init();
+            });
+        });
+    </script>
     <!--[if lte IE 9]>
         <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
     <![endif]-->

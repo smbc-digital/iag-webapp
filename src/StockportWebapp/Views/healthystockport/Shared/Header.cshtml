@@ -12,12 +12,9 @@
             <div class="header-container grid-100 grid-parent">
                 <div class="grid-50 grid-parent header-myaccount">
                     <div class="menu">
-                        @if (featureToggles.ReciteMeTrial)
-                        {
-                            <div class="menu-logged-out pull-right">
-                                <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
-                            </div>
-                        }
+                        <div class="menu-logged-out pull-right">
+                            <a href="#" id="reciteMe"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
+                        </div>
                     </div>
                 </div>
                 <div class="grid-parent pull-right header-search-bar">
@@ -30,3 +27,14 @@
 
 </div>
 <partial name="MobileSearchBar" />
+
+<script>
+    require(['/assets/javascript/config.min.js'], function() {
+        require(['reciteMe.min', 'cludo.min', 'Cludo'],
+            function(reciteMe, cludo) {
+                reciteMe.Init();
+                cludo.Init(true);
+            }
+        );
+    });
+</script>
