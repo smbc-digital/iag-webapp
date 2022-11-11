@@ -93,11 +93,12 @@
 
 <script>
     require(['/assets/javascript/stockportgov/config.min.js'], function() {
-        require(['startup.min', 'utils.min', 'reciteMe.min'],
-            function(startup, utils, reciteMe) {
+        require(['startup.min', 'utils.min', 'reciteMe.min', 'cludo.min', 'Cludo'],
+            function(startup, utils, reciteMe, cludo, _) {
                 reciteMe.Init();
                 startup.Init();
                 utils.Init();
+                cludo.Init();
             }
         );
     });

@@ -14,6 +14,10 @@
         <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
     </div>
     <div class="@headerClass" id="header-my-account">
+        <a href="#" id="reciteMe">
+            <span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>
+            Accessibility
+        </a>
         @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
         {
             <div class="menu-container">
@@ -53,21 +57,29 @@
         }
         else
         {
-            <a href="#" id="reciteMe" class="visuallyhidden"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
             <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><span class="fa fa-user" aria-hidden="true"></span>My Account</a>
         }
+        <a href="#" class="show-search-button hide-on-desktop">
+            <span class="visuallyhidden"> submit search</span>
+            <span class="fa fa-search" style="display: inline-block !important; color: #83aeac;" aria-hidden="true"></span>
+        </a>
     </div>
-    <partial name="HeaderSearchBar" />
+    <div class="search-bar-header-container hide-on-mobile hide-on-tablet">
+        <div class="search-bar-header">
+            <partial name="Search" model='new Tuple<string, string, string, string>("cludo-search-form", "Search", "search-bar", "search website")' />
+        </div>
+    </div>
 </div>
 <partial name="BrowserCheck" />
 
 <script>
     require(['/assets/javascript/stockportgov/config.min.js'], function() {
-        require(['startup.min', 'utils.min', 'reciteMe.min'],
-            function(startup, utils, reciteMe) {
+        require(['startup.min', 'utils.min', 'reciteMe.min', 'cludo.min', 'Cludo'],
+            function(startup, utils, reciteMe, cludo) {
                 reciteMe.Init();
                 startup.Init();
                 utils.Init();
+                cludo.Init();
             }
         );
     });
