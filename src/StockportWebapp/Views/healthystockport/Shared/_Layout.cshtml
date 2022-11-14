@@ -72,7 +72,10 @@
 
     <script>
         require(['/assets/javascript/config.min.js'], function() {
-            require(['jquery'], function () { } );
+            require(['matchbox.min', 'jquery'], 
+                function (matchbox) {
+                    matchbox.Init();
+            });
         });
     </script>
     <!--[if lte IE 9]>
