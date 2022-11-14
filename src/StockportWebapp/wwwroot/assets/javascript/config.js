@@ -3,7 +3,7 @@
     paths: {
         "jquery": "../vendor/jquery.min",
         "jquery.steps": "../vendor/jquery.steps.min",
-        "jquery.cookie": "../vendor/jquery.cookie",
+        "jquery.cookie": "../vendor/jquery.cookie.min",
         "validate": "../vendor/jquery.validate.min",
         "unobtrusive": "../vendor/jquery.validate.unobtrusive.min",
         "modernizr": "../vendor/modernizr.min",
