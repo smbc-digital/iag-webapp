@@ -27,11 +27,13 @@
 
 </div>
 <partial name="MobileSearchBar" />
+<partial name="BrowserCheck" />
 
 <script>
     require(['/assets/javascript/config.min.js'], function() {
-        require(['reciteMe.min', 'cludo.min', 'Cludo'],
-            function(reciteMe, cludo) {
+        require(['healthystockport', 'reciteMe.min', 'cludo.min', 'Cludo'],
+            function(healthystockport, reciteMe, cludo) {
+                healthystockport.Init();
                 reciteMe.Init();
                 cludo.Init(true);
             }
