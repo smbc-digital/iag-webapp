@@ -270,13 +270,13 @@ namespace StockportWebapp.Utils
 	    private void BuildFrameSource()
 	    {
 	        _stringBuilder.Append(
-	            new ContentSecurityPolicyElement
+	          new ContentSecurityPolicyElement
 	                    ("frame-ancestors")
-	                .AddSource("*.stockport.gov.uk")
+	                  .AddSource("*.stockport.gov.uk")
                     .AddSource("*.smbcdigital.net")
-	                .AddSource("*.meetami.ai/")
-	                .AddSource("*.chat.meetami.ai/")
-					.AddSource("*-formbuilder-origin.smbcdigital.net/")
+	                  .AddSource("*.meetami.ai/")
+	                  .AddSource("*.chat.meetami.ai/")
+                    .AddSource("*-formbuilder-origin.smbcdigital.net/", true)
                     .Finish());
 	    }
 
