@@ -65,11 +65,17 @@
             display: none;
         }
 
-        &__text-container {
-            border-radius: 4px;
-            width: 100%;
-            border-right: none;
-            align-items: center;
+        &__text {
+            &-container {
+                border-radius: 4px;
+                width: 100%;
+                border-right: none;
+                align-items: center;
+            }
+
+            &-paragraph {
+                display: none;
+            }
         }
     }
 }
