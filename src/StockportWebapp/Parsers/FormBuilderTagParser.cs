@@ -23,7 +23,7 @@ namespace StockportWebapp.Parsers
             if (splitTagData.Length > 1)
                 iFrameTitle = $"title=\"{splitTagData[1]}\"";
 
-            return $"<iframe sandbox='allow-scripts allow-forms' {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
+            return $"<iframe sandbox='allow-forms allow-scripts allow-top-navigation-by-user-activation allow-same-origin' {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
         }
         
         public FormBuilderTagParser()
