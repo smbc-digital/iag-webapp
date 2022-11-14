@@ -2,25 +2,24 @@
 @using StockportWebapp.Config
 @inject CurrentEnvironment CurrentEnvironment
 @inject IApplicationConfiguration ApplicationConfiguration
-
 @{ 
     var democracyHomeLink = ApplicationConfiguration.GetDemocracyHomeLink();
     var democracyStyleLink = ApplicationConfiguration.GetDemocracyStyleLink();
 }
+
 <!DOCTYPE html>
-<html lang="en-GB" class="no-js">
+<html lang="en-GB">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <partial name="Favicon" />
-
     <title>@ViewData["Title"] - Stockport Council</title>
-    @if (ViewData["Description"] != null)
+    @if (ViewData["Description"] is not null)
     {
         <meta name="Description" content="@ViewData["Description"]" />
     }
-    @if (ViewData["og:title"] != null)
+    @if (ViewData["og:title"] is not null)
     {
         <meta property="og:title" content="@ViewData["og:title"]" />
     }
@@ -31,8 +30,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
-    <script type="text/javascript" src="@democracyHomeLink/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    <script type="text/javascript" src="@democracyHomeLink/assets/javascript/requireConfigExternal.js"></script>
 </head>
 <body class="container-layout-free">
     <partial name="TagManager/TagManagerNoScript" />
@@ -41,50 +38,7 @@
         @RenderBody()
     </main>
     <partial name="StaticFooter" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//customer.cludo.com/scripts/bundles/search-script.min.js"></script>
 
-    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script type="text/javascript" src="~/assets/javascript/stockportgov/cludoInit.js"></script>
-
-    <script>
-        var mobileWidth = 767;
-        var tabletWidth = (1024 - 17);
-        var windowHeight = $(window).height();
-
-        document.documentElement.className = document.documentElement.className.replace("no-js", "js");
-
-        $(".show-search-button").click(function () {
-            $("#mobileSearchInput").slideToggle(220);
-            $(".show-search-button").toggleClass("arrow");
-        });
-
-        $(window).resize(function () {
-            var image = $("#header .logo-main-image");
-            var logoMobile = image.attr("data-mobile-image");
-            var logoDesktop = image.attr("data-desktop-image");
-
-            if ($(window).width() <= mobileWidth) {
-                image.attr("src", logoMobile);
-            } else {
-                image.attr("src", logoDesktop);
-            }
-
-            if ($(window).width() > tabletWidth) {
-                $("#mobileSearchInput").hide();
-                $(".show-search-button").removeClass("arrow");
-                $('#displayRefineBy').css('display', 'block');
-            }
-        });
-
-    </script>
-    <script type="text/javascript">
-        require(['reciteMe'],
-            function (reciteMe) {
-                reciteMe.Init();
-            })
-    </script>
-</body>
+    <script data-main="@democracyHomeLink/assets/javascript/config-external.min.js" src="@democracyHomeLink/assets/javascript/vendor/require.min.js"></Script>
+ </body>
 </html>
