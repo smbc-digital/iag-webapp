@@ -19,7 +19,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var tag = "https://www.stockport.gov.uk/";
             var response = _parser.Parse("{{FORM:" + tag + "}}");
 
-            var outputHtml = $"<iframe sandbox='allow-scripts allow-forms'  class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
+            var outputHtml = $"<iframe sandbox='allow-forms allow-scripts allow-top-navigation-by-user-activation allow-same-origin'  class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
 
             response.Should().Be(outputHtml);
         }
@@ -30,7 +30,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var tag = "https://www.stockport.gov.uk/;iframe optional title";
             var response = _parser.Parse("{{FORM:" + tag + "}}");
 
-            var outputHtml = $"<iframe sandbox='allow-scripts allow-forms' title=\"iframe optional title\" class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
+            var outputHtml = $"<iframe sandbox='allow-forms allow-scripts allow-top-navigation-by-user-activation allow-same-origin' title=\"iframe optional title\" class='mapframe' allowfullscreen src='https://www.stockport.gov.uk/'></iframe>";
 
             response.Should().Be(outputHtml);
         }
