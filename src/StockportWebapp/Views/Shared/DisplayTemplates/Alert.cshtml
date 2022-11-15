@@ -47,3 +47,13 @@
         </div>
     </div>
 }
+
+<script>
+    require(['/assets/javascript/config.min.js'], function() {
+        require(['alerts.min'],
+            function(alerts) {
+                alerts.Init();
+            }
+        );
+    });
+</script>

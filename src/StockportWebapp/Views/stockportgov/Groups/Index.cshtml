@@ -11,17 +11,18 @@
     ViewData["Type"] = "Group";
     Layout = "../Shared/_Layout.cshtml";
 }
+
 <body>
     @section Breadcrumbs {
-        <partial name="Breadcrumb" model='new List<Crumb>()'/>
+        <partial name="Breadcrumb" model='new List<Crumb>()' />
     }
 
-    @if (Model.Alerts != null)
+        @if (Model.Alerts is not null)
     {
         foreach (var alert in Model.Alerts)
         {
             <div>
-                <partial name="GlobalAlert" model='alert'/>
+                <partial name="GlobalAlert" model='alert' />
             </div>
         }
     }
@@ -48,7 +49,7 @@
                 <div class="group-header">
                     <h2>Discover something new in Stockport</h2>
                 </div>
-                <partial name="GenericFeaturedItemList" model='Model.GenericItemList'/>
+                <partial name="GenericFeaturedItemList" model='Model.GenericItemList' />
             </div>
         </div>
 
@@ -65,7 +66,7 @@
 
                             @foreach (var item in Model.FeaturedGroups)
                             {
-                                <partial name="Groups/GroupCard" model='item'/>
+                                <partial name="Groups/GroupCard" model='item' />
                             }
                         </ul>
                     </div>
@@ -80,7 +81,7 @@
         {
             <div class="home-page-row">
                 <div class="grid-container">
-                        <partial name="Events/EventBanner" model='Model.EventBanner'/>
+                    <partial name="Events/EventBanner" model='Model.EventBanner' />
                 </div>
             </div>
         }
@@ -134,17 +135,3 @@
         </div>
     </div>
 </body>
-<script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'groups', 'primaryfilter', 'refinebybar', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
-        function (startup, favourites, expandinglinks, groups, primaryfilter, refinebybar, filters, matchboxconfig, matchHeight, viewmoreslider) {
-            favourites.Init();
-            groups.Init();
-            startup.Init();
-            expandinglinks.Init();
-            refinebybar.Init();
-            primaryfilter.Init();
-            filters.Init();
-            matchboxconfig.Init();
-            viewmoreslider.Init();
-        })
-</script>

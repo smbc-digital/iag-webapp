@@ -1,45 +1,44 @@
 ﻿@using StockportWebapp.ViewModels
 @model HomepageViewModel
-
 @inject StockportWebapp.Config.IApplicationConfiguration appConfig
 
 @{
     ViewData["Title"] = "Welcome to Healthy Stockport";
     Layout = "../Shared/_LayoutHome.cshtml";
     ViewData["og:title"] = "Welcome to Stockport Council";
-
 }
+
 @if (!string.IsNullOrEmpty(Model.HomepageContent.CampaignBanner.Image))
 {
-    @section BackgroundImage
-    {
-        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.CampaignBanner.Image)'/>
+    @section BackgroundImage {
+        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.CampaignBanner.Image)' />
     }
 }
 else
 {
-    @section BackgroundImage
-    {
-        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage)'/>
+    @section BackgroundImage {
+        <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.HomepageContent.BackgroundImage)' />
     }
 }
 
-@section CarouselBackgroundImage
-    {
-    @{ int counter = 1; }
-    @foreach (var carouselContent in Model.HomepageContent.CarouselContents)
-    {
-        <partial name="ScaleImageByDevice" model='new Image("webcast-" + counter, carouselContent.Image)'/>
-        counter++;
+@section CarouselBackgroundImage {
+    @{
+        int counter = 1;
+        foreach (var carouselContent in Model.HomepageContent.CarouselContents)
+        {
+            <partial name="ScaleImageByDevice" model='new Image("webcast-" + counter, carouselContent.Image)' />
+            counter++;
+        }
     }
 }
+
 <div>
-    @if (Model.HomepageContent.Alerts != null)
+    @if (Model.HomepageContent.Alerts is not null)
     {
         foreach (var alert in Model.HomepageContent.Alerts)
         {
             <div>
-                <partial name="Alert" model='alert'/>
+                <partial name="DisplayTemplates/Alert" model='alert'/>
             </div>
         }
     }
@@ -47,7 +46,7 @@ else
     @if (!string.IsNullOrEmpty(Model.HomepageContent.CampaignBanner.Title))
     {
         <div role="banner" class="l-background-hs-image">
-            <partial name="CampaignBanner" model='Model.HomepageContent.CampaignBanner'/>
+            <partial name="CampaignBanner" model='Model.HomepageContent.CampaignBanner' />
         </div>
     }
     else
@@ -88,21 +87,23 @@ else
                 }
             </div>
 
-            @if (Model.EventsFromApi != null && Model.EventsFromApi.Any())
+            @if (Model.EventsFromApi is not null && Model.EventsFromApi.Any())
             {
                 <section aria-label="Healthy Stockport" class="grid-100 mobile-grid-100 feature feature-container" id="event-listing-container">
                     <h2>Things to do</h2>
                     <hr />
                     <p class="feature-tagline feature-tagline-heading">There are lots of things to do in Stockport, which can help to keep you fit and active. You'll also be able to meet like minded people.</p>
                     <div class="grid-100 event-container-row matchbox-parent">
-                        @{int count = 0;}
-                        @foreach (var item in Model.EventsFromApi)
-                        {
-                            count++;
-                            <div @(count == 3 ? "class=hide-on-tablet" : "")>
-                                
-                                <partial name="EventCard" model='item'/>
-                            </div>
+                        @{
+                            int count = 0;
+                            foreach (var item in Model.EventsFromApi)
+                            {
+                                count++;
+                                <div @(count == 3 ? "class=hide-on-tablet" : "")>
+
+                                    <partial name="EventCard" model='item' />
+                                </div>
+                            }
                         }
                     </div>
                     <div class="grid-100 events-call-to-action">
@@ -111,12 +112,10 @@ else
                 </section>
             }
 
-
-
-            @if (Model.HomepageContent.CarouselContents.Count() != 0)
+            @if (Model.HomepageContent.CarouselContents.Count() >= 0)
             {
                 <div class="grid-100 grid-parent hs-carousel-container">
-                    <partial name="Carousel" model='Model.HomepageContent.CarouselContents'/>
+                    <partial name="Carousel" model='Model.HomepageContent.CarouselContents' />
                 </div>
             }
         </section>

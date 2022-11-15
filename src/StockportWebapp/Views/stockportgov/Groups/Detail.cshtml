@@ -15,13 +15,3 @@
 
 <link rel="stylesheet" media="print" type="text/css" href="/assets/stylesheets/print-group-detail-new.min.css" />
 <partial name="GroupDetail" model='Model' />
-
-<script type="text/javascript">
-    require(['startup', 'favourites', 'groups', 'matchboxconfig', 'matchHeight',],
-        function (startup, favourites, groups, matchboxconfig, matchHeight) {
-            favourites.Init();
-            groups.Init();
-            startup.Init();
-            matchboxconfig.Init();
-        })
-</script>

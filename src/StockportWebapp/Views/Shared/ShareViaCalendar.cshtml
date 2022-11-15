@@ -1,6 +1,6 @@
 @model StockportWebapp.ProcessedModels.ProcessedEvents
 @{
-    var url = ViewBag.CurrentUrl != null ? ViewBag.CurrentUrl : string.Empty;
+    var url = ViewBag.CurrentUrl is not null ? ViewBag.CurrentUrl : string.Empty;
 }
 
 <div class="grid-20 events-to-calendar">

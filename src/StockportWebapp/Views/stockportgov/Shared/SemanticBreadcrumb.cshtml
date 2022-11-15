@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<StockportWebapp.Models.Crumb>
 @{
-    string title = ViewData["Title"] != null ? ViewData["Title"].ToString() : "";
+    string title = ViewData["Title"] is not null ? ViewData["Title"].ToString() : "";
 }
 
-<nav id="breadcrumb" class="@((bool?)ViewData["Form"] ?? false ? "breadcrumb hidden" : "breadcrumb")" aria-label="Breadcrumb navigation">
+<nav id="breadcrumb" class="breadcrumb" aria-label="Breadcrumb navigation">
     <ul class="center-wrapper">
         <li><a href="https://www.stockport.gov.uk/">Home</a></li>
-        @if (Model != null)
+        @if (Model is not null && Model.Any())
         {
             foreach (var crumb in Model)
             {

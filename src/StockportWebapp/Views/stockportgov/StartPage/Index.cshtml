@@ -7,20 +7,19 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='Model.Breadcrumbs'/>
+    <partial name="Breadcrumb" model='Model.Breadcrumbs' />
 }
+
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
         <div class="l-body-section-filled grid-100">
             <section id="content" aria-label="@Model.Title content" class="grid-100 mobile-grid-100">
                 <div class="l-content-container l-article-container">
-                    @{
-                        if (Model.Alerts != null)
+                    @if (Model.Alerts is not null)
+                    {
+                        foreach (var alert in Model.Alerts)
                         {
-                            foreach (var alert in Model.Alerts)
-                            {
-                                <partial name="DisplayTemplates/Alert" model='alert'/>
-                            }
+                            <partial name="DisplayTemplates/Alert" model='alert' />
                         }
                     }
                     <h1>@Model.Title</h1>
@@ -33,10 +32,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require(['alerts', 'startup'],
-    function (alerts, startup) {
-        alerts.Init();
-        startup.Init();
-    });
-</script>

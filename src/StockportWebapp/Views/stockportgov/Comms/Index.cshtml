@@ -17,7 +17,7 @@
 <div class="comms-homepage">
     <h1 class="comms-homepage-header">@Model.Homepage.Title</h1>
     
-    @if (Model.Homepage.CallToActionBanner != null)
+    @if (Model.Homepage.CallToActionBanner is not null)
     {
         <a class="call-to-action-banner-container" href="@Model.Homepage.CallToActionBanner.Link">
             <div>

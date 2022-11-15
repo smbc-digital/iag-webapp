@@ -1501,7 +1501,7 @@ namespace StockportWebapp.Controllers
             eventSubmission.SubmittedBy = loggedInPerson.Name;
             eventSubmission.SubmitterEmail = loggedInPerson.Email;
 
-            return View("Add-Your-Event", eventSubmission);
+            return View(eventSubmission);
         }
 
         [HttpGet]
@@ -1532,7 +1532,7 @@ namespace StockportWebapp.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
-                return View("Add-Your-Event", eventSubmission);
+                return View(eventSubmission);
             }
 
             Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
@@ -1546,7 +1546,7 @@ namespace StockportWebapp.Controllers
 
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
-            return View("Add-Your-Event", eventSubmission);
+            return View(eventSubmission);
         }
 
         // TODO: Move this and all links pointing towards it to events controller

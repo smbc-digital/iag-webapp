@@ -1,5 +1,6 @@
 ﻿@model StockportWebapp.ProcessedModels.ProcessedShowcase
-@if (Model.PrimaryItems != null && Model.PrimaryItems.Count() == 3)
+
+@if (Model.PrimaryItems is not null && Model.PrimaryItems.Count().Equals(3))
 {
     <section class="hero-image" style="background-image: url(@Model.HeroImageUrl)">
         <div class="darken">

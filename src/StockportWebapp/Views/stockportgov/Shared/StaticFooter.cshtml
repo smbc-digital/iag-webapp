@@ -1,7 +1,9 @@
 ﻿@using StockportWebapp.Config
 @inject IApplicationConfiguration ApplicationConfiguration
+@{
+    var democracyHomeLink = ApplicationConfiguration.GetDemocracyHomeLink();
+}
 
-@{ var democracyHomeLink = ApplicationConfiguration.GetDemocracyHomeLink();}
 <footer>
     <div class="atoz">
         <h2> Find services A-Z </h2>
