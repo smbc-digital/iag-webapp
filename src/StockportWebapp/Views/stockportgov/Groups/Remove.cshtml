@@ -17,7 +17,7 @@
             <section aria-label="content">
                 <div class="l-content-container grid-100 group-margin remove-user-container" id="group-padding">
                     <h1 class="group-article-title">Remove user</h1>
-                 <div class="group-form">
+                    <div class="group-form">
                         <div class="grid-container grid-parent">
                             <div class="grid-100 grid-parent">
                                 <b class="remove-user-confirmation  word-wrap">Are you sure you want to delete @Model.Name from your group?</b>
@@ -43,11 +43,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha'],
-        function (groups, multiStepForm) {
-            multiStepForm.Init();           
-            groups.Init();
-           
-        })
-</script>

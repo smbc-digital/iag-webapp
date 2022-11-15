@@ -10,7 +10,7 @@
     Layout = "../Shared/_Layout.cshtml";
 }
 
-@if (Model.Homepage.Alerts != null)
+@if (Model.Homepage.Alerts is not null)
 {
     foreach (var alert in Model.Homepage.Alerts)
     {
@@ -64,16 +64,13 @@ else
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    require(['startup', 'favourites', 'expandinglinks', 'events', 'primaryfilter', 'filters', 'matchboxconfig', 'matchHeight', 'viewmoreslider'],
-        function (startup, favourites, expandinglinks, events, primaryfilter, filters, matchboxconfig, matchHeight, viewmoreslider) {
-        startup.Init();
-        favourites.Init();
-        events.Init();       
-        expandinglinks.Init();          
-        primaryfilter.Init();
-        filters.Init();
-        matchboxconfig.Init();
-        viewmoreslider.Init();
-    })
+
+<script>
+    require(['/assets/javascript/config.min.js'], function() {
+        require(['events.min'],
+            function(events) {
+                events.Init();
+            }
+        );
+    });
 </script>

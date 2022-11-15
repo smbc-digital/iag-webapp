@@ -12,21 +12,18 @@
 @section Breadcrumbs {
     <partial name="Breadcrumb" model='Model.NewsItem.Breadcrumbs'/>
 }
+
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
 
-        <div tabindex="-1" id="content" class="l-body-section-filled l-article-content @(latestNews.Any()
-                                                                                             ? "mobile-grid-100 tablet-grid-100 grid-70"
-                                                                                             : "mobile-grid-100 tablet-grid-100 grid-100")">
+        <div tabindex="-1" id="content" class="l-body-section-filled l-article-content @(latestNews.Any() ? "mobile-grid-100 tablet-grid-100 grid-70" : "mobile-grid-100 tablet-grid-100 grid-100")">
             <section aria-label="@Model.NewsItem.Title content" class="grid-100 mobile-grid-100">
                 <div class="l-content-container grid-100">
-                    @{
-                        if (Model.NewsItem.Alerts != null)
+                    @if (Model.NewsItem.Alerts is not null)
+                    {
+                        foreach (var alert in Model.NewsItem.Alerts)
                         {
-                            foreach (var alert in Model.NewsItem.Alerts)
-                            {
-                                <partial name="DisplayTemplates/Alert" model='alert'/>
-                            }
+                            <partial name="DisplayTemplates/Alert" model='alert'/>
                         }
                     }
                     <p class="news-date news-article-date">
@@ -56,41 +53,30 @@
                 </div>
             </section>
         </div>
-        @{
-            if (latestNews.Any())
-            {
-                <div class="l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
-                    <div class="l-left-side-bar-section">
-                        <h2>Latest News</h2>
-                        <ul>
-                            @foreach (var item in latestNews.Take(6))
-                            {
-                                <li class="@(item.Slug == Model.NewsItem.Slug ? "active" : "")">
-                                    <a href="@Url.Action("Detail", "News", new {Slug = item.Slug})">@item.Title</a>
-                                </li>
-                            }
-                            @if (latestNews.Count() > 6)
-                            {
-                                <li>
-                                    <a href="@Url.Action("Index", "News")">
-                                        <strong>More News</strong>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </div>
+        @if (latestNews.Any())
+        {
+            <div class="l-left-side-bar grid-30 tablet-grid-100 mobile-grid-100 grid-parent">
+                <div class="l-left-side-bar-section">
+                    <h2>Latest News</h2>
+                    <ul>
+                        @foreach (var item in latestNews.Take(6))
+                        {
+                            <li class="@(item.Slug == Model.NewsItem.Slug ? "active" : "")">
+                                <a href="@Url.Action("Detail", "News", new {Slug = item.Slug})">@item.Title</a>
+                            </li>
+                        }
+
+                        @if (latestNews.Count() > 6)
+                        {
+                            <li>
+                                <a href="@Url.Action("Index", "News")">
+                                    <strong>More News</strong>
+                                </a>
+                            </li>
+                        }
+                    </ul>
                 </div>
-            }
+            </div>
         }
     </div>
 </div>
-<script type="text/javascript">
-     require(['startup', 'favourites', 'expandinglinks', 'primaryfilter', 'filters'],
-         function (startup, favourites, expandinglinks,  primaryfilter, filters) {
-             favourites.Init();         
-             startup.Init();
-             expandinglinks.Init();
-             primaryfilter.Init();
-             filters.Init();             
-         })
- </script>

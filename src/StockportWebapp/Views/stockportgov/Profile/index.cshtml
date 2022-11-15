@@ -32,7 +32,7 @@
     }
 </article>
 
-@if (Model.EventsBanner.Title != "")
+@if (!string.IsNullOrEmpty(Model.EventsBanner.Title))
 {
     <div class="banner-section">
         <section>

@@ -6,7 +6,7 @@
 @inject FeatureToggles FeatureToggles
 
 <!DOCTYPE html>
-<html lang="en-GB" class="no-js">
+<html lang="en-GB">
 <head>
     @* <partial name="SecurityHeaders" /> *@
     <meta charset="utf-8" />
@@ -26,18 +26,7 @@
     <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
 
-    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-
-    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    @if (CurrentEnvironment.Name == "test")
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
-    }
-    else
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
-    }
-
+    <script src="~/assets/javascript/vendor/require.min.js"></Script>
 </head>
 <body class="container-layout-free type-error">
     <partial name="Header" />
@@ -48,7 +37,10 @@
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
 
-    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script type="text/javascript" src="~/assets/javascript/stockportgov/cludoInit.js"></script>
+    <script>
+        require(['/assets/javascript/config.min.js'], function() {
+            require(['jquery'], function () { } );
+        });
+    </script>
 </body>
 </html>

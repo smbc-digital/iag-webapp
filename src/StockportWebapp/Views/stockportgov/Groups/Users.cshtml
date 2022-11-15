@@ -8,13 +8,12 @@
     ViewData["Title"] = "Users";
     ViewData["og:title"] = "Users";
     Layout = "../Shared/_Layout.cshtml";
+    var heading = "Add or remove users";
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Slug, "groups") }'/>
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(Model.Name, "manage/" + Model.Slug, "groups") }' />
 }
-
-@{ var heading = "Add or remove users";}
 
 <div class="grid-container-full-width">
     <div class="grid-container grid-100">
@@ -24,8 +23,6 @@
                 <div class="l-content-container grid-100 group-margin" id="group-padding">
                     <h1 class="group-article-title">@heading</h1>
                     <div class="grid-container grid-parent">
-
-
                         <div class="sk-table-outer-container">
                             <div class="sk-table-body">
                                 <div class="grid-100 sk-table-row grid-parent">
@@ -65,24 +62,16 @@
                                             <span class="link"><a class="edit-user" href="@Url.Action("EditUser", "Groups", new { slug = Model.Slug, email = user.Email })">Edit user</a></span>
                                         </div>
                                     </div>
-                                 }
+                                }
 
-                                    <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
-                                        <stock-button as-link="true" class="sk-table white" href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
-                                    </div>
+                                <div class="grid-100 mobile-button-row sk-table-row hide-on-desktop hide-on-tablet">
+                                    <stock-button as-link="true" class="sk-table white" href="@Url.Action("NewUser", "Groups", new { slug = Model.Slug })">Add new user</stock-button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
     </div>
-<script type="text/javascript">
-    require(['groups','multiStepForm', 'jquery.steps', 'recaptcha'],
-        function (groups, multiStepForm) {
-            multiStepForm.Init();           
-            groups.Init();
-           
-        })
-</script>
+</div>
