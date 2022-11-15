@@ -17,10 +17,9 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             { pattern: './src/StockportWebapp/wwwroot/assets/javascript/vendor/jquery.min.js', included: false },
-            { pattern: './src/StockportWebapp/wwwroot/assets/stylesheets/vendor/jquery-ui-1.13.0.custom/jquery-ui.min.js', included: false },
             { pattern: './src/StockportWebapp/wwwroot/assets/javascript/vendor/modernizr.min.js', included: false },
-            { pattern: './src/StockportWebapp/wwwroot/assets/javascript/stockportgov/utils.js', included: false },
-            { pattern: './src/StockportWebapp/wwwroot/assets/javascript/stockportgov/events.js', included: false },
+            { pattern: './src/StockportWebapp/wwwroot/assets/javascript/modules/utils.js', included: false },
+            { pattern: './src/StockportWebapp/wwwroot/assets/javascript/modules/events.js', included: false },
             { pattern: './test/StockportWebappTests_Javascript/StockportgovjsTest.js', included: false },
             './test/StockportWebappTests_Javascript/tests-main.js'
         ],

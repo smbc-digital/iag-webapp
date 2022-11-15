@@ -17,10 +17,9 @@ requirejs.config({
     baseUrl: "/base/",
     paths: {
         "jquery": "src/StockportWebapp/wwwroot/assets/javascript/vendor/jquery.min",
-        "jquery-ui": "src/StockportWebapp/wwwroot/assets/stylesheets/vendor/jquery-ui-1.13.0.custom/jquery-ui.min",
         "modernizr": "src/StockportWebapp/wwwroot/assets/javascript/vendor/modernizr.min",
-        "events": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/events",
-        "utils": "src/StockportWebapp/wwwroot/assets/javascript/stockportgov/utils"
+        "events": "src/StockportWebapp/wwwroot/assets/javascript/modules/events",
+        "utils": "src/StockportWebapp/wwwroot/assets/javascript/modules/utils"
     },
     deps: allTestFiles,
     callback: window.__karma__.start
