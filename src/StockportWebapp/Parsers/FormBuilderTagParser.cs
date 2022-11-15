@@ -1,15 +1,15 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 
 namespace StockportWebapp.Parsers
 {
-    public class IFrameTagParser : ISimpleTagParser
+    public class FormBuilderTagParser : ISimpleTagParser
     {
         private readonly TagReplacer _tagReplacer;
-        protected Regex TagRegex => new("{{IFRAME:(.*)}}", RegexOptions.Compiled);
+        protected Regex TagRegex => new("{{FORM:(.*)}}", RegexOptions.Compiled);
 
         public string GenerateHtml(string tagData)
         {
-            tagData.Replace("{{IFRAME:", string.Empty);
+            tagData.Replace("{{FORM:", string.Empty);
             tagData.Replace("}}", string.Empty);
 
             var ValidUrl = new Regex(@"^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$");
@@ -23,14 +23,17 @@ namespace StockportWebapp.Parsers
             if (splitTagData.Length > 1)
                 iFrameTitle = $"title=\"{splitTagData[1]}\"";
 
-            return $"<iframe {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
+            return $"<iframe sandbox='allow-scripts allow-forms' {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
         }
         
-        public IFrameTagParser()
+        public FormBuilderTagParser()
         {
             _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
         }
 
-        public string Parse(string body, string title = null) => _tagReplacer.ReplaceAllTags(body);
+        public string Parse(string body, string title = null)
+        {
+            return _tagReplacer.ReplaceAllTags(body);
+        }
     }
 }
