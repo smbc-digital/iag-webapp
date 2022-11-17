@@ -6,8 +6,8 @@
         <span class="si-envelope-open" aria-hidden="true"></span>
     </div>
     <div class="email-alert">
-        <h2 class="h3">@Model.EmailAlertsText</h2>
         <form method="post" role="form" action="/subscribe">
+            <h2 class="h3">@Model.EmailAlertsText</h2>       
             <button type="submit" id="test-subscribe" class="button-primary">Subscribe</button>
             @Html.HiddenFor(o => o.EmailAlertsTopicId)
         </form>
