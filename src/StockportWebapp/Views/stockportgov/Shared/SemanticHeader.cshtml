@@ -3,17 +3,21 @@
 
 @{
     var user = loggedInHelper.GetLoggedInPerson();
-    var isForm = (bool?)ViewData["Form"] ?? false;
-    var headerClass = string.Empty;
-    headerClass += isForm ? "form-header" : string.Empty;
-    // Extra space needed to concat class strings correctly
-    headerClass += !string.IsNullOrEmpty(user.Email) ? " logged-in" : string.Empty;
+    var headerClass = !string.IsNullOrEmpty(user.Email) ? "logged-in" : string.Empty;
 }
+
+<div class="skip-to-main-content" role="navigation">
+    <a href="#content">Skip to main content</a>
+</div>
 <div class="center-wrapper">
     <div id="header-logo">
         <a href="https://www.stockport.gov.uk">Stockport Metropolitan Borough Council Homepage</a>
     </div>
     <div class="@headerClass" id="header-my-account">
+        <a href="#" id="reciteMe">
+            <span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>
+            Accessibility
+        </a>
         @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
         {
             <div class="menu-container">
@@ -53,19 +57,31 @@
         }
         else
         {
-            @if (featureToggles.ReciteMeTrial) {
-                <a href="#" id="reciteMe" class="visuallyhidden"><span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>Accessibility</a>
-            }
             <a id="form-myaccount-link" href="https://myaccount.stockport.gov.uk"><span class="fa fa-user" aria-hidden="true"></span>My Account</a>
         }
+        <a href="#" class="show-search-button hide-on-desktop">
+            <span class="visuallyhidden"> submit search</span>
+            <span class="fa fa-search" style="display: inline-block !important; color: #83aeac;" aria-hidden="true"></span>
+        </a>
     </div>
-    @if (!isForm)
-    {
-        <form method="get" role="search" id="cludo-search-form" class="cludo-search_autocomplete">
-            <fieldset class="input-group"></fieldset>
-            <label for="search" class="sr-only">Search Stockport council website</label>
-            <input id="search" class="search-input" name="query" placeholder="Search" autoComplete="off" type="text" />
-            <button type="submit" title="Search Stockport Gov website"><span class="fa fa-search" aria-hidden="true"></span></button>
-        </form>
-    }
+    <form method="get" role="search" id="cludo-search-form" class="cludo-search_autocomplete">
+        <fieldset class="input-group"></fieldset>
+        <label for="search" class="sr-only">Search Stockport council website</label>
+        <input id="search" class="search-input" name="query" placeholder="Search" autoComplete="off" type="text" />
+        <button type="submit" title="Search Stockport Gov website"><span class="fa fa-search" aria-hidden="true"></span></button>
+    </form>
 </div>
+<partial name="BrowserCheck" />
+
+<script>
+    require(['/assets/javascript/config.min.js'], function() {
+        require(['startup.min', 'utils.min', 'reciteMe.min', 'cludo.min', 'Cludo'],
+            function(startup, utils, reciteMe, cludo) {
+                reciteMe.Init();
+                startup.Init();
+                utils.Init();
+                cludo.Init();
+            }
+        );
+    });
+</script>

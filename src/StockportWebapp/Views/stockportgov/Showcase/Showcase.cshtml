@@ -25,15 +25,15 @@
     <partial name="SemanticBreadcrumb" model='Model.Breadcrumbs' />
 }
 
-@if (Model.Alerts != null)
+@if (Model.Alerts is not null)
 {
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
-    if (alertCookies == null || alertCookies.Count() != Model.Alerts.Count())
+    if (alertCookies is null || !alertCookies.Count().Equals(Model.Alerts.Count()))
     {
         <div class="alert-container">
             @foreach (var alert in Model.Alerts)
             {
-                if (alertCookies == null || !alertCookies.Contains(alert.Slug))
+                if (alertCookies is null || !alertCookies.Contains(alert.Slug))
                 {
                     <partial name="Semantic/GlobalAlert" model='alert' />
                 }
@@ -68,7 +68,7 @@
                         <div class="secondary-item-body">
                             @foreach (var item in Model.SecondaryItems)
                             {
-                                <div class="grid-20 tablet-grid-25 mobile-grid-33 secondary-item matchbox-child">
+                                <div class="grid-20 tablet-grid-25 mobile-grid-33 secondary-item">
                                     <div class="secondary-item-content">
                                         <a href="@item.NavigationLink">
                                             <div class="secondary-item-icon">
@@ -127,7 +127,7 @@
             break;
 
         case "News":
-            if (Model.NewsArticle != null)
+            if (Model.NewsArticle is not null)
             {
                 <div class="showcase-section">
                     <div class="center-wrapper">
@@ -157,7 +157,7 @@
             break;
 
         case "Profile":
-            if (Model.Profile != null)
+            if (Model.Profile is not null)
             {
                 <div class="showcase-section">
                     <div class="showcase-profile showcase-news-events">
@@ -220,7 +220,7 @@
             break;
 
         case "Trivia":
-            if (Model.TriviaSubheading != null && Model.TriviaSection.AnyOrDefault())
+            if (Model.TriviaSubheading is not null && Model.TriviaSection.AnyOrDefault())
             {
                 <div class="showcase-section">
                     <div class="center-wrapper">
@@ -237,7 +237,7 @@
             break;
 
         case "Call to action banner":
-            if (Model.CallToActionBanner != null)
+            if (Model.CallToActionBanner is not null)
             {
                 <div class="showcase-section">
                     <div class="showcase-banner">
@@ -256,7 +256,7 @@
             break;
 
         case "Video":
-            if (Model.Video != null)
+            if (Model.Video is not null)
             {
                 <div class="showcase-section">
                     <div class="showcase-banner">
@@ -295,7 +295,6 @@
     }
 }
 
-
 @if (!string.IsNullOrEmpty(Model.EmailAlertsText) && !(string.IsNullOrEmpty(Model.EmailAlertsTopicId)))
 {
     <div class="showcase-section">
@@ -304,9 +303,3 @@
         </div>
     </div>
 }
-
-<script>
-    require(['alerts'], function (alerts) {
-        alerts.Init();
-    });
-</script>

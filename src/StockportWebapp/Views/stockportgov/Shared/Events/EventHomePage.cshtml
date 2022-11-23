@@ -4,7 +4,7 @@
 
 <div id="event-listing-container" class="no-margin">
 
-    @if (Model.Categories != null && Model.Categories.Any())
+    @if (Model.Categories is not null && Model.Categories.Any())
     {
         <div class="home-page-row">
 

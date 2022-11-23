@@ -16,12 +16,12 @@
 
                     @if (Model.ShowLocation)
                     {
-                    <div class="refine">
-                        <a class="link" href="javascript:void(0)">Location<div class="badge hide-on-mobile"><span></span></div></a>
-                        <div class="refine-filters location">
-                            <partial name="LocationSearch" model='new LocationSearch { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = string.Empty, Callback = "refinebybar.ApplyLocation()" }'/>
+                        <div class="refine">
+                            <a class="link" href="javascript:void(0)">Location<div class="badge hide-on-mobile"><span></span></div></a>
+                            <div class="refine-filters location">
+                                <partial name="LocationSearch" model='new LocationSearch { LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = string.Empty, Callback = "refinebybar.ApplyLocation()" }'/>
+                            </div>
                         </div>
-                    </div>
                     }
                     else if (Model.KeepLocationQueryValues)
                     { 
@@ -75,10 +75,18 @@
                     <stock-button class="white cancel">Cancel</stock-button>
                     <stock-button class="green apply update-button">Apply</stock-button>
                 </div>
-
             </div>
         </div>    
     </div>
-    
-
 </div>
+
+<script>
+    require(['/assets/javascript/config.min.js'], function() {
+        require(['refineByBar.min', 'filters.min'],
+            function(refineByBar, filters) {
+                refineByBar.Init();
+                filters.Init();
+            }
+        );
+    });
+</script>

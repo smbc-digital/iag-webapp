@@ -7,40 +7,31 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + ViewBag.GroupSlug + "/events/", "groups") }'/>
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "Group"), new Crumb("Manage your groups", "manage", "groups"), new Crumb(ViewBag.GroupName, "manage/" + ViewBag.GroupSlug, "groups"), new Crumb("Manage your events", "manage/" + ViewBag.GroupSlug + "/events/", "groups") }' />
 }
-<div class="grid-container grid-100 event-details">
+
+ <div class="grid-container grid-100 event-details">
     <div class="event-details-content">
         <h1 id="event-title">@Model.Title </h1>
         <h2>Event summary</h2>
-        @if (Model.EventFrequency != EventFrequency.None)
+        @if (!Model.EventFrequency.Equals(EventFrequency.None))
         {
             <p class="recurring-event">
                 This is a recurring event.
             </p>
         }
-            <p><strong>Event date: </strong>@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
-            <p><strong>Start time: </strong> @Model.StartTime</p>
-            <p><strong>End time: </strong>@Model.EndTime</p>
-            <p><strong>Price: </strong>&pound;@Model.Fee</p>
-            <p><strong>Location: </strong>@Model.Location</p>
-            <p><strong>Organiser name: </strong>@Model.SubmittedBy</p>
-            <p><strong>Description: </strong>@Model.Description</p>
-        </div>
-
-
-        <div class="grid-100 grid-parent details-button">
-            <stock-button id="edit-event" as-link="true" href="@Url.Action("EditEvent", "Groups")">Edit your event</stock-button>
-        </div>
-        <div class="grid-100 grid-parent details-button">
-            <stock-button as-link="true" class="grey-button" href="@Url.Action("DeleteEvent", "Groups")">Delete your event</stock-button>
-        </div>
-
+        <p><strong>Event date: </strong>@Model.EventDate.ToString("dddd dd MMMM yyyy")</p>
+        <p><strong>Start time: </strong> @Model.StartTime</p>
+        <p><strong>End time: </strong>@Model.EndTime</p>
+        <p><strong>Price: </strong>&pound;@Model.Fee</p>
+        <p><strong>Location: </strong>@Model.Location</p>
+        <p><strong>Organiser name: </strong>@Model.SubmittedBy</p>
+        <p><strong>Description: </strong>@Model.Description</p>
+     </div>
+    <div class="grid-100 grid-parent details-button">
+        <stock-button id="edit-event" as-link="true" href="@Url.Action("EditEvent", "Groups")">Edit your event</stock-button>
     </div>
-<script type="text/javascript">
-    require(['groups','jquery.steps', 'recaptcha'],
-        function (groups, multiStepForm) {          
-            groups.Init();
-           
-        })
-</script>
+    <div class="grid-100 grid-parent details-button">
+        <stock-button as-link="true" class="grey-button" href="@Url.Action("DeleteEvent", "Groups")">Delete your event</stock-button>
+    </div>
+</div>

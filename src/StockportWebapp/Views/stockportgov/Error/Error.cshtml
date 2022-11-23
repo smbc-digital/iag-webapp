@@ -13,8 +13,9 @@
             </div>
 
             <!--[if lte IE 9]>
-    <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html">
-    <![endif]-->
+                <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html">
+            <![endif]-->
+
             <script id="cludo-404-script" data-cid="112" data-eid="1144">
                 (function () {
                     var s = document.createElement('script');
@@ -45,14 +46,6 @@
                     const observer = new MutationObserver(observerCallback);
                     observer.observe(target, config);
                 })();
-            </script>
-
-            <script type="text/javascript">
-                require(['startup', 'matchboxconfig'],
-                    function (startup, matchboxconfig) {
-                        startup.Init();
-                        matchboxconfig.Init();
-                    })
             </script>
         </div>
     </div>

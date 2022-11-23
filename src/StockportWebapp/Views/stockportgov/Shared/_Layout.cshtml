@@ -1,7 +1,10 @@
-﻿@using StockportWebapp.Config
+﻿@*
+    Article, AtoZ, ContactUs, ContactUsArea, Document, Events, Favourites, Groups, News, Organisations, Payment, 
+    PrivacyNotice, ServicePayPayment, Shared, SIA, StartPage, Topic
+*@
+@using StockportWebapp.Config
 @using StockportWebapp.FeatureToggling
 @inject IApplicationConfiguration ApplicationConfiguration
-@inject CurrentEnvironment CurrentEnvironment
 @inject BusinessId BusinessId
 @inject FeatureToggles FeatureToggles
 @{
@@ -9,38 +12,50 @@
 }
 
 <!DOCTYPE html>
-<html lang="en-GB" class="no-js">
+<html lang="en-GB">
 <head>
     <script type='text/javascript' src='@stylesheet.DesignSystemJs'></script>
     @*<partial name="SecurityHeaders" />*@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <partial name="OwnershipVerificationCodes" />
     <partial name="Favicon" />
-
     <title>@ViewData["Title"] - Stockport Council</title>
-    @if (ViewData["Description"] != null)
+    @if (ViewData["Description"] is not null)
     {
         <meta name="Description" content="@ViewData["Description"]" />
     }
-    @if (ViewData["CanonicalUrl"] != null)
+    @if (ViewData["CanonicalUrl"] is not null)
     {
         <partial name="Canonical-Link" />
     }
-    @if (ViewData["og:title"] != null)
+    @if (ViewData["og:title"] is not null)
     {
         <meta property="og:title" content="@ViewData["og:title"]" />
     }
-    <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
-    <link href="https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/assets/stylesheets/cludo-search-default.css" />
+    <link rel="stylesheet" href="https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css" />
     <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
     <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+        integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g=="
+        crossorigin="anonymous">
     <link rel="stylesheet" href="~/assets/stylesheets/vendor/slick.min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/vendor/jquery-ui-1.13.0.custom/jquery-ui.min.css" />
+
+    <noscript>
+        @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
+        <style>
+            .group-map-container { display: none; }
+            .event-map-container { display: none; }
+            .search-bar, .search-bar-mobile-header-container, .search-bar-header-container, .show-search-button {
+                display:none;
+            }
+        </style>
+    </noscript>
+
     <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed" />
     <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
 
@@ -48,16 +63,8 @@
     <partial name="TagManager/TagManagerDataLayer" />
     <partial name="TagManager/TagManager" />
 
-    <script type="text/javascript" src="~/assets/javascript/vendor/require.2.3.4.min.js"></script>
-    @if (CurrentEnvironment.Name == "test")
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfigUitest.js"></script>
-    }
-    else
-    {
-        <script type="text/javascript" src="/assets/javascript/requireConfig.js"></script>
-    }
-
+    <script type='text/javascript' src='@stylesheet.DesignSystemJs'></script>
+    <script src="~/assets/javascript/vendor/require.min.js"></Script>
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
     <partial name="TagManager/TagManagerNoScript" />
@@ -70,33 +77,16 @@
     <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
-
-    <script src="~/assets/javascript/vendor/modernizr.min.js"></script>
-    <script>
-        if (typeof (globalButoIds) !== "undefined") {
-            require(globalButoIds,
-                function () {
-                }
-            );
-        }
-    </script>
-
-    <script type="text/javascript">
-        require(['validate', 'jquery-ui', 'jquery.cookie', 'reciteMe'],
-            function (validate, jqueryui, jquerycookie, reciteMe) {
-                reciteMe.Init();
-            })
-    </script>
-
     @await Component.InvokeAsync("AddThis")
 
-    @RenderSection("Scripts", false)
-
-    <script type="text/javascript" src="https://customer.cludo.com/scripts/bundles/search-script.min.js"></script>
-    <script type="text/javascript" src="~/assets/javascript/stockportgov/cludoInit.js"></script>
-
-    <!--[if lte IE 9]>
-        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
-    <![endif]-->
+    <script>
+        require(['/assets/javascript/config.min.js'], function() {
+            require(['jquery', 'matchbox.min'], 
+                function (_, matchbox) {
+                    matchbox.Init();
+                }
+            );
+        });
+    </script>
 </body>
 </html>

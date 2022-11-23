@@ -66,12 +66,12 @@ namespace StockportWebapp.Controllers
         [Route("/events")]
         public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
         {
-            if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0)
+            if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
             {
                 ModelState["DateTo"].Errors.Clear();
             }
 
-            if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0)
+            if (ModelState["DateFrom"] is not null && ModelState["DateFrom"].Errors.Count > 0)
             {
                 ModelState["DateFrom"].Errors.Clear();
             }
@@ -103,7 +103,7 @@ namespace StockportWebapp.Controllers
 
             DoPagination(eventsCalendar, Page, eventResponse, pageSize);
 
-            if (eventResponse != null)
+            if (eventResponse is not null)
             {
                 eventsCalendar.AddEvents(eventResponse.Events);
                 eventsCalendar.AddCategories(eventResponse.Categories);
@@ -125,18 +125,15 @@ namespace StockportWebapp.Controllers
         {
             var categories = await _stockportApiEventsService.GetEventCategories();
 
-            var viewModel = new EventResultsVIewModel()
-            {
-                Title = category
-            };
+            var viewModel = new EventResultsVIewModel() { Title = category };
 
             var events = await _stockportApiEventsService.GetEventsByCategory(category, false);
 
-            if (events == null || !events.Any()) return View("Index", viewModel);
+            if (events is null || !events.Any()) return View("Index", viewModel);
 
-            var eventCategory = categories.FirstOrDefault(c => c.Slug == category);
+            var eventCategory = categories.FirstOrDefault(c => c.Slug.Equals(category));
 
-            viewModel.Title = eventCategory != null ? eventCategory.Name : category;
+            viewModel.Title = eventCategory is not null ? eventCategory.Name : category;
             viewModel.Events = events;
 
             viewModel.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
@@ -150,7 +147,7 @@ namespace StockportWebapp.Controllers
 
         private void DoPagination(EventCalendar model, int currentPageNumber, EventResponse eventResponse, int pageSize)
         {
-            if (eventResponse != null && eventResponse.Events.Any())
+            if (eventResponse is not null && eventResponse.Events.Any())
             {
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     eventResponse.Events,
@@ -171,7 +168,7 @@ namespace StockportWebapp.Controllers
 
         private void DoPagination(EventResultsVIewModel model, int currentPageNumber, int pageSize)
         {
-            if (model != null && model.Events.Any())
+            if (model is not null && model.Events.Any())
             {
                 var paginatedEvents = PaginationHelper.GetPaginatedItemsForSpecifiedPage(
                     model.Events,
@@ -204,7 +201,7 @@ namespace StockportWebapp.Controllers
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
-            if (date != null || date == DateTime.MinValue)
+            if (date is not null || date.Equals(DateTime.MinValue))
             {
                 ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
             }
@@ -219,7 +216,7 @@ namespace StockportWebapp.Controllers
             {
                 var eventHomeResponse = httpHomeResponse.Content as EventHomepage;
 
-                if(eventHomeResponse.Alerts != null)
+                if (eventHomeResponse.Alerts is not null)
                 {
                     foreach (var item in eventHomeResponse.Alerts)
                         response.GlobalAlerts.Add(item);
@@ -234,11 +231,11 @@ namespace StockportWebapp.Controllers
         {
             var eventItem = await _stockportApiEventsService.GetProcessedEvent(slug, date);
 
-            if (eventItem == null) return NotFound();
+            if (eventItem is null) return NotFound();
 
             ViewBag.CurrentUrl = Request?.GetUri();
 
-            if (date != null || date == DateTime.MinValue)
+            if (date is not null || date.Equals(DateTime.MinValue))
             {
                 ViewBag.Eventdate = date.Value.ToString("yyyy-MM-dd");
             }
@@ -247,16 +244,12 @@ namespace StockportWebapp.Controllers
                 ViewBag.Eventdate = eventItem?.EventDate.ToString("yyyy-MM-dd");
             }
 
-            return View("Detail", eventItem);
+            return View(eventItem);
         }
 
         [Route("/events/add-your-event")]
         [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-        public IActionResult AddYourEvent()
-        {
-            var eventSubmission = new EventSubmission();
-            return View("Add-Your-Event", eventSubmission);
-        }
+        public IActionResult AddYourEvent() => View(new EventSubmission());
 
         [HttpPost]
         [Route("/events/add-your-event")]
@@ -267,7 +260,7 @@ namespace StockportWebapp.Controllers
             if (!ModelState.IsValid)
             {
                 ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
-                return View("Add-Your-Event", eventSubmission);
+                return View(eventSubmission);
             }
 
             if (eventSubmission.IsRecurring)
@@ -275,16 +268,17 @@ namespace StockportWebapp.Controllers
                 Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
                 if (frequency != EventFrequency.None)
                 {
-                    eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
+                    eventSubmission.Occurrences = _dateCalculator
+                        .GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
                 }
             }
 
             var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
-            if (successCode == HttpStatusCode.OK) return RedirectToAction("ThankYouMessage");
+            if (successCode.Equals(HttpStatusCode.OK)) return RedirectToAction("ThankYouMessage");
 
             ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
 
-            return View("Add-Your-Event", eventSubmission);
+            return View(eventSubmission);
         }
 
         private string GetErrorsFromModelState(ModelStateDictionary modelState)
@@ -302,18 +296,16 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events/thank-you-message")]
-        public IActionResult ThankYouMessage()
-        {
-            return View();
-        }
-
+        public IActionResult ThankYouMessage() => View();
 
         [Route("events/rss")]
         public async Task<IActionResult> Rss()
         {
             var httpResponse = await _repository.Get<EventResponse>();
 
-            var host = Request != null && Request.Host.HasValue ? string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/events/") : string.Empty;
+            var host = Request is not null && Request.Host.HasValue ? 
+                string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/events/") : 
+                string.Empty;
 
             if (!httpResponse.IsSuccessful())
             {
@@ -344,13 +336,13 @@ namespace StockportWebapp.Controllers
                 Teaser = summary
             };
 
-            if (type == "google" || type == "yahoo")
+            if (type.Equals("google") || type.Equals("yahoo"))
             {
                 var url = _helper.GetCalendarUrl(eventItem, eventUrl, type);
                 return Redirect(url);
             }
 
-            if (type == "windows" || type == "apple")
+            if (type.Equals("windows") || type.Equals("apple"))
             {
                 byte[] calendarBytes = System.Text.Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
                 return File(calendarBytes, "text/calendar", slug + ".ics");

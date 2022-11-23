@@ -16,7 +16,6 @@
     <None Include="emails\templates\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
-    <None Include="version.txt" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="3.3.26.12" />

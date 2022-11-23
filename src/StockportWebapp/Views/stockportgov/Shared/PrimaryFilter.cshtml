@@ -36,3 +36,13 @@
     <select id="hiddenSelectOrder" class="primary-filter-select hidden" aria-label="groups in"></select>
     <select id="hiddenSelectLocation" class="primary-filter-select hidden" aria-label="sorted by"></select>
 </form>
+
+<script>
+    require(['/assets/javascript/config.min.js'], function() {
+        require(['primaryFilter.min'],
+            function(primaryFilter) {
+                primaryFilter.Init();
+            }
+        );
+    });
+</script>

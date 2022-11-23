@@ -363,7 +363,7 @@ ul.nav-card-list:nth-of-type(1) {
 }
 
 @media only screen and (min-width: 1025px) {
-    span.latest-nav-card-item:hover {
+    div.latest-nav-card-item:hover {
         text-decoration: none;
         box-shadow: 0 20px 40px rgba(0,0,0,.3);
     }
