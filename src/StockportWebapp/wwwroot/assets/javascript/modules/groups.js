@@ -1,5 +1,12 @@
 ﻿define(["jquery"], function ($) {
 
+    var extractFromAdress = function (components, type) {
+        for (var i = 0; i < components.length; i++)
+            for (var j = 0; j < components[i].types.length; j++)
+                if (components[i].types[j] === type) return components[i].long_name;
+        return "";
+    }
+
     var buildLocation = function (addressComponents) {
         // take the address components and build a nice address from them
         var street = extractFromAdress(addressComponents, "route");
@@ -9,7 +16,7 @@
         var joinedLocation = (street + " " + postcode + " " + city).trim();
 
         if (joinedLocation === "") {
-            // only add the country into the locaion if nothing else comes back for the location
+            // only add the country into the location if nothing else comes back for the location
             joinedLocation = country;
         }
 
@@ -111,7 +118,7 @@
 
     $("#currentLocationgroup").click(function () {
         var latitude = "";
-        var logitude = "";
+        var longitude = "";
         var LocationLookupError = "We couldn't find this location -- please check the location and try again.";
         var CurrentLocationError = "We couldn't find your current location -- please check the location settings on your device.";
         navigator.geolocation.getCurrentPosition(
