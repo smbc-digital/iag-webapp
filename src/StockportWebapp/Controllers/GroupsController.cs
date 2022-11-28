@@ -1486,6 +1486,8 @@ namespace StockportWebapp.Controllers
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> AddYourEvent(string groupSlug, LoggedInPerson loggedInPerson)
         {
+            return Redirect("https://forms.stockport.gov.uk/add-an-event");
+
             var responseGroup = await _repository.Get<Group>(groupSlug, _managementQuery);
             if (!responseGroup.IsSuccessful()) return responseGroup;
             var group = responseGroup.Content as Group;

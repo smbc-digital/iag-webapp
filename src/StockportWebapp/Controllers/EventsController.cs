@@ -249,7 +249,13 @@ namespace StockportWebapp.Controllers
 
         [Route("/events/add-your-event")]
         [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-        public IActionResult AddYourEvent() => View(new EventSubmission());
+        public IActionResult AddYourEvent()
+        {
+            return Redirect("https://forms.stockport.gov.uk/add-an-event");
+
+            View(new EventSubmission());
+        } 
+
 
         [HttpPost]
         [Route("/events/add-your-event")]
