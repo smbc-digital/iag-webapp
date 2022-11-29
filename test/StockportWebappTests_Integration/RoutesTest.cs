@@ -355,18 +355,6 @@ namespace StockportWebappTests_Integration
         }
 
         [Fact]
-        public async Task ItReturnsAEventSubmissionPage()
-        {
-            SetBusinessIdRequestHeader("stockportgov");
-
-            var formHtmlTag = "<form";
-
-            var result = await _fakeClient.GetStringAsync("/events/add-your-event");
-
-            result.Should().Contain(formHtmlTag);
-        }
-
-        [Fact]
         public async Task ItReturnsThankYouMessageOnSuccessEventSubmission()
         {
             SetBusinessIdRequestHeader("stockportgov");
