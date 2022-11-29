@@ -73,6 +73,9 @@
 </div>
 <script>
     require(['/assets/javascript/config.min.js'], function() {
-        require(['google.places'], function() { } );
+        require(['groups.min', 'google.places'],
+            function(groups) {
+                groups.Init();
+            });
     });
 </script>

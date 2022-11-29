@@ -10,7 +10,7 @@
         "slick": "../vendor/slick.min",
         "Cludo": "https://customer.cludo.com/scripts/bundles/search-script.min",
         "recaptcha": "https://www.google.com/recaptcha/api",
-        "google.places": "https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places&callback=initMap"
+        "google.places": "https://maps.googleapis.com/maps/api/js?key=AIzaSyCPMO2lE7np9cG_zG63JH_pNVmRfoajZjg&libraries=places"
     },
     shim: {
         'Cludo': {
