@@ -159,7 +159,7 @@ namespace StockportWebapp.Extensions
             services.AddSingleton<Func<System.Net.Http.HttpClient>>(p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
             services.AddTransient<IHttpClient>(
-                p => new LoggingHttpClient(new HttpClient(new System.Net.Http.HttpClient()),
+                p => new LoggingHttpClient(new Http.HttpClient(new System.Net.Http.HttpClient()),
                     p.GetService<ILogger<LoggingHttpClient>>()));
             services.AddTransient<IHttpEmailClient>(p => new HttpEmailClient(p.GetService<ILogger<HttpEmailClient>>(), p.GetService<IEmailBuilder>(), p.GetService<IAmazonSimpleEmailService>(), sendAmazonEmails));
 
