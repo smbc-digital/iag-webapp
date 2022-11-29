@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
@@ -49,7 +44,7 @@ namespace StockportWebappTests_Integration
             SetBusinessIdRequestHeader("unittest");
 
             var result = await _fakeClient.GetAsync("/non-existent-url");
-             
+
             result.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
@@ -57,14 +52,14 @@ namespace StockportWebappTests_Integration
         public async Task ItPerformsARedirectWhenRequestMatchesAnExactLegacyRedirectRule()
         {
             SetBusinessIdRequestHeader("unittest");
-            
+
             // Look, I know this seems odd.
             // We really had no choice, and if you remove this line the test fails when you run it on it's own.
             // Good luck if you want to try to figure out why.
             Thread.Sleep(TimeSpan.FromSeconds(1));
 
             var result = await _fakeClient.GetAsync("/this-is-a-redirect-from");
- 
+
             result.StatusCode.Should().Be(HttpStatusCode.MovedPermanently);
             result.Headers.Location.ToString().Should().Be("this-is-a-redirect-to");
         }
@@ -227,7 +222,7 @@ namespace StockportWebappTests_Integration
             var request = new HttpRequestMessage(HttpMethod.Post, "/contact-us") { Content = formContents };
             request.Headers.Add("Referer", "http://something.com/a-page");
 
-            var result =await _fakeClient.SendAsync(request);
+            var result = await _fakeClient.SendAsync(request);
 
             result.StatusCode.Should().Be(HttpStatusCode.Redirect);
             result.Headers.Location.OriginalString.Should().Be("/thank-you?ReturnUrl=%2Fa-page");
@@ -321,7 +316,7 @@ namespace StockportWebappTests_Integration
         public async Task ItShouldReturnsEventsCalendar()
         {
             SetBusinessIdRequestHeader("stockportgov");
-            
+
             var result = await _fakeClient.GetStringAsync("/events");
 
             result.Should().Contain("This is the event");
@@ -339,7 +334,7 @@ namespace StockportWebappTests_Integration
             result.Should().Contain("This is the event");
         }
 
-        [Fact(Skip="some reason ")]
+        [Fact(Skip = "some reason ")]
         public async Task ReverseCmsTemplateShouldBeServedForDemocracyWebsiteWithAbsoluteLinks()
         {
             SetBusinessIdRequestHeader("stockportgov");
@@ -391,11 +386,11 @@ namespace StockportWebappTests_Integration
         [Fact]
         public async Task ShouldRedirectToThankYouMessageOnSuccessGroupSubmission()
         {
-            SetBusinessIdRequestHeader("stockportgov");         
+            SetBusinessIdRequestHeader("stockportgov");
 
             var formContents = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>()
             {
-                new KeyValuePair<string, string>("Name", "name"),                
+                new KeyValuePair<string, string>("Name", "name"),
                 new KeyValuePair<string, string>("Description", "description"),
                 new KeyValuePair<string, string>("CategoriesList", "Dancing"),
                 new KeyValuePair<string, string>("Address", "address"),
@@ -423,7 +418,7 @@ namespace StockportWebappTests_Integration
                 new KeyValuePair<string, string>("Description", "description"),
                 new KeyValuePair<string, string>("CategoriesList", "Dancing"),
                 new KeyValuePair<string, string>("Address", "address"),
-                new KeyValuePair<string, string>("Email", "email@gmail.com"),            
+                new KeyValuePair<string, string>("Email", "email@gmail.com"),
             });
 
             var request = new HttpRequestMessage(HttpMethod.Post, "/groups/add-a-group") { Content = formContents };
@@ -447,12 +442,12 @@ namespace StockportWebappTests_Integration
         public async Task ItReturnsAGroupPage()
         {
             SetBusinessIdRequestHeader("stockportgov");
-            
+
             var result = await _fakeClient.GetStringAsync("/groups/test-zumba-slug");
 
             result.Should().Contain("zumba");
         }
-        
+
         [Fact]
         public async Task ItReturnsAGroupResultsPage()
         {

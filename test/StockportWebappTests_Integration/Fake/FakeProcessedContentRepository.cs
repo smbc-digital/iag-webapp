@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
 namespace StockportWebappTests_Integration.Fake
@@ -25,7 +22,7 @@ namespace StockportWebappTests_Integration.Fake
         {
             _response = response;
         }
-        
+
         public Task<HttpResponse> Archive<T>(string slug = "")
         {
             return Task.FromResult(_response);

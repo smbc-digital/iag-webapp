@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-
-namespace StockportWebappTests_Integration.Fake
+﻿namespace StockportWebappTests_Integration.Fake
 {
     public class FakeResponseHandler : DelegatingHandler
     {
@@ -23,12 +17,12 @@ namespace StockportWebappTests_Integration.Fake
             AssignRequestContent();
 
             if (!_fakeResponses.ContainsKey(request.RequestUri))
-                return await Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound) {RequestMessage = request});
+                return await Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request });
 
             var response = _fakeResponses[request.RequestUri];
-            if (response.GetType() == typeof(HttpResponseMessage)) return (HttpResponseMessage) response;
+            if (response.GetType() == typeof(HttpResponseMessage)) return (HttpResponseMessage)response;
 
-            throw (HttpRequestException) response;
+            throw (HttpRequestException)response;
         }
 
         private void AssignRequestContent()

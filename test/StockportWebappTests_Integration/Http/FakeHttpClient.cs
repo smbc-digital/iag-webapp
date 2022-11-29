@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using StockportWebapp.Http;
-
-namespace StockportWebappTests_Integration.Http
+﻿namespace StockportWebappTests_Integration.Http
 {
     public class FakeHttpClient : IHttpClient
     {
@@ -38,7 +32,7 @@ namespace StockportWebappTests_Integration.Http
 
         public void Return(HttpResponse response)
         {
-           if (!_responses.ContainsKey(_url)) _responses.Add(_url, response);
+            if (!_responses.ContainsKey(_url)) _responses.Add(_url, response);
         }
 
         public void ReturnPostAsync(HttpResponseMessage response)
