@@ -8,6 +8,5 @@
         public string ImageUrl { get; set; }
 
         public GroupCategory() { }
-        
     }
 }

@@ -1,7 +1,5 @@
-﻿using System.Linq;
-using Elasticsearch.Net;
+﻿using Elasticsearch.Net;
 using Elasticsearch.Net.Aws;
-using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
@@ -35,16 +33,16 @@ namespace StockportWebapp.Config
         }
 
         public void Configure(LoggerConfiguration loggerConfiguration)
-        { 
-            if(!_elasticSearchLogConfiguration.Enabled)
+        {
+            if (!_elasticSearchLogConfiguration.Enabled)
             {
                 return;
             }
-            
+
             var options = ElasticSearchLogConfigurator.CreateElasticsearchSinkOptions(_elasticSearchLogConfiguration, _elasticSearchLogSecretConfiguration);
             if (options != null)
             {
-                loggerConfiguration.WriteTo.Elasticsearch(options);   
+                loggerConfiguration.WriteTo.Elasticsearch(options);
             }
         }
 

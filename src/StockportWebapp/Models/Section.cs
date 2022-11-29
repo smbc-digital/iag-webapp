@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace StockportWebapp.Models
 {
     public class Section

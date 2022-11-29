@@ -1,8 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Hosting;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 
 namespace StockportWebapp.Middleware
 {

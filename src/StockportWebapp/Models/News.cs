@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class News
     {
@@ -19,7 +16,7 @@ namespace StockportWebapp.Models
         public List<string> Tags { get; }
         public IEnumerable<Document> Documents { get; set; }
 
-        public News(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags, IEnumerable<Document> documents )
+        public News(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags, IEnumerable<Document> documents)
         {
             Title = title;
             Slug = slug;

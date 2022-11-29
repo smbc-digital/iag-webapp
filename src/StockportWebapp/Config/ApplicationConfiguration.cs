@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Extensions.Configuration;
-using StockportWebapp.Config.AnalyticsConfiguration;
+﻿using StockportWebapp.Config.AnalyticsConfiguration;
 
 namespace StockportWebapp.Config
 {
@@ -132,7 +129,7 @@ namespace StockportWebapp.Config
         {
             return AppSetting.GetAppSetting(_appsettings["DemocracyStyleLink"]);
         }
-       
+
         public AppSetting GetTermsAndConditions()
         {
             return AppSetting.GetAppSetting(_appsettings["TermsAndConditions"]);

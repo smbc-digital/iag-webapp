@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
 using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
@@ -14,17 +11,17 @@ namespace StockportWebapp.ContentFactory
         private readonly Dictionary<Type, dynamic> _factories = new Dictionary<Type, object>();
 
         public ContentTypeFactory(
-            ISimpleTagParserContainer tagParserContainer, 
-            IDynamicTagParser<Profile> profileTagParser, 
-            MarkdownWrapper markdownWrapper, 
-            IDynamicTagParser<Document> documentTagParser, 
-            IDynamicTagParser<Alert> alertsInlineTagParser, 
-            IHttpContextAccessor httpContextAccesor, 
-            IDynamicTagParser<S3BucketSearch> s3BucketParser, 
+            ISimpleTagParserContainer tagParserContainer,
+            IDynamicTagParser<Profile> profileTagParser,
+            MarkdownWrapper markdownWrapper,
+            IDynamicTagParser<Document> documentTagParser,
+            IDynamicTagParser<Alert> alertsInlineTagParser,
+            IHttpContextAccessor httpContextAccesor,
+            IDynamicTagParser<S3BucketSearch> s3BucketParser,
             IDynamicTagParser<PrivacyNotice> privacyNoticeTagParser)
         {
             var sectionFactory = new SectionFactory(tagParserContainer, profileTagParser, markdownWrapper, documentTagParser, alertsInlineTagParser, s3BucketParser, privacyNoticeTagParser, null);
-            var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper,documentTagParser, null);
+            var contactUsCategoryFactory = new ContactUsCategoryFactory(tagParserContainer, markdownWrapper, documentTagParser, null);
             var triviaFactory = new TriviaFactory(markdownWrapper);
 
             _factories.Add(typeof(Section), sectionFactory);

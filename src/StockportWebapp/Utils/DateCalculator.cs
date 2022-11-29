@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
 {
@@ -30,7 +28,7 @@ namespace StockportWebapp.Utils
             EventFilters = GetEventFilters();
         }
 
-        private Dictionary<string,EventFilter> GetEventFilters()
+        private Dictionary<string, EventFilter> GetEventFilters()
         {
             if (EventFilters != null) return EventFilters;
 
@@ -49,15 +47,15 @@ namespace StockportWebapp.Utils
             EventFilters.Add("thisweekend", thisWeekendEventFilter);
 
             var nextWeekEventFilter = new EventFilter(NearestMonday(), NextSunday(), "Next week");
-            EventFilters.Add("nextweek", nextWeekEventFilter);           
+            EventFilters.Add("nextweek", nextWeekEventFilter);
 
             return EventFilters;
         }
 
         public string ReturnDisplayNameForFilter(string key)
         {
-            return !string.IsNullOrEmpty(key) && EventFilters.ContainsKey(key) 
-                ? EventFilters[key].DateRange 
+            return !string.IsNullOrEmpty(key) && EventFilters.ContainsKey(key)
+                ? EventFilters[key].DateRange
                 : string.Empty;
         }
 

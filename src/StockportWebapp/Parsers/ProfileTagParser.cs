@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Microsoft.Extensions.Logging;
+﻿using System.Text.RegularExpressions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -22,7 +19,7 @@ namespace StockportWebapp.Parsers
         protected Regex TagRegex => new Regex("{{PROFILE:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
 
         public string Parse(string content, IEnumerable<Profile> profiles)
-        { 
+        {
             var matches = TagRegex.Matches(content);
 
             foreach (Match match in matches)

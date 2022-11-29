@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class ShortUrlRedirects
     {

@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
@@ -15,10 +12,10 @@ namespace StockportWebapp.Middleware
         private readonly ILogger<ShortUrlRedirectsMiddleware> _logger;
         private readonly IRepository _repository;
 
-        public ShortUrlRedirectsMiddleware(RequestDelegate next, 
-            ShortUrlRedirects shortUrlRedirects, 
-            LegacyUrlRedirects legacyUrlRedirects, 
-            ILogger<ShortUrlRedirectsMiddleware> logger, 
+        public ShortUrlRedirectsMiddleware(RequestDelegate next,
+            ShortUrlRedirects shortUrlRedirects,
+            LegacyUrlRedirects legacyUrlRedirects,
+            ILogger<ShortUrlRedirectsMiddleware> logger,
             IRepository repository)
         {
             _next = next;

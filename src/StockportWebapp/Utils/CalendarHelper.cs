@@ -1,5 +1,4 @@
-﻿using System;
-using Ical.Net.CalendarComponents;
+﻿using Ical.Net.CalendarComponents;
 using Ical.Net.DataTypes;
 using Ical.Net.Serialization;
 using Calendar = Ical.Net.Calendar;
@@ -7,7 +6,7 @@ using Event = StockportWebapp.Models.Event;
 
 namespace StockportWebapp.Utils
 {
-    public class CalendarHelper 
+    public class CalendarHelper
     {
         private readonly ITimeProvider _timeProvider;
 
@@ -38,7 +37,7 @@ namespace StockportWebapp.Utils
             return serializer.SerializeToString(calendar);
         }
 
-       public string GetCalendarUrl(Event eventItem, string currentUrl, string calendarType)
+        public string GetCalendarUrl(Event eventItem, string currentUrl, string calendarType)
         {
             string url = "";
             var startDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.StartTime);

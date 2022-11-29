@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Http;

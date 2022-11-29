@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
@@ -55,7 +53,7 @@ namespace StockportWebapp.ContentFactory
 
             if (regex.Matches(awsDocuments).Count() > 0)
                 return true;
-            
+
             return false;
         }
     }

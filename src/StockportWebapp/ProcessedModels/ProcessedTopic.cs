@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.ProcessedModels
@@ -14,7 +12,7 @@ namespace StockportWebapp.ProcessedModels
         private IEnumerable<SubItem> _topSubItems;
         public string BackgroundImage { get; }
         public TriviaSection TriviaSection { get; init; }
-        public string Summary { get; }            
+        public string Summary { get; }
         public string Teaser { get; }
         public string MetaDescription { get; }
         public string Icon { get; }
@@ -40,7 +38,7 @@ namespace StockportWebapp.ProcessedModels
         public ProcessedTopic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
             string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner,
-            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, 
+            string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner,
             string eventCategory)
         {
             Name = name;

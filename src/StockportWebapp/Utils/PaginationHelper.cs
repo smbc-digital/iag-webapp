@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Routing;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
 {
@@ -43,7 +39,7 @@ namespace StockportWebapp.Utils
                 int currentPageIndex = CalculateCurrentPageIndex(currentPageNumber, totalPages);
                 result[currentPageIndex].IsCurrentPage = true;
             }
-            
+
             return result;
         }
 
@@ -213,7 +209,7 @@ namespace StockportWebapp.Utils
 
         public static int GetOtherPageSizeByCurrentPageSize(int maxItemsPerPage, int totalItems, int defaultPageSize)
         {
-            if(maxItemsPerPage == defaultPageSize && totalItems < 60)
+            if (maxItemsPerPage == defaultPageSize && totalItems < 60)
             {
                 return 60;
             }

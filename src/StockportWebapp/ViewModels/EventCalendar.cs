@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -12,9 +9,9 @@ namespace StockportWebapp.ViewModels
     public class EventCalendar
     {
         [Display(Name = "Start date")]
-        [DataType(DataType.Date)]       
+        [DataType(DataType.Date)]
         public DateTime? DateFrom { get; set; }
-        
+
         [Display(Name = "End date")]
         [DataType(DataType.Date)]
         [EndDateLaterThanStartDateValidation("DateFrom", "End date should be on or after the start date")]

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 using StockportWebapp.Extensions;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -10,7 +8,7 @@ namespace StockportWebapp.Repositories
 {
     public interface IDocumentsRepository : IBaseRepository
     {
-       Task<Document> GetSecureDocument(string assetId, string groupSlug);
+        Task<Document> GetSecureDocument(string assetId, string groupSlug);
     }
 
     public class DocumentsRepository : BaseRepository, IDocumentsRepository
@@ -21,7 +19,7 @@ namespace StockportWebapp.Repositories
         private readonly ILoggedInHelper _loggedInHelper;
         private readonly ILogger<BaseRepository> _logger;
 
-        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple, ILoggedInHelper loggedInHelper, ILogger<BaseRepository> logger) : base (httpClient, config, logger)
+        public DocumentsRepository(IHttpClient httpClient, IApplicationConfiguration config, IUrlGeneratorSimple urlGeneratorSimple, ILoggedInHelper loggedInHelper, ILogger<BaseRepository> logger) : base(httpClient, config, logger)
         {
             _httpClient = httpClient;
             _config = config;
@@ -41,7 +39,7 @@ namespace StockportWebapp.Repositories
                 _logger.LogWarning($"Document {assetId} was requested, but the user wasn't logged in");
                 return null;
             }
-            
+
             AddHeader("jwtCookie", loggedInPerson.rawCookie);
             return await GetResponseAsync<Document>(url);
         }

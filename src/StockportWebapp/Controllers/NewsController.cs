@@ -1,9 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+﻿using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -45,14 +41,14 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/news")]
-        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery]int page, [FromQuery]int pageSize)
+        public async Task<IActionResult> Index(NewsroomViewModel model, [FromQuery] int page, [FromQuery] int pageSize)
         {
             if (model.DateFrom == null && model.DateTo == null && string.IsNullOrEmpty(model.DateRange))
             {
                 if (ModelState["DateTo"] != null && ModelState["DateTo"].Errors.Count > 0) ModelState["DateTo"].Errors.Clear();
                 if (ModelState["DateFrom"] != null && ModelState["DateFrom"].Errors.Count > 0) ModelState["DateFrom"].Errors.Clear();
             }
-            
+
             var queries = new List<Query>();
             if (!string.IsNullOrEmpty(model.Tag)) queries.Add(new Query("tag", model.Tag));
             if (!string.IsNullOrEmpty(model.Category)) queries.Add(new Query("Category", model.Category));
@@ -65,15 +61,15 @@ namespace StockportWebapp.Controllers
                 return httpResponse;
 
             var newsRoom = httpResponse.Content as Newsroom;
-            
+
             var urlSetting = _config.GetEmailAlertsNewSubscriberUrl(_businessId.ToString());
 
             model.AddQueryUrl(new QueryUrl(Url?.ActionContext.RouteData.Values, Request?.Query));
             _filteredUrl.SetQueryUrl(model.CurrentUrl);
             model.AddFilteredUrl(_filteredUrl);
 
-            DoPagination(newsRoom, model, page ,pageSize);
-          
+            DoPagination(newsRoom, model, page, pageSize);
+
             model.AddNews(newsRoom);
             model.AddUrlSetting(urlSetting, model.Newsroom.EmailAlertsTopicId);
 
@@ -98,7 +94,7 @@ namespace StockportWebapp.Controllers
 
                 finalResult = View(newsViewModel);
             }
-            
+
             return finalResult;
         }
 

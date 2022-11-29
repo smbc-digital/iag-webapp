@@ -14,13 +14,13 @@ namespace StockportWebapp.ContentFactory
         private MarkdownWrapper _markdownWrapper;
 
 
-        public StartPageFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper,IDynamicTagParser<Alert> alertsInlineTagParser)
+        public StartPageFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IDynamicTagParser<Alert> alertsInlineTagParser)
         {
             _tagParserContainer = tagParserContainer;
             _markdownWrapper = markdownWrapper;
             _alertsInlineTagParser = alertsInlineTagParser;
         }
-            
+
 
         public virtual ProcessedStartPage Build(StartPage startPage)
         {
@@ -32,7 +32,7 @@ namespace StockportWebapp.ContentFactory
             upperBody = _alertsInlineTagParser.Parse(upperBody, startPage.AlertsInline);
 
 
-            
+
             return new ProcessedStartPage(
             startPage.Slug,
             startPage.Title,

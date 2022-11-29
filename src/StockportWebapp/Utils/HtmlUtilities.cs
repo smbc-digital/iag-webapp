@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AngleSharp.Extensions;
+﻿using AngleSharp.Extensions;
 using AngleSharp.Parser.Html;
 
 namespace StockportWebapp.Utils

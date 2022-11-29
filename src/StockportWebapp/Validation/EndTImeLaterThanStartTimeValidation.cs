@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace StockportWebapp.Validation
@@ -18,17 +17,17 @@ namespace StockportWebapp.Validation
         {
 
             var containerType = validationContext.ObjectInstance.GetType();
-            var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance) ;
-            
-            var extensionValue = field.GetValue(validationContext.ObjectInstance);
-            var startTime = extensionValue as DateTime?;  
+            var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
 
-            if(!startTime.HasValue)
+            var extensionValue = field.GetValue(validationContext.ObjectInstance);
+            var startTime = extensionValue as DateTime?;
+
+            if (!startTime.HasValue)
                 return new ValidationResult("Should enter valid Start Time");
 
             if (value == null) return ValidationResult.Success;
             var endTime = value as DateTime?;
-            if(!endTime.HasValue)
+            if (!endTime.HasValue)
                 return new ValidationResult("Should enter valid End Time");
 
             if (endTime.Value > startTime.Value)

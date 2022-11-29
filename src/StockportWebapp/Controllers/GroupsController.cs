@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using ReverseMarkdown;
 using StockportWebapp.Config;
@@ -416,7 +410,7 @@ namespace StockportWebapp.Controllers
 
             return View("Confirmation", viewmodel);
         }
-      
+
         [Route("/groups/manage/{slug}/users")]
         [ServiceFilter(typeof(GroupAuthorisation))]
         public async Task<IActionResult> Users(string slug, LoggedInPerson loggedInPerson)

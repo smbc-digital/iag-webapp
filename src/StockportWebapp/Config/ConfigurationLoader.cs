@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-
-namespace StockportWebapp.Config
+﻿namespace StockportWebapp.Config
 {
     public class ConfigurationLoader
     {

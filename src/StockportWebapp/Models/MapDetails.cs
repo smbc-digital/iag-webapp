@@ -3,7 +3,7 @@
 
     public class MapDetails
     {
-      public  string AccessibleTransportLink;
-      public MapPosition MapPosition;
+        public string AccessibleTransportLink;
+        public MapPosition MapPosition;
     }
 }

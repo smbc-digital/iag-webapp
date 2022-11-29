@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.ViewModels
@@ -23,7 +21,7 @@ namespace StockportWebapp.ViewModels
         {
             return PrivacyNotice.ParentTopic.SecondaryItems.Any() || PrivacyNotice.ParentTopic.TertiaryItems.Any();
         }
-        
+
         public IEnumerable<SubItem> SidebarSubItems(out bool hasMoreButton)
         {
             var parentTopic = PrivacyNotice.ParentTopic;

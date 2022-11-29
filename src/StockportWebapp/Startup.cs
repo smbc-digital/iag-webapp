@@ -1,11 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
+﻿using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
@@ -125,7 +118,8 @@ namespace StockportWebapp
 
         private static void HandleFaviconRequests(IApplicationBuilder app)
         {
-            app.Run(context => {
+            app.Run(context =>
+            {
                 string defaultFaviconPath = "/assets/images/ui-images/sg/favicon.ico";
                 if (context.Request.Headers.TryGetValue("BUSINESS-ID", out StringValues idFromHeader))
                 {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using StockportWebapp.Enums;
 using StockportWebapp.Models;
@@ -14,7 +13,7 @@ namespace StockportWebapp.Validation
         {
             _paymentSubmissionType = paymentSubmissionType;
         }
-        
+
         private static readonly Dictionary<EPaymentReferenceValidation, string> ValidatorsRegex = new Dictionary<EPaymentReferenceValidation, string>
         {
             { EPaymentReferenceValidation.FPN, @"^(\d{5})$" },
@@ -35,10 +34,10 @@ namespace StockportWebapp.Validation
 
         private ValidationResult ProcessPayment(object value, ValidationContext validationContext)
         {
-            var paymentSubmission = validationContext.ObjectInstance as PaymentSubmission;;
+            var paymentSubmission = validationContext.ObjectInstance as PaymentSubmission; ;
 
             if (paymentSubmission?.Payment != null)
-               return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
+                return ValidateReference(value, paymentSubmission.Payment.ReferenceValidation);
 
             return ValidationResult.Success;
         }
@@ -57,7 +56,7 @@ namespace StockportWebapp.Validation
         {
             if (referenceValidation == EPaymentReferenceValidation.None)
                 return ValidationResult.Success;
-                
+
             var reference = value as string;
 
             if (reference == null)
@@ -65,8 +64,8 @@ namespace StockportWebapp.Validation
 
             var isValid = Regex.IsMatch(reference, ValidatorsRegex[referenceValidation]);
 
-            return !isValid 
-                ? new ValidationResult("Check the reference number and try again") 
+            return !isValid
+                ? new ValidationResult("Check the reference number and try again")
                 : ValidationResult.Success;
         }
     }

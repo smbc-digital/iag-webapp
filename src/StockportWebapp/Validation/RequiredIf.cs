@@ -27,8 +27,8 @@ namespace StockportWebapp.Validation
                     return new ValidationResult(_errorMessage);
                 }
             }
-                return ValidationResult.Success;
-   
+
+            return ValidationResult.Success;
         }
     }
 }

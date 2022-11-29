@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
 namespace StockportWebapp.Services
@@ -23,7 +20,7 @@ namespace StockportWebapp.Services
 
         public async Task<List<News>> GetNewsByLimit(int limit)
         {
-            var response =  await _newsRepository.GetLatest<List<News>>(limit);
+            var response = await _newsRepository.GetLatest<List<News>>(limit);
             return response.Content as List<News>;
         }
 

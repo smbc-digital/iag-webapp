@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.ViewModels
 {
     public class SIAViewModel
     {
-       
+
         public List<Photo> Photos { get; set; }
         public List<SIAArea> Areas { get; set; }
 
@@ -17,6 +16,6 @@ namespace StockportWebapp.ViewModels
 
         public List<AlbumInfo> Albums { get; set; }
 
-       
+
     }
 }

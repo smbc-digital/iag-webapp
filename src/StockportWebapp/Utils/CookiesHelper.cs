@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Microsoft.AspNetCore.Http;
+﻿using System.Reflection;
 using Newtonsoft.Json;
 
 namespace StockportWebapp.Utils
@@ -111,8 +107,8 @@ namespace StockportWebapp.Utils
         private Dictionary<string, List<string>> GetCookiesAsObject(string cookieType)
         {
             var cookies = httpContextAccessor.HttpContext.Request.Cookies[cookieType];
-            return !string.IsNullOrEmpty(cookies) 
-                ? JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies) 
+            return !string.IsNullOrEmpty(cookies)
+                ? JsonConvert.DeserializeObject<Dictionary<string, List<string>>>(cookies)
                 : new Dictionary<string, List<string>>();
         }
 

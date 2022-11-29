@@ -43,9 +43,9 @@ namespace StockportWebapp.Utils
                    || source == "'unsafe-eval'"
                    || source == "https:"
                    || source == "data:"
-				   || source == "wss:"
-				   || source == "http:"
-				   || source.StartsWith("*.");
+                   || source == "wss:"
+                   || source == "http:"
+                   || source.StartsWith("*.");
         }
 
         private void AddSourceWithBothHttpAndHttpsForSafari9(string source)

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using System.Net;
 
 namespace StockportWebapp.Http
 {
@@ -29,10 +24,11 @@ namespace StockportWebapp.Http
             }
             catch (AggregateException ae)
             {
-                ae.Handle(ex => {
+                ae.Handle(ex =>
+                {
                     bool handle = ex is HttpRequestException;
                     if (handle)
-                        _logger.LogError(0,ex, "Failed to get the requested resource: ");
+                        _logger.LogError(0, ex, "Failed to get the requested resource: ");
                     return handle;
                 });
             }
@@ -51,7 +47,8 @@ namespace StockportWebapp.Http
             }
             catch (AggregateException ae)
             {
-                ae.Handle(ex => {
+                ae.Handle(ex =>
+                {
                     bool handle = ex is HttpRequestException;
                     if (handle)
                         _logger.LogError(0, ex, "Failed to post the requested resource: ");
@@ -74,7 +71,8 @@ namespace StockportWebapp.Http
             }
             catch (AggregateException ae)
             {
-                ae.Handle(ex => {
+                ae.Handle(ex =>
+                {
                     bool handle = ex is HttpRequestException;
                     if (handle)
                         _logger.LogError(0, ex, "Failed to post the requested resource: ");
@@ -97,7 +95,8 @@ namespace StockportWebapp.Http
             }
             catch (AggregateException ae)
             {
-                ae.Handle(ex => {
+                ae.Handle(ex =>
+                {
                     bool handle = ex is HttpRequestException;
                     if (handle)
                         _logger.LogError(0, ex, "Failed to post the requested resource: ");
@@ -120,7 +119,8 @@ namespace StockportWebapp.Http
             }
             catch (AggregateException ae)
             {
-                ae.Handle(ex => {
+                ae.Handle(ex =>
+                {
                     bool handle = ex is HttpRequestException;
                     if (handle)
                         _logger.LogError(0, ex, "Failed to post the requested resource: ");
@@ -143,7 +143,8 @@ namespace StockportWebapp.Http
             }
             catch (AggregateException ae)
             {
-                ae.Handle(ex => {
+                ae.Handle(ex =>
+                {
                     bool handle = ex is HttpRequestException;
                     if (handle)
                         _logger.LogError(0, ex, "Failed to post the requested resource: ");

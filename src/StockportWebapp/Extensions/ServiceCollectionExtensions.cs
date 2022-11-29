@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using AngleSharp.Parser.Html;
 using Markdig;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Builders;
 using StockportWebapp.Config;
@@ -203,11 +196,11 @@ namespace StockportWebapp.Extensions
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
             services.AddTransient<IStockportApiEventsService>(p => new StockportApiEventsService(p.GetService<IStockportApiRepository>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<IEventFactory>()));
             services.AddTransient<IGroupsService>(p => new GroupsService(p.GetService<IContentApiRepository>(), p.GetService<IProcessedContentRepository>(), p.GetService<IHttpEmailClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<ILogger<GroupsService>>(), p.GetService<IStockportApiRepository>(), p.GetService<BusinessId>()));
-            services.AddTransient<IProfileService>(p => new 
+            services.AddTransient<IProfileService>(p => new
                 ProfileService(
-                    p.GetService<IRepository>(), 
-                    p.GetService<ISimpleTagParserContainer>(), 
-                    p.GetService<MarkdownWrapper>(), 
+                    p.GetService<IRepository>(),
+                    p.GetService<ISimpleTagParserContainer>(),
+                    p.GetService<MarkdownWrapper>(),
                     p.GetService<IDynamicTagParser<Alert>>(),
                     p.GetService<ITriviaFactory>(),
                     p.GetService<IDynamicTagParser<InlineQuote>>()));
@@ -244,7 +237,7 @@ namespace StockportWebapp.Extensions
             services.AddTransient<ITopicRepository>(
               p =>
                   new TopicRepository(p.GetService<TopicFactory>(), p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),
-                      p.GetService<IApplicationConfiguration>(),p.GetService<UrlGeneratorSimple>()));
+                      p.GetService<IApplicationConfiguration>(), p.GetService<UrlGeneratorSimple>()));
             services.AddTransient<IDocumentPageRepository>(
                 p =>
                     new DocumentPageRepository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(),

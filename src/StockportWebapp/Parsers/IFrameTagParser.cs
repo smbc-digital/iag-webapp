@@ -25,7 +25,7 @@ namespace StockportWebapp.Parsers
 
             return $"<iframe {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
         }
-        
+
         public IFrameTagParser()
         {
             _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);

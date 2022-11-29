@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 
@@ -45,8 +44,8 @@ namespace StockportWebapp.Controllers
                 url = url.Substring(0, url.Length - 1);
             }
 
-            return businessIdLegacyUrlRedirects.ContainsKey(url) 
-                ? businessIdLegacyUrlRedirects[url] 
+            return businessIdLegacyUrlRedirects.ContainsKey(url)
+                ? businessIdLegacyUrlRedirects[url]
                 : GetWildcardShortUrlMatch(businessIdLegacyUrlRedirects, url);
         }
 
@@ -59,8 +58,8 @@ namespace StockportWebapp.Controllers
         {
             if (string.IsNullOrWhiteSpace(url)) return string.Empty;
 
-            return businessIdLegacyUrlRedirects.ContainsKey(ConcatWithWildcard(url)) 
-                ? businessIdLegacyUrlRedirects[ConcatWithWildcard(url)] 
+            return businessIdLegacyUrlRedirects.ContainsKey(ConcatWithWildcard(url))
+                ? businessIdLegacyUrlRedirects[ConcatWithWildcard(url)]
                 : GetWildcardShortUrlMatch(businessIdLegacyUrlRedirects, GetShortenedUrl(url));
         }
 

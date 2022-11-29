@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.Utils;
+﻿using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {

@@ -1,7 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.Utils
@@ -44,7 +41,7 @@ namespace StockportWebapp.Utils
             {
                 _logger.LogWarning($"Exception thrown in GroupAuthorisation, {ex.Message}");
             }
-            
+
             return person;
         }
 

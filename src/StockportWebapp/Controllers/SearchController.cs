@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
 
@@ -28,7 +27,8 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/searchResults")]
-        public async Task<IActionResult> SearchResults(string query) {
+        public async Task<IActionResult> SearchResults(string query)
+        {
             ViewData["Title"] = "Search results";
             return View();
         }

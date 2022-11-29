@@ -15,15 +15,14 @@ namespace StockportWebapp.ContentFactory
     {
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly ISimpleTagParserContainer _tagParserContainer;
-//        private readonly IDynamicTagParser<Profile> _profileTagParser;
+        //private readonly IDynamicTagParser<Profile> _profileTagParser;
         private readonly IDynamicTagParser<Document> _documentTagParser;
-//        private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
-//        private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
-//        private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
+        //private readonly IDynamicTagParser<Alert> _alertsInlineTagParser;
+        //private readonly IDynamicTagParser<S3BucketSearch> _searchTagParser;
+        //private readonly IDynamicTagParser<PrivacyNotice> _privacyNoticeTagParser;
         private readonly IRepository _repository;
 
-
-        public ContactUsCategoryFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, 
+        public ContactUsCategoryFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper,
             IDynamicTagParser<Document> documentTagParser, IRepository repository)
         {
             _tagParserContainer = tagParserContainer;

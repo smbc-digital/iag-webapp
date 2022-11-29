@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Microsoft.AspNetCore.Http;
-using MimeKit;
+﻿using MimeKit;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -72,7 +68,7 @@ namespace StockportWebapp.Builders
                     body.Attachments.Add(FileHelper.GetFileNameFromPath(file), file.OpenReadStream());
                 }
             }
-            
+
             return body;
         }
     }

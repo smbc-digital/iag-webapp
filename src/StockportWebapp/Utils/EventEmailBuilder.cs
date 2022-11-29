@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+﻿using System.Net;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Emails.Models;

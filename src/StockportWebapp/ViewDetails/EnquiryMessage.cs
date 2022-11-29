@@ -12,7 +12,7 @@ namespace StockportWebapp.ViewDetails
         [StringLength(500, ErrorMessage = "Too many characters")]
         public string Message { get; set; }
 
-        public EnquiryMessage (string message)
+        public EnquiryMessage(string message)
         {
             Message = message;
         }

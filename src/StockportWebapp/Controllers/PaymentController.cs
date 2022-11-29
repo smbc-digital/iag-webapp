@@ -1,8 +1,5 @@
-﻿using System;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
 using StockportWebapp.Http;
@@ -111,10 +108,10 @@ namespace StockportWebapp.Controllers
 
         [Route("/payment/{slug}/result")]
         [Route("/service-pay-payment/{slug}/result")]
-        public async Task<IActionResult> Success([FromRoute]string slug, [FromQuery]string callingAppTxnRef, [FromQuery] string responseCode)
+        public async Task<IActionResult> Success([FromRoute] string slug, [FromQuery] string callingAppTxnRef, [FromQuery] string responseCode)
         {
             var pathIsServicePay = Request.Path.Value.Contains("service-pay-payment");
-            
+
             var response = pathIsServicePay ? await _repository.Get<ServicePayPayment>(slug) : await _repository.Get<Payment>(slug);
 
             if (!response.IsSuccessful())

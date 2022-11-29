@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
@@ -72,7 +69,6 @@ namespace StockportWebapp.Validation
             {
                 AddModelError(context, "Invalid reCaptcha");
             }
-            
         }
     }
 

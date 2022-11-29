@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Razor.TagHelpers;
 using HtmlString = Microsoft.AspNetCore.Html.HtmlString;
 
 namespace StockportTagHelpers

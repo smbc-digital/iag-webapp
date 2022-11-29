@@ -4,7 +4,8 @@
     {
         public static string GetPermisison(string letter)
         {
-            switch (letter.ToUpper()) {
+            switch (letter.ToUpper())
+            {
                 case "A":
                     return "Administrator";
                 case "E":

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
-using Microsoft.AspNetCore.Builder;
+﻿using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 
 namespace StockportWebapp.Extensions

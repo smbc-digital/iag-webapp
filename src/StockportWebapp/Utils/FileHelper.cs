@@ -1,7 +1,4 @@
-﻿using System.IO;
-using Microsoft.AspNetCore.Http;
-
-namespace StockportWebapp.Utils
+﻿namespace StockportWebapp.Utils
 {
     public static class FileHelper
     {

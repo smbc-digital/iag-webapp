@@ -1,12 +1,11 @@
-﻿using System;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class Query : IEquatable<Query>
     {
         private string _value;
 
-        public string Value {
+        public string Value
+        {
             get
             {
                 return _value;
@@ -22,7 +21,7 @@ namespace StockportWebapp.Models
         public Query(string name, string value)
         {
             Value = value;
-            Name = name;            
+            Name = name;
         }
 
         public bool Equals(Query other)
@@ -36,7 +35,7 @@ namespace StockportWebapp.Models
         {
             unchecked
             {
-                return ((Name?.GetHashCode() ?? 0)*397) ^ (Value?.GetHashCode() ?? 0);
+                return ((Name?.GetHashCode() ?? 0) * 397) ^ (Value?.GetHashCode() ?? 0);
             }
         }
 

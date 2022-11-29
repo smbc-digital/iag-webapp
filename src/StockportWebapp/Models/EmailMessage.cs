@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class EmailMessage
     {
@@ -23,7 +20,7 @@ namespace StockportWebapp.Models
             FromEmail = fromEmail;
         }
 
-         public EmailMessage(string subject, string body, string fromEmail, string toEmail, List<IFormFile> attachments)
+        public EmailMessage(string subject, string body, string fromEmail, string toEmail, List<IFormFile> attachments)
         {
             Subject = subject;
             Body = body;

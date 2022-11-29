@@ -20,7 +20,7 @@ namespace StockportWebapp.ContentFactory
 
         public virtual ProcessedNews Build(News news)
         {
-            var body = _simpleTagParserContainer.ParseAll(news.Body,news.Title);
+            var body = _simpleTagParserContainer.ParseAll(news.Body, news.Title);
             body = _markdownWrapper.ConvertToHtml(body ?? "");
             body = _documentTagParser.Parse(body, news.Documents);
 

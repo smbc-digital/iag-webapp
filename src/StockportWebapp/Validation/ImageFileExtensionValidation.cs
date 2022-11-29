@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 
 namespace StockportWebapp.Validation
 {
@@ -13,7 +12,7 @@ namespace StockportWebapp.Validation
 
             if (file.FileName.ToLower().EndsWith(".jpg") || file.FileName.ToLower().EndsWith(".jpeg") || file.FileName.ToLower().EndsWith(".png") || file.FileName.ToLower().EndsWith(".gif"))
                 return ValidationResult.Success;
-         
+
             return new ValidationResult("Should be an png, jpg or gif file");
         }
     }

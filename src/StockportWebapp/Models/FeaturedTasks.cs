@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class FeaturedTasks
     {
@@ -9,7 +7,7 @@ namespace StockportWebapp.Models
         public FeaturedTasks(List<SubItem> subItems)
         {
             SubItems = subItems;
-        } 
+        }
     }
 
     public class NullFeaturedTasks : FeaturedTasks

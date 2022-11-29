@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace StockportWebapp.Exceptions
+﻿namespace StockportWebapp.Exceptions
 {
     public class GroupsServiceException : Exception
     {

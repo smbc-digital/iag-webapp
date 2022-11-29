@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
@@ -11,7 +10,7 @@ namespace StockportWebapp.ContentFactory
         private readonly ISimpleTagParserContainer _tagParserContainer;
         private readonly MarkdownWrapper _markdownWrapper;
         private readonly IContactUsCategoryFactory _contactUsCategoryFactory;
-        
+
 
         public ContactUsAreaFactory(ISimpleTagParserContainer tagParserContainer, MarkdownWrapper markdownWrapper, IContactUsCategoryFactory contactUsCategoryFactory)
         {

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
@@ -52,9 +45,9 @@ namespace StockportWebapp.Services
         (
             IContentApiRepository contentApiRepository,
             IProcessedContentRepository processedContentRepository,
-            IHttpEmailClient emailClient, 
-            IApplicationConfiguration configuration, 
-            ILogger<GroupsService> logger, 
+            IHttpEmailClient emailClient,
+            IApplicationConfiguration configuration,
+            ILogger<GroupsService> logger,
             IStockportApiRepository stockportApiRepository,
             BusinessId businessId
         )
@@ -220,7 +213,7 @@ namespace StockportWebapp.Services
                     .Select(viewModel => new EmailMessage(subject, _emailClient.GenerateEmailBodyFromHtml(viewModel, template), fromAddress, viewModel.EmailAddress, string.Empty, null))
                     .ToList()
                     .ForEach(entity => _emailClient.SendEmailToService(entity));
-    
+
             }
         }
 
@@ -248,8 +241,8 @@ namespace StockportWebapp.Services
                 new EmailMessage(
                     $"A new image has been uploaded for the group {groupName} for approval",
                     $"A new image has been uploaded for the group {groupName} and is waiting for approval. <br /><br /> <a href='http://www.stockport.gov.uk/groups/{slug}'>Link to {groupName}</a>",
-                    _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString(), 
-                    _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(), 
+                    _configuration.GetEmailEmailFrom(_businessId.ToString()).ToString(),
+                    _configuration.GetGroupSubmissionEmail(_businessId.ToString()).ToString(),
                     new List<IFormFile> { file }
                     )
             );

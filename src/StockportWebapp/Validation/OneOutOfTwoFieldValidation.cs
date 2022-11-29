@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace StockportWebapp.Validation
@@ -14,7 +13,7 @@ namespace StockportWebapp.Validation
             _otherPropertyName1 = propertyName1;
             _otherPropertyName2 = propertyName2;
         }
-      
+
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var containerType1 = validationContext.ObjectInstance.GetType();
@@ -34,6 +33,6 @@ namespace StockportWebapp.Validation
                 return new ValidationResult("The group email address or group phone number field is required");
             }
             return ValidationResult.Success;
-        }               
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace StockportWebapp.Validation
@@ -18,9 +17,9 @@ namespace StockportWebapp.Validation
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var containerType = validationContext.ObjectInstance.GetType();
-            var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance) ;
+            var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
             var extensionValue = field?.GetValue(validationContext.ObjectInstance);
-            var startDate = extensionValue as DateTime?; 
+            var startDate = extensionValue as DateTime?;
 
             var date = value as DateTime?;
             if (!date.HasValue || !startDate.HasValue) return ValidationResult.Success;

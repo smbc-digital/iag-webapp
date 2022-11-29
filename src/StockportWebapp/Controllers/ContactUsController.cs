@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
@@ -33,7 +27,7 @@ namespace StockportWebapp.Controllers
             _emailClient = emailClient;
             _logger = logger;
             _applicationConfiguration = applicationConfiguration;
-            _businessId = businessId;           
+            _businessId = businessId;
         }
 
         [Route("/contact-us")]
@@ -67,8 +61,10 @@ namespace StockportWebapp.Controllers
                 var successCode = await SendEmailMessage(contactUsDetails);
                 if (IsSuccess(successCode))
                 {
-                    return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel {
-                        ReturnUrl = redirectUrl, ButtonText = contactUsModel.SuccessPageButtonText
+                    return RedirectToAction("ThankYouMessage", new ThankYouMessageViewModel
+                    {
+                        ReturnUrl = redirectUrl,
+                        ButtonText = contactUsModel.SuccessPageButtonText
                     });
                 }
             }

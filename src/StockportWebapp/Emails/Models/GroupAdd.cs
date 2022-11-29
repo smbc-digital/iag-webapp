@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StockportWebapp.Emails.Models
+﻿namespace StockportWebapp.Emails.Models
 {
     public class GroupAdd
     {
@@ -12,14 +10,14 @@ namespace StockportWebapp.Emails.Models
         public string Website { get; set; }
         public string Phone { get; set; }
         public string Image { get; set; }
-        public bool VolunteeringNeeded{ get; set; }
+        public bool VolunteeringNeeded { get; set; }
         public string VolunteeringText { get; set; }
         public string Facebook { get; set; }
         public string Twitter { get; set; }
         public List<string> Suitabilities { get; set; }
         public List<string> AgeRanges { get; set; }
         public bool DonationsNeeded { get; set; }
-        public string  DonationsText { get; set; }
-        public string  DonationUrl { get; set; }
+        public string DonationsText { get; set; }
+        public string DonationUrl { get; set; }
     }
 }

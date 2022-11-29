@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StockportWebapp.ProcessedModels;
+﻿using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.ContentFactory.Trivia

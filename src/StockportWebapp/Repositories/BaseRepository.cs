@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using System.Net;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
@@ -49,7 +44,7 @@ namespace StockportWebapp.Repositories
         {
             try
             {
-                var response = await _httpClient.PutAsync(url, httpContent,_authenticationHeaders);
+                var response = await _httpClient.PutAsync(url, httpContent, _authenticationHeaders);
                 return (HttpStatusCode)Enum.Parse(typeof(HttpStatusCode), response.StatusCode.ToString());
             }
             catch (Exception ex)

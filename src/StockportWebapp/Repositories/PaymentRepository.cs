@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 
 namespace StockportWebapp.Repositories
 {

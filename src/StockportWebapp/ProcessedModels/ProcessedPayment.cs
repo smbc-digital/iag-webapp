@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.Enums;
+﻿using StockportWebapp.Enums;
 using StockportWebapp.Models;
 
 namespace StockportWebapp.ProcessedModels
 {
     public class ProcessedPayment : IProcessedContentType
     {
-       
         public readonly string Title;
         public string Slug;
         public readonly string Teaser;
@@ -24,7 +22,8 @@ namespace StockportWebapp.ProcessedModels
         public readonly string PaymentDescription;
         public readonly IEnumerable<Alert> Alerts;
         public ProcessedPayment()
-        { }
+        {
+        }
 
         public ProcessedPayment(string title, string slug, string teaser, string description, string paymentDetailsText,
             string referenceLabel, string fund, string glCodeCostCentreNumber, List<Crumb> breadcrumbs,

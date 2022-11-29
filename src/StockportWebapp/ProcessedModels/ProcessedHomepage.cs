@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebapp.ProcessedModels
 {
@@ -12,7 +11,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly IEnumerable<SubItem> FeaturedTopics;
         public readonly IEnumerable<Alert> Alerts;
         public readonly IEnumerable<CarouselContent> CarouselContents;
-        public readonly string BackgroundImage;  
+        public readonly string BackgroundImage;
         public readonly string FreeText;
         public readonly Group FeaturedGroupItem;
         public readonly string EventCategory;

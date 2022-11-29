@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class Homepage
     {

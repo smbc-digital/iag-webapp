@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-
-namespace StockportWebapp.Middleware
+﻿namespace StockportWebapp.Middleware
 {
     public class SecurityHeaderMiddleware
     {

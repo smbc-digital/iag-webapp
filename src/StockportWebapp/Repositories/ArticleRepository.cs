@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Amazon.S3;
+﻿using Amazon.S3;
 using Amazon.S3.Model;
 using StockportWebapp.Config;
 using StockportWebapp.ContentFactory;
@@ -37,7 +34,7 @@ namespace StockportWebapp.Repositories
             authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
         }
 
-        public async Task<HttpResponse> Get(string slug = "", string searchTerm = "", string searchFolder = "", string currentUrl= "")
+        public async Task<HttpResponse> Get(string slug = "", string searchTerm = "", string searchFolder = "", string currentUrl = "")
         {
             var url = _urlGenerator.UrlFor<Article>(slug);
             var httpResponse = await _httpClient.Get(url, authenticationHeaders);
@@ -62,7 +59,7 @@ namespace StockportWebapp.Repositories
             {
                 bucket.Files = await ListFilesIn(searchFolder, searchTerm);
             }
-            article.S3Bucket = bucket;            
+            article.S3Bucket = bucket;
 
             var processedModel = _articleFactory.Build(article);
 
