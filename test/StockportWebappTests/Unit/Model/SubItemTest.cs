@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.Model
@@ -30,6 +29,6 @@ namespace StockportWebappTests_Unit.Unit.Model
 
             Assert.Equal("/start/slug", subItem.NavigationLink);
         }
-        
+
     }
 }

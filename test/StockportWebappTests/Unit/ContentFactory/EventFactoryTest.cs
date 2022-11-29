@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
@@ -40,9 +38,24 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _factory = new EventFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
-            _event = new Event { Title = Title,  Slug = Slug,  Teaser = Teaser,  ImageUrl = Image,  ThumbnailImageUrl = ThumbnailImage, Description = Description, Fee = Fee, Location = Location,
-                                 SubmittedBy = SubmittedBy, EventDate = _eventDate, StartTime = StartTime,
-                                 EndTime = EndTime, Breadcrumbs = _breadcrumbs, BookingInformation = _bookingInformation, Alerts = _alerts};
+            _event = new Event
+            {
+                Title = Title,
+                Slug = Slug,
+                Teaser = Teaser,
+                ImageUrl = Image,
+                ThumbnailImageUrl = ThumbnailImage,
+                Description = Description,
+                Fee = Fee,
+                Location = Location,
+                SubmittedBy = SubmittedBy,
+                EventDate = _eventDate,
+                StartTime = StartTime,
+                EndTime = EndTime,
+                Breadcrumbs = _breadcrumbs,
+                BookingInformation = _bookingInformation,
+                Alerts = _alerts
+            };
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(Description);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
@@ -67,7 +80,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             result.Alerts[0].Title.Should().Be(_alerts[0].Title);
             result.Alerts[0].Body.Should().Be(_alerts[0].Body);
             result.Alerts[0].Severity.Should().Be(_alerts[0].Severity);
-            result.Alerts[0].SubHeading.Should().Be(_alerts[0].SubHeading); 
+            result.Alerts[0].SubHeading.Should().Be(_alerts[0].SubHeading);
             result.Alerts[0].SunriseDate.Should().Be(_alerts[0].SunriseDate);
             result.Alerts[0].SunsetDate.Should().Be(_alerts[0].SunsetDate);
         }
@@ -78,7 +91,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _factory.Build(_event);
 
             _markdownWrapper.Verify(o => o.ConvertToHtml(Description), Times.Once);
-        }   
+        }
 
         [Fact]
         public void ShouldPassTitleToAllSimpleParsersWhenBuilding()

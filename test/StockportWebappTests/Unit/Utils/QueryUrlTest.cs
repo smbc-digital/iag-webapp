@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Utils;
 using Xunit;
@@ -15,10 +12,10 @@ namespace StockportWebappTests_Unit.Unit.Utils
         {
             var startingRoutesDictionary = new RouteValueDictionary() { { "name", "value" }, { "a-key", "a-value" } };
             var mockQueryCollection = new Mock<IQueryCollection>();
-            mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName"});
+            mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName" });
             mockQueryCollection.Setup(o => o["queryName"]).Returns("queryValue");
 
-            var routesDictionary = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).AddQueriesToUrl(new Dictionary<string, string> { { "newQueryName", "newQueryValue"} });
+            var routesDictionary = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).AddQueriesToUrl(new Dictionary<string, string> { { "newQueryName", "newQueryValue" } });
 
             routesDictionary.Count.Should().Be(4);
             routesDictionary["name"].Should().Be("value");
@@ -34,7 +31,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
             var mockQueryCollection = new Mock<IQueryCollection>();
             mockQueryCollection.Setup(o => o.Keys).Returns(new List<string>() { "queryName", "anotherQueryName" });
 
-            var routesDictionary = new  QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).WithoutQueryParam(new List<string>() { "queryName" , "anotherQueryName" });
+            var routesDictionary = new QueryUrl(startingRoutesDictionary, mockQueryCollection.Object).WithoutQueryParam(new List<string>() { "queryName", "anotherQueryName" });
 
             routesDictionary.Count.Should().Be(1);
             routesDictionary["name"].Should().Be("value");

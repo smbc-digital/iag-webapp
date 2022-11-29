@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 using Moq;
@@ -76,7 +72,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
             _applicationConfigurationMock.Setup(c => c.GetMyAccountUrl()).Returns("www.loginpage.com");
             _loggedInHelper.Setup(o => o.GetLoggedInPerson()).Returns(new LoggedInPerson() { Email = "test", Name = "test" });
 
-            var groupAuthorisation = new GroupAuthorisation( _applicationConfigurationMock.Object, _loggedInHelper.Object);
+            var groupAuthorisation = new GroupAuthorisation(_applicationConfigurationMock.Object, _loggedInHelper.Object);
 
             // Act
             groupAuthorisation.OnActionExecuting(_actionExcecutingContext);

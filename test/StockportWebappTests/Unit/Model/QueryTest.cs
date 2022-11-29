@@ -13,7 +13,7 @@ namespace StockportWebappTests_Unit.Unit.Model
             const string value = "value";
             var query = new Query(name, value);
 
-            query.ToString().Should().Be($"{ name }={ value }");
+            query.ToString().Should().Be($"{name}={value}");
         }
 
         [Fact]

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Gateways.Response;
@@ -18,7 +13,6 @@ using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using Xunit;
-using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -32,21 +26,21 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly Mock<IObjectModelValidator> _objectValidator = new Mock<IObjectModelValidator>();
 
         private readonly ProcessedPayment _processedPayment = new ProcessedPayment(
-            "title", 
-            "slug", 
-            "teaser", 
-            "description", 
-            "payDetailsText", 
-            "refLabel", 
-            "fund", 
-            "glCode", 
-            null, 
-            EPaymentReferenceValidation.None, 
-            "meta", 
-            "returnUrl", 
-            "catId", 
-            "accRef", 
-            "payDesc", 
+            "title",
+            "slug",
+            "teaser",
+            "description",
+            "payDetailsText",
+            "refLabel",
+            "fund",
+            "glCode",
+            null,
+            EPaymentReferenceValidation.None,
+            "meta",
+            "returnUrl",
+            "catId",
+            "accRef",
+            "payDesc",
             null);
 
         private readonly ProcessedServicePayPayment _processedServicePayPayment = new ProcessedServicePayPayment(
@@ -88,7 +82,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             _fakeRepository
                 .Setup(_ => _.Get<ServicePayPayment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-                .ReturnsAsync(new HttpResponse((int) HttpStatusCode.OK, _processedServicePayPayment, string.Empty));
+                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, _processedServicePayPayment, string.Empty));
 
             _configuration
                 .Setup(_ => _.GetSection(It.IsAny<string>()))
@@ -115,7 +109,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task DetailShouldReturnAPaymentWithProcessedBody()
         {
-            var view = await _paymentController.Detail("slug", null, null) as ViewResult;;
+            var view = await _paymentController.Detail("slug", null, null) as ViewResult; ;
             var model = view.ViewData.Model as PaymentSubmission;
             model.Payment.Should().Be(_processedPayment);
         }
@@ -127,7 +121,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.Get<Payment>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = await _paymentController.Detail("not-found-slug", null, null) as HttpResponse;;
+            var response = await _paymentController.Detail("not-found-slug", null, null) as HttpResponse; ;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
@@ -139,11 +133,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
                 .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
                 {
-                    StatusCode = HttpStatusCode.OK, 
+                    StatusCode = HttpStatusCode.OK,
                     ResponseContent = new CreateImmediateBasketResponse
                     {
-                        BasketReference = "testRef", 
-                        BasketToken = "testBasketToken", 
+                        BasketReference = "testRef",
+                        BasketToken = "testBasketToken",
                         ResponseCode = "00000"
                     }
                 });
@@ -189,11 +183,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
                 .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
                 {
-                    StatusCode = HttpStatusCode.BadRequest, 
+                    StatusCode = HttpStatusCode.BadRequest,
                     ResponseContent = new CreateImmediateBasketResponse
                     {
-                        BasketReference = "testRef", 
-                        BasketToken = "testBasketToken", 
+                        BasketReference = "testRef",
+                        BasketToken = "testBasketToken",
                         ResponseCode = "00000"
                     }
                 });
@@ -219,11 +213,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
                 .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
                 {
-                    StatusCode = HttpStatusCode.BadRequest, 
+                    StatusCode = HttpStatusCode.BadRequest,
                     ResponseContent = new CreateImmediateBasketResponse
                     {
-                        BasketReference = "testRef", 
-                        BasketToken = "testBasketToken", 
+                        BasketReference = "testRef",
+                        BasketToken = "testBasketToken",
                         ResponseCode = "00001"
                     }
                 });
@@ -248,11 +242,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.CreateImmediateBasketAsync(It.IsAny<CreateImmediateBasketRequest>()))
                 .ReturnsAsync(new HttpResponse<CreateImmediateBasketResponse>
                 {
-                    StatusCode = HttpStatusCode.OK, 
+                    StatusCode = HttpStatusCode.OK,
                     ResponseContent = new CreateImmediateBasketResponse
                     {
-                        BasketReference = "testRef", 
-                        BasketToken = "testBasketToken", 
+                        BasketReference = "testRef",
+                        BasketToken = "testBasketToken",
                         ResponseCode = "00000"
                     }
                 });
@@ -298,7 +292,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var result = await _paymentController.Success("slug", "callingAppTxnRef", "00000") as HttpResponse;
 
-            result.Should().BeEquivalentTo(new HttpResponse((int) HttpStatusCode.NotFound, _processedPayment, "Not found"));
+            result.Should().BeEquivalentTo(new HttpResponse((int)HttpStatusCode.NotFound, _processedPayment, "Not found"));
         }
 
         [Theory]
@@ -308,7 +302,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [InlineData(false, "99999", "Failure")]
         public async Task SuccessShouldReturnCorrectErrorView(bool isServicePayPaymentPath, string responseCode, string expectedView)
         {
-            var result = isServicePayPaymentPath 
+            var result = isServicePayPaymentPath
                 ? await _paymentControllerWithServicePayPaymentPath.Success("slug", "callingAppTxnRef", responseCode) as ViewResult
                 : await _paymentController.Success("slug", "callingAppTxnRef", responseCode) as ViewResult;
 

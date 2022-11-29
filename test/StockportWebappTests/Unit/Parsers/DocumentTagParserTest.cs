@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;

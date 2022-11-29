@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
@@ -16,7 +12,6 @@ using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using StockportWebappTests_Unit.Builders;
 using Xunit;
-using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -49,17 +44,33 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         public EventsControllerTest()
         {
-            _eventsItem = new Event { Title = "title", Slug = "slug", Teaser = "teaser", ImageUrl = "image.png", ThumbnailImageUrl = "image.png", Description = "description", Fee = "fee",
-                                      Location = "location", SubmittedBy = "submittedBy", EventDate = new DateTime(2016, 12, 30, 00, 00, 00), StartTime = "startTime", EndTime = "endTime", Breadcrumbs = new List<Crumb>(),Group = _group, Alerts = _alerts};
-            _categories = new List<string> {"Category 1", "Category 2"};
+            _eventsItem = new Event
+            {
+                Title = "title",
+                Slug = "slug",
+                Teaser = "teaser",
+                ImageUrl = "image.png",
+                ThumbnailImageUrl = "image.png",
+                Description = "description",
+                Fee = "fee",
+                Location = "location",
+                SubmittedBy = "submittedBy",
+                EventDate = new DateTime(2016, 12, 30, 00, 00, 00),
+                StartTime = "startTime",
+                EndTime = "endTime",
+                Breadcrumbs = new List<Crumb>(),
+                Group = _group,
+                Alerts = _alerts
+            };
+            _categories = new List<string> { "Category 1", "Category 2" };
 
             var mockTime = new Mock<ITimeProvider>();
             _datetimeCalculator = new DateCalculator(mockTime.Object);
 
             var eventsCalendar = new EventResponse(new List<Event> { _eventsItem }, _categories);
-            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description", 
-                "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime", 
-                new List<Crumb>(), _categories, new MapDetails(), "booking information",_group, _alerts,string.Empty,string.Empty);
+            var eventItem = new ProcessedEvents("title", "slug", "teaser", "image.png", "image.png", "description",
+                "fee", "location", "submittedBy", new DateTime(2016, 12, 30, 00, 00, 00), "startTime", "endTime",
+                new List<Crumb>(), _categories, new MapDetails(), "booking information", _group, _alerts, string.Empty, string.Empty);
 
             var eventHomepage = new EventHomepage(new List<Alert>()) { Categories = new List<EventCategory>(), Rows = new List<EventHomepageRow>() };
 
@@ -102,7 +113,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
-                _eventEmailBuilder, 
+                _eventEmailBuilder,
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
@@ -129,7 +140,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task ShouldReturnEventsCalendarWhenQueryStringIsPassed()
         {
-            var actionResponse = await _controller.Index(new EventCalendar { FromSearch = true, Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate"}, 1, 12) as ViewResult;
+            var actionResponse = await _controller.Index(new EventCalendar { FromSearch = true, Category = "test", DateFrom = new DateTime(2017, 01, 20), DateTo = new DateTime(2017, 01, 25), DateRange = "customdate" }, 1, 12) as ViewResult;
 
             var events = actionResponse.ViewData.Model as EventCalendar;
             events.Events.Count.Should().Be(1);
@@ -139,13 +150,13 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             events.Category.Should().Be("test");
             events.DateFrom.Should().Be(new DateTime(2017, 01, 20));
             events.DateTo.Should().Be(new DateTime(2017, 01, 25));
-            events.DateRange.Should().Be("customdate");            
+            events.DateRange.Should().Be("customdate");
         }
 
         [Fact]
         public async Task ShouldReturnEvent()
         {
-            var actionResponse = await _controller.Detail("event-of-the-century") as ViewResult;;
+            var actionResponse = await _controller.Detail("event-of-the-century") as ViewResult; ;
 
             var model = actionResponse.ViewData.Model as ProcessedEvents;
 
@@ -183,7 +194,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task ItReturns404NotFoundForEvent()
         {
-            var actionResponse = await _controller.Detail("404-event") as HttpResponse;;
+            var actionResponse = await _controller.Detail("404-event") as HttpResponse; ;
 
             actionResponse.StatusCode.Should().Be(404);
         }
@@ -205,7 +216,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var model = new EventCalendar() { FromSearch = true };
 
             // Act
-            var actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult;;
+            var actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult; ;
 
             // Assert
             var viewModel = actionResponse.ViewData.Model as EventCalendar;
@@ -270,9 +281,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var eventsCalendar = new EventResponse(listOfEvents, categories);
             var eventListResponse = new HttpResponse(200, eventsCalendar, "");
 
-            _repository.Setup(o => 
+            _repository.Setup(o =>
                 o.Get<EventResponse>(
-                    It.IsAny<string>(), 
+                    It.IsAny<string>(),
                     It.IsAny<List<Query>>()))
                 .ReturnsAsync(eventListResponse);
 

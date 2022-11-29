@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.FeatureToggling;
@@ -18,7 +15,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly ContactUsAreaController _controller;
         private readonly Mock<IProcessedContentRepository> _repository = new Mock<IProcessedContentRepository>();
         private readonly FeatureToggles _featureToggles;
-        private readonly Mock<ILogger<ContactUsAreaController>> _logger= new Mock<ILogger<ContactUsAreaController>>();
+        private readonly Mock<ILogger<ContactUsAreaController>> _logger = new Mock<ILogger<ContactUsAreaController>>();
 
         public ContactUsAreaControllerTests()
         {
@@ -33,13 +30,13 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task Index_ShouldCallRepository_AndReturnView()
         {
             // Setup 
-            var contactUsArea = new ContactUsArea("title", 
-                "contact-us-area", 
-                "contact-us-area", 
-                new List<Crumb>(), 
-                new List<Alert>(), 
+            var contactUsArea = new ContactUsArea("title",
+                "contact-us-area",
+                "contact-us-area",
+                new List<Crumb>(),
+                new List<Alert>(),
                 new List<SubItem>(),
-                new List<ContactUsCategory>(), 
+                new List<ContactUsCategory>(),
                 "insetTextTitle",
                 "InsetTextBody",
                 string.Empty);
@@ -53,7 +50,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             // Assert
             Assert.IsType<ViewResult>(result);
-            
+
             _repository.Verify(_ => _.Get<ContactUsArea>(It.IsAny<string>(), null), Times.Once);
         }
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.Http;
@@ -42,7 +38,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             // Arrange
             _mockRepository
                 .Setup(_ => _.GetLatest<List<News>>(It.IsAny<int>()))
-                .ReturnsAsync(HttpResponse.Successful(200, new List<News>{ exampleNews }));
+                .ReturnsAsync(HttpResponse.Successful(200, new List<News> { exampleNews }));
             _mockRepository
                 .Setup(_ => _.Get<CommsHomepage>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(HttpResponse.Successful(200, new CommsHomepage()));

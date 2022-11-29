@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Http;
@@ -24,7 +21,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
         private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
         private readonly List<Profile> _emptyProfiles = new List<Profile>();
-        private readonly List<Document> _emptyDocuments = new List<Document>();      
+        private readonly List<Document> _emptyDocuments = new List<Document>();
         private const string Title = "title";
         private const string Slug = "slug";
         private const string Body = "body";
@@ -53,7 +50,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _sectionFactory = new Mock<ISectionFactory>();
-            _documentTagParser= new Mock<IDynamicTagParser<Document>>();
+            _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
             _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
@@ -69,10 +66,10 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             var sections = new List<Section>() { _sectionOne, _sectionTwo };
             _breadcrumbs = new List<Crumb>();
 
-             _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _updatedAt, _hideLastUpdated);
+            _article = new Article(Title, Slug, Body, Teaser, MetaDescription, sections, Icon, BackgroundImage, Image, _breadcrumbs, _emptyProfiles, _emptyDocuments, _emptyAlertsInline, _updatedAt, _hideLastUpdated);
 
-            _sectionFactory.Setup(o => o.Build(_sectionOne,_article.Title)).Returns(_processedSectionOne);
-            _sectionFactory.Setup(o => o.Build(_sectionTwo,_article.Title)).Returns(_processedSectionTwo);
+            _sectionFactory.Setup(o => o.Build(_sectionOne, _article.Title)).Returns(_processedSectionOne);
+            _sectionFactory.Setup(o => o.Build(_sectionTwo, _article.Title)).Returns(_processedSectionTwo);
             _repository.Setup(o => o.Get<List<PrivacyNotice>>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(new HttpResponse(200, new List<PrivacyNotice>(), ""));
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
@@ -107,8 +104,8 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _articleFactory.Build(_article);
 
-            _sectionFactory.Verify(o => o.Build(_sectionOne,_article.Title), Times.Once);
-            _sectionFactory.Verify(o => o.Build(_sectionTwo,_article.Title), Times.Once);
+            _sectionFactory.Verify(o => o.Build(_sectionOne, _article.Title), Times.Once);
+            _sectionFactory.Verify(o => o.Build(_sectionTwo, _article.Title), Times.Once);
         }
 
         [Fact]
@@ -150,7 +147,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _article.Body = "{{PrivacyNotice:Births,deathsandmarriages}}";
             _articleFactory.Build(_article);
 
-            _privacyNoticeTagParser.Verify(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>()),Times.Once);
+            _privacyNoticeTagParser.Verify(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>()), Times.Once);
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;

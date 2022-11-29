@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using FluentAssertions;
 using StockportWebapp.Enums;
 using StockportWebapp.Models;
@@ -140,24 +139,24 @@ namespace StockportWebappTests_Unit.Unit.Validation
         public void Should_ReturnSuccess_ForValidReference_ForServicePayPayment(EPaymentReferenceValidation referenceValidation, string reference)
         {
             // Arrange
-             var paymentSubmission = new ServicePayPaymentSubmissionViewModel
+            var paymentSubmission = new ServicePayPaymentSubmissionViewModel
             {
                 Amount = "10.00",
                 Payment = new ProcessedServicePayPayment("paymentTitle",
-                    "paymentSlug",
-                    "paymentTeaser",
-                    "paymentDescription",
-                    "paymentDetailsText",
-                    "paymentReference",
-                    new List<Crumb>(),
-                    referenceValidation,
-                    "metaDescription",
-                    "returnUrl",
-                    "catalogueId",
-                    "accountReference",
-                    "paymentDescription",
-                    new List<Alert>(),
-                    "12"),
+                   "paymentSlug",
+                   "paymentTeaser",
+                   "paymentDescription",
+                   "paymentDetailsText",
+                   "paymentReference",
+                   new List<Crumb>(),
+                   referenceValidation,
+                   "metaDescription",
+                   "returnUrl",
+                   "catalogueId",
+                   "accountReference",
+                   "paymentDescription",
+                   new List<Alert>(),
+                   "12"),
                 Reference = reference,
                 Name = "name",
                 EmailAddress = "test@email.com"

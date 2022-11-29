@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
 using StockportWebapp.Config;

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Net;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using Amazon.SimpleEmail.Model;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Builders;
@@ -97,7 +91,7 @@ namespace StockportWebappTests_Unit.Unit.AmazonSES
             var httpStatusCode = await emailClient.SendEmailToService(emailMessage);
 
             httpStatusCode.Should().Be(HttpStatusCode.OK);
-            _amazonEmailService.Verify(_ => _.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()),Times.Never);
+            _amazonEmailService.Verify(_ => _.SendRawEmailAsync(It.IsAny<SendRawEmailRequest>(), It.IsAny<CancellationToken>()), Times.Never);
         }
     }
 }

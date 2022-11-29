@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
 using StockportWebapp.Config;
 using StockportWebapp.Utils;
 using Xunit;
@@ -14,8 +12,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
         {
             var hostHelper = new HostHelper(new CurrentEnvironment("local"));
             var httpContext = new DefaultHttpContext();
-                httpContext.Request.Host = new HostString("host");
-                httpContext.Request.Scheme = "http";
+            httpContext.Request.Host = new HostString("host");
+            httpContext.Request.Scheme = "http";
 
             var request = httpContext.Request;
             hostHelper.GetHost(request).Should().Be("http://host");
@@ -41,7 +39,7 @@ namespace StockportWebappTests_Unit.Unit.Helpers
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Host = new HostString("host.com");
             httpContext.Request.Scheme = "http";
-            httpContext.Request.QueryString = QueryString.Create(new List<KeyValuePair<string,string>>
+            httpContext.Request.QueryString = QueryString.Create(new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("test", "test")
             });

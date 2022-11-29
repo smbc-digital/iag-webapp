@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
 using Markdig.Helpers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Controllers;
@@ -17,14 +12,13 @@ using StockportWebapp.RSS;
 using StockportWebapp.Utils;
 using StockportWebapp.ViewModels;
 using Xunit;
-using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
     public class NewsControllerTest
     {
-        private  NewsController _controller;
-        private  Mock<IRepository> _repository = new Mock<IRepository>();
+        private NewsController _controller;
+        private Mock<IRepository> _repository = new Mock<IRepository>();
 
         private readonly Mock<IProcessedContentRepository> _processedContentRepository =
             new Mock<IProcessedContentRepository>();
@@ -76,7 +70,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             _newsRoom = new Newsroom(_listOfNewsItems, new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
                 new List<string>(), new List<DateTime>());
-            _emptyNewsRoom = new Newsroom(new List<News>(),  new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
+            _emptyNewsRoom = new Newsroom(new List<News>(), new OrderedList<Alert>(), EmailAlertsOn, EmailAlertsTopicId,
               new List<string>(), new List<DateTime>());
 
             // setup responses (with mock data)
@@ -255,7 +249,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                _config.Object,
                new BusinessId(BusinessId),
                _filteredUrl.Object
-           );          
+           );
 
             var response = await _controller.Rss() as ContentResult;
 
@@ -270,7 +264,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task ShouldReturnNewsItemsForADateFilter()
         {
             _repository.Setup(o =>
-                    o.Get<Newsroom>("",It.Is<List<Query>>(l =>l.Contains(new Query("DateFrom", "2016-10-01")) && l.Contains(new Query("DateTo", "2016-11-01"))
+                    o.Get<Newsroom>("", It.Is<List<Query>>(l => l.Contains(new Query("DateFrom", "2016-10-01")) && l.Contains(new Query("DateTo", "2016-11-01"))
                     )
                 )
             ).ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _newsRoom));
@@ -293,10 +287,10 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task ShouldReturnEmptyPaginationForNoNewsItems()
         {
-             var emptyRepository = new Mock<IRepository>();
+            var emptyRepository = new Mock<IRepository>();
 
-              emptyRepository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-                .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyNewsRoom));
+            emptyRepository.Setup(o => o.Get<Newsroom>(It.IsAny<string>(), It.IsAny<List<Query>>()))
+              .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, _emptyNewsRoom));
 
             var controller = new NewsController(
                emptyRepository.Object,
@@ -318,11 +312,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                        }, 1, MaxNumberOfItemsPerPage) as ViewResult;
 
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
-            
-                        viewModel.Newsroom.News.Count.Should().Be(0);
-//            viewModel.Pagination.TotalItems.Should().Be(0);
+
+            viewModel.Newsroom.News.Count.Should().Be(0);
+            //            viewModel.Pagination.TotalItems.Should().Be(0);
         }
-        
+
         [Theory]
         [InlineData(1, 1, 1, 1)]
         [InlineData(2, 1, 2, 1)]
@@ -341,7 +335,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             // Act
             var actionResponse = await controller.Index(model, requestedPageNumber, MaxNumberOfItemsPerPage) as ViewResult;
-            
+
             // Assert
             var viewModel = actionResponse.ViewData.Model as NewsroomViewModel;
             var newsroom = viewModel.Newsroom;
@@ -403,18 +397,18 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             List<News> listofNewsItems = BuildNewsList(numNewsItems);
 
             var bigNewsRoom = new Newsroom(
-                listofNewsItems, 
+                listofNewsItems,
                 new OrderedList<Alert>(),
-                EmailAlertsOn, 
-                EmailAlertsTopicId, 
-                new List<string>(), 
+                EmailAlertsOn,
+                EmailAlertsTopicId,
+                new List<string>(),
                 new List<DateTime>());
 
             _repository.Setup(o =>
                 o.Get<Newsroom>(
                     It.IsAny<string>(),
                     It.IsAny<List<Query>>()))
-                .ReturnsAsync(HttpResponse.Successful((int) HttpStatusCode.OK, bigNewsRoom));
+                .ReturnsAsync(HttpResponse.Successful((int)HttpStatusCode.OK, bigNewsRoom));
 
             var controller = new NewsController(
                 _repository.Object,
@@ -442,11 +436,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                     "image.jpg",
                     "thumbnail.jpg",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                    new List<Crumb>(), 
-                    new DateTime(2015, 9, 10), 
-                    new DateTime(2015, 9, 20), 
+                    new List<Crumb>(),
+                    new DateTime(2015, 9, 10),
+                    new DateTime(2015, 9, 20),
                     new List<Alert>(),
-                    new List<string>(), 
+                    new List<string>(),
                     new List<Document>());
 
                 listofNewsItems.Add(NewsItem);

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Models;
@@ -19,7 +17,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
 
         public AlertsInlineTagParserTest()
         {
-            _featureToggles =  new FeatureToggles(){SemanticInlineAlert = true};
+            _featureToggles = new FeatureToggles() { SemanticInlineAlert = true };
             _viewRenderer = new Mock<IViewRender>();
             _mockLogger = new Mock<ILogger<Alert>>();
             _alertsInlineTagParser = new AlertsInlineTagParser(_viewRenderer.Object, _mockLogger.Object, _featureToggles);

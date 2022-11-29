@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 using Castle.Components.DictionaryAdapter;
 using FluentAssertions;
 using StockportWebapp.Models;
@@ -40,15 +37,15 @@ namespace StockportWebappTests_Unit.Unit.RSS
         {
             var news = new List<News>();
             news.Add(new News("news item  1", "item1-slug", "teser-item1", "purpose", "", "", "", new List<Crumb>(),
-                new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(),new List<Document>()));
+                new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
             news.Add(new News("news item  2", "item2-slug", "teser-item2", "purpose", "", "", "", new List<Crumb>(),
-                new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(),new List<Document>()));
+                new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
             news.Add(new News("news item  3", "item3-slug", "teser-item3", "purpose", "", "", "", new List<Crumb>(),
                 new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
             news.Add(new News("news item  4", "item4-slug", "teser-item4", "purpose", "", "", "", new List<Crumb>(),
                 new DateTime(2016, 09, 01), new DateTime(2016, 09, 01), new List<Alert>(), new List<string>(), new List<Document>()));
 
-            var rss = _rssFeedFactory.BuildRssFeed(news,"http://localhost", "email@test.email");
+            var rss = _rssFeedFactory.BuildRssFeed(news, "http://localhost", "email@test.email");
 
             var xmlDoc = XDocument.Parse(rss);
 
@@ -66,9 +63,17 @@ namespace StockportWebappTests_Unit.Unit.RSS
             var events = new List<Event>();
             events.Add(new Event()
             {
-                Title = "Event Title 1", Description = "Event Description 1", Categories = new List<string>(),
-                Breadcrumbs = new EditableList<Crumb>(), EventDate = new DateTime(2017,08,01),StartTime = "10:00",
-                EndTime="17:00",Fee="Free",Documents = new List<Document>(),Location = "Stoppford House", UpdatedAt = new DateTime(2017,12,25)
+                Title = "Event Title 1",
+                Description = "Event Description 1",
+                Categories = new List<string>(),
+                Breadcrumbs = new EditableList<Crumb>(),
+                EventDate = new DateTime(2017, 08, 01),
+                StartTime = "10:00",
+                EndTime = "17:00",
+                Fee = "Free",
+                Documents = new List<Document>(),
+                Location = "Stoppford House",
+                UpdatedAt = new DateTime(2017, 12, 25)
             });
             events.Add(new Event()
             {
@@ -126,7 +131,7 @@ namespace StockportWebappTests_Unit.Unit.RSS
             itemNodes.ToList()[0].Element("title").Value.Should().Be("Event Title 4");
             itemNodes.ToList()[0].Element("pubDate").Value.Should().Contain("25 Dec 2017");
             itemNodes.Count().Should().Be(4);
-            
+
         }
     }
 }

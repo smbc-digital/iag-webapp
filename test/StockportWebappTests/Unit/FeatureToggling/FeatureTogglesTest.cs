@@ -1,6 +1,4 @@
-﻿using System.IO;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Microsoft.Extensions.PlatformAbstractions;
 using Moq;
 using StockportWebapp.FeatureToggling;
@@ -28,7 +26,7 @@ namespace StockportWebappTests_Unit.Unit.FeatureToggling
             var featureTogglesReader = _featureTogglesReader;
 
             var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
-            
+
             featureToggles.SearchBar.Should().Be(true);
         }
 

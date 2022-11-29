@@ -68,6 +68,6 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _factory.Build(_group);
 
             _tagParserContainer.Verify(o => o.ParseAll(_group.Description, _group.Name, It.IsAny<bool>()), Times.Once);
-        }      
+        }
     }
 }

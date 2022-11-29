@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -35,20 +31,20 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _controller = new TopicController(_repository.Object, config.Object, new BusinessId(BusinessId), _stockportApiService.Object);
             _eventBanner = new EventBanner("title", "teaser", "icon", "link");
         }
-        
+
         public SubItem CreateASubItem(int i)
         {
             return new SubItem("sub-topic" + i, "Title" + i, "Teaser", "Icon", "topic", "image", new List<SubItem>());
         }
-    
+
         [Fact]
         public async Task GivenNavigateToTopicReturnsTopicWithExpectedProperties()
-        {           
+        {
             var subItems = Enumerable.Range(0, 1).Select(CreateASubItem).ToList();
 
             var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>\n", "Teaser", "metaDescription", "Icon", "Image", "Image", subItems, null, null,
                 new List<Crumb>(), new List<Alert>(), true, "test-id", _eventBanner, "expandingLinkText",
-                new List<ExpandingLinkBox>{ new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true,
+                new List<ExpandingLinkBox> { new ExpandingLinkBox("title", subItems) }, string.Empty, string.Empty, true,
                 new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
 
             const string slug = "healthy-living";
@@ -101,7 +97,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             subItem.Teaser.Should().Be("Teaser");
             subItem.Icon.Should().Be("Icon");
             result.EmailAlerts.Should().Be(true);
-            result.EmailAlertsTopicId.Should().Be("test-id");       
+            result.EmailAlertsTopicId.Should().Be("test-id");
         }
 
         [Fact]

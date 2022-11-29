@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
@@ -29,7 +27,7 @@ namespace StockportWebappTests_Unit.Unit.Services
         {
             //Arrange
             var builtEvents = new List<Event>();
-            builtEvents.Add(new EventBuilder().Build());       
+            builtEvents.Add(new EventBuilder().Build());
 
             //Mock
             _stockportApiRepository.Setup(x => x.GetResponse<List<Event>>("by-category", It.IsAny<List<Query>>())).ReturnsAsync(builtEvents);

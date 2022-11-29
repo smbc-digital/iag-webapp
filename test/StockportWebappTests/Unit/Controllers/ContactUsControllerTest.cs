@@ -1,12 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
@@ -16,7 +11,6 @@ using StockportWebapp.Repositories;
 using StockportWebapp.ViewDetails;
 using StockportWebapp.ViewModels;
 using Xunit;
-using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -39,7 +33,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly string _title = "Title";
         private Mock<IRepository> _repository = new Mock<IRepository>();
         private readonly ContactUsId _contactUsId;
-        
+
         public ContactUsControllerTest()
         {
             _mockEmailClient = new Mock<IHttpEmailClient>();
@@ -52,13 +46,13 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _businessId = new BusinessId("businessid");
 
             _contactUsId = new ContactUsId("name", "slug", "email", "test button text", "test return url");
-          
+
             _repository.Setup(o => o.Get<ContactUsId>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                .ReturnsAsync(HttpResponse.Successful(200, _contactUsId));
 
             _controller = new ContactUsController(_repository.Object, _mockEmailClient.Object, _mockLogger.Object, _configuration.Object, _businessId);
             _validContactDetails = new ContactUsDetails(_userName, _userEmail, _emailSubject,
-                _emailBody, _serviceEmails,_title);
+                _emailBody, _serviceEmails, _title);
 
             var request = new Mock<HttpRequest>();
             var context = new Mock<HttpContext>();
@@ -79,7 +73,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task DynamicContactUsPostShouldReturnARedirectActionIfFeatureToggleOn()
         {
-            var pageResult = await _controller.Contact(_validContactDetails) as RedirectResult;;
+            var pageResult = await _controller.Contact(_validContactDetails) as RedirectResult; ;
 
             pageResult.Url.Should().Contain("test return url");
         }
@@ -125,7 +119,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             _mockEmailClient.Setup(o => o.SendEmailToService(It.IsAny<EmailMessage>())).Returns(Task.FromResult(HttpStatusCode.BadRequest));
 
-            var pageResult = await _controller.Contact(_validContactDetails) as RedirectResult;;
+            var pageResult = await _controller.Contact(_validContactDetails) as RedirectResult; ;
 
             pageResult.Url.Should().Contain("message=We have been unable to process the request. Please try again later.");
         }
@@ -137,7 +131,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _controller.ModelState.AddModelError("Name", "an invalid name was provided");
             _controller.ModelState.AddModelError("Email", "an invalid email was provided");
 
-            var pageResult = await _controller.Contact(invalidDetails) as RedirectResult;;
+            var pageResult = await _controller.Contact(invalidDetails) as RedirectResult; ;
 
             pageResult.Url.Should().Contain("message=an invalid name was provided<br />an invalid email was provided<br />");
         }
@@ -150,7 +144,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 ReturnUrl = "this-is-a-referer"
             };
 
-            var pageResult = await _controller.ThankYouMessage(referer) as ViewResult;;
+            var pageResult = await _controller.ThankYouMessage(referer) as ViewResult; ;
 
             pageResult.Model.As<ThankYouMessageViewModel>().ReturnUrl.Should().Be(referer.ReturnUrl);
             pageResult.ViewName.Should().Be("ThankYouMessage");

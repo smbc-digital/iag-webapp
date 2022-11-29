@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using StockportWebapp.Http;
+﻿using StockportWebapp.Http;
 
 namespace StockportWebappTests_Unit.Unit.Http
 {
@@ -38,7 +34,7 @@ namespace StockportWebappTests_Unit.Unit.Http
 
         public void Return(HttpResponse response)
         {
-           if (!_responses.ContainsKey(_url)) _responses.Add(_url, response);
+            if (!_responses.ContainsKey(_url)) _responses.Add(_url, response);
         }
 
         public void ReturnPostAsync(HttpResponseMessage response)

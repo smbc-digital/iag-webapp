@@ -8,13 +8,13 @@ namespace StockportWebappTests_Unit.Unit.Utils
         [Fact]
         public void CSPWillContainDefaultSrcElement()
         {
-			// Arrange
+            // Arrange
             var cspBuilder = new ContentSecurityPolicyBuilder();
 
-			// Act
+            // Act
             var contentSecurityPolicy = cspBuilder.BuildPolicy();
 
-			// Assert
+            // Assert
             Assert.Contains("child-src", contentSecurityPolicy);
         }
 

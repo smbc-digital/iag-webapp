@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -80,6 +78,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             response.Should().BeOfType<NotFoundResult>();
             _repository.Verify(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null), Times.Never);
-        }     
+        }
     }
 }

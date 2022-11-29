@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
@@ -32,12 +31,12 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         public PaymentFactoryTest()
         {
             _markdownWrapper = new Mock<MarkdownWrapper>();
-            _tagParserContainer = new Mock<ISimpleTagParserContainer>();            
-            _factory = new  PaymentFactory(_tagParserContainer.Object, _markdownWrapper.Object);
+            _tagParserContainer = new Mock<ISimpleTagParserContainer>();
+            _factory = new PaymentFactory(_tagParserContainer.Object, _markdownWrapper.Object);
             _payment = new Payment()
             {
                 Title = Title,
-                Slug = Slug,                
+                Slug = Slug,
                 Description = Description,
                 PaymentDetailsText = PaymentDetailsText,
                 Fund = Fund,
@@ -48,7 +47,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             };
 
             _tagParserContainer.Setup(o => o.ParseAll(Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(Description);
-            _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);          
+            _markdownWrapper.Setup(o => o.ConvertToHtml(Description)).Returns(Description);
         }
 
         [Fact]

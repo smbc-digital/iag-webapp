@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -89,7 +85,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new HttpResponse(200, showcase, string.Empty));
 
-            var showcasePage = await _controller.Showcase(showcaseSlug) as ViewResult;;
+            var showcasePage = await _controller.Showcase(showcaseSlug) as ViewResult; ;
             var processedShowcase = showcasePage.Model as ProcessedShowcase;
 
             processedShowcase.Title.Should().Be("Test showcase");
@@ -111,7 +107,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = await _controller.Showcase("not-found-slug") as HttpResponse;;
+            var response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
@@ -123,7 +119,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Setup(_ => _.Get<Showcase>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-            var response = await _controller.Showcase("not-found-slug") as HttpResponse;;
+            var response = await _controller.Showcase("not-found-slug") as HttpResponse; ;
 
             response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }

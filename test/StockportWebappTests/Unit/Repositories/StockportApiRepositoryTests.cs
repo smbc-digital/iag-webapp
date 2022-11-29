@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
 using StockportWebapp.Config;
@@ -66,7 +64,7 @@ namespace StockportWebappTests_Unit.Unit.Repositories
                 .ReturnsAsync(new HttpResponse(200, seralisedEvents, string.Empty));
 
             // Act
-            var apiResponse = await stockportApiRepository.GetResponse<List<Event>>("slug", new List<Query>() { new Query("name","value")});
+            var apiResponse = await stockportApiRepository.GetResponse<List<Event>>("slug", new List<Query>() { new Query("name", "value") });
 
             // Assert
             apiResponse.Should().NotBeNull();

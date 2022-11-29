@@ -1,6 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
 using StockportWebapp.Exceptions;
@@ -22,7 +20,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         {
             var token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdGluZyBuYW1lIiwiZW1haWwiOiJ0ZXN0aW5nQGVtYWlsIn0.jLDZVRKDV94Nl2r-ya8XzZzzj-nx3gMh1C_A-J5XvKQ";
 
-            var encoding = new JwtDecoder(new GroupAuthenticationKeys() {Key = _secretKeyValid }, _logger.Object);
+            var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
 
             var person = encoding.Decode(token);
 

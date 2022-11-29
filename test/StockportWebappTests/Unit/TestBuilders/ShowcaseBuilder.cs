@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebappTests_Unit.Unit.TestBuilders
 {
@@ -48,7 +46,8 @@ namespace StockportWebappTests_Unit.Unit.TestBuilders
 
         public Showcase Build()
         {
-            return new Showcase { 
+            return new Showcase
+            {
                 Title = _title,
                 Slug = _slug,
                 Teaser = _teaser,

@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -21,8 +20,8 @@ namespace StockportWebappTests_Unit.Unit.Helpers
         [Fact]
         public void ShouldReturnCorrectCalendarUrlForEventWhenClickOnWindowsOrApple()
         {
-          // Arrange
-            var eventItem = new Event() { Slug = "test-slug", Description = "Test Description", EventDate = new DateTime(2017, 12, 12), EndTime = "17:00", StartTime = "14:00", Location = "location"};
+            // Arrange
+            var eventItem = new Event() { Slug = "test-slug", Description = "Test Description", EventDate = new DateTime(2017, 12, 12), EndTime = "17:00", StartTime = "14:00", Location = "location" };
             var eventUrl = "www.test.com/test-event";
             // Act
             string calenderUrl = _helper.GetIcsText(eventItem, eventUrl);

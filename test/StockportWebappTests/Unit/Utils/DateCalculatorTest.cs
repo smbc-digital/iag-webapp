@@ -1,5 +1,4 @@
-﻿using System;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -241,7 +240,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         [InlineData(31, EventFrequency.Monthly, 1)]
         [InlineData(31, EventFrequency.MonthlyDate, 1)]
         [InlineData(365, EventFrequency.Yearly, 1)]
-        public void  ShowReturnCorrectEndDateForReoccurringEvents(int daysHence, EventFrequency freq, int occurences)
+        public void ShowReturnCorrectEndDateForReoccurringEvents(int daysHence, EventFrequency freq, int occurences)
         {
             // Arrange
             var date = new DateTime(2017, 12, 25);

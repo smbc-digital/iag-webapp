@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Moq;
 using Newtonsoft.Json;
 using StockportWebapp.Models;
@@ -24,7 +21,8 @@ namespace StockportWebappTests_Unit.Unit.Utils
             }
         }
 
-        public string this[string key] {
+        public string this[string key]
+        {
             get
             {
                 if (_dictionary.ContainsKey(key))
