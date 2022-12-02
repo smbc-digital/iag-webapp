@@ -1,2 +1,2 @@
-﻿global using HttpResponse = StockportWebapp.Http.HttpResponse;
-global using StockportWebapp.Http;
+﻿global using StockportWebapp.Http;
+global using HttpResponse = StockportWebapp.Http.HttpResponse;

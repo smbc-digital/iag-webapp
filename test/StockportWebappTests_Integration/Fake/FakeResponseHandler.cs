@@ -17,7 +17,7 @@
             AssignRequestContent();
 
             if (!_fakeResponses.ContainsKey(request.RequestUri))
-                return await Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound) { RequestMessage = request });
+                return await Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.NotFound) { RequestMessage = request });
 
             var response = _fakeResponses[request.RequestUri];
             if (response.GetType() == typeof(HttpResponseMessage)) return (HttpResponseMessage)response;
