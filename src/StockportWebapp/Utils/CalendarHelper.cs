@@ -8,13 +8,6 @@ namespace StockportWebapp.Utils
 {
     public class CalendarHelper
     {
-        private readonly ITimeProvider _timeProvider;
-
-        public CalendarHelper(ITimeProvider timeProvider)
-        {
-            _timeProvider = timeProvider;
-        }
-
         public string GetIcsText(Event eventItem, string currentUrl)
         {
             var startDateWithTime = GetCombinedDateAndTime(eventItem.EventDate, eventItem.StartTime);

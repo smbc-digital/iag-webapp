@@ -2,7 +2,7 @@
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
-using AngleSharp.Parser.Html;
+using AngleSharp.Html.Parser;
 using Markdig;
 using Microsoft.AspNetCore.Mvc.Razor;
 using StockportWebapp.AmazonSES;
@@ -226,7 +226,7 @@ namespace StockportWebapp.Extensions
 
         public static IServiceCollection AddHelpers(this IServiceCollection services)
         {
-            services.AddSingleton(p => new CalendarHelper(p.GetService<ITimeProvider>()));
+            services.AddSingleton(p => new CalendarHelper());
             services.AddTransient<ICookiesHelper, CookiesHelper>();
             services.AddSingleton(p => new CookiesHelper(p.GetService<IHttpContextAccessor>()));
             services.AddTransient<IArticleRepository>(
