@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Microsoft.Extensions.PlatformAbstractions;
 using Moq;
 using StockportWebapp.FeatureToggling;
 using StockportWebappTests_Unit.Helpers;
@@ -12,10 +11,10 @@ namespace StockportWebappTests_Unit.Unit.FeatureToggling
     {
         private FeatureTogglesReader _featureTogglesReader;
         private static readonly Mock<ILogger<FeatureTogglesReader>> Logger = new Mock<ILogger<FeatureTogglesReader>>();
-        readonly string YamlFile = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+        readonly string YamlFile = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
             "..", "..", "..", "Unit", "FeatureToggling", "featureToggles.yml"));
 
-        readonly string invalidYamlFile = Path.GetFullPath(Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+        readonly string invalidYamlFile = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
             "..", "..", "..", "Unit", "FeatureToggling", "yamlWithSyntaxError.yml"));
 
         [Fact]
