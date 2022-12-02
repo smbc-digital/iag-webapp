@@ -61,7 +61,7 @@
                                         <div class="events-details-heading">
                                             <h3>Date and time</h3>
                                         </div>
-                                        @Model.EventDate.ToString("dddd dd MMMM yyyy") @DateTime.Parse(Model.StartTime).ToString("h:mm tt") - @DateTime.Parse(Model.EndTime).ToString("h:mm tt")
+                                        @Model.EventDate.ToString("dddd dd MMMM yyyy") @DateTime.Parse(Model.StartTime).ToString("h:mmtt").ToLower() - @DateTime.Parse(Model.EndTime).ToString("h:mmtt").ToLower()
                                     </div>
                                     <div class="clearfix"></div>
                                 </li>
