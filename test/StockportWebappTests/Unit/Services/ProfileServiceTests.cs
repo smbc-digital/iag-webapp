@@ -2,7 +2,6 @@
 using Moq;
 using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.FeatureToggling;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;

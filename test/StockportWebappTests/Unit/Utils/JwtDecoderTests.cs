@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using Moq;
-using Newtonsoft.Json;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -73,10 +72,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
 
             var encoding = new JwtDecoder(new GroupAuthenticationKeys() { Key = _secretKeyValid }, _logger.Object);
 
-            Exception ex = Assert.Throws<JsonReaderException>(() => encoding.Decode(token));
-
-            ex.Message.Should().Contain("Unexpected character encountered while parsing value");
-            LogTesting.Assert(_logger, LogLevel.Warning, $"JsonReaderException was thrown for jwt decoder for token {token}");
+            Exception ex = Assert.Throws<System.Text.Json.JsonException>(() => encoding.Decode(token));
         }
     }
 }

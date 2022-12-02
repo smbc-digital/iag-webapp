@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.FeatureToggling;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using Xunit;

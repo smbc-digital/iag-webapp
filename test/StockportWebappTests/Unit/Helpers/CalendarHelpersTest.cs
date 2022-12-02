@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
@@ -8,13 +7,11 @@ namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class CalendarHelperTest
     {
-        private Mock<ITimeProvider> timeProvider = new Mock<ITimeProvider>();
         private readonly CalendarHelper _helper;
 
         public CalendarHelperTest()
         {
-            timeProvider.Setup(t => t.Now()).Returns(new DateTime(2017, 7, 7));
-            _helper = new CalendarHelper(timeProvider.Object);
+            _helper = new CalendarHelper();
         }
 
         [Fact]
