@@ -1,5 +1,4 @@
-﻿using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
@@ -28,7 +27,7 @@ namespace StockportWebapp.Controllers
 
             var organisation = response.Content as ProcessedOrganisation;
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
             return View(organisation);
         }

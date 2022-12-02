@@ -1,5 +1,4 @@
-﻿using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -90,7 +89,7 @@ namespace StockportWebapp.Controllers
                 var latestNews = latestNewsResponse.Content as List<News>;
                 var newsViewModel = new NewsViewModel(response, latestNews);
 
-                ViewBag.CurrentUrl = Request?.GetUri();
+                ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
                 finalResult = View(newsViewModel);
             }

@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using System.Text;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using StockportWebapp.Config;
@@ -194,7 +193,7 @@ namespace StockportWebapp.Controllers
 
             var response = httpResponse.Content as ProcessedEvents;
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
             if (date is not null || date.Equals(DateTime.MinValue))
             {
@@ -228,7 +227,7 @@ namespace StockportWebapp.Controllers
 
             if (eventItem is null) return NotFound();
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
             if (date is not null || date.Equals(DateTime.MinValue))
             {
@@ -345,7 +344,7 @@ namespace StockportWebapp.Controllers
 
             if (type.Equals("windows") || type.Equals("apple"))
             {
-                byte[] calendarBytes = System.Text.Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
+                byte[] calendarBytes = Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
                 return File(calendarBytes, "text/calendar", slug + ".ics");
             }
 
