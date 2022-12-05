@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using StockportWebapp.Controllers;
 using StockportWebapp.Services;
 using Xunit;
@@ -22,7 +21,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             await healthcheckController.Index();
 
-            _healthCheckRepository.Verify(x=>x.Get(),Times.Once);
+            _healthCheckRepository.Verify(x => x.Get(), Times.Once);
         }
     }
 }

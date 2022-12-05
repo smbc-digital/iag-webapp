@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -30,7 +26,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         #region Models
 
-        private readonly List<string> _popularSearchTerms = new() {"popular", "search", "terms"};
+        private readonly List<string> _popularSearchTerms = new() { "popular", "search", "terms" };
         private readonly List<SubItem> _featuredTasks = new()
         {
             new SubItem("slug featuredTasks", "featured Tasks","teaser Featured Tasks", "fa fa-home", "", "image", new List<SubItem>())
@@ -268,7 +264,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .ReturnsAsync((Event)null);
 
             // Act
-            var indexPage =  await _controller.Index() as ViewResult;
+            var indexPage = await _controller.Index() as ViewResult;
             var response = indexPage.ViewData.Model as HomepageViewModel;
 
             // Assert
@@ -294,7 +290,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             // Arrange
             var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest", "meta description", _campaignBanner);
-            
+
             _homepageService.Setup(o => o.GetHomepage()).ReturnsAsync(homePageContent);
             _stockportApiService.Setup(o => o.GetEventsByCategory("unittest", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });
 
@@ -341,12 +337,12 @@ namespace StockportWebappTests_Unit.Unit.Controllers
                 .Returns(appSetting);
 
             // Act
-            var response = await _controller.EmailSubscribe(emailAddress, "") as StatusCodeResult;;
+            var response = await _controller.EmailSubscribe(emailAddress, "") as StatusCodeResult; ;
 
             // Assert
             Assert.Equal((int)HttpStatusCode.NotFound, response.StatusCode);
         }
 
-        
+
     }
 }

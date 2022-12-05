@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 using StockportWebapp;
 using StockportWebapp.AmazonSES;
-using StockportWebapp.Http;
 using StockportWebappTests_Integration.Fake;
 using StockportWebappTests_Integration.Helpers;
 using StockportWebappTests_Integration.Http;
@@ -33,8 +24,7 @@ namespace StockportWebappTests_Integration
             {
                 builder
                     .UseEnvironment("integrationtest")
-                    .UseContentRoot(Path.GetFullPath(Path.Combine(
-                        PlatformServices.Default.Application.ApplicationBasePath,
+                    .UseContentRoot(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
                         "..", "..", "..", "..", "..", "src", "StockportWebapp")))
                     .ConfigureTestServices(services =>
                     {
@@ -82,13 +72,13 @@ namespace StockportWebappTests_Integration
             };
             foreach (var url in urlsDict.Keys)
             {
-                var httpResponseMessage = new HttpResponseMessage {Content = new StringContent(urlsDict[url])};
+                var httpResponseMessage = new HttpResponseMessage { Content = new StringContent(urlsDict[url]) };
                 ResponseHandler.AddFakeResponse(url, httpResponseMessage);
             }
         }
     }
 
-    internal class FakeHttpClientFactory 
+    internal class FakeHttpClientFactory
     {
         public FakeHttpClient Client { get; }
 

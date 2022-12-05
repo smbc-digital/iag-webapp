@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StockportWebapp.Exceptions;
+﻿using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 
@@ -38,7 +36,7 @@ namespace StockportWebapp.ViewModels
 
         private ProcessedSection GetSectionOrThrowSectionNotFound(string sectionSlug)
         {
-            var section = Article.Sections.FirstOrDefault(x=> x.Slug == sectionSlug);
+            var section = Article.Sections.FirstOrDefault(x => x.Slug == sectionSlug);
 
             if (section == null)
             {
@@ -52,7 +50,7 @@ namespace StockportWebapp.ViewModels
             if (sections != null && sections.Any())
                 return sections.FirstOrDefault();
             return null;
-        }     
+        }
 
         public ProcessedSection NextSection()
         {

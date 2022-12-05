@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.FeatureToggling;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
@@ -38,8 +34,8 @@ namespace StockportWebappTests_Unit.Unit.Services
             _logger = new Mock<ILogger<Alert>>();
             _viewRender = new Mock<IViewRender>();
             _inlineQuoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
-            _alerts =  new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles(){SemanticInlineAlert = true} );
-            _service = new ProfileService(_repository.Object, _parser.Object,_markdownWrapper, _alerts, _triviaFactory.Object, _inlineQuoteTagParser.Object);
+            _alerts = new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles() { SemanticInlineAlert = true });
+            _service = new ProfileService(_repository.Object, _parser.Object, _markdownWrapper, _alerts, _triviaFactory.Object, _inlineQuoteTagParser.Object);
         }
 
         [Fact]

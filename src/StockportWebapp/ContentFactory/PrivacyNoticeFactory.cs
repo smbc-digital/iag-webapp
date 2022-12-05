@@ -15,7 +15,7 @@ namespace StockportWebapp.ContentFactory
 
         public virtual ProcessedPrivacyNotice Build(PrivacyNotice privacyNotice)
         {
-            var typeOfDataHtml = _markdownWrapper.ConvertToHtml(privacyNotice.TypeOfData); 
+            var typeOfDataHtml = _markdownWrapper.ConvertToHtml(privacyNotice.TypeOfData);
             var purposeHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Purpose);
             var externallySharedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.ExternallyShared);
             var obtainedHtml = _markdownWrapper.ConvertToHtml(privacyNotice.Obtained);

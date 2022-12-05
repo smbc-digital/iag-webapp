@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StockportWebapp.Models
@@ -83,7 +81,7 @@ namespace StockportWebapp.Models
 
         public string imgSrc { get; set; }
 
-        public IEnumerable<PhotoComment> Comments { get; set;}
+        public IEnumerable<PhotoComment> Comments { get; set; }
 
     }
 

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-
-namespace StockportWebapp.Utils
+﻿namespace StockportWebapp.Utils
 {
     public class QueryUrl
     {
@@ -20,7 +16,7 @@ namespace StockportWebapp.Utils
             var currentRouteValues = new RouteValueDictionary(_currentRouteData);
             foreach (var key in _queries.Keys)
             {
-                if(!currentRouteValues.ContainsKey(key)) currentRouteValues.Add(key, _queries[key]);
+                if (!currentRouteValues.ContainsKey(key)) currentRouteValues.Add(key, _queries[key]);
             }
             foreach (var query in querysToAdd)
             {

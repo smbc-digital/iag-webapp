@@ -25,7 +25,7 @@ namespace StockportWebapp.Parsers
 
             return $"<iframe sandbox='allow-forms allow-scripts allow-top-navigation-by-user-activation allow-same-origin' {iFrameTitle} class='mapframe' allowfullscreen src='{splitTagData[0]}'></iframe>";
         }
-        
+
         public FormBuilderTagParser()
         {
             _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);

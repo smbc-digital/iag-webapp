@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
@@ -29,7 +27,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly DateTime _sunset = new DateTime(2015, 9, 25);
         private readonly List<Alert> _alerts = new List<Alert>() { new Alert("Alert", "Sub heading", "The Body", "Error", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                                  new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false) };
-        private readonly List<string> _tags = new List<string> {"Events", "Bramall Hall"};
+        private readonly List<string> _tags = new List<string> { "Events", "Bramall Hall" };
         private readonly List<Document> _documents = new List<Document>();
 
         public NewsFactoryTest()
@@ -37,8 +35,8 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-            _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object,_documentTagParser.Object);
-            _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _alerts,_tags,_documents);
+            _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
+            _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _alerts, _tags, _documents);
 
             _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
             _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);

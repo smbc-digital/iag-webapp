@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StockportWebapp.Utils;
+﻿using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {
@@ -14,7 +12,7 @@ namespace StockportWebapp.Models
         private IEnumerable<SubItem> _topSubItems;
         public string BackgroundImage { get; }
         public TriviaSection TriviaSection { get; init; }
-        public string Summary {get; }
+        public string Summary { get; }
         public string Teaser { get; }
         public string MetaDescription { get; }
         public string Icon { get; }
@@ -51,14 +49,14 @@ namespace StockportWebapp.Models
         public string EmailAlertsTopicId { get; }
         public EventBanner EventBanner { get; }
         public string ExpandingLinkTitle { get; }
-        public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set;  }
+        public IEnumerable<ExpandingLinkBox> ExpandingLinkBoxes { get; set; }
         public string PrimaryItemTitle { get; }
         public bool DisplayContactUs { get; set; }
-        public CarouselContent CampaignBanner { get;}
+        public CarouselContent CampaignBanner { get; }
         public string EventCategory { get; set; }
 
         public Topic(string name, string slug, string summary, string teaser, string metaDescription, string icon,
-            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems, 
+            string backgroundImage, string image, IEnumerable<SubItem> subItems, IEnumerable<SubItem> secondaryItems, IEnumerable<SubItem> tertiaryItems,
             IEnumerable<Crumb> breadcrumbs, IEnumerable<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, EventBanner eventBanner,
             string expandingLinkTitle, IEnumerable<ExpandingLinkBox> expandingLinkBoxes, string primaryItemTitle, string title, bool displayContactUs, CarouselContent campaignBanner, string eventCategory)
         {
@@ -92,10 +90,10 @@ namespace StockportWebapp.Models
 
     public class NullTopic : Topic
     {
-        public NullTopic() :base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty ,string.Empty,
+        public NullTopic() : base(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<SubItem>(),
             new List<Crumb>(), new List<Alert>(), false, string.Empty, null, string.Empty, new List<ExpandingLinkBox>(),
             string.Empty, string.Empty, true, new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty)
-         { }
+        { }
     }
 }

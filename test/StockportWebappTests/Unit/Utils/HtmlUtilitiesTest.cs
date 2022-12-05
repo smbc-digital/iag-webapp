@@ -1,4 +1,4 @@
-﻿using AngleSharp.Parser.Html;
+﻿using AngleSharp.Html.Parser;
 using FluentAssertions;
 using StockportWebapp.Utils;
 using Xunit;

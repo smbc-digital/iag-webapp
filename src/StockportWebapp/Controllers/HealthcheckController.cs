@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using StockportWebapp.Services;
@@ -24,7 +23,7 @@ namespace StockportWebapp.Controllers
             {
                 NamingStrategy = new CamelCaseNamingStrategy()
             };
-            
+
             return Ok(JsonConvert.SerializeObject(healthcheck, new JsonSerializerSettings
             {
                 ContractResolver = contractResolver

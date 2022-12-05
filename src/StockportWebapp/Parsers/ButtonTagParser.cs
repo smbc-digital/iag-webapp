@@ -1,9 +1,8 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace StockportWebapp.Parsers
 {
-    public class ButtonTagParser: ISimpleTagParser
+    public class ButtonTagParser : ISimpleTagParser
     {
         private readonly TagReplacer _tagReplacer;
         protected Regex TagRegex => new Regex("{{BUTTON:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
@@ -26,7 +25,7 @@ namespace StockportWebapp.Parsers
 
         public ButtonTagParser()
         {
-            _tagReplacer = new TagReplacer(GenerateHtml,TagRegex);
+            _tagReplacer = new TagReplacer(GenerateHtml, TagRegex);
         }
 
         public string Parse(string body, string title = null)

@@ -1,5 +1,3 @@
-using System.IO;
-
 namespace StockportWebapp.Utils
 {
     public interface IFileWrapper

@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Config;
-using StockportWebapp.ProcessedModels;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
+using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
 using StockportWebapp.ViewModels;
@@ -17,7 +14,7 @@ namespace StockportWebapp.Controllers
     {
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
-        private readonly ITopicRepository _topicRepository;      
+        private readonly ITopicRepository _topicRepository;
         private readonly IStockportApiEventsService _stockportApiEventsService;
 
         public TopicController(ITopicRepository repository, IApplicationConfiguration config, BusinessId businessId, IStockportApiEventsService stockportApiService)

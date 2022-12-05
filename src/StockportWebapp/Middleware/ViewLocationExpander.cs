@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Razor;
 
 namespace StockportWebapp.Middleware
@@ -8,9 +6,9 @@ namespace StockportWebapp.Middleware
     {
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
         {
-             return viewLocations.Select(f => f.Replace("/Views/", $"/Views/{context.Values["theme"]}/"))
-                .Append("/Views/Shared/{0}.cshtml")
-                .Append("/Views/Shared/{1}/{0}.cshtml");
+            return viewLocations.Select(f => f.Replace("/Views/", $"/Views/{context.Values["theme"]}/"))
+               .Append("/Views/Shared/{0}.cshtml")
+               .Append("/Views/Shared/{1}/{0}.cshtml");
         }
 
         public void PopulateValues(ViewLocationExpanderContext context)

@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Extensions.Logging;
-using Moq;
+﻿using Moq;
 
 namespace StockportWebappTests_Unit.Helpers
 {

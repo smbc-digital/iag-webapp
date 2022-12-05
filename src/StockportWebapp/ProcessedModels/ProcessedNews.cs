@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebapp.ProcessedModels
 {
@@ -19,7 +17,7 @@ namespace StockportWebapp.ProcessedModels
         public readonly List<Alert> Alerts;
         public readonly List<string> Tags;
 
-        public ProcessedNews(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags )
+        public ProcessedNews(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags)
         {
             Title = title;
             Slug = slug;

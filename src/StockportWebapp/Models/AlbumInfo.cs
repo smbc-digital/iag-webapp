@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class AlbumInfo
     {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.ViewModels
@@ -18,7 +16,7 @@ namespace StockportWebapp.ViewModels
         public string KeepTag { get; set; } = string.Empty;
         public PrimaryFilter PrimaryFilter { set; get; } = new PrimaryFilter();
         public bool GetInvolved { get; set; }
-        public string OrganisationName { get; set;  }
+        public string OrganisationName { get; set; }
 
         public GroupResults() { }
 
@@ -53,14 +51,14 @@ namespace StockportWebapp.ViewModels
             if (AvailableSubCategories != null && AvailableSubCategories.Any())
             {
                 var distinctSubcategories = AvailableSubCategories.GroupBy(c => c.Slug).Select(c => c.First());
-            
+
                 foreach (var cat in distinctSubcategories.OrderBy(c => c.Name))
                 {
                     subCategories.Items.Add(new RefineByFilterItems { Label = cat.Name, Checked = SubCategories.Any(c => c.ToLower() == cat.Slug.ToLower()), Value = cat.Slug });
                 }
 
                 bar.Filters.Add(subCategories);
-            }           
+            }
 
             var getInvolved = new RefineByFilters
             {

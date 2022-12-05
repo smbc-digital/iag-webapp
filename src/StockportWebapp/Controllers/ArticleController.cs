@@ -1,9 +1,4 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Http;
 using StockportWebapp.Parsers;
@@ -38,7 +33,7 @@ namespace StockportWebapp.Controllers
         [Route("/{articleSlug}")]
         public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
         {
-            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetUri().ToString());
+            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetDisplayUrl().ToString());
 
             if (!articleHttpResponse.IsSuccessful())
                 return articleHttpResponse;
@@ -49,7 +44,7 @@ namespace StockportWebapp.Controllers
 
             var viewModel = new ArticleViewModel(article);
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
 
             return View(viewModel);
@@ -58,7 +53,7 @@ namespace StockportWebapp.Controllers
         [Route("/{articleSlug}/{sectionSlug}")]
         public async Task<IActionResult> ArticleWithSection(string articleSlug, string sectionSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
         {
-            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetUri().ToString());
+            var articleHttpResponse = await _articlerepository.Get(articleSlug, SearchTerm, SearchFolder, Request?.GetDisplayUrl().ToString());
 
             if (!articleHttpResponse.IsSuccessful())
                 return articleHttpResponse;

@@ -22,7 +22,7 @@ namespace StockportWebapp.Config
         {
             var host = _config.GetEmailHost(businessId);
             var region = _config.GetEmailRegion(businessId);
-            var emailFrom = _config.GetEmailEmailFrom(businessId);       
+            var emailFrom = _config.GetEmailEmailFrom(businessId);
 
             return new AmazonSesClientConfiguration(host, region,
                                                     emailFrom, _amazonKeys);

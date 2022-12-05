@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Primitives;
 using Moq;
 using StockportWebapp.Utils;
@@ -20,7 +16,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
             _timeProvider = new Mock<ITimeProvider>();
             _timeProvider.Setup(o => o.Now()).Returns(new DateTime(2017, 02, 21));
 
-           _filteredUrl = new FilteredUrl(_timeProvider.Object);
+            _filteredUrl = new FilteredUrl(_timeProvider.Object);
         }
 
         [Fact]
@@ -28,7 +24,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         {
             // Arrange
             var queryUrl = new QueryUrl(
-                new RouteValueDictionary(), 
+                new RouteValueDictionary(),
                 new QueryCollection(
                     new Dictionary<string, StringValues>
                     {
@@ -60,7 +56,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
                 new RouteValueDictionary(),
                 new QueryCollection(
                     new Dictionary<string, StringValues>
-                    {                      
+                    {
                         {
                             "tag",
                             new StringValues(new[] {"healthy"})
@@ -68,7 +64,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
                     }
                 )
                 );
-            
+
             _filteredUrl.SetQueryUrl(queryUrl);
 
             // Act

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 
 namespace StockportWebapp.Utils
 {
@@ -8,7 +7,7 @@ namespace StockportWebapp.Utils
         string RouteUrl(RouteValueDictionary routeValueDictionary);
     }
 
-    public class UrlHelperWrapper: IUrlHelperWrapper
+    public class UrlHelperWrapper : IUrlHelperWrapper
     {
         private readonly IUrlHelper _actualUrlHelper;
 

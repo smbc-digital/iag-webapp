@@ -11,7 +11,7 @@
 
         public string GetApiUrl()
         {
-            return _configuration.GetGoogleAnalyticsUri().AbsoluteUri;
+            return _configuration.GetGoogleAnalyticsUri().ToString();
         }
 
         public AnalyticsConfigurationModel GetTrackerCode()

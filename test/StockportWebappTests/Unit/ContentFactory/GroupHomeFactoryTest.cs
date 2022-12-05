@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
@@ -21,10 +20,10 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
 
         public GroupHomepageFactoryTest()
         {
-            _groupHomepageFactory = new GroupHomepageFactory(_simpleTagParserContainerMock.Object,_markdownWrapperMock.Object);
+            _groupHomepageFactory = new GroupHomepageFactory(_simpleTagParserContainerMock.Object, _markdownWrapperMock.Object);
 
 
-             _groupHomepage = new GroupHomepage
+            _groupHomepage = new GroupHomepage
             {
                 Title = Title,
                 BackgroundImage = "background image",
@@ -46,10 +45,10 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         public void ItBuildsAGroupsHomepageWithProcessedBody()
         {
             var result = _groupHomepageFactory.Build(_groupHomepage);
-            
+
             result.Title.Should().Be(_groupHomepage.Title);
             result.BackgroundImage.Should().Be(_groupHomepage.BackgroundImage);
-            result.Body.Should().Be(_groupHomepage.Body);            
+            result.Body.Should().Be(_groupHomepage.Body);
         }
 
         [Fact]
@@ -57,7 +56,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             var result = _groupHomepageFactory.Build(_groupHomepage);
 
-            _simpleTagParserContainerMock.Verify(o => o.ParseAll(Body,It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
+            _simpleTagParserContainerMock.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
             _markdownWrapperMock.Verify(o => o.ConvertToHtml(Body), Times.Once);
         }
 

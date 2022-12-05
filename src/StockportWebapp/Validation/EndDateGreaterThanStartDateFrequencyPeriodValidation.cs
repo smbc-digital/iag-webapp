@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace StockportWebapp.Validation
@@ -19,11 +18,11 @@ namespace StockportWebapp.Validation
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var containerType = validationContext.ObjectInstance.GetType();
-            var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance) ;
+            var field = containerType.GetProperty(_otherPropertyName, BindingFlags.Public | BindingFlags.Instance);
             var extensionValue = field.GetValue(validationContext.ObjectInstance);
             var startDate = extensionValue as DateTime?;
 
-           
+
             var frequencyField = containerType.GetProperty(_frequencyPropertyName, BindingFlags.Public | BindingFlags.Instance);
             var frequencyValue = frequencyField.GetValue(validationContext.ObjectInstance);
             var frequency = frequencyValue as string;
@@ -31,10 +30,10 @@ namespace StockportWebapp.Validation
             if (!startDate.HasValue)
                 return new ValidationResult("Should enter valid Start Date");
             //"Daily", "Weekly", "Fortnightly", "Monthly Date","Monthly Day","Yearly"
-           
+
             var endDate = value as DateTime?;
             if (!endDate.HasValue)
-                  return ValidationResult.Success;
+                return ValidationResult.Success;
 
             var validationDate = startDate.Value;
             string validationMessage = "End date should be after Start Date";

@@ -1,12 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Primitives;
 using Moq;
 using StockportWebapp.Config;

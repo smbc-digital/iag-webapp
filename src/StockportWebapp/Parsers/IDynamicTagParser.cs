@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StockportWebapp.Parsers
+﻿namespace StockportWebapp.Parsers
 {
     public interface IDynamicTagParser<T>
     {

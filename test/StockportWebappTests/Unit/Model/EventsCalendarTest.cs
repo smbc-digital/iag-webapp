@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.ViewModels;
 using Xunit;
@@ -12,7 +10,7 @@ namespace StockportWebappTests_Unit.Unit.Model
         [Fact]
         public void ShouldReturnTrueForExistingCategory()
         {
-            var eventCalendar = new EventCalendar(new List<Event>(), new List<string> {"test", "test2"});
+            var eventCalendar = new EventCalendar(new List<Event>(), new List<string> { "test", "test2" });
 
             eventCalendar.DoesCategoryExist("test").Should().BeTrue();
         }

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
+﻿using System.Net;
 using StockportWebapp.Config;
 using StockportWebapp.Extensions;
 using StockportWebapp.Http;
@@ -76,7 +72,7 @@ namespace StockportWebapp.Repositories
             var url = _urlGeneratorSimple.BaseContentApiUrl<T>().AddSlug(extra);
             return await PutResponseAsync<T>(url, httpContent);
         }
-        
+
 
         #endregion
     }

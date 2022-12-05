@@ -1,11 +1,9 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace StockportWebapp.Controllers
 {
-    [ResponseCache(Location=ResponseCacheLocation.Any, Duration=Cache.Medium)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
     public class ErrorController : Controller
     {
         private readonly ILegacyRedirectsManager _legacyRedirectsManager;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Routing;
-
-namespace StockportWebapp.Utils
+﻿namespace StockportWebapp.Utils
 {
     public interface IFilteredUrl
     {
@@ -34,12 +30,12 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutCategory()
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"Category","Page"});         
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> { "Category", "Page" });
         }
 
         public RouteValueDictionary AddCategoryFilter(string category)
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Category", category }, {"Page", "1"} });
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.AddQueriesToUrl(new Dictionary<string, string> { { "Category", category }, { "Page", "1" } });
         }
 
         public bool HasNoCategoryFilter()
@@ -63,7 +59,7 @@ namespace StockportWebapp.Utils
 
         public RouteValueDictionary WithoutDateFilter()
         {
-            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> {"DateFrom", "DateTo","daterange", "Page" });
+            return _queryUrl == null ? new RouteValueDictionary() : _queryUrl.WithoutQueryParam(new List<string> { "DateFrom", "DateTo", "daterange", "Page" });
         }
 
         public RouteValueDictionary AddDateFilter(string DateFrom, string DateTo, string DateRange)

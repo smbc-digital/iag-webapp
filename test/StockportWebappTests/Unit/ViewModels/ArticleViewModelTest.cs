@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
@@ -27,7 +24,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         [Fact]
         public void SetsTheFirstSectionAsTheDisplayedSectionIfNoSectionSlugIsGiven()
         {
-            var article = BuildArticle("", new List<ProcessedSection> {_sectionOne, _sectionTwo});
+            var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo });
 
             var viewModel = new ArticleViewModel(article);
 
@@ -88,7 +85,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         public void ShowsNextSectionButtonIfDisplayedSectionIsNotTheLast()
         {
             var article = BuildArticle("", new List<ProcessedSection> { _sectionOne, _sectionTwo, _sectionThree });
-   
+
             var viewModel = new ArticleViewModel(article, _sectionTwo.Slug);
 
             viewModel.ShouldShowNextSectionButton().Should().BeTrue();
@@ -186,9 +183,9 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
             var firstSecondaryitem = new SubItem(TextHelper.AnyString, "first-secondaryitem", TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<SubItem>());
             var secondaryItems = new List<SubItem> { firstSecondaryitem };
 
-            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems,new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, true,
+            var topic = new Topic(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, subItems, secondaryItems, new List<SubItem>(), new List<Crumb>(), new List<Alert>(), false, TextHelper.AnyString, null, String.Empty, new List<ExpandingLinkBox>(), String.Empty, string.Empty, true,
                  new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
-            var article = new ProcessedArticle(TextHelper.AnyString,TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(),
+            var article = new ProcessedArticle(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<ProcessedSection>(),
                 TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Alert>(), topic, new List<Alert>(), null, new DateTime(), new bool());
 
             var articleViewModel = new ArticleViewModel(article);
@@ -270,7 +267,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
                 null,
                 null,
                 null,
-                new DateTime(), 
+                new DateTime(),
                 new bool()
             );
 

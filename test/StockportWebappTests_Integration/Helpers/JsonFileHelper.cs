@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace StockportWebappTests_Integration.Helpers
+﻿namespace StockportWebappTests_Integration.Helpers
 {
     public static class JsonFileHelper
     {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebapp.ViewModels
 {
@@ -13,7 +11,7 @@ namespace StockportWebapp.ViewModels
         public List<string> Categories { get; }
         public List<DateTime> Dates { get; }
 
-        public Newsroom(List<News> news, List<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, List<string> categories, List<DateTime> dates )
+        public Newsroom(List<News> news, List<Alert> alerts, bool emailAlerts, string emailAlertsTopicId, List<string> categories, List<DateTime> dates)
         {
             News = news;
             Alerts = alerts;

@@ -8,12 +8,12 @@ namespace StockportWebapp.ContentFactory
     public class PaymentFactory
     {
         private readonly ISimpleTagParserContainer _simpleTagParserContainer;
-        private readonly MarkdownWrapper _markdownWrapper;      
+        private readonly MarkdownWrapper _markdownWrapper;
 
         public PaymentFactory(ISimpleTagParserContainer simpleTagParserContainer, MarkdownWrapper markdownWrapper)
         {
             _simpleTagParserContainer = simpleTagParserContainer;
-            _markdownWrapper = markdownWrapper;            
+            _markdownWrapper = markdownWrapper;
         }
 
         public virtual ProcessedPayment Build(Payment payment)

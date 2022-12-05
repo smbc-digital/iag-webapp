@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using StockportWebapp.ContentFactory.Trivia;
+﻿using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;

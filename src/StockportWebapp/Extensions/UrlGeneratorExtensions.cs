@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebapp.Extensions
 {

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.ContentFactory.Trivia;
@@ -19,7 +18,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
 
         public ShowcaseFactoryTest()
         {
-            _tagParserContainer = new Mock<ISimpleTagParserContainer>();           
+            _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _triviaFactory = new Mock<ITriviaFactory>();
         }

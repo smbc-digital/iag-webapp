@@ -1,7 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using FluentAssertions;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;

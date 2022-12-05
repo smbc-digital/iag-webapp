@@ -1,8 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Moq;
 using StockportWebapp.Builders;
 using StockportWebapp.Models;
@@ -45,7 +42,7 @@ namespace StockportWebappTests_Unit.Unit.Builders
             mockFile.Setup(o => o.OpenReadStream().Length).Returns(5242879);
             mockFile.Setup(o => o.OpenReadStream()).Returns(new MemoryStream());
 
-            var attachments = new List<IFormFile> {mockFile.Object};
+            var attachments = new List<IFormFile> { mockFile.Object };
 
             var emailMessage = new EmailMessage("subject", "body", "from@mail.com", "serviceEmail@mail.com", "userEmail@mail.com", attachments);
 

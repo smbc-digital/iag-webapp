@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 

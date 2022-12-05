@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using Microsoft.Extensions.Logging;
-using Moq;
+﻿using Moq;
 using StockportWebapp.Http;
 using Xunit;
 
@@ -18,7 +14,7 @@ namespace StockportWebappTests_Unit.Unit.Http
             _fakeHttpClient.For("a url").Throw(
                 new AggregateException(new HttpRequestException()));
             var logger = new Mock<ILogger<LoggingHttpClient>>().Object;
-            var httpClient = new LoggingHttpClient( _fakeHttpClient, logger);
+            var httpClient = new LoggingHttpClient(_fakeHttpClient, logger);
             HttpResponse response = await httpClient.Get("a url", new Dictionary<string, string>());
 
             Assert.Equal(503, response.StatusCode);

@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -34,7 +33,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var result = await _searchController.Postcode(postcode);
 
             result.Should().BeOfType<RedirectResult>();
-            
+
             _config.Verify(o => o.GetPostcodeSearchUrl(_businessId), Times.Once);
             var redirect = result as RedirectResult;
             redirect.Url.Should().Be(PostcodeUrl + postcode);
@@ -48,7 +47,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var result = await _searchController.Postcode("a-postcode") as StatusCodeResult;
 
-            result.StatusCode.Should().Be((int) HttpStatusCode.NotFound);            
+            result.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
         }
     }
 }

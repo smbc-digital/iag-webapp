@@ -68,7 +68,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var expectedHtmlData = $"{HtmlButton("http://www.example1.com", "Click")} body text {HtmlButton("http://www.example2.com", "Here")}";
 
             var result = _buttonParser.Parse(body);
-             
+
             result.Should().Be(expectedHtmlData);
         }
 

@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.Repositories;
 using StockportWebapp.Utils;
-using StockportWebappTests_Unit.Helpers;
 using Xunit;
 
 namespace StockportWebappTests_Unit.Unit.ContentFactory
@@ -35,12 +28,12 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         private readonly List<SubItem> _tertiaryItems;
 
         public TopicFactoryTest()
-        { 
+        {
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _topicFactory = new TopicFactory(_tagParserContainer.Object, _markdownWrapper.Object);
             _breadcrumbs = new List<Crumb>();
-            
+
             _subItems = new List<SubItem>();
             _secondaryItems = new List<SubItem>();
             _tertiaryItems = new List<SubItem>();

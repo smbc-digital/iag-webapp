@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.Repositories;
@@ -37,7 +35,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         {
             _markdownWrapper = new Mock<MarkdownWrapper>();
             _tagParserContainer = new Mock<ISimpleTagParserContainer>();
-            _profileTagParser = new Mock<IDynamicTagParser<Profile>> ();
+            _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
             _documentTagParser = new Mock<IDynamicTagParser<Document>>();
             _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
             _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
@@ -61,7 +59,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ShouldSetTheCorrespondingFieldsForAProcessedSection()
         {
-            var result = _factory.Build(_section,_articleTitle);
+            var result = _factory.Build(_section, _articleTitle);
 
             result.Body.Should().Be(Body);
             result.Title.Should().Be(Title);
@@ -72,7 +70,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ShouldProcessBodyWithMarkdown()
         {
-            _factory.Build(_section,_articleTitle);
+            _factory.Build(_section, _articleTitle);
 
             _markdownWrapper.Verify(o => o.ConvertToHtml(Body), Times.Once);
         }
@@ -80,7 +78,7 @@ namespace StockportWebappTests_Unit.Unit.ContentFactory
         [Fact]
         public void ShouldProcessBodyWithTagParsing()
         {
-            _factory.Build(_section,_articleTitle);
+            _factory.Build(_section, _articleTitle);
 
             _tagParserContainer.Verify(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>()), Times.Once);
         }

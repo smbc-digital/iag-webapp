@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
-using StockportWebapp.Config;
+﻿using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Utils;
 
@@ -27,6 +26,6 @@ namespace StockportWebapp.Repositories
             _logger = logger;
         }
 
-        
+
     }
 }

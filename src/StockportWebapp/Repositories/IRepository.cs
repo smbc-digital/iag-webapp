@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebapp.Repositories
 {

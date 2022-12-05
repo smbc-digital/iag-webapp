@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class GroupHomepage
     {
@@ -19,6 +17,6 @@ namespace StockportWebapp.Models
         public EventBanner EventBanner { get; set; }
 
         public GroupHomepage() { }
-        
+
     }
 }

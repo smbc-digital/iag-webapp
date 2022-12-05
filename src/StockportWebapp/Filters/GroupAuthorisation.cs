@@ -1,5 +1,4 @@
-﻿using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using StockportWebapp.Config;
 using StockportWebapp.Utils;
@@ -21,7 +20,7 @@ namespace StockportWebapp.Filters
         {
             var person = _loggedInHelper.GetLoggedInPerson();
 
-            if (string.IsNullOrEmpty(person.Email)) context.Result = new RedirectResult(_configuration.GetMyAccountUrl() + "?returnUrl=" + context.HttpContext.Request.GetUri(), false);
+            if (string.IsNullOrEmpty(person.Email)) context.Result = new RedirectResult(_configuration.GetMyAccountUrl() + "?returnUrl=" + context.HttpContext.Request.GetDisplayUrl(), false);
 
             context.ActionArguments["loggedInPerson"] = person;
         }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
@@ -17,16 +15,16 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         private const string Message = "This is a message";
         private const string DefaultBody = "default body";
         private const string MetaDescription = "default meta description";
-        private readonly string _bodyWithContactUsMessageTag = $"This is some content { ContactUsTagParser.ContactUsMessageTagRegex } <form><form>";
+        private readonly string _bodyWithContactUsMessageTag = $"This is some content {ContactUsTagParser.ContactUsMessageTagRegex} <form><form>";
 
 
         public ContactUsMessageTagParserTest()
         {
             _viewRenderer = new Mock<IViewRender>();
 
-            _viewRenderer.Setup(o => o.Render("ContactUsMessage", It.IsAny<string>())).Returns($"<p>{ Message }</p>");
+            _viewRenderer.Setup(o => o.Render("ContactUsMessage", It.IsAny<string>())).Returns($"<p>{Message}</p>");
 
-            _tagParser = new ContactUsMessageTagParser(_viewRenderer.Object); 
+            _tagParser = new ContactUsMessageTagParser(_viewRenderer.Object);
         }
 
         [Theory]
@@ -55,7 +53,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
 
             _tagParser.Parse(processedArticle, Message, "");
 
-            processedArticle.Body.Should().Be($"This is some content <p>{ Message }</p> <form><form>");
+            processedArticle.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
         }
 
         [Fact]
@@ -67,7 +65,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             _tagParser.Parse(processedArticle, Message, "");
 
             processedArticle.Body.Should().Be(DefaultBody);
-            section.Body.Should().Be($"This is some content <p>{ Message }</p> <form><form>");
+            section.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
         }
 
         [Fact]
@@ -82,7 +80,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
 
             processedArticle.Body.Should().Be(DefaultBody);
             section.Body.Should().Be(DefaultBody);
-            anotherSection.Body.Should().Be($"This is some content <p>{ Message }</p> <form><form>");
+            anotherSection.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
         }
 
         [Fact]
@@ -104,7 +102,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
             _tagParser.Parse(processedArticle, Message, slug);
-            
+
             _viewRenderer.Verify(o => o.Render("ContactUsMessage", Message), Times.Once);
         }
 
@@ -116,7 +114,7 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         private static Topic DefaultTopic()
         {
             return new Topic("name", "slug", "summary", "teaser", "metaDescription", "icon", "backgroundImage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-                new CarouselContent(string.Empty,string.Empty, string.Empty,string.Empty), string.Empty);
+                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
         }
     }
 }

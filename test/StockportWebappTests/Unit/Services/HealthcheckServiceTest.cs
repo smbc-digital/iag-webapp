@@ -1,7 +1,4 @@
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using FluentAssertions;
 using Moq;
 using StockportWebapp.Config;
@@ -35,7 +32,7 @@ namespace StockportWebappTests_Unit.Unit.Services
             _mockUrlGenerator.Setup(o => o.HealthcheckUrl()).Returns(healthcheckUrl);
             _configuration = new Mock<IApplicationConfiguration>();
             _configuration.Setup(_ => _.GetContentApiAuthenticationKey()).Returns("AuthKey");
-            
+
             var httpResponseMessage = new HttpResponse(200, "{\"appVersion\":\"dev\",\"sha\":\"test-sha\",\"environment\":\"local\",\"redisValueData\":[]}", "");
 
             _mockHttpClient

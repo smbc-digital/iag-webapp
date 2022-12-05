@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+﻿using System.Net;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
 using StockportWebapp.Emails.Models;
@@ -196,7 +190,8 @@ namespace StockportWebapp.Utils
 
             _logger.LogInformation("Sending edit group email");
 
-            var emailBody = new GroupEdit {
+            var emailBody = new GroupEdit
+            {
                 Name = group.Name,
                 Categories = group.CategoriesList,
                 Description = group.Description,
@@ -215,7 +210,7 @@ namespace StockportWebapp.Utils
 
             var message = new EmailMessage(messageSubject,
                                             _emailClient.GenerateEmailBodyFromHtml(emailBody),
-                                           _fromEmail, 
+                                           _fromEmail,
                                            toEmail + "," + _configuration.GetGroupArchiveEmail(_businessId.ToString()),
                                            new List<IFormFile>());
 

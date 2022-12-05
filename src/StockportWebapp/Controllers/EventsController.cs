@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -64,7 +58,7 @@ namespace StockportWebapp.Controllers
         }
 
         [Route("/events")]
-        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery]int Page, [FromQuery]int pageSize)
+        public async Task<IActionResult> Index(EventCalendar eventsCalendar, [FromQuery] int Page, [FromQuery] int pageSize)
         {
             if (ModelState["DateTo"] is not null && ModelState["DateTo"].Errors.Count > 0)
             {
@@ -199,7 +193,7 @@ namespace StockportWebapp.Controllers
 
             var response = httpResponse.Content as ProcessedEvents;
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
             if (date is not null || date.Equals(DateTime.MinValue))
             {
@@ -220,7 +214,7 @@ namespace StockportWebapp.Controllers
                 {
                     foreach (var item in eventHomeResponse.Alerts)
                         response.GlobalAlerts.Add(item);
-                }                
+                }
             }
 
             return View(response);
@@ -233,7 +227,7 @@ namespace StockportWebapp.Controllers
 
             if (eventItem is null) return NotFound();
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
             if (date is not null || date.Equals(DateTime.MinValue))
             {
@@ -254,7 +248,7 @@ namespace StockportWebapp.Controllers
             return Redirect("https://forms.stockport.gov.uk/add-an-event");
 
             View(new EventSubmission());
-        } 
+        }
 
 
         [HttpPost]
@@ -309,8 +303,8 @@ namespace StockportWebapp.Controllers
         {
             var httpResponse = await _repository.Get<EventResponse>();
 
-            var host = Request is not null && Request.Host.HasValue ? 
-                string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/events/") : 
+            var host = Request is not null && Request.Host.HasValue ?
+                string.Concat(Request.IsHttps ? "https://" : "http://", Request.Host.Value, "/events/") :
                 string.Empty;
 
             if (!httpResponse.IsSuccessful())
@@ -350,7 +344,7 @@ namespace StockportWebapp.Controllers
 
             if (type.Equals("windows") || type.Equals("apple"))
             {
-                byte[] calendarBytes = System.Text.Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
+                byte[] calendarBytes = Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
                 return File(calendarBytes, "text/calendar", slug + ".ics");
             }
 

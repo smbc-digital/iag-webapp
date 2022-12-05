@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace StockportWebapp.Http
@@ -41,7 +40,8 @@ namespace StockportWebapp.Http
         }
     }
 
-    public static class StatusCodeResultExtensions{
+    public static class StatusCodeResultExtensions
+    {
         internal static bool IsSuccessful(this StatusCodeResult result)
         {
             return result.StatusCode == 200;

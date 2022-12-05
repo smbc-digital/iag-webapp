@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -23,34 +19,34 @@ namespace StockportWebappTests_Unit.Unit.Utils
         {
             // Arrange
             int indexOfFirstItemOnPage;
-            
+
             // Act
             indexOfFirstItemOnPage = PaginationHelper.CalculateIndexOfFirstItemOnPage(currentPageNumber, MaxNumberOfItemsPerPage);
-            
+
             // Assert
             indexOfFirstItemOnPage.Should().Be(expectedResult);
         }
-        
+
         [Theory]
         [InlineData(1, 4, 4)]
         [InlineData(2, MaxNumberOfItemsPerPage, MaxNumberOfItemsPerPage * 2)]
         [InlineData(3, 2, (MaxNumberOfItemsPerPage * 2) + 2)]
         [InlineData(11, 3, (MaxNumberOfItemsPerPage * 10) + 3)]
         public void IndexOfLastItemOnPageShouldBeNumberOfItemsBeforeThisPagePlusNumberOfItemsOnThisPage(
-            int currentPageNumber, 
-            int numItemsOnThisPage, 
+            int currentPageNumber,
+            int numItemsOnThisPage,
             int expectedResult)
         {
             // Arrange
             int indexOfLastItemOnPage;
-            
+
             // Act
             indexOfLastItemOnPage = PaginationHelper.CalculateIndexOfLastItemOnPage(currentPageNumber, numItemsOnThisPage, MaxNumberOfItemsPerPage);
 
             // Assert
             indexOfLastItemOnPage.Should().Be(expectedResult);
         }
-        
+
         [Theory]
         [InlineData(1, 5, true, false, false, false, false)]
         [InlineData(2, 5, false, true, false, false, false)]
@@ -62,7 +58,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         [InlineData(10, 10, false, false, false, false, true)]
         [InlineData(13, 20, false, false, true, false, false)]
         public void ForFiveVisiblePagesVisiblePageNumbersShouldAllHaveLinksApartFromCurrentPage(
-            int currentPageNumber, 
+            int currentPageNumber,
             int totalPages,
             bool page1IsCurrentPage,
             bool page2IsCurrentPage,
@@ -215,7 +211,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         public void IfCurrentPageNumberIsOneOrTwoThenFirstVisiblePageNumberShouldBeOne(int currentPageNumber, int totalPages)
         {
             // Act
-            var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages); 
+            var results = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
             // Assert
             results[0].PageNumber.Should().Be(1);
@@ -272,7 +268,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         [InlineData(6, 10, 10)]
         public void LastVisiblePageNumberShouldBeFirstVisiblePageNumberPlusNumVisiblePagesMinusOne(
             int firstVisiblePageNumber,
-            int currentPageNumber, 
+            int currentPageNumber,
             int totalPages)
         {
             // Arrange
@@ -294,7 +290,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
             // Arrange
             const int currentPageNumber = 1;
             const int totalPages = 1;
-            
+
             // Act
             var result = PaginationHelper.GenerateVisiblePageNumbers(currentPageNumber, totalPages);
 
@@ -428,7 +424,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
                 lastPageNumber++;
 
             int tooHigh = lastPageNumber + 10;
-            List<News> listofNewsItems = BuildListofNewsItems(numItems); 
+            List<News> listofNewsItems = BuildListofNewsItems(numItems);
 
             // Act
             var pagination = PaginationHelper.GetPaginatedItemsForSpecifiedPage(listofNewsItems, tooHigh, "item description", MaxNumberOfItemsPerPage, 12).Pagination;
@@ -504,11 +500,11 @@ namespace StockportWebappTests_Unit.Unit.Utils
                     "image.jpg",
                     "thumbnail.jpg",
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam gravida eu mauris in consectetur. Nullam nulla urna, sagittis a ex sit amet, ultricies rhoncus mauris. Quisque vel placerat turpis, vitae consectetur mauris.",
-                    new List<Crumb>(), 
-                    new DateTime(2015, 9, 10), 
-                    new DateTime(2015, 9, 20), 
+                    new List<Crumb>(),
+                    new DateTime(2015, 9, 10),
+                    new DateTime(2015, 9, 20),
                     new List<Alert>(),
-                    new List<string>(), 
+                    new List<string>(),
                     new List<Document>());
 
                 listofNewsItems.Add(NewsItem);
@@ -525,7 +521,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
             QueryUrl queryUrl = new QueryUrl(new RouteValueDictionary(), new QueryCollection());
             var urlHelper = new Mock<IUrlHelperWrapper>();
             urlHelper
-                .Setup(u => u.RouteUrl(It.Is<RouteValueDictionary>(x => 
+                .Setup(u => u.RouteUrl(It.Is<RouteValueDictionary>(x =>
                     x.ContainsKey("Page")
                     && x.Values.Contains(pageNumber.ToString()))))
                 .Returns("this string is not relevant");

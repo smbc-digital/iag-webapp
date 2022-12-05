@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.Controllers;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
 using StockportWebapp.ProcessedModels;
@@ -40,7 +34,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task GivenNavigateToArticleReturnsArticleView()
         {
             const string articleSlug = "physical-activity";
-            var article = new ProcessedArticle("Physical Activity", "physical-activity",  
+            var article = new ProcessedArticle("Physical Activity", "physical-activity",
                 "Being active is great for your body", "teaser", "meta description", new List<ProcessedSection>() { DummySection() },
                 "fa-icon", "af981b9771822643da7a03a9ae95886f/runners.jpg", "af981b9771822643da7a03a9ae95886f/runners.jpg",
                 new List<Crumb>() { new Crumb("title", "slug", "type") }, new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
@@ -112,7 +106,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty,
-                new List<Crumb>() { }, new List<Alert>(), new NullTopic(),  new List<Alert>(), null, new DateTime(), new bool());
+                new List<Crumb>() { }, new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -138,7 +132,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var sectionTwo = new ProcessedSection("Types of Physical Activity", sectionSlug, TextHelper.AnyString, "body", new List<Profile>(), new List<Document>(), new List<Alert>());
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { sectionOne, sectionTwo }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { },
-                new List<Alert>(), new NullTopic(),  new List<Alert>(), null, new DateTime(), new bool());
+                new List<Alert>(), new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
             var response = new HttpResponse(200, article, string.Empty);
 
@@ -161,28 +155,28 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var sectionSlug = "test-slug";
             var section = new ProcessedSection(
                 string.Empty,
-                sectionSlug, 
-                expectedMetaDescription, 
-                string.Empty, 
-                null, 
-                null, 
+                sectionSlug,
+                expectedMetaDescription,
+                string.Empty,
+                null,
+                null,
                 null
             );
             var article = new ProcessedArticle(
-                string.Empty, 
-                string.Empty, 
-                string.Empty, 
-                string.Empty, 
-                string.Empty, 
-                new List<ProcessedSection> {section }, 
-                string.Empty, 
-                string.Empty, 
-                null, 
-                null, 
-                null, 
-                null, 
-                null, 
-                null, 
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                string.Empty,
+                new List<ProcessedSection> { section },
+                string.Empty,
+                string.Empty,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
                 new DateTime(),
                 new bool()
             );
@@ -195,9 +189,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var result = await _controller
                 .ArticleWithSection(
                     string.Empty,
-                    sectionSlug, 
-                    string.Empty, 
-                    string.Empty, 
+                    sectionSlug,
+                    string.Empty,
+                    string.Empty,
                     string.Empty) as ViewResult;
             var resultModel = result.ViewData.Model as ArticleViewModel;
 
@@ -292,7 +286,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             };
             var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
                 new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
-            
+
             _articleRepository.Setup(o => o.Get(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(new HttpResponse(200, article, string.Empty));
 
             var indexPage = await _controller.Article("healthy-living", DefaultMessage, string.Empty, string.Empty) as ViewResult; ;

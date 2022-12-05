@@ -11,7 +11,7 @@ namespace StockportWebappTests_Unit.Unit.Extensions
         public void ShouldReturnFacebookDisplayUrlFromFullUrl()
         {
             var url = "http://www.facebook.com/zumba";
-            var result = socialLinksExtension.GetSubstring(url);           
+            var result = socialLinksExtension.GetSubstring(url);
 
             Assert.Equal("/zumba", result);
         }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Utils;
 
@@ -18,7 +17,7 @@ namespace StockportWebapp.ContentFactory
 
         public virtual ProcessedOrganisation Build(Organisation organisation)
         {
-            
+
             var body = _markdownWrapper.ConvertToHtml(organisation.AboutUs ?? "");
 
             var volunteering = new Volunteering
@@ -39,7 +38,7 @@ namespace StockportWebapp.ContentFactory
 
             var groupsWithFavourites = cookiesHelper.PopulateCookies(organisation.Groups, "favourites");
 
-            return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone, 
+            return new ProcessedOrganisation(organisation.Title, organisation.Slug, organisation.ImageUrl, body, organisation.Phone,
                 organisation.Email, groupsWithFavourites, volunteering, donations);
         }
     }

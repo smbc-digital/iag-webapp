@@ -7,7 +7,7 @@
         private AppSetting(string value = "")
         {
             _value = value;
-        } 
+        }
 
         public bool IsValid()
         {

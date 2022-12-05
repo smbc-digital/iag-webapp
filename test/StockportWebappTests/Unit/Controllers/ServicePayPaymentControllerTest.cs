@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportGovUK.NetStandard.Gateways.Civica.Pay;
 using StockportGovUK.NetStandard.Gateways.Response;
@@ -18,7 +14,6 @@ using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
 using Xunit;
-using HttpResponse = StockportWebapp.Http.HttpResponse;
 
 namespace StockportWebappTests_Unit.Unit.Controllers
 {
@@ -64,7 +59,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         [Fact]
         public async Task DetailShouldReturnAPaymentWithProcessedBody()
         {
-            var view = await _paymentController.Detail("slug", null, null) as ViewResult;;
+            var view = await _paymentController.Detail("slug", null, null) as ViewResult; ;
             var model = view.ViewData.Model as ServicePayPaymentSubmissionViewModel;
 
             model.Payment.Should().Be(_processedPayment);

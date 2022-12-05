@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Microsoft.Extensions.Logging;
 using Moq;
-using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewComponents;

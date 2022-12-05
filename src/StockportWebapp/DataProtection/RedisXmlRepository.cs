@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.DataProtection.Repositories;
-using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 
 namespace StockportWebapp.DataProtection

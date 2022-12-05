@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using StockportWebapp.ContentFactory;
+﻿using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
@@ -31,7 +28,7 @@ namespace StockportWebapp.Services
 
         public async Task<List<Event>> GetEventsByCategory(string category, bool onlyNextOccurrence = true)
         {
-            return await _stockportApiRepository.GetResponse<List<Event>>("by-category", new List<Query> { new Query("category", category), new Query("onlyNextOccurrence", onlyNextOccurrence.ToString() ) });
+            return await _stockportApiRepository.GetResponse<List<Event>>("by-category", new List<Query> { new Query("category", category), new Query("onlyNextOccurrence", onlyNextOccurrence.ToString()) });
         }
 
         public async Task<List<EventCategory>> GetEventCategories()

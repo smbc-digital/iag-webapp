@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json;
@@ -21,7 +17,7 @@ namespace StockportWebappTests_Unit.Unit.Repositories
         private readonly Mock<IHttpClient> _httpClientMock = new Mock<IHttpClient>();
         private readonly UrlGenerator _urlGenerator;
         private readonly Mock<IUrlGeneratorSimple> _urlGeneratorSimple = new Mock<IUrlGeneratorSimple>();
-        
+
         public RepositoryTest()
         {
             var appConfig = new Mock<IApplicationConfiguration>();

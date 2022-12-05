@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace StockportWebapp.Models
 {
     public class Showcase
@@ -7,7 +5,7 @@ namespace StockportWebapp.Models
         public string Title { get; set; }
         public string Slug { get; set; }
         public string HeroImageUrl { get; set; }
-        public IEnumerable<SubItem> PrimaryItems { get; set; }        
+        public IEnumerable<SubItem> PrimaryItems { get; set; }
         public string Teaser { get; set; }
         public string MetaDescription { get; set; }
         public string Subheading { get; set; }
@@ -47,7 +45,7 @@ namespace StockportWebapp.Models
 
         public Showcase()
         {
-            
+
         }
     }
 }

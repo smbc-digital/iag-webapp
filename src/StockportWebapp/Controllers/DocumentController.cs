@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Http;
 using StockportWebapp.Parsers;
@@ -38,7 +36,7 @@ namespace StockportWebapp.Controllers
 
             var viewModel = new DocumentPageViewModel(documentPage);
 
-            ViewBag.CurrentUrl = Request?.GetUri();
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
             return View(viewModel);
         }

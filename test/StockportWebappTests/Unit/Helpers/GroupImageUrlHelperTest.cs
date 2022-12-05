@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using StockportWebappTests_Unit.Builders;

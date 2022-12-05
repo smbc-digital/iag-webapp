@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 
@@ -17,7 +16,7 @@ namespace StockportWebapp.Api
         }
 
         [Route("/favourites/add")]
-        public IActionResult AddGroupsFavourite([FromQuery]string slug, [FromQuery] string type)
+        public IActionResult AddGroupsFavourite([FromQuery] string slug, [FromQuery] string type)
         {
             switch (type)
             {
@@ -31,9 +30,9 @@ namespace StockportWebapp.Api
 
             return new OkResult();
         }
-        
+
         [Route("/favourites/nojs/add")]
-        public IActionResult AddGroupsFavouriteNoJs([FromQuery]string slug, [FromQuery] string type)
+        public IActionResult AddGroupsFavouriteNoJs([FromQuery] string slug, [FromQuery] string type)
         {
             switch (type)
             {
@@ -56,7 +55,7 @@ namespace StockportWebapp.Api
         }
 
         [Route("/favourites/remove")]
-        public IActionResult RemoveGroupsFavourite([FromQuery]string slug, [FromQuery] string type)
+        public IActionResult RemoveGroupsFavourite([FromQuery] string slug, [FromQuery] string type)
         {
             switch (type)
             {
@@ -72,7 +71,7 @@ namespace StockportWebapp.Api
         }
 
         [Route("/favourites/nojs/remove")]
-        public IActionResult RemoveGroupsFavouriteNoJs([FromQuery]string slug, [FromQuery] string type)
+        public IActionResult RemoveGroupsFavouriteNoJs([FromQuery] string slug, [FromQuery] string type)
         {
             switch (type)
             {

@@ -1,7 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Middleware;
@@ -23,7 +20,7 @@ namespace StockportWebappTests_Unit.Unit.Middleware
         {
             _logger = new Mock<ILogger<ShortUrlRedirectsMiddleware>>();
             var next = new Mock<RequestDelegate>();
-            var shortItems = new BusinessIdRedirectDictionary {{"unittest", new RedirectDictionary {{"/short-test", "short-redirect-url"}}}};
+            var shortItems = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/short-test", "short-redirect-url" } } } };
             var legacyItems = new BusinessIdRedirectDictionary { { "unittest", new RedirectDictionary { { "/legacy-test", "legacy-redirect-url" } } } };
             var shortUrlRedirect = new ShortUrlRedirects(shortItems);
             shortUrlRedirect.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 5, 0));

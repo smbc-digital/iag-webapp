@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Controllers;
@@ -20,7 +18,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         public LegacyRedirectsManagerTest()
         {
-            _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary { { BusinessId, new RedirectDictionary() }});
+            _legacyUrlRedirects = new LegacyUrlRedirects(new BusinessIdRedirectDictionary { { BusinessId, new RedirectDictionary() } });
             _legacyUrlRedirects.LastUpdated = DateTime.Now;
             _mapper = new LegacyRedirectsMapper(new BusinessId(BusinessId), _legacyUrlRedirects, _shortUrlRedirects, _mockRepository.Object);
         }

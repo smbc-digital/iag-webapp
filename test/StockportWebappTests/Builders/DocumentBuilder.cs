@@ -1,5 +1,4 @@
-﻿using System;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 
 namespace StockportWebappTests_Unit.Builders
 {

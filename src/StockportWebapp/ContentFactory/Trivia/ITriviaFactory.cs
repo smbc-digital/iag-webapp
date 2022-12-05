@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using StockportWebapp.ProcessedModels;
+﻿using StockportWebapp.ProcessedModels;
 
 namespace StockportWebapp.ContentFactory.Trivia
 {

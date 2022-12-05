@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using StockportWebapp.ContentFactory.Trivia;
 using StockportWebapp.Models;
 using StockportWebapp.Parsers;
@@ -19,9 +18,9 @@ namespace StockportWebapp.Services.Profile
         private readonly ITriviaFactory _triviaFactory;
 
         public ProfileService(
-            IRepository repository, 
-            ISimpleTagParserContainer parser, 
-            MarkdownWrapper markdownWrapper, 
+            IRepository repository,
+            ISimpleTagParserContainer parser,
+            MarkdownWrapper markdownWrapper,
             IDynamicTagParser<Alert> alertsInlineTagParser,
             ITriviaFactory triviaFactory,
             IDynamicTagParser<InlineQuote> inlineQuotesTagParser)

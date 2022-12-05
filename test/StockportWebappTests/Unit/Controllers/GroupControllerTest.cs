@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.Net;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
@@ -90,7 +84,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
             var cookies = new FakeCookie(true);
             http.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
-            
+
             _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _eventEmailBuilder.Object, _filteredUrl.Object, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, _loggedInHelper.Object, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
 
             // setup mocks
@@ -109,11 +103,11 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             // Mocks
             _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
                 .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
-            
+
             _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
 
             _configuration.Setup(_ => _.GetArchiveEmailPeriods())
-                .Returns(new List<ArchiveEmailPeriod> {new ArchiveEmailPeriod {NumOfDays = 1}});
+                .Returns(new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { NumOfDays = 1 } });
 
             // Act
             var view = await _groupController.Detail("slug") as ViewResult;
@@ -189,7 +183,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var groupSubmission = new GroupSubmission();
 
             _groupController.ModelState.AddModelError("Name", "an invalid name was provided");
-           
+
             var actionResponse = await _groupController.AddAGroup(groupSubmission);
 
             actionResponse.Should().BeOfType<ViewResult>();
@@ -200,7 +194,8 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task ShouldReturnLocationIfOneIsSelected()
         {
             // Arrange
-            var location = new MapDetails(){
+            var location = new MapDetails()
+            {
                 MapPosition = new MapPosition() { Lat = 1, Lon = 1 },
                 AccessibleTransportLink = ""
             };
@@ -227,7 +222,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task ShouldReturnAListOfLinkedEvents()
         {
             // Arrange
-            var linkedEvent = new Event() {Slug = "event-slug"};
+            var linkedEvent = new Event() { Slug = "event-slug" };
             var listOfLinkedEvents = new List<Event> { linkedEvent };
             var group = new ProcessedGroup() { Events = listOfLinkedEvents, Slug = "test" };
 
@@ -251,13 +246,13 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         public async Task EditGroup_ShouldReturnCorrectTwitterHandleFormat()
         {
             var groupAdmins = new GroupAdministrators();
-            groupAdmins.Items.Add(new GroupAdministratorItems() {Email= "test@email.com"});
+            groupAdmins.Items.Add(new GroupAdministratorItems() { Email = "test@email.com" });
 
 
-            var group = new Group("name", "slug", "metaDescription","010101010", "email@mail.com", "www.website.com",
+            var group = new Group("name", "slug", "metaDescription", "010101010", "email@mail.com", "www.website.com",
                 "https://www.twitter.com/testHandle", "www.facebook.com", "address", "description", "image-url",
-                "thumnail-url", new List<GroupCategory>{new GroupCategory {Name = "testCategory" } }, new List<GroupSubCategory>(), new List<Crumb>(),
-                new MapPosition{Lat = 100, Lon = 200}, false, new List<Event>(), new GroupAdministrators(), DateTime.MinValue,
+                "thumnail-url", new List<GroupCategory> { new GroupCategory { Name = "testCategory" } }, new List<GroupSubCategory>(), new List<Crumb>(),
+                new MapPosition { Lat = 100, Lon = 200 }, false, new List<Event>(), new GroupAdministrators(), DateTime.MinValue,
                 DateTime.MinValue, "status", new List<string>(), "£1", "ability", false, "volunteer text",
                 new Organisation(), new List<Group>(), false, "tenaport-link", new List<GroupBranding>(), "aditional-info",
                 new List<Document>(), DateTime.MinValue, new List<string>(), new List<string>(), "donation-text", "donation-url",
@@ -288,7 +283,7 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         {
             var listOfGroups = BuildGroupList(numGroups);
 
-            var bigGroupResults = new GroupResults {Groups = listOfGroups};
+            var bigGroupResults = new GroupResults { Groups = listOfGroups };
 
             _repository.Setup(o =>
                 o.Get<GroupResults>(

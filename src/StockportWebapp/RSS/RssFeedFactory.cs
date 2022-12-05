@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using StockportWebapp.Models;
+﻿using StockportWebapp.Models;
 using WilderMinds.RssSyndication;
 
 namespace StockportWebapp.RSS
 {
     public interface IRssFeedFactory
     {
-        string BuildRssFeed<T>(IEnumerable<T> rssItemsList , string host, string email);        
+        string BuildRssFeed<T>(IEnumerable<T> rssItemsList, string host, string email);
     }
 
     public class RssFeedFactory : IRssFeedFactory
@@ -17,12 +14,12 @@ namespace StockportWebapp.RSS
         {
             var feed = new Feed
             {
-               
+
                 Link = new Uri(host),
-                Copyright = string.Concat("Copyright " , DateTime.Today.ToString("yyyy"),", Stockport Council"),
+                Copyright = string.Concat("Copyright ", DateTime.Today.ToString("yyyy"), ", Stockport Council"),
                 Title = "Stockport Council News Feed",
                 Description = "Stockport Council News Feed"
-        };            
+            };
 
             foreach (var rssItem in rssItemsList)
             {
@@ -36,7 +33,7 @@ namespace StockportWebapp.RSS
                         Link = new Uri(host + newsItem.Slug),
                         Permalink = new Uri(host + newsItem.Slug).AbsoluteUri,
                         PublishDate = newsItem.SunriseDate,
-                        Author = new Author {Name = "Stockport Council", Email = email},
+                        Author = new Author { Name = "Stockport Council", Email = email },
                     };
                     feed.Items.Add(item);
                 }
@@ -52,8 +49,8 @@ namespace StockportWebapp.RSS
                         Body = eventItem.Teaser + "<br /> Location: " + eventItem.Location + "<br /> Fee: " + eventItem.Fee + "<br /> Event Date and Time: " + eventItem.EventDate.ToString("dd/MM/yyyy") + " " + eventItem.StartTime + " - " + eventItem.EndTime,
                         Link = new Uri(host + eventItem.Slug),
                         Permalink = new Uri(host + eventItem.Slug).AbsoluteUri,
-                        PublishDate = eventItem.UpdatedAt,                
-                        Author = new Author { Name = "Stockport Council", Email = email }                        
+                        PublishDate = eventItem.UpdatedAt,
+                        Author = new Author { Name = "Stockport Council", Email = email }
                     };
                     feed.Items.Add(item);
                 }

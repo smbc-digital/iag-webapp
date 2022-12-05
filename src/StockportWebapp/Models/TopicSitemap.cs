@@ -1,5 +1,3 @@
-using System;
-
 namespace StockportWebapp.Models
 {
     public class TopicSitemap

@@ -1,7 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
+﻿using Microsoft.Extensions.Primitives;
 using StockportWebapp.Config;
 
 namespace StockportWebapp.Middleware
@@ -32,7 +29,7 @@ namespace StockportWebapp.Middleware
                 //businessId.SetId(new StringValues("healthystockport"));
                 context.Request.Headers.Add("BUSINESS-ID", businessId.ToString());
 
-                if (context.Request.Path.HasValue 
+                if (context.Request.Path.HasValue
                     && !context.Request.Path.Value.ToLower().Contains("/assets/")
                     && !context.Request.Path.Value.ToLower().Contains("healthcheck")) _logger.LogInformation("BUSINESS-ID has not been set, setting to default");
             }

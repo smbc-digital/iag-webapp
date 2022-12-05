@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 
 namespace StockportWebapp.Validation
@@ -8,7 +7,7 @@ namespace StockportWebapp.Validation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-           
+
             if (value == null) return ValidationResult.Success;
             var date = value as DateTime?;
             if (!date.HasValue) return ValidationResult.Success;
@@ -18,7 +17,7 @@ namespace StockportWebapp.Validation
                 return ValidationResult.Success;
             }
 
-            return new  ValidationResult("Should be a future date");
+            return new ValidationResult("Should be a future date");
         }
     }
 }

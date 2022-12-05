@@ -1,5 +1,4 @@
-﻿using System;
-using StockportWebapp.Utils;
+﻿using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
 {
@@ -29,7 +28,7 @@ namespace StockportWebapp.Models
 
     public class NullAlert : Alert
     {
-        public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue,String.Empty, false) { }
+        public NullAlert() : base(string.Empty, string.Empty, string.Empty, string.Empty, DateTime.MinValue, DateTime.MinValue, String.Empty, false) { }
     }
 
     public static class Severity

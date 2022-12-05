@@ -1,10 +1,5 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Http;
+﻿using System.Net;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
@@ -32,7 +27,7 @@ namespace StockportWebappTests_Unit.Unit.Services
 
         public GroupsServiceTests()
         {
-            _service = new GroupsService(_mockContentApiRepository.Object,_mockProcessedContentRepository.Object, _mockEmailClient.Object, _mockApplicationConfiguration.Object, _mockLogger.Object, _mockStockportApiRepository.Object, businessId);
+            _service = new GroupsService(_mockContentApiRepository.Object, _mockProcessedContentRepository.Object, _mockEmailClient.Object, _mockApplicationConfiguration.Object, _mockLogger.Object, _mockStockportApiRepository.Object, businessId);
             _mockApplicationConfiguration.Setup(_ => _.GetEmailEmailFrom("stockportgov")).Returns(() => AppSetting.GetAppSetting("test"));
         }
 
@@ -40,7 +35,7 @@ namespace StockportWebappTests_Unit.Unit.Services
         public async void HandleStaleGroupsShouldCallContentApiRepository()
         {
             // Arrange
-            _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>()).ReturnsAsync(new List<Group> {new GroupBuilder().Build()});
+            _mockStockportApiRepository.Setup(_ => _.GetResponse<List<Group>>()).ReturnsAsync(new List<Group> { new GroupBuilder().Build() });
             _mockApplicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(
                 new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { Template = "", NumOfDays = 180 }, new ArchiveEmailPeriod { Template = "", NumOfDays = 270 } });
             // Act
@@ -136,7 +131,7 @@ namespace StockportWebappTests_Unit.Unit.Services
             });
 
             _mockApplicationConfiguration.Setup(_ => _.GetArchiveEmailPeriods()).Returns(
-                new List<ArchiveEmailPeriod> {new ArchiveEmailPeriod {Template = "", NumOfDays = 0}});
+                new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { Template = "", NumOfDays = 0 } });
 
             // Act
             await _service.HandleStaleGroups();
@@ -245,7 +240,7 @@ namespace StockportWebappTests_Unit.Unit.Services
             var groupResults = new GroupResults();
             var groups = new List<Group>();
 
-            for(var i = 0; i < totalNumItems; i++)
+            for (var i = 0; i < totalNumItems; i++)
             {
                 groups.Add(new GroupBuilder().Build());
             }

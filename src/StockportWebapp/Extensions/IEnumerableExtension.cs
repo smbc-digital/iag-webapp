@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace StockportWebapp.Extensions
+﻿namespace StockportWebapp.Extensions
 {
     public static class IEnumerableExtension
     {

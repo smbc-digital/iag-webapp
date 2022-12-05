@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using StockportWebapp.Models;
@@ -18,7 +17,7 @@ namespace StockportWebapp.ViewDetails
         public string Name { get; set; }
 
         [Required(ErrorMessage = "An email address is required")]
-        [EmailAddress(ErrorMessage="This is not a valid email address")]
+        [EmailAddress(ErrorMessage = "This is not a valid email address")]
         [Display(Name = "Email address")]
         [DefaultValue(DefaultValue)]
         [MaxLength(254, ErrorMessage = "The email address must be no more than 254 characters long")]
@@ -42,7 +41,7 @@ namespace StockportWebapp.ViewDetails
         public IEnumerable<Crumb> Breadcrumbs = new List<Crumb>();
 
         public ContactUsDetails()
-        {         
+        {
         }
 
         public ContactUsDetails(string serviceEmailId, string title)

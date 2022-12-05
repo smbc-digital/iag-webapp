@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
-using Microsoft.AspNetCore.Http;
+﻿using FluentAssertions;
 using Moq;
 using StockportWebapp.ContentFactory;
 using StockportWebapp.Models;

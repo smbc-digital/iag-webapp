@@ -1,6 +1,5 @@
-﻿using System.Linq;
-using AngleSharp.Extensions;
-using AngleSharp.Parser.Html;
+﻿using AngleSharp;
+using AngleSharp.Html.Parser;
 
 namespace StockportWebapp.Utils
 {
@@ -20,7 +19,7 @@ namespace StockportWebapp.Utils
 
         public string ConvertRelativeUrltoAbsolute(string htmlText, string site)
         {
-            var document = _htmlParser.Parse(htmlText);
+            var document = _htmlParser.ParseDocument(htmlText);
 
             var relativeHyperlinks = document.All.Where(l => l.HasAttribute("href"));
             var relativeSrcs = document.All.Where(l => l.HasAttribute("src"));

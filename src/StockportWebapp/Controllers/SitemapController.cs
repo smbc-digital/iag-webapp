@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using StockportWebapp.Models;
 using StockportWebapp.Repositories;
 using StockportWebapp.ViewModels;
@@ -33,7 +26,7 @@ namespace StockportWebapp.Controllers
             var baseURL = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
             var now = DateTime.Now;
             _logger.LogInformation(string.Concat("Hitting site map for: ", type));
-          
+
             var xml = string.Empty;
             switch (type)
             {
@@ -285,7 +278,7 @@ namespace StockportWebapp.Controllers
             string ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             xmlSerializerNamespace.Add(string.Empty, ns);
             var xsSubmit = new XmlSerializer(typeof(T), null, null, new XmlRootAttribute(attribute), ns);
-            
+
             using (var sww = new Utf8StringWriter())
             {
                 using (XmlWriter writer = XmlWriter.Create(sww))
@@ -300,18 +293,18 @@ namespace StockportWebapp.Controllers
     }
 
     public class Utf8StringWriter : StringWriter
-    {        
+    {
         public override Encoding Encoding
         {
             get { return new UTF8Encoding(false); }
         }
-    }      
+    }
 
     [XmlType("sitemap")]
-    public class SitemapGoogleIndex 
+    public class SitemapGoogleIndex
     {
         public string loc { get; set; }
-        public string lastmod { get; set; }       
+        public string lastmod { get; set; }
 
         public SitemapGoogleIndex()
         {

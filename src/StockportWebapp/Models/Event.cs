@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models
 {
     public class Event
     {
@@ -29,9 +26,9 @@ namespace StockportWebapp.Models
         public List<string> Tags { get; set; }
         public Group Group { get; set; }
         public List<Alert> Alerts { get; set; }
-        public EventFrequency EventFrequency { get; set;  }
+        public EventFrequency EventFrequency { get; set; }
         public int Occurences { get; set; }
-        public List<EventCategory> EventCategories { get; set;}
+        public List<EventCategory> EventCategories { get; set; }
         public string AccessibleTransportLink { get; set; }
     }
 }

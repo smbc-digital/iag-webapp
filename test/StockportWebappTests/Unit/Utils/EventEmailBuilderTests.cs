@@ -1,7 +1,5 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Moq;
 using StockportWebapp.AmazonSES;
 using StockportWebapp.Config;
@@ -37,7 +35,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         {
             _emailClient.Setup(e => e.SendEmailToService(It.Is<EmailMessage>(message => message.ToEmail == AppSetting.GetAppSetting("EventSubmissionEmail").ToString()))).ReturnsAsync(HttpStatusCode.OK);
 
-            var response = await _eventEmailBuilder.SendEmailAddNew(new EventSubmission() {EventDate = new DateTime(2017, 9, 9) });
+            var response = await _eventEmailBuilder.SendEmailAddNew(new EventSubmission() { EventDate = new DateTime(2017, 9, 9) });
 
             response.Should().Be(HttpStatusCode.OK);
         }
@@ -45,7 +43,7 @@ namespace StockportWebappTests_Unit.Unit.Utils
         [Fact]
         public async void ItShouldLogThatAnEmailWasSent()
         {
-            var eventSubmission = new EventSubmission { SubmitterEmail = "test@testing.xyz", EventDate = new DateTime(2017,9,9)};
+            var eventSubmission = new EventSubmission { SubmitterEmail = "test@testing.xyz", EventDate = new DateTime(2017, 9, 9) };
             await _eventEmailBuilder.SendEmailAddNew(eventSubmission);
 
             LogTesting.Assert(_logger, LogLevel.Information, "Sending event submission form email");

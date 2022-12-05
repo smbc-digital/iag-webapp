@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using StockportWebapp.Utils;
 
 namespace StockportWebapp.Models
@@ -27,7 +26,7 @@ namespace StockportWebapp.Models
             InsetTextTitle = insetTextTitle;
             InsetTextBody = MarkdownWrapper.ToHtml(insetTextBody);
             ContactUsCategories = contactUsCategories;
-            MetaDescription = metaDescription;            
+            MetaDescription = metaDescription;
         }
     }
 }

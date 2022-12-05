@@ -1,6 +1,4 @@
 ﻿using FluentAssertions;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Moq;
 using StockportWebapp.Config;
 using StockportWebapp.Middleware;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel.DataAnnotations;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -84,12 +81,13 @@ namespace StockportWebapp.ViewModels
             CurrentUrl = queryUrl;
         }
 
-        public bool HasActiveFilter() {
+        public bool HasActiveFilter()
+        {
             if (!string.IsNullOrEmpty(Category) ||
                 !string.IsNullOrEmpty(Tag) ||
-                DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo))         
+                DateFrom.HasValue && DateTo.HasValue && (DateFrom <= DateTo))
                 return true;
-            return false;         
+            return false;
         }
     }
 }

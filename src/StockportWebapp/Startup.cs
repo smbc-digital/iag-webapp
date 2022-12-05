@@ -1,23 +1,10 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Primitives;
-using Newtonsoft.Json;
+﻿using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
-using Serilog;
 using StockportGovUK.NetStandard.Gateways;
 using StockportWebapp.Config;
-using StockportWebapp.Extensions;
-using StockportWebapp.Middleware;
-using StockportWebapp.ModelBinders;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using StockportWebapp.Wrappers;
-using ILogger = Serilog.ILogger;
 
 namespace StockportWebapp
 {
@@ -39,12 +26,8 @@ namespace StockportWebapp
             _sendAmazonEmails = string.IsNullOrEmpty(Configuration["SendAmazonEmails"]) || Configuration["SendAmazonEmails"] == "true";
         }
 
-        private ILogger StartupLogger { get; set; }
-
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            ConfigureSerilog();
-
             services.AddControllersWithViews(options =>
             {
                 options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
@@ -68,7 +51,7 @@ namespace StockportWebapp
             services.AddTransient<IUrlGeneratorSimple>(p => new UrlGeneratorSimple(p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
             services.AddSingleton<IStaticAssets, StaticAssets>();
             services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
-            services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(new System.Net.Http.HttpClient(), provider.GetService<ILogger<HttpClientWrapper>>()));
+            services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(new HttpClient(), provider.GetService<ILogger<HttpClientWrapper>>()));
 
             // custom extensions
             services.AddCustomisedAngleSharp();
@@ -86,46 +69,16 @@ namespace StockportWebapp
             services.AddCustomServices(_contentRootPath, _appEnvironmentName);
             services.AddBuilders();
             services.AddHelpers();
-            services.AddGroupConfiguration(Configuration, StartupLogger);
-            services.AddSesEmailConfiguration(Configuration, StartupLogger);
-            services.AddRedis(Configuration, _useRedisSession, StartupLogger);
+            services.AddGroupConfiguration(Configuration, Log.Logger);
+            services.AddSesEmailConfiguration(Configuration, Log.Logger);
+            services.AddRedis(Configuration, _useRedisSession, Log.Logger);
             services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
-
-            services.AddApplicationInsightsTelemetry(Configuration);
         }
 
-        public void Configure(
-            IApplicationBuilder app,
-            IWebHostEnvironment env,
-            ILoggerFactory loggerFactory,
-            IHostApplicationLifetime appLifetime)
+        public static void HandleFaviconRequests(IApplicationBuilder app)
         {
-            loggerFactory.AddSerilog();
-
-            if (!env.IsEnvironment("prod") && !env.IsEnvironment("stage"))
-                app.UseDeveloperExceptionPage();
-
-            app.UseMiddleware<BusinessIdMiddleware>()
-                .UseMiddleware<ShortUrlRedirectsMiddleware>()
-                .UseMiddleware<RobotsMiddleware>()
-                .UseMiddleware<SecurityHeaderMiddleware>()
-                .UseStatusCodePagesWithReExecute("/error")
-                .UseCustomStaticFiles()
-                .UseCustomCulture()
-                .UseRouting()
-                .Map("/favicon.ico", HandleFaviconRequests)
-                .UseEndpoints(endpoints =>
-                {
-                    endpoints.MapControllers();
-                });
-
-            // Close logger
-            appLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
-        }
-
-        private static void HandleFaviconRequests(IApplicationBuilder app)
-        {
-            app.Run(context => {
+            app.Run(context =>
+            {
                 string defaultFaviconPath = "/assets/images/ui-images/sg/favicon.ico";
                 if (context.Request.Headers.TryGetValue("BUSINESS-ID", out StringValues idFromHeader))
                 {
@@ -135,21 +88,6 @@ namespace StockportWebapp
                 context.Response.Redirect(defaultFaviconPath, true);
                 return Task.CompletedTask;
             });
-        }
-
-        private void ConfigureSerilog()
-        {
-            var logConfig = new LoggerConfiguration()
-                .ReadFrom
-                .Configuration(Configuration);
-
-            var esLogConfig = new ElasticSearchLogConfigurator(Configuration);
-            esLogConfig.Configure(logConfig);
-
-            Log.Logger = logConfig.CreateLogger();
-            StartupLogger = Log.Logger;
-
-            StartupLogger.Debug("Completed logging configuration...");
         }
     }
 }

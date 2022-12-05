@@ -1,7 +1,5 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Jose;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StockportWebapp.Exceptions;
 using StockportWebapp.Models;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace StockportWebapp.Emails.Models
+﻿namespace StockportWebapp.Emails.Models
 {
     public class GroupEdit
     {
@@ -17,9 +15,9 @@ namespace StockportWebapp.Emails.Models
         public List<string> AgeRanges { get; set; }
         public string Volunteering { get; set; }
         public string VolunteeringText { get; set; }
-		public bool DonationsNeeded { get; set; }
-		public string DonationsText { get; set; }
-		public string DonationUrl { get; set; }
-		public string AdditionalInformation { get; set; }
+        public bool DonationsNeeded { get; set; }
+        public string DonationsText { get; set; }
+        public string DonationUrl { get; set; }
+        public string AdditionalInformation { get; set; }
     }
 }

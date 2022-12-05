@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace StockportWebapp.Validation
 {
@@ -7,8 +6,8 @@ namespace StockportWebapp.Validation
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if (value == null) { return ValidationResult.Success;}
-            
+            if (value == null) { return ValidationResult.Success; }
+
             DateTime date;
             DateTime.TryParse(value.ToString(), out date);
 

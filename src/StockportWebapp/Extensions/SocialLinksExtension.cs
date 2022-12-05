@@ -20,7 +20,7 @@
             {
                 urlIndex = twitter.Length + stringUrl.IndexOf(twitter);
                 result = "@" + stringUrl.Remove(0, urlIndex);
-            } 
+            }
 
             return result;
         }

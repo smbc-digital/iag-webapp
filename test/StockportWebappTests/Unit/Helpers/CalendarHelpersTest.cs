@@ -1,6 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using Moq;
+﻿using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
 using Xunit;
@@ -9,20 +7,18 @@ namespace StockportWebappTests_Unit.Unit.Helpers
 {
     public class CalendarHelperTest
     {
-        private Mock<ITimeProvider> timeProvider = new Mock<ITimeProvider>();
         private readonly CalendarHelper _helper;
 
         public CalendarHelperTest()
         {
-            timeProvider.Setup(t => t.Now()).Returns(new DateTime(2017, 7, 7));
-            _helper = new CalendarHelper(timeProvider.Object);
+            _helper = new CalendarHelper();
         }
 
         [Fact]
         public void ShouldReturnCorrectCalendarUrlForEventWhenClickOnWindowsOrApple()
         {
-          // Arrange
-            var eventItem = new Event() { Slug = "test-slug", Description = "Test Description", EventDate = new DateTime(2017, 12, 12), EndTime = "17:00", StartTime = "14:00", Location = "location"};
+            // Arrange
+            var eventItem = new Event() { Slug = "test-slug", Description = "Test Description", EventDate = new DateTime(2017, 12, 12), EndTime = "17:00", StartTime = "14:00", Location = "location" };
             var eventUrl = "www.test.com/test-event";
             // Act
             string calenderUrl = _helper.GetIcsText(eventItem, eventUrl);

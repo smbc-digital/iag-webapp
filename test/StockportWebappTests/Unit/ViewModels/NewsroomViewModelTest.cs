@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using StockportWebapp.Models;
 using StockportWebapp.ViewModels;
 using Xunit;
@@ -49,7 +47,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         [Fact]
         public void ShouldReturnToAndFromDatesIfDateRangeIsCustomDate()
         {
-            var newsroomViewModel = new NewsroomViewModel() {DateRange = "customdate", DateFrom = new DateTime(2016, 01, 01), DateTo = new DateTime(2016, 02, 01)};
+            var newsroomViewModel = new NewsroomViewModel() { DateRange = "customdate", DateFrom = new DateTime(2016, 01, 01), DateTo = new DateTime(2016, 02, 01) };
 
             var result = newsroomViewModel.GetActiveDateFilter();
 
@@ -77,7 +75,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         }
 
         [Fact]
-        public void HasActiveFilterShouldReturnFalseWhenNoActiveFiltersExsist() 
+        public void HasActiveFilterShouldReturnFalseWhenNoActiveFiltersExsist()
         {
             var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
             var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
@@ -87,7 +85,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         }
 
         [Fact]
-        public void HasActiveFilterShouldReturnTrueWhenActiveFiltersExist() 
+        public void HasActiveFilterShouldReturnTrueWhenActiveFiltersExist()
         {
             var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
             var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
@@ -101,7 +99,7 @@ namespace StockportWebappTests_Unit.Unit.ViewModels
         }
 
         [Fact]
-        public void HasActiveFilterShouldReturnFalseWhenDateFilterIsInvalid() 
+        public void HasActiveFilterShouldReturnFalseWhenDateFilterIsInvalid()
         {
             var newsroom = BuildNewsRoom(categories: new List<string> { "Zebras", "Asses", "Oxen" });
             var newsroomViewModel = new NewsroomViewModel(newsroom, EmailAlertsUrl);
