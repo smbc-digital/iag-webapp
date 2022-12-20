@@ -238,7 +238,7 @@ namespace StockportWebapp.Controllers
                 ViewBag.Eventdate = eventItem?.EventDate.ToString("yyyy-MM-dd");
             }
 
-            return View(eventItem);
+            return View("Detail", eventItem);
         }
 
         [Route("/events/add-your-event")]
