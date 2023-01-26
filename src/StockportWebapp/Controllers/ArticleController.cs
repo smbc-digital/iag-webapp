@@ -24,12 +24,6 @@ namespace StockportWebapp.Controllers
             _articlerepository = articlerepository;
         }
 
-        [Route("/map")]
-        public IActionResult Map([FromQuery] string source, [FromQuery] string panels, [FromQuery] string layers)
-        {
-            return View(new Tuple<string, string, string>(source, panels, layers));
-        }
-
         [Route("/{articleSlug}")]
         public async Task<IActionResult> Article(string articleSlug, [FromQuery] string message, string SearchTerm, string SearchFolder)
         {
@@ -74,12 +68,6 @@ namespace StockportWebapp.Controllers
 
                 return NotFound();
             }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> MapPost()
-        {
-            return NotFound();
         }
 
         private void SetArticlesCanonicalUrl(string articleSlug, string sectionSlug, ProcessedArticle article)
