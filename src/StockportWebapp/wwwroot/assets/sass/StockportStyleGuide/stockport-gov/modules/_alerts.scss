@@ -1,0 +1,238 @@
+﻿.alert {
+  width: 100%;
+  padding: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: table;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+  .alert-title {
+    @media #{$mobile} {
+      font-size: 17px;
+    }
+
+    font-weight: bold;
+  }
+
+  h2 {
+    @media #{$mobile} {
+      font-size: 17px;
+      margin-top: 5px;
+    }
+  }
+
+  .alert-subheading {
+    font-style: italic;
+  }
+}
+
+.alert-close {
+  border-radius: 0 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+
+  &:hover a {
+    color: $greyDarkest;
+  }
+
+  i {
+
+    @media #{$mobile} {
+      font-size: 1.5em;
+    }
+
+    font-size: 1.5em;
+  }
+
+  a {
+    display: inline-block;
+    padding: 0 7px;
+
+    &:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+  }
+}
+
+.alert-icon {
+  border-radius: 5px 0 0 5px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
+  width: 65px;
+
+  @media #{$mobile} {
+    display: none;
+  }
+}
+
+.alert-content {
+  padding: 10px 20px 10px 20px;
+
+  p {
+    line-height: 1.5em;
+
+    @media #{$mobile} {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.alert-error {
+  background-color: $red;
+  color: $white !important;
+
+  .alert-icon {
+    i {
+      color: $white;
+    }
+  }
+
+  .alert-close {
+    i {
+      color: $white;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  h2, h3 {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  p, a {
+    color: $white;
+  }
+
+  a:hover {
+    color: rgba(255,255,255,0.8);
+  }
+}
+
+.alert-success {
+  background-color: $green;
+  color: $alertText !important;
+
+  h2, h3 {
+    color: $alertWarningHeading;
+    margin-bottom: 0;
+  }
+
+  .alert-icon {
+    background-color: rgba(0, 0, 0, 0.2);
+
+    i {
+      color: $alertText;
+    }
+  }
+
+  .alert-close {
+    i {
+      color: $alertText;
+
+      &:hover {
+        color: $alertText;
+      }
+    }
+  }
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+.alert-warning {
+  background-color: $orange;
+  color: $black !important;
+  .alert-close {
+    i {
+      color: $greyDarkest;
+
+      &:hover {
+        color: $alertText;
+      }
+    }
+  }
+
+  .alert-icon {
+    i {
+      color: $greyDarkest;
+    }
+  }
+
+  h2, h3 {
+    color: $greyDarkest;
+    margin-bottom: 0;
+  }
+
+
+  p, a {
+    color: $black;
+  }
+
+  a:hover {
+    color: $greyDark;
+  }
+}
+
+.alert-information {
+  background-color: $softBlue;
+  color: $white !important;
+  .alert-close {
+    i {
+      color: $white;
+
+      &:hover {
+        color: $alertText;
+      }
+    }
+  }
+
+  .alert-icon {
+    i {
+      color: $white;
+    }
+  }
+
+  h2, h3 {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  p, a {
+    color: $white;
+  }
+
+  a:hover {
+    color: $black;
+  }
+}
+
+
+
+.alert-inline {
+  background-color: $ebbGray;
+  border-left: 5px solid $darkerEbbGray;
+  margin-bottom: 30px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 10px;
+}
+
+.alert-container {
+  margin-bottom: 12px;
+}

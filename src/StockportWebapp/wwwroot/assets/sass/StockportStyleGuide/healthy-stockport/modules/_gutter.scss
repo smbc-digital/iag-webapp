@@ -1,0 +1,29 @@
+.page-icon {
+  background-color: $pageIconBackground;
+  margin-left: -20px;
+  @include border-radius(10px 0 10px 0);
+  padding: 16%;
+  color: white;
+  text-align: center;
+
+  i {
+    font-size: 4vw;
+
+    @media (min-width: 1420px) {
+      font-size: 55px;
+    }
+  }
+}
+
+.page-icon-bordered {
+  border: 3px solid white;
+  border-radius: 100%;
+  padding: 10px;
+  height: 4vw;
+  width: 4vw;
+
+  @media (min-width: 1420px) {
+    height: 55px;
+    width: 55px;
+  }
+}

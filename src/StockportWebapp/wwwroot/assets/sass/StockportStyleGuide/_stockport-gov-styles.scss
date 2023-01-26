@@ -1,0 +1,356 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans:400,700");
+
+$fontStack: 'Noto Sans', sans-serif;
+$fontStackHeadings: 'Source Sans Pro', sans-serif;
+
+/*------ Base Styles ------*/
+body {
+  font: 1em / 2 $fontStack;
+}
+
+a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  color: $colorPrimary;
+
+  &:hover {
+    text-decoration-thickness: 3px;
+  }
+}
+
+h1 {
+  font-family: $fontStackHeadings;
+  font-weight: 600;
+  font-size: 1.875em;
+  color: $greyDarkest;
+  letter-spacing: -1px;
+}
+
+h2 {
+  font-family: $fontStackHeadings;
+  font-weight: 600;
+  letter-spacing: -1px;
+  font-size: 1.875em;
+
+  @media #{$mobile} {
+    font-size: 1.5em;
+  }
+}
+
+h3 {
+  font-family: $fontStackHeadings;
+  font-weight: 800;
+  font-size: $fontMedium;
+  color: $greyDarkest;
+}
+
+.regular-bold {
+  font-size: 1.125em;
+  font-weight: 800;
+}
+
+/* ----- table styles ------- */
+
+table {
+  width: 100%;
+}
+
+table, tr, th, td {
+  border: none;
+}
+
+thead {
+  border-bottom: 1px solid $greyDarkest;
+}
+
+th {
+  font-weight: 700;
+}
+
+tbody td {
+  font-weight: 500;
+}
+
+tbody tr {
+  border-bottom: 1px solid $greyLighter;
+}
+
+tbody tr:last-child {
+  border-bottom: 0;
+}
+
+tbody {
+  border-bottom: 1px solid $greyDarkest;
+}
+
+/*------ Layout Styles ------*/
+
+.type-home .grid-container-full-width {
+  .l-container {
+    padding-top: 0px;
+  }
+}
+
+
+.logo-main-image {
+  height: 50px;
+  padding-top: 0;
+
+  @media #{$mobile} {
+    height: 28px;
+    padding-top: 4px;
+  }
+}
+
+.logo-main {
+  padding: 0;
+}
+
+
+/*------ Module Styles ------*/
+.grid-container-full-width .grid-container {
+  @media #{$mobile, $tablet} {
+    padding: 0;
+  }
+}
+
+/* --------- ARTICLE PAGE -------- */
+article {
+  border-bottom: none;
+}
+
+.article-pagination {
+  background-color: transparent;
+
+  a {
+    background-color: transparent;
+    text-decoration: none;
+    color: $teal-darker;
+  }
+
+  border-bottom: 2px solid rgba(0,0,0,.1);
+  border-top: 2px solid rgba(0,0,0,.1);
+}
+
+.article-navigation li.nav-active > a {
+  text-decoration: none;
+}
+
+.article-navigation li a {
+  border: none;
+  font-size: 1em;
+}
+
+.article-navigation li {
+  line-height: 1.6em;
+}
+
+.article-navigation {
+  .article-section-nav-numbered-list {
+    font-size: 1em;
+    display: inline;
+  }
+}
+
+/* ------ Breadcrumbs ------- */
+.breadcrumb-container {
+  background-color: $colorPrimaryDark;
+  border-bottom: 4px solid #00b79b;
+  width: 100%;
+  min-height: 40px;
+
+  .breadcrumb {
+    max-width: 1200px;
+    margin-bottom: 0;
+    color: $white;
+    padding-bottom: 0px;
+    padding-top: 3px;
+
+    @media #{$mobile} {
+      padding: 0px;
+    }
+
+    li a {
+      color: $white;
+      text-transform: none;
+      font-weight: normal;
+    }
+
+    li.current span {
+      font-size: .875em;
+    }
+
+    li.current a {
+      text-decoration: none;
+
+      &:hover {
+        color: $white;
+      }
+    }
+
+    .chevron {
+      color: $white;
+    }
+  }
+}
+
+
+/* --------- HOMEPAGE END ----------- */
+
+.atoz {
+  background-color: $colorPrimary;
+  text-align: center;
+  padding-bottom: 20px;
+
+  @media #{$tablet, $desktop} {
+    border-bottom: 6px solid $teal;
+  }
+
+  h2 {
+    color: $white;
+    padding-top: 5px;
+    margin-bottom: 30px;
+    margin-top: 0;
+    font-family: $fontStackHeadings;
+  }
+
+  .alphabet {
+    max-width: 790px;
+    display: inline-block;
+
+    .letter {
+      display: inline-block;
+      padding-bottom: 15px;
+      padding-right: 5px;
+      padding-left: 5px;
+
+      .letter-bordered {
+        display: inline-block;
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 100%;
+        padding: 10px;
+        width: 23px;
+        height: 23px;
+        display: inline-block;
+        color: $white;
+        text-decoration: none;
+        font-size: 23px;
+        line-height: 1em;
+
+        &:hover, &:focus {
+          border: 1px solid rgba(255,255,255,1.0);
+          text-decoration: none;
+        }
+
+        a:hover, a:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .letter.active a {
+      background-color: $white;
+      color: $colorPrimary;
+    }
+  }
+}
+
+.no-bottom-atoz .atoz {
+  border-bottom: none;
+}
+
+
+/*------ Button Styles ------*/
+.button {
+  font-family: 'Source Sans Pro';
+  font-size: 1.125em;
+  -webkit-box-shadow: 0 8px 20px 0 rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px 0 rgba(0,0,0,0.1);
+  transition: all 0.5s;
+  transition-property: opacity, box-shadow;
+
+  &:hover {
+    cursor: pointer;
+    -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
+    box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
+  }
+}
+
+.button-partialrounded {
+  border-radius: 3px;
+}
+
+.button-action {
+  background-color: $teal;
+}
+
+/*------ Breadcrumb ------*/
+.breadcrumb {
+  @media #{$mobile} {
+    padding: 5px 10px;
+  }
+}
+
+/*--------------- Webcast   ------------------*/
+
+.webcast {
+  color: $white;
+  background-image: url("/assets/images/content/fader-council-chambers.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 600px;
+  display: block;
+  position: relative;
+
+  @media #{$mobile} {
+    min-height: 300px;
+    max-height: 300px;
+  }
+
+  .webcast-gradient {
+    position: relative;
+    min-height: 600px;
+    z-index: 10;
+
+    @media #{$mobile} {
+      min-height: 300px;
+      max-height: 300px;
+    }
+
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,0.65) 100%);
+  }
+
+  .webcast-text {
+    border-left: solid $white 5px;
+    line-height: 0.6;
+    padding: 10px;
+    position: absolute;
+    bottom: 10%;
+    left: 10%;
+    z-index: 20;
+
+    h2, p {
+      color: $white;
+    }
+
+    h2 {
+      margin-top: 0;
+
+      @media #{$mobile} {
+        font-size: 1.3em;
+        line-height: 1.5em;
+      }
+    }
+
+    p {
+      line-height: 1.2;
+      margin-bottom: 0;
+
+      @media #{$mobile} {
+        font-size: 0.8em;
+      }
+    }
+  }
+}

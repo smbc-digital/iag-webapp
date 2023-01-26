@@ -1,0 +1,128 @@
+﻿.wrap {
+  padding: 1em;
+
+  @media #{$mobile} {
+    padding: 2em;
+  }
+}
+
+.modal {
+  display: block;
+  text-align: center;
+  width: 100%;
+  text-align: right;
+  float: right;
+  font-size: 24px;
+
+  @media #{$mobile} {
+    margin: 0px 0 10px 0px;
+    font-size: 16px;
+  }
+
+  > label {
+    border: 1px solid $colorPrimaryPale;
+    margin: 10px 0 10px 10px;
+    float: right;
+    border-radius: 3px;
+    color: $colorPrimaryPale;
+    padding: 0 12px;
+    cursor: pointer;
+  }
+
+  input {
+    position: absolute;
+    right: 100px;
+    top: 30px;
+    z-index: -10;
+  }
+}
+
+
+.modal-overlay {
+  background: $colorPrimary;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  text-align: center;
+  z-index: -800;
+  opacity: 0;
+  overflow-y: scroll;
+  -webkit-transform: scale(0.5);
+  -ms-transform: scale(0.5);
+  transform: scale(0.5);
+  -webkit-transition: all 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  display: block;
+
+  .modal-header {
+    display: block;
+    text-align: right;
+    height: 70px;
+    margin-bottom: -70px;
+  }
+
+  .fa {
+    font-size: 30px;
+    color: $white;
+    opacity: 0.8;
+  }
+
+  .modal-box {
+    display: table;
+    width: 100%;
+    position: relative;
+    height: 100%;
+    overflow: scroll;
+
+    label {
+      padding-left: 10px;
+      padding-top: 10px;
+      opacity: 1;
+      color: $white;
+      font: 1em "Noto Sans",sans-serif;
+    }
+
+    .mobile-menu {
+      display: table-cell;
+      height: auto;
+      vertical-align: middle;
+      padding-top: 70px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .button-overlay {
+    border-color: $white;
+    opacity: 1;
+    border-radius: 5px;
+    box-shadow: none;
+    position: relative;
+    right: 0;
+    top: 0;
+    margin: 10px 10px 0 0;
+    cursor: pointer;
+
+    label {
+      cursor: pointer;
+    }
+  }
+}
+
+input:checked ~ .modal-overlay {
+  opacity: 0.95;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 800;
+}
+
+.noscroll {
+  overflow: hidden;
+}

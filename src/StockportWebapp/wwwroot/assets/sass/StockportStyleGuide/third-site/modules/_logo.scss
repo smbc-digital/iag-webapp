@@ -1,0 +1,46 @@
+﻿/*------------------- Main Logo ---------------------*/
+.logo-main {
+  > a {
+    display: inline-block;
+  }
+}
+
+.logo-main-image {
+  margin: 0;
+  padding-top: 3px;
+  border-top: 10px solid rgba(255,255,255,0.0);
+  height: 55px;
+
+  @media #{$mobile} {
+    height: 40px;
+  }
+
+  width: auto;
+}
+
+.footer-stockport-logo {
+  margin-top: 0;
+
+  img {
+    opacity: 0.8;
+    height: auto;
+    width: 100%;
+  }
+
+  a {
+    display: inline-block;
+  }
+
+  a:hover img {
+    opacity: 1;
+  }
+
+  @media #{$mobile} {
+    margin-top: 25px;
+    padding-bottom: 20px;
+
+    img {
+      max-width: 246px;
+    }
+  }
+}

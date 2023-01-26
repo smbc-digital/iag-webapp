@@ -1,0 +1,5 @@
+﻿#error-grid-container {
+  @media #{$desktop, $tablet} {
+    min-height: 79.1vh;
+  }
+}

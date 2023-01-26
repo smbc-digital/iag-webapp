@@ -1,0 +1,52 @@
+﻿body {
+  background-color: $offWhite;
+}
+
+html {
+  -webkit-text-size-adjust: 100%; /* Prevent font scaling in landscape while allowing user zoom */
+}
+
+button {
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+footer {
+  background-color: $colorPrimaryDark;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  color: $white;
+
+  ul {
+    list-style: none;
+  }
+
+  h5 {
+    margin-top: 15px;
+    text-transform: uppercase;
+    font-size: 1.125em;
+  }
+
+  strong, h5 {
+    color: $white;
+  }
+}
+
+article {
+  border-bottom: 1px solid $borderDefault;
+  padding-bottom: 20px;
+}
+
+table, tr, th, td {
+  border: solid 1px $greyDarkest;
+}
+
+th, td {
+  padding: 9px 15px 9px 0;
+}
+
+.table {
+  overflow-x: auto;
+  -ms-overflow-x: auto;
+}

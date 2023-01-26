@@ -1,0 +1,100 @@
+﻿.menu-container {
+  text-align: right;
+  padding-top: 18px;
+
+  @media #{$desktop} {
+    padding: 0;
+  }
+
+  @media #{$mobile} {
+    padding-top: 8px;
+  }
+}
+
+/*------------- Mobile & Tablet ----------------*/
+.mobile-menu ul {
+  list-style: none;
+}
+
+.mobile-menu li {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+
+  &.menu-active a {
+    border-top-color: $menuLightActiveDetail;
+    background-color: $menuLightActive;
+  }
+
+  a {
+    color: #ffffff;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: transparent;
+    padding: 10px 0;
+    @include transition(background 0.25s);
+    font-size: $fontMedium;
+
+    &:hover {
+      background: $menuLightHover;
+      text-decoration: none;
+    }
+  }
+}
+
+/*--------------- Desktop --------------------*/
+.desktop-menu {
+  margin-bottom: 0;
+  font-size: 0;
+  height: 80px;
+  text-align: center;
+}
+
+.desktop-menu-list {
+  display: inline-block;
+
+  li {
+    margin: 0;
+    border-right: 1px solid $menuLightDetail;
+    display: table-cell;
+    vertical-align: middle;
+
+    a {
+      color: $menuLightText;
+      font-size: 16px;
+      text-decoration: none;
+      -webkit-transition: background-color 0.3s; /* Safari */
+      transition: background-color 0.3s;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.3;
+      height: 80px;
+      vertical-align: middle;
+      display: table-cell;
+      padding: 0 15px;
+    }
+
+    &:first-child {
+      border-left: 1px solid $menuLightDetail;
+    }
+
+    &:hover {
+      background-color: $menuLightHover;
+    }
+
+    &.menu-active {
+      border-top: 10px solid $menuLightActiveDetail;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      background-color: $menuLightActive;
+
+      a {
+        height: 68px;
+        position: relative;
+        top: -3px;
+      }
+    }
+  }
+}

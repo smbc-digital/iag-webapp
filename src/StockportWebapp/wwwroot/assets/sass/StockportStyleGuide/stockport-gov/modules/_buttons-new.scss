@@ -1,0 +1,198 @@
+.button-default {
+  background-color: $teal-darker;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  font-family: 'Source Sans Pro';
+  font-size: 1.125em;
+  letter-spacing: 0;
+  line-height: 20px;
+  min-width: 300px;
+  padding: 15px 25px 15px 15px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .5s;
+  transition-property: opacity,box-shadow;
+  width: auto;
+
+  i {
+    float: left;
+    top: 50%;
+  }
+}
+
+.button-default:before {
+  text-rendering: auto;
+  float: right;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f105";
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 20px;
+  text-align: right;
+  padding-left: 10px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -10px;
+}
+
+.button-default:hover {
+  background-color: #1ea28d;
+  color: #fff;
+  cursor: pointer;
+  -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+  box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+  text-decoration: none;
+}
+
+.button-default:active {
+  background-color: #059e86;
+}
+
+@media only screen and (max-width: 767px) {
+  .button-default {
+    display: block;
+    min-width: unset;
+  }
+}
+
+.button-loading {
+  transition: color .2s;
+  transition-property: color,background-color;
+}
+
+@-webkit-keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@-o-keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes load {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.is-loading:after {
+  text-rendering: auto;
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  content: "\f1ce";
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 30px;
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -15px;
+  margin-left: -15px;
+  -webkit-animation: load 1s ease-in-out infinite;
+  -moz-animation: load 1s ease-in-out infinite;
+  -o-animation: load 1s ease-in-out infinite;
+  animation: load 1s ease-in-out infinite;
+}
+
+.is-loading:before {
+  display: none;
+}
+
+.is-loading {
+  color: rgba(255,255,255,0.3);
+  background-color: #666666;
+  cursor: default;
+}
+
+.is-loading:hover,
+.is-loading:focus {
+  color: rgba(255,255,255,0.3);
+  background-color: #666666;
+  -webkit-box-shadow: 0 8px 20px 0 rgba(0,0,0,.1);
+  box-shadow: 0 8px 20px 0 rgba(0,0,0,.1);
+  cursor: default;
+}
+
+/* button extensions */
+.button-outline-white-transparent {
+  border: solid 1px $white;
+  color: $white;
+  background-color: transparent;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.button-icon-small {
+  padding: 12px;
+  display: block;
+  background: white;
+  border: 0px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.button-icon-small:focus {
+  outline: 3px solid #ef8a16;
+}
+
+.button-icon-small:hover {
+  cursor: pointer;
+
+  i {
+    opacity: 0.5;
+  }
+}
+
+.button-muted {
+  @include button-colors($greyDark, $white);
+}

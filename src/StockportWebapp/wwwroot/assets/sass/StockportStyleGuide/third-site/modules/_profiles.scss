@@ -1,0 +1,73 @@
+﻿/*------------------- Profile -------------------*/
+.profile {
+  @include border-radius(5px);
+  border: 1px solid $borderDefault;
+  padding: 15px;
+  margin: 20px 0;
+  overflow: hidden;
+
+  @media #{$mobile} {
+    padding: 10px;
+  }
+}
+
+.subtitle {
+  font-style: italic;
+}
+
+.profile.profile-dark {
+  background-color: $colorPrimary;
+}
+
+.profile .profile-heading {
+  margin: -15px -15px 10px -15px;
+  padding: 5px 15px;
+  width: 100%;
+  font-size: $fontDefault;
+}
+
+.profile figcaption {
+  clear: both;
+  font-size: $fontSmall;
+  padding-top: 10px;
+  line-height: 1.7;
+}
+
+
+.profile.profile-success-story {
+  background-color: $offWhite;
+
+  @media #{$mobile} {
+    text-align: center;
+  }
+
+  .profile-heading {
+    background-color: $colorPrimary;
+    color: $white;
+  }
+
+  .profile-image-mask {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  img {
+    max-width: none;
+    max-height: none;
+  }
+
+  h2 {
+    margin: 0;
+    line-height: 1.7em;
+  }
+
+  .profile-subtitle {
+    font-style: italic;
+    color: $greyDark;
+    margin-bottom: 0px;
+  }
+}
