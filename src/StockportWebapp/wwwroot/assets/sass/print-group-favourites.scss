@@ -1,29 +1,29 @@
 ﻿@media only print {
-    .l-header-container,
-    .banner-header-container,
-    .breadcrumb-container,
-    footer,
-    .share,
-    .group-calender-container-image,
-    .event-image,
-    .video-container,
-    iframe,
-    .carousel,
-    .base-akita-container,
-    .button,
-    .group-listing-container,
-    #manage-group-title,
-    .favourite-share-container,
-    .favourites-bar,
-    .volunteering-section {
-        display: none !important;
-    }
+  .l-header-container,
+  .banner-header-container,
+  .breadcrumb-container,
+  footer,
+  .share,
+  .group-calender-container-image,
+  .event-image,
+  .video-container,
+  iframe,
+  .carousel,
+  .base-akita-container,
+  .button,
+  .group-listing-container,
+  #manage-group-title,
+  .favourite-share-container,
+  .favourites-bar,
+  .volunteering-section {
+    display: none !important;
+  }
 
-    .group-favourites-print {
-        display: block !important;        
-    }
-    
-    #favourites-bar {
-        display: none !important;
-    }
+  .group-favourites-print {
+    display: block !important;
+  }
+
+  #favourites-bar {
+    display: none !important;
+  }
 }
