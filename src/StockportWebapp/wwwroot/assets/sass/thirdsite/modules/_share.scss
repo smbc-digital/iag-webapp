@@ -1,36 +1,28 @@
 ﻿.share {
-    padding-top: 10px;
+  padding-top: 10px;
 
-    &.border {
-       
-    }
+  &.top-border {
+    border-top: 1px solid #ccc;
+  }
 
-    &.top-border {
-        border-top: 1px solid #ccc;
-    }
+  &.padding-bottom {
+    padding-bottom: 10px;
+  }
 
-    &.padding-bottom {
-        padding-bottom: 10px;
-    }
+  a {
+    color: $greyDark;
+    font-size: 2em;
+    padding-right: 0.4em;
+  }
 
-    a {
-        color: $greyDark;
-        font-size:2em;
-        padding-right:0.4em;
-    }
+  h6 {
+    text-transform: none;
+    margin-bottom: 0px;
+  }
 
-    h6 {
-        text-transform: none;
-        margin-bottom: 0px;
+  .events-to-calendar {
+    @media #{$mobile, $tablet} {
+      padding-top: 15px;
     }
-
-    .addthis_button_facebook {
-        
-    }
-
-    .events-to-calendar {
-        @media #{$mobile, $tablet} {
-            padding-top: 15px;
-        }
-    }
+  }
 }
