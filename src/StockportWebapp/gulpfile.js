@@ -18,6 +18,7 @@ var paths = {
         "./wwwroot/assets/sass/thirdsite/**/*.scss",
         "./wwwroot/assets/sass/StockportStyleGuide/**/*.scss"
     ],
+    sassToWatch: "./wwwroot/assets/sass/**/*.scss",
     sassToCompile: "./wwwroot/assets/sass/*.scss",
     stylesheets: "./wwwroot/assets/stylesheets",
     js: [
@@ -65,6 +66,6 @@ exports.js = series(js);
 exports.lint = parallel(lintScss); // and lintJS when it's set up
 exports.build = series(lintScss, parallel(css, js));
 exports.watch = function () {
-    watch(paths.sass, { events: 'change' }, css);
+    watch(paths.sassToWatch, { events: 'change' }, css);
     watch(paths.js, { events: 'change' }, js);
 };
