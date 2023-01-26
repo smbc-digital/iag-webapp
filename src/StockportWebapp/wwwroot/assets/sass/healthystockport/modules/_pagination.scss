@@ -1,35 +1,34 @@
 ﻿.pagination-section {
-    border-top: 1px solid #e1e1e1;
-    font-size: 20px;
+  border-top: 1px solid #e1e1e1;
+  font-size: 20px;
 
-    @media #{$desktop} {
-        margin-bottom: 60px;
+  @media #{$desktop} {
+    margin-bottom: 60px;
+  }
+
+  @media #{$mobile,$tablet} {
+    margin-bottom: 15px;
+  }
+
+  .pagination-display {
+    text-align: right;
+
+    @media #{$mobile} {
+      text-align: center;
     }
+  }
 
-    @media #{$mobile,$tablet} {
-        margin-bottom: 15px;
+  .page-size {
+    @media #{$mobile} {
+      text-align: center;
     }
+  }
 
-    .pagination-display {
-        text-align: right;
+  .pagination-page-numbers {
+    text-align: right;
 
-        @media #{$mobile} {
-            text-align: center;
-        }
+    @media #{$mobile} {
+      text-align: center;
     }
-
-    .page-size {
-        @media #{$mobile} {
-            text-align: center;
-        }
-    }
-
-    .pagination-page-numbers {
-        text-align: right;
-
-        @media #{$mobile} {
-            text-align: center;
-        }
-    }
+  }
 }
-

@@ -1,74 +1,76 @@
 ﻿.introduction {
-    
-    h1, h3, p {
-        color: #fff;
-        margin:0;
-        text-align:left;
-        @media #{$desktop} {
-           text-align:left;
-        }
-    }
-   
-    p {
-        padding: 30px 0 0 0;
-        @media #{$desktop} {
-           width: 80%;
-           padding: 30px 0;
-        }
-    }
 
-    @media (max-width:350px){
-         line-height:25px;
+  h1, h3, p {
+    color: #fff;
+    margin: 0;
+    text-align: left;
+
+    @media #{$desktop} {
+      text-align: left;
     }
+  }
+
+  p {
+    padding: 30px 0 0 0;
+
+    @media #{$desktop} {
+      width: 80%;
+      padding: 30px 0;
+    }
+  }
+
+  @media (max-width:350px) {
+    line-height: 25px;
+  }
 }
 
 .feature {
-    > h2 {
-        text-align: center;
-        margin-bottom: 5px;
-    }
+  > h2 {
+    text-align: center;
+    margin-bottom: 5px;
+  }
 
-    > hr {
-        width: 10%;
-        margin: 0px auto 10px auto;
-        border-color: $easternBlue;
-        border-width: 2px;
-    }
+  > hr {
+    width: 10%;
+    margin: 0px auto 10px auto;
+    border-color: $easternBlue;
+    border-width: 2px;
+  }
 
-    .feature-tagline {
-        text-align: center;
-    }
+  .feature-tagline {
+    text-align: center;
+  }
 
-    .topic-block-list {
-        .topic-block {
-            .topic-block-content {
-                h3 {
-                    font-size: 1em;
-                    margin-bottom: 0;
-                    margin-top: 0;
+  .topic-block-list {
+    .topic-block {
+      .topic-block-content {
+        h3 {
+          font-size: 1em;
+          margin-bottom: 0;
+          margin-top: 0;
 
-                    &:hover{
-                        text-decoration:underline;
-                    }
-                }
-            }
+          &:hover {
+            text-decoration: underline;
+          }
         }
+      }
     }
+  }
 }
 
 .hs-carousel-container {
-    padding: 10px 30px 40px 30px;
+  padding: 10px 30px 40px 30px;
 
-    @media #{$mobile}{
-        padding: 10px 10px 40px 10px;
-    }
+  @media #{$mobile} {
+    padding: 10px 10px 40px 10px;
+  }
 
-    .webcast-text {
-        left: 45px;
-    }
+  .webcast-text {
+    left: 45px;
+  }
 }
 
 .events-call-to-action {
-    text-align: center;
-    margin-bottom: 25px;
+  text-align: center;
+  margin-bottom: 25px;
 }

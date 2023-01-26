@@ -1,146 +1,146 @@
 ﻿.article-container {
-    padding: 0px 40px;
+  padding: 0px 40px;
 
-    @media #{$tablet} {
-         padding: 0px 20px;
-    }
+  @media #{$tablet} {
+    padding: 0px 20px;
+  }
 
-     @media #{$mobile} {
-         padding: 0px 5px;
-    }
+  @media #{$mobile} {
+    padding: 0px 5px;
+  }
 }
 
 .hs-article-header {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    overflow: auto;
-    border-bottom: 1px solid #d3d3d3;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  overflow: auto;
+  border-bottom: 1px solid #d3d3d3;
 
-    hr {
-        width: 10%;
-        margin: 0 auto 30px 0;
-        border-color: #1AA9A1;
-        border-width: 2px;
+  hr {
+    width: 10%;
+    margin: 0 auto 30px 0;
+    border-color: #1AA9A1;
+    border-width: 2px;
 
-        @media #{$mobile} {
-            width: 20%;
-        }
-
-        @media #{$tablet} {
-            width: 15%;
-        }
+    @media #{$mobile} {
+      width: 20%;
     }
 
+    @media #{$tablet} {
+      width: 15%;
+    }
+  }
 
-    .hs-article-icon-container {
-        padding: 0;
-        color: #f2af29;
-        font-size: 4em;
-        display: inline-block;
-        padding-right: 10px;
-        vertical-align: middle;
+
+  .hs-article-icon-container {
+    padding: 0;
+    color: #f2af29;
+    font-size: 4em;
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+  }
+
+  .hs-article-title {
+    text-align: left;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    @media #{$mobile, $tablet} {
+      text-align: center;
     }
 
-    .hs-article-title {
-        text-align: left;
-        padding-top: 15px;
-        padding-bottom: 15px;
-
-        @media #{$mobile, $tablet} {
-            text-align: center;
-        }
-
-        @media #{$desktop} {
-            padding-left: 0px;
-        }
+    @media #{$desktop} {
+      padding-left: 0px;
     }
+  }
 
-    .hs-article-summary {
-        text-align: left;
+  .hs-article-summary {
+    text-align: left;
+  }
+
+  .hs-article-title-container {
+    font-size: 3em;
+    font-weight: 300;
+    line-height: 1.3;
+    letter-spacing: -.01em;
+    vertical-align: middle;
+    display: inline;
+
+    @media #{$mobile} {
+      font-size: 2em;
     }
-
-    .hs-article-title-container {
-        font-size: 3em;
-        font-weight: 300;
-        line-height: 1.3;
-        letter-spacing: -.01em;
-        vertical-align: middle;
-        display: inline;
-
-        @media #{$mobile} {
-            font-size: 2em;
-        }
-    }
+  }
 }
 
 .profile-success-story-new {
-    background-color: #fff;
-    padding: 20px 20px 0 20px;
-    border-radius: 4px;
-    box-shadow: 0 10px 20px rgba(0,0,0,.05);
-    transition-duration: .5s;
-    display: block;
-    border: 1px solid #ebebeb;
+  background-color: #fff;
+  padding: 20px 20px 0 20px;
+  border-radius: 4px;
+  box-shadow: 0 10px 20px rgba(0,0,0,.05);
+  transition-duration: .5s;
+  display: block;
+  border: 1px solid #ebebeb;
 
-    &:hover {
-        box-shadow: 0 10px 20px rgba(0,0,0,.2);
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,.2);
+  }
+
+  @media #{$mobile} {
+
+    .headings {
+      padding-left: 10px;
+      margin-top: 20px;
     }
 
-    @media #{$mobile} {
+    i.open {
+      position: relative;
+      left: -20px;
+    }
+  }
 
-        .headings {
-            padding-left: 10px;
-            margin-top: 20px;
-        }
+  .profile-image-mask {
 
-        i.open {
-            position: relative;
-            left: -20px;
-        }
+    @media #{$desktop,$tablet} {
+      padding-bottom: 50px;
+      padding-top: 50px;
     }
 
-    .profile-image-mask {
-
-        @media #{$desktop,$tablet} {
-            padding-bottom: 50px;
-            padding-top: 50px;
-        }
-
-        img {
-            border-radius: 50%;
-            width: 100%;
-        }
+    img {
+      border-radius: 50%;
+      width: 100%;
     }
+  }
 
-    h2 {
-        margin: 0;
-        line-height: 1em;
+  h2 {
+    margin: 0;
+    line-height: 1em;
+  }
+
+  p {
+    margin-bottom: 10px;
+  }
+
+  .summary {
+    color: #757575;
+    font-style: italic;
+    font-size: .9em;
+  }
+
+  .body {
+    padding-top: 10px;
+
+    .main-body {
+      text-align: left;
     }
+  }
 
-    p {
-        margin-bottom: 10px;
-    }
+  i {
+    color: #055c58;
+  }
 
-    .summary {
-        color: #757575;
-        font-style: italic;
-        font-size: .9em;
-    }
-
-    .body {
-        padding-top: 10px;
-
-        .main-body {
-            text-align: left;
-        }
-    }
-
-    i {
-        color: #055c58;
-    }
-
-    .closing-quote {
-        position: relative;
-        top: -60px;
-    }
+  .closing-quote {
+    position: relative;
+    top: -60px;
+  }
 }

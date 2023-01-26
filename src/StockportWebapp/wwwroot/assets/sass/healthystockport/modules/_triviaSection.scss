@@ -1,32 +1,31 @@
 ﻿.trivia-section {
+  &__header {
+    font-weight: 700;
+    font-family: "Source Sans Pro,sans-serif";
+  }
 
-    &__header {
-        font-weight: 700;
-        font-family: Source Sans Pro,sans-serif;
+  &__list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+
+    @media #{$mobile, $tablet} {
+      display: block;
     }
+  }
 
-    &__list {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
+  &__list-item {
+    flex-basis: 48%;
+    display: flex;
+    margin-left: 0;
+  }
 
-        @media #{$mobile, $tablet} {
-            display: block;
-        }
-    }
+  &__list-icon {
+    flex-basis: 10%;
+    font-size: 28px;
+  }
 
-    &__list-item {
-        flex-basis: 48%;
-        display: flex;
-        margin-left: 0;
-    }
-
-    &__list-icon {
-        flex-basis: 10%;
-        font-size: 28px;
-    }
-
-    &__list-paragraph {
-        flex-basis: 90%;
-    }
+  &__list-paragraph {
+    flex-basis: 90%;
+  }
 }
