@@ -1,0 +1,315 @@
+/*------------------- Who doesn't love Icons -------------------*/
+i.icon-small {
+  font-size: 40px;
+  line-height: 40px;
+}
+
+.image-container .icon-bottom-right {
+  position: absolute;
+  bottom: -10px;
+  right: 0px;
+}
+
+.image-container .icon-top-left {
+  position: absolute;
+  top: -10px;
+  left: 0px;
+}
+
+.icon-over {
+  background: white;
+  @include border-radius(100px);
+  padding: 0 3px;
+}
+
+.icon-bordered {
+  border: 3px solid;
+  border-radius: 100%;
+  text-align: center;
+}
+
+.icon-bordered-fixed {
+  padding: 15px;
+  text-align: center;
+  display: inline-block;
+}
+
+.icon-bordered-responsive {
+  padding: 10px;
+  height: 4vw;
+  width: 4vw;
+
+  @media (min-width: 1420px) {
+    height: 55px;
+    width: 55px;
+  }
+
+  i {
+    font-size: 4vw;
+
+    @media (min-width: 1420px) {
+      font-size: 55px;
+    }
+  }
+}
+
+.icon-success {
+  color: green;
+}
+
+.icon-failure {
+  color: red;
+}
+
+footer .icon-bordered-fixed {
+  color: #11635E;
+  border-color: #11635E;
+  height: 45px;
+  width: 45px;
+  margin-right: 15px;
+}
+
+.default-icon:before {
+  content: "\f21e";
+  font-family: FontAwesome;
+}
+
+/* --------------- Custom font icons -------------- */
+@font-face {
+  font-family: 'stockportwingdings';
+  src: url('/assets/fonts/stockportwingdings.eot?mbwqgs');
+  src: url('/assets/fonts/stockportwingdings.eot?mbwqgs#iefix') format('embedded-opentype'), url('/assets/fonts/stockportwingdings.ttf?mbwqgs') format('truetype'), url('/assets/fonts/stockportwingdings.woff?mbwqgs') format('woff'), url('/assets/fonts/stockportwingdings.svg?mbwqgs#stockportwingdings') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="si-"], [class*=" si-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'stockportwingdings';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.fs0 {
+  font-size: 16px;
+}
+
+.fs1 {
+  font-size: 64px;
+}
+
+// default icon is the si-documents
+.si-default:before {
+  content: "\e90f";
+}
+
+.si-road-sign:before {
+  content: "\e932";
+}
+
+.si-microphone:before {
+  content: "\e929";
+}
+
+.si-fair:before {
+  content: "\e92a";
+}
+
+.si-cutlery:before {
+  content: "\e92b";
+}
+
+.si-basket:before {
+  content: "\e92c";
+}
+
+.si-stop-smoking:before {
+  content: "\e92d";
+}
+
+.si-scale:before {
+  content: "\e92e";
+}
+
+.si-leaf:before {
+  content: "\e92f";
+}
+
+.si-group:before {
+  content: "\e930";
+}
+
+.si-devices:before {
+  content: "\e931";
+}
+
+.si-bin:before {
+  content: "\e900";
+}
+
+.si-book:before {
+  content: "\e901";
+}
+
+.si-books:before {
+  content: "\e902";
+}
+
+.si-briefcase:before {
+  content: "\e903";
+}
+
+.si-bug:before {
+  content: "\e904";
+}
+
+.si-buildings:before {
+  content: "\e905";
+}
+
+.si-calendar:before {
+  content: "\e906";
+}
+
+.si-camera:before {
+  content: "\e907";
+}
+
+.si-car:before {
+  content: "\e908";
+}
+
+.si-certificate:before {
+  content: "\e909";
+}
+
+.si-clipboard-pencil:before {
+  content: "\e90a";
+}
+
+.si-coin:before {
+  content: "\e90b";
+}
+
+.si-conversation:before {
+  content: "\e90c";
+}
+
+.si-council:before {
+  content: "\e90d";
+}
+
+.si-council2:before {
+  content: "\e90e";
+}
+
+.si-document-checked:before {
+  content: "\e90f";
+}
+
+.si-documents:before {
+  content: "\e910";
+}
+
+.si-drums:before {
+  content: "\e911";
+}
+
+.si-envelope-open:before {
+  content: "\e912";
+}
+
+.si-hand:before {
+  content: "\e913";
+}
+
+.si-heart:before {
+  content: "\e914";
+}
+
+.si-house:before {
+  content: "\e915";
+}
+
+.si-location:before {
+  content: "\e916";
+}
+
+.si-page:before {
+  content: "\e917";
+}
+
+.si-pallet:before {
+  content: "\e918";
+}
+
+.si-people:before {
+  content: "\e919";
+}
+
+.si-person:before {
+  content: "\e91a";
+}
+
+.si-pitch:before {
+  content: "\e91b";
+}
+
+.si-quaver:before {
+  content: "\e91c";
+}
+
+.si-raincloud:before {
+  content: "\e91d";
+}
+
+.si-raindrop:before {
+  content: "\e91e";
+}
+
+.si-scales:before {
+  content: "\e91f";
+}
+
+.si-search:before {
+  content: "\e920";
+}
+
+.si-shop:before {
+  content: "\e921";
+}
+
+.si-sign:before {
+  content: "\e922";
+}
+
+.si-stationary:before {
+  content: "\e923";
+}
+
+.si-tickbox:before {
+  content: "\e924";
+}
+
+.si-train:before {
+  content: "\e925";
+}
+
+.si-tree:before {
+  content: "\e926";
+}
+
+.si-trees:before {
+  content: "\e927";
+}
+
+.si-wallet:before {
+  content: "\e928";
+}

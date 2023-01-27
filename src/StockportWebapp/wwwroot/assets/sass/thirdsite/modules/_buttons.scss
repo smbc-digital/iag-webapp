@@ -1,53 +1,55 @@
 ﻿.button-live-chat-active {
+  background-color: $orange;
+  border: none;
+
+  &:hover {
     background-color: $orange;
-    border: none;
+    opacity: .8;
+  }
 
-    &:hover {
-        background-color: $orange;
-        opacity: .8;
-    }
-
-    i{
-        color: $brown;
-    }
+  i {
+    color: $brown;
+  }
 }
 
 .button-live-chat-inactive {
+  background-color: $greyLight;
+  border: none;
+
+  &:hover {
     background-color: $greyLight;
-    border: none;
+    opacity: .8;
+  }
 
-    &:hover {
-        background-color: $greyLight;
-        opacity: .8;
-    }
-
-    i{
-        color: $greyDark;
-    }
+  i {
+    color: $greyDark;
+  }
 }
 
-.reCaptcha{
-    display:inline-block
+.reCaptcha {
+  display: inline-block
 }
 
 .clear-button, .clear-button:hover {
-    background-color: #ffffff;
-    border: solid 1px #ccc;
-    color: #000000;
-    font-weight: 600;
+  background-color: #ffffff;
+  border: solid 1px #ccc;
+  color: #000000;
+  font-weight: 600;
 }
 
 .button-up-down {
-    min-width:250px;
+  min-width: 250px;
 
+  &:before {
+    content: "\f107";
+    position: relative;
+    right: 0;
+    margin-top: 0px;
+  }
+
+  &.is-collapsed {
     &:before {
-        content: "\f107";
-        position: relative;
-        right: 0;
-        margin-top: 0px;
+      content: "\f106";
     }
-
-    &.is-collapsed {
-        &:before {content: "\f106";}
-    }
+  }
 }

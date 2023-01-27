@@ -1,17 +1,17 @@
 ﻿.atoz-listing {
 
-    .atoz-listing-item:not(:first-child) {
-        border-top: 1px solid $colorPrimaryLightest;
-        padding-top: 18px;
-    }
+  .atoz-listing-item:not(:first-child) {
+    border-top: 1px solid $colorPrimaryLightest;
+    padding-top: 18px;
+  }
 
-    .atoz-listing-item {
+  .atoz-listing-item {
 
-        h2 {
-            font-size: 1em;
-            font-family: 'Noto Sans';
-            letter-spacing: normal;
-            font-weight: normal;
-        }
+    h2 {
+      font-size: 1em;
+      font-family: 'Noto Sans';
+      letter-spacing: normal;
+      font-weight: normal;
     }
+  }
 }

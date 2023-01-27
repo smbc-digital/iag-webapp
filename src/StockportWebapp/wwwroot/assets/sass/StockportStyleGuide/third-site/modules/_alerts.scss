@@ -1,0 +1,159 @@
+﻿.alert {
+  width: 100%;
+  padding: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: table;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+
+  .alert-title {
+    @media #{$mobile} {
+      font-size: 17px;
+    }
+
+    font-weight: bold;
+  }
+
+  h3 {
+    @media #{$mobile} {
+      font-size: 17px;
+      margin-top: 5px;
+    }
+  }
+
+  .alert-subheading {
+    font-style: italic;
+  }
+
+  i {
+    color: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.alert-close {
+  border-radius: 0 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+
+  &:hover a i {
+    color: $white;
+  }
+
+  i {
+    color: white;
+
+    @media #{$mobile} {
+      font-size: 1.5em;
+    }
+
+    font-size: 1.5em;
+  }
+
+  a {
+    display: inline-block;
+    padding: 0 7px;
+
+    &:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+  }
+}
+
+.alert-icon {
+  border-radius: 5px 0 0 5px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
+  width: 65px;
+  background-color: rgba(0,0,0,0.2);
+
+
+  @media #{$mobile} {
+    display: none;
+  }
+}
+
+.alert-content {
+  padding: 10px 20px 10px 20px;
+
+  a {
+    text-decoration: underline;
+  }
+
+  p {
+    line-height: 1.5em;
+
+    @media #{$mobile} {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.alert-error {
+  background-color: $red;
+  color: $white;
+
+  h3 {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  p, a {
+    color: $white;
+  }
+
+  a:hover {
+    color: rgba(255,255,255,0.8);
+  }
+}
+
+.alert-warning {
+  background-color: $orange;
+  color: $black;
+
+  h3 {
+    color: $black;
+    margin-bottom: 0;
+  }
+
+  p, a {
+    color: $black;
+  }
+
+  a:hover {
+    color: $greyDark;
+  }
+}
+
+.alert-information {
+  background-color: $softBlue;
+  color: $white;
+
+  h3 {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  p, a {
+    color: $white;
+  }
+
+  a:hover {
+    color: $black;
+  }
+}
+
+.inline-alert {
+  background-color: $ebbGray;
+  border-left: 5px solid $darkerEbbGray;
+}
+
+.alert-container {
+  margin-bottom: 12px;
+}

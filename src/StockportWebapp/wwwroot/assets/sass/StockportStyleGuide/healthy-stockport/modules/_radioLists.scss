@@ -1,0 +1,58 @@
+﻿.single-option-radio-list {
+  li {
+    list-style: none;
+    margin-bottom: 5px;
+    margin-left: 0;
+
+    label {
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    input + label {
+      cursor: pointer;
+
+      &:before {
+        height: 15px;
+        width: 15px;
+        margin-right: 10px;
+        content: " ";
+        display: inline-block;
+        vertical-align: middle;
+        border: 2px solid $radioListinputBorder;
+        border-radius: 100%;
+        background-color: $radiolistBackground;
+        position: relative;
+        bottom: 1px;
+      }
+    }
+
+    input {
+      display: none;
+      margin-right: -25px;
+    }
+
+    input:checked + label:before {
+      background-color: $radioListinputBackgroundSelected;
+      border-color: $radioListinputBorderselected;
+      box-shadow: 0 0 0 3px $radioListinputBoxShadowSelected;
+    }
+
+    input:checked::after {
+      background: $radioListinputBackgroundSelected none repeat scroll 0 0;
+      bottom: -2px;
+      content: "";
+      left: -2px;
+      position: absolute;
+      right: -2px;
+      top: -2px;
+      z-index: -1;
+    }
+
+    input:checked + label {
+      background-color: $radioListBackgroundSelected;
+      color: $radioListtextColorSelected;
+    }
+  }
+}

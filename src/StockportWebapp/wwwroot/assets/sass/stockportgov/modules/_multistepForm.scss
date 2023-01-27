@@ -1,182 +1,177 @@
 ﻿@mixin button-default {
-    background-color: $teal-darker;
-    border: 1px solid rgba(0,0,0,.1);
-    border-radius: 3px;
+  background-color: $teal-darker;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 3px;
+  color: #fff;
+  display: inline-block;
+  font-family: 'Source Sans Pro';
+  font-size: 1.125em;
+  letter-spacing: 0;
+  line-height: 20px;
+  min-width: 300px;
+  padding: 15px 25px 15px 15px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .5s;
+  transition-property: opacity,box-shadow;
+  width: auto;
+
+  i {
+    float: left;
+    top: 50%;
+  }
+
+
+  &:before {
+    text-rendering: auto;
+    float: right;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f105";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 20px;
+    text-align: right;
+    padding-left: 10px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -10px;
+  }
+
+  &:hover {
+    background-color: darken($teal-darker, 10%);
     color: #fff;
-    display: inline-block;
-    font-family: 'Source Sans Pro';
-    font-size: 1.125em;
-    letter-spacing: 0;
-    line-height: 20px;
-    min-width: 300px;
-    padding: 15px 25px 15px 15px;
-    position: relative;
-    text-align: center;
+    cursor: pointer;
+    -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+    box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
     text-decoration: none;
-    transition: all .5s;
-    transition-property: opacity,box-shadow;
-    width: auto;
+  }
 
-    i {
-        float: left;
-        top: 50%;
-    }
+  &:active {
+    background-color: #059e86;
+  }
 
-
-    &:before {
-        text-rendering: auto;
-        float: right;
-        -moz-osx-font-smoothing: grayscale;
-        content: "\f105";
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: 20px;
-        text-align: right;
-        padding-left: 10px;
-        height: 20px;
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        margin-top: -10px;
-    }
-
-    &:hover {
-        background-color: darken($teal-darker, 10%);
-        color: #fff;
-        cursor: pointer;
-        -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
-        box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
-        text-decoration: none;
-    }
-
-    &:active {
-        background-color: #059e86;
-    }
-
-    @media only screen and (max-width: 767px) {
-        display: block;
-        min-width: 0;
-    }
-}
-
-
-.steps {
-    //display: none;
+  @media only screen and (max-width: 767px) {
+    display: block;
+    min-width: 0;
+  }
 }
 
 #multistep-form {
-    section {
-        margin-bottom: 20px;
-        overflow: auto;
-    }
+  section {
+    margin-bottom: 20px;
+    overflow: auto;
+  }
 
-    .title {
+  .title {
+    display: none;
+
+    &.current {
+      display: block;
+    }
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 1.5em;
+  }
+
+  ul[role='menu'] {
+    list-style: none;
+
+    li {
+      display: block;
+      margin-left: 0;
+
+      a[href='#next'] {
+        @include button-default;
+      }
+
+      a[href='#previous'] {
+        margin-top: 10px;
+      }
+
+      a[href='#finish'] {
         display: none;
+      }
 
-        &.current {
-            display: block;
-        }
+      &.disabled {
+        display: none;
+      }
+
+      &:nth-child(2) {
+        margin-top: 10px
+      }
     }
 
-    h3 {
-        font-weight: 600;
-        font-size: 1.5em;
+    li:first-child {
+      margin-left: 0;
+    }
+  }
+
+  ul[role='tablist'] {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #d3d3d3;
+    border-top: 1px solid #d3d3d3;
+    list-style: none;
+
+    li {
+      display: inline-flex;
+
+      @media #{$mobile, $tablet} {
+        display: block;
+        margin-left: 0;
+      }
+
+      a {
+        text-decoration: none;
+
+        .current-info {
+          display: none;
+        }
+
+        .number {
+          text-decoration: underline;
+          text-decoration-color: white;
+          margin-right: 3px;
+        }
+      }
+
+      &.current {
+
+        a {
+          color: #000000;
+          font-weight: bold;
+        }
+      }
+
+      &.done {
+        a {
+          color: #000000;
+          text-decoration: underline;
+
+          &:hover {
+            text-decoration-thickness: 3px;
+
+            .number {
+              text-decoration-color: #fff;
+              text-decoration-thickness: 3px;
+            }
+          }
+        }
+      }
+
+      &.disabled {
+        a {
+          color: #999999
+        }
+      }
     }
 
-    ul[role='menu'] {
-        list-style: none;
-
-        li {
-            display: block;
-            margin-left: 0;
-
-            a[href='#next'] {
-                @include button-default;
-            }
-
-            a[href='#previous'] {
-                margin-top: 10px;
-            }
-
-            a[href='#finish'] {
-                display: none;
-            }
-
-            &.disabled {
-                display: none;
-            }
-
-            &:nth-child(2) {
-                margin-top: 10px
-            }
-        }
-
-        li:first-child {
-            margin-left: 0;
-        }
+    li:first-child {
+      margin-left: 0;
     }
-
-    ul[role='tablist'] {
-        padding-top: 10px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #d3d3d3;
-        border-top: 1px solid #d3d3d3;
-        list-style: none;
-
-        li {
-            display: inline-flex;
-
-            @media #{$mobile, $tablet} {
-                display: block;
-                margin-left: 0;
-            }
-
-            a {
-                text-decoration: none;
-
-                .current-info {
-                    display: none;
-                }
-
-                .number {
-                    text-decoration: underline;
-                    text-decoration-color: white;
-                    margin-right: 3px;
-                }
-            }
-
-            &.current {
-
-                a {
-                    color: #000000;
-                    font-weight: bold;
-                }
-            }
-
-            &.done {
-                a {
-                    color: #000000;
-                    text-decoration: underline;
-
-                    &:hover {
-                        text-decoration-thickness: 3px;
-
-                        .number {
-                            text-decoration-color: #fff;
-                            text-decoration-thickness: 3px;
-                        }
-                    }
-                }
-            }
-
-            &.disabled {
-                a {
-                    color: #999999
-                }
-            }
-        }
-
-        li:first-child {
-            margin-left: 0;
-        }
-    }
+  }
 }

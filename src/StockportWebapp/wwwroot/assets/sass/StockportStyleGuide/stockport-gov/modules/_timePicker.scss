@@ -1,0 +1,25 @@
+﻿.button-time-selected {
+  background: $orange;
+  color: white !important;
+}
+
+.button-time-selected:hover {
+  color: white !important;
+}
+
+.button-time {
+  margin: 15px;
+  color: black;
+}
+
+.button-time:hover {
+  color: black;
+}
+
+.fa-center {
+  vertical-align: middle;
+}
+
+.fa-orange {
+  color: $orange;
+}

@@ -1,0 +1,263 @@
+﻿/* --------- Search bar ------------- */
+.search-bar, .search-bar-header, .search-bar-mobile-header {
+  width: 100%;
+  position: relative;
+
+  input.search-input {
+    border: medium none;
+    width: 100%;
+    font-size: 13px;
+    color: $greyDarkest;
+    border-radius: 5px;
+    padding: 15px 60px 15px 15px;
+    background-color: $white;
+    height: 50px;
+
+    @media #{$desktop} {
+      font-size: 25px;
+    }
+
+    ::placeholder {
+      color: $greyDarker;
+      opacity: 1;
+    }
+  }
+
+  .search-button {
+    font-size: 25px;
+    padding: 5px;
+    color: $greyDarkest;
+    line-height: 1;
+    width: 50px;
+    height: 50px;
+    margin-top: -25px;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    background: none;
+    border: none;
+
+    @media #{$desktop} {
+      padding-top: 10px;
+      font-size: 30px;
+      line-height: 30px;
+      height: 60px;
+      width: 60px;
+      margin-top: -33px;
+    }
+
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+
+  #cludo-search-hero-form {
+    .search-button {
+      @media #{$mobile} {
+        margin-top: -25px;
+      }
+    }
+  }
+}
+
+.search-bar-header, .search-bar-mobile-header {
+  input.search-input {
+    @media #{$desktop} {
+      font: 1em/1.3 "Noto Sans",sans-serif;
+    }
+  }
+}
+
+.search-bar-mobile-header-container {
+  background-color: $colorPrimaryDark;
+  border-bottom: 1px solid #395a59;
+  padding: 40px 5px 15px 5px;
+  display: none;
+
+  form {
+    margin-bottom: 0;
+  }
+
+  @media #{$desktop} {
+    display: none;
+  }
+}
+
+.search-bar-header-container {
+  background-color: $colorPrimaryLight;
+  padding: 10px;
+  height: 50px;
+}
+
+.search-bar-header {
+  input.search-input {
+    @media #{$desktop} {
+      font-size: 16px;
+    }
+  }
+
+  .search-button {
+    @media #{$desktop} {
+      padding-top: 5px;
+      font-size: 25px;
+    }
+  }
+}
+
+.type-home .search-bar-header-container, .type-home .show-search-button {
+  display: none;
+}
+
+.search-bar {
+  box-shadow: 0 33px 120px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 33px 120px rgba(0,0,0,0.5);
+  z-index: 50;
+
+  @media #{$desktop} {
+    margin-top: 60px;
+  }
+
+  form {
+    margin-bottom: 0;
+  }
+}
+
+.search-bar-links {
+  padding-top: 10px;
+  padding-left: 20px;
+  color: $white;
+  position: relative;
+  z-index: 100;
+
+  @media #{$tablet, $mobile} {
+    display: none;
+  }
+
+  a, strong {
+    color: $white;
+    margin-right: 10px;
+  }
+}
+
+.show-search-button {
+  border: #7facaa solid 1px;
+  margin: 10px;
+  float: right;
+  border-radius: 3px;
+  color: $colorPrimaryPale;
+  padding: 0px 12px;
+  font-size: 24px;
+  margin-right: 0px;
+
+  @media #{$mobile} {
+    font-size: 16px;
+  }
+}
+
+.show-search-button.arrow:after {
+  content: "";
+  position: absolute;
+  border-width: 0 8px 8px;
+  border-style: solid;
+  border-color: #07312f transparent;
+  display: block;
+  width: 0;
+  padding-top: 4px;
+
+  @media #{$tablet} {
+    margin-left: 2px;
+  }
+}
+
+.header-container {
+  display: flex;
+  float: right;
+}
+
+
+#search_autocomplete {
+  @media #{$mobile, $tablet} {
+    top: 45px
+  }
+}
+
+#cludo-search-results *, #cludo-search-form * {
+  font-family: "Noto Sans",sans-serif;
+}
+
+#cludo-search-results, #cludo-search-form {
+  h1, h2, h3, h4, h5 {
+    font-family: "Source Sans Pro",sans-serif;
+  }
+
+  .cludo-search-modal-body .search-results .search-results-item a h3 {
+    font-size: 25px;
+  }
+}
+
+@media #{$desktop} {
+  .search-bar-header-container #cludo-search-form {
+    z-index: 99;
+
+    .search-input {
+      border: none;
+      background-color: #fff;
+      color: #333;
+      padding: 15px 60px 15px 15px;
+      height: unset;
+      line-height: 1.3;
+      width: 100%;
+      font-size: 16px;
+      -webkit-appearance: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .search-button {
+      background: 0 0;
+      color: #333;
+      border: none;
+      width: 60px;
+      height: 60px;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      overflow: auto;
+      text-indent: 0;
+      -webkit-transition: none;
+      transition: none;
+      padding: 0;
+      text-align: center;
+
+      i {
+        text-align: center;
+
+        &:before {
+          font-family: FontAwesome;
+        }
+      }
+    }
+
+    #search_autocomplete {
+      top: 50px;
+    }
+  }
+
+  .cludo-search-modal {
+    .search-button {
+      margin-top: 0;
+    }
+  }
+}
+
+#cludo-search-results {
+  div.search-results {
+    div.cludo-banner {
+      p {
+        font-size: 18px;
+      }
+    }
+  }
+}

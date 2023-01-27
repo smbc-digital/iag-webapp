@@ -1,0 +1,69 @@
+﻿/*------------------- Topic Page ---------------------*/
+.article-cols {
+  height: auto;
+}
+
+.article-icon, .article-chevron {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.article-icon {
+  height: 25px;
+  width: 25px;
+  padding-right: 10px;
+}
+
+.article-chevron i {
+  color: $borderDefault;
+}
+
+.article-pagination {
+  border-top: 1px solid $borderDefault;
+  background-color: #f2f2f2;
+  padding: 0;
+  margin-bottom: 15px;
+
+  a {
+    display: table;
+    width: 100%;
+  }
+
+  h4 {
+    margin: 0;
+    margin-top: 10px;
+  }
+
+  p {
+    color: $bodyText;
+  }
+
+  a:hover {
+    text-decoration: none;
+    background-color: $profileBackgroundLight;
+
+    h4 {
+      text-decoration: underline;
+    }
+  }
+
+  .article-chevron {
+    width: 45px;
+  }
+}
+
+.pagination-previous, .pagination-next {
+  padding: 0;
+}
+
+.pagination-next a {
+  text-align: right;
+
+  i {
+    padding: 0 10px 0 0;
+  }
+}
+
+.pagination-previous a i {
+  padding: 0 0 0 10px;
+}

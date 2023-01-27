@@ -5,35 +5,26 @@
 @inject BusinessId BusinessId
 
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang=en-GB>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1" />
-    <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/Favicon.png" />
+    <meta charset=utf-8 />
+    <meta name=viewport content="width=device-width, initial-scale=1, maximum-scale=12.0, minimum-scale=1" />
+    <link rel="shortcut icon" type=image/png href=~/assets/images/ui-images/Favicon.png />
     <title>@ViewData["Title"] - Healthy Stockport</title>
-    @if (ViewData["Description"] is not null)
-    {
-	    <meta name="Description" content="@ViewData["Description"]" />
-    }
-    @if (ViewData["og:title"] is not null)
-    {
-	    <meta property="og:title" content="@ViewData["og:title"]" />
-    }
-    <!--[if (gt IE 8) | (IEMobile)]><!-->
+    <meta name=Description content="@ViewData["Description"]" />
+    <meta property=og:title content="@ViewData["og:title"]" />
 
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
-    <!--<![endif]-->
-    <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
-    <link href="https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-hs.min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/site-hs.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/slick.min.css">
+    @* PACKAGE / VENDOR STYLESHEETS *@
+    <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
-    <!--[if (lt IE 9) & (!IEMobile)]>
-	    <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
-    <![endif]-->
+    @* MAIN STYLESHEET(S) *@
+    <link rel=stylesheet href=~/assets/stylesheets/site-hs.min.css asp-append-version=true />
+
+    @* OUTDATED *@
+    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css />
+
     <noscript>
         @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
         <style>
@@ -52,10 +43,10 @@
     <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
 
-    <script src="~/assets/javascript/vendor/require.min.js"></Script>
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
 </head>
 <body class="container-layout-free container-layout-mobile @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
-    <partial name="Header" />
+    <partial name=Header />
 
     @RenderSection("Breadcrumbs", false)
 
@@ -66,7 +57,7 @@
             </div>
         </div>
     </main>
-    <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+    <distributed-cache name=footer-hs expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
 
@@ -78,8 +69,5 @@
             });
         });
     </script>
-    <!--[if lte IE 9]>
-        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
-    <![endif]-->
 </body>
 </html>

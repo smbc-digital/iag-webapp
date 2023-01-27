@@ -1,0 +1,175 @@
+﻿@import "color-palette";
+
+/* Deprecated colours included for backwards compatability - PLEASE DO NOT ADD THINGS HERE */
+$white: #ffffff;
+$black: #000000;
+$easternBlue: #1AA9A1;
+$darkEasternBlue: #086964;
+$tuscanyOrange: #CD5334;
+$waterCourseBlue: #055C58;
+$carrotOrange: #EF8A17;
+$mercuryGray: #E5E5E5;
+$galleryGray: #EEEEEE;
+$doveGray: #666666;
+$bushTeal: #061a19;
+$tePapaGreen: #1C3837;
+$bottleGreen: #072726;
+$fireBushOrange: #E39024;
+$mineShaftGray: #373737;
+$ebbGray: #EBEBEB;
+$darkerEbbGray: #D8D8D8;
+$dustyGray: #999999;
+$christiGreen: #62AC0B;
+$strikemasterPurple: #8E5572;
+$persianGreen: #00B79B;
+$blackHazeGray: rgba(0,0,0,0.1);
+$alabasterGray: rgba(0,0,0,0.2);
+$transparentWhite: rgba(255,255,255,0.2);
+$stoneBlue: #005C57;
+$silverChaliceGray: #AAAAAA;
+$tallPoppyRed: #C83725;
+
+/* Brand colors*/
+$colorBrand: $colorPrimary;
+$brandSecondary: $orange;
+
+/* Text colors */
+$bodyText: $greyDarkest;
+$headingColor: $greyDarkest;
+
+/* Layout colors */
+$backgroundSite: $offWhite;
+$backgroundContent: $white;
+$backgroundContentMobile: $offWhite;
+$borderDefault: rgba(0,0,0,0.1);
+$borderLight: $greyLight;
+$borderDark: $greyDarkest;
+$headerBackground: $colorPrimary;
+$footerBackground: $colorPrimaryDark;
+$footerIconBackground: $teal;
+$footerBottomBackground: $colorPrimaryDarkest;
+$footerText: $white;
+$footerHeadingText: $white;
+$darkOverlayBackground: $alabasterGray;
+$horizontalRuleColor: $easternBlue;
+$completedSectionBackground: #DFDFDF;
+$breadcrumbsBackground: #114A47;
+
+/* Menu colors */
+$menuLightText: $white;
+$menuLightDetail: $transparentWhite;
+$menuLightActive: rgba(0,0,0,0.1);
+$menuLightActiveDetail: $alabasterGray;
+$menuLightHover: $transparentWhite;
+$menuIcon: #488785;
+$menuArrowIcon: $white;
+$borderColor: #DFDFDF;
+
+/* Input fields */
+$backgroundTextInputPrimary: rgba(0,0,0,0.1);
+$borderTextInputPrimary: rgba(255,255,255,0.7);
+$placeholderColorPrimary: rgba(255,255,255,0.5);
+$borderTextInputPrimaryFocus: rgba(0,0,0,0.3);
+$addonBackground: #F0F0F0;
+$inputBackground: $white;
+$inputBorder: rgba(177, 177, 177, 0.8);
+$addonColor: #555;
+$inputColor: #555;
+
+/* Icon Colours */
+$iconTopic: #cfd2d4;
+
+/* Link colors */
+$linkDefault: $colorPrimary;
+$linkHover: #6DB8B5;
+$linkInactive: rgba(55,55,55,1.0);
+$linkDisabled: #cfd2d4;
+
+/* Profile colors */
+$profileHeader: $offWhite;
+$profileHeaderText: $white;
+$profileBackgroundLight: $offWhite;
+$profileLinkHover: $mercuryGray;
+$profileSubtitle: $doveGray;
+
+/* Button colors */
+$buttonTextLight: $white;
+$buttonDarkBackground: $doveGray;
+$buttonSidebarBackground: $orange;
+$buttonCallToActionBackground: $teal;
+$button-primary: $teal-darker;
+
+/* Service collection colors */
+$serviceCollectionBackground: $white;
+$serviceCollectionSubTitle: $silverChaliceGray;
+
+/* Service container colors */
+$serviceContainerBackground: #F5F5F5;
+$serviceContainerBorder: $mercuryGray;
+$serviceContainerBlue: #04AFF1;
+$serviceContainerBlack: #0E090A;
+$serviceContainerGreen: #62AC0B;
+$serviceContainerBrown: #A15615;
+$serviceContainerSubTitle: $silverChaliceGray;
+$serviceContainerAdditionalBackground: $offWhite;
+$serviceContainerAdditionalBorder: #B4b4b4;
+
+/* bin collection colors for service collection organism */
+$binCollection: #62AE03;
+$binCollectionMuted: $dustyGray;
+$binCollectionButtonText: $white;
+
+/* council tax colors for service collection organism */
+$councilTax: $orange;
+$councilTaxMuted: $dustyGray;
+$councilTaxButtonText: $white;
+$councilTaxGrayedText: $greyDark;
+
+/* Banner Colors */
+$bannerBackground: #07312f;
+$bannerHighlight: #ff6a00;
+$bannerBorder: #ffffcc;
+
+/* Radio List Colors */
+$radioListtextColorSelected: $white;
+$radiolistBackground: #DFDFDF;
+$radioListBackgroundSelected: $greyDarkest;
+$radioListinputBackgroundSelected: #00b79b;
+$radioListinputBorder: $greyDarkest;
+$radioListinputBorderselected: $greyDarkest;
+$radioListinputBoxShadowSelected: $white;
+
+/* Input colours */
+$inputErrorBackground: $red;
+$inputErrorText: $white;
+
+
+/* Alert Colors */
+$alertText: $white;
+
+/*Error*/
+$alertErrorBackground: $tallPoppyRed;
+$alertErrorBorder: #CA9C97;
+$alertErrorIconBackground: #A62D1E;
+$alertErrorHeading: $white;
+$alertErrorClose: #CE4B3B;
+$alertErrorCloseBorder: #D9786C;
+$alertErrorIcon: #FF988B;
+
+/*Warning*/
+$alertWarningBackground: #FEAC31;
+$alertWarningBorder: #CA9C97;
+$alertWarningIconBackground: #C67A24;
+$alertWarningHeading: $white;
+$alertWarningClose: #ECA63E;
+$alertWarningCloseBorder: #F2BE70;
+$alertWarningIcon: #FFE29E;
+
+/*Information*/
+$alertInformationBackground: #2594C8;
+$alertInformationBorder: #CA9C97;
+$alertInformationIconBackground: #1E71A6;
+$alertInformationHeading: $white;
+$alertInformationClose: #3BAACE;
+$alertInformationCloseBorder: #6CBED9;
+$alertInformationIcon: #8BE6FF;

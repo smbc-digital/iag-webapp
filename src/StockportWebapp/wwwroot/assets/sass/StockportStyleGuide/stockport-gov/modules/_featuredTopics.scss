@@ -1,0 +1,275 @@
+﻿@mixin darken-with-not($class, $class-to-ignore) {
+  @for $i from 1 through 7 {
+    .#{$class}-#{$i} {
+      .darken {
+        background-color: rgba(0,0,0, ($i / 20));
+      }
+
+      &:not(.#{$class-to-ignore}) {
+        &:hover .darken {
+          background-color: rgba(255,255,255,0.1);
+        }
+
+        .darken {
+          border-left: 7px solid rgba(255, 255, 255, 0.1);
+        }
+      }
+    }
+  }
+}
+
+.featured-topics {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.featured-topic-list {
+  margin: 0 auto;
+  max-width: 1200px;
+  overflow: hidden;
+}
+
+.featured-topic:not(:first-child) {
+  border-left: solid 1px rgba(0,0,0,0.1);
+}
+
+.featured-topic {
+  float: none;
+  display: inline-block;
+  margin-right: -5px;
+  vertical-align: top;
+  text-align: center;
+  text-decoration: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+
+  @media #{$mobile} {
+    font-size: 65%;
+  }
+
+  @media #{$tablet} {
+    font-size: 85%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  i {
+    display: inline-block;
+    font-size: 3em;
+    color: $colorPrimary;
+  }
+
+  h4, p {
+    margin-bottom: 0;
+  }
+
+  .featured-topic-link {
+    &:hover {
+      text-decoration: none;
+
+      .featured-topic-name {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .featured-topic-name {
+    font-family: $fontStackHeadings;
+    color: $greyDarkest;
+    font-size: 18px;
+    font-weight: 600;
+
+    @media #{$mobile} {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5em;
+    }
+
+    line-height: 1.5px;
+  }
+
+  .featured-topic-description {
+    font-family: "Noto Sans",sans-serif;
+    color: $greyDark;
+    font-size: 13px;
+    line-height: 1.5;
+
+    a {
+      font-size: 14px;
+    }
+  }
+}
+
+.featured-topics-primary {
+  padding-bottom: 0;
+
+  .featured-topic {
+    margin-bottom: 10px;
+
+    a {
+      cursor: pointer;
+    }
+  }
+}
+
+.featured-topics-secondary {
+  .featured-topic-list {
+    margin-bottom: 10px;
+  }
+}
+
+.featured-topics.featured-topics-primary {
+  background-color: $white;
+}
+
+.featured-topics.featured-topics-secondary {
+  background-color: $offWhite;
+}
+
+.featured-topic-content {
+  padding: 15px 0 15px 0;
+  min-width: 100%;
+  height: inherit;
+}
+
+.featured-topic-icon {
+  color: $colorPrimary;
+  margin: auto;
+  border: none;
+  height: 50px;
+  width: 50px;
+  padding: 15px;
+
+  @media #{$mobile} {
+    padding: 0;
+  }
+}
+
+.featured-content-button-wrapper {
+  margin-top: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+
+  #see-more-services {
+    display: none;
+  }
+}
+
+/* Featured Topic Children */
+.featured-topic-children {
+  position: relative;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+
+  @include darken-with-not(topic-child, topic-child-more);
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.topic-child {
+  background: $colorPrimary;
+
+  a, .button {
+    font-family: $fontStackHeadings;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  a {
+    text-decoration: none;
+    color: $white;
+    display: block;
+    padding: 12px 0;
+  }
+}
+
+.topic-child-more {
+  a {
+    padding: 10px 50px;
+
+    .button {
+      color: $white;
+      border-color: rgba(255, 255, 255, 0.5);
+      box-shadow: none;
+    }
+
+    &:hover .button {
+      border-color: rgba(255, 255, 255, 1);
+    }
+  }
+}
+
+.featured-topic-arrow.arrow {
+  display: block;
+  position: relative;
+  height: 130px;
+
+  &:after {
+    content: "";
+    position: absolute;
+    border-width: 0 10px 10px;
+    border-style: solid;
+    border-color: $colorPrimary transparent;
+    display: block;
+    width: 0;
+    height: 0;
+    right: 50%;
+    margin-right: -10px;
+    height: inherit;
+    bottom: -10px;
+
+    @media #{$desktop} {
+      margin-bottom: -77px;
+    }
+
+    margin-bottom: -15px;
+  }
+
+  &.arrow-hidden:after {
+    display: none;
+  }
+}
+
+.button-featured-content-more {
+  border-radius: 5px;
+  text-align: center;
+  width: auto;
+  color: $greyDarkest;
+  padding: 10px 0;
+  text-decoration: none;
+  font-weight: bold;
+  font-weight: 600;
+
+  &.button {
+    box-shadow: none;
+  }
+
+  &:before {
+    content: "\f107";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: right;
+    float: right;
+    margin-top: 2px;
+    padding-left: 10px;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: $greyDarkest;
+    background-color: #e0e0e0;
+  }
+
+  &.is-collapsed {
+    &:before {
+      content: "\f106";
+    }
+  }
+}
