@@ -14,7 +14,7 @@ build:
 
 .PHONY: run
 run:
-	cd src/StockportWebapp; dotnet run
+	dotnet run --project ./src/StockportWebapp/StockportWebapp.csproj --urls="http://localhost:5002;https://localhost:5003"
 
 .PHONY: dotnet-restore
 dotnet-restore: restore
@@ -70,7 +70,7 @@ js-test:
 	cd test/StockportWebappTests_Javascript && npm install && cd node_modules/karma/bin && node karma start ../../../karma.conf.js --single-run
 
 # ---------------------------------------------------------------------------------------
-# -- Gulp tasks - Are these needed?
+# -- Gulp tasks
 # ---------------------------------------------------------------------------------------
 .PHONY: css
 css:
@@ -78,12 +78,17 @@ css:
 
 .PHONY: js
 js:
-	cd src/StockportWebapp && gulp min:js
+	cd src/StockportWebapp && gulp js
 
-.PHONY: js-config
-js-config:
-	cd src/StockportWebapp && gulp min:config:all
+.PHONY: lint
+css:
+	cd src/StockportWebapp && gulp lint
 
-.PHONY: js-all
-js-all:
-	cd src/StockportWebapp && gulp min:js && gulp min:config:all
+.PHONY: build
+js:
+	cd src/StockportWebapp && gulp build
+
+.PHONY: watch
+watch:
+	cd src/StockportWebapp && gulp watch
+	
