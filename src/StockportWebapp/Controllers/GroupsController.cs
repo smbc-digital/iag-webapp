@@ -140,6 +140,8 @@ namespace StockportWebapp.Controllers
             // convert all documents urls to be download links
             group.AdditionalDocuments?.ForEach(o => o.Url = $"/documents/{slug}/{o.AssetId}");
 
+            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
+
             var viewModel = new GroupDetailsViewModel
             {
                 Group = group,
