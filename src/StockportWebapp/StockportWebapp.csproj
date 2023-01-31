@@ -11,7 +11,6 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);publish/**/*</DefaultItemExcludes>
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
-    <IsWebConfigTransformDisabled>true</IsWebConfigTransformDisabled>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
@@ -51,5 +50,10 @@
   </Target>
   <ItemGroup>
     <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.2.301" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot\assets\stylesheets\styleguide-sg.min.css">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>  
 </Project>
