@@ -18,7 +18,8 @@ namespace StockportWebappTests_Unit.Unit.Parsers
         {
             var tag = "![Frosty Twigs](Frosty_twigs_2.jpg)";
             var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-            response.Should().Be("<div class='carousel'><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Frosty Twigs</p></div></div></div>");
+            string scriptTag = "<script>\r\nrequire(['/assets/javascript/config.min.js'],function(){\r\nrequire(['slick', 'carousel.min'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+            response.Should().Be($"<div class='carousel'><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Frosty Twigs</p></div></div></div>{scriptTag}");
         }
 
         [Fact(Skip = "To Fix")]
@@ -38,7 +39,8 @@ namespace StockportWebappTests_Unit.Unit.Parsers
             var tag = "";
 
             var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-            response.Should().Be("<div class='carousel'></div>");
+            string scriptTag = "<script>\r\nrequire(['/assets/javascript/config.min.js'],function(){\r\nrequire(['slick', 'carousel.min'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+            response.Should().Be($"<div class='carousel'></div>{scriptTag}");
         }
 
         [Fact(Skip = "To Fix")]
