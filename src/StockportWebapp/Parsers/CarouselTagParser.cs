@@ -18,7 +18,7 @@ namespace StockportWebapp.Parsers
             var altRegex = new Regex(@"\[([^\]]*)\]");
             var srcRegex = new Regex(@"\(([^\)]*)\)");
 
-            StringBuilder returnCarousel = new StringBuilder("<div class='carousel'>");
+            StringBuilder returnCarousel = new("<div class='carousel'>");
 
             if (tagArray[0] != "")
             {
@@ -46,7 +46,8 @@ namespace StockportWebapp.Parsers
                     }
                 }
             }
-            return returnCarousel.Append("</div>").ToString();
+            string scriptTag = "<script>\r\nrequire(['/assets/javascript/config.min.js'],function(){\r\nrequire(['slick', 'carousel.min'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+            return returnCarousel.Append("</div>" + scriptTag).ToString();
         }
 
         public CarouselTagParser()
