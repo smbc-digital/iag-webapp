@@ -37,7 +37,7 @@
                             </div>
                         }
 
-                        @if (ViewBag.DisplayContentapiUpdateError)
+                        @if (ViewBag.DisplayContentapiUpdateError is not null && (bool)ViewBag.DisplayContentapiUpdateError)
                         {
                             <div class="grid-100 tablet-grid-100 mobile-grid-100 alert alert-error contact-validation-error">
                                 <div class="alert-icon">
