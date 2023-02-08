@@ -8,14 +8,6 @@
   position: relative;
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 
-  .alert-title {
-    @media #{$mobile} {
-      font-size: 17px;
-    }
-
-    font-weight: bold;
-  }
-
   h2 {
     @media #{$mobile} {
       font-size: 17px;
@@ -26,62 +18,47 @@
   .alert-subheading {
     font-style: italic;
   }
-}
 
-.alert-close {
-  border-radius: 0 5px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  border: none;
+  &-close {
+    right: 0;
+    top: 0;
+    border: none;
 
-  &:hover a {
-    color: $greyDarkest;
+    a {
+      padding: 0 7px;
+
+      &:hover {
+        color: $greyDarkest;
+        background-color: rgba(255,255,255,0.1);
+      }
+    }
   }
 
-  i {
+  &-icon {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 65px;
 
     @media #{$mobile} {
-      font-size: 1.5em;
-    }
-
-    font-size: 1.5em;
-  }
-
-  a {
-    display: inline-block;
-    padding: 0 7px;
-
-    &:hover {
-      background-color: rgba(255,255,255,0.1);
+      display: none;
     }
   }
-}
 
-.alert-icon {
-  border-radius: 5px 0 0 5px;
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
-  padding: 0;
-  width: 65px;
+  &-content {
+    padding: 10px 20px;
 
-  @media #{$mobile} {
-    display: none;
-  }
-}
+    p {
+      line-height: 1.5em;
 
-.alert-content {
-  padding: 10px 20px 10px 20px;
-
-  p {
-    line-height: 1.5em;
-
-    @media #{$mobile} {
-      font-size: 14px;
-      margin-bottom: 5px;
+      @media #{$mobile} {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
     }
   }
+
+
 }
 
 .alert-error {
@@ -221,14 +198,10 @@
   }
 }
 
-
-
 .alert-inline {
   background-color: $ebbGray;
   border-left: 5px solid $darkerEbbGray;
   margin-bottom: 30px;
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   padding: 5px 10px 10px 10px;
 }
