@@ -69,9 +69,11 @@
                         <div class="body">
                             <a href="/news/@Model.FeaturedNews.Slug">
                                 <h3>@Model.FeaturedNews.Title</h3>
-                                <p class="bullet"><span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/></p>
+                                <p class="bullet">
+                                    <span class="fa fa-clock-o" aria-hidden="true"></span>
+                                    <partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/>
+                                </p>
                                 <p>@Model.FeaturedNews.Teaser</p>
-                                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
                     </div>
@@ -89,7 +91,6 @@
                                 <h3>@Model.FeaturedEvent.Title</h3>
                                 <div class="bullet"><span class="fa fa-clock-o"></span>@viewHelper.FormatEventDate(Model.FeaturedEvent.EventDate, Model.FeaturedEvent.StartTime)</div>
                                 <div class="bullet"><span class="fa fa-map-marker" aria-hidden="true"></span>@Model.FeaturedEvent.Location</div>
-                                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
                     </div>
@@ -118,7 +119,6 @@
                                 {
                                     <div class="bullet"><span class="fa fa-star" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.AbilityLevel</div>
                                 }
-                                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
                     </div>

@@ -138,9 +138,11 @@ a {
   text-decoration: underline;
   color: $linkDefault;
   text-decoration-thickness: 1px;
+  text-underline-offset: .1em;
 
   &:hover {
     text-decoration-thickness: 3px;
+    text-decoration-skip-ink: none;
   }
 }
 
