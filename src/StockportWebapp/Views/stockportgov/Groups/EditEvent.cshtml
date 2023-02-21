@@ -160,6 +160,8 @@
                 multistepForm.Init();
                 groups.Init();
                 $('textarea').trumbowyg({
+                    autogrow: true,
+                    tagsToRemove: ['script', 'link'],
                     btns: [
                         ['h3', 'h4', 'p'],
                         ['strong', 'em'],
