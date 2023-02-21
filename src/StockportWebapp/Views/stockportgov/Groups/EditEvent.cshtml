@@ -151,12 +151,26 @@
         </div>
     </div>
 </div>
+
+<link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css />
 <script>
     require(['/assets/javascript/config.min.js'], function() {
-        require(['multistepForm.min', 'groups.min', 'recaptcha', 'google.places'],
-            function(multistepForm, filters) {
+        require(['multistepForm.min', 'groups.min', 'trumbowyg', 'recaptcha', 'google.places'],
+            function (multistepForm, groups, trumbowyg) {
                 multistepForm.Init();
                 groups.Init();
+                $('textarea').trumbowyg({
+                    btns: [
+                        ['viewHTML'],
+                        ['h3', 'h4', 'h5', 'p'],
+                        ['strong', 'em'],
+                        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                        ['unorderedList', 'orderedList'],
+                        ['horizontalRule'],
+                        ['removeformat'],
+                        ['fullscreen']
+                    ]
+                });
             }
         );
     });
