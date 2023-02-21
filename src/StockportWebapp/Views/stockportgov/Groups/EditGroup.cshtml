@@ -247,13 +247,23 @@
         </div>
     </div>
 </div>
+
+<link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css />
 <script>
     require(['/assets/javascript/config.min.js'], function() {
-        require(['groups.min', 'primaryFilter.min', 'multistepForm.min', 'recaptcha'],
-            function(groups, primaryFilter, multistepForm) {
+        require(['groups.min', 'primaryFilter.min', 'multistepForm.min', 'trumbowyg', 'recaptcha'],
+            function (groups, primaryFilter, multistepForm, trumbowyg) {
                 groups.Init();
                 primaryFilter.Init();
                 multistepForm.Init();
+                $('textarea').trumbowyg({
+                    btns: [
+                        ['h3', 'h4', 'p'],
+                        ['strong', 'em'],
+                        ['unorderedList', 'orderedList'],
+                        ['horizontalRule']
+                    ]
+                });
             }
         );
     });
