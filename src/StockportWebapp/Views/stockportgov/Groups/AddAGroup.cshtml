@@ -10,7 +10,7 @@
 }
 
 @section Breadcrumbs {
-    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }'/>
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("Stockport Local", "groups", "groups") }' />
 }
 
 <div class="grid-container-full-width">
@@ -50,8 +50,8 @@
                                 <div id="multistep-form-sections-wrapper" class="form-section">
                                     <h2>About your group or service</h2>
                                     <section>
-                                        <label  for="@Model.Name"  asp-for="@Model.Name"></label>
-                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" id="@Model.Name" asp-for="@Model.Name" role="alert" aria-atomic="true"/>
+                                        <label for="@Model.Name" asp-for="@Model.Name"></label>
+                                        <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" id="@Model.Name" asp-for="@Model.Name" role="alert" aria-atomic="true" />
                                         <span aria-atomic="true" role="alert" asp-validation-for="@Model.Name" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
 
                                         <h3>Enter the location of your group or service</h3>
@@ -63,7 +63,6 @@
                                         <input type="hidden" id="latitude" asp-for="@Model.Latitude" />
                                         <input type="hidden" id="longitude" asp-for="@Model.Longitude" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Address" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
                                         <input type="hidden" id="address" value="@Model.Address" />
 
                                         <h3>Group description</h3>
@@ -71,13 +70,15 @@
                                             Let people know what your group or service does and why they should get in touch with you.<br />
                                             This is a great way to sell your group or service to people.
                                         </p>
-                                        <label class="sr-only" for="Description">Group description</label>
-                                        <textarea asp-for="@Model.Description" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep"></textarea>
-                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                            <label class="sr-only" for="Description">Group description</label>
+                                            <textarea asp-for="@Model.Description"></textarea>
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
+                                        </div>
 
                                         <label>Choose one or more categories that best describe your group or service</label>
                                         <input type="hidden" asp-for="@Model.CategoriesList" />
-                                        <partial name="multiselect" model='new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories, InputName="Categories" }'/>
+                                        <partial name="multiselect" model='new MultiSelect() { Limit = 3, Label = "Category", ValueControlId = "CategoriesList", AvailableValues = Model.AvailableCategories, InputName="Categories" }' />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.CategoriesList" id="categoryListError" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                     </section>
                                     <h2>Tell us who your group is suitable for</h2>
@@ -90,11 +91,11 @@
                                             @for (var i = 0; i < Model.Suitabilities.Count; i++)
                                             {
                                                 <div class="checkbox">
-                                                        <label for="@Model.Suitabilities[i].IsSelected">
-                                                            <input type="checkbox" asp-for="@Model.Suitabilities[i].IsSelected" aria-label="@Model.Suitabilities[i].Name" />
-                                                            <input type="hidden" asp-for="@Model.Suitabilities[i].Name" />
-                                                            <span>@Model.Suitabilities[i].Name</span>
-                                                        </label>
+                                                    <label for="@Model.Suitabilities[i].IsSelected">
+                                                        <input type="checkbox" asp-for="@Model.Suitabilities[i].IsSelected" aria-label="@Model.Suitabilities[i].Name" />
+                                                        <input type="hidden" asp-for="@Model.Suitabilities[i].Name" />
+                                                        <span>@Model.Suitabilities[i].Name</span>
+                                                    </label>
                                                 </div>
                                             }
                                         </div>
@@ -128,13 +129,13 @@
                                         <label asp-for="@Model.Website"></label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Website" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Website" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
+
                                         <h3>Enter a facebook url (optional)</h3>
                                         <i>For example: www.facebook.com/StockportMBC</i><br />
                                         <label class="sr-only" for="Facebook">Enter a facebook url (optional)</label>
                                         <input class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Facebook" />
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Facebook" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        
+
                                         <h3>Enter a twitter handle (optional)</h3>
                                         <i>For example: @@StockportMBC </i>
                                         <label class="sr-only" for="Twitter">Enter a twitter handle (optional)</label>
@@ -155,24 +156,24 @@
                                         <h3 class="hide-on-mobile">Let people know you are looking for volunteers</h3>
                                         <h3 class="hide-on-desktop hide-on-tablet">Group Volunteers</h3>
                                         <div class="checkboxes">
-                                                <div class="checkbox" role="group" aria-labelledby="volunteering-needed">
-                                                    <label>
-                                                        <input class="test" asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox" >
-                                                        <span>Yes, we’re looking for volunteers</span>
-                                                    </label>
-                                                </div>
+                                            <div class="checkbox" role="group" aria-labelledby="volunteering-needed">
+                                                <label>
+                                                    <input class="test" asp-for="@Model.Volunteering" id="volunteering-needed" type="checkbox">
+                                                    <span>Yes, we’re looking for volunteers</span>
+                                                </label>
+                                            </div>
                                         </div>
-                                        <div id="volunteering-text">
-                                            <span class="small" aria-hidden="true">
-                                                <ul>
-                                                    <li>Let people get in touch with you about volunteering opportunities</li>
-                                                    <li>Let people know that your group is looking for volunteers</li>
-                                                </ul>
-                                            </span>
+                                        <span class="small" aria-hidden="true">
+                                            <ul>
+                                                <li>Let people get in touch with you about volunteering opportunities</li>
+                                                <li>Let people know that your group is looking for volunteers</li>
+                                            </ul>
+                                        </span>
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                             <i>You can edit the text below to customise this message</i>
                                             <label class="sr-only hide-on-mobile">Let people know you are looking for volunteers</label>
                                             <label class="sr-only hide-on-desktop hide-on-tablet">Group Volunteers</label>
-                                            <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" aria-label="Volunteering text">
+                                            <textarea asp-for="@Model.VolunteeringText" aria-label="Volunteering text">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.Volunteering" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -188,18 +189,17 @@
                                                 </label>
                                             </div>
                                         </div>
-                                     
-                                        <div id="donations-text">
-                                            <span class="small" aria-hidden="true">
-                                                <ul>
-                                                    <li>Let people get in touch with you about donations </li>
-                                                    <li>Let people know that your group is looking for donations</li>
-                                                </ul>
-                                            </span>
+                                        <span class="small" aria-hidden="true">
+                                            <ul>
+                                                <li>Let people get in touch with you about donations </li>
+                                                <li>Let people know that your group is looking for donations</li>
+                                            </ul>
+                                        </span>
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                             <i>You can edit the text below to customise this message</i>
                                             <label class="sr-only hide-on-desktop hide-on-tablet">Group Donations</label>
                                             <label class="sr-only hide-on-mobile">Let people know you are looking for donations</label>
-                                            <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep" aria-label="Donations text">
+                                            <textarea asp-for="@Model.DonationsText" aria-label="Donations text">
                                                 Use the button below to find out about making a donation to support our group.
                                             </textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -210,11 +210,11 @@
                                                 <span role="alert" aria-atomic="true" asp-validation-for="@Model.DonationsUrl" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                             </div>
                                         </div>
-                                        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
-                                        <div Class="clearfix"></div>
 
-                                        <stock-button id="uitest-contact-form-submit"
-                                                      class="button-contact-us">Add your group or service</stock-button>
+                                        <div class="g-recaptcha reCaptcha" data-sitekey="6LfAeSIUAAAAAGsx6tYHz4MIvhP0pSx9Tq7Hf8Yx"></div>
+                                        <div class="clearfix"></div>
+
+                                        <stock-button id="uitest-contact-form-submit" class="button-contact-us">Add your group or service</stock-button>
                                     </section>
                                 </div>
                             </div>
@@ -228,7 +228,7 @@
 
 <link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css />
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
+    require(['/assets/javascript/config.min.js'], function () {
         require(['groups.min', 'primaryFilter.min', 'multistepForm.min', 'trumbowyg', 'recaptcha'],
             function (groups, primaryFilter, multistepForm, trumbowyg) {
                 groups.Init();

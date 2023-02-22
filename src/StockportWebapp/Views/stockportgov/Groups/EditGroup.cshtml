@@ -150,18 +150,16 @@
                                     </section>
                                     <h2>Additional information</h2>
                                     <section>
-                                        @{
-                                            if (featureToggles.EditGroupUploadImage)
-                                            {
-                                                <label asp-for="@Model.Image"></label>
-                                                <p>
-                                                    Choose an image that captures your group
-                                                    <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
-                                                    <br />Accepted file types: jpg, jpeg, gif and png
-                                                </p>
-                                                <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
-                                                <span role="alert" aria-atomic="true" asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                            }
+                                        @if (featureToggles.EditGroupUploadImage)
+                                        {
+                                            <label asp-for="@Model.Image"></label>
+                                            <p>
+                                                Choose an image that captures your group
+                                                <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
+                                                <br />Accepted file types: jpg, jpeg, gif and png
+                                            </p>
+                                            <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
+                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         }
                                         <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for Volunteers</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
@@ -173,15 +171,15 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div id="volunteering-text">
-                                            <span class="small" aria-hidden="true">
-                                                <ul>
-                                                    <li>Let people get in touch with you about volunteering opportunities</li>
-                                                    <li>Let people know that your group is looking for volunteers</li>
-                                                </ul>
-                                            </span>
+                                        <span class="small" aria-hidden="true">
+                                            <ul>
+                                                <li>Let people get in touch with you about volunteering opportunities</li>
+                                                <li>Let people know that your group is looking for volunteers</li>
+                                            </ul>
+                                        </span>
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                             <i>You can edit the text below to customise this message</i>
-                                            <textarea asp-for="@Model.VolunteeringText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                            <textarea asp-for="@Model.VolunteeringText">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.VolunteeringText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -197,15 +195,15 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div id="donations-text">
-                                            <span class="small" aria-hidden="true">
-                                                <ul>
-                                                    <li>Let people get in touch with you about donations </li>
-                                                    <li>Let people know that your group is looking for donations</li>
-                                                </ul>
-                                            </span>
+                                        <span class="small" aria-hidden="true">
+                                            <ul>
+                                                <li>Let people get in touch with you about donations </li>
+                                                <li>Let people know that your group is looking for donations</li>
+                                            </ul>
+                                        </span>
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                             <i>You can edit the text below to customise this message</i>
-                                            <textarea asp-for="@Model.DonationsText" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                            <textarea asp-for="@Model.DonationsText">
                                              use the button below to find out about making a donation to support our group.
                                             </textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.DonationsText" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -230,8 +228,8 @@
                                                 <li>Explain any additional information about your group or service</li>
                                             </ul>
                                         </i>
-                                        <div id="additional-information-text">
-                                            <textarea asp-for="@Model.AdditionalInformation" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                        <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
+                                            <textarea asp-for="@Model.AdditionalInformation">
                                             </textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.AdditionalInformation" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
@@ -250,7 +248,7 @@
 
 <link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css />
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
+    require(['/assets/javascript/config.min.js'], function () {
         require(['groups.min', 'primaryFilter.min', 'multistepForm.min', 'trumbowyg', 'recaptcha'],
             function (groups, primaryFilter, multistepForm, trumbowyg) {
                 groups.Init();
