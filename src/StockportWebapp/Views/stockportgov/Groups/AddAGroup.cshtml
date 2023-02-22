@@ -72,7 +72,7 @@
                                         </p>
                                         <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control-deep">
                                             <label class="sr-only" for="Description">Group description</label>
-                                            <textarea asp-for="@Model.Description"></textarea>
+                                            <textarea class="wysiwyg" asp-for="@Model.Description"></textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         </div>
 
@@ -173,7 +173,7 @@
                                             <i>You can edit the text below to customise this message</i>
                                             <label class="sr-only hide-on-mobile">Let people know you are looking for volunteers</label>
                                             <label class="sr-only hide-on-desktop hide-on-tablet">Group Volunteers</label>
-                                            <textarea asp-for="@Model.VolunteeringText" aria-label="Volunteering text">
+                                            <textarea class="wysiwyg" asp-for="@Model.VolunteeringText" aria-label="Volunteering text">
                                                 If you would like to become a volunteer for this group, please email us with your interest and we'll get in touch if there are any opportunities.
                                             </textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.Volunteering" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -199,7 +199,7 @@
                                             <i>You can edit the text below to customise this message</i>
                                             <label class="sr-only hide-on-desktop hide-on-tablet">Group Donations</label>
                                             <label class="sr-only hide-on-mobile">Let people know you are looking for donations</label>
-                                            <textarea asp-for="@Model.DonationsText" aria-label="Donations text">
+                                            <textarea class="wysiwyg" asp-for="@Model.DonationsText" aria-label="Donations text">
                                                 Use the button below to find out about making a donation to support our group.
                                             </textarea>
                                             <span role="alert" aria-atomic="true" asp-validation-for="@Model.Donations" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -234,7 +234,7 @@
                 groups.Init();
                 primaryFilter.Init();
                 multistepForm.Init();
-                $('textarea').trumbowyg({
+                $('textarea.wysiwyg').trumbowyg({
                     tagsToRemove: ['script', 'link'],
                     btns: [
                         ['h3', 'h4', 'p'],
