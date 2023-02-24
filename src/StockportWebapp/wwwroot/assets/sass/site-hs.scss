@@ -1,7 +1,8 @@
-﻿// StockportStyleGuide
-@import "StockportStyleGuide/mixins";
-@import "StockportStyleGuide/devices";
-@import "StockportStyleGuide/reset";
+﻿@import "base/devices";
+@import "base/mixins";
+@import "base/reset";
+
+// StockportStyleGuide
 @import "StockportStyleGuide/healthy-stockport/colors";
 @import "StockportStyleGuide/healthy-stockport/text";
 @import "StockportStyleGuide/healthy-stockport/base";

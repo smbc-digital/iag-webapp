@@ -1,7 +1,9 @@
-﻿// StockportStyleGuide
-@import "StockportStyleGuide/mixins";
-@import "StockportStyleGuide/devices";
-@import "StockportStyleGuide/reset";
+﻿@import "base/devices";
+@import "base/mixins";
+@import "base/reset";
+
+
+// StockportStyleGuide
 @import "StockportStyleGuide/stockport-gov/colors";
 @import "StockportStyleGuide/stockport-gov/text";
 @import "StockportStyleGuide/stockport-gov/base";
@@ -9,7 +11,6 @@
 @import "StockportStyleGuide/stockport-gov/modules";
 @import "StockportStyleGuide/stockport-gov/states";
 @import "StockportStyleGuide/stockport-gov-styles";
-
 
 // Original
 @import "stockportgov/modules";
