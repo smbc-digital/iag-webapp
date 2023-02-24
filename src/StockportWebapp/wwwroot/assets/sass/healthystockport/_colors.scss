@@ -1,25 +1,155 @@
-// Colours method inspired by https://standards.usa.gov/colors/
+@import "base/colours";
+
+/* Brand colors*/
+$colorBrand: $mediumDarkCyan;
+$brandSecondary: $tuscanyOrange;
+
+/* Text colors */
+$bodyText: $mineShaftGray;
+$headingColor: $mineShaftGray;
+
+/* Layout colors */
+$backgroundSite: $ebbGray;
+$backgroundContent: $white;
+$backgroundContentMobile: $white;
+$borderDefault: $blackHazeGray;
+$borderLight: #B1B1B1;
+$borderDark: #333333;
+$footerBackground: $mediumDarkCyan;
+$footerIconBackground: $mediumDarkCyan;
+$footerBottomBackground: $darkCyan;
+$footerText: #ffffff;
+$footerHeadingText: $white;
+$pageIconBackground: #c7d6d5;
+$darkOverlayBackground: $alabasterGray;
+$horizontalRuleColor: $mediumDarkCyan;
+$completedSectionBackground: #DFDFDF;
+
+/* Menu colors */
+$menuLightText: $white;
+$menuLightDetail: $transparentWhite;
+$menuLightActive: $blackHazeGray;
+$menuLightActiveDetail: $alabasterGray;
+$menuLightHover: $transparentWhite;
+$menuIcon: #488785;
+$menuArrowIcon: $white;
+$borderColor: #DFDFDF;
+
+/* Input fields */
+$backgroundTextInputPrimary: $blackHazeGray;
+$borderTextInputPrimary: rgba(255,255,255,0.7);
+$placeholderColorPrimary: rgba(255,255,255,0.5);
+$borderTextInputPrimaryFocus: rgba(0,0,0,0.3);
+$addonBackground: #F0F0F0;
+$inputBackground: $white;
+$inputBorder: rgba(177, 177, 177, 0.8);
+$addonColor: #555;
+$inputColor: #555;
+
+/* Link colors */
+$linkDefault: $mediumDarkCyan;
+$linkHover: $mediumDarkCyan;
+$linkInactive: rgba(55,55,55,1.0);
+$linkDisabled: #cfd2d4;
+
+/* Icon Colours */
+$iconTopic: #cfd2d4;
+
+/* Profile colors */
+$profileHeader: $galleryGray;
+$profileHeaderText: $white;
+$profileBackgroundLight: $galleryGray;
+$profileLinkHover: $mercuryGray;
+$profileSubtitle: $doveGray;
+
+/* Button colors */
+$buttonTextLight: $white;
+$buttonDarkBackground: $doveGray;
+$buttonSidebarBackground: $fireBushOrange;
+$buttonCallToActionBackground: $mediumDarkCyan;
+
+/* Service collection colors */
+$serviceCollectionBackground: $white;
+$serviceCollectionSubTitle: $silverChaliceGray;
+
+/* Service container colors */
+$serviceContainerBackground: #F5F5F5;
+$serviceContainerBorder: $mercuryGray;
+$serviceContainerBlue: #04AFF1;
+$serviceContainerBlack: #0E090A;
+$serviceContainerGreen: #62AC0B;
+$serviceContainerBrown: #A15615;
+$serviceContainerSubTitle: $silverChaliceGray;
+$serviceContainerAdditionalBackground: $ebbGray;
+$serviceContainerAdditionalBorder: #B4b4b4;
+
+/* bin collection colors for service collection organism */
+$binCollection: #62AE03;
+$binCollectionMuted: $dustyGray;
+$binCollectionButtonText: $white;
+
+/* council tax colors for service collection organism */
+$councilTax: $carrotOrange;
+$councilTaxMuted: $dustyGray;
+$councilTaxButtonText: $white;
+$councilTaxGrayedText: #666;
+
+/* Alert Colors */
+$alertText: $white;
+
+/*Error*/
+$alertErrorBackground: $tallPoppyRed;
+$alertErrorBorder: #CA9C97;
+$alertErrorIconBackground: #A62D1E;
+$alertErrorHeading: $white;
+$alertErrorClose: #CE4B3B;
+$alertErrorCloseBorder: #D9786C;
+$alertErrorIcon: #FF988B;
+
+/*Warning*/
+$alertWarningBackground: #FEAC31;
+$alertWarningBorder: #CA9C97;
+$alertWarningIconBackground: #C67A24;
+$alertWarningHeading: $white;
+$alertWarningClose: #ECA63E;
+$alertWarningCloseBorder: #F2BE70;
+$alertWarningIcon: #FFE29E;
+
+/*Information*/
+$alertInformationBackground: #2594C8;
+$alertInformationBorder: #CA9C97;
+$alertInformationIconBackground: #1E71A6;
+$alertInformationHeading: $white;
+$alertInformationClose: #3BAACE;
+$alertInformationCloseBorder: #6CBED9;
+$alertInformationIcon: #8BE6FF;
+
+/* Banner Colors */
+$bannerBackground: #ffffe6;
+$bannerHighlight: #ff6a00;
+$bannerBorder: #ffffcc;
+$searchBarBanner: #1A5E63;
+
+/* Radio List Colors */
+$radioListtextColorSelected: $white;
+$radiolistBackground: #DFDFDF;
+$radioListBackgroundSelected: #333333;
+$radioListinputBackgroundSelected: $colorBrand;
+$radioListinputBorder: #333333;
+$radioListinputBorderselected: #333333;
+$radioListinputBoxShadowSelected: $white;
+
+/* Input colours */
+$inputErrorBackground: $tallPoppyRed;
+
+// Secondary Colours
+$accessibleTeal: #1a8c7a;
+$green: #18914c;
 
 // Primary Colours
-$colorPrimary: #1AA9A1;
 $colorBrand: #086964;
-$colorPrimary: #055c58;
-$colorPrimaryDark: #1d3837;
-$colorPrimaryDarkest: #092726;
-$colorPrimaryLight: #3a716e;
-$colorPrimaryPale: #83aeac;
-$colorPrimaryLightest: #99a6a7;
-
-$mediumDarkCyan: #00818a;
-$darkCyan: #09656c;
 
 // Greys
 $boxShadowGrey: #888888;
-$white: #ffffff;
 
-$easternBlue: #1AA9A1;
-
-$greyDarkest: #333333; 
-$greyMiddle: #999999;
-$colorPrimaryPale: #83aeac;
 $searchBarBanner:#1A5E63;

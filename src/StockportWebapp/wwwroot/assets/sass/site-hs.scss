@@ -2,8 +2,9 @@
 @import "base/mixins";
 @import "base/reset";
 
+@import "healthystockport/colors";
+
 // StockportStyleGuide
-@import "StockportStyleGuide/healthy-stockport/colors";
 @import "StockportStyleGuide/healthy-stockport/text";
 @import "StockportStyleGuide/healthy-stockport/base";
 @import "StockportStyleGuide/healthy-stockport/modules";
@@ -11,6 +12,5 @@
 @import "StockportStyleGuide/healthy-stockport-styles";
 
 // Original
-@import "healthystockport/colors";
 @import "healthystockport/modules";
 @import "healthystockport/layouts";

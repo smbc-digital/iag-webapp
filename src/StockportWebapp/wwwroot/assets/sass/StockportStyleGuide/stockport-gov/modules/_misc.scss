@@ -20,7 +20,6 @@
 }
 
 /*------------------- Article Navigation -------------------*/
-
 .article-navigation-header {
   border-bottom: 1px solid lightgray;
 
@@ -87,15 +86,7 @@
   }
 
   @media #{$desktop,$tablet} {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    -ms-column-count: 2;
-    -o-column-count: 2;
     column-count: 2;
-    -webkit-column-gap: 2em;
-    -moz-column-gap: 2em;
-    -ms-column-gap: 2em;
-    -o-column-gap: 2em;
     column-gap: 2em;
   }
 }
@@ -141,8 +132,6 @@ aside.sidebar-right {
     margin-bottom: 10px;
   }
 }
-
-
 
 /*------------------- Images -------------------*/
 
