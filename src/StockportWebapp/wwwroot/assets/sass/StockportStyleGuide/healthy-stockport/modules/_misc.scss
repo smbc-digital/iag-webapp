@@ -128,29 +128,6 @@
   color: $borderDefault;
 }
 
-/*------------------- Breadcrumb -------------------*/
-
-.breadcrumb {
-  padding: 5px 0;
-  margin-bottom: 0px;
-
-  li {
-    display: inline-block;
-    margin-left: 0;
-
-    a {
-      text-transform: uppercase;
-      font-weight: $fontWeightMedium;
-      font-size: $fontSmall;
-      text-decoration: underline;
-    }
-  }
-
-  li.chevron {
-    margin: 0 5px;
-  }
-}
-
 /*------------------- Article Navigation -------------------*/
 
 .article-navigation-header {

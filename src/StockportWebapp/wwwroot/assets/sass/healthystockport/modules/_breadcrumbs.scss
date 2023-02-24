@@ -1,52 +1,60 @@
 ﻿/* ------ Breadcrumbs ------- */
 .breadcrumb-container {
-  background-color: #09656C;
-  width: 100%;
-  min-height: 40px;
+    background-color: #09656C;
+    width: 100%;
+    min-height: 40px;
 
-  .breadcrumb {
-    max-width: 1200px;
-    margin-bottom: 0;
-    color: $white;
-    padding-bottom: 0px;
-    padding-top: 3px;
-
-    @media #{$mobile} {
-      padding: 0px;
-    }
-
-    @media #{$desktop} {
-      padding-left: 10px;
-    }
-
-    @media #{$tablet} {
-      padding-left: 10px;
-    }
-
-    li a {
-      color: $white;
-      text-transform: none;
-      font-weight: normal;
-
-      &:hover {
-        text-decoration-thickness: 3px;
-      }
-    }
-
-    li.current span {
-      font-size: .875em;
-    }
-
-    li.current a {
-      text-decoration: none;
-
-      &:hover {
+    .breadcrumb {
+        max-width: 1200px;
+        margin-bottom: 0;
         color: $white;
-      }
-    }
+        padding-bottom: 0px;
+        padding-top: 3px;
 
-    .chevron {
-      color: $white;
+        @media #{$mobile} {
+            padding: 0px;
+        }
+
+        @media #{$desktop} {
+            padding-left: 10px;
+        }
+
+        @media #{$tablet} {
+            padding-left: 10px;
+        }
+
+        li {
+            display: inline-block;
+            margin-left: 0;
+
+            a {
+                color: $white;
+                text-transform: none;
+                font-weight: normal;
+
+                &:hover {
+                    text-decoration-thickness: 3px;
+                }
+            }
+
+            .chevron {
+                margin: 0 5px;
+                color: $white;
+            }
+
+            current {
+                a {
+                    text-decoration: none;
+
+                    &:hover {
+                        color: $white;
+                    }
+                }
+
+                span {
+                    font-size: .875em;
+                }
+            }
+        }
     }
-  }
 }
