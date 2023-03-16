@@ -1,10 +1,16 @@
 ﻿@using StockportWebapp.Models
 @using StockportWebapp.ViewModels
+@using System.Web
 @model EventCalendar
 
 @{
     var category = Model.Homepage.Categories.Where(c => c.Slug == Model.Category).FirstOrDefault();
-    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) ? "What's on in Stockport" : category == null ? Model.Category : category.Name;
+    ViewData["og:title"] = string.IsNullOrWhiteSpace(Model.Category) 
+                            ? "What's on in Stockport" 
+                            : category == null 
+                                ? HttpUtility.HtmlEncode(Model.Category) 
+                                : HttpUtility.HtmlEncode(category.Name);
+
     ViewData["Title"] = ViewData["og:title"];
     ViewData["Description"] = Model.Homepage.MetaDescription;
     Layout = "../Shared/_Layout.cshtml";
