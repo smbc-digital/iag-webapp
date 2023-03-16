@@ -58,13 +58,6 @@
   font-size: 1.250em;
 }
 
-.article-navigation li.nav-active > a {
-  color: $linkInactive;
-  border-left-color: $linkDisabled;
-  pointer-events: none;
-  cursor: default;
-}
-
 .single-column ul {
   li div {
     padding-left: 0px;

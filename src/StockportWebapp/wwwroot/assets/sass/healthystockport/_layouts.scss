@@ -39,20 +39,6 @@
   padding-right: 0;
 }
 
-/*.l-body-section-filled {
-    border-radius:4px 4px 0 0;
-
-    @media #{$tablet}
-    {
-        border-radius: 0px;
-    }
-}*/
-
-/*.l-body-section-filled-radius {
-    border-top-right-radius: 4px !important;
-    border-top-left-radius: 4px !important;
-}*/
-
 .i-grid-container-mobile {
   @media #{$mobile} {
     padding-left: 0px;
