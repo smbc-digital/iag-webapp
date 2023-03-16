@@ -3,7 +3,7 @@
 
   @media #{$mobile} {
     a:not(:last-child) .icon-container {
-      border-right: 1px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid $whiteOpaque3;
     }
   }
 
@@ -35,11 +35,11 @@
       margin: 0;
       padding: 16px 0 10px 0;
       box-sizing: border-box;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      border-bottom: 1px solid $whiteOpaque3;
       background-color: $mediumDarkCyan;
 
       &.icon-twitter:hover {
-        background-color: #69ace0;
+        background-color: $blueLightSky;
 
         a {
           color: $white;
@@ -47,7 +47,7 @@
       }
 
       &.icon-fb:hover {
-        background-color: #3a589a;
+        background-color: $blueLightRoyal;
 
         a {
           color: $white;
@@ -55,7 +55,7 @@
       }
 
       &.icon-facebook:hover {
-        background-color: #3a589a;
+        background-color: $blueLightRoyal;
 
         a {
           color: $white;
@@ -63,7 +63,7 @@
       }
 
       &.icon-youtube:hover {
-        background-color: #e52d27;
+        background-color: $dullRed;
 
         a {
           color: $white;
@@ -71,7 +71,7 @@
       }
 
       &.icon-rss:hover {
-        background-color: #ff6600;
+        background-color: $darkOrange2;
 
         a {
           color: $white;
@@ -79,7 +79,7 @@
       }
 
       &.icon-flickr:hover {
-        background-color: #FC329B;
+        background-color: $maroon;
 
         a {
           color: $white;
@@ -87,7 +87,7 @@
       }
 
       &.icon-instagram:hover {
-        background-color: #8a3ab9;
+        background-color: $darkOrchid3;
 
         a {
           color: $white;

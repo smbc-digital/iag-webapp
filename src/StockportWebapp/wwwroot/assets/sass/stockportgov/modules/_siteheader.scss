@@ -99,7 +99,7 @@
       color: $colorPrimary;
       border-radius: 6px;
       border: 1px solid $greyLighter;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 10px 20px $blackOpaque05;
       padding: 0 15px 8px 15px;
       position: absolute;
       z-index: 55;

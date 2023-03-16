@@ -29,7 +29,7 @@
   textarea {
     background-color: $white;
     color: $greyDark;
-    border: 1px solid rgba(177, 177, 177, 0.8);
+    border: 1px solid $greyLMOpaque8;
     border-radius: 3px;
     font-size: 1.5em;
     padding: 10px;
@@ -78,7 +78,7 @@
 
   .form-control {
     background-color: $white;
-    border: 1px solid rgba(177, 177, 177, 0.8);
+    border: 1px solid $greyLMOpaque8;
     border-radius: 3px;
     color: $greyDark;
     font-size: 1.5em;
@@ -111,7 +111,7 @@
 
     .input-addon {
       background-color: $offWhite;
-      border: 1px solid rgba(177, 177, 177, 0.8);
+      border: 1px solid $greyLMOpaque8;
       border-radius: 3px 0 0 3px;
       padding: 10px;
       text-align: center;
@@ -128,32 +128,32 @@
     }
 
     .input-validation-error + .input-addon {
-      border-top: 2px solid $red;
-      border-left: 2px solid $red;
+      border-top: 2px solid $tallPoppyRed;
+      border-left: 2px solid $tallPoppyRed;
       border-bottom: none;
       padding: 9px 10px;
     }
   }
 
   .input-validation-error {
-    border: 2px solid $red;
+    border: 2px solid $tallPoppyRed;
     border-radius: 3px 3px 0 0;
     margin-bottom: 0;
   }
 }
 
 .form-field-validation-error {
-  background-color: #c83725;
+  background-color: $tallPoppyRed;
   margin-bottom: 20px;
   padding: 10px 10px 11px 10px;
-  color: #fff;
+  color: $white;
 
   &:before {
     position: absolute;
     font: normal normal normal 14px/1 FontAwesome;
     content: "\f0d8";
     z-index: 100;
-    color: #c83725;
+    color: $tallPoppyRed;
     visibility: visible;
     font-size: 30px;
     line-height: 30px;
@@ -165,7 +165,7 @@
   }
 
   > span {
-    background-color: #c83725;
+    background-color: $tallPoppyRed;
     position: relative;
     margin-bottom: 20px;
     font-family: "Noto Sans", sans-serif;

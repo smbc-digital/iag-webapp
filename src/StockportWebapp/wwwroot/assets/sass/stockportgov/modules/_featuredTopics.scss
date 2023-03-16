@@ -9,11 +9,11 @@
 
       &:not(.#{$class-to-ignore}) {
         &:hover .darken {
-          background-color: rgba(255,255,255,0.1);
+          background-color: $whiteOpaque1;
         }
 
         .darken {
-          border-left: 7px solid rgba(255, 255, 255, 0.1);
+          border-left: 7px solid $whiteOpaque1;
         }
       }
     }
@@ -36,7 +36,7 @@
 }
 
 .featured-topic:not(:first-child) {
-  border-left: solid 1px rgba(0,0,0,0.1);
+  border-left: solid 1px $borderDefault;
 }
 
 .featured-topic {
@@ -204,7 +204,7 @@
     }
 
     &:active {
-      background-color: #8c8c8c;
+      background-color: $grey55;
     }
 
     &:hover {

@@ -60,7 +60,7 @@
 }
 
 .subitems-tertiary-two-column {
-  background-color: #fff;
+  background-color: $white;
   margin-top: 45px;
   padding-bottom: 1em;
   padding-top: 1em;
@@ -81,7 +81,7 @@
 }
 
 .subitems-tertiary-two-column li:nth-child(n+2) > .subitem-tertiary {
-  border-top: 1px solid #bcbcbc;
+  border-top: 1px solid $borderLight;
 
   @media #{$mobile,$tablet} {
     border-top: none;

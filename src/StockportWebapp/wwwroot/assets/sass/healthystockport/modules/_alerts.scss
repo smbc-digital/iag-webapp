@@ -6,7 +6,7 @@
   padding: 0px;
   position: relative;
   margin-bottom: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 20px $borderDefault;
 
   h2, h3 {
     font-weight: bold;
@@ -49,7 +49,6 @@
   }
 }
 
-
 .alert-error {
   background-color: $alertErrorBackground;
   color: $alertText;
@@ -68,7 +67,7 @@
   }
 
   p, a, h2 {
-    color: #fff;
+    color: $white;
   }
 }
 
@@ -83,7 +82,7 @@
 
   .alert-icon {
     background-color: $alertWarningIconBackground;
-    color: #333333;
+    color: $greyDarkest;
   }
 
   i {
@@ -91,7 +90,7 @@
   }
 
   p, a, h2 {
-    color: #000000;
+    color: $black;
   }
 }
 
@@ -108,13 +107,8 @@
     background-color: $alertInformationIconBackground;
   }
 
-  i {
-    color: $alertInformationIcon;
-  }
-
-
   p, a, h2 {
-    color: #fff;
+    color: $white;
   }
 }
 
@@ -142,12 +136,12 @@
     padding: 0 7px;
 
     &:hover {
-      background-color: rgba(255,255,255,0.3);
+      background-color: $whiteOpaque3;
     }
   }
 }
 
 .inline-alert {
-  background-color: $ebbGray;
-  border-left: 5px solid $darkerEbbGray;
+  background-color: $offWhite;
+  border-left: 5px solid $darkerEbbGrey;
 }

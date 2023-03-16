@@ -10,7 +10,7 @@
   font-weight: 600;
   font-family: 'Source Sans Pro';
   display: block;
-  border: 1px solid rgb(211, 211, 211);
+  border: 1px solid $lightGrey;
   border-radius: 5px;
   padding: 15px;
   margin-top: 25px;
@@ -74,17 +74,17 @@ a.nav-card-item {
     letter-spacing: -1px;
     font-family: "Source Sans Pro",sans-serif;
     display: block;
-    color: black;
+    color: $black;
 
     &.mobile-header {
-      color: #fff;
+      color: $white;
       text-align: center;
       display: inline-block;
       vertical-align: middle;
       margin: 0;
       line-height: normal;
       width: 100%;
-      text-shadow: 0 1px 0 #000;
+      text-shadow: 0 1px 0 $black;
       font-size: 1.5em;
       font-family: "Source Sans Pro",sans-serif;
       padding-left: 0;
@@ -92,7 +92,7 @@ a.nav-card-item {
   }
 
   @media #{$tablet, $mobile} {
-    border-bottom: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid $borderDefault;
     border-radius: 0px;
 
     .button {
@@ -105,8 +105,8 @@ a.nav-card-item {
   @media #{$desktop} {
     padding: 0 20px;
     padding-bottom: 10px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-    border-top: 4px solid rgb(0, 92, 87);
+    box-shadow: 0 10px 20px $blackOpaque05;
+    border-top: 4px solid $colorBrand;
     border-radius: 5px;
     background-color: $white;
     min-height: 240px;
@@ -115,7 +115,7 @@ a.nav-card-item {
     transition: box-shadow 0.5s;
 
     &:hover {
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 40px $blackOpaque3;
 
       .button {
         text-decoration: none;
@@ -169,11 +169,11 @@ a.nav-card-item.with-background-image {
     border-radius: 5px;
 
     &:hover {
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 40px $blackOpaque3;
     }
 
     .nav-card-background-image-dark {
-      background-color: rgba(20, 20, 20, .5);
+      background-color: $grey8Opaque5;
       border-radius: 5px;
     }
 
@@ -194,7 +194,7 @@ a.nav-card-item.with-background-image {
         position: absolute;
         right: 10px;
         top: 30%;
-        color: #fff;
+        color: $white;
         vertical-align: middle;
         display: inline-block;
       }
@@ -208,7 +208,7 @@ a.nav-card-item.with-background-image {
       margin: 0;
       line-height: normal;
       width: 100%;
-      text-shadow: 0 1px 0 black;
+      text-shadow: 0 1px 0 $black;
 
       span {
         padding-left: 38px;
@@ -238,7 +238,7 @@ a.nav-card-item.with-background-image {
   .title-card {
     position: absolute;
     bottom: 20px;
-    background-color: rgba(51,51,51, 0.8);
+    background-color: $greyDarkestOpaque8;
     width: 100%;
 
     h1 {

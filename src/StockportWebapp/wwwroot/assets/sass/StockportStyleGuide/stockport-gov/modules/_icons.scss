@@ -17,7 +17,7 @@ i.icon-small {
 }
 
 .icon-over {
-  background: white;
+  background: $white;
   @include border-radius(100px);
   padding: 0 3px;
 }
@@ -58,12 +58,12 @@ i.icon-small {
 }
 
 .icon-failure {
-  color: red;
+  color: $red;
 }
 
 footer .icon-bordered-fixed {
-  color: #11635E;
-  border-color: #11635E;
+  color: $primarypale7123;
+  border-color: $primarypale7123;
   height: 45px;
   width: 45px;
   margin-right: 15px;

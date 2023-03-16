@@ -91,7 +91,7 @@
         text-decoration: none;
         transition: all .5s;
         transition-property: opacity,box-shadow;
-        border: 1px solid #DFDFDF;
+        border: 1px solid $grey875;
         color: $colorPrimaryDark;
         height: 62px;
         font-weight: bold;
@@ -147,7 +147,7 @@
     text-align: center;
 
     @media #{$mobile, $tablet} {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid $borderDefault;
       padding-top: 10px;
       padding-bottom: 35px;
     }
@@ -326,8 +326,8 @@
     }
 
     .button-default {
-      color: #333;
-      background-color: #FFF !important;
+      color: $greyDarkest;
+      background-color: $white !important;
     }
   }
 
@@ -411,22 +411,22 @@
         text-decoration: none;
 
         @media #{$desktop} {
-          border: 1px solid rgba(0,0,0,.1);
+          border: 1px solid $borderDefault;
           text-align: center;
           padding: 15px 0;
-          border-top: 3px solid $orange;
+          border-top: 3px solid $carrotOrange;
           border-radius: 5px 5px 4px 4px;
         }
 
         @media #{$mobile, $tablet} {
-          border-left: 3px solid $orange;
+          border-left: 3px solid $carrotOrange;
           border-radius: 5px 4px 4px 5px;
         }
       }
 
       a:hover {
         transition-duration: 0.5s;
-        box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+        box-shadow: 0 20px 40px 0 $blackOpaque3;
       }
 
       .group-block-content-margin {
@@ -442,7 +442,7 @@
         border-radius: 3px;
 
         i {
-          color: #333333;
+          color: $greyDarkest;
         }
 
         .group-chevron {
@@ -451,7 +451,7 @@
           padding-right: 15px;
 
           i {
-            color: #333333;
+            color: $greyDarkest;
           }
         }
 
@@ -491,7 +491,7 @@
           text-align: center;
 
           i {
-            color: #333333;
+            color: $greyDarkest;
             background-color: $white;
 
             @media #{$mobile, $tablet} {
@@ -695,7 +695,7 @@
 }
 
 .featured-group-category:not(:first-child) {
-  border-left: solid 1px rgba(0,0,0,0.1);
+  border-left: solid 1px $borderDefault;
 }
 
 .group-map-container {
@@ -733,7 +733,7 @@
   }
 
   .green {
-    color: #119046;
+    color: $green1457932;
   }
 
   .tick {
@@ -766,7 +766,7 @@
 .button-default {
 
   &.white {
-    border: solid 1px #DFDFDF;
+    border: solid 1px $grey875;
     color: $colorPrimaryDark;
     background-color: transparent;
   }
@@ -861,16 +861,16 @@
 
 .footer-container-box {
   margin-bottom: 0;
-  background-color: #333333;
+  background-color: $greyDarkest;
   padding-top: 1px;
   padding-bottom: 20px;
 
   .footer-container-box-label {
     padding: 0px 10px 15px 10px;
-    color: #fff;
+    color: $white;
 
     h3 {
-      color: #fff;
+      color: $white;
     }
   }
 
@@ -881,7 +881,7 @@
 
 .volunteering-section {
   background-color: $offWhite;
-  border-left: 5px solid #D8D8D8;
+  border-left: 5px solid $darkerEbbGrey;
   margin-bottom: 30px;
 
   .volunteering-button {
@@ -919,26 +919,26 @@
 }
 
 .donations-section {
-  background-color: #333333;
+  background-color: $greyDarkest;
   margin-bottom: 30px;
-  color: #ffffff;
-  border-left: 5px solid #333333;
+  color: $white;
+  border-left: 5px solid $greyDarkest;
   border-radius: 3px;
 
   h3, a {
-    color: #ffffff;
+    color: $white;
   }
 
   .donations-button {
     border-radius: 3px;
     border-width: 1px;
-    border-color: #ffffff;
+    border-color: $white;
     border-style: solid;
     padding-left: 30px;
     padding-bottom: 8px;
     padding-top: 8px;
     text-decoration: none;
-    color: #ffffff;
+    color: $white;
     font-size: 16px;
     font-weight: 600;
     transition-duration: 0.5s;
@@ -949,7 +949,7 @@
     }
 
     &:hover {
-      box-shadow: 5px 5px 10px #000000;
+      box-shadow: 5px 5px 10px $black;
     }
 
     &:after {
@@ -975,7 +975,7 @@
 
   &.manage-group-section::after {
     content: "";
-    background-color: #ccc;
+    background-color: $greyLighter;
     position: absolute;
     bottom: 10%;
     right: 0;

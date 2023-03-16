@@ -25,11 +25,11 @@
 
   .event-banner-container {
     min-height: 140px;
-    background-color: #fff;
+    background-color: $white;
     padding-left: 0px;
     display: flex;
     border-radius: 2.5px;
-    box-shadow: 0 10px 20px rgba(0,0,0,.05);
+    box-shadow: 0 10px 20px $blackOpaque05;
 
     @media #{$mobile} {
       min-height: 60px;
@@ -37,7 +37,7 @@
 
     .event-banner-icon-container {
       width: 140px;
-      background-color: #207eab;
+      background-color: $softBlue;
       display: flex;
       justify-content: center;
       align-content: center;
@@ -50,12 +50,12 @@
       }
 
       .eventbanner-icon {
-        color: #fff;
+        color: $white;
         width: inherit;
         font-size: 80px;
 
         @media #{$mobile} {
-          color: #fff;
+          color: $white;
           font-size: 35px;
         }
       }
@@ -85,7 +85,7 @@
       }
 
       label {
-        color: #333;
+        color: $greyDarkest;
         line-height: 1.2;
       }
     }
@@ -98,7 +98,7 @@
       flex-direction: column;
 
       .event-banner-chevron {
-        color: #333;
+        color: $greyDarkest;
         font-size: 50px;
 
         @media #{$mobile} {
@@ -109,7 +109,7 @@
   }
 
   .event-banner-container:hover {
-    box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+    box-shadow: 0 20px 40px 0 $blackOpaque3;
   }
 }
 

@@ -40,7 +40,7 @@
 
     .remove-favourite {
       display: block;
-      border-top: solid 1px #ebebeb;
+      border-top: solid 1px $backgroundSite;
       font-size: 0.9em;
       padding-left: 15px;
       padding-top: 10px;
@@ -61,7 +61,7 @@
 
     .add-favourite {
       display: block;
-      border-top: solid 1px #ebebeb;
+      border-top: solid 1px $backgroundSite;
       font-size: 0.9em;
       padding-left: 15px;
       padding-top: 10px;
@@ -84,20 +84,20 @@
       background-color: $white;
       padding: 0 0 10px 0;
       border-radius: 4px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 20px $blackOpaque05;
       transition-duration: 0.5s;
       display: block;
       padding-bottom: 50px;
 
       &:hover {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 20px $blackOpaque2;
       }
 
       .group-card-main {
         display: block;
 
         .group-card-information {
-          color: black;
+          color: $black;
           padding-left: 15px;
           padding-right: 15px;
           word-wrap: break-word;

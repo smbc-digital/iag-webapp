@@ -1,5 +1,5 @@
 ﻿.organisation-detail {
-  background-color: #fff;
+  background-color: $white;
 
   span {
     padding-right: 5px;
@@ -55,7 +55,7 @@
   margin: 20px 15px -15px 15px;
 
   .organisation-bar {
-    background-color: #1D3837;
+    background-color: $colorPrimaryDark;
     border-radius: 5px;
     padding: 20px;
     display: inline-block;
@@ -64,7 +64,7 @@
       margin: 0;
 
       a {
-        color: #fff;
+        color: $white;
         text-decoration: none;
       }
     }
@@ -75,7 +75,7 @@
 
     .remove-filter {
       a {
-        color: #fff;
+        color: $white;
       }
     }
   }

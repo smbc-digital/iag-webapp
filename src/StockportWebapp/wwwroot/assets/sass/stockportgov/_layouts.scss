@@ -46,8 +46,8 @@
   }
 
   a.skip-main:focus, a.skip-main:active {
-    color: #fff;
-    background-color: #FFB733;
+    color: $white;
+    background-color: $goldenRod15;
     left: auto;
     top: auto;
     width: 140px;
@@ -59,7 +59,7 @@
     text-align: center;
     font-size: 1.2em;
     z-index: 999;
-    color: #0b0c0c;
+    color: $dark;
     line-height: 1.5;
     font-weight: 400;
     font-size: .875em;
@@ -128,7 +128,7 @@ a:focus, button:focus, input:focus, textarea:focus, select:focus, label:focus {
     width: 80px;
 
     &.red {
-      color: $red;
+      color: $tallPoppyRed;
     }
 
     &.green {

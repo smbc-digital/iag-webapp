@@ -34,12 +34,12 @@
 
   .pagination-section {
     border-top-width: 2px;
-    border-top-color: rgba(0,0,0, 0.2);
+    border-top-color: $blackOpaque2;
   }
 }
 
 .group-search-mobile {
-  background-color: #055c58;
+  background-color: $colorBrand;
 }
 
 #group-favourites {
@@ -49,7 +49,7 @@
   }
 
   .icon-bordered-fixed.green {
-    color: #055c58;
+    color: $colorBrand;
   }
 
   #no-results {
@@ -90,7 +90,7 @@
       padding-left: 0px;
 
       a {
-        color: #333333;
+        color: $greyDarkest;
         font-size: 1em;
         text-decoration: underline;
 
@@ -100,7 +100,7 @@
       }
 
       i {
-        color: #666666;
+        color: $greyDark;
         font-weight: 600;
       }
 

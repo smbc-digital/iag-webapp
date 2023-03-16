@@ -49,8 +49,8 @@ input.light-on-dark-field {
 }
 
 .input-error {
-  background-color: $red;
-  color: #fff;
+  background-color: $tallPoppyRed;
+  color: $white;
   position: relative;
   margin-bottom: 20px;
 
@@ -63,7 +63,7 @@ input.light-on-dark-field {
   }
 
   .fa-caret-up {
-    color: $red;
+    color: $tallPoppyRed;
     font-size: 30px;
     left: 10px;
     position: absolute;
@@ -105,7 +105,7 @@ input.light-on-dark-field {
 
   input[type="checkbox"]:focus + label,
   input[type="checkbox"]:focus {
-    border-color: $orange;
+    border-color: $carrotOrange;
   }
 
   input[type="checkbox"]:disabled {
@@ -151,7 +151,7 @@ input.light-on-dark-field {
 
           &:hover {
             text-decoration: none;
-            box-shadow: 0 20px 40px rgba(0,0,0,.3);
+            box-shadow: 0 20px 40px $blackOpaque3;
           }
 
           background-color: $offWhite;
@@ -188,7 +188,7 @@ input.light-on-dark-field {
 
               input[type=radio]:checked + label {
                 background-color: unset;
-                color: black;
+                color: $black;
               }
             }
 
@@ -247,7 +247,7 @@ input.light-on-dark-field {
 
     input[type=radio]:focus + label,
     input[type=radio]:focus {
-      border-color: $orange;
+      border-color: $carrotOrange;
     }
 
     input[type=radio]:disabled {
@@ -269,7 +269,7 @@ input.light-on-dark-field {
 
   .dropdown {
     border-radius: 3px;
-    border: 1px solid rgba(177, 177, 177, 0.8);
+    border: 1px solid $greyLMOpaque8;
 
     @media #{$desktop} {
       max-width: 450px;

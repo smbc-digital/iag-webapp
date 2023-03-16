@@ -1,7 +1,7 @@
 ﻿.favourites-bar {
   width: 100%;
-  background-color: #8C5573;
-  color: #ffffff;
+  background-color: $purple2444;
+  color: $white;
   cursor: pointer;
   padding: 5px 0;
   text-align: left;
@@ -48,12 +48,12 @@
 
   &:hover {
     color: $white;
-    background-color: #8C5573;
+    background-color: $purple2444;
     text-decoration: none;
   }
 
   &:active {
-    background-color: #8C5573;
+    background-color: $purple2444;
   }
 }
 

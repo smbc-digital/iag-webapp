@@ -31,7 +31,7 @@
   margin-bottom: 20px;
   text-align: center;
   margin-top: 20px;
-  box-shadow: 0 12px 33px rgba(0,0,0,0.25);
+  box-shadow: 0 12px 33px $blackOpaque25;
 
   @media #{$tablet, $mobile} {
     margin-right: 4px;
@@ -51,17 +51,17 @@
   .task-block-container {
     display: table;
     width: 100%;
-    background-color: #8f2d56;
+    background-color: $purple5237;
     border-radius: 5px;
 
     @media #{$mobile, $tablet} {
-      border-left: 4px solid #8f2d56;
+      border-left: 4px solid $purple5237;
     }
 
     @media #{$desktop} {
       display: table-row;
       height: 100%;
-      border-top: 4px solid #8f2d56;
+      border-top: 4px solid $purple5237;
     }
   }
 
@@ -150,17 +150,17 @@
   @for $i from 1 through 6 {
     #task-block-#{$i} {
       .icon {
-        background-color: rgba(0,0,0,0.1);
+        background-color: $borderDefault;
       }
 
       background-color: rgba(0,0,0,calc((($i) - 1) / 20));
 
       &:hover {
         .icon {
-          background-color: rgba(255, 255, 255, 0.1);
+          background-color: $whiteOpaque1;
         }
 
-        background-color: rgba(255, 255, 255, 0.1);
+        background-color: $whiteOpaque1;
       }
     }
   }
@@ -201,7 +201,7 @@
 .homepage-group-link-container {
   padding-top: 3%;
   padding-bottom: 3%;
-  background-color: #333333;
+  background-color: $greyDarkest;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -234,9 +234,9 @@
   .button-groups {
     width: auto;
     min-width: 300px;
-    background-color: #333333;
-    color: white;
-    border-color: white;
+    background-color: $greyDarkest;
+    color: $white;
+    border-color: $white;
     border-style: solid;
 
     @media #{$mobile, $tablet} {
@@ -270,21 +270,21 @@ ul.nav-card-list:nth-of-type(1) {
 
 .do-it-online, .do-it-online:hover {
   background-color: transparent;
-  border-color: #ffffff;
+  border-color: $white;
 }
 
 .latest-nav-card-item {
   padding: 0 0 10px;
-  box-shadow: 0 10px 20px rgba(0,0,0,.05);
+  box-shadow: 0 10px 20px $blackOpaque05;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: $white;
   min-height: 240px;
   margin-bottom: 5px;
   -webkit-transition: box-shadow .5s;
   transition: box-shadow .5s;
   display: block;
   text-decoration: none;
-  border: solid 1px #999999;
+  border: solid 1px $greyMiddle;
   border-top: 0;
 
   &:hover, a {
@@ -303,26 +303,26 @@ ul.nav-card-list:nth-of-type(1) {
     font-size: 1.875em;
 
     a {
-      color: #ffffff;
+      color: $white;
       display: block;
     }
 
     &.title {
       height: 60px;
       line-height: 60px;
-      color: #ffffff;
+      color: $white;
     }
 
     &.news {
-      background-color: #8D5472;
+      background-color: $purple2544;
     }
 
     &.event {
-      background-color: #207eab;
+      background-color: $softBlue;
     }
 
     &.group {
-      background-color: #3a716e;
+      background-color: $colorPrimaryLight;
     }
   }
 
@@ -334,19 +334,19 @@ ul.nav-card-list:nth-of-type(1) {
     }
 
     h3 a {
-      color: #000000;
+      color: $black;
     }
 
     .date {
-      color: #9b9b9b;
+      color: $grey61;
 
       @media #{$mobile, $tablet} {
-        color: #000000;
+        color: $black;
       }
     }
 
     .bullet {
-      color: #000000;
+      color: $black;
     }
 
     .bullet, .date {
@@ -362,33 +362,33 @@ ul.nav-card-list:nth-of-type(1) {
 @media only screen and (min-width: 1025px) {
   div.latest-nav-card-item:hover {
     text-decoration: none;
-    box-shadow: 0 20px 40px rgba(0,0,0,.3);
+    box-shadow: 0 20px 40px $blackOpaque3;
   }
 }
 
 .button-default.green {
-  background-color: $teal-darker;
+  background-color: $tealDarker;
 
   &:active {
-    background-color: #059e86;
+    background-color: $tealPale;
   }
 
   &:hover {
-    background-color: darken($teal-darker, 10%);
+    background-color: darken($tealDarker, 10%);
   }
 
   &:focus {
-    background-color: $teal-darker;
+    background-color: $tealDarker;
 
     &:hover {
-      background-color: darken($teal-darker, 10%);
+      background-color: darken($tealDarker, 10%);
     }
   }
 }
 
 .nav-card {
   .button-default {
-    background-color: #ffffff;
+    background-color: $white;
     min-width: 200px;
     margin-bottom: 0;
     position: relative;
@@ -401,7 +401,7 @@ ul.nav-card-list:nth-of-type(1) {
     }
 
     &:hover {
-      color: #000000;
+      color: $black;
 
       @media #{$mobile, $tablet} {
         box-shadow: none;
@@ -412,5 +412,5 @@ ul.nav-card-list:nth-of-type(1) {
 
 .full-width-white {
   width: 100%;
-  background-color: #ffffff;
+  background-color: $white;
 }
