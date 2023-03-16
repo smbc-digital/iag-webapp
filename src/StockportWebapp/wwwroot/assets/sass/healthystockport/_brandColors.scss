@@ -1,0 +1,76 @@
+/* Brand colors*/
+$colorBrand: $mediumDarkCyan;
+$brandSecondary: $tuscanyOrange;
+
+/* Text colors */
+$bodyText: $mineShaftGrey;
+$headingColor: $mineShaftGrey;
+
+/* Layout colors */
+$backgroundSite: $offWhite;
+$backgroundContent: $white;
+$borderDefault: $blackOpaque1;
+$borderLight: $greyLightMiddle;
+$footerBackground: $mediumDarkCyan;
+$footerIconBackground: $mediumDarkCyan;
+$footerBottomBackground: $darkCyan;
+$footerText: $white;
+$footerHeadingText: $white;
+$pageIconBackground: $colorPrimaryPalest;
+$completedSectionBackground: $grey875;
+
+/* Menu colors */
+$menuLightText: $white;
+$menuLightDetail: $whiteOpaque2;
+$menuLightActive: $blackOpaque1;
+$menuLightActiveDetail: $blackOpaque2;
+$menuLightHover: $whiteOpaque2;
+
+/* Input fields */
+$backgroundTextInputPrimary: $blackOpaque1;
+
+/* Link colors */
+$linkDefault: $mediumDarkCyan;
+
+/* Profile colors */
+$profileHeader: $galleryGrey;
+$profileHeaderText: $white;
+$profileBackgroundLight: $galleryGrey;
+$profileSubtitle: $greyDark;
+
+/* Button colors */
+$buttonTextLight: $white;
+$buttonDarkBackground: $greyDark;
+$buttonSidebarBackground: $fireBushOrange;
+$buttonCallToActionBackground: $mediumDarkCyan;
+
+/* Banner Colors */
+$searchBarBanner: $colorPrimarySuperDark;
+
+/* Radio List Colors */
+$radioListtextColorSelected: $white;
+$radiolistBackground: $grey875;
+$radioListBackgroundSelected: $greyDarkest;
+$radioListinputBackgroundSelected: $colorBrand;
+$radioListinputBorder: $greyDarkest;
+$radioListinputBorderselected: $greyDarkest;
+$radioListinputBoxShadowSelected: $white;
+
+/* Alert Colors */
+$alertText: $white;
+
+/*Error*/
+$alertErrorBackground: $tallPoppyRed;
+$alertErrorIconBackground: $brickRed;
+$alertErrorHeading: $white;
+$alertErrorIcon: $salmon;
+
+/*Warning*/
+$alertWarningBackground: $orange;
+$alertWarningIconBackground: $tan3;
+$alertWarningHeading: $white;
+$alertWarningIcon: $navajoWhite;
+
+/*Information*/
+$alertInformationBackground: $steelBlue3;
+$alertInformationIconBackground: $softBlue;
