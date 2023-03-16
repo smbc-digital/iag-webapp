@@ -6,7 +6,6 @@ const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('autoprefixer');
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
-const gulpStylelint = require('gulp-stylelint');
 const uglify = require("gulp-uglify");
 const rename = require("gulp-rename");
 
@@ -36,10 +35,6 @@ function js() {
         }));
 }
 
-function lintJS() {
-    // Look at ES Lint for Gulp
-}
-
 // CSS
 function css() {
     return src(paths.sassToCompile)
@@ -49,21 +44,9 @@ function css() {
         .pipe(dest(paths.stylesheets));
 };
 
-function lintScss() {
-    return src(paths.stylesToLint)
-        .pipe(gulpStylelint({
-            failAfterError: false,
-            fix: true,
-            reporters: [
-                { formatter: 'string', console: true }
-            ]
-        }))
-}
-
 exports.css = series(css);
 exports.js = series(js);
-exports.lint = parallel(lintScss); // and lintJS when it's set up
-exports.build = series(lintScss, parallel(css, js));
+exports.build = parallel(css, js);
 exports.watch = function () {
     watch(paths.sassToWatch, { events: 'change' }, css);
     watch(paths.js, { events: 'change' }, js);

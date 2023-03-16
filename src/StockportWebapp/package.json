@@ -2,6 +2,10 @@
   "name": "stockport-webapp",
   "version": "0.0.0",
   "private": true,
+  "scripts": {
+    "lint": "npm run lint:scss",
+    "lint:scss": "stylelint ./wwwroot/assets/sass/stockportgov/**/*.scss"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "cssnano": "^5.1.14",
@@ -9,7 +13,6 @@
     "gulp-postcss": "^9.0.1",
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.1.0",
-    "gulp-stylelint": "^13.0.0",
     "gulp-uglify": "^3.0.0",
     "postcss": "^8.4.20",
     "postcss-scss": "^1.0.5",
@@ -27,6 +30,7 @@
       "scss/at-import-no-partial-leading-underscore": null,
       "scss/no-global-function-names": null,
       "scss/at-extend-no-missing-placeholder": null,
+      "property-no-vendor-prefix": null,
       "no-descending-specificity": null,
       "selector-id-pattern": null,
       "length-zero-no-unit": null,
