@@ -45,13 +45,13 @@
 }
 
 .button-light {
-  border-color: rgba(255,255,255,.5);
+  border-color: $whiteOpaque5;
   color: $buttonTextLight;
   background-color: $backgroundTextInputPrimary;
 }
 
 .button-light:hover {
-  background: rgba(255,255,255,0.7);
+  background: $whiteOpaque7;
   color: $bodyText;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .button-small:hover {
-  color: #2A6F6B;
+  color: $primary4530;
 }
 
 .button-small img {
@@ -176,12 +176,11 @@
 }
 
 /*-- Default button style for Stockport.gov.uk --*/
-
 .button-default {
   background-color: $accessibleTeal;
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid $borderDefault;
   border-radius: 3px;
-  color: #fff;
+  color: $white;
   display: inline-block;
   font-size: 1.125em;
   letter-spacing: 0;
@@ -218,16 +217,15 @@
 }
 
 .button-default:hover {
-  background-color: #07d0b0;
-  color: #fff;
+  background-color: $paleLightTeal;
+  color: $white;
   cursor: pointer;
-  -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
-  box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+  box-shadow: 0 20px 40px 0 $blackOpaque3;
   text-decoration: none;
 }
 
 .button-default:active {
-  background-color: #059e86;
+  background-color: $tealPale;
 }
 
 @media only screen and (max-width: 767px) {

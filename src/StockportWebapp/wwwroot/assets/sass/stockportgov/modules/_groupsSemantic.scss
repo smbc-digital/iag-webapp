@@ -102,7 +102,7 @@
       }
 
       &:not(:nth-child(4n)) {
-        border-right: 1px solid #ccc;
+        border-right: 1px solid $greyLighter;
 
         @media #{$mobile} {
           border-right: none;
@@ -130,7 +130,7 @@
         padding: 0 0 20px 0;
         margin: 0 0 20px 0;
         width: 100%;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid $greyLighter;
       }
     }
 
@@ -178,7 +178,7 @@
       width: 100%;
 
       hr {
-        color: #D3D3D3;
+        color: $lightGrey;
         margin-bottom: 0;
 
         @media #{$mobile } {
@@ -249,7 +249,7 @@
       padding: 15px 25px 15px 15px;
       background-color: $white;
       border-radius: 3px;
-      border: 1px solid #999;
+      border: 1px solid $greyMiddle;
       font-weight: 600;
       font-family: 'Source Sans Pro';
       font-size: 1.125em;
@@ -315,7 +315,7 @@
 }
 
 .groupLastUpdated {
-  color: black;
+  color: $black;
   padding-left: 10px;
   margin-bottom: 17px;
   margin-top: 34px;

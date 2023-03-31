@@ -31,12 +31,11 @@
   margin: 0 15px 20px 0;
   padding: 20px;
   border: 1px solid $greyLighter;
-  color: black;
+  color: $black;
   font-weight: 700;
   text-decoration: none;
-  -webkit-box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
-  border-top: 5px solid #00b79b;
+  box-shadow: 0 10px 13px 0 $borderDefault;
+  border-top: 5px solid $brandBorder;
 
   @media #{$mobile} {
     width: 100%;
@@ -64,9 +63,8 @@
     cursor: pointer;
     transition-duration: .5s;
     transition-property: box-shadow;
-    -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
-    box-shadow: 0 20px 40px 0 rgba(0,0,0,0.3);
-    color: black;
+    box-shadow: 0 20px 40px 0 $blackOpaque3;
+    color: $black;
 
     .primaryItemText {
       text-decoration: underline;
@@ -95,15 +93,13 @@
 
   @media #{$desktop} {
     h2 {
-      border-top: 2px solid #d3d3d3;
+      border-top: 2px solid $lightGrey;
       padding-top: 10px;
     }
   }
 }
 
 .contact-us-category {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
   border-radius: 3px;
   width: 100%;
   background-color: white;
@@ -112,12 +108,11 @@
   text-align: left;
   margin: 0 15px 20px 0;
   border: 1px solid $greyLighter;
-  color: black;
+  color: $black;
   font-weight: 700;
   text-decoration: none;
-  -webkit-box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 10px 13px 0 rgba(0, 0, 0, 0.1);
-  border-top: 5px solid #00b79b;
+  box-shadow: 0 10px 13px 0 $borderDefault;
+  border-top: 5px solid $brandBorder;
 
   @media #{$mobile} {
     display: block;
@@ -148,7 +143,7 @@
 
       & h3 {
         font-size: 1.1em;
-        color: #000;
+        color: $black;
         margin: 0;
       }
     }
@@ -219,7 +214,7 @@
   padding: 0 10px;
 
   .alert-insetText {
-    background-color: #cccccc;
+    background-color: $greyLighter;
     border-radius: 0px;
     line-height: 20px;
     box-shadow: none;
@@ -227,7 +222,7 @@
   }
 
   .alert-insetText-overlap {
-    background-color: #ebebeb;
+    background-color: $backgroundSite;
     margin-left: 10px;
   }
 

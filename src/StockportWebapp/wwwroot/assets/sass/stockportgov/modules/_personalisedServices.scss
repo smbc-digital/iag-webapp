@@ -12,7 +12,7 @@
     i {
       padding-right: 10px;
       font-size: 0.8em;
-      color: rgba(255, 255, 255, 0.2);
+      color: $whiteOpaque2;
     }
   }
 
@@ -21,7 +21,7 @@
   }
 
   button {
-    border: 1px solid #00B79B;
+    border: 1px solid $brandBorder;
     margin: 0 auto;
     margin-top: 30px;
     padding: 13px 40px 13px 40px;
@@ -50,7 +50,7 @@
       margin-bottom: 20px;
 
       &:not(:first-child) {
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        border-top: 1px solid $whiteOpaque2;
         padding-top: 20px;
       }
     }
@@ -60,7 +60,7 @@
       padding-right: 50px;
 
       &:not(:first-child) {
-        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        border-left: 1px solid $whiteOpaque2;
       }
 
       i {

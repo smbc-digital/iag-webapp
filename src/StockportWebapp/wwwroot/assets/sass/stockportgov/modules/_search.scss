@@ -24,28 +24,27 @@
 
     .search-input {
       border: none;
-      background-color: #fff;
-      color: #333;
+      background-color: $white;
+      color: $greyDarkest;
       padding: 15px 60px 15px 15px;
       height: 50px;
       line-height: 1.3;
       width: 100%;
       font-size: 16px;
-      -webkit-appearance: none;
 
       &:focus {
         outline: none;
       }
 
       & ::placeholder {
-        color: #505a5f;
+        color: $greyDarker;
         opacity: 1;
       }
     }
 
     .search-button {
       background: 0 0;
-      color: #333;
+      color: $greyDarkest;
       border: none;
       width: 60px;
       height: 60px;

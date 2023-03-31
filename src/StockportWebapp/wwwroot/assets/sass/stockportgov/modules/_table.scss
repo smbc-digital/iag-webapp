@@ -31,14 +31,14 @@
   }
 
   .sk-table-body {
-    border-top: 5px solid #EF8A17;
-    border-bottom: 1px solid #DFDFDF;
+    border-top: 5px solid $carrotOrange;
+    border-bottom: 1px solid $grey875;
     margin-top: 0;
     margin-bottom: 20px;
-    background-color: #fff;
+    background-color: $white;
     border-radius: 5px;
     width: 100%;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 20px $blackOpaque05;
 
     &.primary-items {
 
@@ -66,16 +66,12 @@
       }
 
       .button-default.subitem {
-        color: #333333;
-        background-color: #ffffff;
+        color: $greyDarkest;
+        background-color: $white;
         width: 100%;
         text-align: left;
         margin-top: 5px;
         margin-bottom: 5px;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -ms-box-sizing: border-box;
-        -o-box-sizing: border-box;
         box-sizing: border-box;
 
         div {
@@ -92,7 +88,7 @@
         }
 
         &:hover {
-          box-shadow: 0 10px 20px rgba(0,0,0,.1);
+          box-shadow: 0 10px 20px $borderDefault;
         }
 
         &:nth-child(even) {
@@ -101,13 +97,13 @@
 
         @media #{$mobile} {
           margin: 0;
-          color: #333333;
+          color: $greyDarkest;
           border-left: 0;
           border-right: 0;
           border-radius: 0;
           box-shadow: none;
           border-bottom: 0;
-          color: #333333;
+          color: $greyDarkest;
 
           &:first-child {
             clear: left;
@@ -128,7 +124,7 @@
   }
 
   .sk-table-header {
-    background-color: #EBEBEB;
+    background-color: $backgroundSite;
 
     span {
       font-weight: 700;
@@ -152,7 +148,7 @@
     }
 
     &.border-bottom {
-      border-bottom: 1px solid #ebebeb;
+      border-bottom: 1px solid $backgroundSite;
       border-left-width: 0px;
       border-right-width: 0px;
       border-top-width: 0px;
@@ -181,9 +177,9 @@
   }
 
   .sk-table-row, .sk-table-thin-row {
-    border-right: solid 1px #DFDFDF;
-    border-left: solid 1px #DFDFDF;
-    border-top: solid 1px #DFDFDF;
+    border-right: solid 1px $grey875;
+    border-left: solid 1px $grey875;
+    border-top: solid 1px $grey875;
 
     &.no-data {
       padding: 50px 0;
@@ -191,14 +187,14 @@
 
     .sk-table-cell, sk-table-cell-right {
       font-size: 1.1em;
-      color: #1d3837;
+      color: $colorPrimaryDark;
 
       .mobile-bold {
         font-weight: 600;
       }
 
       .status {
-        color: #fff;
+        color: $white;
         font-weight: 700;
         padding: 0 10px;
         font-size: .8em;
@@ -206,11 +202,11 @@
         border-radius: 4px;
 
         &.red {
-          background-color: $red;
+          background-color: $tallPoppyRed;
         }
 
         &.yellow {
-          background-color: $orange;
+          background-color: $carrotOrange;
         }
 
         &.green {
@@ -222,8 +218,7 @@
         margin: 10px 20px 10px 0;
 
         &:hover {
-          -webkit-box-shadow: 5px 5px 10px #ccc;
-          box-shadow: 5px 5px 10px #ccc;
+          box-shadow: 5px 5px 10px $greyLighter;
         }
 
         &.no-margin {
@@ -235,14 +230,14 @@
         }
 
         &.white {
-          border: solid 1px #DFDFDF;
-          color: #1d3837;
+          border: solid 1px $grey875;
+          color: $colorPrimaryDark;
           background-color: transparent;
         }
 
         &.grey {
           border: solid 1px $greyDark;
-          color: #fff;
+          color: $white;
           background-color: $greyDark;
         }
       }
@@ -254,7 +249,7 @@
     }
 
     .row-arrow:hover {
-      color: #1d3837;
+      color: $colorPrimaryDark;
     }
 
     .row-arrow:after {

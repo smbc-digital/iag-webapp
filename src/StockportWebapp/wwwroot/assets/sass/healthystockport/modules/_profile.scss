@@ -59,22 +59,22 @@
 
 .profile-success-story-new {
   text-decoration: none;
-  color: #333333;
-  background-color: #fff;
+  color: $greyDarkest;
+  background-color: $white;
   padding: 20px 20px 0 20px;
   border-radius: 4px;
-  box-shadow: 0 10px 20px rgba(0,0,0,.05);
+  box-shadow: 0 10px 20px $blackOpaque05;
   transition-duration: .5s;
   display: block;
-  border: 1px solid #ebebeb;
+  border: 1px solid $backgroundSite;
 
   &.profile-link:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,.2);
+    box-shadow: 0 10px 20px $blackOpaque2;
   }
 
   &:hover {
     text-decoration: none;
-    color: #333333;
+    color: $greyDarkest;
   }
 
   .read-more {
@@ -82,7 +82,7 @@
       display: none;
     }
 
-    color: #333333;
+    color: $greyDarkest;
     padding-left: 50px;
     padding-bottom: 25px;
     text-decoration: underline;
@@ -129,7 +129,7 @@
   }
 
   .summary {
-    color: #757575;
+    color: $grey46;
     font-style: italic;
     font-size: .9em;
   }
@@ -143,7 +143,7 @@
   }
 
   i {
-    color: #055c58;
+    color: $colorPrimary;
   }
 
   .closing-quote {

@@ -21,7 +21,7 @@
   .title-card {
     vertical-align: middle;
     display: table-cell;
-    background-color: rgba(20, 20, 20, 0.5);
+    background-color: $grey8Opaque5;
     width: 100%;
     height: 100%;
     text-align: center;
@@ -106,7 +106,7 @@
         transition-duration: .5s;
 
         &:hover {
-          box-shadow: 0 10px 20px rgba(0,0,0,.2);
+          box-shadow: 0 10px 20px $blackOpaque2;
         }
 
 
@@ -308,11 +308,11 @@
 }
 
 .alt-container-row:nth-child(odd), .alt-container-row:nth-child(odd) .l-body-section-filled {
-  background-color: #ebebeb;
+  background-color: $backgroundSite;
 }
 
 .alt-container-row:nth-child(even), .alt-container-row:nth-child(even) .l-body-section-filled {
-  background-color: #ffffff;
+  background-color: $white;
 
   .email-banner {
 
@@ -321,7 +321,7 @@
     }
 
     .email-banner-container {
-      border: solid 1px #ebebeb;
+      border: solid 1px $backgroundSite;
       margin: 10px 0;
     }
   }
@@ -385,17 +385,17 @@
 }
 
 .showcase-news-events {
-  background-color: #ebebeb;
-  border-top: solid 1px #fff;
+  background-color: $backgroundSite;
+  border-top: solid 1px $white;
   z-index: 2;
 
   &.white {
-    background-color: #fff;
-    border-top: solid 1px #ebebeb;
+    background-color: $white;
+    border-top: solid 1px $backgroundSite;
   }
 
   .l-body-section-filled {
-    background-color: #ebebeb;
+    background-color: $backgroundSite;
     z-index: 1;
   }
 
@@ -440,7 +440,7 @@
 
     a {
       display: block;
-      color: #000;
+      color: $black;
       border-bottom: solid 1px #d0d0d0;
       margin-bottom: 10px;
       margin-right: 10px;
@@ -454,7 +454,7 @@
       }
 
       span {
-        color: #055c58;
+        color: $colorBrand;
         font-size: 3em;
       }
     }
@@ -469,9 +469,9 @@
   .card-news {
     align-content: center;
     border-radius: 3px;
-    border: solid 1px #ebebeb;
-    background-color: #ffffff;
-    box-shadow: 0 8px 20px 0 rgba(0,0,0,.1);
+    border: solid 1px $backgroundSite;
+    background-color: $white;
+    box-shadow: 0 8px 20px 0 $borderDefault;
     margin-bottom: 30px;
     margin-top: 20px;
 
@@ -485,13 +485,13 @@
   }
 
   .button-default.white {
-    border: solid 1px #DFDFDF;
-    color: #1d3837;
+    border: solid 1px $grey875;
+    color: $colorPrimaryDark;
     background-color: white;
   }
 
   p {
-    color: #1d3837;
+    color: $colorPrimaryDark;
   }
 
   @media #{$mobile} {
@@ -515,16 +515,16 @@
 }
 
 .showcase-events {
-  background-color: #ebebeb !important;
+  background-color: $backgroundSite !important;
 
   .grid-container {
     padding-left: 0px;
     padding-right: 0px;
-    background-color: #ebebeb;
+    background-color: $backgroundSite;
     max-width: 1215px;
 
     .showcase-event-content {
-      background-color: #ebebeb;
+      background-color: $backgroundSite;
       padding-left: 0px;
       padding-right: 0px;
 
@@ -544,8 +544,8 @@
   }
 
   .button-default.white {
-    border: solid 1px #DFDFDF;
-    color: #1d3837;
+    border: solid 1px $grey875;
+    color: $colorPrimaryDark;
     background-color: white;
     margin-bottom: 30px;
     margin-top: -10px;
@@ -582,8 +582,8 @@
 }
 
 .button-default.socialMedia {
-  border: solid 1px #DFDFDF;
-  color: #1d3837;
+  border: solid 1px $grey875;
+  color: $colorPrimaryDark;
   background-color: white;
   margin-right: 30px;
   min-width: 200px;
@@ -696,7 +696,7 @@
 
 .showcase-news-container:hover {
   transition-duration: 0.5s;
-  box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+  box-shadow: 0 20px 40px 0 $blackOpaque3;
 }
 
 .ie {
@@ -711,22 +711,22 @@
 
 .profile-success-story-new {
   text-decoration: none;
-  color: #333333;
-  background-color: #fff;
+  color: $greyDarkest;
+  background-color: $white;
   padding: 20px 20px 0 20px;
   border-radius: 4px;
-  box-shadow: 0 10px 20px rgba(0,0,0,.05);
+  box-shadow: 0 10px 20px $blackOpaque05;
   transition-duration: .5s;
   display: block;
-  border: 1px solid #ebebeb;
+  border: 1px solid $backgroundSite;
 
   &.profile-link:hover {
-    box-shadow: 0 10px 20px rgba(0,0,0,.2);
+    box-shadow: 0 10px 20px $blackOpaque2;
   }
 
   &:hover {
     text-decoration: none;
-    color: #333333;
+    color: $greyDarkest;
   }
 
   .read-more {
@@ -780,7 +780,7 @@
   }
 
   .summary {
-    color: #757575;
+    color: $grey46;
     font-style: italic;
     font-size: .9em;
   }
@@ -794,7 +794,7 @@
   }
 
   span {
-    color: #055c58;
+    color: $colorBrand;
   }
 
   .closing-quote {
@@ -809,7 +809,7 @@
 
 .showcase-profile {
   .profile-success-story-new {
-    border: 0px solid #ebebeb;
+    border: 0px solid $backgroundSite;
     box-shadow: none;
 
     h2 {

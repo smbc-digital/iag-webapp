@@ -1,8 +1,8 @@
 ﻿#listing-refine-bar {
-  background-color: #ffffff;
+  background-color: $white;
 
   @media #{$mobile} {
-    background-color: #ebebeb;
+    background-color: $backgroundSite;
 
     .primary-filter-label, .location-search-button {
       display: none;
@@ -10,7 +10,7 @@
   }
 
   .white {
-    background-color: #ffffff;
+    background-color: $white;
   }
 
 
@@ -41,14 +41,14 @@
         min-height: 100%;
         height: auto;
         width: 100%;
-        background-color: #ffffff;
+        background-color: $white;
         z-index: 9;
 
         .scroller {
           overflow-y: scroll;
           position: fixed;
           height: 1000px;
-          background-color: #ffffff;
+          background-color: $white;
           top: 0px;
           width: 100%;
         }
@@ -80,7 +80,7 @@
 
     .refine {
       float: left;
-      border-right: solid 1px #ebebeb;
+      border-right: solid 1px $backgroundSite;
       padding: 20px 30px;
       font-size: 1.3em;
       font-weight: 700;
@@ -93,7 +93,7 @@
       @media #{$mobile} {
         float: none;
         border-right: 0;
-        border-bottom: 1px 1px #ebebeb;
+        border-bottom: 1px 1px $backgroundSite;
         padding: 10px 30px 0 30px;
         font-size: 1.1em;
       }
@@ -121,7 +121,7 @@
       a {
         display: inline-block;
         text-decoration: none;
-        color: #333;
+        color: $greyDarkest;
 
         @media #{$tablet} {
           margin-left: 0;
@@ -168,17 +168,17 @@
         font-weight: 100;
         padding: 5px 10px;
         box-sizing: border-box;
-        color: #055C58;
+        color: $colorBrand;
 
         @media #{$tablet,$desktop} {
           display: none;
           padding: 20px;
-          border-top: 3px solid #055C58;
+          border-top: 3px solid $colorBrand;
           position: absolute;
         }
 
         @media #{$mobile} {
-          border-bottom: solid 1px #ebebeb;
+          border-bottom: solid 1px $backgroundSite;
           margin-left: 0;
           margin-top: 0;
           font-size: 1em;
@@ -186,7 +186,7 @@
 
         .none-selected-error {
           display: none;
-          color: #333;
+          color: $greyDarkest;
           font-size: 0.9em;
 
           div {
@@ -194,9 +194,9 @@
           }
 
           .fa-info {
-            color: #ffffff;
+            color: $white;
             border-radius: 50%;
-            background-color: #EF8A16;
+            background-color: $carrotOrange;
             font-size: 1em;
             width: 20px;
             height: 20px;
@@ -209,7 +209,7 @@
         }
 
         a {
-          color: #055C58;
+          color: $colorBrand;
           display: inline;
           text-decoration: underline;
 
@@ -223,7 +223,7 @@
             float: right;
 
             &.disabled {
-              color: #a0a0a0;
+              color: $grey63;
               cursor: default;
             }
           }
@@ -276,7 +276,7 @@
       padding: 20px;
       width: 100%;
       box-sizing: border-box;
-      background-color: #ebebeb;
+      background-color: $backgroundSite;
       z-index: 10;
 
       .button-default {
@@ -293,7 +293,7 @@
 
         &.disabled, .disabled:hover {
           border-width: 0;
-          background-color: #e1e1e1;
+          background-color: $greyLightest;
           cursor: default;
           box-shadow: none;
         }
@@ -308,8 +308,8 @@
   span {
     border-radius: 50%;
     font-size: 14px;
-    color: #ffffff;
-    background-color: #055C58;
+    color: $white;
+    background-color: $colorBrand;
     width: 30px;
     height: 30px;
     align-items: center;

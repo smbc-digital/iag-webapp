@@ -9,7 +9,7 @@
     text-align: center;
 
     @media #{$mobile, $tablet} {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid $borderDefault;
       padding-top: 10px;
       padding-bottom: 35px;
     }

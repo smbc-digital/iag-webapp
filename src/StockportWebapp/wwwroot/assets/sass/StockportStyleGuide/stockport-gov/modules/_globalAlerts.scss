@@ -64,7 +64,7 @@
 
     .global-alert-text-error {
       a:hover {
-        color: rgba(255,255,255,0.8);
+        color: $whiteOpaque8;
       }
     }
 
@@ -78,7 +78,7 @@
   .global-alert-icon {
     display: table-cell;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: $borderDefault;
     width: 45px;
     vertical-align: middle;
   }
@@ -98,7 +98,7 @@
       font-family: "FontAwesome";
       font-style: normal;
       font-size: 25px;
-      color: rgba(255,255,255,0.3);
+      color: $whiteOpaque3;
     }
   }
 
@@ -144,23 +144,23 @@
     }
 
     .global-alert-close-warning {
-      border: 1px solid rgba(0,0,0,0.7);
+      border: 1px solid $blackOpaque7;
 
       &:hover {
-        background-color: rgba(255,255,255,0.6);
+        background-color: $whiteOpaque6;
       }
 
       i:before {
-        color: rgba(0,0,0,0.7);
+        color: $blackOpaque7;
       }
     }
 
     .global-alert-close-error, .global-alert-close-information {
-      border: 1px solid rgba(255,255,255,0.1);
-      background-color: rgba(255,255,255,0.1);
+      border: 1px solid $whiteOpaque1;
+      background-color: $whiteOpaque1;
 
       &:hover {
-        background-color: rgba(255,255,255,0.6);
+        background-color: $whiteOpaque6;
       }
 
       i:before {
@@ -171,11 +171,11 @@
 }
 
 .global-alert-warning {
-  background-color: $orange;
+  background-color: $carrotOrange;
 }
 
 .global-alert-error {
-  background-color: $red;
+  background-color: $tallPoppyRed;
 }
 
 .global-alert-information {

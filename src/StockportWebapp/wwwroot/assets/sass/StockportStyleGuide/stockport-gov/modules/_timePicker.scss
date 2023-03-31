@@ -1,5 +1,5 @@
 ﻿.button-time-selected {
-  background: $orange;
+  background: $carrotOrange;
   color: white !important;
 }
 
@@ -9,11 +9,11 @@
 
 .button-time {
   margin: 15px;
-  color: black;
+  color: $black;
 }
 
 .button-time:hover {
-  color: black;
+  color: $black;
 }
 
 .fa-center {
@@ -21,5 +21,5 @@
 }
 
 .fa-orange {
-  color: $orange;
+  color: $carrotOrange;
 }

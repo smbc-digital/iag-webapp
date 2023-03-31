@@ -7,7 +7,7 @@
   padding: 5px;
 
   &:hover {
-    color: #2A6F6B;
+    color: $primary4530;
   }
 }
 
@@ -88,23 +88,6 @@
   }
 }
 
-.button-action {
-  border-radius: 5px;
-  text-align: center;
-  margin-bottom: 15px;
-
-  a, button {
-    padding: 10px 0;
-    display: block;
-    text-decoration: none;
-    font-weight: bold;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
 .button-featured-content-more {
   border-radius: 5px;
   text-align: center;
@@ -137,7 +120,7 @@
   &:hover {
     text-decoration: none;
     color: $greyDarkest;
-    background-color: #e0e0e0;
+    background-color: $greyLightest;
   }
 }
 

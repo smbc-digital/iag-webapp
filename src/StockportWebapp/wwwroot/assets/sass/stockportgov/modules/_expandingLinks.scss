@@ -45,9 +45,9 @@
   }
 
   .expanding-list {
-    border-top: 4px solid #83aeac;
+    border-top: 4px solid $colorPrimaryPale;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: $white;
 
     .expanding-list-header {
       padding: 15px;
@@ -87,17 +87,17 @@ ul.expanding-list-ul {
 
   .expanding-Link-text-holder {
     margin-left: 0px;
-    border-left: 4px solid #83aeac;
+    border-left: 4px solid $colorPrimaryPale;
     border-radius: 5px;
-    border-top: 1px solid #d3d3d3;
-    border-right: 1px solid #d3d3d3;
-    border-bottom: 1px solid #d3d3d3;
+    border-top: 1px solid $lightGrey;
+    border-right: 1px solid $lightGrey;
+    border-bottom: 1px solid $lightGrey;
     text-align: left;
     margin-top: 0px;
     transition-duration: 0.5s;
 
     &:hover {
-      box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+      box-shadow: 0 20px 40px 0 $blackOpaque3;
       cursor: pointer;
     }
 

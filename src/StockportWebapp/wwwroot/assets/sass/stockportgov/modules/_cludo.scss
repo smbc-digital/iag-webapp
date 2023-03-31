@@ -12,7 +12,7 @@
         padding: 10px;
         margin: 0;
         display: block;
-        color: #333;
+        color: $greyDarkest;
         text-shadow: none;
         background-image: none;
         border: 2px solid transparent
@@ -43,7 +43,7 @@
     }
 
     .search-results-item:hover {
-      background-color: #f2f2f2;
+      background-color: $grey95;
       background-image: none
     }
   }

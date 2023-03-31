@@ -20,7 +20,6 @@
 }
 
 /*------------------- Article Navigation -------------------*/
-
 .article-navigation-header {
   border-bottom: 1px solid lightgray;
 
@@ -59,13 +58,6 @@
   font-size: 1.250em;
 }
 
-.article-navigation li.nav-active > a {
-  color: $linkInactive;
-  border-left-color: $linkDisabled;
-  pointer-events: none;
-  cursor: default;
-}
-
 .single-column ul {
   li div {
     padding-left: 0px;
@@ -87,15 +79,7 @@
   }
 
   @media #{$desktop,$tablet} {
-    -webkit-column-count: 2;
-    -moz-column-count: 2;
-    -ms-column-count: 2;
-    -o-column-count: 2;
     column-count: 2;
-    -webkit-column-gap: 2em;
-    -moz-column-gap: 2em;
-    -ms-column-gap: 2em;
-    -o-column-gap: 2em;
     column-gap: 2em;
   }
 }
@@ -111,7 +95,7 @@ iframe {
 
 
 .header-background-color {
-  background-color: #055c58;
+  background-color: $colorBrand;
 }
 
 /*------------------- Sidebar -------------------*/
@@ -141,8 +125,6 @@ aside.sidebar-right {
     margin-bottom: 10px;
   }
 }
-
-
 
 /*------------------- Images -------------------*/
 
@@ -198,7 +180,7 @@ img.fullwidth {
 }
 
 .white-background {
-  background-color: #ffffff;
+  background-color: $white;
   padding: 20px;
 }
 
@@ -290,8 +272,8 @@ img.fullwidth {
 }
 
 .mobile-menu li {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-top: 1px solid $whiteOpaque1;
+  border-bottom: 1px solid $whiteOpaque1;
   width: 100%;
   text-align: center;
   padding: 0;
@@ -303,7 +285,7 @@ img.fullwidth {
   }
 
   a {
-    color: #ffffff;
+    color: $white;
     width: 100%;
     height: 100%;
     display: block;
@@ -359,7 +341,7 @@ img.fullwidth {
 
     &.menu-active {
       border-top: 10px solid $menuLightActiveDetail;
-      border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 2px solid $whiteOpaque2;
       background-color: $menuLightActive;
 
       a {

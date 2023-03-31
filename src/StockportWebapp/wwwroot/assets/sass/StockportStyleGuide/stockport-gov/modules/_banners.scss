@@ -13,7 +13,7 @@
 
   p {
     text-align: left;
-    color: #ffffff;
+    color: $white;
     font-family: $fontStack;
     font-size: 0.938em;
     font-weight: 400;
@@ -21,7 +21,7 @@
   }
 
   a {
-    color: #ffffff;
+    color: $white;
     display: inline-block;
   }
 }
@@ -43,11 +43,11 @@
 }
 
 .banner-header-warning {
-  background-color: $orange;
+  background-color: $carrotOrange;
 }
 
 .banner-header-warning-unsupported {
-  background-color: $orange;
+  background-color: $carrotOrange;
 }
 
 .banner-header-warning, .banner-header-warning-unsupported {

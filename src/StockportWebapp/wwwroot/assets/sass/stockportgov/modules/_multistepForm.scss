@@ -1,8 +1,8 @@
 ﻿@mixin button-default {
-  background-color: $teal-darker;
-  border: 1px solid rgba(0,0,0,.1);
+  background-color: $tealDarker;
+  border: 1px solid $borderDefault;
   border-radius: 3px;
-  color: #fff;
+  color: $white;
   display: inline-block;
   font-family: 'Source Sans Pro';
   font-size: 1.125em;
@@ -40,16 +40,15 @@
   }
 
   &:hover {
-    background-color: darken($teal-darker, 10%);
-    color: #fff;
+    background-color: darken($tealDarker, 10%);
+    color: $white;
     cursor: pointer;
-    -webkit-box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
-    box-shadow: 0 20px 40px 0 rgba(0,0,0,.3);
+    box-shadow: 0 20px 40px 0 $blackOpaque3;
     text-decoration: none;
   }
 
   &:active {
-    background-color: #059e86;
+    background-color: $tealPale;
   }
 
   @media only screen and (max-width: 767px) {
@@ -113,8 +112,8 @@
   ul[role='tablist'] {
     padding-top: 10px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #d3d3d3;
-    border-top: 1px solid #d3d3d3;
+    border-bottom: 1px solid $lightGrey;
+    border-top: 1px solid $lightGrey;
     list-style: none;
 
     li {
@@ -142,21 +141,21 @@
       &.current {
 
         a {
-          color: #000000;
+          color: $black;
           font-weight: bold;
         }
       }
 
       &.done {
         a {
-          color: #000000;
+          color: $black;
           text-decoration: underline;
 
           &:hover {
             text-decoration-thickness: 3px;
 
             .number {
-              text-decoration-color: #fff;
+              text-decoration-color: $white;
               text-decoration-thickness: 3px;
             }
           }
@@ -165,7 +164,7 @@
 
       &.disabled {
         a {
-          color: #999999
+          color: $greyMiddle
         }
       }
     }

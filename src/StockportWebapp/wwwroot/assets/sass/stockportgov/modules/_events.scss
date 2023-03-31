@@ -13,7 +13,7 @@
     text-align: center;
 
     @media #{$mobile, $tablet} {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid $borderDefault;
       padding-top: 10px;
       padding-bottom: 35px;
     }
@@ -205,7 +205,7 @@ ul.nav-card-events-list {
 
 .event-by-date-header {
   margin-bottom: 25px;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid $greyLighter;
 }
 
 .events-ul {
@@ -262,8 +262,8 @@ ul.nav-card-events-list {
 }
 
 .events-details {
-  background: #e1e1e1;
-  border: 1px solid #ebebeb;
+  background: $greyLightest;
+  border: 1px solid $backgroundSite;
   margin-left: 0px;
 }
 
@@ -331,7 +331,7 @@ ul.nav-card-events-list {
   text-align: center;
 
   .icon-bordered {
-    color: #18914c;
+    color: $green1467233;
     margin-bottom: 15px;
   }
 
@@ -475,7 +475,7 @@ ul.nav-card-events-list {
   }
 
   &:nth-child(odd) {
-    background-color: #ffffff;
+    background-color: $white;
   }
 
   .group-card {
@@ -483,19 +483,19 @@ ul.nav-card-events-list {
   }
 
   .white {
-    background-color: #ffffff;
+    background-color: $white;
     margin-top: 0;
     margin-bottom: 20px;
   }
 }
 
 #events-filter-bar {
-  color: #ffffff;
+  color: $white;
   margin-top: -20px;
-  background-color: #055c58;
+  background-color: $colorBrand;
 
   h2 {
-    color: #ffffff;
+    color: $white;
     font-size: 1.6em;
     margin: 0;
   }
@@ -510,21 +510,21 @@ ul.nav-card-events-list {
       min-width: 190px;
       box-sizing: border-box;
       width: 100%;
-      box-shadow: 0 10px 20px rgba(0,0,0,.05);
-      background-color: $teal-darker;
-      border-color: $teal-darker;
+      box-shadow: 0 10px 20px $blackOpaque05;
+      background-color: $tealDarker;
+      border-color: $tealDarker;
 
       &:hover {
-        background-color: darken($teal-darker, 10%);
-        color: #fff;
+        background-color: darken($tealDarker, 10%);
+        color: $white;
         cursor: pointer;
-        box-shadow: 0 5px 20px 0 rgba(0,0,0,.3);
+        box-shadow: 0 5px 20px 0 $blackOpaque3;
         text-decoration: none;
       }
 
       &:active {
-        border-color: #059e86;
-        background-color: #059e86;
+        border-color: $tealPale;
+        background-color: $tealPale;
       }
 
       @media #{$mobile} {
@@ -552,7 +552,7 @@ ul.nav-card-events-list {
       box-sizing: border-box;
       height: auto;
       width: 100%;
-      box-shadow: 0 10px 20px rgba(0,0,0,.05);
+      box-shadow: 0 10px 20px $blackOpaque05;
     }
 
     label {
@@ -570,7 +570,7 @@ ul.nav-card-events-list {
 
   select {
     background-color: $white;
-    border: 1px solid rgba(177, 177, 177, 0.8);
+    border: 1px solid $greyLMOpaque8;
     border-radius: 3px;
     color: $greyDark;
     font-size: 1.5em;
@@ -587,7 +587,7 @@ ul.nav-card-events-list {
     padding-top: 10px;
 
     a {
-      color: #ffffff;
+      color: $white;
       text-decoration: none;
       font-weight: 600;
       font-size: 1.4em;

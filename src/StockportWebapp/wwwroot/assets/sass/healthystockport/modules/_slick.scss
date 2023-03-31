@@ -2,7 +2,7 @@
 
 /* Slider */
 .slick-loading .slick-list {
-  background: #fff url('./ajax-loader.gif') center center no-repeat;
+  background: $white url('./ajax-loader.gif') center center no-repeat;
 }
 
 /* Icons */
@@ -42,7 +42,7 @@
 .slick-next:hover:before
 /*.slick-next:focus:before*/ {
   /*opacity: 1;*/
-  color: #bebebe;
+  color: $grey75;
 }
 
 .slick-prev.slick-disabled:before,
@@ -56,7 +56,7 @@
   font-size: 70px;
   line-height: 1;
   opacity: 1;
-  color: #ffffff;
+  color: $white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   z-index: 500;
@@ -260,7 +260,7 @@
     width: 90.5%;
     bottom: 0;
     z-index: 20;
-    background-color: rgba(51, 51, 51, 0.8);
+    background-color: $greyDarkestOpaque8;
 
     &.article-carousel-text {
       height: 40px;

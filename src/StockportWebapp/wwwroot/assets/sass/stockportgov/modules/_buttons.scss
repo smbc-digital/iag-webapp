@@ -3,9 +3,9 @@
 }
 
 .clear-button, .clear-button:hover {
-  background-color: #ffffff;
-  border: solid 1px #ccc;
-  color: #000000;
+  background-color: $white;
+  border: solid 1px $greyLighter;
+  color: $black;
   font-weight: 600;
 }
 
@@ -28,7 +28,7 @@
 
 .volunteering-btn {
   margin-bottom: 14px;
-  background-color: $teal-darker;
+  background-color: $tealDarker;
   font-weight: 600;
   font-size: 1.5em;
 }

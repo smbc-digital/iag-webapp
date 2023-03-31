@@ -1,36 +1,36 @@
 ﻿.container-layout-mobile {
   @media #{$mobile} {
-    background-color: #fff;
+    background-color: $white;
   }
 }
 
 .l-header-container {
-  width: 100%;
-  height: 80px;
-  top: 0px;
-  z-index: 10;
-  background-color: #00818A;
-
-  @media #{$mobile} {
-    height: 60px;
-  }
-
-  border-bottom: 0px solid rgba(255, 255, 255, 0.2);
-
-  #header {
-    max-width: 1200px;
-    margin: 0px auto;
+    width: 100%;
+    height: 80px;
+    top: 0px;
     z-index: 10;
+    background-color: $colorBrand;
 
     @media #{$mobile} {
-      padding-left: 0;
-      padding-right: 0;
+        height: 60px;
     }
 
-    @media #{$desktop} {
-      padding-right: 0px;
+    border-bottom: 0px solid $whiteOpaque2;
+
+    #header {
+        max-width: 1200px;
+        margin: 0px auto;
+        z-index: 10;
+
+        @media #{$mobile} {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        @media #{$desktop} {
+            padding-right: 0px;
+        }
     }
-  }
 }
 
 .l-body-section-filled {
@@ -38,20 +38,6 @@
   padding-left: 0;
   padding-right: 0;
 }
-
-/*.l-body-section-filled {
-    border-radius:4px 4px 0 0;
-
-    @media #{$tablet}
-    {
-        border-radius: 0px;
-    }
-}*/
-
-/*.l-body-section-filled-radius {
-    border-top-right-radius: 4px !important;
-    border-top-left-radius: 4px !important;
-}*/
 
 .i-grid-container-mobile {
   @media #{$mobile} {
@@ -120,7 +106,7 @@
 
   @media #{$desktop} {
     overflow: hidden;
-    background-color: #ebebeb
+    background-color: $backgroundSite
   }
 
   img {
@@ -150,7 +136,7 @@
   width: 100%;
   z-index: 1;
   display: block;
-  background-color: #1AA9A1;
+  background-color: $easternBlue;
 
   @media #{$desktop} {
     overflow: hidden;
@@ -305,7 +291,7 @@
 }
 
 .current-article {
-  color: black;
+  color: $black;
 }
 
 .l-vertical-list-no-margin {
@@ -320,7 +306,7 @@
 }
 
 .l-dark-overlay {
-  background-color: rgba(0,0,0,0.2);
+  background-color: $blackOpaque2;
   z-index: 5;
   height: 100%;
   width: 100%;
@@ -354,7 +340,7 @@ footer .l-dashed-list {
       border-bottom: 1px solid;
       padding: 15px 0;
       margin-left: 0px;
-      border-bottom-color: #203332;
+      border-bottom-color: $greenBlue2316;
       display: block;
 
       &:last-of-type {
@@ -411,8 +397,8 @@ footer .l-dashed-list {
   }
 
   a.skip-main:focus, a.skip-main:active {
-    color: #fff;
-    background-color: #FFB733;
+    color: $white;
+    background-color: $goldenRod15;
     left: auto;
     top: auto;
     width: 140px;
@@ -424,7 +410,7 @@ footer .l-dashed-list {
     text-align: center;
     font-size: 1.2em;
     z-index: 999;
-    color: #0b0c0c;
+    color: $dark;
     line-height: 1.5;
     font-weight: 400;
     font-size: .875em;
@@ -501,7 +487,7 @@ footer .l-dashed-list {
     padding-top: 115px;
 
     h2 {
-      color: #fff;
+      color: $white;
       font-size: 1.375em;
       margin: 0;
     }
@@ -536,7 +522,7 @@ footer .l-dashed-list {
     width: 98.2%;
     bottom: 0;
     z-index: 20;
-    background-color: rgba(51, 51, 51, 0.8);
+    background-color: $greyDarkestOpaque8;
 
     @media #{$mobile} {
       padding: 5px;

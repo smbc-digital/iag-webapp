@@ -32,20 +32,20 @@
     }
 
     .event-card {
-      background-color: #ffffff;
+      background-color: $white;
       padding: 0 0 10px 0;
       border-radius: 4px;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      box-shadow: 0 10px 20px $blackOpaque05;
       transition-duration: 0.5s;
       display: block;
-      border: solid 1px #ebebeb;
+      border: solid 1px $backgroundSite;
 
       &:hover {
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        box-shadow: 0 10px 20px $blackOpaque2;
       }
 
       .event-card-information {
-        color: black;
+        color: $black;
         padding-left: 15px;
         padding-right: 15px;
         word-wrap: break-word;

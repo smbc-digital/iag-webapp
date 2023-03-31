@@ -63,7 +63,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  box-shadow: 0 0 0 7px rgba(0,183,155,.2);
+  box-shadow: 0 0 0 7px $primaryPaleOpaque2;
 
   img {
     display: block;
@@ -92,10 +92,10 @@
   background: $white;
   border-radius: 0.25em;
   padding: .6em .8em .6em .8em;
-  box-shadow: 0 8px 20px 0 rgba(0,0,0,.1);
+  box-shadow: 0 8px 20px 0 $borderDefault;
 
   h2 {
-    color: #303e49;
+    color: $blueDarkGrey;
     margin: 0 0 0 0;
   }
 
@@ -187,7 +187,7 @@
 }
 
 .icon-header-bulb {
-  background: $teal;
+  background: $brandBorder;
   color: white;
 
   i {
@@ -202,7 +202,7 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  box-shadow: 0 0 0 7px rgba(0,183,155,.2);
+  box-shadow: 0 0 0 7px $primaryPaleOpaque2;
 
   img {
     display: block;
