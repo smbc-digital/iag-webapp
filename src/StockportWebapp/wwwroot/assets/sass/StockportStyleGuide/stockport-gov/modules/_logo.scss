@@ -7,14 +7,14 @@
 
 .logo-main-image {
   margin: 0;
-  padding-top: 13px;
-  height: 55px;
+  padding-top: 10px;
+  height: 50px;
+  width: auto;
 
   @media #{$mobile} {
-    height: 40px;
+    height: 28px;
+    padding-top: 4px;
   }
-
-  width: auto;
 }
 
 .footer-stockport-logo {

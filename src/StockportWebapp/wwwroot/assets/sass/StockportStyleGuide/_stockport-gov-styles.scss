@@ -94,17 +94,6 @@ tbody {
   }
 }
 
-
-.logo-main-image {
-  height: 50px;
-  padding-top: 0;
-
-  @media #{$mobile} {
-    height: 28px;
-    padding-top: 4px;
-  }
-}
-
 .logo-main {
   padding: 0;
 }
