@@ -2,7 +2,7 @@
 
 ***
 ## Running the app
-**First;** you need to run the [ContentAPI](https://github.com/smbc-digital/iag-contentapi) so that WebApp will have content to serve. This, by default, runs on localhost:5001 and is set in the appsettings of the WebApp, if you want to change the port for some reason.
+**First;** you need to run the [ContentAPI](https://github.com/smbc-digital/iag-contentapi) so that WebApp will have content to serve. This, by default, runs on http://localhost:5000 and is set in the appsettings of the WebApp, if you want to change the port for some reason. You can launch the ContentAPI on either the command line or IIS Express profiles.
 
 **Second.** The application runs using a BUSINESS-ID header to decide which specific business to
 run per request. Currently set in BusinessIdMiddleware.cs. The business ids currently supported are:
@@ -13,7 +13,7 @@ VS Code -or- Command line: *`Make run`
 Visual Studio *2022: as usual with launch settings to adjust.
 
 **Other **"Make"** commands in the Makefile*
-**this project is now on NET 6 amd requires a minimum of Visual Studio 2022*
+**this project is now on NET 6 and requires a minimum of Visual Studio 2022*
 
 ***
 ## Configuration
@@ -87,10 +87,10 @@ int:
 ## Style
 This is an ongoing area of work - 2023
 
-Currently, to install the node packages required for the gulp tasks, you need to run `npm install --legacy-peer-deps`, as one of the packages requires an older version of another package. This is okay, but an updated package is due for realease I think this year ( 2023 ).
+Currently, to install the node packages required for the gulp tasks, you need to run `npm install`.  
 Once you've ran that command inside src/StockportWebApp you will be able to see the Gulp tasks in the Visual Studio Task Runner Explorer, or use the Gulp cli.
 
-Sass is located in ``/wwwroot/assets/sass/{site-business-id}/modules``
+Sass is located in ``/wwwroot/assets/sass/../``
 
 The final minified css is "compiled" to the ~/assets/stylesheets/ folder through gulp sass from the import statements in the following files:
 * /assets/sass/`site-hs.scss` for healthystockport
