@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29123.88
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{834F9BD9-CB11-4539-BB5F-D67DCE98294B}"
 EndProject
@@ -20,19 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockportWebappTests_UI", "test\StockportWebappTests_UI\StockportWebappTests_UI.csproj", "{A419C846-0FF7-41AD-A0AF-BC793F8B8F8E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StockportWebappTests_Integration", "test\StockportWebappTests_Integration\StockportWebappTests_Integration.csproj", "{5DA8F25B-449E-4D47-BA8D-F65D243A22D5}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StockportWebappTests_Javascript", "StockportWebappTests_Javascript", "{010F0B8A-0A19-48BD-B8A5-4FD8AEA43851}"
-	ProjectSection(SolutionItems) = preProject
-		test\StockportWebappTests_Javascript\cludo.min.js = test\StockportWebappTests_Javascript\cludo.min.js
-		test\StockportWebappTests_Javascript\jasmine-fixture.min.js = test\StockportWebappTests_Javascript\jasmine-fixture.min.js
-		test\StockportWebappTests_Javascript\jquery-2.2.2.min.js = test\StockportWebappTests_Javascript\jquery-2.2.2.min.js
-		test\StockportWebappTests_Javascript\karma.conf.js = test\StockportWebappTests_Javascript\karma.conf.js
-		test\StockportWebappTests_Javascript\package-lock.json = test\StockportWebappTests_Javascript\package-lock.json
-		test\StockportWebappTests_Javascript\package.json = test\StockportWebappTests_Javascript\package.json
-		test\StockportWebappTests_Javascript\require.2.3.4.min.js = test\StockportWebappTests_Javascript\require.2.3.4.min.js
-		test\StockportWebappTests_Javascript\StockportgovjsTest.js = test\StockportWebappTests_Javascript\StockportgovjsTest.js
-		test\StockportWebappTests_Javascript\tests-main.js = test\StockportWebappTests_Javascript\tests-main.js
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -118,7 +105,6 @@ Global
 		{A7CF79BF-5D84-4C23-8C6B-89A8FCB9D2E1} = {47F41370-AE23-4545-9FEE-D54380B14ED5}
 		{A419C846-0FF7-41AD-A0AF-BC793F8B8F8E} = {47F41370-AE23-4545-9FEE-D54380B14ED5}
 		{5DA8F25B-449E-4D47-BA8D-F65D243A22D5} = {47F41370-AE23-4545-9FEE-D54380B14ED5}
-		{010F0B8A-0A19-48BD-B8A5-4FD8AEA43851} = {47F41370-AE23-4545-9FEE-D54380B14ED5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {165F748B-D550-4E11-BB4D-89D15D1A7C02}
