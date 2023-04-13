@@ -2,9 +2,6 @@
 help:
 		@cat ./MakefileHelp
 
-.PHONY: test-all
-test-all: test js-test
-
 # ---------------------------------------------------------------------------------------
 # -- Dotnet commands
 # ---------------------------------------------------------------------------------------
@@ -28,22 +25,12 @@ publish:
 	@echo Publishing application
 	cd ./src/StockportWebapp && dotnet publish -c Release -o publish
 
-.PHONY: test
-test: unit-test integration-test
-
 # ---------------------------------------------------------------------------------------
 # -- Unit-test
 # ---------------------------------------------------------------------------------------
 .PHONY: unit-test
 unit-test:
 	cd test/StockportWebappTests; dotnet test
-
-# ---------------------------------------------------------------------------------------
-# -- Integration-test
-# ---------------------------------------------------------------------------------------
-.PHONY: integration-test
-integration-test:
-	cd test/StockportWebappTests_Integration; dotnet test
 
 # ---------------------------------------------------------------------------------------
 # -- Ui-test
