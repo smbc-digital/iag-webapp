@@ -53,23 +53,6 @@ ui-test:
 	cd test/StockportWebappTests_UI/ && ./runtests.cmd
 
 # ---------------------------------------------------------------------------------------
-# -- JavaScript
-# ---------------------------------------------------------------------------------------
-.PHONY: js-build
-js-build:
-	@echo Installing, cleaning and building JavaScript files
-	make npm-install
-	cd ./src/StockportWebapp && npm run js:clean 
-	cd ./src/StockportWebapp && npm run js:compile
-
-.PHONY: js-tests
-js-tests: js-test
-
-.PHONY: js-test
-js-test:
-	cd test/StockportWebappTests_Javascript && npm install && cd node_modules/karma/bin && node karma start ../../../karma.conf.js --single-run
-
-# ---------------------------------------------------------------------------------------
 # -- Gulp tasks
 # ---------------------------------------------------------------------------------------
 .PHONY: css
@@ -82,7 +65,7 @@ js:
 
 .PHONY: lint
 css:
-	cd src/StockportWebapp && gulp lint
+	cd src/StockportWebapp && npm run lint
 
 .PHONY: build
 js:
