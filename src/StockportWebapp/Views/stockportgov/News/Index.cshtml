@@ -10,14 +10,7 @@
 }
 
 @section Breadcrumbs {
-    @if (FeatureToggles.Newsroom)
-    {
-        <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' />
-    }
-    else
-    {
-        <partial name="Breadcrumb" model='new List<Crumb>()' />
-    }
+    <partial name="Breadcrumb" model='new List<Crumb> { new Crumb("News and media", "news-room", "Newsroom") }' />
 }
 
 <div class="l-page-content">

@@ -64,7 +64,7 @@
                 <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
                     <div class="latest-nav-card-item matchbox-child">
                         <h2 class="news title">
-                            <a tabindex="-1" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">Latest news</a>
+                            <a tabindex="-1" href="@Url.Action("Index", "Comms")">Latest news</a>
                         </h2>
                         <div class="body">
                             <a href="/news/@Model.FeaturedNews.Slug">
@@ -77,7 +77,7 @@
                             </a>
                         </div>
                     </div>
-                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">View news and media</stock-button>
+                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "Comms")">View news and media</stock-button>
                 </li>
             }
 
