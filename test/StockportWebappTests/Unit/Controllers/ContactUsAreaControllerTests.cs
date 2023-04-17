@@ -18,10 +18,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
 
         public ContactUsAreaControllerTests()
         {
-            _featureToggles = new FeatureToggles
-            {
-                ContactUsArea = true
-            };
             _controller = new ContactUsAreaController(_repository.Object, _featureToggles, _logger.Object);
         }
 
@@ -51,20 +47,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             Assert.IsType<ViewResult>(result);
 
             _repository.Verify(_ => _.Get<ContactUsArea>(It.IsAny<string>(), null), Times.Once);
-        }
-
-        [Fact]
-        public async Task Index_ShouldReturnNotFoundWhenFeatureIsOff()
-        {
-            // Arrange
-            _featureToggles.ContactUsArea = false;
-
-            // Act
-            var result = await _controller.Index();
-
-            // Assert
-            Assert.IsType<NotFoundResult>(result);
-            _repository.Verify(_ => _.Get<ContactUsArea>(It.IsAny<string>(), null), Times.Never);
         }
     }
 }
