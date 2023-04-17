@@ -1088,7 +1088,7 @@ namespace StockportWebapp.Controllers
                     _emailBuilder.SendEmailEditGroup(model, loggedInPerson.Email);
 
                     // if there is an image, send this in an email
-                    if (_featureToggles.EditGroupUploadImage && model.Image != null && !string.IsNullOrEmpty(model.Image.FileName))
+                    if (model.Image != null && !string.IsNullOrEmpty(model.Image.FileName))
                     {
                         await _groupsService.SendImageViaEmail(model.Image, model.Name, model.Slug);
                     }
