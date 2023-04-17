@@ -20,7 +20,7 @@
             <div class="header-container grid-100 grid-parent">
                 <div class="grid-50 grid-parent header-myaccount">
                     <div class="menu">
-                        @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
+                        @if (!string.IsNullOrEmpty(user.Email))
                         {
                             <div class="menu-logged-in hide-on-mobile hide-on-tablet">
                                 <div class="menu-account-button">
