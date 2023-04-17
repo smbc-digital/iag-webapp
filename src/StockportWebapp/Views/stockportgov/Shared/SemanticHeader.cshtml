@@ -18,7 +18,7 @@
             <span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>
             Accessibility
         </a>
-        @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
+        @if (!string.IsNullOrEmpty(user.Email))
         {
             <div class="menu-container">
                 <div class="menu">
