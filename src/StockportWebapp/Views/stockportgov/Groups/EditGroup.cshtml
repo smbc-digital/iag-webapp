@@ -150,17 +150,14 @@
                                     </section>
                                     <h2>Additional information</h2>
                                     <section>
-                                        @if (featureToggles.EditGroupUploadImage)
-                                        {
-                                            <label asp-for="@Model.Image"></label>
-                                            <p>
-                                                Choose an image that captures your group
-                                                <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
-                                                <br />Accepted file types: jpg, jpeg, gif and png
-                                            </p>
-                                            <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
-                                            <span role="alert" aria-atomic="true" asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
-                                        }
+                                        <label asp-for="@Model.Image"></label>
+                                        <p>
+                                            Choose an image that captures your group
+                                            <br />We recommend using at least 2160x1080px (2:1 ratio) image that's not larger than 5mb
+                                            <br />Accepted file types: jpg, jpeg, gif and png
+                                        </p>
+                                        <input type="file" class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 form-control" asp-for="@Model.Image" />
+                                        <span role="alert" aria-atomic="true" asp-validation-for="@Model.Image" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
                                         <label class="label-for-checkbox hide-on-mobile">Let people know you are looking for Volunteers</label>
                                         <label class="label-for-checkbox hide-on-desktop hide-on-tablet">Group Volunteers</label>
                                         <div class="checkboxes">
