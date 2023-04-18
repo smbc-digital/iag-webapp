@@ -23,18 +23,18 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="netstandard" />
-    <PackageReference Include="AngleSharp" Version="0.17.1" />
-    <PackageReference Include="AWSSDK.S3" Version="3.7.101.25" />
-    <PackageReference Include="FluentAssertions" Version="6.8.0" />
-    <PackageReference Include="jose-jwt" Version="4.0.1" />
-    <PackageReference Include="Markdig" Version="0.30.4" />
+    <PackageReference Include="AngleSharp" Version="1.0.1" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.103.51" />
+    <PackageReference Include="FluentAssertions" Version="6.10.0" />
+    <PackageReference Include="jose-jwt" Version="4.1.0" />
+    <PackageReference Include="Markdig" Version="0.31.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.11" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
     <PackageReference Include="Microsoft.Owin" Version="4.2.2" />
-    <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="StockportGovUk.NetStandard.Gateways" Version="1.1.2" />
+    <PackageReference Include="Moq" Version="4.18.4" />
     <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
     <PackageReference Include="WilderMinds.RssSyndication" Version="1.7.0" />
     <PackageReference Include="xunit" Version="2.4.2" />
