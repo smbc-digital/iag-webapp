@@ -1,43 +1,12 @@
 ﻿---
-prod: &prod
-  GroupArchiveEmails: true
-  NameInHeader: true
-  EditGroupUploadImage: true
-  SiaSystem: false
-  SemanticLayout: true
-  ContactUsArea: true
-  Newsroom: true
-  CivicaPay: true
-  ReciteMeTrial: true
+prod:
 
-stage: &stage
-  << : *prod
-  ReciteMeTrial: true
+stage:
 
-qa: &qa
-  << : *prod
-  << : *stage
-  SemanticLayout: true
-  SemanticInlineAlert: true
-  LeafletMap: true
-  ReciteMeTrial: true
+qa:
 
-int: &int
-  << : *prod
-  << : *stage
-  << : *qa
-  SiaSystem: true
-  ReciteMeTrial: true
+int:
 
-local: &local
-  << : *prod
-  << : *stage
-  << : *qa
-  << : *int
-  ReciteMeTrial: true
+local:
 
-uitest: &uitest
-  << : *prod
-  << : *stage
-  << : *qa
-  << : *int
+uitest:
