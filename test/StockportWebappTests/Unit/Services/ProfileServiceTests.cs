@@ -34,7 +34,7 @@ namespace StockportWebappTests_Unit.Unit.Services
             _logger = new Mock<ILogger<Alert>>();
             _viewRender = new Mock<IViewRender>();
             _inlineQuoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
-            _alerts = new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles() { SemanticInlineAlert = true });
+            _alerts = new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles());
             _service = new ProfileService(_repository.Object, _parser.Object, _markdownWrapper, _alerts, _triviaFactory.Object, _inlineQuoteTagParser.Object);
         }
 

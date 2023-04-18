@@ -32,19 +32,12 @@ namespace StockportWebapp.Parsers
                 var AlertsInline = GetAlertsInlineMatchingTitle(alertsInline, AlertsInlineTitle);
                 if (AlertsInline != null)
                 {
-                    var alertsInlineHtml = "";
-                    if (_featureToggles.SemanticInlineAlert)
-                    {
-                        alertsInlineHtml = _viewRenderer.Render("Semantic/AlertsInline", AlertsInline);
-                    }
-                    else
-                    {
-                        alertsInlineHtml = _viewRenderer.Render("AlertsInline", AlertsInline);
-                    }
+                    var alertsInlineHtml = _viewRenderer.Render("AlertsInline", AlertsInline);
 
                     content = TagRegex.Replace(content, alertsInlineHtml, 1);
                 }
             }
+
             return RemoveEmptyTags(content);
         }
 
