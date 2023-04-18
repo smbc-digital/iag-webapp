@@ -28,7 +28,10 @@ namespace StockportWebapp.FeatureToggling
             Dictionary<string, T> featureToggles;
             try
             {
-                featureToggles = new DeserializerBuilder().IgnoreUnmatchedProperties().Build().Deserialize<Dictionary<string, T>>(ReadYaml());
+                featureToggles = new DeserializerBuilder()
+                    .IgnoreUnmatchedProperties()
+                    .Build()
+                    .Deserialize<Dictionary<string, T>>(ReadYaml());
             }
             catch (SemanticErrorException)
             {
@@ -41,17 +44,17 @@ namespace StockportWebapp.FeatureToggling
 
         private T AssignFeatureTogglesForCurrentEnvironment<T>(Dictionary<string, T> featureTogglesResponse) where T : new()
         {
-            T featureToggles;
-            if (featureTogglesResponse.TryGetValue(_appEnvironment, out featureToggles))
+            featureTogglesResponse.TryGetValue(_appEnvironment, out T featureToggles);
+            if (featureToggles is not null)
             {
                 LogFeatureTogglesInfo(featureToggles);
             }
             else
             {
-                _logger.LogWarning(
-                    $"No feature toggle configuration found for environment: {_appEnvironment}. Setting all features to false.");
+                _logger.LogWarning($"No feature toggle configuration found for environment: {_appEnvironment}. Setting all features to false.");
                 featureToggles = new T();
             }
+
             return featureToggles;
         }
 
