@@ -1,7 +1,6 @@
 using System.Net;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using ReverseMarkdown;
 using StockportWebapp.Config;
 using StockportWebapp.Exceptions;
@@ -24,7 +23,6 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRepository _repository;
         private readonly GroupEmailBuilder _emailBuilder;
-        private readonly EventEmailBuilder _eventEmailBuilder;
         private readonly IFilteredUrl _filteredUrl;
         private readonly ILogger<GroupsController> _logger;
         private readonly List<Query> _managementQuery;
@@ -41,7 +39,6 @@ namespace StockportWebapp.Controllers
             IProcessedContentRepository processedContentRepository,
             IRepository repository,
             GroupEmailBuilder emailBuilder,
-            EventEmailBuilder eventEmailBuilder,
             IFilteredUrl filteredUrl,
             ILogger<GroupsController> logger,
             IApplicationConfiguration configuration,
@@ -59,7 +56,6 @@ namespace StockportWebapp.Controllers
             _logger = logger;
             _configuration = configuration;
             _emailBuilder = emailBuilder;
-            _eventEmailBuilder = eventEmailBuilder;
             _managementQuery = new List<Query> { new Query("onlyActive", "false") };
             _markdownWrapper = markdownWrapper;
             _viewHelpers = viewHelpers;
@@ -1390,7 +1386,6 @@ namespace StockportWebapp.Controllers
 
                 if (putResponse.StatusCode == (int)HttpStatusCode.OK)
                 {
-                    await _eventEmailBuilder.SendEmailEditEvent(model, loggedInPerson.Email);
                     return RedirectToAction("EditEventConfirmation", new { groupslug = group.Slug, groupName = group.Name, eventslug = eventDetail.Slug, eventname = eventDetail.Title });
                 }
                 else
@@ -1477,31 +1472,6 @@ namespace StockportWebapp.Controllers
         }
 
         [HttpGet]
-        [Route("/groups/manage/{groupSlug}/events/add-your-event")]
-        [ServiceFilter(typeof(GroupAuthorisation))]
-        public async Task<IActionResult> AddYourEvent(string groupSlug, LoggedInPerson loggedInPerson)
-        {
-            return Redirect("https://forms.stockport.gov.uk/add-an-event");
-
-            var responseGroup = await _repository.Get<Group>(groupSlug, _managementQuery);
-            if (!responseGroup.IsSuccessful()) return responseGroup;
-            var group = responseGroup.Content as Group;
-
-            if (!_groupsService.HasGroupPermission(loggedInPerson.Email, group.GroupAdministrators.Items, "E"))
-            {
-                return NotFound();
-            }
-
-            var eventSubmission = new EventSubmission();
-            eventSubmission.GroupName = group.Name;
-            eventSubmission.GroupSlug = group.Slug;
-            eventSubmission.SubmittedBy = loggedInPerson.Name;
-            eventSubmission.SubmitterEmail = loggedInPerson.Email;
-
-            return View(eventSubmission);
-        }
-
-        [HttpGet]
         [Route("/groups/stale")]
         public async Task<IActionResult> HandeStaleGroups([FromQuery] string password)
         {
@@ -1516,41 +1486,6 @@ namespace StockportWebapp.Controllers
             {
                 return new StatusCodeResult(500);
             }
-
-        }
-
-        // TODO: Move this and all links pointing towards it to events controller
-        [HttpPost]
-        [Route("/groups/manage/{groupSlug}/events/add-your-event")]
-        [ServiceFilter(typeof(GroupAuthorisation))]
-        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
-        public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.SubmissionError = _groupsService.GetErrorsFromModelState(ModelState);
-                return View(eventSubmission);
-            }
-
-            Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
-            if (frequency != EventFrequency.None)
-            {
-                eventSubmission.Occurrences = _dateCalculator.GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
-            }
-
-            var successCode = await _eventEmailBuilder.SendEmailAddNew(eventSubmission);
-            if (successCode == HttpStatusCode.OK) return RedirectToAction("EventsThankYouMessage", eventSubmission);
-
-            ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
-
-            return View(eventSubmission);
-        }
-
-        // TODO: Move this and all links pointing towards it to events controller
-        [Route("/groups/events-thank-you-message")]
-        public IActionResult EventsThankYouMessage(EventSubmission eventSubmission)
-        {
-            return View(eventSubmission);
         }
     }
 }

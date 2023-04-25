@@ -1,7 +1,5 @@
-﻿using System.Net;
-using System.Text;
+﻿using System.Text;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using StockportWebapp.Config;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
@@ -10,7 +8,6 @@ using StockportWebapp.Repositories;
 using StockportWebapp.RSS;
 using StockportWebapp.Services;
 using StockportWebapp.Utils;
-using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
 
 namespace StockportWebapp.Controllers
@@ -22,7 +19,6 @@ namespace StockportWebapp.Controllers
         private readonly IProcessedContentRepository _processedContentRepository;
         private readonly IRssFeedFactory _rssFeedFactory;
         private readonly ILogger<EventsController> _logger;
-        private readonly EventEmailBuilder _emailBuilder;
         private readonly IApplicationConfiguration _config;
         private readonly BusinessId _businessId;
         private readonly IFilteredUrl _filteredUrl;
@@ -33,7 +29,6 @@ namespace StockportWebapp.Controllers
         public EventsController(
             IRepository repository,
             IProcessedContentRepository processedContentRepository,
-            EventEmailBuilder emailBuilder,
             IRssFeedFactory rssFeedFactory,
             ILogger<EventsController> logger,
             IApplicationConfiguration config,
@@ -46,7 +41,6 @@ namespace StockportWebapp.Controllers
         {
             _repository = repository;
             _processedContentRepository = processedContentRepository;
-            _emailBuilder = emailBuilder;
             _rssFeedFactory = rssFeedFactory;
             _logger = logger;
             _config = config;
@@ -240,63 +234,6 @@ namespace StockportWebapp.Controllers
 
             return View("Detail", eventItem);
         }
-
-        [Route("/events/add-your-event")]
-        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-        public IActionResult AddYourEvent()
-        {
-            return Redirect("https://forms.stockport.gov.uk/add-an-event");
-
-            View(new EventSubmission());
-        }
-
-
-        [HttpPost]
-        [Route("/events/add-your-event")]
-        [ServiceFilter(typeof(ValidateReCaptchaAttribute))]
-        [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
-        public async Task<IActionResult> AddYourEvent(EventSubmission eventSubmission)
-        {
-            if (!ModelState.IsValid)
-            {
-                ViewBag.SubmissionError = GetErrorsFromModelState(ModelState);
-                return View(eventSubmission);
-            }
-
-            if (eventSubmission.IsRecurring)
-            {
-                Enum.TryParse(eventSubmission.Frequency, out EventFrequency frequency);
-                if (frequency != EventFrequency.None)
-                {
-                    eventSubmission.Occurrences = _dateCalculator
-                        .GetEventOccurences(frequency, (DateTime)eventSubmission.EventDate, (DateTime)eventSubmission.EndDate);
-                }
-            }
-
-            var successCode = await _emailBuilder.SendEmailAddNew(eventSubmission);
-            if (successCode.Equals(HttpStatusCode.OK)) return RedirectToAction("ThankYouMessage");
-
-            ViewBag.SubmissionError = "There was a problem submitting the event, please try again.";
-
-            return View(eventSubmission);
-        }
-
-        private string GetErrorsFromModelState(ModelStateDictionary modelState)
-        {
-            var message = new StringBuilder();
-
-            foreach (var state in modelState)
-            {
-                if (state.Value.Errors.Count > 0)
-                {
-                    message.Append(state.Value.Errors.First().ErrorMessage + Environment.NewLine + "<br />");
-                }
-            }
-            return message.ToString();
-        }
-
-        [Route("/events/thank-you-message")]
-        public IActionResult ThankYouMessage() => View();
 
         [Route("events/rss")]
         public async Task<IActionResult> Rss()
