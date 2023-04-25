@@ -211,12 +211,8 @@ namespace StockportWebapp.Extensions
         public static IServiceCollection AddBuilders(this IServiceCollection services)
         {
             services.AddSingleton<IEmailConfigurationBuilder, EmailConfigurationBuilder>();
-            services.AddTransient<IEmailBuilder, Builders.EmailBuilder>();
+            services.AddTransient<IEmailBuilder, EmailBuilder>();
             services.AddTransient(p => new GroupEmailBuilder(p.GetService<ILogger<GroupEmailBuilder>>(),
-                p.GetService<IHttpEmailClient>(),
-                p.GetService<IApplicationConfiguration>(),
-                p.GetService<BusinessId>()));
-            services.AddTransient(p => new EventEmailBuilder(p.GetService<ILogger<EventEmailBuilder>>(),
                 p.GetService<IHttpEmailClient>(),
                 p.GetService<IApplicationConfiguration>(),
                 p.GetService<BusinessId>()));
