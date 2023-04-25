@@ -24,11 +24,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
         private readonly List<string> _categories;
         private readonly HttpResponse responseListing;
         private readonly HttpResponse _responseDetail;
-        private readonly EventEmailBuilder _eventEmailBuilder;
         private readonly Mock<IHttpEmailClient> _emailClient;
         private readonly Mock<IApplicationConfiguration> _applicationConfiguration;
         private readonly Mock<IRssFeedFactory> _mockRssFeedFactory;
-        private readonly Mock<ILogger<EventEmailBuilder>> _emaillogger;
         private readonly Mock<ILogger<EventsController>> _logger;
         private readonly Mock<IApplicationConfiguration> _config;
         private const string BusinessId = "businessId";
@@ -96,12 +94,9 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _emailClient = new Mock<IHttpEmailClient>();
             _applicationConfiguration = new Mock<IApplicationConfiguration>();
             _logger = new Mock<ILogger<EventsController>>();
-            _emaillogger = new Mock<ILogger<EventEmailBuilder>>();
 
             _applicationConfiguration.Setup(a => a.GetEmailEmailFrom(It.IsAny<string>()))
                 .Returns(AppSetting.GetAppSetting("GroupSubmissionEmail"));
-
-            _eventEmailBuilder = new EventEmailBuilder(_emaillogger.Object, _emailClient.Object, _applicationConfiguration.Object, new BusinessId("businessId"));
 
             _mockRssFeedFactory = new Mock<IRssFeedFactory>();
             _config = new Mock<IApplicationConfiguration>();
@@ -113,7 +108,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             _controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
-                _eventEmailBuilder,
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
@@ -290,7 +284,6 @@ namespace StockportWebappTests_Unit.Unit.Controllers
             var controller = new EventsController(
                 _repository.Object,
                 _processedContentRepository.Object,
-                _eventEmailBuilder,
                 _mockRssFeedFactory.Object,
                 _logger.Object,
                 _config.Object,
