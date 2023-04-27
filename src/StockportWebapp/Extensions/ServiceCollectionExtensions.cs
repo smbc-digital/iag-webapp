@@ -2,7 +2,6 @@
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleEmail;
-using AngleSharp.Html.Parser;
 using Markdig;
 using Microsoft.AspNetCore.Mvc.Razor;
 using StockportWebapp.AmazonSES;
@@ -294,14 +293,6 @@ namespace StockportWebapp.Extensions
             {
                 logger.Information("Not using redis for session management!");
             }
-
-            return services;
-        }
-
-        public static IServiceCollection AddCustomisedAngleSharp(this IServiceCollection services)
-        {
-            services.AddTransient<HtmlParser>();
-            services.AddSingleton<IHtmlUtilities, HtmlUtilities>();
 
             return services;
         }

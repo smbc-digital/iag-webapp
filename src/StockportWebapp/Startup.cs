@@ -54,7 +54,6 @@ namespace StockportWebapp
             services.AddTransient<IHttpClientWrapper>(provider => new HttpClientWrapper(new HttpClient(), provider.GetService<ILogger<HttpClientWrapper>>()));
 
             // custom extensions
-            services.AddCustomisedAngleSharp();
             services.AddFeatureToggles(_contentRootPath, _appEnvironmentName);
             services.AddCustomisationOfViews();
             services.AddTimeProvider();
