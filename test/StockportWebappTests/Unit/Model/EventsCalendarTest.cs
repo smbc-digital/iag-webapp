@@ -1,51 +1,45 @@
-﻿using FluentAssertions;
-using StockportWebapp.Models;
-using StockportWebapp.ViewModels;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Model;
 
-namespace StockportWebappTests_Unit.Unit.Model
+public class EventsCalendarTest
 {
-    public class EventsCalendarTest
+    [Fact]
+    public void ShouldReturnTrueForExistingCategory()
     {
-        [Fact]
-        public void ShouldReturnTrueForExistingCategory()
+        var eventCalendar = new EventCalendar(new List<Event>(), new List<string> { "test", "test2" });
+
+        eventCalendar.DoesCategoryExist("test").Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldReturnFalseForNonExistingCategory()
+    {
+        var eventCalendar = new EventCalendar(new List<Event>(), new List<string> { "test1", "test2" });
+
+        eventCalendar.DoesCategoryExist("test").Should().BeFalse();
+    }
+
+    [Fact]
+    public void ShouldReturnDateRangeForCustomDate()
+    {
+        var eventCalendar = new EventCalendar
         {
-            var eventCalendar = new EventCalendar(new List<Event>(), new List<string> { "test", "test2" });
+            DateRange = "customdate",
+            DateFrom = new DateTime(2016, 01, 01),
+            DateTo = new DateTime(2016, 01, 10)
+        };
 
-            eventCalendar.DoesCategoryExist("test").Should().BeTrue();
-        }
+        var result = eventCalendar.GetCustomEventFilterName();
 
-        [Fact]
-        public void ShouldReturnFalseForNonExistingCategory()
-        {
-            var eventCalendar = new EventCalendar(new List<Event>(), new List<string> { "test1", "test2" });
+        result.Should().Be("01/01/2016 to 10/01/2016");
+    }
 
-            eventCalendar.DoesCategoryExist("test").Should().BeFalse();
-        }
+    [Fact]
+    public void ShouldReturnEmptyStringForBlankDates()
+    {
+        var eventCalendar = new EventCalendar();
 
-        [Fact]
-        public void ShouldReturnDateRangeForCustomDate()
-        {
-            var eventCalendar = new EventCalendar
-            {
-                DateRange = "customdate",
-                DateFrom = new DateTime(2016, 01, 01),
-                DateTo = new DateTime(2016, 01, 10)
-            };
+        var result = eventCalendar.GetCustomEventFilterName();
 
-            var result = eventCalendar.GetCustomEventFilterName();
-
-            result.Should().Be("01/01/2016 to 10/01/2016");
-        }
-
-        [Fact]
-        public void ShouldReturnEmptyStringForBlankDates()
-        {
-            var eventCalendar = new EventCalendar();
-
-            var result = eventCalendar.GetCustomEventFilterName();
-
-            result.Should().Be(string.Empty);
-        }
+        result.Should().Be(string.Empty);
     }
 }

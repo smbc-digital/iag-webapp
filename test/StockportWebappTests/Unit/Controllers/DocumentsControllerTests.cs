@@ -1,38 +1,28 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using StockportWebapp.Controllers;
-using StockportWebapp.Models;
-using StockportWebapp.Services;
-using StockportWebappTests_Unit.Builders;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Controllers;
 
-namespace StockportWebappTests_Unit.Unit.Controllers
+public class DocumentsControllerTests
 {
-    public class DocumentsControllerTests
+    [Fact]
+    public async void GetSecureDocumentsShouldReturnDocument()
     {
-        [Fact]
-        public async void GetSecureDocumentsShouldReturnDocument()
-        {
-            // Arrange
-            var document = new DocumentBuilder().Build();
-            var documentToDownload = new DocumentToDownload() { MediaType = document.MediaType, FileData = new byte[] { } };
-            var mockDocumentsService = new Mock<IDocumentsService>();
-            var assetId = "asset-id";
-            var slug = "slug";
+        // Arrange
+        var document = new DocumentBuilder().Build();
+        var documentToDownload = new DocumentToDownload() { MediaType = document.MediaType, FileData = new byte[] { } };
+        var mockDocumentsService = new Mock<IDocumentsService>();
+        var assetId = "asset-id";
+        var slug = "slug";
 
-            // Mock
-            mockDocumentsService.Setup(o => o.GetSecureDocument(assetId, slug)).ReturnsAsync(documentToDownload);
+        // Mock
+        mockDocumentsService.Setup(o => o.GetSecureDocument(assetId, slug)).ReturnsAsync(documentToDownload);
 
-            var documentsController = new DocumentsController(mockDocumentsService.Object);
+        var documentsController = new DocumentsController(mockDocumentsService.Object);
 
-            // Act
-            var result = await documentsController.GetSecureDocument(slug, assetId) as FileContentResult;
+        // Act
+        var result = await documentsController.GetSecureDocument(slug, assetId) as FileContentResult;
 
-            // Assert
-            mockDocumentsService.Verify(o => o.GetSecureDocument(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            result.Should().NotBeNull();
-            result.ContentType.Should().Be(document.MediaType);
-        }
+        // Assert
+        mockDocumentsService.Verify(o => o.GetSecureDocument(It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        result.Should().NotBeNull();
+        result.ContentType.Should().Be(document.MediaType);
     }
 }

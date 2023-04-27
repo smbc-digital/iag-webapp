@@ -1,79 +1,73 @@
-﻿using FluentAssertions;
-using Moq;
-using StockportWebapp.Middleware;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Middleware;
 
-namespace StockportWebappTests_Unit.Unit.Middleware
+public class SecurityHeaderMiddlewareTest
 {
-    public class SecurityHeaderMiddlewareTest
+
+    private readonly SecurityHeaderMiddleware _middleware;
+
+    public SecurityHeaderMiddlewareTest()
     {
+        var requestDelegate = new Mock<RequestDelegate>();
 
-        private readonly SecurityHeaderMiddleware _middleware;
+        _middleware = new SecurityHeaderMiddleware(requestDelegate.Object);
+    }
 
-        public SecurityHeaderMiddlewareTest()
-        {
-            var requestDelegate = new Mock<RequestDelegate>();
+    [Fact]
+    public void ShouldReturnStrictTransportSecurityHeaderForWWW()
+    {
+        var context = new DefaultHttpContext();
+        context.Request.Host = new HostString("www.domain.com");
 
-            _middleware = new SecurityHeaderMiddleware(requestDelegate.Object);
-        }
+        _middleware.Invoke(context);
 
-        [Fact]
-        public void ShouldReturnStrictTransportSecurityHeaderForWWW()
-        {
-            var context = new DefaultHttpContext();
-            context.Request.Host = new HostString("www.domain.com");
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
+    }
 
-            _middleware.Invoke(context);
+    [Fact]
+    public void ShouldReturnStrictTransportSecurityHeaderForInt()
+    {
+        var context = new DefaultHttpContext();
+        context.Request.Host = new HostString("int-iag.domain.com");
 
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
-        }
+        _middleware.Invoke(context);
 
-        [Fact]
-        public void ShouldReturnStrictTransportSecurityHeaderForInt()
-        {
-            var context = new DefaultHttpContext();
-            context.Request.Host = new HostString("int-iag.domain.com");
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
+    }
 
-            _middleware.Invoke(context);
+    [Fact]
+    public void ShouldReturnStrictTransportSecurityHeaderForQA()
+    {
+        var context = new DefaultHttpContext();
+        context.Request.Host = new HostString("int-qa.domain.com");
 
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
-        }
+        _middleware.Invoke(context);
 
-        [Fact]
-        public void ShouldReturnStrictTransportSecurityHeaderForQA()
-        {
-            var context = new DefaultHttpContext();
-            context.Request.Host = new HostString("int-qa.domain.com");
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
+    }
 
-            _middleware.Invoke(context);
+    [Fact]
+    public void ShouldReturnStrictTransportSecurityHeaderForStage()
+    {
+        var context = new DefaultHttpContext();
+        context.Request.Host = new HostString("int-stage.domain.com");
 
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
-        }
+        _middleware.Invoke(context);
 
-        [Fact]
-        public void ShouldReturnStrictTransportSecurityHeaderForStage()
-        {
-            var context = new DefaultHttpContext();
-            context.Request.Host = new HostString("int-stage.domain.com");
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
+    }
 
-            _middleware.Invoke(context);
+    [Fact]
+    public void ShouldNotReturnStrictTransportSecurityHeaderForLocalAddresses()
+    {
+        var context = new DefaultHttpContext();
+        context.Request.Host = new HostString("stockportgov:5555");
 
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().NotBeNullOrEmpty();
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().Be("max-age=31536000");
-        }
+        _middleware.Invoke(context);
 
-        [Fact]
-        public void ShouldNotReturnStrictTransportSecurityHeaderForLocalAddresses()
-        {
-            var context = new DefaultHttpContext();
-            context.Request.Host = new HostString("stockportgov:5555");
-
-            _middleware.Invoke(context);
-
-            context.Response.Headers["Strict-Transport-Security"].ToString().Should().BeNullOrEmpty();
-        }
+        context.Response.Headers["Strict-Transport-Security"].ToString().Should().BeNullOrEmpty();
     }
 }

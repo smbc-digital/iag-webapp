@@ -1,9 +1,8 @@
-namespace StockportWebappTests_Unit.Unit.Fake
+namespace StockportWebappTests_Unit.Unit.Fake;
+
+public class FakeFeatureToggles
 {
-    public class FakeFeatureToggles
-    {
-        public bool SearchBar { get; set; } = false;
-        public bool AToZ { get; set; } = false;
-        public bool OverriddenFeature { get; set; } = false;
-    }
+    public bool SearchBar { get; set; } = false;
+    public bool AToZ { get; set; } = false;
+    public bool OverriddenFeature { get; set; } = false;
 }

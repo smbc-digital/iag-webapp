@@ -1,24 +1,17 @@
-﻿using FluentAssertions;
-using Moq;
-using StockportWebapp.Config;
-using StockportWebapp.Models;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Model;
 
-namespace StockportWebappTests_Unit.Unit.Model
+public class StaticAssetsTest
 {
-    public class StaticAssetsTest
+    [Fact]
+    public void ShouldProvideFullUrlForAnAssetUsingConfiguredRoot()
     {
-        [Fact]
-        public void ShouldProvideFullUrlForAnAssetUsingConfiguredRoot()
-        {
-            var config = new Mock<IApplicationConfiguration>();
-            var assets = new StaticAssets(config.Object);
+        var config = new Mock<IApplicationConfiguration>();
+        var assets = new StaticAssets(config.Object);
 
-            config.Setup(o => o.GetStaticAssetsRootUrl()).Returns("http://assets.example.com/");
+        config.Setup(o => o.GetStaticAssetsRootUrl()).Returns("http://assets.example.com/");
 
-            var asset = assets.UrlFor("logo.png");
+        var asset = assets.UrlFor("logo.png");
 
-            asset.Should().Be("http://assets.example.com/logo.png");
-        }
+        asset.Should().Be("http://assets.example.com/logo.png");
     }
 }
