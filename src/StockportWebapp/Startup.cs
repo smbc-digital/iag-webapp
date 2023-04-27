@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
-using StockportGovUK.NetStandard.Gateways;
 using StockportWebapp.Config;
 using StockportWebapp.Models;
 using StockportWebapp.Utils;
@@ -71,7 +70,6 @@ namespace StockportWebapp
             services.AddGroupConfiguration(Configuration, Log.Logger);
             services.AddSesEmailConfiguration(Configuration, Log.Logger);
             services.AddRedis(Configuration, _useRedisSession, Log.Logger);
-            services.AddResilientHttpClients<IGateway, Gateway>(Configuration);
         }
 
         public static void HandleFaviconRequests(IApplicationBuilder app)

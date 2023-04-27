@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using StockportGovUK.NetStandard.Gateways.Civica.Pay;
-using StockportGovUK.NetStandard.Models.Civica.Pay.Request;
+using StockportGovUK.NetStandard.Gateways.CivicaPay;
+using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Request;
 using StockportWebapp.Http;
 using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
