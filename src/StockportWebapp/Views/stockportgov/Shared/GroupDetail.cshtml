@@ -49,17 +49,7 @@
                 </div>
             }
         </section>
-        @if (Model.ShouldShowAdditionalInformation)
-        {
-            <section class="additional-information">
-                <h2>Additional Information</h2>
-                @Html.Raw(Model.Group.AdditionalInformation)
-                @foreach (Document document in Model.Group.AdditionalDocuments)
-                {
-                    <partial name="Document" model='document' />
-                }
-            </section>
-        }
+
         <section id="about-us">
             <hr class="hide-on-desktop">
             <h2>About us</h2>

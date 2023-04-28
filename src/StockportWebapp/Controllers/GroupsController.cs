@@ -1,19 +1,17 @@
-using System.Net;
-using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using ReverseMarkdown;
-using StockportWebapp.Config;
+using StockportWebapp.Constants;
 using StockportWebapp.Exceptions;
 using StockportWebapp.FeatureToggling;
 using StockportWebapp.Filters;
 using StockportWebapp.Http;
-using StockportWebapp.Models;
 using StockportWebapp.ProcessedModels;
 using StockportWebapp.Repositories;
 using StockportWebapp.Services;
-using StockportWebapp.Utils;
 using StockportWebapp.Validation;
 using StockportWebapp.ViewModels;
+using System.Net;
+using System.Text;
 
 namespace StockportWebapp.Controllers
 {
@@ -77,9 +75,9 @@ namespace StockportWebapp.Controllers
             {
                 PrimaryFilter = new PrimaryFilter
                 {
-                    Location = Defaults.Groups.Location,
-                    Latitude = Defaults.Groups.StockportLatitude,
-                    Longitude = Defaults.Groups.StockportLongitude
+                    Location = Constants.Groups.Location,
+                    Latitude = Constants.Groups.StockportLatitude,
+                    Longitude = Constants.Groups.StockportLongitude
                 }
             };
 
@@ -111,30 +109,23 @@ namespace StockportWebapp.Controllers
         {
             var response = await _processedContentRepository.Get<Group>(slug);
 
-            if (!response.IsSuccessful()) return response;
+            if (!response.IsSuccessful())
+                return response;
 
             var group = response.Content as ProcessedGroup;
 
-            var userHasAccessToAdditionalInformation = false;
             var userIsAdministrator = false;
-            var hasAdditionalInformation = !string.IsNullOrEmpty(group.AdditionalInformation);
             var isLoggedIn = false;
-
             var loggedInPerson = _loggedInHelper.GetLoggedInPerson();
 
             if (!string.IsNullOrEmpty(loggedInPerson.Email))
             {
-                var groupAdvisorResponse = await _repository.Get<GroupAdvisor>(loggedInPerson.Email);
-                var groupAdvisor = groupAdvisorResponse.Content as GroupAdvisor;
-                userHasAccessToAdditionalInformation = IsUserAdvisorForGroup(groupAdvisor, group);
-                userIsAdministrator = IsUserAdministrator(loggedInPerson.Email, group);
+                userIsAdministrator = group.GroupAdministrators.Items
+                    .Any(admin => admin.Email.Equals(loggedInPerson.Email));
                 isLoggedIn = true;
             }
 
             var daysTillStale = _configuration.GetArchiveEmailPeriods().First().NumOfDays;
-
-            // convert all documents urls to be download links
-            group.AdditionalDocuments?.ForEach(o => o.Url = $"/documents/{slug}/{o.AssetId}");
 
             ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
@@ -142,8 +133,6 @@ namespace StockportWebapp.Controllers
             {
                 Group = group,
                 MyAccountUrl = _configuration.GetMyAccountUrl() + "?returnUrl=" + Request?.GetDisplayUrl(),
-                ShouldShowAdditionalInformation = userHasAccessToAdditionalInformation && hasAdditionalInformation,
-                ShouldShowAdditionalInfoLink = hasAdditionalInformation && !isLoggedIn,
                 ShouldShowAdminOptions = userIsAdministrator,
                 ConfirmedUpToDate = confirmedUpToDate,
                 IsLoggedIn = isLoggedIn,
@@ -151,16 +140,6 @@ namespace StockportWebapp.Controllers
             };
 
             return View(viewModel);
-        }
-
-        private bool IsUserAdvisorForGroup(GroupAdvisor groupAdvisor, ProcessedGroup group)
-        {
-            return groupAdvisor != null && (groupAdvisor.HasGlobalAccess || groupAdvisor.Groups.Contains(group.Slug));
-        }
-
-        private bool IsUserAdministrator(string email, ProcessedGroup group)
-        {
-            return group.GroupAdministrators.Items.Any(_ => _.Email == email);
         }
 
         [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]
@@ -204,8 +183,8 @@ namespace StockportWebapp.Controllers
 
             model.PrimaryFilter.Order = groupSearch.Order;
             model.PrimaryFilter.Location = groupSearch.Location;
-            model.PrimaryFilter.Latitude = groupSearch.Latitude != 0 ? groupSearch.Latitude : Defaults.Groups.StockportLatitude;
-            model.PrimaryFilter.Longitude = groupSearch.Longitude != 0 ? groupSearch.Longitude : Defaults.Groups.StockportLongitude;
+            model.PrimaryFilter.Latitude = groupSearch.Latitude != 0 ? groupSearch.Latitude : Constants.Groups.StockportLatitude;
+            model.PrimaryFilter.Longitude = groupSearch.Longitude != 0 ? groupSearch.Longitude : Constants.Groups.StockportLongitude;
             model.GetInvolved = groupSearch.GetInvolved == "yes";
             model.SubCategories = groupSearch.SubCategories;
             model.Tag = groupSearch.Tag; // organisation filter

@@ -48,7 +48,6 @@ global using StockportWebapp.Utils;
 global using StockportWebapp.Validation;
 global using StockportWebapp.ViewDetails;
 global using StockportWebapp.ViewModels;
-global using StockportWebapp.Wrappers;
 global using StockportWebappTests_Unit.Builders;
 global using StockportWebappTests_Unit.Helpers;
 global using StockportWebappTests_Unit.Unit.Fake;
