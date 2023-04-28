@@ -27,10 +27,7 @@ namespace StockportWebapp
 
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews(options =>
-            {
-                options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
-            });
+            services.AddControllersWithViews();
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
