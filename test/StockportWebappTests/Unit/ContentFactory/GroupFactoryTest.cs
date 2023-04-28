@@ -5,22 +5,17 @@ public class GroupFactoryTest
     private readonly GroupFactory _factory;
     private readonly Mock<MarkdownWrapper> _markdownWrapper;
     private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
-    private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
     private readonly Group _group;
 
     public GroupFactoryTest()
     {
         _markdownWrapper = new Mock<MarkdownWrapper>();
         _tagParserContainer = new Mock<ISimpleTagParserContainer>();
-        _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-        _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
-
+        _factory = new GroupFactory(_tagParserContainer.Object, _markdownWrapper.Object);
         _group = new GroupBuilder().Build();
-
         _tagParserContainer.Setup(o => o.ParseAll(_group.Description, It.IsAny<string>(), It.IsAny<bool>())).Returns(_group.Description);
         _tagParserContainer.Setup(o => o.ParseAll(_group.AdditionalInformation, It.IsAny<string>(), It.IsAny<bool>())).Returns(_group.AdditionalInformation);
         _markdownWrapper.Setup(o => o.ConvertToHtml(_group.Description)).Returns(_group.Description);
-        _markdownWrapper.Setup(o => o.ConvertToHtml(_group.AdditionalInformation)).Returns(_group.AdditionalInformation);
     }
 
     [Fact]
@@ -42,7 +37,6 @@ public class GroupFactoryTest
         result.ThumbnailImageUrl.Should().Be(_group.ThumbnailImageUrl);
         result.Twitter.Should().Be(_group.Twitter);
         result.Facebook.Should().Be(_group.Facebook);
-        result.AdditionalInformation.Should().Be(_group.AdditionalInformation);
     }
 
     [Fact]

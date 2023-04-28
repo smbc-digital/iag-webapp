@@ -37,7 +37,6 @@ internal class ProcessedGroupBuilder
     private List<Group> _linkedGroups = new List<Group>();
     private Donations _donations = new Donations();
     private string _additionalInformation = "additional information";
-    private List<Document> _additionalDocuments = new List<Document>();
     private List<GroupBranding> _groupBranding = new List<GroupBranding>();
     private readonly List<Alert> _alerts = new List<Alert>();
 
@@ -72,7 +71,6 @@ internal class ProcessedGroupBuilder
             _donations,
             _mapDetails,
             _additionalInformation,
-            _additionalDocuments,
             _donationsText,
             _donationsUrl,
             _dateLastModified,
