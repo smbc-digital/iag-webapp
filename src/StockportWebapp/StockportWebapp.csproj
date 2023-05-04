@@ -13,7 +13,7 @@
     <MvcRazorCompileOnPublish>false</MvcRazorCompileOnPublish>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Emails\Templates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+    <EmbeddedResource Include="EmailTemplates\*.html" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
     <None Include="emails\templates\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="node_modules\**\*" CopyToPublishDirectory="PreserveNewest" />
     <None Include="featureToggles.yml" CopyToPublishDirectory="PreserveNewest" />
