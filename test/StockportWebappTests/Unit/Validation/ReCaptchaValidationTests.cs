@@ -1,4 +1,7 @@
-﻿namespace StockportWebappTests_Unit.Unit.Validation;
+﻿using StockportWebapp.Client;
+using StockportWebapp.Models.Validation;
+
+namespace StockportWebappTests_Unit.Unit.Validation;
 
 public class ReCaptchaValidationTests
 {

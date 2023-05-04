@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using StockportWebapp.Client;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class GroupControllerTest
 {
@@ -106,7 +108,7 @@ public class GroupControllerTest
         _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
             .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-        var response = await _groupController.Detail("not-found-slug") as StockportWebapp.Http.HttpResponse;
+        var response = await _groupController.Detail("not-found-slug") as StockportWebapp.Client.HttpResponse;
 
         response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
     }
@@ -242,7 +244,7 @@ public class GroupControllerTest
             Email = "test@email.com"
         };
         _repository.Setup(_ => _.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, group));
+            .ReturnsAsync(StockportWebapp.Client.HttpResponse.Successful((int)HttpStatusCode.OK, group));
         _groupsService.Setup(_ =>
             _.HasGroupPermission(It.IsAny<string>(), It.IsAny<List<GroupAdministratorItems>>(),
                 It.IsAny<string>())).Returns(true);
@@ -268,7 +270,7 @@ public class GroupControllerTest
             o.Get<GroupResults>(
                 It.IsAny<string>(),
                 It.IsAny<List<Query>>()))
-            .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
+            .ReturnsAsync(StockportWebapp.Client.HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
         var mockTime = new Mock<ITimeProvider>();
         var viewHelper = new ViewHelpers(mockTime.Object);

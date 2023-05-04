@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Http;
+﻿using StockportWebapp.Client;
+
+namespace StockportWebappTests_Unit.Unit.Http;
 
 public class LoggingHttpClientTest
 {

@@ -1,3 +1,5 @@
+using StockportWebapp.Client;
+
 namespace StockportWebappTests_Unit.Unit.Services;
 
 public class HealthcheckServiceTest

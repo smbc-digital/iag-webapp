@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
+﻿using StockportWebapp.TagParsers;
+
+namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
 public class GroupFactoryTest
 {

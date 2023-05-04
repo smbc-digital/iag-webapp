@@ -1,4 +1,7 @@
-﻿namespace StockportWebappTests_Unit.Unit.Services;
+﻿using StockportWebapp.Models.Responses;
+using StockportWebapp.TagParsers;
+
+namespace StockportWebappTests_Unit.Unit.Services;
 
 public class ProfileServiceTests
 {

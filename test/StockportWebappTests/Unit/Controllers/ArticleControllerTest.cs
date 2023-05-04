@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using StockportWebapp.TagParsers;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class ArticleControllerTest
 {
