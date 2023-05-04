@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Client;
-
-namespace StockportWebappTests_Unit.Unit.Repositories;
+﻿namespace StockportWebappTests_Unit.Unit.Repositories;
 
 public class StockportApiRepositoryTests
 {

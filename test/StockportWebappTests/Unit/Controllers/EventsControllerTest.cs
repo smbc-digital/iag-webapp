@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Client;
-
-namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class EventsControllerTest
 {

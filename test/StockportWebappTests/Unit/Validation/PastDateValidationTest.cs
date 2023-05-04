@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Models.Validation;
-
-namespace StockportWebappTests_Unit.Unit.Validation;
+﻿namespace StockportWebappTests_Unit.Unit.Validation;
 
 public class PastDateValidationTest
 {

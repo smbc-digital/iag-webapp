@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Client;
-
-namespace StockportWebappTests_Unit.Unit.Utils;
+﻿namespace StockportWebappTests_Unit.Unit.Utils;
 
 public class GroupEmailBuilderTests
 {

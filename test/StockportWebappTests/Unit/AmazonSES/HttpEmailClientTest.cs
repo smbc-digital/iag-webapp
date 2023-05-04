@@ -1,6 +1,4 @@
-﻿using StockportWebapp.Client;
-
-namespace StockportWebappTests_Unit.Unit.AmazonSES;
+﻿namespace StockportWebappTests_Unit.Unit.AmazonSES;
 
 public class HttpEmailClientTest
 {

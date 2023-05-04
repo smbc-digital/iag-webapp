@@ -1,6 +1,4 @@
-﻿using StockportWebapp.TagParsers;
-
-namespace StockportWebappTests_Unit.Unit.ContentFactory;
+﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
 public class TopicFactoryTest
 {
