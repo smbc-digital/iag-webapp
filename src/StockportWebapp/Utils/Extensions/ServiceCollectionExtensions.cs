@@ -1,33 +1,6 @@
-﻿using System.Net;
-using Amazon;
-using Amazon.Runtime;
-using Amazon.SimpleEmail;
-using Markdig;
-using Microsoft.AspNetCore.Mvc.Razor;
-using StockportWebapp.AmazonSES;
-using StockportWebapp.Builders;
-using StockportWebapp.Config;
-using StockportWebapp.Config.AnalyticsConfiguration;
-using StockportWebapp.ContentFactory;
-using StockportWebapp.ContentFactory.Trivia;
-using StockportWebapp.Controllers;
-using StockportWebapp.DataProtection;
-using StockportWebapp.FeatureToggling;
-using StockportWebapp.Filters;
-using StockportWebapp.Http;
-using StockportWebapp.Middleware;
-using StockportWebapp.Models;
-using StockportWebapp.Parsers;
-using StockportWebapp.Repositories;
-using StockportWebapp.RSS;
-using StockportWebapp.Services;
-using StockportWebapp.Services.Profile;
-using StockportWebapp.Utils;
-using StockportWebapp.Validation;
-using StockportWebapp.Wrappers;
-using ILogger = Serilog.ILogger;
+﻿using ILogger = Serilog.ILogger;
 
-namespace StockportWebapp.Extensions
+namespace StockportWebapp.Utils.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -79,8 +52,8 @@ namespace StockportWebapp.Extensions
         public static IServiceCollection AddConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(configuration));
-            services.AddSingleton<IConfiguration>(configuration);
-            services.AddSingleton<IAnalyticsConfiguration>(_ => new AnalyticsConfiguration(_.GetService<IApplicationConfiguration>()));
+            services.AddSingleton(configuration);
+            services.AddSingleton<IAnalyticsConfiguration>(_ => new Config.AnalyticsConfiguration.AnalyticsConfiguration(_.GetService<IApplicationConfiguration>()));
 
             return services;
         }
@@ -151,7 +124,7 @@ namespace StockportWebapp.Extensions
             services.AddSingleton<Func<System.Net.Http.HttpClient>>(p => () => p.GetService<System.Net.Http.HttpClient>());
             services.AddTransient<System.Net.Http.HttpClient>();
             services.AddTransient<IHttpClient>(
-                p => new LoggingHttpClient(new Http.HttpClient(new System.Net.Http.HttpClient()),
+                p => new LoggingHttpClient(new Client.HttpClient(new System.Net.Http.HttpClient()),
                     p.GetService<ILogger<LoggingHttpClient>>()));
             services.AddTransient<IHttpEmailClient>(p => new HttpEmailClient(p.GetService<ILogger<HttpEmailClient>>(), p.GetService<IEmailBuilder>(), p.GetService<IAmazonSimpleEmailService>(), sendAmazonEmails));
 
@@ -174,8 +147,6 @@ namespace StockportWebapp.Extensions
                                             p.GetService<IDynamicTagParser<PrivacyNotice>>()),
                         p.GetService<IApplicationConfiguration>()));
             services.AddTransient<IRepository>(p => new Repository(p.GetService<UrlGenerator>(), p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>()));
-            services.AddTransient<IPaymentRepository, PaymentRepository>();
-            services.AddTransient<IDocumentsRepository>(p => new DocumentsRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILoggedInHelper>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IStockportApiRepository>(p => new StockportApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
             services.AddTransient<IContentApiRepository>(p => new ContentApiRepository(p.GetService<IHttpClient>(), p.GetService<IApplicationConfiguration>(), p.GetService<IUrlGeneratorSimple>(), p.GetService<ILogger<BaseRepository>>()));
 
@@ -189,7 +160,6 @@ namespace StockportWebapp.Extensions
                     new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<IHttpClient>(),
                     p.GetService<UrlGenerator>(), appEnvironment, p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
 
-            services.AddTransient<IDocumentsService>(p => new DocumentsService(p.GetService<IDocumentsRepository>(), p.GetService<IHttpClientWrapper>(), p.GetService<ILogger<DocumentsService>>()));
             services.AddTransient<INewsService>(p => new NewsService(p.GetService<IRepository>()));
             services.AddTransient<IEventsService>(p => new EventsService(p.GetService<IRepository>()));
             services.AddTransient<IHomepageService>(p => new HomepageService(p.GetService<IProcessedContentRepository>()));
