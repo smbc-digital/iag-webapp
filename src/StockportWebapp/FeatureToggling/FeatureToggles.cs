@@ -1,7 +1,6 @@
-namespace StockportWebapp.FeatureToggling
-{
-    public class FeatureToggles
-    {
+namespace StockportWebapp.FeatureToggling;
 
-    }
+public class FeatureToggles
+{
+
 }
