@@ -1,9 +1,6 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.Repositories;
 
-namespace StockportWebapp.Repositories
+public interface IProcessedContentRepository
 {
-    public interface IProcessedContentRepository
-    {
-        Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null);
-    }
+    Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null);
 }
