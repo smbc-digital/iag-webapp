@@ -1,11 +1,8 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.ViewModels;
 
-namespace StockportWebapp.ViewModels
+public class SocialMediaLinksViewModel
 {
-    public class SocialMediaLinksViewModel
-    {
-        public string SocialMediaLinksSubheading { get; set; }
+    public string SocialMediaLinksSubheading { get; set; }
 
-        public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
-    }
+    public IEnumerable<SocialMediaLink> SocialMediaLinks { get; set; }
 }

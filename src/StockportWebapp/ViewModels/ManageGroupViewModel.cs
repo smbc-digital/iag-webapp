@@ -1,10 +1,9 @@
-﻿namespace StockportWebapp.ViewModels
+﻿namespace StockportWebapp.ViewModels;
+
+public class ManageGroupViewModel
 {
-    public class ManageGroupViewModel
-    {
-        public string Name { get; set; }
-        public string Slug { get; set; }
-        public bool Administrator { get; set; }
-        public bool IsArchived { get; set; }
-    }
+    public string Name { get; set; }
+    public string Slug { get; set; }
+    public bool Administrator { get; set; }
+    public bool IsArchived { get; set; }
 }

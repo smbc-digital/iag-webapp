@@ -1,22 +1,18 @@
-﻿using StockportWebapp.Models;
-using StockportWebapp.ProcessedModels;
+﻿namespace StockportWebapp.ViewModels;
 
-namespace StockportWebapp.ViewModels
+public class NewsViewModel
 {
-    public class NewsViewModel
+    public ProcessedNews NewsItem { get; }
+    private List<News> LatestNewsItems { get; }
+
+    public NewsViewModel(ProcessedNews newsItem, List<News> latestNewsItems)
     {
-        public ProcessedNews NewsItem { get; }
-        private List<News> LatestNewsItems { get; }
+        NewsItem = newsItem;
+        LatestNewsItems = latestNewsItems;
+    }
 
-        public NewsViewModel(ProcessedNews newsItem, List<News> latestNewsItems)
-        {
-            NewsItem = newsItem;
-            LatestNewsItems = latestNewsItems;
-        }
-
-        public List<News> GetLatestNews()
-        {
-            return LatestNewsItems;
-        }
+    public List<News> GetLatestNews()
+    {
+        return LatestNewsItems;
     }
 }

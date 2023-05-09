@@ -1,7 +1,9 @@
 ﻿namespace StockportWebapp.ViewModels;
 
-public class ReportGroupViewModel
+public class ContactUsDetails
 {
+    public string ServiceEmailId { get; set; }
+    public string ServiceEmail { get; set; }
     private const string DefaultValue = "";
 
     [Required(ErrorMessage = "Your name is required")]
@@ -16,6 +18,9 @@ public class ReportGroupViewModel
     [MaxLength(254, ErrorMessage = "The email address must be no more than 254 characters long")]
     public string Email { get; set; }
 
+    [HiddenInput]
+    public string Title { get; set; }
+
     [Required(ErrorMessage = "A subject is required")]
     [Display(Name = "Subject")]
     [MaxLength(80, ErrorMessage = "The subject must be no more than 80 characters long")]
@@ -27,6 +32,26 @@ public class ReportGroupViewModel
     [StringLength(500, ErrorMessage = "Too much string")]
     public string Message { get; set; }
 
-    public string Slug { get; set; }
-    public string GroupName { get; set; }
+
+    public IEnumerable<Crumb> Breadcrumbs = new List<Crumb>();
+
+    public ContactUsDetails()
+    {
+    }
+
+    public ContactUsDetails(string serviceEmailId, string title)
+    {
+        ServiceEmailId = serviceEmailId;
+        Title = title;
+    }
+
+    public ContactUsDetails(string name, string email, string message, string subject, string serviceEmailId, string title)
+    {
+        Name = name;
+        Email = email;
+        Message = message;
+        Subject = subject;
+        ServiceEmailId = serviceEmailId;
+        Title = title;
+    }
 }

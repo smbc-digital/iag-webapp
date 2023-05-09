@@ -1,11 +1,8 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.ViewModels;
 
-namespace StockportWebapp.ViewModels
+public class ProfileListViewModel
 {
-    public class ProfileListViewModel
-    {
-        public List<Profile> Profiles { get; set; }
-        public string Heading { get; set; }
-        public string Link { get; set; }
-    }
+    public List<Profile> Profiles { get; set; }
+    public string Heading { get; set; }
+    public string Link { get; set; }
 }
