@@ -1,9 +1,7 @@
-﻿namespace StockportWebapp.Models
-{
+﻿namespace StockportWebapp.Models;
 
-    public class MapDetails
-    {
-        public string AccessibleTransportLink;
-        public MapPosition MapPosition;
-    }
+public class MapDetails
+{
+    public string AccessibleTransportLink;
+    public MapPosition MapPosition;
 }

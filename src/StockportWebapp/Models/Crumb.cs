@@ -1,16 +1,13 @@
-﻿using StockportWebapp.Utils;
+﻿namespace StockportWebapp.Models;
 
-namespace StockportWebapp.Models
+public class Crumb
 {
-    public class Crumb
-    {
-        public string Title;
-        public string NavigationLink;
+    public string Title;
+    public string NavigationLink;
 
-        public Crumb(string title, string slug, string type)
-        {
-            Title = title;
-            NavigationLink = TypeRoutes.GetUrlFor(type, slug.ToLower());
-        }
+    public Crumb(string title, string slug, string type)
+    {
+        Title = title;
+        NavigationLink = TypeRoutes.GetUrlFor(type, slug.ToLower());
     }
 }
