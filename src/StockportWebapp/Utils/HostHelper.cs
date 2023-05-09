@@ -1,32 +1,28 @@
-﻿using System.Text;
-using StockportWebapp.Config;
+﻿namespace StockportWebapp.Utils;
 
-namespace StockportWebapp.Utils
+public class HostHelper
 {
-    public class HostHelper
+    readonly CurrentEnvironment _currentEnvironment;
+
+    public HostHelper(CurrentEnvironment currentEnvironment)
     {
-        readonly CurrentEnvironment _currentEnvironment;
+        _currentEnvironment = currentEnvironment;
+    }
 
-        public HostHelper(CurrentEnvironment currentEnvironment)
-        {
-            _currentEnvironment = currentEnvironment;
-        }
+    public string GetHost(HttpRequest request)
+    {
+        var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
+        return string.Concat(scheme, "://", request?.Host);
+    }
 
-        public string GetHost(HttpRequest request)
-        {
-            var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
-            return string.Concat(scheme, "://", request?.Host);
-        }
-
-        public string GetHostAndQueryString(HttpRequest request)
-        {
-            var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
-            var builder = new StringBuilder();
-            builder.Append(scheme);
-            builder.Append("://");
-            builder.Append(request?.Host);
-            builder.Append(request.QueryString);
-            return builder.ToString();
-        }
+    public string GetHostAndQueryString(HttpRequest request)
+    {
+        var scheme = _currentEnvironment.Name == "local" ? "http" : "https";
+        var builder = new StringBuilder();
+        builder.Append(scheme);
+        builder.Append("://");
+        builder.Append(request?.Host);
+        builder.Append(request.QueryString);
+        return builder.ToString();
     }
 }

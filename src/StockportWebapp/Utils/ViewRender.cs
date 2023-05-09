@@ -1,80 +1,72 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿namespace StockportWebapp.Utils;
 
-namespace StockportWebapp.Utils
+public interface IViewRender
 {
-    public interface IViewRender
+    string Render<TModel>(string name, TModel model);
+}
+
+public class ViewRender : IViewRender
+{
+    private readonly IRazorViewEngine _viewEngine;
+    private readonly ITempDataProvider _tempDataProvider;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public ViewRender(
+        IRazorViewEngine viewEngine,
+        ITempDataProvider tempDataProvider,
+        IServiceProvider serviceProvider,
+        IHttpContextAccessor httpContextAccessor)
     {
-        string Render<TModel>(string name, TModel model);
+        _viewEngine = viewEngine;
+        _tempDataProvider = tempDataProvider;
+        _serviceProvider = serviceProvider;
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    public class ViewRender : IViewRender
+    public string Render<TModel>(string name, TModel model)
     {
-        private readonly IRazorViewEngine _viewEngine;
-        private readonly ITempDataProvider _tempDataProvider;
-        private readonly IServiceProvider _serviceProvider;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        var actionContext = GetActionContext();
 
-        public ViewRender(
-            IRazorViewEngine viewEngine,
-            ITempDataProvider tempDataProvider,
-            IServiceProvider serviceProvider,
-            IHttpContextAccessor httpContextAccessor)
+        var viewEngineResult = _viewEngine.FindView(actionContext, name, false);
+
+        if (!viewEngineResult.Success)
         {
-            _viewEngine = viewEngine;
-            _tempDataProvider = tempDataProvider;
-            _serviceProvider = serviceProvider;
-            _httpContextAccessor = httpContextAccessor;
+            throw new InvalidOperationException(string.Format("Couldn't find view '{0}'", name));
         }
 
-        public string Render<TModel>(string name, TModel model)
+        var view = viewEngineResult.View;
+
+        using (var output = new StringWriter())
         {
-            var actionContext = GetActionContext();
+            var viewContext = new ViewContext(
+                actionContext,
+                view,
+                new ViewDataDictionary<TModel>(
+                    metadataProvider: new EmptyModelMetadataProvider(),
+                    modelState: new ModelStateDictionary())
+                {
+                    Model = model
+                },
+                new TempDataDictionary(
+                    actionContext.HttpContext,
+                    _tempDataProvider),
+                output,
+                new HtmlHelperOptions());
 
-            var viewEngineResult = _viewEngine.FindView(actionContext, name, false);
+            view.RenderAsync(viewContext).GetAwaiter().GetResult();
 
-            if (!viewEngineResult.Success)
-            {
-                throw new InvalidOperationException(string.Format("Couldn't find view '{0}'", name));
-            }
-
-            var view = viewEngineResult.View;
-
-            using (var output = new StringWriter())
-            {
-                var viewContext = new ViewContext(
-                    actionContext,
-                    view,
-                    new ViewDataDictionary<TModel>(
-                        metadataProvider: new EmptyModelMetadataProvider(),
-                        modelState: new ModelStateDictionary())
-                    {
-                        Model = model
-                    },
-                    new TempDataDictionary(
-                        actionContext.HttpContext,
-                        _tempDataProvider),
-                    output,
-                    new HtmlHelperOptions());
-
-                view.RenderAsync(viewContext).GetAwaiter().GetResult();
-
-                return output.ToString();
-            }
+            return output.ToString();
         }
+    }
 
-        private ActionContext GetActionContext()
-        {
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers.Add("BUSINESS-ID", _httpContextAccessor.HttpContext.Request.Headers["BUSINESS-ID"]);
-            httpContext.RequestServices = _serviceProvider;
-            httpContext.Request.Host = _httpContextAccessor.HttpContext.Request.Host;
-            httpContext.Request.Scheme = _httpContextAccessor.HttpContext.Request.Scheme;
-            return new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
-        }
+    private ActionContext GetActionContext()
+    {
+        var httpContext = new DefaultHttpContext();
+        httpContext.Request.Headers.Add("BUSINESS-ID", _httpContextAccessor.HttpContext.Request.Headers["BUSINESS-ID"]);
+        httpContext.RequestServices = _serviceProvider;
+        httpContext.Request.Host = _httpContextAccessor.HttpContext.Request.Host;
+        httpContext.Request.Scheme = _httpContextAccessor.HttpContext.Request.Scheme;
+        return new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
     }
 }

@@ -1,20 +1,19 @@
-﻿namespace StockportWebapp.Utils
-{
-    public interface ITimeProvider
-    {
-        DateTime Now();
-        DateTime Today();
-    }
+﻿namespace StockportWebapp.Utils;
 
-    public class TimeProvider : ITimeProvider
+public interface ITimeProvider
+{
+    DateTime Now();
+    DateTime Today();
+}
+
+public class TimeProvider : ITimeProvider
+{
+    public DateTime Now()
     {
-        public DateTime Now()
-        {
-            return DateTime.UtcNow;
-        }
-        public DateTime Today()
-        {
-            return DateTime.Today;
-        }
+        return DateTime.UtcNow;
+    }
+    public DateTime Today()
+    {
+        return DateTime.Today;
     }
 }

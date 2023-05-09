@@ -1,18 +1,17 @@
-﻿namespace StockportWebapp.Utils
+﻿namespace StockportWebapp.Utils;
+
+public static class StatusColourHelper
 {
-    public static class StatusColourHelper
+    public static string GetStatusColour(string status)
     {
-        public static string GetStatusColour(string status)
+        switch (status)
         {
-            switch (status)
-            {
-                case "Published":
-                    return "green";
-                case "Archived":
-                    return "red";
-                default:
-                    return "green";
-            }
+            case "Published":
+                return "green";
+            case "Archived":
+                return "red";
+            default:
+                return "green";
         }
     }
 }
