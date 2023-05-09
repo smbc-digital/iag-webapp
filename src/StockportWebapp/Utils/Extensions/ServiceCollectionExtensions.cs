@@ -53,7 +53,7 @@ namespace StockportWebapp.Utils.Extensions
         {
             services.AddSingleton<IApplicationConfiguration>(_ => new ApplicationConfiguration(configuration));
             services.AddSingleton(configuration);
-            services.AddSingleton<IAnalyticsConfiguration>(_ => new Config.AnalyticsConfiguration.AnalyticsConfiguration(_.GetService<IApplicationConfiguration>()));
+            services.AddSingleton<IAnalyticsConfiguration>(_ => new Models.Config.AnalyticsConfiguration(_.GetService<IApplicationConfiguration>()));
 
             return services;
         }

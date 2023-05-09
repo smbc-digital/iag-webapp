@@ -42,7 +42,8 @@ internal class ProcessedGroupBuilder
 
     public ProcessedGroup Build()
     {
-        return new ProcessedGroup(_name,
+        return new ProcessedGroup(
+            _name,
             _slug,
             _metaDescription,
             _phoneNumber,
@@ -75,8 +76,7 @@ internal class ProcessedGroupBuilder
             _donationsUrl,
             _dateLastModified,
             _groupBranding,
-            _alerts
-        );
+            _alerts);
     }
 
     public ProcessedGroupBuilder Email(string value)

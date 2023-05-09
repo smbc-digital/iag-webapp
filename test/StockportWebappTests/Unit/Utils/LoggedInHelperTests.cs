@@ -10,7 +10,7 @@ public class LoggedInHelperTests
     public LoggedInHelperTests()
     {
         _jwtDecoder.Setup(_ => _.Decode(It.IsAny<string>())).Returns(new LoggedInPerson { Email = "email", Name = "name" });
-        _loggedInHelper = new LoggedInHelper(_context.Object, new StockportWebapp.Config.CurrentEnvironment("local"), _jwtDecoder.Object, _logger.Object);
+        _loggedInHelper = new LoggedInHelper(_context.Object, new CurrentEnvironment("local"), _jwtDecoder.Object, _logger.Object);
     }
 
     [Fact]

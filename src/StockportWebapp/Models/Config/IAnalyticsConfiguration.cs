@@ -1,4 +1,4 @@
-﻿namespace StockportWebapp.Models.Config.AnalyticsConfiguration;
+﻿namespace StockportWebapp.Models.Config;
 
 public interface IAnalyticsConfiguration
 {

@@ -39,7 +39,6 @@ internal class GroupBuilder
     private bool _donations = false;
     private string _accessibleTransportLink = "http://www.link.link.link";
     private string _additionalInformation = "additional information";
-    private List<Document> _additionalDocuments = new List<Document>();
     private DateTime? _dateLastModified = null;
     private List<string> _suitableFor = new List<string>();
     private List<string> _ageRange = new List<string>();
@@ -81,7 +80,6 @@ internal class GroupBuilder
                 _accessibleTransportLink,
                 _groupBranding,
                 _additionalInformation,
-                _additionalDocuments,
                 _dateLastModified,
                 _suitableFor,
                 _ageRange,

@@ -40,7 +40,6 @@ global using StockportWebapp.Filters;
 global using StockportWebapp.Middleware;
 global using StockportWebapp.Models;
 global using StockportWebapp.Models.Config;
-global using StockportWebapp.Models.Config.AnalyticsConfiguration;
 global using StockportWebapp.Models.Emails;
 global using StockportWebapp.Models.Enums;
 global using StockportWebapp.Models.Exceptions;

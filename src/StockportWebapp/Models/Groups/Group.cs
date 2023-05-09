@@ -35,7 +35,6 @@ public class Group
     public string AccessibleTransportLink { get; set; }
     public List<GroupBranding> GroupBranding { get; set; }
     public string AdditionalInformation { get; set; }
-    public List<Document> AdditionalDocuments { get; set; }
     public DateTime? DateLastModified { get; set; }
     public List<string> SuitableFor { get; set; }
     public List<string> AgeRange { get; set; }
@@ -48,7 +47,7 @@ public class Group
         MapPosition mapPosition, bool volunteering, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom,
         DateTime? dateHiddenTo, string status, List<string> cost, string costText, string abilityLevel, bool favourite, string volunteeringText,
         Organisation organisation, List<Group> linkedGroups, bool donations, string accessibleTransportLink, List<GroupBranding> groupBranding, string additionalInformation,
-        List<Document> additionalDocuments, DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange, string donationsText, string donationsUrl, IEnumerable<Alert> alerts)
+        DateTime? dateLastModified, List<string> suitableFor, List<string> ageRange, string donationsText, string donationsUrl, IEnumerable<Alert> alerts)
     {
         Name = name;
         Slug = slug;
@@ -83,7 +82,6 @@ public class Group
         AccessibleTransportLink = accessibleTransportLink;
         GroupBranding = groupBranding;
         AdditionalInformation = additionalInformation;
-        AdditionalDocuments = additionalDocuments;
         DateLastModified = dateLastModified;
         SuitableFor = suitableFor;
         AgeRange = ageRange;
