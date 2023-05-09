@@ -1,8 +1,5 @@
-﻿@using StockportWebapp.Models
-@using StockportWebapp.Utils
+﻿@inject ICookiesHelper CookiesHelper
 @model Alert
-@inject ICookiesHelper CookiesHelper
-
 @{
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
     var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;

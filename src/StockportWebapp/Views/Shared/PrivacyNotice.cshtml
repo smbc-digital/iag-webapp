@@ -1,12 +1,8 @@
-﻿@using System.Collections.Generic
-@model IEnumerable<StockportWebapp.Models.PrivacyNotice>
-
+﻿@model IEnumerable<PrivacyNotice>
 @ViewBag.FileInfo
 
-@{
-    foreach (var privacyNotice in Model)
-    {
-        <div><a href="/privacy-notices/@privacyNotice.Slug">@privacyNotice.Category </a></div>
-    }
+@foreach (var privacyNotice in Model)
+{
+    <div><a href="/privacy-notices/@privacyNotice.Slug">@privacyNotice.Category </a></div>
 }
 
