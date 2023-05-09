@@ -1,10 +1,8 @@
-﻿@model List<StockportWebapp.Models.Event>
-
+﻿@model List<Event>
 @{
-    var heading = "Our upcoming events";   
-
+    var heading = "Our upcoming events";
     var useH2 = false;
-    if (ViewData["EventsH2"] != null && (bool) ViewData["EventsH2"])
+    if (ViewData["EventsH2"] is not null && (bool)ViewData["EventsH2"])
     {
         useH2 = true;
     }

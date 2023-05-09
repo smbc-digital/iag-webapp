@@ -1,7 +1,5 @@
-﻿@using StockportWebapp.Models
-@inject IStaticAssets StaticAssets
+﻿@inject IStaticAssets StaticAssets
 @inject StockportWebapp.Utils.ILoggedInHelper loggedInHelper
-@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
 @{
     var user = loggedInHelper.GetLoggedInPerson();
 }

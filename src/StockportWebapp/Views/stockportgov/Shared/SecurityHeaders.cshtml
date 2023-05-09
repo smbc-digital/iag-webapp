@@ -1,9 +1,4 @@
-﻿@using System.Text
-@using System.Threading.Tasks
-@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Utils
-@inject FeatureToggles FeatureToggles
-@{
+﻿@{
     var host = Context.Request.Host.Host;
     var cspBuilder = new ContentSecurityPolicyBuilder();
     var allowedContent = cspBuilder.BuildPolicy();

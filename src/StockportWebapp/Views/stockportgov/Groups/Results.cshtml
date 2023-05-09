@@ -1,9 +1,4 @@
-﻿@using StockportWebapp.Models
-@using StockportWebapp.Utils
-@using StockportWebapp.ViewModels
-@using StockportWebapp.FeatureToggling
-@inject FeatureToggles FeatureToggles
-@model GroupResults
+﻿@model GroupResults
 @{
     ViewData["Title"] = ViewBag.Category != null ? ViewBag.Category.Name : "All groups";
     ViewData["og:title"] = string.Concat(ViewBag.Category != null ? ViewBag.Category.Name : "All groups", " - Stockport Local");

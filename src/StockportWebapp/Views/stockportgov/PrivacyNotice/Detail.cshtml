@@ -1,13 +1,13 @@
-﻿@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
-@model StockportWebapp.ViewModels.PrivacyNoticeViewModel
+﻿@model PrivacyNoticeViewModel
 @{
     ViewData["Title"] = Model.PrivacyNotice.Category + " privacy notice";
     Layout = "../Shared/_Layout.cshtml";
 }
+
 @section Breadcrumbs {
     <partial name="Breadcrumb" model='Model.PrivacyNotice.Breadcrumbs'/>
 }
+
 <div class="grid-container-full-width">
     <div class="grid-container">
         <div tabindex="-1" id="content"></div>

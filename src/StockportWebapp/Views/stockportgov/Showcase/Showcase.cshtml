@@ -1,14 +1,4 @@
-﻿@using StockportWebapp.ProcessedModels
-@using StockportWebapp.Extensions
-@using StockportWebapp.ViewModels
-@using StockportWebapp.FeatureToggling
-@using StockportWebapp.Models
-@using StockportWebapp.Utils
-@using System.Text.RegularExpressions
-
-@inject FeatureToggles FeatureToggles
-@inject ICookiesHelper CookiesHelper
-
+﻿@inject ICookiesHelper CookiesHelper
 @model ProcessedShowcase
 @{
     ViewData["BannerTypeformUrl"] = Model.TypeformUrl;
