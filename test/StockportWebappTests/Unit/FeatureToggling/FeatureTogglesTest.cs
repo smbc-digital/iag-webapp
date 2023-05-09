@@ -1,137 +1,129 @@
-﻿using FluentAssertions;
-using Moq;
-using StockportWebapp.FeatureToggling;
-using StockportWebappTests_Unit.Helpers;
-using StockportWebappTests_Unit.Unit.Fake;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.FeatureToggling;
 
-namespace StockportWebappTests_Unit.Unit.FeatureToggling
+public class FeatureTogglesReaderTest
 {
-    public class FeatureTogglesReaderTest
+    private FeatureTogglesReader _featureTogglesReader;
+    private static readonly Mock<ILogger<FeatureTogglesReader>> Logger = new Mock<ILogger<FeatureTogglesReader>>();
+    readonly string YamlFile = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
+        "..", "..", "..", "Unit", "FeatureToggling", "featureToggles.yml"));
+
+    readonly string invalidYamlFile = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
+        "..", "..", "..", "Unit", "FeatureToggling", "yamlWithSyntaxError.yml"));
+
+    [Fact]
+    public void ShouldSetToggleValuesToTrueForGivenEnvironment()
     {
-        private FeatureTogglesReader _featureTogglesReader;
-        private static readonly Mock<ILogger<FeatureTogglesReader>> Logger = new Mock<ILogger<FeatureTogglesReader>>();
-        readonly string YamlFile = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
-            "..", "..", "..", "Unit", "FeatureToggling", "featureToggles.yml"));
+        const string appEnvironment = "prod";
+        _featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
+        var featureTogglesReader = _featureTogglesReader;
 
-        readonly string invalidYamlFile = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,
-            "..", "..", "..", "Unit", "FeatureToggling", "yamlWithSyntaxError.yml"));
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-        [Fact]
-        public void ShouldSetToggleValuesToTrueForGivenEnvironment()
-        {
-            const string appEnvironment = "prod";
-            _featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
-            var featureTogglesReader = _featureTogglesReader;
+        featureToggles.SearchBar.Should().Be(true);
+    }
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
+    [Fact]
+    public void ShouldSetToggleValuesToFalseForGivenEnvironment()
+    {
+        string appEnvironment = "prod";
 
-            featureToggles.SearchBar.Should().Be(true);
-        }
+        var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
 
-        [Fact]
-        public void ShouldSetToggleValuesToFalseForGivenEnvironment()
-        {
-            string appEnvironment = "prod";
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-            var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
+        featureToggles.AToZ.Should().Be(false);
+    }
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
+    [Fact]
+    public void ShouldInheritToggleValuesFromProdEnvironment()
+    {
+        string appEnvironment = "preprod";
 
-            featureToggles.AToZ.Should().Be(false);
-        }
+        var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
 
-        [Fact]
-        public void ShouldInheritToggleValuesFromProdEnvironment()
-        {
-            string appEnvironment = "preprod";
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-            var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
+        featureToggles.SearchBar.Should().Be(true);
+        featureToggles.AToZ.Should().Be(false);
+    }
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
+    [Fact]
+    public void ShouldOverrideToggleValuesThatAreSetInProdEnvironment()
+    {
+        string appEnvironment = "preprod";
 
-            featureToggles.SearchBar.Should().Be(true);
-            featureToggles.AToZ.Should().Be(false);
-        }
+        var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
 
-        [Fact]
-        public void ShouldOverrideToggleValuesThatAreSetInProdEnvironment()
-        {
-            string appEnvironment = "preprod";
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-            var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
+        featureToggles.OverriddenFeature.Should().Be(true);
+    }
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
+    [Fact]
+    public void ShouldLogInformationTheLoadedFeatureToggles()
+    {
+        string appEnvironment = "preprod";
 
-            featureToggles.OverriddenFeature.Should().Be(true);
-        }
+        var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
 
-        [Fact]
-        public void ShouldLogInformationTheLoadedFeatureToggles()
-        {
-            string appEnvironment = "preprod";
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-            var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
+        LogTesting.Assert(Logger, LogLevel.Information,
+            $"Feature Toggles for: {appEnvironment}\n" +
+            $"SearchBar: {featureToggles.SearchBar}, " +
+            $"AToZ: {featureToggles.AToZ}, " +
+            $"OverriddenFeature: {featureToggles.OverriddenFeature}, ");
+    }
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
+    [Fact]
+    public void ShouldDefaultAllFeatureTogglesToFalseIfEnvironmentIsNotFound()
+    {
+        string appEnvironment = "notfound";
 
-            LogTesting.Assert(Logger, LogLevel.Information,
-                $"Feature Toggles for: {appEnvironment}\n" +
-                $"SearchBar: {featureToggles.SearchBar}, " +
-                $"AToZ: {featureToggles.AToZ}, " +
-                $"OverriddenFeature: {featureToggles.OverriddenFeature}, ");
-        }
+        var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
 
-        [Fact]
-        public void ShouldDefaultAllFeatureTogglesToFalseIfEnvironmentIsNotFound()
-        {
-            string appEnvironment = "notfound";
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-            var featureTogglesReader = new FeatureTogglesReader(YamlFile, appEnvironment, Logger.Object);
+        featureToggles.AToZ.Should().Be(false);
+        featureToggles.SearchBar.Should().Be(false);
+        featureToggles.OverriddenFeature.Should().Be(false);
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
+        LogTesting.Assert(Logger, LogLevel.Warning,
+            $"No feature toggle configuration found for environment: {appEnvironment}. Setting all features to false.");
+    }
 
-            featureToggles.AToZ.Should().Be(false);
-            featureToggles.SearchBar.Should().Be(false);
-            featureToggles.OverriddenFeature.Should().Be(false);
+    [Fact]
+    public void ShouldDefaultToFalseIfFileNotFound()
+    {
+        string appEnvironment = "prod";
 
-            LogTesting.Assert(Logger, LogLevel.Warning,
-                $"No feature toggle configuration found for environment: {appEnvironment}. Setting all features to false.");
-        }
+        var nonExistentFile = "notfound";
+        var featureTogglesReader = new FeatureTogglesReader(nonExistentFile, appEnvironment, Logger.Object);
 
-        [Fact]
-        public void ShouldDefaultToFalseIfFileNotFound()
-        {
-            string appEnvironment = "prod";
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-            var nonExistentFile = "notfound";
-            var featureTogglesReader = new FeatureTogglesReader(nonExistentFile, appEnvironment, Logger.Object);
+        featureToggles.AToZ.Should().Be(false);
+        featureToggles.SearchBar.Should().Be(false);
+        featureToggles.OverriddenFeature.Should().Be(false);
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
+        LogTesting.Assert(Logger, LogLevel.Warning,
+            $"No feature toggle configuration file found ({nonExistentFile}). Setting all features to false.");
+    }
 
-            featureToggles.AToZ.Should().Be(false);
-            featureToggles.SearchBar.Should().Be(false);
-            featureToggles.OverriddenFeature.Should().Be(false);
+    [Fact]
+    public void ShouldDefaultToFalseIfFileCannotBeParsed()
+    {
+        string appEnvironment = "prod";
 
-            LogTesting.Assert(Logger, LogLevel.Warning,
-                $"No feature toggle configuration file found ({nonExistentFile}). Setting all features to false.");
-        }
+        var featureTogglesReader = new FeatureTogglesReader(invalidYamlFile, appEnvironment, Logger.Object);
 
-        [Fact]
-        public void ShouldDefaultToFalseIfFileCannotBeParsed()
-        {
-            string appEnvironment = "prod";
+        var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
 
-            var featureTogglesReader = new FeatureTogglesReader(invalidYamlFile, appEnvironment, Logger.Object);
+        featureToggles.AToZ.Should().Be(false);
+        featureToggles.SearchBar.Should().Be(false);
+        featureToggles.OverriddenFeature.Should().Be(false);
 
-            var featureToggles = featureTogglesReader.Build<FakeFeatureToggles>();
-
-            featureToggles.AToZ.Should().Be(false);
-            featureToggles.SearchBar.Should().Be(false);
-            featureToggles.OverriddenFeature.Should().Be(false);
-
-            LogTesting.Assert(Logger, LogLevel.Warning,
-                $"Cannot parse feature toggles in {invalidYamlFile}. Setting all features to false.");
-        }
+        LogTesting.Assert(Logger, LogLevel.Warning,
+            $"Cannot parse feature toggles in {invalidYamlFile}. Setting all features to false.");
     }
 }

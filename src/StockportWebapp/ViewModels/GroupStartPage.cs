@@ -1,42 +1,39 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.ViewModels;
 
-namespace StockportWebapp.ViewModels
+public class GroupStartPage
 {
-    public class GroupStartPage
+    public List<GroupCategory> Categories = new List<GroupCategory>();
+    public PrimaryFilter PrimaryFilter { set; get; }
+    public string BackgroundImage { set; get; }
+    public string FeaturedGroupsHeading { get; set; }
+    public List<Group> FeaturedGroups { get; set; }
+    public GroupCategory FeaturedGroupsCategory { get; set; }
+    public GroupSubCategory FeaturedGroupsSubCategory { get; set; }
+    public List<Alert> Alerts { get; set; }
+    public string BodyHeading { get; set; }
+    public string Body { get; set; }
+    public string SecondaryBodyHeading { get; set; }
+    public string SecondaryBody { get; set; }
+    public string MetaDescription { get; set; }
+    public EventBanner EventBanner { get; set; }
+
+    public GroupStartPage() { }
+
+    public GenericFeaturedItemList GenericItemList
     {
-        public List<GroupCategory> Categories = new List<GroupCategory>();
-        public PrimaryFilter PrimaryFilter { set; get; }
-        public string BackgroundImage { set; get; }
-        public string FeaturedGroupsHeading { get; set; }
-        public List<Group> FeaturedGroups { get; set; }
-        public GroupCategory FeaturedGroupsCategory { get; set; }
-        public GroupSubCategory FeaturedGroupsSubCategory { get; set; }
-        public List<Alert> Alerts { get; set; }
-        public string BodyHeading { get; set; }
-        public string Body { get; set; }
-        public string SecondaryBodyHeading { get; set; }
-        public string SecondaryBody { get; set; }
-        public string MetaDescription { get; set; }
-        public EventBanner EventBanner { get; set; }
-
-        public GroupStartPage() { }
-
-        public GenericFeaturedItemList GenericItemList
+        get
         {
-            get
+            var result = new GenericFeaturedItemList();
+            result.Items = new List<GenericFeaturedItem>();
+            foreach (var cat in Categories)
             {
-                var result = new GenericFeaturedItemList();
-                result.Items = new List<GenericFeaturedItem>();
-                foreach (var cat in Categories)
-                {
-                    result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/groups/results?category={cat.Slug}&order=Name+A-Z" });
-                }
-
-                result.ButtonText = string.Empty;
-                result.HideButton = true;
-
-                return result;
+                result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/groups/results?category={cat.Slug}&order=Name+A-Z" });
             }
+
+            result.ButtonText = string.Empty;
+            result.HideButton = true;
+
+            return result;
         }
     }
 }

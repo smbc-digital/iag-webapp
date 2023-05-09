@@ -1,12 +1,9 @@
-﻿@using StockportWebapp.Config
-@using StockportWebapp.Utils
-@inject IApplicationConfiguration appConfig;
-@{
+﻿@{
     ViewData["Title"] = "{pagetitle}";
     ViewData["og:title"] = "{pagetitle}";
     Layout = "/Views/stockportgov/Shared/_LayoutExternal.cshtml";
 
-    var democracyHomeLink = appConfig.GetDemocracyHomeLink();
+    var democracyHomeLink = "https://www.stockport.gov.uk";
 }
 
 <div class="breadcrumb-container">

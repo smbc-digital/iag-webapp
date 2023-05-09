@@ -1,82 +1,71 @@
-﻿using System.Net;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
-using StockportWebapp.Controllers;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.ViewModels;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Controllers;
 
-namespace StockportWebappTests_Unit.Unit.Controllers
+public class AtoZControllerTest
 {
-    public class AtoZControllerTest
+    private readonly Mock<IRepository> _repository;
+    private readonly AtoZController _controller;
+
+    public AtoZControllerTest()
     {
-        private readonly Mock<IRepository> _repository;
-        private readonly AtoZController _controller;
+        _repository = new Mock<IRepository>();
+        _controller = new AtoZController(_repository.Object);
+    }
 
-        public AtoZControllerTest()
-        {
-            _repository = new Mock<IRepository>();
-            _controller = new AtoZController(_repository.Object);
-        }
+    [Fact]
+    public async Task ItReturnsAnAtoZListing()
+    {
+        var atoz = new List<AtoZ> { new AtoZ("title", "slug", "teaser", "type") };
+        var response = new HttpResponse((int)HttpStatusCode.OK, atoz, string.Empty);
 
-        [Fact]
-        public async Task ItReturnsAnAtoZListing()
-        {
-            var atoz = new List<AtoZ> { new AtoZ("title", "slug", "teaser", "type") };
-            var response = new HttpResponse((int)HttpStatusCode.OK, atoz, string.Empty);
+        _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
+            .ReturnsAsync(response);
 
-            _repository.Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
-                .ReturnsAsync(response);
+        var view = await _controller.Index("v") as ViewResult;
+        var model = view.ViewData.Model as AtoZViewModel;
 
-            var view = await _controller.Index("v") as ViewResult;
-            var model = view.ViewData.Model as AtoZViewModel;
+        model.CurrentLetter.Should().Be("V");
+        model.Items.Should().HaveCount(1);
+        model.Items[0].Title.Should().Be("title");
+        model.Items[0].NavigationLink.Should().Contain("slug");
+        model.Items[0].Teaser.Should().Be("teaser");
+    }
 
-            model.CurrentLetter.Should().Be("V");
-            model.Items.Should().HaveCount(1);
-            model.Items[0].Title.Should().Be("title");
-            model.Items[0].NavigationLink.Should().Contain("slug");
-            model.Items[0].Teaser.Should().Be("teaser");
-        }
+    [Fact]
+    public async Task RedirectsTo500ErrorIfUnauthorised()
+    {
+        _repository
+            .Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty));
 
-        [Fact]
-        public async Task RedirectsTo500ErrorIfUnauthorised()
-        {
-            _repository
-                .Setup(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null))
-                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.Unauthorized, string.Empty, string.Empty));
+        var result = await _controller.Index("v") as HttpResponse;
 
-            var result = await _controller.Index("v") as HttpResponse;
+        result.StatusCode.Should().Be(500);
+    }
 
-            result.StatusCode.Should().Be(500);
-        }
+    [Fact]
+    public async Task GetsABlankAtoZWhenNotFoundAtoZListing()
+    {
+        _repository
+            .Setup(o => o.Get<List<AtoZ>>("a", null))
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, "error", string.Empty));
 
-        [Fact]
-        public async Task GetsABlankAtoZWhenNotFoundAtoZListing()
-        {
-            _repository
-                .Setup(o => o.Get<List<AtoZ>>("a", null))
-                .ReturnsAsync(new HttpResponse((int)HttpStatusCode.NotFound, "error", string.Empty));
+        var result = await _controller.Index("a") as ViewResult;
 
-            var result = await _controller.Index("a") as ViewResult;
+        result.ViewData["Error"].Should().Be("error");
+    }
 
-            result.ViewData["Error"].Should().Be("error");
-        }
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    [InlineData("abc")]
+    [InlineData("$")]
+    [InlineData("not a letter")]
+    [InlineData("$Not a letter")]
+    public async Task ShouldReturnANotFoundPageIfTheSearchTermIsNotInTheAlphabet(string searchTerm)
+    {
+        var response = await _controller.Index(searchTerm);
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        [InlineData("abc")]
-        [InlineData("$")]
-        [InlineData("not a letter")]
-        [InlineData("$Not a letter")]
-        public async Task ShouldReturnANotFoundPageIfTheSearchTermIsNotInTheAlphabet(string searchTerm)
-        {
-            var response = await _controller.Index(searchTerm);
-
-            response.Should().BeOfType<NotFoundResult>();
-            _repository.Verify(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null), Times.Never);
-        }
+        response.Should().BeOfType<NotFoundResult>();
+        _repository.Verify(o => o.Get<List<AtoZ>>(It.IsAny<string>(), null), Times.Never);
     }
 }

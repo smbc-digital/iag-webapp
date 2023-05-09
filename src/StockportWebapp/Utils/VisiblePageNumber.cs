@@ -1,8 +1,7 @@
-namespace StockportWebapp.Utils
+namespace StockportWebapp.Utils;
+
+public class VisiblePageNumber
 {
-    public class VisiblePageNumber
-    {
-        public int PageNumber { get; set; }
-        public bool IsCurrentPage { get; set; } = false;
-    }
+    public int PageNumber { get; set; }
+    public bool IsCurrentPage { get; set; } = false;
 }

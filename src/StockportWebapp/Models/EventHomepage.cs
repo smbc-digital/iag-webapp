@@ -1,33 +1,32 @@
-﻿namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models;
+
+public class EventHomepage
 {
-    public class EventHomepage
+    public List<EventHomepageRow> Rows { get; set; }
+    public List<EventCategory> Categories { get; set; }
+    public string MetaDescription { get; set; }
+    public List<Alert> Alerts { get; set; }
+
+
+    public EventHomepage(List<Alert> alerts)
     {
-        public List<EventHomepageRow> Rows { get; set; }
-        public List<EventCategory> Categories { get; set; }
-        public string MetaDescription { get; set; }
-        public List<Alert> Alerts { get; set; }
+        Alerts = alerts;
+    }
 
-
-        public EventHomepage(List<Alert> alerts)
+    public GenericFeaturedItemList GenericItemList
+    {
+        get
         {
-            Alerts = alerts;
-        }
-
-        public GenericFeaturedItemList GenericItemList
-        {
-            get
+            var result = new GenericFeaturedItemList();
+            result.Items = new List<GenericFeaturedItem>();
+            foreach (var cat in Categories)
             {
-                var result = new GenericFeaturedItemList();
-                result.Items = new List<GenericFeaturedItem>();
-                foreach (var cat in Categories)
-                {
-                    result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/events?category={cat.Slug}" });
-                }
-
-                result.ButtonText = string.Empty;
-                result.HideButton = true;
-                return result;
+                result.Items.Add(new GenericFeaturedItem { Icon = cat.Icon, Title = cat.Name, Url = $"/events?category={cat.Slug}" });
             }
+
+            result.ButtonText = string.Empty;
+            result.HideButton = true;
+            return result;
         }
     }
 }

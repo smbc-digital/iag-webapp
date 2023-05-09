@@ -1,26 +1,18 @@
-﻿using System.Reflection;
+﻿namespace StockportWebapp.Utils;
 
-namespace StockportWebapp.Utils
+public class FileReader
 {
-    public class FileReader
+    public string GetStringResponseFromFile(string file)
     {
-        /// <summary>
-        /// Gets the content of a embeded file as a string
-        /// </summary>
-        /// <param name="file">Resource path e.g. StockportConentApiTests.Unit.Test.json</param>
-        /// <returns>String content of file</returns>
-        public string GetStringResponseFromFile(string file)
+        var assembly = this.GetType().GetTypeInfo().Assembly;
+        var resources = assembly.GetManifestResourceNames();
+        var resourceName = resources.FirstOrDefault(f => f.Equals($"{file}", StringComparison.OrdinalIgnoreCase));
+        string json;
+        using (var stream = assembly.GetManifestResourceStream(resourceName))
+        using (var reader = new StreamReader(stream))
         {
-            var assembly = this.GetType().GetTypeInfo().Assembly;
-            var resources = assembly.GetManifestResourceNames();
-            var resourceName = resources.FirstOrDefault(f => f.Equals($"{file}", StringComparison.OrdinalIgnoreCase));
-            string json;
-            using (var stream = assembly.GetManifestResourceStream(resourceName))
-            using (var reader = new StreamReader(stream))
-            {
-                json = reader.ReadToEnd();
-            }
-            return json;
+            json = reader.ReadToEnd();
         }
+        return json;
     }
 }

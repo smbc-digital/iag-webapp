@@ -1,67 +1,63 @@
-﻿using System.Text;
-using StockportWebapp.Extensions;
+﻿namespace StockportWebapp.Utils;
 
-namespace StockportWebapp.Utils
+public class ContentSecurityPolicyElement
 {
-    public class ContentSecurityPolicyElement
+    private StringBuilder _stringBuilder;
+
+    public ContentSecurityPolicyElement(string sourcetype, bool containsSelf = true)
     {
-        private StringBuilder _stringBuilder;
+        _stringBuilder = new StringBuilder(sourcetype);
 
-        public ContentSecurityPolicyElement(string sourcetype, bool containsSelf = true)
+        if (containsSelf)
         {
-            _stringBuilder = new StringBuilder(sourcetype);
-
-            if (containsSelf)
-            {
-                _stringBuilder.Append(" 'self'");
-            }
+            _stringBuilder.Append(" 'self'");
         }
+    }
 
-        public ContentSecurityPolicyElement AddSource(string source, bool appendHttps = true, bool force = false)
+    public ContentSecurityPolicyElement AddSource(string source, bool appendHttps = true, bool force = false)
+    {
+        _stringBuilder.Append(" ");
+        AddSourceForSafari9(source, appendHttps, force);
+
+        return this;
+    }
+
+    private void AddSourceForSafari9(string source, bool appendHttps, bool force)
+    {
+        if (IsSafari9Exception(source) || force)
         {
-            _stringBuilder.Append(" ");
-            AddSourceForSafari9(source, appendHttps, force);
-
-            return this;
+            _stringBuilder.Append(source);
         }
-
-        private void AddSourceForSafari9(string source, bool appendHttps, bool force)
+        else if (appendHttps)
         {
-            if (IsSafari9Exception(source) || force)
-            {
-                _stringBuilder.Append(source);
-            }
-            else if (appendHttps)
-            {
-                AddSourceWithBothHttpAndHttpsForSafari9(source);
-            }
+            AddSourceWithBothHttpAndHttpsForSafari9(source);
         }
+    }
 
-        private bool IsSafari9Exception(string source)
-        {
-            return source == "'unsafe-inline'"
-                   || source == "'unsafe-eval'"
-                   || source == "https:"
-                   || source == "data:"
-                   || source == "wss:"
-                   || source == "http:"
-                   || source.StartsWith("*.");
-        }
+    private bool IsSafari9Exception(string source)
+    {
+        return source == "'unsafe-inline'"
+               || source == "'unsafe-eval'"
+               || source == "https:"
+               || source == "data:"
+               || source == "wss:"
+               || source == "http:"
+               || source.StartsWith("*.");
+    }
 
-        private void AddSourceWithBothHttpAndHttpsForSafari9(string source)
-        {
-            source = source.StripHttpAndHttps();
+    private void AddSourceWithBothHttpAndHttpsForSafari9(string source)
+    {
+        source = source.StripHttpAndHttps();
 
-            _stringBuilder.Append("http://" + source);
-            _stringBuilder.Append(" ");
-            _stringBuilder.Append("https://" + source);
-        }
+        _stringBuilder.Append("http://" + source);
+        _stringBuilder.Append(" ");
+        _stringBuilder.Append("https://" + source);
+    }
 
-        public string Finish()
-        {
-            _stringBuilder.Append("; ");
+    public string Finish()
+    {
+        _stringBuilder.Append("; ");
 
-            return _stringBuilder.ToString();
-        }
+        return _stringBuilder.ToString();
     }
 }

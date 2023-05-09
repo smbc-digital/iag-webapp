@@ -1,10 +1,9 @@
-﻿namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models;
+
+public class GenericFeaturedItem
 {
-    public class GenericFeaturedItem
-    {
-        public string Title { get; set; }
-        public string Url { get; set; }
-        public string Icon { get; set; }
-        public List<GenericFeaturedItem> SubItems { get; set; }
-    }
+    public string Title { get; set; }
+    public string Url { get; set; }
+    public string Icon { get; set; }
+    public List<GenericFeaturedItem> SubItems { get; set; }
 }

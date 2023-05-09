@@ -1,13 +1,12 @@
-﻿@using System.Threading.Tasks
-@using StockportWebapp.ProcessedModels
-@using StockportWebapp.ViewModels
-@model StockportWebapp.Models.Profile
+﻿@model Profile
 @{
+    Layout = "../Shared/_Layout.cshtml";
+
+    var articleTitle = Model.Breadcrumbs.LastOrDefault() is not null ? 
+        Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
 
     ViewData["Title"] = Model.Title;
-    var articleTitle = Model.Breadcrumbs.LastOrDefault() != null ? Model.Breadcrumbs.LastOrDefault().Title + " - " : string.Empty;
     ViewData["og:title"] = articleTitle + Model.Title;
-    Layout = "../Shared/_Layout.cshtml";
 }
 
 @section Breadcrumbs {
@@ -23,7 +22,6 @@
             </div>
             <div class="clearfix"></div>
             <p>@Model.Subtitle</p>
-            
             <article>
                 @Html.Raw(Model.Body)
             </article>

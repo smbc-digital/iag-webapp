@@ -1,25 +1,22 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.Utils;
 
-namespace StockportWebapp.Utils
+public static class GroupImageUrlHelper
 {
-    public static class GroupImageUrlHelper
+    public static string GetImageUrl(Group group)
     {
-        public static string GetImageUrl(Group group)
-        {
-            return group.CategoriesReference.Count > 0 ? GetFirstCategoryThatHasAnImageUrl(group.CategoriesReference) : "";
-        }
+        return group.CategoriesReference.Count > 0 ? GetFirstCategoryThatHasAnImageUrl(group.CategoriesReference) : "";
+    }
 
-        private static string GetFirstCategoryThatHasAnImageUrl(List<GroupCategory> groupCategories)
+    private static string GetFirstCategoryThatHasAnImageUrl(List<GroupCategory> groupCategories)
+    {
+        foreach (GroupCategory category in groupCategories)
         {
-            foreach (GroupCategory category in groupCategories)
+            if (!string.IsNullOrEmpty(category.ImageUrl))
             {
-                if (!string.IsNullOrEmpty(category.ImageUrl))
-                {
-                    return category.ImageUrl;
-                }
+                return category.ImageUrl;
             }
-
-            return "";
         }
+
+        return "";
     }
 }

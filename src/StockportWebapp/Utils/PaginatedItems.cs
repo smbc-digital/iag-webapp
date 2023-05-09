@@ -1,10 +1,7 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.Utils;
 
-namespace StockportWebapp.Utils
+public class PaginatedItems<T>
 {
-    public class PaginatedItems<T>
-    {
-        public List<T> Items { get; set; }
-        public Pagination Pagination { get; set; }
-    }
+    public List<T> Items { get; set; }
+    public Pagination Pagination { get; set; }
 }

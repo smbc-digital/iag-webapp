@@ -1,5 +1,6 @@
-﻿@using StockportWebapp.Config.AnalyticsConfiguration
-@inject IAnalyticsConfiguration Analytics
+﻿@inject IAnalyticsConfiguration Analytics
+@using StockportWebapp.Models.Config;
+
 <!-- Google Tag Manager (noscript) -->
 <noscript aria-hidden="true">
     <iframe src="https://www.googletagmanager.com/ns.html?id=+@Analytics.GetTrackerCode().TagManagerId" title="Google Tag Manager" aria-hidden="true" height="0" width="0" style="display:none;visibility:hidden"></iframe>

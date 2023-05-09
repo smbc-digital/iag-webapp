@@ -1,27 +1,22 @@
-﻿using StockportWebapp.Models;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.Repositories;
+﻿namespace StockportWebapp.Services;
 
-namespace StockportWebapp.Services
+public interface IHomepageService
 {
-    public interface IHomepageService
+    Task<ProcessedHomepage> GetHomepage();
+}
+
+public class HomepageService : IHomepageService
+{
+    public IProcessedContentRepository _processedContentRepository;
+
+    public HomepageService(IProcessedContentRepository processedContentRepository)
     {
-        Task<ProcessedHomepage> GetHomepage();
+        _processedContentRepository = processedContentRepository;
     }
 
-    public class HomepageService : IHomepageService
+    public async Task<ProcessedHomepage> GetHomepage()
     {
-        public IProcessedContentRepository _processedContentRepository;
-
-        public HomepageService(IProcessedContentRepository processedContentRepository)
-        {
-            _processedContentRepository = processedContentRepository;
-        }
-
-        public async Task<ProcessedHomepage> GetHomepage()
-        {
-            var response = await _processedContentRepository.Get<Homepage>();
-            return response.Content as ProcessedHomepage;
-        }
+        var response = await _processedContentRepository.Get<Homepage>();
+        return response.Content as ProcessedHomepage;
     }
 }

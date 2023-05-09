@@ -1,47 +1,39 @@
-﻿namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models;
+
+public class Query : IEquatable<Query>
 {
-    public class Query : IEquatable<Query>
+    private string _value;
+
+    public string Value
     {
-        private string _value;
-
-        public string Value
+        get
         {
-            get
-            {
-                return _value;
-            }
-            set
-            {
-                _value = System.Text.Encodings.Web.UrlEncoder.Default.Encode(value);
-            }
+            return _value;
         }
-
-        public string Name { get; set; }
-
-        public Query(string name, string value)
+        set
         {
-            Value = value;
-            Name = name;
+            _value = System.Text.Encodings.Web.UrlEncoder.Default.Encode(value);
         }
+    }
 
-        public bool Equals(Query other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return string.Equals(Name, other.Name) && string.Equals(Value, other.Value);
-        }
+    public string Name { get; set; }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((Name?.GetHashCode() ?? 0) * 397) ^ (Value?.GetHashCode() ?? 0);
-            }
-        }
+    public Query(string name, string value)
+    {
+        Value = value;
+        Name = name;
+    }
 
-        public override string ToString()
-        {
-            return string.Concat(Name, "=", Value);
-        }
+    public bool Equals(Query other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return string.Equals(Name, other.Name) && string.Equals(Value, other.Value);
+    }
+
+
+    public override string ToString()
+    {
+        return string.Concat(Name, "=", Value);
     }
 }

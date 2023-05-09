@@ -1,9 +1,5 @@
-﻿@using StockportWebapp.FeatureToggling
-@using StockportWebapp.ViewModels
+﻿@inject StockportWebapp.Utils.ViewHelpers viewHelper
 @model HomepageViewModel
-@inject StockportWebapp.Utils.ViewHelpers viewHelper
-@inject FeatureToggles FeatureToggles
-
 @{
     ViewData["Title"] = "Welcome to Stockport Council";
     ViewData["og:title"] = "Welcome to Stockport Council";

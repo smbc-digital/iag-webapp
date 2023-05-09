@@ -1,24 +1,21 @@
-﻿using StockportWebapp.Config;
+﻿namespace StockportWebapp.Models;
 
-namespace StockportWebapp.Models
+public interface IStaticAssets
 {
-    public interface IStaticAssets
+    string UrlFor(string assetName);
+}
+
+public class StaticAssets : IStaticAssets
+{
+    private readonly IApplicationConfiguration _configObject;
+
+    public StaticAssets(IApplicationConfiguration configObject)
     {
-        string UrlFor(string assetName);
+        _configObject = configObject;
     }
 
-    public class StaticAssets : IStaticAssets
+    public string UrlFor(string assetName)
     {
-        private readonly IApplicationConfiguration _configObject;
-
-        public StaticAssets(IApplicationConfiguration configObject)
-        {
-            _configObject = configObject;
-        }
-
-        public string UrlFor(string assetName)
-        {
-            return string.Concat(_configObject.GetStaticAssetsRootUrl(), assetName);
-        }
+        return string.Concat(_configObject.GetStaticAssetsRootUrl(), assetName);
     }
 }

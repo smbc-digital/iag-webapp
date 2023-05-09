@@ -1,0 +1,87 @@
+namespace StockportWebapp.Models.ProcessedModels;
+
+public class ProcessedGroup : IProcessedContentType
+{
+    public string Name { get; set; }
+    public string Slug { get; set; }
+    public string MetaDescription { get; set; }
+    public string PhoneNumber { get; set; }
+    public string Email { get; set; }
+    public string Website { get; set; }
+    public string Twitter { get; set; }
+    public string Facebook { get; set; }
+    public string Address { get; set; }
+    public string Description { get; set; }
+    public string ImageUrl { get; set; }
+    public string ThumbnailImageUrl { get; set; }
+    public List<GroupCategory> CategoriesReference { get; set; }
+    public List<GroupSubCategory> SubCategories { get; set; }
+    public List<Crumb> Breadcrumbs { get; set; }
+    public List<Event> Events { get; set; }
+    public GroupAdministrators GroupAdministrators { get; set; }
+    public DateTime? DateHiddenFrom { get; set; }
+    public DateTime? DateHiddenTo { get; set; }
+    public DateTime? DateLastModified { get; set; }
+    public List<string> Cost { get; set; }
+    public string CostText { get; set; }
+    public string AbilityLevel { get; set; }
+    public bool Favourite { get; set; }
+    public Volunteering Volunteering { get; set; }
+    public Organisation Organisation { get; set; }
+    public List<Group> LinkedGroups { get; private set; }
+    public Donations Donations { get; set; }
+    public MapDetails MapDetails { get; set; }
+    public string CurrentUrl { get; private set; }
+    public string AdditionalInformation { get; set; }
+    public string DonationsText { get; set; }
+    public string DonationsUrl { get; set; }
+    public List<GroupBranding> GroupBranding { get; set; }
+    public IEnumerable<Alert> Alerts { get; set; }
+    public string ProcessedBody { get; }
+    public string ParsedAdditionalInformation { get; }
+
+    public ProcessedGroup() { }
+
+    public ProcessedGroup(string name, string slug, string metaDescription, string phoneNumber, string email, string website, string twitter, string facebook, string address, string processedBody, string imageUrl, string thumbnailImageUrl, List<GroupCategory> categoriesReference, List<GroupSubCategory> subCategories, List<Crumb> breadcrumbs, List<Event> events, GroupAdministrators groupAdministrators, DateTime? dateHiddenFrom, DateTime? dateHiddenTo, List<string> cost, string costText, string abilityLevel, bool favourite, Volunteering volunteering, Organisation organisation, List<Group> linkedGroups, Donations donations, MapDetails mapDetails, string parsedAdditionalInformation, string donationsText, string donationsUrl, DateTime? dateLastModified, List<GroupBranding> groupBranding, IEnumerable<Alert> alerts)
+    {
+        Name = name;
+        Slug = slug;
+        MetaDescription = metaDescription;
+        PhoneNumber = phoneNumber;
+        Email = email;
+        Website = website;
+        Twitter = twitter;
+        Facebook = facebook;
+        Address = address;
+        ProcessedBody = processedBody;
+        ImageUrl = imageUrl;
+        ThumbnailImageUrl = thumbnailImageUrl;
+        CategoriesReference = categoriesReference;
+        SubCategories = subCategories;
+        Breadcrumbs = breadcrumbs;
+        Events = events;
+        GroupAdministrators = groupAdministrators;
+        DateHiddenFrom = dateHiddenFrom;
+        DateHiddenTo = dateHiddenTo;
+        Cost = cost;
+        CostText = costText;
+        AbilityLevel = abilityLevel;
+        Favourite = favourite;
+        Volunteering = volunteering;
+        Organisation = organisation;
+        LinkedGroups = linkedGroups;
+        Donations = donations;
+        MapDetails = mapDetails;
+        ParsedAdditionalInformation = parsedAdditionalInformation;
+        DonationsText = donationsText;
+        DonationsUrl = donationsUrl;
+        DateLastModified = dateLastModified;
+        GroupBranding = groupBranding;
+        Alerts = alerts;
+    }
+
+    public void SetCurrentUrl(string url)
+    {
+        CurrentUrl = url;
+    }
+}

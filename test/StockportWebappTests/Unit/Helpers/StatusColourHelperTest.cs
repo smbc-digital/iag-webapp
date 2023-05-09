@@ -1,30 +1,25 @@
-﻿using FluentAssertions;
-using StockportWebapp.Utils;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Helpers;
 
-namespace StockportWebappTests_Unit.Unit.Helpers
+public class StatusColourHelperTest
 {
-    public class StatusColourHelperTest
+
+    public StatusColourHelperTest()
     {
+    }
 
-        public StatusColourHelperTest()
-        {
-        }
+    [Theory]
+    [InlineData("Published", "green")]
+    [InlineData("Archived", "red")]
+    [InlineData("", "green")]
+    public void ShouldReturnCorrectColour(string status, string colour)
+    {
+        // Arrange
+        string returnColour;
 
-        [Theory]
-        [InlineData("Published", "green")]
-        [InlineData("Archived", "red")]
-        [InlineData("", "green")]
-        public void ShouldReturnCorrectColour(string status, string colour)
-        {
-            // Arrange
-            string returnColour;
+        // Act
+        returnColour = StatusColourHelper.GetStatusColour(status);
 
-            // Act
-            returnColour = StatusColourHelper.GetStatusColour(status);
-
-            // Assert
-            returnColour.Should().Be(colour);
-        }
+        // Assert
+        returnColour.Should().Be(colour);
     }
 }

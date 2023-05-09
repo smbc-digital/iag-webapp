@@ -1,6 +1,4 @@
 ﻿@inject StockportWebapp.Utils.ILoggedInHelper loggedInHelper
-@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
-
 @{
     var user = loggedInHelper.GetLoggedInPerson();
     var headerClass = !string.IsNullOrEmpty(user.Email) ? "logged-in" : string.Empty;

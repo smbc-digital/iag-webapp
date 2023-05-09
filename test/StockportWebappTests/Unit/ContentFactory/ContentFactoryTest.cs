@@ -1,63 +1,52 @@
-﻿using FluentAssertions;
-using Moq;
-using StockportWebapp.ContentFactory;
-using StockportWebapp.Models;
-using StockportWebapp.Parsers;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.Utils;
-using StockportWebappTests_Unit.Helpers;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
-namespace StockportWebappTests_Unit.Unit.ContentFactory
+public class ContentFactoryTest
 {
-    public class ContentFactoryTest
+    private readonly ContentTypeFactory _factory;
+
+    public ContentFactoryTest()
     {
-        private readonly ContentTypeFactory _factory;
+        var tagParserContainer = new Mock<ISimpleTagParserContainer>();
+        var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
+        var documentTagParser = new Mock<IDynamicTagParser<Document>>();
+        var alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
+        var httpContextAccessor = new Mock<IHttpContextAccessor>();
+        var s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
+        var privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
+        tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns("");
+        s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("");
 
-        public ContentFactoryTest()
-        {
-            var tagParserContainer = new Mock<ISimpleTagParserContainer>();
-            var profileTagParser = new Mock<IDynamicTagParser<Profile>>();
-            var documentTagParser = new Mock<IDynamicTagParser<Document>>();
-            var alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
-            var httpContextAccessor = new Mock<IHttpContextAccessor>();
-            var s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
-            var privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
-            tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>())).Returns("");
-            s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("");
+        _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, s3BucketParser.Object, privacyNoticeTagParser.Object);
+    }
 
-            _factory = new ContentTypeFactory(tagParserContainer.Object, profileTagParser.Object, new MarkdownWrapper(), documentTagParser.Object, alertsInlineTagParser.Object, httpContextAccessor.Object, s3BucketParser.Object, privacyNoticeTagParser.Object);
-        }
+    [Fact]
+    public void ItUsesSectionFactoryToBuildProcessedSectionFromSection()
+    {
+        var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
 
-        [Fact]
-        public void ItUsesSectionFactoryToBuildProcessedSectionFromSection()
-        {
-            var section = new Section(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Profile>(), new List<Document>(), new List<Alert>());
+        var processedSection = _factory.Build<Section>(section);
 
-            var processedSection = _factory.Build<Section>(section);
+        processedSection.Should().BeOfType<ProcessedSection>();
+    }
 
-            processedSection.Should().BeOfType<ProcessedSection>();
-        }
+    [Fact]
+    public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
+    {
+        var article = new Article(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
+            new List<Section>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), new bool());
 
-        [Fact]
-        public void ItUsesArticleFactoryToBuildProcessedArticleFromArticle()
-        {
-            var article = new Article(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString,
-                new List<Section>(), TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new List<Profile>(), new List<Document>(), new List<Alert>(), new DateTime(), new bool());
+        var processedArticle = _factory.Build<Article>(article);
 
-            var processedArticle = _factory.Build<Article>(article);
+        processedArticle.Should().BeOfType<ProcessedArticle>();
+    }
 
-            processedArticle.Should().BeOfType<ProcessedArticle>();
-        }
+    [Fact]
+    public void ItUsesNewsFactoryToBuildProcessedNewsFromNews()
+    {
+        var news = new News(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new DateTime(), new DateTime(), new List<Alert>(), new List<string>(), new List<Document>());
 
-        [Fact]
-        public void ItUsesNewsFactoryToBuildProcessedNewsFromNews()
-        {
-            var news = new News(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new DateTime(), new DateTime(), new List<Alert>(), new List<string>(), new List<Document>());
+        var processed = _factory.Build<News>(news);
 
-            var processed = _factory.Build<News>(news);
-
-            processed.Should().BeOfType<ProcessedNews>();
-        }
+        processed.Should().BeOfType<ProcessedNews>();
     }
 }

@@ -1,7 +1,4 @@
-﻿@using System.Threading.Tasks
-@using StockportWebapp.ProcessedModels
-@model ProcessedShowcase
-
+﻿@model ProcessedShowcase
 @{
     var header = string.IsNullOrWhiteSpace(Model.NewsSubheading) ? "Latest News" : Model.NewsSubheading;
     var querystring = Model.NewsCategoryOrTag == "C" ? "Category" : "tag";

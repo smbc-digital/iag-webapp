@@ -1,9 +1,8 @@
-﻿namespace StockportWebapp.ViewModels
-{
-    public class ThankYouMessageViewModel
-    {
-        public string ReturnUrl { get; set; } = string.Empty;
+﻿namespace StockportWebapp.ViewModels;
 
-        public string ButtonText { get; set; } = "Return to previous page";
-    }
+public class ThankYouMessageViewModel
+{
+    public string ReturnUrl { get; set; } = string.Empty;
+
+    public string ButtonText { get; set; } = "Return to previous page";
 }

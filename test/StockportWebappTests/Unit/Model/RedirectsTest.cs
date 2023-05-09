@@ -1,29 +1,24 @@
-﻿using FluentAssertions;
-using StockportWebapp.Models;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Model;
 
-namespace StockportWebappTests_Unit.Unit.Model
+public class RedirectsTest
 {
-    public class RedirectsTest
+    [Fact]
+    public void ShouldCompareKeysWithCurrentCultureIgnoreCase()
     {
-        [Fact]
-        public void ShouldCompareKeysWithCurrentCultureIgnoreCase()
+        var fromJsonRedirects = new RedirectDictionary
         {
-            var fromJsonRedirects = new RedirectDictionary
-            {
-                {"from", "to"},
-                {"from_again", "to_again"}
-            };
+            {"from", "to"},
+            {"from_again", "to_again"}
+        };
 
-            var businessIdRedirects = new BusinessIdRedirectDictionary
-            {
-                {"unittest", fromJsonRedirects}
-            };
+        var businessIdRedirects = new BusinessIdRedirectDictionary
+        {
+            {"unittest", fromJsonRedirects}
+        };
 
-            var redirects = new ShortUrlRedirects(businessIdRedirects);
+        var redirects = new ShortUrlRedirects(businessIdRedirects);
 
-            redirects.Redirects.Count.Should().Be(1);
-            redirects.Redirects["unittest"].Comparer.Should().Be(StringComparer.CurrentCultureIgnoreCase);
-        }
+        redirects.Redirects.Count.Should().Be(1);
+        redirects.Redirects["unittest"].Comparer.Should().Be(StringComparer.CurrentCultureIgnoreCase);
     }
 }

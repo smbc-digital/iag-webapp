@@ -1,9 +1,8 @@
-﻿namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models;
+
+public class RedisValueData
 {
-    public class RedisValueData
-    {
-        public string Key { get; set; }
-        public string Expiry { get; set; }
-        public int NumberOfItems { get; set; }
-    }
+    public string Key { get; set; }
+    public string Expiry { get; set; }
+    public int NumberOfItems { get; set; }
 }
