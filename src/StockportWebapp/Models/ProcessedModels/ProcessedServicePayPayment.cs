@@ -1,7 +1,4 @@
-﻿using StockportWebapp.Enums;
-using StockportWebapp.Models;
-
-namespace StockportWebapp.ProcessedModels
+﻿namespace StockportWebapp.Models.ProcessedModels
 {
     public class ProcessedServicePayPayment : IProcessedContentType
     {

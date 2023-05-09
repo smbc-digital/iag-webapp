@@ -1,6 +1,4 @@
-using StockportWebapp.Models;
-
-namespace StockportWebapp.ProcessedModels
+namespace StockportWebapp.Models.ProcessedModels
 {
     public class ProcessedGroup : IProcessedContentType
     {
@@ -90,7 +88,7 @@ namespace StockportWebapp.ProcessedModels
 
         public void SetCurrentUrl(string url)
         {
-            this.CurrentUrl = url;
+            CurrentUrl = url;
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using StockportWebapp.Models;
-using StockportWebapp.Parsers;
-using StockportWebapp.Utils;
-
-namespace StockportWebapp.ProcessedModels
+﻿namespace StockportWebapp.Models.ProcessedModels
 {
     public interface IContactUsMessageContainer
     {

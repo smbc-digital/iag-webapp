@@ -1,7 +1,4 @@
-﻿using StockportWebapp.Models;
-using StockportWebapp.Utils;
-
-namespace StockportWebapp.ProcessedModels
+﻿namespace StockportWebapp.Models.ProcessedModels
 {
     public class ProcessedTopic
     {
