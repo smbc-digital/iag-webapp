@@ -81,7 +81,7 @@ public class GroupControllerTest
 
         // Mocks
         _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            .ReturnsAsync(new HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
         _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
 
@@ -104,9 +104,9 @@ public class GroupControllerTest
     public async Task GetsA404NotFoundGroup()
     {
         _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
+            .ReturnsAsync(new StockportWebapp.Client.HttpResponse((int)HttpStatusCode.NotFound, null, string.Empty));
 
-        var response = await _groupController.Detail("not-found-slug") as StockportWebapp.Http.HttpResponse;
+        var response = await _groupController.Detail("not-found-slug") as StockportWebapp.Client.HttpResponse;
 
         response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
     }
@@ -184,7 +184,7 @@ public class GroupControllerTest
         // Mocks
         _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
         _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
+            .ReturnsAsync(new StockportWebapp.Client.HttpResponse((int)HttpStatusCode.OK, processedGroup, string.Empty));
 
         _configuration.Setup(_ => _.GetArchiveEmailPeriods())
             .Returns(new List<ArchiveEmailPeriod> { new ArchiveEmailPeriod { NumOfDays = 1 } });
@@ -207,7 +207,7 @@ public class GroupControllerTest
 
         // Mocks
         _processedRepository.Setup(o => o.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(new StockportWebapp.Http.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
+            .ReturnsAsync(new StockportWebapp.Client.HttpResponse((int)HttpStatusCode.OK, group, string.Empty));
         _loggedInHelper.Setup(_ => _.GetLoggedInPerson()).Returns(new LoggedInPerson());
 
         _configuration.Setup(_ => _.GetArchiveEmailPeriods())
@@ -242,7 +242,7 @@ public class GroupControllerTest
             Email = "test@email.com"
         };
         _repository.Setup(_ => _.Get<Group>(It.IsAny<string>(), It.IsAny<List<Query>>()))
-            .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, group));
+            .ReturnsAsync(StockportWebapp.Client.HttpResponse.Successful((int)HttpStatusCode.OK, group));
         _groupsService.Setup(_ =>
             _.HasGroupPermission(It.IsAny<string>(), It.IsAny<List<GroupAdministratorItems>>(),
                 It.IsAny<string>())).Returns(true);
@@ -268,7 +268,7 @@ public class GroupControllerTest
             o.Get<GroupResults>(
                 It.IsAny<string>(),
                 It.IsAny<List<Query>>()))
-            .ReturnsAsync(StockportWebapp.Http.HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
+            .ReturnsAsync(StockportWebapp.Client.HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
 
         var mockTime = new Mock<ITimeProvider>();
         var viewHelper = new ViewHelpers(mockTime.Object);

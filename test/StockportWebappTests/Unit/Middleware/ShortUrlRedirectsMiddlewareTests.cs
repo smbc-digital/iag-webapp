@@ -43,7 +43,7 @@ public class ShortUrlRedirectsMiddlewareTests
         legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 50, 0));
         var middleware = new ShortUrlRedirectsMiddleware(next.Object, shortUrlRedirect, legacyUrlRedirects, _logger.Object, _mockRepository.Object);
 
-        _mockRepository.Setup(_ => _.GetRedirects()).ReturnsAsync(new StockportWebapp.Http.HttpResponse(200, new Redirects(shortItems, legacyItems), string.Empty));
+        _mockRepository.Setup(_ => _.GetRedirects()).ReturnsAsync(new HttpResponse(200, new Redirects(shortItems, legacyItems), string.Empty));
 
         var httpContext = new DefaultHttpContext();
         httpContext.Request.Path = "/short-test";

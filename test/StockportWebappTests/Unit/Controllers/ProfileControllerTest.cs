@@ -2,8 +2,8 @@
 
 public class ProfileControllerTest
 {
-    private readonly Mock<IProcessedContentRepository> _fakeRepository = new Mock<IProcessedContentRepository>();
-    private readonly Mock<IProfileService> _profileService = new Mock<IProfileService>();
+    private readonly Mock<IProcessedContentRepository> _fakeRepository = new();
+    private readonly Mock<IProfileService> _profileService = new();
     private readonly ProfileController _profileController;
 
 
@@ -29,16 +29,4 @@ public class ProfileControllerTest
 
         model.Title.Should().Be(profileEntity.Title);
     }
-
-    //[Fact]
-    //public async Task GetsA404NotFoundProfile()
-    //{
-    //    _profileService
-    //        .Setup(_ => _.GetProfile(It.IsAny<string>()))
-    //        .ReturnsAsync(default(ProfileEntity));
-
-    //    var response = await _profileController.Index("not-found-slug") as ViewResult;
-
-    //    response.StatusCode.Should().Be((int)HttpStatusCode.NotFound);
-    //}
 }

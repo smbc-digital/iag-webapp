@@ -36,7 +36,7 @@ public class LegacyRedirectsManagerTest
     {
         _mockRepository
             .Setup(_ => _.GetRedirects())
-            .ReturnsAsync(new StockportWebapp.Http.HttpResponse(200, new Redirects(new BusinessIdRedirectDictionary(), new BusinessIdRedirectDictionary()), string.Empty));
+            .ReturnsAsync(new HttpResponse(200, new Redirects(new BusinessIdRedirectDictionary(), new BusinessIdRedirectDictionary()), string.Empty));
         _legacyUrlRedirects.LastUpdated = DateTime.Now.Subtract(new TimeSpan(0, 45, 0));
         var legacyRedirectsManager = new LegacyRedirectsMapper(new BusinessId("businessId-does-not-exist"), _legacyUrlRedirects, _shortUrlRedirects, _mockRepository.Object);
 
