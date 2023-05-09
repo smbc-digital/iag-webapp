@@ -1,56 +1,49 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.ViewModels;
+﻿namespace StockportWebapp.Controllers;
 
-namespace StockportWebapp.Controllers
+[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Long)]
+public class AtoZController : Controller
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Long)]
-    public class AtoZController : Controller
+    private readonly IRepository _repository;
+
+    public AtoZController(IRepository repository)
     {
-        private readonly IRepository _repository;
+        _repository = repository;
+    }
 
-        public AtoZController(IRepository repository)
+    [Route("/atoz/{letter}")]
+    public async Task<IActionResult> Index(string letter)
+    {
+        if (IsNotInTheAlphabet(letter)) return NotFound();
+
+        var httpResponse = await _repository.Get<List<AtoZ>>(letter);
+
+
+        if (httpResponse.IsNotAuthorised())
+            return new HttpResponse(500, "", "Error");
+
+        var response = new List<AtoZ>();
+
+        if (!httpResponse.IsSuccessful())
         {
-            _repository = repository;
+            ViewBag.Error = httpResponse.Content;
+        }
+        else
+        {
+            response = httpResponse.Content as List<AtoZ>;
         }
 
-        [Route("/atoz/{letter}")]
-        public async Task<IActionResult> Index(string letter)
+        var model = new AtoZViewModel
         {
-            if (IsNotInTheAlphabet(letter)) return NotFound();
+            Items = response,
+            CurrentLetter = letter.ToUpper(),
+            Breadcrumbs = new List<Crumb>()
+        };
 
-            var httpResponse = await _repository.Get<List<AtoZ>>(letter);
+        return View(model);
+    }
 
-
-            if (httpResponse.IsNotAuthorised())
-                return new HttpResponse(500, "", "Error");
-
-            var response = new List<AtoZ>();
-
-            if (!httpResponse.IsSuccessful())
-            {
-                ViewBag.Error = httpResponse.Content;
-            }
-            else
-            {
-                response = httpResponse.Content as List<AtoZ>;
-            }
-
-            var model = new AtoZViewModel
-            {
-                Items = response,
-                CurrentLetter = letter.ToUpper(),
-                Breadcrumbs = new List<Crumb>()
-            };
-
-            return View(model);
-        }
-
-        private static bool IsNotInTheAlphabet(string letter)
-        {
-            return string.IsNullOrEmpty(letter) || letter.Length != 1 || !char.IsLetter(letter[0]);
-        }
+    private static bool IsNotInTheAlphabet(string letter)
+    {
+        return string.IsNullOrEmpty(letter) || letter.Length != 1 || !char.IsLetter(letter[0]);
     }
 }

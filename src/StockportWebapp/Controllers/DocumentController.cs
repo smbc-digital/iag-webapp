@@ -1,44 +1,36 @@
-using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Http;
-using StockportWebapp.Parsers;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.Repositories;
-using StockportWebapp.ViewModels;
+namespace StockportWebapp.Controllers;
 
-namespace StockportWebapp.Controllers
+public class DocumentController : Controller
 {
-    public class DocumentController : Controller
+    private readonly IProcessedContentRepository _repository;
+    private readonly IDocumentPageRepository _documentPageRepository;
+    private readonly IContactUsMessageTagParser _contactUsMessageParser;
+
+    public DocumentController(
+        IProcessedContentRepository repository,
+        IContactUsMessageTagParser contactUsMessageParser,
+        IDocumentPageRepository documentPageRepository
+        )
     {
-        private readonly IProcessedContentRepository _repository;
-        private readonly IDocumentPageRepository _documentPageRepository;
-        private readonly IContactUsMessageTagParser _contactUsMessageParser;
+        _repository = repository;
+        _contactUsMessageParser = contactUsMessageParser;
+        _documentPageRepository = documentPageRepository;
+    }
 
-        public DocumentController(
-            IProcessedContentRepository repository,
-            IContactUsMessageTagParser contactUsMessageParser,
-            IDocumentPageRepository documentPageRepository
-            )
-        {
-            _repository = repository;
-            _contactUsMessageParser = contactUsMessageParser;
-            _documentPageRepository = documentPageRepository;
-        }
+    [Route("/documents/{documentPageSlug}")]
+    public async Task<IActionResult> Index(string documentPageSlug)
+    {
+        var documentPageHttpResponse = await _documentPageRepository.Get(documentPageSlug);
 
-        [Route("/documents/{documentPageSlug}")]
-        public async Task<IActionResult> Index(string documentPageSlug)
-        {
-            var documentPageHttpResponse = await _documentPageRepository.Get(documentPageSlug);
+        if (!documentPageHttpResponse.IsSuccessful())
+            return documentPageHttpResponse;
 
-            if (!documentPageHttpResponse.IsSuccessful())
-                return documentPageHttpResponse;
+        var documentPage = documentPageHttpResponse.Content as ProcessedDocumentPage;
 
-            var documentPage = documentPageHttpResponse.Content as ProcessedDocumentPage;
+        var viewModel = new DocumentPageViewModel(documentPage);
 
-            var viewModel = new DocumentPageViewModel(documentPage);
+        ViewBag.CurrentUrl = Request?.GetDisplayUrl();
 
-            ViewBag.CurrentUrl = Request?.GetDisplayUrl();
-
-            return View(viewModel);
-        }
+        return View(viewModel);
     }
 }

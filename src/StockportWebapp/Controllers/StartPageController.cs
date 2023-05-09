@@ -1,33 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.Repositories;
+﻿namespace StockportWebapp.Controllers;
 
-namespace StockportWebapp.Controllers
+[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
+public class StartPageController : Controller
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Short)]
-    public class StartPageController : Controller
+
+    private readonly IProcessedContentRepository _processedContentRepository;
+
+    public StartPageController(IProcessedContentRepository processedContnentRepository)
     {
+        _processedContentRepository = processedContnentRepository;
+    }
 
-        private readonly IProcessedContentRepository _processedContentRepository;
+    [HttpGet]
+    [Route("/start/{slug}")]
+    public async Task<IActionResult> Index(string slug)
+    {
+        var response = await _processedContentRepository.Get<StartPage>(slug);
 
-        public StartPageController(IProcessedContentRepository processedContnentRepository)
-        {
-            _processedContentRepository = processedContnentRepository;
-        }
+        if (!response.IsSuccessful()) return response;
 
-        [HttpGet]
-        [Route("/start/{slug}")]
-        public async Task<IActionResult> Index(string slug)
-        {
-            var response = await _processedContentRepository.Get<StartPage>(slug);
+        var startPage = response.Content as ProcessedStartPage;
 
-            if (!response.IsSuccessful()) return response;
-
-            var startPage = response.Content as ProcessedStartPage;
-
-            return View(startPage);
-        }
+        return View(startPage);
     }
 }

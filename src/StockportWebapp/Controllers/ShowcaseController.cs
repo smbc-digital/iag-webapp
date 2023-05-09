@@ -1,37 +1,29 @@
-using Microsoft.AspNetCore.Mvc;
-using StockportWebapp.Config;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.Repositories;
+namespace StockportWebapp.Controllers;
 
-namespace StockportWebapp.Controllers
+[ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
+public class ShowcaseController : Controller
 {
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = Cache.Medium)]
-    public class ShowcaseController : Controller
+    private readonly IProcessedContentRepository _repository;
+    private readonly IApplicationConfiguration _config;
+
+    public ShowcaseController(
+        IProcessedContentRepository repository,
+        IApplicationConfiguration config)
     {
-        private readonly IProcessedContentRepository _repository;
-        private readonly IApplicationConfiguration _config;
+        _repository = repository;
+        _config = config;
+    }
 
-        public ShowcaseController(
-            IProcessedContentRepository repository,
-            IApplicationConfiguration config)
-        {
-            _repository = repository;
-            _config = config;
-        }
+    [Route("/showcase/{slug}")]
+    public async Task<IActionResult> Showcase(string slug)
+    {
+        var response = await _repository.Get<Showcase>(slug);
 
-        [Route("/showcase/{slug}")]
-        public async Task<IActionResult> Showcase(string slug)
-        {
-            var response = await _repository.Get<Showcase>(slug);
+        if (!response.IsSuccessful())
+            return response;
 
-            if (!response.IsSuccessful())
-                return response;
+        var showcase = response.Content as ProcessedShowcase;
 
-            var showcase = response.Content as ProcessedShowcase;
-
-            return View("Showcase", showcase);
-        }
+        return View("Showcase", showcase);
     }
 }
