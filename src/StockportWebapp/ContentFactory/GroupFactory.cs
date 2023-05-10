@@ -47,11 +47,43 @@ public class GroupFactory
             AccessibleTransportLink = group.AccessibleTransportLink
         };
 
-        return new ProcessedGroup(group.Name, group.Slug, group.MetaDescription, group.PhoneNumber, group.Email, group.Website, group.Twitter,
-            group.Facebook, group.Address, processedBody, group.ImageUrl, group.ThumbnailImageUrl, group.CategoriesReference, group.SubCategories,
-            group.Breadcrumbs, group.Events, group.GroupAdministrators, group.DateHiddenFrom, group.DateHiddenTo,
-            group.Cost, group.CostText, group.AbilityLevel, group.Favourite, volunteering, group.Organisation,
-            group.LinkedGroups, donations, mapDetails, parsedAdditionalInformation, group.DonationsText, group.DonationsUrl,
-            group.DateLastModified, group.GroupBranding, group.Alerts);
+        return new ProcessedGroup
+        {
+            Name = group.Name,
+            ProcessedBody = processedBody,
+            Description = group.Description,
+            Slug = group.Slug,
+            MetaDescription = group.MetaDescription,
+            PhoneNumber = group.PhoneNumber,
+            Email = group.Email,
+            Website = group.Website,
+            Twitter = group.Twitter,
+            Facebook = group.Facebook,
+            Address = group.Address,
+            ImageUrl = group.ImageUrl,
+            ThumbnailImageUrl = group.ThumbnailImageUrl,
+            CategoriesReference = group.CategoriesReference,
+            SubCategories = group.SubCategories,
+            Breadcrumbs = group.Breadcrumbs,
+            Events = group.Events,
+            GroupAdministrators = group.GroupAdministrators,
+            DateHiddenFrom = group.DateHiddenFrom,
+            DateHiddenTo = group.DateHiddenTo,
+            Cost = group.Cost,
+            CostText = group.CostText,
+            AbilityLevel = group.AbilityLevel,
+            Favourite = group.Favourite,
+            Volunteering = volunteering,
+            Organisation = group.Organisation,
+            LinkedGroups = group.LinkedGroups,
+            Donations = donations,
+            MapDetails = mapDetails,
+            AdditionalInformation = parsedAdditionalInformation,
+            DonationsText = group.DonationsText,
+            DonationsUrl = group.DonationsUrl,
+            DateLastModified = group.DateLastModified,
+            GroupBranding = group.GroupBranding,
+            Alerts = group.Alerts
+        };
     }
 }
