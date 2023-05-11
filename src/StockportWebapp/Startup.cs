@@ -42,6 +42,7 @@ public class Startup
         services.AddTransient<IFilteredUrl>(p => new FilteredUrl(p.GetService<ITimeProvider>()));
 
         // custom extensions
+        services.AddHttpClient<ICivicaPayGateway, CivicaPayGateway>(Configuration);
         services.AddFeatureToggles(_contentRootPath, _appEnvironmentName);
         services.AddCustomisationOfViews();
         services.AddTimeProvider();

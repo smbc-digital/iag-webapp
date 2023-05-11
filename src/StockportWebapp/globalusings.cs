@@ -29,6 +29,7 @@ global using ReverseMarkdown;
 global using Serilog;
 global using StackExchange.Redis;
 global using StockportGovUK.AspNetCore.Logging.Elasticsearch.Aws;
+global using StockportGovUK.NetStandard.Gateways.Extensions;
 global using StockportGovUK.NetStandard.Gateways.CivicaPay;
 global using StockportGovUK.NetStandard.Gateways.Models.Civica.Pay.Request;
 global using StockportWebapp;
