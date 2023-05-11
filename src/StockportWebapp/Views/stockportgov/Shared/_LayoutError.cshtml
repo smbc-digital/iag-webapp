@@ -24,9 +24,8 @@
     <div class="background-image" style="background-image: url('https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/bg-sg-home.jpg')">
         @RenderBody()
     </div>
-    <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
-        @await Component.InvokeAsync("Footer")
-    </distributed-cache>
+
+    @await Component.InvokeAsync("Footer")
 
     <script>
         require(['/assets/javascript/config.min.js'], function() {
