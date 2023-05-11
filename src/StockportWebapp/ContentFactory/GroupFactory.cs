@@ -50,8 +50,7 @@ public class GroupFactory
         return new ProcessedGroup
         {
             Name = group.Name,
-            ProcessedBody = processedBody,
-            Description = group.Description,
+            Description = processedBody,
             Slug = group.Slug,
             MetaDescription = group.MetaDescription,
             PhoneNumber = group.PhoneNumber,
