@@ -26,7 +26,6 @@ global using StockportWebapp.Client;
 global using StockportWebapp.ContentFactory;
 global using StockportWebapp.Controllers;
 global using StockportWebapp.DataProtection;
-global using StockportWebapp.FeatureToggling;
 global using StockportWebapp.Filters;
 global using StockportWebapp.Middleware;
 global using StockportWebapp.Models;
