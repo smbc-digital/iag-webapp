@@ -38,50 +38,7 @@ See seperate Wiki on GitLab for decrypting and encrypting secrets for IAG-WebApp
 
 ***
 ## Feature Toggles
-The `featureToggles.yml` file will be read on startup to initialise `FeatureToggles`. To add a new feature toggle to the app:
-1. Create a new property in `FeatureToggles` class with the name of the feature. A bool is false by default.
-
-```CSharp
-    Class FeatureToggles
-    {
-        public bool ShowAlertInArticleView { get; set; }
-    }
-```
-
-2. Add the new property in the `featureToggles.yml` file. When adding a new feature toggle, always set it in prod environment first, then overwrite it where you need. The application loads the feature toggles based on the value of `ASPNETCORE_ENVIRONMENT`. Here is an example:
-
-```Ruby
-prod: &default
-    ShowAlertInArticleView: false
-    SearchBar: true
-qa:
-    <<: *default                # Inherits features from prod(aka default alias)
-int:
-    <<: *default
-    ShowAlertInArticleView: true    # Overwrite the value for int environment
-```
-
-3. Inject the `FeatureToggles` class where you need to use it (`Startup` does that for you, just introduce the param in the class constructor).
-
-```CSharp
-  Class NewClassWithFeatureToggle
-  {
-      private readonly FeatureToggles _featureToggles;
-
-      public NewClassWithFeatureToggle(string someParam, FeatureToggles featureToggles)
-      {
-          _featureToggles = featureToggles
-      }
-
-      public void SomeMethod()
-      {
-          if (_featureToggles.ShowAlertInArticleView)
-          {
-              // do something
-          }
-      }
-  }
-```
+T.B.C -  adopting the newer ASP.NET Feature Management way of handling feature flags.
 
 ***
 ## Style
