@@ -4,18 +4,6 @@ namespace StockportWebapp.Utils.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddFeatureToggles(this IServiceCollection services, string contentRootPath, string appEnvironment)
-        {
-            services.AddSingleton(p =>
-            {
-                var featureTogglesReader = new FeatureTogglesReader($"{contentRootPath}/featureToggles.yml", appEnvironment,
-                    p.GetService<ILogger<FeatureTogglesReader>>());
-                return featureTogglesReader.Build<FeatureToggles>();
-            });
-
-            return services;
-        }
-
         public static IServiceCollection AddCustomisationOfViews(this IServiceCollection services)
         {
             services.AddSingleton<IViewRender, ViewRender>();
@@ -157,7 +145,7 @@ namespace StockportWebapp.Utils.Extensions
         {
             services.AddTransient<IHealthcheckService>(
                 p => new HealthcheckService($"{contentRootPath}/version.txt", $"{contentRootPath}/sha.txt",
-                    new FileWrapper(), p.GetService<FeatureToggles>(), p.GetService<IHttpClient>(),
+                    new FileWrapper(), p.GetService<IHttpClient>(),
                     p.GetService<UrlGenerator>(), appEnvironment, p.GetService<IApplicationConfiguration>(), p.GetService<BusinessId>()));
 
             services.AddTransient<INewsService>(p => new NewsService(p.GetService<IRepository>()));

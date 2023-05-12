@@ -3,17 +3,11 @@
 public class AlertsInlineTagParser : IDynamicTagParser<Alert>
 {
     private readonly IViewRender _viewRenderer;
-    private readonly ILogger<Alert> _logger;
-    private readonly FeatureToggles _featureToggles;
 
-    public AlertsInlineTagParser(IViewRender viewRenderer, ILogger<Alert> logger, FeatureToggles featureToggles)
-    {
-        _viewRenderer = viewRenderer;
-        _logger = logger;
-        _featureToggles = featureToggles;
-    }
+    public AlertsInlineTagParser(IViewRender viewRenderer)
+        => _viewRenderer = viewRenderer;
 
-    protected Regex TagRegex => new Regex("{{Alerts-Inline:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
+    protected Regex TagRegex => new("{{Alerts-Inline:(\\s*[/a-zA-Z0-9][^}]+)}}", RegexOptions.Compiled);
 
     public string Parse(string content, IEnumerable<Alert> alertsInline)
     {

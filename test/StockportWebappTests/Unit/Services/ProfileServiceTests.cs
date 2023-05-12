@@ -7,7 +7,6 @@ public class ProfileServiceTests
     private readonly Mock<ISimpleTagParserContainer> _parser;
     private readonly MarkdownWrapper _markdownWrapper;
     private readonly IDynamicTagParser<Alert> _alerts;
-    private readonly Mock<ILogger<Alert>> _logger;
     private readonly Mock<IViewRender> _viewRender;
     private readonly Mock<ITriviaFactory> _triviaFactory;
     private readonly Mock<IDynamicTagParser<InlineQuote>> _inlineQuoteTagParser;
@@ -18,10 +17,9 @@ public class ProfileServiceTests
         _repository = new Mock<IRepository>();
         _parser = new Mock<ISimpleTagParserContainer>();
         _markdownWrapper = new MarkdownWrapper();
-        _logger = new Mock<ILogger<Alert>>();
         _viewRender = new Mock<IViewRender>();
         _inlineQuoteTagParser = new Mock<IDynamicTagParser<InlineQuote>>();
-        _alerts = new AlertsInlineTagParser(_viewRender.Object, _logger.Object, new FeatureToggles());
+        _alerts = new AlertsInlineTagParser(_viewRender.Object);
         _service = new ProfileService(_repository.Object, _parser.Object, _markdownWrapper, _alerts, _triviaFactory.Object, _inlineQuoteTagParser.Object);
     }
 

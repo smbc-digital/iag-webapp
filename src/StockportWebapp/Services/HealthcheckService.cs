@@ -10,7 +10,6 @@ public class HealthcheckService : IHealthcheckService
     private readonly string _appVersion;
     private readonly string _sha;
     private readonly IFileWrapper _fileWrapper;
-    private readonly FeatureToggles _featureToggles;
     private readonly IHttpClient _httpMaker;
     private readonly IStubToUrlConverter _urlGenerator;
     private readonly string _environment;
@@ -19,11 +18,17 @@ public class HealthcheckService : IHealthcheckService
     private readonly string webAppClientId;
     public readonly BusinessId _businessId;
 
-    public HealthcheckService(string appVersionPath, string shaPath, IFileWrapper fileWrapper,
-        FeatureToggles featureToggles, IHttpClient httpMaker, IStubToUrlConverter urlGenerator, string environment, IApplicationConfiguration config, BusinessId businessId)
+    public HealthcheckService(
+        string appVersionPath, 
+        string shaPath, 
+        IFileWrapper fileWrapper,
+        IHttpClient httpMaker, 
+        IStubToUrlConverter urlGenerator, 
+        string environment, 
+        IApplicationConfiguration config, 
+        BusinessId businessId)
     {
         _fileWrapper = fileWrapper;
-        _featureToggles = featureToggles;
         _httpMaker = httpMaker;
         _urlGenerator = urlGenerator;
         _config = config;
@@ -63,8 +68,13 @@ public class HealthcheckService : IHealthcheckService
             healthcheck = new UnavailableHealthcheck();
         }
 
-        return new Healthcheck(_appVersion, _businessId.ToString(), _sha, _featureToggles,
-            new Dictionary<string, Healthcheck>() { { "contentApi", healthcheck } }, _environment, new List<RedisValueData>());
+        return new Healthcheck(
+            _appVersion, 
+            _businessId.ToString(),
+            _sha,
+            new Dictionary<string, Healthcheck>() { { "contentApi", healthcheck } },
+            _environment,
+            new List<RedisValueData>());
     }
 
     private static Healthcheck BuildDependencyHealthcheck(HttpResponse httpResponse)

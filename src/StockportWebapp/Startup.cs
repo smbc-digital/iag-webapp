@@ -43,7 +43,6 @@ public class Startup
 
         // custom extensions
         services.AddHttpClient<ICivicaPayGateway, CivicaPayGateway>(Configuration);
-        services.AddFeatureToggles(_contentRootPath, _appEnvironmentName);
         services.AddCustomisationOfViews();
         services.AddTimeProvider();
         services.AddRedirects();

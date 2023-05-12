@@ -30,7 +30,7 @@ public class HealthcheckServiceTest
             .ReturnsAsync(httpResponseMessage);
 
         SetUpFakeFileSystem();
-        _healthcheckService = CreateHealthcheckService(_appVersionPath, _shaPath, new FeatureToggles());
+        _healthcheckService = CreateHealthcheckService(_appVersionPath, _shaPath);
     }
 
     private void SetUpFakeFileSystem()
@@ -42,16 +42,15 @@ public class HealthcheckServiceTest
             .Returns(new[] { "d8213ee84c7d8c119c401b7ddd0adef923692188" });
     }
 
-    private HealthcheckService CreateHealthcheckService(string appVersionPath, string shaPath,
-        FeatureToggles featureToggles)
+    private HealthcheckService CreateHealthcheckService(string appVersionPath, string shaPath)
     {
-        return new HealthcheckService(appVersionPath, shaPath, _fileWrapperMock.Object, featureToggles, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+        return new HealthcheckService(appVersionPath, shaPath, _fileWrapperMock.Object, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
     }
 
     private HealthcheckService CreateHealthcheckServiceWithDefaultFeatureToggles(string appVersionPath,
         string shaPath)
     {
-        return CreateHealthcheckService(appVersionPath, shaPath, new FeatureToggles());
+        return CreateHealthcheckService(appVersionPath, shaPath);
     }
 
     [Fact]
@@ -125,19 +124,6 @@ public class HealthcheckServiceTest
     }
 
     [Fact]
-    public async Task ShouldIncludeFeatureTogglesInHealthcheck()
-    {
-        var featureToggles = new FeatureToggles();
-
-        var healthCheckServiceWithNotFoundVersion = CreateHealthcheckService(_appVersionPath, _shaPath,
-            featureToggles);
-        var check = await healthCheckServiceWithNotFoundVersion.Get();
-
-        check.FeatureToggles.Should().NotBeNull();
-        check.FeatureToggles.Should().BeEquivalentTo(featureToggles);
-    }
-
-    [Fact]
     public async Task ShouldSetAppDependenciesGotFromTheContentApi()
     {
         var check = await _healthcheckService.Get();
@@ -147,7 +133,6 @@ public class HealthcheckServiceTest
         var dependency = check.Dependencies["contentApi"];
         dependency.AppVersion.Should().Be("dev");
         dependency.SHA.Should().Be("test-sha");
-        dependency.FeatureToggles.Should().BeNull();
     }
 
     [Fact]
@@ -159,8 +144,7 @@ public class HealthcheckServiceTest
             .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(httpResponseMessage);
 
-        var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
-            new FeatureToggles(), _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+        var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
 
         var check = await healthcheckService.Get();
 
@@ -169,7 +153,6 @@ public class HealthcheckServiceTest
         var dependency = check.Dependencies["contentApi"];
         dependency.AppVersion.Should().Be("Not available");
         dependency.SHA.Should().Be("Not available");
-        dependency.FeatureToggles.Should().BeNull();
         dependency.Dependencies.Should().BeEmpty();
     }
 
@@ -180,8 +163,7 @@ public class HealthcheckServiceTest
             .Setup(_ => _.Get(It.IsAny<string>(), It.IsAny<Dictionary<string, string>>()))
             .ReturnsAsync(default(HttpResponse));
 
-        var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object,
-            new FeatureToggles(), _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
+        var healthcheckService = new HealthcheckService(_appVersionPath, _shaPath, _fileWrapperMock.Object, _mockHttpClient.Object, _mockUrlGenerator.Object, "local", _configuration.Object, _businessId);
 
         var check = await healthcheckService.Get();
 
@@ -190,7 +172,6 @@ public class HealthcheckServiceTest
         var dependency = check.Dependencies["contentApi"];
         dependency.AppVersion.Should().Be("Not available");
         dependency.SHA.Should().Be("Not available");
-        dependency.FeatureToggles.Should().BeNull();
         dependency.Dependencies.Should().BeEmpty();
     }
 

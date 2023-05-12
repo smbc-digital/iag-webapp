@@ -4,15 +4,11 @@ public class AlertsInlineTagParserTest
 {
     private readonly Mock<IViewRender> _viewRenderer;
     private readonly AlertsInlineTagParser _alertsInlineTagParser;
-    private readonly Mock<ILogger<Alert>> _mockLogger;
-    private readonly FeatureToggles _featureToggles;
 
     public AlertsInlineTagParserTest()
     {
-        _featureToggles = new FeatureToggles();
         _viewRenderer = new Mock<IViewRender>();
-        _mockLogger = new Mock<ILogger<Alert>>();
-        _alertsInlineTagParser = new AlertsInlineTagParser(_viewRenderer.Object, _mockLogger.Object, _featureToggles);
+        _alertsInlineTagParser = new AlertsInlineTagParser(_viewRenderer.Object);
     }
 
     [Fact]

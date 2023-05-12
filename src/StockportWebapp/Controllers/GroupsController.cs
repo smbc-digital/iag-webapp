@@ -16,7 +16,6 @@ public class GroupsController : Controller
     private readonly ICookiesHelper _cookiesHelper;
     private readonly ILoggedInHelper _loggedInHelper;
     private readonly IGroupsService _groupsService;
-    private readonly FeatureToggles _featureToggles;
 
     public GroupsController(
         IProcessedContentRepository processedContentRepository,
@@ -30,8 +29,7 @@ public class GroupsController : Controller
         IDateCalculator dateCalculator,
         ILoggedInHelper loggedInHelper,
         IGroupsService groupsService,
-        ICookiesHelper cookiesHelper,
-        FeatureToggles featureToggles)
+        ICookiesHelper cookiesHelper)
     {
         _processedContentRepository = processedContentRepository;
         _repository = repository;
@@ -46,7 +44,6 @@ public class GroupsController : Controller
         _cookiesHelper = cookiesHelper;
         _loggedInHelper = loggedInHelper;
         _groupsService = groupsService;
-        _featureToggles = featureToggles;
     }
 
     [ResponseCache(Location = ResponseCacheLocation.None, Duration = 0, NoStore = true)]

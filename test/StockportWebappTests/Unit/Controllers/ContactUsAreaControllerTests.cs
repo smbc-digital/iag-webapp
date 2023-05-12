@@ -3,13 +3,11 @@
 public class ContactUsAreaControllerTests
 {
     private readonly ContactUsAreaController _controller;
-    private readonly Mock<IProcessedContentRepository> _repository = new Mock<IProcessedContentRepository>();
-    private readonly FeatureToggles _featureToggles;
-    private readonly Mock<ILogger<ContactUsAreaController>> _logger = new Mock<ILogger<ContactUsAreaController>>();
+    private readonly Mock<IProcessedContentRepository> _repository = new();
 
     public ContactUsAreaControllerTests()
     {
-        _controller = new ContactUsAreaController(_repository.Object, _featureToggles, _logger.Object);
+        _controller = new ContactUsAreaController(_repository.Object);
     }
 
     [Fact]

@@ -64,7 +64,7 @@ public class GroupControllerTest
         var cookies = new FakeCookie(true);
         http.Setup(_ => _.HttpContext.Request.Cookies).Returns(cookies);
 
-        _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, _loggedInHelper.Object, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
+        _groupController = new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, _loggedInHelper.Object, _groupsService.Object, _cookiesHelper.Object);
 
         // setup mocks
         _groupsService.Setup(o => o.GetGroupCategories()).ReturnsAsync(groupCategories);
@@ -255,35 +255,5 @@ public class GroupControllerTest
         var model = view.ViewData.Model as GroupSubmission;
 
         Assert.Equal("@testHandle", model.Twitter);
-    }
-
-
-    private GroupsController SetUpController(int numGroups)
-    {
-        var listOfGroups = BuildGroupList(numGroups);
-
-        var bigGroupResults = new GroupResults { Groups = listOfGroups };
-
-        _repository.Setup(o =>
-            o.Get<GroupResults>(
-                It.IsAny<string>(),
-                It.IsAny<List<Query>>()))
-            .ReturnsAsync(StockportWebapp.Client.HttpResponse.Successful((int)HttpStatusCode.OK, bigGroupResults));
-
-        var mockTime = new Mock<ITimeProvider>();
-        var viewHelper = new ViewHelpers(mockTime.Object);
-        return new GroupsController(_processedRepository.Object, _repository.Object, _groupEmailBuilder.Object, _filteredUrl.Object, _logger.Object, _configuration.Object, _markdownWrapper.Object, viewHelper, datetimeCalculator, null, _groupsService.Object, _cookiesHelper.Object, new StockportWebapp.FeatureToggling.FeatureToggles());
-    }
-
-    private List<Group> BuildGroupList(int numberOfItems)
-    {
-        var listOfGroups = new List<Group>();
-
-        for (var i = 0; i < numberOfItems; i++)
-        {
-            listOfGroups.Add(new GroupBuilder().Build());
-        }
-
-        return listOfGroups;
     }
 }
