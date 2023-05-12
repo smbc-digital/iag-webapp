@@ -45,7 +45,9 @@
     <div class="grid-container-full-width">
         @RenderBody()
     </div>
-    @await Component.InvokeAsync("Footer")
+    <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
 
     <script>
         require(['/assets/javascript/config.min.js'], function() {
