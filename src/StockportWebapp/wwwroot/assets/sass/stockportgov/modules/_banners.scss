@@ -13,7 +13,6 @@
 
   p {
     text-align: left;
-    color: $white;
     font-family: $fontStack;
     font-size: 0.938em;
     font-weight: 400;
@@ -21,7 +20,6 @@
   }
 
   a {
-    color: $white;
     display: inline-block;
   }
 }
@@ -34,34 +32,17 @@
 }
 
 .banner-header-container {
-  background-color: $bannerBackground;
   width: 100%;
-}
-
-.banner-header-standard {
-  background-color: $bannerBackground;
-}
-
-.banner-header-warning {
-  background-color: $carrotOrange;
 }
 
 .banner-header-warning-unsupported {
   background-color: $carrotOrange;
 }
 
-.banner-header-warning, .banner-header-warning-unsupported {
+.banner-header-warning-unsupported {
   .banner-header {
     p, a {
       color: $colorPrimaryDarkest;
     }
-
-    a:hover, a:active {
-      color: $colorPrimary;
-    }
   }
-}
-
-.banner-links {
-  display: inline-block;
 }

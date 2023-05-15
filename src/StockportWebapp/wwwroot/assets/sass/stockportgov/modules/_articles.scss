@@ -1,0 +1,41 @@
+﻿/*------------------- Topic Page ---------------------*/
+.article-cols {
+  height: auto;
+}
+
+.article-chevron i {
+  color: $borderDefault;
+}
+
+.article-pagination {
+    padding: 0;
+    margin-bottom: 15px;
+
+    a {
+        display: table;
+        width: 100%;
+    }
+
+    p {
+        color: $bodyText;
+    }
+
+    a:hover {
+        text-decoration: none;
+        background-color: $profileBackgroundLight;
+    }
+
+    .article-chevron {
+        display: table-cell;
+        vertical-align: middle;
+        width: 45px;
+    }
+}
+
+.pagination-previous, .pagination-next {
+  padding: 0;
+}
+
+.pagination-next a {
+  text-align: right;
+}

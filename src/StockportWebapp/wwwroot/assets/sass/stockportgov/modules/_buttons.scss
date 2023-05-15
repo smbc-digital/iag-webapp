@@ -32,3 +32,111 @@
   font-weight: 600;
   font-size: 1.5em;
 }
+
+.button {
+    text-decoration: none;
+    display: inline-block;
+    color: $white;
+    font-size: 1em;
+    letter-spacing: 0px;
+    font-family: 'Open Sans';
+    position: relative;
+    padding: 15px;
+    line-height: 20px;
+
+    &:hover {
+        text-decoration: none;
+        color: $white;
+    }
+}
+
+.button-outline {
+    border: 1px solid $borderDefault;
+}
+
+.button-close {
+    z-index: 401;
+}
+
+.button-featured-content-more {
+
+    &.button {
+        box-shadow: none;
+    }
+}
+
+.button-bold {
+    font-weight: bold;
+}
+
+.button-default {
+    background-color: $tealDarker;
+    border: 1px solid $borderDefault;
+    border-radius: 3px;
+    color: $white;
+    display: inline-block;
+    font-family: 'Source Sans Pro';
+    font-size: 1.125em;
+    letter-spacing: 0;
+    line-height: 20px;
+    min-width: 300px;
+    padding: 15px 25px 15px 15px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    transition: all .5s;
+    transition-property: opacity,box-shadow;
+    width: auto;
+
+    i {
+        float: left;
+        top: 50%;
+    }
+}
+
+.button-default:before {
+    text-rendering: auto;
+    float: right;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\f105";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: 20px;
+    text-align: right;
+    padding-left: 10px;
+    height: 20px;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -10px;
+}
+
+.button-default:hover {
+    background-color: $lightTealPale;
+    color: $white;
+    cursor: pointer;
+    box-shadow: 0 20px 40px 0 $blackOpaque3;
+    text-decoration: none;
+}
+
+.button-default:active {
+    background-color: $tealPale;
+}
+
+@media only screen and (max-width: 767px) {
+    .button-default {
+        display: block;
+        min-width: unset;
+    }
+}
+
+/* button extensions */
+.button-outline-white-transparent {
+    border: solid 1px $white;
+    color: $white;
+    background-color: transparent;
+
+    &:hover {
+        background-color: transparent;
+    }
+}
+
