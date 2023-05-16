@@ -59,6 +59,8 @@ public class Startup
         services.AddGroupConfiguration(Configuration, Log.Logger);
         services.AddSesEmailConfiguration(Configuration, Log.Logger);
         services.AddRedis(Configuration, _useRedisSession, Log.Logger);
+
+        services.AddFeatureManagement();
     }
 
     public static void HandleFaviconRequests(IApplicationBuilder app)
