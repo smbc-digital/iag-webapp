@@ -106,44 +106,6 @@ tbody {
   }
 }
 
-/* --------- ARTICLE PAGE -------- */
-article {
-  border-bottom: none;
-}
-
-.article-pagination {
-  background-color: transparent;
-
-  a {
-    background-color: transparent;
-    text-decoration: none;
-    color: $tealDarker;
-  }
-
-  border-bottom: 2px solid $borderDefault;
-  border-top: 2px solid $borderDefault;
-}
-
-.article-navigation li.nav-active > a {
-  text-decoration: none;
-}
-
-.article-navigation li a {
-  border: none;
-  font-size: 1em;
-}
-
-.article-navigation li {
-  line-height: 1.6em;
-}
-
-.article-navigation {
-  .article-section-nav-numbered-list {
-    font-size: 1em;
-    display: inline;
-  }
-}
-
 /* ------ Breadcrumbs ------- */
 .breadcrumb-container {
   background-color: $colorPrimaryDark;

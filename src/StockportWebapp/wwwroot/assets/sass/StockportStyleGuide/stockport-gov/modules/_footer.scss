@@ -1,17 +1,12 @@
 ﻿.footer-links {
   ul {
     margin-bottom: 0;
-
-    li {
-      padding-left: 0;
-    }
   }
 
   ul.footer-nav {
     li {
-      margin: 0;
+      margin: 0 0 10px;
       padding: 0;
-      margin-bottom: 10px;
 
       a {
         margin-left: 30px;
@@ -44,16 +39,7 @@
 
   p {
     margin-bottom: 15px;
-
-    a {
-      font-weight: 800;
-    }
   }
-}
-
-footer h6 {
-  text-transform: none;
-  margin-bottom: 0;
 }
 
 footer a {
@@ -129,22 +115,6 @@ footer a {
         }
       }
 
-      &.icon-fb:hover {
-        background-color: $blueLightRoyal;
-
-        a {
-          color: $white;
-        }
-      }
-
-      &.icon-fb:focus {
-        background-color: $blueLightRoyal;
-
-        a {
-          color: $white;
-        }
-      }
-
       &.icon-facebook:hover {
         background-color: $blueLightRoyal;
 
@@ -177,38 +147,6 @@ footer a {
         }
       }
 
-      &.icon-rss:hover {
-        background-color: $darkOrange2;
-
-        a {
-          color: $white;
-        }
-      }
-
-      &.icon-rss:focus {
-        background-color: $darkOrange2;
-
-        a {
-          color: $white;
-        }
-      }
-
-      &.icon-flickr:hover {
-        background-color: $maroon;
-
-        a {
-          color: $white;
-        }
-      }
-
-      &.icon-flickr:focus {
-        background-color: $maroon;
-
-        a {
-          color: $white;
-        }
-      }
-
       &.icon-instagram:hover {
         background-color: $darkOrchid3;
 
@@ -232,22 +170,10 @@ footer a {
       padding: 11px 13px 15px;
       margin-left: 0px;
       margin-bottom: 4px;
-
-      i {
-        font-size: 1.7em;
-      }
     }
 
     @media #{$desktop} {
       margin-bottom: 10px;
-    }
-
-    i {
-      margin-top: 0px;
-
-      @media #{$mobile} {
-        font-size: 3em;
-      }
     }
   }
 
