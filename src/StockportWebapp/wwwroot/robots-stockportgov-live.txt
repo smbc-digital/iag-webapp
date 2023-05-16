@@ -8,6 +8,7 @@ Disallow: /*.bmp$
 Disallow: /*.pdf$
 Disallow: /*.svg$
 Disallow: /*_hidden
+Disallow: /events/add-to-calendar/
 
 User-agent: SemrushBot
 User-agent: BLEXBot
