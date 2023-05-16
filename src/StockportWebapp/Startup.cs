@@ -1,6 +1,4 @@
-﻿using Microsoft.FeatureManagement;
-
-namespace StockportWebapp;
+﻿namespace StockportWebapp;
 
 public class Startup
 {
