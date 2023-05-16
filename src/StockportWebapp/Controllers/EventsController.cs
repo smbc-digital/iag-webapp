@@ -247,8 +247,13 @@ public class EventsController : Controller
     }
 
     [Route("events/add-to-calendar")]
-    public IActionResult AddToCalendar(string type, string eventUrl, string slug, DateTime eventDate, string name, string location, string startTime, string endTime, string description, string summary)
+    public IActionResult AddToCalendar(string type, string eventUrl,
+        string slug, DateTime eventDate, string name, string location,
+        string startTime, string endTime, string description, string summary)
     {
+        if (string.IsNullOrEmpty(type))
+            return NotFound();
+
         var eventItem = new Event()
         {
             Slug = slug,
@@ -262,17 +267,11 @@ public class EventsController : Controller
         };
 
         if (type.Equals("google") || type.Equals("yahoo"))
-        {
-            var url = _helper.GetCalendarUrl(eventItem, eventUrl, type);
-            return Redirect(url);
-        }
+            return Redirect(_helper.GetCalendarUrl(eventItem, eventUrl, type));
 
         if (type.Equals("windows") || type.Equals("apple"))
-        {
-            byte[] calendarBytes = Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl));
-            return File(calendarBytes, "text/calendar", slug + ".ics");
-        }
+            return File(Encoding.UTF8.GetBytes(_helper.GetIcsText(eventItem, eventUrl)), "text/calendar", slug + ".ics");
 
-        return null;
+        return Ok();
     }
 }

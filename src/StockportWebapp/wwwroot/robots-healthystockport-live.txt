@@ -3,6 +3,7 @@ Disallow:
 Crawl-delay: 120
 Disallow: /contact
 Disallow: /search
+Disallow: /events/add-to-calendar/
 Disallow: /*.jpg$
 Disallow: /*.jpeg$
 Disallow: /*.png$
