@@ -63,5 +63,29 @@
             MetaDescription = metaDescription;
             CampaignBanner = campaignBanner;
         }
+
+        public NavCardList Services
+        {
+            get
+            {
+                var result = new NavCardList();
+                result.Items = new List<NavCard>();
+                foreach (var topic in FeaturedTopics)
+                {
+                    var item = new NavCard
+                    {
+                        Title = topic.Title,
+                        Url = topic.NavigationLink,
+                        Teaser = topic.Teaser
+                    };
+
+                    result.Items.Add(item);
+                }
+
+                result.ButtonText = "View more services";
+
+                return result;
+            }
+        }
     }
 }

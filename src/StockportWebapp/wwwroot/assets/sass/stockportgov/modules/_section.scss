@@ -1,0 +1,19 @@
+﻿.section {
+    margin-bottom: 2em;
+
+    &__title {
+        font-size: 2em;
+        margin: 0em;
+        padding-left: 15px;
+        text-decoration: none;
+
+        a:hover {
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+        }
+
+        &--padded-bottom {
+            padding-bottom: 0.5em;
+        }
+    }
+}

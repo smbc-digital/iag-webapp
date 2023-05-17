@@ -45,18 +45,25 @@
     </div>
 </div>
 
-<div class="home-page-row">
-    <section class="grid-container homepage">
-        <h2 class="visuallyhidden">All other services</h2>
-        <feature name="ServiceList">
-            <p>This can only be seen if 'ServiceList' is enabled.</p>
-        </feature>
-
-        <feature name="ServiceList" negate="true">
+<feature name="ServiceList" negate="true">
+    <div class="home-page-row">
+        <section class="grid-container homepage">
+            <h2 class="visuallyhidden">All other services</h2>
             <partial name="GenericFeaturedItemList" model='Model.HomepageContent.GenericItemList'/>
-        </feature>
+        </section>
+    </div>
+</feature>
+
+<feature name="ServiceList">
+    <section class="section">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="section__title section__tile--padded-bottom">Our services</h2>
+                <partial name="NavCardList" model='Model.HomepageContent.Services'/>
+            </div>
+        </div>
     </section>
-</div>
+</feature>
 
 <div class="full-width-white">
     <div class="featured-topic-list">
