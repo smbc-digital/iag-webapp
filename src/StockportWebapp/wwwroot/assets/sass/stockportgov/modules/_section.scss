@@ -1,9 +1,13 @@
 ﻿.section {
     margin-bottom: 2em;
 
+    &--white {
+        background-color: white;
+    }
+
     &__title {
         font-size: 2em;
-        margin: 0em;
+        margin: 0;
         padding-left: 15px;
         text-decoration: none;
 

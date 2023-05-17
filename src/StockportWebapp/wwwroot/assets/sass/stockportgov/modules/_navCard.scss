@@ -1,0 +1,51 @@
+﻿.navcard-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.navcard {
+    list-style: none;
+    text-indent: 0;
+    margin: 0 0 1em 0;
+    padding: 0;
+    width: 33.3333%;
+
+    @media #{$mobile} {
+        width: 100%;
+        margin: 0;
+    }
+
+    a {
+        display: block;
+        text-decoration: none;
+        border-top: 7px solid $stockport-teal;
+        margin: 0 15px 0 15px;
+
+        @media #{$mobile} {
+            border-top: none;
+            border-left: 7px solid $stockport-teal;
+            padding-left: 1em;
+        }
+
+        &:hover {
+            text-decoration: none;
+
+            .navcard__title {
+                text-decoration: underline;
+                text-decoration-thickness: 3px;
+            }
+        }
+    }
+
+    &__title {
+        color: $stockport-green;
+        text-decoration: underline;
+        margin: 0.5em 0 0 0;
+    }
+
+    &__teaser {
+        color: black;
+        text-decoration: none;
+    }
+}

@@ -1,12 +1,10 @@
 ﻿@model NavCardList
 
-<ul class="navCard-wrapper">
+<ul class="navcard-wrapper">
     @foreach (var navCard in Model.Items.Take(9))
     {
-        <li>
-            <a href="#">
-                <partial name="NavCard" model="navCard" />
-            </a>
+        <li class="navcard">
+            <partial name="NavCard" model="navCard" />
         </li>
     }
 </ul>
