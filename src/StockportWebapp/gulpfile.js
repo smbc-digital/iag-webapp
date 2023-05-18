@@ -23,7 +23,9 @@ var paths = {
     stylesheets: "./wwwroot/assets/stylesheets",
     js: [
         "./wwwroot/assets/javascript/**/*.js",
-        "!./wwwroot/assets/javascript/**/*.min.js"
+        "!./wwwroot/assets/javascript/**/*.min.js",
+        "!./wwwroot/assets/javascript/config.js",
+        "!./wwwroot/assets/javascript/config-external.js"
     ]
 };
 
