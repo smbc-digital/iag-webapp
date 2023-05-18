@@ -9,6 +9,8 @@ const cssnano = require('cssnano');
 const uglify = require("gulp-uglify");
 const rename = require("gulp-rename");
 
+const hash = require('gulp-hash');
+
 // Paths
 var paths = {
     stylesToLint: [
@@ -20,8 +22,10 @@ var paths = {
     sassToCompile: "./wwwroot/assets/sass/*.scss",
     stylesheets: "./wwwroot/assets/stylesheets",
     js: [
-        "./wwwroot/assets/javascript/**/**/*.js",
-        "!./wwwroot/assets/javascript/**/**/*.min.js"
+        "./wwwroot/assets/javascript/**/*.js",
+        "!./wwwroot/assets/javascript/**/*.min.js",
+        "!./wwwroot/assets/javascript/config.js",
+        "!./wwwroot/assets/javascript/config-external.js"
     ]
 };
 
@@ -29,6 +33,7 @@ var paths = {
 function js() {
     return src(paths.js)
         .pipe(uglify())
+        .pipe(hash())
         .pipe(rename({ suffix: '.min' }))
         .pipe(dest(function (file) {
             return file.base;

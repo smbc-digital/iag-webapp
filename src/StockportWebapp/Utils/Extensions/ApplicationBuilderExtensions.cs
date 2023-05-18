@@ -6,21 +6,22 @@ public static class ApplicationBuilderExtensions
     {
         app.UseStaticFiles(new StaticFileOptions
         {
-            OnPrepareResponse =
-                (context) =>
+            OnPrepareResponse = context =>
+            {
+                var isLive = context.Context.Request.Host.Value.StartsWith("www.");
+                var businessId = context.Context.Request.Headers["BUSINESS-ID"];
+                var url = string.Concat("robots-", businessId, isLive ? "-live" : "", ".txt");
+                if (context.File.Name.Equals(url))
                 {
-                    var isLive = context.Context.Request.Host.Value.StartsWith("www.");
-                    var businessId = context.Context.Request.Headers["BUSINESS-ID"];
-                    var url = string.Concat("robots-", businessId, isLive ? "-live" : "", ".txt");
-                    if (context.File.Name == url)
-                    {
-                        context.Context.Response.Headers["Cache-Control"] = "public, max-age=0";
-                    }
-                    else
-                    {
-                        context.Context.Response.Headers["Cache-Control"] = "public, max-age=" + Cache.Medium.ToString();
-                    }
+                    context.Context.Response.Headers
+                        .Append("Cache-Control", "max-age=0");
                 }
+                else
+                {
+                    context.Context.Response.Headers
+                        .Append("Cache-Control", "public, max-age=31536000, immutable");
+                }
+            }
         });
 
         return app;

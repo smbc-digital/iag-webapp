@@ -13,7 +13,7 @@
 
     @* PACKAGE / VENDOR STYLESHEETS *@
     <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
-    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css />
+    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
     <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
     <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
@@ -60,8 +60,8 @@
     </distributed-cache>
 
     <script>
-        require(['/assets/javascript/config.min.js'], function() {
-            require(['matchbox.min', 'jquery'], 
+        require(['/assets/javascript/config.js'], function() {
+            require(['matchbox', 'jquery'], 
                 function (matchbox) {
                     matchbox.Init();
             });
