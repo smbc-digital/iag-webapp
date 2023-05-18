@@ -1,8 +1,29 @@
-﻿.navcard-wrapper {
-    display: flex;
+﻿.navcard-wrapper, .navcard-wrapper--mobile {
+    display: none;
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+/*option 1 to display 6 services form mobile*/
+
+@media #{$tablet}, #{$desktop} {
+    .navcard-wrapper {
+        display: flex;
+    }
+}
+
+@media #{$mobile}{
+    .navcard-wrapper--mobile {
+        display: flex;
+    }
+}
+
+/*option 2 to display 6 services form mobile*/
+/*@media #{$mobile}{
+    .navcard-wrapper li:nth-child(n+7) {
+        display: none;
+    }
+}*/
 
 .navcard {
     list-style: none;
