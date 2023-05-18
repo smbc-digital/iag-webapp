@@ -30,7 +30,7 @@
 
     @* PACKAGE / VENDOR STYLESHEETS *@
     <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
-    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css />
+    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
     <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
     <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
 
@@ -75,8 +75,8 @@
     @await Component.InvokeAsync("AddThis")
 
     <script>
-        require(['/assets/javascript/config.min.js'], function() {
-            require(['jquery', 'matchbox.min'], 
+        require(['/assets/javascript/config-d85cf3bb.min.js'], function() {
+            require(['jquery', 'matchbox'], 
                 function (_, matchbox) {
                     matchbox.Init();
                 }

@@ -237,10 +237,10 @@
     </div>
 </div>
 
-<link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css />
+<link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css asp-append-version=true />
 <script>
-    require(['/assets/javascript/config.min.js'], function () {
-        require(['groups.min', 'primaryFilter.min', 'multistepForm.min', 'trumbowyg', 'recaptcha'],
+    require(['/assets/javascript/config-d85cf3bb.min.js'], function () {
+        require(['groups', 'primaryFilter', 'multistepForm', 'trumbowyg', 'recaptcha'],
             function (groups, primaryFilter, multistepForm, trumbowyg) {
                 groups.Init();
                 primaryFilter.Init();

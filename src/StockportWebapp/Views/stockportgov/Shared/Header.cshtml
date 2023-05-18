@@ -13,6 +13,7 @@
     <header role="banner" id="header" class="grid-container grid-100">
         <div class="grid-50 mobile-grid-50 tablet-grid-50 logo-main">
             <a href="https://www.stockport.gov.uk">
+
                 <img src="@StaticAssets.UrlFor("logo-stockport-full%402x.png")"
                     data-mobile-image="@StaticAssets.UrlFor("logo-stockport-mobile%402x.png")"
                     data-desktop-image="@StaticAssets.UrlFor("logo-stockport-full%402x.png")"
@@ -90,8 +91,8 @@
 <partial name="BrowserCheck" />
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['startup.min', 'utils.min', 'reciteMe.min', 'cludo.min', 'Cludo'],
+    require(['/assets/javascript/config-d85cf3bb.min.js'], function() {
+        require(['startup', 'utils', 'reciteMe', 'cludo', 'Cludo'],
             function(startup, utils, reciteMe, cludo, _) {
                 reciteMe.Init();
                 startup.Init();
