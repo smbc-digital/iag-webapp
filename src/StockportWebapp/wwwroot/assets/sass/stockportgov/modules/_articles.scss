@@ -1,12 +1,21 @@
 ﻿/*------------------- Articles Page ---------------------*/
+article {
+    border-bottom: none;
+}
 
 .article-pagination {
     padding: 0;
     margin-bottom: 15px;
+    border-bottom: 2px solid $borderDefault;
+    border-top: 2px solid $borderDefault;
+    background-color: transparent;
 
     a {
         display: table;
         width: 100%;
+        background-color: transparent;
+        text-decoration: none;
+        color: $tealDarker;
     }
 
     p {
@@ -33,44 +42,16 @@
   text-align: right;
 }
 
-
-
-
-
-/* --------- ARTICLE PAGE -------- please look at these, check if they are being used and try to mush them with the ones above (in the file) */ 
-article {
-    border-bottom: none;
-}
-
-.article-pagination {
-    background-color: transparent;
-
-    a {
-        background-color: transparent;
-        text-decoration: none;
-        color: $tealDarker;
-    }
-
-    border-bottom: 2px solid $borderDefault;
-    border-top: 2px solid $borderDefault;
-}
-
-.article-navigation li.nav-active > a {
-    text-decoration: none;
-}
-
-.article-navigation li a {
-    border: none;
-    font-size: 1em;
-}
-
 .article-navigation li {
     line-height: 1.6em;
-}
 
-.article-navigation {
-    .article-section-nav-numbered-list {
+    a {
+        line-height: 1.6em;
+        border: none;
         font-size: 1em;
-        display: inline;
+    }
+
+    .nav-active > a {
+        text-decoration: none;
     }
 }

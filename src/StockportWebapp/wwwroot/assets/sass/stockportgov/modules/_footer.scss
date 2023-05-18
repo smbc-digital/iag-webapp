@@ -1,35 +1,32 @@
 ﻿.footer-links {
-  ul {
-    margin-bottom: 0;
-  }
+    ul.footer-nav {
+        margin-bottom: 0;
 
-  ul.footer-nav {
-    li {
-      margin: 0 0 10px;
-      padding: 0;
+        li {
+            margin: 0 0 10px;
+            padding: 0;
 
-      a {
-        margin-left: 30px;
+            a {
+                margin-left: 30px;
+                text-decoration: underline;
+                padding-right: 10px;
+                line-height: 1.5em;
+                display: block;
 
-        @media #{$tablet} {
-          margin-left: 0;
+                @media #{$tablet} {
+                    margin-left: 0;
+                }
+
+                &:hover {
+                    text-decoration-thickness: 3px;
+                }
+            }
         }
-
-        text-decoration: underline;
-        padding-right: 10px;
-        line-height: 1.5em;
-        display: block;
-
-        &:hover {
-          text-decoration-thickness: 3px;
-        }
-      }
     }
-  }
 
-  @media #{$mobile} {
-    margin-left: 20px;
-  }
+    @media #{$mobile} {
+        margin-left: 20px;
+    }
 }
 
 .footer-bottom {
@@ -48,13 +45,13 @@ footer a {
 }
 
 .footer-social-container {
-  @media #{$mobile} {
-    margin-top: 0px;
-    padding-right: 0px;
-    padding-left: 0px;
-    margin-left: -10px;
-    margin-right: -10px;
-  }
+    @media #{$mobile} {
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-top: 0px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
 }
 
 .footer-social-links {
@@ -101,66 +98,34 @@ footer a {
 
       &.icon-twitter:hover {
         background-color: $blueLightSky;
-
-        a {
-          color: $white;
-        }
       }
 
       &.icon-twitter:focus {
         background-color: $blueLightSky;
-
-        a {
-          color: $white;
-        }
       }
 
       &.icon-facebook:hover {
         background-color: $blueLightRoyal;
-
-        a {
-          color: $white;
-        }
       }
 
       &.icon-facebook:focus {
         background-color: $blueLightRoyal;
-
-        a {
-          color: $white;
-        }
       }
 
       &.icon-youtube:hover {
         background-color: $dullRed;
-
-        a {
-          color: $white;
-        }
       }
 
       &.icon-youtube:focus {
         background-color: $dullRed;
-
-        a {
-          color: $white;
-        }
       }
 
       &.icon-instagram:hover {
         background-color: $darkOrchid3;
-
-        a {
-          color: $white;
-        }
       }
 
       &.icon-instagram:focus {
         background-color: $darkOrchid3;
-
-        a {
-          color: $white;
-        }
       }
     }
 
