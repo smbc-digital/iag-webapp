@@ -1,0 +1,152 @@
+﻿@inject StockportWebapp.Utils.ViewHelpers viewHelper
+@model HomepageViewModel
+@{
+    ViewData["Title"] = "Welcome to Stockport Council";
+    ViewData["og:title"] = "Welcome to Stockport Council";
+    ViewData["Description"] = @Model.HomepageContent.MetaDescription;
+    Layout = "../Shared/_LayoutHome2023.cshtml";
+}
+
+@section BackgroundImage
+{
+    <partial name="ScaleImageByDevice" model='new Image("homepage-hero", Model.HomepageContent.BackgroundImage)'/>
+}
+
+@section CarouselBackgroundImage
+{
+    @{
+        int counter = 1;
+        foreach (var carouselContent in Model.HomepageContent.CarouselContents)
+        {
+            <partial name="ScaleImageByDevice" model='new Image("webcast-"+counter, carouselContent.Image)'/>
+            counter++;
+        }
+    }
+}
+
+@if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
+{
+    foreach (var alert in Model.HomepageContent.Alerts)
+    {
+        <div>
+            <partial name="GlobalAlert" model='alert'/>
+        </div>
+    }
+}
+
+<div class="homepage-hero">
+    <div class="grid-container l-max-width-950">
+        <section class="search-bar">
+            <h1 class="visuallyhidden">Search bar</h1>
+            <partial name="Search" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>
+        </section>
+
+        <partial name="FeaturedTasks" model='Model.HomepageContent.FeaturedTasks'/>
+    </div>
+</div>
+
+<feature name="ServiceList" negate="true">
+    <div class="home-page-row">
+        <section class="grid-container homepage">
+            <h2 class="visuallyhidden">All other services</h2>
+            <partial name="GenericFeaturedItemList" model='Model.HomepageContent.GenericItemList'/>
+        </section>
+    </div>
+</feature>
+
+<feature name="ServiceList">
+    <section class="section section--white">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="section__title section__title--padded-bottom">Our services</h2>
+                <partial name="NavCardList" model='Model.HomepageContent.Services'/>
+            </div>
+        </div>
+    </section>
+</feature>
+
+<div class="full-width-white">
+    <div class="featured-topic-list">
+        <ul class="nav-card-list latest-container matchbox-parent">
+            @if (Model.FeaturedNews is not null)
+            {
+                <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
+                    <div class="latest-nav-card-item matchbox-child">
+                        <h2 class="news title">
+                            <a tabindex="-1" href="@Url.Action("Index", "Comms")">Latest news</a>
+                        </h2>
+                        <div class="body">
+                            <a href="/news/@Model.FeaturedNews.Slug">
+                                <h3>@Model.FeaturedNews.Title</h3>
+                                <p class="bullet">
+                                    <span class="fa fa-clock-o" aria-hidden="true"></span>
+                                    <partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/>
+                                </p>
+                                <p>@Model.FeaturedNews.Teaser</p>
+                            </a>
+                        </div>
+                    </div>
+                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "Comms")">View news and media</stock-button>
+                </li>
+            }
+
+            @if (Model.FeaturedEvent is not null)
+            {
+                <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
+                    <div class="latest-nav-card-item matchbox-child">
+                        <h2 class="event title"><a tabindex="-1" href="@Url.Action("Index", "Events")">What's on in Stockport</a></h2>
+                        <div class="body">
+                            <a href="/events/@Model.FeaturedEvent.Slug">
+                                <h3>@Model.FeaturedEvent.Title</h3>
+                                <div class="bullet"><span class="fa fa-clock-o"></span>@viewHelper.FormatEventDate(Model.FeaturedEvent.EventDate, Model.FeaturedEvent.StartTime)</div>
+                                <div class="bullet"><span class="fa fa-map-marker" aria-hidden="true"></span>@Model.FeaturedEvent.Location</div>
+                            </a>
+                        </div>
+                    </div>
+                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "Events")">View more events</stock-button>
+                </li>
+            }
+
+            @if (Model.HomepageContent.FeaturedGroupItem is not null)
+            {
+                <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
+                    <div class="latest-nav-card-item matchbox-child">
+                        <h2 class="group title"><a tabindex="-1" href="@Url.Action("Index", "Groups")">Stockport Local</a></h2>
+                        <div class="body">
+                            <a href="/groups/@Model.HomepageContent.FeaturedGroupItem.Slug">
+                                <h3>@Model.HomepageContent.FeaturedGroupItem.Name</h3>
+                                @if (Model.HomepageContent.FeaturedGroupItem.CategoriesReference.Any())
+                                {
+                                    <div class="bullet"><span class="fa fa-tags" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.CategoriesReference[0].Name</div>
+                                }
+                                <div class="bullet"><span class="fa fa-map-marker" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.Address</div>
+                                @if (Model.HomepageContent.FeaturedGroupItem.Cost.Any())
+                                {
+                                    <div class="bullet"><span class="fa fa-gbp"></span>@string.Join(", ", Model.HomepageContent.FeaturedGroupItem.Cost.ToArray())</div>
+                                }
+                                @if (!string.IsNullOrEmpty(Model.HomepageContent.FeaturedGroupItem.AbilityLevel))
+                                {
+                                    <div class="bullet"><span class="fa fa-star" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.AbilityLevel</div>
+                                }
+                            </a>
+                        </div>
+                    </div>
+                    <stock-button class="nav-card-title button button-featured-content-more button-groups" as-link="true" href="@Url.Action("Index", "Groups")">View more groups and services</stock-button>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div class="grid-100 grid-parent">
+    <partial name="Carousel" model='Model.HomepageContent.CarouselContents'/>
+</div>
+
+<section class="personalised-services">
+    <h2 class="visuallyhidden">Subscription </h2>
+    <div class="grid-container">
+        <div class="grid-100 enhanced_service" id="test-email-alerts">
+            <partial name="EmailSubscribe" />
+        </div>
+    </div>
+</section>

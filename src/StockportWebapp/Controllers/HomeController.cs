@@ -9,8 +9,9 @@ public class HomeController : Controller
     private readonly IEventsService _eventsService;
     private readonly IHomepageService _homepageService;
     private readonly IStockportApiEventsService _stockportApiEventsService;
+    private readonly IFeatureManager _featureManager;
 
-    public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService)
+    public HomeController(BusinessId businessId, IApplicationConfiguration applicationConfiguration, INewsService newsService, IEventsService eventsService, IHomepageService homepageService, IStockportApiEventsService stockportApiService, IFeatureManager featureManager)
     {
         _config = applicationConfiguration;
         _businessId = businessId;
@@ -18,6 +19,7 @@ public class HomeController : Controller
         _eventsService = eventsService;
         _homepageService = homepageService;
         _stockportApiEventsService = stockportApiService;
+        _featureManager = featureManager;
     }
 
     [Route("/")]
@@ -36,6 +38,11 @@ public class HomeController : Controller
             FeaturedNews = _businessId.ToString() != "healthystockport" ? await _newsService.GetLatestNewsItem() : null,
             EventsFromApi = eventsFromApi?.Take(3).ToList()
         };
+
+        if(await _featureManager.IsEnabledAsync("ServiceList"))
+        {
+            return View("Index2023", homepageViewModel);
+        }
 
         return View(homepageViewModel);
     }

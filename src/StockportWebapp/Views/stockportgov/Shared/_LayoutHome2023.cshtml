@@ -1,0 +1,62 @@
+﻿@using StockportWebapp.Models.Config
+@inject IApplicationConfiguration ApplicationConfiguration
+@inject BusinessId BusinessId
+
+<!DOCTYPE html>
+<html lang=en-GB>
+<head>
+    @* <partial name=SecurityHeaders /> *@
+    <meta charset=utf-8 />
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"]</title>
+    <meta property=og:title content="@ViewData["Title"]" />
+    <meta name=Description content="@ViewData["Description"]" />
+
+    <partial name=OwnershipVerificationCodes />
+    <partial name=Favicon />
+
+    @* PACKAGE / VENDOR STYLESHEETS *@
+    <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
+    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
+
+    @* MAIN STYLESHEET(S) *@
+    <link rel=stylesheet href=~/assets/stylesheets/site-sg-overrides.min.css asp-append-version=true />
+
+    @* OUTDATED *@
+    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin=anonymous>
+
+    <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
+    <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
+
+    @RenderSection("BackgroundImage")
+    @RenderSection("CarouselBackgroundImage")
+
+    <partial name=CookieBanner />
+    <partial name=TagManager/TagManagerDataLayer />
+    <partial name=TagManager/TagManager />
+
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></Script>
+</head>
+<body class="container-layout-free type-home">
+    <partial name=TagManager/TagManagerNoScript />
+    <partial name=Header />
+    <div class="grid-container-full-width">
+        @RenderBody()
+    </div>
+    <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+        @await Component.InvokeAsync("Footer")
+    </distributed-cache>
+
+    <script>
+        require(['/assets/javascript/config.min.js'], function() {
+            require(['jquery', 'matchbox.min'],
+                function ($, matchbox) {
+                    matchbox.Init();
+                }
+            );
+        });
+    </script>
+</body>
+</html>
