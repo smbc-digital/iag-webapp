@@ -9,3 +9,39 @@ body {
 h1,h2,h3,h4{
     font-family: $fontStack;
 }
+
+/*------ Placeholders ------*/
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    h2 {
+        color: white;
+    }
+}
+.condolence-banner-placeholder {
+    background-color: black;
+    height: 250px;
+}
+
+.searh-bar-placeholder {
+    background-color: $stockport-pink;
+    height: 200px;
+}
+
+.welcome-banner-placeholder {
+    background-color: $stockport-green;
+    height: 200px;    
+}
+
+.large-gray-placeholder {
+    background-color: #aaa;
+    height: 500px;
+}
+
+.call-to-action-banner-placeholder {
+    background-color: $stockport-teal;
+    height: 200px; 
+}
