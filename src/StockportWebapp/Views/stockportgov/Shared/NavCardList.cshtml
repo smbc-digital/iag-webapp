@@ -8,13 +8,3 @@
         </li>
     }
 </ul>
-
-@*option 1 to display 6 services for mobile*@
-<ul class="navcard-wrapper--mobile">
-    @foreach (var navCard in Model.Items.Take(6))
-    {
-        <li class="navcard">
-            <partial name="NavCard" model="navCard" />
-        </li>
-    }
-</ul>

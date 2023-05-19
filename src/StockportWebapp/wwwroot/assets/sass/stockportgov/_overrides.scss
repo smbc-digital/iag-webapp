@@ -3,4 +3,9 @@
 /*------ Base Styles ------*/
 body {
     font: 1.2em / 1.8 $fontStack;
+    background-color: white;
+}
+
+h1,h2,h3,h4{
+    font-family: $fontStack;
 }
