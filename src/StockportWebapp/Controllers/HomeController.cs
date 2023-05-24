@@ -39,7 +39,7 @@ public class HomeController : Controller
             EventsFromApi = eventsFromApi?.Take(3).ToList()
         };
 
-        if(await _featureManager.IsEnabledAsync("ServiceList"))
+        if(await _featureManager.IsEnabledAsync("SiteRedesign"))
         {
             return View("Index2023", homepageViewModel);
         }

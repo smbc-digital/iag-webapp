@@ -49,11 +49,13 @@
     &__title {
         color: $stockport-green;
         text-decoration: underline;
-        margin: 0.5em 0 0 0;
+        margin: 1em 0 0.5em 0;
+        font-size: 1.2rem;
     }
 
     &__teaser {
         color: black;
         text-decoration: none;
+        padding-bottom: 1em;
     }
 }
