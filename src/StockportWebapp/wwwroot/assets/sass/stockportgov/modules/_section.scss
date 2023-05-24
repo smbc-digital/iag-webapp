@@ -1,0 +1,22 @@
+﻿.section {
+    margin-bottom: 2em;
+
+    &--white {
+        background-color: white;
+    }
+
+    &__title {
+        font-size: 2em;
+        margin: 0 0 0 25px;
+        text-decoration: none;
+
+        a:hover {
+            text-decoration: underline;
+            text-decoration-thickness: 3px;
+        }
+
+        &--padded-bottom {
+            padding-bottom: 1em;
+        }
+    }
+}

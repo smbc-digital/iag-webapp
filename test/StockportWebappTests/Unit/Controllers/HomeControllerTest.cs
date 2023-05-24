@@ -8,6 +8,7 @@ public class HomeControllerTest
     private readonly Mock<IEventsService> _eventsService = new();
     private readonly Mock<IHomepageService> _homepageService = new();
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
+    private readonly Mock<IFeatureManager> _featureManager = new();
     private const string EmailAlertsUrl = "email_alerts_url";
     private const string BusinessId = "aBusinessId";
 
@@ -65,7 +66,7 @@ public class HomeControllerTest
         var appSetting = AppSetting.GetAppSetting(EmailAlertsUrl);
         _config.Setup(o => o.GetEmailAlertsUrl(BusinessId)).Returns(appSetting);
 
-        _controller = new HomeController(new BusinessId(BusinessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object, _stockportApiService.Object);
+        _controller = new HomeController(new BusinessId(BusinessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object, _stockportApiService.Object, _featureManager.Object);
     }
 
     [Fact]

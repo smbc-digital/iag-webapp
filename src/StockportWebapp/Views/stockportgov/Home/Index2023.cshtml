@@ -1,0 +1,60 @@
+﻿@inject StockportWebapp.Utils.ViewHelpers viewHelper
+@model HomepageViewModel
+@{
+    ViewData["Title"] = "Welcome to Stockport Council";
+    ViewData["og:title"] = "Welcome to Stockport Council";
+    ViewData["Description"] = @Model.HomepageContent.MetaDescription;
+    Layout = "../Shared/_LayoutHome2023.cshtml";
+}
+
+@section BackgroundImage
+{
+}
+
+@section CarouselBackgroundImage
+{
+}
+
+<div class="condolence-banner-placeholder placeholder">
+    <h2>Condolence Banner</h2>
+</div>
+
+<div class="searh-bar-placeholder placeholder">
+    <h2>Search Bar</h2>
+</div>
+
+<div class="welcome-banner-placeholder placeholder">
+    <h2>Welcome banner image</h2>
+</div>
+
+<feature name="ServiceList">
+    <section class="section section--white">
+        <div class="grid-container">
+            <div class="grid-100">
+                <h2 class="section__title section__title--padded-bottom">Our services</h2>
+                <partial name="NavCardList" model='Model.HomepageContent.Services'/>
+            </div>
+        </div>
+    </section>
+</feature>
+
+<div class="large-gray-placeholder placeholder">
+    <h2>What's happening in stockport</h2>
+</div>
+
+<div class="call-to-action-banner-placeholder placeholder">
+    <h2>Call to action</h2>
+</div>
+
+<div class="large-gray-placeholder placeholder">
+    <h2>Spotlight on</h2>
+</div>
+
+<section class="personalised-services">
+    <h2 class="visuallyhidden">Subscription </h2>
+    <div class="grid-container">
+        <div class="grid-100 enhanced_service" id="test-email-alerts">
+            <partial name="EmailSubscribe" />
+        </div>
+    </div>
+</section> 

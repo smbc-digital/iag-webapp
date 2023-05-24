@@ -16,6 +16,7 @@ global using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 global using Microsoft.AspNetCore.Mvc.ViewComponents;
 global using Microsoft.Extensions.Primitives;
 global using Microsoft.Net.Http.Headers;
+global using Microsoft.FeatureManagement;
 global using Moq;
 global using Newtonsoft.Json;
 global using StockportGovUK.NetStandard.Gateways.CivicaPay;
