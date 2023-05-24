@@ -13,19 +13,6 @@
     border-bottom: none;
   }
 
-  &.no-border {
-    border: 0;
-  }
-
-  &.no-margin,
-  .no-margin {
-    margin: 0;
-  }
-
-  &.no-padding {
-    padding: 0;
-  }
-
   textarea {
     background-color: $white;
     color: $greyDark;
@@ -91,20 +78,7 @@
   .form-control[type="file"] {
     height: auto;
   }
-
-  .form-example {
-    font-style: italic;
-    color: $greyDark;
-  }
-
-  .form-description, .form-example {
-    line-height: 1.5em;
-
-    &.no-margin {
-      margin: 0;
-    }
-  }
-
+  
   .input-group {
     position: relative;
     width: 100%;

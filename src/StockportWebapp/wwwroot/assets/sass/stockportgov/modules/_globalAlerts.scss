@@ -11,8 +11,12 @@
       vertical-align: middle;
       padding: 10px;
 
-      h3, p {
+      h3 {
+        margin-top: 0;
+        line-height: 1em;
+
         @media #{$desktop} {
+          margin-right: 15px;
           display: inline;
         }
 
@@ -22,38 +26,23 @@
         }
       }
 
-      h3 {
-        margin-top: 0;
-        line-height: 1em;
-
-        @media #{$desktop} {
-          margin-right: 15px;
-        }
-      }
-
       p {
         margin-bottom: 0;
+        display: inline;
 
         @media #{$mobile, $tablet} {
           line-height: 1.4em;
+          display: block;
         }
       }
 
       a {
         color: $white;
       }
-
-      a:hover {
-        color: $greyLight;
-      }
     }
 
     .global-alert-text-warning {
-      h3, p {
-        color: $black;
-      }
-
-      a {
+      h3, p, a {
         color: $black;
       }
 
@@ -83,7 +72,7 @@
     vertical-align: middle;
   }
 
-  .global-alert-icon-warning {
+  .global-alert-icon-warning, .global-alert-icon-information, .global-alert-icon-error {
     i:before {
       content: "\f05a";
       font-family: "FontAwesome";
@@ -92,12 +81,14 @@
     }
   }
 
-  .global-alert-icon-information {
+  .global-alert-icon-warning, .global-alert-icon-information {
     i:before {
       content: "\f05a";
-      font-family: "FontAwesome";
-      font-style: normal;
-      font-size: 25px;
+    }
+  }
+
+  .global-alert-icon-information {
+    i:before {
       color: $whiteOpaque3;
     }
   }
@@ -105,9 +96,6 @@
   .global-alert-icon-error {
     i:before {
       content: "\f071";
-      font-family: "FontAwesome";
-      font-style: normal;
-      font-size: 25px;
     }
   }
 
@@ -161,10 +149,6 @@
 
       &:hover {
         background-color: $whiteOpaque6;
-      }
-
-      i:before {
-        color: $white;
       }
     }
   }
