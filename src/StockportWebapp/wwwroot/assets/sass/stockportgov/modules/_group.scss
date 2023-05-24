@@ -355,28 +355,14 @@
 }
 
 .group-map-container {
-
   .map-container {
     height: 330px;
     margin-top: 10px;
   }
 }
 
-
-.no-js {
-  .group-map-container {
-    display: none;
-  }
-}
-
-// We got to here
-
 .hidden {
   display: none;
-}
-
-.fa.account {
-  font-size: 20px;
 }
 
 .l-group-content {
@@ -417,7 +403,6 @@
 }
 
 .button-default {
-
   &.white {
     border: solid 1px $grey875;
     color: $colorPrimaryDark;
@@ -536,39 +521,6 @@
   background-color: $offWhite;
   border-left: 5px solid $darkerEbbGrey;
   margin-bottom: 30px;
-
-  .volunteering-button {
-    border-radius: 3px;
-    border-width: 1px;
-    border-color: $greyMiddle;
-    border-style: solid;
-    padding-left: 30px;
-    padding-bottom: 8px;
-    padding-top: 8px;
-    text-decoration: none;
-    color: $greyDarkest;
-    font-size: 16px;
-    font-weight: 600;
-    transition-duration: 0.5s;
-
-    @media #{$mobile} {
-      display: block;
-      text-align: center;
-    }
-
-    &:hover {
-      box-shadow: 5px 5px 10px $greyLighter;
-      background-color: $greyLightest;
-    }
-
-    &:after {
-      content: "\f105";
-      font: normal normal normal 14px/1 FontAwesome;
-      font-size: 18px;
-      padding-left: 25px;
-      padding-right: 10px;
-    }
-  }
 }
 
 .donations-section {
@@ -581,88 +533,12 @@
   h3, a {
     color: $white;
   }
-
-  .donations-button {
-    border-radius: 3px;
-    border-width: 1px;
-    border-color: $white;
-    border-style: solid;
-    padding-left: 30px;
-    padding-bottom: 8px;
-    padding-top: 8px;
-    text-decoration: none;
-    color: $white;
-    font-size: 16px;
-    font-weight: 600;
-    transition-duration: 0.5s;
-
-    @media #{$mobile} {
-      display: block;
-      text-align: center;
-    }
-
-    &:hover {
-      box-shadow: 5px 5px 10px $black;
-    }
-
-    &:after {
-      content: "\f105";
-      font: normal normal normal 14px/1 FontAwesome;
-      font-size: 18px;
-      padding-left: 25px;
-      padding-right: 10px;
-    }
-  }
 }
 
 .group-information-section {
-  border-top: 1px solid $greyLighter;
-  margin-top: 20px;
-  padding-left: 0px;
-  text-align: center;
-
-
-  &.manage-group-section {
-    position: relative;
-  }
-
-  &.manage-group-section::after {
-    content: "";
-    background-color: $greyLighter;
-    position: absolute;
-    bottom: 10%;
-    right: 0;
-    height: 80%;
-    width: 0.5px;
-    visibility: visible;
-
-    @media #{$mobile, $tablet} {
-      visibility: hidden;
-    }
-  }
-
-
-
   p {
     margin-bottom: 6px;
     line-height: 1.5;
-  }
-
-  .manage-group-button {
-    border-color: $greyMiddle;
-    background-color: $white;
-    color: $greyDarkest;
-    font-weight: 600;
-    margin-top: 10px;
-    margin-bottom: 10px;
-
-    &:hover {
-      box-shadow: 5px 5px 10px $greyLighter;
-    }
-
-    span {
-      margin-left: 8px;
-    }
   }
 }
 
@@ -680,14 +556,6 @@
       position: absolute;
     }
   }
-}
-
-.test {
-  height: 30px;
-  width: 30px;
-  margin-top: 10px;
-  cursor: pointer;
-  border: 2px solid transparent;
 }
 
 .groups-admin-table-header {
@@ -716,10 +584,4 @@
       text-decoration-thickness: 3px;
     }
   }
-}
-
-.volunteering-section {
-  background-color: $offWhite;
-  border-left: 5px solid $darkerEbbGrey;
-  margin-bottom: 30px;
 }
