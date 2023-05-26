@@ -17,6 +17,10 @@
 
         &--padded-bottom {
             padding-bottom: 1em;
+
+            @media #{$mobile} {
+                padding-bottom: 0.5em;
+            }
         }
     }
 }
