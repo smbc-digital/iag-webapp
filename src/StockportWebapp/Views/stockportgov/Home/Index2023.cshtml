@@ -19,6 +19,16 @@
     <h2>Condolence Banner</h2>
 </div>
 
+@if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
+{
+    foreach (var alert in Model.HomepageContent.Alerts)
+    {
+        <div>
+            <partial name="GlobalAlert" model='alert' />
+        </div>
+    }
+}
+
 <div class="searh-bar-placeholder placeholder">
     <h2>Search Bar</h2>
 </div>
