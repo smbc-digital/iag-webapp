@@ -24,32 +24,40 @@
     foreach (var alert in Model.HomepageContent.Alerts)
     {
         <div>
-            <partial name="GlobalAlert" model='alert' />
+            <partial name="GlobalAlert" model='alert'/>
         </div>
     }
 }
 
-<div class="searh-bar-placeholder placeholder">
-    <h2>Search Bar</h2>
+<div class="top-tasks-wrapper">
+    <div class="grid-container">
+        <div class="grid-100">
+            <h1>Welcome to Stockport</h1>
+            <section class="search-bar">
+                <h2 class="visuallyhidden">Search stockport.gov.uk</h2>
+                <partial name="Search" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>
+            </section>
+
+            <h2>Popular services</h2>
+        </div>
+    </div>
 </div>
 
 <div class="welcome-banner-placeholder placeholder">
     <h2>Welcome banner image</h2>
 </div>
 
-<feature name="ServiceList">
-    <section class="section section--white">
-        <div class="grid-container">
-            <div class="grid-100">
-                <h2 class="section__title section__title--padded-bottom">Our services</h2>
-                <partial name="NavCardList" model='Model.HomepageContent.Services'/>
-                <div class="featured-content-button-wrapper">
-                    <a class="button button-outline button-partialrounded button-call-to-action" href="#">View more services</a>
-                </div>       
-            </div>
+<section class="section section--white">
+    <div class="grid-container">
+        <div class="grid-100">
+            <h2 class="section__title section__title--padded-bottom">Our services</h2>
+            <partial name="NavCardList" model='Model.HomepageContent.Services'/>
+            <div class="featured-content-button-wrapper">
+                <a class="button button-outline button-partialrounded button-call-to-action" href="#">View more services</a>
+            </div>       
         </div>
-    </section>
-</feature>
+    </div>
+</section>
 
 <div class="large-gray-placeholder placeholder">
     <h2>What's happening in stockport</h2>
