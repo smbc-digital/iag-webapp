@@ -6,52 +6,80 @@ body {
     background-color: white;
 }
 
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6 {
     font-family: $fontStack;
 }
 
-.h-xl{
+.h-xl {
     font-size: 2.5em;
 }
 
-.h-l{
+.h-l {
     font-size: 2em;
 }
 
-.h-m{
+.h-m {
     font-size: 1.8em;   
 }
 
-.h-sm{
+.h-sm {
     font-size: 1.5em;
 }
 
-.h-xs{
+.h-xs {
     font-size: 1.2em;   
 }
 
 /*------ Alerts ------*/
-.close-alert{
+.close-alert {
     line-height: 2;
 }
 
-.search-bar{
+.search-bar {
     margin: 0;
     box-shadow: none;
-  }
-  
-.search-input{
-    border: 1px solid black !important;
+
+    input.search-input {
+        border: 1px solid #aaa;
+        border-radius: 0;
+
+        @media #{$mobile}, #{$tablet} {
+            font-size: 15px;
+        }
+    }
+
+    .search-button {
+        height: -webkit-fill-available;
+        margin-top: -25px;
+        background-color: $stockport-teal;
+        color: white;
+        padding: 0;
+        text-align: center;
+    
+        &:hover{
+            background-color: $stockport-green;
+            opacity: 1;
+        }
+    }
 }
 
 /*------ Search + Welcome message + Skyline ------*/
-.top-tasks-wrapper{
-    height: 500px;
+.top-tasks-wrapper {
+    height: 550px;
     background-image: url("/assets/images/content/SKSkyline.png");
     background-position: bottom;
     background-repeat: no-repeat;
     background-size: 85% auto;
     margin-bottom: 1em;
+
+    @media #{$mobile} {
+        background: none;
+        height: auto;
+    }
+
+    .--text-center {
+        text-align: center;
+    }
 }
 
 
@@ -71,14 +99,12 @@ h1, h2, h3, h4, h5, h6{
     height: 250px;
 }
 
-.searh-bar-placeholder {
+.top-tasks-placeholder {
     background-color: $stockport-pink;
-    height: 200px;
-}
-
-.welcome-banner-placeholder {
-    background-color: $stockport-green;
-    height: 200px;    
+    height: 150px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .large-gray-placeholder {
