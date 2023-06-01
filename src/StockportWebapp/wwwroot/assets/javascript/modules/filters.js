@@ -1,4 +1,4 @@
-﻿define(["jquery", "utils.min"], function ($, utils) {
+﻿define(["jquery", "utils"], function ($, utils) {
 
     var init = function () {
         $(document).ready(function () {

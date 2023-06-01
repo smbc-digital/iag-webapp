@@ -14,7 +14,7 @@ public class CarouselTagParserTest
     {
         var tag = "![Frosty Twigs](Frosty_twigs_2.jpg)";
         var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-d85cf3bb.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-fd0642d6.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
         response.Should().Be($"<div class='carousel'><div class=\"carousel-image stockport-carousel\" style=\"background-image:url(Frosty_twigs_2.jpg);\" title=\"Frosty Twigs\" /><div class=\"stockport-carousel-text article-carousel-text\"><p class=\"carousel-text\">Frosty Twigs</p></div></div></div>{scriptTag}");
     }
 
@@ -35,7 +35,7 @@ public class CarouselTagParserTest
         var tag = "";
 
         var response = _parser.Parse("{{CAROUSEL:" + tag + "}}");
-        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-d85cf3bb.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
+        string scriptTag = "<script>\r\nrequire(['/assets/javascript/config-fd0642d6.min.js'],function(){\r\nrequire(['slick', 'carousel'],\r\nfunction(_, carousel){\r\ncarousel.Init();\r\n}\r\n);\r\n});\r\n</script>";
         response.Should().Be($"<div class='carousel'></div>{scriptTag}");
     }
 
