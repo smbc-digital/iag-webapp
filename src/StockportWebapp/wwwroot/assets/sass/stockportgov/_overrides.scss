@@ -6,9 +6,94 @@ body {
     background-color: white;
 }
 
-h1,h2,h3,h4{
+h1, h2, h3, h4, h5, h6 {
     font-family: $fontStack;
 }
+
+.h--xl {
+    font-size: 2.5em;
+}
+
+.h--l {
+    font-size: 2em;
+}
+
+.h--m {
+    font-size: 1.8em;   
+}
+
+.h--sm {
+    font-size: 1.5em;
+}
+
+.h--xs {
+    font-size: 1.2em;   
+}
+
+/*------ Alerts ------*/
+.close-alert {
+    line-height: 2;
+}
+
+.search-bar {
+    margin: 0;
+    box-shadow: none;
+
+    input.search-input {
+        border: 1px solid #aaa;
+        border-radius: 2px;
+        font-size: 1.5em;
+
+        @media #{$mobile} {
+            font-size: 1em;
+        }
+    }
+
+    .search-button {
+        height: -webkit-fill-available;
+        margin-top: -25px;
+        background-color: $tealDarker;
+        color: white;
+        padding: 0;
+        text-align: center;
+        border-radius: 0 2px 2px 0;
+    
+        &:hover{
+            background-color: $stockport-green;
+            opacity: 1;
+        }
+    }
+}
+
+/*------ Search + Welcome message + Skyline ------*/
+.top-tasks-wrapper {
+    height: 750px;
+    background-image: url("/assets/images/content/markup-cropped.svg");
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 85% auto;
+    margin-bottom: 1em;
+
+    @media #{$mobile} {
+        background: none;
+        height: auto;
+    }
+
+    @media #{$tablet} {
+        height: 650px;
+    }
+
+    .--text-center {
+        text-align: center;
+    }
+
+    &__title{
+        padding-bottom: 1em;
+        margin-top: 1em;
+        margin-bottom: 0;
+    }
+}
+
 
 /*------ Placeholders ------*/
 .placeholder {
@@ -26,14 +111,12 @@ h1,h2,h3,h4{
     height: 250px;
 }
 
-.searh-bar-placeholder {
+.top-tasks-placeholder {
     background-color: $stockport-pink;
-    height: 200px;
-}
-
-.welcome-banner-placeholder {
-    background-color: $stockport-green;
-    height: 200px;    
+    height: 150px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .large-gray-placeholder {
@@ -44,8 +127,4 @@ h1,h2,h3,h4{
 .call-to-action-banner-placeholder {
     background-color: $stockport-teal;
     height: 200px; 
-}
-
-.close-alert{
-    line-height: 2;
 }

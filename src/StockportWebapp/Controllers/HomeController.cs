@@ -40,9 +40,7 @@ public class HomeController : Controller
         };
 
         if(await _featureManager.IsEnabledAsync("SiteRedesign"))
-        {
             return View("Index2023", homepageViewModel);
-        }
 
         return View(homepageViewModel);
     }
