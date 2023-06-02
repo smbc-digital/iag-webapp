@@ -1,9 +1,13 @@
-﻿@using StockportWebapp.ViewModels
-@model PrimaryFilter
-
+﻿@model PrimaryFilter
 @{
     var locationSearch = new LocationSearch
-    {LocationControlId = "location", LongitudeControlId = "longitude", LatitudeControlId = "latitude", Default = Model.Location, Label = "groups in"};
+    {
+        LocationControlId = "location", 
+        LongitudeControlId = "longitude",
+        LatitudeControlId = "latitude",
+        Default = Model.Location,
+        Label = "groups in"
+    };
 }
 
 <form asp-controller="Groups" asp-action="Results" method="get" class="primary-filter-form primary-filter-form-autocomplete">
@@ -38,8 +42,8 @@
 </form>
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['primaryFilter.min'],
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['primaryFilter'],
             function(primaryFilter) {
                 primaryFilter.Init();
             }

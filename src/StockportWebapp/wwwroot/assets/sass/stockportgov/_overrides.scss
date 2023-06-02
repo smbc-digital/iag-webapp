@@ -1,0 +1,130 @@
+﻿$fontStack: 'Noto Sans', sans-serif;
+
+/*------ Base Styles ------*/
+body {
+    font: 1.2em / 1.5 $fontStack;
+    background-color: white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $fontStack;
+}
+
+.h--xl {
+    font-size: 2.5em;
+}
+
+.h--l {
+    font-size: 2em;
+}
+
+.h--m {
+    font-size: 1.8em;   
+}
+
+.h--sm {
+    font-size: 1.5em;
+}
+
+.h--xs {
+    font-size: 1.2em;   
+}
+
+/*------ Alerts ------*/
+.close-alert {
+    line-height: 2;
+}
+
+.search-bar {
+    margin: 0;
+    box-shadow: none;
+
+    input.search-input {
+        border: 1px solid #aaa;
+        border-radius: 2px;
+        font-size: 1.5em;
+
+        @media #{$mobile} {
+            font-size: 1em;
+        }
+    }
+
+    .search-button {
+        height: -webkit-fill-available;
+        margin-top: -25px;
+        background-color: $tealDarker;
+        color: white;
+        padding: 0;
+        text-align: center;
+        border-radius: 0 2px 2px 0;
+    
+        &:hover{
+            background-color: $stockport-green;
+            opacity: 1;
+        }
+    }
+}
+
+/*------ Search + Welcome message + Skyline ------*/
+.top-tasks-wrapper {
+    height: 750px;
+    background-image: url("/assets/images/content/markup-cropped.svg");
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 85% auto;
+    margin-bottom: 1em;
+
+    @media #{$mobile} {
+        background: none;
+        height: auto;
+    }
+
+    @media #{$tablet} {
+        height: 650px;
+    }
+
+    .--text-center {
+        text-align: center;
+    }
+
+    &__title{
+        padding-bottom: 1em;
+        margin-top: 1em;
+        margin-bottom: 0;
+    }
+}
+
+
+/*------ Placeholders ------*/
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    h2 {
+        color: white;
+    }
+}
+.condolence-banner-placeholder {
+    background-color: black;
+    height: 250px;
+}
+
+.top-tasks-placeholder {
+    background-color: $stockport-pink;
+    height: 150px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.large-gray-placeholder {
+    background-color: #aaa;
+    height: 500px;
+}
+
+.call-to-action-banner-placeholder {
+    background-color: $stockport-teal;
+    height: 200px; 
+}

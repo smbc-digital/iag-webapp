@@ -1,12 +1,9 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.ViewModels;
 
-namespace StockportWebapp.ViewModels
+public class EventsListViewModel
 {
-    public class EventsListViewModel
-    {
-        public IEnumerable<Event> Events { get; set; }
-        public string Heading { get; set; }
-        public string Link { get; set; }
-        public string LinkText { get; set; }
-    }
+    public IEnumerable<Event> Events { get; set; }
+    public string Heading { get; set; }
+    public string Link { get; set; }
+    public string LinkText { get; set; }
 }

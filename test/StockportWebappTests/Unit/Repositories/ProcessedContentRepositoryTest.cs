@@ -1,323 +1,302 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.IO;
-//using FluentAssertions;
-//using StockportWebapp.ContentFactory;
-//using StockportWebapp.Http;
-//using StockportWebapp.Models;
-//using StockportWebapp.Utils;
-//using Xunit;
-//using System.Linq;
-//using Microsoft.AspNetCore.Http;
-//using Moq;
-//using StockportWebapp.Config;
-//using StockportWebapp.Parsers;
-//using StockportWebapp.ProcessedModels;
-//using StockportWebapp.Repositories;
-//using HttpResponse = StockportWebapp.Http.HttpResponse;
-//using System.Threading.Tasks;
-//using StockportWebappTests_Unit.Helpers;
+﻿//namespace stockportwebapptests_unit.unit.repositories;
 
-//namespace StockportWebappTests_Unit.Unit.Repositories
+//public class processedcontentrepositorytest
 //{
-//    public class ProcessedContentRepositoryTest
+//    private readonly iprocessedcontentrepository _repository;
+//    private readonly mock<ihttpclient> _mockhttpclient;
+//    private readonly mock<istubtourlconverter> _mockurlgenerator;
+//    private readonly mock<isimpletagparsercontainer> _tagparsercontainer;
+//    private readonly mock<idynamictagparser<profile>> _profiletagparser;
+//    private readonly mock<idynamictagparser<document>> _documenttagparser;
+//    private readonly mock<idynamictagparser<alert>> _alertsinlinetagparser;
+//    private readonly mock<markdownwrapper> _markdownwrapper;
+//    private readonly mock<iapplicationconfiguration> appconfig;
+//    private readonly mock<ihttpcontextaccessor> httpcontextaccessor;
+//    private readonly mock<idynamictagparser<s3bucketsearch>> _s3bucketparser;
+//    private readonly mock<idynamictagparser<privacynotice>> _privacynoticetagparser;
+
+//    public processedcontentrepositorytest()
 //    {
-//        private readonly IProcessedContentRepository _repository;
-//        private readonly Mock<IHttpClient> _mockHttpClient;
-//        private readonly Mock<IStubToUrlConverter> _mockUrlGenerator;
-//        private readonly Mock<ISimpleTagParserContainer> _tagParserContainer;
-//        private readonly Mock<IDynamicTagParser<Profile>> _profileTagParser;
-//        private readonly Mock<IDynamicTagParser<Document>> _documentTagParser;
-//        private readonly Mock<IDynamicTagParser<Alert>> _alertsInlineTagParser;
-//        private readonly Mock<MarkdownWrapper> _markdownWrapper;
-//        private readonly Mock<IApplicationConfiguration> appConfig;
-//        private readonly Mock<IHttpContextAccessor> httpContextAccessor;
-//        private readonly Mock<IDynamicTagParser<S3BucketSearch>> _s3BucketParser;
-//        private readonly Mock<IDynamicTagParser<PrivacyNotice>> _privacyNoticeTagParser;
+//        _tagparsercontainer = new mock<isimpletagparsercontainer>();
+//        _profiletagparser = new mock<idynamictagparser<profile>>();
+//        _markdownwrapper = new mock<markdownwrapper>();
+//        _documenttagparser = new mock<idynamictagparser<document>>();
+//        _alertsinlinetagparser = new mock<idynamictagparser<alert>>();
+//        _mockurlgenerator = new mock<istubtourlconverter>();
+//        appconfig = new mock<iapplicationconfiguration>();
+//        httpcontextaccessor = new mock<ihttpcontextaccessor>();
+//        _mockhttpclient = new mock<ihttpclient>();
+//        _s3bucketparser = new mock<idynamictagparser<s3bucketsearch>>();
+//        _privacynoticetagparser = new mock<idynamictagparser<privacynotice>>();
 
-//        public ProcessedContentRepositoryTest()
-//        {
-//            _tagParserContainer = new Mock<ISimpleTagParserContainer>();
-//            _profileTagParser = new Mock<IDynamicTagParser<Profile>>();
-//            _markdownWrapper = new Mock<MarkdownWrapper>();
-//            _documentTagParser = new Mock<IDynamicTagParser<Document>>();
-//            _alertsInlineTagParser = new Mock<IDynamicTagParser<Alert>>();
-//            _mockUrlGenerator = new Mock<IStubToUrlConverter>();
-//            appConfig = new Mock<IApplicationConfiguration>();
-//            httpContextAccessor = new Mock<IHttpContextAccessor>();
-//            _mockHttpClient = new Mock<IHttpClient>();
-//            _s3BucketParser = new Mock<IDynamicTagParser<S3BucketSearch>>();
-//            _privacyNoticeTagParser = new Mock<IDynamicTagParser<PrivacyNotice>>();
+//        _s3bucketparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<s3bucketsearch>>())).returns("");
 
-//            _s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns("");
+//        var contentfactory = new contenttypefactory(_tagparsercontainer.object, _profiletagparser.object, _markdownwrapper.object, _documenttagparser.object, _alertsinlinetagparser.object, httpcontextaccessor.object, _s3bucketparser.object, _privacynoticetagparser.object);
+//        _repository = new processedcontentrepository(_mockurlgenerator.object, _mockhttpclient.object, contentfactory, appconfig.object);
+//    }
 
-//            var contentFactory = new ContentTypeFactory(_tagParserContainer.Object, _profileTagParser.Object, _markdownWrapper.Object, _documentTagParser.Object, _alertsInlineTagParser.Object, httpContextAccessor.Object, _s3BucketParser.Object, _privacyNoticeTagParser.Object);
-//            _repository = new ProcessedContentRepository(_mockUrlGenerator.Object, _mockHttpClient.Object, contentFactory, appConfig.Object);
-//        }
+//    /*
+//     * article
+//     */
+//    [fact]
+//    public async task getarticleforarticleslug()
+//    {
+//        var articleslug = "physical-activity";
+//        const string url = "article-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<article>(articleslug, it.isany<list<query>>())).returns(url);
 
-//        /*
-//         * Article
-//         */
-//        [Fact]
-//        public async Task GetArticleForArticleSlug()
-//        {
-//            var articleSlug = "physical-activity";
-//            const string url = "article-with-slug-url";
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Article>(articleSlug, It.IsAny<List<Query>>())).Returns(url);
+//        var body = "staying active and exercising is essential to reach and maintain a healthy lifestyle.";
 
-//            var body = "Staying active and exercising is essential to reach and maintain a healthy lifestyle.";
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>()))
+//            .returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("article.json"), string.empty));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-//                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Article.json"), string.Empty));
+//        _tagparsercontainer.setup(o => o.parseall(it.isany<string>(), it.isany<string>())).returns(body);
+//        _profiletagparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<profile>>())).returns(body);
+//        _markdownwrapper.setup(o => o.converttohtml(it.isany<string>())).returns(body);
+//        _documenttagparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<document>>())).returns(body);
+//        _alertsinlinetagparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<alert>>())).returns(body);
+//        _s3bucketparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<s3bucketsearch>>())).returns(body);
+//        _privacynoticetagparser.setup(o => o.parse(it.isany<string>(), it.isany<ienumerable<privacynotice>>())).returns(body);
 
-//            _tagParserContainer.Setup(o => o.ParseAll(It.IsAny<string>(), It.IsAny<string>())).Returns(body);
-//            _profileTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Profile>>())).Returns(body);
-//            _markdownWrapper.Setup(o => o.ConvertToHtml(It.IsAny<string>())).Returns(body);
-//            _documentTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Document>>())).Returns(body);
-//            _alertsInlineTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<Alert>>())).Returns(body);
-//            _s3BucketParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<S3BucketSearch>>())).Returns(body);
-//            _privacyNoticeTagParser.Setup(o => o.Parse(It.IsAny<string>(), It.IsAny<IEnumerable<PrivacyNotice>>())).Returns(body);
+//        var httpresponse = await _repository.get<article>(articleslug);
+//        var article = httpresponse.content as processedarticle;
 
-//            var httpResponse = await _repository.Get<Article>(articleSlug);
-//            var article = httpResponse.Content as ProcessedArticle;
+//        article.title.should().notbenull();
+//        article.navigationlink.should().notbenull();
+//        article.body.should().be(body);
+//        article.backgroundimage.should().notbenull();
+//        article.icon.should().be("fa-icon");
+//        article.breadcrumbs.should().havecount(1);
+//        article.breadcrumbs.first().title.should().be("test topic");
+//        article.breadcrumbs.first().navigationlink.should().contain("test-topic");
 
-//            article.Title.Should().NotBeNull();
-//            article.NavigationLink.Should().NotBeNull();
-//            article.Body.Should().Be(body);
-//            article.BackgroundImage.Should().NotBeNull();
-//            article.Icon.Should().Be("fa-icon");
-//            article.Breadcrumbs.Should().HaveCount(1);
-//            article.Breadcrumbs.First().Title.Should().Be("Test topic");
-//            article.Breadcrumbs.First().NavigationLink.Should().Contain("test-topic");
+//        var section = article.sections.first();
 
-//            var section = article.Sections.First();
+//        section.title.should().be("overview ");
+//        section.slug.should().be("physical-activity-overview");
+//        section.body.should().contain("staying active and exercising is essential to reach and maintain a healthy lifestyle.");
+//    }
 
-//            section.Title.Should().Be("Overview ");
-//            section.Slug.Should().Be("physical-activity-overview");
-//            section.Body.Should().Contain("Staying active and exercising is essential to reach and maintain a healthy lifestyle.");
-//        }
+//    [fact]
+//    public async task getarticleforarticleslugwithoutbackgroundimage()
+//    {
+//        const string articleslug = "physical-activity";
+//        const string url = "article-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<article>(articleslug, it.isany<list<query>>())).returns(url);
 
-//        [Fact]
-//        public async Task GetArticleForArticleSlugWithoutBackgroundImage()
-//        {
-//            const string articleSlug = "physical-activity";
-//            const string url = "article-with-slug-url";
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Article>(articleSlug, It.IsAny<List<Query>>())).Returns(url);
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>()))
+//            .returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("articlewithoutbackgroundimage.json"),
+//                string.empty));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-//                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("ArticleWithoutBackgroundImage.json"),
-//                    string.Empty));
+//        var httpresponse = await _repository.get<article>(articleslug);
+//        var article = httpresponse.content as processedarticle;
 
-//            var httpResponse = await _repository.Get<Article>(articleSlug);
-//            var article = httpResponse.Content as ProcessedArticle;
+//        article.backgroundimage.should().benull();
+//        article.title.should().be("title");
+//        article.sections.first().profiles.first().title.should().be("a pull out");
+//    }
 
-//            article.BackgroundImage.Should().BeNull();
-//            article.Title.Should().Be("Title");
-//            article.Sections.First().Profiles.First().Title.Should().Be("A pull Out");
-//        }
+//    [fact]
+//    public async task getsnotfoundforarticlenotfound()
+//    {
+//        const string nonexistentarticle = "pineapple";
+//        const string articlenotfounderror = "no article found for pineapple";
 
-//        [Fact]
-//        public async Task GetsNotFoundForArticleNotFound()
-//        {
-//            const string nonExistentArticle = "pineapple";
-//            const string articleNotFoundError = "No article found for pineapple";
+//        const string url = "non-existent-article-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<article>(nonexistentarticle, it.isany<list<query>>())).returns(url);
 
-//            const string url = "non-existent-article-with-slug-url";
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Article>(nonExistentArticle, It.IsAny<List<Query>>())).Returns(url);
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>()))
+//            .returnsasync(httpresponse.failure(404, articlenotfounderror));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-//                .ReturnsAsync(HttpResponse.Failure(404, articleNotFoundError));
+//        var httpresponse = await _repository.get<article>(nonexistentarticle);
 
-//            var httpResponse = await _repository.Get<Article>(nonExistentArticle);
+//        assert.equal(404, httpresponse.statuscode);
+//        assert.equal("no article found for pineapple", httpresponse.error);
+//    }
 
-//            Assert.Equal(404, httpResponse.StatusCode);
-//            Assert.Equal("No article found for pineapple", httpResponse.Error);
-//        }
+//    [fact]
+//    public async task getsalertbyarticleslug()
+//    {
+//        const string articleslug = "article-with-alerts";
+//        const string url = "get-articlewithalerts-with-slug-url";
 
-//        [Fact]
-//        public async Task GetsAlertByArticleSlug()
-//        {
-//            const string articleSlug = "article-with-alerts";
-//            const string url = "get-articlewithalerts-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<article>(articleslug, it.isany<list<query>>())).returns(url);
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>()))
+//            .returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("articlewithalerts.json"),
+//                string.empty));
 
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Article>(articleSlug, It.IsAny<List<Query>>())).Returns(url);
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-//                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("ArticleWithAlerts.json"),
-//                    string.Empty));
+//        var httpresponse = await _repository.get<article>(articleslug);
+//        var topic = httpresponse.content as processedarticle;
 
-//            var httpResponse = await _repository.Get<Article>(articleSlug);
-//            var topic = httpResponse.Content as ProcessedArticle;
+//        topic.alerts.should().havecount(1);
+//        topic.alerts.firstordefault().title.should().be("this is an alert");
+//        topic.alerts.firstordefault().subheading.should().be("it has a subheading");
+//        topic.alerts.firstordefault()
+//            .body.should()
+//            .be("<p>it also has a body text</p>\n");
+//        topic.alerts.firstordefault().severity.should().be(severity.warning);
+//    }
 
-//            topic.Alerts.Should().HaveCount(1);
-//            topic.Alerts.FirstOrDefault().Title.Should().Be("This is an alert");
-//            topic.Alerts.FirstOrDefault().SubHeading.Should().Be("It has a subheading");
-//            topic.Alerts.FirstOrDefault()
-//                .Body.Should()
-//                .Be("<p>It also has a body text</p>\n");
-//            topic.Alerts.FirstOrDefault().Severity.Should().Be(Severity.Warning);
-//        }
+//    /*
+//     * profile
+//     */
+//    [fact]
+//    public async task shouldgetaprofile()
+//    {
+//        const string profileslug = "slug";
+//        const string url = "get-getaprofile-with-slug-url";
 
-//        /*
-//         * Profile
-//         */
-//        [Fact]
-//        public async Task ShouldGetAProfile()
-//        {
-//            const string profileSlug = "slug";
-//            const string url = "get-getaprofile-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<profile>(profileslug, it.isany<list<query>>())).returns(url);
 
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Profile>(profileSlug, It.IsAny<List<Query>>())).Returns(url);
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>()))
+//            .returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("profile.json"), string.empty));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>()))
-//                .ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Profile.json"), string.Empty));
+//        var httpresponse = await _repository.get<profile>(profileslug);
+//        var profile = httpresponse.content as processedprofile;
 
-//            var httpResponse = await _repository.Get<Profile>(profileSlug);
-//            var profile = httpResponse.Content as ProcessedProfile;
+//        profile.title.should().be("test profile");
+//        profile.slug.should().be("test-profile");
+//        profile.teaser.should().be("teaser");
+//        profile.subtitle.should().be("test sub title");
+//        profile.image.should().be("image");
+//        profile.type.should().be("success story");
+//        profile.backgroundimage.should().be("background-image");
+//        profile.icon.should().be("fa-icon");
+//        profile.breadcrumbs.should().havecount(2);
+//        profile.breadcrumbs.first().navigationlink.should().contain("test-sub-topic-1");
+//        profile.breadcrumbs.first().title.should().be("test sub topic 1");
+//    }
 
-//            profile.Title.Should().Be("Test Profile");
-//            profile.Slug.Should().Be("test-profile");
-//            profile.Teaser.Should().Be("teaser");
-//            profile.Subtitle.Should().Be("Test sub title");
-//            profile.Image.Should().Be("image");
-//            profile.Type.Should().Be("Success Story");
-//            profile.BackgroundImage.Should().Be("background-image");
-//            profile.Icon.Should().Be("fa-icon");
-//            profile.Breadcrumbs.Should().HaveCount(2);
-//            profile.Breadcrumbs.First().NavigationLink.Should().Contain("test-sub-topic-1");
-//            profile.Breadcrumbs.First().Title.Should().Be("Test sub topic 1");
-//        }
+//    /*
+//     * news
+//     */
+//    [fact]
+//    public async task getsnews()
+//    {
+//        const string slug = "news";
+//        const string url = "get-news-with-slug-url";
 
-//        /*
-//         * News
-//         */
-//        [Fact]
-//        public async Task GetsNews()
-//        {
-//            const string slug = "news";
-//            const string url = "get-news-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<news>(slug, it.isany<list<query>>())).returns(url);
+//        var body = "lorem ipsum dolor sit amet, consectetur adipiscing elit.";
 
-//            _mockUrlGenerator.Setup(o => o.UrlFor<News>(slug, It.IsAny<List<Query>>())).Returns(url);
-//            var body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>())).returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("news.json"), string.empty));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("News.json"), string.Empty));
+//        _tagparsercontainer.setup(o => o.parseall(body, it.isany<string>())).returns(body);
+//        _markdownwrapper.setup(o => o.converttohtml(body)).returns(body);
+//        _documenttagparser.setup(o => o.parse(body, it.isany<list<document>>())).returns(body);
 
-//            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
-//            _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
-//            _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
+//        var httpresponse = await _repository.get<news>(slug);
+//        var news = httpresponse.content as processednews;
 
-//            var httpResponse = await _repository.Get<News>(slug);
-//            var news = httpResponse.Content as ProcessedNews;
+//        news.title.should().be("another news article");
+//        news.slug.should().be("another-news-article");
+//        news.teaser.should().be("this is another news article");
+//        news.image.should().be("image.jpg");
+//        news.thumbnailimage.should().be("thumbnail.jpg");
+//        news.body.should().be(body);
+//    }
 
-//            news.Title.Should().Be("Another news article");
-//            news.Slug.Should().Be("another-news-article");
-//            news.Teaser.Should().Be("This is another news article");
-//            news.Image.Should().Be("image.jpg");
-//            news.ThumbnailImage.Should().Be("thumbnail.jpg");
-//            news.Body.Should().Be(body);
-//        }
+//    [fact]
+//    public async task getsevent()
+//    {
+//        const string slug = "event";
+//        const string url = "get-event-with-slug-url";
 
-//        [Fact]
-//        public async Task GetsEvent()
-//        {
-//            const string slug = "event";
-//            const string url = "get-event-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<event>(slug, null)).returns(url);
 
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Event>(slug, null)).Returns(url);
+//        var body = "the event description";
 
-//            var body = "The event description";
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>())).returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("event.json"), string.empty));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Event.json"), string.Empty));
+//        _tagparsercontainer.setup(o => o.parseall(body, it.isany<string>())).returns(body);
+//        _markdownwrapper.setup(o => o.converttohtml(body)).returns(body);
+//        _documenttagparser.setup(o => o.parse(body, it.isany<list<document>>())).returns(body);
 
-//            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
-//            _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
-//            _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
+//        var httpresponse = await _repository.get<event>(slug);
+//        var events = httpresponse.content as processedevents;
 
-//            var httpResponse = await _repository.Get<Event>(slug);
-//            var events = httpResponse.Content as ProcessedEvents;
+//        events.title.should().be("this is the event");
+//        events.slug.should().be("event-of-the-century");
+//        events.teaser.should().be("read more for the event");
 
-//            events.Title.Should().Be("This is the event");
-//            events.Slug.Should().Be("event-of-the-century");
-//            events.Teaser.Should().Be("Read more for the event");
+//        events.description.should().be(body);
+//    }
 
-//            events.Description.Should().Be(body);
-//        }
+//    [fact]
+//    public async task getseventwithspecificdate()
+//    {
+//        const string slug = "event";
+//        const string url = "get-event-with-slug-url";
+//        var date = new datetime();
+//        _mockurlgenerator.setup(o => o.urlfor<event>(slug, it.is<list<query>>(q => q.contains(new query("date", date.tostring("yyyy-mm-dd")))))).returns(url);
 
-//        [Fact]
-//        public async Task GetsEventWithSpecificDate()
-//        {
-//            const string slug = "event";
-//            const string url = "get-event-with-slug-url";
-//            var date = new DateTime();
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Event>(slug, It.Is<List<Query>>(q => q.Contains(new Query("date", date.ToString("yyyy-MM-dd")))))).Returns(url);
+//        var body = "the event description";
 
-//            var body = "The event description";
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>())).returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("event.json"), string.empty));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Event.json"), string.Empty));
+//        _tagparsercontainer.setup(o => o.parseall(body, it.isany<string>())).returns(body);
+//        _markdownwrapper.setup(o => o.converttohtml(body)).returns(body);
+//        _documenttagparser.setup(o => o.parse(body, it.isany<list<document>>())).returns(body);
 
-//            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
-//            _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
-//            _documentTagParser.Setup(o => o.Parse(body, It.IsAny<List<Document>>())).Returns(body);
+//        var httpresponse = await _repository.get<event>(slug, new list<query> { new query("date", date.tostring("yyyy-mm-dd")) });
+//        var eventitem = httpresponse.content as processedevents;
 
-//            var httpResponse = await _repository.Get<Event>(slug, new List<Query> { new Query("date", date.ToString("yyyy-MM-dd")) });
-//            var eventItem = httpResponse.Content as ProcessedEvents;
+//        eventitem.title.should().be("this is the event");
+//        eventitem.slug.should().be("event-of-the-century");
+//        eventitem.teaser.should().be("read more for the event");
+//        eventitem.description.should().be(body);
+//    }
 
-//            eventItem.Title.Should().Be("This is the event");
-//            eventItem.Slug.Should().Be("event-of-the-century");
-//            eventItem.Teaser.Should().Be("Read more for the event");
-//            eventItem.Description.Should().Be(body);
-//        }
+//    [fact]
+//    public async task getsgroup()
+//    {
+//        const string slug = "group";
+//        const string url = "get-group-with-slug-url";
 
-//        [Fact]
-//        public async Task GetsGroup()
-//        {
-//            const string slug = "group";
-//            const string url = "get-group-with-slug-url";
+//        _mockurlgenerator.setup(o => o.urlfor<group>(slug, null)).returns(url);
 
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Group>(slug, null)).Returns(url);
+//        var body = "the group description";
 
-//            var body = "The group description";
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>())).returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("group.json"), string.empty));
 
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Group.json"), string.Empty));
+//        _tagparsercontainer.setup(o => o.parseall(body, it.isany<string>())).returns(body);
+//        _markdownwrapper.setup(o => o.converttohtml(body)).returns(body);
 
-//            _tagParserContainer.Setup(o => o.ParseAll(body, It.IsAny<string>())).Returns(body);
-//            _markdownWrapper.Setup(o => o.ConvertToHtml(body)).Returns(body);
+//        var httpresponse = await _repository.get<group>(slug);
+//        var group = httpresponse.content as processedgroup;
 
-//            var httpResponse = await _repository.Get<Group>(slug);
-//            var group = httpResponse.Content as ProcessedGroup;
+//        group.name.should().be("zumba");
+//        group.slug.should().be("test-zumba-slug");
+//        group.phonenumber.should().be("00000000000");
+//        group.email.should().be("hello@stockportzumba.whatever");
+//        group.website.should().be("stockportzumba.io");
+//        group.facebook.should().be("facebook.com/stockportzumba");
+//        group.address.should().be("zumba house,\nzumba road,\nzumba zumba zumba");
+//        group.description.should().be("the group description");
+//    }
 
-//            group.Name.Should().Be("Zumba");
-//            group.Slug.Should().Be("test-zumba-slug");
-//            group.PhoneNumber.Should().Be("00000000000");
-//            group.Email.Should().Be("hello@stockportzumba.whatever");
-//            group.Website.Should().Be("stockportzumba.io");
-//            group.Facebook.Should().Be("facebook.com/stockportzumba");
-//            group.Address.Should().Be("zumba house,\nzumba road,\nzumba zumba zumba");
-//            group.Description.Should().Be("The group description");
-//        }
+//    [fact]
+//    public async task getsshowcase()
+//    {
+//        //arrange
+//        const string slug = "showcase";
+//        const string url = "url";
 
-//        [Fact]
-//        public async Task GetsShowcase()
-//        {
-//            //Arrange
-//            const string slug = "showcase";
-//            const string url = "url";
+//        _mockurlgenerator.setup(o => o.urlfor<showcase>(slug, null)).returns(url);
+//        _mockhttpclient.setup(o => o.get(url, it.isany<dictionary<string, string>>())).returnsasync(new httpresponse(200, jsonfilehelper.getstringresponsefromfile("showcase.json"), string.empty));
 
-//            _mockUrlGenerator.Setup(o => o.UrlFor<Showcase>(slug, null)).Returns(url);
-//            _mockHttpClient.Setup(o => o.Get(url, It.IsAny<Dictionary<string, string>>())).ReturnsAsync(new HttpResponse(200, JsonFileHelper.GetStringResponseFromFile("Showcase.json"), string.Empty));
+//        //act
+//        var httpresponse = await _repository.get<showcase>(slug);
+//        var showcase = httpresponse.content as processedshowcase;
 
-//            //Act
-//            var httpResponse = await _repository.Get<Showcase>(slug);
-//            var showcase = httpResponse.Content as ProcessedShowcase;
-
-//            //Assert
-//            showcase.Title.Should().Be("test showcase");
-//            showcase.Slug.Should().Be("test-showcase");
-//            showcase.Teaser.Should().Be("Just a test");
-//            showcase.Subheading.Should().Be("test subheading");
-//            showcase.HeroImageUrl.Should().Be("heroImageUrl.jpg");
-//            showcase.FeaturedItems.First().Title.Should().Be("test title");
-//            showcase.Breadcrumbs.First().Title.Should().Be("test-title");
-//        }  
+//        //assert
+//        showcase.title.should().be("test showcase");
+//        showcase.slug.should().be("test-showcase");
+//        showcase.teaser.should().be("just a test");
+//        showcase.subheading.should().be("test subheading");
+//        showcase.heroimageurl.should().be("heroimageurl.jpg");
+//        showcase.featureditems.first().title.should().be("test title");
+//        showcase.breadcrumbs.first().title.should().be("test-title");
 //    }
 //}
 

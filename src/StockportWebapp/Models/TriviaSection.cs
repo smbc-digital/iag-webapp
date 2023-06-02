@@ -1,4 +1,3 @@
-﻿namespace StockportWebapp.Models
-{
-    public record TriviaSection(string Heading, IEnumerable<Trivia> Trivia);
-}
+﻿namespace StockportWebapp.Models;
+
+public record TriviaSection(string Heading, IEnumerable<Trivia> Trivia);

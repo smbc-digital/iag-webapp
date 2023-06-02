@@ -1,7 +1,17 @@
-﻿// colours.scss from style guide
-// everything in the healthystockport folder
+﻿@import "base/colourPalette";
+@import "healthystockport/brandColors";
 
-@import "styleguide/devices";
-@import "healthystockport/colors";
+@import "base/devices";
+@import "base/mixins";
+@import "base/reset";
+
+// StockportStyleGuide
+@import "StockportStyleGuide/healthy-stockport/text";
+@import "StockportStyleGuide/healthy-stockport/base";
+@import "StockportStyleGuide/healthy-stockport/modules";
+@import "StockportStyleGuide/healthy-stockport/states";
+@import "StockportStyleGuide/healthy-stockport-styles";
+
+// Original
 @import "healthystockport/modules";
 @import "healthystockport/layouts";

@@ -1,14 +1,13 @@
-﻿namespace StockportWebapp.Models
-{
-    public class Redirects
-    {
-        public readonly BusinessIdRedirectDictionary ShortUrlRedirects;
-        public readonly BusinessIdRedirectDictionary LegacyUrlRedirects;
+﻿namespace StockportWebapp.Models;
 
-        public Redirects(BusinessIdRedirectDictionary shortUrlRedirects, BusinessIdRedirectDictionary legacyUrlRedirects)
-        {
-            ShortUrlRedirects = shortUrlRedirects;
-            LegacyUrlRedirects = legacyUrlRedirects;
-        }
+public class Redirects
+{
+    public readonly BusinessIdRedirectDictionary ShortUrlRedirects;
+    public readonly BusinessIdRedirectDictionary LegacyUrlRedirects;
+
+    public Redirects(BusinessIdRedirectDictionary shortUrlRedirects, BusinessIdRedirectDictionary legacyUrlRedirects)
+    {
+        ShortUrlRedirects = shortUrlRedirects;
+        LegacyUrlRedirects = legacyUrlRedirects;
     }
 }

@@ -1,5 +1,4 @@
-﻿@model StockportWebapp.Models.GenericFeaturedItemList
-
+﻿@model GenericFeaturedItemList
 @{
     var loopCount = Model.HideButton ? Model.Items.Count() : 8;
 }
@@ -37,8 +36,8 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['viewmoreslider.min'],
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['viewmoreslider'],
             function(viewmoreslider) {
                 viewmoreslider.Init();
             }

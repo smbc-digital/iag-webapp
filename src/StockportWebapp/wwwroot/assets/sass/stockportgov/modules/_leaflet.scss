@@ -1,14 +1,14 @@
 #root > #map.leaflet-container,
 #map.leaflet-container {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
 }
 
 .leaflet-map {
-    width: 100%;
-    height: 700px;
-    min-height: 250px;
-    border: none;
-    box-sizing: border-box;
+  width: 100%;
+  height: 700px;
+  min-height: 250px;
+  border: none;
+  box-sizing: border-box;
 }

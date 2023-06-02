@@ -1,6 +1,4 @@
 ﻿@inject StockportWebapp.Utils.ILoggedInHelper loggedInHelper
-@inject StockportWebapp.FeatureToggling.FeatureToggles featureToggles
-
 @{
     var user = loggedInHelper.GetLoggedInPerson();
     var headerClass = !string.IsNullOrEmpty(user.Email) ? "logged-in" : string.Empty;
@@ -18,7 +16,7 @@
             <span class="fa fa-headphones hide-on-mobile" aria-hidden="true"></span>
             Accessibility
         </a>
-        @if (featureToggles.NameInHeader && !string.IsNullOrEmpty(user.Email))
+        @if (!string.IsNullOrEmpty(user.Email))
         {
             <div class="menu-container">
                 <div class="menu">
@@ -74,8 +72,8 @@
 <partial name="BrowserCheck" />
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['startup.min', 'utils.min', 'reciteMe.min', 'cludo.min', 'Cludo'],
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['startup', 'utils', 'reciteMe', 'cludo', 'Cludo'],
             function(startup, utils, reciteMe, cludo) {
                 reciteMe.Init();
                 startup.Init();

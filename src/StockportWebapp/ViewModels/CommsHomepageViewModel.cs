@@ -1,11 +1,8 @@
-﻿using StockportWebapp.Models;
+﻿namespace StockportWebapp.ViewModels;
 
-namespace StockportWebapp.ViewModels
+public class CommsHomepageViewModel
 {
-    public class CommsHomepageViewModel
-    {
-        public CommsHomepage Homepage { get; set; }
+    public CommsHomepage Homepage { get; set; }
 
-        public News LatestNews { get; set; }
-    }
+    public News LatestNews { get; set; }
 }

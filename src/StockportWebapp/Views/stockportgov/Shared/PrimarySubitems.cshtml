@@ -1,4 +1,4 @@
-﻿@model StockportWebapp.ProcessedModels.ProcessedTopic
+﻿@model ProcessedTopic
 
 @if (Model.SubItems.Any(i => string.IsNullOrEmpty(i.Image)))
 {
@@ -43,24 +43,22 @@ else
                 <li class="nav-card grid-33" style="">
                     <a href="@subItem.NavigationLink" class="nav-card-item matchbox-child @(!string.IsNullOrEmpty(subItem.Image) ? "with-background-image" : "")">
 
-                        @{
-                            if (!string.IsNullOrEmpty(subItem.Image))
-                            {
-                                <h2 class="visuallyhidden">@subItem.Title</h2>
-                                <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
-                                    <div class="nav-card-background-image-dark">
-                                        <span class="hide-on-desktop mobile-header">
-                                            @subItem.Title
-                                        </span>
-                                    </div>
+                        @if (!string.IsNullOrEmpty(subItem.Image))
+                        {
+                            <h2 class="visuallyhidden">@subItem.Title</h2>
+                            <div class="nav-card-background-image" style="background-image: url(@subItem.Image)">
+                                <div class="nav-card-background-image-dark">
+                                    <span class="hide-on-desktop mobile-header">
+                                        @subItem.Title
+                                    </span>
                                 </div>
-                                <span class="hide-on-mobile hide-on-tablet">@subItem.Title</span>
-                            }
-                            else
-                            {
-                                <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
-                                <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
-                            }
+                            </div>
+                            <span class="hide-on-mobile hide-on-tablet">@subItem.Title</span>
+                        }
+                        else
+                        {
+                            <h2 class="nav-card-title button button-featured-content-more">@subItem.Title</h2>
+                            <p class="nav-card-teaser hide-on-mobile hide-on-tablet">@subItem.Teaser</p>
                         }
                     </a>
                 </li>

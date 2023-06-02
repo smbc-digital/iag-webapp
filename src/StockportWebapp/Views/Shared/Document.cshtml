@@ -1,5 +1,5 @@
-﻿@using System.Runtime.InteropServices.ComTypes
-@model StockportWebapp.Models.Document
+﻿@model Document
+
 <div class="document grid-100 grid-100-mobile test-documents">
     <div class="document-icon">
         <span class="si-documents si-default" aria-hidden="true"></span>
@@ -11,10 +11,12 @@
             var Kilobytes = (Model.Size % 1048576) / 1024;
         }
         <p>
-            @if (Megabytes >= 1.0) {
+            @if (Megabytes >= 1.0)
+            {
                 @:PDF, @Megabytes.ToString("#.##") MB
             }
-            else {
+            else
+            {
                 @:PDF, @Kilobytes.ToString("#.##") KB
             }
         </p>

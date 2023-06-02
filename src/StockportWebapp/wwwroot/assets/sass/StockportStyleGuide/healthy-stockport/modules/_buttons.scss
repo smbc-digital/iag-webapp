@@ -1,0 +1,236 @@
+/*------------------- Woo! Buttons -------------------*/
+.button-small {
+  color: $bodyText;
+  font-size: $fontSmall;
+  font-weight: $fontWeightMedium;
+  text-transform: uppercase;
+  padding: 5px;
+}
+
+.button {
+  text-decoration: none;
+  display: inline-block;
+  color: $buttonTextLight;
+  font-size: 1em;
+  letter-spacing: 0px;
+  font-family: 'Open Sans';
+}
+
+.button-muted {
+  @include button-colors($greyMiddle, $buttonTextLight);
+}
+
+.link-button {
+  @extend a, button;
+  background: transparent;
+  border: none;
+  font-family: "Open Sans",Arial,sans-serif;
+}
+
+.button:hover {
+  text-decoration: none;
+  color: $buttonTextLight;
+  opacity: 0.8;
+}
+
+.button-outline {
+  border: 1px solid $borderDefault;
+  @include border-radius(40px);
+  padding: 12px;
+  line-height: 20px;
+}
+
+.button-partialrounded {
+  @include border-radius(5px);
+}
+
+.button-light {
+  border-color: $whiteOpaque5;
+  color: $buttonTextLight;
+  background-color: $backgroundTextInputPrimary;
+}
+
+.button-light:hover {
+  background: $whiteOpaque7;
+  color: $bodyText;
+}
+
+.button-dark {
+  background-color: $buttonDarkBackground;
+}
+
+.button-sidebar {
+  background-color: $buttonSidebarBackground;
+}
+
+.button-small:hover {
+  color: $primary4530;
+}
+
+.button-small img {
+  vertical-align: middle;
+  margin-right: 5px;
+  opacity: 0.5;
+  height: 12px;
+}
+
+.button-fullwidth {
+  display: block;
+  text-align: center;
+}
+
+.button i {
+  vertical-align: middle;
+  margin-right: 5px;
+  opacity: 0.5;
+  font-size: 16px;
+  line-height: 16px;
+  margin-top: -3px;
+}
+
+.button-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  z-index: 401;
+}
+
+.button-chevron {
+  text-align: right;
+  padding-left: 40px;
+
+  @media #{$mobile} {
+    padding-left: 12%;
+  }
+
+  i {
+    margin-left: 20px;
+    font-size: 23px;
+    color: $buttonTextLight;
+    opacity: 1;
+  }
+}
+
+.button-action {
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 15px;
+
+  a, button {
+    padding: 10px 0;
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.button-call-to-action { /*TODO: check this with someone who's more UI than I am. SJN*/
+  border-radius: 5px;
+  text-align: center;
+  background-color: $buttonCallToActionBackground;
+  width: auto;
+  min-width: 300px;
+
+  @media #{$mobile} {
+    display: block;
+    min-width: unset;
+  }
+
+  &:before {
+    content: "\f105";
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: right;
+    float: right;
+    margin-top: 2px;
+    padding-left: 10px;
+  }
+
+  a, button {
+    padding: 10px 0;
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    color: $buttonTextLight;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.button-bold {
+  font-weight: bold;
+}
+
+.button-menu i {
+  font-size: 20px;
+  margin: -3px 0 0;
+  padding: 0 2px;
+}
+
+/*-- Default button style for Stockport.gov.uk --*/
+.button-default {
+  background-color: $accessibleTeal;
+  border: 1px solid $borderDefault;
+  border-radius: 3px;
+  color: $white;
+  display: inline-block;
+  font-size: 1.125em;
+  letter-spacing: 0;
+  line-height: 20px;
+  min-width: 300px;
+  padding: 15px 25px 15px 15px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all .5s;
+  transition-property: opacity,box-shadow;
+  width: auto;
+
+  i {
+    float: left;
+    top: 50%;
+  }
+}
+
+.button-default:before {
+  text-rendering: auto;
+  float: right;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f105";
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: 20px;
+  text-align: right;
+  padding-left: 10px;
+  height: 20px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  margin-top: -10px;
+}
+
+.button-default:hover {
+  background-color: $paleLightTeal;
+  color: $white;
+  cursor: pointer;
+  box-shadow: 0 20px 40px 0 $blackOpaque3;
+  text-decoration: none;
+}
+
+.button-default:active {
+  background-color: $tealPale;
+}
+
+@media only screen and (max-width: 767px) {
+  .button-default {
+    display: block;
+    min-width: unset;
+  }
+}

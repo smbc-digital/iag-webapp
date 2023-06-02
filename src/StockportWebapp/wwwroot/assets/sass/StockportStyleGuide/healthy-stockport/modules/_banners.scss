@@ -1,0 +1,66 @@
+﻿.banner-header {
+  display: block;
+  padding: 10px 0 10px 0;
+  max-width: 1200px;
+  margin: 0px auto;
+  line-height: 1.5em;
+
+  @media #{$mobile} {
+    .banner-body, .banner-title {
+      display: block;
+    }
+  }
+
+  @media #{$desktop} {
+    padding-left: 10px;
+  }
+
+  @media #{$tablet} {
+    padding-left: 10px;
+  }
+
+  p {
+    text-align: left;
+    color: $white;
+    font-family: $fontStack;
+    font-size: 0.938em;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  a {
+    color: $white;
+    display: inline-block;
+  }
+}
+
+.banner-title {
+  font-family: $fontStackHeadings;
+  font-size: 1.125em;
+  margin-right: 10px;
+  font-weight: 700;
+}
+
+.banner-header-container {
+  width: 100%;
+}
+
+.banner-links {
+  display: inline-block;
+}
+
+.banner-header-warning-unsupported {
+  background-color: $carrotOrange;
+}
+
+.banner-header-warning, .banner-header-warning-unsupported {
+  .banner-header {
+    p, a {
+      color: $colorPrimaryDarkest;
+    }
+
+    a:hover, a:active {
+      color: $colorPrimary;
+    }
+  }
+}

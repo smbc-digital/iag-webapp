@@ -1,26 +1,24 @@
 ﻿.content-disclaimer {
-    background-color: $greyDarkest;
+  background-color: $greyDarkest;
+  color: $white;
+  padding: 10px 0 10px 0;
+
+  p {
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  a {
     color: $white;
-    padding: 10px 0 10px 0;
+  }
 
 
-
-    p {
-        margin-bottom: 0;
-        text-align: left;
-    }
+  @media #{$mobile} {
+    background-color: $white;
+    color: $black;
 
     a {
-        color: $white;
+      color: $black;
     }
-
-
-    @media #{$mobile} {
-        background-color: $white;
-        color: $black;
-
-        a {
-            color: $black;
-        }
-    }
+  }
 }

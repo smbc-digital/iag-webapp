@@ -1,29 +1,27 @@
-﻿@using StockportWebapp.Config
-@using StockportWebapp.FeatureToggling
-@inject IApplicationConfiguration ApplicationConfiguration
-@inject CurrentEnvironment CurrentEnvironment
+﻿@inject IApplicationConfiguration ApplicationConfiguration
 @inject BusinessId BusinessId
+
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang=en-GB>
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="healthystockport.co.uk - helping people living or working in Stockport make positive lifestyle changes.">
-    <link rel="shortcut icon" type="image/png" href="/assets/images/ui-images/Favicon.png" />
+    <meta charset=utf-8 />
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+    <meta name=description content="healthystockport.co.uk - helping people living or working in Stockport make positive lifestyle changes.">
+    <link rel="shortcut icon" type=image/png href=/assets/images/ui-images/Favicon.png />
     <title>@ViewData["Title"]</title>
-    <!--[if (gt IE 8) | (IEMobile)]><!-->
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
-    <!--<![endif]-->
-    <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
-    <link href="https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="/assets/stylesheets/styleguide-hs.min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/site-hs.min.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/slick.min.css">
-    <!--[if (lt IE 9) & (!IEMobile)]>
-	    <link rel="stylesheet" href="/assets/stylesheets/ie.css"/>
-    <![endif]-->
+
+    @* PACKAGE / VENDOR STYLESHEETS *@
+    <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
+    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
+
+    @* MAIN STYLESHEET(S) *@
+    <link rel=stylesheet href=~/assets/stylesheets/site-hs.min.css asp-append-version=true />
+
+    @* OUTDATED *@
+    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css />
+
     <noscript>
         @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
         <style>
@@ -39,31 +37,28 @@
     <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
 
-    <script src="~/assets/javascript/vendor/require.min.js"></Script>
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
 </head>
 <body class="container-layout-free type-article">
-    <partial name="Header" />
+    <partial name=Header />
     <div class="l-background">
         <div class="grid-container l-background-holder">
             <div class="l-container l-body-container l-body-container-mobile">
                 @RenderBody()
             </div>
         </div>
-        <distributed-cache name="footer-hs" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+        <distributed-cache name=footer-hs expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
             @await Component.InvokeAsync("Footer")
         </distributed-cache>
     </div>
 
     <script>
-        require(['/assets/javascript/config.min.js'], function() {
-            require(['matchbox.min', 'jquery'], 
+        require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+            require(['matchbox', 'jquery'], 
                 function (matchbox) {
                     matchbox.Init();
             });
         });
     </script>
-    <!--[if lte IE 9]>
-        <script src="https://api.cludo.com/scripts/xdomain.js" slave="https://api.cludo.com/proxy.html" type="text/javascript"></script>
-    <![endif]-->
 </body>
 </html>

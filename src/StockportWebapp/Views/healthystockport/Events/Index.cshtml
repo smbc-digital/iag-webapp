@@ -1,9 +1,5 @@
-﻿@using StockportWebapp.Models
-@using StockportWebapp.Utils
-@using StockportWebapp.ViewModels
-@inject ViewHelpers viewHelper
-@model EventResultsVIewModel
-
+﻿@inject ViewHelpers viewHelper
+@model EventResultsViewModel
 @{
     ViewData["og:title"] = Model.Title;
     ViewData["Title"] = ViewData["og:title"];
@@ -62,8 +58,6 @@
                  @Html.Raw("</div>")
                  <partial name="Pagination" model='Model.Pagination'/>
              }    
-        }
-
-        
+        }        
     </div>
 </div>

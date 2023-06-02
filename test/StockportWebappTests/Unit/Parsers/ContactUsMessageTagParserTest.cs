@@ -1,120 +1,111 @@
-﻿using FluentAssertions;
-using Moq;
-using StockportWebapp.Models;
-using StockportWebapp.Parsers;
-using StockportWebapp.ProcessedModels;
-using StockportWebapp.Utils;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Parsers;
 
-namespace StockportWebappTests_Unit.Unit.Parsers
+public class ContactUsMessageTagParserTest
 {
-    public class ContactUsMessageTagParserTest
+    private readonly ContactUsMessageTagParser _tagParser;
+    private readonly Mock<IViewRender> _viewRenderer;
+    private const string Message = "This is a message";
+    private const string DefaultBody = "default body";
+    private const string MetaDescription = "default meta description";
+    private readonly string _bodyWithContactUsMessageTag = $"This is some content {ContactUsTagParser.ContactUsMessageTagRegex} <form><form>";
+
+
+    public ContactUsMessageTagParserTest()
     {
-        private readonly ContactUsMessageTagParser _tagParser;
-        private readonly Mock<IViewRender> _viewRenderer;
-        private const string Message = "This is a message";
-        private const string DefaultBody = "default body";
-        private const string MetaDescription = "default meta description";
-        private readonly string _bodyWithContactUsMessageTag = $"This is some content {ContactUsTagParser.ContactUsMessageTagRegex} <form><form>";
+        _viewRenderer = new Mock<IViewRender>();
 
+        _viewRenderer.Setup(o => o.Render("ContactUsMessage", It.IsAny<string>())).Returns($"<p>{Message}</p>");
 
-        public ContactUsMessageTagParserTest()
-        {
-            _viewRenderer = new Mock<IViewRender>();
+        _tagParser = new ContactUsMessageTagParser(_viewRenderer.Object);
+    }
 
-            _viewRenderer.Setup(o => o.Render("ContactUsMessage", It.IsAny<string>())).Returns($"<p>{Message}</p>");
+    [Theory]
+    [InlineData("")]
+    [InlineData(null)]
+    public void ShouldNotAddAnyMessageIfNoMessageGiven(string message)
+    {
+        var slug = "this-is-a-slug";
+        var section = ProcessedSectionWithDefaultSlugAndBody();
+        var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
-            _tagParser = new ContactUsMessageTagParser(_viewRenderer.Object);
-        }
+        _tagParser.Parse(processedArticle, message, slug);
 
-        [Theory]
-        [InlineData("")]
-        [InlineData(null)]
-        public void ShouldNotAddAnyMessageIfNoMessageGiven(string message)
-        {
-            var slug = "this-is-a-slug";
-            var section = ProcessedSectionWithDefaultSlugAndBody();
-            var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
+        processedArticle.Body.Should().Be(DefaultBody);
+        section.Body.Should().Be(DefaultBody);
+        anotherSection.Body.Should().Be(_bodyWithContactUsMessageTag);
 
-            _tagParser.Parse(processedArticle, message, slug);
+        _viewRenderer.Verify(o => o.Render(It.IsAny<string>(), It.IsAny<object>()), Times.Never);
+    }
 
-            processedArticle.Body.Should().Be(DefaultBody);
-            section.Body.Should().Be(DefaultBody);
-            anotherSection.Body.Should().Be(_bodyWithContactUsMessageTag);
+    [Fact]
+    public void ShouldAddErrorMessageToArticleBodyWithFormTagInsideIfEmptySlugGiven()
+    {
+        var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", "meta description", new List<ProcessedSection>(), "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
-            _viewRenderer.Verify(o => o.Render(It.IsAny<string>(), It.IsAny<object>()), Times.Never);
-        }
+        _tagParser.Parse(processedArticle, Message, "");
 
-        [Fact]
-        public void ShouldAddErrorMessageToArticleBodyWithFormTagInsideIfEmptySlugGiven()
-        {
-            var processedArticle = new ProcessedArticle("title", "slug", _bodyWithContactUsMessageTag, "teaser", "meta description", new List<ProcessedSection>(), "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
+        processedArticle.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
+    }
 
-            _tagParser.Parse(processedArticle, Message, "");
+    [Fact]
+    public void ShouldAddErrorMessageToFirstSectionBodyWithFormTagInsideIfArticleDoesntHaveFormIfEmptySlugGiven()
+    {
+        var section = ProcessedSectionWithDefaultSlugAndBody(body: _bodyWithContactUsMessageTag);
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
-            processedArticle.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
-        }
+        _tagParser.Parse(processedArticle, Message, "");
 
-        [Fact]
-        public void ShouldAddErrorMessageToFirstSectionBodyWithFormTagInsideIfArticleDoesntHaveFormIfEmptySlugGiven()
-        {
-            var section = ProcessedSectionWithDefaultSlugAndBody(body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
+        processedArticle.Body.Should().Be(DefaultBody);
+        section.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
+    }
 
-            _tagParser.Parse(processedArticle, Message, "");
+    [Fact]
+    public void ShouldAddErrorMessageToSectionBodyWithFormTagInsideIfCorrespondingSlugGiven()
+    {
+        var slug = "this-is-a-slug";
+        var section = ProcessedSectionWithDefaultSlugAndBody();
+        var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
-            processedArticle.Body.Should().Be(DefaultBody);
-            section.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
-        }
+        _tagParser.Parse(processedArticle, Message, slug);
 
-        [Fact]
-        public void ShouldAddErrorMessageToSectionBodyWithFormTagInsideIfCorrespondingSlugGiven()
-        {
-            var slug = "this-is-a-slug";
-            var section = ProcessedSectionWithDefaultSlugAndBody();
-            var anotherSection = ProcessedSectionWithDefaultSlugAndBody(slug: slug, body: _bodyWithContactUsMessageTag);
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { section, anotherSection }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
+        processedArticle.Body.Should().Be(DefaultBody);
+        section.Body.Should().Be(DefaultBody);
+        anotherSection.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
+    }
 
-            _tagParser.Parse(processedArticle, Message, slug);
+    [Fact]
+    public void ShouldDoNothingIfSlugProvidedButNoSectionsAreProvided()
+    {
+        var slug = "this-is-a-slug";
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
-            processedArticle.Body.Should().Be(DefaultBody);
-            section.Body.Should().Be(DefaultBody);
-            anotherSection.Body.Should().Be($"This is some content <p>{Message}</p> <form><form>");
-        }
+        _tagParser.Parse(processedArticle, Message, slug);
 
-        [Fact]
-        public void ShouldDoNothingIfSlugProvidedButNoSectionsAreProvided()
-        {
-            var slug = "this-is-a-slug";
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
+        processedArticle.Body.Should().Be(DefaultBody);
+    }
 
-            _tagParser.Parse(processedArticle, Message, slug);
+    [Fact]
+    public void ShouldRenderMessage()
+    {
+        var slug = "this-is-a-slug";
 
-            processedArticle.Body.Should().Be(DefaultBody);
-        }
+        var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
 
-        [Fact]
-        public void ShouldRenderMessage()
-        {
-            var slug = "this-is-a-slug";
+        _tagParser.Parse(processedArticle, Message, slug);
 
-            var processedArticle = new ProcessedArticle("title", "slug", DefaultBody, "teaser", "meta description", new List<ProcessedSection>() { }, "icon", "backgroundImage", "image", new List<Crumb>(), new List<Alert>(), DefaultTopic(), new List<Alert>(), null, new DateTime(), new bool());
+        _viewRenderer.Verify(o => o.Render("ContactUsMessage", Message), Times.Once);
+    }
 
-            _tagParser.Parse(processedArticle, Message, slug);
+    private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = DefaultBody, string metaDescription = MetaDescription)
+    {
+        return new ProcessedSection("title", slug, metaDescription, body, new List<Profile>(), new List<Document>(), new List<Alert>());
+    }
 
-            _viewRenderer.Verify(o => o.Render("ContactUsMessage", Message), Times.Once);
-        }
-
-        private static ProcessedSection ProcessedSectionWithDefaultSlugAndBody(string slug = "slug", string body = DefaultBody, string metaDescription = MetaDescription)
-        {
-            return new ProcessedSection("title", slug, metaDescription, body, new List<Profile>(), new List<Document>(), new List<Alert>());
-        }
-
-        private static Topic DefaultTopic()
-        {
-            return new Topic("name", "slug", "summary", "teaser", "metaDescription", "icon", "backgroundImage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
-                new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
-        }
+    private static Topic DefaultTopic()
+    {
+        return new Topic("name", "slug", "summary", "teaser", "metaDescription", "icon", "backgroundImage", "image", new List<SubItem>(), new List<SubItem>(), new List<SubItem>(), new List<Crumb>(), new List<Alert>(), true, "test-id", null, "expandingLinkText", new List<ExpandingLinkBox>(), string.Empty, string.Empty, true,
+            new CarouselContent(string.Empty, string.Empty, string.Empty, string.Empty), string.Empty);
     }
 }

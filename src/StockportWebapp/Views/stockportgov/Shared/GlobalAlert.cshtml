@@ -1,8 +1,5 @@
-﻿@using StockportWebapp.Models
-@using StockportWebapp.Utils
-@inject ICookiesHelper CookiesHelper
+﻿@inject ICookiesHelper CookiesHelper
 @model Alert
-
 @{
     var alertCookies = CookiesHelper.GetCookies<Alert>("alerts");
     var isDismissed = alertCookies != null && alertCookies.Contains(Model.Slug) && !Model.IsStatic;
@@ -37,8 +34,8 @@
 }
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['alerts.min'],
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['alerts'],
             function(alerts) {
                 alerts.Init();
             }

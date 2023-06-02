@@ -1,84 +1,84 @@
 ﻿#cludo-search-results {
-    line-height: 21px;
+  line-height: 21px;
 
-    ul {
-        .search-results-item {
-            margin-top: 5px;
-            margin-bottom: 5px;
-            border-bottom: 1px solid $greyLighter;
+  ul {
+    .search-results-item {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid $greyLighter;
 
-            a {
-                text-decoration: none;
-                padding: 10px;
-                margin: 0;
-                display: block;
-                color: #333;
-                text-shadow: none;
-                background-image: none;
-                border: 2px solid transparent
-            }
+      a {
+        text-decoration: none;
+        padding: 10px;
+        margin: 0;
+        display: block;
+        color: $greyDarkest;
+        text-shadow: none;
+        background-image: none;
+        border: 2px solid transparent
+      }
 
-            a > h2 {
-                font-size: 22px;
-                font-weight: 400;
-                line-height: 1;
-                margin-bottom: 5px;
-            }
+      a > h2 {
+        font-size: 22px;
+        font-weight: 400;
+        line-height: 1;
+        margin-bottom: 5px;
+      }
 
-            a > p {
-                display: none;
-            }
-
-            a > .path {
-                text-decoration: underline;
-                font-size: 14px;
-                text-decoration-thickness: 1px;
-            }
-
-            a:hover {
-                .path {
-                    text-decoration-thickness: 3px;
-                }
-            }
-        }
-
-        .search-results-item:hover {
-            background-color: #f2f2f2;
-            background-image: none
-        }
-    }
-
-    .search-filters {
-        a.active {
-            background-color: $colorPrimary;
-            color: $white;
-        }
-    }
-
-    .cludo-no-search-term {
+      a > p {
         display: none;
+      }
+
+      a > .path {
+        text-decoration: underline;
+        font-size: 14px;
+        text-decoration-thickness: 1px;
+      }
+
+      a:hover {
+        .path {
+          text-decoration-thickness: 3px;
+        }
+      }
     }
 
-    @media (max-width: 750px) {
-        .cludo-c-3 {
-            flex: 0 0 0;
-            padding: 0
-        }
-
-        .cludo-c-9 {
-            flex: 0 0 100%;
-            max-width: 100%;
-        }
-
-        .search-result-count {
-            padding-left: 3%;
-        }
-
-        .search_page_list {
-            display: flex;
-            justify-content: center;
-        }
+    .search-results-item:hover {
+      background-color: $grey95;
+      background-image: none
     }
+  }
+
+  .search-filters {
+    a.active {
+      background-color: $colorPrimary;
+      color: $white;
+    }
+  }
+
+  .cludo-no-search-term {
+    display: none;
+  }
+
+  @media (max-width: 750px) {
+    .cludo-c-3 {
+      flex: 0 0 0;
+      padding: 0
+    }
+
+    .cludo-c-9 {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .search-result-count {
+      padding-left: 3%;
+    }
+
+    .search_page_list {
+      display: flex;
+      justify-content: center;
+    }
+  }
 }
 
 #cludo-search-form .search_autocomplete li:hover,
@@ -89,90 +89,90 @@
 #cludo-search-form-content .search_autocomplete li.active,
 .cludo-search_autocomplete .search_autocomplete li.active,
 .cludo-search_autocomplete .search_autocomplete li:hover {
-    background-color: $colorPrimary;
+  background-color: $colorPrimary;
 }
 
 .cludo-error-page {
 
-    h1 {
-        color: $colorPrimary;
-        padding-top: 50px;
-        font-size: 50px;
-    }
+  h1 {
+    color: $colorPrimary;
+    padding-top: 50px;
+    font-size: 50px;
+  }
 
-    h2 {
-        font-size: 20px;
-    }
+  h2 {
+    font-size: 20px;
+  }
 
-    h1,
-    .page-description {
-        text-align: left;
-        margin-left: 30px;
-        margin-right: 30px;
-    }
+  h1,
+  .page-description {
+    text-align: left;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
 
-    .page-description {
-        position: relative;
-        padding-left: 40px;
+  .page-description {
+    position: relative;
+    padding-left: 40px;
 
-        p {
-            margin-top: 10px;
-            margin-bottom: 0;
-            font-size: 18px;
-            font-weight: 600;
-        }
+    p {
+      margin-top: 10px;
+      margin-bottom: 0;
+      font-size: 18px;
+      font-weight: 600;
     }
+  }
 
-    .error-page-icon {
-        border-radius: 17px;
-        border-style: solid;
-        border-width: 2px;
-        display: inline-block;
-        height: 30px;
-        left: 0;
-        position: absolute;
-        top: 6px;
-        width: 30px;
-        text-align: center;
-        font-weight: 600;
-    }
+  .error-page-icon {
+    border-radius: 17px;
+    border-style: solid;
+    border-width: 2px;
+    display: inline-block;
+    height: 30px;
+    left: 0;
+    position: absolute;
+    top: 6px;
+    width: 30px;
+    text-align: center;
+    font-weight: 600;
+  }
 
-    .hero {
-        display: inline;
-    }
+  .hero {
+    display: inline;
+  }
 
-    .invisible {
-        display: none;
-    }
+  .invisible {
+    display: none;
+  }
 }
 
 #cludo-404 {
-    .powered-by {
-        right: 15px !important
-    }
+  .powered-by {
+    right: 15px !important
+  }
 }
 
 #cludo-404-results {
-    padding-top: 30px;
+  padding-top: 30px;
 
-    ul > li {
-        margin-right: 30px;
-    }
+  ul > li {
+    margin-right: 30px;
+  }
 
-    .cludo-result-item,
-    .cludo-result-item a {
-        text-align: left !important;
-    }
+  .cludo-result-item,
+  .cludo-result-item a {
+    text-align: left !important;
+  }
 
-    .cludo-result-item > a {
-        display: none;
-    }
+  .cludo-result-item > a {
+    display: none;
+  }
 
-    .cludo-results > .cludo-result-item-title {
-        text-transform: none !important;
-        text-align: left;
-        margin-left: 30px;
-        margin-right: 30px;
-        font-size: 20px;
-    }
+  .cludo-results > .cludo-result-item-title {
+    text-transform: none !important;
+    text-align: left;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 20px;
+  }
 }

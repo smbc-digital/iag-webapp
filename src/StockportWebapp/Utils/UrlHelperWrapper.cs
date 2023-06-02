@@ -1,24 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿namespace StockportWebapp.Utils;
 
-namespace StockportWebapp.Utils
+public interface IUrlHelperWrapper
 {
-    public interface IUrlHelperWrapper
+    string RouteUrl(RouteValueDictionary routeValueDictionary);
+}
+
+public class UrlHelperWrapper : IUrlHelperWrapper
+{
+    private readonly IUrlHelper _actualUrlHelper;
+
+    public UrlHelperWrapper(IUrlHelper actualUrlHelper)
     {
-        string RouteUrl(RouteValueDictionary routeValueDictionary);
+        _actualUrlHelper = actualUrlHelper;
     }
 
-    public class UrlHelperWrapper : IUrlHelperWrapper
+    public string RouteUrl(RouteValueDictionary routeValueDictionary)
     {
-        private readonly IUrlHelper _actualUrlHelper;
-
-        public UrlHelperWrapper(IUrlHelper actualUrlHelper)
-        {
-            _actualUrlHelper = actualUrlHelper;
-        }
-
-        public string RouteUrl(RouteValueDictionary routeValueDictionary)
-        {
-            return _actualUrlHelper.RouteUrl(routeValueDictionary);
-        }
+        return _actualUrlHelper.RouteUrl(routeValueDictionary);
     }
 }

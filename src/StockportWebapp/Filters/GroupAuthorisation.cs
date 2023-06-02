@@ -1,28 +1,25 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using StockportWebapp.Config;
-using StockportWebapp.Utils;
+﻿namespace StockportWebapp.Filters;
 
-namespace StockportWebapp.Filters
+public class GroupAuthorisation : ActionFilterAttribute
 {
-    public class GroupAuthorisation : ActionFilterAttribute
+    private readonly IApplicationConfiguration _configuration;
+    private readonly ILoggedInHelper _loggedInHelper;
+
+    public GroupAuthorisation(
+        IApplicationConfiguration configuration,
+        ILoggedInHelper loggedInHelper)
     {
-        private readonly IApplicationConfiguration _configuration;
-        private readonly ILoggedInHelper _loggedInHelper;
+        _configuration = configuration;
+        _loggedInHelper = loggedInHelper;
+    }
 
-        public GroupAuthorisation(IApplicationConfiguration configuration, ILoggedInHelper loggedInHelper)
-        {
-            _configuration = configuration;
-            _loggedInHelper = loggedInHelper;
-        }
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        var person = _loggedInHelper.GetLoggedInPerson();
 
-        public override void OnActionExecuting(ActionExecutingContext context)
-        {
-            var person = _loggedInHelper.GetLoggedInPerson();
+        if (string.IsNullOrEmpty(person.Email))
+            context.Result = new RedirectResult(_configuration.GetMyAccountUrl() + "?returnUrl=" + context.HttpContext.Request.GetDisplayUrl(), false);
 
-            if (string.IsNullOrEmpty(person.Email)) context.Result = new RedirectResult(_configuration.GetMyAccountUrl() + "?returnUrl=" + context.HttpContext.Request.GetDisplayUrl(), false);
-
-            context.ActionArguments["loggedInPerson"] = person;
-        }
+        context.ActionArguments["loggedInPerson"] = person;
     }
 }

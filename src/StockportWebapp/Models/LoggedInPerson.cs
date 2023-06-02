@@ -1,9 +1,8 @@
-﻿namespace StockportWebapp.Models
+﻿namespace StockportWebapp.Models;
+
+public class LoggedInPerson
 {
-    public class LoggedInPerson
-    {
-        public string Email { get; set; }
-        public string Name { get; set; }
-        public string rawCookie { get; set; }
-    }
+    public string Email { get; set; }
+    public string Name { get; set; }
+    public string rawCookie { get; set; }
 }

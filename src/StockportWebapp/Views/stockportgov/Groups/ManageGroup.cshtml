@@ -1,9 +1,4 @@
-﻿@using Org.BouncyCastle.Math.Field
-@using StockportWebapp.Config
-@using StockportWebapp.Models
-@using StockportWebapp.ViewModels
-@model ManageGroupViewModel
-
+﻿@model ManageGroupViewModel
 @{
     ViewData["Title"] = Model.Name;
     ViewData["og:title"] = "Manage " + Model.Name;
@@ -29,8 +24,7 @@
                                     </div>
                                 </div>
                                 @if (Model.IsArchived)
-                                { 
-
+                                {
                                     <a id="view-group" href="@Url.Action(Model.Slug, "groups")">
                                         <div class="grid-100 sk-table-row grid-parent">
                                             <div class="sk-table-cell">

@@ -1,22 +1,22 @@
 ﻿.footer-links ul.footer-nav li {
-    margin: 0 0 0px;
-    padding: 0;
+  margin: 0 0 0px;
+  padding: 0;
 }
 
 footer {
-    .grid-container .grid-parent {
-        @media #{$desktop} {
-            padding-left: 30px;
-        }
+  .grid-container .grid-parent {
+    @media #{$desktop} {
+      padding-left: 30px;
+    }
+  }
+
+  @media #{$mobile} {
+    .l-container-footer, .grid-container {
+      padding-right: 0;
     }
 
-    @media #{$mobile} {
-        .l-container-footer, .grid-container {
-            padding-right: 0;
-        }
-
-        .footer-social-container {
-            margin-right: 0;
-        }        
+    .footer-social-container {
+      margin-right: 0;
     }
+  }
 }

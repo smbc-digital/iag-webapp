@@ -1,164 +1,164 @@
 .l-short-content {
-    @media #{$desktop, $tablet} {
-        min-height: 50vh;
-    }
+  @media #{$desktop, $tablet} {
+    min-height: 50vh;
+  }
 }
 
 .l-fixed-footer {
-    @media #{$desktop, $tablet} {
-        position: absolute;
-        bottom: 0px;
-        width: 100%;
-    }
+  @media #{$desktop, $tablet} {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+  }
 }
 
 .l-page-content {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .visuallyhidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0,0,0,0);
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }
 
 .subscribe-label {
-    padding: 20px;
+  padding: 20px;
 }
 
 
 .skip-to-main-content {
-    display: block;
+  display: block;
 
-    a.skip-main {
-        left: -999px;
-        position: absolute;
-        top: auto;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        z-index: -999;
-    }
+  a.skip-main {
+    left: -999px;
+    position: absolute;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -999;
+  }
 
-    a.skip-main:focus, a.skip-main:active {
-        color: #fff;
-        background-color: #FFB733;
-        left: auto;
-        top: auto;
-        width: 140px;
-        height: auto;
-        overflow: auto;
-        display: inline-block;
-        margin: 0.75em 0 0 30px;
-        padding: 5px;
-        text-align: center;
-        font-size: 1.2em;
-        z-index: 999;
-        color: #0b0c0c;
-        line-height: 1.5;
-        font-weight: 400;
-        font-size: .875em;
-    }
+  a.skip-main:focus, a.skip-main:active {
+    color: $white;
+    background-color: $goldenRod15;
+    left: auto;
+    top: auto;
+    width: 140px;
+    height: auto;
+    overflow: auto;
+    display: inline-block;
+    margin: 0.75em 0 0 30px;
+    padding: 5px;
+    text-align: center;
+    font-size: 1.2em;
+    z-index: 999;
+    color: $dark;
+    line-height: 1.5;
+    font-weight: 400;
+    font-size: .875em;
+  }
 }
 
 .grid-container-full-width {
-    max-width: none;
+  max-width: none;
 
-    .l-container {
-        margin: 0;
+  .l-container {
+    margin: 0;
+  }
+
+  .l-content-container {
+    border: none;
+    padding-bottom: 50px;
+
+    h1 {
+      padding: 20px 0;
+      font-size: 50px;
+      margin-bottom: 0;
+      color: $colorPrimary;
+
+      @media #{$mobile} {
+        font-size: 30px;
+      }
     }
 
-    .l-content-container {
-        border: none;
-        padding-bottom: 50px;
-
-        h1 {
-            padding: 20px 0;
-            font-size: 50px;
-            margin-bottom: 0;
-            color: $colorPrimary;
-
-            @media #{$mobile} {
-                font-size: 30px;
-            }
-        }
-
-        .title-card h1 {
-            color: white;
-            padding: 10px 0 10px 20px;
-            margin: 0;
-        }
-
-        h1.centered {
-            text-align: center;
-        }
+    .title-card h1 {
+      color: white;
+      padding: 10px 0 10px 20px;
+      margin: 0;
     }
+
+    h1.centered {
+      text-align: center;
+    }
+  }
 }
 
 .text-align-right {
-    text-align: right;
+  text-align: right;
 }
 
 h1.centered {
-    text-align: center;
-    color: $colorPrimary;
-    font-size: 50px;
+  text-align: center;
+  color: $colorPrimary;
+  font-size: 50px;
 }
 
-a:focus, button:focus, input:focus, textarea:focus, select:focus , label:focus {
-    outline: #ef8a16 solid 3px !important;
+a:focus, button:focus, input:focus, textarea:focus, select:focus, label:focus {
+  outline: #ef8a16 solid 3px !important;
 }
 
 // trumbowyg-editor is the wysiwyg editor
 .focusable, .trumbowyg-editor {
-    &:focus {
-        outline: #ef8a16 solid 3px !important;
-    }
+  &:focus {
+    outline: #ef8a16 solid 3px !important;
+  }
 }
 
 .notification {
-    text-align: center;
+  text-align: center;
 
-    .icon-bordered {
-        width: 80px;
+  .icon-bordered {
+    width: 80px;
 
-        &.red {
-            color: $red;
-        }
-
-        &.green {
-            color: $green;
-        }
+    &.red {
+      color: $tallPoppyRed;
     }
+
+    &.green {
+      color: $green;
+    }
+  }
 }
 
 .digital-link {
-    text-align: right;
+  text-align: right;
 
-    @media #{$mobile} {
-        text-align: center;
+  @media #{$mobile} {
+    text-align: center;
+  }
+
+  p {
+
+    a {
+      font-weight: normal;
+      text-decoration-line: underline;
     }
-
-    p {
-
-        a {
-            font-weight: normal;
-            text-decoration-line: underline;
-        }
-    }
+  }
 }
 
 .copyright {
-    text-align: left;
+  text-align: left;
 }
 
 #prefix-overlay-step1 {
-    p {
-        font-size: 0.9em;
-    }
+  p {
+    font-size: 0.9em;
+  }
 }

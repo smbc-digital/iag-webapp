@@ -1,6 +1,4 @@
-﻿@using StockportWebapp.Models
-@using StockportWebapp.ViewModels
-@model LocationSearch
+﻿@model LocationSearch
 
 <input type="hidden" id="locationControlId" value="@Model.LocationControlId" />
 <input type="hidden" id="longitudeControlId" value="@Model.LongitudeControlId" />
@@ -24,7 +22,7 @@
     </div>
 </div>
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
         require(['google.places'], function() { } );
     });
 </script>

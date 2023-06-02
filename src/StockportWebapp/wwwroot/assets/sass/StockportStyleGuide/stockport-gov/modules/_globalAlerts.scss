@@ -1,0 +1,190 @@
+﻿﻿.global-alert {
+  display: table;
+  width: 100%;
+
+  .global-alert-text-container {
+    display: table;
+    height: 55px;
+
+    .global-alert-text-error, .global-alert-text-information, .global-alert-text-warning {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 10px;
+
+      h3, p {
+        @media #{$desktop} {
+          display: inline;
+        }
+
+        @media #{$mobile, $tablet} {
+          display: block;
+          line-height: 0.7em;
+        }
+      }
+
+      h3 {
+        margin-top: 0;
+        line-height: 1em;
+
+        @media #{$desktop} {
+          margin-right: 15px;
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+
+        @media #{$mobile, $tablet} {
+          line-height: 1.4em;
+        }
+      }
+
+      a {
+        color: $white;
+      }
+
+      a:hover {
+        color: $greyLight;
+      }
+    }
+
+    .global-alert-text-warning {
+      h3, p {
+        color: $black;
+      }
+
+      a {
+        color: $black;
+      }
+
+      a:hover {
+        color: $greyDark;
+      }
+    }
+
+    .global-alert-text-error {
+      a:hover {
+        color: $whiteOpaque8;
+      }
+    }
+
+    .global-alert-text-error, .global-alert-text-information {
+      h3, p {
+        color: $white;
+      }
+    }
+  }
+
+  .global-alert-icon {
+    display: table-cell;
+    text-align: center;
+    background-color: $borderDefault;
+    width: 45px;
+    vertical-align: middle;
+  }
+
+  .global-alert-icon-warning {
+    i:before {
+      content: "\f05a";
+      font-family: "FontAwesome";
+      font-style: normal;
+      font-size: 25px;
+    }
+  }
+
+  .global-alert-icon-information {
+    i:before {
+      content: "\f05a";
+      font-family: "FontAwesome";
+      font-style: normal;
+      font-size: 25px;
+      color: $whiteOpaque3;
+    }
+  }
+
+  .global-alert-icon-error {
+    i:before {
+      content: "\f071";
+      font-family: "FontAwesome";
+      font-style: normal;
+      font-size: 25px;
+    }
+  }
+
+  .global-alert-close-container {
+    display: table-cell;
+    vertical-align: middle;
+
+    @media #{$mobile, $tablet} {
+      padding-right: 10px;
+    }
+
+    a {
+      display: inline-block;
+      float: right;
+    }
+
+    .global-alert-close-warning, .global-alert-close-error, .global-alert-close-information {
+      border-radius: 100%;
+      width: 37px;
+      height: 37px;
+      text-align: center;
+      float: right;
+
+      i:before {
+        content: "\f00d";
+        font-family: "FontAwesome";
+        font-style: normal;
+        font-size: 20px;
+        color: $white;
+        text-align: center;
+        position: relative;
+        top: calc(50% - 20px);
+      }
+    }
+
+    .global-alert-close-warning {
+      border: 1px solid $blackOpaque7;
+
+      &:hover {
+        background-color: $whiteOpaque6;
+      }
+
+      i:before {
+        color: $blackOpaque7;
+      }
+    }
+
+    .global-alert-close-error, .global-alert-close-information {
+      border: 1px solid $whiteOpaque1;
+      background-color: $whiteOpaque1;
+
+      &:hover {
+        background-color: $whiteOpaque6;
+      }
+
+      i:before {
+        color: $white;
+      }
+    }
+  }
+}
+
+.global-alert-warning {
+  background-color: $carrotOrange;
+}
+
+.global-alert-error {
+  background-color: $tallPoppyRed;
+}
+
+.global-alert-information {
+  background-color: $colorPrimaryDark;
+}
+
+.global-alert-container {
+  @media #{$mobile, $tablet} {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+}

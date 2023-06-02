@@ -1,0 +1,63 @@
+﻿@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin transition($animate) {
+  -webkit-transition: $animate;
+  transition: $animate;
+}
+
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow;
+  box-shadow: $shadow;
+}
+
+@mixin transform($transformation) {
+  -webkit-transform: $transformation;
+  -ms-transform: $transformation;
+  transform: $transformation;
+}
+
+@mixin list-no-style {
+  list-style: none;
+  margin: 0;
+
+  li {
+    margin: 0;
+  }
+}
+
+@mixin linear-gradient($gradients...) {
+  background: linear-gradient($gradients);
+}
+
+@mixin darken($class) {
+  @for $i from 1 through 7 {
+    .#{$class}-#{$i} {
+      .darken {
+        background-color: rgba(0,0,0, ($i / 20));
+      }
+
+      &:hover .darken {
+        background-color: $whiteOpaque1;
+      }
+    }
+  }
+}
+
+@mixin button-colors ($buttonColor, $textColor) {
+  background-color: $buttonColor;
+
+  a {
+    color: $textColor;
+  }
+
+  &:hover, &:focus {
+    background-color: lighten($buttonColor, 5%);
+  }
+
+  &:active {
+    background-color: darken($buttonColor, 5%);
+  }
+}

@@ -1,7 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Helpers
+﻿namespace StockportWebappTests_Unit.Helpers;
+
+public class TextHelper
 {
-    public class TextHelper
-    {
-        public static string AnyString = "Random string";
-    }
+    public static string AnyString = "Random string";
 }

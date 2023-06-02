@@ -2,48 +2,43 @@
     Article, AtoZ, ContactUs, ContactUsArea, Document, Events, Favourites, Groups, News, Organisations, Payment, 
     PrivacyNotice, ServicePayPayment, Shared, SIA, StartPage, Topic
 *@
-@using StockportWebapp.Config
-@using StockportWebapp.FeatureToggling
+@using StockportWebapp.Models.Config
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject BusinessId BusinessId
-@inject FeatureToggles FeatureToggles
 @{
     var stylesheet = ApplicationConfiguration.GetStylesheetConfig();
 }
 
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang=en-GB>
 <head>
-    <script type='text/javascript' src='@stylesheet.DesignSystemJs'></script>
     @*<partial name="SecurityHeaders" />*@
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <partial name="OwnershipVerificationCodes" />
-    <partial name="Favicon" />
+    <script type=text/javascript src=@stylesheet.DesignSystemJs></script>
+
+    <meta charset=utf-8 />
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+    <partial name=OwnershipVerificationCodes />
+    <partial name=Favicon />
     <title>@ViewData["Title"] - Stockport Council</title>
-    @if (ViewData["Description"] is not null)
-    {
-        <meta name="Description" content="@ViewData["Description"]" />
-    }
+    <meta name=Description content="@ViewData["Description"]" />
+    <meta property=og:title content="@ViewData["og:title"]" />
+
     @if (ViewData["CanonicalUrl"] is not null)
     {
-        <partial name="Canonical-Link" />
-    }
-    @if (ViewData["og:title"] is not null)
-    {
-        <meta property="og:title" content="@ViewData["og:title"]" />
+        <partial name=Canonical-Link />
     }
 
-    <link rel="stylesheet" href="~/assets/stylesheets/cludo-search-default.css" />
-    <link rel="stylesheet" href="https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css" />
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
-        integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g=="
-        crossorigin="anonymous">
-    <link rel="stylesheet" href="~/assets/stylesheets/vendor/slick.min.css" />
+    @* PACKAGE / VENDOR STYLESHEETS *@
+    <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
+    <link rel=stylesheet href=https://customer.cludo.com/css/templates/v2.1/essentials/cludo-search.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/slick.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
+
+    @* MAIN STYLESHEET(S) *@
+    <link rel=stylesheet href=~/assets/stylesheets/site-sg.min.css asp-append-version=true />
+
+    @* OUTDATED *@
+    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin=anonymous>
 
     <noscript>
         @*To replace the html class="no-js" as this is just used for a map on Group or Event pages to display or not*@
@@ -56,32 +51,32 @@
         </style>
     </noscript>
 
-    <link rel="alternate" type="application/rss+xml" href="/news/rss" title="Stockport Council News Feed" />
-    <link rel="alternate" type="application/rss+xml" href="/events/rss" title="Stockport Council Events Feed" />
+    <link rel=alternate type=application/rss+xml href=/news/rss title="Stockport Council News Feed" />
+    <link rel=alternate type=application/rss+xml href=/events/rss title="Stockport Council Events Feed" />
 
-    <partial name="CookieBanner" />
-    <partial name="TagManager/TagManagerDataLayer" />
-    <partial name="TagManager/TagManager" />
+    <partial name=CookieBanner />
+    <partial name=TagManager/TagManagerDataLayer />
+    <partial name=TagManager/TagManager />
 
-    <script type='text/javascript' src='@stylesheet.DesignSystemJs'></script>
-    <script src="~/assets/javascript/vendor/require.min.js"></Script>
+    <script type=text/javascript src=@stylesheet.DesignSystemJs asp-append-version=true></script>
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js asp-append-version=true></Script>
 </head>
 <body class="container-layout-free @(string.Concat("type-", ViewContext.RouteData.Values["controller"].ToString().ToLower()))">
-    <partial name="TagManager/TagManagerNoScript" />
+    <partial name=TagManager/TagManagerNoScript />
     <div id="__ba_launchpad"></div>
-    <partial name="Header" />
+    <partial name=Header />
     @RenderSection("Breadcrumbs", false)
     <main>
         @RenderBody()
     </main>
-    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+    <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
     @await Component.InvokeAsync("AddThis")
 
     <script>
-        require(['/assets/javascript/config.min.js'], function() {
-            require(['jquery', 'matchbox.min'], 
+        require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+            require(['jquery', 'matchbox'], 
                 function (_, matchbox) {
                     matchbox.Init();
                 }

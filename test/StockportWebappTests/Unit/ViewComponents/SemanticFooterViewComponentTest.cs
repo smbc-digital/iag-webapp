@@ -1,52 +1,42 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Moq;
-using StockportWebapp.Models;
-using StockportWebapp.Repositories;
-using StockportWebapp.ViewComponents;
-using StockportWebappTests_Unit.Helpers;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.ViewComponents;
 
-namespace StockportWebappTests_Unit.Unit.ViewComponents
+public class SemanticFooterViewComponentTest
 {
-    public class SemanticFooterViewComponentTest
+    private readonly Mock<IRepository> _repository;
+    private readonly SemanticFooterViewComponent _semanticFooterViewComponent;
+    private readonly Mock<ILogger<SemanticFooterViewComponent>> _logger;
+
+    public SemanticFooterViewComponentTest()
     {
-        private readonly Mock<IRepository> _repository;
-        private readonly SemanticFooterViewComponent _semanticFooterViewComponent;
-        private readonly Mock<ILogger<SemanticFooterViewComponent>> _logger;
+        _repository = new Mock<IRepository>();
+        _logger = new Mock<ILogger<SemanticFooterViewComponent>>();
+        _semanticFooterViewComponent = new SemanticFooterViewComponent(_repository.Object, _logger.Object);
+    }
 
-        public SemanticFooterViewComponentTest()
-        {
-            _repository = new Mock<IRepository>();
-            _logger = new Mock<ILogger<SemanticFooterViewComponent>>();
-            _semanticFooterViewComponent = new SemanticFooterViewComponent(_repository.Object, _logger.Object);
-        }
+    [Fact]
+    public async Task ShouldReturnFooterAsModelInView()
+    {
+        var footer = new Footer("Title", "Slug", new List<SubItem>(), new List<SocialMediaLink>());
+        _repository.Setup(o => o.Get<Footer>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Successful(200, footer));
 
-        [Fact]
-        public async Task ShouldReturnFooterAsModelInView()
-        {
-            var footer = new Footer("Title", "Slug", new List<SubItem>(), new List<SocialMediaLink>());
-            _repository.Setup(o => o.Get<Footer>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Successful(200, footer));
+        var result = await _semanticFooterViewComponent.InvokeAsync() as ViewViewComponentResult;
 
-            var result = await _semanticFooterViewComponent.InvokeAsync() as ViewViewComponentResult;
+        result.ViewData.Model.Should().BeOfType<Footer>();
+        var footerModel = result.ViewData.Model as Footer;
+        footerModel.Should().Be(footer);
 
-            result.ViewData.Model.Should().BeOfType<Footer>();
-            var footerModel = result.ViewData.Model as Footer;
-            footerModel.Should().Be(footer);
+        LogTesting.Assert(_logger, LogLevel.Information, "Call to retrieve the footer");
+    }
 
-            LogTesting.Assert(_logger, LogLevel.Information, "Call to retrieve the footer");
-        }
+    [Fact]
+    public async Task ShouldNotReturnAFooterInViewIfViewNotFound()
+    {
+        _repository.Setup(o => o.Get<Footer>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Failure(404, "No Footer Found"));
 
-        [Fact]
-        public async Task ShouldNotReturnAFooterInViewIfViewNotFound()
-        {
-            _repository.Setup(o => o.Get<Footer>(It.IsAny<string>(), It.IsAny<List<Query>>())).ReturnsAsync(HttpResponse.Failure(404, "No Footer Found"));
+        var result = await _semanticFooterViewComponent.InvokeAsync() as ViewViewComponentResult;
 
-            var result = await _semanticFooterViewComponent.InvokeAsync() as ViewViewComponentResult;
-
-            result.ViewData.Model.Should().BeNull();
-            Assert.Equal("NoFooterFound", result.ViewName);
-            LogTesting.Assert(_logger, LogLevel.Information, "Call to retrieve the footer");
-        }
+        result.ViewData.Model.Should().BeNull();
+        Assert.Equal("NoFooterFound", result.ViewName);
+        LogTesting.Assert(_logger, LogLevel.Information, "Call to retrieve the footer");
     }
 }

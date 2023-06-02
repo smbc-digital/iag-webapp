@@ -1,6 +1,6 @@
 ﻿/* ------ Breadcrumbs ------- */
 .breadcrumb-container {
-    background-color: #09656C;
+    background-color: $darkCyan;
     width: 100%;
     min-height: 40px;
 
@@ -23,30 +23,38 @@
             padding-left: 10px;
         }
 
-        li a {
-            color: $white;
-            text-transform: none;
-            font-weight: normal;
+        li {
+            display: inline-block;
+            margin-left: 0;
 
-            &:hover {
-                text-decoration-thickness: 3px;
+            a {
+                color: $white;
+                text-transform: none;
+                font-weight: normal;
+
+                &:hover {
+                    text-decoration-thickness: 3px;
+                }
             }
-        }
 
-        li.current span {
-            font-size: .875em;
-        }
-
-        li.current a {
-            text-decoration: none;
-
-            &:hover {
+            .chevron {
+                margin: 0 5px;
                 color: $white;
             }
-        }
 
-        .chevron {
-            color: $white;
+            current {
+                a {
+                    text-decoration: none;
+
+                    &:hover {
+                        color: $white;
+                    }
+                }
+
+                span {
+                    font-size: .875em;
+                }
+            }
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿@using System.Runtime.InteropServices.ComTypes
-@model StockportWebapp.ViewModels.ArticleViewModel
-
+﻿@model ArticleViewModel
 @{
     var sections = Model.Article.Sections.ToList();
     var actualCount = sections.Count;
-    var modifiedCount = actualCount % 2 == 0 ? (actualCount/2) : (actualCount/ 2)+1;
-} 
+    var modifiedCount = actualCount % 2 == 0 ? (actualCount/2) : (actualCount/ 2) + 1;
+}
 
 <header class="article-navigation-header">    
     <nav class="l-vertical-list-no-margin article-navigation @(sections.Count > 3 ? "split-article-into-columns" : "single-column")">

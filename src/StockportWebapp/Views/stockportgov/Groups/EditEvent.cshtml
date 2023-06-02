@@ -1,8 +1,4 @@
-﻿@using StockportWebapp.Config
-@using StockportWebapp.Models
-@using StockportWebapp.ViewModels
-@inject StockportWebapp.FeatureToggling.FeatureToggles FeatureToggles
-@model EventSubmission
+﻿@model EventSubmission
 @{
     ViewData["Title"] = "Edit your event";
     ViewData["og:title"] = "Edit your event";
@@ -69,7 +65,7 @@
                                             </ul>
                                         </span>
                                         <div class="grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent">
-                                            <textarea id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
+                                            <textarea class="wysiwyg" id="mytext" asp-for="@Model.Description" class="wysiwyg grid-100 tablet-grid-100 mobile-grid-100 form-control-deep group-wysiwyg" title="Enter a Description"></textarea>
                                         </div>
 
                                         <span role="alert" aria-atomic="true" asp-validation-for="@Model.Description" class="form-field-validation-error grid-50 tablet-grid-50 suffix-50 tablet-suffix-50 mobile-grid-100 grid-parent"></span>
@@ -151,12 +147,21 @@
         </div>
     </div>
 </div>
+
+<link rel=stylesheet href=~/assets/javascript/vendor/trumbowyg/trumbowyg.min.css asp-append-version=true />
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['multistepForm.min', 'groups.min', 'recaptcha', 'google.places'],
-            function(multistepForm, filters) {
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['multistepForm', 'groups', 'trumbowyg', 'recaptcha', 'google.places'],
+            function (multistepForm, groups, trumbowyg) {
                 multistepForm.Init();
                 groups.Init();
+                $('textarea.wysiwyg').trumbowyg({
+                    tagsToRemove: ['script', 'link'],
+                    btns: [
+                        ['strong'],
+                        ['unorderedList', 'orderedList']
+                    ]
+                });
             }
         );
     });

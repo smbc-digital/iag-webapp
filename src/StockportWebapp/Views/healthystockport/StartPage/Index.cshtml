@@ -1,33 +1,29 @@
-﻿@using StockportWebapp.ViewModels
-@model StockportWebapp.ProcessedModels.ProcessedStartPage
-
-{
+﻿@model ProcessedStartPage
+@{
     ViewData["Title"] = Model.Title;
     Layout = "../Shared/_Layout.cshtml";
     ViewData["Description"] = Model.Summary;
     ViewData["og:title"] =  Model.Title;
 }
 
-@*@section BackgroundImage {
-    style="background-image:url('@Model.BackgroundImage')"
-}*@
 @section BackgroundImage
 {
     <partial name="ScaleImageByDevice" model='new Image("l-background-hs-image", Model.BackgroundImage)'/>
 }
+
 <partial name="DisplayTemplates/Gutter" model='Model.Icon'/>
+
 <section id="content" aria-label="@Model.Title content" class="grid-90 mobile-grid-100">
     <partial name="DisplayTemplates/Breadcrumb" model='Model.Breadcrumbs'/>
     <div class="grid-70 mobile-grid-100 l-content-container">
-        @{
-            if (Model.Alerts != null)
+        @if (Model.Alerts is not null)
+        {
+            foreach (var alert in Model.Alerts)
             {
-                foreach (var alert in Model.Alerts)
-                {
-                    <partial name="DisplayTemplates/Alert" model='alert'/>
-                }
+                <partial name="DisplayTemplates/Alert" model='alert'/>
             }
         }
+
         <h1>@Model.Title</h1>
         <p class="subtitle">@Model.Summary</p>
         @Html.Raw(Model.UpperBody)

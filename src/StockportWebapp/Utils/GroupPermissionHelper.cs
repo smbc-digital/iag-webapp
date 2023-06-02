@@ -1,18 +1,17 @@
-﻿namespace StockportWebapp.Utils
+﻿namespace StockportWebapp.Utils;
+
+public static class GroupPermissionHelper
 {
-    public static class GroupPermissionHelper
+    public static string GetPermisison(string letter)
     {
-        public static string GetPermisison(string letter)
+        switch (letter.ToUpper())
         {
-            switch (letter.ToUpper())
-            {
-                case "A":
-                    return "Administrator";
-                case "E":
-                    return "Editor";
-                default:
-                    return string.Empty;
-            }
+            case "A":
+                return "Administrator";
+            case "E":
+                return "Editor";
+            default:
+                return string.Empty;
         }
     }
 }

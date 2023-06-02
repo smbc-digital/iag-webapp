@@ -1,16 +1,13 @@
-﻿@using StockportWebapp.FeatureToggling
-@model StockportWebapp.ProcessedModels.ProcessedTopic
-@inject FeatureToggles FeatureToggles
+﻿@model ProcessedTopic
+@{
+    var firstHalfOfItems = (int)Math.Ceiling((decimal)Model.TertiaryItems.Count() / 2);
+}
 
 <div class="subitems-tertiary-padding grid-100">
-
-    @{
-        var firstHalfOfItems = (int)Math.Ceiling((decimal)Model.TertiaryItems.Count() / 2);
-    }
-
     <div class="subitems-tertiary-two-column">
         <ul class="grid-50 mobile-grid-100 tablet-grid-100">
-            @foreach (var subItem in Model.TertiaryItems.Take(firstHalfOfItems)) {
+            @foreach (var subItem in Model.TertiaryItems.Take(firstHalfOfItems))
+            {
                 <li>
                     <div class="subitem-tertiary">
                         <a href="@subItem.NavigationLink">
@@ -21,9 +18,11 @@
             }
         </ul>
 
-        @if (Model.TertiaryItems.Skip(firstHalfOfItems).Any()) {
+        @if (Model.TertiaryItems.Skip(firstHalfOfItems).Any())
+        {
             <ul class="grid-50 mobile-grid-100 tablet-grid-100">
-                @foreach (var subItem in Model.TertiaryItems.Skip(firstHalfOfItems)) {
+                @foreach (var subItem in Model.TertiaryItems.Skip(firstHalfOfItems))
+                {
                     <li>
                         <div class="subitem-tertiary">
                             <a href="@subItem.NavigationLink">
@@ -32,10 +31,10 @@
                         </div>
                     </li>
                 }
-                @if (Model.TertiaryItems.Count() % 2 > 0) {
+                @if (Model.TertiaryItems.Count() % 2 > 0)
+                {
                     <li>
                         <div class="subitem-tertiary no-chevron">
-
                         </div>
                     </li>
                 }

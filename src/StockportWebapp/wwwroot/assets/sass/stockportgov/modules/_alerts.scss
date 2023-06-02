@@ -1,0 +1,210 @@
+﻿.alert {
+  width: 100%;
+  padding: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: table;
+  border-radius: 5px;
+  position: relative;
+  box-shadow: 0 10px 20px $borderDefault;
+
+  h2 {
+    @media #{$mobile} {
+      font-size: 17px;
+      margin-top: 5px;
+    }
+  }
+
+  .alert-subheading {
+    font-style: italic;
+  }
+
+  &-close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    border: none;
+
+    a {
+      padding: 0 7px;
+
+      &:hover {
+        color: $greyDarkest;
+        background-color: $whiteOpaque1;
+      }
+    }
+  }
+
+  &-icon {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    width: 65px;
+
+    @media #{$mobile} {
+      display: none;
+    }
+  }
+
+  &-content {
+    padding: 10px 20px;
+
+    p {
+      line-height: 1.5em;
+
+      @media #{$mobile} {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+    }
+  }
+}
+
+.alert-error {
+  background-color: $tallPoppyRed;
+  color: $white !important;
+
+  .alert-icon {
+    i {
+      color: $white;
+    }
+  }
+
+  .alert-close {
+    i {
+      color: $white;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  h2, h3 {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  p, a {
+    color: $white;
+  }
+
+  a:hover {
+    color: $whiteOpaque8;
+  }
+}
+
+.alert-success {
+  background-color: $green;
+  color: $alertText !important;
+
+  h2, h3 {
+    color: $alertWarningHeading;
+    margin-bottom: 0;
+  }
+
+  .alert-icon {
+    background-color: $blackOpaque2;
+
+    i {
+      color: $alertText;
+    }
+  }
+
+  .alert-close {
+    i {
+      color: $alertText;
+
+      &:hover {
+        color: $alertText;
+      }
+    }
+  }
+
+  a {
+    color: $white;
+
+    &:hover {
+      color: $whiteOpaque7;
+    }
+  }
+}
+
+.alert-warning {
+  background-color: $carrotOrange;
+  color: $black !important;
+  .alert-close {
+    i {
+      color: $greyDarkest;
+
+      &:hover {
+        color: $alertText;
+      }
+    }
+  }
+
+  .alert-icon {
+    i {
+      color: $greyDarkest;
+    }
+  }
+
+  h2, h3 {
+    color: $greyDarkest;
+    margin-bottom: 0;
+  }
+
+
+  p, a {
+    color: $black;
+  }
+
+  a:hover {
+    color: $greyDark;
+  }
+}
+
+.alert-information {
+  background-color: $softBlue;
+  color: $white !important;
+  .alert-close {
+    i {
+      color: $white;
+
+      &:hover {
+        color: $alertText;
+      }
+    }
+  }
+
+  .alert-icon {
+    i {
+      color: $white;
+    }
+  }
+
+  h2, h3 {
+    color: $white;
+    margin-bottom: 0;
+  }
+
+  p, a {
+    color: $white;
+  }
+
+  a:hover {
+    color: $black;
+  }
+}
+
+.alert-inline {
+  background-color: $offWhite;
+  border-left: 5px solid $darkerEbbGrey;
+  margin-bottom: 30px;
+  border-radius: 3px;
+  padding: 5px 10px 10px 10px;
+}
+
+.alert-container {
+  margin-bottom: 12px;
+}

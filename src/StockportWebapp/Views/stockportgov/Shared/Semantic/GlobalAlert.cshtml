@@ -1,16 +1,12 @@
-﻿@using StockportWebapp.Models
-@using StockportWebapp.Utils
-@inject ICookiesHelper CookiesHelper
-@model Alert
-
+﻿@model Alert
 @{
     var icons = new Dictionary<string, string>()
-{
-{Severity.Error, "exclamation-circle"},
-{Severity.Information, "info-circle"},
-{Severity.Warning, "exclamation-triangle"},
-{Severity.Success, "check-circle"},
-};
+    {
+        {Severity.Error, "exclamation-circle"},
+        {Severity.Information, "info-circle"},
+        {Severity.Warning, "exclamation-triangle"},
+        {Severity.Success, "check-circle"},
+    };
 }
 
 <section class="alert-@Model.Severity.ToLower()-fullwidth">
@@ -31,8 +27,8 @@
 </section>
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['alerts.min'],
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['alerts'],
             function(alerts) {
                 alerts.Init();
             }

@@ -1,330 +1,327 @@
 ﻿article.group-detail {
 
-    @media #{$mobile} {
-        padding: 0;
-
-        > div {
-            background-color: $white;
-        }
-    }
-
-    padding-bottom: 0;
-
-    section ul .group-information, .directions-list {
-        margin-bottom: 10px;
-    }
-
-    .main-content {
-        padding-right: 20px;
-        padding-left: 20px;
-    }
-
-    .content-disclaimers {
-        margin-top: 15px;
-    }
-
-    h1 {
-        color: $colorPrimary;
-        font-size: 50px;
-        font-weight: 600;
-
-        @media #{$mobile } {
-            font-size: 30px;
-        }
-    }
-
-    .bordered-group-section {
-        border: 1px solid $greyLight;
-        border-radius: 3px;
-        box-sizing: border-box;
-        padding: 0 20px 10px 20px;
-    }
-
-    .group-image {
-        margin-bottom: 15px;
-        position: relative;
-        width: 464px;
-        height: 224px;
-
-        @media #{$mobile} {
-            height: 100%;
-            width: 100%;
-        }
-
-        img {
-            position: absolute;
-            border-radius: 2px;
-
-            @media #{$mobile} {
-                position: relative;
-            }
-        }
-    }
-
-    h2 {
-        margin-bottom: 0;
-        line-height: 40px;
-        font-size: 1.625em;
-
-        @media #{$mobile } {
-            padding-bottom: 10px;
-        }
-    }
-
-    section {
-        display: inline-block;
-    }
-
-    div.group-branding {
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: -50px;
-
-        @media #{$mobile} {
-            flex-direction: column;
-            margin: 0;
-        }
-
-        div.group-branding-item {
-            width: calc(25% - 25px);
-            display: flex;
-            flex-direction: column;
-            margin: 0 24px 28px 0;
-            padding: 0 25px 0 0;
-            box-sizing: border-box;
-
-            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //IE only
-                display: block;
-            }
-
-            p {
-                margin: -10px 0 10px 0;
-            }
-
-            &:not(:nth-child(4n)) {
-                border-right: 1px solid #ccc;
-
-                @media #{$mobile} {
-                    border-right: none;
-                }
-            }
-
-            &:nth-child(4n) {
-                margin: 0 0 25px 0;
-
-                @media #{$mobile} {
-                    margin: 0 0 10px 0;
-                }
-            }
-
-            &:last-of-type {
-                border: none;
-
-                @media #{$mobile} {
-                    margin: 0 0 10px 0;
-                    padding: 0;
-                }
-            }
-
-            @media #{$mobile} {
-                padding: 0 0 20px 0;
-                margin: 0 0 20px 0;
-                width: 100%;
-                border-bottom: 1px solid #ccc;
-            }
-        }
-
-        div.group-branding-item-image {
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //IE only
-                height: 80%;
-            }
-
-            a {
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) { //IE only
-                    display: inline;
-                }
-            }
-
-            @media #{$mobile} {
-                justify-content: flex-start;
-
-                a {
-                    align-items: flex-start;
-                }
-            }
-
-            img {
-                max-width: 100%;
-                max-height: 100px;
-            }
-        }
-    }
-
+  @media #{$mobile} {
+    padding: 0;
 
     > div {
-        background-color: $white;
+      background-color: $white;
+    }
+  }
 
-        > section {
-            width: 100%;
+  padding-bottom: 0;
 
-            hr {
-                color: #D3D3D3;
-                margin-bottom: 0;
+  section ul .group-information, .directions-list {
+    margin-bottom: 10px;
+  }
 
-                @media #{$mobile } {
-                    margin-top: 14px;
-                }
-            }
-        }
+  .main-content {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .content-disclaimers {
+    margin-top: 15px;
+  }
+
+  h1 {
+    color: $colorPrimary;
+    font-size: 50px;
+    font-weight: 600;
+
+    @media #{$mobile } {
+      font-size: 30px;
+    }
+  }
+
+  .bordered-group-section {
+    border: 1px solid $greyLight;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 0 20px 10px 20px;
+  }
+
+  .group-image {
+    margin-bottom: 15px;
+    position: relative;
+    width: 464px;
+    height: 224px;
+
+    @media #{$mobile} {
+      height: 100%;
+      width: 100%;
     }
 
+    img {
+      position: absolute;
+      border-radius: 2px;
 
+      @media #{$mobile} {
+        position: relative;
+      }
+    }
+  }
 
-    .group-information li {
-        list-style: none;
-        display: table;
-        margin-left: 0;
-        width: 100%;
-        border-bottom: #D3D3D3 solid 1px;
-        padding: 8px 0;
+  h2 {
+    margin-bottom: 0;
+    line-height: 40px;
+    font-size: 1.625em;
 
-        span {
-            padding: 15px 15px 15px 0;
-            width: 32px;
-            text-align: center;
-        }
+    @media #{$mobile } {
+      padding-bottom: 10px;
+    }
+  }
 
-        div, span {
-            display: table-cell;
-            vertical-align: middle;
+  section {
+    display: inline-block;
+  }
 
+  div.group-branding {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -50px;
 
-
-            p {
-                margin-bottom: 0;
-            }
-        }
+    @media #{$mobile} {
+      flex-direction: column;
+      margin: 0;
     }
 
-    aside {
-        padding-left: 0;
+    div.group-branding-item {
+      width: calc(25% - 25px);
+      display: flex;
+      flex-direction: column;
+      margin: 0 24px 28px 0;
+      padding: 0 25px 0 0;
+      box-sizing: border-box;
 
-        hr {
-            margin-top: 15px;
-            margin-bottom: 15px;
-        }
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        display: block;
+      }
+
+      p {
+        margin: -10px 0 10px 0;
+      }
+
+      &:not(:nth-child(4n)) {
+        border-right: 1px solid $greyLighter;
 
         @media #{$mobile} {
-            padding-left: 10px;
-            background-color: $offWhite;
+          border-right: none;
         }
+      }
 
-        @media #{$desktop} {
-            h2 {
-                padding-left: 25px;
-                padding-top: 35px;
-            }
+      &:nth-child(4n) {
+        margin: 0 0 25px 0;
 
-            .sidebar-section {
-                padding-left: 30px;
-            }
+        @media #{$mobile} {
+          margin: 0 0 10px 0;
         }
+      }
 
-        .sidebar-button {
-            min-width: 0;
-            display: block;
+      &:last-of-type {
+        border: none;
+
+        @media #{$mobile} {
+          margin: 0 0 10px 0;
+          padding: 0;
         }
+      }
 
-        .thank-you-message {
-            padding-top: 15px;
-            padding-left: 15px;
-            padding-bottom: 15px;
-            padding-right: 25px;
-            background-color: $white;
-            border-radius: 3px;
-            border: 1px solid #999;
-            font-weight: 600;
-            font-family: 'Source Sans Pro';
-            font-size: 1.125em;
-            letter-spacing: 0;
-            line-height: 20px;
-
-            .fa-check {
-                color: $green;
-                padding-left: 5px;
-                padding-right: 10px;
-            }
-        }
-
-        .group-information-section {
-            border-top: 0;
-            margin-top: 0;
-            padding-left: 25px;
-            padding-right: 0;
-            margin-bottom: 10px;
-            text-align: left;
-
-            .manage-group-button {
-                border-color: $greyMiddle;
-                background-color: $white;
-                color: $greyDarkest;
-                font-weight: 600;
-                margin-top: 10px;
-                margin-bottom: 10px;
-
-                &:hover {
-                    box-shadow: 5px 5px 10px $greyLighter;
-                }
-
-                span {
-                    margin-left: 8px;
-                }
-            }
-
-            form {
-                button {
-                    width: 100%;
-                }
-            }
-
-            @media #{$mobile} {
-                padding-left: 0;
-                margin-bottom: 0;
-            }
-        }
+      @media #{$mobile} {
+        padding: 0 0 20px 0;
+        margin: 0 0 20px 0;
+        width: 100%;
+        border-bottom: 1px solid $greyLighter;
+      }
     }
 
-    .what-we-do {
-        padding: 0;
-        margin: 0 0 28px 0;
+    div.group-branding-item-image {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+        height: 80%;
+      }
+
+      a {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+          display: inline;
+        }
+      }
+
+      @media #{$mobile} {
+        justify-content: flex-start;
+
+        a {
+          align-items: flex-start;
+        }
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100px;
+      }
     }
+  }
+
+
+  > div {
+    background-color: $white;
+
+    > section {
+      width: 100%;
+
+      hr {
+        color: $lightGrey;
+        margin-bottom: 0;
+
+        @media #{$mobile } {
+          margin-top: 14px;
+        }
+      }
+    }
+  }
+
+
+
+  .group-information li {
+    list-style: none;
+    display: table;
+    margin-left: 0;
+    width: 100%;
+    border-bottom: #D3D3D3 solid 1px;
+    padding: 8px 0;
+
+    span {
+      padding: 15px 15px 15px 0;
+      width: 32px;
+      text-align: center;
+    }
+
+    div, span {
+      display: table-cell;
+      vertical-align: middle;
+
+
+
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  aside {
+    padding-left: 0;
+
+    hr {
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+
+    @media #{$mobile} {
+      padding-left: 10px;
+      background-color: $offWhite;
+    }
+
+    @media #{$desktop} {
+      h2 {
+        padding-left: 25px;
+        padding-top: 35px;
+      }
+
+      .sidebar-section {
+        padding-left: 30px;
+      }
+    }
+
+    .sidebar-button {
+      min-width: 0;
+      display: block;
+    }
+
+    .thank-you-message {
+      padding: 15px 25px 15px 15px;
+      background-color: $white;
+      border-radius: 3px;
+      border: 1px solid $greyMiddle;
+      font-weight: 600;
+      font-family: 'Source Sans Pro';
+      font-size: 1.125em;
+      letter-spacing: 0;
+      line-height: 20px;
+
+      .fa-check {
+        color: $green;
+        padding-left: 5px;
+        padding-right: 10px;
+      }
+    }
+
+    .group-information-section {
+      border-top: 0;
+      margin-top: 0;
+      padding-left: 25px;
+      padding-right: 0;
+      margin-bottom: 10px;
+      text-align: left;
+
+      .manage-group-button {
+        border-color: $greyMiddle;
+        background-color: $white;
+        color: $greyDarkest;
+        font-weight: 600;
+        margin-top: 10px;
+        margin-bottom: 10px;
+
+        &:hover {
+          box-shadow: 5px 5px 10px $greyLighter;
+        }
+
+        span {
+          margin-left: 8px;
+        }
+      }
+
+      form {
+        button {
+          width: 100%;
+        }
+      }
+
+      @media #{$mobile} {
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .what-we-do {
+    padding: 0;
+    margin: 0 0 28px 0;
+  }
 }
 
 .additional-information {
-    border: 1px solid $greyLight;
-    border-radius: 3px;
-    padding: 0px 15px;
-    box-sizing: border-box;
+  border: 1px solid $greyLight;
+  border-radius: 3px;
+  padding: 0px 15px;
+  box-sizing: border-box;
 }
 
-.groupLastUpdated{
-    color: black;
-    padding-left: 10px;
-    margin-bottom: 17px;
-    margin-top: 34px;
+.groupLastUpdated {
+  color: $black;
+  padding-left: 10px;
+  margin-bottom: 17px;
+  margin-top: 34px;
 
-    p {
-        font-weight: 400;
-        font-size: 1em;
-    }
+  p {
+    font-weight: 400;
+    font-size: 1em;
+  }
 }

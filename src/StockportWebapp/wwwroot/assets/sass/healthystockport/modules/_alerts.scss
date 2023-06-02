@@ -1,0 +1,142 @@
+﻿.alert {
+  width: 100%;
+  margin-top: 10px;
+  display: table;
+  border-radius: 5px;
+  padding: 0px;
+  position: relative;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 20px $borderDefault;
+
+  h2, h3 {
+    font-weight: bold;
+
+    @media #{$mobile} {
+      margin-top: 5px;
+    }
+  }
+}
+
+.alert-icon {
+  border-radius: 5px 0 0 5px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  padding: 0;
+  width: 65px;
+}
+
+.alert-content {
+  padding: 10px 20px 10px 20px;
+
+  a {
+    text-decoration: underline;
+
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+
+  p {
+    line-height: 1.5em;
+
+    @media #{$mobile} {
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.alert-error {
+  background-color: $alertErrorBackground;
+  color: $alertText;
+
+  h3 {
+    color: $alertErrorHeading;
+    margin-bottom: 0;
+  }
+
+  .alert-icon {
+    background-color: $alertErrorIconBackground;
+  }
+
+  i {
+    color: $alertErrorIcon;
+  }
+
+  p, a, h2 {
+    color: $white;
+  }
+}
+
+.alert-warning {
+  background-color: $alertWarningBackground;
+  color: $alertText;
+
+  h3 {
+    color: $alertWarningHeading;
+    margin-bottom: 0;
+  }
+
+  .alert-icon {
+    background-color: $alertWarningIconBackground;
+    color: $greyDarkest;
+  }
+
+  i {
+    color: $alertWarningIcon;
+  }
+
+  p, a, h2 {
+    color: $black;
+  }
+}
+
+.alert-information {
+  background-color: $alertInformationBackground;
+  color: $alertText;
+
+  .alert-icon {
+    background-color: $alertInformationIconBackground;
+  }
+
+  p, a, h2 {
+    color: $white;
+  }
+}
+
+.alert-close {
+  border-radius: 0 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &:hover a i {
+    color: $white;
+  }
+
+  i {
+    @media #{$mobile} {
+      font-size: 1.5em;
+    }
+
+    font-size: 1.5em;
+    color: white;
+  }
+
+  a {
+    display: inline-block;
+    padding: 0 7px;
+
+    &:hover {
+      background-color: $whiteOpaque3;
+    }
+  }
+}
+
+.inline-alert {
+  background-color: $offWhite;
+  border-left: 5px solid $darkerEbbGrey;
+}

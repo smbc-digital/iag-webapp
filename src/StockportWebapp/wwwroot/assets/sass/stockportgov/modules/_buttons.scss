@@ -1,33 +1,34 @@
-﻿.reCaptcha{
-    display:inline-block
+﻿.reCaptcha {
+  display: inline-block
 }
 
 .clear-button, .clear-button:hover {
-    background-color: #ffffff;
-    border: solid 1px #ccc;
-    color: #000000;
-    font-weight: 600;
+  background-color: $white;
+  border: solid 1px $greyLighter;
+  color: $black;
+  font-weight: 600;
 }
 
 .button-up-down {
-    min-width:250px;
+  min-width: 250px;
 
+  &:before {
+    content: "\f107";
+    position: relative;
+    right: 0;
+    margin-top: 0px;
+  }
+
+  &.is-collapsed {
     &:before {
-        content: "\f107";
-        position: relative;
-        right: 0;
-        margin-top: 0px;
+      content: "\f106";
     }
-
-    &.is-collapsed {
-        &:before {content: "\f106";}
-    }
+  }
 }
 
 .volunteering-btn {
-    margin-bottom: 14px;
-    background-color: $teal-darker;
-    font-weight: 600;
-    font-size: 1.5em;
+  margin-bottom: 14px;
+  background-color: $tealDarker;
+  font-weight: 600;
+  font-size: 1.5em;
 }
-

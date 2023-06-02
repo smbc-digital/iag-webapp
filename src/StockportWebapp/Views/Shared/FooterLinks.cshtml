@@ -1,10 +1,8 @@
-﻿@using StockportWebapp.Config
-@model IEnumerable<StockportWebapp.Models.SubItem>
-@inject BusinessId BusinessId
+﻿@model IEnumerable<SubItem>
 
 @foreach (var link in Model)
 {
-<li class="grid-50 tablet-grid-50 mobile-grid-100">
-    <a href="@link.NavigationLink">@link.Title</a>
-</li>
+    <li class="grid-50 tablet-grid-50 mobile-grid-100">
+        <a href="@link.NavigationLink">@link.Title</a>
+    </li>
 }

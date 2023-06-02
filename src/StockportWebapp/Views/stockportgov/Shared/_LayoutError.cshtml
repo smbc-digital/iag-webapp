@@ -1,44 +1,35 @@
-﻿@using StockportWebapp.Config
-@using StockportWebapp.FeatureToggling
+﻿@using StockportWebapp.Models.Config
 @inject IApplicationConfiguration ApplicationConfiguration
 @inject BusinessId BusinessId
-@inject CurrentEnvironment CurrentEnvironment
-@inject FeatureToggles FeatureToggles
 
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang=en-GB>
 <head>
     @* <partial name="SecurityHeaders" /> *@
-    <meta charset="utf-8" />
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <partial name="OwnershipVerificationCodes" />
-
-    <partial name="Favicon" />
-
+    <meta charset=utf-8 />
+    <meta name=viewport content="width=device-width, initial-scale=1" />
+    <partial name=OwnershipVerificationCodes />
+    <partial name=Favicon />
     <title>Error - Stockport Council</title>
-    <link href="~/assets/stylesheets/cludo-search-default.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css" />
-    <link rel="stylesheet" href="~/assets/stylesheets/styleguide-sg.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/assets/stylesheets/site-sg.min.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin="anonymous">
+    <link rel=stylesheet href=~/assets/stylesheets/cludo-search-default.min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/vendor/unsemantic-grid-responsive-tablet-min.css asp-append-version=true />
+    <link rel=stylesheet href=~/assets/stylesheets/site-sg.min.css asp-append-version=true />
+    <link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA= sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1 sha512-4uGZHpbDliNxiAv/QzZNo/yb2FtAX+qiDb7ypBWiEdJQX8Pugp8M6il5SRkN8jQrDLWsh3rrPDSXRf3DwFYM6g==" crossorigin=anonymous>
     <partial name="CookieBanner" />
     @await Component.InvokeAsync("GoogleAnalytics")
-
-    <script src="~/assets/javascript/vendor/require.min.js"></Script>
+    <script type=text/javascript src=~/assets/javascript/vendor/require.min.js></Script>
 </head>
 <body class="container-layout-free type-error">
-    <partial name="Header" />
+    <partial name=Header />
     <div class="background-image" style="background-image: url('https://s3-eu-west-1.amazonaws.com/live-iag-static-assets/bg-sg-home.jpg')">
         @RenderBody()
     </div>
-    <distributed-cache name="footer" expires-after="@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString()))" enabled="true">
+    <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
         @await Component.InvokeAsync("Footer")
     </distributed-cache>
 
     <script>
-        require(['/assets/javascript/config.min.js'], function() {
+        require(['/assets/javascript/config-fd0642d6.min.js'], function() {
             require(['jquery'], function () { } );
         });
     </script>

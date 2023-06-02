@@ -1,5 +1,4 @@
-﻿@using StockportWebapp.FeatureToggling
-@model StockportWebapp.ProcessedModels.ProcessedTopic
+﻿@model ProcessedTopic
 
 <div class="expanding-link-box">
     <div class="expanding-list">
@@ -34,8 +33,8 @@
 </div>
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['expandingLinks.min'],
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['expandingLinks'],
             function(expandingLinks) {
                 expandingLinks.Init();
             }

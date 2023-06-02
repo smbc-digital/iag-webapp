@@ -1,30 +1,22 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
-using Moq;
-using StockportWebapp.Config;
-using StockportWebapp.ViewComponents;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.ViewComponents;
 
-namespace StockportWebappTests_Unit.Unit.ViewComponents
+public class GoogleAnalyticsViewComponentTest
 {
-    public class GoogleAnalyticsViewComponentTest
+    [Fact]
+    public async Task ShouldReturnGoogleAnalyticsId()
     {
-        [Fact]
-        public async Task ShouldReturnGoogleAnalyticsId()
-        {
-            const string businessId = "businessID";
-            var googleAnalyticsCode = AppSetting.GetAppSetting("a code");
+        const string businessId = "businessID";
+        var googleAnalyticsCode = AppSetting.GetAppSetting("a code");
 
-            var config = new Mock<IApplicationConfiguration>();
-            config.Setup(o => o.GetGoogleAnalyticsCode(businessId)).Returns(googleAnalyticsCode);
+        var config = new Mock<IApplicationConfiguration>();
+        config.Setup(o => o.GetGoogleAnalyticsCode(businessId)).Returns(googleAnalyticsCode);
 
-            var googleAnalyticsViewComponent = new GoogleAnalyticsViewComponent(config.Object, new BusinessId(businessId));
+        var googleAnalyticsViewComponent = new GoogleAnalyticsViewComponent(config.Object, new BusinessId(businessId));
 
-            var view = await googleAnalyticsViewComponent.InvokeAsync() as ViewViewComponentResult;
+        var view = await googleAnalyticsViewComponent.InvokeAsync() as ViewViewComponentResult;
 
-            config.Verify(o => o.GetGoogleAnalyticsCode(businessId), Times.Once);
-            var model = view.ViewData.Model as AppSetting;
-            model.Should().Be(googleAnalyticsCode);
-        }
+        config.Verify(o => o.GetGoogleAnalyticsCode(businessId), Times.Once);
+        var model = view.ViewData.Model as AppSetting;
+        model.Should().Be(googleAnalyticsCode);
     }
 }

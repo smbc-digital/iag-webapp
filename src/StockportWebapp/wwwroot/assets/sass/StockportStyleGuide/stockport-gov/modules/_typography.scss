@@ -1,0 +1,34 @@
+﻿// base and text scss files should be consolidated here.
+.full-width-title {
+  background-color: $tealDarker;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+
+  h1 {
+    color: $white;
+    margin: 0px;
+    font-size: 2.188em;
+
+    @media #{$mobile} {
+      font-size: 30px;
+    }
+  }
+
+  p {
+    color: $white;
+    margin: 0px;
+  }
+
+  .button-outline-white-transparent {
+    font-weight: 600;
+  }
+}
+
+.full-width-title-with-button {
+  float: left;
+}
+
+.full-width-title-margin-fix {
+  margin-top: -20px;
+}

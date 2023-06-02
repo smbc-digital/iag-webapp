@@ -1,30 +1,25 @@
-﻿using FluentAssertions;
-using StockportWebapp.Models;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Model;
 
-namespace StockportWebappTests_Unit.Unit.Model
+public class QueryTest
 {
-    public class QueryTest
+    [Fact]
+    public void ShouldCreateFormattedQueryOnToString()
     {
-        [Fact]
-        public void ShouldCreateFormattedQueryOnToString()
-        {
-            const string name = "name";
-            const string value = "value";
-            var query = new Query(name, value);
+        const string name = "name";
+        const string value = "value";
+        var query = new Query(name, value);
 
-            query.ToString().Should().Be($"{name}={value}");
-        }
+        query.ToString().Should().Be($"{name}={value}");
+    }
 
-        [Fact]
-        public void ShouldUrlencodeQueryStringValues()
-        {
-            const string name = "name";
-            const string value = "#value";
-            const string encodedValue = "%23value";
-            var query = new Query(name, value);
+    [Fact]
+    public void ShouldUrlencodeQueryStringValues()
+    {
+        const string name = "name";
+        const string value = "#value";
+        const string encodedValue = "%23value";
+        var query = new Query(name, value);
 
-            query.Value.Should().Be(encodedValue);
-        }
+        query.Value.Should().Be(encodedValue);
     }
 }

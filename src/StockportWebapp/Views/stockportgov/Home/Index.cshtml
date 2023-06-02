@@ -1,9 +1,5 @@
-﻿@using StockportWebapp.FeatureToggling
-@using StockportWebapp.ViewModels
+﻿@inject StockportWebapp.Utils.ViewHelpers viewHelper
 @model HomepageViewModel
-@inject StockportWebapp.Utils.ViewHelpers viewHelper
-@inject FeatureToggles FeatureToggles
-
 @{
     ViewData["Title"] = "Welcome to Stockport Council";
     ViewData["og:title"] = "Welcome to Stockport Council";
@@ -64,18 +60,20 @@
                 <li class="grid-33 tablet-grid-100 mobile-grid-100 nav-card latest-item">
                     <div class="latest-nav-card-item matchbox-child">
                         <h2 class="news title">
-                            <a tabindex="-1" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">Latest news</a>
+                            <a tabindex="-1" href="@Url.Action("Index", "Comms")">Latest news</a>
                         </h2>
                         <div class="body">
                             <a href="/news/@Model.FeaturedNews.Slug">
                                 <h3>@Model.FeaturedNews.Title</h3>
-                                <p class="bullet"><span class="fa fa-clock-o" aria-hidden="true"></span><partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/></p>
+                                <p class="bullet">
+                                    <span class="fa fa-clock-o" aria-hidden="true"></span>
+                                    <partial name="FormattedDate" model='Model.FeaturedNews.SunriseDate'/>
+                                </p>
                                 <p>@Model.FeaturedNews.Teaser</p>
-                                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
                     </div>
-                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", FeatureToggles.Newsroom ? "Comms" : "News")">View news and media</stock-button>
+                    <stock-button class="nav-card-title button button-featured-content-more" as-link="true" href="@Url.Action("Index", "Comms")">View news and media</stock-button>
                 </li>
             }
 
@@ -89,7 +87,6 @@
                                 <h3>@Model.FeaturedEvent.Title</h3>
                                 <div class="bullet"><span class="fa fa-clock-o"></span>@viewHelper.FormatEventDate(Model.FeaturedEvent.EventDate, Model.FeaturedEvent.StartTime)</div>
                                 <div class="bullet"><span class="fa fa-map-marker" aria-hidden="true"></span>@Model.FeaturedEvent.Location</div>
-                                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
                     </div>
@@ -118,7 +115,6 @@
                                 {
                                     <div class="bullet"><span class="fa fa-star" aria-hidden="true"></span>@Model.HomepageContent.FeaturedGroupItem.AbilityLevel</div>
                                 }
-                                <stock-button class="nav-card-title button button-featured-content-more invisible" as-link="true"></stock-button>
                             </a>
                         </div>
                     </div>

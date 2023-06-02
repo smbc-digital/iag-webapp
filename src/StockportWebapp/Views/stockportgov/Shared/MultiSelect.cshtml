@@ -1,4 +1,4 @@
-﻿@model StockportWebapp.ViewModels.MultiSelect
+﻿@model MultiSelect
 
 <input type="hidden" id="@Model.ValueControlId-limit" value="@Model.Limit" />
 <input type="hidden" class="multi-select-control" value="@Model.ValueControlId" />
@@ -26,8 +26,8 @@
 }
 
 <script>
-    require(['/assets/javascript/config.min.js'], function() {
-        require(['multiSelect.min'],
+    require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+        require(['multiSelect'],
             function(multiSelect) {
                 multiSelect.Init("CategoriesList");
             }

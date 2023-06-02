@@ -1,0 +1,109 @@
+﻿.profile {
+  @include border-radius(5px);
+  border: 1px solid $borderDefault;
+  padding: 15px;
+  margin: 20px 0;
+  overflow: hidden;
+
+  @media #{$mobile} {
+    padding: 10px;
+  }
+}
+
+.profile.profile-dark {
+  background-color: $colorPrimary;
+}
+
+.profile .profile-heading {
+  margin: -15px -15px 10px -15px;
+  padding: 5px 15px;
+  color: $fontDefault;
+  background-color: $profileHeader;
+  width: 100%;
+  font-size: $fontDefault;
+}
+
+.profile figcaption {
+  clear: both;
+  font-size: $fontSmall;
+  padding-top: 10px;
+  line-height: 1.7;
+}
+
+.profile.small {
+  max-width: 200px;
+  padding: 0;
+  display: inline-block;
+  margin-right: 10px;
+
+  h5:first-child {
+    margin: 0;
+    padding: 5px 10px;
+    color: $fontDefault;
+    background-color: $profileBackgroundLight;
+    width: 100%;
+    font-size: $fontSmall;
+    text-transform: uppercase;
+  }
+
+  .pattern-description,
+  .pattern-code {
+    border: 0px;
+    padding: 10px;
+    margin-top: 0px;
+
+    @media #{$mobile, $tablet} {
+      display: none;
+    }
+  }
+
+  p {
+    font-size: 0.8em;
+  }
+
+  .pattern-code h6 {
+    margin-bottom: 0;
+  }
+
+  span {
+    font-weight: $fontWeightMedium;
+  }
+}
+
+.profile.profile-success-story {
+  background-color: $profileBackgroundLight;
+
+  @media #{$mobile} {
+    text-align: center;
+  }
+
+  .profile-heading {
+    background-color: $brandSecondary;
+    color: $profileHeaderText;
+  }
+
+  .profile-image-mask {
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  img {
+    max-width: none;
+    max-height: none;
+  }
+
+  h2 {
+    margin: 0;
+    line-height: 1.7em;
+  }
+
+  .profile-subtitle {
+    font-style: italic;
+    color: $profileSubtitle;
+    margin-bottom: 0px;
+  }
+}

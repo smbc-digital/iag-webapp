@@ -1,32 +1,27 @@
-﻿using FluentAssertions;
-using StockportWebapp.Validation;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Validation;
 
-namespace StockportWebappTests_Unit.Unit.Validation
+public class PastDateValidationTest
 {
-    public class PastDateValidationTest
+    private readonly PastDateValidation _pastDateValidation;
+
+    public PastDateValidationTest()
     {
-        private readonly PastDateValidation _pastDateValidation;
+        _pastDateValidation = new PastDateValidation();
+    }
 
-        public PastDateValidationTest()
-        {
-            _pastDateValidation = new PastDateValidation();
-        }
+    [Fact]
+    public void ShouldReturnValidForPastDate()
+    {
+        var result = _pastDateValidation.IsValid(new DateTime(2016, 01, 01));
 
-        [Fact]
-        public void ShouldReturnValidForPastDate()
-        {
-            var result = _pastDateValidation.IsValid(new DateTime(2016, 01, 01));
+        result.Should().BeTrue();
+    }
 
-            result.Should().BeTrue();
-        }
+    [Fact]
+    public void ShouldReturnInvalidForFutureDate()
+    {
+        var result = _pastDateValidation.IsValid(DateTime.MaxValue);
 
-        [Fact]
-        public void ShouldReturnInvalidForFutureDate()
-        {
-            var result = _pastDateValidation.IsValid(DateTime.MaxValue);
-
-            result.Should().BeFalse();
-        }
+        result.Should().BeFalse();
     }
 }

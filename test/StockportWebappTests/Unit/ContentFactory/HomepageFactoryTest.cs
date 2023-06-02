@@ -1,39 +1,31 @@
-﻿using FluentAssertions;
-using Moq;
-using StockportWebapp.ContentFactory;
-using StockportWebapp.Models;
-using StockportWebapp.Utils;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.ContentFactory;
 
-namespace StockportWebappTests_Unit.Unit.ContentFactory
+public class HomepageFactoryTest
 {
-    public class HomepageFactoryTest
+    private readonly Mock<MarkdownWrapper> _markdownWrapperMock = new Mock<MarkdownWrapper>();
+
+    private readonly HomepageFactory _homepageFactory;
+
+    public HomepageFactoryTest()
     {
-        private readonly Mock<MarkdownWrapper> _markdownWrapperMock = new Mock<MarkdownWrapper>();
+        _homepageFactory = new HomepageFactory(_markdownWrapperMock.Object);
+    }
 
-        private readonly HomepageFactory _homepageFactory;
+    [Fact]
+    public void ItBuildsAHomepageWithProcessedBody()
+    {
+        var freeText = "free text";
+        _markdownWrapperMock.Setup(o => o.ConvertToHtml(freeText)).Returns(freeText);
 
-        public HomepageFactoryTest()
-        {
-            _homepageFactory = new HomepageFactory(_markdownWrapperMock.Object);
-        }
+        var backgroundImage = "background image";
 
-        [Fact]
-        public void ItBuildsAHomepageWithProcessedBody()
-        {
-            var freeText = "free text";
-            _markdownWrapperMock.Setup(o => o.ConvertToHtml(freeText)).Returns(freeText);
+        var homepage = new Homepage(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), backgroundImage, freeText, null, string.Empty, string.Empty, new NullCarouselContent());
 
-            var backgroundImage = "background image";
+        var result = _homepageFactory.Build(homepage);
 
-            var homepage = new Homepage(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), backgroundImage, freeText, null, string.Empty, string.Empty, new NullCarouselContent());
+        result.FreeText.Should().Be(freeText);
+        result.BackgroundImage.Should().Be(backgroundImage);
 
-            var result = _homepageFactory.Build(homepage);
-
-            result.FreeText.Should().Be(freeText);
-            result.BackgroundImage.Should().Be(backgroundImage);
-
-            _markdownWrapperMock.Verify(o => o.ConvertToHtml(freeText), Times.Once);
-        }
+        _markdownWrapperMock.Verify(o => o.ConvertToHtml(freeText), Times.Once);
     }
 }

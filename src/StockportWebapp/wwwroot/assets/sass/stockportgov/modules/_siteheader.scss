@@ -1,139 +1,136 @@
 ﻿.type-home .header-myaccount {
-    width: 100%;
+  width: 100%;
 }
 
 .type-home .header-search-bar {
-    width: 0;
+  width: 0;
 }
 
 .menu {
-    color: $colorPrimaryPale;
+  color: $colorPrimaryPale;
+  text-align: right;
+
+  .menu-logged-out {
+    display: table;
+    padding: 10px 10px;
+    height: 50px;
     text-align: right;
 
-    .menu-logged-out {
-        display: table;
-        padding: 10px 10px;
-        height: 50px;
-        text-align: right;
+    @media #{$tablet} {
+      height: 35px;
+      padding: 15px;
+    }
 
-        @media #{$tablet} {
-            height: 35px;
-            padding: 15px;
+    @media #{$mobile} {
+      height: 35px;
+      padding: 10px 10px 0 0;
+    }
+
+    a {
+      @media #{$mobile} {
+        font-size: 14px;
+      }
+
+      display: table-cell;
+      vertical-align: middle;
+      color: $white;
+
+      span {
+        color: $colorPrimaryPale;
+        padding-right: 10px;
+      }
+
+      &:hover {
+        span {
+          color: $white;
         }
+      }
+    }
+  }
 
-        @media #{$mobile} {
-            height: 35px;
-            padding-right: 10px;
-            padding-top: 10px;
-            padding-left: 0px;
-            padding-bottom: 0px;
-        }
+  .menu-logged-in {
+    position: relative;
+    height: 70px;
+    text-align: left;
+    display: inline-block;
+    max-width: 100%;
 
+    .menu-account-button {
+      padding: 10px 10px 10px 30px;
+      line-height: 1.5em;
+
+      .fa-user {
+        left: 0;
+        margin-top: -8px;
+        position: absolute;
+        top: 50%;
+      }
+
+      p {
+        margin: 0;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+      a {
+        color: $white;
+        font-size: 18px;
+        line-height: 1.3em;
+      }
+
+      .fa {
+        color: $white;
+      }
+
+      .fa-angle-down {
+        margin-left: 8px;
+        color: white;
+      }
+    }
+
+    &:hover .menu-tooltip {
+      display: block;
+    }
+
+    .menu-tooltip {
+      display: none;
+      background-color: $white;
+      color: $colorPrimary;
+      border-radius: 6px;
+      border: 1px solid $greyLighter;
+      box-shadow: 0 10px 20px $blackOpaque05;
+      padding: 0 15px 8px 15px;
+      position: absolute;
+      z-index: 55;
+      left: 15px;
+      width: 180px;
+
+      .fa-caret-up {
+        position: absolute;
+        top: -14px;
+        left: 125px;
+        font-size: 20px;
+        color: $white;
+      }
+
+      .menu-links {
         a {
-            @media #{$mobile} {
-                font-size: 14px;
-            }
+          display: block;
+          padding-right: 20px;
+          border-bottom: 1px solid $greyLighter;
 
-            display: table-cell;
-            vertical-align: middle;
-            color: $white;
-
-            span {
-                color: $colorPrimaryPale;
-                padding-right: 10px;
-            }
-
-            &:hover {
-                span {
-                    color: $white;
-                }
-            }
+          &:last-child {
+            border-bottom: none;
+          }
         }
+      }
     }
-
-    .menu-logged-in {
-        position: relative;
-        height: 70px;
-        text-align: left;
-        display: inline-block;
-        max-width: 100%;
-
-        .menu-account-button {
-            padding: 10px 10px 10px 30px;
-            line-height: 1.5em;
-
-            .fa-user {
-                left: 0;
-                margin-top: -8px;
-                position: absolute;
-                top: 50%;
-            }
-
-            p {
-                margin: 0;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-                overflow: hidden;
-            }
-
-            a {
-                color: $white;
-                font-size: 18px;
-                line-height: 1.3em;
-            }
-
-            .fa {
-                color: $white;
-            }
-
-            .fa-angle-down {
-                margin-left: 8px;
-                color: white;
-            }
-        }
-
-        &:hover .menu-tooltip {
-            display: block;
-        }
-
-        .menu-tooltip {
-            display: none;
-            background-color: $white;
-            color: $colorPrimary;
-            border-radius: 6px;
-            border: 1px solid $greyLighter;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
-            padding: 0 15px 8px 15px;
-            position: absolute;
-            z-index: 55;
-            left: 15px;
-            width: 180px;
-
-            .fa-caret-up {
-                position: absolute;
-                top: -14px;
-                left: 125px;
-                font-size: 20px;
-                color: $white;
-            }
-
-            .menu-links {
-                a {
-                    display: block;
-                    padding-right: 20px;
-                    border-bottom: 1px solid $greyLighter;
-
-                    &:last-child {
-                        border-bottom: none;
-                    }
-                }
-            }
-        }
-    }
+  }
 }
 
 .type-home {
-    .menu .menu-logged-out:first-of-type {
-        padding-right: 0;
-    }
+  .menu .menu-logged-out:first-of-type {
+    padding-right: 0;
+  }
 }

@@ -1,42 +1,35 @@
-using StockportWebapp.Config;
-using StockportWebapp.ContentFactory;
-using StockportWebapp.Http;
-using StockportWebapp.Models;
-using StockportWebapp.Utils;
+namespace StockportWebapp.Repositories;
 
-namespace StockportWebapp.Repositories
+public class ProcessedContentRepository : IProcessedContentRepository
 {
-    public class ProcessedContentRepository : IProcessedContentRepository
+    private readonly ContentTypeFactory _contentTypeFactory;
+    private readonly IHttpClient _httpClient;
+    private readonly IStubToUrlConverter _urlGenerator;
+    private readonly IApplicationConfiguration _config;
+    private readonly Dictionary<string, string> authenticationHeaders;
+
+    public ProcessedContentRepository(IStubToUrlConverter urlGenerator, IHttpClient httpClient, ContentTypeFactory contentTypeFactory, IApplicationConfiguration config)
     {
-        private readonly ContentTypeFactory _contentTypeFactory;
-        private readonly IHttpClient _httpClient;
-        private readonly IStubToUrlConverter _urlGenerator;
-        private readonly IApplicationConfiguration _config;
-        private readonly Dictionary<string, string> authenticationHeaders;
+        _urlGenerator = urlGenerator;
+        _httpClient = httpClient;
+        _contentTypeFactory = contentTypeFactory;
+        _config = config;
+        authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
+    }
 
-        public ProcessedContentRepository(IStubToUrlConverter urlGenerator, IHttpClient httpClient, ContentTypeFactory contentTypeFactory, IApplicationConfiguration config)
+    public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
+    {
+        var url = _urlGenerator.UrlFor<T>(slug, queries);
+        var httpResponse = await _httpClient.Get(url, authenticationHeaders);
+
+        if (!httpResponse.IsSuccessful())
         {
-            _urlGenerator = urlGenerator;
-            _httpClient = httpClient;
-            _contentTypeFactory = contentTypeFactory;
-            _config = config;
-            authenticationHeaders = new Dictionary<string, string> { { "Authorization", _config.GetContentApiAuthenticationKey() }, { "X-ClientId", _config.GetWebAppClientId() } };
+            return httpResponse;
         }
 
-        public async Task<HttpResponse> Get<T>(string slug = "", List<Query> queries = null)
-        {
-            var url = _urlGenerator.UrlFor<T>(slug, queries);
-            var httpResponse = await _httpClient.Get(url, authenticationHeaders);
+        var model = HttpResponse.Build<T>(httpResponse);
+        var processedModel = _contentTypeFactory.Build((T)model.Content);
 
-            if (!httpResponse.IsSuccessful())
-            {
-                return httpResponse;
-            }
-
-            var model = HttpResponse.Build<T>(httpResponse);
-            var processedModel = _contentTypeFactory.Build((T)model.Content);
-
-            return HttpResponse.Successful(200, processedModel);
-        }
+        return HttpResponse.Successful(200, processedModel);
     }
 }

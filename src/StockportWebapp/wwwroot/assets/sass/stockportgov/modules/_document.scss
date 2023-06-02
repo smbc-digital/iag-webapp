@@ -1,53 +1,53 @@
 ﻿.document {
-    padding-bottom: 5px;
-    margin-bottom: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
 
-    .document-icon {
-        vertical-align: top;
-        float: left;
-        transition: opacity 0.3s;
-        padding-right: 0px;
-        width: 65px;
+  .document-icon {
+    vertical-align: top;
+    float: left;
+    transition: opacity 0.3s;
+    padding-right: 0px;
+    width: 65px;
 
-        @media #{$mobile} {
-            width: 15%;
-        }
-
-        a {
-            text-decoration: none
-        }
-
-        span {
-            color: $colorPrimary;
-            padding-left: 00px;
-            font-size: 3em;
-
-            @media #{$mobile} {
-                font-size: 2.2em;
-            }
-        }
+    @media #{$mobile} {
+      width: 15%;
     }
 
-    .document-detail {
-        border-left: solid 2px #ccc;
-        vertical-align: top;
-        padding-left: 20px;
-        border-top: none;
-        border-bottom: none;
-
-        .document-detail-title {
-            color: $colorPrimary;
-            font-size: 1.25em;
-            line-height: normal;
-            font-weight: 600;
-
-            @media #{$mobile} {
-                font-size: 1.125em;
-            }
-        }
-
-        p {
-            margin-bottom: 0px;
-        }
+    a {
+      text-decoration: none
     }
+
+    span {
+      color: $colorPrimary;
+      padding-left: 00px;
+      font-size: 3em;
+
+      @media #{$mobile} {
+        font-size: 2.2em;
+      }
+    }
+  }
+
+  .document-detail {
+    border-left: solid 2px $greyLighter;
+    vertical-align: top;
+    padding-left: 20px;
+    border-top: none;
+    border-bottom: none;
+
+    .document-detail-title {
+      color: $colorPrimary;
+      font-size: 1.25em;
+      line-height: normal;
+      font-weight: 600;
+
+      @media #{$mobile} {
+        font-size: 1.125em;
+      }
+    }
+
+    p {
+      margin-bottom: 0px;
+    }
+  }
 }

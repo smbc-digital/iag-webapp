@@ -1,49 +1,44 @@
-﻿using FluentAssertions;
-using StockportWebapp.Extensions;
-using Xunit;
+﻿namespace StockportWebappTests_Unit.Unit.Extensions;
 
-namespace StockportWebappTests_Unit.Unit.Extensions
+public class StringExtensionsTests
 {
-    public class StringExtensionsTests
+    [Fact]
+    public void ShouldRemoveHttpFromStartOfString()
     {
-        [Fact]
-        public void ShouldRemoveHttpFromStartOfString()
-        {
-            var result = "http://testing.com".StripHttpAndHttps();
+        var result = "http://testing.com".StripHttpAndHttps();
 
-            result.Should().Be("testing.com");
-        }
+        result.Should().Be("testing.com");
+    }
 
-        [Fact]
-        public void ShouldRemoveHttpsFromStartOfString()
-        {
-            var result = "https://testing.com".StripHttpAndHttps();
+    [Fact]
+    public void ShouldRemoveHttpsFromStartOfString()
+    {
+        var result = "https://testing.com".StripHttpAndHttps();
 
-            result.Should().Be("testing.com");
-        }
+        result.Should().Be("testing.com");
+    }
 
-        [Fact]
-        public void ShouldRemoveMoreThanOneHttporHttpssFromStartOfString()
-        {
-            var result = "https://https://http://testing.com".StripHttpAndHttps();
+    [Fact]
+    public void ShouldRemoveMoreThanOneHttporHttpssFromStartOfString()
+    {
+        var result = "https://https://http://testing.com".StripHttpAndHttps();
 
-            result.Should().Be("testing.com");
-        }
+        result.Should().Be("testing.com");
+    }
 
-        [Fact]
-        public void ShouldRemoveEmojisFromString()
-        {
-            var result = "😀🙏☀⛿test".StripEmojis();
+    [Fact]
+    public void ShouldRemoveEmojisFromString()
+    {
+        var result = "😀🙏☀⛿test".StripEmojis();
 
-            result.Should().Be("test");
-        }
+        result.Should().Be("test");
+    }
 
-        [Fact]
-        public void ShouldRemoveEmojisInTheMiddleOfAString()
-        {
-            var result = "😀🙏☀⛿te☀⛿s☀⛿t".StripEmojis();
+    [Fact]
+    public void ShouldRemoveEmojisInTheMiddleOfAString()
+    {
+        var result = "😀🙏☀⛿te☀⛿s☀⛿t".StripEmojis();
 
-            result.Should().Be("test");
-        }
+        result.Should().Be("test");
     }
 }
