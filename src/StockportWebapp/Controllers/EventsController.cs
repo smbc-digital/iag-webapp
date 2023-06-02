@@ -66,7 +66,7 @@ public class EventsController : Controller
         if (eventsCalendar.Price != null) queries.Add(new Query("price", string.Join(",", eventsCalendar.Price)));
         if (eventsCalendar.Longitude != 0) queries.Add(new Query("longitude", string.Join(",", eventsCalendar.Longitude)));
         if (eventsCalendar.Latitude != 0) queries.Add(new Query("latitude", string.Join(",", eventsCalendar.Latitude)));
-            
+
         var httpResponse = await _repository.Get<EventResponse>(queries: queries);
 
         if (!httpResponse.IsSuccessful()) return httpResponse;
