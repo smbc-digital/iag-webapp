@@ -39,7 +39,7 @@ public class HomeController : Controller
             EventsFromApi = eventsFromApi?.Take(3).ToList()
         };
 
-        if(await _featureManager.IsEnabledAsync("SiteRedesign"))
+        if(await _featureManager.IsEnabledAsync("SiteRedesign") && _businessId.ToString().Equals("stockportgov"))
             return View("Index2023", homepageViewModel);
 
         return View(homepageViewModel);
