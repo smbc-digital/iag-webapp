@@ -1,14 +1,14 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿//using System;
+//using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace StockportWebappTests_UI.Features
-{
-    [TestClass]
-    public class UnitTest1
-    {
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
-    }
-}
+//namespace StockportWebappTests_UI.Features
+//{
+//    [TestClass]
+//    public class UnitTest1
+//    {
+//        [TestMethod]
+//        public void TestMethod1()
+//        {
+//        }
+//    }
+//}

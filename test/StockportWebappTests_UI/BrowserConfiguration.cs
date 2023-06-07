@@ -1,9 +1,5 @@
-﻿using System;
-using System.IO;
-using Coypu;
+﻿using Coypu;
 using Coypu.Drivers;
-using OpenQA.Selenium;
-using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Tracing;
 
 namespace StockportWebappTests_UI
@@ -19,7 +15,7 @@ namespace StockportWebappTests_UI
             var sessionConfiguration = new SessionConfiguration
             {
                 AppHost = "http://127.0.0.1",
-                Browser = Browser.PhantomJS,
+                Browser = Browser.Firefox,
                 Port = 5000,
                 Timeout = TimeSpan.FromSeconds(4),
                 RetryInterval = TimeSpan.FromSeconds(0.5)

@@ -1,4 +1,5 @@
-﻿namespace StockportWebappTests_UI.StepDefinitions
+﻿
+namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding]
     public class ShowcaseSteps : UiTestBase

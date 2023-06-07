@@ -1,8 +1,11 @@
-﻿namespace StockportWebappTests_UI
+﻿using WireMock.Settings;
+using WireMock.Server;
+
+namespace StockportWebappTests_UI
 {
     public class MockConfiguration
     {
-        public static FluentMockServer Server;
+        public static WireMockServer Server;
         public static bool IsRecordMode;
 
         public MockConfiguration(bool isRecordMode)
@@ -18,21 +21,22 @@
         {
             if (IsRecordMode)
             {
-                Server = FluentMockServer.Start(new FluentMockServerSettings
+
+                Server = WireMockServer.Start(new WireMockServerSettings
                 {
                     StartAdminInterface = true,
                     ProxyAndRecordSettings = new ProxyAndRecordSettings
                     {
                         Url = "http://localhost:5001/",
                         SaveMapping = true,
-                        BlackListedHeaders = new[] {"X-ClientId", "Request-Id", "Authorization", "Host"},
+                        //BlackListedHeaders = new[] { "X-ClientId", "Request-Id", "Authorization", "Host" },
                     },
                     Port = 8080
                 });
             }
             else
             {
-                Server = FluentMockServer.Start(new FluentMockServerSettings
+                Server = WireMockServer.Start(new WireMockServerSettings
                 {
                     Urls = new[] { "http://localhost:8080/" }
                 });

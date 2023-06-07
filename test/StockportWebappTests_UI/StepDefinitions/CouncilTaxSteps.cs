@@ -1,7 +1,7 @@
 ﻿using System;
 using TechTalk.SpecFlow;
 
-namespace dts_frontend_tests_ui..........iag-webapp.test.StockportWebappTests_UI.StepDefinitions
+namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding]
     public class CouncilTaxSteps

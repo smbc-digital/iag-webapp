@@ -1,0 +1,22 @@
+{
+  "profiles": {
+    "StockportWebappTests_UI": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:59405;http://localhost:59406"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "launchBrowser": true,
+      "launchUrl": "https://localhost:59405",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "https://localhost:59405;http://localhost:59406"
+      },
+      "distributionName": ""
+    }
+  }
+}

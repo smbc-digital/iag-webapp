@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_UI.StepDefinitions
+﻿using TechTalk.SpecFlow;
+
+namespace StockportWebappTests_UI.StepDefinitions
 {
     [Binding, Scope(Tag = "news")]
     class NewsSteps : UiTestBase
