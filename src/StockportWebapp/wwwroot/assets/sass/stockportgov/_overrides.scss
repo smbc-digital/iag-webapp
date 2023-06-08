@@ -20,16 +20,16 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: none;
 
     input.search-input {
-        border: 2px solid #454240;
+        border: 2px solid $greyDarkest;
         border-radius: 2px;
-        font-size: 1.5em;
+        font-size: 1.4em;
         width: calc(100% - 50px);
         margin-left: 25px;
         margin-right: 25px;
         height: 54px;
 
         @media #{$mobile} {
-            font-size: 1em;
+            font-size: 0.9em;
             height: 38px;
         }
     }
@@ -62,21 +62,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /*------ Search + Welcome message + Skyline ------*/
 .top-tasks-wrapper {
-    height: 750px;
-    background-image: url("/assets/images/content/markup-cropped.svg");
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    background-size: 85% auto;
     margin-bottom: 1em;
-
-    @media #{$mobile} {
-        background: none;
-        height: auto;
-    }
-
-    @media #{$tablet} {
-        height: 550px;
-    }
 
     .--text-center {
         text-align: center;
@@ -86,6 +72,24 @@ h1, h2, h3, h4, h5, h6 {
         padding-bottom: 1em;
         margin-top: 1em;
         margin-bottom: 0;
+    }
+}
+.skyline-wrapper {
+    background-image: url("/assets/images/content/markup-cropped.svg");
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    width: calc(100% - 50px);
+    height: 250px;
+    margin: auto;
+
+    @media #{$mobile} {
+        background: none;
+        height: 0;
+    }
+
+    @media #{$tablet} {
+        height: 175px;
+        width: 100%;
     }
 }
 
@@ -111,6 +115,8 @@ h1, h2, h3, h4, h5, h6 {
     height: 150px;
     width: calc(100% - 50px);
     margin-left: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .large-gray-placeholder {
