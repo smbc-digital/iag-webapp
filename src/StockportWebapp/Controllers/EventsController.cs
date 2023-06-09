@@ -61,7 +61,7 @@ public class EventsController : Controller
             || eventsCalendar.DateTo != null;
 
         var queries = new List<Query>();
-        var dateFormat = eventsCalendar.FromSearch ? "yyyy-MM-dd" : "yyyy-dd-MM";
+        var dateFormat = "yyyy-MM-dd";
 
         if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
         if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));

@@ -1,4 +1,6 @@
-﻿namespace StockportWebapp;
+﻿using StockportWebapp.ModelBinders;
+
+namespace StockportWebapp;
 
 public class Startup
 {
@@ -20,7 +22,11 @@ public class Startup
 
     public virtual void ConfigureServices(IServiceCollection services)
     {
-        services.AddControllersWithViews();
+        // services.AddControllersWithViews();
+        services.AddControllersWithViews(options =>
+        {
+            options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
+        });
 
         JsonConvert.DefaultSettings = () => new JsonSerializerSettings
         {
