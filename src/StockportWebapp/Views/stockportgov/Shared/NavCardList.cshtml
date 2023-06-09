@@ -1,6 +1,6 @@
 ﻿@model NavCardList
 
-<ul class="navcard-wrapper">
+<ul class="navcard-wrapper" data-test="navcard-list-component">
     @foreach (var navCard in Model.Items.Take(9))
     {
         <li class="navcard">
