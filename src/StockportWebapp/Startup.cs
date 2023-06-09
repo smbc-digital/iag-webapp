@@ -1,6 +1,4 @@
-﻿using StockportWebapp.ModelBinders;
-
-namespace StockportWebapp;
+﻿namespace StockportWebapp;
 
 public class Startup
 {
@@ -22,7 +20,6 @@ public class Startup
 
     public virtual void ConfigureServices(IServiceCollection services)
     {
-        // services.AddControllersWithViews();
         services.AddControllersWithViews(options =>
         {
             options.ModelBinderProviders.Insert(0, new DateTimeFormatConverterModelBinderProvider());
