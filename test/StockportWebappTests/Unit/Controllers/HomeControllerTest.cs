@@ -1,4 +1,6 @@
-﻿namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿using Microsoft.FeatureManagement;
+
+namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class HomeControllerTest
 {
@@ -10,7 +12,7 @@ public class HomeControllerTest
     private readonly Mock<IStockportApiEventsService> _stockportApiService = new();
     private readonly Mock<IFeatureManager> _featureManager = new();
     private const string EmailAlertsUrl = "email_alerts_url";
-    private const string BusinessId = "aBusinessId";
+    private const string BusinessId = "stockportgov";
 
     #region Models
 
@@ -67,6 +69,25 @@ public class HomeControllerTest
         _config.Setup(o => o.GetEmailAlertsUrl(BusinessId)).Returns(appSetting);
 
         _controller = new HomeController(new BusinessId(BusinessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object, _stockportApiService.Object, _featureManager.Object);
+    }
+
+    [Fact]
+    public async Task Index_Should_ReturnIndex2023_WithFeatureToggleEnabled()
+    {
+        // Arrange
+        _eventsService
+            .Setup(o => o.GetLatestFeaturedEventItem())
+            .ReturnsAsync(_eventsContent);
+
+        _featureManager.Setup(_ => _.IsEnabledAsync("SiteRedesign")).Returns(Task.FromResult(true));
+
+        // Act
+        var indexPage = await _controller.Index() as ViewResult;
+        var page = indexPage.ViewData.Model as HomepageViewModel;
+
+        // Assert
+        Assert.True(await _featureManager.Object.IsEnabledAsync("SiteRedesign"));
+        Assert.Equal("Index2023", indexPage.ViewName);
     }
 
     [Fact]
