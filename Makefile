@@ -33,6 +33,49 @@ unit-test:
 	cd test/StockportWebappTests; dotnet test
 
 # ---------------------------------------------------------------------------------------
+# -- Unit tests coverage
+# ---------------------------------------------------------------------------------------
+.PHONY: coverage
+coverage:
+	cd test/StockportWebappTests;rm TestResults -r -f
+	dotnet build
+	dotnet test -l "console;verbosity=normal" -p:CollectCoverage=true -p:CoverletOutputFormat=\"opencover\" -p:CoverletOutput=TestResults/Coverage.xml -p:SkipAutoProps=true
+
+# ---------------------------------------------------------------------------------------
+# -- Unit tests coverage with threshold
+# ---------------------------------------------------------------------------------------
+.PHONY: coverage-threshold
+coverage-threshold:
+	cd test/StockportWebappTests;rm TestResults -r -f
+	dotnet test -l "console;verbosity=normal" -p:CollectCoverage=true -p:CoverletOutputFormat=\"opencover\" -p:CoverletOutput=TestResults/Coverage.xml -p:SkipAutoProps=true -p:Threshold=$(threshold)
+
+# ---------------------------------------------------------------------------------------
+# -- Unit tests coverage report, opens index.html in Chrome
+# ---------------------------------------------------------------------------------------
+.PHONY: report
+report:
+	cd test/StockportWebappTests && \
+	reportgenerator -reports:TestResults/Coverage.xml -targetdir:TestCoverageResults -reporttypes:Html && \
+	start Chrome $$PWD/TestCoverageResults/index.html
+
+# ---------------------------------------------------------------------------------------
+# -- Unit tests coverage tools
+# ---------------------------------------------------------------------------------------
+.PHONY: coverage-tools
+coverage-tools: 
+	cd test/StockportWebappTests && \
+    dotnet tool install -g dotnet-reportgenerator-globaltool && \
+    echo "Please ensure that the path environment variable us updated with `C:\Users\{​​​​​​​​​​​​​​​​​​​​​​your-user}​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​\.dotnet\tools`" && \
+    reportgenerator
+
+# ---------------------------------------------------------------------------------------
+# -- Unit tests clear coverage report
+# ---------------------------------------------------------------------------------------
+.PHONY: clear-report
+clear-report:
+	cd test/StockportWebappTests;rm TestResults -r -f
+
+# ---------------------------------------------------------------------------------------
 # -- Ui-test
 # ---------------------------------------------------------------------------------------
 .PHONY: ui-test

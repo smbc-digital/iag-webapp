@@ -1,16 +1,18 @@
 Avaliable commands:
-  build:      runs the clean, restore, test, version, publish and package commands
-  run:        runs the application
-  restore:    runs dotnet restore
-  test:       runs dotnet test
-  test-all:   runs both dotnet and js tests
+  build:                runs the clean, restore, test, version, publish and package commands
+  run:                  runs the application
+  restore:              runs dotnet restore
+  unit-test:            runs dotnet test
+  coverage:             runs dotnet build, test and returns coverage
+  coverage-threshold:   runs dotnet test coverage with threshold, ie - threshold=80
+  report:               runs reportgenerator to convert Coverage.xml to index.html page; opens page in Chrome
+  coverage-tools:       runs dotnet-reportgenerator-globaltool install
+  clear-report:         runs rm to remove the TestResults directory
 
 UI Tests:
-  ui-test:    run ui tests for singular businessid
-
-JS Tests:
-  js-test:    runs the javascript tests
+  ui-test:              run ui tests for singular businessid
 
 Gulp Tasks:
-  css:        runs the sass to css gulp task
-  js:         runs the minify all custom js task
+  css:                  runs the sass to css gulp task
+  js:                   runs the minify all custom js task
+  watch:                runs the gulp watch for all sass and js
