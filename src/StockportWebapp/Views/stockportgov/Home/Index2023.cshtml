@@ -23,17 +23,17 @@
 {
     foreach (var alert in Model.HomepageContent.Alerts)
     {
-        <div>
+        <div data-test="global-alert">
             <partial name="GlobalAlert" model='alert'/>
         </div>
     }
 }
 
-<div class="top-tasks-wrapper">
+<div class="top-tasks-wrapper" data-test="top-tasks-wrapper">
     <div class="grid-container">
         <div class="grid-100">
             <h1 class="top-tasks-wrapper__title h--xl">Welcome to Stockport</h1>
-            <section class="search-bar">
+            <section class="search-bar" data-test="index-search-bar">
                 <h2 class="visuallyhidden">Search stockport.gov.uk</h2>
                 <partial name="Search" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>
             </section>
@@ -70,7 +70,7 @@
     <h2>Spotlight on</h2>
 </div>
 
-<section class="personalised-services">
+<section class="personalised-services" data-test="personalised-services">
     <h2 class="visuallyhidden">Subscription </h2>
     <div class="grid-container">
         <div class="grid-100 enhanced_service" id="test-email-alerts">

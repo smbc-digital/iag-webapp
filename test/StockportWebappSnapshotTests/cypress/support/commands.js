@@ -8,8 +8,7 @@ Cypress.Commands.add('toMatchingDOM', (testId, index = 0) => {
 })
 
 
-Cypress.Commands.add('takeSnapshots', (testName, testId, size = null) => {
-
+Cypress.Commands.add('takeSnapshots', (testId, size = null) => {
   if (size) {
     if (Cypress._.isArray(size)) {
       cy.viewport(size[0], size[1])
@@ -18,5 +17,5 @@ Cypress.Commands.add('takeSnapshots', (testName, testId, size = null) => {
     }
   }
 
-  cy.get(`[data-test="${testId}"]`).matchImageSnapshot();
+  cy.get(`[data-test="${testId}"]`).first().matchImageSnapshot();
 })
