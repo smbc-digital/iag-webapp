@@ -1,6 +1,4 @@
-﻿using Microsoft.FeatureManagement;
-
-namespace StockportWebappTests_Unit.Unit.Controllers;
+﻿namespace StockportWebappTests_Unit.Unit.Controllers;
 
 public class HomeControllerTest
 {
@@ -67,6 +65,8 @@ public class HomeControllerTest
 
         var appSetting = AppSetting.GetAppSetting(EmailAlertsUrl);
         _config.Setup(o => o.GetEmailAlertsUrl(BusinessId)).Returns(appSetting);
+        
+        _config.Setup(o => o.GetEmailAlertsNewSubscriberUrl(BusinessId)).Returns(AppSetting.GetAppSetting("email_alerts_url"));
 
         _controller = new HomeController(new BusinessId(BusinessId), _config.Object, _newsService.Object, _eventsService.Object, _homepageService.Object, _stockportApiService.Object, _featureManager.Object);
     }
@@ -352,5 +352,18 @@ public class HomeControllerTest
         Assert.Equal((int)HttpStatusCode.NotFound, response.StatusCode);
     }
 
+    [Fact]
+    public async Task EmailSubscribe_Should_RedirectToConfiguredUrlWithEmailAlertsTopicId()
+    {
+        // Arrange
+        const string emailAlertsTopicId = "test@email.com";
 
+        // Act
+        var result = await _controller.EmailSubscribe(null, emailAlertsTopicId) as RedirectResult;
+
+        // Assert
+        Assert.IsType<RedirectResult>(result);
+        _config.Verify(_ => _.GetEmailAlertsNewSubscriberUrl(BusinessId), Times.Once);
+        Assert.Equal($"{EmailAlertsUrl}?topic_id={emailAlertsTopicId}", result.Url);
+    }
 }
