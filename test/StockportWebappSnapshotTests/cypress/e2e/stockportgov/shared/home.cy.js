@@ -8,8 +8,6 @@ describe("Home", () => {
     "navcard-list-component",
     "global-alert",
     "personalised-services",
-    // "header",
-    // "footer",
   ];
 
   beforeEach(function () {
