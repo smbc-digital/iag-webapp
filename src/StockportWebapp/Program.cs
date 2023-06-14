@@ -22,6 +22,9 @@ if (!app.Environment.IsEnvironment("prod") && !app.Environment.IsEnvironment("st
 app.UseSerilogRequestLogging();
 
 app.UseMiddleware<BusinessIdMiddleware>()
+    // line 26 should be used once the CustomConfiguration has been done. Comment out line 27 to check the custom config
+    // .UseSecureHeadersMiddleware(SecureHeadersMiddleware.CustomConfiguration())
+    .UseSecureHeadersMiddleware()
     .UseMiddleware<ShortUrlRedirectsMiddleware>()
     .UseMiddleware<RobotsMiddleware>()
     .UseMiddleware<SecurityHeaderMiddleware>()
@@ -34,5 +37,6 @@ app.UseMiddleware<BusinessIdMiddleware>()
     {
         endpoints.MapControllers();
     });
+
 
 app.Run();
