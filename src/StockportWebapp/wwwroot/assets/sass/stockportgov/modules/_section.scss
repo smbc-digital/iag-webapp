@@ -21,5 +21,17 @@
                 padding-bottom: 0.5em;
             }
         }
+
+        &--padded-bottom--m {
+            padding-bottom: 1em;
+
+            @media #{$mobile} {
+                padding-bottom: 0.75em;
+            }
+        }
+
+        &--margin-top{
+            margin-top: 1em;
+        }
     }
 }

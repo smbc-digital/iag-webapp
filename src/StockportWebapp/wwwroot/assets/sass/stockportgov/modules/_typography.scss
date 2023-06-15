@@ -1,0 +1,41 @@
+﻿/*------ Typography Styles ------*/
+
+.h-xl {
+    font-size: 3rem;
+    line-height: 1.0416666667;
+
+    @media #{$mobile} {
+        font-size: 2rem;
+        line-height: 1.09375;
+    }
+}
+
+.h-l {
+    font-size: 2.25em;
+    line-height: 1.1111111111;
+
+    @media #{$mobile} {
+        font-size: 1.5rem;
+        line-height: 1.0416666667;
+    }
+}
+
+.h-m {
+    font-size: 1.5rem;
+    line-height: 1.25;
+    
+    @media #{$mobile} {
+        font-size: 1.125rem;
+        line-height: 1.1111111111;
+    }
+}
+
+.h-s {
+    font-size: 1.1875rem;
+    line-height: 1.3157894737;
+
+    @media #{$mobile} {
+        font-size: 1rem;
+        line-height: 1.25;
+    }
+}

@@ -54,13 +54,17 @@ public class EventsController : Controller
 
         if (!string.IsNullOrEmpty(eventsCalendar.Tag)) { eventsCalendar.KeepTag = eventsCalendar.Tag; }
 
-        eventsCalendar.FromSearch = eventsCalendar.FromSearch || !string.IsNullOrWhiteSpace(eventsCalendar.Category) || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
-                                                                || eventsCalendar.DateFrom != null || eventsCalendar.DateTo != null;
+        eventsCalendar.FromSearch = eventsCalendar.FromSearch 
+            || !string.IsNullOrWhiteSpace(eventsCalendar.Category) 
+            || !string.IsNullOrWhiteSpace(eventsCalendar.Tag)
+            || eventsCalendar.DateFrom != null 
+            || eventsCalendar.DateTo != null;
 
         var queries = new List<Query>();
+        var dateFormat = "yyyy-MM-dd";
 
-        if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString("yyyy-dd-MM")));
-        if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString("yyyy-dd-MM")));
+        if (eventsCalendar.DateFrom.HasValue) queries.Add(new Query("DateFrom", eventsCalendar.DateFrom.Value.ToString(dateFormat)));
+        if (eventsCalendar.DateTo.HasValue) queries.Add(new Query("DateTo", eventsCalendar.DateTo.Value.ToString(dateFormat)));
         if (!string.IsNullOrWhiteSpace(eventsCalendar.Category)) queries.Add(new Query("Category", eventsCalendar.Category));
         if (!string.IsNullOrWhiteSpace(eventsCalendar.Tag)) queries.Add(new Query("tag", eventsCalendar.Tag));
         if (eventsCalendar.Price != null) queries.Add(new Query("price", string.Join(",", eventsCalendar.Price)));
