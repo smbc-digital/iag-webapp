@@ -22,15 +22,14 @@ h1, h2, h3, h4, h5, h6 {
     input.search-input {
         border: 2px solid $greyDarkest;
         border-radius: 2px;
-        font-size: 1.4em;
+        font-size: 1.1875rem;
         width: calc(100% - 50px);
         margin-left: 25px;
         margin-right: 25px;
         height: 54px;
 
         @media #{$mobile} {
-            font-size: 0.9em;
-            height: 38px;
+            font-size: 1rem;
         }
     }
 
@@ -51,19 +50,11 @@ h1, h2, h3, h4, h5, h6 {
             background-color: $stockport-green;
             opacity: 1;
         }
-
-        @media #{$mobile}{
-            height: 38px;
-            width: 35px;
-            top: 66%;
-        }
     }
 }
 
 /*------ Search + Welcome message + Skyline ------*/
 .top-tasks-wrapper {
-    margin-bottom: 1em;
-
     .--text-center {
         text-align: center;
     }
@@ -89,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
 
     @media #{$tablet} {
         height: 175px;
-        width: 100%;
+        width: 98%;
     }
 }
 
