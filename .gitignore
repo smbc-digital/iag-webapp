@@ -40,3 +40,5 @@ global.js
 /TestResults
 /packages
 /test/StockportWebappTests_UI/Screenshots
+/test/StockportWebappTests/TestCoverageResults
+/test/StockportWebappTests/TestResults
