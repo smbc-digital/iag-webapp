@@ -58,6 +58,12 @@ report:
 	reportgenerator -reports:TestResults/Coverage.xml -targetdir:TestCoverageResults -reporttypes:Html && \
 	start Chrome $$PWD/TestCoverageResults/index.html
 
+
+.PHONY: report-teamcity
+report-teamcity:
+	cd test/StockportWebappTests
+	reportgenerator -reports:TestResults/coverage.xml -reporttypes:"TeamCitySummary;HtmlSummary" -targetdir:TestResults
+
 # ---------------------------------------------------------------------------------------
 # -- Unit tests coverage tools
 # ---------------------------------------------------------------------------------------
