@@ -3,9 +3,8 @@ import { desktop, mobile, tablet } from "../../../helpers/breakpoints";
 describe("Home", () => {
   const breakpoints = [desktop, mobile, tablet];
   const components = [
-    "top-tasks-wrapper",
-    "index-search-bar",
-    "navcard-list-component",
+    "search-and-top-tasks",
+    "navcard-list",
     "global-alert",
     "personalised-services",
   ];
