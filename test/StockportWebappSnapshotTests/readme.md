@@ -16,7 +16,7 @@ A component can be marked for testing by adding the `data-test` attribute to it.
 <div class="grid-100" data-test="top-tasks-wrapper">...</div>
 ```
 
-The component can then be refernced within the cypress test.
+The component can then be referenced within the cypress test.
 
 A typical test test file can look something like this.
 
@@ -71,9 +71,11 @@ breakpoints.map((size) => {
 });
 ```
 
+To update a structure snapshot test, simply remove the existing one within `snapshot.js` and rerun the test suite. For an image snapshot test, delete each of the desktop, mobile, and tablet snapshots before rerunning.
+
 ### Config
 
-The the image snapshot module can be configured with a failure thethhold. This can be useful for dealing with minute differences between browser versions, or where the image taken isn't exactly pixle perfect.
+The the image snapshot module can be configured with a failure threshold. This can be useful for dealing with minute differences between browser versions, or where the image taken isn't exactly pixel perfect.
 
 More information can be found [here](https://github.com/simonsmith/cypress-image-snapshot)
 

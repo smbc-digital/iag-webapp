@@ -1,6 +1,6 @@
 {
   "name": "stockport-webapp-tests",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
     "@cypress/snapshot": "^2.1.7",
@@ -11,4 +11,3 @@
     "start": "echo \"Error: no test specified\" && exit 1"
   }
 }
-
