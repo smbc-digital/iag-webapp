@@ -34,6 +34,8 @@
             border-left: 7px solid rgba($stockport-teal, 0.8);
             padding-left: 1em;
             margin-bottom: 1em;
+            margin-left: 5px;
+            margin-right: 5px;
         }
 
         &:hover {
@@ -57,5 +59,9 @@
         color: black;
         text-decoration: none;
         padding-bottom: 1em;
+
+        @media #{$mobile} {
+            padding-bottom: 0;
+        }
     }
 }
