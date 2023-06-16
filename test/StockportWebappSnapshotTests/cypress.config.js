@@ -1,5 +1,5 @@
 const { defineConfig } = require("cypress");
-const {addMatchImageSnapshotPlugin}  =  require('@simonsmith/cypress-image-snapshot/plugin') // Is this something we want? there are many snapshot plugins, this is just the first one that worked
+const {addMatchImageSnapshotPlugin}  =  require('@simonsmith/cypress-image-snapshot/plugin')
 
 module.exports = defineConfig({
   e2e: {
