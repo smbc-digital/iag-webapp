@@ -15,9 +15,15 @@
 {
 }
 
-<div class="condolence-banner-placeholder placeholder">
-    <h2>Condolence Banner</h2>
-</div>
+@if (Model.HomepageContent.CondolenceAlerts is not null && Model.HomepageContent.CondolenceAlerts.Any())
+{
+    foreach (var condolence in Model.HomepageContent.CondolenceAlerts)
+    {
+        <div data-test="global-alert">
+            <partial name="CondolenceAlert" model='condolence'/>
+        </div>
+    }
+}
 
 @if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
 {
