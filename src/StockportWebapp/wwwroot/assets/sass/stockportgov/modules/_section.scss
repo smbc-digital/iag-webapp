@@ -27,15 +27,11 @@
         }
 
         &--padded-bottom--m {
-            padding-bottom: 1em;
-
-            @media #{$mobile} {
-                padding-bottom: 0.75em;
-            }
+            padding-bottom: 0.75em;
         }
 
         &--margin-top{
-            margin-top: 1em;
+            margin-top: 0.75em;
         }
     }
 }
