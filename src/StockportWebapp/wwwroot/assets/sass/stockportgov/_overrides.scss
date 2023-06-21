@@ -10,6 +10,16 @@ h1, h2, h3, h4, h5, h6 {
     font-family: $fontStack;
 }
 
+.button {
+    box-shadow: none;
+    background-color: lighten($stockport-green, 5%);
+
+    &:hover {
+        box-shadow: none; 
+        background-color: $stockport-green;
+    }
+}
+
 /*------ Alerts ------*/
 .close-alert {
     line-height: 2;
