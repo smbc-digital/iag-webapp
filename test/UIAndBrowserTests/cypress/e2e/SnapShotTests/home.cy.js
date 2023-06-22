@@ -1,4 +1,4 @@
-import { desktop, mobile, tablet } from "../../../helpers/breakpoints";
+import { desktop, mobile, tablet } from "../../helpers/breakpoints";
 
 describe("Home", () => {
   const breakpoints = [desktop, mobile, tablet];
