@@ -10,10 +10,11 @@ describe("Alert functionality", () => {
         cy.viewport(size);
       }
       cy.visit("");
-      cy.get(".global-alert").as("alert").should("have.length", 5);
+      cy.get('[data-cy="global-alert"]').should("have.length", 5);
       closeAlerts();
       cy.visit("");
       cy.get("@alert").should("have.length", 5).should("be.visible");
+      
     });
   });
 });
