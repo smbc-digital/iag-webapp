@@ -1,0 +1,13 @@
+{
+  "name": "stockport-webapp-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "@cypress/snapshot": "^2.1.7",
+    "@simonsmith/cypress-image-snapshot": "^7.0.0",
+    "cypress": "^12.15.0"
+  },
+  "scripts": {
+    "start": "cypress open"
+  }
+}
