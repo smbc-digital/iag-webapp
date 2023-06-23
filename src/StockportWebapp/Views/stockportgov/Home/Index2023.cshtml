@@ -25,7 +25,7 @@
     }
 }
 
-@if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
+@* @if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
 {
     foreach (var alert in Model.HomepageContent.Alerts)
     {
@@ -33,7 +33,7 @@
             <partial name="GlobalAlert" model='alert'/>
         </div>
     }
-}
+} *@
 
 <section class="section top-tasks-wrapper" data-test="search-and-top-tasks">
     <div class="grid-container">
