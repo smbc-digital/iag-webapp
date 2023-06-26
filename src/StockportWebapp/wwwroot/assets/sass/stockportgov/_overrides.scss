@@ -122,6 +122,31 @@ h6 {
             display: none;
         }
     }
+
+    .global-alert-close-container {
+        display: table-cell;
+        vertical-align: middle;
+        margin-left: 0.5em;
+
+        .global-alert-close-condolence {
+            width: 37px;
+            height: 37px;
+            float: right;
+            border-radius: 100px;
+            border: 1px solid white;
+            text-align: center;
+
+            i:before {
+                content: "\f00d";
+                font-family: "FontAwesome";
+                font-size: 20px;
+                position: relative;
+                text-align: center;
+                font-style: normal;
+                color: white;
+            }
+        }
+    }
 }
 
 /*------ Search + Welcome message + Skyline ------*/
