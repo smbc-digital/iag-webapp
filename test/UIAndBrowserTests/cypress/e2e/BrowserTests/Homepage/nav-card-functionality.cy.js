@@ -8,7 +8,6 @@ describe("Navcard functionality", () => {
         cy.viewport(size);
       }
       cy.visit("")
-      //Content for the Navcards is content managed, only testing the componant is clickable. We can't control errors caused by CMS.
       cy.get('[data-cy="nav-card-link"]')
       .should("have.length", 9)
       .first()
