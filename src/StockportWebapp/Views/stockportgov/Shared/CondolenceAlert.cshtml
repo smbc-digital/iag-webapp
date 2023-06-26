@@ -1,20 +1,16 @@
 ﻿@model Alert
 
 <div class="condolence-alert">
-        <div class="grid-container">
-            <div class="grid-100 condolence-alert-content-container">
-                <div class="condolence-alert-text">
+    <div class="grid-container">
+        <div class="grid-100 condolence-alert-content-container">
+            <div class="condolence-alert-text">
                 <h3>@Model.Title</h3>
-                @if (!string.IsNullOrEmpty(Model.SubHeading))
-                {
-                    <p class="alert-subheading">@Model.SubHeading</p>
-                }
                 @Html.Raw(Model.Body)
-                </div>
-                <div class="condolence-alert-image">
-                    <img src="@Model.ImageUrl" />
-                </div>
+            </div>
+            <div class="condolence-alert-image">
+                <img src="@Model.ImageUrl" />
             </div>
         </div>
     </div>
+</div>
 
