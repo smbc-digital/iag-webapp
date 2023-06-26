@@ -1,4 +1,4 @@
-import { closeAlerts } from "../../helpers/functions";
+import { closeAlerts } from "../../../helpers/functions";
 
 describe("Alert functionality", () => {
   const viewports = ["iphone-x", [1920, 1080]];
