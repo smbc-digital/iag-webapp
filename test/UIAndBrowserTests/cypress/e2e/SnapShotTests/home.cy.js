@@ -5,7 +5,7 @@ describe("Home", () => {
   const components = [
     "search-and-top-tasks",
     "navcard-list",
-    "global-alert",
+    "global-alert-wrapper",
     "personalised-services",
   ];
 

@@ -4,11 +4,12 @@ const {addMatchImageSnapshotPlugin}  =  require('@simonsmith/cypress-image-snaps
 module.exports = defineConfig({
   setupNodeEvents(on, config) {
     require('./cypress/plugins/index.js')(on, config)
-    addMatchImageSnapshotPlugin(on)
   },
 
   e2e: {
     baseUrl: 'https://qa-iag-stockportgov.smbcdigital.net/',
-    
+    setupNodeEvents(on, config) {
+      addMatchImageSnapshotPlugin(on)
+    },
   },
 });
