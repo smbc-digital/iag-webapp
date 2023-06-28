@@ -59,6 +59,7 @@
         color: black;
         text-decoration: none;
         padding-bottom: 1em;
+        margin: 0;
 
         @media #{$mobile} {
             padding-bottom: 0;
