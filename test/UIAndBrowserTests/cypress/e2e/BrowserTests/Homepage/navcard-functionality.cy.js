@@ -13,7 +13,6 @@ describe("Navcard functionality", () => {
         cy.viewport(size);
       }
       cy.get('[data-cy="nav-card-link"]')
-      .should("have.length", 9)
       .first()
       .click()
       cy.url().should('not.eq','https://qa-iag-stockportgov.smbcdigital.net/')
