@@ -9,6 +9,7 @@
     "cypress-real-events": "^1.8.1"
   },
   "scripts": {
-    "start": "cypress open"
+    "start": "cypress open",
+    "dev": "cypress open --config baseUrl=http://localhost:5001/"
   }
 }
