@@ -6,7 +6,6 @@ export const closeAlerts = () => {
 }
 
 export const hexToRgb = (hex) => {
-    console.log("HEX: ", hex);
     var parsedValues = /^#?([a-f\d]{1,2})([a-f\d]{1,2})([a-f\d]{1,2})$/i.exec(hex);
 
     if (parsedValues) {
