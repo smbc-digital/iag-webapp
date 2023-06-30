@@ -1,7 +1,7 @@
 import { hexToRgb } from "../../../helpers/functions";
 describe("View more services button functionality", () => {
   const viewports = ["iphone-8", [1920, 1080]];
-  const getMoreServicesButton = () =>{
+  const getMoreServicesButton = () => {
     return cy.get('[data-cy="view-more-services"]');
   }
 

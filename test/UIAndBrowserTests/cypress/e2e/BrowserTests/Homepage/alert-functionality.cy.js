@@ -14,7 +14,6 @@ describe("Alert functionality", () => {
       closeAlerts();
       cy.visit("");
       cy.get("@alert").should("have.length", 5).should("be.visible");
-      
     });
   });
 });
