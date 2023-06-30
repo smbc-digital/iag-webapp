@@ -1,10 +1,3 @@
-export const closeAlerts = () => {
-    cy.get('[data-cy="global-alert"]')
-        .not('a[title="Close Test condolence alert alert"]')
-        .click({multiple: true})
-        .should('not.be.visible')
-}
-
 export const hexToRgb = (hex) => {
     var parsedValues = /^#?([a-f\d]{1,2})([a-f\d]{1,2})([a-f\d]{1,2})$/i.exec(hex);
 
