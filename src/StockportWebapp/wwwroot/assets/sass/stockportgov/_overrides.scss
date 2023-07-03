@@ -66,11 +66,59 @@ h1, h2, h3, h4, h5, h6 {
             width: 44px;
             top: 57%;
         }
-
+        task-block-container
         &:hover{
             background-color: $stockport-green;
             opacity: 1;
         }
+    }
+}
+
+/*------ Top Tasks ------*/
+.top-tasks {
+    margin: 0 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+
+    &-block {
+        text-align: center;
+        margin: 0 8.5px;
+        flex-grow: 1;
+        flex-basis: 0;
+        background-color: $stockport-pink;
+        text-decoration: none;
+        padding: 1em;
+        border-radius: 2px;
+
+        &:hover {
+            text-decoration: none;
+
+            .top-tasks-block__title {
+                text-decoration: underline;
+            }
+        }
+
+        &__icon, &__title {
+            color: white;
+        }
+
+        &__icon {
+            font-size: 2.5rem;
+        }
+
+        &__title {
+            font-size: 1rem;
+        }
+    }
+
+    :first-child {
+        margin-left: 0;
+    }
+
+    :last-child {      
+        margin-right: 0;
     }
 }
 
