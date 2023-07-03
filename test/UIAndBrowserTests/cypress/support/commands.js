@@ -45,3 +45,5 @@ Cypress.Commands.add('toMatchingDOM', (testId, index = 0) => {
   
     cy.get(`[data-cy="${testId}"]`).first().matchImageSnapshot();
   })
+
+  import "cypress-enter-plugin";
