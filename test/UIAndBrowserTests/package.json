@@ -12,5 +12,8 @@
   "scripts": {
     "start": "cypress open",
     "dev": "cypress open --config baseUrl=http://localhost:5001/"
+  },
+  "dependencies": {
+    "cypress-enter-plugin": "^1.0.1"
   }
 }

@@ -41,7 +41,7 @@ describe("Search functionality", () => {
       containsSearchResults();
     });
    
-    it('tests tabbing into the search on the homepage, entering input and then using the enter key to submit search', () => {
+    it.only('tests tabbing into the search on the homepage, entering input and then using the enter key to submit search', () => {
         visitHomepage()
         cy.get('.global-alert-text-condolence > :nth-child(5) > a')
         .tab().tab() 

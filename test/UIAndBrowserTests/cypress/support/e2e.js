@@ -24,4 +24,5 @@ addMatchImageSnapshotCommand({
   })
   
   require('cypress-plugin-tab')
+  
 
