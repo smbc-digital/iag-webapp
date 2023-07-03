@@ -1,4 +1,4 @@
-import { setViewPort } from "../../../helpers/functions";
+import { setViewPort, visitHomepage } from "../../../helpers/functions";
 
 describe("Search functionality", () => {
   const containsSearchResults = () => {
@@ -9,9 +9,10 @@ describe("Search functionality", () => {
   const searchBarId = "#cludo-search-bar";
   const searchList = '[aria-autocomplete="list"]';
   viewports.map((size) => {
+
     it(`tests entering a single character and selecting an option from the list via the homepage search on ${size} screen `, () => {
       setViewPort(size);
-      cy.visit("");
+      visitHomepage()
       cy.get(searchBarId).type("T");
       cy.get(searchList).should("be.visible");
       cy.get('[aria-label="tree preservation order map"]').click();
@@ -20,7 +21,7 @@ describe("Search functionality", () => {
 
     it(`tests entering full search and pressing the search button via the homepage search on ${size} screen`, () => {
       setViewPort(size);
-      cy.visit("");
+      visitHomepage()
       cy.get(searchBarId).type("Council Tax");
       cy.get('#cludo-search-hero-form > [data-cy="search-submit"]').click();
       containsSearchResults();
@@ -39,5 +40,14 @@ describe("Search functionality", () => {
       cy.get('[aria-label="graffiti"]').click();
       containsSearchResults();
     });
+   
+    it('tests tabbing into the search on the homepage, entering input and then using the enter key to submit search', () => {
+        visitHomepage()
+        cy.get('.global-alert-text-condolence > :nth-child(5) > a')
+        .tab().tab() 
+        .type('Council Tax')
+        .tab().type('{enter}')
+        containsSearchResults()
+    })
   });
-});
+})
