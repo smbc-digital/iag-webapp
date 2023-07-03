@@ -6,6 +6,7 @@
     "@cypress/snapshot": "^2.1.7",
     "@simonsmith/cypress-image-snapshot": "^7.0.0",
     "cypress": "^12.15.0",
+    "cypress-plugin-tab": "^1.0.5",
     "cypress-real-events": "^1.8.1"
   },
   "scripts": {
