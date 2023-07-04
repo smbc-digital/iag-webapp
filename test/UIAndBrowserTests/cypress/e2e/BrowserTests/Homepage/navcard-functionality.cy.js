@@ -12,17 +12,17 @@ describe("Navcard functionality", () => {
       } else {
         cy.viewport(size);
       }
-      cy.get('[data-cy="nav-card-link"]')
-      .first()
-      .click()
-      cy.url().should('not.eq','https://qa-iag-stockportgov.smbcdigital.net/')
+      cy.get('[data-cy="nav-card-link"]').first().click();
+      cy.url().should("not.eq", "https://qa-iag-stockportgov.smbcdigital.net/");
     });
   });
 
   it("tests to see if underline thickness increases on hover", () => {
     cy.get('[data-cy="navcard-list"]').within(() => {
       cy.get("a").first().realHover();
-      cy.get("h3").first().should('have.css', 'text-decoration-thickness', '3px')
-    })
+      cy.get("h3")
+        .first()
+        .should("have.css", "text-decoration-thickness", "3px");
+    });
   });
 });
