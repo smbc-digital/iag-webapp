@@ -1,0 +1,21 @@
+﻿@model IEnumerable<SubItem>
+
+<section tabindex="-1" id="content">
+    <h2 class="visuallyhidden">Popular tasks</h2>
+    <div class="top-tasks" data-cy="top-tasks">
+        @{
+            if (Model != null) 
+            {
+                @foreach (var subItem in Model)
+                {
+                    <a href="@subItem.NavigationLink" class="top-tasks-block" data-cy="top-task-link">
+                        <div class="top-tasks-block__icon">
+                            <span class="@subItem.Icon si-default top-tasks__icon" aria-hidden="true" data-cy="top-task-icon"></span>
+                        </div>
+                        <h3 class="top-tasks-block__title" data-cy="top-task-title">@subItem.Title</h3>
+                    </a>
+                }
+            }
+        }
+    </div>
+</section>
