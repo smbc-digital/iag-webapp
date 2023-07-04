@@ -43,13 +43,14 @@
     .condolence_close-container {
         margin-left: 0.5em;
 
-        a {
+        .condolence_close {
             border: 1px solid white;
             border-radius: 100%;
             width: 37px;
             height: 37px;
             text-align: center;
             float: right;
+            text-decoration: none;
 
             i:before {
                 content: "\f00d";
@@ -59,7 +60,7 @@
                 color: $white;
                 text-align: center;
                 position: relative;
-                line-height: 2;
+                top: calc(50% - 20px);
             }
 
             &:hover {
