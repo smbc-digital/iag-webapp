@@ -10,10 +10,10 @@ cypress start
 
 ### Writing snapshot tests
 
-A component can be marked for testing by adding the `data-test` attribute to it. This is to keep the component resilient to changes made to id or class references.
+A component can be marked for testing by adding the `data-cy` attribute to it. This is to keep the component resilient to changes made to id or class references.
 
 ```html
-<div class="grid-100" data-test="top-tasks-wrapper">...</div>
+<div class="grid-100" data-cy="top-tasks-wrapper">...</div>
 ```
 
 The component can then be referenced within the cypress test.

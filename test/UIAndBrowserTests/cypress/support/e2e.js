@@ -14,7 +14,7 @@
 // ***********************************************************
 // Import commands.js using ES2015 syntax:
 import './commands'
-
+import "cypress-real-events";
 import {addMatchImageSnapshotCommand} from '@simonsmith/cypress-image-snapshot/command'
 require('@cypress/snapshot').register()
 
@@ -22,4 +22,7 @@ addMatchImageSnapshotCommand({
     failureThresholdType: "percent",
     failureThreshold: 0.1
   })
+  
+  require('cypress-plugin-tab')
+  
 

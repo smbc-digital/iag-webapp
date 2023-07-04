@@ -42,21 +42,24 @@
 <body class="container-layout-free type-home">
     <partial name=TagManager/TagManagerNoScript />
     <partial name=Header />
-    <div class="grid-container-full-width">
-        @RenderBody()
-    </div>
-    <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
-        @await Component.InvokeAsync("Footer")
-    </distributed-cache>
 
-    <script>
-        require(['/assets/javascript/config-fd0642d6.min.js'], function() {
-            require(['jquery', 'matchbox'],
-                function ($, matchbox) {
-                    matchbox.Init();
-                }
-            );
-        });
-    </script>
+    <main id="content" role="main">
+        <div class="grid-container-full-width">
+            @RenderBody()
+        </div>
+        <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
+            @await Component.InvokeAsync("Footer")
+        </distributed-cache>
+
+        <script>
+            require(['/assets/javascript/config-fd0642d6.min.js'], function() {
+                require(['jquery', 'matchbox'],
+                    function ($, matchbox) {
+                        matchbox.Init();
+                    }
+                );
+            });
+        </script>
+    </main>
 </body>
 </html>

@@ -29,13 +29,13 @@
 {
     foreach (var alert in Model.HomepageContent.Alerts)
     {
-        <div data-test="global-alert">
+        <div data-cy="global-alert-wrapper">
             <partial name="GlobalAlert" model='alert'/>
         </div>
     }
 }
 
-<section class="section top-tasks-wrapper" data-test="search-and-top-tasks">
+<section class="section top-tasks-wrapper" data-cy="search-and-top-tasks">
     <div class="grid-container">
         <div class="grid-100">
             <h1 class="section__title section__title--padded-bottom--m section__title--margin-top h-xl">Welcome to Stockport</h1>
@@ -44,9 +44,7 @@
                 <partial name="Search" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>
             </section>
 
-            <div class="top-tasks-placeholder placeholder">
-                <h2>Top tasks</h2>
-            </div>
+            <partial name="TopTasks" model='Model.HomepageContent.FeaturedTasks'/>
         </div>
     </div>
     <div class="skyline-wrapper"></div>
@@ -54,7 +52,7 @@
 
 <section class="section section--white">
     <div class="grid-container">
-        <div class="grid-100" data-test="navcard-list">
+        <div class="grid-100" data-cy="navcard-list">
             <h2 class="section__title section__title--padded-bottom h-l">Our services</h2>
             <partial name="NavCardList" model='Model.HomepageContent.Services'/>
             
@@ -77,7 +75,7 @@
     <h2>Spotlight on</h2>
 </div>
 
-<section class="personalised-services" data-test="personalised-services">
+<section class="personalised-services" data-cy="personalised-services">
     <h2 class="visuallyhidden">Subscription </h2>
     <div class="grid-container">
         <div class="grid-100 enhanced_service" id="test-email-alerts">
