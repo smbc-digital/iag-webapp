@@ -2,7 +2,7 @@ import { setViewPort } from "../../../helpers/functions";
 
 describe("Alert functionality", () => {
   const viewports = ["iphone-x", [1920, 1080]];
-  const closeAlertIcon ='[data-cy="global-alert"]'
+  const closeAlertIcon = '[data-cy="global-alert"]';
   const closeAlerts = () => {
     cy.get('[data-cy="global-alert"]')
       .not('a[title="Close Test condolence alert alert"]')
@@ -13,12 +13,11 @@ describe("Alert functionality", () => {
     cy.visit("");
   });
   viewports.map((size) => {
-    
     it(`tests on ${size} screen to check alerts close and reappear on reload`, () => {
       setViewPort(size);
       closeAlerts();
       cy.visit("");
-      cy.get(closeAlertIcon).filter(':visible').should("have.length", 4)
+      cy.get(closeAlertIcon).filter(":visible").should("have.length", 4);
     });
 
     it(`tests on ${size} screen to check the alert icons show on desktop and are hidden on mobile`, () => {
@@ -32,9 +31,9 @@ describe("Alert functionality", () => {
   });
 
   it("tests dismissing an alert using keyboard", () => {
-    cy.get(closeAlertIcon).first().focus().type('{enter}')
-    cy.get('[title="Close Alert error alert"]').should('not.be.visible')
-    cy.reload()
-    cy.get(closeAlertIcon).filter(':visible').should('have.length', 4)
+    cy.get(closeAlertIcon).first().focus().type("{enter}");
+    cy.get('[title="Close Alert error alert"]').should("not.be.visible");
+    cy.reload();
+    cy.get(closeAlertIcon).filter(":visible").should("have.length", 4);
   });
 });
