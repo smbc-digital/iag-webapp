@@ -1,21 +1,21 @@
 ﻿@model Alert
 
-<div class="condolence-alert">
+<div class="condolence">
     <div class="grid-container">
-        <div class="grid-100 condolence-alert-content-container">
-            <div class="condolence-alert-text">
+        <div class="grid-100 condolence_content">
+            <div class="condolence_text">
                 <h3>@Model.Title</h3>
                 @Html.Raw(Model.Body)
             </div>
-            <div class="condolence-alert-image">
+            <div class="condolence_image">
                 <img src="@Model.ImageUrl" />
             </div>
             @if (!Model.IsStatic)
             {
-                <div class="global-alert-close-container">
-                    <a href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert" data-cy="global-alert">
-                        <div class="global-alert-close-@Model.Severity.ToLowerInvariant()">
-                            <i class="close-alert" data-slug="@Model.Slug" data-parent="condolence-alert"></i>
+                <div class="condolence_close-container">
+                    <a class="condolence_close" href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert" data-cy="global-alert">
+                        <div >
+                            <i class="close-alert" data-slug="@Model.Slug" data-parent="condolence"></i>
                         </div>
                     </a>
                 </div>
