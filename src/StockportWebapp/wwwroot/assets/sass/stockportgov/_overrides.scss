@@ -75,15 +75,15 @@ h6 {
         height: 54px;
         width: 54px;
         top: 47%;
-        
+
         @media #{$mobile} {
             right: 5px;
             height: 44px;
             width: 44px;
             top: 57%;
         }
-        task-block-container
-        &:hover{
+
+        &:hover {
             background-color: $stockport-green;
             opacity: 1;
         }
@@ -111,7 +111,7 @@ h6 {
 
 /*------ View more services button spacing ------*/
 @media #{$mobile} {
-    .featured-content-button-wrapper{
+    .featured-content-button-wrapper {
         margin-left: 5px;
         margin-right: 5px;
     }
@@ -121,7 +121,6 @@ h6 {
 .personalised-services {
     padding: 20px 5px;
 }
-
 
 /*------ Placeholders ------*/
 .placeholder {
@@ -142,5 +141,5 @@ h6 {
 
 .call-to-action-banner-placeholder {
     background-color: $stockport-teal;
-    height: 200px; 
+    height: 200px;
 }
