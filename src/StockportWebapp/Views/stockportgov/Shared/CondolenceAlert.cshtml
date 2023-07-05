@@ -7,9 +7,13 @@
                 <h3>@Model.Title</h3>
                 @Html.Raw(Model.Body)
             </div>
-            <div class="condolence_image">
-                <img src="@Model.ImageUrl" />
-            </div>
+            @if(!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <div class="condolence_image">
+                    <img src="@Model.ImageUrl" alt="" />
+                </div>
+            }
+
             @if (!Model.IsStatic)
             {
                 <div class="condolence_close-container">
