@@ -1,4 +1,4 @@
-﻿$fontStack: 'Noto Sans', sans-serif;
+﻿$fontStack: "Noto Sans", sans-serif;
 
 /*------ Base Styles ------*/
 body {
@@ -6,7 +6,12 @@ body {
     background-color: white;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: $fontStack;
 }
 
@@ -59,15 +64,15 @@ h1, h2, h3, h4, h5, h6 {
         height: 54px;
         width: 54px;
         top: 47%;
-        
+
         @media #{$mobile} {
             right: 5px;
             height: 44px;
             width: 44px;
             top: 57%;
         }
-        task-block-container
-        &:hover{
+
+        &:hover {
             background-color: $stockport-green;
             opacity: 1;
         }
@@ -162,7 +167,7 @@ h1, h2, h3, h4, h5, h6 {
         text-align: center;
     }
 
-    &__title{
+    &__title {
         padding-bottom: 1em;
         margin-top: 1em;
         margin-bottom: 0;
@@ -189,31 +194,28 @@ h1, h2, h3, h4, h5, h6 {
 
 /*------ View more services button spacing ------*/
 @media #{$mobile} {
-    .featured-content-button-wrapper{
+    .featured-content-button-wrapper {
         margin-left: 5px;
         margin-right: 5px;
     }
 }
 
-
 /*------ Alerts spacing ------*/
 @media #{$mobile} {
-    .global-alert-text-container{
+    .global-alert-text-container {
         padding-left: 5px;
         padding-right: 5px;
     }
 
-    .global-alert-close-container{
+    .global-alert-close-container {
         padding-right: 15px !important;
     }
 }
 
-
 /*------ Email signup spacing ------*/
-.personalised-services{
+.personalised-services {
     padding: 20px 5px;
 }
-
 
 /*------ Placeholders ------*/
 .placeholder {
@@ -238,7 +240,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 25px;
     margin-top: 20px;
     margin-bottom: 20px;
-    
+
     @media #{$mobile} {
         width: calc(100% - 10px);
         margin-left: 5px;
@@ -252,5 +254,5 @@ h1, h2, h3, h4, h5, h6 {
 
 .call-to-action-banner-placeholder {
     background-color: $stockport-teal;
-    height: 200px; 
+    height: 200px;
 }
