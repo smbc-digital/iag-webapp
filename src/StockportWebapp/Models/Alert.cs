@@ -12,7 +12,13 @@ public class Alert
     public bool IsStatic { get; }
     public string ImageUrl { get; }
 
-    public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate, string slug, bool isStatic, string imageUrl)
+    public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate, string slug, bool isStatic, string imageUrl) 
+        : this(title, subHeading, body, severity, sunriseDate, sunsetDate, slug, isStatic)
+    {
+        ImageUrl = imageUrl;
+    }
+
+    public Alert(string title, string subHeading, string body, string severity, DateTime sunriseDate, DateTime sunsetDate, string slug, bool isStatic)
     {
         Title = title;
         SubHeading = subHeading;
@@ -22,7 +28,7 @@ public class Alert
         SunsetDate = sunsetDate;
         Slug = slug;
         IsStatic = isStatic;
-        ImageUrl = imageUrl;
+        ImageUrl = string.Empty;
     }
 }
 
