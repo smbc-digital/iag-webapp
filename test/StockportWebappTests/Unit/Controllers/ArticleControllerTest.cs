@@ -270,7 +270,7 @@ public class ArticleControllerTest
         var alerts = new List<Alert>
         {
             new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
+                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, alerts, new NullTopic(), new List<Alert>(), null, new DateTime(), new bool());
@@ -332,7 +332,7 @@ public class ArticleControllerTest
         var alertsInline = new List<Alert>
         {
             new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
+                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
         var article = new ProcessedArticle(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty,
             new List<ProcessedSection>() { }, string.Empty, string.Empty, string.Empty, new List<Crumb>() { }, new List<Alert>(), new NullTopic(), alertsInline, null, new DateTime(), new bool());
@@ -355,7 +355,7 @@ public class ArticleControllerTest
         var alertsInline = new List<Alert>
         {
             new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
+                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
 
         var processedSection = new ProcessedSection("title", "slug", string.Empty, "body", new List<Profile>(), new List<Document>(), alertsInline);
