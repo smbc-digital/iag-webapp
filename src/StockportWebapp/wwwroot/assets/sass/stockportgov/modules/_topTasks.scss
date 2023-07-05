@@ -1,0 +1,93 @@
+.top-tasks {
+    margin: 0 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+
+    @media #{$mobile} {
+        flex-direction: column;
+        margin: 0 5px;
+    }
+
+    @media #{$tablet} {
+        flex-direction: column;
+    }
+
+    &-block {
+        text-align: center;
+        margin: 0 8.5px;
+        flex-grow: 1;
+        flex-basis: 0;
+        background-color: $stockport-pink;
+        text-decoration: none;
+        padding: 1em;
+        border-radius: 2px;
+
+        @media #{$mobile}, #{$tablet} {
+            margin: 4.5px 0;
+            text-align: left;
+            padding: 0.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        &:hover {
+            text-decoration: none;
+
+            .top-tasks-block__title {
+                text-decoration: underline;
+            }
+        }
+
+        &__icon, &__title {
+            color: white;
+        }
+
+        &__icon {
+            font-size: 3rem;
+
+            @media #{$mobile}, #{$tablet} {
+                font-size: 2rem;
+                line-height: 0.5;
+                margin-right: 0.5em;
+            }
+        }
+
+        &__title {
+            font-size: 1rem;
+        }
+    }
+
+    :first-child {
+        margin-left: 0;
+
+        @media #{$mobile}, #{$tablet} {
+            margin-top: 0;
+        }
+    }
+
+    :last-child {      
+        margin-right: 0;
+
+        @media #{$mobile}, #{$tablet} {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.top-tasks-wrapper {
+    @media #{$mobile} {
+        margin-bottom: 1em;
+    }
+
+    .--text-center {
+        text-align: center;
+    }
+
+    &__title{
+        padding-bottom: 1em;
+        margin-top: 1em;
+        margin-bottom: 0;
+    }
+}
