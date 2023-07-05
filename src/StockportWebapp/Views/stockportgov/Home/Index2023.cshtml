@@ -15,6 +15,16 @@
 {
 }
 
+@if (Model.HomepageContent.CondolenceAlerts is not null && Model.HomepageContent.CondolenceAlerts.Any())
+{
+    foreach (var condolence in Model.HomepageContent.CondolenceAlerts)
+    {
+        <div data-test="global-alert">
+            <partial name="CondolenceAlert" model='condolence'/>
+        </div>
+    }
+}
+
 @if (Model.HomepageContent.Alerts is not null && Model.HomepageContent.Alerts.Any())
 {
     foreach (var alert in Model.HomepageContent.Alerts)

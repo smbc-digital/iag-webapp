@@ -105,7 +105,7 @@ public class TopicControllerTest
         var alerts = new List<Alert>
         {
             new Alert("title", "subheading", "body", Severity.Warning, new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false)
+                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc),String.Empty, false, string.Empty)
         };
 
         var topic = new ProcessedTopic("Name", "slug", "<p>Summary</p>", "Teaser", "metaDescription", "Icon", "Image", "Image", null, null, null,

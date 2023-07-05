@@ -21,7 +21,7 @@ public class EventsControllerTest
 
     private readonly List<Alert> _alerts = new List<Alert> { new Alert("title", "subHeading", "body",
                                                              "severity", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
-                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false) };
+                                                             new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
 
     public const int MaxNumberOfItemsPerPage = 15;
 

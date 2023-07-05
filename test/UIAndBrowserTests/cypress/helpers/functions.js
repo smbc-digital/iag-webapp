@@ -1,3 +1,7 @@
+export const visitHomepage =  () => {
+    cy.visit("")
+}
+
 export const hexToRgb = (hex) => {
     var parsedValues = /^#?([a-f\d]{1,2})([a-f\d]{1,2})([a-f\d]{1,2})$/i.exec(hex);
 

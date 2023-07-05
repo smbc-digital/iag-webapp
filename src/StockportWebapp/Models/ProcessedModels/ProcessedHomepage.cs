@@ -8,6 +8,7 @@
         public readonly IEnumerable<SubItem> FeaturedTasks;
         public readonly IEnumerable<SubItem> FeaturedTopics;
         public readonly IEnumerable<Alert> Alerts;
+        public readonly IEnumerable<Alert> CondolenceAlerts;
         public readonly IEnumerable<CarouselContent> CarouselContents;
         public readonly string BackgroundImage;
         public readonly string FreeText;
@@ -54,7 +55,8 @@
             FeaturedTasksSummary = featuredTasksSummary;
             FeaturedTasks = featuredTasks;
             FeaturedTopics = featuredTopics;
-            Alerts = alerts;
+            Alerts = alerts.Where(_ => !_.Severity.Equals(Severity.Condolence));
+            CondolenceAlerts = alerts.Where(_ => _.Severity.Equals(Severity.Condolence));
             CarouselContents = carouselContents;
             BackgroundImage = backgroundImage;
             FreeText = freeText;

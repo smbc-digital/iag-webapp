@@ -22,4 +22,7 @@ addMatchImageSnapshotCommand({
     failureThresholdType: "percent",
     failureThreshold: 0.1
   })
+  
+  require('cypress-plugin-tab')
+  
 
