@@ -5,6 +5,7 @@
     width: calc(100% - 50px);
     height: 250px;
     margin: auto;
+    margin-top: 40px;
 
     @media #{$mobile} {
         background: none;
@@ -14,5 +15,6 @@
     @media #{$tablet} {
         height: 175px;
         width: 98%;
+        margin-top: 0px;
     }
 }
