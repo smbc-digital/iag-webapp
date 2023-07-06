@@ -43,9 +43,13 @@ h6 {
 
 /*------ Search + Welcome message + Skyline ------*/
 .search-bar {
-    margin: 0 0 1.5em 0;
+    margin: 0 0 2em 0;
     box-shadow: none;
 
+    @media #{$tablet}{
+        margin: 0 0 1.75em 0;
+    }
+    
     input.search-input {
         border: 2px solid $greyDarkest;
         border-radius: 2px;
@@ -74,17 +78,12 @@ h6 {
         right: 25px;
         height: 54px;
         width: 54px;
-        top: 46%;
+        top: 25px;
 
         @media #{$mobile} {
             right: 5px;
             height: 44px;
             width: 44px;
-            top: 57%;
-        }
-
-        @media #{$tablet} {
-            top: 47%;
         }
 
         &:hover {

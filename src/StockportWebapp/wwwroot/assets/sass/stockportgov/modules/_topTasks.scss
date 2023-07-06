@@ -28,8 +28,12 @@
             margin: 4.5px 0;
             text-align: left;
             padding: 0.5em;
+            padding-left: 11px;
             display: flex;
             align-items: center;
+        }
+
+        @media #{$mobile} {
             border-radius: 2px;
         }
 
@@ -54,6 +58,7 @@
                 line-height: 0.5;
                 margin-right: 0.5em;
                 margin-left: 0.5em;
+                width: 30px;
             }
         }
 
