@@ -17,9 +17,9 @@
             @if (!Model.IsStatic)
             {
                 <div class="condolence_close-container">
-                    <a href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert" data-cy="global-alert">
+                    <a class="close-alert" href="javascript:void(0)" title="Close @Model.Title alert" aria-label="Close @Model.Title alert" data-cy="global-alert" data-slug="@Model.Slug" data-parent="condolence">
                         <div class="condolence_close">
-                            <i class="close-alert" data-slug="@Model.Slug" data-parent="condolence"></i>
+                            <i></i>
                         </div>
                     </a>
                 </div>
