@@ -22,7 +22,7 @@
         background-color: $stockport-pink;
         text-decoration: none;
         padding: 1em;
-        border-radius: 2px;
+        border-radius: 3px;
 
         @media #{$mobile}, #{$tablet} {
             margin: 4.5px 0;
@@ -30,6 +30,7 @@
             padding: 0.5em;
             display: flex;
             align-items: center;
+            border-radius: 2px;
         }
 
         &:hover {
@@ -37,6 +38,7 @@
 
             .top-tasks-block__title {
                 text-decoration: underline;
+                text-decoration-thickness: 3px;
             }
         }
 
@@ -51,11 +53,21 @@
                 font-size: 2rem;
                 line-height: 0.5;
                 margin-right: 0.5em;
+                margin-left: 0.5em;
             }
         }
 
         &__title {
-            font-size: 1rem;
+            font-size: 1.125rem;
+
+            @media #{$mobile} {
+                font-size: 1rem;
+                margin-top: 0;
+            }
+
+            @media #{$tablet} {
+                margin-top: 0;
+            }
         }
     }
 
