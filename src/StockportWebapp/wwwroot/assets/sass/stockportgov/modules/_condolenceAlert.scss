@@ -6,7 +6,7 @@
         display: flex;
         justify-content: space-between;
 
-        @media #{$mobile} {
+        @media #{$mobile, $tablet} {
             margin: 0 5px;
             width: calc(100% - 10px);
         }
@@ -14,7 +14,7 @@
 
     &_text {
         h3, p, a {
-            color: white;
+           color: white;
         }
 
         h3 {
@@ -22,50 +22,50 @@
         }
     }
 
-    &_image {
-        margin-left: 1em;
-        align-self: center;
+        &_image {
+            margin-left: 1em;
+            align-self: center;
 
-        img {
-            max-width: 225px;
-            border: 1px solid $stockport-grey;
+            img {
+                max-width: 225px;
+                border: 1px solid $stockport-grey;
+            }
+
+            @media #{$tablet} {
+                padding-right: 10px;
+            }
+
+            @media #{$mobile, $tablet} {
+                display: none;
+            }
         }
 
-        @media #{$tablet} {
-            padding-right: 10px;
-        }
+        .condolence_close-container {
+            margin-left: 0.5em;
 
-        @media #{$mobile} {
-            display: none;
-        }
-    }
-
-    .condolence_close-container {
-        margin-left: 0.5em;
-
-        .condolence_close {
-            border: 1px solid white;
-            border-radius: 100%;
-            width: 37px;
-            height: 37px;
-            text-align: center;
-            float: right;
-            text-decoration: none;
-
-            i:before {
-                content: "\f00d";
-                font-family: "FontAwesome";
-                font-style: normal;
-                font-size: 20px;
-                color: $white;
+            .condolence_close {
+                border: 1px solid white;
+                border-radius: 100%;
+                width: 37px;
+                height: 37px;
                 text-align: center;
-                position: relative;
-                top: calc(50% - 20px);
-            }
+                float: right;
+                text-decoration: none;
 
-            &:hover {
-                background-color: rgba($white, .2);
+                span:before {
+                    content: "\f00d";
+                    font-family: "FontAwesome";
+                    font-style: normal;
+                    font-size: 20px;
+                    color: $white;
+                    text-align: center;
+                    position: relative;
+                    top: calc(50% - 20px);
+                }
+
+                &:hover {
+                    background-color: rgba($white, .2);
+                }
             }
         }
     }
-}
