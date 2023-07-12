@@ -1,0 +1,41 @@
+.call-to-action {
+    background-color: $stockport-teal-darker;
+    display: flex;
+    flex-direction: row;
+
+    &__image {
+        max-width: 40%;
+        object-fit: cover;
+        
+        @media #{$mobile} {
+            display: none;
+        }
+    }
+
+    &-content {
+        width: 100%;
+        padding: 1em;
+
+        &__title {
+            color: white;
+            margin-bottom: 0.5em;
+        }
+
+        &__teaser {
+            color: white;
+            margin-bottom: 2em;
+        }
+
+        &__button{
+            color: $stockport-teal-darker;
+    
+            &:hover{
+                color: darken($stockport-teal-darker, 5%);
+            }
+    
+            &:before{
+                content: "";
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+﻿@model CallToActionBanner
+
+<div class="call-to-action">
+    <img src="@Model.Image" class="call-to-action__image">
+    <div class="call-to-action-content">
+        <h3 class="call-to-action-content__title">@Model.Title</h3>
+        <p class="call-to-action-content__teaser">@Model.Teaser</p>
+        <a href="@Model.Link" class="button button--inverse button-call-to-action call-to-action-content__button">@Model.ButtonText</a>
+    </div>
+</div>
