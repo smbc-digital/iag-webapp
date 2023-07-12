@@ -1,33 +1,43 @@
-import { setViewPort } from "../../../helpers/functions";
+import {
+  mobile,
+  tabletLandscape,
+  tabletPortrait,
+  laptop,
+  setViewPort,
+} from "../../../helpers/viewports";
 
 describe("Top tasks functionality", () => {
-    const viewports = ["iphone-x", [1440, 900], ["ipad-2", "portrait"], ["ipad-2", "landscape"]];
+  const viewports = [mobile, tabletLandscape, tabletPortrait, laptop];
 
-    beforeEach(function () {
-      cy.visit("");
-    });
-  
-    viewports.map((size) => {
-      it(`tests on ${size} screen to check a top task can be clicked and loads new page`, () => {
-        const url = cy.url()
+  beforeEach(() => {
+    cy.visit("");
+  });
 
-        setViewPort(size)
+  viewports.map((viewport) => {
+    it(`tests on ${viewport.name} screen to check a top task can be clicked and loads new page`, () => {
+      const url = cy.url();
 
-        cy.get('[data-cy="top-task-link"]')
-        .first()
-        .click()
-        cy.url().should('not.eq',url)
-      });
-    });
-    
-    it("tests to see if underline decoration for icon does not exists on hover", () => {
-        cy.get('[data-cy="top-task-link"]').first().realHover();
-        cy.get('[data-cy="top-task-icon"]').first().should('have.css', 'text-decoration', 'none solid rgb(255, 255, 255)')
-    });
-
-    it("tests to see if underline decoration for title exists on hover", () => {
-        cy.get('[data-cy="top-task-link"]').first().realHover();
-        cy.get('[data-cy="top-task-title"]').first().should('have.css', 'text-decoration', 'underline solid rgb(255, 255, 255)')
+      setViewPort(viewport.value);
+      cy.get('[data-cy="top-task-link"]').first().click();
+      cy.url().should("not.eq", url);
     });
   });
-  
+
+  it("tests to see if underline decoration for icon does not exist on hover", () => {
+    cy.get('[data-cy="top-task-icon"]')
+      .first()
+      .realHover()
+      .should("have.css", "text-decoration", "none solid rgb(255, 255, 255)");
+  });
+
+  it("tests to see if underline decoration for title exists on hover", () => {
+    cy.get('[data-cy="top-task-title"]')
+      .first()
+      .realHover()
+      .should(
+        "have.css",
+        "text-decoration",
+        "underline 3px solid rgb(255, 255, 255)"
+      );
+  });
+});
