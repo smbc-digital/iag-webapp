@@ -17,6 +17,7 @@ public class NewsFactoryTest
     private readonly List<Crumb> _breadcrumbs = new List<Crumb>();
     private readonly DateTime _sunrise = new DateTime(2015, 9, 19);
     private readonly DateTime _sunset = new DateTime(2015, 9, 25);
+    private readonly DateTime _updatedAt = new DateTime(2015, 9, 20);
     private readonly List<Alert> _alerts = new List<Alert>() { new Alert("Alert", "Sub heading", "The Body", "Error", new DateTime(0001, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                                                              new DateTime(9999, 9, 9, 0, 0, 0, DateTimeKind.Utc), string.Empty, false, string.Empty) };
     private readonly List<string> _tags = new List<string> { "Events", "Bramall Hall" };
@@ -28,7 +29,7 @@ public class NewsFactoryTest
         _tagParserContainer = new Mock<ISimpleTagParserContainer>();
         _documentTagParser = new Mock<IDynamicTagParser<Document>>();
         _factory = new NewsFactory(_tagParserContainer.Object, _markdownWrapper.Object, _documentTagParser.Object);
-        _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _alerts, _tags, _documents);
+        _news = new News(Title, Slug, Teaser, Purpose, Image, ThumbnailImage, Body, _breadcrumbs, _sunrise, _sunset, _updatedAt, _alerts, _tags, _documents);
 
         _tagParserContainer.Setup(o => o.ParseAll(Body, It.IsAny<string>(), It.IsAny<bool>())).Returns(Body);
         _markdownWrapper.Setup(o => o.ConvertToHtml(Body)).Returns(Body);
@@ -47,6 +48,7 @@ public class NewsFactoryTest
         result.Breadcrumbs.Should().BeEquivalentTo(_breadcrumbs);
         result.SunriseDate.Should().Be(_sunrise);
         result.SunsetDate.Should().Be(_sunset);
+        result.UpdatedAt.Should().Be(_updatedAt);
         result.Alerts.Should().BeEquivalentTo(_alerts);
         result.Tags.Should().BeEquivalentTo(_tags);
     }
