@@ -9,6 +9,9 @@
 .menu {
   color: $colorPrimaryPale;
   text-align: right;
+  display: flex;
+  flex-direction: row;
+  place-content: flex-end;
 
   .menu-logged-out {
     display: table;
@@ -130,7 +133,7 @@
 }
 
 .type-home {
-  .menu .menu-logged-out:first-of-type {
+  .menu .menu-logged-out:not(:first-of-type) {
     padding-right: 0;
   }
 }
