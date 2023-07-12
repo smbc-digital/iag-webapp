@@ -43,7 +43,7 @@ public class ContentFactoryTest
     [Fact]
     public void ItUsesNewsFactoryToBuildProcessedNewsFromNews()
     {
-        var news = new News(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new DateTime(), new DateTime(), new List<Alert>(), new List<string>(), new List<Document>());
+        var news = new News(TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, TextHelper.AnyString, new List<Crumb>(), new DateTime(), new DateTime(), new DateTime(), new List<Alert>(), new List<string>(), new List<Document>());
 
         var processed = _factory.Build<News>(news);
 
