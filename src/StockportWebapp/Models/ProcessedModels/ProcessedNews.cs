@@ -12,10 +12,11 @@
         public readonly List<Crumb> Breadcrumbs;
         public readonly DateTime SunriseDate;
         public readonly DateTime SunsetDate;
+        public readonly DateTime UpdatedAt;
         public readonly List<Alert> Alerts;
         public readonly List<string> Tags;
 
-        public ProcessedNews(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, List<Alert> alerts, List<string> tags)
+        public ProcessedNews(string title, string slug, string teaser, string purpose, string image, string thumbnailImage, string body, List<Crumb> breadcrumbs, DateTime sunriseDate, DateTime sunsetDate, DateTime updatedAt, List<Alert> alerts, List<string> tags)
         {
             Title = title;
             Slug = slug;
@@ -26,6 +27,7 @@
             Body = body;
             Breadcrumbs = breadcrumbs;
             SunriseDate = sunriseDate;
+            UpdatedAt = updatedAt;
             SunsetDate = sunsetDate;
             Alerts = alerts;
             Tags = tags;

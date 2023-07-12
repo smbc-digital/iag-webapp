@@ -33,7 +33,7 @@
             <div class="latest-news-details">
                 <div class="latest-news-details-date">
                     <span class="fa fa-clock-o fa-lg" aria-hidden="true"></span>
-                    <partial name="FormattedDate" model='Model.LatestNews.SunriseDate' />
+                    <partial name="FormattedDate" model='Model.LatestNews.UpdatedAt' />
                 </div>
                 <span class="status-news">@Model.LatestNews.Purpose</span>
             </div>
@@ -46,11 +46,6 @@
             <a href="@Url.Action("Index", "News")" class="button-inverted">View more news</a>
         </section>
 
-        <h2>@Model.Homepage.TwitterFeedHeader</h2>
-        <div class="iframe-container" aria-label ="Twitter Timeline">
-            <a class="twitter-timeline" title="Twitter Timeline" href="https://twitter.com/StockportMBC?ref_src=twsrc%5Etfw" height="500" width="500">Tweets by StockportMBC</a>
-            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
         <h2>@Model.Homepage.InstagramFeedTitle</h2>
         <div class="iframe-container" aria-label ="Instagram Feed">
             <iframe title ="Instagram Feed" src="@Model.Homepage.InstagramLink/embed" class="instagram"></iframe>
