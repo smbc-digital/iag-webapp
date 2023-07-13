@@ -19,7 +19,7 @@ public class HomepageFactoryTest
 
         var backgroundImage = "background image";
 
-        var homepage = new Homepage(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), backgroundImage, freeText, null, string.Empty, string.Empty, new NullCarouselContent());
+        var homepage = new Homepage(Enumerable.Empty<string>(), string.Empty, string.Empty, new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), backgroundImage, freeText, null, string.Empty, string.Empty, new NullCarouselContent(), new CallToActionBanner());
 
         var result = _homepageFactory.Build(homepage);
 

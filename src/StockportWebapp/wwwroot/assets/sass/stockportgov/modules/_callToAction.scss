@@ -2,6 +2,11 @@
     background-color: $stockport-teal-darker;
     display: flex;
     flex-direction: row;
+    margin: 0 25px;
+
+    @media #{$mobile} {
+        margin: 0 5px;
+    }
 
     &__image {
         max-width: 40%;
