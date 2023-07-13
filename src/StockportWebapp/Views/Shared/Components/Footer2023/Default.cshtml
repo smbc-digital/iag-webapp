@@ -1,0 +1,56 @@
+﻿@inject IStaticAssets StaticAssets
+@inject IApplicationConfiguration appConfig
+@inject BusinessId BusinessId
+@model Footer
+
+<footer>
+    
+    <div class="grid-container">
+        <div class="grid-100 footer-top">
+            <div class="grid-30 footer-social-container hide-on-tablet hide-on-desktop">
+                @if (Model.SocialMediaLinks is not null)
+                {
+                    <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
+                }
+            </div>
+            <div class="grid-25 tablet-grid-25 mobile-grid-100">
+                <div class="footer-stockport-logo">
+                    <a href="https://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer%402x.png")" alt="Stockport Council Logo Homepage Link" /></a>
+                </div>
+            </div>
+
+            <div class="footer-links tablet-grid-40 grid-45 grid-100-mobile">
+                <div class="grid-100 tablet-grid-100 mobile-grid-100">
+                    <ul class="footer-nav">
+                        @if (Model.Links != null)
+                        {
+                            <partial name="FooterLinks" model='Model.Links' />
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid-30 tablet-grid-35 footer-social-container hide-on-mobile">
+                @if (Model.SocialMediaLinks != null)
+                {
+                    <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
+                }
+            </div>
+        </div>
+    </div>
+    
+    <div class="grid-container">
+        <div class="grid-100">
+            <div class="grid-50 tablet-grid-50 copyright">
+                <p id="ami-trigger" >
+                    &#xA9; @DateTime.Now.Year Stockport Metropolitan Borough Council
+                </p>
+            </div>
+            <div class="grid-50 tablet-grid-50 digital-link">
+                <p>
+                    <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

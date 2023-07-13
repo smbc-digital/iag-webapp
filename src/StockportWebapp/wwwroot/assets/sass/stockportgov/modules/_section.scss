@@ -1,9 +1,31 @@
 ﻿.section {
     margin-bottom: 2em;
 
+    &--no-margin {
+        margin-bottom: 0;
+    }
+
+    &--padded {
+        padding: 2em 0em;
+    }
+
     &--white {
         background-color: white;
     }
+
+    &--teal {
+        background-color: $stockport-teal-darker;
+        color: white;
+    }
+
+    &__content {
+        margin: 0 0 0 25px;
+
+        @media #{$mobile} {
+            margin: 0 0 0 5px;
+        }
+    }
+
 
     &__title {
         margin: 0 0 0 25px;
@@ -18,8 +40,12 @@
             text-decoration-thickness: 3px;
         }
 
+        &--white {
+            color: white;
+        }
+
         &--padded-bottom {
-            padding-bottom: 1em;
+            padding-bottom: 0.75em;
 
             @media #{$mobile} {
                 padding-bottom: 0.5em;
@@ -30,7 +56,7 @@
             padding-bottom: 0.75em;
         }
 
-        &--margin-top{
+        &--margin-top {
             margin-top: 0.75em;
         }
     }
