@@ -41,7 +41,7 @@ public class HomeControllerTest
     private readonly DateTime _sunset = new DateTime(2015, 9, 20);
 
     private readonly News _newsContent = new("title", "slug", "teaser", "purpose", "image", "thumbnail", "body",
-        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new List<Alert>(),
+        new List<Crumb>(), new DateTime(2015, 9, 10), new DateTime(2015, 9, 20), new DateTime(2015, 9, 15), new List<Alert>(),
         new List<string>(), new List<Document>());
 
     private readonly Event _eventsContent = new()

@@ -1,22 +1,27 @@
 import { hexToRgb } from "../../../helpers/functions";
 
+import {
+  mobile,
+  tabletLandscape,
+  tabletPortrait,
+  laptop,
+  setViewPort,
+} from "../../../helpers/viewports";
+
 describe("View more services button functionality", () => {
-  const viewports = ["iphone-8", [1920, 1080]];
   const getMoreServicesButton = () => {
     return cy.get('[data-cy="view-more-services"]');
   };
 
-  beforeEach(function () {
+  const viewports = [mobile, tabletLandscape, tabletPortrait, laptop];
+
+  beforeEach(() => {
     cy.visit("");
   });
 
-  viewports.map((size) => {
-    it(`tests on ${size} screen to check the View more services button is clickable and goes to a new page location`, () => {
-      if (Cypress._.isArray(size)) {
-        cy.viewport(size[0], size[1]);
-      } else {
-        cy.viewport(size);
-      }
+  viewports.map((viewport) => {
+    it(`tests on ${viewport.name} screen to check the View more services button is clickable and goes to a new page location`, () => {
+      setViewPort(viewport.value);
       getMoreServicesButton().click();
       cy.url().should("include", "topic/our-council-services");
     });

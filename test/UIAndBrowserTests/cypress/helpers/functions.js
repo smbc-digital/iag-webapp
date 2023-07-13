@@ -14,10 +14,3 @@ export const hexToRgb = (hex) => {
     return null;
 }
 
-export const setViewPort = (size) => {
-    if (Cypress._.isArray(size)) {
-      cy.viewport(size[0], size[1]);
-    } else {
-      cy.viewport(size);
-    }
-}
