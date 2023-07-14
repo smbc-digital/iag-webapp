@@ -18,7 +18,7 @@ describe("Top tasks functionality", () => {
     it(`tests on ${viewport.name} screen to check a top task can be clicked and loads new page`, () => {
       const url = cy.url();
       setViewPort(viewport.value);
-      cy.get(topTasksIcon).should('be.visible')
+      cy.get(topTasksIcon).should('be.visible','eq','5')
       cy.get(topTaskLink).first().click();
       cy.url().should("not.eq", url);
     });
@@ -43,10 +43,10 @@ describe("Top tasks functionality", () => {
   });
   it(`tests using keyboard only to navigate through the top tasks and selects one`, () => {
     let topTaskFirst = cy.get(topTaskLink);
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
       topTaskFirst.tab();
     }
     topTaskFirst.click();
-    cy.url().should("include", "/offer-day");
+    cy.url().should("include", "/register-to-vote");
   });
 });
