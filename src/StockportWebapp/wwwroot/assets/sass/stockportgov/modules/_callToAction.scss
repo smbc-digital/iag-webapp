@@ -31,14 +31,14 @@
             margin-bottom: 2em;
         }
 
-        &__button{
+        &__button {
             color: $stockport-teal-darker;
     
-            &:hover{
+            &:hover {
                 color: darken($stockport-teal-darker, 5%);
             }
     
-            &:before{
+            &:before {
                 content: "";
             }
         }

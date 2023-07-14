@@ -1,7 +1,15 @@
 ﻿@model CallToActionBanner
 
 <div class="call-to-action">
-    <img src="@Model.Image" class="call-to-action__image">
+    <img src="@Model.Image" class="call-to-action__image" loading="lazy"
+        srcset="@Model.Image?w=260&q=40 260w,
+                @Model.Image?w=350&q=50 350w,
+                @Model.Image?w=360&q=60 360w,
+                @Model.Image?w=450&q=60 450w"
+        sizes="(max-width: 560px) 260px,
+                (max-width: 767px) 750px,
+			    (min-width: 768px) and (max-width: 1024px) 550px, 350px">
+
     <div class="call-to-action-content">
         <h3 class="call-to-action-content__title">@Model.Title</h3>
         <p class="call-to-action-content__teaser">@Model.Teaser</p>
