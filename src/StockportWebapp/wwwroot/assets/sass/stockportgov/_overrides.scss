@@ -20,8 +20,12 @@ h6 {
     background-color: lighten($stockport-green, 5%);
     border-radius: 3px;
 
-    &--full{
-        width:auto;
+    @media #{$mobile} {
+        width: 100%;
+    }
+
+    &--full {
+        width: 100%;
     }
 
     &:hover, &:focus {
@@ -32,6 +36,7 @@ h6 {
     &--inverse {
         background-color: white;
         color: $stockport-teal-darker;
+        border: 1px solid white;
 
         &:hover, &:focus {
             color: darken($stockport-teal-darker, 5%);
@@ -157,4 +162,32 @@ h6 {
 .call-to-action-banner-placeholder {
     background-color: $stockport-teal-darker;
     height: 200px;
+}
+
+/*------Subscription--*/
+
+input.subscribe-input {
+    min-width: 50%;
+    margin: 0 0.5em;
+
+    @media #{$mobile} {
+        width: 100%;
+        margin: 0.5em 0;
+    }
+}
+
+/*------ Footer ------*/
+footer {
+    background-color: $stockport-dark-grey;
+    padding: 2em 0 1em 0;
+
+    .footer-nav {
+        font-size: 0.8em;
+    }
+
+    .footer-top {
+        border-bottom: 2px solid $stockport-grey;
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+    }
 }
