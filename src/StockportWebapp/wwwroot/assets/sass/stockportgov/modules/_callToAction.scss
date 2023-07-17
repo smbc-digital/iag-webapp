@@ -21,6 +21,10 @@
         width: 60%;
         padding: 1em;
 
+        @media #{$mobile} {
+            width: 100%;
+        }
+
         &__title {
             color: white;
             margin-bottom: 0.5em;
