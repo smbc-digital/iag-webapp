@@ -1,6 +1,4 @@
-﻿using Xunit;
-
-namespace StockportWebappTests_Unit.Unit.Model;
+﻿namespace StockportWebappTests_Unit.Unit.Model;
 
 public class ProcessedHomepageTests
 {
@@ -23,7 +21,8 @@ public class ProcessedHomepageTests
                                                                                     null,
                                                                                     "Event category",
                                                                                     "meta description",
-                                                                                    null);
+                                                                                    null,
+                                                                                    new CallToActionBanner());
 
     [Fact]
     public void Should_Seperate_CondolenceAlerts_From_Other_Alerts()

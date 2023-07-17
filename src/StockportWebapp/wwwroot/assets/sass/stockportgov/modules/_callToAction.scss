@@ -1,0 +1,38 @@
+.call-to-action {
+    background-color: $stockport-teal-darker;
+    display: flex;
+    flex-direction: row;
+    margin: 0 25px;
+
+    @media #{$mobile} {
+        margin: 0 5px;
+    }
+
+    &__image {
+        width: 40%;
+        object-fit: cover;
+        
+        @media #{$mobile} {
+            display: none;
+        }
+    }
+
+    &-content {
+        width: 60%;
+        padding: 1em;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
+
+        &__title {
+            color: white;
+            margin-bottom: 0.5em;
+        }
+
+        &__teaser {
+            color: white;
+            margin-bottom: 2em;
+        }
+    }
+}

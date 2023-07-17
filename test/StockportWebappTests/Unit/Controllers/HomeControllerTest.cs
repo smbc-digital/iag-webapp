@@ -51,11 +51,13 @@ public class HomeControllerTest
         Featured = true
     };
 
+    private readonly CallToActionBanner _callToActionBanner = new CallToActionBanner();
+
     #endregion
 
     public HomeControllerTest()
     {
-        var homePageContent = new ProcessedHomepage(_popularSearchTerms, "heading", "summary", _featuredTasks, _featuredTopics, _alerts, _carouselContents, "image.jpg", new List<News>(), "homepage text", null, "", "meta description", _campaignBanner);
+        var homePageContent = new ProcessedHomepage(_popularSearchTerms, "heading", "summary", _featuredTasks, _featuredTopics, _alerts, _carouselContents, "image.jpg", new List<News>(), "homepage text", null, "", "meta description", _campaignBanner, _callToActionBanner);
 
         _homepageService
             .Setup(_ => _.GetHomepage())
@@ -298,7 +300,7 @@ public class HomeControllerTest
     public async Task Index_Should_CallApiService_IfEventsCategoryNotEmpty()
     {
         // Arrange
-        var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest", "meta description", _campaignBanner);
+        var homePageContent = new ProcessedHomepage(new List<string>(), "heading", "summary", new List<SubItem>(), new List<SubItem>(), new List<Alert>(), new List<CarouselContent>(), "image.jpg", new List<News>(), "homepage text", null, "unittest", "meta description", _campaignBanner, _callToActionBanner);
 
         _homepageService.Setup(_ => _.GetHomepage()).ReturnsAsync(homePageContent);
         _stockportApiService.Setup(_ => _.GetEventsByCategory("unittest", true)).ReturnsAsync(new List<Event> { new EventBuilder().Build() });

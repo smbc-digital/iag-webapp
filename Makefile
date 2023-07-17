@@ -39,7 +39,7 @@ unit-test:
 coverage:
 	cd test/StockportWebappTests;rm TestResults -r -f
 	dotnet build
-	dotnet test -l "console;verbosity=normal" -p:CollectCoverage=true -p:CoverletOutputFormat=\"opencover\" -p:CoverletOutput=TestResults/Coverage.xml -p:SkipAutoProps=true /p:Exclude=\"[*]StockportWebapp.ContentFactory*,**/Constants/*,[*]StockportWebapp.Models.Config*,[*]StockportWebapp.Models.Emails*,[*]StockportWebapp.Models.Enums*,[*]StockportWebapp.Models.Exceptions*,[*]StockportWebapp.Models.Groups*,[*]StockportWebapp.Models.Responses*\" /p:ExcludeByFile=\"**/StockportWebapp/Views/**/*.cshtml,**/StockportWebapp/EmailTemplates/*.cshtml\" -p:ExcludeByAttribute="ExcludeFromCodeCoverage"
+	dotnet test -l "console;verbosity=normal" -p:CollectCoverage=true -p:CoverletOutputFormat=\"opencover\" -p:CoverletOutput=TestResults/Coverage.xml -p:SkipAutoProps=true /p:Exclude=\"**/Constants/*,[*]StockportWebapp.Models.Config*,[*]StockportWebapp.Models.Emails*,[*]StockportWebapp.Models.Enums*,[*]StockportWebapp.Models.Exceptions*,[*]StockportWebapp.Models.Groups*,[*]StockportWebapp.Models.Responses*\" /p:ExcludeByFile=\"**/StockportWebapp/Views/**/*.cshtml,**/StockportWebapp/EmailTemplates/*.cshtml\" -p:ExcludeByAttribute="ExcludeFromCodeCoverage"
 
 # ---------------------------------------------------------------------------------------
 # -- Unit tests coverage with threshold
@@ -47,7 +47,7 @@ coverage:
 .PHONY: coverage-threshold
 coverage-threshold:
 	cd test/StockportWebappTests;rm TestResults -r -f
-	dotnet test -l "console;verbosity=normal" -p:CollectCoverage=true -p:CoverletOutputFormat=\"opencover\" -p:CoverletOutput=TestResults/Coverage.xml -p:SkipAutoProps=true /p:Exclude=\"[*]StockportWebapp.ContentFactory*,**/Constants/*,[*]StockportWebapp.Models.Config*,[*]StockportWebapp.Models.Emails*,[*]StockportWebapp.Models.Enums*,[*]StockportWebapp.Models.Exceptions*,[*]StockportWebapp.Models.Groups*,[*]StockportWebapp.Models.Responses*\" /p:ExcludeByFile=\"**/StockportWebapp/Views/**/*.cshtml,**/StockportWebapp/EmailTemplates/*.cshtml\" -p:ExcludeByAttribute="ExcludeFromCodeCoverage" -p:Threshold=$(threshold)
+	dotnet test -l "console;verbosity=normal" -p:CollectCoverage=true -p:CoverletOutputFormat=\"opencover\" -p:CoverletOutput=TestResults/Coverage.xml -p:SkipAutoProps=true /p:Exclude=\"**/Constants/*,[*]StockportWebapp.Models.Config*,[*]StockportWebapp.Models.Emails*,[*]StockportWebapp.Models.Enums*,[*]StockportWebapp.Models.Exceptions*,[*]StockportWebapp.Models.Groups*,[*]StockportWebapp.Models.Responses*\" /p:ExcludeByFile=\"**/StockportWebapp/Views/**/*.cshtml,**/StockportWebapp/EmailTemplates/*.cshtml\" -p:ExcludeByAttribute="ExcludeFromCodeCoverage" -p:Threshold=$(threshold)
 
 # ---------------------------------------------------------------------------------------
 # -- Unit tests coverage report, opens index.html in Chrome

@@ -16,6 +16,7 @@
         public readonly string EventCategory;
         public readonly string MetaDescription;
         public readonly CarouselContent CampaignBanner;
+        public readonly CallToActionBanner CallToAction;
 
         public GenericFeaturedItemList GenericItemList
         {
@@ -48,7 +49,7 @@
             }
         }
 
-        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner)
+        public ProcessedHomepage(IEnumerable<string> popularSearchTerms, string featuredTasksHeading, string featuredTasksSummary, IEnumerable<SubItem> featuredTasks, IEnumerable<SubItem> featuredTopics, IEnumerable<Alert> alerts, IEnumerable<CarouselContent> carouselContents, string backgroundImage, IEnumerable<News> lastNews, string freeText, Group featuredGroup, string eventCategory, string metaDescription, CarouselContent campaignBanner, CallToActionBanner callToAction)
         {
             PopularSearchTerms = popularSearchTerms;
             FeaturedTasksHeading = featuredTasksHeading;
@@ -64,6 +65,7 @@
             EventCategory = eventCategory;
             MetaDescription = metaDescription;
             CampaignBanner = campaignBanner;
+            CallToAction = callToAction;
         }
 
         public NavCardList Services
