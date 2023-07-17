@@ -3,36 +3,31 @@
 @inject BusinessId BusinessId
 @model Footer
 
-<footer>
-    
+<footer class="footer">
     <div class="grid-container">
-        <div class="grid-100 footer-top">
-            <div class="grid-30 footer-social-container hide-on-tablet hide-on-desktop">
-                @if (Model.SocialMediaLinks is not null)
-                {
-                    <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
-                }
-            </div>
+        <div class="grid-100 footer_top">
             <div class="grid-25 tablet-grid-25 mobile-grid-100">
-                <div class="footer-stockport-logo">
+                <div class="footer_logo">
                     <a href="https://www.stockport.gov.uk"><img src="@StaticAssets.UrlFor("logo-stockport-footer%402x.png")" alt="Stockport Council Logo Homepage Link" /></a>
                 </div>
             </div>
 
-            <div class="footer-links tablet-grid-40 grid-45 grid-100-mobile">
+            <div class="tablet-grid-40 grid-45 grid-100-mobile">
                 <div class="grid-100 tablet-grid-100 mobile-grid-100">
-                    <ul class="footer-nav">
+                    <ul class="footer_links">
                         @if (Model.Links != null)
                         {
+                            @*TODO: There is nothing in here that requires overrides so safe to use the same component until redesign *@
                             <partial name="FooterLinks" model='Model.Links' />
                         }
                     </ul>
                 </div>
             </div>
 
-            <div class="grid-30 tablet-grid-35 footer-social-container hide-on-mobile">
+            <div class="footer_socials grid-30 tablet-grid-35">
                 @if (Model.SocialMediaLinks != null)
                 {
+                    @*TODO: This partial has not been updated to match the BEM/SASS of the new site - this will hopefully be covered in future redesign*@
                     <partial name="SocialMediaLinks" model='Model.SocialMediaLinks' />
                 }
             </div>
@@ -41,12 +36,12 @@
     
     <div class="grid-container">
         <div class="grid-100">
-            <div class="grid-50 tablet-grid-50 copyright">
+            <div class="grid-50 tablet-grid-50 footer_copyright">
                 <p id="ami-trigger" >
                     &#xA9; @DateTime.Now.Year Stockport Metropolitan Borough Council
                 </p>
             </div>
-            <div class="grid-50 tablet-grid-50 digital-link">
+            <div class="grid-50 tablet-grid-50 footer_attribution">
                 <p>
                     <a href="@appConfig.GetDigitalStockportLink()">Built by the Digital Team in Stockport</a>
                 </p>

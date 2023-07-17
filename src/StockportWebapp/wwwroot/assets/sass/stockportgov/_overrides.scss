@@ -65,20 +65,3 @@ h6 {
     background-color: $stockport-teal-darker;
     height: 200px;
 }
-
-
-/*------ Footer, Overrides some base stlye int he styleguide footer ------*/
-footer {
-    background-color: $stockport-dark-grey;
-    padding: 2em 0 1em 0;
-
-    .footer-nav {
-        font-size: 0.8em;
-    }
-
-    .footer-top {
-        border-bottom: 2px solid $stockport-grey;
-        padding-bottom: 1em;
-        margin-bottom: 1em;
-    }
-}
