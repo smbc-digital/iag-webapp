@@ -15,47 +15,6 @@ h6 {
     font-family: $fontStack;
 }
 
-.button {
-    box-shadow: none;
-    background-color: lighten($stockport-green, 5%);
-    border-radius: 3px;
-
-    &--full{
-        width:auto;
-    }
-
-    &:hover, &:focus {
-        box-shadow: none;
-        background-color: $stockport-green;
-    }
-
-    &--inverse {
-        background-color: white;
-        color: $stockport-teal-darker;
-
-        &:hover, &:focus {
-            color: darken($stockport-teal-darker, 5%);
-            background-color: rgba(white, 0.9);
-        }
-    }
-
-    &--on-white {
-        &:hover, &:focus {
-            background-color: rgba($stockport-teal-darker, 0.1);
-        }
-    }
-
-    &--border {
-        border-width: 1px;
-        border-style: solid;
-    }
-
-    &--border-grey {
-        border-color: lighten($stockport-grey, 30%);
-    }
-}
-
-
 /*------ Alerts ------*/
 .close-alert {
     line-height: 2;
@@ -72,69 +31,12 @@ h6 {
     }
 }
 
-/*------ Search + Welcome message + Skyline ------*/
-.search-bar {
-    margin: 0 0 2em 0;
-    box-shadow: none;
-
-    @media #{$tablet}{
-        margin: 0 0 1.75em 0;
-    }
-    
-    input.search-input {
-        border: 2px solid $greyDarkest;
-        border-radius: 3px;
-        font-size: 1.1875rem;
-        width: calc(100% - 50px);
-        margin: 0 25px;
-        height: 54px;
-
-        @media #{$mobile} {
-            font-size: 1rem;
-            height: 44px;
-            margin: 0 5px;
-            width: calc(100% - 10px);
-            padding: 15px 35px 15px 15px;
-        }
-    }
-
-    .search-button {
-        height: -webkit-fill-available;
-        margin-top: -25px;
-        background-color: $tealDarker;
-        color: white;
-        padding: 0;
-        text-align: center;
-        border-radius: 0 3px 3px 0;
-        right: 25px;
-        height: 54px;
-        width: 54px;
-        top: 25px;
-
-        @media #{$mobile} {
-            right: 5px;
-            height: 44px;
-            width: 44px;
-        }
-
-        &:hover {
-            background-color: $stockport-green;
-            opacity: 1;
-        }
-    }
-}
-
 /*------ View more services button spacing ------*/
 @media #{$mobile} {
     .featured-content-button-wrapper {
         margin-left: 5px;
         margin-right: 5px;
     }
-}
-
-/*------ Email signup spacing ------*/
-.personalised-services {
-    padding: 20px 5px;
 }
 
 /*------ Placeholders ------*/
@@ -158,4 +60,20 @@ h6 {
 .call-to-action-banner-placeholder {
     background-color: $stockport-teal-darker;
     height: 200px;
+}
+
+/*------ Footer, Overrides some base stlye int he styleguide footer ------*/
+footer {
+    background-color: $stockport-dark-grey;
+    padding: 2em 0 1em 0;
+
+    .footer-nav {
+        font-size: 0.8em;
+    }
+
+    .footer-top {
+        border-bottom: 2px solid $stockport-grey;
+        padding-bottom: 1em;
+        margin-bottom: 1em;
+    }
 }

@@ -1,7 +1,7 @@
 ﻿// @import all the modules
 @import "modules/alerts";
 @import "modules/atoz";
-@import "modules/buttons";
+
 @import "modules/contactUs";
 @import "modules/document";
 @import "modules/featuredTopics";
@@ -41,11 +41,15 @@
 @import "modules/_video";
 @import "modules/_leaflet";
 @import "modules/_documentPages";
+
 @import "modules/_cludo";
 @import "modules/_section";
 @import "modules/_navCard";
 @import "modules/_topTasks";
 @import "modules/_condolenceAlert";
 @import "modules/_skyline";
-@import "modules/typography";
+@import "modules/_typography";
+@import "modules/_buttons";
+@import "modules/_inputs";
+@import "modules/_homeSearch";
 @import "modules/callToAction";

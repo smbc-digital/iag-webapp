@@ -30,17 +30,5 @@
             color: white;
             margin-bottom: 2em;
         }
-
-        &__button {
-            color: $stockport-teal-darker;
-    
-            &:hover {
-                color: darken($stockport-teal-darker, 5%);
-            }
-    
-            &:before {
-                content: "";
-            }
-        }
     }
 }

@@ -48,7 +48,7 @@
             @RenderBody()
         </div>
         <distributed-cache name=footer expires-after=@TimeSpan.FromMinutes(ApplicationConfiguration.GetFooterCache(BusinessId.ToString())) enabled=true>
-            @await Component.InvokeAsync("Footer")
+            @await Component.InvokeAsync("Footer2023")
         </distributed-cache>
 
         <script>

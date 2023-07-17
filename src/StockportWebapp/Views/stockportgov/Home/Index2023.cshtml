@@ -38,15 +38,11 @@
 <section class="section top-tasks-wrapper" data-cy="search-and-top-tasks">
     <div class="grid-container">
         <div class="grid-100">
-            <h1 class="section__title section__title--padded-bottom--m section__title--margin-top h-xl">Welcome to Stockport</h1>
-            <section class="search-bar">
-                <h2 class="visuallyhidden">Search stockport.gov.uk</h2>
-                <partial name="Search" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>
-            </section>
-
+            <partial name="Search2023" model='new Tuple<string, string, string, string>("cludo-search-hero-form", "Search on stockport.gov.uk", "cludo-search-bar", "website search")'/>            
             <partial name="TopTasks" model='Model.HomepageContent.FeaturedTasks'/>
         </div>
     </div>
+
     <div class="skyline-wrapper"></div>
 </section>
 
@@ -55,13 +51,12 @@
         <div class="grid-100" data-cy="navcard-list">
             <h2 class="section__title section__title--padded-bottom h-l">Our services</h2>
             <partial name="NavCardList" model='Model.HomepageContent.Services'/>
-            
-            <div class="featured-content-button-wrapper">
-                <a class="button button-outline button-partialrounded button-call-to-action" data-cy="view-more-services" href="topic/our-council-services">View more services</a>
-            </div>
+            <a class="btn btn--width-30 btn--center" data-cy="view-more-services" href="topic/our-council-services">View more services</a>
         </div>
     </div>
 </section>
+
+
 
 <div class="large-gray-placeholder placeholder">
     <h2>What's happening in stockport</h2>
@@ -77,14 +72,6 @@
 
 <div class="large-gray-placeholder placeholder">
     <h2>Spotlight on</h2>
-   
 </div>
 
-<section class="personalised-services" data-cy="personalised-services">
-    <h2 class="visuallyhidden">Subscription </h2>
-    <div class="grid-container">
-        <div class="grid-100 enhanced_service" id="test-email-alerts">
-            <partial name="EmailSubscribe" />
-        </div>
-    </div>
-</section> 
+<partial name="EmailSubscribe2023" />
