@@ -9,7 +9,7 @@
     }
 
     &__image {
-        max-width: 40%;
+        width: 40%;
         object-fit: cover;
         
         @media #{$mobile} {
@@ -18,7 +18,7 @@
     }
 
     &-content {
-        width: 100%;
+        width: 60%;
         padding: 1em;
 
         &__title {
