@@ -69,4 +69,9 @@
     @media #{$mobile, $tablet} {
         top: 45px
     }
+
+     li:hover
+    {
+        background-color: $stockport-teal-darker;
+    }
 }
