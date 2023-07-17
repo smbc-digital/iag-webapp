@@ -7,6 +7,7 @@ describe("Home", () => {
     "navcard-list",
     "global-alert-wrapper",
     "personalised-services",
+    "call-to-action",
   ];
 
   beforeEach(function () {
