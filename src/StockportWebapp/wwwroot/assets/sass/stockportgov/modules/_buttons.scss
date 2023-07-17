@@ -1,34 +1,113 @@
-﻿.reCaptcha {
-  display: inline-block
+﻿/*
+    The following are new button styles that take inspiration from but are seperate from
+    older style guide buttons styles
+*/
+.btn {
+    font-family: $fontStack;
+    background-color: lighten($stockport-green, 5%);
+    border-radius: 3px;
+    text-decoration: none;
+    color: $white;
+    text-align: center;
+    padding: 1em;
+    display: inline-block;
+    box-sizing: border-box;
+
+    line-height: 1.3rem;
+    font-size: 1.2rem;
+
+    @media #{$mobile} {
+        text-decoration: none;
+        color: $white;
+        width: 100%;
+    }
+
+    &--full {
+        width: 100%;
+    }
+
+    &--width-30 {
+        width: 30%;
+
+        @media #{$mobile} {
+            width: 100%;
+        }
+    }
+
+    &--center {
+        display: block;
+        margin: auto !important;
+    }
+
+
+    &:hover, &:focus {
+        box-shadow: none;
+        background-color: $stockport-green;
+        text-decoration: none;
+    }
+
+    &--inverse {
+        background-color: white;
+        color: $stockport-teal-darker;
+        border: 1px solid $stockport-teal;
+
+        &:hover, &:focus {
+            color: darken($stockport-teal-darker, 5%);
+            background-color: rgba(white, 0.9);
+        }
+    }
+
+    &--on-white {
+        &:hover, &:focus {
+            background-color: rgba($stockport-teal-darker, 0.1);
+        }
+    }
+
+    &--border {
+        border-width: 1px;
+        border-style: solid;
+    }
+
+    &--border-grey {
+        border-color: lighten($stockport-grey, 30%);
+    }
+}
+
+
+/*
+    The following are legacys tles theat will hopefully be migrated to the above.
+*/
+.reCaptcha {
+    display: inline-block
 }
 
 .clear-button, .clear-button:hover {
-  background-color: $white;
-  border: solid 1px $greyLighter;
-  color: $black;
-  font-weight: 600;
+    background-color: $white;
+    border: solid 1px $greyLighter;
+    color: $black;
+    font-weight: 600;
 }
 
 .button-up-down {
-  min-width: 250px;
+    min-width: 250px;
 
-  &:before {
-    content: "\f107";
-    position: relative;
-    right: 0;
-    margin-top: 0px;
-  }
-
-  &.is-collapsed {
     &:before {
-      content: "\f106";
+        content: "\f107";
+        position: relative;
+        right: 0;
+        margin-top: 0px;
     }
-  }
+
+    &.is-collapsed {
+        &:before {
+            content: "\f106";
+        }
+    }
 }
 
 .volunteering-btn {
-  margin-bottom: 14px;
-  background-color: $tealDarker;
-  font-weight: 600;
-  font-size: 1.5em;
+    margin-bottom: 14px;
+    background-color: $tealDarker;
+    font-weight: 600;
+    font-size: 1.5em;
 }
