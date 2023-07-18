@@ -1,7 +1,7 @@
 ﻿@model CallToActionBanner
 
 <div class="call-to-action" data-cy="call-to-action">
-    <img src="@Model.Image?w=500&q=89" class="call-to-action__image" loading="lazy">
+    <img src="@Model.Image?w=500&q=89" class="call-to-action__image" loading="lazy" alt="@Model.AltText">
 
     <div class="call-to-action-content">
         <h3 class="call-to-action-content__title">@Model.Title</h3>
