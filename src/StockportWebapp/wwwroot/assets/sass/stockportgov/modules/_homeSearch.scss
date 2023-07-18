@@ -7,7 +7,7 @@
         margin: 0 0 1.75em 0;
     }
 
-    input.search-input {
+    &_search-input {
         border: 2px solid $stockport-grey;
         border-radius: 3px;
         width: calc(100% - 50px);
@@ -33,7 +33,7 @@
         }
     }
 
-    .search-button {
+    &_search-button {
         font-size: 25px;
         line-height: 1;
         color: white;
