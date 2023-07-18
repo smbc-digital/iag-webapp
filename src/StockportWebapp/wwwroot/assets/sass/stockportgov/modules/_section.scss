@@ -13,6 +13,10 @@
         background-color: white;
     }
 
+    &--grey {
+        background-color: $offWhite;
+    }
+
     &--teal {
         background-color: $stockport-teal-darker;
         color: white;
@@ -69,6 +73,14 @@
 
         &--no-margin {
             margin: 0;
+        }
+    }
+
+    &__teaser{
+        margin: 0 25px 0 25px;
+
+        @media #{$mobile} {
+            margin: 0 5px 0 5px;
         }
     }
 }

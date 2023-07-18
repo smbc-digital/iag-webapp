@@ -58,11 +58,20 @@
     </div>
 </section>
 
-
-
-<div class="large-gray-placeholder placeholder">
-    <h2>What's happening in stockport</h2>
-</div>
+<section class="section section--grey section--padded">
+    <div class="grid-container">
+        <div class="grid-100">
+            <h2 class="section__title section__title--padded-bottom h-l">What's happening in Stockport</h2>
+            <p class="section__teaser ">Keep up to date with what's happening in Stockport</p>
+            <div class="section__content section__content--no-margin">
+                <div class="feature-card">
+                    @Html.Partial("FeatureCard", new FeatureCardViewModel { Title = Model.FeaturedNews.Title, Teaser = Model.FeaturedNews.Teaser, Date = Model.FeaturedNews.SunriseDate, StartTime = string.Empty})
+                    @Html.Partial("FeatureCard", new FeatureCardViewModel { Title = Model.FeaturedEvent.Title, Teaser = Model.FeaturedEvent.Teaser, Date = Model.FeaturedEvent.EventDate, StartTime = Model.FeaturedEvent.StartTime})
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <section class="section section--white">
     <div class="grid-container">

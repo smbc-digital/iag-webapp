@@ -1,0 +1,44 @@
+﻿.feature-card{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 50px;
+
+    &__header{
+        background-color: $stockport-pink;
+        padding: 1em;
+
+        h3{
+            color: white;
+            margin: 0;
+        }
+    }
+
+    &__wrapper{
+        flex-basis: 0;
+        flex-grow: 1;
+        background-color: white;
+
+        a{
+            text-decoration: none;
+        }
+    }
+
+    &__content{
+        padding: 1em;
+    }
+
+    &__title{
+        color: $stockport-green;
+    }
+
+    &__date{
+        color: $govuk-black;
+        font-weight: 700;
+    }
+
+    &__teaser{
+        color: $govuk-black;
+    }
+}
