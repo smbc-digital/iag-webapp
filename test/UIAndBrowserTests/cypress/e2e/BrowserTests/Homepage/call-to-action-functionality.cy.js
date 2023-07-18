@@ -9,7 +9,7 @@ describe("Call to action functionality", () => {
   });
   
   viewports.map((size) => {
-    it(`tests on ${size} screen to check Call to action button can be clicked and loads new page`, () => {
+    it(`tests on ${size.name} screen to check Call to action button can be clicked and loads new page`, () => {
       setViewPort(size.value);
 
       const currenturl = cy.url();
