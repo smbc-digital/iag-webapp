@@ -17,6 +17,9 @@ module.exports = {
     },
     "call-to-action - Compare structure snapshot": {
       "1": null
+    },
+    "condolence - Compare structure snapshot": {
+      "1": null
     }
   },
   "__version": "12.15.0"
