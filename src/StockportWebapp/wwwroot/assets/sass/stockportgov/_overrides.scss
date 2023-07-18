@@ -15,9 +15,6 @@ h6 {
     font-family: $fontStack;
 }
 
-
-
-
 /*------ Alerts ------*/
 .close-alert {
     line-height: 2;
@@ -34,7 +31,6 @@ h6 {
     }
 }
 
-
 /*------ View more services button spacing ------*/
 @media #{$mobile} {
     .featured-content-button-wrapper {
@@ -42,7 +38,6 @@ h6 {
         margin-right: 5px;
     }
 }
-
 
 /*------ Placeholders ------*/
 .placeholder {
@@ -59,6 +54,7 @@ h6 {
 .large-gray-placeholder {
     background-color: #aaa;
     height: 500px;
+    margin-bottom: 2em;
 }
 
 .call-to-action-banner-placeholder {
