@@ -28,9 +28,11 @@
 
     &--width-30 {
         width: 30%;
+        min-width: 300px;
 
         @media #{$mobile} {
             width: 100%;
+            min-width: unset;
         }
     }
 
@@ -38,7 +40,6 @@
         display: block;
         margin: auto !important;
     }
-
 
     &:hover, &:focus {
         box-shadow: none;
@@ -71,6 +72,19 @@
     &--border-grey {
         border-color: lighten($stockport-grey, 30%);
     }
+
+    &--chevron-right {
+        &:before {
+          content: "\f105";
+          font: normal normal normal 14px/1 FontAwesome;
+          font-size: inherit;
+          text-rendering: auto;
+          -moz-osx-font-smoothing: grayscale;
+          text-align: right;
+          float: right;
+          padding-left: 10px;
+        }
+      }
 }
 
 

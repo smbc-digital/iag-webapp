@@ -12,6 +12,7 @@
     &__image {
         width: 40%;
         object-fit: cover;
+        border-radius: 3px 0 0 3px;
         
         @media #{$mobile} {
             display: none;
