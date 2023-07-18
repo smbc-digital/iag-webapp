@@ -2,16 +2,12 @@
     background-color: $stockport-teal-darker;
     display: flex;
     flex-direction: row;
-    margin: 0 25px;
     border-radius: 3px;
-
-    @media #{$mobile} {
-        margin: 0 5px;
-    }
 
     &__image {
         width: 40%;
         object-fit: cover;
+        border-radius: 3px 0 0 3px;
         
         @media #{$mobile} {
             display: none;
@@ -24,11 +20,6 @@
 
         @media #{$mobile} {
             width: 100%;
-        }
-
-        &__title {
-            color: white;
-            margin-bottom: 0.5em;
         }
 
         &__teaser {
