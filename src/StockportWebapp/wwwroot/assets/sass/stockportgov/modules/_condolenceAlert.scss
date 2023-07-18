@@ -43,6 +43,10 @@
         .condolence_close-container {
             margin-left: 0.5em;
 
+            a {
+                display: inline-block;
+            }
+            
             .condolence_close {
                 border: 1px solid white;
                 border-radius: 100%;
