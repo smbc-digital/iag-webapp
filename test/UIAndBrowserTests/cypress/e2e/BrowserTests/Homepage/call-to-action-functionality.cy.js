@@ -1,16 +1,18 @@
-import { setViewPort, hexToRgb } from "../../../helpers/functions";
+import { hexToRgb } from "../../../helpers/functions";
+import { laptop, mobile, setViewPort } from "../../../helpers/viewports";
 
 describe("Call to action functionality", () => {
-  const viewports = ["iphone-x", [1920, 1080]];
+  const viewports = [mobile, laptop];
 
   beforeEach(() => {
     cy.visit("");
   });
   
   viewports.map((size) => {
-    it(`tests on ${size} screen to check Call to action button can be clicked and loads new page`, () => {
+    it(`tests on ${size.name} screen to check Call to action button can be clicked and loads new page`, () => {
+      setViewPort(size.value);
+
       const currenturl = cy.url();
-      setViewPort(size);
 
       cy.get('[data-cy="call-to-action-link"]').first().click();
       cy.url().should("not.eq", currenturl);
