@@ -8,6 +8,7 @@ describe("Home", () => {
     "global-alert-wrapper",
     "personalised-services",
     "call-to-action",
+    "condolence"
   ];
 
   beforeEach(function () {
