@@ -2,19 +2,20 @@
 @model FeatureCardViewModel
 
 <div class="feature-card__wrapper">
+    <div class="feature-card__header">
+        @if(!Model.StartTime.Equals(string.Empty)){
+            <h3 class="h-ml">Upcoming event</h3>
+        }
+        else{
+            <h3 class="h-ml">Latest news</h3>
+        }
+    </div>
+
     <a href="#" class="feature-card__link">
-        <div class="feature-card__header">
-            @if(!Model.StartTime.Equals(string.Empty)){
-                <h3>Upcoming event</h3>
-            }
-            else{
-                <h3>Latest news</h3>
-            }
-        </div>
         <div class="feature-card__content">
             <div>
-                <h3 class="feature-card__title">@Model.Title</h3>
-                <p class="feature-card__date">
+                <h3 class="feature-card__title feature-card__title--padded-bottom h-ml">@Model.Title</h3>
+                <p class="feature-card__date feature-card__date--padded-bottom">
                     @if(!Model.StartTime.Equals(string.Empty)){
                         @viewHelper.FormatEventDate(Model.Date, Model.StartTime)
                     }
