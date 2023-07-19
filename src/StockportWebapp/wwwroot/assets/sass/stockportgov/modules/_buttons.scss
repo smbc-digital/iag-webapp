@@ -84,7 +84,11 @@
           float: right;
           padding-left: 10px;
         }
-      }
+    }
+
+    &--bold, &--chevron-bold:before {
+        font-weight: 700;
+    }
 }
 
 
