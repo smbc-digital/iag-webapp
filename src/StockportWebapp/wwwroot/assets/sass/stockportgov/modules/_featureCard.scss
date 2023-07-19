@@ -8,6 +8,8 @@
     &__header{
         background-color: $stockport-pink;
         padding: 1em;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
 
         h3{
             color: white;
@@ -15,10 +17,16 @@
         }
     }
 
+    &-bottom {
+        text-align: center;
+    }
+
     &__wrapper{
         flex-basis: 0;
-        flex-grow: 1;
-        background-color: white;
+        flex-grow: 1;     
+        position: relative;
+        display: flex;
+        flex-direction: column;
 
         a{
             text-decoration: none;
@@ -27,10 +35,32 @@
 
     &__content{
         padding: 1em;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+    }
+
+    &__link {
+        background-color: white;
+        display: flex;
+        flex-direction: column; 
+        justify-content: space-between;
+        flex-grow: 1;
+        margin-bottom: 1em;
+        border-radius: 3px;
+
+        :hover {
+            .feature-card__title {
+                text-decoration-thickness: 4px;
+            }
+        }
     }
 
     &__title{
         color: $stockport-green;
+        text-decoration: underline;
     }
 
     &__date{
@@ -40,5 +70,11 @@
 
     &__teaser{
         color: $govuk-black;
+    }
+
+    &__image{
+        width: 100%;
+        height: 291px;
+        object-fit: cover;
     }
 }

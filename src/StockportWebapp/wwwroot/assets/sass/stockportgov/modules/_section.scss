@@ -63,8 +63,8 @@
             }
         }
 
-        &--padded-bottom--m {
-            padding-bottom: 0.75em;
+        &--padded-bottom-m {
+            padding-bottom: 0.5rem;
         }
 
         &--margin-top {
@@ -78,6 +78,14 @@
 
     &__teaser{
         margin: 0 25px 0 25px;
+
+        &--padded-bottom {
+            padding-bottom: 1.5rem;
+
+            @media #{$mobile} {
+                padding-bottom: 0.5rem;
+            }
+        }
 
         @media #{$mobile} {
             margin: 0 5px 0 5px;

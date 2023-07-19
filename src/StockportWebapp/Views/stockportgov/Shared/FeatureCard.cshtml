@@ -2,34 +2,33 @@
 @model FeatureCardViewModel
 
 <div class="feature-card__wrapper">
-    <div class="feature-card__header">
-        @if(!Model.StartTime.Equals(string.Empty)){
-            <h3>Upcoming event</h3>
-        }
-        else{
-            <h3>Latest news</h3>
-        }
-    </div>
-
-    <div class="feature-card__content">
-        <a href="#">
-            <h3 class="feature-card__title">@Model.Title</h3>
-            <p class="feature-card__date">
-                @if(!Model.StartTime.Equals(string.Empty)){
-                    @viewHelper.FormatEventDate(Model.Date, Model.StartTime)
-                }
-                else{
-                    <partial name="FormattedDate" model='Model.Date'/>
-                }
-            </p>
-            <p class="feature-card__teaser">@Model.Teaser</p>
-            
+    <a href="#" class="feature-card__link">
+        <div class="feature-card__header">
             @if(!Model.StartTime.Equals(string.Empty)){
-                <a href="" class="btn btn--chevron-right">View more events</a>
+                <h3>Upcoming event</h3>
             }
             else{
-                <a href="" class="btn btn--chevron-right">View more news</a>
+                <h3>Latest news</h3>
             }
-        </a>
-    </div>
+        </div>
+        <div class="feature-card__content">
+            <div>
+                <h3 class="feature-card__title">@Model.Title</h3>
+                <p class="feature-card__date">
+                    @if(!Model.StartTime.Equals(string.Empty)){
+                        @viewHelper.FormatEventDate(Model.Date, Model.StartTime)
+                    }
+                    else{
+                        <partial name="FormattedDate" model='Model.Date'/>
+                    }
+                </p>
+                <p class="feature-card__teaser">@Model.Teaser</p>
+                </div>
+                <div class="feature-card-bottom">
+                    <img class="feature-card__image" src="@Model.Image" alt=""/>          
+                </div>
+            
+        </div>
+    </a>
+    <a href="" class="btn btn--chevron-right btn--full btn--inverse btn--on-white">@Model.ButtonText</a>
 </div>

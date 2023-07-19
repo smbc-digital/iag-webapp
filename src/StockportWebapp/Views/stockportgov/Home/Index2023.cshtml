@@ -61,12 +61,27 @@
 <section class="section section--grey section--padded">
     <div class="grid-container">
         <div class="grid-100">
-            <h2 class="section__title section__title--padded-bottom h-l">What's happening in Stockport</h2>
-            <p class="section__teaser ">Keep up to date with what's happening in Stockport</p>
-            <div class="section__content section__content--no-margin">
+            <h2 class="section__title section__title--padded-bottom-m h-l">What's happening in Stockport</h2>
+            <p class="section__teaser section__teaser--padded-bottom">Keep up to date with what's happening in Stockport</p>
+            <div class="section__content">
                 <div class="feature-card">
-                    @Html.Partial("FeatureCard", new FeatureCardViewModel { Title = Model.FeaturedNews.Title, Teaser = Model.FeaturedNews.Teaser, Date = Model.FeaturedNews.SunriseDate, StartTime = string.Empty})
-                    @Html.Partial("FeatureCard", new FeatureCardViewModel { Title = Model.FeaturedEvent.Title, Teaser = Model.FeaturedEvent.Teaser, Date = Model.FeaturedEvent.EventDate, StartTime = Model.FeaturedEvent.StartTime})
+                    <partial name="FeatureCard" model='new FeatureCardViewModel { 
+                        Title = Model.FeaturedNews.Title, 
+                        Teaser = Model.FeaturedNews.Teaser, 
+                        Date = Model.FeaturedNews.SunriseDate, 
+                        StartTime = string.Empty, 
+                        Image = Model.FeaturedNews.Image, 
+                        ButtonText = "View More News"
+                    }'/>
+
+                    <partial name="FeatureCard" model='new FeatureCardViewModel { 
+                        Title = Model.FeaturedEvent.Title, 
+                        Teaser = Model.FeaturedEvent.Teaser, 
+                        Date = Model.FeaturedEvent.EventDate, 
+                        StartTime = Model.FeaturedEvent.StartTime, 
+                        Image = Model.FeaturedEvent.ImageUrl, 
+                        ButtonText = "View more events"
+                    }'/>
                 </div>
             </div>
         </div>
