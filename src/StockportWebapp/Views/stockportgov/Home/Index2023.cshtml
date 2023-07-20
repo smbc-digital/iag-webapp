@@ -71,7 +71,9 @@
                         Date = Model.FeaturedNews.SunriseDate, 
                         StartTime = string.Empty, 
                         Image = Model.FeaturedNews.Image, 
-                        ButtonText = "View More News"
+                        ButtonText = "View More News",
+                        Slug = String.Concat("/news/", Model.FeaturedNews.Slug),
+                        ButtonUrl = "Comms"
                     }'/>
 
                     <partial name="FeatureCard" model='new FeatureCardViewModel { 
@@ -80,7 +82,9 @@
                         Date = Model.FeaturedEvent.EventDate, 
                         StartTime = Model.FeaturedEvent.StartTime, 
                         Image = Model.FeaturedEvent.ImageUrl, 
-                        ButtonText = "View more events"
+                        ButtonText = "View more events",
+                        Slug = String.Concat("/events/", Model.FeaturedEvent.Slug),
+                        ButtonUrl = "Events"
                     }'/>
                 </div>
             </div>

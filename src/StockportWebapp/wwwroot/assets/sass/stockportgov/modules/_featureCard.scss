@@ -1,9 +1,13 @@
 ﻿.feature-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 50px;
+
+    @media #{$desktop} {
+        flex-direction: row;
+    }
 
     &__header {
         background-color: $stockport-pink;

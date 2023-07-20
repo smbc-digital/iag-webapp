@@ -84,7 +84,15 @@
           float: right;
           padding-left: 10px;
         }
-      }
+    }
+
+    &--bold, &--chevron-bold:before {
+        font-weight: 700;
+    }
+
+    &--border-black{
+        border-color: $govuk-black;
+    }
 }
 
 
