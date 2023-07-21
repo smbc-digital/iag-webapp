@@ -73,7 +73,8 @@
                     Image = Model.FeaturedNews.Image, 
                     ButtonText = "View More News",
                     Slug = String.Concat("/news/", Model.FeaturedNews.Slug),
-                    ButtonUrl = "Comms"
+                    ButtonUrl = "Comms",
+                    HeaderText = "Latest news"
                 }'/>
 
                 <partial name="FeatureCard" model='new FeatureCardViewModel { 
@@ -84,7 +85,8 @@
                     Image = Model.FeaturedEvent.ImageUrl, 
                     ButtonText = "View more events",
                     Slug = String.Concat("/events/", Model.FeaturedEvent.Slug),
-                    ButtonUrl = "Events"
+                    ButtonUrl = "Events",
+                    HeaderText = "Upcoming event"
                 }'/>
             </div>
         </div>

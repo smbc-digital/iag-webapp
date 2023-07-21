@@ -3,12 +3,7 @@
 
 <div class="feature-card__wrapper">
     <div class="feature-card__header">
-        @if(!Model.StartTime.Equals(string.Empty)){
-            <h3 class="h-ml">Upcoming event</h3>
-        }
-        else{
-            <h3 class="h-ml">Latest news</h3>
-        }
+        <h3 class="h-ml">@Model.HeaderText</h3>
     </div>
 
     <a href="@Model.Slug" class="feature-card__link">
